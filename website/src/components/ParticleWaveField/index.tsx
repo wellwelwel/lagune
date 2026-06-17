@@ -17,11 +17,7 @@ const WAVE_MASK = [
 ].join(', ');
 const MASK_COMPOSITE = 'intersect, intersect';
 
-const ParticleWaveFieldComponent = ({
-  className,
-}: {
-  className?: string;
-}) => {
+const ParticleWaveFieldComponent = ({ className }: { className?: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 

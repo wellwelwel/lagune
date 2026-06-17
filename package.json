@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/wellwelwel/blue-spec.git"
   },
-  "homepage": "bluespec.weslley.io",
+  "homepage": "https://bluespec.weslley.io",
   "bugs": {
     "url": "https://github.com/wellwelwel/blue-spec/issues"
   },
