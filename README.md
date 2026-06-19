@@ -40,13 +40,13 @@ npx -y blue-spec@latest init
 
 Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of slash commands:
 
-| #   | Command             | What it does for you                                                                         | Recommended Minimum Effort                                  |
-| --- | ------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| 1   | `/bluespec.charter` | Sets your project's security rules, proposed for you or shaped by what you say _(optional)_. | Medium                                                      |
-| 2   | `/bluespec.detect`  | Reads your code and maps what your system does and where the risks are.                      | High or more (the higher the effort, the better the result) |
-| 3   | `/bluespec.plan`    | Turns what detect found into a defense plan, with a fix for each finding.                    | High                                                        |
-| 4   | `/bluespec.harden`  | Applies the plan's fixes to your code, safely and one at a time.                             | High                                                        |
-| 5   | `/bluespec.verify`  | Proves each applied fix holds and closes out the ones that do.                               | Medium                                                      |
+| #   | Command             | What it does for you                                                                         |
+| --- | ------------------- | -------------------------------------------------------------------------------------------- |
+| 1   | `/bluespec.charter` | Sets your project's security rules, proposed for you or shaped by what you say _(optional)_. |
+| 2   | `/bluespec.detect`  | Reads your code and maps what your system does and where the risks are.                      |
+| 3   | `/bluespec.plan`    | Turns what detect found into a defense plan, with a fix for each finding.                    |
+| 4   | `/bluespec.harden`  | Applies the plan's fixes to your code, safely and one at a time.                             |
+| 5   | `/bluespec.verify`  | Proves each applied fix holds and closes out the ones that do.                               |
 
 > Each command builds on the previous, so following the list top to bottom is all it takes.
 

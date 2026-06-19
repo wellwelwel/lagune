@@ -53,8 +53,8 @@
     "security",
     "blue-team",
     "spec",
-    "sdd",
     "sdh",
+    "sdd",
     "audit",
     "hardening",
     "plan",
@@ -62,6 +62,17 @@
     "bun",
     "deno",
     "typescript",
-    "cli"
+    "cli",
+    "security-driven-hardening",
+    "spec-driven-development",
+    "agent-skills",
+    "ia-driven",
+    "prompt-engineering",
+    "llm",
+    "prompt-toolkit",
+    "claude-code",
+    "codex",
+    "copilot",
+    "cursor-ai"
   ]
 }
