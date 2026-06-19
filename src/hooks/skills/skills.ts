@@ -1,11 +1,24 @@
 import type { SkillCatalogEntry } from '../../types/core.js';
 
+/** Merges built-in and user sub-skills by name, the user entry winning a name collision */
+export const merge = (
+  builtin: SkillCatalogEntry[],
+  user: SkillCatalogEntry[]
+): SkillCatalogEntry[] => {
+  const overridden = new Set(user.map((entry) => entry.name));
+  const keptBuiltin = builtin.filter((entry) => !overridden.has(entry.name));
+
+  return [...keptBuiltin, ...user];
+};
+
 /** Formats the catalog as a readable listing, one sub-skill per line with its tags */
 export const list = (catalog: SkillCatalogEntry[]): string => {
   if (catalog.length === 0) return 'No sub-skills available.\n';
 
-  const lines = catalog.map(
-    (entry) => `${entry.name}: ${entry.tags.join(', ')}`
+  const lines = catalog.map((entry) =>
+    entry.tags.length === 0
+      ? entry.name
+      : `${entry.name}: ${entry.tags.join(', ')}`
   );
 
   return `${lines.join('\n')}\n`;

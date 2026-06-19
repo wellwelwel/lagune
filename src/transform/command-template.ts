@@ -20,6 +20,8 @@ const ARGUMENT_HINTS: Record<CommandKey, string> = {
   skills:
     'Name a sub-skill to load (for example `redos`), or leave empty to list them',
   list: 'Takes no input, it lists every tracked finding by name',
+  specialize:
+    'Describe the security topic the sub-skill should cover, or name an existing sub-skill to refine',
 };
 
 const TEMPLATE_FILES: Record<TemplateKey, string> = {
@@ -28,6 +30,7 @@ const TEMPLATE_FILES: Record<TemplateKey, string> = {
   plan: 'plan-template.md',
   harden: 'harden-template.md',
   verify: 'verify-template.md',
+  specialize: 'specialize-template.md',
 };
 
 const FRONTMATTER_PATTERN = /^---\n([\s\S]*?)\n---\n/;

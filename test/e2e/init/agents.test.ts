@@ -8,7 +8,7 @@ import { initInto, newWorkspace, packageRoot } from './__utils__.js';
 
 const assets = await loadAssets(packageRoot);
 
-const stateFiles = ['.bluespec/tracking.json'];
+const stateFiles = ['.bluespec/tracking.json', '.bluespec/skills.json'];
 
 const templateFiles = [
   '.bluespec/templates/charter-template.md',
@@ -16,6 +16,7 @@ const templateFiles = [
   '.bluespec/templates/plan-template.md',
   '.bluespec/templates/harden-template.md',
   '.bluespec/templates/verify-template.md',
+  '.bluespec/templates/specialize-template.md',
 ];
 
 const hookFiles = assets.hooks.map(

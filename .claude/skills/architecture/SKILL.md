@@ -75,11 +75,11 @@ A phase of the workflow is a pair: a **command** and one or more **templates**.
 
 A phase command points to its template. The command carries the reasoning, the template carries the shape of the result. Splitting them keeps the "how to think" reusable and the "what to produce" consistent.
 
-A command that produces no artifact has no template, and the type layer encodes which commands those are: `repair` and `skills`, plus `list`, a read-only command that prints the tracked findings by name through the `list` hook and writes nothing.
+A command that produces no artifact has no template, and the type layer encodes which commands those are: `repair` and `skills`, plus `list`, a read-only command that prints the tracked findings by name through the `list` hook and writes nothing. `specialize` is the exception that is not a phase yet still pairs with a template (`specialize-template.md`): its artifact is a sub-skill file under `.bluespec/skills/`, not a `memory/` phase artifact.
 
 ### Sub-skills
 
-`spec/skills/` holds **sub-skills**: agent-agnostic knowledge modules that load only on demand. Nothing opens them directly. The `/bluespec.skills` command is the single door, resolving a selector to a sub-skill file, so a phase needing the knowledge runs `/bluespec.skills <selector>`. Adding one is one `.md` plus one catalog row in the command, no new command.
+`spec/skills/` holds the **built-in sub-skills**: agent-agnostic knowledge modules that load only on demand. Nothing opens them directly. The `/bluespec.skills` command is the single door, resolving a selector to a sub-skill file, so a phase needing the knowledge runs `/bluespec.skills <selector>`. Adding a built-in is one `.md` plus one row in the baked catalog (`src/hooks/skills/catalog.ts`), no new command. A user grows the same set at runtime with `/bluespec.specialize`, which writes a sub-skill into `.bluespec/skills/` and its row into `.bluespec/skills.json`. The `skills` hook reads that file and merges it over the baked catalog, the user's entry winning a name collision.
 
 ## Agent-agnostic core vs. agent adapters
 
@@ -105,7 +105,7 @@ A future agent is one more row, leaving the core untouched. Keep adapters thin a
 
 Running Blue Spec in a user's project creates two things:
 
-- **`.bluespec/`** holds Blue Spec's state in that project: the filled-in charter and the artifacts each phase produces (the detect map, the defense plan, and so on), plus `hooks/` (the compiled helper scripts the agent runs, see The tracking map) and `skills/` (the non-invocable sub-skills `/bluespec.skills` loads on demand). It is committed alongside the user's code, so the security work is versioned and reviewable like any other part of the project.
+- **`.bluespec/`** holds Blue Spec's state in that project: the filled-in charter and the artifacts each phase produces (the detect map, the defense plan, and so on), plus `hooks/` (the compiled helper scripts the agent runs, see The tracking map) and `skills/` (the non-invocable sub-skills `/bluespec.skills` loads on demand, both the built-ins copied at init and any the user adds with `/bluespec.specialize`). Init also seeds `skills.json`, the runtime catalog of user sub-skills (empty until `specialize` writes to it), a sibling of `tracking.json`. It is committed alongside the user's code, so the security work is versioned and reviewable like any other part of the project.
 - **Agent commands** are written by the adapter into the agent's own location, in that agent's native format (a skill directory, a prompt file, a markdown command, a TOML command, or a Goose recipe, per the chosen agent's registry entry). For example, Claude Code reads them from `.claude/skills/`, GitHub Copilot from `.github/prompts/`, and opencode from `.opencode/commands/`. All hold the `/bluespec.*` commands the user invokes.
 
 The split mirrors the repository's own core/adapter boundary: `.bluespec/` is the agent-agnostic state, and the agent's own directory is where the adapter places what that specific agent reads.

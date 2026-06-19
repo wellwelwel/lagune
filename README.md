@@ -52,11 +52,12 @@ Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of
 
 #### Additional Commands
 
-| Command            | What it does                                          |
-| ------------------ | ----------------------------------------------------- |
-| `/bluespec.repair` | Repairs **Blue Spec**'s internal tracking.            |
-| `/bluespec.skills` | Loads an on-demand security _sub_-skill.              |
-| `/bluespec.list`   | Lists all finding **Blue Spec** is tracking, by name. |
+| Command                | What it does                                             |
+| ---------------------- | -------------------------------------------------------- |
+| `/bluespec.specialize` | Specializes **Blue Spec** in a new security _sub_-skill. |
+| `/bluespec.skills`     | Loads an on-demand security _sub_-skill.                 |
+| `/bluespec.repair`     | Repairs **Blue Spec**'s internal tracking.               |
+| `/bluespec.list`       | Lists all finding **Blue Spec** is tracking, by name.    |
 
 > [!TIP]
 >
@@ -73,6 +74,8 @@ _Sub_-skills are focused security knowledge modules that phases load automatical
 | `regex`      | `.bluespec/skills/regex.md`      | **ReDoS:** patterns that explode on crafted input.       |
 | `javascript` | `.bluespec/skills/javascript.md` | **Language-level risks:** RCE, prototype pollution, etc. |
 | `browser`    | `.bluespec/skills/browser.md`    | **Client-side risks:** DOM XSS, origin, storage, etc.    |
+
+> The table above is the built-in set. Add your own with [`/bluespec.specialize`](#bluespecspecialize): point it at an article or a topic, and it distills a new _sub_-skill into the same catalog, loaded exactly like the built-ins.
 
 Direct free-form prompt example to generate a safe **RegExp** collection with **Python**:
 
@@ -294,6 +297,34 @@ If the risk is not closed (**❌ Risk not closed**), verify says so plainly and 
 > - Running it again reconciles the report: stale verdicts drop off, and a risk that is no longer closed is flagged again.
 > - When a risk is proven closed, it asks once, then clears that finding from the whole chain (detect, plan, harden, verify, and tracking).
 > - The verification report lives in `.bluespec/memory/verify.md`.
+
+---
+
+### `/bluespec.specialize`
+
+Specialize **Blue Spec** in a specific security area, from a source or topic you give it 🎓
+
+```bash
+# An article or reference
+/bluespec.specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+```bash
+# An attack as the source: the sub-skill is still the defense
+/bluespec.specialize "' OR 1=1 -- splices SQL into the query text"
+```
+
+```bash
+# Or just name the area to cover
+/bluespec.specialize SQL injection
+```
+
+It reads the material and writes a focused, defense-only _sub_-skill into your catalog, shaped exactly like the built-in ones, so `/bluespec.skills` loads it afterwards like any other. It only audits and explains, it never writes attack inputs and never touches your code.
+
+> [!TIP]
+>
+> - The new _sub_-skill lands in `.bluespec/skills/<name>.md`, with its entry in `.bluespec/skills.json`.
+> - Specializing a name that already exists (a built-in or one of yours) reconciles that file.
 
 ---
 

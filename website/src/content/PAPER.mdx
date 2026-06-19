@@ -223,7 +223,7 @@ A knowledge module is focused, language-agnostic security knowledge for one risk
 
 The defining trait is that a module is **non-invocable on its own**. Nothing opens it directly, not the user, not a phase. There is a single dispatcher entry point. A phase that needs knowledge lists the catalog, matches the project's context against what each entry covers, and loads only the modules whose area is present in scope. A module whose context is absent is skipped in silence, not announced. Finding none applicable is a valid outcome.
 
-The catalog is data, and growth is one knowledge file plus one catalog row, never a new command. This is the same context-aware principle as the phases, applied to knowledge: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
+The catalog is data, and growth is one knowledge file plus one catalog row, never a new command. This is the same context-aware principle as the phases, applied to knowledge: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default. The same property lets the user, not only the maintainer, grow the catalog: a dedicated command distills a security source or topic the user supplies into a new module, written into the project's own catalog and loaded thereafter exactly like a built-in. Authoring a module is itself defense-only and obeys the same boundary the modules enforce: an attack write-up may be the source, but the module it yields audits and explains, it never emits a working exploit. So the inversion of `§I`, the intelligence living in the spec, extends to the catalog itself, which the user can deepen for their own context without writing code.
 
 A short dispatch example illustrates prompt-on-demand. Detect reads a folder of code that runs in the browser. It matches that area in the catalog, loads the module that covers it, and surfaces a client-side finding through detect's normal steps. The modules for areas not present in this scope do not match, so they never load and are never mentioned. The project decided what knowledge was relevant, not a fixed configuration.
 
@@ -486,7 +486,7 @@ Naming the pitfall and pointing at the mechanism is the point: these are not war
 The methodology and its reference implementation have clear next steps, kept honest about the experimental stage.
 
 - **Grow the knowledge catalog:**
-  Each addition is one knowledge file plus one catalog row. More languages, runtimes, and risk classes are the natural direction, and the modules are expected to evolve.
+  Each addition keeps the `§VII` shape: a knowledge file and a catalog row, no new command. The user-side path already exists there: the user distills their own modules on demand. More built-in languages, runtimes, and risk classes are the maintainer-side direction, and the modules are expected to evolve.
 - **More deterministic checkers:**
   Where a risk class has a crisp decision procedure, a knowledge module can ship a deterministic engine that grounds the agent's reasoning in a repeatable check. Extending this to more risk classes is a natural direction.
 - **Empirical evaluation:**

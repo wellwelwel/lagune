@@ -11,13 +11,15 @@ _Sub_-skills are focused security knowledge modules that phases load automatical
 
 ## The catalog
 
+This is the built-in set that ships with **Blue Spec**:
+
 | _Sub_-Skill  | Path                             | Focus                                                    |
 | ------------ | -------------------------------- | -------------------------------------------------------- |
 | `regex`      | `.bluespec/skills/regex.md`      | **ReDoS:** patterns that explode on crafted input.       |
 | `javascript` | `.bluespec/skills/javascript.md` | **Language-level risks:** RCE, prototype pollution, etc. |
 | `browser`    | `.bluespec/skills/browser.md`    | **Client-side risks:** DOM XSS, origin, storage, etc.    |
 
-The catalog grows by adding one knowledge file plus one catalog row, never a new command.
+The catalog grows by adding one knowledge file plus one catalog row, never a new command. You add your own the same way, with [`/bluespec.specialize`](./commands/specialize.mdx): point it at an article or a topic and it distills a new sub-skill into the same catalog (the file under `.bluespec/skills/`, the row in `.bluespec/skills.json`), loaded exactly like the built-ins.
 
 ## A worked example
 

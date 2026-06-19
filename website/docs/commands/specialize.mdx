@@ -1,0 +1,66 @@
+---
+id: specialize
+title: /bluespec.specialize
+sidebar_label: Specialize
+description: Distill a security source or topic you give it into a new on-demand sub-skill.
+---
+
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /bluespec.specialize
+
+🎓 Specialize **Blue Spec** in a specific security area, from a source or topic you give it.
+
+It reads the material and distills it into a focused, defense-only sub-skill, shaped exactly like the built-in ones, so [`/bluespec.skills`](./skills.mdx) loads it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
+
+<Tabs>
+  <TabItem value="article" label="From an article" default>
+
+```bash
+# A link or reference: Blue Spec distills it into the defense
+/bluespec.specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+  </TabItem>
+  <TabItem value="exploit" label="From an exploit">
+
+```bash
+# An attack as the source: the sub-skill is still the defense
+/bluespec.specialize "' OR 1=1 -- splices SQL into the query text"
+```
+
+  </TabItem>
+  <TabItem value="topic" label="From a topic">
+
+```bash
+# Or just name the area to cover
+/bluespec.specialize SQL injection
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[An attack can be the source, never the output]
+
+Pointing it at an attack is fine when the goal is to defend against it: an exploit write-up is study material it distills into the defense. The sub-skill it produces always audits and explains, it never produces a working exploit, payload, or evasion.
+:::
+
+## What it writes
+
+The result is two files, both in your project, committed and reviewable like the rest of `.bluespec/`:
+
+- The sub-skill at `.bluespec/skills/<name>.md`, following the [sub-skill shape](../skills.mdx).
+- One entry in `.bluespec/skills.json`, the catalog the dispatcher reads at runtime to list and match it.
+
+You never add a command or touch the package: a new specialty is one knowledge file plus one catalog row, written into your own project.
+
+## Refine, never overwrite
+
+Specializing a name that already exists, whether a built-in like `regex` or one you specialized before, **reconciles** the current file instead of replacing it. It reads what is there, folds the new knowledge in, keeps what still holds, and rewrites what changed. Nothing is discarded unseen. A sub-skill of yours shadows a built-in of the same name, so you can sharpen a built-in for your own project without losing it.
+
+:::tip
+
+- The new _sub_-skill loads exactly like a built-in: `/bluespec.skills <name>`, or import it with `@.bluespec/skills/<name>.md` and give it a task.
+- When the material has an identifiable origin (an article, an author, a link, a standard), the sub-skill credits it. A bare topic carries no source.
+  :::

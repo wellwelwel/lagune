@@ -1,6 +1,6 @@
 # Regex-specific vulnerabilities
 
-> This knowledge extends your judgment. Apply what fits the project and keep reasoning beyond the list.
+> - This knowledge extends your judgment. Apply what fits the project and keep reasoning beyond the list.
 
 ## Rules
 

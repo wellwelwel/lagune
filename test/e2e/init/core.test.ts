@@ -82,4 +82,17 @@ await describe('init scaffolds the agent-agnostic core', async () => {
     strict.strictEqual(tracking.name, 'blue-spec');
     strict.deepStrictEqual(tracking.entries, [], 'entries should start empty');
   });
+
+  await it('creates an empty sub-skills catalog at init', async () => {
+    const workspace = await newWorkspace();
+
+    await initInto(workspace, { init: true, agent: 'claude' });
+
+    const catalog: { name: string; entries: unknown[] } = JSON.parse(
+      await readFile(join(workspace, '.bluespec/skills.json'), 'utf8')
+    );
+
+    strict.strictEqual(catalog.name, 'blue-spec');
+    strict.deepStrictEqual(catalog.entries, [], 'entries should start empty');
+  });
 });

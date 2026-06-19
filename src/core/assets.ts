@@ -15,6 +15,7 @@ const COMMAND_FILES: Record<CommandKey, string> = {
   repair: 'spec/commands/bluespec.repair.md',
   skills: 'spec/commands/bluespec.skills.md',
   list: 'spec/commands/bluespec.list.md',
+  specialize: 'spec/commands/bluespec.specialize.md',
 };
 
 const TEMPLATE_FILES: Record<TemplateKey, string> = {
@@ -23,6 +24,7 @@ const TEMPLATE_FILES: Record<TemplateKey, string> = {
   plan: 'spec/templates/plan-template.md',
   harden: 'spec/templates/harden-template.md',
   verify: 'spec/templates/verify-template.md',
+  specialize: 'spec/templates/specialize-template.md',
 };
 
 const HOOKS_DIR = 'lib/hooks';

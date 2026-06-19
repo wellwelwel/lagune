@@ -14,6 +14,11 @@ export type SkillCatalogEntry = {
   tags: string[];
 };
 
+export type SkillsCatalogFile = {
+  name: 'blue-spec';
+  entries: SkillCatalogEntry[];
+};
+
 export type CommandKey =
   | 'charter'
   | 'detect'
@@ -22,7 +27,8 @@ export type CommandKey =
   | 'verify'
   | 'repair'
   | 'skills'
-  | 'list';
+  | 'list'
+  | 'specialize';
 
 export type TemplateKey = Exclude<CommandKey, 'repair' | 'skills' | 'list'>;
 

@@ -1,0 +1,9 @@
+import type { SkillsCatalogFile } from '../types/core.js';
+
+export const emptySkillsCatalog = (): SkillsCatalogFile => ({
+  name: 'blue-spec',
+  entries: [],
+});
+
+export const serializeSkillsCatalog = (catalog: SkillsCatalogFile): string =>
+  `${JSON.stringify(catalog, null, 2)}\n`;

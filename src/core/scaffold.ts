@@ -8,11 +8,16 @@ import type {
 import { dirname, join } from 'node:path';
 import { ensureDir, writeFileIfAbsent } from './fs-actions.js';
 import { buildManifest, serializeManifest } from './manifest.js';
+import {
+  emptySkillsCatalog,
+  serializeSkillsCatalog,
+} from './skills-catalog.js';
 import { emptyTrackingMap, serializeTrackingMap } from './tracking.js';
 
 const MEMORY_DIR = '.bluespec/memory';
 const MANIFEST_PATH = '.bluespec/manifest.json';
 const TRACKING_PATH = '.bluespec/tracking.json';
+const SKILLS_CATALOG_PATH = '.bluespec/skills.json';
 
 const templateJobs = (
   templates: ScaffoldOptions['assets']['templates']
@@ -54,6 +59,10 @@ export const scaffold = async (
     {
       relativePath: TRACKING_PATH,
       contents: serializeTrackingMap(emptyTrackingMap()),
+    },
+    {
+      relativePath: SKILLS_CATALOG_PATH,
+      contents: serializeSkillsCatalog(emptySkillsCatalog()),
     },
   ];
 

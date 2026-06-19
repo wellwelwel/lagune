@@ -25,11 +25,12 @@ These five run in order. Each builds on the previous, so following the list top 
 
 These are not phases in the linear flow. They support it.
 
-| Command                                      | What it does                                            |
-| -------------------------------------------- | ------------------------------------------------------- |
-| [`/bluespec.skills`](../commands/skills.mdx) | Loads an on-demand security _sub_-skill.                |
-| [`/bluespec.repair`](../commands/repair.md)  | Repairs **Blue Spec**'s internal tracking.              |
-| [`/bluespec.list`](../commands/list.md)      | Lists every finding **Blue Spec** is tracking, by name. |
+| Command                                              | What it does                                            |
+| ---------------------------------------------------- | ------------------------------------------------------- |
+| [`/bluespec.specialize`](../commands/specialize.mdx) | Distills a source or topic into a new _sub_-skill.      |
+| [`/bluespec.skills`](../commands/skills.mdx)         | Loads an on-demand security _sub_-skill.                |
+| [`/bluespec.repair`](../commands/repair.md)          | Repairs **Blue Spec**'s internal tracking.              |
+| [`/bluespec.list`](../commands/list.md)              | Lists every finding **Blue Spec** is tracking, by name. |
 
 :::tip[Security is an investment]
 
