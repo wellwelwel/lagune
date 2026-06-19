@@ -1,23 +1,16 @@
-name: '🚀 CD (Website) — Publish'
+name: '📒 CI (Website) — Build'
 
 on:
-  push:
-    branches:
-      - 'main'
+  pull_request:
+    paths:
+      - 'website/**'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
-  issues: write
-
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    if: github.event.repository.fork == false
-    name: Deploy
+    timeout-minutes: 5
+    name: Check
     steps:
       - name: Actions - Checkout
         uses: actions/checkout@v6
@@ -38,17 +31,11 @@ jobs:
       - name: Installing Dependencies
         run: npm --prefix website ci
 
+      - name: Lint Checking
+        run: npm --prefix website run lint
+
       - name: Checking Types
         run: npm --prefix website run typecheck
 
-      - name: Building Site
+      - name: Checking Build
         run: npm --prefix website run build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./website/build
-          cname: bluespec.weslley.io
-          publish_branch: 'website'
-          allow_empty_commit: false
