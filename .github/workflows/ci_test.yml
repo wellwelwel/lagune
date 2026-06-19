@@ -1,0 +1,129 @@
+name: '🐧 CI — Test'
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'scripts/**'
+      - 'test/**'
+      - 'tools/**'
+      - '.github/workflows/ci_test.yml'
+      - 'package-lock.json'
+      - 'package.json'
+  workflow_dispatch:
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['22', '24', '26']
+    name: Node.js ${{ matrix.node-version }}
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: ➕ Cache dependencies
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: npm-linux-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-linux-
+
+      - name: 📦 Installing Dependencies
+        run: npm ci
+
+      - name: 🤹🏻‍♀️ Building the Project
+        run: npm run build
+
+      - name: 🔬 Node ${{ matrix.node-version }}
+        run: npm test
+
+  deno:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        deno-version: ['latest']
+    name: Deno ${{ matrix.deno-version }}
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: ➕ Actions - Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: ➕ Cache dependencies
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: npm-linux-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-linux-
+
+      - name: 📦 Installing Dependencies
+        run: npm ci
+
+      - name: 🤹🏻‍♀️ Building the Project
+        run: npm run build
+
+      - name: 🔬 Deno ${{ matrix.deno-version }}
+        run: deno task test:deno
+
+  bun:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        bun-version: ['latest']
+    name: Bun ${{ matrix.bun-version }}
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: ➕ Actions - Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ matrix.bun-version }}
+
+      - name: ➕ Cache dependencies
+        uses: actions/cache@v5
+        with:
+          path: ~/.npm
+          key: npm-linux-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-linux-
+
+      - name: 📦 Installing Dependencies
+        run: npm ci
+
+      - name: 🤹🏻‍♀️ Building the Project
+        run: npm run build
+
+      - name: 🔬 Bun ${{ matrix.bun-version }}
+        run: bun run test:bun
