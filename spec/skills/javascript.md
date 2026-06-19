@@ -2,16 +2,12 @@
 
 > This knowledge extends your judgment. Apply what fits the project and keep reasoning beyond the list.
 
-JavaScript has its own attack surface, rooted in how the language and runtime behave: prototype chains, dynamic evaluation, loose coercion, and the way data turns into code. This skill maps the vulnerability classes that exist **because the code is JavaScript**, not the generic ones any language shares.
-
 ## Rules
 
 - This skill audits and explains.
 - By default, it never rewrites your code.
 
 ## What to look for
-
-Each class below is a JavaScript-specific risk. Check the named patterns against the code in scope, one class at a time.
 
 ### Remote code execution (RCE)
 

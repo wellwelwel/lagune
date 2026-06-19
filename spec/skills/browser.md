@@ -2,16 +2,12 @@
 
 > This knowledge extends your judgment. Apply what fits the project and keep reasoning beyond the list.
 
-When JavaScript runs in a browser, it inherits a second attack surface the runtime does not have on a server: the DOM, the page's origin, the URL, cross-window messaging, and client-side storage. This skill maps the vulnerability classes that exist **because the code runs in a browser**, separate from the language-level risks in the `javascript` skill.
-
 ## Rules
 
 - This skill audits and explains.
 - By default, it never rewrites your code.
 
 ## What to look for
-
-Each class below is a browser-specific risk. Check the named patterns against the code in scope, one class at a time.
 
 ### DOM-based XSS
 
