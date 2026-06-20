@@ -5,7 +5,6 @@ import {
   LuBlocks,
   LuBookOpen,
   LuBrain,
-  LuCircleCheckBig,
   LuHouse,
   LuLayoutGrid,
   LuListChecks,
@@ -13,6 +12,7 @@ import {
   LuScanSearch,
   LuShieldCheck,
   LuShieldPlus,
+  LuWandSparkles,
 } from 'react-icons/lu';
 import {
   TbCircleNumber1,
@@ -283,19 +283,21 @@ export const HIGHLIGHTS: {
     ),
   },
   {
-    Icon: LuCircleCheckBig,
-    title: 'Findings that close',
+    Icon: LuWandSparkles,
+    title: 'Specializations of your own',
     lead: (
       <>
-        A risk proven closed is{' '}
-        <strong className='text-ink font-semibold'>stood down</strong> across
-        the whole chain, not parked in a backlog.
+        Craft{' '}
+        <strong className='text-ink font-semibold'>
+          unique, authentic specializations
+        </strong>{' '}
+        shaped to what your project actually needs.
       </>
     ),
     body: (
       <>
-        Each finding reaches a settled state and reopens only when the code
-        changes, so the flow can reach a real end.
+        Point it at an article, an exploit, or a topic and it distills a new
+        sub-skill into your private catalog, loaded exactly like the built-ins.
       </>
     ),
   },
