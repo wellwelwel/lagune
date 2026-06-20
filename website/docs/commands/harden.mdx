@@ -13,7 +13,6 @@ import Tabs from '@theme/Tabs';
 🔧 Apply the plan's fixes to your code, safely and one at a time.
 
 :::warning[Depends on plan, and changes your code]
-
 Harden builds on [`/bluespec.plan`](./plan.mdx). It is the one phase that changes your code.
 :::
 
@@ -54,7 +53,6 @@ The plan already decided each fix, so harden just applies it. Since this is the 
 If a fix cannot be fully applied, harden does what it safely can and marks the rest **Partial** or **Blocked**, leaving it open.
 
 :::info[Applied is not verified]
-
 Applied does not mean proven yet. That is what [verify](./verify.mdx) is for.
 :::
 
@@ -64,7 +62,8 @@ Applied does not mean proven yet. That is what [verify](./verify.mdx) is for.
 - It confirms before changing anything and never makes a destructive change without asking.
 - Running it again reconciles the record: reverted changes drop off, newly applied fixes come in.
 - The hardening record lives in `.bluespec/memory/harden.md`.
-  :::
+
+:::
 
 ## Next
 

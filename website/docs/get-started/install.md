@@ -23,7 +23,6 @@ npx -y blue-spec@latest init claude
 See every key in [**Supported Agents**](../supported-agents.md).
 
 :::info[Any language]
-
 **Blue Spec** runs on **Node.js** under the hood, you use whatever language you want 🃏
 :::
 

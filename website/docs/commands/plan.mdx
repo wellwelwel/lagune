@@ -13,7 +13,6 @@ import Tabs from '@theme/Tabs';
 🛡️ Turn what detect found into a defense plan: for each finding, the fix to apply.
 
 :::warning[Depends on detect]
-
 Plan works only from what [`/bluespec.detect`](./detect.mdx) already mapped, so run detect first.
 :::
 
@@ -58,7 +57,8 @@ From there, you have a prioritized list of fixes, each tied to a finding and rea
 - It builds entirely on detect. If a file or worry was never mapped, it tells you to run `/bluespec.detect` on it first.
 - Running it again updates the plan: done fixes drop off, new ones come in.
 - The defense plan lives in `.bluespec/memory/plan.md`.
-  :::
+
+:::
 
 ## Next
 

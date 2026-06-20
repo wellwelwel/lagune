@@ -10,7 +10,7 @@ description: Security-Driven Hardening for software built with AI agents.
 
 **Blue Spec** helps your AI agent make a project more secure. You point it at your code, the agent figures out what your system actually does, then it guides you through the security work that matters for it.
 
-- **Blue Spec** works with projects in **any programming language** and supports **37 agents** ✨
+- **Blue Spec** works with projects in **any programming language** and supports [**37 agents**](/docs/supported-agents) ✨
 
 ## The idea in one line
 
@@ -22,23 +22,34 @@ The intelligence lives in the spec, not in the user. A developer and a non-devel
 
 Blue Spec runs a structured lifecycle, with every phase framed around defense.
 
-| #   | Command                                       | What it does for you                                                    |
-| --- | --------------------------------------------- | ----------------------------------------------------------------------- |
-| 1   | [`/bluespec.charter`](./commands/charter.mdx) | Sets your project's security rules.                                     |
-| 2   | [`/bluespec.detect`](./commands/detect.mdx)   | Reads your code and maps what your system does and where the risks are. |
-| 3   | [`/bluespec.plan`](./commands/plan.mdx)       | Turns what detect found into a defense plan, a fix for each finding.    |
-| 4   | [`/bluespec.harden`](./commands/harden.mdx)   | Applies the plan's fixes to your code, safely and one at a time.        |
-| 5   | [`/bluespec.verify`](./commands/verify.mdx)   | Proves each applied fix holds and closes out the ones that do.          |
+| #   | Command                                                                    | What it does for you                                                           |
+| --- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 1   | [**/bluespec.charter**](https://bluespec.weslley.io/docs/commands/charter) | Sets your project's security rules, proposed for you or shaped by what you say |
+| 2   | [**/bluespec.detect**](https://bluespec.weslley.io/docs/commands/detect)   | Reads your code and maps what your system does and where the risks are         |
+| 3   | [**/bluespec.plan**](https://bluespec.weslley.io/docs/commands/plan)       | Turns what detect found into a defense plan, with a fix for each finding       |
+| 4   | [**/bluespec.harden**](https://bluespec.weslley.io/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
+| 5   | [**/bluespec.verify**](https://bluespec.weslley.io/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
 
-Each command builds on the previous, so following the list top to bottom is all it takes.
-
-:::tip[Security is an investment]
-
-Security is not a cost, it is an investment: what you put in upfront, you save many times over in the incidents you never have 🙋🏻‍♂️
-:::
+> Each command builds on the previous, so following the list top to bottom is all it takes.
 
 ## Where to go next
 
 - New here? Start with [**Install**](./get-started/install.md).
 - Want the command map? See [**Commands**](./get-started/commands.md).
-- Curious about the on-demand knowledge? Read [**Available Skills**](./skills.mdx).
+- Curious about the on-demand knowledge? Read [**/bluespec.skills**](./commands/skills.mdx).
+
+## Acknowledgements
+
+Really thanks to everyone who has supported and keeps supporting this work.
+
+[![Sponsors](https://wellwelwel.github.io/wellwelwel/sponsors.svg?v=1)](https://github.com/sponsors/wellwelwel)
+
+## Security Policy
+
+Please check the [**SECURITY.md**](https://github.com/wellwelwel/blue-spec/blob/main/SECURITY.md).
+
+## License
+
+**Blue Spec** is under the [**MIT License**](https://github.com/wellwelwel/blue-spec/blob/main/LICENSE).
+
+Copyright © 2026-present [**Weslley Araújo**](https://github.com/wellwelwel) and [**contributors**](https://github.com/wellwelwel/blue-spec/graphs/contributors).

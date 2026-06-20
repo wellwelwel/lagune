@@ -42,7 +42,6 @@ It reads the material and distills it into a focused, defense-only sub-skill, sh
 </Tabs>
 
 :::note[An attack can be the source, never the output]
-
 Pointing it at an attack is fine when the goal is to defend against it: an exploit write-up is study material it distills into the defense. The sub-skill it produces always audits and explains, it never produces a working exploit, payload, or evasion.
 :::
 
@@ -50,7 +49,7 @@ Pointing it at an attack is fine when the goal is to defend against it: an explo
 
 The result is two files, both in your project, committed and reviewable like the rest of `.bluespec/`:
 
-- The sub-skill at `.bluespec/skills/<name>.md`, following the [sub-skill shape](../skills.mdx).
+- The sub-skill at `.bluespec/skills/<name>.md`, following the [sub-skill shape](./skills.mdx).
 - One entry in `.bluespec/skills.json`, the catalog the dispatcher reads at runtime to list and match it.
 
 You never add a command or touch the package: a new specialty is one knowledge file plus one catalog row, written into your own project.
@@ -63,4 +62,5 @@ Specializing a name that already exists, whether a built-in like `regex` or one 
 
 - The new _sub_-skill loads exactly like a built-in: `/bluespec.skills <name>`, or import it with `@.bluespec/skills/<name>.md` and give it a task.
 - When the material has an identifiable origin (an article, an author, a link, a standard), the sub-skill credits it. A bare topic carries no source.
-  :::
+
+:::

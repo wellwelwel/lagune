@@ -102,5 +102,3 @@ Really thanks to everyone who has supported and keeps supporting my work.
 
 **Blue Spec** is under the [**MIT License**](https://github.com/wellwelwel/blue-spec/blob/main/LICENSE).<br />
 Copyright © 2026-present [**Weslley Araújo**](https://github.com/wellwelwel) and [**contributors**](https://github.com/wellwelwel/blue-spec/graphs/contributors).
-
-[v]: https://raw.githubusercontent.com/wellwelwel/blue-spec/main/.github/assets/readme/check.svg

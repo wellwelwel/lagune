@@ -1,7 +1,7 @@
 ---
 id: skills
 title: /bluespec.skills
-sidebar_label: Skills (command)
+sidebar_label: Skills
 description: How sub-skills are loaded, by a phase on demand, and by you directly.
 ---
 
@@ -12,9 +12,51 @@ import Tabs from '@theme/Tabs';
 
 🧠 The dispatcher for **Blue Spec**'s sub-skills: focused, language-agnostic security knowledge modules that load only on demand, never by default.
 
-A sub-skill is not invocable on its own. There is one door, and two ways through it.
+## Run yourself
 
-## Loaded for you, on demand
+To use a sub-skill directly, import its file with `@` and write the task in the same prompt. The knowledge then acts on what you asked for. This is the user-facing way, and it works in any prompt, even one unrelated to the **Blue Spec** flow.
+
+They all live in `.bluespec/skills/`, so the file to import is always `@.bluespec/skills/<name>.md`.
+
+For example, a direct free-form prompt to generate a safe **RegExp** collection with **Python**:
+
+```bash
+@.bluespec/skills/regex.md
+Create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
+```
+
+This uses a deterministic hook to test each **RegExp** against **ReDoS**, keeps the safe ones, and produces something like:
+
+```python
+import re
+
+EMAIL = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+USERNAME = re.compile(r"^[a-zA-Z0-9_]{3,20}$")
+
+def is_email(value: str) -> bool:
+    return EMAIL.match(value) is not None
+
+def is_username(value: str) -> bool:
+    return USERNAME.match(value) is not None
+```
+
+:::tip[Try the ReDoS checker]
+Test a pattern yourself at [**devina.io/redos-checker**](https://devina.io/redos-checker).
+:::
+
+## The catalog
+
+This is the built-in set that ships with **Blue Spec**:
+
+| _Sub_-Skill  | Path                             | Focus                                                    |
+| ------------ | -------------------------------- | -------------------------------------------------------- |
+| `regex`      | `.bluespec/skills/regex.md`      | **ReDoS:** patterns that explode on crafted input.       |
+| `javascript` | `.bluespec/skills/javascript.md` | **Language-level risks:** RCE, prototype pollution, etc. |
+| `browser`    | `.bluespec/skills/browser.md`    | **Client-side risks:** DOM XSS, origin, storage, etc.    |
+
+The catalog grows by adding one knowledge file plus one catalog row, never a new command. You add your own the same way, with [`/bluespec.specialize`](./specialize.mdx): point it at an article or a topic and it distills a new sub-skill into the same catalog (the file under `.bluespec/skills/`, the row in `.bluespec/skills.json`), loaded exactly like the built-ins.
+
+:::note[Internally, Blue Spec loads sub-skills automatically, on demand]
 
 When a phase like detect or verify hits a context a sub-skill covers, it runs `/bluespec.skills` itself and the dispatcher loads the right knowledge. This happens automatically, as part of the phase. You do not run it by hand for this to work.
 
@@ -22,21 +64,7 @@ When a phase like detect or verify hits a context a sub-skill covers, it runs `/
 /bluespec.skills regex
 ```
 
-:::note[This form is the internal door]
-
-Typing `/bluespec.skills regex` on its own only loads the knowledge into the agent's context. On its own it does no work, because there is nothing for it to act on. To run a sub-skill against your code yourself, import the file and give it a task (see below).
 :::
-
-## Run one yourself
-
-To use a sub-skill directly, import its file with `@` and write the task in the same prompt. The knowledge then acts on what you asked for.
-
-```bash
-@.bluespec/skills/regex.md
-Create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
-```
-
-This is the user-facing way, and it works in any prompt, even one unrelated to the **Blue Spec** flow. For the full walkthrough and output, see [**Available Skills**](../skills.mdx).
 
 ## Discover what is available
 
@@ -46,12 +74,6 @@ Run the command with no selector to list the catalog.
 /bluespec.skills
 ```
 
-:::note[Not loaded by default]
-
-_Sub_-skills are **not loaded by default**. The relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
-:::
-
-:::tip
-
-The _sub_-skills live in `.bluespec/skills/`, so the file to import is `@.bluespec/skills/<name>.md`.
+:::note[_Sub_-Skills are not loaded by default]
+The relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
 :::

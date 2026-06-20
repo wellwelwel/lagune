@@ -10,7 +10,6 @@ description: Repair the chain when a rename or a moved file confuses Blue Spec's
 🧰 Repair the chain when a rename or a moved file confuses it.
 
 :::note[Internal maintenance, not a security phase]
-
 Repair is not a sixth phase in the linear flow. Its job is to keep the tracking coherent.
 :::
 
@@ -30,4 +29,5 @@ The one volatile thing the tracking stores is the file paths the item points at.
 - It touches neither your code nor the prose artifacts, only the tracking.
 - You rarely run it by hand. When a phase notices the chain is inconsistent, it runs repair for you and continues.
 - The tracking it maintains lives in `.bluespec/tracking.json`, internal state you never edit by hand.
-  :::
+
+:::

@@ -24,14 +24,14 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Tools',
-      items: ['commands/specialize', 'commands/skills', 'commands/list'],
+      collapsed: false,
+      items: ['commands/skills', 'commands/specialize', 'commands/list'],
     },
     {
       type: 'category',
       label: 'Maintenance',
       items: ['commands/repair'],
     },
-    'skills',
     {
       type: 'category',
       label: 'Hooks',

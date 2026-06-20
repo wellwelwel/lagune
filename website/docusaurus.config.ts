@@ -140,7 +140,7 @@ const config: Config = {
           items: [
             { label: 'Get Started', to: '/docs/get-started/install' },
             { label: 'Commands', to: '/docs/commands/charter' },
-            { label: 'Skills', to: '/docs/skills' },
+            { label: 'Skills', to: '/docs/commands/skills' },
           ],
         },
         {
