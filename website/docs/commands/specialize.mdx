@@ -12,7 +12,7 @@ import Tabs from '@theme/Tabs';
 
 🎓 Specialize **Blue Spec** in a specific security area, from a source or topic you give it.
 
-It reads the material and distills it into a focused, defense-only sub-skill, shaped exactly like the built-in ones, so [`/bluespec.skills`](./skills.mdx) loads it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
+It reads the material and distills it into a focused, defense-only sub-skill, shaped exactly like the built-in ones, so [`/bluespec.skills`](/docs/commands/skills) loads it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
 
 <Tabs>
   <TabItem value="article" label="From an article" default>
@@ -49,7 +49,7 @@ Pointing it at an attack is fine when the goal is to defend against it: an explo
 
 The result is two files, both in your project, committed and reviewable like the rest of `.bluespec/`:
 
-- The sub-skill at `.bluespec/skills/<name>.md`, following the [sub-skill shape](./skills.mdx).
+- The sub-skill at `.bluespec/skills/<name>.md`, following the [sub-skill shape](/docs/commands/skills).
 - One entry in `.bluespec/skills.json`, the catalog the dispatcher reads at runtime to list and match it.
 
 You never add a command or touch the package: a new specialty is one knowledge file plus one catalog row, written into your own project.

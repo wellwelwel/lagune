@@ -13,7 +13,7 @@ import Tabs from '@theme/Tabs';
 ⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
 
 :::warning[Depends on harden]
-Verify builds on [`/bluespec.harden`](./harden.mdx).
+Verify builds on [`/bluespec.harden`](/docs/commands/harden).
 :::
 
 ## Run it
@@ -58,7 +58,7 @@ A risk proven closed is then stood down out of the chain, with your confirmation
   - _How proven:_ read the upload handler and saw it detects the file's real type from its content, enforces a size limit, and refuses anything else, exactly as the record claims.
   - _Evidence:_ the `handleUpload` function, which detects the real file type from content.
 
-If the risk is not closed, verify says so plainly and sends you back to [`/bluespec.harden`](./harden.mdx), since the fix is still open.
+If the risk is not closed, verify says so plainly and sends you back to [`/bluespec.harden`](/docs/commands/harden), since the fix is still open.
 
 :::tip
 

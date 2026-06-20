@@ -54,7 +54,7 @@ This is the built-in set that ships with **Blue Spec**:
 | `javascript` | `.bluespec/skills/javascript.md` | **Language-level risks:** RCE, prototype pollution, etc. |
 | `browser`    | `.bluespec/skills/browser.md`    | **Client-side risks:** DOM XSS, origin, storage, etc.    |
 
-The catalog grows by adding one knowledge file plus one catalog row, never a new command. You add your own the same way, with [`/bluespec.specialize`](./specialize.mdx): point it at an article or a topic and it distills a new sub-skill into the same catalog (the file under `.bluespec/skills/`, the row in `.bluespec/skills.json`), loaded exactly like the built-ins.
+The catalog grows by adding one knowledge file plus one catalog row, never a new command. You add your own the same way, with [`/bluespec.specialize`](/docs/commands/specialize): point it at an article or a topic and it distills a new sub-skill into the same catalog (the file under `.bluespec/skills/`, the row in `.bluespec/skills.json`), loaded exactly like the built-ins.
 
 :::note[Internally, Blue Spec loads sub-skills automatically, on demand]
 

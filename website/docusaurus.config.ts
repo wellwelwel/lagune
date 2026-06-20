@@ -23,7 +23,12 @@ const config: Config = {
   deploymentBranch: 'website',
 
   onBrokenLinks: 'throw',
-  onBrokenAnchors: 'ignore',
+  onBrokenAnchors: 'throw',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
+  },
 
   i18n: {
     defaultLocale: 'en',
