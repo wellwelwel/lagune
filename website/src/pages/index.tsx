@@ -87,9 +87,42 @@ const Home = (): ReactNode => {
   return (
     <div className='bs-canvas relative min-h-screen m-0 antialiased text-ink bg-[#050a18] font-sans'>
       <Head>
-        <title>Blue Spec — Security-Driven Hardening</title>
+        <title>
+          Blue Spec — Security-Driven Hardening for AI-built software
+        </title>
         <html className='bs-canvas-html' lang='en' />
         <body className='bs-canvas-body' />
+        <meta
+          name='description'
+          content='Blue Spec helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.'
+        />
+        <link rel='canonical' href='https://bluespec.weslley.io/' />
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content='https://bluespec.weslley.io/' />
+        <meta
+          property='og:title'
+          content='Blue Spec — Security-Driven Hardening for AI-built software'
+        />
+        <meta
+          property='og:description'
+          content='Blue Spec helps your AI agent make a project more secure. Point it at your code, and it guides you through the security work that matters for it.'
+        />
+        <meta
+          property='og:image'
+          content='https://bluespec.weslley.io/img/og.png'
+        />
+        <meta
+          name='twitter:title'
+          content='Blue Spec — Security-Driven Hardening'
+        />
+        <meta
+          name='twitter:description'
+          content='Blue Spec helps your AI agent make a project more secure. Point it at your code, and it guides you through the security work that matters for it.'
+        />
+        <meta
+          name='twitter:image'
+          content='https://bluespec.weslley.io/img/og.png'
+        />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link
           rel='preconnect'
@@ -100,6 +133,16 @@ const Home = (): ReactNode => {
           href='https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Ubuntu+Mono:wght@400;700&display=swap'
           rel='stylesheet'
         />
+        <script type='application/ld+json'>
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Blue Spec',
+            url: 'https://bluespec.weslley.io',
+            description:
+              'Blue Spec helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.',
+          })}
+        </script>
       </Head>
 
       <div

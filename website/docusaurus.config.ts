@@ -55,6 +55,32 @@ const config: Config = {
         href: 'https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Ubuntu+Mono:wght@400;700&display=swap',
       },
     },
+    {
+      tagName: 'script',
+      attributes: { type: 'application/ld+json' },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'Blue Spec',
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: 'Security',
+        operatingSystem: 'Node.js',
+        url: 'https://bluespec.weslley.io',
+        description:
+          'Blue Spec helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        author: {
+          '@type': 'Person',
+          name: 'Weslley Araújo',
+          url: 'https://github.com/wellwelwel',
+        },
+        license: 'https://github.com/wellwelwel/blue-spec/blob/main/LICENSE',
+        sameAs: [
+          'https://github.com/wellwelwel/blue-spec',
+          'https://www.npmjs.com/package/blue-spec',
+        ],
+      }),
+    },
   ],
 
   plugins: [
@@ -100,11 +126,43 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          filename: 'sitemap.xml',
+        },
       } satisfies Preset.Options,
     ],
   ],
 
   themeConfig: {
+    image: 'img/og.png',
+    metadata: [
+      {
+        name: 'description',
+        content:
+          'Blue Spec helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.',
+      },
+      {
+        name: 'keywords',
+        content:
+          'security, application security, AI security, security hardening, secure coding, vulnerability detection, defensive security, blue team, AI agents, Claude Code, vibe coding, npx, OWASP, ReDoS, prototype pollution, DOM XSS',
+      },
+      { name: 'author', content: 'Weslley Araújo' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      {
+        name: 'twitter:title',
+        content: 'Blue Spec — Security-Driven Hardening',
+      },
+      {
+        name: 'twitter:description',
+        content:
+          'Blue Spec helps your AI agent make a project more secure. Point it at your code, and it guides you through the security work that matters for it.',
+      },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'Blue Spec' },
+      { property: 'og:locale', content: 'en_US' },
+    ],
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
