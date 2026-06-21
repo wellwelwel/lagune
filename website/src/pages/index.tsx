@@ -198,7 +198,7 @@ const Home = (): ReactNode => {
             >
               {pill && (
                 <span
-                  className='absolute top-1/2 -translate-y-1/2 h-[33px] rounded-full bg-white/10 transition-[left,width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none max-[920px]:hidden'
+                  className='absolute top-1/2 -translate-y-1/2 h-[33px] rounded-full bg-[rgba(233,237,247,0.1)] transition-[left,width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none max-[920px]:hidden'
                   style={{ left: pill.left, width: pill.width }}
                   aria-hidden
                 />
