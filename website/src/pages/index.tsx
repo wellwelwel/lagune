@@ -8,6 +8,7 @@ import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
 import { UsagePanel } from '@site/src/components/home/UsagePanel';
 import { PaperModal } from '@site/src/components/PaperModal';
 import { ParticleWaveField } from '@site/src/components/ParticleWaveField';
+import { PartnersModal } from '@site/src/components/PartnersModal';
 import {
   ALL_AGENTS,
   BACKGROUNDS,
@@ -17,7 +18,13 @@ import {
   STEP_ICONS,
   TABS,
 } from '@site/src/data/home';
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { FaGithub } from 'react-icons/fa6';
 import { LuArrowUpRight, LuWaves } from 'react-icons/lu';
 
@@ -29,6 +36,7 @@ const Home = (): ReactNode => {
   const [typedDone, setTypedDone] = useState(false);
   const [paperOpen, setPaperOpen] = useState(false);
   const [agentsOpen, setAgentsOpen] = useState(false);
+  const [partnersOpen, setPartnersOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<WindowId | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -57,6 +65,12 @@ const Home = (): ReactNode => {
     };
   }, [hoveredTab, active]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('partners') || window.location.hash === '#partners')
+      setPartnersOpen(true);
+  }, []);
+
   const goToStep = useCallback((index: number) => {
     setTypedDone(false);
     setModeIndex(0);
@@ -74,6 +88,7 @@ const Home = (): ReactNode => {
       setUsageStep(0);
       setModeIndex(0);
     }
+
     setActive(id);
   };
 
@@ -274,28 +289,48 @@ const Home = (): ReactNode => {
                         </button>
                       );
                     })
-                  : RAILS[active].map((item) => (
-                      <button
-                        key={item.label}
-                        type='button'
-                        onClick={
-                          item.action === 'paper'
-                            ? () => setPaperOpen(true)
-                            : item.action === 'agents'
-                              ? () => setAgentsOpen(true)
-                              : undefined
-                        }
-                        className={`relative flex items-center justify-center size-[22px] border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-[19px] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
-                          item.active
-                            ? 'bs-rail__item--active text-ink'
-                            : 'text-faint'
-                        }`}
-                        aria-label={item.label}
-                        aria-current={item.active ? 'page' : undefined}
-                      >
-                        <item.Icon aria-hidden />
-                      </button>
-                    ))}
+                  : RAILS[active].map((item) => {
+                      const railItemClass = `relative flex items-center justify-center size-[22px] border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-[19px] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
+                        item.active
+                          ? 'bs-rail__item--active text-ink'
+                          : 'text-faint'
+                      }`;
+
+                      if (item.href)
+                        return (
+                          <a
+                            key={item.label}
+                            href={item.href}
+                            target='_blank'
+                            rel='noreferrer'
+                            className={railItemClass}
+                            aria-label={item.label}
+                          >
+                            <item.Icon aria-hidden />
+                          </a>
+                        );
+
+                      return (
+                        <button
+                          key={item.label}
+                          type='button'
+                          onClick={
+                            item.action === 'paper'
+                              ? () => setPaperOpen(true)
+                              : item.action === 'agents'
+                                ? () => setAgentsOpen(true)
+                                : item.action === 'partners'
+                                  ? () => setPartnersOpen(true)
+                                  : undefined
+                          }
+                          className={railItemClass}
+                          aria-label={item.label}
+                          aria-current={item.active ? 'page' : undefined}
+                        >
+                          <item.Icon aria-hidden />
+                        </button>
+                      );
+                    })}
               </div>
             </nav>
 
@@ -386,6 +421,10 @@ const Home = (): ReactNode => {
         agents={ALL_AGENTS}
         onSelect={setSelected}
         onClose={() => setAgentsOpen(false)}
+      />
+      <PartnersModal
+        open={partnersOpen}
+        onClose={() => setPartnersOpen(false)}
       />
     </div>
   );
