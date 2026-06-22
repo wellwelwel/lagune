@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/wellwelwel/blue-spec/compare/v0.2.0...v0.3.0) (2026-06-22)
+
+
+### Features
+
+* **cli:** search for agents dynamically ([#3](https://github.com/wellwelwel/blue-spec/issues/3)) ([18b88c4](https://github.com/wellwelwel/blue-spec/commit/18b88c49bc76b506032892e4392e36ab56ff9406))
+* mature the `charter` command ([4f463f3](https://github.com/wellwelwel/blue-spec/commit/4f463f3b66bd5b36551c080d2eab73d2a8f61908))
+
 ## [0.2.0](https://github.com/wellwelwel/blue-spec/compare/v0.1.1...v0.2.0) (2026-06-19)
 
 
