@@ -363,7 +363,15 @@ export const FEATURE: Record<
   overview: {
     kicker: (
       <>
-        Blue Spec is the practice of{' '}
+        Blue{' '}
+        <span className='relative -top-[0.4em] align-baseline font-mono !text-[0.75em] font-semibold text-[#2092ff]'>
+          {'[Team]'}
+        </span>{' '}
+        Spec{' '}
+        <span className='relative -top-[0.4em] align-baseline font-mono !text-[0.75em] font-semibold text-[#2092ff]'>
+          {'[Driven]'}
+        </span>{' '}
+        is the practice of{' '}
         <strong className='text-ink font-semibold'>
           Security-Driven Hardening
         </strong>
