@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FaGithub, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa6';
 import {
   LuCheck,
@@ -77,15 +77,20 @@ const readDownloadsPerYear = (data: unknown): number | null => {
   const value = (perYear as { value?: unknown }).value;
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
 };
-const PARTNERSHIP_TYPES = [
-  'Sponsorship',
-  'Co-marketing',
-  'Integration',
-  'Other',
-] as const;
+
+const PARTNERSHIP_TYPES = ['Sponsorship', 'Integration', 'Other'] as const;
 
 const fieldClass =
-  'w-full rounded-xl border border-line bg-card px-3.5 py-2.5 font-sans text-[15px] leading-[1.5] text-ink placeholder:font-sans placeholder:text-muted transition-[border-color,background-color,box-shadow] duration-200 ease-out outline-none hover:border-white/[0.18] focus:border-accent focus:bg-card-hover focus:[box-shadow:0_0_0_3px_rgba(0,94,255,0.18)]';
+  'w-full rounded-xl border border-line bg-card px-3.5 py-2.5 [font-family:var(--font-mono)] font-normal text-[16px] leading-[1.5] text-ink placeholder:[font-family:var(--font-mono)] placeholder:text-muted transition-[border-color,background-color,box-shadow] duration-200 ease-out outline-none hover:border-white/[0.18] focus:border-accent focus:bg-card-hover focus:[box-shadow:0_0_0_3px_rgba(0,94,255,0.18)]';
+
+const groupClass =
+  'flex items-stretch overflow-hidden rounded-xl border border-line bg-card transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-white/[0.18] focus-within:border-accent focus-within:bg-card-hover focus-within:[box-shadow:0_0_0_3px_rgba(0,94,255,0.18)]';
+
+const groupLabelClass =
+  'flex w-[96px] shrink-0 items-center justify-end border-r border-line bg-white/[0.03] px-3.5 text-[13px] font-semibold tracking-[-0.005em] text-[rgba(233,237,247,0.7)]';
+
+const groupInputClass =
+  'w-full bg-transparent px-3.5 py-2 [font-family:var(--font-mono)] font-normal text-[16px] leading-[1.5] text-ink placeholder:[font-family:var(--font-mono)] placeholder:text-muted outline-none';
 
 const labelClass =
   'flex flex-col gap-2 text-[13px] font-semibold tracking-[-0.005em] text-ink';
@@ -99,6 +104,19 @@ const Field = ({
 }): ReactNode => (
   <label className={labelClass}>
     {label}
+    {children}
+  </label>
+);
+
+const InlineField = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}): ReactNode => (
+  <label className={groupClass}>
+    <span className={groupLabelClass}>{label}</span>
     {children}
   </label>
 );
@@ -131,34 +149,70 @@ const TypeChips = ({
 }: {
   value: PartnershipType | '';
   onChange: (type: PartnershipType) => void;
-}): ReactNode => (
-  <div
-    className='flex flex-wrap gap-2'
-    role='radiogroup'
-    aria-label='Partnership type'
-  >
-    {PARTNERSHIP_TYPES.map((type) => {
-      const on = value === type;
+}): ReactNode => {
+  const groupRef = useRef<HTMLDivElement>(null);
+  const refs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [pill, setPill] = useState<{ left: number; width: number } | null>(
+    null
+  );
 
-      return (
-        <button
-          key={type}
-          type='button'
-          role='radio'
-          aria-checked={on}
-          onClick={() => onChange(type)}
-          className={`rounded-xl border px-3.5 py-1.5 text-[14px] font-medium tracking-[-0.01em] transition-[background-color,border-color,color] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${
-            on
-              ? 'text-ink border-accent/50 bg-accent/15'
-              : 'text-[rgba(233,237,247,0.7)] border-line bg-card hover:bg-card-hover hover:border-white/[0.16] hover:text-ink'
-          }`}
-        >
-          {type}
-        </button>
+  useLayoutEffect(() => {
+    const measure = () => {
+      const active = value ? refs.current[value] : null;
+      setPill(
+        active ? { left: active.offsetLeft, width: active.offsetWidth } : null
       );
-    })}
-  </div>
-);
+    };
+
+    measure();
+
+    const group = groupRef.current;
+    if (!group) return;
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(group);
+
+    return () => observer.disconnect();
+  }, [value]);
+
+  return (
+    <div
+      ref={groupRef}
+      className='relative flex items-stretch gap-1 rounded-xl border border-line bg-card p-1'
+      role='radiogroup'
+      aria-label='Partnership type'
+    >
+      {pill && (
+        <span
+          className='absolute top-1 bottom-1 rounded-lg border border-accent/50 bg-accent/15 transition-[left,width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none'
+          style={{ left: pill.left, width: pill.width }}
+          aria-hidden
+        />
+      )}
+      {PARTNERSHIP_TYPES.map((type) => {
+        const on = value === type;
+
+        return (
+          <button
+            key={type}
+            ref={(el) => {
+              refs.current[type] = el;
+            }}
+            type='button'
+            role='radio'
+            aria-checked={on}
+            onClick={() => onChange(type)}
+            className={`relative z-[1] flex-1 rounded-lg px-3.5 py-1.5 text-[14px] font-medium tracking-[-0.01em] whitespace-nowrap transition-colors duration-200 ease-out focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${
+              on ? 'text-ink' : 'text-[rgba(233,237,247,0.7)] hover:text-ink'
+            }`}
+          >
+            {type}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
 
 const SuccessState = ({ onReset }: { onReset: () => void }): ReactNode => (
   <div className='bs-fade-in flex flex-col items-center text-center gap-4 py-8'>
@@ -350,12 +404,13 @@ export const PartnersModal = ({
                     Weslley Araújo
                   </span>
                 </h2>
+
                 <p className='text-[15px] leading-[1.6] text-[rgba(233,237,247,0.82)] m-0'>
                   Back the open source work across all my projects. Partners get
                   an exclusive logo across the repositories and landing pages,
-                  plus a spot on a dedicated partners page. Tell what you have
-                  in mind.
+                  plus a spot on a dedicated partners page.
                 </p>
+
                 <div className='mt-4 flex items-stretch gap-3'>
                   <div className='relative w-20 shrink-0 self-stretch'>
                     <img
@@ -407,9 +462,9 @@ export const PartnersModal = ({
                   aria-hidden
                 />
 
-                <Field label='Your name'>
+                <InlineField label='Name'>
                   <input
-                    className={fieldClass}
+                    className={groupInputClass}
                     type='text'
                     name='name'
                     autoComplete='name'
@@ -418,11 +473,11 @@ export const PartnersModal = ({
                     onChange={update('name')}
                     required
                   />
-                </Field>
+                </InlineField>
 
-                <Field label='Work email'>
+                <InlineField label='Email'>
                   <input
-                    className={fieldClass}
+                    className={groupInputClass}
                     type='email'
                     name='email'
                     autoComplete='email'
@@ -431,11 +486,11 @@ export const PartnersModal = ({
                     onChange={update('email')}
                     required
                   />
-                </Field>
+                </InlineField>
 
-                <Field label='Company'>
+                <InlineField label='Company'>
                   <input
-                    className={fieldClass}
+                    className={groupInputClass}
                     type='text'
                     name='company'
                     autoComplete='organization'
@@ -444,7 +499,7 @@ export const PartnersModal = ({
                     onChange={update('company')}
                     required
                   />
-                </Field>
+                </InlineField>
 
                 <Field label='Partnership type'>
                   <TypeChips value={draft.type} onChange={selectType} />
