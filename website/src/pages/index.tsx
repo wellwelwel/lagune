@@ -2,6 +2,7 @@ import type { WindowId } from '@site/src/data/home';
 import type { ComponentType, ReactNode } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Head from '@docusaurus/Head';
+import Link from '@docusaurus/Link';
 import { AgentsModal } from '@site/src/components/AgentsModal';
 import { InstallPanel } from '@site/src/components/home/InstallPanel';
 import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
@@ -130,7 +131,6 @@ const Home = (): ReactNode => {
     label: string;
     Icon: ComponentType;
     href?: string;
-    external?: boolean;
     onClick?: () => void;
   }[] = [
     { label: 'Docs', Icon: FaBook, href: '/docs' },
@@ -138,7 +138,6 @@ const Home = (): ReactNode => {
       label: 'GitHub',
       Icon: FaStar,
       href: 'https://github.com/wellwelwel/blue-spec',
-      external: true,
     },
     {
       label: 'Support',
@@ -297,20 +296,12 @@ const Home = (): ReactNode => {
               className='relative flex items-center justify-end gap-1.5 max-[920px]:justify-center'
             >
               <div className='flex items-center gap-1.5 max-[920px]:hidden'>
-                {headerLinks.map(({ label, Icon, href, external, onClick }) =>
+                {headerLinks.map(({ label, Icon, href, onClick }) =>
                   href ? (
-                    <a
-                      key={label}
-                      className={headerLinkClass}
-                      href={href}
-                      {...(external && {
-                        target: '_blank',
-                        rel: 'noopener',
-                      })}
-                    >
+                    <Link key={label} className={headerLinkClass} to={href}>
                       <Icon aria-hidden />
                       {label}
-                    </a>
+                    </Link>
                   ) : (
                     <button
                       key={label}
@@ -352,36 +343,31 @@ const Home = (): ReactNode => {
 
               {menuOpen && (
                 <div className='bs-menu-pop absolute top-[calc(100%+8px)] right-0 z-[20] flex w-[200px] flex-col gap-1 rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)] min-[921px]:hidden'>
-                  {headerLinks.map(
-                    ({ label, Icon, href, external, onClick }) =>
-                      href ? (
-                        <a
-                          key={label}
-                          className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] no-underline text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
-                          href={href}
-                          onClick={() => setMenuOpen(false)}
-                          {...(external && {
-                            target: '_blank',
-                            rel: 'noopener',
-                          })}
-                        >
-                          <Icon aria-hidden />
-                          {label}
-                        </a>
-                      ) : (
-                        <button
-                          key={label}
-                          type='button'
-                          onClick={() => {
-                            onClick?.();
-                            setMenuOpen(false);
-                          }}
-                          className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
-                        >
-                          <Icon aria-hidden />
-                          {label}
-                        </button>
-                      )
+                  {headerLinks.map(({ label, Icon, href, onClick }) =>
+                    href ? (
+                      <Link
+                        key={label}
+                        className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] no-underline text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
+                        to={href}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <Icon aria-hidden />
+                        {label}
+                      </Link>
+                    ) : (
+                      <button
+                        key={label}
+                        type='button'
+                        onClick={() => {
+                          onClick?.();
+                          setMenuOpen(false);
+                        }}
+                        className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
+                      >
+                        <Icon aria-hidden />
+                        {label}
+                      </button>
+                    )
                   )}
                 </div>
               )}
