@@ -1,4 +1,4 @@
-# Blue Spec: Security-Driven Hardening (SDH)
+# SDH (Security-Driven Hardening): Blue Spec
 
 > This file orients any AI agent (and human) working in this repository. Read it fully before making changes. It describes **what Blue Spec is**, **who it is for**, **how it is built**, and **how to work in this codebase**. For the file/folder layout and concrete structure, invoke the internal `/architecture` skill.
 
