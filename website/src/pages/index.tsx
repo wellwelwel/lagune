@@ -209,13 +209,13 @@ const Home = (): ReactNode => {
 
             <nav
               ref={navRef}
-              className='relative flex items-center gap-1 max-[920px]:overflow-x-visible max-[920px]:order-3 max-[920px]:w-full max-[920px]:pt-3.5 max-[920px]:mt-3.5 max-[920px]:border-t max-[920px]:border-[#0c155c]'
+              className='relative flex items-center gap-1 rounded-xl border border-line bg-card p-1 max-[920px]:overflow-x-visible max-[920px]:order-3 max-[920px]:w-full max-[920px]:rounded-none max-[920px]:border-0 max-[920px]:bg-transparent max-[920px]:p-0 max-[920px]:pt-3.5 max-[920px]:mt-3.5 max-[920px]:border-t max-[920px]:border-[#0c155c]'
               aria-label='Windows'
               onMouseLeave={() => setHoveredTab(null)}
             >
               {pill && (
                 <span
-                  className='absolute top-1/2 -translate-y-1/2 h-[33px] rounded-full bg-[rgba(233,237,247,0.1)] transition-[left,width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none max-[920px]:hidden'
+                  className='absolute top-1 bottom-1 rounded-lg border border-accent/50 bg-accent/15 transition-[left,width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none max-[920px]:hidden'
                   style={{ left: pill.left, width: pill.width }}
                   aria-hidden
                 />
@@ -230,10 +230,10 @@ const Home = (): ReactNode => {
                   aria-current={active === tab.id ? 'page' : undefined}
                   onClick={() => goToTab(tab.id)}
                   onMouseEnter={() => setHoveredTab(tab.id)}
-                  className={`relative z-[1] inline-flex items-center justify-center gap-1.5 px-3.5 py-[7px] rounded-full text-[14px] font-semibold tracking-[-0.01em] whitespace-nowrap cursor-pointer transition-colors duration-200 hover:text-ink max-[920px]:flex-1 max-[920px]:after:absolute max-[920px]:after:inset-x-3.5 max-[920px]:after:h-0.5 max-[920px]:after:rounded-full max-[920px]:after:-bottom-4 max-[600px]:after:-bottom-2.5 ${
+                  className={`relative z-[1] inline-flex items-center justify-center gap-1.5 px-3.5 py-[7px] rounded-lg text-[14px] font-bold tracking-[-0.01em] whitespace-nowrap cursor-pointer transition-colors duration-200 hover:text-ink max-[920px]:flex-1 max-[920px]:rounded-none max-[920px]:after:absolute max-[920px]:after:inset-x-3.5 max-[920px]:after:h-0.5 max-[920px]:after:rounded-full max-[920px]:after:-bottom-4 max-[600px]:after:-bottom-2.5 ${
                     active === tab.id
                       ? 'text-ink max-[920px]:after:bg-[#005eff]'
-                      : 'text-[rgba(233, 237, 247,0.62)]'
+                      : 'text-[rgba(233,237,247,0.7)]'
                   }`}
                 >
                   {tab.label}
