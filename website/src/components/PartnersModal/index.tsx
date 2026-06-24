@@ -1,6 +1,13 @@
 import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { LuCheck, LuHeartHandshake, LuSend, LuX } from 'react-icons/lu';
+import { FaGithub, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa6';
+import {
+  LuCheck,
+  LuContact,
+  LuHeartHandshake,
+  LuSend,
+  LuX,
+} from 'react-icons/lu';
 
 type PartnershipType = (typeof PARTNERSHIP_TYPES)[number];
 
@@ -23,6 +30,53 @@ const EMPTY_DRAFT: Draft = {
 const DRAFT_KEY = 'bluespec:partners-draft';
 const WEB3FORMS_PUBLIC_KEY = '0e430072-493e-4eba-9991-9879134fe5ef';
 const SUBMIT_COOLDOWN_MS = 8000;
+const STATS_URL = 'https://wellwelwel.github.io/wellwelwel/stats.json';
+const FALLBACK_DOWNLOADS = '500 million';
+
+const DOWNLOAD_SCALES = [
+  { threshold: 1_000_000_000, unit: 'billion' },
+  { threshold: 1_000_000, unit: 'million' },
+  { threshold: 1_000, unit: 'thousand' },
+] as const;
+
+const floorToLeadingDigit = (value: number): number => {
+  const place = 10 ** Math.floor(Math.log10(value));
+  return Math.floor(value / place) * place;
+};
+
+const formatDownloads = (value: number): string => {
+  const scale = DOWNLOAD_SCALES.find(({ threshold }) => value >= threshold);
+  if (!scale) return String(Math.floor(value));
+
+  return `${floorToLeadingDigit(value / scale.threshold)} ${scale.unit}`;
+};
+
+const SOCIALS = [
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/wellwelwel/',
+    Icon: FaLinkedin,
+  },
+  { name: 'GitHub', url: 'https://github.com/wellwelwel', Icon: FaGithub },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/wellwelwel/',
+    Icon: FaInstagram,
+  },
+  {
+    name: 'YouTube',
+    url: 'https://www.youtube.com/@weslleyio',
+    Icon: FaYoutube,
+  },
+] as const;
+
+const readDownloadsPerYear = (data: unknown): number | null => {
+  if (typeof data !== 'object' || data === null) return null;
+  const perYear = (data as { downloadsPerYear?: unknown }).downloadsPerYear;
+  if (typeof perYear !== 'object' || perYear === null) return null;
+  const value = (perYear as { value?: unknown }).value;
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+};
 const PARTNERSHIP_TYPES = [
   'Sponsorship',
   'Co-marketing',
@@ -93,7 +147,7 @@ const TypeChips = ({
           role='radio'
           aria-checked={on}
           onClick={() => onChange(type)}
-          className={`rounded-xl border px-3.5 py-2.5 text-[14px] font-medium tracking-[-0.01em] transition-[background-color,border-color,color] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${
+          className={`rounded-xl border px-3.5 py-1.5 text-[14px] font-medium tracking-[-0.01em] transition-[background-color,border-color,color] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${
             on
               ? 'text-ink border-accent/50 bg-accent/15'
               : 'text-[rgba(233,237,247,0.7)] border-line bg-card hover:bg-card-hover hover:border-white/[0.16] hover:text-ink'
@@ -141,9 +195,28 @@ export const PartnersModal = ({
   const [sent, setSent] = useState(false);
   const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle');
   const [draft, setDraft] = useState<Draft>(EMPTY_DRAFT);
+  const [downloads, setDownloads] = useState(FALLBACK_DOWNLOADS);
 
   useEffect(() => {
     setDraft(readDraft());
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch(STATS_URL)
+      .then((response) => response.json())
+      .then((data: unknown) => {
+        const perYear = readDownloadsPerYear(data);
+        if (active && perYear !== null) {
+          setDownloads(formatDownloads(perYear));
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -245,7 +318,7 @@ export const PartnersModal = ({
         ref={panelRef}
         role='dialog'
         aria-modal='true'
-        aria-label='Partner with Blue Spec'
+        aria-label='Partner with Weslley Araújo'
         tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
         className='bs-modal-panel relative flex flex-col w-full max-w-[560px] max-h-full rounded-[20px] border border-[#0c155c] bg-[#0a0f1f] overflow-hidden [box-shadow:0_40px_120px_-30px_rgba(0,0,0,0.8)] outline-none'
@@ -271,14 +344,54 @@ export const PartnersModal = ({
           ) : (
             <>
               <div className='bs-fade-in flex flex-col gap-2'>
-                <h2 className='font-display font-black text-[clamp(22px,3vw,26px)] leading-[1.2] tracking-[-0.02em] text-ink m-0'>
-                  Partner with Blue Spec
+                <h2 className='font-display font-bold text-[clamp(22px,3vw,26px)] leading-[1.2] tracking-[-0.02em] text-ink m-0'>
+                  Partner with{' '}
+                  <span className='relative inline-block whitespace-nowrap [text-shadow:0_2px_4px_rgba(0,0,0,0.6)] before:absolute before:inset-x-[-0.2em] before:bottom-[-0.1em] before:top-[0.05em] before:-z-10 before:bg-[#002767] before:[mask:url(/img/text-brush.svg)_center/100%_100%_no-repeat] before:[transform:rotate(358deg)] before:content-[""]'>
+                    Weslley Araújo
+                  </span>
                 </h2>
                 <p className='text-[15px] leading-[1.6] text-[rgba(233,237,247,0.82)] m-0'>
-                  Building something in the security or AI-coding space? Put
-                  your name next to security-by-default. Partners get a mention,
-                  and integrations get a spotlight. Tell what you have in mind.
+                  Back the open source work across all my projects. Partners get
+                  an exclusive logo across the repositories and landing pages,
+                  plus a spot on a dedicated partners page. Tell what you have
+                  in mind.
                 </p>
+                <div className='mt-4 flex items-stretch gap-3'>
+                  <div className='relative w-20 shrink-0 self-stretch'>
+                    <img
+                      src='/img/wellwelwel.png'
+                      alt='Weslley Araújo'
+                      loading='lazy'
+                      className='size-full rounded-md object-cover outline outline-1 -outline-offset-1 outline-white/10'
+                    />
+                    <span className='absolute -top-2 -left-2 flex items-center justify-center size-7 rounded-full text-white [background:linear-gradient(180deg,#1f7bff_0%,var(--color-accent)_100%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.35),0_2px_6px_-2px_rgba(0,0,0,0.35)] [&>svg]:size-[15px]'>
+                      <LuContact aria-hidden />
+                    </span>
+                  </div>
+                  <div className='flex flex-col gap-2.5 self-center'>
+                    <p className='text-[12px] font-semibold leading-[1.6] text-pretty text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.25)] m-0'>
+                      With over {downloads} downloads across his own projects,
+                      Weslley impacts millions of developers worldwide through
+                      open source. A recognized Microsoft MVP, he specializes in
+                      building for developers and brings the essence of
+                      creativity back to development.
+                    </p>
+                    <div className='flex items-center gap-1'>
+                      {SOCIALS.map(({ name, url, Icon }) => (
+                        <a
+                          key={name}
+                          href={url}
+                          target='_blank'
+                          rel='noopener'
+                          aria-label={name}
+                          className='relative inline-flex items-center justify-center size-7 text-white/70 transition-colors duration-200 ease-out hover:text-white after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 [&>svg]:size-[18px]'
+                        >
+                          <Icon aria-hidden />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <form
@@ -376,35 +489,13 @@ export const PartnersModal = ({
                 <button
                   type='submit'
                   disabled={status === 'sending'}
-                  className='bs-cta group relative mt-1 inline-flex items-center justify-center gap-2.5 pl-5 pr-[22px] py-[13px] rounded-[13px] overflow-hidden font-sans text-[14px] font-bold tracking-[-0.01em] text-white cursor-pointer transition-[box-shadow] duration-300 ease-out [background:linear-gradient(180deg,#1f7bff_0%,var(--color-accent)_100%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.35),0_2px_6px_-2px_rgba(0,0,0,0.35)] hover:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.45),0_6px_14px_-4px_rgba(0,0,0,0.4)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-70'
+                  className='bs-cta group relative mt-1 inline-flex items-center justify-center gap-2.5 pl-5 pr-[22px] py-[13px] rounded-[13px] overflow-hidden font-sans text-[14px] font-bold tracking-[-0.01em] text-white cursor-pointer transition-[box-shadow] duration-300 ease-out [background:linear-gradient(180deg,#1f7bff_0%,var(--color-accent)_100%)] [box-shadow:inset_0_1px_0_rgba(0,0,0,0.35),0_2px_6px_-2px_rgba(0,0,0,0.35)] hover:[box-shadow:inset_0_1px_0_rgba(0,0,0,0.45),0_6px_14px_-4px_rgba(0,0,0,0.4)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-70'
                 >
                   <LuSend className='size-[17px] shrink-0' aria-hidden />
                   <span className='[text-shadow:0_1px_1px_rgba(0,0,0,.5)]'>
-                    {status === 'sending' ? 'Sending…' : "Let's work together"}
+                    {status === 'sending' ? 'Sending…' : "Let's build together"}
                   </span>
                 </button>
-
-                <p className='flex flex-col gap-2 text-[12px] leading-[1.5] text-muted m-0'>
-                  <span>
-                    Blue Spec is an independent open-source project and is not
-                    affiliated with, endorsed by, or associated with Bluespec,
-                    Inc. or the Bluespec Hardware Description Language (HDL) and
-                    its compiler (bsc).
-                  </span>
-                  <span>
-                    The project name "Blue Spec" comes from Blue Team (defensive
-                    security) and Spec-Driven Development. It refers to an
-                    AI-assisted security hardening tool for software projects, a
-                    different domain from Bluespec, Inc., which provides RISC-V
-                    processor IP and hardware design tools.
-                  </span>
-                  <span>
-                    "Bluespec" is a trademark of Bluespec, Inc. All other
-                    product names, trademarks, and registered trademarks
-                    mentioned are the property of their respective owners and
-                    are used for identification purposes only.
-                  </span>
-                </p>
               </form>
             </>
           )}
