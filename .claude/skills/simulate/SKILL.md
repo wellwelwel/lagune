@@ -43,7 +43,7 @@ Neutral sample projects ship next to this skill, each in its own directory under
 
 Available fixtures:
 
-- **`image-upload-service`**: a small ESM HTTP service that accepts image uploads and serves them back.
+- **`image-upload-service`**: a small ESM HTTP service that accepts image uploads, imports images from a remote URL, and serves them back.
 - **`template-toolkit`**: a publishable ESM npm package (a library plus a `tmpl` CLI) for rendering templates and parsing text.
 
 **Always begin a simulation by copying one fixture raw into `./temp`.** If `./temp` already exists and is not empty, clear it first, so each run starts clean (replace `<name>` with the fixture you chose):

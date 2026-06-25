@@ -3,6 +3,7 @@ import { createServer } from 'node:http';
 import { extname, join } from 'node:path';
 import { makeThumbnail } from './lib/thumbnail.js';
 import { handleAvatarUpload } from './routes/avatar.js';
+import { handleImport } from './routes/import.js';
 import { handlePhotoUpload } from './routes/photos.js';
 
 const UPLOAD_DIR = join(process.cwd(), 'uploads');
@@ -72,6 +73,11 @@ const server = createServer(async (request, response) => {
       return;
     }
     await handlePhotoUpload(request, response, file);
+    return;
+  }
+
+  if (request.method === 'POST' && request.url === '/import') {
+    await handleImport(request, response);
     return;
   }
 

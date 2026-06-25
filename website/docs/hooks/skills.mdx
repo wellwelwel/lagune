@@ -11,16 +11,15 @@ The `skills` hook lists every sub-skill **Blue Spec** ships, with the tags that 
 
 ## Run it
 
-It takes no arguments. Each line is one sub-skill followed by its tags.
+It takes no arguments. Each line is one sub-skill followed by its tags:
 
 ```bash
 node ./.bluespec/hooks/skills.mjs
-# => regex: RegExp, Regular Expression
-#    javascript: JavaScript, Node.js, Deno, Bun, TypeScript, Workers
-#    browser: Browser, DOM, Navigator
+# => regex: Regular Expression
+#    ssrf: Server-Side Request Forgery, Webhook, URL fetch, IMDS
+#    ...
 ```
 
 :::tip
-
 To actually run one of these against your code, import its file with a task, for example `@.bluespec/skills/regex.md`. See [**/bluespec.skills**](/docs/commands/skills) for the full walkthrough.
 :::

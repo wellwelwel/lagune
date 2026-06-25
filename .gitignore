@@ -4,3 +4,4 @@ node_modules
 /draft/
 .DS_Store
 .bluespec/
+/PLAN.md

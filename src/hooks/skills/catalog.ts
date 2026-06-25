@@ -3,14 +3,18 @@ import type { SkillCatalogEntry } from '../../types/core.js';
 export const SKILLS_CATALOG: SkillCatalogEntry[] = [
   {
     name: 'regex',
-    tags: ['RegExp', 'Regular Expression'],
+    tags: ['Regular Expression'],
   },
   {
     name: 'javascript',
-    tags: ['JavaScript', 'Node.js', 'Deno', 'Bun', 'TypeScript', 'Workers'],
+    tags: ['Node.js', 'Deno', 'Bun', 'TypeScript'],
   },
   {
     name: 'browser',
-    tags: ['Browser', 'DOM', 'Navigator'],
+    tags: ['DOM', 'Navigator'],
+  },
+  {
+    name: 'ssrf',
+    tags: ['Server-Side Request Forgery', 'Webhook', 'URL fetch', 'IMDS'],
   },
 ];
