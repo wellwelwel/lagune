@@ -7,7 +7,7 @@ description: Score a fetch destination for SSRF, straight from the command line.
 
 # `url-safety` hook
 
-The `url-safety` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine the [`ssrf` sub-skill](/docs/commands/skills) uses, and you can run it yourself.
+The `url-safety` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine the [`network` sub-skill](/docs/commands/skills) uses, and you can run it yourself.
 
 ## Run it
 
@@ -60,5 +60,5 @@ The hook is pure and never resolves DNS, so two runtime gaps are out of scope: *
 
 :::tip
 
-This is the same check the [`ssrf` sub-skill](/docs/commands/skills) runs to prove a destination filter holds. Point it at each host in an allowlist or denylist, one call per host.
+This is the same check the [`network` sub-skill](/docs/commands/skills) runs to prove a destination filter holds. Point it at each host in an allowlist or denylist, one call per host.
 :::

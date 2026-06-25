@@ -17,8 +17,8 @@ export const SKILLS_CATALOG: BuiltinSkillEntry[] = [
     groups: ['javascript'],
   },
   {
-    name: 'ssrf',
-    tags: ['Server-Side Request Forgery', 'Webhook', 'URL fetch', 'IMDS'],
+    name: 'network',
+    tags: ['Requests', 'Webhook', 'URL Fetch', 'IMDS'],
     groups: ['owasp'],
   },
 ];

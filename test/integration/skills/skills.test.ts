@@ -196,7 +196,7 @@ describe('skillsInGroup derives membership by exact key', () => {
   it('returns the sub-skills of a group in catalog order', () => {
     strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'owasp'), [
       'regex',
-      'ssrf',
+      'network',
     ]);
     strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'javascript'), [
       'javascript',
