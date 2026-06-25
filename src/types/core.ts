@@ -9,9 +9,24 @@ export type ParsedCliArgs = {
 
 export type HookHandler = (args: string[]) => Promise<string> | string;
 
+export type SkillGroupKey = 'owasp' | 'javascript';
+
+export type SkillGroup = {
+  key: SkillGroupKey;
+  label: string;
+  description: string;
+};
+
+export type BuiltinSkillEntry = {
+  name: string;
+  tags: string[];
+  groups: SkillGroupKey[];
+};
+
 export type SkillCatalogEntry = {
   name: string;
   tags: string[];
+  groups: string[];
 };
 
 export type SkillsCatalogFile = {

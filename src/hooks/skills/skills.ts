@@ -1,4 +1,4 @@
-import type { SkillCatalogEntry } from '../../types/core.js';
+import type { SkillCatalogEntry, SkillGroup } from '../../types/core.js';
 
 /** Merges built-in and user sub-skills by name, the user entry winning a name collision */
 export const merge = (
@@ -10,6 +10,21 @@ export const merge = (
 
   return [...keptBuiltin, ...user];
 };
+
+/** Sub-skill names belonging to the exact group key, in catalog order */
+export const skillsInGroup = (
+  catalog: SkillCatalogEntry[],
+  key: string
+): string[] =>
+  catalog
+    .filter((entry) => entry.groups.includes(key))
+    .map((entry) => entry.name);
+
+/** The group descriptor for an exact key, or undefined when no group matches */
+export const findGroup = (
+  groups: SkillGroup[],
+  key: string
+): SkillGroup | undefined => groups.find((group) => group.key === key);
 
 /** Formats the catalog as a readable listing, one sub-skill per line with its tags */
 export const list = (catalog: SkillCatalogEntry[]): string => {

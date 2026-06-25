@@ -4,22 +4,31 @@ import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { SKILLS_CATALOG } from '../../../src/hooks/skills/catalog.js';
 import { discoverSkills } from '../../../src/hooks/skills/discover.js';
-import { list, merge } from '../../../src/hooks/skills/skills.js';
+import { SKILL_GROUPS } from '../../../src/hooks/skills/groups.js';
+import {
+  findGroup,
+  list,
+  merge,
+  skillsInGroup,
+} from '../../../src/hooks/skills/skills.js';
 
 const packageRoot = new URL('../../../', import.meta.url);
 
 describe('list formats the catalog as a readable listing', () => {
   it('prints one line per sub-skill with its name and tags', () => {
     const output = list([
-      { name: 'alpha', tags: ['one', 'two'] },
-      { name: 'beta', tags: ['three'] },
+      { name: 'alpha', tags: ['one', 'two'], groups: [] },
+      { name: 'beta', tags: ['three'], groups: [] },
     ]);
 
     strict.strictEqual(output, 'alpha: one, two\nbeta: three\n');
   });
 
   it('prints the bare name for a sub-skill with no tags', () => {
-    strict.strictEqual(list([{ name: 'alpha', tags: [] }]), 'alpha\n');
+    strict.strictEqual(
+      list([{ name: 'alpha', tags: [], groups: [] }]),
+      'alpha\n'
+    );
   });
 
   for (const entry of SKILLS_CATALOG)
@@ -37,30 +46,32 @@ describe('list formats the catalog as a readable listing', () => {
 
 describe('merge folds user sub-skills into the built-in catalog', () => {
   it('keeps every built-in when the user adds nothing', () => {
-    const builtin = [{ name: 'regex', tags: ['RegExp'] }];
+    const builtin = [{ name: 'regex', tags: ['RegExp'], groups: ['owasp'] }];
 
     strict.deepStrictEqual(merge(builtin, []), builtin);
   });
 
-  it('appends a user sub-skill that does not collide', () => {
+  it('appends a user sub-skill, carrying its groups through the spread', () => {
     const merged = merge(
-      [{ name: 'regex', tags: ['RegExp'] }],
-      [{ name: 'graphql', tags: ['GraphQL'] }]
+      [{ name: 'regex', tags: ['RegExp'], groups: ['owasp'] }],
+      [{ name: 'graphql', tags: ['GraphQL'], groups: [] }]
     );
 
     strict.deepStrictEqual(merged, [
-      { name: 'regex', tags: ['RegExp'] },
-      { name: 'graphql', tags: ['GraphQL'] },
+      { name: 'regex', tags: ['RegExp'], groups: ['owasp'] },
+      { name: 'graphql', tags: ['GraphQL'], groups: [] },
     ]);
   });
 
-  it('lets the user sub-skill win a name collision', () => {
+  it('lets the user sub-skill win a collision, replacing the built-in groups', () => {
     const merged = merge(
-      [{ name: 'regex', tags: ['RegExp'] }],
-      [{ name: 'regex', tags: ['custom'] }]
+      [{ name: 'regex', tags: ['RegExp'], groups: ['owasp'] }],
+      [{ name: 'regex', tags: ['custom'], groups: [] }]
     );
 
-    strict.deepStrictEqual(merged, [{ name: 'regex', tags: ['custom'] }]);
+    strict.deepStrictEqual(merged, [
+      { name: 'regex', tags: ['custom'], groups: [] },
+    ]);
   });
 });
 
@@ -111,8 +122,48 @@ await describe('discoverSkills reads the user catalog and fails closed', async (
       }),
       (entries) => {
         strict.deepStrictEqual(entries, [
-          { name: 'graphql', tags: ['GraphQL', 'gql'] },
+          { name: 'graphql', tags: ['GraphQL', 'gql'], groups: [] },
         ]);
+      }
+    );
+  });
+
+  await it('defaults a missing groups field to an empty array', async () => {
+    await withWorkspace(
+      JSON.stringify({
+        name: 'blue-spec',
+        entries: [{ name: 'graphql', tags: ['GraphQL'] }],
+      }),
+      (entries) => {
+        strict.deepStrictEqual(entries, [
+          { name: 'graphql', tags: ['GraphQL'], groups: [] },
+        ]);
+      }
+    );
+  });
+
+  await it('round-trips a valid groups field', async () => {
+    await withWorkspace(
+      JSON.stringify({
+        name: 'blue-spec',
+        entries: [{ name: 'graphql', tags: ['GraphQL'], groups: ['owasp'] }],
+      }),
+      (entries) => {
+        strict.deepStrictEqual(entries, [
+          { name: 'graphql', tags: ['GraphQL'], groups: ['owasp'] },
+        ]);
+      }
+    );
+  });
+
+  await it('drops an entry whose groups is present but not a string array', async () => {
+    await withWorkspace(
+      JSON.stringify({
+        name: 'blue-spec',
+        entries: [{ name: 'graphql', tags: ['GraphQL'], groups: 5 }],
+      }),
+      (entries) => {
+        strict.deepStrictEqual(entries, []);
       }
     );
   });
@@ -137,6 +188,94 @@ await describe('the catalog and the sub-skill files stay in sync', async () => {
       strict(
         catalogNames.has(name),
         `spec/skills/${name}.md is not in the catalog`
+      );
+    });
+});
+
+describe('skillsInGroup derives membership by exact key', () => {
+  it('returns the sub-skills of a group in catalog order', () => {
+    strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'owasp'), [
+      'regex',
+      'ssrf',
+    ]);
+    strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'javascript'), [
+      'javascript',
+      'browser',
+    ]);
+  });
+
+  it('matches the key strictly, never the display label', () => {
+    strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'OWASP'), []);
+  });
+
+  it('returns [] for an unknown key', () => {
+    strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'nope'), []);
+  });
+
+  it('places a multi-group sub-skill under every one of its keys', () => {
+    const catalog = [
+      { name: 'shared', tags: [], groups: ['owasp', 'javascript'] },
+    ];
+
+    strict.deepStrictEqual(skillsInGroup(catalog, 'owasp'), ['shared']);
+    strict.deepStrictEqual(skillsInGroup(catalog, 'javascript'), ['shared']);
+  });
+});
+
+describe('findGroup resolves a descriptor by exact key', () => {
+  it('returns the descriptor for a known key', () => {
+    strict.deepStrictEqual(findGroup(SKILL_GROUPS, 'owasp'), {
+      key: 'owasp',
+      label: 'OWASP',
+      description: 'OWASP Top 10 risks',
+    });
+  });
+
+  it('returns undefined for a wrong-case key', () => {
+    strict.strictEqual(findGroup(SKILL_GROUPS, 'OWASP'), undefined);
+  });
+
+  it('returns undefined for an unknown key', () => {
+    strict.strictEqual(findGroup(SKILL_GROUPS, 'nope'), undefined);
+  });
+});
+
+describe('the group registry and the catalog stay in sync', () => {
+  const groupKeys = new Set(SKILL_GROUPS.map((group) => group.key));
+
+  for (const entry of SKILLS_CATALOG)
+    for (const key of entry.groups)
+      it('points every catalog group key at a registered group', () => {
+        strict(
+          groupKeys.has(key),
+          `${entry.name} references unknown group ${key}`
+        );
+      });
+
+  for (const group of SKILL_GROUPS)
+    it('claims every registered group with at least one sub-skill', () => {
+      strict(
+        skillsInGroup(SKILLS_CATALOG, group.key).length > 0,
+        `group ${group.key} has no sub-skills`
+      );
+    });
+
+  it('keeps group keys unique and lowercase', () => {
+    strict.strictEqual(groupKeys.size, SKILL_GROUPS.length);
+
+    for (const group of SKILL_GROUPS)
+      strict.strictEqual(
+        group.key,
+        group.key.toLowerCase(),
+        `group key ${group.key} is not lowercase`
+      );
+  });
+
+  for (const entry of SKILLS_CATALOG)
+    it('claims every built-in sub-skill in at least one group', () => {
+      strict(
+        entry.groups.length > 0,
+        `built-in ${entry.name} belongs to no group`
       );
     });
 });
