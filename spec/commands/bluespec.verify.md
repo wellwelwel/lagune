@@ -87,7 +87,7 @@ Sub-skills are focused, language-agnostic security knowledge modules that load o
 
    This is the only authoritative source. It merges the built-in sub-skills with any the user registered in `.bluespec/skills.json`, and prints each one as `name: tags`. The **tags are the matching signal, and they exist nowhere else**.
 
-2. **Apply every entry whose tags cover a control in scope.** To apply one, read `.bluespec/skills/<name>.md` directly and follow it, to judge the code as it now stands and let that judgment inform the verdict. The only judgment here is which listed sub-skills match the controls in scope, not whether to consult at all. A control no sub-skill covers is simply left to the reading above. This stays read-only on the user's code: the sub-skill reads and reports, it never edits the code.
+2. **Apply every entry whose tags cover a control in scope.** To apply one, read, one at a time, `.bluespec/skills/<name>.md` directly and follow it, to judge the code as it now stands and let that judgment inform the verdict. The only judgment here is which listed sub-skills match the controls in scope, not whether to consult at all. A control no sub-skill covers is simply left to the reading above. This stays read-only on the user's code: the sub-skill reads and reports, it never edits the code.
 
 Report only the sub-skills you applied and how each informed a verdict, never the ones that did not match: an uncovered control is left to the reading above, not announced as a non-match. If none applied, say so in one line.
 

@@ -7,6 +7,18 @@ export const SKILL_GROUPS: SkillGroup[] = [
     description: 'Harden against the application security risks OWASP tracks',
   },
   {
+    key: 'infra',
+    label: 'Infrastructure',
+    description:
+      'Container, workload, and serverless config: Dockerfile, Compose, Pod security, FaaS IAM and triggers',
+  },
+  {
+    key: 'ai',
+    label: 'AI / LLM',
+    description:
+      'AI and LLM integrations: prompts, tools, agents, retrieval, and MCP',
+  },
+  {
     key: 'javascript',
     label: 'JavaScript',
     description: 'JavaScript and its runtimes',
@@ -45,5 +57,10 @@ export const SKILL_GROUPS: SkillGroup[] = [
     key: 'c-cpp',
     label: 'C / C++',
     description: 'C and C++ and their language-specific risks',
+  },
+  {
+    key: 'dotnet',
+    label: '.NET',
+    description: '.NET and C# and their platform-specific risks',
   },
 ];

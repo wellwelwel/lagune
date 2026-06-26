@@ -14,6 +14,8 @@ export type HookHandler = (args: string[]) => Promise<string> | string;
 
 export type SkillGroupKey =
   | 'owasp'
+  | 'infra'
+  | 'ai'
   | 'javascript'
   | 'python'
   | 'rust'
@@ -21,7 +23,8 @@ export type SkillGroupKey =
   | 'ruby'
   | 'php'
   | 'go'
-  | 'c-cpp';
+  | 'c-cpp'
+  | 'dotnet';
 
 export type SkillGroup = {
   key: SkillGroupKey;

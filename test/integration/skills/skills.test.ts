@@ -213,6 +213,25 @@ describe('skillsInGroup derives membership by exact key', () => {
     strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'owasp'), [
       'regex',
       'network',
+      'interpreter',
+      'path',
+      'upload',
+      'access-control',
+      'credential-endpoint',
+      'federation',
+      'http-request',
+      'transport',
+      'crypto',
+      'api-endpoint',
+      'payment',
+      'xml',
+      'csv',
+      'container',
+      'serverless',
+    ]);
+    strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'infra'), [
+      'container',
+      'serverless',
     ]);
     strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'javascript'), [
       'javascript',
@@ -327,13 +346,48 @@ describe('skillNamesForGroups collects sub-skills across keys', () => {
     strict.deepStrictEqual(skillNamesForGroups(SKILLS_CATALOG, ['owasp']), [
       'regex',
       'network',
+      'interpreter',
+      'path',
+      'upload',
+      'access-control',
+      'credential-endpoint',
+      'federation',
+      'http-request',
+      'transport',
+      'crypto',
+      'api-endpoint',
+      'payment',
+      'xml',
+      'csv',
+      'container',
+      'serverless',
     ]);
   });
 
   it('merges multiple keys, preserving catalog order over key order', () => {
     strict.deepStrictEqual(
       skillNamesForGroups(SKILLS_CATALOG, ['owasp', 'javascript']),
-      ['regex', 'javascript', 'browser', 'network']
+      [
+        'regex',
+        'javascript',
+        'browser',
+        'network',
+        'interpreter',
+        'path',
+        'upload',
+        'access-control',
+        'credential-endpoint',
+        'federation',
+        'http-request',
+        'transport',
+        'crypto',
+        'api-endpoint',
+        'payment',
+        'xml',
+        'csv',
+        'container',
+        'serverless',
+      ]
     );
   });
 

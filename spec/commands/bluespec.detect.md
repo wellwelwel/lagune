@@ -61,7 +61,7 @@ Sub-skills are focused, language-agnostic security knowledge modules that load o
 
    This is the only authoritative source. It merges the built-in sub-skills with any the user registered in `.bluespec/skills.json`, and prints each one as `name: tags`. The **tags are the matching signal, and they exist nowhere else**.
 
-2. **Apply every entry whose tags match the scope you just read.** To apply one, read `.bluespec/skills/<name>.md` directly and follow it, scoped to the paths in question. The knowledge lives in that file: do what it says, do not improvise beyond it, and do not edit the user's code. The only judgment here is which listed sub-skills match the scope, not whether to consult at all. A sub-skill whose context is absent is simply skipped, and finding none applicable is a valid outcome.
+2. **Apply every entry whose tags match the scope you just read.** To apply one, read, one at a time, `.bluespec/skills/<name>.md` directly and follow it, scoped to the paths in question. The knowledge lives in that file: do what it says, do not improvise beyond it, and do not edit the user's code. The only judgment here is which listed sub-skills match the scope, not whether to consult at all. A sub-skill whose context is absent is simply skipped, and finding none applicable is a valid outcome.
 
 Anything a sub-skill surfaces is recorded as a finding through the steps below, like any other.
 
