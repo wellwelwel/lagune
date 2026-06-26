@@ -67,7 +67,11 @@ for (const spec of AGENT_SPECS) {
     await it('writes exactly what the provider declares', async () => {
       const workspace = await newWorkspace();
 
-      await initInto(workspace, { init: true, agent: spec.key });
+      await initInto(workspace, {
+        init: true,
+        agent: spec.key,
+        skills: ['all'],
+      });
 
       const expectedFiles = [
         ...templateFiles,

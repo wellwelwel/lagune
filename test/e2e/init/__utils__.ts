@@ -12,6 +12,8 @@ export const packageRoot = new URL('../../../', import.meta.url);
 const baseArgs: ParsedCliArgs = {
   command: undefined,
   agent: undefined,
+  skills: [],
+  skillsRequested: false,
   help: false,
   version: false,
 };
@@ -29,6 +31,8 @@ export const initInto = (workspace: string, args: InitArgs): Promise<void> =>
       ...baseArgs,
       command: args.init ? 'init' : undefined,
       agent: args.agent,
+      skills: args.skills ?? [],
+      skillsRequested: args.skills !== undefined,
     },
     workspace,
     packageRoot

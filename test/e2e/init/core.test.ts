@@ -42,7 +42,7 @@ await describe('init scaffolds the agent-agnostic core', async () => {
   await it('copies the sub-skills byte-for-byte from the package', async () => {
     const workspace = await newWorkspace();
 
-    await initInto(workspace, { init: true, agent: 'claude' });
+    await initInto(workspace, { init: true, agent: 'claude', skills: ['all'] });
 
     for (const skill of ['regex.md']) {
       const source = await readFile(

@@ -3,13 +3,22 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { SKILLS_CATALOG } from '../../../src/hooks/skills/catalog.js';
-import { discoverSkills } from '../../../src/hooks/skills/discover.js';
+import {
+  discoverSkills,
+  presentSkillNames,
+} from '../../../src/hooks/skills/discover.js';
 import { SKILL_GROUPS } from '../../../src/hooks/skills/groups.js';
 import {
+  expandCategories,
   findGroup,
+  groupKeysForSkill,
+  installedGroupKeys,
+  keepPresent,
   list,
   merge,
+  skillNamesForGroups,
   skillsInGroup,
+  unknownGroupKeys,
 } from '../../../src/hooks/skills/skills.js';
 
 const packageRoot = new URL('../../../', import.meta.url);
@@ -278,4 +287,202 @@ describe('the group registry and the catalog stay in sync', () => {
         `built-in ${entry.name} belongs to no group`
       );
     });
+});
+
+describe('expandCategories resolves the reserved all selector', () => {
+  it('returns every registered key in registry order for all', () => {
+    strict.deepStrictEqual(expandCategories(SKILL_GROUPS, ['all']), [
+      'owasp',
+      'javascript',
+    ]);
+  });
+
+  it('expands all even when mixed with other keys', () => {
+    strict.deepStrictEqual(expandCategories(SKILL_GROUPS, ['owasp', 'all']), [
+      'owasp',
+      'javascript',
+    ]);
+  });
+
+  it('returns the keys unchanged when all is absent', () => {
+    strict.deepStrictEqual(expandCategories(SKILL_GROUPS, ['owasp']), [
+      'owasp',
+    ]);
+  });
+
+  it('returns [] for no keys', () => {
+    strict.deepStrictEqual(expandCategories(SKILL_GROUPS, []), []);
+  });
+});
+
+describe('skillNamesForGroups collects sub-skills across keys', () => {
+  it('returns the sub-skills of a single key in catalog order', () => {
+    strict.deepStrictEqual(skillNamesForGroups(SKILLS_CATALOG, ['owasp']), [
+      'regex',
+      'network',
+    ]);
+  });
+
+  it('merges multiple keys, preserving catalog order over key order', () => {
+    strict.deepStrictEqual(
+      skillNamesForGroups(SKILLS_CATALOG, ['owasp', 'javascript']),
+      ['regex', 'javascript', 'browser', 'network']
+    );
+  });
+
+  it('returns [] for no keys', () => {
+    strict.deepStrictEqual(skillNamesForGroups(SKILLS_CATALOG, []), []);
+  });
+
+  it('lists a multi-group sub-skill once when several of its keys match', () => {
+    const catalog = [
+      { name: 'shared', tags: [], groups: ['owasp', 'javascript'] },
+    ];
+
+    strict.deepStrictEqual(
+      skillNamesForGroups(catalog, ['owasp', 'javascript']),
+      ['shared']
+    );
+  });
+});
+
+describe('unknownGroupKeys reports keys with no registered group', () => {
+  it('returns the unregistered keys in the order requested', () => {
+    strict.deepStrictEqual(unknownGroupKeys(SKILL_GROUPS, ['owasp', 'nope']), [
+      'nope',
+    ]);
+  });
+
+  it('returns [] when every key is registered', () => {
+    strict.deepStrictEqual(
+      unknownGroupKeys(SKILL_GROUPS, ['owasp', 'javascript']),
+      []
+    );
+  });
+
+  it('treats a wrong-case key as unknown', () => {
+    strict.deepStrictEqual(unknownGroupKeys(SKILL_GROUPS, ['OWASP']), [
+      'OWASP',
+    ]);
+  });
+});
+
+describe('groupKeysForSkill narrows candidates to a sub-skill', () => {
+  const catalog = [
+    { name: 'shared', tags: [], groups: ['owasp', 'javascript'] },
+  ];
+
+  it('keeps the single candidate key whose group has the sub-skill', () => {
+    strict.deepStrictEqual(
+      groupKeysForSkill(catalog, 'shared', ['javascript']),
+      ['javascript']
+    );
+  });
+
+  it('keeps every candidate key whose group has the sub-skill', () => {
+    strict.deepStrictEqual(
+      groupKeysForSkill(catalog, 'shared', ['owasp', 'javascript']),
+      ['owasp', 'javascript']
+    );
+  });
+
+  it('returns [] for a name absent from the catalog', () => {
+    strict.deepStrictEqual(
+      groupKeysForSkill(catalog, 'missing', ['owasp', 'javascript']),
+      []
+    );
+  });
+});
+
+describe('installedGroupKeys lists groups with a present built-in', () => {
+  it('claims a group once any of its sub-skills is present', () => {
+    strict.deepStrictEqual(
+      installedGroupKeys(SKILL_GROUPS, SKILLS_CATALOG, ['regex', 'network']),
+      ['owasp']
+    );
+  });
+
+  it('claims every group whose sub-skills are present', () => {
+    strict.deepStrictEqual(
+      installedGroupKeys(SKILL_GROUPS, SKILLS_CATALOG, [
+        'regex',
+        'network',
+        'javascript',
+        'browser',
+      ]),
+      ['owasp', 'javascript']
+    );
+  });
+
+  it('claims a group from a single present member', () => {
+    strict.deepStrictEqual(
+      installedGroupKeys(SKILL_GROUPS, SKILLS_CATALOG, ['browser']),
+      ['javascript']
+    );
+  });
+
+  it('returns [] when nothing is present', () => {
+    strict.deepStrictEqual(
+      installedGroupKeys(SKILL_GROUPS, SKILLS_CATALOG, []),
+      []
+    );
+  });
+});
+
+describe('keepPresent filters the catalog to present sub-skills', () => {
+  it('keeps only the entry whose name is present', () => {
+    strict.deepStrictEqual(keepPresent(SKILLS_CATALOG, ['regex']), [
+      { name: 'regex', tags: ['Regular Expression'], groups: ['owasp'] },
+    ]);
+  });
+
+  it('returns [] when none are present', () => {
+    strict.deepStrictEqual(keepPresent(SKILLS_CATALOG, []), []);
+  });
+});
+
+await describe('presentSkillNames reads the installed sub-skill files', async () => {
+  const withSkillsDir = async (
+    files: string[] | null,
+    assert: (names: string[]) => void
+  ) => {
+    const workspace = await mkdtemp(join(tmpdir(), 'blue-spec-present-'));
+
+    try {
+      if (files !== null) {
+        await mkdir(join(workspace, '.bluespec', 'skills'), {
+          recursive: true,
+        });
+
+        for (const file of files)
+          await writeFile(
+            join(workspace, '.bluespec', 'skills', file),
+            '# x\n',
+            'utf8'
+          );
+      }
+
+      assert(await presentSkillNames(workspace));
+    } finally {
+      await rm(workspace, { recursive: true, force: true });
+    }
+  };
+
+  await it('returns [] when the skills directory is absent', async () => {
+    await withSkillsDir(null, (names) => {
+      strict.deepStrictEqual(names, []);
+    });
+  });
+
+  await it('returns each .md file name without its extension', async () => {
+    await withSkillsDir(['regex.md', 'network.md'], (names) => {
+      strict.deepStrictEqual(names.slice().sort(), ['network', 'regex']);
+    });
+  });
+
+  await it('ignores non-markdown files', async () => {
+    await withSkillsDir(['regex.md', 'notes.txt'], (names) => {
+      strict.deepStrictEqual(names, ['regex']);
+    });
+  });
 });
