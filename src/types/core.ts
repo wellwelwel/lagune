@@ -89,6 +89,12 @@ export type ScaffoldGroup = {
   outcomes: FileOutcome[];
 };
 
+export type ScaffoldBucket = {
+  label: string;
+  baseDir: string;
+  owns: (path: string) => boolean;
+};
+
 export type SkillsChange = {
   outcomes: FileOutcome[];
   categories: string[];

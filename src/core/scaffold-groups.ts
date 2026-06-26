@@ -1,16 +1,11 @@
 import type {
   FileOutcome,
+  ScaffoldBucket,
   ScaffoldGroup,
   ScaffoldResult,
 } from '../types/core.js';
 
-type FixedBucket = {
-  label: string;
-  baseDir: string;
-  owns: (path: string) => boolean;
-};
-
-const FIXED_BUCKETS: FixedBucket[] = [
+const FIXED_BUCKETS: ScaffoldBucket[] = [
   {
     label: 'Templates',
     baseDir: '.bluespec/templates/',
