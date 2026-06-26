@@ -14,6 +14,7 @@ const baseArgs: ParsedCliArgs = {
   agent: undefined,
   skills: [],
   skillsRequested: false,
+  findingsRequested: false,
   help: false,
   version: false,
 };

@@ -17,7 +17,6 @@ const ARGUMENT_HINTS: Record<CommandKey, string> = {
     'Optionally name controls, files/dirs, or priorities, or leave empty to verify every applied control',
   repair:
     'Optionally name a phase or scope, or leave empty to repair the whole tracking map',
-  list: 'Takes no input, it lists every tracked finding by name',
   specialize:
     'Describe the security topic the sub-skill should cover, or name an existing sub-skill to refine',
   prove:

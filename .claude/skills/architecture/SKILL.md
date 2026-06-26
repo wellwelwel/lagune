@@ -77,7 +77,7 @@ A phase of the workflow is a pair: a **command** and one or more **templates**.
 
 A phase command points to its template. The command carries the reasoning, the template carries the shape of the result. Splitting them keeps the "how to think" reusable and the "what to produce" consistent.
 
-A command that produces no artifact has no template, and the type layer encodes which commands those are: `repair` and `skills`, plus `list`, a read-only command that prints the tracked findings by name through the `list` hook and writes nothing. `specialize` is the exception that is not a phase yet still pairs with a template (`specialize-template.md`): its artifact is a sub-skill file under `.bluespec/skills/`, not a `memory/` phase artifact.
+A command that produces no artifact has no template, and the type layer encodes that: `TemplateKey` is `CommandKey` minus `repair`, the one command that writes no template of its own. `specialize` is the exception that is not a phase yet still pairs with a template (`specialize-template.md`): its artifact is a sub-skill file under `.bluespec/skills/`, not a `memory/` phase artifact.
 
 ### Sub-skills
 

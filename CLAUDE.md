@@ -68,8 +68,6 @@ Alongside the five sequential phases there is one maintenance command, `/bluespe
 
 Blue Spec also carries **sub-skills**: focused, language-agnostic security knowledge modules that load **only on demand**, never by default. A sub-skill is not a command and is not invocable on its own. The detect and verify phases are the ones that reach for them: when either hits a context a sub-skill covers, it lists the catalog through the `skills` hook (which prints each sub-skill's name and the tags that say what it covers, merging the built-ins with any the user added) and then reads and follows the matching `.bluespec/skills/<name>.md` directly. A user can also import one straight into any prompt with `@.bluespec/skills/<name>.md`. The collection grows by adding one knowledge file plus one catalog row, never a new command, and `/bluespec.specialize` is how the user grows it on their own: it distills a security source or topic they give it into a new sub-skill, written into the project's own catalog so the phases then load it like any built-in. This is the same context-aware principle as the phases: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
 
-There is also `/bluespec.list`, a read-only convenience command that prints the findings currently tracked, by name. It depends on no phase, changes nothing, and is the one direct window onto what the tracking map holds. It only reads and reports.
-
 > Names above (`/bluespec.*`) are the current convention. They can still be refined, so treat them as the working shape, not a frozen contract.
 
 ---

@@ -55,7 +55,22 @@ describe('add/remove/list parsing', () => {
     strict.strictEqual(parsed.command, 'list');
     strict.strictEqual(parsed.agent, undefined);
     strict.strictEqual(parsed.skillsRequested, true);
+    strict.strictEqual(parsed.findingsRequested, false);
     strict.deepStrictEqual(parsed.skills, []);
+  });
+
+  it('marks findings requested for list --findings', () => {
+    const parsed = parseCliArgs(['list', '--findings']);
+    strict.strictEqual(parsed.command, 'list');
+    strict.strictEqual(parsed.findingsRequested, true);
+    strict.strictEqual(parsed.skillsRequested, false);
+  });
+
+  it('marks both requested for list --findings --skills', () => {
+    const parsed = parseCliArgs(['list', '--findings', '--skills']);
+    strict.strictEqual(parsed.command, 'list');
+    strict.strictEqual(parsed.findingsRequested, true);
+    strict.strictEqual(parsed.skillsRequested, true);
   });
 
   it('leaves skills empty when --skills is absent', () => {
@@ -98,6 +113,7 @@ describe('flags', () => {
     strict.strictEqual(parsed.agent, undefined);
     strict.deepStrictEqual(parsed.skills, []);
     strict.strictEqual(parsed.skillsRequested, false);
+    strict.strictEqual(parsed.findingsRequested, false);
     strict.strictEqual(parsed.help, false);
     strict.strictEqual(parsed.version, false);
   });

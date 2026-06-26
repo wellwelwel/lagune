@@ -164,13 +164,19 @@ await describe('remove uninstalls specializations by category', async () => {
   });
 });
 
-await describe('list reports category state', async () => {
-  await it('shows the usage helper with no flag', async () => {
+await describe('list reports findings and category state', async () => {
+  await it('shows the findings, and no category state, with --findings', async () => {
     const workspace = await newWorkspace();
 
-    const output = await runCli(workspace, ['list']);
+    await initInto(workspace, {
+      init: true,
+      agent: 'claude',
+      skills: ['owasp'],
+    });
+    const output = await runCli(workspace, ['list', '--findings']);
 
-    strict(output.includes('usage: npx blue-spec list --skills'));
+    strict(output.includes('No findings tracked yet.'));
+    strict(!/\[installed]/.test(output));
   });
 
   await it('maps each category to installed or available', async () => {

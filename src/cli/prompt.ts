@@ -1,4 +1,4 @@
-import type { AgentChoice, SkillGroup } from '../types/core.js';
+import type { AgentChoice, ListTarget, SkillGroup } from '../types/core.js';
 import { stdin } from 'node:process';
 import {
   interactiveMultiSelect,
@@ -7,12 +7,43 @@ import {
 import {
   agentSelectHint,
   agentSelectTitle,
+  listSelectHint,
+  listSelectTitle,
   selectionAborted,
   skillsSelectHint,
   skillsSelectTitle,
 } from './messages.js';
 
 export const isInteractive = (): boolean => stdin.isTTY === true;
+
+const LIST_TARGETS: { value: ListTarget; label: string }[] = [
+  {
+    value: 'findings',
+    label: 'Findings: the security findings Blue Spec tracks',
+  },
+  {
+    value: 'skills',
+    label: 'Skills: the specialization categories and their state',
+  },
+];
+
+export const promptForListTarget = async (): Promise<
+  ListTarget | undefined
+> => {
+  const index = await interactiveSelect({
+    title: listSelectTitle(),
+    hint: listSelectHint(),
+    options: LIST_TARGETS.map((target) => ({
+      label: target.label,
+      keywords: target.value,
+    })),
+    confirmLabel: 'List:',
+  });
+
+  if (index === undefined) return undefined;
+
+  return LIST_TARGETS[index].value;
+};
 
 export const promptForAgent = async (
   agents: AgentChoice[]

@@ -57,7 +57,14 @@ export const windowStart = (
 export const interactiveSelect = (
   config: SelectConfig
 ): Promise<number | undefined> => {
-  const { title, hint, options, maxVisible = DEFAULT_MAX_VISIBLE } = config;
+  const {
+    title,
+    hint,
+    options,
+    maxVisible = DEFAULT_MAX_VISIBLE,
+    emptyLabel = 'No matching agents.',
+    confirmLabel = 'Agent:',
+  } = config;
 
   return new Promise((resolve) => {
     let query = '';
@@ -79,7 +86,7 @@ export const interactiveSelect = (
       ];
 
       if (visible.length === 0) {
-        lines.push(color.dim('  No matching agents.'));
+        lines.push(color.dim(`  ${emptyLabel}`));
 
         return lines;
       }
@@ -137,7 +144,7 @@ export const interactiveSelect = (
       const summary =
         label === undefined
           ? color.dim('Cancelled')
-          : `${color.green('Agent:')} ${label}`;
+          : `${color.green(confirmLabel)} ${label}`;
 
       stdout.write(`${color.bold(title)}\n${summary}\n`);
       lastHeight = 0;

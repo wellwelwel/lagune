@@ -8,16 +8,17 @@ export const helpText = (agentKeys: string[]): string =>
     '  npx blue-spec init <agent> [--skills <category...>]',
     '  npx blue-spec add --skills',
     '  npx blue-spec remove --skills',
-    '  npx blue-spec list --skills',
+    '  npx blue-spec list [--findings] [--skills]',
     '',
     'Commands:',
     '  init <agent>    Scaffold Blue Spec into the current project',
     '  add             Install security specializations, by category',
     '  remove          Uninstall security specializations, by category',
-    '  list            Show specialization categories and their state',
+    '  list            List tracked findings or specialization categories (asks which)',
     '',
     'Options:',
     '  --skills <...>    Security specializations, by category (no value to choose interactively)',
+    '  --findings        With list, show the tracked findings',
     '  -h, --help        Show this help',
     '  -v, --version     Show the version',
     '',
@@ -38,13 +39,6 @@ export const removeUsage = (): string =>
     'options:',
     '  --skills   security specializations to uninstall (run with no value to choose interactively)',
     'run `npx blue-spec list` to see available categories',
-  ].join('\n');
-
-export const listUsage = (): string =>
-  [
-    'usage: npx blue-spec list --skills',
-    'options:',
-    '  --skills   show every specialization category and whether it is installed',
   ].join('\n');
 
 export const unknownCategories = (
@@ -72,6 +66,11 @@ export const agentSelectHint = (): string =>
   'Type to filter, arrow keys to move, Enter to confirm.';
 
 export const selectionAborted = (): string => 'No agent selected: cancelled.';
+
+export const listSelectTitle = (): string => 'What do you want to list?';
+
+export const listSelectHint = (): string =>
+  'Arrow keys to move, Enter to confirm.';
 
 export const skillsSelectTitle = (): string =>
   'Which security specializations do you want?';

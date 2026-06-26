@@ -1,7 +1,9 @@
 import type {
   BundledAssets,
   FileOutcome,
+  ListTarget,
   ParsedCliArgs,
+  TrackingMap,
 } from '../types/core.js';
 import { stdout } from 'node:process';
 import { loadAssets, loadVersion } from '../core/assets.js';
@@ -10,6 +12,7 @@ import {
   readManifestCategories,
 } from '../core/manifest.js';
 import { scaffold } from '../core/scaffold.js';
+import { loadTrackingMap } from '../core/tracking.js';
 import { SKILLS_CATALOG } from '../hooks/skills/catalog.js';
 import { SKILL_GROUPS } from '../hooks/skills/groups.js';
 import {
@@ -27,7 +30,6 @@ import {
   createdLine,
   helpText,
   keptLine,
-  listUsage,
   nextSteps,
   notInstalledLine,
   removedLine,
@@ -37,6 +39,7 @@ import {
   summaryLine,
   unknownCategories,
 } from './messages.js';
+import { promptForListTarget } from './prompt.js';
 import { selectAgent } from './select-agent.js';
 import { selectCategories } from './select-categories.js';
 
@@ -222,16 +225,36 @@ const runRemove = async (
   );
 };
 
+const formatFindings = (map: TrackingMap): string => {
+  if (map.entries.length === 0) return 'No findings tracked yet.';
+
+  return `Findings:\n${map.entries.map((entry) => `- ${entry.name}`).join('\n')}`;
+};
+
+const printFindings = async (cwd: string): Promise<void> =>
+  print(formatFindings(await loadTrackingMap(cwd)));
+
+const printCategories = async (cwd: string): Promise<void> =>
+  print(
+    categoryList(SKILL_GROUPS, await readManifestCategories(cwd)).trimEnd()
+  );
+
+const resolveListTarget = async (
+  args: ParsedCliArgs
+): Promise<ListTarget | undefined> => {
+  if (args.findingsRequested) return 'findings';
+
+  if (args.skillsRequested) return 'skills';
+
+  return promptForListTarget();
+};
+
 const runList = async (args: ParsedCliArgs, cwd: string): Promise<void> => {
-  if (!args.skillsRequested) {
-    print(listUsage());
+  const target = await resolveListTarget(args);
 
-    return;
-  }
+  if (target === 'findings') await printFindings(cwd);
 
-  const installed = await readManifestCategories(cwd);
-
-  print(categoryList(SKILL_GROUPS, installed));
+  if (target === 'skills') await printCategories(cwd);
 };
 
 export const run = async (

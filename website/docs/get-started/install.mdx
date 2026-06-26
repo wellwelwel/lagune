@@ -131,7 +131,7 @@ npx -y blue-spec@latest remove --skills all
 
 ### See what exists
 
-`list --skills` prints every category and whether it is installed:
+`list` on its own asks what you want to see, the findings Blue Spec is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--skills` for the categories.
 
 ```bash
 npx -y blue-spec@latest list --skills

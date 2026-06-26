@@ -15,6 +15,7 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
       help: { type: 'boolean', short: 'h' },
       version: { type: 'boolean', short: 'v' },
       skills: { type: 'boolean' },
+      findings: { type: 'boolean' },
     },
   });
 
@@ -27,6 +28,7 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
     agent: command === 'init' ? positionals[1] : undefined,
     skills: skillsRequested ? positionals.slice(categoryStart) : [],
     skillsRequested,
+    findingsRequested: values.findings === true,
     help: values.help === true,
     version: values.version === true,
   };

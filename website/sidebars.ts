@@ -25,12 +25,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Tools',
       collapsed: false,
-      items: [
-        'commands/skills',
-        'commands/specialize',
-        'commands/prove',
-        'commands/list',
-      ],
+      items: ['commands/skills', 'commands/specialize', 'commands/prove'],
     },
     {
       type: 'category',

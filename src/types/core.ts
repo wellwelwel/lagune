@@ -5,6 +5,7 @@ export type ParsedCliArgs = {
   agent: string | undefined;
   skills: string[];
   skillsRequested: boolean;
+  findingsRequested: boolean;
   help: boolean;
   version: boolean;
 };
@@ -52,11 +53,10 @@ export type CommandKey =
   | 'harden'
   | 'verify'
   | 'repair'
-  | 'list'
   | 'specialize'
   | 'prove';
 
-export type TemplateKey = Exclude<CommandKey, 'repair' | 'list'>;
+export type TemplateKey = Exclude<CommandKey, 'repair'>;
 
 export type BundledAsset = {
   fileName: string;
@@ -139,7 +139,11 @@ export type SelectConfig = {
   hint: string;
   options: SelectOption[];
   maxVisible?: number;
+  emptyLabel?: string;
+  confirmLabel?: string;
 };
+
+export type ListTarget = 'findings' | 'skills';
 
 export type FilteredOption = {
   option: SelectOption;

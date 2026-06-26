@@ -55,7 +55,6 @@ Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of
 | [**/bluespec.prove**](https://bluespec.weslley.io/docs/commands/prove)           | Turns each detected finding into a runnable proof for responsible disclosure               |
 | [**/bluespec.specialize**](https://bluespec.weslley.io/docs/commands/specialize) | Specializes **Blue Spec** in a new security _sub_-skill from articles, exploits, or topics |
 | [**/bluespec.repair**](https://bluespec.weslley.io/docs/commands/repair)         | Repairs **Blue Spec**'s internal tracking                                                  |
-| [**/bluespec.list**](https://bluespec.weslley.io/docs/commands/list)             | Lists all finding **Blue Spec** is tracking, by name                                       |
 
 > [!TIP]
 >
