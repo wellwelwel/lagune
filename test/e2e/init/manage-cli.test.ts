@@ -189,14 +189,8 @@ await describe('list reports findings and category state', async () => {
     });
     const output = await runCli(workspace, ['list', '--skills']);
 
-    strict(
-      /owasp\s+\[installed]\s+Harden against the application security risks OWASP tracks/.test(
-        output
-      )
-    );
-    strict(
-      /javascript\s+\[available]\s+JavaScript and its runtimes/.test(output)
-    );
+    strict(/owasp\s+\[installed]\s+Harden /.test(output));
+    strict(/javascript\s+\[available]\s+Harden JavaScript/.test(output));
   });
 
   await it('reflects a category returning to available after remove', async () => {

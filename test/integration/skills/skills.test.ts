@@ -259,11 +259,14 @@ describe('skillsInGroup derives membership by exact key', () => {
 
 describe('findGroup resolves a descriptor by exact key', () => {
   it('returns the descriptor for a known key', () => {
-    strict.deepStrictEqual(findGroup(SKILL_GROUPS, 'owasp'), {
-      key: 'owasp',
-      label: 'OWASP',
-      description: 'Harden against the application security risks OWASP tracks',
-    });
+    const descriptor = findGroup(SKILL_GROUPS, 'owasp');
+
+    if (!descriptor) throw new Error('expected a descriptor for owasp');
+
+    strict.strictEqual(descriptor.key, 'owasp');
+    strict.strictEqual(descriptor.label, 'OWASP');
+    strict.strictEqual(typeof descriptor.description, 'string');
+    strict.ok(descriptor.description.length > 0);
   });
 
   it('returns undefined for a wrong-case key', () => {

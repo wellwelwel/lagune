@@ -19,13 +19,13 @@ const SpecializationRow = ({
     role='checkbox'
     aria-checked={on}
     onClick={onToggle}
-    className={`flex h-full min-h-[88px] flex-col justify-center gap-2 p-[14px] rounded-[14px] border text-left cursor-pointer transition-[background-color,border-color,color] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${
+    className={`flex h-full flex-col items-start gap-2 p-[14px] rounded-[14px] border text-left cursor-pointer transition-[background-color,border-color,color] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${
       on
         ? 'text-ink border-accent/50 bg-accent/10'
         : 'text-[rgba(233,237,247,0.78)] border-line bg-card hover:bg-card-hover hover:border-white/[0.16] hover:text-ink'
     }`}
   >
-    <span className='flex items-center gap-2.5 min-w-0'>
+    <span className='flex w-full items-center gap-2.5 min-w-0'>
       <span
         className={`shrink-0 size-5 bg-current [mask-repeat:no-repeat] [mask-position:center] [mask-size:contain] transition-colors duration-200 ease-out ${
           on ? 'text-accent' : 'text-[#888c99]'
@@ -39,7 +39,7 @@ const SpecializationRow = ({
         {category.name}
       </span>
     </span>
-    <span className='text-[12.5px] leading-[1.5] text-muted [text-wrap:pretty]'>
+    <span className='block h-[3lh] text-[12.5px] leading-[1.5] text-muted [text-wrap:pretty] line-clamp-3'>
       {category.desc}
     </span>
   </button>

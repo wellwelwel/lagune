@@ -4,69 +4,79 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     key: 'owasp',
     label: 'OWASP',
-    description: 'Harden against the application security risks OWASP tracks',
+    description:
+      'Harden against the application security risks OWASP tracks: injection, broken access control, auth, and crypto failures',
   },
   {
     key: 'infra',
     label: 'Infrastructure',
     description:
-      'Container, workload, and serverless config: Dockerfile, Compose, Pod security, FaaS IAM and triggers',
+      'Harden container, workload, and serverless config: Dockerfile, Compose, Pod security, FaaS IAM and triggers',
   },
   {
     key: 'ai',
     label: 'AI / LLM',
     description:
-      'AI and LLM integrations: prompts, tools, agents, retrieval, and MCP',
+      'Harden AI and LLM integrations against prompt injection and unsafe tool, agent, retrieval, and MCP wiring',
   },
   {
     key: 'lovable',
     label: 'Lovable',
     description:
-      'AI-generated Supabase apps (Lovable and similar): RLS and key model, plus the access, secret, validation, and delivery defaults that ship insecure',
+      'Harden AI-generated Supabase apps (Lovable and similar): RLS gaps, leaked service_role keys, and insecure defaults',
   },
   {
     key: 'javascript',
     label: 'JavaScript',
-    description: 'JavaScript and its runtimes',
+    description:
+      'Harden JavaScript and its runtimes against eval and child_process RCE, path traversal, and prototype pollution',
   },
   {
     key: 'python',
     label: 'Python',
-    description: 'Python and its language-specific risks',
+    description:
+      'Harden Python against pickle and YAML deserialization RCE, str.format string traversal, and class pollution',
   },
   {
     key: 'rust',
     label: 'Rust',
-    description: 'Rust and its language-specific risks',
+    description:
+      'Harden Rust against unsound unsafe APIs, transmute misuse, integer overflow, and FFI boundary undefined behavior',
   },
   {
     key: 'java',
     label: 'Java',
-    description: 'Java and its language-specific risks',
+    description:
+      'Harden Java against ObjectInputStream deserialization gadget chains that culminate in remote code execution',
   },
   {
     key: 'ruby',
     label: 'Ruby',
-    description: 'Ruby and its language-specific risks',
+    description:
+      'Harden Ruby against Marshal.load and YAML deserialization gadget chains that reach remote code execution',
   },
   {
     key: 'php',
     label: 'PHP',
-    description: 'PHP and its language-specific risks',
+    description:
+      'Harden PHP against type-juggling auth bypass, object injection gadget chains, and insecure configuration defaults',
   },
   {
     key: 'go',
     label: 'Go',
-    description: 'Go and its language-specific risks',
+    description:
+      'Harden Go against typed-nil interface bugs, goroutine data races, and unsafe concurrency on security paths',
   },
   {
     key: 'c-cpp',
     label: 'C / C++',
-    description: 'C and C++ and their language-specific risks',
+    description:
+      'Harden C and C++ against format-string bugs, buffer overflows, and out-of-bounds writes that enable code execution',
   },
   {
     key: 'dotnet',
     label: '.NET',
-    description: '.NET and C# and their platform-specific risks',
+    description:
+      'Harden .NET and C# against BinaryFormatter deserialization RCE and the encoder bypasses that reach XSS',
   },
 ];
