@@ -218,10 +218,10 @@ export const ALL_CATEGORIES: Category[] = [
     icon: '/img/icons/rust.svg',
   },
   {
-    key: 'go',
-    name: 'Go',
-    desc: 'Go and its language-specific risks',
-    icon: '/img/icons/go.svg',
+    key: 'c-cpp',
+    name: 'C / C++',
+    desc: 'C and C++ and their language-specific risks',
+    icon: '/img/icons/cpp.svg',
   },
   {
     key: 'php',
@@ -230,10 +230,10 @@ export const ALL_CATEGORIES: Category[] = [
     icon: '/img/icons/php.svg',
   },
   {
-    key: 'c-cpp',
-    name: 'C / C++',
-    desc: 'C and C++ and their language-specific risks',
-    icon: '/img/icons/cpp.svg',
+    key: 'go',
+    name: 'Go',
+    desc: 'Go and its language-specific risks',
+    icon: '/img/icons/go.svg',
   },
   {
     key: 'java',

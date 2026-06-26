@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { ScrollFade } from '@site/src/components/ScrollFade';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { LuSearch, LuX } from 'react-icons/lu';
+import { LuArrowLeft, LuSearch } from 'react-icons/lu';
 
 const SpecializationRow = ({
   category,
@@ -121,19 +121,20 @@ export const SpecializationsModal = ({
         className='bs-modal-panel relative flex flex-col w-full max-w-[680px] h-[640px] max-h-full rounded-[20px] border border-[#0c155c] bg-[#0a0f1f] overflow-hidden [box-shadow:0_40px_120px_-30px_rgba(0,0,0,0.8)] outline-none'
       >
         <div className='flex items-center justify-between gap-4 shrink-0 px-[clamp(20px,3vw,32px)] py-4 border-b border-[#0c155c] bg-[#0a0f1f]'>
+          <button
+            type='button'
+            onClick={onClose}
+            aria-label='Back'
+            className='relative inline-flex items-center gap-1.5 -ml-2 pl-2 pr-2.5 h-9 rounded-full font-mono text-[11px] tracking-[0.14em] uppercase text-[#9499a5] cursor-pointer transition-[color,background-color] duration-200 ease-out hover:bg-white/[0.08] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:h-10 after:w-[calc(100%+8px)] after:-translate-x-1/2 after:-translate-y-1/2 [&>svg]:size-[16px]'
+          >
+            <LuArrowLeft />
+            Back
+          </button>
           <span className='font-mono text-[11px] tracking-[0.14em] uppercase text-muted tabular-nums'>
             {query.trim()
               ? `Specializations · ${filtered.length}`
               : `All specializations · ${categories.length}`}
           </span>
-          <button
-            type='button'
-            onClick={onClose}
-            aria-label='Close'
-            className='relative inline-flex items-center justify-center size-9 -mr-1.5 rounded-full text-[#9499a5] cursor-pointer transition-[color,background-color] duration-200 ease-out hover:bg-white/[0.08] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 [&>svg]:size-[18px]'
-          >
-            <LuX />
-          </button>
         </div>
 
         <div className='shrink-0 px-[clamp(20px,3vw,32px)] pt-[clamp(20px,3vw,28px)]'>
