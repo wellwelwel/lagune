@@ -3,7 +3,12 @@ import { CategoryCheckbox } from '@site/src/components/home/CategoryCheckbox';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { GroupHead } from '@site/src/components/home/GroupHead';
 import { IconSwap } from '@site/src/components/home/IconSwap';
-import { AGENTS, ALL_AGENTS, CATEGORIES } from '@site/src/data/home';
+import {
+  AGENTS,
+  ALL_AGENTS,
+  ALL_CATEGORIES,
+  CATEGORIES,
+} from '@site/src/data/home';
 import { memo, useMemo } from 'react';
 import { LuCircleCheckBig, LuLayoutGrid, LuPlus } from 'react-icons/lu';
 
@@ -11,22 +16,30 @@ const InstallPanelComponent = ({
   selected,
   onSelect,
   onOpenAgents,
+  onOpenSpecs,
   skills,
   onToggleSkill,
 }: {
   selected: string;
   onSelect: (key: string) => void;
   onOpenAgents: () => void;
+  onOpenSpecs: () => void;
   skills: string[];
   onToggleSkill: (key: string) => void;
 }) => {
   const orderedSkills = useMemo(
     () =>
       skills
-        .map((key) => CATEGORIES.find((category) => category.key === key))
+        .map((key) => ALL_CATEGORIES.find((category) => category.key === key))
         .filter((category) => category !== undefined),
     [skills]
   );
+
+  const hiddenSelected = useMemo(() => {
+    const visible = new Set(CATEGORIES.map((category) => category.key));
+
+    return skills.some((key) => !visible.has(key));
+  }, [skills]);
 
   const installCommand = useMemo(
     () =>
@@ -41,7 +54,7 @@ const InstallPanelComponent = ({
 
   return (
     <div className='flex flex-col min-w-0'>
-      <GroupHead title='Choose your agents' meta='Required' />
+      <GroupHead title='Choose your agent' meta='Required' />
 
       <div
         className='grid grid-cols-2 gap-2 mb-[22px]'
@@ -88,7 +101,7 @@ const InstallPanelComponent = ({
       <GroupHead title='Add specializations' meta='Optional' />
 
       <div
-        className='grid grid-cols-2 gap-2 mb-[22px] max-[460px]:grid-cols-1'
+        className='grid grid-cols-4 gap-2 mb-[22px] max-[600px]:grid-cols-2'
         role='group'
         aria-label='Add security specializations'
       >
@@ -100,6 +113,32 @@ const InstallPanelComponent = ({
             onToggle={() => onToggleSkill(category.key)}
           />
         ))}
+        <button
+          type='button'
+          onClick={onOpenSpecs}
+          className={`flex items-center gap-3 p-[12px_14px] rounded-[14px] border text-left cursor-pointer transition-[background-color,border-color,color] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 ${
+            hiddenSelected
+              ? 'text-ink border-accent/50 bg-accent/10'
+              : 'text-[rgba(233,237,247,0.78)] border-line bg-card hover:bg-card-hover hover:border-white/[0.16] hover:text-ink'
+          }`}
+        >
+          <span
+            className={`shrink-0 size-5 flex items-center justify-center [&>svg]:size-5 transition-colors duration-200 ease-out ${
+              hiddenSelected ? 'text-accent' : 'text-[#888c99]'
+            }`}
+          >
+            <LuLayoutGrid aria-hidden />
+          </span>
+          <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
+            {ALL_CATEGORIES.length - CATEGORIES.length} more
+          </span>
+          <IconSwap
+            on={hiddenSelected}
+            className={`shrink-0 [&_svg]:size-[18px] ${hiddenSelected ? 'text-accent' : 'text-[#888c99]'}`}
+            active={<LuCircleCheckBig />}
+            inactive={<LuPlus />}
+          />
+        </button>
       </div>
 
       <GroupHead title='Run this' />

@@ -291,17 +291,17 @@ describe('the group registry and the catalog stay in sync', () => {
 
 describe('expandCategories resolves the reserved all selector', () => {
   it('returns every registered key in registry order for all', () => {
-    strict.deepStrictEqual(expandCategories(SKILL_GROUPS, ['all']), [
-      'owasp',
-      'javascript',
-    ]);
+    strict.deepStrictEqual(
+      expandCategories(SKILL_GROUPS, ['all']),
+      SKILL_GROUPS.map((group) => group.key)
+    );
   });
 
   it('expands all even when mixed with other keys', () => {
-    strict.deepStrictEqual(expandCategories(SKILL_GROUPS, ['owasp', 'all']), [
-      'owasp',
-      'javascript',
-    ]);
+    strict.deepStrictEqual(
+      expandCategories(SKILL_GROUPS, ['owasp', 'all']),
+      SKILL_GROUPS.map((group) => group.key)
+    );
   });
 
   it('returns the keys unchanged when all is absent', () => {

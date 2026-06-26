@@ -56,7 +56,7 @@ Running **Blue Spec** in your project creates two things:
 
 ## Specializations
 
-**Blue Spec** ships focused security [**_sub_-skills**](/docs/commands/skills) grouped into **categories** (for example `owasp`). You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
+**Blue Spec** ships focused security [**_sub_-skills**](/docs/commands/skills) grouped into **categories**, from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
 
 The agent commands are always set up. Specializations are what you choose on top.
 
@@ -112,7 +112,7 @@ The same `--skills` flag, without touching the agent.
 ```bash
 npx -y blue-spec@latest add --skills # interactive
 npx -y blue-spec@latest add --skills owasp
-npx -y blue-spec@latest add --skills owasp javascript
+npx -y blue-spec@latest add --skills owasp rust
 npx -y blue-spec@latest add --skills all
 ```
 
@@ -122,7 +122,7 @@ npx -y blue-spec@latest add --skills all
 ```bash
 npx -y blue-spec@latest remove --skills # interactive
 npx -y blue-spec@latest remove --skills owasp
-npx -y blue-spec@latest remove --skills owasp javascript
+npx -y blue-spec@latest remove --skills owasp rust
 npx -y blue-spec@latest remove --skills all
 ```
 
@@ -137,6 +137,8 @@ npx -y blue-spec@latest remove --skills all
 npx -y blue-spec@latest list --skills
 #   owasp       [installed]  Harden against the application security risks OWASP tracks
 #   javascript  [available]  JavaScript and its runtimes
+#   php         [available]  PHP and its language-specific risks
+#   go          [available]  Go and its language-specific risks
 #   ...
 ```
 

@@ -11,8 +11,10 @@ import { UsagePanel } from '@site/src/components/home/UsagePanel';
 import { PaperModal } from '@site/src/components/PaperModal';
 import { ParticleWaveField } from '@site/src/components/ParticleWaveField';
 import { PartnersModal } from '@site/src/components/PartnersModal';
+import { SpecializationsModal } from '@site/src/components/SpecializationsModal';
 import {
   ALL_AGENTS,
+  ALL_CATEGORIES,
   BACKGROUNDS,
   FEATURE,
   PHASE_STEPS,
@@ -34,12 +36,13 @@ import { LuMenu, LuX } from 'react-icons/lu';
 const Home = (): ReactNode => {
   const [active, setActive] = useState<WindowId>('overview');
   const [selected, setSelected] = useState<string>('claude');
-  const [skills, setSkills] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>(['owasp']);
   const [usageStep, setUsageStep] = useState(0);
   const [modeIndex, setModeIndex] = useState(0);
   const [typedDone, setTypedDone] = useState(false);
   const [paperOpen, setPaperOpen] = useState(false);
   const [agentsOpen, setAgentsOpen] = useState(false);
+  const [specsOpen, setSpecsOpen] = useState(false);
   const [partnersOpen, setPartnersOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<WindowId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -132,6 +135,7 @@ const Home = (): ReactNode => {
   const openInstall = useCallback(() => goToTab('install'), []);
   const openPaper = useCallback(() => setPaperOpen(true), []);
   const openAgents = useCallback(() => setAgentsOpen(true), []);
+  const openSpecs = useCallback(() => setSpecsOpen(true), []);
   const markTyped = useCallback(() => setTypedDone(true), []);
 
   const feature = FEATURE[active];
@@ -484,6 +488,7 @@ const Home = (): ReactNode => {
                       selected={selected}
                       onSelect={setSelected}
                       onOpenAgents={openAgents}
+                      onOpenSpecs={openSpecs}
                       skills={skills}
                       onToggleSkill={toggleSkill}
                     />
@@ -555,6 +560,13 @@ const Home = (): ReactNode => {
         agents={ALL_AGENTS}
         onSelect={setSelected}
         onClose={() => setAgentsOpen(false)}
+      />
+      <SpecializationsModal
+        open={specsOpen}
+        categories={ALL_CATEGORIES}
+        skills={skills}
+        onToggle={toggleSkill}
+        onClose={() => setSpecsOpen(false)}
       />
       <PartnersModal
         open={partnersOpen}

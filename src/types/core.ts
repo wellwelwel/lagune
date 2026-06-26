@@ -11,7 +11,16 @@ export type ParsedCliArgs = {
 
 export type HookHandler = (args: string[]) => Promise<string> | string;
 
-export type SkillGroupKey = 'owasp' | 'javascript';
+export type SkillGroupKey =
+  | 'owasp'
+  | 'javascript'
+  | 'python'
+  | 'rust'
+  | 'java'
+  | 'ruby'
+  | 'php'
+  | 'go'
+  | 'c-cpp';
 
 export type SkillGroup = {
   key: SkillGroupKey;

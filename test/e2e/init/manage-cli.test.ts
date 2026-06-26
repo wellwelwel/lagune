@@ -3,6 +3,8 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { execPath } from 'node:process';
 import { describe, it, strict } from 'poku';
+import { SKILLS_CATALOG } from '../../../src/hooks/skills/catalog.js';
+import { SKILL_GROUPS } from '../../../src/hooks/skills/groups.js';
 import { initInto, newWorkspace, packageRoot } from './__utils__.js';
 
 const bin = new URL('lib/bin/index.js', packageRoot).pathname;
@@ -70,17 +72,14 @@ await describe('add installs specializations by category', async () => {
     await initInto(workspace, { init: true, agent: 'claude' });
     await runCli(workspace, ['add', '--skills', 'all']);
 
-    for (const skill of [
-      'regex.md',
-      'network.md',
-      'javascript.md',
-      'browser.md',
-    ])
-      strict(await exists(workspace, `.bluespec/skills/${skill}`));
+    for (const entry of SKILLS_CATALOG)
+      strict(await exists(workspace, `.bluespec/skills/${entry.name}.md`));
 
     strict.deepStrictEqual(
       (await manifestCategories(workspace)).slice().sort(),
-      ['javascript', 'owasp']
+      SKILL_GROUPS.map((group) => group.key)
+        .slice()
+        .sort()
     );
   });
 
@@ -113,7 +112,10 @@ await describe('remove uninstalls specializations by category', async () => {
     strict(!(await exists(workspace, '.bluespec/skills/regex.md')));
     strict(!(await exists(workspace, '.bluespec/skills/network.md')));
     strict(await exists(workspace, '.bluespec/skills/javascript.md'));
-    strict.deepStrictEqual(await manifestCategories(workspace), ['javascript']);
+    strict.deepStrictEqual(
+      await manifestCategories(workspace),
+      SKILL_GROUPS.map((group) => group.key).filter((key) => key !== 'owasp')
+    );
   });
 
   await it('never deletes a user-authored sub-skill', async () => {

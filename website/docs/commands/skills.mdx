@@ -45,12 +45,19 @@ Test a pattern yourself at [**devina.io/redos-checker**](https://devina.io/redos
 
 The built-in sub-skills are grouped into **categories** you install on demand. This is the set that ships with **Blue Spec**:
 
-| _Sub_-Skill  | Category     | Focus                                                       |
-| ------------ | ------------ | ----------------------------------------------------------- |
-| `regex`      | `owasp`      | **ReDoS:** patterns that explode on crafted input.          |
-| `network`    | `owasp`      | **SSRF:** user-supplied fetch destinations reaching inside. |
-| `javascript` | `javascript` | **Language-level risks:** RCE, prototype pollution, etc.    |
-| `browser`    | `javascript` | **Client-side risks:** DOM XSS, origin, storage, etc.       |
+| _Sub_-Skill  | Category     | Focus                                                                |
+| ------------ | ------------ | -------------------------------------------------------------------- |
+| `regex`      | `owasp`      | **ReDoS:** patterns that explode on crafted input.                   |
+| `network`    | `owasp`      | **SSRF:** user-supplied fetch destinations reaching inside.          |
+| `browser`    | `javascript` | **Client-side risks:** DOM XSS, origin, storage, etc.                |
+| `javascript` | `javascript` | **Language-level risks:** RCE, prototype pollution, etc.             |
+| `python`     | `python`     | **Language-level risks:** `pickle` RCE, class pollution, `-O`, etc.  |
+| `rust`       | `rust`       | **`unsafe` soundness:** UB from safe callers, `transmute`, overflow. |
+| `java`       | `java`       | **Native deserialization:** `readObject` gadget chains to RCE.       |
+| `ruby`       | `ruby`       | **Deserialization & `open`:** `Marshal`/YAML revival, pipe quirk.    |
+| `php`        | `php`        | **Type juggling & `unserialize`:** magic hashes, POP chains.         |
+| `go`         | `go`         | **Typed-nil & data races:** `nil != nil`, shared-memory goroutines.  |
+| `c-cpp`      | `c-cpp`      | **Format strings:** `printf(user_input)`, `%n` write-what-where.     |
 
 You choose which categories to install when you set up **Blue Spec**, and change them any time with `add` and `remove`. See [**Install**](/docs/get-started/install#specializations) for the `--skills` flag. Each installed sub-skill is a file under `.bluespec/skills/`.
 
@@ -72,6 +79,9 @@ To see every **category** and whether it is installed, from the terminal:
 npx -y blue-spec@latest list --skills
 #   owasp       [installed]  Harden against the application security risks OWASP tracks
 #   javascript  [available]  JavaScript and its runtimes
+#   python      [available]  Python and its language-specific risks
+#   rust        [available]  Rust and its language-specific risks
+#   ...
 ```
 
 To list the sub-skills **installed** in this project, each with the tags that say what it covers, run the [`skills` hook](/docs/hooks/skills):

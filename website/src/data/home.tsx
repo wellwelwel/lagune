@@ -192,10 +192,10 @@ export const AGENTS: Agent[] = [
 ];
 
 // TODO: Mirror of SKILL_GROUPS in ../../../src/hooks/skills/groups.ts
-export const CATEGORIES: Category[] = [
+export const ALL_CATEGORIES: Category[] = [
   {
     key: 'owasp',
-    name: 'OWASP (Beta)',
+    name: 'OWASP',
     desc: 'Harden against the application security risks OWASP tracks',
     icon: '/img/icons/owasp.svg',
   },
@@ -205,7 +205,52 @@ export const CATEGORIES: Category[] = [
     desc: 'JavaScript and its runtimes',
     icon: '/img/icons/javascript.svg',
   },
+  {
+    key: 'python',
+    name: 'Python',
+    desc: 'Python and its language-specific risks',
+    icon: '/img/icons/python.svg',
+  },
+  {
+    key: 'rust',
+    name: 'Rust',
+    desc: 'Rust and its language-specific risks',
+    icon: '/img/icons/rust.svg',
+  },
+  {
+    key: 'go',
+    name: 'Go',
+    desc: 'Go and its language-specific risks',
+    icon: '/img/icons/go.svg',
+  },
+  {
+    key: 'php',
+    name: 'PHP',
+    desc: 'PHP and its language-specific risks',
+    icon: '/img/icons/php.svg',
+  },
+  {
+    key: 'c-cpp',
+    name: 'C / C++',
+    desc: 'C and C++ and their language-specific risks',
+    icon: '/img/icons/cpp.svg',
+  },
+  {
+    key: 'java',
+    name: 'Java',
+    desc: 'Java and its language-specific risks',
+    icon: '/img/icons/java.svg',
+  },
+  {
+    key: 'ruby',
+    name: 'Ruby',
+    desc: 'Ruby and its language-specific risks',
+    icon: '/img/icons/ruby.svg',
+  },
 ];
+
+// The categories surfaced directly in the install grid; the rest fold into "more".
+export const CATEGORIES: Category[] = ALL_CATEGORIES.slice(0, 7);
 
 // TODO: Mirror of AGENT_SPECS in ../../../src/providers/registry.ts
 export const ALL_AGENTS: AgentEntry[] = [
