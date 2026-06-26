@@ -1,4 +1,9 @@
-import type { SkillCatalogEntry, SkillGroup } from '../../types/core.js';
+import type {
+  FileOutcome,
+  ScaffoldGroup,
+  SkillCatalogEntry,
+  SkillGroup,
+} from '../../types/core.js';
 
 /** Merges built-in and user sub-skills by name, the user entry winning a name collision */
 export const merge = (
@@ -61,6 +66,47 @@ export const groupKeysForSkill = (
   if (entry === undefined) return [];
 
   return keys.filter((key) => entry.groups.includes(key));
+};
+
+const skillNameFromPath = (path: string): string => {
+  const file = path.slice(path.lastIndexOf('/') + 1);
+
+  return file.endsWith('.md') ? file.slice(0, -'.md'.length) : file;
+};
+
+const dirOf = (path: string): string =>
+  path.slice(0, path.lastIndexOf('/') + 1);
+
+/**
+ * Buckets sub-skill outcomes under the requested category they belong to, in
+ * the order requested. Each outcome lands under the first matching category, so
+ * a sub-skill shared by two categories is shown once and the counts stay true.
+ */
+export const groupOutcomesByCategory = (
+  outcomes: FileOutcome[],
+  catalog: SkillCatalogEntry[],
+  groups: SkillGroup[],
+  requestedKeys: string[]
+): ScaffoldGroup[] => {
+  const claimed = new Set<string>();
+  const baseDir = outcomes.length === 0 ? '' : dirOf(outcomes[0].path);
+
+  return requestedKeys
+    .map((key): ScaffoldGroup => {
+      const group = findGroup(groups, key);
+      const owned = outcomes.filter((outcome) => {
+        const name = skillNameFromPath(outcome.path);
+
+        if (claimed.has(name)) return false;
+
+        return groupKeysForSkill(catalog, name, [key]).length > 0;
+      });
+
+      owned.forEach((outcome) => claimed.add(skillNameFromPath(outcome.path)));
+
+      return { label: group?.label ?? key, baseDir, outcomes: owned };
+    })
+    .filter((group) => group.outcomes.length > 0);
 };
 
 /** Keeps only the catalog entries whose sub-skill file is present on disk */

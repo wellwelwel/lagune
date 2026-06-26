@@ -1,0 +1,85 @@
+import type {
+  FileOutcome,
+  ScaffoldGroup,
+  ScaffoldResult,
+} from '../types/core.js';
+
+type FixedBucket = {
+  label: string;
+  baseDir: string;
+  owns: (path: string) => boolean;
+};
+
+const FIXED_BUCKETS: FixedBucket[] = [
+  {
+    label: 'Templates',
+    baseDir: '.bluespec/templates/',
+    owns: (path) => path.startsWith('.bluespec/templates/'),
+  },
+  {
+    label: 'Hooks',
+    baseDir: '.bluespec/hooks/',
+    owns: (path) => path.startsWith('.bluespec/hooks/'),
+  },
+  {
+    label: 'Sub-skills',
+    baseDir: '.bluespec/skills/',
+    owns: (path) => path.startsWith('.bluespec/skills/'),
+  },
+  {
+    label: 'State',
+    baseDir: '.bluespec/',
+    owns: (path) =>
+      path.startsWith('.bluespec/') &&
+      !path.slice('.bluespec/'.length).includes('/'),
+  },
+];
+
+const toOutcomes = (result: ScaffoldResult): FileOutcome[] => [
+  ...result.created.map((path): FileOutcome => ({ path, status: 'created' })),
+  ...result.skipped.map((path): FileOutcome => ({ path, status: 'skipped' })),
+];
+
+const commonDir = (paths: string[]): string => {
+  if (paths.length === 0) return '';
+
+  const segments = paths.map((path) => path.split('/').slice(0, -1));
+  const shortest = segments.reduce(
+    (min, parts) => Math.min(min, parts.length),
+    Infinity
+  );
+  const shared: string[] = [];
+
+  for (let depth = 0; depth < shortest; depth += 1) {
+    const segment = segments[0][depth];
+
+    if (segments.every((parts) => parts[depth] === segment))
+      shared.push(segment);
+    else break;
+  }
+
+  return shared.length === 0 ? '' : `${shared.join('/')}/`;
+};
+
+export const groupScaffoldOutcomes = (
+  result: ScaffoldResult,
+  agentLabel: string
+): ScaffoldGroup[] => {
+  const outcomes = toOutcomes(result);
+  const fixed: ScaffoldGroup[] = FIXED_BUCKETS.map((bucket) => ({
+    label: bucket.label,
+    baseDir: bucket.baseDir,
+    outcomes: outcomes.filter((outcome) => bucket.owns(outcome.path)),
+  }));
+
+  const rest = outcomes.filter(
+    (outcome) => !FIXED_BUCKETS.some((bucket) => bucket.owns(outcome.path))
+  );
+  const agentCommands: ScaffoldGroup = {
+    label: agentLabel,
+    baseDir: commonDir(rest.map((outcome) => outcome.path)),
+    outcomes: rest,
+  };
+
+  return [...fixed, agentCommands].filter((group) => group.outcomes.length > 0);
+};

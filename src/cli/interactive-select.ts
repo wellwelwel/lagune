@@ -6,7 +6,8 @@ import type {
 } from '../types/core.js';
 import { stdin, stdout } from 'node:process';
 import { emitKeypressEvents } from 'node:readline';
-import { stripVTControlCharacters, styleText } from 'node:util';
+import { stripVTControlCharacters } from 'node:util';
+import { color } from './colors.js';
 
 export const ESC = '\x1b';
 const CURSOR_HIDE = `${ESC}[?25l`;
@@ -14,13 +15,6 @@ const CURSOR_SHOW = `${ESC}[?25h`;
 
 const DEFAULT_MAX_VISIBLE = 10;
 const FALLBACK_COLUMNS = 80;
-
-const color = {
-  cyan: (text: string): string => styleText('cyan', text, { stream: stdout }),
-  dim: (text: string): string => styleText('dim', text, { stream: stdout }),
-  bold: (text: string): string => styleText('bold', text, { stream: stdout }),
-  green: (text: string): string => styleText('green', text, { stream: stdout }),
-};
 
 const columns = (): number =>
   stdout.columns && stdout.columns > 0 ? stdout.columns : FALLBACK_COLUMNS;
@@ -81,7 +75,7 @@ export const interactiveSelect = (
       const lines: string[] = [
         color.bold(title),
         color.dim(hint),
-        `${color.dim('Search:')} ${query}${color.cyan('█')}`,
+        `${color.dim('Search:')} ${query}${color.blue('█')}`,
         '',
       ];
 
@@ -97,8 +91,8 @@ export const interactiveSelect = (
       for (let position = start; position < end; position += 1) {
         const isActive = position === cursor;
         const { label } = visible[position].option;
-        const pointer = isActive ? color.cyan('›') : ' ';
-        const rendered = isActive ? color.cyan(label) : label;
+        const pointer = isActive ? color.blue('›') : ' ';
+        const rendered = isActive ? color.blue(label) : label;
 
         lines.push(` ${pointer} ${rendered}`);
       }
@@ -251,7 +245,7 @@ export const interactiveMultiSelect = (
       const lines: string[] = [
         color.bold(title),
         color.dim(hint),
-        `${color.dim('Search:')} ${query}${color.cyan('█')}`,
+        `${color.dim('Search:')} ${query}${color.blue('█')}`,
         '',
       ];
 
@@ -268,8 +262,8 @@ export const interactiveMultiSelect = (
         const isActive = position === cursor;
         const { option, index } = visible[position];
         const box = selected.has(index) ? color.green('[x]') : '[ ]';
-        const pointer = isActive ? color.cyan('›') : ' ';
-        const rendered = isActive ? color.cyan(option.label) : option.label;
+        const pointer = isActive ? color.blue('›') : ' ';
+        const rendered = isActive ? color.blue(option.label) : option.label;
 
         lines.push(` ${pointer} ${box} ${rendered}`);
       }

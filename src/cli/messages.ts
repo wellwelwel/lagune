@@ -1,28 +1,98 @@
-import type { ScaffoldResult, SkillGroup } from '../types/core.js';
+import type {
+  AgentChoice,
+  FileOutcome,
+  ScaffoldGroup,
+  ScaffoldResult,
+  SkillGroup,
+} from '../types/core.js';
+import { color } from './colors.js';
 
-export const helpText = (agentKeys: string[]): string =>
+const GLYPH = {
+  added: color.blue('+'),
+  kept: color.dim('·'),
+  removed: color.blue('-'),
+};
+
+const note = (text: string): string => color.dim(`(${text})`);
+
+export const banner = (): string =>
+  `\n🌊 ${color.bold(color.blue('Blue Spec'))}`;
+
+const done = (text: string): string => `${color.blue('✓')} ${text}`;
+
+const restAt = (count: number, label: string): string =>
+  count === 0 ? '' : color.dim(`, ${count} ${label}`);
+
+const heading = (text: string): string => color.blue(text);
+
+const bullet = (text: string): string => `  ${color.blue('•')} ${text}`;
+
+const definitions = (rows: [string, string][]): string[] => {
+  const width = Math.max(...rows.map(([term]) => term.length));
+
+  return rows.map(([term, description]) =>
+    bullet(`${term.padEnd(width)}  ${description}`)
+  );
+};
+
+const agentsByInitial = (agents: AgentChoice[]): string[] => {
+  const sorted = [...agents].sort((left, right) =>
+    left.displayName.localeCompare(right.displayName)
+  );
+  const byInitial = new Map<string, string[]>();
+
+  for (const agent of sorted) {
+    const initial = agent.displayName[0].toUpperCase();
+    const label = `${agent.displayName} ${color.dim(`(${agent.key})`)}`;
+
+    byInitial.set(initial, [...(byInitial.get(initial) ?? []), label]);
+  }
+
+  return [...byInitial].map(([initial, group]) =>
+    bullet(`${initial}${color.dim(':')} ${group.join(color.dim(', '))}`)
+  );
+};
+
+const HELP_USAGE: string[] = [
+  'npx blue-spec init <agent> [--skills <category...>]',
+  'npx blue-spec add --skills',
+  'npx blue-spec remove --skills',
+  'npx blue-spec list [--findings] [--skills]',
+];
+
+const HELP_COMMANDS: [string, string][] = [
+  ['init <agent>', 'Scaffold Blue Spec into the current project'],
+  ['add', 'Install security specializations, by category'],
+  ['remove', 'Uninstall security specializations, by category'],
+  ['list', 'List tracked findings or specialization categories (asks which)'],
+];
+
+const HELP_OPTIONS: [string, string][] = [
   [
-    'Blue Spec: a defensive, security-first workflow for your project.',
+    '--skills <...>',
+    'Security specializations, by category (no value to choose interactively)',
+  ],
+  ['--findings', 'With list, show the tracked findings'],
+  ['-h, --help', 'Show this help'],
+  ['-v, --version', 'Show the version'],
+];
+
+export const helpText = (agents: AgentChoice[]): string =>
+  [
+    banner(),
+    color.dim('A defensive, security-first workflow for your project.'),
     '',
-    'Usage:',
-    '  npx blue-spec init <agent> [--skills <category...>]',
-    '  npx blue-spec add --skills',
-    '  npx blue-spec remove --skills',
-    '  npx blue-spec list [--findings] [--skills]',
+    heading('Usage'),
+    ...HELP_USAGE.map(bullet),
     '',
-    'Commands:',
-    '  init <agent>    Scaffold Blue Spec into the current project',
-    '  add             Install security specializations, by category',
-    '  remove          Uninstall security specializations, by category',
-    '  list            List tracked findings or specialization categories (asks which)',
+    heading('Commands'),
+    ...definitions(HELP_COMMANDS),
     '',
-    'Options:',
-    '  --skills <...>    Security specializations, by category (no value to choose interactively)',
-    '  --findings        With list, show the tracked findings',
-    '  -h, --help        Show this help',
-    '  -v, --version     Show the version',
+    heading('Options'),
+    ...definitions(HELP_OPTIONS),
     '',
-    `Available agents: ${agentKeys.join(', ')}`,
+    heading('Agents'),
+    ...agentsByInitial(agents),
   ].join('\n');
 
 export const addUsage = (): string =>
@@ -78,44 +148,61 @@ export const skillsSelectTitle = (): string =>
 export const skillsSelectHint = (): string =>
   'Space to toggle, arrow keys to move, Enter to confirm, empty to skip.';
 
-export const createdLine = (path: string): string => `  created  ${path}`;
+const createdLine = (path: string): string => `  ${GLYPH.added} ${path}`;
 
-export const skippedLine = (path: string): string =>
-  `  skipped  ${path} (already exists)`;
+const skippedLine = (path: string): string =>
+  `  ${GLYPH.kept} ${path} ${note('already exists')}`;
 
-export const removedLine = (path: string): string => `  removed  ${path}`;
+const removedLine = (path: string): string => `  ${GLYPH.removed} ${path}`;
 
-export const notInstalledLine = (path: string): string =>
-  `  skipped  ${path} (not installed)`;
+const notInstalledLine = (path: string): string =>
+  `  ${GLYPH.kept} ${path} ${note('not installed')}`;
 
-export const keptLine = (path: string, keptBy: string): string =>
-  `  kept     ${path} (still used by ${keptBy})`;
+const keptLine = (path: string, keptBy: string): string =>
+  `  ${GLYPH.kept} ${path} ${note(`still used by ${keptBy}`)}`;
 
 export const categoryList = (
   groups: SkillGroup[],
   installedKeys: string[]
 ): string => {
-  if (groups.length === 0) return 'No specialization categories available.\n';
+  if (groups.length === 0)
+    return color.dim('No specialization categories available.');
 
   const installed = new Set(installedKeys);
   const keyWidth = Math.max(...groups.map((group) => group.key.length));
 
-  const lines = groups.map((group) => {
-    const state = installed.has(group.key) ? '[installed]' : '[available]';
+  const rows = groups.map((group) => {
+    const key = group.key.padEnd(keyWidth);
+    const state = installed.has(group.key)
+      ? color.green('[installed]')
+      : color.dim('[available]');
 
-    return `  ${group.key.padEnd(keyWidth)}  ${state}  ${group.description}`;
+    return bullet(`${key}  ${state}  ${group.description}`);
   });
 
-  return `${lines.join('\n')}\n`;
+  return [
+    `${heading('Specializations')} ${color.dim('.bluespec/skills/')}`,
+    ...rows,
+  ].join('\n');
+};
+
+export const findingsReport = (names: string[]): string => {
+  if (names.length === 0) return color.dim('No findings tracked yet.');
+
+  return [heading('Findings'), ...names.map(bullet)].join('\n');
 };
 
 export const addSummary = (created: number, skipped: number): string => {
   if (created === 0)
-    return skipped === 0
-      ? 'No specializations to install.'
-      : 'Specializations already installed: nothing to do.';
+    return color.dim(
+      skipped === 0
+        ? 'Nothing to install.'
+        : 'Specializations already installed.'
+    );
 
-  return `Specializations installed: ${created} added, ${skipped} already present.`;
+  return done(
+    `Installed ${color.dim('·')} ${created} added${restAt(skipped, 'already present')}`
+  );
 };
 
 export const removeSummary = (
@@ -123,35 +210,67 @@ export const removeSummary = (
   notInstalled: number,
   kept: number
 ): string => {
-  const keptNote = kept === 0 ? '' : `, ${kept} kept (still used elsewhere)`;
+  if (removed === 0 && kept === 0)
+    return color.dim(
+      notInstalled === 0
+        ? 'Nothing to remove.'
+        : 'Specializations not installed.'
+    );
 
-  if (removed === 0)
-    return kept > 0
-      ? `Specializations removed: 0${keptNote}.`
-      : notInstalled === 0
-        ? 'No specializations to remove.'
-        : 'Specializations not installed: nothing to do.';
-
-  return `Specializations removed: ${removed}${keptNote}.`;
+  return done(
+    `Removed ${color.dim('·')} ${removed} removed${restAt(kept, 'kept, still used elsewhere')}`
+  );
 };
+
+const relativeTo = (baseDir: string, path: string): string =>
+  baseDir && path.startsWith(baseDir) ? path.slice(baseDir.length) : path;
+
+const lineFor = (outcome: FileOutcome, path: string): string => {
+  if (outcome.status === 'created') return createdLine(path);
+  if (outcome.status === 'removed') return removedLine(path);
+  if (outcome.status === 'kept') return keptLine(path, outcome.keptBy ?? '');
+  if (outcome.status === 'absent') return notInstalledLine(path);
+
+  return skippedLine(path);
+};
+
+const groupBlock = (group: ScaffoldGroup): string => {
+  const header = `${color.blue(group.label)} ${color.dim(group.baseDir)}`;
+  const rows = group.outcomes.map((outcome) =>
+    lineFor(outcome, relativeTo(group.baseDir, outcome.path))
+  );
+
+  return [header, ...rows].join('\n');
+};
+
+export const groupedReport = (groups: ScaffoldGroup[]): string =>
+  groups.map(groupBlock).join('\n\n');
 
 export const summaryLine = (
   agentDisplayName: string,
   result: ScaffoldResult
 ): string => {
   if (result.created.length === 0)
-    return `Blue Spec is already initialized for ${agentDisplayName}: nothing to do.`;
+    return color.dim(`Already initialized for ${agentDisplayName}.`);
 
-  return `Blue Spec initialized for ${agentDisplayName}: ${result.created.length} created, ${result.skipped.length} skipped.`;
+  return done(
+    `Initialized for ${agentDisplayName} ${color.dim('·')} ${result.created.length} created${restAt(result.skipped.length, 'skipped')}`
+  );
 };
+
+const STEPS: string[] = [
+  `Open ${color.bold('{{agent}}')} in this project`,
+  `Run ${color.blue('/bluespec.charter')} to set your security rules`,
+  `Run ${color.blue('/bluespec.detect')} to map what your project does and where the risks are`,
+  `Run ${color.blue('/bluespec.plan')} to turn those findings into a prioritized fix plan`,
+  `Run ${color.blue('/bluespec.harden')} to apply the fixes, then ${color.blue('/bluespec.verify')} to prove they hold`,
+];
 
 export const nextSteps = (agentDisplayName: string): string =>
   [
-    '',
-    'Next steps:',
-    `  1. Open ${agentDisplayName} in this project.`,
-    '  2. Run /bluespec.charter to set your security rules.',
-    '  3. Run /bluespec.detect to map what your project does and where the risks are.',
-    '  4. Run /bluespec.plan to turn those findings into a prioritized fix plan.',
-    '  5. Run /bluespec.harden to apply the fixes, then /bluespec.verify to prove they hold.',
+    color.bold('Next steps'),
+    ...STEPS.map(
+      (step, index) =>
+        `  ${color.dim(`${index + 1}`)}  ${step.replace('{{agent}}', agentDisplayName)}`
+    ),
   ].join('\n');

@@ -3,7 +3,6 @@ import type {
   FileOutcome,
   ListTarget,
   ParsedCliArgs,
-  TrackingMap,
 } from '../types/core.js';
 import { stdout } from 'node:process';
 import { loadAssets, loadVersion } from '../core/assets.js';
@@ -11,6 +10,7 @@ import {
   applyManifestChange,
   readManifestCategories,
 } from '../core/manifest.js';
+import { groupScaffoldOutcomes } from '../core/scaffold-groups.js';
 import { scaffold } from '../core/scaffold.js';
 import { loadTrackingMap } from '../core/tracking.js';
 import { SKILLS_CATALOG } from '../hooks/skills/catalog.js';
@@ -18,24 +18,23 @@ import { SKILL_GROUPS } from '../hooks/skills/groups.js';
 import {
   expandCategories,
   findGroup,
+  groupOutcomesByCategory,
   skillNamesForGroups,
   unknownGroupKeys,
 } from '../hooks/skills/skills.js';
-import { listAgentKeys } from '../providers/registry.js';
+import { listAgentChoices } from '../providers/registry.js';
 import { addSkills, removeSkills } from './manage-skills.js';
 import {
   addSummary,
   addUsage,
+  banner,
   categoryList,
-  createdLine,
+  findingsReport,
+  groupedReport,
   helpText,
-  keptLine,
   nextSteps,
-  notInstalledLine,
-  removedLine,
   removeSummary,
   removeUsage,
-  skippedLine,
   summaryLine,
   unknownCategories,
 } from './messages.js';
@@ -115,13 +114,23 @@ const runInit = async (
     categories: keys,
   });
 
-  for (const path of result.created) print(createdLine(path));
+  const groups = groupScaffoldOutcomes(result, provider.displayName);
 
-  for (const path of result.skipped) print(skippedLine(path));
+  print(banner());
+  print('');
+
+  if (groups.length > 0) {
+    print(groupedReport(groups));
+    print('');
+  }
 
   print(summaryLine(provider.displayName, result));
 
-  if (result.created.length > 0) print(nextSteps(provider.displayName));
+  if (result.created.length > 0) {
+    print('');
+    print(nextSteps(provider.displayName));
+    print('');
+  }
 };
 
 const runAdd = async (
@@ -157,12 +166,20 @@ const runAdd = async (
       { version, now: new Date() }
     );
 
-  for (const outcome of change.outcomes)
-    print(
-      outcome.status === 'created'
-        ? createdLine(outcome.path)
-        : skippedLine(outcome.path)
-    );
+  const groups = groupOutcomesByCategory(
+    change.outcomes,
+    SKILLS_CATALOG,
+    SKILL_GROUPS,
+    resolveCategoryKeys(categories)
+  );
+
+  print(banner());
+  print('');
+
+  if (groups.length > 0) {
+    print(groupedReport(groups));
+    print('');
+  }
 
   print(
     addSummary(
@@ -170,15 +187,6 @@ const runAdd = async (
       countStatus(change.outcomes, 'skipped')
     )
   );
-};
-
-const removeLine = (outcome: FileOutcome): string => {
-  if (outcome.status === 'removed') return removedLine(outcome.path);
-
-  if (outcome.status === 'kept')
-    return keptLine(outcome.path, outcome.keptBy ?? '');
-
-  return notInstalledLine(outcome.path);
 };
 
 const runRemove = async (
@@ -214,7 +222,20 @@ const runRemove = async (
       { version, now: new Date() }
     );
 
-  for (const outcome of change.outcomes) print(removeLine(outcome));
+  const groups = groupOutcomesByCategory(
+    change.outcomes,
+    SKILLS_CATALOG,
+    SKILL_GROUPS,
+    resolveCategoryKeys(categories)
+  );
+
+  print(banner());
+  print('');
+
+  if (groups.length > 0) {
+    print(groupedReport(groups));
+    print('');
+  }
 
   print(
     removeSummary(
@@ -225,19 +246,11 @@ const runRemove = async (
   );
 };
 
-const formatFindings = (map: TrackingMap): string => {
-  if (map.entries.length === 0) return 'No findings tracked yet.';
+const findingNames = async (cwd: string): Promise<string[]> => {
+  const map = await loadTrackingMap(cwd);
 
-  return `Findings:\n${map.entries.map((entry) => `- ${entry.name}`).join('\n')}`;
+  return map.entries.map((entry) => entry.name);
 };
-
-const printFindings = async (cwd: string): Promise<void> =>
-  print(formatFindings(await loadTrackingMap(cwd)));
-
-const printCategories = async (cwd: string): Promise<void> =>
-  print(
-    categoryList(SKILL_GROUPS, await readManifestCategories(cwd)).trimEnd()
-  );
 
 const resolveListTarget = async (
   args: ParsedCliArgs
@@ -249,12 +262,20 @@ const resolveListTarget = async (
   return promptForListTarget();
 };
 
+const listBody = async (target: ListTarget, cwd: string): Promise<string> => {
+  if (target === 'findings') return findingsReport(await findingNames(cwd));
+
+  return categoryList(SKILL_GROUPS, await readManifestCategories(cwd));
+};
+
 const runList = async (args: ParsedCliArgs, cwd: string): Promise<void> => {
   const target = await resolveListTarget(args);
 
-  if (target === 'findings') await printFindings(cwd);
+  if (target === undefined) return;
 
-  if (target === 'skills') await printCategories(cwd);
+  print(banner());
+  print('');
+  print(await listBody(target, cwd));
 };
 
 export const run = async (
@@ -289,5 +310,5 @@ export const run = async (
     return;
   }
 
-  print(helpText(listAgentKeys()));
+  print(helpText(listAgentChoices()));
 };

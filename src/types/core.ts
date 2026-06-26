@@ -83,6 +83,12 @@ export type FileOutcome = {
   keptBy?: string;
 };
 
+export type ScaffoldGroup = {
+  label: string;
+  baseDir: string;
+  outcomes: FileOutcome[];
+};
+
 export type SkillsChange = {
   outcomes: FileOutcome[];
   categories: string[];
