@@ -1,8 +1,10 @@
-export type CliCommand = 'init';
+export type CliCommand = 'init' | 'add' | 'remove' | 'list';
 
 export type ParsedCliArgs = {
   command: CliCommand | undefined;
   agent: string | undefined;
+  skills: string[];
+  skillsRequested: boolean;
   help: boolean;
   version: boolean;
 };
@@ -64,11 +66,23 @@ export type SpecTokenCount = {
   tokens: number;
 };
 
-export type FileStatus = 'created' | 'skipped';
+export type FileStatus = 'created' | 'skipped' | 'removed' | 'absent' | 'kept';
 
 export type FileOutcome = {
   path: string;
   status: FileStatus;
+  keptBy?: string;
+};
+
+export type SkillsChange = {
+  outcomes: FileOutcome[];
+  categories: string[];
+};
+
+export type ManifestChange = {
+  categories: string[];
+  addFiles: string[];
+  removeFiles: string[];
 };
 
 export type CommandWrite = {
@@ -134,12 +148,24 @@ export type SelectAgentDeps = {
   promptForAgent: (agents: AgentChoice[]) => Promise<string>;
 };
 
+export type SelectCategoriesInput = {
+  requested: string[];
+  shouldPrompt: boolean;
+  groups: SkillGroup[];
+};
+
+export type SelectCategoriesDeps = {
+  isInteractive: () => boolean;
+  promptForSkills: (groups: SkillGroup[]) => Promise<string[]>;
+};
+
 export type ScaffoldOptions = {
   targetDir: string;
   provider: AgentProvider;
   assets: BundledAssets;
   version: string;
   now: Date;
+  categories: string[];
 };
 
 export type ScaffoldResult = {
@@ -153,6 +179,7 @@ export type ManifestInput = {
   agent: string;
   now: Date;
   files: string[];
+  categories: string[];
 };
 
 export type ManifestData = {
@@ -161,6 +188,7 @@ export type ManifestData = {
   agent: string;
   createdAt: string;
   files: string[];
+  categories: string[];
 };
 
 export type TrackingEntry = {

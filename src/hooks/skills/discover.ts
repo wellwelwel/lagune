@@ -1,8 +1,9 @@
 import type { SkillCatalogEntry, SkillsCatalogFile } from '../../types/core.js';
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const USER_CATALOG_PATH = '.bluespec/skills.json';
+const SKILLS_DIR = '.bluespec/skills';
 
 const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every((item) => typeof item === 'string');
@@ -40,6 +41,21 @@ export const discoverSkills = async (
     const raw = await readFile(join(targetDir, USER_CATALOG_PATH), 'utf8');
 
     return parseUserCatalog(raw);
+  } catch {
+    return [];
+  }
+};
+
+/** The sub-skill names whose .bluespec/skills/<name>.md file is present, failing closed to [] */
+export const presentSkillNames = async (
+  targetDir: string
+): Promise<string[]> => {
+  try {
+    const entries = await readdir(join(targetDir, SKILLS_DIR));
+
+    return entries
+      .filter((entry) => entry.endsWith('.md'))
+      .map((entry) => entry.slice(0, -'.md'.length));
   } catch {
     return [];
   }

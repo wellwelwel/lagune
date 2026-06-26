@@ -1,6 +1,7 @@
 export type InitArgs = {
   init?: boolean;
   agent?: string;
+  skills?: string[];
 };
 
 export type Frontmatter = {

@@ -1,8 +1,10 @@
 import type { CliCommand, ParsedCliArgs } from '../types/core.js';
 import { parseArgs } from 'node:util';
 
+const COMMANDS: CliCommand[] = ['init', 'add', 'remove', 'list'];
+
 const toCommand = (value: string | undefined): CliCommand | undefined =>
-  value === 'init' ? 'init' : undefined;
+  COMMANDS.find((command) => command === value);
 
 export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
   const { values, positionals } = parseArgs({
@@ -12,12 +14,19 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
     options: {
       help: { type: 'boolean', short: 'h' },
       version: { type: 'boolean', short: 'v' },
+      skills: { type: 'boolean' },
     },
   });
 
+  const command = toCommand(positionals[0]);
+  const skillsRequested = values.skills === true;
+  const categoryStart = command === 'init' ? 2 : 1;
+
   return {
-    command: toCommand(positionals[0]),
-    agent: positionals[1],
+    command,
+    agent: command === 'init' ? positionals[1] : undefined,
+    skills: skillsRequested ? positionals.slice(categoryStart) : [],
+    skillsRequested,
     help: values.help === true,
     version: values.version === true,
   };

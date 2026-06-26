@@ -222,3 +222,186 @@ export const interactiveSelect = (
     render();
   });
 };
+
+export const interactiveMultiSelect = (
+  config: SelectConfig
+): Promise<number[] | undefined> => {
+  const { title, hint, options, maxVisible = DEFAULT_MAX_VISIBLE } = config;
+
+  return new Promise((resolve) => {
+    let query = '';
+    let cursor = 0;
+    let lastHeight = 0;
+    const selected = new Set<number>();
+
+    const filtered = (): FilteredOption[] =>
+      options
+        .map((option, index) => ({ option, index }))
+        .filter(({ option }) => matches(option, query));
+
+    const buildLines = (): string[] => {
+      const visible = filtered();
+      const lines: string[] = [
+        color.bold(title),
+        color.dim(hint),
+        `${color.dim('Search:')} ${query}${color.cyan('█')}`,
+        '',
+      ];
+
+      if (visible.length === 0) {
+        lines.push(color.dim('  No matching specializations.'));
+
+        return lines;
+      }
+
+      const start = windowStart(cursor, visible.length, maxVisible);
+      const end = Math.min(visible.length, start + maxVisible);
+
+      for (let position = start; position < end; position += 1) {
+        const isActive = position === cursor;
+        const { option, index } = visible[position];
+        const box = selected.has(index) ? color.green('[x]') : '[ ]';
+        const pointer = isActive ? color.cyan('›') : ' ';
+        const rendered = isActive ? color.cyan(option.label) : option.label;
+
+        lines.push(` ${pointer} ${box} ${rendered}`);
+      }
+
+      const hiddenBefore = start;
+      const hiddenAfter = visible.length - end;
+
+      if (hiddenBefore > 0 || hiddenAfter > 0) {
+        const parts: string[] = [];
+
+        if (hiddenBefore > 0) parts.push(`↑ ${hiddenBefore} more`);
+        if (hiddenAfter > 0) parts.push(`↓ ${hiddenAfter} more`);
+
+        lines.push(color.dim(`   ${parts.join('   ')}`));
+      }
+
+      return lines;
+    };
+
+    const clear = (): void => {
+      if (lastHeight === 0) return;
+
+      stdout.write(`${ESC}[${lastHeight}A`);
+
+      for (let row = 0; row < lastHeight; row += 1)
+        stdout.write(`${ESC}[2K${ESC}[1B`);
+
+      stdout.write(`${ESC}[${lastHeight}A`);
+    };
+
+    const render = (): void => {
+      clear();
+
+      const lines = buildLines();
+
+      stdout.write(`${lines.join('\n')}\n`);
+      lastHeight = totalRows(lines);
+    };
+
+    const renderFinal = (result: number[] | undefined): void => {
+      clear();
+
+      const summary =
+        result === undefined
+          ? color.dim('Cancelled')
+          : result.length === 0
+            ? color.dim('Specializations: none')
+            : `${color.green('Specializations:')} ${result
+                .map((index) => options[index]?.label)
+                .join(', ')}`;
+
+      stdout.write(`${color.bold(title)}\n${summary}\n`);
+      lastHeight = 0;
+    };
+
+    const cleanup = (): void => {
+      stdin.off('keypress', onKeypress);
+
+      if (stdin.isTTY) stdin.setRawMode(false);
+
+      stdin.pause();
+      stdout.write(CURSOR_SHOW);
+    };
+
+    const finish = (result: number[] | undefined): void => {
+      renderFinal(result);
+      cleanup();
+      resolve(result);
+    };
+
+    const onKeypress = (_str: string, key: KeypressEvent): void => {
+      const name = key?.name;
+      const visible = filtered();
+
+      if (key?.ctrl && name === 'c') {
+        finish(undefined);
+        return;
+      }
+
+      if (name === 'escape') {
+        finish(undefined);
+        return;
+      }
+
+      if (name === 'up') {
+        cursor = Math.max(0, cursor - 1);
+        render();
+        return;
+      }
+
+      if (name === 'down') {
+        cursor = Math.min(visible.length - 1, cursor + 1);
+        render();
+        return;
+      }
+
+      if (name === 'space') {
+        const chosen = visible[cursor];
+
+        if (chosen) {
+          if (selected.has(chosen.index)) selected.delete(chosen.index);
+          else selected.add(chosen.index);
+
+          render();
+        }
+
+        return;
+      }
+
+      if (name === 'return' || name === 'enter') {
+        finish([...selected].sort((left, right) => left - right));
+        return;
+      }
+
+      if (name === 'backspace') {
+        query = query.slice(0, -1);
+        cursor = 0;
+        render();
+        return;
+      }
+
+      const sequence = key?.sequence;
+
+      if (sequence && !key.ctrl && sequence.length === 1 && sequence >= ' ') {
+        query += sequence;
+        cursor = 0;
+        render();
+      }
+    };
+
+    stdout.write(CURSOR_HIDE);
+
+    emitKeypressEvents(stdin);
+
+    if (stdin.isTTY) stdin.setRawMode(true);
+
+    stdin.resume();
+    stdin.on('keypress', onKeypress);
+
+    render();
+  });
+};

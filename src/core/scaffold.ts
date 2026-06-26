@@ -50,7 +50,7 @@ const toAbsolute = (targetDir: string, relativePath: string): string =>
 export const scaffold = async (
   options: ScaffoldOptions
 ): Promise<ScaffoldResult> => {
-  const { targetDir, provider, assets, version, now } = options;
+  const { targetDir, provider, assets, version, now, categories } = options;
   const jobs: CommandWrite[] = [
     ...templateJobs(assets.templates),
     ...hookJobs(assets.hooks),
@@ -96,6 +96,7 @@ export const scaffold = async (
     agent: provider.key,
     now,
     files: created,
+    categories,
   });
 
   await writeFileIfAbsent(
