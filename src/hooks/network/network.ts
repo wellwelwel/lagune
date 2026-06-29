@@ -1,7 +1,7 @@
 import type {
   AddressClass,
-  UrlSafetyVerdict,
-} from '../../types/hooks/url-safety.js';
+  NetworkVerdict,
+} from '../../types/hooks/network.js';
 import { classifyAddress } from './classify.js';
 import { extractHosts } from './extract.js';
 
@@ -37,7 +37,7 @@ const divergesFrom = (naiveHost: string, connectHost: string): boolean => {
 const diverges = (naiveHosts: string[], connectHost: string): boolean =>
   naiveHosts.some((naiveHost) => divergesFrom(naiveHost, connectHost));
 
-export const check = (destination: string): UrlSafetyVerdict => {
+export const check = (destination: string): NetworkVerdict => {
   const hosts = extractHosts(destination);
 
   if (hosts === null) return 'invalid url';

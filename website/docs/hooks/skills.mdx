@@ -17,11 +17,14 @@ It takes no arguments. Each line is one sub-skill followed by its tags:
 
 ```bash
 node ./.bluespec/hooks/skills.mjs
-# => regex: Regular Expression
+# => regex: Regular Expression [required]
 #    network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
 #    ...
 ```
 
 :::tip
-To actually run one of these against your code, import its file with a task, for example `@.bluespec/skills/regex.md`. See [**sub-skills**](/docs/commands/skills) for the full walkthrough.
+
+- A `[required]` sub-skill ships a hook that locally scans the workspace.
+- To actually run one of these against your code, import its file with a task, for example `@.bluespec/skills/<name>.md`. See [**sub-skills**](/docs/commands/skills) for the full walkthrough.
+
 :::

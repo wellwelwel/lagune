@@ -31,7 +31,7 @@
 
 ## Applied sub-skills <!-- Optional. The sub-skills you applied this run, each with the finding(s) it surfaced. List only the ones that applied. Reconcile with the findings: a sub-skill drops off when every finding it produced is gone. Remove this section if none applied. -->
 
-- [SUBSKILL_NAME]: [SUBSKILL_CONTRIBUTION] <!-- Example: "regex: the ReDoS-prone validator under 'Email validation'". Name the findings by their titles above, never a file path. -->
+- [SUBSKILL_NAME]: [SUBSKILL_CONTRIBUTION] <!-- Example: ".bluespec/skills/regex.md: the ReDoS-prone validator under 'Email validation'". Use the sub-skill's file path, and name the findings by their titles above. -->
 
 ## Not determined <!-- Optional. List anything the scope asked about that the code did not make clear, so a later pass or the user can resolve it. Remove this section if everything in scope was determined. -->
 

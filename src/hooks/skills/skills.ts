@@ -1,5 +1,6 @@
 import type {
   FileOutcome,
+  ListableSkillEntry,
   ScaffoldGroup,
   SkillCatalogEntry,
   SkillGroup,
@@ -7,9 +8,9 @@ import type {
 
 /** Merges built-in and user sub-skills by name, the user entry winning a name collision */
 export const merge = (
-  builtin: SkillCatalogEntry[],
-  user: SkillCatalogEntry[]
-): SkillCatalogEntry[] => {
+  builtin: ListableSkillEntry[],
+  user: ListableSkillEntry[]
+): ListableSkillEntry[] => {
   const overridden = new Set(user.map((entry) => entry.name));
   const keptBuiltin = builtin.filter((entry) => !overridden.has(entry.name));
 
@@ -111,9 +112,9 @@ export const groupOutcomesByCategory = (
 
 /** Keeps only the catalog entries whose sub-skill file is present on disk */
 export const keepPresent = (
-  catalog: SkillCatalogEntry[],
+  catalog: ListableSkillEntry[],
   presentNames: string[]
-): SkillCatalogEntry[] => {
+): ListableSkillEntry[] => {
   const present = new Set(presentNames);
 
   return catalog.filter((entry) => present.has(entry.name));
@@ -135,14 +136,17 @@ export const installedGroupKeys = (
 };
 
 /** Formats the catalog as a readable listing, one sub-skill per line with its tags */
-export const list = (catalog: SkillCatalogEntry[]): string => {
+export const list = (catalog: ListableSkillEntry[]): string => {
   if (catalog.length === 0) return 'No sub-skills available.\n';
 
-  const lines = catalog.map((entry) =>
-    entry.tags.length === 0
-      ? entry.name
-      : `${entry.name}: ${entry.tags.join(', ')}`
-  );
+  const lines = catalog.map((entry) => {
+    const base =
+      entry.tags.length === 0
+        ? entry.name
+        : `${entry.name}: ${entry.tags.join(', ')}`;
+
+    return entry.required === true ? `${base} [required]` : base;
+  });
 
   return `${lines.join('\n')}\n`;
 };

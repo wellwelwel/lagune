@@ -1,4 +1,4 @@
-import type { ExtractedHosts } from '../../types/hooks/url-safety.js';
+import type { ExtractedHosts } from '../../types/hooks/network.js';
 
 const SCHEME = /^[a-zA-Z][a-zA-Z0-9+.-]*:/;
 
@@ -29,7 +29,7 @@ const stripPort = (candidate: string): string => {
     return close === -1 ? candidate : candidate.slice(0, close + 1);
   }
 
-  return candidate.replace(/:\d+$/, '');
+  return candidate.replace(/:\d{1,5}$/, '');
 };
 
 const hostBeforeUserinfo = (authority: string): string =>

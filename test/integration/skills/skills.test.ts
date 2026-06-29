@@ -47,6 +47,34 @@ describe('list formats the catalog as a readable listing', () => {
     );
   });
 
+  it('suffixes a required entry that has tags', () => {
+    strict.strictEqual(
+      list([
+        {
+          name: 'regex',
+          tags: ['Regular Expression'],
+          groups: [],
+          required: true,
+        },
+      ]),
+      'regex: Regular Expression [required]\n'
+    );
+  });
+
+  it('suffixes a required entry that has no tags', () => {
+    strict.strictEqual(
+      list([{ name: 'alpha', tags: [], groups: [], required: true }]),
+      'alpha [required]\n'
+    );
+  });
+
+  it('leaves a non-required entry unsuffixed', () => {
+    strict.strictEqual(
+      list([{ name: 'alpha', tags: ['one'], groups: [], required: false }]),
+      'alpha: one\n'
+    );
+  });
+
   for (const entry of SKILLS_CATALOG)
     it('never repeats the name inside its own tags', () => {
       strict(
@@ -82,6 +110,28 @@ describe('merge folds user sub-skills into the built-in catalog', () => {
   it('lets the user sub-skill win a collision, replacing the built-in groups', () => {
     const merged = merge(
       [{ name: 'regex', tags: ['RegExp'], groups: ['owasp'] }],
+      [{ name: 'regex', tags: ['custom'], groups: [] }]
+    );
+
+    strict.deepStrictEqual(merged, [
+      { name: 'regex', tags: ['custom'], groups: [] },
+    ]);
+  });
+
+  it('preserves required on a built-in carried through the merge', () => {
+    const merged = merge(
+      [{ name: 'regex', tags: ['RegExp'], groups: ['owasp'], required: true }],
+      []
+    );
+
+    strict.deepStrictEqual(merged, [
+      { name: 'regex', tags: ['RegExp'], groups: ['owasp'], required: true },
+    ]);
+  });
+
+  it('drops required when the user overrides a required built-in', () => {
+    const merged = merge(
+      [{ name: 'regex', tags: ['RegExp'], groups: ['owasp'], required: true }],
       [{ name: 'regex', tags: ['custom'], groups: [] }]
     );
 
@@ -502,7 +552,12 @@ describe('installedGroupKeys lists groups with a present built-in', () => {
 describe('keepPresent filters the catalog to present sub-skills', () => {
   it('keeps only the entry whose name is present', () => {
     strict.deepStrictEqual(keepPresent(SKILLS_CATALOG, ['regex']), [
-      { name: 'regex', tags: ['Regular Expression'], groups: ['owasp'] },
+      {
+        name: 'regex',
+        tags: ['Regular Expression'],
+        groups: ['owasp'],
+        required: true,
+      },
     ]);
   });
 

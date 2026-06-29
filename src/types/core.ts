@@ -37,6 +37,7 @@ export type BuiltinSkillEntry = {
   name: string;
   tags: string[];
   groups: SkillGroupKey[];
+  required?: boolean;
 };
 
 export type SkillCatalogEntry = {
@@ -44,6 +45,8 @@ export type SkillCatalogEntry = {
   tags: string[];
   groups: string[];
 };
+
+export type ListableSkillEntry = SkillCatalogEntry & { required?: boolean };
 
 export type SkillsCatalogFile = {
   name: 'blue-spec';

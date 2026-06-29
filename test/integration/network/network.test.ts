@@ -1,8 +1,8 @@
-import type { UrlSafetyVerdict } from '../../../src/types/hooks/url-safety.js';
+import type { NetworkVerdict } from '../../../src/types/hooks/network.js';
 import { describe, it, strict } from 'poku';
-import { check } from '../../../src/hooks/url-safety/url-safety.js';
+import { check } from '../../../src/hooks/network/network.js';
 
-const expectAll = (verdict: UrlSafetyVerdict, inputs: string[]): void => {
+const expectAll = (verdict: NetworkVerdict, inputs: string[]): void => {
   for (const input of inputs)
     it(`reads ${JSON.stringify(input)} as ${verdict}`, () => {
       strict.strictEqual(check(input), verdict);

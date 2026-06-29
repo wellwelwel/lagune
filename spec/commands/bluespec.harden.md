@@ -38,6 +38,7 @@ If the input is ambiguous, prefer the most literal reading (an existing path is 
   - If it does not exist, initialize it from the template at `templates/harden-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
   - If it already exists, read what was applied before. You will reconcile it in Step 3 before applying anything new. Each applied block's identity is the plan fix it points at plus the change it records.
 - Load the charter at `.bluespec/memory/charter.md` for the governing principles, **if it exists**. The principles still bind here: never apply a fix in a way that breaks one. If the charter does not exist, apply the fixes from the plan alone.
+- Load the sub-skills that detect applied. The "Applied sub-skills" section of `.bluespec/memory/detect.md` lists them by path (`.bluespec/skills/<name>.md`). Read each file, not just the list: each carries the defense knowledge for its class of finding (uploads, shell, network, and so on), which Step 4 uses to apply the matching fix. If a listed file is missing, note it and apply the fix from the plan and charter alone.
 
 ### Step 3: Reconcile the existing record
 
@@ -53,11 +54,11 @@ If reconciling reveals the chain is inconsistent (for example the tracking map p
 
 ### Step 4: Apply the fixes, safely and one at a time
 
-This is the one place Blue Spec changes the user's code. Work carefully:
+This is the one place Blue Spec changes the user's code. Apply the planned fixes carefully:
 
-- **Confirm before you change code.** This phase edits the project. Before applying, show the user the fixes you are about to apply, in plain language, and ask them to confirm. If they decline a fix, skip it and record it under Remaining. Never apply a destructive or irreversible change (deleting data, dropping a table, rewriting history) without calling it out explicitly and getting a clear yes.
 - **One fix at a time, highest priority first.** Apply fixes in priority order (Critical, then High, then Medium, then Low). Apply each fix on its own so each change stays small, reviewable, and easy to undo.
 - **Apply the smallest change that holds the control.** Make the fix the plan described, nothing more. Do not refactor unrelated code, do not add features, do not widen the change beyond the fix.
+- **Apply each fix the way its sub-skill prescribes.** When a finding's class has a sub-skill loaded in Step 2, apply the plan's fix in line with that sub-skill's guidance. The plan decides the fix, the sub-skill informs how to apply it safely. Where they speak to the same control, follow both.
 - **Stay safe-by-default.** The change must leave the project safe out of the box. Never weaken an existing control to apply a new one, and never break a charter principle to satisfy a fix. If a fix would conflict with a principle, stop and surface the conflict to the user rather than applying it.
 - **Use real, current dependencies when one is needed.** If a fix needs a library, prefer the project's existing tools, and when a new one is genuinely needed, pin a real, maintained version and note it. Confirm the version against current documentation rather than memory.
 - **When a fix cannot be fully applied**, apply what you safely can and record the rest. Mark the block `Partial` with what is left, or `Blocked` with the reason, and leave the plan fix open. Do not force a change you are unsure of.
@@ -85,6 +86,7 @@ This is the one place Blue Spec changes the user's code. Work carefully:
 - No block for a finding the plan no longer carries, or a change no longer in the code, is still in the record, and no block is duplicated.
 - Every `Status` is one of `Applied`, `Partial`, or `Blocked`, and every `Partial` or `Blocked` fix has a matching entry under Remaining.
 - No applied change breaks a charter principle or weakens an existing control.
+- Each applied fix whose class has a sub-skill follows that sub-skill's guidance, with nothing it says about the applied control skipped.
 - The `Scope` line matches the mode you actually ran.
 - The date is ISO `YYYY-MM-DD`.
 

@@ -1,8 +1,12 @@
-export type UrlSafetyVerdict =
+export type NetworkVerdict =
   | 'safe'
   | 'private-target'
   | 'parser-divergent'
   | 'invalid url';
+
+export type NetworkRequest = {
+  urls: string[];
+};
 
 export type AddressClass =
   | 'metadata'

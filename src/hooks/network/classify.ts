@@ -1,4 +1,4 @@
-import type { AddressClass, IPv4Range } from '../../types/hooks/url-safety.js';
+import type { AddressClass, IPv4Range } from '../../types/hooks/network.js';
 import {
   DOTTED_QUAD,
   packOctets,

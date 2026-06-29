@@ -56,10 +56,17 @@ await describe('the scaffolded skills hook lists what is installed', async () =>
     });
 
     const output = await runSkills(workspace);
+    const regexLine = output
+      .split('\n')
+      .find((line) => line.startsWith('regex'));
 
     strict(
-      output.includes('regex'),
+      regexLine !== undefined,
       'the listing should mention the installed regex sub-skill'
+    );
+    strict(
+      regexLine?.endsWith(' [required]') === true,
+      'an installed required built-in line carries the [required] suffix'
     );
   });
 

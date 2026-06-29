@@ -119,6 +119,26 @@ for (const spec of AGENT_SPECS) {
       );
     });
 
+    await it('scaffolds the detect command with its template path rewritten', async () => {
+      const workspace = await newWorkspace();
+
+      await initInto(workspace, { init: true, agent: spec.key });
+
+      const command = await readFile(
+        join(workspace, commandPathFor(spec.key, 'bluespec.detect')),
+        'utf8'
+      );
+
+      strict(
+        command.includes('.bluespec/templates/detect-template.md'),
+        'the detect template path points into .bluespec'
+      );
+      strict(
+        !command.includes('`templates/detect-template.md`'),
+        'the bare detect template path does not remain'
+      );
+    });
+
     await it('scaffolds the plan command with its template path rewritten', async () => {
       const workspace = await newWorkspace();
 

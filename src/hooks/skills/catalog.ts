@@ -5,6 +5,7 @@ export const SKILLS_CATALOG: BuiltinSkillEntry[] = [
     name: 'regex',
     tags: ['Regular Expression'],
     groups: ['owasp'],
+    required: true,
   },
   {
     name: 'javascript',

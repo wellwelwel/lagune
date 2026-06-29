@@ -30,7 +30,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Hooks',
-      items: ['hooks/regex', 'hooks/url-safety', 'hooks/skills'],
+      items: ['hooks/regex', 'hooks/network', 'hooks/skills'],
     },
     'supported-agents',
     'requirements',

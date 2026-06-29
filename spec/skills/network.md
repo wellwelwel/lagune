@@ -52,13 +52,13 @@ A blocklist cannot win, there is always one more form. Allow only what is known-
 
 ##### How to check a destination
 
-Blue Spec ships a deterministic checker for the textual-form bypasses above, one destination at a time. Pass the URL or host as a single quoted argument so quotes or backticks in it cannot break the command:
+Blue Spec ships a deterministic checker for the textual-form bypasses above. Pass each destination with `-u`, quoting it so quotes or backticks cannot break the command. Repeat `-u` to score in one call every host an allowlist or denylist names, and every literal the validation compares against, one verdict per line, in order:
 
 ```bash
-node ./.bluespec/hooks/url-safety.mjs '<URL-OR-HOST>'
+node ./.bluespec/hooks/network.mjs -u '<URL-OR-HOST>' -u '<URL-OR-HOST>'
 ```
 
-Feed it each host an allowlist or denylist names, and each literal the validation compares against, one call per destination. It resolves the host the way the network does (hex, octal, dotless, shorthand, IPv6, IPv4-mapped, trailing dots) with no DNS lookup, and prints one of four words:
+It resolves the host the way the network does (hex, octal, dotless, shorthand, IPv6, IPv4-mapped, trailing dots) with no DNS lookup, and prints one of four words:
 
 - **`safe`**: connects to a public host, and a sloppy validator would read the same host.
 - **`private-target`**: resolves to a private, loopback, link-local, unspecified, or cloud-metadata address.

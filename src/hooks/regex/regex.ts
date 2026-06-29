@@ -3,7 +3,7 @@ import type {
   RegexSafetyOptions,
   RegexVerdict,
 } from '../../types/hooks/regex.js';
-import { scanQuantifiers } from './scan.js';
+import { scanQuantifiers } from './quantifiers.js';
 
 const DEFAULT_REPETITION_LIMIT = 25;
 
@@ -27,14 +27,12 @@ const validSource = (regex: RegexInput): string | null => {
 export const parseLimit = (raw: string | undefined): number | undefined => {
   if (raw === undefined) return undefined;
 
-  const limit = Number(raw);
-
-  if (!Number.isInteger(limit) || limit < 0)
+  if (!/^\d+$/.test(raw))
     throw new Error(
       `repetition limit must be a non-negative integer, got "${raw}"`
     );
 
-  return limit;
+  return Number(raw);
 };
 
 /** Classifies a regex as `safe`, ReDoS-prone `unsafe`, or `invalid regex` */

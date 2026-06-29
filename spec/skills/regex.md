@@ -13,25 +13,38 @@
 
 On a crafted input, the pattern takes an exploding amount of time to match, stalling or overloading the system.
 
-#### How to check a pattern
+#### Start by mapping the workspace
 
-Blue Spec ships a deterministic checker. Run it from the project root, passing the pattern as a single argument so its quotes or backticks cannot break the command:
-
-```bash
-node ./.bluespec/hooks/regex.mjs '<PATTERN>'
-```
-
-It accepts an optional second argument, a custom repetition limit (a non-negative integer), for patterns with many small repeats:
+Begin every ReDoS pass with the deterministic scanner:
 
 ```bash
-node ./.bluespec/hooks/regex.mjs '<PATTERN>' <LIMIT>
+node ./.bluespec/hooks/regex.mjs           # scans the whole project
+node ./.bluespec/hooks/regex.mjs -d <DIR>  # scans a directory
+node ./.bluespec/hooks/regex.mjs -f <FILE> # scans a single file
 ```
 
-Pass the pattern's source only, without the surrounding slashes or flags. Check each suspicious pattern you found in the code, one call per pattern.
+- `-d` and `-f` repeat to scan several targets at once.
+- The header `Vulnerable regular expressions found:` **is the `unsafe` verdict for every pattern beneath it**, so each is a closed finding.
+- The scan is best-effort, so keep reading the code for what it cannot reach: a pattern built across lines, or one hidden behind an alias.
+
+#### How to check a pattern the scan missed
+
+Use `-p` only for a pattern the scan could not reach. Quote each pattern so its slashes or backticks cannot break the command:
+
+```bash
+node ./.bluespec/hooks/regex.mjs -p '<PATTERN>'
+```
+
+- `-p` cannot combine with `-f` or `-d`.
+- Repeat `-p` to check several at once, one verdict printed per pattern, in order.
+- `-l` sets a custom repetition limit (a non-negative integer) for patterns with many small repeats. It applies to every `-p` in the call, and to a scan:
+  ```bash
+  node ./.bluespec/hooks/regex.mjs -p '<PATTERN>' -l <LIMIT>
+  ```
 
 #### How to read the verdict
 
-The checker prints exactly one of three words:
+Scan and `-p` report the same verdict: a pattern under the scan's `unsafe` header already carries it, and a `-p` check prints exactly one of three words:
 
 - **`safe`**: the pattern is not ReDoS-prone by this check. It passes.
 - **`unsafe`**: the pattern is ReDoS-prone (nested or stacked quantifiers that can backtrack explosively). Always treat it as a real risk, without exception.
