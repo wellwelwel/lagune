@@ -1,6 +1,6 @@
 ---
 name: engineering
-description: Authoritative engineering reference for the Blue Spec codebase. Covers the toolchain (runtimes, bundler, type-checking, tests), code conventions, type rules, the build and distribution path, and the implementation of the deterministic tracking hooks (the shared core module, the hooks, the CLI runner). Use BEFORE writing or changing any source under src/ or test/, before touching the build path, and whenever you apply the code conventions or type rules. For repository layout, the command/template split, the agent-agnostic core vs. adapter boundary, what Blue Spec scaffolds, and the tracking-map model, use the architecture skill.
+description: Authoritative engineering reference for the Blue Spec codebase. Covers the toolchain (runtimes, bundler, type-checking, tests), code conventions, type rules, the build and distribution path, and how the tracking hooks are implemented. Use BEFORE writing or changing any source under src/ or test/, before touching the build, or when applying the code conventions or type rules. For repository layout, the core/adapter boundary, and what Blue Spec scaffolds, use the architecture skill.
 user-invocable: true
 metadata:
   internal: true
