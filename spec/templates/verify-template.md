@@ -1,7 +1,7 @@
 # [PROJECT_NAME] Verification Report <!-- Example: the project's name followed by "Verification Report" -->
 
-**Scope:** [SCOPE] <!-- Example: one of these, matching how it was run: all applied controls, or the named controls or paths, or the chosen priorities -->
-**Verified:** [VERIFY_DATE] <!-- Example: today's date in ISO format, such as 2026-06-11 -->
+- **Scope:** [SCOPE] <!-- Example: one of these, matching how it was run: all applied controls, or the named controls or paths, or the chosen priorities -->
+- **Verified:** [VERIFY_DATE] <!-- Example: today's date in ISO format, such as 2026-06-11 -->
 
 ## Results
 
@@ -24,21 +24,21 @@
 
 ### [FINDING_1_NAME] <!-- Example: the detect finding's name, copied verbatim from the record and detect.md so this is the same item. Do not rename it and do not add an action prefix. -->
 
-**Result:** [RESULT_1_RESULT] <!-- Example: one of ✅ Risk closed, ❌ Risk not closed, or ❓ Cannot tell from the code, with the icon first and the risk named in plain language. For an upload: "✅ Risk closed: uploads can no longer smuggle in a disguised file." Or: "❌ Risk not closed: a template can still run arbitrary code." -->
-**How proven:** [RESULT_1_METHOD] <!-- Example: the code you read at the control's Where, and how it matched (or did not) what the record claims, in plain language. For an upload: read handleUpload and saw it detects the file's real type from its content, enforces a size limit, and refuses anything else, exactly as the record claims. Or, contradicting the record: the record says the type is validated, but the code still trusts the type the client sends. -->
-**Evidence:** [RESULT_1_EVIDENCE] <!-- Example: a short, plain-language note of what you read (the function or area) and what the code showed there, such as "read handleUpload and saw it detects the real file type from content". Name the area, not the file path: the path lives in the tracking map. -->
+- **Result:** [RESULT_1_RESULT] <!-- Example: one of ✅ Risk closed, ❌ Risk not closed, or ❓ Cannot tell from the code, with the icon first and the risk named in plain language. For an upload: "✅ Risk closed: uploads can no longer smuggle in a disguised file." Or: "❌ Risk not closed: a template can still run arbitrary code." -->
+- **How proven:** [RESULT_1_METHOD] <!-- Example: the code you read at the control's Where, and how it matched (or did not) what the record claims, in plain language. For an upload: read handleUpload and saw it detects the file's real type from its content, enforces a size limit, and refuses anything else, exactly as the record claims. Or, contradicting the record: the record says the type is validated, but the code still trusts the type the client sends. -->
+- **Evidence:** [RESULT_1_EVIDENCE] <!-- Example: a short, plain-language note of what you read (the function or area) and what the code showed there, such as "read handleUpload and saw it detects the real file type from content". Name the area, not the file path: the path lives in the tracking map. -->
 
 ### [FINDING_2_NAME]
 
-**Result:** [RESULT_2_RESULT]
-**How proven:** [RESULT_2_METHOD]
-**Evidence:** [RESULT_2_EVIDENCE]
+- **Result:** [RESULT_2_RESULT]
+- **How proven:** [RESULT_2_METHOD]
+- **Evidence:** [RESULT_2_EVIDENCE]
 
 ### [FINDING_3_NAME]
 
-**Result:** [RESULT_3_RESULT]
-**How proven:** [RESULT_3_METHOD]
-**Evidence:** [RESULT_3_EVIDENCE]
+- **Result:** [RESULT_3_RESULT]
+- **How proven:** [RESULT_3_METHOD]
+- **Evidence:** [RESULT_3_EVIDENCE]
 
 ## Applied sub-skills <!-- Optional. The sub-skills you applied this run, each with the verdict(s) it informed. List only the ones that applied. Reconcile with the results: a sub-skill drops off when every verdict it informed is gone. Remove this section if none applied. -->
 

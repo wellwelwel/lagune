@@ -8,13 +8,13 @@
 
 [PRINCIPLE_1_RULE] <!-- Example: All secrets load from the environment or a secrets manager. None are committed to the repository. -->
 
-Why: [PRINCIPLE_1_RISK] <!-- Example: A leaked key in git history is a full account takeover, and history is forever. -->
+- Why: [PRINCIPLE_1_RISK] <!-- Example: A leaked key in git history is a full account takeover, and history is forever. -->
 
 ### [PRINCIPLE_2_NAME] <!-- Example: II. All input is untrusted until validated -->
 
 [PRINCIPLE_2_RULE] <!-- Example: Data from users, uploads, and third parties is validated and escaped before it is used in queries, commands, or output. -->
 
-Why: [PRINCIPLE_2_RISK] <!-- Example: Unchecked input is how injection attacks take over a system, whether it is SQL in a query, a command in a shell call, or a script in a page. -->
+- Why: [PRINCIPLE_2_RISK] <!-- Example: Unchecked input is how injection attacks take over a system, whether it is SQL in a query, a command in a shell call, or a script in a page. -->
 
 ## Governance <!-- Example: This charter supersedes ad hoc decisions. Changes are reviewed and the version is updated. -->
 

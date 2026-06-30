@@ -1,7 +1,7 @@
 # [PROJECT_NAME] Hardening Record <!-- Example: the project's name followed by "Hardening Record" -->
 
-**Scope:** [SCOPE] <!-- Example: one of these, matching how it was run: all plan fixes, or the named fixes or paths, or the chosen priorities -->
-**Hardened:** [HARDEN_DATE] <!-- Example: today's date in ISO format, such as 2026-06-11 -->
+- **Scope:** [SCOPE] <!-- Example: one of these, matching how it was run: all plan fixes, or the named fixes or paths, or the chosen priorities -->
+- **Hardened:** [HARDEN_DATE] <!-- Example: today's date in ISO format, such as 2026-06-11 -->
 
 ## Applied
 
@@ -18,21 +18,21 @@
 
 ### [FINDING_1_NAME] <!-- Example: the detect finding's name, copied verbatim from the plan and detect.md so this is the same item. Do not rename it and do not add an action prefix. -->
 
-**Status:** [APPLIED_1_STATUS] <!-- Example: one of Applied, Partial, or Blocked -->
-**What changed:** [APPLIED_1_CHANGE] <!-- Example: the change made, in plain language. For an upload: added real file-type and size validation, rejected anything unexpected, randomized the saved filename, and moved the directory to where it cannot be run as code. -->
-**Where:** [APPLIED_1_EVIDENCE] <!-- Example: a short, plain-language note of where the change landed (the function or area) and any dependency added, such as "the handleUpload function, plus the file-type library added". Name the area, not the file path: the path lives in the tracking map. -->
+- **Status:** [APPLIED_1_STATUS] <!-- Example: one of Applied, Partial, or Blocked -->
+- **What changed:** [APPLIED_1_CHANGE] <!-- Example: the change made, in plain language. For an upload: added real file-type and size validation, rejected anything unexpected, randomized the saved filename, and moved the directory to where it cannot be run as code. -->
+- **Where:** [APPLIED_1_EVIDENCE] <!-- Example: a short, plain-language note of where the change landed (the function or area) and any dependency added, such as "the handleUpload function, plus the file-type library added". Name the area, not the file path: the path lives in the tracking map. -->
 
 ### [FINDING_2_NAME]
 
-**Status:** [APPLIED_2_STATUS]
-**What changed:** [APPLIED_2_CHANGE]
-**Where:** [APPLIED_2_EVIDENCE]
+- **Status:** [APPLIED_2_STATUS]
+- **What changed:** [APPLIED_2_CHANGE]
+- **Where:** [APPLIED_2_EVIDENCE]
 
 ### [FINDING_3_NAME]
 
-**Status:** [APPLIED_3_STATUS]
-**What changed:** [APPLIED_3_CHANGE]
-**Where:** [APPLIED_3_EVIDENCE]
+- **Status:** [APPLIED_3_STATUS]
+- **What changed:** [APPLIED_3_CHANGE]
+- **Where:** [APPLIED_3_EVIDENCE]
 
 ## Remaining <!-- Optional. List anything left to finish: the rest of a Partial fix, a Blocked fix and why it is stuck, or a plan fix this run did not reach. Each item names the plan fix it belongs to, so the plan and this record stay in step. Remove this section if every in-scope fix is fully Applied. -->
 

@@ -1,7 +1,7 @@
 # [PROJECT_NAME] Detect Map <!-- Example: the project's name followed by "Detect Map" -->
 
-**Scope:** [SCOPE] <!-- Example: one of these, matching how it was run: a full project scan, or the specific paths given, or the focus described -->
-**Mapped:** [DETECT_DATE] <!-- Example: today's date in ISO format, such as 2026-06-11 -->
+- **Scope:** [SCOPE] <!-- Example: one of these, matching how it was run: a full project scan, or the specific paths given, or the focus described -->
+- **Mapped:** [DETECT_DATE] <!-- Example: today's date in ISO format, such as 2026-06-11 -->
 
 ## Findings
 
@@ -13,21 +13,21 @@
 
 ### [FINDING_1_NAME] <!-- Example: a short name for what was detected, such as "File uploads", "Command-line arguments", "Deserialization", or "Local credential storage", depending on the project -->
 
-**What it is:** [FINDING_1_SUMMARY] <!-- Example: a plain-language description of what the system does here, such as "The system accepts files uploaded by users" or "The CLI passes its argument straight to a shell command" -->
-**Why it matters:** [FINDING_1_RISK] <!-- Example: the risk it carries, in plain language: what could go wrong, not just the fact. For an unchecked upload, a file disguised as an image could become code execution. For an unescaped CLI argument, an attacker could inject their own command. -->
-**Evidence:** [FINDING_1_EVIDENCE] <!-- Example: a short, plain-language note of where the finding lives, such as "the makeThumbnail function, which builds a shell command from the name" or "the GET /thumb route". Name the function or area, not the file path: the path lives in the tracking map. -->
+- **What it is:** [FINDING_1_SUMMARY] <!-- Example: a plain-language description of what the system does here, such as "The system accepts files uploaded by users" or "The CLI passes its argument straight to a shell command" -->
+- **Why it matters:** [FINDING_1_RISK] <!-- Example: the risk it carries, in plain language: what could go wrong, not just the fact. For an unchecked upload, a file disguised as an image could become code execution. For an unescaped CLI argument, an attacker could inject their own command. -->
+- **Evidence:** [FINDING_1_EVIDENCE] <!-- Example: a short, plain-language note of where the finding lives, such as "the makeThumbnail function, which builds a shell command from the name" or "the GET /thumb route". Name the function or area, not the file path: the path lives in the tracking map. -->
 
 ### [FINDING_2_NAME]
 
-**What it is:** [FINDING_2_SUMMARY]
-**Why it matters:** [FINDING_2_RISK]
-**Evidence:** [FINDING_2_EVIDENCE]
+- **What it is:** [FINDING_2_SUMMARY]
+- **Why it matters:** [FINDING_2_RISK]
+- **Evidence:** [FINDING_2_EVIDENCE]
 
 ### [FINDING_3_NAME]
 
-**What it is:** [FINDING_3_SUMMARY]
-**Why it matters:** [FINDING_3_RISK]
-**Evidence:** [FINDING_3_EVIDENCE]
+- **What it is:** [FINDING_3_SUMMARY]
+- **Why it matters:** [FINDING_3_RISK]
+- **Evidence:** [FINDING_3_EVIDENCE]
 
 ## Applied sub-skills <!-- Optional. The sub-skills you applied this run, each with the finding(s) it surfaced. List only the ones that applied. Reconcile with the findings: a sub-skill drops off when every finding it produced is gone. Remove this section if none applied. -->
 
