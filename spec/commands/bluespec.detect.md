@@ -29,7 +29,7 @@ If the input is ambiguous between a path and a focus, prefer the most literal re
 ### Step 2: Load context
 
 - Load the detect map at `.bluespec/memory/detect.md`.
-  - If it does not exist, initialize it from the template at `templates/detect-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
+  - If it does not exist, initialize it from the template at `.bluespec/templates/detect-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
   - If it already exists, read the findings already in it. You will reconcile them in Step 3 before adding anything new. Each finding's identity is its name (the section title), which the later phases reuse verbatim. The prose carries the wording, never the file path: the path lives only in the tracking map, where reconcile keeps it current.
 - Load the charter at `.bluespec/memory/charter.md` for context only, **if it exists**. Do not force the findings to fit the charter. Matching risks against the charter's rules is the plan phase, not this one. This phase stays a neutral detection of what the system does.
 

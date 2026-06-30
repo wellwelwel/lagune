@@ -16,7 +16,7 @@ Read and follow `@spec/commands/bluespec.specialize.md` in full. Its authoring s
 | Command path (end-user target)                                     | Native path (use this instead)                                                      |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
 | `.bluespec/skills/{regex,javascript,browser}.md` (worked examples) | every `*.md` already in `spec/skills/` (list the directory, mirror the closest one) |
-| `templates/specialize-template.md`                                 | `spec/templates/specialize-template.md`                                             |
+| `.bluespec/templates/specialize-template.md`                       | `spec/templates/specialize-template.md`                                             |
 | `node ./.bluespec/hooks/skills.mjs` (list what exists)             | read `spec/skills/` and `SKILLS_CATALOG` in `src/hooks/skills/catalog.ts`           |
 | `.bluespec/skills/<name>.md` (the sub-skill file)                  | `spec/skills/<name>.md`                                                             |
 | `.bluespec/skills.json` (catalog entry)                            | a `BuiltinSkillEntry` in `src/hooks/skills/catalog.ts`                              |

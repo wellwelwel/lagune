@@ -12,7 +12,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 ## Outline
 
-You are giving Blue Spec a new **specialty**: a focused, language-agnostic security sub-skill the detect and verify phases load on demand, listed by the `skills` hook and importable directly with `@.bluespec/skills/<name>.md`. You distill the user's source or topic into it. A sub-skill audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `templates/specialize-template.md`, and the built-in sub-skills under `.bluespec/skills/` (`regex`, `javascript`, `browser`) are worked examples to mirror.
+You are giving Blue Spec a new **specialty**: a focused, language-agnostic security sub-skill the detect and verify phases load on demand, listed by the `skills` hook and importable directly with `@.bluespec/skills/<name>.md`. You distill the user's source or topic into it. A sub-skill audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `.bluespec/templates/specialize-template.md`, and the built-in sub-skills under `.bluespec/skills/` (`regex`, `javascript`, `browser`) are worked examples to mirror.
 
 The result is two files: the sub-skill at `.bluespec/skills/<name>.md`, and a one-line entry in the catalog `.bluespec/skills.json` so the dispatcher hook lists it. You write both. You never touch the user's source.
 
@@ -47,7 +47,7 @@ In plain language, work out what the sub-skill must check, what distinguishes a 
 
 ### Step 5: Author from the template
 
-Fill in `templates/specialize-template.md`:
+Fill in `.bluespec/templates/specialize-template.md`:
 
 - Set the `# [SKILL_DOMAIN] vulnerabilities` title to the terrain you settled in Step 3.
 - Keep the purpose line, the two rules under `## Rules`, and the detect/verify shape under `## How to act on the result` verbatim.

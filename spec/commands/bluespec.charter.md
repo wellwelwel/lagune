@@ -18,7 +18,7 @@ This phase reads the project to decide **which principles it needs**, never to m
 
 ### Step 1: Load the charter and pick the mode
 
-Load the charter at `.bluespec/memory/charter.md`. If it does not exist, initialize it from the template at `templates/charter-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
+Load the charter at `.bluespec/memory/charter.md`. If it does not exist, initialize it from the template at `.bluespec/templates/charter-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
 
 The User Input above selects one of two modes. The mode sets where the direction comes from, not how deep the reading goes (Step 2 governs that):
 

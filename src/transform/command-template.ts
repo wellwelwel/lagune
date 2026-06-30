@@ -1,9 +1,4 @@
-import type {
-  BundledAsset,
-  CommandFormat,
-  CommandKey,
-  TemplateKey,
-} from '../types/core.js';
+import type { BundledAsset, CommandFormat, CommandKey } from '../types/core.js';
 
 const ARGUMENT_HINTS: Record<CommandKey, string> = {
   charter:
@@ -23,33 +18,9 @@ const ARGUMENT_HINTS: Record<CommandKey, string> = {
     'Optionally name findings or files/dirs to prove, or leave empty to prove every detected finding',
 };
 
-const TEMPLATE_FILES: Record<TemplateKey, string> = {
-  charter: 'charter-template.md',
-  detect: 'detect-template.md',
-  plan: 'plan-template.md',
-  harden: 'harden-template.md',
-  verify: 'verify-template.md',
-  specialize: 'specialize-template.md',
-  prove: 'proof-template.md',
-};
-
 const FRONTMATTER_PATTERN = /^---\n([\s\S]*?)\n---\n/;
 
 const skillName = (key: CommandKey): string => `bluespec.${key}`;
-
-const hasTemplate = (key: CommandKey): key is TemplateKey =>
-  key in TEMPLATE_FILES;
-
-const rewriteTemplatePath = (body: string, key: CommandKey): string => {
-  if (!hasTemplate(key)) return body;
-
-  const fileName = TEMPLATE_FILES[key];
-
-  return body.replaceAll(
-    `\`templates/${fileName}\``,
-    `\`.bluespec/templates/${fileName}\``
-  );
-};
 
 const hasField = (frontmatter: string, field: string): boolean =>
   frontmatter
@@ -84,12 +55,8 @@ const readDescription = (frontmatter: string): string => {
   return match[1].trim();
 };
 
-const assemble = (
-  frontmatterLines: string[],
-  body: string,
-  key: CommandKey
-): string =>
-  rewriteTemplatePath(`---\n${frontmatterLines.join('\n')}\n---\n${body}`, key);
+const assemble = (frontmatterLines: string[], body: string): string =>
+  `---\n${frontmatterLines.join('\n')}\n---\n${body}`;
 
 const injectSkillFrontmatter = (
   asset: BundledAsset,
@@ -98,8 +65,7 @@ const injectSkillFrontmatter = (
 ): string => {
   const { frontmatter, body } = parseFrontmatter(asset, key);
 
-  if (hasField(frontmatter, 'name'))
-    return rewriteTemplatePath(asset.contents, key);
+  if (hasField(frontmatter, 'name')) return asset.contents;
 
   const lines = [`name: ${skillName(key)}`, frontmatter.trim()];
 
@@ -109,7 +75,7 @@ const injectSkillFrontmatter = (
   if (withUserInvocable && !hasField(frontmatter, 'user-invocable'))
     lines.push('user-invocable: true');
 
-  return assemble(lines, body, key);
+  return assemble(lines, body);
 };
 
 const transformSkill = (asset: BundledAsset, key: CommandKey): string =>
@@ -118,20 +84,14 @@ const transformSkill = (asset: BundledAsset, key: CommandKey): string =>
 const transformCopilotPrompt = (asset: BundledAsset, key: CommandKey): string =>
   injectSkillFrontmatter(asset, key, { withUserInvocable: false });
 
-const keepFrontmatterRewriteTemplatePath = (
-  asset: BundledAsset,
-  key: CommandKey
-): string => {
+const validateFrontmatter = (asset: BundledAsset, key: CommandKey): string => {
   parseFrontmatter(asset, key);
 
-  return rewriteTemplatePath(asset.contents, key);
+  return asset.contents;
 };
 
 const transformForge = (asset: BundledAsset, key: CommandKey): string =>
-  keepFrontmatterRewriteTemplatePath(asset, key).replaceAll(
-    '$ARGUMENTS',
-    '{{parameters}}'
-  );
+  validateFrontmatter(asset, key).replaceAll('$ARGUMENTS', '{{parameters}}');
 
 const splitDescriptionAndBody = (
   asset: BundledAsset,
@@ -141,7 +101,7 @@ const splitDescriptionAndBody = (
 
   return {
     description: readDescription(frontmatter),
-    body: rewriteTemplatePath(body, key),
+    body,
   };
 };
 
@@ -188,7 +148,7 @@ const TRANSFORMS: Record<
 > = {
   skill: transformSkill,
   'copilot-prompt': transformCopilotPrompt,
-  markdown: keepFrontmatterRewriteTemplatePath,
+  markdown: validateFrontmatter,
   forge: transformForge,
   'gemini-toml': transformGeminiToml,
   'goose-yaml': transformGooseYaml,

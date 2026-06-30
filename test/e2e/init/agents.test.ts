@@ -99,7 +99,7 @@ for (const spec of AGENT_SPECS) {
       );
     });
 
-    await it('rewrites the template path into .bluespec', async () => {
+    await it('scaffolds the charter command pointing at its template', async () => {
       const workspace = await newWorkspace();
 
       await initInto(workspace, { init: true, agent: spec.key });
@@ -115,11 +115,11 @@ for (const spec of AGENT_SPECS) {
       );
       strict(
         !command.includes('`templates/charter-template.md`'),
-        'the bare template path does not remain'
+        'the bare template path does not leak'
       );
     });
 
-    await it('scaffolds the detect command with its template path rewritten', async () => {
+    await it('scaffolds the detect command pointing at its template', async () => {
       const workspace = await newWorkspace();
 
       await initInto(workspace, { init: true, agent: spec.key });
@@ -135,11 +135,11 @@ for (const spec of AGENT_SPECS) {
       );
       strict(
         !command.includes('`templates/detect-template.md`'),
-        'the bare detect template path does not remain'
+        'the bare detect template path does not leak'
       );
     });
 
-    await it('scaffolds the plan command with its template path rewritten', async () => {
+    await it('scaffolds the plan command pointing at its template', async () => {
       const workspace = await newWorkspace();
 
       await initInto(workspace, { init: true, agent: spec.key });
@@ -155,11 +155,11 @@ for (const spec of AGENT_SPECS) {
       );
       strict(
         !command.includes('`templates/plan-template.md`'),
-        'the bare plan template path does not remain'
+        'the bare plan template path does not leak'
       );
     });
 
-    await it('scaffolds the harden command with its template path rewritten', async () => {
+    await it('scaffolds the harden command pointing at its template', async () => {
       const workspace = await newWorkspace();
 
       await initInto(workspace, { init: true, agent: spec.key });
@@ -175,11 +175,11 @@ for (const spec of AGENT_SPECS) {
       );
       strict(
         !command.includes('`templates/harden-template.md`'),
-        'the bare harden template path does not remain'
+        'the bare harden template path does not leak'
       );
     });
 
-    await it('scaffolds the verify command with its template path rewritten', async () => {
+    await it('scaffolds the verify command pointing at its template', async () => {
       const workspace = await newWorkspace();
 
       await initInto(workspace, { init: true, agent: spec.key });
@@ -195,7 +195,7 @@ for (const spec of AGENT_SPECS) {
       );
       strict(
         !command.includes('`templates/verify-template.md`'),
-        'the bare verify template path does not remain'
+        'the bare verify template path does not leak'
       );
     });
 

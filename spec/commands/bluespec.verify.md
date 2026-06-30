@@ -42,7 +42,7 @@ If the input is ambiguous, prefer the most literal reading (an existing path is 
     - If **nothing** in the scope you chose is in the record (the named controls match no applied control, the named paths match no control's evidence, or no control carries any of the named priorities), **stop and tell the user** to run `/bluespec.harden` on that scope first, then run the verify phase again. Do not prove a control the record does not carry.
     - If the scope is **partly** covered, verify the controls that are in the record, and record each uncovered part under **Not yet holding**. Do not stop, and do not invent a control for the uncovered part.
 - Load the verification report at `.bluespec/memory/verify.md`.
-  - If it does not exist, initialize it from the template at `templates/verify-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
+  - If it does not exist, initialize it from the template at `.bluespec/templates/verify-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
   - If it already exists, read the verdicts already in it. You will reconcile them in Step 3 before proving anything new. Each verdict's identity is the applied control it points at, named so it traces back to the hardening record.
 - Load the charter at `.bluespec/memory/charter.md` for the governing principles, **if it exists**. A control upholds a principle, so proving the control holds is proving that principle is met. If a control fails to hold, the principle it upholds is not yet met, and that belongs in the report. If the charter does not exist, prove the controls from the hardening record alone.
 
