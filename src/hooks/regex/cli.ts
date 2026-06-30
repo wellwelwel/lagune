@@ -1,3 +1,4 @@
+import type { HookResult } from '../../types/core.js';
 import type { RegexRequest } from '../../types/hooks/regex.js';
 import { resolve } from 'node:path';
 import { cwd } from 'node:process';
@@ -35,24 +36,32 @@ export const parseArgs = (args: string[]): RegexRequest => {
 const runCheck = (
   patterns: string[],
   repetitionLimit: number | undefined
-): string =>
-  patterns.map((pattern) => check(pattern, { repetitionLimit })).join('\n') +
-  '\n';
+): HookResult => {
+  const verdicts = patterns.map((pattern) =>
+    check(pattern, { repetitionLimit })
+  );
+
+  return {
+    output: verdicts.join('\n') + '\n',
+    hasFinding: verdicts.includes('unsafe'),
+  };
+};
 
 const runScan = async (
   targets: string[],
   repetitionLimit: number | undefined
-): Promise<string> => {
+): Promise<HookResult> => {
   const root = cwd();
   const paths = (targets.length > 0 ? targets : ['.']).map((target) =>
     resolve(root, target)
   );
+  const result = await scan(root, paths, repetitionLimit);
 
-  return format(await scan(root, paths, repetitionLimit));
+  return { output: format(result), hasFinding: result.unsafe.length > 0 };
 };
 
 /** Dispatches the parsed request to the per-pattern check or the workspace scan */
-export const run = async (args: string[]): Promise<string> => {
+export const run = async (args: string[]): Promise<HookResult> => {
   const request = parseArgs(args);
 
   if (request.mode === 'check')

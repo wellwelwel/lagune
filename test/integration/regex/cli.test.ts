@@ -143,14 +143,24 @@ describe('parseArgs chooses a mode from the flags', () => {
 
 describe('run dispatches the check mode', () => {
   it('prints one verdict per pattern, in order, newline-terminated', async () => {
-    strict.strictEqual(
+    strict.deepStrictEqual(
       await run(['-p', '(a+)+$', '-p', '^[a-z]+$', '-p', '(']),
-      'unsafe\nsafe\ninvalid regex\n'
+      { output: 'unsafe\nsafe\ninvalid regex\n', hasFinding: true }
     );
   });
 
   it('applies the shared limit to every pattern', async () => {
-    strict.strictEqual(await run(['-p', 'a?a?a?', '-l', '2']), 'unsafe\n');
+    strict.deepStrictEqual(await run(['-p', 'a?a?a?', '-l', '2']), {
+      output: 'unsafe\n',
+      hasFinding: true,
+    });
+  });
+
+  it('reports a finding only for unsafe, not safe or invalid', async () => {
+    strict.deepStrictEqual(await run(['-p', '^[a-z]+$', '-p', '(']), {
+      output: 'safe\ninvalid regex\n',
+      hasFinding: false,
+    });
   });
 });
 
@@ -174,26 +184,32 @@ await describe('run dispatches the scan mode', async () => {
 
   await it('scans the whole project from cwd when given no scope', async () => {
     await inWorkspace(async () => {
-      strict.strictEqual(
-        await run([]),
-        'Vulnerable regular expressions found:\n\napp.js\n  (a+)+$\n'
-      );
+      strict.deepStrictEqual(await run([]), {
+        output: 'Vulnerable regular expressions found:\n\napp.js\n  (a+)+$\n',
+        hasFinding: true,
+      });
     }, 'const re = /(a+)+$/;\n');
   });
 
   await it('scans only the directory named by -d', async () => {
     await inWorkspace(async () => {
-      strict.strictEqual(await run(['-d', '.']), 'no unsafe patterns found\n');
+      strict.deepStrictEqual(await run(['-d', '.']), {
+        output: 'no unsafe patterns found\n',
+        hasFinding: false,
+      });
     }, 'const ok = /^[a-z]+$/;\n');
   });
 
   await it('tightens the scan verdict with -l', async () => {
     await inWorkspace(async () => {
-      strict.strictEqual(await run([]), 'no unsafe patterns found\n');
-      strict.strictEqual(
-        await run(['-l', '2']),
-        'Vulnerable regular expressions found:\n\napp.js\n  a?a?a?\n'
-      );
+      strict.deepStrictEqual(await run([]), {
+        output: 'no unsafe patterns found\n',
+        hasFinding: false,
+      });
+      strict.deepStrictEqual(await run(['-l', '2']), {
+        output: 'Vulnerable regular expressions found:\n\napp.js\n  a?a?a?\n',
+        hasFinding: true,
+      });
     }, 'const re = /a?a?a?/;\n');
   });
 });

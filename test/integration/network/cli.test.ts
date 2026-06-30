@@ -52,7 +52,7 @@ describe('parseArgs reads the destinations from -u flags', () => {
 
 describe('run scores each destination', () => {
   it('prints one verdict per url, in order, newline-terminated', () => {
-    strict.strictEqual(
+    strict.deepStrictEqual(
       run([
         '-u',
         'http://example.com/',
@@ -61,22 +61,32 @@ describe('run scores each destination', () => {
         '-u',
         'not a url',
       ]),
-      'safe\nprivate-target\ninvalid url\n'
+      { output: 'safe\nprivate-target\ninvalid url\n', hasFinding: true }
     );
   });
 
   it('flags an internal target written in an encoded form', () => {
-    strict.strictEqual(run(['-u', 'http://0x7f000001/']), 'private-target\n');
+    strict.deepStrictEqual(run(['-u', 'http://0x7f000001/']), {
+      output: 'private-target\n',
+      hasFinding: true,
+    });
   });
 
   it('flags a userinfo divergence', () => {
-    strict.strictEqual(
-      run(['-u', 'http://allowed.com@evil.example/']),
-      'parser-divergent\n'
-    );
+    strict.deepStrictEqual(run(['-u', 'http://allowed.com@evil.example/']), {
+      output: 'parser-divergent\n',
+      hasFinding: true,
+    });
   });
 
-  it('scores an empty-string destination as invalid', () => {
-    strict.strictEqual(run(['-u', '']), 'invalid url\n');
+  it('reports a finding only for unsafe targets, not invalid input', () => {
+    strict.deepStrictEqual(run(['-u', 'http://example.com/']), {
+      output: 'safe\n',
+      hasFinding: false,
+    });
+    strict.deepStrictEqual(run(['-u', '']), {
+      output: 'invalid url\n',
+      hasFinding: false,
+    });
   });
 });

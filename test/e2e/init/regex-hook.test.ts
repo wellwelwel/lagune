@@ -25,13 +25,18 @@ const runRegexRaw = (workspace: string, ...args: string[]): Promise<RegexRun> =>
     );
   });
 
+const FINDING_EXIT = 1;
+
+const SAFE_EXIT = 0;
+
 const runRegex = async (
   workspace: string,
   ...args: string[]
 ): Promise<string> => {
-  const { stdout, code } = await runRegexRaw(workspace, ...args);
+  const { stdout, stderr, code } = await runRegexRaw(workspace, ...args);
 
-  if (code !== 0) throw new Error(`regex hook exited with code ${code}`);
+  if (code !== SAFE_EXIT && code !== FINDING_EXIT)
+    throw new Error(`regex hook exited with code ${code}: ${stderr.trim()}`);
 
   return stdout.trim();
 };
@@ -177,5 +182,23 @@ await describe('the scaffolded regex hook runs without install', async () => {
       stderr.trim(),
       '-p checks a pattern and cannot be combined with -d or -f'
     );
+  });
+
+  await it('exits 1 on an unsafe finding and 0 when clean', async () => {
+    const workspace = await newWorkspace();
+
+    await initInto(workspace, { init: true, agent: 'claude' });
+    await writeFile(
+      join(workspace, 'app.js'),
+      'const re = /(a+)+$/;\n',
+      'utf8'
+    );
+
+    strict.strictEqual((await runRegexRaw(workspace, '-p', '(a+)+$')).code, 1);
+    strict.strictEqual((await runRegexRaw(workspace, '-f', 'app.js')).code, 1);
+
+    strict.strictEqual((await runRegexRaw(workspace, '-p', '^abc$')).code, 0);
+    strict.strictEqual((await runRegexRaw(workspace, '-p', '(')).code, 0);
+    strict.strictEqual((await runRegexRaw(workspace, '-d', 'src')).code, 0);
   });
 });

@@ -10,7 +10,14 @@ export type ParsedCliArgs = {
   version: boolean;
 };
 
-export type HookHandler = (args: string[]) => Promise<string> | string;
+export type HookResult = {
+  output: string;
+  hasFinding: boolean;
+};
+
+export type HookReturn = string | HookResult;
+
+export type HookHandler = (args: string[]) => Promise<HookReturn> | HookReturn;
 
 export type SkillGroupKey =
   | 'owasp'
