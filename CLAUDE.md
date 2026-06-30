@@ -1,6 +1,6 @@
 # SDH (Security-Driven Hardening): Blue Spec
 
-> This file orients any AI agent (and human) working in this repository. Read it fully before making changes. It describes **what Blue Spec is**, **who it is for**, **how it is built**, and **how to work in this codebase**. For the file/folder layout and concrete structure, invoke the internal `/architecture` skill.
+> This file orients any AI agent (and human) working in this repository. Read it fully before making changes. It describes **what Blue Spec is**, **who it is for**, **how it is built**, and **how to work in this codebase**. For the file/folder layout and concrete structure, invoke the internal `/architecture` skill, and for the toolchain, code conventions, and build path, the `/engineering` skill.
 
 ---
 
@@ -83,7 +83,7 @@ These are binding instructions for any agent or contributor working here.
 5. **Defense only.** Blue Spec audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm. Dual-use security content is acceptable only in a clearly defensive, authorized framing.
 6. **TypeScript in, JavaScript out.** Author in strict TypeScript and ship compiled JavaScript. The end-user runtime is JavaScript via `npx`.
 7. **Spec-first, agent-driven, framed for security.** Build the workflow from a proven structure: templates, commands, a governing charter, and an agent that runs the phases. Reimplement that structure in our stack with a defensive purpose.
-8. **Architecture lives elsewhere.** Concrete repo structure, tooling config, and file layout belong in the internal `/architecture` skill, which an agent loads automatically when it touches the relevant code. Keep this file focused on the _what_ and _why_, and keep structural decisions in the skill.
+8. **Structure and engineering live elsewhere.** Concrete repo structure and file layout belong in the internal `/architecture` skill, and the toolchain, code conventions, type rules, and build path belong in the `/engineering` skill. Both load automatically when an agent touches the relevant code. Keep this file focused on the _what_ and _why_, and keep structural and implementation decisions in those skills.
 
 ---
 

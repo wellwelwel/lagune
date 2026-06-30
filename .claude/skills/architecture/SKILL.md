@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Authoritative architecture reference for the Blue Spec codebase. Use BEFORE writing or changing any source under src/, spec/, lib/, or test/, before adding an agent adapter, before touching the build path, and whenever a decision depends on repo layout, code conventions, the command/template split, the agent-agnostic core vs. adapter boundary, or what Blue Spec scaffolds into a target project. Covers the toolchain, directory layout, type rules, and the command formats each supported agent expects.
+description: Authoritative architecture reference for the Blue Spec codebase. Covers repository layout, the command/template split, the agent-agnostic core vs. adapter boundary, what Blue Spec scaffolds into a target project, and the tracking-map model. Use BEFORE adding an agent adapter and whenever a decision depends on repo layout, the shape of the system, or how the parts relate. For the toolchain, code conventions, type rules, the build path, and how the tracking hooks are implemented, use the engineering skill.
 user-invocable: true
 metadata:
   internal: true
@@ -8,23 +8,11 @@ metadata:
 
 # Blue Spec architecture
 
-This skill is the specialized, authoritative description of **how Blue Spec is structured**: repository layout, build and distribution, how commands and templates are organized, the core/adapter boundary, and what Blue Spec scaffolds into a target project. Consult it before changing source, before adding an agent, and whenever a decision depends on the shape of the codebase.
+This skill is the specialized, authoritative description of **how Blue Spec is structured**: repository layout, how commands and templates are organized, the core/adapter boundary, what Blue Spec scaffolds into a target project, and the tracking-map model. Consult it before changing source, before adding an agent, and whenever a decision depends on the shape of the codebase.
 
-The product mission and workflow philosophy live in [CLAUDE.md](../../../CLAUDE.md). This skill covers the _how_, not the _why_.
+The product mission and workflow philosophy live in [CLAUDE.md](../../../CLAUDE.md). The toolchain, code conventions, build path, and how the tracking hooks are implemented live in the [engineering](../engineering/SKILL.md) skill. This skill covers the _shape_, not the _build_.
 
-## Repository
-
-### Toolchain
-
-- **Runtimes:** Node.js (current LTS), Bun, and Deno. Blue Spec must run on all three, so keep code runtime-agnostic.
-- **Language:** TypeScript, authored in `src/`.
-- **Module system:** ES Modules only (ESM) throughout.
-- **Package manager:** npm, matching the npx/npm distribution path.
-- **Bundler:** esbuild (transpile and bundle only, it does not type-check).
-- **Type-checking:** `tsc --noEmit`, run separately since esbuild skips type checks.
-- **Tests:** Poku, run against each runtime: Node (`npm test`), Bun (`bun run test:bun`), and Deno (`deno task test:deno`).
-
-### Layout
+## Repository layout
 
 Top-level directories. Their internal structure is defined in the sections below.
 
@@ -38,35 +26,6 @@ Top-level directories. Their internal structure is defined in the sections below
 | `spec/templates/` | The files a command fills in (the security artifacts produced per phase).        |
 | `spec/skills/`    | Non-invocable sub-skills: on-demand knowledge the detect and verify phases load. |
 | `test/`           | Poku test suites, run against Node, Bun, and Deno.                               |
-
-## Code conventions
-
-### General
-
-- **Arrow functions over `function`.** Declare with `const`. Use a `function` only when the `this` context strictly requires it.
-- **Named exports only.** Never use `default export`.
-- **Practice early return.** Handle edge cases up front and exit, rather than nesting the main logic.
-- **No abbreviations.** Names are clear and explicit (for example `left`/`right`, not `a`/`b`, and `index`, not `i`).
-- **Avoid nested `if-else-else-if`.** Favor clean, well-decoupled approaches when branching grows.
-- **No duplicated logic or types.** Reuse existing logic and types whenever it is viable.
-- **No side effects inside loops or iterations.** Keep iteration pure.
-- **Prefer native capabilities over external dependencies** whenever possible.
-- **Always prefix native imports with `node:`** (for example `node:path`, `node:fs`).
-- **Prefer the async Node.js APIs when viable** (for example `node:fs/promises`).
-
-### Types
-
-- **All type declarations live in `src/types/`.** No `type` or `interface` is declared anywhere else in the codebase.
-- **Prefer `type`.** Use `interface` only when a class is meant to implement it.
-- **`any` and `as unknown as` are forbidden.** No exceptions.
-- **Reach for `as` last.** Prefer a direct type annotation or `satisfies`. A plain `as` cast is allowed, but only when neither of those fits.
-
-## Build & ship
-
-- **Build tool:** esbuild bundles `src/` into self-contained JavaScript in `lib/`, so the published package carries no runtime `node_modules` for the end user.
-- **Output:** `lib/` holds the shipped JavaScript. It is generated, never edited by hand.
-- **Entry point:** the `package.json` `bin` field maps the `blue-spec` command to a file in `lib/` (with a `node` shebang), so `npx blue-spec ...` runs the bundle directly.
-- **End-user install:** none. The bundle is self-contained, so running via `npx` needs no dependency install on the user's machine.
 
 ## Command & template anatomy
 
@@ -119,8 +78,5 @@ Each detect finding is one tracked **item**. The later phases carry that same it
 - **Where it lives:** `.bluespec/tracking.json`, a sibling of `manifest.json` and `memory/`. It is internal state, committed but never hand-edited and never shown to the user.
 - **Shape:** `{ name: 'blue-spec', entries: [{ name, paths }] }`, where `name` is the identity and `paths` is `string[]` (charter has no items). There is no cross-entry link: the conveyor lives in the prose (which artifact carries the item's section), not in the map. Types live in the types module under `src/types/`.
 - **Two flow acts, plus repair apart:** the map is maintained by two acts the phases perform in the normal flow, **track** (registration) and **untrack** (stand-down), and by **repair** (realignment), a maintenance act that runs only via `/bluespec.repair`, never as part of a phase. Track records each finding a phase reports and re-reports an existing item by name as a later phase writes, following a renamed path and never removing. By convention detect is where a finding is born and plan, harden, and verify re-report it, but the hook keys on the name alone and does not enforce the order. Untrack drops an item from the map: verify calls it at closure to stand a `✅ Risk closed` finding down, after removing its section from the prose artifacts. Repair realigns the whole map against the artifacts and the code, and is the only act that surfaces what is gone. Without tracking there is nothing to repair, so track is what populates the map along the normal flow.
-- **The shared core:** a pure tracking module under `src/core/` holds only what the hooks share: the map's I/O (load, serialize, write), the matcher and fold that drive registration, the removal that drives stand-down, and the payload guards (an `{ entries: [...] }` guard that requires `name` plus a `paths` string array, and a `{ names: [...] }` guard for untrack), each failing closed. The matcher finds the single map entry whose `name` equals the observed name, then overwrites `paths` in place when they changed (`moved`) or leaves it (`unchanged`), and a name with no match is `new`. Every hook consumes the same flat entry shape the file has.
-- **Each hook owns its own logic.** What is specific to one hook lives in that hook's scope, not in the core. The **track** hook registers and updates and never orphans, treating an empty payload as a no-op. The **untrack** hook removes entries by name and rejects an empty payload, never touching the prose. The **repair** hook runs the same fold but additionally surfaces every map entry whose name appears in no reported entry as `unresolved` (`orphan`, or `renamed-candidate` when its paths match a reported entry under a new name), never removing it itself, and rejects an empty payload rather than accepting it. Each exposes a pure engine the tests exercise directly, plus the payload-driven function the CLI entry runs.
-- **The hooks:** the deterministic engines ship as runnable **hooks** under `src/hooks/`, invoked as a node CLI from the project root with their input as a positional argument. Each entry holds no logic of its own: it imports its hook's pure function and ends with one call to the shared runner under `src/cli/`, which fires only when the file is the one being executed: importing an entry runs nothing, while running it reads the argument, prints the result, and exits non-zero on error. Passing the input as a process argument keeps it inert, so a value with quotes or backticks can never inject into the command. The build compiles each entry on its own into a self-contained artifact. A hook that grows past one file becomes a folder with an `index.ts` entry, and the build resolves the folder name as the artifact name. The init step copies the hooks into `.bluespec/hooks/`, so the user never installs Blue Spec: init populates everything the workflow needs, the hooks included. Hooks are read from `lib/` (compiled JS), not `spec/`, since they ship as runnable code.
 - **Who calls them:** the four phases call the **track** hook at the end of their Step 7. Detect registers the findings it wrote, and plan, harden, and verify re-report each item by the finding's name (additive, never removing). Only `/bluespec.verify` calls the **untrack** hook, at closure (its Step 8), to stand a `✅ Risk closed` finding down after it has removed the finding's section from the four prose artifacts. This is why verify alone writes across the other phases' artifacts. Only the `/bluespec.repair` command calls the **repair** hook, to realign the whole map when something diverged. The phases never repair the tracking themselves: when one notices the tracking is inconsistent (a tracked path that no longer exists), it runs `/bluespec.repair` and continues. There is no user-facing track or untrack command, both are internal plumbing.
 - **Non-goals:** the hooks are mechanical and read nothing but the snippets they are handed. The `/bluespec.repair` command reads the user's source only to learn a renamed file's new path, never to author or judge security. No hook edits the `.bluespec/memory/*.md` prose artifacts or injects IDs or anchors into them. The artifacts stay pure prose, and the one call no hook makes alone (fixed vs renamed) is returned for the agent or user to decide, never guessed.
