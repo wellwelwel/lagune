@@ -12,7 +12,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 ## Outline
 
-You are applying the **defense plan** to the code and producing a **hardening record** at `.bluespec/memory/harden.md`: a record of which plan fixes were applied, what changed in the code, and what is still left. This phase **continues from plan**. Plan already decided the fix for each finding and its priority, so this phase does not re-decide the fix: it applies it. Every change you make must come from a fix that is really in the defense plan, never a fix you invent here. This is the one phase that **changes the user's code**, so it is the one that must be the most careful.
+You are applying the **defense plan** to the code and producing a **hardening record** at `.bluespec/memory/harden.md`: a record of which plan fixes were applied, what changed in the code, and what is still left. This phase **continues from plan**. Plan already decided the fix for each finding and its priority, so this phase does not re-decide the fix: it applies it. Every change you make must come from a fix that is really in the defense plan, never a fix you invent here. This is the one phase that **changes the user's code**, so it is the one that must be the most careful: it confirms with the user before it starts.
 
 The defense plan is the primary input: the changes follow from the fixes it lists. The charter is the governing context: its principles still bind what you do, and a fix must never be applied in a way that breaks one.
 
@@ -30,7 +30,7 @@ If the input is ambiguous, prefer the most literal reading (an existing path is 
 
 - Load the defense plan at `.bluespec/memory/plan.md`. This is the **required primary input**.
   - If it does not exist, **stop and tell the user to run `/bluespec.plan` first**. There is nothing to apply without it. Do not invent fixes to work around a missing plan.
-  - If it exists, read its fixes. Each fix's name, priority, the principle it upholds, and the finding it points at is what you apply. Apply only fixes that are really in the plan.
+  - If it exists, read its fixes. Each fix's name, priority, the principle it upholds, any `Depends on` it carries, and the finding it points at is what you apply. Apply only fixes that are really in the plan.
   - **Check that the scope is covered by the plan** before applying:
     - If **nothing** in the scope you chose is in the plan (the named fixes match no fix, the named paths match no fix's finding evidence, or no fix carries any of the named priorities), **stop and tell the user** to run `/bluespec.plan` on that scope first, then run the harden phase again. Do not apply a change the plan did not call for.
     - If the scope is **partly** covered, apply the fixes that are in the plan, and record each uncovered part under **Remaining**. Do not stop, and do not invent a fix for the uncovered part.
@@ -56,7 +56,8 @@ If reconciling reveals the chain is inconsistent (for example the tracking map p
 
 This is the one place Blue Spec changes the user's code. Apply the planned fixes carefully:
 
-- **One fix at a time, highest priority first.** Apply fixes in priority order (Critical, then High, then Medium, then Low). Apply each fix on its own so each change stays small, reviewable, and easy to undo.
+- **Confirm before you change anything.** List the in-scope fixes you are about to apply, by name, in the order you will apply them: dependencies first, then highest priority. Ask the user for one confirmation to proceed. If they decline, change nothing, stop, and tell them nothing was applied. If they ask to leave some fixes out, skip those and apply the rest. Only then start editing.
+- **One fix at a time, dependencies first, then highest priority.** When a fix carries a `Depends on`, apply the fix it depends on before it, even when that one's priority is lower. Among the fixes free to apply, follow priority order (Critical, then High, then Medium, then Low). Apply each fix on its own so each change stays small, reviewable, and easy to undo.
 - **Apply the smallest change that holds the control.** Make the fix the plan described, nothing more. Do not refactor unrelated code, do not add features, do not widen the change beyond the fix.
 - **Apply each fix the way its sub-skill prescribes.** When a finding's class has a sub-skill loaded in Step 2, apply the plan's fix in line with that sub-skill's guidance. The plan decides the fix, the sub-skill informs how to apply it safely. Where they speak to the same control, follow both.
 - **Stay safe-by-default.** The change must leave the project safe out of the box. Never weaken an existing control to apply a new one, and never break a charter principle to satisfy a fix. If a fix would conflict with a principle, stop and surface the conflict to the user rather than applying it.
@@ -76,7 +77,7 @@ This is the one place Blue Spec changes the user's code. Apply the planned fixes
   - **What changed:** the change made, in plain language any reader understands.
   - **Where:** a short, plain-language note of where the change landed (the function or area) and any dependency added, so the change can be reviewed and the next phase can verify it. Do not write the file path here. The path goes to the tracking map in Step 7, where reconcile keeps it current through a rename.
 - The template ships with three starter blocks. This is a starting point, not a limit. Add or remove blocks so the record matches what was actually applied.
-- Record anything left under **Remaining**: the rest of a Partial fix, a Blocked fix and why, a fix the user declined, or a fix this run did not reach. Name the plan fix each item belongs to. Remove that section if every in-scope fix is fully `Applied`.
+- Record anything left under **Remaining**: the rest of a Partial fix, a Blocked fix and why, or a fix this run did not reach. Name the plan fix each item belongs to. Remove that section if every in-scope fix is fully `Applied`.
 - Set `Hardened` to today's date in ISO format `YYYY-MM-DD`.
 
 ### Step 6: Validate before writing
@@ -85,6 +86,7 @@ This is the one place Blue Spec changes the user's code. Apply the planned fixes
 - Every block is titled with a finding name that really exists in the defense plan, and carries Status, What changed, and Where.
 - No block for a finding the plan no longer carries, or a change no longer in the code, is still in the record, and no block is duplicated.
 - Every `Status` is one of `Applied`, `Partial`, or `Blocked`, and every `Partial` or `Blocked` fix has a matching entry under Remaining.
+- Nothing was applied before the user confirmed the run, and any fix the user left out was not applied.
 - No applied change breaks a charter principle or weakens an existing control.
 - Each applied fix whose class has a sub-skill follows that sub-skill's guidance, with nothing it says about the applied control skipped.
 - The `Scope` line matches the mode you actually ran.
@@ -103,10 +105,10 @@ Do not edit `.bluespec/tracking.json` yourself, and do not reconcile here. Track
 
 - Output a short summary to the user:
   - The scope you ran (all fixes, named fixes or paths, or priorities).
-  - The fixes applied, each with its status and a one-line note of what changed, highest priority first.
+  - The fixes applied, each with its status and a one-line note of what changed, in the order you applied them.
   - What changed since the last run: blocks added, blocks removed because the fix is gone or the change was reverted, and blocks updated.
-  - Anything left under Remaining, including any part of the scope the plan did not cover, any fix the user declined, and any Blocked fix.
+  - Anything left under Remaining, including any part of the scope the plan did not cover, and any Blocked fix.
   - A suggested commit message, for example `fix: apply security hardening from the defense plan`.
-  - **Next step:** point the user to `/bluespec.verify`, the phase that proves each applied control actually holds. Make clear the applied controls are not yet proven until verify confirms them. Frame it as the recommended next step. If anything is left under Remaining (a Blocked fix, a part the plan did not cover, or a fix the user declined), name what is still open so the user can decide whether to revisit `/bluespec.plan` or rerun `/bluespec.harden` before verifying.
+  - **Next step:** point the user to `/bluespec.verify`, the phase that proves each applied control actually holds. Make clear the applied controls are not yet proven until verify confirms them. Frame it as the recommended next step. If anything is left under Remaining (a Blocked fix, or a part the plan did not cover), name what is still open so the user can decide whether to revisit `/bluespec.plan` or rerun `/bluespec.harden` before verifying.
 
 Keep the record in plain language throughout. A non-developer should understand what was changed and what is still open, while the `Where` note stays precise enough that, with the path from the tracking map, `/bluespec.verify` can act on it.
