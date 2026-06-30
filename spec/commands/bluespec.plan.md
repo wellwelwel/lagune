@@ -45,7 +45,7 @@ When the scope points somewhere detect has not mapped, follow the coverage rules
 
 This plan is reconciled, never append-only. If the plan was empty or freshly initialized, skip this step. Otherwise, before planning anything new, re-check each existing fix against the current detect map:
 
-- **Still needed:** the finding it points at is still in the detect map and still unfixed. Keep it, and update its priority, principle, or fix if the details changed.
+- **Still needed:** the finding it points at is still in the detect map and still unfixed. Keep it, and update its priority, its reason for that priority, principle, dependency, or fix if the details changed. If a fix it depends on is gone from the detect map, drop the now-stale `Depends on`.
 - **Done or gone:** the finding it points at is no longer in the detect map, or the detect map now shows it resolved. **Remove it** from the plan. Do not keep finished fixes for history. The plan reflects the work still to do, not the past.
 - Only re-check fixes that fall within the current scope. A fix outside the scope you are running stays untouched.
 
@@ -59,7 +59,9 @@ For each in-scope detect finding, read the risk detect already recorded for it (
 
 - Title the block with the detect finding's name, verbatim, so it is the same item. Do not rename it or add an action prefix, and do not copy its file path into the plan: the path lives in the tracking map.
 - Set the priority from the risk detect recorded for that finding (see Step 5). The more serious and exposed the recorded risk, the higher the priority.
+- Write one plain-language line for why this priority: how serious the recorded risk is, and how reachable it is right now. Do not restate the risk. This lets any reader see the order is justified.
 - Name the charter principle the fix upholds, if the charter names one. If the fix supports more than one principle, name them all, separated by commas. If no principle fits, write `None directly` and keep the fix.
+- Add a `Depends on` line only when this fix cannot hold until another finding's fix lands first, for example validating an input before encoding its output. Name that other finding verbatim, and omit the line otherwise. It sets the order to apply in, not the priority: the depended-on fix is applied first even when its priority is lower.
 - Describe the control to apply: the WHAT to do, not the application. Applying is harden's job.
 
 One finding is one item. When a finding needs more than one fix, write them as more than one paragraph under its single block, never a second block. Plan what the findings support, nothing speculative.
@@ -71,7 +73,9 @@ One finding is one item. When a finding needs more than one fix, write them as m
 - **Merge, do not overwrite.** The plan now holds the reconciled fixes from Step 3 plus what you planned in Step 4. Add a new block only for a finding genuinely new, not already represented. Do not duplicate a finding that is already there under a different wording.
 - Write one block per finding, titled with the finding's name (verbatim from detect, no action prefix). Each block MUST carry these parts:
   - **Priority:** one of `Critical`, `High`, `Medium`, or `Low`, by the scale below.
+  - **Why this priority:** one plain-language line for why that level fits (see Step 4).
   - **Upholds:** the charter principle the fix supports, or several separated by commas if it supports more than one. If no charter is loaded or none fits, write `None directly` and keep the fix.
+  - **Depends on:** optional, the only optional part. Another finding this fix must follow, verbatim, several separated by commas. Omit the line when there is no real dependency.
   - **Fix:** the control to apply in harden, described not applied.
 - Use a simple priority scale, plain enough for any reader, taken from the risk detect recorded for the finding:
   - **Critical:** the recorded risk is severe and can be reached and exploited right now (for example data already exposed to anyone, an account anyone can take over, a way to run code or commands on the system). Drop everything and fix it first.
@@ -86,9 +90,12 @@ One finding is one item. When a finding needs more than one fix, write them as m
 ### Step 6: Validate before writing
 
 - No bracket tokens remain.
-- Every block is titled with a finding name that really exists in the detect map, and carries Priority, Upholds, and Fix.
+- Every block is titled with a finding name that really exists in the detect map, and carries Priority, Why this priority, Upholds, and Fix.
+- Every block has a non-empty `Why this priority` line that does not restate the risk.
 - No fix for a finding that Step 3 found resolved is still in the plan, and no finding is duplicated.
 - Every `Priority` is one of `Critical`, `High`, `Medium`, or `Low`.
+- Every `Depends on`, where present, names a finding that really exists in this plan or the detect map.
+- No dependency forms a loop. If A depends on B, B does not depend on A.
 - The `Scope` line matches the mode you actually ran.
 - The date is ISO `YYYY-MM-DD`.
 
@@ -105,7 +112,7 @@ Do not edit `.bluespec/tracking.json` yourself, and do not reconcile here. Track
 
 - Output a short summary to the user:
   - The scope you ran (all findings, named files or directories, or concern).
-  - The fixes planned, each with its priority and one-line fix, highest priority first.
+  - The fixes planned, each with its priority and one-line fix, highest priority first. When a fix depends on another, say so.
   - What changed since the last run: fixes added, fixes removed because they are now done, and fixes updated.
   - Anything left under Open questions, including any part of the scope the detect map did not cover.
   - A suggested commit message, for example `docs: update defense plan`.
