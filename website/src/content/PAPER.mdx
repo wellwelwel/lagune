@@ -11,7 +11,7 @@ Security-Driven Hardening (SDH) is a structured, AI-driven, defense-only securit
 
 This document argues that SDH is a missing convention, not a single tool. The intelligence lives in the methodology, not in the user, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
 
-**Blue Spec** is the reference implementation. It realizes SDH across 36 AI coding agents and proves the methodology is buildable and portable. This is experimental work, run only in controlled environments ahead of public release, offered as a convention others can adopt.
+**Blue Spec** is the reference implementation. It realizes SDH across 37 AI coding agents and proves the methodology is buildable and portable. This is experimental work, run only in controlled environments ahead of public release, offered as a convention others can adopt.
 
 > **Index Terms**
 >
@@ -227,7 +227,7 @@ The catalog is data, and growth is one knowledge file plus one catalog row, neve
 
 A short dispatch example illustrates prompt-on-demand. Detect reads a folder of code that runs in the browser. It matches that area in the catalog, loads the module that covers it, and surfaces a client-side finding through detect's normal steps. The modules for areas not present in this scope do not match, so they never load and are never mentioned. The project decided what knowledge was relevant, not a fixed configuration.
 
-Determinism appears precisely where it matters. A module can carry a deterministic checker, not just prose. Where a risk class has a crisp decision procedure, the module ships a small program that returns a fixed verdict for a given input, for example a short set of words such as `safe`, `unsafe`, or `invalid input`. Some risk classes are deterministically decidable in exactly this way, with a body of prior work behind the decision procedure `[9]`, `[10]`, `[11]`. The agent decides which candidates are worth checking. The checker decides whether each one is dangerous. This is where SDH grounds its agent reasoning in something repeatable, without pretending the whole flow is deterministic.
+Determinism appears precisely where it matters. A module can carry a deterministic checker, not just prose. Where a risk class has a crisp decision procedure, the module ships a small program that returns a fixed verdict for a given input, for example a short set of words such as `safe`, `unsafe`, or `invalid input`. Some risk classes are deterministically decidable in exactly this way, with a body of prior work behind the decision procedure `[9]`, `[10]`, `[11]`. The checker either scores candidates the agent supplies or scans the scope to find them itself, and in both cases the checker, not the agent, returns the verdict. This is where SDH grounds its agent reasoning in something repeatable, without pretending the whole flow is deterministic.
 
 Finally, the modules are **detachable**. Because the knowledge stands on its own, a user can run one directly in a prompt that has nothing to do with the full SDH flow, keeping security alongside ordinary development. A module with a deterministic checker can, for instance, screen each candidate produced during ordinary coding and keep only the safe ones. This detachability is part of why SDH adapts to so many situations, which is the subject of `§VIII`.
 
@@ -338,7 +338,7 @@ Two acts maintain the map in the normal flow, and a third stands apart as mainte
 
 Repair is maintenance, not a sixth phase. It touches neither the user's code nor the prose artifacts, only the tracking. It reads the user's source for one reason only, to learn a renamed file's new path, and it never authors security content. The human is the final arbiter on the one call the engine refuses to guess: whether a vanished item was resolved or merely renamed. Prefer to ask than to guess, because a wrongly dropped item breaks the chain.
 
-The methodology applies its own defense discipline to itself. The deterministic engines ship as hooks invoked as a command-line program, and the input is passed as a single positional argument. Passing the input as a process argument keeps it inert, so a value with quotes or backticks can never inject into the command. SDH does not exempt its own plumbing from the safe-by-default principle.
+The methodology applies its own defense discipline to itself. The deterministic engines ship as hooks invoked as a command-line program, and each input is passed as its own process argument, which keeps it inert, so a value with quotes or backticks can never inject into the command. SDH does not exempt its own plumbing from the safe-by-default principle.
 
 ---
 
