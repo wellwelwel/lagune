@@ -36,7 +36,7 @@ npx -y blue-spec@latest init
 
 #### Update
 
-To update **Blue Spec**'s own files to their latest versions, run:
+To update **Blue Spec**'s own files and its commands to their latest versions, run:
 
 ```bash
 npx -y blue-spec@latest update
