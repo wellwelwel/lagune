@@ -50,6 +50,8 @@ Scan and `-p` report the same verdict: a pattern under the scan's `unsafe` heade
 - **`unsafe`**: the pattern is ReDoS-prone (nested or stacked quantifiers that can backtrack explosively). Always treat it as a real risk, without exception.
 - **`invalid regex`**: the pattern did not parse.
 
+The hook exits non-zero when any pattern reads `unsafe`, and exits zero for `safe`, `invalid regex`, and a clean scan.
+
 #### Common safer shapes
 
 - **Anchor it when it fits.** Add `^` at the start and `$` at the end when the pattern is meant to match the whole input.
