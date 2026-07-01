@@ -24,7 +24,6 @@ await describe('init scaffolds the agent-agnostic core', async () => {
       'detect-template.md',
       'plan-template.md',
       'harden-template.md',
-      'verify-template.md',
     ]) {
       const source = await readFile(
         new URL(`spec/templates/${template}`, packageRoot),

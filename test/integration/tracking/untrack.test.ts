@@ -1,4 +1,5 @@
-import { stat } from 'node:fs/promises';
+import type { UntrackSummary } from '../../../src/types/core.js';
+import { readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import {
@@ -7,7 +8,24 @@ import {
   writeTrackingMap,
 } from '../../../src/core/tracking.js';
 import { untrack } from '../../../src/hooks/untrack/untrack.js';
-import { mapOf, newWorkspace } from './__utils__.js';
+import { mapOf, newWorkspace, seedMemoryFile } from './__utils__.js';
+
+const detectWith = (...findings: string[]): string =>
+  [
+    '# Project Detect Map',
+    '',
+    '## Findings',
+    '',
+    ...findings.flatMap((name) => [
+      `### ${name}`,
+      '',
+      `- **What it is:** ${name} detail.`,
+      '',
+    ]),
+  ].join('\n');
+
+const readMemory = (workspace: string, relativePath: string): Promise<string> =>
+  readFile(join(workspace, relativePath), 'utf8');
 
 describe('removeEntries drops items by name and reports what it removed', () => {
   it('removes one named entry, leaving the rest in place', () => {
@@ -146,6 +164,315 @@ await describe('the untrack hook logic', async () => {
       after.mtimeMs,
       before.mtimeMs,
       'removing a name the map never held leaves the file untouched'
+    );
+  });
+});
+
+await describe('untrack removes finding sections from the memory artifacts', async () => {
+  await it('strips the section from all three files and drops the entry', async () => {
+    const workspace = await newWorkspace();
+    await writeTrackingMap(
+      workspace,
+      mapOf([
+        { name: 'Leaked secret', paths: ['src/config.ts'] },
+        { name: 'Open redirect', paths: ['src/routes.ts'] },
+      ])
+    );
+    const body = detectWith('Leaked secret', 'Open redirect');
+    await seedMemoryFile(workspace, '.bluespec/memory/detect.md', body);
+    await seedMemoryFile(workspace, '.bluespec/memory/plan.md', body);
+    await seedMemoryFile(workspace, '.bluespec/memory/harden.md', body);
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    strict.deepStrictEqual(summary.removed, ['Leaked secret']);
+    strict.deepStrictEqual(
+      summary.prose.map((entry) => entry.status),
+      ['edited', 'edited', 'edited'],
+      'every memory file was edited'
+    );
+
+    for (const file of [
+      '.bluespec/memory/detect.md',
+      '.bluespec/memory/plan.md',
+      '.bluespec/memory/harden.md',
+    ]) {
+      const content = await readMemory(workspace, file);
+      strict.strictEqual(content.includes('### Leaked secret'), false);
+      strict.strictEqual(content.includes('### Open redirect'), true);
+    }
+
+    const map = await loadTrackingMap(workspace);
+    strict.deepStrictEqual(
+      map.entries.map((entry) => entry.name),
+      ['Open redirect']
+    );
+  });
+
+  await it('tolerates a missing memory file', async () => {
+    const workspace = await newWorkspace();
+    await writeTrackingMap(
+      workspace,
+      mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }])
+    );
+    const body = detectWith('Leaked secret');
+    await seedMemoryFile(workspace, '.bluespec/memory/detect.md', body);
+    await seedMemoryFile(workspace, '.bluespec/memory/plan.md', body);
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    const harden = summary.prose.find(
+      (entry) => entry.file === '.bluespec/memory/harden.md'
+    );
+    strict.strictEqual(harden?.status, 'absent', 'the absent file is reported');
+    strict.deepStrictEqual(summary.removed, ['Leaked secret']);
+
+    const map = await loadTrackingMap(workspace);
+    strict.strictEqual(map.entries.length, 0);
+  });
+
+  await it('reports a file where the name is already gone as unchanged', async () => {
+    const workspace = await newWorkspace();
+    await seedMemoryFile(
+      workspace,
+      '.bluespec/memory/detect.md',
+      detectWith('Leaked secret')
+    );
+    await seedMemoryFile(
+      workspace,
+      '.bluespec/memory/plan.md',
+      detectWith('Other finding')
+    );
+    await seedMemoryFile(
+      workspace,
+      '.bluespec/memory/harden.md',
+      detectWith('Leaked secret')
+    );
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    const plan = summary.prose.find(
+      (entry) => entry.file === '.bluespec/memory/plan.md'
+    );
+    strict.strictEqual(plan?.status, 'unchanged');
+    strict.deepStrictEqual(plan?.removed, []);
+  });
+
+  await it('reports a dangling mention without editing the prose that holds it', async () => {
+    const workspace = await newWorkspace();
+    const detect = `${detectWith('Leaked secret', 'Open redirect')}
+## Applied sub-skills
+
+- \`.bluespec/skills/config.md\`: surfaced "Leaked secret".
+`;
+    await seedMemoryFile(workspace, '.bluespec/memory/detect.md', detect);
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    const entry = summary.prose.find(
+      (item) => item.file === '.bluespec/memory/detect.md'
+    );
+    strict.strictEqual(entry?.status, 'edited');
+    strict.strictEqual(
+      entry?.dangling.length,
+      1,
+      'the lingering sub-skill bullet is flagged'
+    );
+    strict.strictEqual(entry?.dangling[0].name, 'Leaked secret');
+    strict.strictEqual(entry?.dangling[0].text.includes('config.md'), true);
+
+    const content = await readMemory(workspace, '.bluespec/memory/detect.md');
+    strict.strictEqual(content.includes('### Leaked secret'), false);
+    strict.strictEqual(
+      content.includes('surfaced "Leaked secret"'),
+      true,
+      'the bullet is reported, not rewritten'
+    );
+  });
+
+  await it('reports no dangling when the name only lived in its own section', async () => {
+    const workspace = await newWorkspace();
+    await seedMemoryFile(
+      workspace,
+      '.bluespec/memory/detect.md',
+      detectWith('Leaked secret', 'Open redirect')
+    );
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    strict.deepStrictEqual(
+      summary.prose.flatMap((entry) => entry.dangling),
+      [],
+      'with no cross-reference there is nothing to reconcile'
+    );
+  });
+
+  await it('flags a lingering mention even when this run edits nothing', async () => {
+    const workspace = await newWorkspace();
+    const detect = `${detectWith('Open redirect')}
+## Applied sub-skills
+
+- \`.bluespec/skills/config.md\`: surfaced "Leaked secret".
+`;
+    await seedMemoryFile(workspace, '.bluespec/memory/detect.md', detect);
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    const entry = summary.prose.find(
+      (item) => item.file === '.bluespec/memory/detect.md'
+    );
+    strict.strictEqual(
+      entry?.status,
+      'unchanged',
+      'the section was already gone, so the file is not rewritten'
+    );
+    strict.strictEqual(
+      entry?.dangling.length,
+      1,
+      'the residue is still flagged'
+    );
+  });
+
+  await it('leaves every memory file untouched when nothing matches', async () => {
+    const workspace = await newWorkspace();
+    await writeTrackingMap(
+      workspace,
+      mapOf([{ name: 'Open redirect', paths: ['src/routes.ts'] }])
+    );
+    const files = [
+      '.bluespec/memory/detect.md',
+      '.bluespec/memory/plan.md',
+      '.bluespec/memory/harden.md',
+    ];
+    for (const file of files)
+      await seedMemoryFile(workspace, file, detectWith('Open redirect'));
+
+    const before = await Promise.all(
+      files.map((file) => stat(join(workspace, file)))
+    );
+
+    await untrack(workspace, JSON.stringify({ names: ['Missing finding'] }));
+
+    const after = await Promise.all(
+      files.map((file) => stat(join(workspace, file)))
+    );
+
+    after.forEach((stamp, index) =>
+      strict.strictEqual(
+        stamp.mtimeMs,
+        before[index].mtimeMs,
+        'a file with no match is never rewritten'
+      )
+    );
+  });
+});
+
+await describe('untrack deletes a memory file once its last finding is gone', async () => {
+  const filesExist = (
+    workspace: string
+  ): Promise<{ file: string; exists: boolean }[]> =>
+    Promise.all(
+      [
+        '.bluespec/memory/detect.md',
+        '.bluespec/memory/plan.md',
+        '.bluespec/memory/harden.md',
+      ].map(async (file) => ({
+        file,
+        exists: await stat(join(workspace, file)).then(
+          () => true,
+          () => false
+        ),
+      }))
+    );
+
+  await it('removes the file and reports it removed when no finding remains', async () => {
+    const workspace = await newWorkspace();
+    for (const file of [
+      '.bluespec/memory/detect.md',
+      '.bluespec/memory/plan.md',
+      '.bluespec/memory/harden.md',
+    ])
+      await seedMemoryFile(workspace, file, detectWith('Leaked secret'));
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    strict.deepStrictEqual(
+      summary.prose.map((entry) => entry.status),
+      ['removed', 'removed', 'removed'],
+      'every emptied file is deleted, not left as a husk'
+    );
+
+    const present = await filesExist(workspace);
+    strict.deepStrictEqual(
+      present.filter((entry) => entry.exists),
+      [],
+      'no memory file survives once its last finding is stood down'
+    );
+  });
+
+  await it('keeps a file that still holds another finding', async () => {
+    const workspace = await newWorkspace();
+    await seedMemoryFile(
+      workspace,
+      '.bluespec/memory/detect.md',
+      detectWith('Leaked secret', 'Open redirect')
+    );
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    const detect = summary.prose.find(
+      (entry) => entry.file === '.bluespec/memory/detect.md'
+    );
+    strict.strictEqual(detect?.status, 'edited');
+
+    const content = await readMemory(workspace, '.bluespec/memory/detect.md');
+    strict.strictEqual(content.includes('### Open redirect'), true);
+  });
+
+  await it('deletes an emptied file even when a dangling mention lingered', async () => {
+    const workspace = await newWorkspace();
+    const detect = `${detectWith('Leaked secret')}
+## Applied sub-skills
+
+- \`.bluespec/skills/config.md\`: surfaced "Leaked secret".
+`;
+    await seedMemoryFile(workspace, '.bluespec/memory/detect.md', detect);
+
+    const summary: UntrackSummary = JSON.parse(
+      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+    );
+
+    const entry = summary.prose.find(
+      (item) => item.file === '.bluespec/memory/detect.md'
+    );
+    strict.strictEqual(entry?.status, 'removed');
+    strict.deepStrictEqual(
+      entry?.dangling,
+      [],
+      'a deleted file has no residue to reconcile'
+    );
+
+    const present = await filesExist(workspace);
+    strict.strictEqual(
+      present.find((item) => item.file === '.bluespec/memory/detect.md')
+        ?.exists,
+      false
     );
   });
 });

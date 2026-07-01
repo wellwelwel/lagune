@@ -20,7 +20,7 @@ This is plumbing, not a security phase. It does **not** edit any `.bluespec/memo
 
 ### Step 1: Read the whole chain
 
-Read every artifact that exists under `.bluespec/memory/`: `detect.md`, `plan.md`, `harden.md`, `verify.md`. Charter has no tracked items, so it is never reconciled. From each artifact, collect every section's title (the finding's name). The title is the same across phases, so a finding present in `detect.md` and again in `plan.md` is the one item: collect it once. Then read the current tracking map at `.bluespec/tracking.json` for the paths each item holds: the artifacts hold no paths, the map does.
+Read every artifact that exists under `.bluespec/memory/`: `detect.md`, `plan.md`, `harden.md`. Charter has no tracked items, so it is never reconciled. From each artifact, collect every section's title (the finding's name). The title is the same across phases, so a finding present in `detect.md` and again in `plan.md` is the one item: collect it once. Then read the current tracking map at `.bluespec/tracking.json` for the paths each item holds: the artifacts hold no paths, the map does.
 
 If no artifact exists yet, there is nothing to reconcile. Tell the user the chain has not been started and stop.
 

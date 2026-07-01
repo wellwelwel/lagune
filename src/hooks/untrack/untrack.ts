@@ -1,3 +1,4 @@
+import type { UntrackSummary } from '../../types/core.js';
 import {
   loadTrackingMap,
   parseNamePayload,
@@ -5,8 +6,8 @@ import {
   serializeTrackingMap,
   writeTrackingMap,
 } from '../../core/tracking.js';
+import { removeSectionsFromMemory } from './prose.js';
 
-/** Removes findings from the tracking map by name, never touching the prose */
 export const untrack = async (
   targetDir: string,
   payload: string
@@ -16,15 +17,19 @@ export const untrack = async (
   if (names.length === 0)
     throw new Error('untrack input needs `names`, a list of finding names');
 
+  const prose = await removeSectionsFromMemory(targetDir, names);
+
   const map = await loadTrackingMap(targetDir);
   const result = removeEntries(map, names);
 
   if (serializeTrackingMap(map) !== serializeTrackingMap(result.updatedMap))
     await writeTrackingMap(targetDir, result.updatedMap);
 
-  return `${JSON.stringify(
-    { removed: result.removed, notFound: result.notFound },
-    null,
-    2
-  )}\n`;
+  const summary: UntrackSummary = {
+    removed: result.removed,
+    notFound: result.notFound,
+    prose,
+  };
+
+  return `${JSON.stringify(summary, null, 2)}\n`;
 };

@@ -15,7 +15,6 @@ const templateFiles = [
   '.bluespec/templates/detect-template.md',
   '.bluespec/templates/plan-template.md',
   '.bluespec/templates/harden-template.md',
-  '.bluespec/templates/verify-template.md',
   '.bluespec/templates/specialize-template.md',
   '.bluespec/templates/proof-template.md',
 ];
@@ -179,7 +178,7 @@ for (const spec of AGENT_SPECS) {
       );
     });
 
-    await it('scaffolds the verify command pointing at its template', async () => {
+    await it('scaffolds the verify command without a template', async () => {
       const workspace = await newWorkspace();
 
       await initInto(workspace, { init: true, agent: spec.key });
@@ -190,12 +189,8 @@ for (const spec of AGENT_SPECS) {
       );
 
       strict(
-        command.includes('.bluespec/templates/verify-template.md'),
-        'the verify template path points into .bluespec'
-      );
-      strict(
-        !command.includes('`templates/verify-template.md`'),
-        'the bare verify template path does not leak'
+        !command.includes('verify-template.md'),
+        'the verify command references no template of its own'
       );
     });
 

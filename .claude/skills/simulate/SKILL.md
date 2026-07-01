@@ -90,15 +90,15 @@ The chain is `charter → detect → plan → harden → verify`, each phase rea
 
 ## The method, step by step
 
-Each phase reads the one before it and writes one artifact. Know this chain, and do not break it:
+Each phase reads the one before it and writes what the table shows. Know this chain, and do not break it:
 
-| Phase     | Reads                                                                                  | Writes                        |
-| --------- | -------------------------------------------------------------------------------------- | ----------------------------- |
-| `charter` | the project context                                                                    | `.bluespec/memory/charter.md` |
-| `detect`  | the **code**                                                                           | `.bluespec/memory/detect.md`  |
-| `plan`    | **only `detect.md`**, never the code                                                   | `.bluespec/memory/plan.md`    |
-| `harden`  | **only `plan.md`** plus the charter, and **edits the user's code**                     | `.bluespec/memory/harden.md`  |
-| `verify`  | `harden.md` **and the code**, confronting record against reality, **changing nothing** | `.bluespec/memory/verify.md`  |
+| Phase     | Reads                                                                                  | Writes                                       |
+| --------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
+| `charter` | the project context                                                                    | `.bluespec/memory/charter.md`                |
+| `detect`  | the **code**                                                                           | `.bluespec/memory/detect.md`                 |
+| `plan`    | **only `detect.md`**, never the code                                                   | `.bluespec/memory/plan.md`                   |
+| `harden`  | **only `plan.md`** plus the charter, and **edits the user's code**                     | `.bluespec/memory/harden.md`                 |
+| `verify`  | `harden.md` **and the code**, confronting record against reality, **changing no code** | the `Verdict`/`Reason` on `harden.md` blocks |
 
 Then, for the command you are simulating:
 

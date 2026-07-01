@@ -106,13 +106,13 @@ The rest of the document develops eight named pillars. They are the parts a read
 
 SDH structures the work as a five-phase defensive lifecycle (Table 3). Each phase is framed around defense, each builds on the previous, and the phases follow real Blue Team activity: establish policy, detect, triage, remediate, verify.
 
-| #   | Phase   | Blue Team verb | Reads                                            | Writes                                                | Key invariant                                                                         |
-| --- | ------- | -------------- | ------------------------------------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| 1   | charter | policy         | the project, and the user's description if given | the charter                                           | Principles carry the risk they prevent, in plain language.                            |
-| 2   | detect  | detect         | the user's code                                  | the detect map                                        | Detection, not invention. Record only what the code supports.                         |
-| 3   | plan    | triage         | the detect map                                   | the defense plan                                      | Plan never reads code. It works only from what detect mapped.                         |
-| 4   | harden  | remediate      | the defense plan, and the code it touches        | the code, and the hardening record                    | The only phase that changes code. One fix at a time, confirmed first.                 |
-| 5   | verify  | verify         | the code, and the hardening record               | the verification report, and closure across the chain | Verification is the confrontation of code against record, statically. Never softened. |
+| #   | Phase   | Blue Team verb | Reads                                            | Writes                                                               | Key invariant                                                                         |
+| --- | ------- | -------------- | ------------------------------------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 1   | charter | policy         | the project, and the user's description if given | the charter                                                          | Principles carry the risk they prevent, in plain language.                            |
+| 2   | detect  | detect         | the user's code                                  | the detect map                                                       | Detection, not invention. Record only what the code supports.                         |
+| 3   | plan    | triage         | the detect map                                   | the defense plan                                                     | Plan never reads code. It works only from what detect mapped.                         |
+| 4   | harden  | remediate      | the defense plan, and the code it touches        | the code, and the hardening record                                   | The only phase that changes code. One fix at a time, confirmed first.                 |
+| 5   | verify  | verify         | the code, and the hardening record               | each verdict onto the hardening record, and closure across the chain | Verification is the confrontation of code against record, statically. Never softened. |
 
 **Table 3.** The five phases: what each reads, what it writes, and its load-bearing invariant.
 
@@ -149,7 +149,7 @@ Verify verifies each applied control by reading the code and confronting it with
 > - **harden** applies it, status **Applied**: the handler now detects the real type from content, enforces a size limit, rejects anything unexpected, renames on save, and stores where code cannot run.
 > - **verify** reads the handler, confronts it with the record, and returns **risk closed**: the code does exactly what the record claims.
 >
-> The same finding name carries through all four artifacts. That shared name is its identity (`§X`).
+> The same finding name carries through the detect map, the plan, and the hardening record, and verify writes its verdict onto that record. That shared name is its identity (`§X`).
 
 ---
 
@@ -163,7 +163,7 @@ Most security tooling leaves the user with a backlog that only grows. SDH adopts
 
 SDH artifacts are living documents, not logs. Every time a phase re-runs, it re-checks each existing entry against the current truth and does one of three things: keeps what still holds, rewrites what changed, or removes what no longer applies. A finding the code shows is now resolved is removed, not archived for history. The record reflects the present, not the past.
 
-Closure is that same reconcile reaching its conclusion. When verify verifies a risk closed, it stands the finding down across the whole flow, detect, plan, harden, verify, and the tracking map, with the user's confirmation. This is why verify is the one phase that writes to the other phases' artifacts: it is the phase that closes the loop. A finding stood down is simply absent everywhere afterward, and that absence is expected, not a broken chain.
+Closure is that same reconcile reaching its conclusion. When verify verifies a risk closed, it stands the finding down across the whole flow, the detect map, the plan, the hardening record, and the tracking map. This is why verify is the one phase that writes to the other phases' artifacts: it is the phase that closes the loop. A finding stood down is simply absent everywhere afterward, and that absence is expected, not a broken chain.
 
 ```mermaid
 stateDiagram-v2
@@ -172,7 +172,7 @@ stateDiagram-v2
     OPEN --> Plan: plan
     Plan --> Harden: harden
     Harden --> Verify: verify
-    Verify --> StoodDown: risk closed + user confirm
+    Verify --> StoodDown: risk closed
     StoodDown --> SETTLED
     SETTLED --> OPEN: code changes reopen a finding
     Plan: plan
@@ -304,13 +304,13 @@ In fairness to the lineage: SDD is proven prior art, and SDH owes it the structu
 
 ## X. Engineering rigor: the tracking discipline
 
-The reconcile-never-append discipline (`§V`) needs a substrate that survives refactors. A finding must stay one item across five phases, and a renamed or moved file must not break the chain. SDH solves this with **identity-by-name** and **paths held only in tracking**.
+The reconcile-never-append discipline (`§V`) needs a substrate that survives refactors. A finding must stay one item across every phase that touches it, and a renamed or moved file must not break the chain. SDH solves this with **identity-by-name** and **paths held only in tracking**.
 
 > **Definition**
 >
 > **Identity-by-name:** A finding's identity is its name, written identically in every artifact. The prose carries the name, never a path. File paths live only in the tracking map, so a rename or a moved file breaks the link in exactly one place.
 
-Each detect finding is one tracked item. Its identity is its **name**, the section title, written identically in the detect map, the plan, the hardening record, and the verification report. The later phases reuse that name verbatim as they act on the same item. The tracking map (`.bluespec/tracking.json`) holds tracking and nothing else:
+Each detect finding is one tracked item. Its identity is its **name**, the section title, written identically in the detect map, the plan, and the hardening record. The later phases reuse that name verbatim as they act on the same item, and verify writes its verdict onto the hardening record under that same name. The tracking map (`.bluespec/tracking.json`) holds tracking and nothing else:
 
 ```json
 {
@@ -325,8 +325,7 @@ The map records no prose, no annotations, no separate identifier, and no phase. 
 flowchart TB
     detect["detect.md"] --> name
     plan["plan.md"] --> name
-    harden["harden.md"] --> name
-    verify["verify.md"] --> name
+    harden["harden.md<br/>verify writes its verdict here"] --> name
     name["name = &quot;File uploads&quot;<br/>the prose carries the name, never a path"]
     name -.-> tracking
     tracking["tracking.json<br/>entries: [ { name: &quot;File uploads&quot;,<br/>paths: [&quot;src/routes/upload.ts&quot;] } ]<br/>the path lives only here; a rename corrects only this entry"]
@@ -334,7 +333,7 @@ flowchart TB
 
 **Figure 2.** The identity conveyor. One finding name flows through every artifact, while its path lives only in the tracking map, so a rename is corrected in one place.
 
-Two acts maintain the map in the normal flow, and a third stands apart as maintenance. **Track** is additive registration: a phase reports the findings it wrote, and the engine records the new ones and follows a renamed path for the rest, classifying each as new, moved, or unchanged. It never removes anything the phase did not report. **Untrack** drops the findings verify stood down at closure. These two are what the phases call as they run. **Repair** is the maintenance act: a phase delegates to it automatically when its own reconciliation finds the tracking inconsistent (a recorded path that no longer exists), and otherwise it is run on demand. It realigns the whole map at once, reading every artifact and the current code, correcting each item's paths, and surfacing what it cannot decide alone, an orphan (a tracked item no artifact names anymore) or a renamed-candidate (an item whose paths match a different reported name).
+Two acts maintain the map in the normal flow, and a third stands apart as maintenance. **Track** is additive registration: a phase reports the findings it wrote, and the engine records the new ones and follows a renamed path for the rest, classifying each as new, moved, or unchanged. It never removes anything the phase did not report. **Untrack** stands the findings verify closed down: it removes each finding's whole section from the artifacts and drops its entry, in one deterministic pass, so the agent does not perform that removal by hand. Where the deterministic pass cannot go safely, a stood-down name still quoted in another finding's prose, it flags the spot for the agent rather than guess an edit. These two are what the phases call as they run. **Repair** is the maintenance act: a phase delegates to it automatically when its own reconciliation finds the tracking inconsistent (a recorded path that no longer exists), and otherwise it is run on demand. It realigns the whole map at once, reading every artifact and the current code, correcting each item's paths, and surfacing what it cannot decide alone, an orphan (a tracked item no artifact names anymore) or a renamed-candidate (an item whose paths match a different reported name).
 
 Repair is maintenance, not a sixth phase. It touches neither the user's code nor the prose artifacts, only the tracking. It reads the user's source for one reason only, to learn a renamed file's new path, and it never authors security content. The human is the final arbiter on the one call the engine refuses to guess: whether a vanished item was resolved or merely renamed. Prefer to ask than to guess, because a wrongly dropped item breaks the chain.
 
@@ -388,7 +387,7 @@ One continuous walkthrough shows the methodology operating, not just its parts. 
 2. **detect** scans the upload route and the small admin page that lists uploaded files. It detects the upload finding (the handler trusts the client's MIME type). The admin page runs in the browser, a context that prompt-on-demand (`§VII`) recognizes, so detect loads the knowledge module for that area and surfaces a second finding, a place where a filename is written into the page as markup rather than text, so a crafted name can run as script in the visitor's browser. Knowledge modules for areas not present in this scope never load and are never mentioned.
 3. **plan** assigns the upload fix priority Critical, tied to the principle: check the file's real type and size, rename on save, store where code cannot run. It assigns the second fix priority High: render the filename as text, not markup.
 4. **harden** applies the upload fix first (highest priority), shows the change, asks, and records it Applied. It applies the second fix next, Applied.
-5. **verify** reads each spot and confronts code against record. The upload control holds: the handler detects the real type from content, enforces a size limit, and refuses the rest. Verdict: risk closed. With the user's confirmation, verify stands the upload finding down across the whole chain.
+5. **verify** reads each spot and confronts code against record. The upload control holds: the handler detects the real type from content, enforces a size limit, and refuses the rest. Verdict: risk closed. Verify stands the upload finding down across the whole chain.
 
 The genuine failure follows. Suppose harden's second fix added a safe text-rendering helper but left the old markup-writing call still reachable on another code path. Verify reads the page, sees the safe helper, and also sees the unsafe path is still live. The control is present, but the risk is not closed. Verify refuses to soften the verdict to match the record. It returns "risk not closed," records the gap, and points back to harden. A control that does not fully address the risk is not a pass.
 
@@ -445,7 +444,7 @@ A full scan is token-heavy, which is why detect warns and asks before scanning a
 
 ### The user is the final arbiter
 
-SDH confirms before it changes code, confirms before it stands a finding down, and asks the human to decide renamed-versus-resolved. The methodology proposes and verifies. It does not overrule the person.
+SDH confirms before it changes code, and asks the human to decide renamed-versus-resolved. The methodology proposes and verifies. It does not overrule the person.
 
 ### Objections and responses
 

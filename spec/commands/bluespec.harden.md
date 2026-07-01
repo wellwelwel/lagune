@@ -36,7 +36,7 @@ If the input is ambiguous, prefer the most literal reading (an existing path is 
     - If the scope is **partly** covered, apply the fixes that are in the plan, and record each uncovered part under **Remaining**. Do not stop, and do not invent a fix for the uncovered part.
 - Load the hardening record at `.bluespec/memory/harden.md`.
   - If it does not exist, initialize it from the template at `.bluespec/templates/harden-template.md` first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
-  - If it already exists, read what was applied before. You will reconcile it in Step 3 before applying anything new. Each applied block's identity is the plan fix it points at plus the change it records.
+  - If it already exists, read what was applied before. You will reconcile it in Step 3 before applying anything new. Each applied block's identity is the plan fix it points at plus the change it records. A block may also carry a `Verdict` and `Reason` that verify wrote: a `❌ Reproved` or `❓ Inconclusive` verdict means verify judged the control did not close the risk, and its `Reason` is what you re-apply against.
 - Load the charter at `.bluespec/memory/charter.md` for the governing principles, **if it exists**. The principles still bind here: never apply a fix in a way that breaks one. If the charter does not exist, apply the fixes from the plan alone.
 - Load the sub-skills that detect applied. The "Applied sub-skills" section of `.bluespec/memory/detect.md` lists them by path (`.bluespec/skills/<name>.md`). Read each file, not just the list: each carries the defense knowledge for its class of finding (uploads, shell, network, and so on), which Step 4 uses to apply the matching fix. If a listed file is missing, note it and apply the fix from the plan and charter alone.
 
@@ -46,9 +46,10 @@ This record is reconciled, never append-only. If the record was empty or freshly
 
 - **Still holds:** the change is still in the code and the plan still carries its fix. Keep it, and update its wording or evidence if the code moved on.
 - **Reverted or dropped:** the change is no longer in the code, or the plan no longer carries that fix. **Remove the block** from the record. Do not keep stale entries for history. The record reflects the code as it is now.
+- **Reproved by verify:** a block with `Verdict: ❌ Reproved` is reopened work, and the verdict overrides your own reading. Even when it reads `Applied` and the control looks present, verify proved the risk still open: read its `Reason` and re-apply in Step 4 to close that gap. A `❓ Inconclusive` is weaker: re-apply only when its `Reason` names a real gap.
 - Only re-check blocks that fall within the current scope. A block outside the scope you are running stays untouched.
 
-A block whose finding `verify` already proved closed was stood down out of the whole chain, so it is simply absent here. That absence is expected, not a broken chain, and is no reason to run repair.
+A finding the plan carries but no block here names was stood down out of the chain: expected, and no reason to run repair.
 
 If reconciling reveals the chain is inconsistent (for example the tracking map points a control at a file that was renamed or moved, so the path on record no longer exists), run `/bluespec.repair` and then continue. Repair fixes Blue Spec's internal tracking across every phase at once, so the chain stays coherent. Do not try to repair the tracking yourself: this phase reconciles its own record in prose, repair owns the tracking.
 
@@ -63,6 +64,7 @@ This is the one place Blue Spec changes the user's code. Apply the planned fixes
 - **Stay safe-by-default.** The change must leave the project safe out of the box. Never weaken an existing control to apply a new one, and never break a charter principle to satisfy a fix. If a fix would conflict with a principle, stop and surface the conflict to the user rather than applying it.
 - **Use real, current dependencies when one is needed.** If a fix needs a library, prefer the project's existing tools, and when a new one is genuinely needed, pin a real, maintained version and note it. Confirm the version against current documentation rather than memory.
 - **When a fix cannot be fully applied**, apply what you safely can and record the rest. Mark the block `Partial` with what is left, or `Blocked` with the reason, and leave the plan fix open. Do not force a change you are unsure of.
+- **Reset the verdict on a block you re-apply.** Its old `Verdict` no longer reflects the code, so set it back to `Pending` and remove the `Reason`. `Pending` is the only `Verdict` you ever write: judging the control is verify's job.
 
 ### Step 5: Fill the template
 
@@ -76,6 +78,8 @@ This is the one place Blue Spec changes the user's code. Apply the planned fixes
     - **Blocked:** the control could not be applied, with the reason, and the plan fix stays open.
   - **What changed:** the change made, in plain language any reader understands.
   - **Where:** a short, plain-language note of where the change landed (the function or area) and any dependency added, so the change can be reviewed and the next phase can verify it. Do not write the file path here. The path goes to the tracking map in Step 7, where reconcile keeps it current through a rename.
+  - **Verdict:** `Pending` on any block you write or re-apply (see Step 4).
+  - **Reason:** verify's, left off a `Pending` block.
 - The template ships with three starter blocks. This is a starting point, not a limit. Add or remove blocks so the record matches what was actually applied.
 - Record anything left under **Remaining**: the rest of a Partial fix, a Blocked fix and why, or a fix this run did not reach. Name the plan fix each item belongs to. Remove that section if every in-scope fix is fully `Applied`.
 - Set `Hardened` to today's date in ISO format `YYYY-MM-DD`.
@@ -86,6 +90,7 @@ This is the one place Blue Spec changes the user's code. Apply the planned fixes
 - Every block is titled with a finding name that really exists in the defense plan, and carries Status, What changed, and Where.
 - No block for a finding the plan no longer carries, or a change no longer in the code, is still in the record, and no block is duplicated.
 - Every `Status` is one of `Applied`, `Partial`, or `Blocked`, and every `Partial` or `Blocked` fix has a matching entry under Remaining.
+- Every block you wrote or re-applied this run carries `Verdict: Pending` with no `Reason`, and you wrote no other verdict value.
 - Nothing was applied before the user confirmed the run, and any fix the user left out was not applied.
 - No applied change breaks a charter principle or weakens an existing control.
 - Each applied fix whose class has a sub-skill follows that sub-skill's guidance, with nothing it says about the applied control skipped.

@@ -1,7 +1,7 @@
 import type { TrackingEntry, TrackingMap } from '../../../src/types/core.js';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { afterEach } from 'poku';
 
 const workspaces: string[] = [];
@@ -17,6 +17,17 @@ export const mapOf = (entries: TrackingEntry[]): TrackingMap => ({
   name: 'blue-spec',
   entries,
 });
+
+export const seedMemoryFile = async (
+  workspace: string,
+  relativePath: string,
+  content: string
+): Promise<void> => {
+  const path = join(workspace, relativePath);
+
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, content, 'utf8');
+};
 
 afterEach(async () => {
   await Promise.all(

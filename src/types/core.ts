@@ -70,7 +70,7 @@ export type CommandKey =
   | 'specialize'
   | 'prove';
 
-export type TemplateKey = Exclude<CommandKey, 'repair'>;
+export type TemplateKey = Exclude<CommandKey, 'repair' | 'verify'>;
 
 export type BundledAsset = {
   fileName: string;
@@ -332,4 +332,30 @@ export type RemovalResult = {
   updatedMap: TrackingMap;
   removed: string[];
   notFound: string[];
+};
+
+export type SectionRemoval = {
+  content: string;
+  removed: boolean;
+};
+
+export type ProseRemovalStatus = 'edited' | 'removed' | 'unchanged' | 'absent';
+
+export type DanglingMention = {
+  name: string;
+  line: number;
+  text: string;
+};
+
+export type ProseRemoval = {
+  file: string;
+  status: ProseRemovalStatus;
+  removed: string[];
+  dangling: DanglingMention[];
+};
+
+export type UntrackSummary = {
+  removed: string[];
+  notFound: string[];
+  prose: ProseRemoval[];
 };

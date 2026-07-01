@@ -14,7 +14,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 You are producing **proofs** under `.bluespec/proofs/`: for each detected finding you can demonstrate, a runnable test and a self-contained advisory that a maintainer can take into responsible disclosure. The **detect map** at `.bluespec/memory/detect.md` is the primary input, and every proof points back at a finding that map really carries.
 
-This command is **optional and autonomous**. It is not one of the five phases and not part of the tracking chain. It writes only into `.bluespec/proofs/`, and it is **read-only on the reconciled phase artifacts** (`detect.md`, `plan.md`, `harden.md`, `verify.md`, `charter.md`) and on the user's source under test. Only `verify` writes across the chain, so this command never removes or rewrites a finding.
+This command is **optional and autonomous**. It is not one of the five phases and not part of the tracking chain. It writes only into `.bluespec/proofs/`, and it is **read-only on the reconciled phase artifacts** (`detect.md`, `plan.md`, `harden.md`, `charter.md`) and on the user's source under test. Only `verify` writes across the chain, so this command never removes or rewrites a finding.
 
 Each proof is two things, kept as a unit in its own directory:
 
@@ -187,7 +187,7 @@ Get-ChildItem .bluespec/proofs -Recurse -Include *.test.mjs,*.test.cjs | ForEach
 - Every advisory's **Proof of Concept** is runnable as-is (no remote host, no service to stand up), reproduces through the attacker's real entry point (never reaching into internal modules the attacker cannot call), and ends by printing or returning the concrete symptom from its own output, never a narrating comment. It is derived from the finding's test and carries no destructive step. A finding with no such proof of concept has no directory at all: it is dropped and reported to the user as not proven, never written with an internal-path reproduction or a narrated comment standing in for the proof.
 - No test asserts on the unsafe path: each waits for success on the safe behavior.
 - The index lists exactly the proof directories that exist.
-- Nothing was written outside `.bluespec/proofs/`. The reconciled phase artifacts (`detect.md`, `plan.md`, `harden.md`, `verify.md`, `charter.md`) and `.bluespec/tracking.json` were not touched, and the user's source under test was only read.
+- Nothing was written outside `.bluespec/proofs/`. The reconciled phase artifacts (`detect.md`, `plan.md`, `harden.md`, `charter.md`) and `.bluespec/tracking.json` were not touched, and the user's source under test was only read.
 
 ### Step 8: Summarize
 

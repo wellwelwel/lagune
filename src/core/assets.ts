@@ -22,7 +22,6 @@ const TEMPLATE_FILES: Record<TemplateKey, string> = {
   detect: 'spec/templates/detect-template.md',
   plan: 'spec/templates/plan-template.md',
   harden: 'spec/templates/harden-template.md',
-  verify: 'spec/templates/verify-template.md',
   specialize: 'spec/templates/specialize-template.md',
   prove: 'spec/templates/proof-template.md',
 };
