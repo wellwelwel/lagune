@@ -1,5 +1,5 @@
 ---
-description: Repair Blue Spec's internal tracking so each item stays whole when files are renamed or moved. This is a maintenance pass, not a security phase. It reads every artifact and the project's current code, works out the truth, and rewrites the tracking map across all phases at once. The other commands run it for you when they notice the tracking is inconsistent. It never edits your artifacts and never authors security content.
+description: Repair Blue Spec's internal tracking so each item stays whole when files are renamed or moved. A maintenance pass, not a security phase. It reads every artifact and the current code, then rewrites the tracking map across all phases in one pass.
 ---
 
 ## User Input

@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Authoritative architecture reference for the Blue Spec codebase. Covers repository layout, the command/template split, the agent-agnostic core vs. adapter boundary, what Blue Spec scaffolds into a target project, and the tracking-map model. Use BEFORE adding an agent adapter and whenever a decision depends on repo layout, the shape of the system, or how the parts relate. For the toolchain, code conventions, type rules, the build path, and how the tracking hooks are implemented, use the engineering skill.
+description: Authoritative architecture reference for Blue Spec, covering repository layout, the command/template split, the core/adapter boundary, what it scaffolds, and the tracking-map model. Use before adding an agent or when a decision depends on repo shape.
 user-invocable: true
 metadata:
   internal: true

@@ -1,5 +1,5 @@
 ---
-description: Turn what detect found into the defense plan, with a fix for each finding, its priority, and the charter principle it upholds. Reads the detect map and the charter, then plans every finding, just the files or directories you name, or a specific concern you describe.
+description: Turn what detect found into the defense plan, one fix per finding, each with its priority and the charter principle it upholds. Reads the detect map and the charter, then plans every finding, the files or directories you name, or a concern you describe.
 ---
 
 ## User Input

@@ -8,9 +8,9 @@ import {
 } from './__utils__.js';
 
 const SKILL_LIMITS: SpecLimits = {
-  nameChars: 64,
-  descriptionChars: 512,
-  tokens: 15_000,
+  nameChars: 24,
+  descriptionChars: 256,
+  tokens: 8_000,
   lines: 250,
 };
 

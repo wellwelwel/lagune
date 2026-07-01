@@ -1,5 +1,5 @@
 ---
-description: Prove detected findings with runnable, defense-only evidence. For each finding the detect map carries, it generates a safe-path JavaScript test and a self-contained advisory under `.bluespec/proofs/`. The test asserts the secure behavior, so it fails while the issue is live and passes once fixed, never an exploit.
+description: Prove detected findings with runnable, defense-only evidence. For each finding the detect map carries, it writes a safe-path JavaScript test and a self-contained advisory under `.bluespec/proofs/`. The test asserts secure behavior, never an exploit.
 ---
 
 ## User Input

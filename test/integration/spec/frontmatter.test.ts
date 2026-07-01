@@ -1,101 +1,88 @@
 import type { Frontmatter } from '../../../src/types/test.js';
-import { readdir, readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
 import { describe, it, strict } from 'poku';
 import { parse } from 'yaml.min';
-import { packageRoot } from './__utils__.js';
+import { listFrontmatterSources, packageRoot } from './__utils__.js';
 
-const SPEC_DIR = new URL('spec/', packageRoot);
-const FRONTMATTER_PATTERN = /^---\n([\s\S]*?)\n---\n/;
-
-const ALLOWED_KEYS = {
+const CORE_KEYS: Record<keyof Required<Frontmatter>, true> = {
   name: true,
   description: true,
   'argument-hint': true,
   'user-invocable': true,
-} satisfies Record<keyof Required<Frontmatter>, true>;
+};
 
-const listMarkdownFiles = async (dir: URL): Promise<string[]> => {
-  const entries = await readdir(dir, { withFileTypes: true });
-  const nested = await Promise.all(
-    entries.map((entry) => {
-      if (entry.isDirectory())
-        return listMarkdownFiles(new URL(`${entry.name}/`, dir));
+const SKILL_KEYS: Record<string, true> = { ...CORE_KEYS, metadata: true };
 
-      if (entry.isFile() && entry.name.endsWith('.md'))
-        return [fileURLToPath(new URL(entry.name, dir))];
+const specSources = await listFrontmatterSources(new URL('spec/', packageRoot));
 
-      return [];
-    })
+const skillSources = await listFrontmatterSources(
+  new URL('.claude/skills/', packageRoot),
+  (relativePath) => relativePath.endsWith('SKILL.md')
+);
+
+const assertValid = (
+  frontmatter: string,
+  allowed: Record<string, true>
+): void => {
+  const parsed = parse<Frontmatter>(frontmatter);
+
+  strict(
+    typeof parsed === 'object' && parsed !== null,
+    'frontmatter should parse to an object'
   );
 
-  return nested.flat().sort((left, right) => left.localeCompare(right));
+  strict.strictEqual(
+    typeof parsed.description,
+    'string',
+    'description is required and must be a string'
+  );
+
+  if ('name' in parsed)
+    strict.strictEqual(
+      typeof parsed.name,
+      'string',
+      'name must be a string when present'
+    );
+
+  if ('user-invocable' in parsed)
+    strict.strictEqual(
+      typeof parsed['user-invocable'],
+      'boolean',
+      'user-invocable must be a boolean when present'
+    );
+
+  const unknownKeys = Object.keys(parsed).filter((key) => !(key in allowed));
+
+  strict.deepStrictEqual(
+    unknownKeys,
+    [],
+    `unexpected frontmatter keys: ${unknownKeys.join(', ')}`
+  );
 };
-
-const frontmatterOf = (contents: string): string | null => {
-  const match = contents.match(FRONTMATTER_PATTERN);
-
-  return match ? match[1] : null;
-};
-
-const files = await listMarkdownFiles(SPEC_DIR);
-
-const withFrontmatter = (
-  await Promise.all(
-    files.map(async (file) => {
-      const frontmatter = frontmatterOf(await readFile(file, 'utf8'));
-
-      return frontmatter === null ? null : { file, frontmatter };
-    })
-  )
-).filter((entry) => entry !== null);
 
 describe('every spec frontmatter is valid and well-typed', () => {
   it('finds spec files that declare frontmatter', () => {
     strict(
-      withFrontmatter.length > 0,
+      specSources.length > 0,
       'at least one spec .md file should declare frontmatter'
     );
   });
 
-  for (const { file, frontmatter } of withFrontmatter) {
-    it(`${file} declares only name, description, and user-invocable`, () => {
-      const parsed = parse<Frontmatter>(frontmatter);
-
-      strict(
-        typeof parsed === 'object' && parsed !== null,
-        'frontmatter should parse to an object'
-      );
-
-      strict.strictEqual(
-        typeof parsed.description,
-        'string',
-        'description is required and must be a string'
-      );
-
-      if ('name' in parsed)
-        strict.strictEqual(
-          typeof parsed.name,
-          'string',
-          'name must be a string when present'
-        );
-
-      if ('user-invocable' in parsed)
-        strict.strictEqual(
-          typeof parsed['user-invocable'],
-          'boolean',
-          'user-invocable must be a boolean when present'
-        );
-
-      const unknownKeys = Object.keys(parsed).filter(
-        (key) => !(key in ALLOWED_KEYS)
-      );
-
-      strict.deepStrictEqual(
-        unknownKeys,
-        [],
-        `unexpected frontmatter keys: ${unknownKeys.join(', ')}`
-      );
+  for (const { relativePath, frontmatter } of specSources)
+    it(`spec/${relativePath} declares only name, description, and user-invocable`, () => {
+      assertValid(frontmatter, CORE_KEYS);
     });
-  }
+});
+
+describe('every internal skill frontmatter is valid and well-typed', () => {
+  it('finds SKILL.md files under .claude/skills', () => {
+    strict(
+      skillSources.length > 0,
+      'at least one SKILL.md should declare frontmatter'
+    );
+  });
+
+  for (const { relativePath, frontmatter } of skillSources)
+    it(`.claude/skills/${relativePath} declares only known keys`, () => {
+      assertValid(frontmatter, SKILL_KEYS);
+    });
 });

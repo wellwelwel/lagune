@@ -1,5 +1,5 @@
 ---
-description: Specialize Blue Spec in a security area from a source or topic you give it, distilling it into a new on-demand sub-skill the detect and verify phases can load later. It writes a focused, language-agnostic, defense-only knowledge module under `.bluespec/skills/`, shaped like the built-in sub-skills. It never writes attack inputs or exploits, never rewrites your code, and the sub-skill is never invoked on its own. Specializing a name that exists reconciles that file, never overwriting it blindly.
+description: Specialize Blue Spec in a security area from a source or topic you give it, distilling it into a new on-demand sub-skill the detect and verify phases load later. It writes a focused, language-agnostic, defense-only knowledge module, never an exploit.
 ---
 
 ## User Input

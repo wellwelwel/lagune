@@ -1,6 +1,8 @@
 ---
 name: specialize
-description: Author a new built-in Blue Spec sub-skill inside this development repo (the Blue Spec source), not a scaffolded `.bluespec/` target. Use when adding or refining a security knowledge module that ships with Blue Spec. It runs the `bluespec.specialize` authoring process against the native layout (`spec/skills/*.md` plus the TypeScript catalog), mapping every code, test, and docs touchpoint. Triggers on "add a built-in sub-skill", "specialize Blue Spec in <area>", "create a skill module", "ship a sub-skill".
+description: Author a new built-in Blue Spec sub-skill inside the Blue Spec source, not a scaffolded `.bluespec/` target. Use when adding or refining a security knowledge module that ships with Blue Spec, against the native layout (`spec/skills/*.md` plus the catalog).
+metadata:
+  internal: true
 ---
 
 # Authoring a built-in Blue Spec sub-skill (development workspace)

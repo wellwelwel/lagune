@@ -1,6 +1,6 @@
 ---
 name: interface
-description: Design engineering principles for making interfaces feel polished. Use when building UI components, reviewing frontend code, implementing animations, hover states, shadows, borders, typography, micro-interactions, enter/exit animations, or any visual detail work. Triggers on UI polish, design details, "make it feel better", "feels off", stagger animations, border radius, optical alignment, font smoothing, tabular numbers, box shadows.
+description: Design engineering principles for making interfaces feel polished. Use when building UI, reviewing frontend code, or working on any visual detail, from animations, hover states, shadows, borders, and typography to optical alignment and tabular numbers.
 metadata:
   internal: true
 ---

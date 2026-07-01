@@ -1,5 +1,5 @@
 ---
-description: Detect what the system actually does by reading the code, and map the security-relevant findings (login, uploads, payments, data exposure, and so on) with the evidence later phases need. Scans the whole project, specific files, or a focused scope, depending on the input.
+description: Detect what the system actually does by reading the code, and map the security-relevant findings (login, uploads, payments, data exposure, and so on) with the evidence later phases need. Scans the whole project, named files, or a focused scope.
 ---
 
 ## User Input

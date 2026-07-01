@@ -10,6 +10,11 @@ import { fileURLToPath } from 'node:url';
 import { get_encoding } from 'tiktoken';
 import { parse } from 'yaml.min';
 
+export type FrontmatterSource = {
+  relativePath: string;
+  frontmatter: string;
+};
+
 export const packageRoot = new URL('../../../', import.meta.url);
 
 const listMarkdownFiles = async (dir: URL): Promise<string[]> => {
@@ -72,6 +77,27 @@ const measureMarkdown = async (
     dir,
     files.filter((file) => keep(file.split(sep).join('/')))
   );
+};
+
+export const listFrontmatterSources = async (
+  dir: URL,
+  keep: (relativePath: string) => boolean = () => true
+): Promise<FrontmatterSource[]> => {
+  const files = await listMarkdownFiles(dir);
+  const sources: FrontmatterSource[] = [];
+
+  for (const file of files) {
+    const relativePath = file.split(sep).join('/');
+
+    if (!keep(relativePath)) continue;
+
+    const contents = await readFile(new URL(relativePath, dir), 'utf8');
+    const match = contents.match(FRONTMATTER_PATTERN);
+
+    if (match) sources.push({ relativePath, frontmatter: match[1] });
+  }
+
+  return sources;
 };
 
 export const measureSpecs = (): Promise<SpecMeasurement[]> =>
