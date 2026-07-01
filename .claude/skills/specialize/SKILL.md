@@ -72,4 +72,4 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 
 ## Summary to the user
 
-As Step 8 of the command: state the name, tags, category, what it covers, and that the detect and verify phases now load it on demand once shipped (end users import it with `@.bluespec/skills/<name>.md`). Note it shadows any same-named entry on a refine. Suggest a commit such as ``feat: add specialization in `<name>` defense``, matching the wording the existing built-ins use, as a suggestion, not a mandate.
+As Step 8 of the command: state the name, tags, category, what it covers, and that the phases now load it on demand once shipped (end users import it with `@.bluespec/skills/<name>.md`). Note it shadows any same-named entry on a refine. Suggest a commit such as ``feat: add specialization in `<name>` defense``, matching the wording the existing built-ins use, as a suggestion, not a mandate.

@@ -68,19 +68,11 @@ Each control lands in one of two outcomes, which drive the steps that follow:
 
 ### Step 5: Consult the sub-skills
 
-Sub-skills are focused, language-agnostic security knowledge modules that load only on demand. This step is the door to them, and it has a fixed mechanism. Do not improvise an equivalent.
+Your work list is the "Applied sub-skills" section of `.bluespec/memory/detect.md`, which lists each sub-skill by path (`.bluespec/skills/<name>.md`). Detect already matched them, so do not run the catalog hook again.
 
-1. **List the catalog by running the hook**, from the project root:
+Read each listed file, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a sub-skill ships a deterministic checker (a hook it tells you to run), running that checker is the application, and its printed verdict is the control's verdict that your own reading never overrides. Where it ships no checker, follow its guidance to inform the verdict. If a listed file is missing, note it and judge that control from the code alone.
 
-   ```bash
-   node ./.bluespec/hooks/skills.mjs
-   ```
-
-   This is the only authoritative source. It merges the built-in sub-skills with any the user registered in `.bluespec/skills.json`, and prints each one as `name: tags`. The **tags are the matching signal, and they exist nowhere else**.
-
-2. **Apply every entry whose tags cover a control in scope.** Mandatory read each matching `.bluespec/skills/<name>.md` one at a time and follow it to inform that control's verdict. A control no sub-skill covers is left to the reading above. This stays read-only: the sub-skill reads and reports, never edits.
-
-Report only the sub-skills you applied and the verdict each informed. If none applied, say so in one line.
+Report the sub-skills you applied and the verdict each informed. If detect listed none, say so in one line.
 
 ### Step 6: Stand the closed findings down
 
@@ -108,7 +100,7 @@ Write each open control's verdict onto its block in `.bluespec/memory/harden.md`
 - Every `dangling` mention the untrack hook reported was reconciled, and you touched no free-prose line it did not flag.
 - You touched only `Verdict` and `Reason`. No `Status`, `What changed`, or `Where` changed, and no section was added to `harden.md`.
 - Every verdict rests on the code you read, not the record's claim, and nothing was written to the user's code.
-- You can account for every sub-skill the Step 5 hook printed: applied, or one line on why no in-scope control falls under it.
+- Every sub-skill detect listed was applied, none skipped, and where one ships a checker its printed verdict is the control's, not your own reading. If any is unapplied, go back and finish Step 5 first.
 
 ### Step 9: Summarize
 
@@ -116,7 +108,7 @@ This summary is your report to the user, the phase's only outward output. Output
 
 - The scope you ran (all controls, named controls or paths, or priorities).
 - The controls verified, each with its result (the icon and the risk in plain language) and a one-line note of how it was proven, highest priority first.
-- The sub-skills you applied, if any, named plainly. Do not list the ones that did not apply.
+- The sub-skills you applied, if any, named plainly.
 - What changed since the last run: verdicts added, verdicts on findings stood down because the control closed the risk, and verdicts that flipped.
 - What was stood down this run, named plainly.
 - Anything still open: each `❌ Reproved` control and the gap its `Reason` names, each `❓ Inconclusive` control and what would settle it, and any part of the scope the hardening record did not cover.
