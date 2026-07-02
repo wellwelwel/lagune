@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { IconType } from 'react-icons';
+import type { IconBaseProps, IconType } from 'react-icons';
 import {
   FiActivity,
   FiArrowLeft,
@@ -66,7 +66,9 @@ const registry = {
 
 export type DocsIconName = keyof typeof registry;
 
-export const Icon = ({ name }: { name: DocsIconName }): ReactNode => {
+type IconProps = IconBaseProps & { name: DocsIconName };
+
+export const Icon = ({ name, ...glyphProps }: IconProps): ReactNode => {
   const Glyph = registry[name];
-  return <Glyph aria-hidden='true' />;
+  return <Glyph aria-hidden='true' {...glyphProps} />;
 };

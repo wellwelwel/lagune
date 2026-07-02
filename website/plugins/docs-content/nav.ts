@@ -11,12 +11,7 @@ export const docsNav: DocsNavEntry[] = [
   {
     label: 'Get Started',
     collapsed: false,
-    items: [
-      'get-started/install',
-      'get-started/commands',
-      'supported-agents',
-      'requirements',
-    ],
+    items: ['get-started/install', 'get-started/commands', 'supported-agents'],
   },
   {
     label: 'The Blue Team Flow',

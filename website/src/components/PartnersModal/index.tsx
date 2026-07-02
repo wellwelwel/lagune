@@ -514,7 +514,7 @@ export const PartnersModal = ({
                   alt='Weslley Araújo'
                   loading='lazy'
                   draggable={false}
-                  className='pointer-events-none w-32 shrink-0 select-none object-cover [filter:drop-shadow(0_5px_10px_rgba(2,6,20,0.5))_drop-shadow(0_2px_4px_rgba(0,0,0,0.4))] md:w-55'
+                  className='pointer-events-none w-32 shrink-0 object-cover [filter:drop-shadow(0_5px_10px_rgba(2,6,20,0.5))_drop-shadow(0_2px_4px_rgba(0,0,0,0.4))] md:w-55'
                 />
 
                 <p className='text-[13px] font-medium leading-[1.6] text-pretty text-[rgba(233,237,247,0.88)] m-0'>

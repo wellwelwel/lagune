@@ -83,6 +83,32 @@
   }
 }
 
+/*
+ * Interactive chrome is not text: keep links, buttons, tabs, diagrams, and
+ * images out of text selections (and images out of drags). Links inside
+ * readable prose (the docs markdown, the paper) stay selectable, so copying
+ * a passage keeps its linked words.
+ */
+@layer base {
+  a,
+  button,
+  img,
+  [role='button'],
+  [role='tab'],
+  .bs-mermaid {
+    user-select: none;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  .bs-docs .markdown a:not(.hash-link),
+  .bs-paper a {
+    user-select: text;
+  }
+}
+
 @theme {
   --color-glass: rgba(20, 22, 25, 0.52);
   --color-card: rgba(4, 8, 22, 0.35);

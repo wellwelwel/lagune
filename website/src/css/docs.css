@@ -464,12 +464,6 @@ html[data-bs-docs-theme='dark'] .bs-docs {
   color: color-mix(in srgb, var(--bs-adm) 55%, var(--ink));
 }
 
-/* Images are not text: keep them out of selections and drags. */
-.bs-docs img {
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
 /* Tabs as a segmented control: a recessed track where the active segment
    rises as a small card. Track radius 11px = chip radius 8px + 3px padding,
    keeping the corners concentric. */

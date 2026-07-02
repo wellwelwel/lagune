@@ -164,10 +164,16 @@ const SidebarNav = ({
         width={38}
         height={38}
       />
-      <span className='flex flex-col text-[1rem] font-extrabold leading-[1.15] tracking-[-0.02em] text-ink'>
+      <span className='flex flex-col gap-1 text-[1.25rem] font-extrabold leading-none tracking-[-0.02em] text-ink'>
         Blue Spec
-        <span className='text-[0.7rem] font-semibold tracking-[0.01em] text-faint'>
-          documentation
+        <span className='sr-only'>Documentation</span>
+        <span
+          aria-hidden
+          className='flex justify-between text-[0.75rem] font-semibold leading-none tracking-normal text-muted'
+        >
+          {[...'Documentation'].map((letter, index) => (
+            <span key={index}>{letter}</span>
+          ))}
         </span>
       </span>
     </Link>
