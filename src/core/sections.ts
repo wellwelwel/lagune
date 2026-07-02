@@ -16,7 +16,7 @@ const findSectionEnd = (lines: string[], headingIndex: number): number => {
 };
 
 const tidy = (content: string): string =>
-  `${content.replace(/\n{3,}/g, '\n\n').replace(/\s+$/, '')}\n`;
+  `${content.replace(/\n{3,}/g, '\n\n').trimEnd()}\n`;
 
 export const removeSection = (
   markdown: string,
