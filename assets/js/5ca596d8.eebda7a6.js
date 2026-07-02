@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([["8561"],{2218(e){e.exports=JSON.parse('{"name":"bluespec-docs-content","id":"default"}')}}]);
