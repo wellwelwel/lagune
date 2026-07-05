@@ -3,7 +3,7 @@
 # 🌊 Security-Driven Hardening: Blue Spec
 
 [![Version](https://img.shields.io/npm/v/blue-spec?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/blue-spec)
-[![Docs](https://img.shields.io/badge/Documentation-005eff?logo=docusaurus&logoColor=white)](https://bluespec.weslley.io)
+[![Docs](https://img.shields.io/badge/Documentation-005eff?logo=docusaurus&logoColor=white)](https://bluespec.weslley.io/docs)
 
 **Blue Spec** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
@@ -21,6 +21,7 @@ Love **Blue Spec**? Give us a ⭐ on **GitHub**!
   - [**Install**](#install)
   - [**Commands**](#commands)
 - 📦 [**Requirements**](#requirements)
+- 🛡️ [**Security**](#security)
 - 🖖 [**Acknowledgements**](#acknowledgements)
 - 🧑‍⚖️ [**License**](#license)
 
@@ -64,13 +65,15 @@ npx -y blue-spec@latest pull
 
 ### Dashboard
 
-For an interative live, read-only view of your project's `.bluespec/` (charter, findings, hardening, verification, and the sub-skills applied), run:
+For an interactive live view of your project's `.bluespec/` (charter, findings, hardening, verification, and the sub-skills applied), run:
 
 ```bash
 npx -y blue-spec@latest dashboard
 ```
 
 It serves the dashboard and opens it in your browser, reloading as `.bluespec/` changes. Press `Ctrl+C` to stop.
+
+> Viewing is read-only. The one write path is the **Settings** page, which runs **Blue Spec**'s own commands (like install) for you, locally, behind the guards described in [**Security**](#security).
 
 ---
 
@@ -115,9 +118,25 @@ You will need these tools installed on your system:
 
 ---
 
-## Security Policy
+## Security
 
-Please check the [**SECURITY.md**](https://github.com/wellwelwel/blue-spec/blob/main/SECURITY.md).
+**Blue Spec** practices what it preaches.
+
+> To report a vulnerability and see the supported versions, see the [**Security Policy**](https://github.com/wellwelwel/blue-spec/blob/main/SECURITY.md).
+
+### Dashboard
+
+The dashboard is the one part of **Blue Spec** that both reads your project and takes a command from the browser, so its surface is hardened end to end:
+
+- **Private and local-only**: binds to `127.0.0.1`, never your network.
+- **No shell, no eval, no subprocess**: actions run in-process through the same pure file-system core as the CLI.
+- **Deny by default**: every value is rejected unless it matches **Blue Spec**'s own registries exactly, then it is rebuilt into a fresh object.
+- **Forgery-proof**: each action needs a per-session token and a same-origin check, so cross-site requests fail closed.
+- **Contained by default**: DNS rebinding, clickjacking, path traversal, oversized bodies, and slow-loris connections are all blocked up front.
+
+> [!IMPORTANT]
+>
+> Run the dashboard only on a machine you trust and control, never on a shared, unknown, multi-user, or compromised host.
 
 ---
 
@@ -152,7 +171,7 @@ Copyright © 2026-present [**Weslley Araújo**](https://github.com/wellwelwel) a
 >
 > ### Disclaimer
 >
-> **Blue Spec** is an independent open-source project and is not affiliated with, endorsed by, or associated with **Bluespec, Inc.** or the **Bluespec Hardware Description Language (HDL)** and its compiler (`bsc`).
+> **Security-Driven Hardening: Blue Spec** is an independent open-source project and is not affiliated with, endorsed by, or associated with **Bluespec, Inc.** or the **Bluespec Hardware Description Language (HDL)** and its compiler (`bsc`).
 >
 > The project name "Blue Spec" comes from Blue Team (defensive security) and Spec-Driven Development. It refers to an AI-assisted security hardening tool for software projects, a different domain from Bluespec, Inc., which provides RISC-V processor IP and hardware design tools.
 >

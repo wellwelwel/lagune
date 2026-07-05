@@ -39,12 +39,15 @@ const readManifestFields = async (
 const fieldCategories = (fields: Record<string, unknown>): string[] =>
   isStringArray(fields.categories) ? fields.categories : [];
 
-const fieldAgents = (fields: Record<string, unknown>): string[] => {
-  if (typeof fields.agent === 'string') return [fields.agent];
-  if (isStringArray(fields.agent)) return fields.agent;
+export const manifestAgents = (value: unknown): string[] => {
+  if (typeof value === 'string') return value === '' ? [] : [value];
+  if (isStringArray(value)) return value.filter((agent) => agent !== '');
 
   return [];
 };
+
+const fieldAgents = (fields: Record<string, unknown>): string[] =>
+  manifestAgents(fields.agent);
 
 export const serializeAgents = (agents: string[]): ManifestAgent =>
   agents.length === 1 ? agents[0] : agents;

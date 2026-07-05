@@ -4,20 +4,20 @@ import type {
   SkillsChange,
 } from '../types/core.js';
 import { join } from 'node:path';
-import {
-  ensureDir,
-  removeFileIfPresent,
-  writeFileIfAbsent,
-} from '../core/fs-actions.js';
 import { SKILLS_CATALOG } from '../hooks/skills/catalog.js';
 import { SKILL_GROUPS } from '../hooks/skills/groups.js';
 import {
   expandCategories,
   groupKeysForSkill,
   skillNamesForGroups,
+  unknownCategories,
   unknownGroupKeys,
 } from '../hooks/skills/skills.js';
-import { unknownCategories } from './messages.js';
+import {
+  ensureDir,
+  removeFileIfPresent,
+  writeFileIfAbsent,
+} from './fs-actions.js';
 
 const SKILLS_DIR = '.bluespec/skills';
 
