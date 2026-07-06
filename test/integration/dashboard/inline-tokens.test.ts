@@ -31,6 +31,37 @@ describe('tokenize interprets inline markdown', () => {
     ]);
   });
 
+  it('autolinks a bare URL as its own link', () => {
+    strict.deepStrictEqual(tokenize('read https://cwe.mitre.org/78.html now'), [
+      { kind: 'text', value: 'read ' },
+      {
+        kind: 'link',
+        value: 'https://cwe.mitre.org/78.html',
+        href: 'https://cwe.mitre.org/78.html',
+      },
+      { kind: 'text', value: ' now' },
+    ]);
+  });
+
+  it('keeps trailing punctuation out of an autolinked URL', () => {
+    strict.deepStrictEqual(
+      tokenize('see https://x.dev/a, and https://x.dev/b.'),
+      [
+        { kind: 'text', value: 'see ' },
+        { kind: 'link', value: 'https://x.dev/a', href: 'https://x.dev/a' },
+        { kind: 'text', value: ', and ' },
+        { kind: 'link', value: 'https://x.dev/b', href: 'https://x.dev/b' },
+        { kind: 'text', value: '.' },
+      ]
+    );
+  });
+
+  it('does not autolink a scheme with no host', () => {
+    strict.deepStrictEqual(tokenize('a https:// b'), [
+      { kind: 'text', value: 'a https:// b' },
+    ]);
+  });
+
   it('prefers strong over emphasis so ** is never read as two *', () => {
     strict.deepStrictEqual(tokenize('**bold** and *em*'), [
       { kind: 'strong', value: 'bold' },

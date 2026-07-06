@@ -5,7 +5,7 @@ import { Admonition } from '../components/primitives/admonition';
 import { Inline } from '../components/primitives/inline';
 import { SectionCard } from '../components/primitives/section-card';
 import { useData } from '../data/state';
-import { EMPTY } from '../utils/tailwind-classes';
+import { BADGE_MUTED, EMPTY } from '../utils/tailwind-classes';
 
 export const History = (): VNode => {
   const items = useData().history;
@@ -45,7 +45,15 @@ export const History = (): VNode => {
                 <div class='flex flex-col gap-2 border-t border-line px-4.5 py-3'>
                   <div class='flex items-center gap-2.5'>
                     <SeverityTag severity={item.classification} />
-                    <h3 class='min-w-0 flex-1 truncate text-[0.9rem] font-bold tracking-[-0.01em] text-ink'>
+                    {item.category && (
+                      <span
+                        class={`${BADGE_MUTED} max-w-[14rem] shrink uppercase tracking-[0.03em]`}
+                        title={item.category}
+                      >
+                        <span class='truncate'>{item.category}</span>
+                      </span>
+                    )}
+                    <h3 class='min-w-0 flex-[2] truncate text-[0.9rem] font-bold tracking-[-0.01em] text-ink'>
                       {item.name}
                     </h3>
                     <span class='flex-none text-[0.75rem] font-semibold tabular-nums text-faint'>

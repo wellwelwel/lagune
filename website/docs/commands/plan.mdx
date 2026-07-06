@@ -2,7 +2,7 @@
 id: plan
 title: /bluespec.plan
 sidebar_label: 3. Plan
-description: Turn what detect found into a defense plan, ranking each finding by priority and pairing it with a fix.
+description: Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
 ---
 
 import TabItem from '@theme/TabItem';
@@ -10,7 +10,7 @@ import Tabs from '@theme/Tabs';
 
 # /bluespec.plan
 
-🛡️ Turn what detect found into a defense plan: rank each finding by priority, then pair it with the fix to apply.
+🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
 
 ## Run it
 
@@ -40,13 +40,18 @@ import Tabs from '@theme/Tabs';
 
 ## How it works
 
-This phase continues from detect. Detect already found what your system does and the risk each thing carries, so the plan does not repeat the risk, it decides what to do about it. Plan never reads the code, which forces every fix to point at something detect actually detected. Each planned fix carries a priority and the charter principle it upholds. For example:
+This phase continues from detect. Detect already found what your system does and the risk each thing carries, so the plan does not repeat the risk, it rates how serious it is and decides what to do about it. Plan never reads the code, which forces every fix to point at something detect actually detected. It rates each finding with the CVSS v4.0 method: a category, a CVSS v4.0 vector and score reasoned from what detect and the charter captured, and the priority band that score lands on. Each fix also carries the charter principle it upholds.
+
+For example:
 
 - **File uploads** (Priority: **Critical**)
+  - _Category:_ Unrestricted file upload (CWE-434).
+  - _CVSS:_ CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, Critical).
+  - _Why this priority:_ anyone can reach the upload over the internet, and it sits on the server that stores customer files.
   - _Upholds:_ III. All input is untrusted until validated.
   - _Fix:_ check the file's real type and size, rename it on save, and store uploads where they cannot be run as code.
 
-From there, you have a prioritized list of fixes, each tied to a finding and ready for the next phase to apply.
+From there, you have a rated, prioritized list of fixes, each tied to a finding and ready for the next phase to apply. Because the CVSS vector is Base-only, anyone can paste it into the FIRST or NVD calculator and rederive the same score.
 
 :::tip
 

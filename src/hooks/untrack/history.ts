@@ -43,6 +43,7 @@ const distill = (
         classification:
           inlineText(fix ? bulletField(fix.body, 'Priority') : null) ||
           UNRANKED,
+        category: inlineText(fix ? bulletField(fix.body, 'Category') : null),
         whatItIs: inlineText(bulletField(block.body, 'What it is')),
         closed,
       };
@@ -54,6 +55,7 @@ const renderEntry = (entry: HistoryEntry): string =>
     `### ${entry.name}`,
     '',
     `- **Classification:** ${entry.classification}`,
+    ...(entry.category ? [`- **Category:** ${entry.category}`] : []),
     `- **What it is:** ${entry.whatItIs}`,
     `- **Closed:** ${entry.closed}`,
   ].join('\n');

@@ -24,16 +24,19 @@ const detect = (...findings: { name: string; what: string }[]): string =>
     ]),
   ].join('\n');
 
-const plan = (...fixes: { name: string; priority: string }[]): string =>
+const plan = (
+  ...fixes: { name: string; priority: string; category?: string }[]
+): string =>
   [
     '# Project Defense Plan',
     '',
     '## Fixes',
     '',
-    ...fixes.flatMap(({ name, priority }) => [
+    ...fixes.flatMap(({ name, priority, category }) => [
       `### ${name}`,
       '',
       `- **Priority:** ${priority}`,
+      ...(category ? [`- **Category:** ${category}`] : []),
       '',
     ]),
   ].join('\n');
@@ -42,7 +45,7 @@ const readHistory = (workspace: string): Promise<string> =>
   readFile(join(workspace, HISTORY), 'utf8');
 
 await describe('appendClosedFindings distills each closed finding', async () => {
-  await it('records name, classification, what it is, and the run date', async () => {
+  await it('records name, classification, category, what it is, and the run date', async () => {
     const workspace = await newWorkspace();
     await seedMemoryFile(
       workspace,
@@ -52,7 +55,11 @@ await describe('appendClosedFindings distills each closed finding', async () => 
     await seedMemoryFile(
       workspace,
       '.bluespec/memory/plan.md',
-      plan({ name: 'Leaked secret', priority: 'Critical' })
+      plan({
+        name: 'Leaked secret',
+        priority: 'Critical',
+        category: 'Hardcoded credentials (CWE-798)',
+      })
     );
 
     const result = await appendClosedFindings(
@@ -68,9 +75,33 @@ await describe('appendClosedFindings distills each closed finding', async () => 
     strict.deepStrictEqual(parsed[0], {
       name: 'Leaked secret',
       classification: 'Critical',
+      category: 'Hardcoded credentials (CWE-798)',
       whatItIs: 'A token sits in source.',
       closed: '2026-07-06',
     });
+  });
+
+  await it('leaves category empty when the plan names none', async () => {
+    const workspace = await newWorkspace();
+    await seedMemoryFile(
+      workspace,
+      '.bluespec/memory/detect.md',
+      detect({ name: 'Open redirect', what: 'A path is trusted verbatim.' })
+    );
+    await seedMemoryFile(
+      workspace,
+      '.bluespec/memory/plan.md',
+      plan({ name: 'Open redirect', priority: 'Medium' })
+    );
+
+    await appendClosedFindings(workspace, ['Open redirect'], NOW);
+
+    const history = await readHistory(workspace);
+    strict.ok(
+      !history.includes('**Category:**'),
+      'no empty Category line is written when there is none'
+    );
+    strict.strictEqual(buildHistory(history)[0].category, '');
   });
 
   await it('falls back to Unranked when the plan has no priority', async () => {

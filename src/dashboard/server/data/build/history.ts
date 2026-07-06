@@ -8,6 +8,7 @@ export const buildHistory = (history: string | null): HistoryItem[] =>
   sectionBlocks(history, 'Closed findings').map((block) => ({
     name: block.name,
     classification: toSeverity(bulletField(block.body, 'Classification')),
+    category: inlineText(bulletField(block.body, 'Category')),
     whatItIs: inlineText(bulletField(block.body, 'What it is')),
     closed: inlineText(bulletField(block.body, 'Closed')),
   }));

@@ -28,6 +28,8 @@ export type Finding = {
   id: string;
   name: string;
   severity: Severity;
+  category: string;
+  cvss: string;
   whatItIs: string;
   whyItMatters: string;
   fix: string;
@@ -37,6 +39,7 @@ export type Finding = {
   verdict: string | null;
   upholds: Uphold[];
   dependsOn: FindingRef | null;
+  references: string;
   skills: FindingSkill[];
   files: string[];
 };
@@ -96,6 +99,7 @@ export type Install = {
 export type HistoryItem = {
   name: string;
   classification: Severity;
+  category: string;
   whatItIs: string;
   closed: string;
 };

@@ -223,6 +223,11 @@ export type Token =
   | { kind: 'strong'; value: string }
   | { kind: 'link'; value: string; href: string };
 
+export type TokenMatch = {
+  token: Exclude<Token, { kind: 'text' }>;
+  length: number;
+};
+
 export type SkillGroupBadge = {
   key: SkillGroupKey;
   label: string;

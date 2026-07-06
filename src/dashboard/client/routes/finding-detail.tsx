@@ -18,7 +18,7 @@ import { PromptAgentButton } from '../components/prompt/agent-button';
 import { useData } from '../data/state';
 import { chainStep, hardenState, verdictKind } from '../selectors/derive';
 import { findingHref } from '../utils/links';
-import { LINK } from '../utils/tailwind-classes';
+import { BADGE_MUTED, LINK } from '../utils/tailwind-classes';
 
 const META_ROW =
   'flex items-start gap-3 border-t border-line px-4.5 py-3 last:pb-4.5';
@@ -197,10 +197,15 @@ export const FindingDetail = (): VNode => {
       <Stepper finding={finding} />
 
       <div class='mt-12 mb-6 flex flex-wrap items-center gap-3.5'>
-        <h1 class='text-[1.3rem] font-extrabold tracking-[-0.02em]'>
+        <h1 class='text-[1.3rem] font-extrabold tracking-[-0.02em] text-balance'>
           {finding.name}
         </h1>
         <SeverityTag severity={finding.severity} />
+        {finding.category && (
+          <span class={`${BADGE_MUTED} uppercase tracking-[0.03em]`}>
+            <Inline text={finding.category} />
+          </span>
+        )}
       </div>
 
       <div class='flex flex-col gap-4'>
@@ -239,6 +244,33 @@ export const FindingDetail = (): VNode => {
             <Inline text={chain.body} />
           </p>
         </Admonition>
+
+        {(finding.cvss || finding.references) && (
+          <SectionCard
+            icon='activity'
+            tone='bg-teal-soft text-teal'
+            title='Classification'
+            blurb='How Plan rates this finding, by CVSS v4.0.'
+            count={finding.references ? 2 : 1}
+          >
+            {finding.cvss && (
+              <div class={META_ROW}>
+                <span class='mt-2 size-1.75 flex-none rounded-full bg-teal' />
+                <span class='min-w-0 flex-1 break-all font-mono text-[0.78rem] font-semibold text-ink-2 tabular-nums'>
+                  {finding.cvss}
+                </span>
+              </div>
+            )}
+            {finding.references && (
+              <div class={META_ROW}>
+                <span class='mt-2 size-1.75 flex-none rounded-full border border-teal' />
+                <p class='min-w-0 flex-1 text-[0.8rem] leading-normal text-muted text-pretty'>
+                  <Inline text={finding.references} />
+                </p>
+              </div>
+            )}
+          </SectionCard>
+        )}
 
         <SectionCard
           icon='charter'

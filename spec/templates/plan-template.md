@@ -6,25 +6,30 @@
 ## Fixes
 
 <!--
-  One block per detect finding this plan acts on. The block's title is the finding's name, copied verbatim from the detect map (.bluespec/memory/detect.md): the same name detect used, so this is the same item, traced by its title alone with no separate pointer line. Detect already recorded what the finding is and the risk it carries, so this plan does not restate the risk, it decides what to do about it. Read the detect finding for the why, read this block for the fix. The file path is not written here: it lives in Blue Spec's tracking map.
+  One block per detect finding this plan acts on. The block's title is the finding's name, copied verbatim from the detect map (.bluespec/memory/detect.md): the same name detect used, so this is the same item, traced by its title alone with no separate pointer line. Detect already recorded what the finding is and the risk it carries, so this plan does not restate the risk, it decides what to do about it and rates how serious it is. Read the detect finding for the why, read this block for the rating and the fix. The file path is not written here: it lives in Blue Spec's tracking map.
 
-  "Priority" comes from the risk detect recorded for the finding: Critical, High, Medium, or Low. "Why this priority" is one plain-language line justifying that level, without restating the risk. "Upholds" links the fix to the charter principle it supports (.bluespec/memory/charter.md), or several separated by commas when one fix supports more than one. Write "None directly" when there is no charter or no principle fits, and keep the fix. "Depends on" is optional: name another finding this fix must follow only when it truly cannot hold until that one lands first, since it sets the order to apply in, not the priority. When one finding needs more than one fix, write more than one paragraph under its single block, never a second block: one finding is one item.
+  "Category" names the risk class the finding maps to, and a CVE when one already exists (see the Rating guide at the foot of this file). "CVSS" and "Priority" are one rating, not two: the CVSS v4.0 vector carries the score, and the Priority band is that score in plain words. "Why this priority" is one plain-language line for the Environmental adjustment behind the band (how exposed the finding is, what is at stake), without restating the risk. "Upholds" links the fix to the charter principle it supports (.bluespec/memory/charter.md), or several separated by commas when one fix supports more than one. Write "None directly" when there is no charter or no principle fits, and keep the fix. "Depends on" is optional: name another finding this fix must follow only when it truly cannot hold until that one lands first, since it sets the order to apply in, not the priority. "References" is optional: CWE or OWASP links grounding the category. When one finding needs more than one fix, write more than one paragraph under the block's "Fix", never a second block: one finding is one item, with one rating.
 
-  This plan is reconciled, never append-only. On a re-run, re-check each existing block: keep it if its finding is still in the detect map and still unfixed, rewrite it if the details changed, and remove it if detect shows the finding resolved or the code already applies the fix. Then add blocks only for what is genuinely new.
+  This plan is reconciled, never append-only. On a re-run, re-check each existing block: keep it if its finding is still in the detect map and still unfixed, rewrite its rating and fix if the details changed, and remove it if detect shows the finding resolved or the code already applies the fix. Then add blocks only for what is genuinely new.
 -->
 
 ### [FINDING_1_NAME]
 
 <!-- Example: the detect finding's name, copied verbatim from detect.md so this is the same item. Do not rename it and do not add an action prefix like "Harden ". -->
 
-- **Priority:** [FIX_1_PRIORITY] <!-- Example: one of Critical, High, Medium, or Low, taken from the risk detect recorded for the finding -->
-- **Why this priority:** [FIX_1_PRIORITY_RATIONALE] <!-- Example: "A disguised file can run as code on the server. The upload is open to anyone right now." -->
+- **Category:** [FIX_1_CATEGORY] <!-- Example: the risk class this finding maps to, and a CVE if one already exists for it, such as "Unrestricted file upload (CWE-434)" or "SQL injection (CWE-89)". Name the class alone when there is no CVE. -->
+- **CVSS:** [FIX_1_CVSS] <!-- Example: the CVSS v4.0 Base vector string with its score and band, such as "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, Critical)". Reason it from the detect finding and the charter, never from a fresh code read. See the Rating guide at the foot of this file. -->
+- **Priority:** [FIX_1_PRIORITY] <!-- Example: one of Critical, High, Medium, or Low. It is the CVSS band above in plain words, after the Environmental adjustment, not a free choice. -->
+- **Why this priority:** [FIX_1_PRIORITY_RATIONALE] <!-- Example: "Anyone can reach the upload over the internet, and it sits on the server that holds customer files." One plain-language line for the Environmental adjustment (exposure and stakes), without restating the risk detect already recorded. -->
 - **Upholds:** [FIX_1_PRINCIPLE] <!-- Example: the charter principle this fix supports, such as "All input is untrusted until validated", or "None directly" when no charter is loaded or none fits -->
 - **Depends on:** [FIX_1_DEPENDS_ON] <!-- Optional. Example: "User input validation", naming another finding this fix must follow. Omit this whole line when there is no real dependency. -->
 - **Fix:** [FIX_1_CONTROL] <!-- Example: the control to apply, described not applied. For an unchecked upload: validate the file's real type and size, reject anything unexpected, rename it on save, and store it where it cannot be run as code. -->
+- **References:** [FIX_1_REFERENCES] <!-- Optional. Markdown links grounding the category, comma-separated, such as "[CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html), [OWASP File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)". Write each as a `[label](url)` link, not a bare URL. Omit this whole line when there is nothing to cite beyond the class already named. Never invent a reference. -->
 
 ### [FINDING_2_NAME]
 
+- **Category:** [FIX_2_CATEGORY]
+- **CVSS:** [FIX_2_CVSS]
 - **Priority:** [FIX_2_PRIORITY]
 - **Why this priority:** [FIX_2_PRIORITY_RATIONALE]
 - **Upholds:** [FIX_2_PRINCIPLE]
@@ -32,6 +37,8 @@
 
 ### [FINDING_3_NAME]
 
+- **Category:** [FIX_3_CATEGORY]
+- **CVSS:** [FIX_3_CVSS]
 - **Priority:** [FIX_3_PRIORITY]
 - **Why this priority:** [FIX_3_PRIORITY_RATIONALE]
 - **Upholds:** [FIX_3_PRINCIPLE]
@@ -44,3 +51,30 @@
 -->
 
 - [OPEN_QUESTION_ITEM] <!-- Example: a path or concern in scope that the detect map does not cover yet, so no fix is planned for it until detect maps it -->
+
+<!--
+  Rating guide for the Category, CVSS, and Priority fields above. This guide is instruction for whoever fills the plan. Delete it from the finished plan, it is not part of what the plan communicates.
+
+  This phase never reads the code. Reason the rating from the detect finding and the charter alone, the only inputs this phase has. A fresh code read belongs to detect: a rating you cannot reason from what detect captured is a gap for detect to close, not grounds to open the source here.
+
+  Name the Category the same way every run: the risk class the detect finding maps to (such as "SQL injection", "Prototype pollution", "Unrestricted file upload"), and a CVE identifier only if one already exists for it. When no CVE exists, name the class alone. Add the matching CWE in the Category or under References when it sharpens the class.
+
+  Choose the Priority band the same way every run, so two runs on the same finding land the same:
+
+  1. Base rating (objective, reproducible). Reason about the flaw with CVSS v4.0 Base metrics (AV, AC, AT, PR, and UI for how it is reached, plus VC/VI/VA and SC/SI/SA for what it harms), reading both from what detect recorded. This is the intrinsic severity of the flaw itself, independent of where it is deployed. Build the CVSS:4.0 Base vector, read its score, then map the score to a band: None 0.0, Low 0.1-3.9, Medium 4.0-6.9, High 7.0-8.9, Critical 9.0-10.0. Put the vector and score on the CVSS line, the Priority line carries the band in plain words. The vector is Base only, no Threat or Environmental metrics in the string, so anyone can paste it into the FIRST or NVD v4.0 calculator and rederive the same score.
+
+  2. Context adjustment (from charter and detect, do not read the code and do not re-ask the user). The SAME flaw can land higher or lower depending on this project, using only CVSS Environmental reasoning over facts charter and detect already captured. This adjustment is reasoned in the "Why this priority" line, not encoded in the vector:
+  - Exposure (Modified Attack Vector): if detect shows the affected surface is internet-facing, keep it reachable over the network. If it is reachable only from inside (a private internal tool, a local CLI, an adjacent network), lower the reach, which lowers the rating.
+  - What is at stake (Security Requirements CR/IR/AR): if charter or detect shows this component holds or guards high-value assets (PII, payments, credentials, identity, core infrastructure), raise the matching requirement to High, which raises the rating. A package whose break cascades into many dependents is treated the same way, a wide blast radius means high requirements.
+  These move the rating in BOTH directions: a Critical-base flaw on a non-exposed internal helper with nothing sensitive behind it can settle at High or Medium, and a Medium-base flaw on an internet-facing endpoint holding payment data can settle at High. Do NOT change the band on a scary category name, on a vendor label, or on a guess. Move it only through these two mechanisms, on evidence from charter or detect.
+
+  3. Threat layer is intentionally out of scope here. The plan rates a finding that has no CVE of its own, so EPSS, exploit maturity, and in-the-wild signals are unavailable. Do not invent or estimate them. The rating stands on the flaw plus this project's context alone, which is a defensible CVSS Base-and-Environmental rating, not a guess about active exploitation.
+
+  Plain-language anchors for the "Why this priority" line (say which one and why, in the project's terms), so the band stays legible to a non-developer:
+  - Critical: an attacker reaches it directly and the damage is severe right now (run code or commands, take over an account, read or change the sensitive data this project holds), with little or nothing standing in the way. Drop everything and fix it first.
+  - High: serious damage, but a condition must line up first (some access, a specific input, a step to chain), or the worst impact lands only on part of the system. Fix next, before normal work.
+  - Medium: real but contained, harder to reach or limited in what it exposes. Fix soon.
+  - Low: minor or unlikely in practice, narrow impact and easy to avoid. Fix when convenient.
+
+  Honesty: never inflate to look thorough and never deflate to look clean. When a fact the rating needs is missing from detect and the charter (the version range, whether the surface is exposed, what data sits behind it), state the assumption you made in the "Why this priority" line, for example "rated as internet-facing because detect did not confirm the surface is internal", and where the gap is wide, record it under Open questions to route back to detect.
+-->

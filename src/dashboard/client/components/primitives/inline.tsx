@@ -18,7 +18,11 @@ const renderToken = (token: Token): VNode | string => {
         target='_blank'
         rel='noreferrer'
       >
-        <Inline text={token.value} />
+        {token.value === token.href ? (
+          token.value
+        ) : (
+          <Inline text={token.value} />
+        )}
       </a>
     );
   if (token.kind === 'strong')

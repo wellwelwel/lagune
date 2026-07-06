@@ -440,6 +440,7 @@ export type ProseRemoval = {
 export type HistoryEntry = {
   name: string;
   classification: string;
+  category: string;
   whatItIs: string;
   closed: string;
 };

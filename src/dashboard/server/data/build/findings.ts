@@ -32,6 +32,10 @@ export const buildFindings = (
         severity: toSeverity(
           planned ? bulletField(planned.body, 'Priority') : null
         ),
+        category: inlineText(
+          planned ? bulletField(planned.body, 'Category') : null
+        ),
+        cvss: inlineText(planned ? bulletField(planned.body, 'CVSS') : null),
         whatItIs: inlineText(bulletField(detected.body, 'What it is')),
         whyItMatters: inlineText(bulletField(detected.body, 'Why it matters')),
         fix: inlineText(
@@ -50,6 +54,9 @@ export const buildFindings = (
         dependsOn: dependency
           ? { id: slugify(dependency), name: dependency }
           : null,
+        references: planned
+          ? (bulletField(planned.body, 'References') ?? '')
+          : '',
         skills: skills
           .filter((skill) => skill.surfaced?.includes(detected.name))
           .map((skill) => ({
