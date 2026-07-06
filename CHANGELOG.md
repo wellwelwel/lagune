@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.9.0](https://github.com/wellwelwel/blue-spec/compare/v0.8.0...v0.9.0) (2026-07-06)
+
+
+### Features
+
+* create `bluespec` universal command ([2934e95](https://github.com/wellwelwel/blue-spec/commit/2934e953861d3a168fd9e3d1155198b522a9460f))
+* improve sub-skill listing for weaker agents ([8c69d9d](https://github.com/wellwelwel/blue-spec/commit/8c69d9d2ed148fd9e0c17e03719fc3435153d1f7))
+* introduce a local and private Dashboard ([#11](https://github.com/wellwelwel/blue-spec/issues/11)) ([4a3f07b](https://github.com/wellwelwel/blue-spec/commit/4a3f07beb8167018fb94d645426d7467a28e2fa5))
+* keep the history of all past runs ([73e9393](https://github.com/wellwelwel/blue-spec/commit/73e9393c7038b83fa2ae77c712b34cca9bd26243))
+* **plan:** rate each finding by CVSS v4.0 category and score ([f13acd9](https://github.com/wellwelwel/blue-spec/commit/f13acd9909fa0d20f7353d2db9d9ab261daacb19))
+
+
+### Bug Fixes
+
+* **dashboard:** improve history layout ([aa22aa8](https://github.com/wellwelwel/blue-spec/commit/aa22aa8ecc0bc72ed7dd70408cab20e3bea7ee52))
+* ensure `bluespec` universal command is git ignored by default ([c40ecad](https://github.com/wellwelwel/blue-spec/commit/c40ecad978f19e8124c933ba3e31c21d16e3e6d3))
+
 ## [0.8.0](https://github.com/wellwelwel/blue-spec/compare/v0.7.0...v0.8.0) (2026-07-02)
 
 
