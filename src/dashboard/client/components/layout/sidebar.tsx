@@ -12,6 +12,7 @@ const scopeForPath = (path: string): RouteScope => {
   if (path.startsWith('/sidequests')) return 'sidequests';
   if (path.startsWith('/charter')) return 'charter';
   if (path.startsWith('/skills')) return 'skills';
+  if (path.startsWith('/history')) return 'history';
   if (path.startsWith('/settings')) return 'settings';
   return 'overview';
 };
@@ -57,6 +58,13 @@ export const Sidebar = (): VNode => {
       label: 'Skills',
       icon: 'brain',
       badge: data.skills.length,
+    },
+    {
+      scope: 'history',
+      href: '/history',
+      label: 'History',
+      icon: 'checkCircle',
+      badge: data.history.length,
     },
     {
       scope: 'settings',

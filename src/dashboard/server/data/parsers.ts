@@ -1,8 +1,8 @@
 import type { Skill, Uphold } from '../../../types/dashboard/dashboard';
+import { afterSeparator } from '../../../core/markdown/fields';
+import { bulletText, inlineText } from '../../../core/markdown/lines';
+import { withinSection } from '../../../core/markdown/sections';
 import { skillLabel } from '../../shared/skill-meta';
-import { afterSeparator } from './markdown/fields';
-import { bulletText, inlineText } from './markdown/lines';
-import { withinSection } from './markdown/sections';
 
 const SKILL_PATH_PREFIX = '`.bluespec/skills/';
 const SKILL_PATH_SUFFIX = '.md`';

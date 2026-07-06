@@ -1,18 +1,18 @@
 import { describe, it, strict } from 'poku';
-import { buildCharter } from '../../../src/dashboard/server/data/build/charter.js';
-import { stripComments } from '../../../src/dashboard/server/data/markdown/comments.js';
-import { bulletField } from '../../../src/dashboard/server/data/markdown/fields.js';
+import { stripComments } from '../../../src/core/markdown/comments.js';
+import { bulletField } from '../../../src/core/markdown/fields.js';
 import {
   headingLevel,
   structuralText,
-} from '../../../src/dashboard/server/data/markdown/lines.js';
+} from '../../../src/core/markdown/lines.js';
 import {
   firstParagraph,
   sectionBlocks,
   sectionBullets,
   sectionIntro,
   withinSection,
-} from '../../../src/dashboard/server/data/markdown/sections.js';
+} from '../../../src/core/markdown/sections.js';
+import { buildCharter } from '../../../src/dashboard/server/data/build/charter.js';
 import { parseSkills } from '../../../src/dashboard/server/data/parsers.js';
 
 const lines = (...items: string[]): string => items.join('\n');

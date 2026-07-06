@@ -1,5 +1,5 @@
-import { afterSeparator } from '../markdown/fields';
-import { markdownLines, structuralText } from '../markdown/lines';
+import { afterSeparator } from '../../../../core/markdown/fields';
+import { markdownLines, structuralText } from '../../../../core/markdown/lines';
 
 export const matchProject = (
   detect: string | null,

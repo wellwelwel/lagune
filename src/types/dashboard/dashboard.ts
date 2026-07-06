@@ -93,6 +93,13 @@ export type Install = {
   missing: string[];
 };
 
+export type HistoryItem = {
+  name: string;
+  classification: Severity;
+  whatItIs: string;
+  closed: string;
+};
+
 export type DashboardData = {
   project: string;
   version: string;
@@ -104,5 +111,6 @@ export type DashboardData = {
   sidequests: SideQuestItem[];
   charter: Charter;
   skills: Skill[];
+  history: HistoryItem[];
   install: Install;
 };

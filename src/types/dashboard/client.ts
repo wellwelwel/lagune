@@ -7,6 +7,7 @@ export type RouteScope =
   | 'sidequests'
   | 'charter'
   | 'skills'
+  | 'history'
   | 'settings';
 
 export type SeverityFilter = Severity | 'All';

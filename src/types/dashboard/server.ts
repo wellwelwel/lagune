@@ -4,21 +4,6 @@ import type { ActionResponse } from './api.js';
 
 export type { TrackingEntry } from '../core.js';
 
-export type Block = {
-  name: string;
-  body: string;
-};
-
-export type MarkdownLine = {
-  text: string;
-  code: boolean;
-};
-
-export type TextSpan = {
-  from: number;
-  to: number;
-};
-
 export type Tracking = {
   entries: TrackingEntry[];
 };

@@ -1,5 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
-import { stripComments } from './markdown/comments';
+import { stripComments } from '../../../core/markdown/comments';
 
 export const readText = async (path: string): Promise<string | null> => {
   try {

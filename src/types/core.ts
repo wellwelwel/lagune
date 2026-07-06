@@ -402,6 +402,21 @@ export type RemovalResult = {
   notFound: string[];
 };
 
+export type Block = {
+  name: string;
+  body: string;
+};
+
+export type MarkdownLine = {
+  text: string;
+  code: boolean;
+};
+
+export type TextSpan = {
+  from: number;
+  to: number;
+};
+
 export type SectionRemoval = {
   content: string;
   removed: boolean;
@@ -422,8 +437,21 @@ export type ProseRemoval = {
   dangling: DanglingMention[];
 };
 
+export type HistoryEntry = {
+  name: string;
+  classification: string;
+  whatItIs: string;
+  closed: string;
+};
+
+export type HistoryAppend = {
+  file: string;
+  recorded: string[];
+};
+
 export type UntrackSummary = {
   removed: string[];
   notFound: string[];
   prose: ProseRemoval[];
+  history: HistoryAppend;
 };

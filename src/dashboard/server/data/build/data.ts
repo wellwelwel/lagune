@@ -1,11 +1,12 @@
 import type { DashboardData } from '../../../../types/dashboard/dashboard';
 import { join, resolve } from 'node:path';
 import { loadVersion } from '../../../../core/assets';
-import { bulletField } from '../markdown/fields';
+import { bulletField } from '../../../../core/markdown/fields';
 import { readMarkdown, readSkillNames, readText } from '../read';
 import { parseTracking, pathsByName } from '../tracking';
 import { buildCharter } from './charter';
 import { buildFindings } from './findings';
+import { buildHistory } from './history';
 import { buildInstall, missingFiles } from './install';
 import { matchProject, matchVersion } from './meta';
 import { buildPhases } from './phases';
@@ -21,6 +22,7 @@ export const buildData = async (
     plan,
     harden,
     charter,
+    history,
     tracking,
     installedSkills,
     manifest,
@@ -30,6 +32,7 @@ export const buildData = async (
     readMarkdown(join(bluespecDir, 'memory/plan.md')),
     readMarkdown(join(bluespecDir, 'memory/harden.md')),
     readMarkdown(join(bluespecDir, 'memory/charter.md')),
+    readMarkdown(join(bluespecDir, 'memory/history.md')),
     readText(join(bluespecDir, 'tracking.json')),
     readSkillNames(join(bluespecDir, 'skills')),
     readText(join(bluespecDir, 'manifest.json')),
@@ -60,6 +63,7 @@ export const buildData = async (
     sidequests: buildSideQuests(detect, plan, harden),
     charter: buildCharter(charter),
     skills: buildSkills(detect, installedSkills),
+    history: buildHistory(history).reverse(),
     install: {
       ...install,
       running,

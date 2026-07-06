@@ -1,5 +1,5 @@
 import type { SideQuestItem } from '../../../../types/dashboard/dashboard';
-import { sectionBullets } from '../markdown/sections';
+import { sectionBullets } from '../../../../core/markdown/sections';
 
 export const buildSideQuests = (
   detect: string | null,

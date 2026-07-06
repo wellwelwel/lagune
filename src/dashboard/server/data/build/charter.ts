@@ -1,11 +1,15 @@
 import type { Charter } from '../../../../types/dashboard/dashboard';
-import { fieldValue } from '../markdown/fields';
-import { bulletText, inlineText, markdownLines } from '../markdown/lines';
+import { fieldValue } from '../../../../core/markdown/fields';
+import {
+  bulletText,
+  inlineText,
+  markdownLines,
+} from '../../../../core/markdown/lines';
 import {
   firstParagraph,
   sectionBlocks,
   sectionIntro,
-} from '../markdown/sections';
+} from '../../../../core/markdown/sections';
 
 export const buildCharter = (charter: string | null): Charter => {
   const principles = sectionBlocks(charter, 'Principles').map((block) => ({

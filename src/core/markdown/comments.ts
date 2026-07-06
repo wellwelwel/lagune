@@ -1,4 +1,4 @@
-import type { TextSpan } from '../../../../types/dashboard/server';
+import type { TextSpan } from '../../types/core.js';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import { walk } from './lines';
 

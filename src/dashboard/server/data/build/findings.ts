@@ -1,8 +1,8 @@
 import type { Finding } from '../../../../types/dashboard/dashboard';
+import { bulletField } from '../../../../core/markdown/fields';
+import { inlineText, slugify } from '../../../../core/markdown/lines';
+import { sectionBlocks } from '../../../../core/markdown/sections';
 import { severityRank, toSeverity } from '../../../shared/severity';
-import { bulletField } from '../markdown/fields';
-import { inlineText, slugify } from '../markdown/lines';
-import { sectionBlocks } from '../markdown/sections';
 import { parseSkills, parseUpholds } from '../parsers';
 
 export const buildFindings = (

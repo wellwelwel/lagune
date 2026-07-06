@@ -1,5 +1,5 @@
 import type { Nodes } from 'mdast';
-import type { MarkdownLine } from '../../../../types/dashboard/server';
+import type { MarkdownLine } from '../../types/core.js';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 
 export const walk = (node: Nodes, visit: (node: Nodes) => void): void => {

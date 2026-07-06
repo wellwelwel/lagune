@@ -1,4 +1,4 @@
-import type { Block, MarkdownLine } from '../../../../types/dashboard/server';
+import type { Block, MarkdownLine } from '../../types/core.js';
 import { bulletText, headingLevel, inlineText, markdownLines } from './lines';
 
 export function* withinSection(

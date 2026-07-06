@@ -27,6 +27,8 @@ const detectWith = (...findings: string[]): string =>
 const readMemory = (workspace: string, relativePath: string): Promise<string> =>
   readFile(join(workspace, relativePath), 'utf8');
 
+const NOW = new Date('2026-07-06T00:00:00.000Z');
+
 describe('removeEntries drops items by name and reports what it removed', () => {
   it('removes one named entry, leaving the rest in place', () => {
     const map = mapOf([
@@ -105,7 +107,8 @@ await describe('the untrack hook logic', async () => {
 
     const output = await untrack(
       workspace,
-      JSON.stringify({ names: ['Leaked secret'] })
+      JSON.stringify({ names: ['Leaked secret'] }),
+      NOW
     );
     const parsed: { removed: string[]; notFound: string[] } =
       JSON.parse(output);
@@ -123,7 +126,7 @@ await describe('the untrack hook logic', async () => {
     const workspace = await newWorkspace();
 
     await strict.rejects(
-      untrack(workspace, JSON.stringify({ names: [] })),
+      untrack(workspace, JSON.stringify({ names: [] }), NOW),
       /names/
     );
   });
@@ -137,7 +140,8 @@ await describe('the untrack hook logic', async () => {
 
     const output = await untrack(
       workspace,
-      JSON.stringify({ names: [42, 'Leaked secret'] })
+      JSON.stringify({ names: [42, 'Leaked secret'] }),
+      NOW
     );
     const parsed: { removed: string[] } = JSON.parse(output);
 
@@ -157,7 +161,11 @@ await describe('the untrack hook logic', async () => {
     const trackingPath = join(workspace, '.bluespec/tracking.json');
     const before = await stat(trackingPath);
 
-    await untrack(workspace, JSON.stringify({ names: ['Missing finding'] }));
+    await untrack(
+      workspace,
+      JSON.stringify({ names: ['Missing finding'] }),
+      NOW
+    );
     const after = await stat(trackingPath);
 
     strict.strictEqual(
@@ -184,7 +192,11 @@ await describe('untrack removes finding sections from the memory artifacts', asy
     await seedMemoryFile(workspace, '.bluespec/memory/harden.md', body);
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     strict.deepStrictEqual(summary.removed, ['Leaked secret']);
@@ -222,7 +234,11 @@ await describe('untrack removes finding sections from the memory artifacts', asy
     await seedMemoryFile(workspace, '.bluespec/memory/plan.md', body);
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     const harden = summary.prose.find(
@@ -254,7 +270,11 @@ await describe('untrack removes finding sections from the memory artifacts', asy
     );
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     const plan = summary.prose.find(
@@ -274,7 +294,11 @@ await describe('untrack removes finding sections from the memory artifacts', asy
     await seedMemoryFile(workspace, '.bluespec/memory/detect.md', detect);
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     const entry = summary.prose.find(
@@ -307,7 +331,11 @@ await describe('untrack removes finding sections from the memory artifacts', asy
     );
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     strict.deepStrictEqual(
@@ -327,7 +355,11 @@ await describe('untrack removes finding sections from the memory artifacts', asy
     await seedMemoryFile(workspace, '.bluespec/memory/detect.md', detect);
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     const entry = summary.prose.find(
@@ -363,7 +395,11 @@ await describe('untrack removes finding sections from the memory artifacts', asy
       files.map((file) => stat(join(workspace, file)))
     );
 
-    await untrack(workspace, JSON.stringify({ names: ['Missing finding'] }));
+    await untrack(
+      workspace,
+      JSON.stringify({ names: ['Missing finding'] }),
+      NOW
+    );
 
     const after = await Promise.all(
       files.map((file) => stat(join(workspace, file)))
@@ -407,7 +443,11 @@ await describe('untrack deletes a memory file once its last finding is gone', as
       await seedMemoryFile(workspace, file, detectWith('Leaked secret'));
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     strict.deepStrictEqual(
@@ -433,7 +473,11 @@ await describe('untrack deletes a memory file once its last finding is gone', as
     );
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     const detect = summary.prose.find(
@@ -455,7 +499,11 @@ await describe('untrack deletes a memory file once its last finding is gone', as
     await seedMemoryFile(workspace, '.bluespec/memory/detect.md', detect);
 
     const summary: UntrackSummary = JSON.parse(
-      await untrack(workspace, JSON.stringify({ names: ['Leaked secret'] }))
+      await untrack(
+        workspace,
+        JSON.stringify({ names: ['Leaked secret'] }),
+        NOW
+      )
     );
 
     const entry = summary.prose.find(

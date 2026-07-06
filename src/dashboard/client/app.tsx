@@ -10,6 +10,7 @@ import { useDashboardData } from './hooks/use/data';
 import { Charter } from './routes/charter';
 import { FindingDetail } from './routes/finding-detail';
 import { Findings } from './routes/findings';
+import { History } from './routes/history';
 import { Overview } from './routes/overview';
 import { Settings } from './routes/settings';
 import { SideQuests } from './routes/sidequests';
@@ -51,6 +52,7 @@ const Workspace = (): VNode => (
             <Route path='/sidequests' component={SideQuests} />
             <Route path='/charter' component={Charter} />
             <Route path='/skills' component={Skills} />
+            <Route path='/history' component={History} />
             <Route path='/settings' component={Settings} />
             <Route default component={Overview} />
           </Router>
