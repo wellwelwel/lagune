@@ -39,7 +39,11 @@ For an interactive live view, follow-up, and maintenance, run:
 npx -y blue-spec@latest
 ```
 
-It serves a local dashboard and opens it privately in your browser, reloading as `.bluespec/` changes:
+It serves a dashboard and opens it in a random port:
+
+- [x] **Private** and **Local**
+- [x] **Live Reload**
+- [x] **Install**, **Pull**, **Update**, and **Manage** your **Blue Spec** dynamically
 
 > <img width="360" src="./website/static/img/dashboard/01.png" />
 > <img width="360" src="./website/static/img/dashboard/02.png" />
@@ -48,12 +52,11 @@ It serves a local dashboard and opens it privately in your browser, reloading as
 > <img width="360" src="./website/static/img/dashboard/05.png" />
 > <img width="360" src="./website/static/img/dashboard/06.png" />
 
-- Use `--port` or `-p` to specify a custom port.
-- Press `Ctrl+C` to stop.
-
 > [!TIP]
 >
-> 📦 No `node_modules` or `package.json` is needed.
+> - 🚪 Use `--port` or `-p` to specify a custom port.
+> - ␛ Press `Ctrl+C` to stop.
+> - 📦 No `node_modules` or `package.json` is needed.
 
 ---
 
