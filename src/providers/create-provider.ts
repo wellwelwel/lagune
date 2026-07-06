@@ -5,10 +5,13 @@ import type {
   CommandKey,
   CommandWrite,
 } from '../types/core.js';
-import { transformCommand } from '../transform/command-template.js';
+import {
+  commandName,
+  transformCommand,
+} from '../transform/command-template.js';
 
 const commandPath = (spec: AgentSpec, key: CommandKey): string => {
-  const name = `bluespec.${key}`;
+  const name = commandName(key);
 
   if (spec.layout === 'skill') return `${spec.dir}/${name}/SKILL.md`;
 

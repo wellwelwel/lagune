@@ -1,6 +1,7 @@
 import type { BundledAsset, CommandFormat, CommandKey } from '../types/core.js';
 
 const ARGUMENT_HINTS: Record<CommandKey, string> = {
+  bluespec: 'Describe the work to do, and Blue Spec builds it safely',
   charter:
     'Optionally describe your project, or leave empty to let Blue Spec propose',
   detect:
@@ -20,7 +21,8 @@ const ARGUMENT_HINTS: Record<CommandKey, string> = {
 
 const FRONTMATTER_PATTERN = /^---\n([\s\S]*?)\n---\n/;
 
-const skillName = (key: CommandKey): string => `bluespec.${key}`;
+export const commandName = (key: CommandKey): string =>
+  key === 'bluespec' ? 'bluespec' : `bluespec.${key}`;
 
 const hasField = (frontmatter: string, field: string): boolean =>
   frontmatter
@@ -67,7 +69,7 @@ const injectSkillFrontmatter = (
 
   if (hasField(frontmatter, 'name')) return asset.contents;
 
-  const lines = [`name: ${skillName(key)}`, frontmatter.trim()];
+  const lines = [`name: ${commandName(key)}`, frontmatter.trim()];
 
   if (!hasField(frontmatter, 'argument-hint'))
     lines.push(`argument-hint: ${ARGUMENT_HINTS[key]}`);
@@ -133,7 +135,7 @@ const transformGooseYaml = (asset: BundledAsset, key: CommandKey): string => {
 
   return [
     'version: 1.0.0',
-    `title: "${skillName(key)}"`,
+    `title: "${commandName(key)}"`,
     `description: ${JSON.stringify(description)}`,
     `instructions: ${JSON.stringify(description)}`,
     'prompt: |',

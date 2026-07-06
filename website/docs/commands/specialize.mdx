@@ -17,7 +17,7 @@ It reads the material and distills it into a focused, defense-only [sub-skill](/
 <Tabs>
   <TabItem value="article" label="From an article" default>
 
-```bash
+```prompt
 # A link or reference: Blue Spec distills it into the defense
 /bluespec.specialize https://owasp.org/www-community/attacks/SQL_Injection
 ```
@@ -25,7 +25,7 @@ It reads the material and distills it into a focused, defense-only [sub-skill](/
   </TabItem>
   <TabItem value="exploit" label="From an exploit">
 
-```bash
+```prompt
 # An attack as the source: the sub-skill is still the defense
 /bluespec.specialize "' OR 1=1 -- splices SQL into the query text"
 ```
@@ -33,7 +33,7 @@ It reads the material and distills it into a focused, defense-only [sub-skill](/
   </TabItem>
   <TabItem value="topic" label="From a topic">
 
-```bash
+```prompt
 # Or just name the area to cover
 /bluespec.specialize SQL injection
 ```

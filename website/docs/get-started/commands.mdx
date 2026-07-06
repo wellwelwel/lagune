@@ -2,7 +2,7 @@
 id: commands
 title: Commands
 sidebar_label: Commands
-description: The slash commands your AI agent unlocks once Blue Spec is set up, the five-phase Blue Team flow plus the special commands.
+description: The slash commands your AI agent unlocks once Blue Spec is set up, split into auditing an existing project and securing new work as you build it, both governed by the charter.
 keywords:
   - bluespec commands
   - charter
@@ -13,13 +13,39 @@ keywords:
   - slash commands
 ---
 
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
 # Slash Commands
 
-Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of slash commands.
+Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of slash commands. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 
-## The Blue Team flow
+<Tabs>
+  <TabItem value="build" label="⌨️ Build / Development" default>
 
-These five run in order. Each builds on the previous, so following the list top to bottom is all it takes:
+You don't need to finish your work before securing it. Use [**`/bluespec`**](/docs/commands/bluespec) for the work you are writing **right now**:
+
+| Command                                         | What it does for you                                                          |
+| ----------------------------------------------- | ----------------------------------------------------------------------------- |
+| [**/bluespec.charter**](/docs/commands/charter) | Sets your project's security rules, the foundation `/bluespec` builds against |
+| [**/bluespec**](/docs/commands/bluespec)        | Builds what you ask and secures it as it is written, guided by the charter    |
+
+:::tip[Use it anytime]
+[**`/bluespec`**](/docs/commands/bluespec) honors your charter rules whenever it runs. It takes any prompt, builds what you asked, and makes it safe as it goes, not later.
+:::
+
+---
+
+#### Special commands
+
+| Command                                               | What it does                                                                               |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| [**/bluespec.specialize**](/docs/commands/specialize) | Specializes **Blue Spec** in a new security _sub_-skill from articles, exploits, or topics |
+
+  </TabItem>
+  <TabItem value="audit" label="🔬 Audit: Blue Team Flow">
+
+The full **Blue Team flow**: read what a project does, map its risks, and close them. Each command builds on the previous, so following the list top to bottom is all it takes:
 
 | #   | Command                                         | What it does for you                                                           |
 | --- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
@@ -29,7 +55,7 @@ These five run in order. Each builds on the previous, so following the list top 
 | 4   | [**/bluespec.harden**](/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
 | 5   | [**/bluespec.verify**](/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
 
-> Each command builds on the previous, so following the list top to bottom is all it takes.
+---
 
 #### Special commands
 
@@ -37,6 +63,8 @@ These five run in order. Each builds on the previous, so following the list top 
 | ----------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | [**/bluespec.specialize**](/docs/commands/specialize) | Specializes **Blue Spec** in a new security _sub_-skill from articles, exploits, or topics |
 | [**/bluespec.prove**](/docs/commands/prove)           | Turns each detected finding into a runnable, defense-only proof for responsible disclosure |
+
+---
 
 #### Internal commands
 
@@ -47,3 +75,6 @@ These five run in order. Each builds on the previous, so following the list top 
 :::tip
 Security is not a cost, it is an investment: what you put in upfront, you save many times over in the incidents you never have 🙋🏻‍♂️
 :::
+
+  </TabItem>
+</Tabs>

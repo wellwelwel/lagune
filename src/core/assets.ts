@@ -7,6 +7,7 @@ import type {
 import { readdir, readFile } from 'node:fs/promises';
 
 const COMMAND_FILES: Record<CommandKey, string> = {
+  bluespec: 'spec/commands/bluespec.md',
   charter: 'spec/commands/bluespec.charter.md',
   detect: 'spec/commands/bluespec.detect.md',
   plan: 'spec/commands/bluespec.plan.md',

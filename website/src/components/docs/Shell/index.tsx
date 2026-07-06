@@ -32,6 +32,7 @@ const PILL =
 const GROUP_ICONS: Partial<Record<string, DocsIconName>> = {
   'Get Started': 'play',
   'The Blue Team Flow': 'activity',
+  'Development Flow': 'code',
   Tools: 'grid',
   Hooks: 'cpu',
   'References & Sources': 'file',

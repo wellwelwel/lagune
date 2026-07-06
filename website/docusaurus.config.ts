@@ -228,6 +228,7 @@ const config: Config = {
         'json',
         'python',
         'typescript',
+        'markdown',
       ],
     },
   } satisfies Preset.ThemeConfig,

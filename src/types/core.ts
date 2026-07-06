@@ -70,6 +70,7 @@ export type SkillsCatalogFile = {
 };
 
 export type CommandKey =
+  | 'bluespec'
   | 'charter'
   | 'detect'
   | 'plan'
@@ -79,7 +80,7 @@ export type CommandKey =
   | 'specialize'
   | 'prove';
 
-export type TemplateKey = Exclude<CommandKey, 'repair' | 'verify'>;
+export type TemplateKey = Exclude<CommandKey, 'bluespec' | 'repair' | 'verify'>;
 
 export type BundledAsset = {
   fileName: string;

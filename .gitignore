@@ -11,4 +11,5 @@ node_modules
 /.bluespec/templates/
 /.bluespec/hooks/
 /.bluespec/skills/*
-/**/bluespec.*
+# /**/bluespec.*
+# !/spec/commands/bluespec.md
