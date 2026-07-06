@@ -18,7 +18,7 @@ Love **Blue Spec**? Give us a ⭐ on **GitHub**!
 ## Table of Contents
 
 - 🌊 [**Get Started**](#get-started)
-  - 📦 [**Dashboard**](#️-dashboard) | [**CLI**](#️-cli)
+  - 📦 [**Dashboard**](#dashboard) | [**CLI**](#cli)
   - 💬 [**Prompt Commands**](#prompt-commands)
 - 💽 [**Requirements**](#requirements)
 - 🔐 [**Security**](#security)
@@ -31,7 +31,7 @@ Love **Blue Spec**? Give us a ⭐ on **GitHub**!
 
 **Blue Spec** adapts to your environment, whether it is a new project or an existing one.
 
-### 🖥️ Dashboard
+### Dashboard
 
 For an interactive live view, follow-up, and maintenance, run:
 
@@ -55,12 +55,12 @@ It serves a dashboard and opens it in a random port:
 > [!TIP]
 >
 > - 🚪 Use `--port` or `-p` to specify a custom port.
-> - ␛ Press `Ctrl+C` to stop.
+> - ⏏️ Press `Ctrl+C` to stop.
 > - 📦 No `node_modules` or `package.json` is needed.
 
 ---
 
-### ⌨️ CLI
+### CLI
 
 ```bash
 npx -y blue-spec@latest init
@@ -140,8 +140,6 @@ You will need these tools installed on your system:
 **Blue Spec** practices what it preaches.
 
 > To report a vulnerability and see the supported versions, see the [**Security Policy**](https://github.com/wellwelwel/blue-spec/blob/main/SECURITY.md).
-
-### Dashboard
 
 The dashboard is the one part of **Blue Spec** that both reads your project and takes a command from the browser, so its surface is hardened end to end:
 
