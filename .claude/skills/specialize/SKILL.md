@@ -20,7 +20,7 @@ Read and follow `@spec/commands/bluespec.specialize.md` in full. Its authoring s
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
 | `.bluespec/skills/{regex,javascript,browser}.md` (worked examples) | every `*.md` already in `spec/skills/` (list the directory, mirror the closest one) |
 | `.bluespec/templates/specialize-template.md`                       | `spec/templates/specialize-template.md`                                             |
-| `node ./.bluespec/hooks/skills.mjs` (list what exists)             | read `spec/skills/` and `SKILLS_CATALOG` in `src/hooks/skills/catalog.ts`           |
+| `@.bluespec/specializations.md` (list what exists)                 | read `spec/skills/` and `SKILLS_CATALOG` in `src/hooks/skills/catalog.ts`           |
 | `.bluespec/skills/<name>.md` (the sub-skill file)                  | `spec/skills/<name>.md`                                                             |
 | `.bluespec/skills.json` (catalog entry)                            | a `BuiltinSkillEntry` in `src/hooks/skills/catalog.ts`                              |
 
@@ -43,7 +43,7 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 ### Required (a sub-skill is broken without these)
 
 1. Write the authored module to **`spec/skills/<name>.md`** (Step 1). `src/core/assets.ts` reads `spec/skills/` by directory listing, so the file loads automatically once it is on disk, with no code change.
-2. Add the `BuiltinSkillEntry` `{ name, tags, groups }` to **`src/hooks/skills/catalog.ts`**. Without this row the file scaffolds, but the `skills` hook never lists it and `add --skills` cannot bundle it.
+2. Add the `BuiltinSkillEntry` `{ name, tags, groups }` to **`src/hooks/skills/catalog.ts`**. Without this row the file scaffolds, but `.bluespec/specializations.md` never lists it and `add --skills` cannot bundle it.
 3. Add a `SkillGroup` to **`src/hooks/skills/groups.ts`**, but only when you introduced a new category.
 
 ### Tests (the suite asserts the catalog and the docs stay in sync)

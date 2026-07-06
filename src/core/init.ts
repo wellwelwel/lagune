@@ -20,6 +20,7 @@ import {
   recordManifestInstall,
 } from './manifest.js';
 import { reconstruct, refresh, scaffold } from './scaffold.js';
+import { renderSpecializations } from './specializations.js';
 
 export const performInit = async (
   input: PerformInitInput
@@ -44,6 +45,8 @@ export const performInit = async (
     addFiles: result.created,
   });
 
+  await renderSpecializations(cwd);
+
   const gitignore = await ensureGitignoreEntries(cwd);
   const { agents } = await readManifestInstall(cwd);
 
@@ -67,6 +70,8 @@ export const performPull = async (
     providers,
     assets: { ...assets, skills: selectSkillAssets(assets, keys) },
   });
+
+  await renderSpecializations(cwd);
 
   const gitignore = await ensureGitignoreEntries(cwd);
 
@@ -95,6 +100,8 @@ export const performUpdate = async (
     version,
     now,
   });
+
+  await renderSpecializations(cwd);
 
   return { initialized: true, refresh: result, agents };
 };
@@ -139,6 +146,8 @@ export const performSpecialize = async (
       },
       { version, now }
     );
+
+  await renderSpecializations(cwd);
 
   return {
     initialized: true,

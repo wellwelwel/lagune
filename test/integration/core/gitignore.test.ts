@@ -8,6 +8,7 @@ import { newWorkspace, readGitignore, writeGitignore } from './__utils__.js';
 const BLUESPEC_ENTRIES = [
   '/.bluespec/templates/',
   '/.bluespec/hooks/',
+  '/.bluespec/specializations.md',
   '/.bluespec/skills/*',
   '/**/bluespec.*',
   '/**/bluespec/',
@@ -59,6 +60,59 @@ await describe('ensureGitignoreEntries', async () => {
     strict(contents.includes('/.bluespec/hooks/'), 'adds a missing entry');
     strict(contents.includes('/.bluespec/skills/*'), 'adds a missing entry');
     strict(contents.includes('/**/bluespec.*'), 'adds a missing entry');
+  });
+
+  await it('adds a new entry inside the existing block, not a second header', async () => {
+    const workspace = await newWorkspace();
+    const stale = BLUESPEC_ENTRIES.filter(
+      (entry) => entry !== '/.bluespec/specializations.md'
+    );
+    await writeGitignore(
+      workspace,
+      `node_modules\n\n# Blue Spec\n${stale.join('\n')}\n`
+    );
+
+    const outcome = await ensureGitignoreEntries(workspace);
+    const contents = await readGitignore(workspace);
+
+    strict.strictEqual(outcome, 'updated');
+    strict.strictEqual(
+      contents.split('# Blue Spec').length - 1,
+      1,
+      'never opens a second Blue Spec block'
+    );
+    strict(
+      contents.includes('/.bluespec/specializations.md'),
+      'adds the missing entry'
+    );
+    for (const entry of BLUESPEC_ENTRIES)
+      strict(contents.includes(entry), `keeps ${entry}`);
+  });
+
+  await it('keeps a sub-skill re-include next to the exclude when back-filling', async () => {
+    const workspace = await newWorkspace();
+    const stale = BLUESPEC_ENTRIES.filter(
+      (entry) => entry !== '/.bluespec/specializations.md'
+    );
+    const withNegation = stale.flatMap((entry) =>
+      entry === '/.bluespec/skills/*'
+        ? [entry, '!/.bluespec/skills/graphql.md']
+        : [entry]
+    );
+    await writeGitignore(
+      workspace,
+      `# Blue Spec\n${withNegation.join('\n')}\n`
+    );
+
+    await ensureGitignoreEntries(workspace);
+    const lines = (await readGitignore(workspace)).trimEnd().split('\n');
+
+    const excludeAt = lines.indexOf('/.bluespec/skills/*');
+    strict.strictEqual(
+      lines[excludeAt + 1],
+      '!/.bluespec/skills/graphql.md',
+      'the sub-skill re-include stays right after its exclude'
+    );
   });
 
   await it('leaves an already complete .gitignore untouched', async () => {

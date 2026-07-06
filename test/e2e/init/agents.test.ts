@@ -9,7 +9,11 @@ import { initInto, newWorkspace, packageRoot } from './__utils__.js';
 
 const assets = await loadAssets(packageRoot);
 
-const stateFiles = ['.bluespec/tracking.json', '.bluespec/skills.json'];
+const stateFiles = [
+  '.bluespec/tracking.json',
+  '.bluespec/skills.json',
+  '.bluespec/specializations.md',
+];
 
 const templateFiles = [
   '.bluespec/templates/charter-template.md',

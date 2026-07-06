@@ -36,7 +36,7 @@ export const docsNav: DocsNavEntry[] = [
   },
   {
     label: 'Hooks',
-    items: ['hooks/regex', 'hooks/network', 'hooks/skills'],
+    items: ['hooks/regex', 'hooks/network'],
   },
   {
     label: 'References & Sources',

@@ -16,11 +16,13 @@ const tracking = '.bluespec/tracking.json';
 const skillsCatalog = '.bluespec/skills.json';
 const regexSkill = '.bluespec/skills/regex.md';
 const userSkill = '.bluespec/skills/graphql.md';
+const specializations = '.bluespec/specializations.md';
 
 const stripGenerated = async (workspace: string): Promise<void> => {
   await remove(workspace, '.bluespec/templates');
   await remove(workspace, '.bluespec/hooks');
   await remove(workspace, regexSkill);
+  await remove(workspace, specializations);
   await remove(workspace, '.claude/skills/bluespec.charter');
 };
 
@@ -48,6 +50,10 @@ await describe('pull rebuilds generated files from a committed manifest', async 
       await read(workspace, regexSkill),
       shippedSkill,
       'an installed built-in sub-skill is reconstructed'
+    );
+    strict(
+      (await read(workspace, specializations)).length > 0,
+      'the internal specializations listing is rebuilt'
     );
   });
 

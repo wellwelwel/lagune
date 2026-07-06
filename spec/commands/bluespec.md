@@ -39,8 +39,8 @@ Sub-skills are focused, language-agnostic security knowledge modules that load o
 
 First, list the catalog once:
 
-```bash
-node ./.bluespec/hooks/skills.mjs
+```text
+@.bluespec/specializations.md
 ```
 
 It prints each sub-skill as `name: tags`, suffixing ` [required]` on any the catalog flags. The tags say what each one covers. Reach a verdict on every entry, one at a time:

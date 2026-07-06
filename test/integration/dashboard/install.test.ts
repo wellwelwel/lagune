@@ -1,6 +1,6 @@
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { loadVersion } from '../../../src/core/assets.js';
 import { buildData } from '../../../src/dashboard/server/data/build/data.js';
@@ -17,6 +17,33 @@ const installOf = async (manifest: string | null) => {
     return (await buildData(dir, packageRoot)).install;
   } finally {
     await rm(dir, { recursive: true, force: true });
+  }
+};
+
+const installWithFiles = async (manifestFiles: string[], onDisk: string[]) => {
+  const workspace = await mkdtemp(join(tmpdir(), 'bluespec-workspace-'));
+  const bluespecDir = join(workspace, '.bluespec');
+
+  try {
+    await mkdir(bluespecDir, { recursive: true });
+    await writeFile(
+      join(bluespecDir, 'manifest.json'),
+      JSON.stringify({
+        agent: 'claude',
+        version: '0.7.0',
+        files: manifestFiles,
+      })
+    );
+    for (const file of onDisk) {
+      const full = join(workspace, file);
+
+      await mkdir(dirname(full), { recursive: true });
+      await writeFile(full, 'x');
+    }
+
+    return (await buildData(bluespecDir, packageRoot)).install;
+  } finally {
+    await rm(workspace, { recursive: true, force: true });
   }
 };
 
@@ -75,5 +102,31 @@ describe('install parsing accepts both manifest agent shapes', () => {
     const install = await installOf('{not json');
 
     strict.deepStrictEqual(install.agents, []);
+  });
+});
+
+describe('the internal specializations listing is tracked like any manifest file', () => {
+  const files = ['.bluespec/tracking.json', '.bluespec/specializations.md'];
+
+  it('counts it in the total and reports none missing when it is present', async () => {
+    const install = await installWithFiles(files, files);
+
+    strict.strictEqual(
+      install.filesTotal,
+      2,
+      'the listing is one of the total'
+    );
+    strict.deepStrictEqual(install.missing, [], 'nothing is missing');
+  });
+
+  it('reports it missing when the file is absent, so Pull can rebuild it', async () => {
+    const install = await installWithFiles(files, ['.bluespec/tracking.json']);
+
+    strict.strictEqual(install.filesTotal, 2);
+    strict.deepStrictEqual(
+      install.missing,
+      ['.bluespec/specializations.md'],
+      'an absent listing surfaces as missing'
+    );
   });
 });

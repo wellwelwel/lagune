@@ -1,8 +1,7 @@
-import { spawn } from 'node:child_process';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { execPath } from 'node:process';
 import { describe, it, strict } from 'poku';
+import { renderSpecializations } from '../../../src/core/specializations.js';
 import { initInto, newWorkspace } from './__utils__.js';
 
 const writeUserCatalog = (
@@ -25,27 +24,18 @@ const writeUserSkillFile = async (
   await writeFile(join(dir, `${name}.md`), `# ${name}\n`, 'utf8');
 };
 
-const runSkills = (workspace: string): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const child = spawn(execPath, ['.bluespec/hooks/skills.mjs'], {
-      cwd: workspace,
-    });
-    const chunks: string[] = [];
+const readSpecializations = async (workspace: string): Promise<string> => {
+  await renderSpecializations(workspace);
 
-    child.stdout.setEncoding('utf8');
-    child.stdout.on('data', (chunk: string) => chunks.push(chunk));
-    child.on('error', reject);
-    child.on('close', (code) => {
-      if (code === 0) {
-        resolve(chunks.join('').trim());
-        return;
-      }
+  const raw = await readFile(
+    join(workspace, '.bluespec', 'specializations.md'),
+    'utf8'
+  );
 
-      reject(new Error(`skills hook exited with code ${code}`));
-    });
-  });
+  return raw.trim();
+};
 
-await describe('the scaffolded skills hook lists what is installed', async () => {
+await describe('the scaffolded specializations file lists what is installed', async () => {
   await it('lists an installed built-in sub-skill', async () => {
     const workspace = await newWorkspace();
 
@@ -55,7 +45,7 @@ await describe('the scaffolded skills hook lists what is installed', async () =>
       skills: ['owasp'],
     });
 
-    const output = await runSkills(workspace);
+    const output = await readSpecializations(workspace);
     const regexLine = output
       .split('\n')
       .find((line) => line.startsWith('regex'));
@@ -79,7 +69,7 @@ await describe('the scaffolded skills hook lists what is installed', async () =>
       skills: ['owasp'],
     });
 
-    const output = await runSkills(workspace);
+    const output = await readSpecializations(workspace);
 
     strict(
       !output.includes('javascript'),
@@ -100,7 +90,7 @@ await describe('the scaffolded skills hook lists what is installed', async () =>
     ]);
     await writeUserSkillFile(workspace, 'graphql');
 
-    const output = await runSkills(workspace);
+    const output = await readSpecializations(workspace);
 
     strict(
       output.includes('graphql: GraphQL, Apollo, gql'),
@@ -122,7 +112,7 @@ await describe('the scaffolded skills hook lists what is installed', async () =>
     });
     await writeUserCatalog(workspace, [{ name: 'ghost', tags: ['nofile'] }]);
 
-    const output = await runSkills(workspace);
+    const output = await readSpecializations(workspace);
 
     strict(
       !output.includes('ghost'),
@@ -140,7 +130,7 @@ await describe('the scaffolded skills hook lists what is installed', async () =>
     });
     await writeUserCatalog(workspace, [{ name: 'regex', tags: ['custom'] }]);
 
-    const output = await runSkills(workspace);
+    const output = await readSpecializations(workspace);
     const matches = output
       .split('\n')
       .filter((line) => line.startsWith('regex'));

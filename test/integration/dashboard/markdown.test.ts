@@ -370,6 +370,52 @@ describe('list markers tolerate drift beyond the dash', () => {
     );
   });
 
+  it('parseSkills reads a path a weaker agent left without backticks', () => {
+    const text = lines(
+      '## Applied sub-skills',
+      '- .bluespec/skills/regex.md: Multipart boundary regex',
+      '- .bluespec/skills/network.md: Remote import fetches user URLs',
+      '- .bluespec/skills/interpreter.md: Thumbnail command interpolates request input'
+    );
+
+    strict.deepStrictEqual(
+      parseSkills(text).map((skill) => [skill.name, skill.surfaced]),
+      [
+        ['regex', 'Multipart boundary regex'],
+        ['network', 'Remote import fetches user URLs'],
+        ['interpreter', 'Thumbnail command interpolates request input'],
+      ]
+    );
+  });
+
+  it('parseSkills accepts bold and half-quoted paths alike', () => {
+    const text = lines(
+      '## Applied sub-skills',
+      '- **`.bluespec/skills/crypto.md`**: Weak key derivation',
+      '- **.bluespec/skills/upload.md** — Avatar keeps the filename',
+      '- .bluespec/skills/path.md`: Download trusts the path'
+    );
+
+    strict.deepStrictEqual(
+      parseSkills(text).map((skill) => [skill.name, skill.surfaced]),
+      [
+        ['crypto', 'Weak key derivation'],
+        ['upload', 'Avatar keeps the filename'],
+        ['path', 'Download trusts the path'],
+      ]
+    );
+  });
+
+  it('parseSkills still rejects a non-skill bullet', () => {
+    const text = lines(
+      '## Applied sub-skills',
+      '- .bluespec/memory/detect.md: not a sub-skill path',
+      '- just some prose about skills'
+    );
+
+    strict.deepStrictEqual(parseSkills(text), []);
+  });
+
   it('buildCharter keeps drifted bullets and drops drifted rationale', () => {
     const charter = lines(
       '## Baseline discipline',

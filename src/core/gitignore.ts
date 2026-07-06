@@ -8,6 +8,7 @@ const SKILLS_EXCLUDE = '/.bluespec/skills/*';
 const BLUESPEC_ENTRIES = [
   '/.bluespec/templates/',
   '/.bluespec/hooks/',
+  '/.bluespec/specializations.md',
   SKILLS_EXCLUDE,
   '/**/bluespec.*',
   '/**/bluespec/',
@@ -25,6 +26,35 @@ const readGitignore = async (path: string): Promise<string> => {
   }
 };
 
+const isBlueSpecLine = (line: string): boolean =>
+  BLUESPEC_ENTRIES.includes(line) || line.startsWith('!/.bluespec/skills/');
+
+const lastBlueSpecIndex = (lines: string[]): number =>
+  lines.reduce(
+    (last, line, index) => (isBlueSpecLine(line) ? index : last),
+    -1
+  );
+
+const insertMissingInBlock = (existing: string, missing: string[]): string => {
+  const lines = existing.replace(/\n+$/, '').split('\n');
+  const at = lastBlueSpecIndex(lines);
+  const merged = [
+    ...lines.slice(0, at + 1),
+    ...missing,
+    ...lines.slice(at + 1),
+  ];
+
+  return `${merged.join('\n')}\n`;
+};
+
+const appendNewBlock = (existing: string, missing: string[]): string => {
+  const block = [SECTION_HEADER, ...missing].join('\n');
+
+  return existing.length > 0
+    ? `${existing.trimEnd()}\n\n${block}\n`
+    : `${block}\n`;
+};
+
 export const ensureGitignoreEntries = async (
   cwd: string
 ): Promise<GitignoreOutcome> => {
@@ -34,9 +64,9 @@ export const ensureGitignoreEntries = async (
 
   if (missing.length === 0) return 'unchanged';
 
-  const block = [SECTION_HEADER, ...missing].join('\n');
-  const updated =
-    existing.length > 0 ? `${existing.trimEnd()}\n\n${block}\n` : `${block}\n`;
+  const updated = existing.includes(SECTION_HEADER)
+    ? insertMissingInBlock(existing, missing)
+    : appendNewBlock(existing, missing);
 
   await writeFileOverwrite(gitignorePath, updated);
 

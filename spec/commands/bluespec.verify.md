@@ -68,7 +68,7 @@ Each control lands in one of two outcomes, which drive the steps that follow:
 
 ### Step 5: Consult the sub-skills
 
-Your work list is the "Applied sub-skills" section of `.bluespec/memory/detect.md`, which lists each sub-skill by path (`.bluespec/skills/<name>.md`). Detect already matched them, so do not run the catalog hook again.
+Your work list is the "Applied sub-skills" section of `.bluespec/memory/detect.md`, which lists each sub-skill by path (`.bluespec/skills/<name>.md`). Detect already matched them, so do not read the catalog again.
 
 Read each listed file, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a sub-skill ships a deterministic checker (a hook it tells you to run), running that checker is the application, and its printed verdict is the control's verdict that your own reading never overrides. Where it ships no checker, follow its guidance to inform the verdict. If a listed file is missing, note it and judge that control from the code alone.
 

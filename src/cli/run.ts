@@ -20,6 +20,7 @@ import {
   groupOutcomes,
   groupScaffoldOutcomes,
 } from '../core/scaffold-groups.js';
+import { renderSpecializations } from '../core/specializations.js';
 import { loadTrackingMap } from '../core/tracking.js';
 import { startDashboard } from '../dashboard/server/start.js';
 import { SKILLS_CATALOG } from '../hooks/skills/catalog.js';
@@ -244,6 +245,8 @@ const runAdd = async (
   ]);
   const change = await addSkills(cwd, assets, installed, categories);
 
+  await renderSpecializations(cwd);
+
   if (!sameCategories(change.categories, installed))
     await applyManifestChange(
       cwd,
@@ -295,6 +298,8 @@ const runRemove = async (
     locked: [],
   });
   const change = await removeSkills(cwd, installed, categories);
+
+  await renderSpecializations(cwd);
 
   if (!sameCategories(change.categories, installed))
     await applyManifestChange(

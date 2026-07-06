@@ -95,13 +95,11 @@ The catalog grows by adding one knowledge file plus one catalog row, never a new
 
 :::note[Internally, Blue Spec loads sub-skills automatically, on demand]
 
-When the detect or verify phase hits a context a sub-skill covers, it lists the installed sub-skills with the [`skills` hook](/docs/hooks/skills) and reads the matching `.bluespec/skills/<name>.md` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
+When the detect or verify phase hits a context a sub-skill covers, it finds the installed sub-skill and reads the matching `.bluespec/skills/<name>.md` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
 
 :::
 
 ## Discover what is available
-
-Two views, for two questions.
 
 To see every **category** and whether it is installed, from the terminal:
 
@@ -115,12 +113,6 @@ npx -y blue-spec@latest list --skills
 #   • python      [available]  Python and its language-specific risks
 #   • rust        [available]  Rust and its language-specific risks
 #   ...
-```
-
-To list the sub-skills **installed** in this project, each with the tags that say what it covers, run the [`skills` hook](/docs/hooks/skills):
-
-```bash
-node ./.bluespec/hooks/skills.mjs
 ```
 
 :::note[_Sub_-Skills are not loaded by default]

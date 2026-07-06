@@ -10,6 +10,7 @@ import type {
   ScaffoldResult,
   TemplateKey,
 } from '../types/core.js';
+import { access } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import {
   ensureDir,
@@ -21,6 +22,7 @@ import {
   emptySkillsCatalog,
   serializeSkillsCatalog,
 } from './skills-catalog.js';
+import { renderSpecializations } from './specializations.js';
 import { emptyTrackingMap, serializeTrackingMap } from './tracking.js';
 
 const MEMORY_DIR = '.bluespec/memory';
@@ -104,6 +106,27 @@ const writeJobsIfAbsent = (
     })
   );
 
+const pathExists = async (path: string): Promise<boolean> => {
+  try {
+    await access(path);
+
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const renderSpecializationsOutcome = async (
+  targetDir: string
+): Promise<FileOutcome> => {
+  const existed = await pathExists(
+    toAbsolute(targetDir, '.bluespec/specializations.md')
+  );
+  const path = await renderSpecializations(targetDir);
+
+  return { path, status: existed ? 'skipped' : 'created' };
+};
+
 const pathsWithStatus = (
   outcomes: FileOutcome[],
   status: FileOutcome['status']
@@ -130,7 +153,12 @@ export const scaffold = async (
   await ensureDir(toAbsolute(targetDir, MEMORY_DIR));
   await ensureJobDirs(targetDir, jobs);
 
-  return toScaffoldResult(await writeJobsIfAbsent(targetDir, jobs));
+  const outcomes = await writeJobsIfAbsent(targetDir, jobs);
+
+  return toScaffoldResult([
+    ...outcomes,
+    await renderSpecializationsOutcome(targetDir),
+  ]);
 };
 
 const dedupeByPath = (jobs: CommandWrite[]): CommandWrite[] => {
@@ -155,7 +183,7 @@ export const refresh = async (
 
   await ensureJobDirs(targetDir, jobs);
 
-  const refreshed = await Promise.all(
+  const written = await Promise.all(
     jobs.map(async (job): Promise<string> => {
       await writeFileOverwrite(
         toAbsolute(targetDir, job.relativePath),
@@ -165,6 +193,8 @@ export const refresh = async (
       return job.relativePath;
     })
   );
+
+  const refreshed = [...written, await renderSpecializations(targetDir)];
 
   await restampManifestVersion(targetDir, { version, now, files: refreshed });
 
@@ -182,5 +212,10 @@ export const reconstruct = async (
 
   await ensureJobDirs(targetDir, jobs);
 
-  return toScaffoldResult(await writeJobsIfAbsent(targetDir, jobs));
+  const outcomes = await writeJobsIfAbsent(targetDir, jobs);
+
+  return toScaffoldResult([
+    ...outcomes,
+    await renderSpecializationsOutcome(targetDir),
+  ]);
 };

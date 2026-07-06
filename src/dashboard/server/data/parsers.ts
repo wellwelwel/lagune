@@ -4,20 +4,50 @@ import { bulletText, inlineText } from '../../../core/markdown/lines';
 import { withinSection } from '../../../core/markdown/sections';
 import { skillLabel } from '../../shared/skill-meta';
 
-const SKILL_PATH_PREFIX = '`.bluespec/skills/';
-const SKILL_PATH_SUFFIX = '.md`';
+const SKILL_PATH_PREFIX = '.bluespec/skills/';
+const SKILL_PATH_EXTENSION = '.md';
+const BOLD_MARKS = ['**', '__'];
+const CODE_MARK = '`';
+
+const dropPrefix = (text: string, mark: string): string =>
+  text.startsWith(mark) ? text.slice(mark.length) : text;
+
+const dropOpeningDecoration = (text: string): string => {
+  const withoutBold = BOLD_MARKS.reduce(dropPrefix, text);
+
+  return dropPrefix(withoutBold, CODE_MARK);
+};
+
+const skipClosingDecoration = (text: string, index: number): number => {
+  let cursor = index;
+
+  if (text.startsWith(CODE_MARK, cursor)) cursor += CODE_MARK.length;
+
+  for (const mark of BOLD_MARKS)
+    if (text.startsWith(mark, cursor)) cursor += mark.length;
+
+  return cursor;
+};
 
 const skillRow = (line: string): Skill | null => {
-  const content = bulletText(line);
-  if (content === null || !content.startsWith(SKILL_PATH_PREFIX)) return null;
+  const bullet = bulletText(line);
+  if (bullet === null) return null;
 
-  const suffix = content.indexOf(SKILL_PATH_SUFFIX, SKILL_PATH_PREFIX.length);
-  if (suffix === -1) return null;
+  const content = dropOpeningDecoration(bullet);
+  if (!content.startsWith(SKILL_PATH_PREFIX)) return null;
 
-  const name = content.slice(SKILL_PATH_PREFIX.length, suffix);
-  if (name === '' || name.includes('`')) return null;
+  const dot = content.indexOf(SKILL_PATH_EXTENSION, SKILL_PATH_PREFIX.length);
+  if (dot === -1) return null;
 
-  const cursor = afterSeparator(content, suffix + SKILL_PATH_SUFFIX.length);
+  const name = content.slice(SKILL_PATH_PREFIX.length, dot);
+  if (name === '' || name.includes('`') || name.includes('/')) return null;
+
+  const afterPath = skipClosingDecoration(
+    content,
+    dot + SKILL_PATH_EXTENSION.length
+  );
+
+  const cursor = afterSeparator(content, afterPath);
   if (cursor === -1) return null;
 
   const surfaced = inlineText(content.slice(cursor));

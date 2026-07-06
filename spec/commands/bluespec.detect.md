@@ -47,13 +47,13 @@ If reconciling reveals the chain is inconsistent (for example the tracking map p
 
 ### Step 4: List the sub-skills and widen the read
 
-Before you read the code, list the sub-skill catalog once. This is the only run of the hook in this phase:
+Before you read the code, list the sub-skill catalog once. This is the only read of the catalog in this phase:
 
-```bash
-node ./.bluespec/hooks/skills.mjs
+```text
+@.bluespec/specializations.md
 ```
 
-It prints each sub-skill as `name: tags`. The list does two jobs. Its tags are search targets: each one sends you looking for that context in the code, widening the detection in Step 5. The list itself is the work list Step 6 carries forward to give every entry a verdict, so keep it whole and do not run the hook again.
+It prints each sub-skill as `name: tags`. The list does two jobs. Its tags are search targets: each one sends you looking for that context in the code, widening the detection in Step 5. The list itself is the work list Step 6 carries forward to give every entry a verdict, so keep it whole and do not read the catalog again.
 
 ### Step 5: Read the code in scope and detect
 

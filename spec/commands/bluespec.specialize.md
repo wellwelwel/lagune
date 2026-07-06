@@ -12,9 +12,9 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 ## Outline
 
-You are giving Blue Spec a new **specialty**: a focused, language-agnostic security sub-skill the detect and verify phases load on demand, listed by the `skills` hook and importable directly with `@.bluespec/skills/<name>.md`. You distill the user's source or topic into it. A sub-skill audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `.bluespec/templates/specialize-template.md`, and the built-in sub-skills under `.bluespec/skills/` (`regex`, `javascript`, `browser`) are worked examples to mirror.
+You are giving Blue Spec a new **specialty**: a focused, language-agnostic security sub-skill the detect and verify phases load on demand, listed in `.bluespec/specializations.md` and importable directly with `@.bluespec/skills/<name>.md`. You distill the user's source or topic into it. A sub-skill audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `.bluespec/templates/specialize-template.md`, and the built-in sub-skills under `.bluespec/skills/` (`regex`, `javascript`, `browser`) are worked examples to mirror.
 
-The result is the sub-skill at `.bluespec/skills/<name>.md`, a one-line entry in the catalog `.bluespec/skills.json` so the dispatcher hook lists it, and a `.gitignore` re-include so the sub-skill stays version-controlled. You write all three. You never touch the user's source.
+The result is the sub-skill at `.bluespec/skills/<name>.md`, a one-line entry in the catalog `.bluespec/skills.json` so `.bluespec/specializations.md` lists it, and a `.gitignore` re-include so the sub-skill stays version-controlled. You write all three. You never touch the user's source.
 
 ### Step 1: Read the input
 
@@ -30,10 +30,10 @@ First settle the **terrain**: the area the sub-skill covers, never the vulnerabi
 
 The name is that terrain as a safe filename: lowercase, replace every run of characters outside `a-z 0-9 -` with a single `-`, trim leading and trailing `-`, and collapse repeats. Derive it from the terrain you settled, never from the raw topic, so an attack topic never becomes the name. If the terrain is unclear, ask the user for a short area name. This name is also the identity used in `.bluespec/skills.json`.
 
-List what already exists by running the hook from the project root:
+List what already exists by reading the catalog from the project root:
 
-```bash
-node ./.bluespec/hooks/skills.mjs
+```text
+@.bluespec/specializations.md
 ```
 
 Then check whether `.bluespec/skills/<name>.md` exists.
@@ -63,7 +63,15 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 ### Step 7: Write the files and keep the sub-skill tracked
 
 - Ensure `.bluespec/skills/` exists, then write `.bluespec/skills/<name>.md` with the authored or reconciled content. An existing name is reconciled from its current content first, so this never discards a built-in or an earlier version unseen.
-- Update `.bluespec/skills.json`. If it is absent, create it as `{ "name": "blue-spec", "entries": [] }`. Add the `{ "name": "<name>", "tags": [...] }` entry, or on a refine rewrite that one entry, preserving every other entry untouched. This is the catalog row the hook reads at runtime.
+- Update `.bluespec/skills.json`. If it is absent, create it as `{ "name": "blue-spec", "entries": [] }`. Add the `{ "name": "<name>", "tags": [...] }` entry, or on a refine rewrite that one entry, preserving every other entry untouched. This is the catalog row `.bluespec/specializations.md` is rebuilt from.
+- Rebuild the listing so the detect and verify phases see the new entry. Run the hook from the project root:
+
+  ```bash
+  node ./.bluespec/hooks/specializations.mjs
+  ```
+
+  It rewrites `.bluespec/specializations.md` from the catalog, folding your new entry in with the built-ins. On a refine this refreshes the changed tags.
+
 - Keep the sub-skill under version control. Blue Spec ignores the built-in sub-skills by default (`.gitignore` carries `/.bluespec/skills/*`), so a sub-skill you author needs an explicit re-include or it stays invisible to git and is lost on the next clone. Run the hook from the project root:
 
   ```bash
