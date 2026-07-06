@@ -68,13 +68,15 @@ It serves a dashboard and opens it in a random port:
 
 ### CLI
 
+#### Install
+
 ```bash
 npx -y blue-spec@latest init
 ```
 
 - 🃏 **Blue Spec** runs on **Node.js** under the hood, you use whatever language you want.
 
-### Update
+#### Update
 
 To update **Blue Spec**'s own files and its commands to their latest versions, run:
 
@@ -86,7 +88,7 @@ npx -y blue-spec@latest update
 >
 > Your charter, the phase artifacts, and any custom specializations stay untouched.
 
-### Pull
+#### Pull
 
 When you clone or fork a project that already has **Blue Spec**, run pull to install its files from the manifest:
 
