@@ -17,21 +17,47 @@ Love **Blue Spec**? Give us a ⭐ on **GitHub**!
 
 ## Table of Contents
 
-- 🌱 [**Get Started**](#get-started)
-  - [**Install**](#install)
-  - [**Commands**](#commands)
-- 📦 [**Requirements**](#requirements)
-- 🛡️ [**Security**](#security)
+- 🌊 [**Get Started**](#get-started)
+  - 📦 [**Dashboard**](#️-dashboard) | [**CLI**](#️-cli)
+  - 💬 [**Prompt Commands**](#prompt-commands)
+- 💽 [**Requirements**](#requirements)
+- 🔐 [**Security**](#security)
 - 🖖 [**Acknowledgements**](#acknowledgements)
-- 🧑‍⚖️ [**License**](#license)
+- 🧑‍⚖️ [**License**](#license) (**MIT**)
 
 ---
 
-## Get Started
+### Get Started
 
-### Install
+**Blue Spec** adapts to your environment, whether it is a new project or an existing one.
 
-> **Blue Spec** adapts to your environment, whether it is a new project or an existing one.
+### 🖥️ Dashboard
+
+For an interactive live view, follow-up, and maintenance, run:
+
+```bash
+npx -y blue-spec@latest
+```
+
+It serves a local dashboard and opens it privately in your browser, reloading as `.bluespec/` changes:
+
+> <img width="360" src="./website/static/img/dashboard/01.png" />
+> <img width="360" src="./website/static/img/dashboard/02.png" />
+> <img width="360" src="./website/static/img/dashboard/03.png" />
+> <img width="360" src="./website/static/img/dashboard/04.png" />
+> <img width="360" src="./website/static/img/dashboard/05.png" />
+> <img width="360" src="./website/static/img/dashboard/06.png" />
+
+- Use `--port` or `-p` to specify a custom port.
+- Press `Ctrl+C` to stop.
+
+> [!TIP]
+>
+> 📦 No `node_modules` or `package.json` is needed.
+
+---
+
+### ⌨️ CLI
 
 ```bash
 npx -y blue-spec@latest init
@@ -39,7 +65,7 @@ npx -y blue-spec@latest init
 
 - 🃏 **Blue Spec** runs on **Node.js** under the hood, you use whatever language you want.
 
-#### Update
+### Update
 
 To update **Blue Spec**'s own files and its commands to their latest versions, run:
 
@@ -51,7 +77,7 @@ npx -y blue-spec@latest update
 >
 > Your charter, the phase artifacts, and any custom specializations stay untouched.
 
-#### Pull
+### Pull
 
 When you clone or fork a project that already has **Blue Spec**, run pull to install its files from the manifest:
 
@@ -63,21 +89,9 @@ npx -y blue-spec@latest pull
 >
 > 💡 Think of it as the **Blue Spec** equivalent of `npm i`, `pip install -r requirements.txt`, and the like.
 
-### Dashboard
-
-For an interactive live view of your project's `.bluespec/` (charter, findings, hardening, verification, and the sub-skills applied), run:
-
-```bash
-npx -y blue-spec@latest dashboard
-```
-
-It serves the dashboard and opens it in your browser, reloading as `.bluespec/` changes. Press `Ctrl+C` to stop.
-
-> Viewing is read-only. The one write path is the **Settings** page, which runs **Blue Spec**'s own commands (like install) for you, locally, behind the guards described in [**Security**](#security).
-
 ---
 
-### Commands
+### Prompt Commands
 
 Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of slash commands:
 
