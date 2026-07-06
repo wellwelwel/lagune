@@ -10,6 +10,7 @@ const BLUESPEC_ENTRIES = [
   '/.bluespec/hooks/',
   SKILLS_EXCLUDE,
   '/**/bluespec.*',
+  '/**/bluespec/',
 ];
 
 const SECTION_HEADER = '# Blue Spec';

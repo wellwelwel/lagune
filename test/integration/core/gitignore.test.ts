@@ -10,6 +10,7 @@ const BLUESPEC_ENTRIES = [
   '/.bluespec/hooks/',
   '/.bluespec/skills/*',
   '/**/bluespec.*',
+  '/**/bluespec/',
 ];
 
 await describe('ensureGitignoreEntries', async () => {
