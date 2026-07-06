@@ -24,6 +24,10 @@ export const blueSpecCode: PrismTheme = {
   },
   styles: [
     {
+      types: ['command'],
+      style: { color: sky, fontWeight: 'bold' },
+    },
+    {
       types: ['comment', 'prolog', 'doctype', 'cdata'],
       style: { color: faint, fontStyle: 'italic' },
     },
