@@ -47,19 +47,19 @@ export const History = (): VNode => {
                     <SeverityTag severity={item.classification} />
                     {item.category && (
                       <span
-                        class={`${BADGE_MUTED} max-w-[14rem] shrink uppercase tracking-[0.03em]`}
+                        class={`${BADGE_MUTED} min-w-0 shrink uppercase tracking-[0.03em]`}
                         title={item.category}
                       >
                         <span class='truncate'>{item.category}</span>
                       </span>
                     )}
-                    <h3 class='min-w-0 flex-[2] truncate text-[0.9rem] font-bold tracking-[-0.01em] text-ink'>
-                      {item.name}
-                    </h3>
-                    <span class='flex-none text-[0.75rem] font-semibold tabular-nums text-faint'>
+                    <span class='ml-auto flex-none text-[0.75rem] font-semibold tabular-nums text-faint'>
                       {item.closed}
                     </span>
                   </div>
+                  <h3 class='text-[0.9rem] font-bold tracking-[-0.01em] text-ink text-pretty'>
+                    {item.name}
+                  </h3>
                   <p class='text-[0.82rem] leading-[1.55] text-ink-2 text-pretty'>
                     <Inline text={item.whatItIs} />
                   </p>
