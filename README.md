@@ -47,9 +47,10 @@ npx -y blue-spec@latest
 
 It serves a dashboard and opens it in a random port:
 
-- [x] **Private** and **Local**
 - [x] **Live Reload**
-- [x] **Install**, **Pull**, **Update**, and **Manage** your **Blue Spec** dynamically
+- [x] **Private** and **Local**
+- [x] **Install**, **Pull**, **Update**, and **Manage** all **Blue Spec** features directly from your browser
+- [x] No `node_modules` or `package.json` is needed 📦
 
 > <img width="360" src="./website/static/img/dashboard/01.png" />
 > <img width="360" src="./website/static/img/dashboard/02.png" />
@@ -62,7 +63,6 @@ It serves a dashboard and opens it in a random port:
 >
 > - 🚪 Use `--port` or `-p` to specify a custom port.
 > - ⏏️ Press `Ctrl+C` to stop.
-> - 📦 No `node_modules` or `package.json` is needed.
 
 ---
 
