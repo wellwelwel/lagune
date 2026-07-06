@@ -22,7 +22,7 @@ Blue Spec's mission is to **put a defensive, security-first workflow within reac
 
 Blue Spec is **a collection of templates and agent commands**, not a heavy framework. Its value is the **workflow the AI agent runs**: detecting what the system actually does (login, uploads, payments, and so on), mapping the vulnerabilities that matter for that context, then proposing, applying, and validating the right fixes. The context detection is what makes the rest specific instead of generic.
 
-Concretely, the user runs Blue Spec via the AI agent (today, Claude Code) and the agent follows Blue Spec's templated, security-first process: scaffolded templates plus slash commands that an AI agent consumes, oriented toward defense rather than feature delivery.
+Concretely, the user runs Blue Spec via the AI agent and the agent follows Blue Spec's templated, security-first process: scaffolded templates plus slash commands that an AI agent consumes, oriented toward defense rather than feature delivery.
 
 ### Flexible by design
 

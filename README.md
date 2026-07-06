@@ -31,6 +31,10 @@ Love **Blue Spec**? Give us a ⭐ on **GitHub**!
 
 **Blue Spec** adapts to your environment, whether it is a new project or an existing one.
 
+> [!TIP]
+>
+> No API keys are needed, it runs directly through your own agent [(**Claude**, **Codex**, and more)](https://bluespec.weslley.io/docs/supported-agents).
+
 ### Dashboard
 
 For an interactive live view, follow-up, and maintenance, run:
