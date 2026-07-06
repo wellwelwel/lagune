@@ -52,12 +52,12 @@ It serves a dashboard and opens it in a random port:
 - [x] **Install**, **Pull**, **Update**, and **Manage** all **Blue Spec** features directly from your browser
 - [x] No `node_modules` or `package.json` is needed 📦
 
-> <img width="360" src="./website/static/img/dashboard/01.png" />
-> <img width="360" src="./website/static/img/dashboard/02.png" />
-> <img width="360" src="./website/static/img/dashboard/03.png" />
-> <img width="360" src="./website/static/img/dashboard/04.png" />
-> <img width="360" src="./website/static/img/dashboard/05.png" />
-> <img width="360" src="./website/static/img/dashboard/06.png" />
+> <img width="280" src="./website/static/img/dashboard/01.png" />
+> <img width="280" src="./website/static/img/dashboard/02.png" />
+> <img width="280" src="./website/static/img/dashboard/03.png" />
+> <img width="280" src="./website/static/img/dashboard/04.png" />
+> <img width="280" src="./website/static/img/dashboard/05.png" />
+> <img width="280" src="./website/static/img/dashboard/06.png" />
 
 > [!TIP]
 >
