@@ -36,7 +36,7 @@ const lastBlueSpecIndex = (lines: string[]): number =>
   );
 
 const insertMissingInBlock = (existing: string, missing: string[]): string => {
-  const lines = existing.replace(/\n+$/, '').split('\n');
+  const lines = existing.trimEnd().split('\n');
   const at = lastBlueSpecIndex(lines);
   const merged = [
     ...lines.slice(0, at + 1),

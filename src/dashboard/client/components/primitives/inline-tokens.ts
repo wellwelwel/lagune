@@ -36,7 +36,7 @@ const matchLink = (text: string, start: number): TokenMatch | null => {
 };
 
 const URL_SCHEMES = ['https://', 'http://'];
-const URL_TRAILING = /[.,;:!?)\]]+$/;
+const URL_TRAILING = new Set([...'.,;:!?)]']);
 
 const matchUrl = (text: string, start: number): TokenMatch | null => {
   const scheme = URL_SCHEMES.find((prefix) => text.startsWith(prefix, start));
@@ -45,7 +45,9 @@ const matchUrl = (text: string, start: number): TokenMatch | null => {
   let end = start + scheme.length;
   while (end < text.length && !/\s/.test(text[end])) end += 1;
 
-  const url = text.slice(start, end).replace(URL_TRAILING, '');
+  while (end > start && URL_TRAILING.has(text[end - 1])) end -= 1;
+
+  const url = text.slice(start, end);
   if (url.length <= scheme.length) return null;
 
   return { token: { kind: 'link', value: url, href: url }, length: url.length };

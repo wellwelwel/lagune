@@ -56,6 +56,14 @@ describe('tokenize interprets inline markdown', () => {
     );
   });
 
+  it('strips a run of trailing punctuation and bracket characters', () => {
+    strict.deepStrictEqual(tokenize('(see https://x.dev/a?!) done'), [
+      { kind: 'text', value: '(see ' },
+      { kind: 'link', value: 'https://x.dev/a', href: 'https://x.dev/a' },
+      { kind: 'text', value: '?!) done' },
+    ]);
+  });
+
   it('does not autolink a scheme with no host', () => {
     strict.deepStrictEqual(tokenize('a https:// b'), [
       { kind: 'text', value: 'a https:// b' },
