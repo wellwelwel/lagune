@@ -106,6 +106,17 @@ npx -y blue-spec@latest pull
 
 Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of slash commands:
 
+#### Development flow
+
+Secure the work as you build it, guided by the charter, with no flow to follow:
+
+| Command                                                             | What it does for you                                                      |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| [**/bluespec**](https://bluespec.weslley.io/docs/commands/bluespec) | Enforces security along with your development, on any prompt, at any time |
+
+- Pull in the on-demand specializations in real time while your agent works.
+- Combine it with the [**/bluespec.charter**](https://bluespec.weslley.io/docs/commands/charter) command to shape every build around your project's own security rules.
+
 #### The Blue Team flow
 
 These five run in order. Each builds on the previous, so following the list top to bottom is all it takes:
@@ -117,8 +128,6 @@ These five run in order. Each builds on the previous, so following the list top 
 | 3   | [**/bluespec.plan**](https://bluespec.weslley.io/docs/commands/plan)       | Turns what detect found into a defense plan, with a fix for each finding       |
 | 4   | [**/bluespec.harden**](https://bluespec.weslley.io/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
 | 5   | [**/bluespec.verify**](https://bluespec.weslley.io/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
-
-> Each command builds on the previous, so following the list top to bottom is all it takes.
 
 #### Special commands
 
