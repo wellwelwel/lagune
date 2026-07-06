@@ -27,7 +27,7 @@ Love **Blue Spec**? Give us a ⭐ on **GitHub**!
 
 ---
 
-### Get Started
+## Get Started
 
 **Blue Spec** adapts to your environment, whether it is a new project or an existing one.
 
@@ -68,7 +68,7 @@ It serves a dashboard and opens it in a random port:
 
 ### CLI
 
-#### Install
+#### › Install
 
 ```bash
 npx -y blue-spec@latest init
@@ -76,7 +76,7 @@ npx -y blue-spec@latest init
 
 - 🃏 **Blue Spec** runs on **Node.js** under the hood, you use whatever language you want.
 
-#### Update
+#### › Update
 
 To update **Blue Spec**'s own files and its commands to their latest versions, run:
 
@@ -88,7 +88,7 @@ npx -y blue-spec@latest update
 >
 > Your charter, the phase artifacts, and any custom specializations stay untouched.
 
-#### Pull
+#### › Pull
 
 When you clone or fork a project that already has **Blue Spec**, run pull to install its files from the manifest:
 
@@ -106,7 +106,7 @@ npx -y blue-spec@latest pull
 
 Once **Blue Spec** is set up in your project, your **AI** agent unlocks a set of slash commands:
 
-#### Development flow
+#### › Development flow
 
 Secure the work as you build it, guided by the charter, with no flow to follow:
 
@@ -117,7 +117,7 @@ Secure the work as you build it, guided by the charter, with no flow to follow:
 - Pull in the on-demand specializations in real time while your agent works.
 - Combine it with the [**/bluespec.charter**](https://bluespec.weslley.io/docs/commands/charter) command to shape every build around your project's own security rules.
 
-#### The Blue Team flow
+#### › The Blue Team flow
 
 These five run in order. Each builds on the previous, so following the list top to bottom is all it takes:
 
@@ -129,7 +129,7 @@ These five run in order. Each builds on the previous, so following the list top 
 | 4   | [**/bluespec.harden**](https://bluespec.weslley.io/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
 | 5   | [**/bluespec.verify**](https://bluespec.weslley.io/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
 
-#### Special commands
+#### › Special commands
 
 | Command                                                                          | What it does                                                                               |
 | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
