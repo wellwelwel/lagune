@@ -1,7 +1,7 @@
 import Link from '@docusaurus/Link';
 import { HIGHLIGHTS } from '@site/src/data/home';
 import { memo } from 'react';
-import { LuBookOpen, LuTerminal } from 'react-icons/lu';
+import { LuTerminal } from 'react-icons/lu';
 
 const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
   <div className='flex flex-col min-w-0 h-full max-[920px]:h-auto'>
@@ -54,7 +54,12 @@ const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
         to='/docs'
         className='inline-flex items-center justify-center gap-2.5 pl-5 pr-[22px] py-[13px] rounded-[13px] overflow-hidden font-sans text-[14px] font-semibold tracking-[-0.01em] text-ink no-underline cursor-pointer transition-[background-color,border-color] duration-300 ease-out border border-accent/45 bg-accent/[0.12] hover:bg-accent/20 hover:border-accent/[0.65] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 max-[600px]:w-full max-[600px]:justify-start'
       >
-        <LuBookOpen className='size-[17px] shrink-0 text-accent' aria-hidden />
+        <img
+          src='/img/icons/wave.svg'
+          className='size-[17px] shrink-0'
+          alt=''
+          aria-hidden
+        />
         <span>Docs</span>
       </Link>
     </div>

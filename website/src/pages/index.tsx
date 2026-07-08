@@ -11,6 +11,7 @@ import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
 import { RailTip } from '@site/src/components/home/RailTip';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { UsagePanel } from '@site/src/components/home/UsagePanel';
+import { MaskIcon } from '@site/src/components/MaskIcon';
 import { PaperModal } from '@site/src/components/PaperModal';
 import { PartnersModal } from '@site/src/components/PartnersModal';
 import { SpecializationsModal } from '@site/src/components/SpecializationsModal';
@@ -33,7 +34,22 @@ import {
 } from 'react';
 import { FaBook, FaStar } from 'react-icons/fa6';
 import { GoHeartFill } from 'react-icons/go';
-import { LuBookOpen, LuMenu, LuX } from 'react-icons/lu';
+import { LuMenu, LuX } from 'react-icons/lu';
+
+const WaveIcon = (): ReactNode => (
+  <span className='relative inline-block size-4 shrink-0'>
+    <img
+      src='/img/icons/wave.svg'
+      className='absolute inset-0 size-full transition-opacity duration-200 ease-out group-hover:opacity-0'
+      alt=''
+      aria-hidden
+    />
+    <MaskIcon
+      src='/img/icons/wave.svg'
+      className='absolute inset-0 size-full bg-accent opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100'
+    />
+  </span>
+);
 
 const Home = (): ReactNode => {
   const [active, setActive] = useState<WindowId>('overview');
@@ -151,7 +167,7 @@ const Home = (): ReactNode => {
   const feature = FEATURE[active];
 
   const headerLinks: TopBarLink[] = [
-    { label: 'Docs', Icon: LuBookOpen, href: '/docs' },
+    { label: 'Docs', Icon: WaveIcon, href: '/docs' },
     {
       label: 'What is Security-Driven Hardening',
       Icon: FaBook,
