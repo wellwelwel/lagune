@@ -8,8 +8,6 @@ import type {
   PerformUpdateInput,
   PerformUpdateResult,
 } from '../types/core.js';
-import { SKILL_GROUPS } from '../hooks/skills/groups.js';
-import { expandCategories } from '../hooks/skills/skills.js';
 import { getProviders } from '../providers/registry.js';
 import { loadAssets, loadVersion } from './assets.js';
 import { ensureGitignoreEntries } from './gitignore.js';
@@ -62,13 +60,12 @@ export const performPull = async (
   if (agents.length === 0) return { initialized: false };
 
   const providers = getProviders(agents);
-  const keys = expandCategories(SKILL_GROUPS, categories);
   const assets = await loadAssets(packageRoot);
 
   const scaffold = await reconstruct({
     targetDir: cwd,
     providers,
-    assets: { ...assets, skills: selectSkillAssets(assets, keys) },
+    assets: { ...assets, skills: selectSkillAssets(assets, categories) },
   });
 
   await renderSpecializations(cwd);
@@ -87,7 +84,6 @@ export const performUpdate = async (
   if (agents.length === 0) return { initialized: false };
 
   const providers = getProviders(agents);
-  const keys = expandCategories(SKILL_GROUPS, categories);
   const [assets, version] = await Promise.all([
     loadAssets(packageRoot),
     loadVersion(packageRoot),
@@ -96,7 +92,7 @@ export const performUpdate = async (
   const result = await refresh({
     targetDir: cwd,
     providers,
-    assets: { ...assets, skills: selectSkillAssets(assets, keys) },
+    assets: { ...assets, skills: selectSkillAssets(assets, categories) },
     version,
     now,
   });
@@ -114,9 +110,8 @@ export const performSpecialize = async (
 
   if (agents.length === 0) return { initialized: false };
 
-  const target = expandCategories(SKILL_GROUPS, categories);
-  const toAdd = target.filter((key) => !installed.includes(key));
-  const toRemove = installed.filter((key) => !target.includes(key));
+  const toAdd = categories.filter((key) => !installed.includes(key));
+  const toRemove = installed.filter((key) => !categories.includes(key));
 
   const [assets, version] = await Promise.all([
     loadAssets(packageRoot),

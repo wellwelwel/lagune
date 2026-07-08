@@ -8,6 +8,7 @@ import { SKILL_GROUPS } from '../../../src/hooks/skills/groups.js';
 import { initInto, newWorkspace, packageRoot } from './__utils__.js';
 
 const bin = new URL('lib/bin/index.js', packageRoot).pathname;
+const everyCategory = SKILL_GROUPS.map((group) => group.key);
 
 const runCli = (workspace: string, args: string[]): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -66,20 +67,18 @@ await describe('add installs specializations by category', async () => {
     strict.deepStrictEqual(await manifestCategories(workspace), ['owasp']);
   });
 
-  await it('installs every category with --skills all', async () => {
+  await it('installs every category when every key is passed', async () => {
     const workspace = await newWorkspace();
 
     await initInto(workspace, { init: true, agent: 'claude' });
-    await runCli(workspace, ['add', '--skills', 'all']);
+    await runCli(workspace, ['add', '--skills', ...everyCategory]);
 
     for (const entry of SKILLS_CATALOG)
       strict(await exists(workspace, `.bluespec/skills/${entry.name}.md`));
 
     strict.deepStrictEqual(
       (await manifestCategories(workspace)).slice().sort(),
-      SKILL_GROUPS.map((group) => group.key)
-        .slice()
-        .sort()
+      everyCategory.slice().sort()
     );
   });
 
@@ -106,7 +105,11 @@ await describe('remove uninstalls specializations by category', async () => {
   await it('deletes the category sub-skills and updates the manifest', async () => {
     const workspace = await newWorkspace();
 
-    await initInto(workspace, { init: true, agent: 'claude', skills: ['all'] });
+    await initInto(workspace, {
+      init: true,
+      agent: 'claude',
+      skills: everyCategory,
+    });
     await runCli(workspace, ['remove', '--skills', 'owasp']);
 
     strict(!(await exists(workspace, '.bluespec/skills/regex.md')));
@@ -114,14 +117,18 @@ await describe('remove uninstalls specializations by category', async () => {
     strict(await exists(workspace, '.bluespec/skills/javascript.md'));
     strict.deepStrictEqual(
       await manifestCategories(workspace),
-      SKILL_GROUPS.map((group) => group.key).filter((key) => key !== 'owasp')
+      everyCategory.filter((key) => key !== 'owasp')
     );
   });
 
   await it('never deletes a user-authored sub-skill', async () => {
     const workspace = await newWorkspace();
 
-    await initInto(workspace, { init: true, agent: 'claude', skills: ['all'] });
+    await initInto(workspace, {
+      init: true,
+      agent: 'claude',
+      skills: everyCategory,
+    });
     await mkdir(join(workspace, '.bluespec/skills'), { recursive: true });
     await writeFile(
       join(workspace, '.bluespec/skills/graphql.md'),
@@ -129,7 +136,7 @@ await describe('remove uninstalls specializations by category', async () => {
       'utf8'
     );
 
-    await runCli(workspace, ['remove', '--skills', 'all']);
+    await runCli(workspace, ['remove', '--skills', ...everyCategory]);
 
     strict(
       await exists(workspace, '.bluespec/skills/graphql.md'),
@@ -196,7 +203,11 @@ await describe('list reports findings and category state', async () => {
   await it('reflects a category returning to available after remove', async () => {
     const workspace = await newWorkspace();
 
-    await initInto(workspace, { init: true, agent: 'claude', skills: ['all'] });
+    await initInto(workspace, {
+      init: true,
+      agent: 'claude',
+      skills: everyCategory,
+    });
     await runCli(workspace, ['remove', '--skills', 'owasp']);
     const output = await runCli(workspace, ['list', '--skills']);
 

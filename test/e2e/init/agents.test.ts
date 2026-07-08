@@ -3,6 +3,7 @@ import { readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { loadAssets } from '../../../src/core/assets.js';
+import { SKILL_GROUPS } from '../../../src/hooks/skills/groups.js';
 import { getProvider } from '../../../src/providers/registry.js';
 import { AGENT_SPECS } from '../../../src/providers/specs.js';
 import { initInto, newWorkspace, packageRoot } from './__utils__.js';
@@ -74,7 +75,7 @@ for (const spec of AGENT_SPECS) {
       await initInto(workspace, {
         init: true,
         agent: spec.key,
-        skills: ['all'],
+        skills: SKILL_GROUPS.map((group) => group.key),
       });
 
       const expectedFiles = [

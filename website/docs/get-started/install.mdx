@@ -173,15 +173,6 @@ npx -y blue-spec@latest init claude --skills owasp javascript
 ```
 
   </TabItem>
-  <TabItem value="all" label="Every category">
-
-`--skills all` installs every category:
-
-```bash
-npx -y blue-spec@latest init claude --skills all
-```
-
-  </TabItem>
   <TabItem value="none" label="No specialization">
 
 Without `--skills`, the agent is set up and no specialization is installed. You can always add them later:
@@ -204,7 +195,6 @@ The same `--skills` flag, without touching the agent.
 npx -y blue-spec@latest add --skills # interactive
 npx -y blue-spec@latest add --skills owasp
 npx -y blue-spec@latest add --skills owasp rust
-npx -y blue-spec@latest add --skills all
 ```
 
   </TabItem>
@@ -214,7 +204,6 @@ npx -y blue-spec@latest add --skills all
 npx -y blue-spec@latest remove --skills # interactive
 npx -y blue-spec@latest remove --skills owasp
 npx -y blue-spec@latest remove --skills owasp rust
-npx -y blue-spec@latest remove --skills all
 ```
 
   </TabItem>

@@ -7,11 +7,9 @@ import { join } from 'node:path';
 import { SKILLS_CATALOG } from '../hooks/skills/catalog.js';
 import { SKILL_GROUPS } from '../hooks/skills/groups.js';
 import {
-  expandCategories,
+  assertKnownCategories,
   groupKeysForSkill,
   skillNamesForGroups,
-  unknownCategories,
-  unknownGroupKeys,
 } from '../hooks/skills/skills.js';
 import { appendUnique } from './collections.js';
 import {
@@ -35,29 +33,15 @@ export const selectSkillAssets = (
   return assets.skills.filter((skill) => chosen.has(skill.fileName));
 };
 
-const resolveKeys = (categories: string[]): string[] => {
-  const keys = expandCategories(SKILL_GROUPS, categories);
-  const unknown = unknownGroupKeys(SKILL_GROUPS, keys);
-
-  if (unknown.length > 0)
-    throw new Error(
-      unknownCategories(
-        unknown,
-        SKILL_GROUPS.map((group) => group.key)
-      )
-    );
-
-  return keys;
-};
-
 export const addSkills = async (
   targetDir: string,
   assets: BundledAssets,
   installed: string[],
   categories: string[]
 ): Promise<SkillsChange> => {
-  const requested = resolveKeys(categories);
-  const jobs = selectSkillAssets(assets, requested);
+  assertKnownCategories(SKILL_GROUPS, categories);
+
+  const jobs = selectSkillAssets(assets, categories);
   if (jobs.length === 0) return { outcomes: [], categories: installed };
 
   await ensureDir(join(targetDir, SKILLS_DIR));
@@ -74,7 +58,7 @@ export const addSkills = async (
     })
   );
 
-  return { outcomes, categories: appendUnique(installed, requested) };
+  return { outcomes, categories: appendUnique(installed, categories) };
 };
 
 export const removeSkills = async (
@@ -82,9 +66,10 @@ export const removeSkills = async (
   installed: string[],
   categories: string[]
 ): Promise<SkillsChange> => {
-  const requested = resolveKeys(categories);
-  const remaining = installed.filter((key) => !requested.includes(key));
-  const names = skillNamesForGroups(SKILLS_CATALOG, requested);
+  assertKnownCategories(SKILL_GROUPS, categories);
+
+  const remaining = installed.filter((key) => !categories.includes(key));
+  const names = skillNamesForGroups(SKILLS_CATALOG, categories);
 
   const outcomes = await Promise.all(
     names.map(async (name): Promise<FileOutcome> => {

@@ -1,5 +1,4 @@
 const hextet = /^[0-9a-fA-F]{1,4}$/;
-
 const ipv4Octet = /^(0|[1-9]\d{0,2})$/;
 
 const parseIPv4Tail = (text: string): number | null => {

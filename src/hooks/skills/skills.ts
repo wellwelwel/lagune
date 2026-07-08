@@ -32,15 +32,6 @@ export const findGroup = (
   key: string
 ): SkillGroup | undefined => groups.find((group) => group.key === key);
 
-export const ALL_CATEGORIES = 'all';
-
-/** Expands the reserved `all` selector to every registered key, otherwise the keys as given */
-export const expandCategories = (
-  groups: SkillGroup[],
-  keys: string[]
-): string[] =>
-  keys.includes(ALL_CATEGORIES) ? groups.map((group) => group.key) : keys;
-
 /** The category keys that match no registered group, in the order requested */
 export const unknownGroupKeys = (
   groups: SkillGroup[],
@@ -56,6 +47,22 @@ export const unknownCategories = (
     `Unknown specialization ${keys.length === 1 ? 'category' : 'categories'}: ${keys.join(', ')}`,
     `Available categories: ${availableKeys.join(', ')}`,
   ].join('\n');
+
+/** Throws for any category key that matches no registered group */
+export const assertKnownCategories = (
+  groups: SkillGroup[],
+  keys: string[]
+): void => {
+  const unknown = unknownGroupKeys(groups, keys);
+
+  if (unknown.length > 0)
+    throw new Error(
+      unknownCategories(
+        unknown,
+        groups.map((group) => group.key)
+      )
+    );
+};
 
 /** The distinct sub-skill names covered by the requested category keys, in catalog order */
 export const skillNamesForGroups = (

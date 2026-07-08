@@ -26,11 +26,9 @@ import { startDashboard } from '../dashboard/server/start.js';
 import { SKILLS_CATALOG } from '../hooks/skills/catalog.js';
 import { SKILL_GROUPS } from '../hooks/skills/groups.js';
 import {
-  expandCategories,
+  assertKnownCategories,
   findGroup,
   groupOutcomesByCategory,
-  unknownCategories,
-  unknownGroupKeys,
 } from '../hooks/skills/skills.js';
 import {
   getProviders,
@@ -92,21 +90,6 @@ const pathsWithStatus = (outcomes: FileOutcome[], status: string): string[] =>
 const sameCategories = (left: string[], right: string[]): boolean =>
   left.length === right.length && left.every((key) => right.includes(key));
 
-const resolveCategoryKeys = (categories: string[]): string[] => {
-  const keys = expandCategories(SKILL_GROUPS, categories);
-  const unknown = unknownGroupKeys(SKILL_GROUPS, keys);
-
-  if (unknown.length > 0)
-    throw new Error(
-      unknownCategories(
-        unknown,
-        SKILL_GROUPS.map((group) => group.key)
-      )
-    );
-
-  return keys;
-};
-
 const groupsForKeys = (keys: string[]): typeof SKILL_GROUPS =>
   keys
     .map((key) => findGroup(SKILL_GROUPS, key))
@@ -139,7 +122,9 @@ const runInit = async (
     preselected: installed.categories.length > 0 ? [] : ['owasp'],
     locked: installed.categories,
   });
-  const keys = resolveCategoryKeys(categories);
+
+  assertKnownCategories(SKILL_GROUPS, categories);
+
   const {
     scaffold: result,
     gitignore: gitignoreOutcome,
@@ -148,7 +133,7 @@ const runInit = async (
     cwd,
     packageRoot,
     provider,
-    categoryKeys: keys,
+    categoryKeys: categories,
     now: new Date(),
   });
 
@@ -262,7 +247,7 @@ const runAdd = async (
     change.outcomes,
     SKILLS_CATALOG,
     SKILL_GROUPS,
-    resolveCategoryKeys(categories)
+    categories
   );
 
   printReport(groups);
@@ -316,7 +301,7 @@ const runRemove = async (
     change.outcomes,
     SKILLS_CATALOG,
     SKILL_GROUPS,
-    resolveCategoryKeys(categories)
+    categories
   );
 
   printReport(groups);
