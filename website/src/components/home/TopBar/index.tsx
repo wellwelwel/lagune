@@ -14,7 +14,7 @@ type TopBarProps = {
 };
 
 const TOP_LINK =
-  'group inline-flex items-center gap-[9px] py-[9px] rounded-xl text-[#a1b1e7] text-[13px] font-bold tracking-[-0.01em] no-underline cursor-pointer [&_svg]:size-4 [&_svg]:text-[#6db4e2] [&_svg]:transition-colors [&_svg]:duration-200 [&_svg]:ease-out hover:[&_svg]:text-accent';
+  'group inline-flex items-center gap-[10px] py-[9px] rounded-xl text-[#a1b1e7] text-[12.75px] font-semibold tracking-[-0.01em] no-underline cursor-pointer [&_svg]:size-4 [&_svg]:text-[#6db4e2] [&_svg]:transition-colors [&_svg]:duration-200 [&_svg]:ease-out hover:[&_svg]:text-accent';
 
 const SLIDE =
   'col-start-1 row-start-1 inline-flex transition-transform duration-300 ease-[cubic-bezier(0.2,0,0,1)]';

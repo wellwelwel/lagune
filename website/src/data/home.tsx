@@ -3,7 +3,9 @@ import {
   LuBadgeCheck,
   LuBlocks,
   LuBookOpen,
+  LuBot,
   LuBrain,
+  LuGraduationCap,
   LuHeartHandshake,
   LuHouse,
   LuLayoutGrid,
@@ -21,6 +23,18 @@ import {
   TbCircleNumber4,
   TbCircleNumber5,
 } from 'react-icons/tb';
+
+const DocsRailIcon = (): ReactNode => (
+  <>
+    <LuBookOpen className='max-[600px]:hidden' aria-hidden />
+    <img
+      src='/img/icons/wave.svg'
+      className='hidden size-[19px] max-[600px]:block'
+      alt=''
+      aria-hidden
+    />
+  </>
+);
 
 export type WindowId = 'overview' | 'install' | 'usage';
 
@@ -260,7 +274,7 @@ export type RailItem = {
   tip: string;
   active: boolean;
   Icon: ComponentType;
-  action?: 'agents' | 'partners';
+  action?: 'agents' | 'specs' | 'partners';
   href?: string;
 };
 
@@ -271,7 +285,7 @@ export const RAILS: Record<'overview' | 'install', RailItem[]> = {
       label: 'Docs',
       tip: 'Docs',
       active: false,
-      Icon: LuBookOpen,
+      Icon: DocsRailIcon,
       href: '/docs',
     },
     {
@@ -288,8 +302,15 @@ export const RAILS: Record<'overview' | 'install', RailItem[]> = {
       label: 'All agents',
       tip: 'All agents',
       active: false,
-      Icon: LuLayoutGrid,
+      Icon: LuBot,
       action: 'agents',
+    },
+    {
+      label: 'Specializations',
+      tip: 'Specializations',
+      active: false,
+      Icon: LuGraduationCap,
+      action: 'specs',
     },
   ],
 };
