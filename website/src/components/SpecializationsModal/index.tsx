@@ -7,38 +7,40 @@ import {
   selectableCard,
   selectableTint,
 } from '@site/src/components/selectable';
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { LuArrowLeft } from 'react-icons/lu';
 
-const SpecializationRow = ({
-  category,
-  on,
-  onToggle,
-}: {
-  category: Category;
-  on: boolean;
-  onToggle: () => void;
-}) => (
-  <button
-    type='button'
-    role='checkbox'
-    aria-checked={on}
-    onClick={onToggle}
-    className={`flex h-full flex-col items-start gap-2 p-[14px] ${selectableCard(on)}`}
-  >
-    <span className='flex w-full items-center gap-2.5 min-w-0'>
-      <MaskIcon
-        src={category.icon}
-        className={`shrink-0 size-5 bg-current transition-colors duration-200 ease-out ${selectableTint(on)}`}
-      />
-      <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
-        {category.name}
+const SpecializationRow = memo(
+  ({
+    category,
+    on,
+    onToggle,
+  }: {
+    category: Category;
+    on: boolean;
+    onToggle: (key: string) => void;
+  }) => (
+    <button
+      type='button'
+      role='checkbox'
+      aria-checked={on}
+      onClick={() => onToggle(category.key)}
+      className={`flex h-full flex-col items-start gap-2 p-[14px] ${selectableCard(on)}`}
+    >
+      <span className='flex w-full items-center gap-2.5 min-w-0'>
+        <MaskIcon
+          src={category.icon}
+          className={`shrink-0 size-5 bg-current transition-colors duration-200 ease-out ${selectableTint(on)}`}
+        />
+        <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
+          {category.name}
+        </span>
       </span>
-    </span>
-    <span className='block h-[3lh] text-[12.5px] leading-[1.5] text-muted [text-wrap:pretty] line-clamp-3'>
-      {category.desc}
-    </span>
-  </button>
+      <span className='block h-[3lh] text-[12.5px] leading-[1.5] text-muted [text-wrap:pretty] line-clamp-3'>
+        {category.desc}
+      </span>
+    </button>
+  )
 );
 
 export const SpecializationsModal = ({
@@ -123,7 +125,7 @@ export const SpecializationsModal = ({
                 key={category.key}
                 category={category}
                 on={skills.includes(category.key)}
-                onToggle={() => onToggle(category.key)}
+                onToggle={onToggle}
               />
             ))}
           </div>

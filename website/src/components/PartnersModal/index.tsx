@@ -248,16 +248,22 @@ export const PartnersModal = ({
   onClose: () => void;
 }): ReactNode => {
   const lastSubmitRef = useRef(0);
+  const fetchedRef = useRef(false);
   const [sent, setSent] = useState(false);
   const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle');
   const [draft, setDraft] = useState<Draft>(EMPTY_DRAFT);
   const [downloads, setDownloads] = useState(FALLBACK_DOWNLOADS);
 
   useEffect(() => {
+    if (!open) return;
     setDraft(readDraft());
-  }, []);
+  }, [open]);
 
   useEffect(() => {
+    if (!open || fetchedRef.current) return;
+
+    fetchedRef.current = true;
+
     let active = true;
 
     fetch(STATS_URL)
@@ -273,13 +279,14 @@ export const PartnersModal = ({
     return () => {
       active = false;
     };
-  }, []);
+  }, [open]);
 
   useEffect(() => {
+    if (!open) return;
     try {
       localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
     } catch {}
-  }, [draft]);
+  }, [open, draft]);
 
   const update =
     (field: 'name' | 'email' | 'company' | 'message') =>
@@ -512,7 +519,7 @@ export const PartnersModal = ({
                 <img
                   src='/img/wellwelwel.png'
                   alt='Weslley Araújo'
-                  loading='lazy'
+                  decoding='async'
                   draggable={false}
                   className='pointer-events-none w-32 shrink-0 object-cover [filter:drop-shadow(0_5px_10px_rgba(2,6,20,0.5))_drop-shadow(0_2px_4px_rgba(0,0,0,0.4))] md:w-55'
                 />

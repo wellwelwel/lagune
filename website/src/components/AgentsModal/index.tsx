@@ -12,35 +12,37 @@ import {
   selectableCard,
   selectableTint,
 } from '@site/src/components/selectable';
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { LuCircle, LuCircleCheckBig } from 'react-icons/lu';
 
-const AgentRow = ({
-  agent,
-  on,
-  onClick,
-}: {
-  agent: AgentEntry;
-  on: boolean;
-  onClick: () => void;
-}) => (
-  <button
-    type='button'
-    role='radio'
-    aria-checked={on}
-    onClick={onClick}
-    className={`flex items-center gap-3 p-[12px_14px] ${selectableCard(on)}`}
-  >
-    <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
-      {agent.name}
-    </span>
-    <IconSwap
-      on={on}
-      className={`shrink-0 [&_svg]:size-[18px] ${selectableTint(on)}`}
-      active={<LuCircleCheckBig />}
-      inactive={<LuCircle />}
-    />
-  </button>
+const AgentRow = memo(
+  ({
+    agent,
+    on,
+    onPick,
+  }: {
+    agent: AgentEntry;
+    on: boolean;
+    onPick: (key: string) => void;
+  }) => (
+    <button
+      type='button'
+      role='radio'
+      aria-checked={on}
+      onClick={() => onPick(agent.key)}
+      className={`flex items-center gap-3 p-[12px_14px] ${selectableCard(on)}`}
+    >
+      <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
+        {agent.name}
+      </span>
+      <IconSwap
+        on={on}
+        className={`shrink-0 [&_svg]:size-[18px] ${selectableTint(on)}`}
+        active={<LuCircleCheckBig />}
+        inactive={<LuCircle />}
+      />
+    </button>
+  )
 );
 
 export const AgentsModal = ({
@@ -63,6 +65,14 @@ export const AgentsModal = ({
 
     return agents.filter((agent) => agent.name.toLowerCase().includes(term));
   }, [agents, query]);
+
+  const handlePick = useCallback(
+    (key: string) => {
+      onSelect(key);
+      onClose();
+    },
+    [onSelect, onClose]
+  );
 
   useEffect(() => {
     if (!open) setQuery('');
@@ -99,10 +109,7 @@ export const AgentsModal = ({
                 key={agent.key}
                 agent={agent}
                 on={false}
-                onClick={() => {
-                  onSelect(agent.key);
-                  onClose();
-                }}
+                onPick={handlePick}
               />
             ))}
           </div>

@@ -20,6 +20,7 @@ export const PhaseCard = ({
       <img
         src={phase.banner}
         alt=''
+        decoding='async'
         className='bs-img-outline absolute inset-0 size-full object-cover'
         aria-hidden
       />

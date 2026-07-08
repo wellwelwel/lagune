@@ -57,17 +57,23 @@ const Home = (): ReactNode => {
   const [pill, setPill] = useState<{ left: number; width: number } | null>(
     null
   );
+  const pillTabRef = useRef<WindowId>(active);
+
+  pillTabRef.current = hoveredTab ?? active;
 
   useLayoutEffect(() => {
-    const measure = () => {
-      const el = tabRefs.current[hoveredTab ?? active];
-      if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
-    };
+    const el = tabRefs.current[hoveredTab ?? active];
+    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
+  }, [hoveredTab, active]);
 
-    measure();
-
+  useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
+
+    const measure = () => {
+      const el = tabRefs.current[pillTabRef.current];
+      if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
+    };
 
     const observer = new ResizeObserver(measure);
     observer.observe(nav);
@@ -77,7 +83,7 @@ const Home = (): ReactNode => {
       observer.disconnect();
       nav.removeEventListener('scroll', measure);
     };
-  }, [hoveredTab, active]);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -141,6 +147,7 @@ const Home = (): ReactNode => {
   const openAgents = useCallback(() => setAgentsOpen(true), []);
   const openSpecs = useCallback(() => setSpecsOpen(true), []);
   const markTyped = useCallback(() => setTypedDone(true), []);
+  const closeAgents = useCallback(() => setAgentsOpen(false), []);
 
   const feature = FEATURE[active];
 
@@ -476,6 +483,7 @@ const Home = (): ReactNode => {
                     }`}
                     src={BACKGROUNDS[tab.id]}
                     alt=''
+                    decoding='async'
                   />
                 ))}
                 <div className='absolute inset-0 -z-[3] [background:linear-gradient(180deg,#0a1a4a_0%,#050d2c_60%,#03081c_100%)]' />
@@ -519,7 +527,7 @@ const Home = (): ReactNode => {
         open={agentsOpen}
         agents={ALL_AGENTS}
         onSelect={setSelected}
-        onClose={() => setAgentsOpen(false)}
+        onClose={closeAgents}
       />
       <SpecializationsModal
         open={specsOpen}

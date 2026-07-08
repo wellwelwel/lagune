@@ -11,6 +11,7 @@ import {
   useContext,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -317,6 +318,7 @@ export const PaperModal = ({
     references: new Map(),
     sections: new Map(),
   });
+  const paper = useMemo(() => <Paper />, []);
 
   useEffect(() => {
     if (!open || !paperRef.current) return;
@@ -362,9 +364,7 @@ export const PaperModal = ({
         className='bs-paper grow overflow-y-auto px-[clamp(20px,3vw,32px)] py-[clamp(20px,3vw,30px)]'
       >
         <RefContext.Provider value={refs}>
-          <MDXProvider components={components}>
-            <Paper />
-          </MDXProvider>
+          <MDXProvider components={components}>{paper}</MDXProvider>
         </RefContext.Provider>
       </div>
     </Modal>
