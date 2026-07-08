@@ -181,6 +181,10 @@
   --bs-window-h: 580px;
 }
 
+html.bs-canvas-html body.bs-canvas-body {
+  background: #050a18;
+}
+
 /* Infima styles every <code> with a light pill; neutralize it on this page. */
 .bs-canvas code {
   background: transparent;

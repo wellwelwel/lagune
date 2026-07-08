@@ -12,9 +12,9 @@ import { RailTip } from '@site/src/components/home/RailTip';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { UsagePanel } from '@site/src/components/home/UsagePanel';
 import { PaperModal } from '@site/src/components/PaperModal';
-import { ParticleWaveField } from '@site/src/components/ParticleWaveField';
 import { PartnersModal } from '@site/src/components/PartnersModal';
 import { SpecializationsModal } from '@site/src/components/SpecializationsModal';
+import { WaterField } from '@site/src/components/WaterField';
 import {
   BACKGROUNDS,
   FEATURE,
@@ -223,22 +223,12 @@ const Home = (): ReactNode => {
         className='fixed inset-0 z-0 overflow-hidden bg-[#050a18]'
         aria-hidden
       >
-        {TABS.map((tab) => (
-          <img
-            key={tab.id}
-            className={`absolute top-1/2 left-1/2 z-0 w-[130%] h-[130%] min-w-[130vh] object-cover object-center -translate-x-1/2 -translate-y-1/2 [filter:blur(34px)_brightness(0.95)_saturate(1.05)] transition-opacity duration-700 ease-out ${
-              active === tab.id ? 'opacity-15' : 'opacity-0'
-            }`}
-            src='/img/bg-1.png'
-            alt=''
-          />
-        ))}
         <BrowserOnly>
           {() => (
-            <ParticleWaveField className='absolute inset-0 z-[1] w-full h-full opacity-55 mix-blend-screen' />
+            <WaterField className='absolute inset-0 z-[1] w-full h-full opacity-[0.32]' />
           )}
         </BrowserOnly>
-        <div className='absolute inset-0 z-[2] [background:radial-gradient(120%_120%_at_50%_38%,transparent_48%,rgba(4,8,22,0.55)_100%)]' />
+        <div className='absolute inset-0 z-[2] [background:radial-gradient(120%_120%_at_50%_40%,transparent_30%,rgba(4,8,22,0.85)_100%)]' />
       </div>
 
       <TopBar links={headerLinks} />
