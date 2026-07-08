@@ -1,14 +1,9 @@
+import Link from '@docusaurus/Link';
 import { HIGHLIGHTS } from '@site/src/data/home';
 import { memo } from 'react';
 import { LuBookOpen, LuTerminal } from 'react-icons/lu';
 
-const OverviewPanelComponent = ({
-  onInstall,
-  onOpenPaper,
-}: {
-  onInstall: () => void;
-  onOpenPaper: () => void;
-}) => (
+const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
   <div className='flex flex-col min-w-0 h-full max-[920px]:h-auto'>
     <p className='mx-1 mb-9 text-[16px] leading-[1.6] font-semibold text-[rgba(233, 237, 247,0.78)]'>
       Blue Spec runs on Node.js, you use whatever stack you want.
@@ -55,14 +50,13 @@ const OverviewPanelComponent = ({
         <LuTerminal className='size-[17px] shrink-0' aria-hidden />
         <span className='[text-shadow:0_1px_1px_rgba(0,0,0,.5)]'>Install</span>
       </button>
-      <button
-        type='button'
-        onClick={onOpenPaper}
-        className='inline-flex items-center justify-center gap-2.5 pl-5 pr-[22px] py-[13px] rounded-[13px] overflow-hidden font-sans text-[14px] font-semibold tracking-[-0.01em] text-ink cursor-pointer transition-[background-color,border-color] duration-300 ease-out border border-accent/45 bg-accent/[0.12] hover:bg-accent/20 hover:border-accent/[0.65] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 max-[600px]:w-full max-[600px]:justify-start'
+      <Link
+        to='/docs'
+        className='inline-flex items-center justify-center gap-2.5 pl-5 pr-[22px] py-[13px] rounded-[13px] overflow-hidden font-sans text-[14px] font-semibold tracking-[-0.01em] text-ink no-underline cursor-pointer transition-[background-color,border-color] duration-300 ease-out border border-accent/45 bg-accent/[0.12] hover:bg-accent/20 hover:border-accent/[0.65] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 max-[600px]:w-full max-[600px]:justify-start'
       >
         <LuBookOpen className='size-[17px] shrink-0 text-accent' aria-hidden />
-        <span>What is Security-Driven Hardening</span>
-      </button>
+        <span>Docs</span>
+      </Link>
     </div>
   </div>
 );

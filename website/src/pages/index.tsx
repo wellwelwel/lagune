@@ -33,7 +33,7 @@ import {
 } from 'react';
 import { FaBook, FaStar } from 'react-icons/fa6';
 import { GoHeartFill } from 'react-icons/go';
-import { LuMenu, LuX } from 'react-icons/lu';
+import { LuBookOpen, LuMenu, LuX } from 'react-icons/lu';
 
 const Home = (): ReactNode => {
   const [active, setActive] = useState<WindowId>('overview');
@@ -143,7 +143,6 @@ const Home = (): ReactNode => {
   }, []);
 
   const openInstall = useCallback(() => goToTab('install'), []);
-  const openPaper = useCallback(() => setPaperOpen(true), []);
   const openAgents = useCallback(() => setAgentsOpen(true), []);
   const openSpecs = useCallback(() => setSpecsOpen(true), []);
   const markTyped = useCallback(() => setTypedDone(true), []);
@@ -152,9 +151,14 @@ const Home = (): ReactNode => {
   const feature = FEATURE[active];
 
   const headerLinks: TopBarLink[] = [
-    { label: 'Docs', Icon: FaBook, href: '/docs' },
+    { label: 'Docs', Icon: LuBookOpen, href: '/docs' },
     {
-      label: 'GitHub',
+      label: 'What is Security-Driven Hardening',
+      Icon: FaBook,
+      onClick: () => setPaperOpen(true),
+    },
+    {
+      label: 'Star on GitHub',
       Icon: FaStar,
       href: 'https://github.com/wellwelwel/blue-spec',
     },
@@ -397,15 +401,13 @@ const Home = (): ReactNode => {
                       if (item.href)
                         return (
                           <RailTip key={item.label} tip={item.tip}>
-                            <a
-                              href={item.href}
-                              target='_blank'
-                              rel='noreferrer'
+                            <Link
+                              to={item.href}
                               className={railItemClass}
                               aria-label={item.label}
                             >
                               <item.Icon aria-hidden />
-                            </a>
+                            </Link>
                           </RailTip>
                         );
 
@@ -414,13 +416,11 @@ const Home = (): ReactNode => {
                           <button
                             type='button'
                             onClick={
-                              item.action === 'paper'
-                                ? () => setPaperOpen(true)
-                                : item.action === 'agents'
-                                  ? () => setAgentsOpen(true)
-                                  : item.action === 'partners'
-                                    ? () => setPartnersOpen(true)
-                                    : undefined
+                              item.action === 'agents'
+                                ? () => setAgentsOpen(true)
+                                : item.action === 'partners'
+                                  ? () => setPartnersOpen(true)
+                                  : undefined
                             }
                             className={railItemClass}
                             aria-label={item.label}
@@ -444,10 +444,7 @@ const Home = (): ReactNode => {
                   className='bs-fade-in-soft flex flex-col min-w-0 h-full max-[920px]:h-auto'
                 >
                   {active === 'overview' && (
-                    <OverviewPanel
-                      onInstall={openInstall}
-                      onOpenPaper={openPaper}
-                    />
+                    <OverviewPanel onInstall={openInstall} />
                   )}
 
                   {active === 'install' && (

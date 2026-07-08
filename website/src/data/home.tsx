@@ -260,7 +260,7 @@ export type RailItem = {
   tip: string;
   active: boolean;
   Icon: ComponentType;
-  action?: 'paper' | 'agents' | 'partners';
+  action?: 'agents' | 'partners';
   href?: string;
 };
 
@@ -268,11 +268,11 @@ export const RAILS: Record<'overview' | 'install', RailItem[]> = {
   overview: [
     { label: 'Home', tip: 'Overview', active: true, Icon: LuHouse },
     {
-      label: 'What is Security-Driven Hardening',
-      tip: 'What is SDH',
+      label: 'Docs',
+      tip: 'Docs',
       active: false,
       Icon: LuBookOpen,
-      action: 'paper',
+      href: '/docs',
     },
     {
       label: 'Become a Sponsor',

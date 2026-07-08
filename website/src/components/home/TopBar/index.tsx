@@ -1,5 +1,6 @@
 import type { ComponentType, ReactNode } from 'react';
 import Link from '@docusaurus/Link';
+import { useEffect, useState } from 'react';
 
 export type TopBarLink = {
   label: string;
@@ -17,27 +18,45 @@ const TOP_LINK =
 
 /* Desktop chrome only: below 921px the card header keeps the brand and
    collapses these links into its hamburger menu. */
-export const TopBar = ({ links }: TopBarProps): ReactNode => (
-  <header className='fixed inset-x-0 top-0 z-30 flex h-16 items-center justify-end px-[clamp(16px,4vw,64px)] max-[920px]:hidden'>
-    <nav aria-label='Site' className='flex items-center gap-4'>
-      {links.map(({ label, Icon, href, onClick }) =>
-        href ? (
-          <Link key={label} className={TOP_LINK} to={href}>
-            <Icon aria-hidden />
-            {label}
-          </Link>
-        ) : (
-          <button
-            key={label}
-            type='button'
-            onClick={onClick}
-            className={TOP_LINK}
-          >
-            <Icon aria-hidden />
-            {label}
-          </button>
-        )
-      )}
-    </nav>
-  </header>
-);
+export const TopBar = ({ links }: TopBarProps): ReactNode => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-30 flex h-16 items-center justify-end px-[clamp(16px,4vw,64px)] transition-[background-color,border-color,backdrop-filter] duration-300 ease-out max-[920px]:hidden ${
+        scrolled
+          ? 'border-b border-[#0c155c] bg-[rgba(5,10,24,0.82)] [backdrop-filter:blur(16px)_saturate(140%)] [-webkit-backdrop-filter:blur(16px)_saturate(140%)]'
+          : 'border-b border-transparent bg-transparent'
+      }`}
+    >
+      <nav aria-label='Site' className='flex items-center gap-4'>
+        {links.map(({ label, Icon, href, onClick }) =>
+          href ? (
+            <Link key={label} className={TOP_LINK} to={href}>
+              <Icon aria-hidden />
+              {label}
+            </Link>
+          ) : (
+            <button
+              key={label}
+              type='button'
+              onClick={onClick}
+              className={TOP_LINK}
+            >
+              <Icon aria-hidden />
+              {label}
+            </button>
+          )
+        )}
+      </nav>
+    </header>
+  );
+};
