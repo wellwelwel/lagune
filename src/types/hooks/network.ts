@@ -1,8 +1,5 @@
 export type NetworkVerdict =
-  | 'safe'
-  | 'private-target'
-  | 'parser-divergent'
-  | 'invalid url';
+  'safe' | 'private-target' | 'parser-divergent' | 'invalid url';
 
 export type NetworkRequest = {
   urls: string[];

@@ -1,11 +1,5 @@
 export type CliCommand =
-  | 'init'
-  | 'update'
-  | 'pull'
-  | 'add'
-  | 'remove'
-  | 'list'
-  | 'dashboard';
+  'init' | 'update' | 'pull' | 'add' | 'remove' | 'list' | 'dashboard';
 
 export type ParsedCliArgs = {
   command: CliCommand | undefined;
@@ -100,12 +94,7 @@ export type SpecTokenCount = {
 };
 
 export type FileStatus =
-  | 'created'
-  | 'refreshed'
-  | 'skipped'
-  | 'removed'
-  | 'absent'
-  | 'kept';
+  'created' | 'refreshed' | 'skipped' | 'removed' | 'absent' | 'kept';
 
 export type FileOutcome = {
   path: string;

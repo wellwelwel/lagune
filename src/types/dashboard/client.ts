@@ -304,10 +304,7 @@ export type SpecializeModalState = {
 };
 
 export type ModalState =
-  | InstallModalState
-  | PullModalState
-  | UpdateModalState
-  | SpecializeModalState;
+  InstallModalState | PullModalState | UpdateModalState | SpecializeModalState;
 
 export type ActionModalHeader = {
   eyebrow: string;
