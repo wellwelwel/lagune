@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-const SMALL_PRINT_LINK = 'font-semibold text-muted hover:text-accent';
+const SMALL_PRINT_LINK = 'font-semibold text-ink-2 hover:text-accent';
 
 export const DocsSmallPrint = (): ReactNode => (
-  <footer className='mt-7 flex flex-col gap-1.5 px-1 text-[0.72rem] leading-relaxed text-faint'>
+  <footer className='mt-10 flex flex-col gap-1.5 px-1 text-[0.75rem] leading-relaxed text-[color-mix(in_srgb,var(--muted),var(--ink-2))]'>
     <p className='m-0'>
       Copyright © 2026-present{' '}
       <a
@@ -23,7 +23,7 @@ export const DocsSmallPrint = (): ReactNode => (
       >
         contributors
       </a>
-      . Blue Spec is under the{' '}
+      . SDH: Blue Spec is under the{' '}
       <a
         className={SMALL_PRINT_LINK}
         href='https://github.com/wellwelwel/blue-spec/blob/main/LICENSE'
@@ -44,7 +44,7 @@ export const DocsSmallPrint = (): ReactNode => (
       .
     </p>
     <p className='m-0'>
-      Blue Spec is an independent open-source project and is not affiliated
+      SDH: Blue Spec is an independent open-source project and is not affiliated
       with, endorsed by, or associated with Bluespec, Inc. or the Bluespec
       Hardware Description Language (HDL) and its compiler (bsc). "Bluespec" is
       a trademark of Bluespec, Inc. All other product names, trademarks, and

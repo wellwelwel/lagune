@@ -172,7 +172,9 @@ To details, report a vulnerability, and see the supported versions, see the [**S
 
 ### Partners
 
-> Help **SDH: Blue Spec** grow by [**becoming a partner**](https://bluespec.weslley.io/docs#partners) 🖖
+Partners get an exclusive logo across the repositories and landing pages, plus a spot on a dedicated partners page.
+
+> Help my work grow by [**becoming a partner**](https://bluespec.weslley.io/docs?partners) 🖖
 
 ### Supporters
 
@@ -180,7 +182,7 @@ Really thanks to everyone who has supported and keeps supporting my work.
 
 [![Sponsors](https://wellwelwel.github.io/wellwelwel/sponsors.svg?v=1)](https://github.com/sponsors/wellwelwel)
 
-> Support **Blue Spec** by [**becoming a sponsor**](https://github.com/sponsors/wellwelwel) too ✨
+> Support my work by [**becoming a sponsor**](https://github.com/sponsors/wellwelwel) too ✨
 
 ---
 
