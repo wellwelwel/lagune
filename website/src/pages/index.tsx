@@ -12,7 +12,6 @@ import { RailTip } from '@site/src/components/home/RailTip';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { UsagePanel } from '@site/src/components/home/UsagePanel';
 import { MaskIcon } from '@site/src/components/MaskIcon';
-import { PartnersModal } from '@site/src/components/PartnersModal';
 import { SpecializationsModal } from '@site/src/components/SpecializationsModal';
 import { WaterField } from '@site/src/components/WaterField';
 import {
@@ -59,7 +58,6 @@ const Home = (): ReactNode => {
   const [typedDone, setTypedDone] = useState(false);
   const [agentsOpen, setAgentsOpen] = useState(false);
   const [specsOpen, setSpecsOpen] = useState(false);
-  const [partnersOpen, setPartnersOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<WindowId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -97,12 +95,6 @@ const Home = (): ReactNode => {
       observer.disconnect();
       nav.removeEventListener('scroll', measure);
     };
-  }, []);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('partners') || window.location.hash === '#partners')
-      setPartnersOpen(true);
   }, []);
 
   useEffect(() => {
@@ -174,7 +166,7 @@ const Home = (): ReactNode => {
     {
       label: 'Support',
       Icon: GoHeartFill,
-      onClick: () => setPartnersOpen(true),
+      href: 'https://github.com/sponsors/wellwelwel',
     },
   ];
 
@@ -429,9 +421,7 @@ const Home = (): ReactNode => {
                                 ? () => setAgentsOpen(true)
                                 : item.action === 'specs'
                                   ? () => setSpecsOpen(true)
-                                  : item.action === 'partners'
-                                    ? () => setPartnersOpen(true)
-                                    : undefined
+                                  : undefined
                             }
                             className={railItemClass}
                             aria-label={item.label}
@@ -542,10 +532,6 @@ const Home = (): ReactNode => {
         skills={skills}
         onToggle={toggleSkill}
         onClose={() => setSpecsOpen(false)}
-      />
-      <PartnersModal
-        open={partnersOpen}
-        onClose={() => setPartnersOpen(false)}
       />
     </div>
   );

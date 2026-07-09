@@ -172,7 +172,7 @@ To details, report a vulnerability, and see the supported versions, see the [**S
 
 ### Partners
 
-> Help **Blue Spec** grow by [**becoming a partner**](https://bluespec.weslley.io/?partners) 🖖
+> Help **SDH: Blue Spec** grow by [**becoming a partner**](https://bluespec.weslley.io/docs#partners) 🖖
 
 ### Supporters
 

@@ -6,7 +6,6 @@ import {
   LuBot,
   LuBrain,
   LuGraduationCap,
-  LuHeartHandshake,
   LuHouse,
   LuLayoutGrid,
   LuListChecks,
@@ -14,6 +13,7 @@ import {
   LuScanSearch,
   LuShieldCheck,
   LuShieldPlus,
+  LuStar,
   LuWandSparkles,
 } from 'react-icons/lu';
 import {
@@ -274,7 +274,7 @@ export type RailItem = {
   tip: string;
   active: boolean;
   Icon: ComponentType;
-  action?: 'agents' | 'specs' | 'partners';
+  action?: 'agents' | 'specs';
   href?: string;
 };
 
@@ -289,11 +289,11 @@ export const RAILS: Record<'overview' | 'install', RailItem[]> = {
       href: '/docs',
     },
     {
-      label: 'Become a Sponsor',
-      tip: 'Become a Sponsor',
+      label: 'Star on GitHub',
+      tip: 'Star on GitHub',
       active: false,
-      Icon: LuHeartHandshake,
-      action: 'partners',
+      Icon: LuStar,
+      href: 'https://github.com/wellwelwel/blue-spec',
     },
   ],
   install: [

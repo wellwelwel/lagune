@@ -361,11 +361,14 @@ export const PartnersModal = ({
       onClose={onClose}
       label='Partner with Weslley Araújo'
       padding='p-[clamp(12px,2.5vw,28px)]'
-      panelClassName='bs-modal-panel relative flex flex-col w-full max-w-[1240px] max-h-full rounded-[28px] bg-[#0a0f1f] bg-cover bg-center overflow-hidden [box-shadow:0_40px_120px_-30px_rgba(0,0,0,0.8)] outline-none'
-      panelStyle={{
-        backgroundImage: 'url(/img/bg-partner.jpeg)',
-      }}
+      panelClassName='bs-modal-panel relative flex flex-col w-full max-w-[1240px] max-h-full rounded-[28px] bg-[#0a0f1f75] overflow-hidden [box-shadow:0_40px_120px_-30px_rgba(0,0,0,0.8)] outline-none'
     >
+      <div
+        className='pointer-events-none absolute inset-0 bg-cover bg-center'
+        style={{ backgroundImage: 'url(/img/bg-partner.jpeg)', opacity: 0.05 }}
+        aria-hidden
+      />
+
       <div
         className='pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,9,20,0.25)_0%,rgba(6,9,20,0.18)_45%,rgba(6,9,20,0.4)_100%)]'
         aria-hidden
