@@ -84,11 +84,9 @@ const glideToTop = () => {
 
     const elapsed = performance.now() - started;
 
-    if (elapsed < glide) {
+    if (elapsed < glide)
       window.scrollTo(0, Math.round(from * (1 - elapsed / glide) ** 3));
-    } else if (window.scrollY !== 0) {
-      window.scrollTo(0, 0);
-    }
+    else if (window.scrollY !== 0) window.scrollTo(0, 0);
 
     if (elapsed < settle) requestAnimationFrame(frame);
     else detach();
@@ -517,7 +515,7 @@ const Home = (): ReactNode => {
                 </div>
               </div>
 
-              <aside className='relative flex flex-col justify-between h-[var(--lagune-window-h)] rounded-[20px] overflow-hidden p-[clamp(22px,2.4vw,32px)] isolate max-[920px]:h-auto max-[920px]:min-h-[420px] max-[920px]:order-first max-[600px]:min-h-[340px]'>
+              <aside className='relative flex flex-col justify-between h-[var(--lagune-window-h)] rounded-[20px] overflow-hidden p-[clamp(22px,2.4vw,32px)] isolate max-[920px]:h-auto max-[920px]:min-h-[420px] max-[920px]:order-first max-[600px]:min-h-[300px]'>
                 {TABS.map((tab) => (
                   <img
                     key={tab.id}
@@ -536,7 +534,7 @@ const Home = (): ReactNode => {
                   key={`top-${active}`}
                   className='lagune-fade-in flex flex-col items-start gap-3.5'
                 >
-                  <span className='inline-flex items-center px-3.5 py-[7px] rounded-md bg-accent font-mono text-[12px] tracking-[0.075em] uppercase text-ink'>
+                  <span className='inline-flex items-center px-3.5 py-[7px] rounded-md bg-accent font-mono text-[14px]! tracking-[0.075em] uppercase text-ink max-[600px]:text-[12px]!'>
                     <span className='size-[6px] rounded-full bg-white mr-[9px]' />
                     {feature.chip}
                   </span>
@@ -547,12 +545,12 @@ const Home = (): ReactNode => {
 
                 <div
                   key={`title-${active}`}
-                  className='lagune-fade-in flex flex-col gap-[10px]'
+                  className='lagune-fade-in flex flex-col gap-[8px]'
                 >
-                  <span className='font-mono text-[12px] tracking-[0.18em] uppercase text-[rgba(233, 237, 247,0.62)]'>
+                  <span className='font-mono text-[14px]! tracking-[0.18em] uppercase text-[rgba(233, 237, 247,0.62)] max-[600px]:text-[12px]!'>
                     {feature.eyebrow}
                   </span>
-                  <h1 className='font-display font-black text-[clamp(32px,4.4vw,48px)] leading-[1.5] tracking-[-0.02em] m-0'>
+                  <h1 className='font-display font-black text-[clamp(32px,4.4vw,34px)] leading-[1.5] tracking-[-0.02em] m-0 max-[600px]:text-[24px]'>
                     <span className='text-accent mr-2 [-webkit-text-stroke:0.04em_var(--color-accent)]'>
                       /
                     </span>

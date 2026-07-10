@@ -361,11 +361,7 @@ export const FEATURE: Record<
   overview: {
     kicker: (
       <>
-        Lagune is the practice of{' '}
-        <strong className='text-ink font-semibold'>
-          Security-Driven Hardening
-        </strong>
-        : instead of running a generic checklist, the agent first detects what
+        Instead of running a generic checklist, the agent first detects what
         your system does, then drives the fixes that matter for it.
       </>
     ),
