@@ -74,7 +74,7 @@ const WaterFieldComponent = ({ className }: { className?: string }) => {
         }
         fit='cover'
         style={{
-          opacity: revealed ? 0.5 : 0,
+          opacity: revealed ? (isMobile ? 1 : 0.5) : 0,
           backgroundColor: COLOR_BACK,
           willChange: 'opacity',
           transition: 'opacity 400ms ease',
