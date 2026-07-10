@@ -25,67 +25,7 @@ No API keys are needed, it runs directly through your own agent ([**Claude**, **
 :::
 
 <Tabs>
-  <TabItem value="dashboard" label="Dashboard" default>
-
-Run **Lagune** directly with no subcommand for an interactive live view, follow-up, and maintenance. It serves a dashboard and opens it on a random port:
-
-```bash
-npx -y lagune@latest
-```
-
-- [x] **Live Reload**
-- [x] **Private** and **Local**
-- [x] **Install**, **Pull**, **Update**, and **Manage** all **Lagune** features directly from your browser
-- [x] No `node_modules` or `package.json` is needed 📦
-
-<div className='lagune-docs-gallery'>
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/01.png'
-    alt='Lagune dashboard overview'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/02.png'
-    alt='Lagune dashboard charter'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/03.png'
-    alt='Lagune dashboard findings'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/04.png'
-    alt='Lagune dashboard side quests'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/05.png'
-    alt='Lagune dashboard finding detail'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/06.png'
-    alt='Lagune dashboard skills'
-  />
-</div>
-
-:::tip
-
-- 🚪 Use `--port` or `-p` to specify a custom port.
-- ⏏️ Press `Ctrl+C` to stop.
-
-:::
-
-  </TabItem>
-  <TabItem value="prompt" label="CLI">
+  <TabItem value="prompt" label="CLI" default>
 
 Run without an agent key and **Lagune** asks you to choose one, then which specializations to install:
 
@@ -97,9 +37,6 @@ npx -y lagune@latest init claude --skills owasp
 ```
 
 See every key in [**Supported Agents**](/docs/supported-agents).
-
-  </TabItem>
-</Tabs>
 
 :::info[Any language]
 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
@@ -215,6 +152,82 @@ npx -y lagune@latest list --skills
 #   • go          [available]  Go and its language-specific risks
 #   ...
 ```
+
+  </TabItem>
+  <TabItem value="dashboard" label="Dashboard">
+
+Run **Lagune** directly with no subcommand for an interactive live view, follow-up, and maintenance. It serves a dashboard and opens it on a random port:
+
+```bash
+npx -y lagune@latest
+```
+
+- [x] **Live Reload**
+- [x] **Private** and **Local**
+- [x] **Install**, **Pull**, **Update**, and **Manage** all **Lagune** features directly from your browser
+- [x] No `node_modules` or `package.json` is needed 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/01.png'
+    alt='Lagune dashboard overview'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.png'
+    alt='Lagune dashboard charter'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.png'
+    alt='Lagune dashboard findings'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.png'
+    alt='Lagune dashboard side quests'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.png'
+    alt='Lagune dashboard finding detail'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.png'
+    alt='Lagune dashboard skills'
+  />
+</div>
+
+:::tip
+
+- 🚪 Use `--port` or `-p` to specify a custom port.
+- ⏏️ Press `Ctrl+C` to stop.
+
+:::
+
+:::info[Any language]
+🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+:::
+
+## What gets created
+
+Running **Lagune** in your project creates two things:
+
+- **`.lagune/`** holds Lagune's state in that project: the charter, the artifact each phase produces, the on-demand skills you installed, and the internal tracking.
+- **Agent commands** are written into your agent's own location, in its native format, so the `/lagune.*` commands are ready to run.
+
+Your security work is committed alongside your code, versioned and reviewable like any other part of the project. **Lagune**'s own files are gitignored by default, since [`pull`](#pull) brings them back from the manifest.
+
+  </TabItem>
+</Tabs>
 
 ## Requirements
 
