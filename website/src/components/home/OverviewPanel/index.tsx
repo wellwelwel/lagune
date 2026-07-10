@@ -6,7 +6,8 @@ import { LuTerminal } from 'react-icons/lu';
 const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
   <div className='flex flex-col min-w-0 h-full max-[920px]:h-auto'>
     <p className='mx-1 mb-9 text-[16px] leading-[1.6] font-semibold text-[rgba(233, 237, 247,0.78)]'>
-      Lagune runs on Node.js, you use whatever stack you want.
+      Your security copilot as you build, your Blue Team when you audit, whether
+      you're a developer or not.
     </p>
 
     <div className='grid grid-cols-2 max-[600px]:grid-cols-1'>
@@ -33,7 +34,7 @@ const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
             <p className='mt-3.5 m-0 text-[13px] leading-[1.55] text-[rgba(233, 237, 247,0.72)]'>
               {item.lead}
             </p>
-            <p className='mt-3 m-0 text-[13px] italic font-medium leading-[1.55] text-muted'>
+            <p className='mt-3 m-0 text-[13px] font-medium leading-[1.55] text-muted'>
               {item.body}
             </p>
           </div>

@@ -1,20 +1,19 @@
 import type { ComponentType, ReactNode } from 'react';
 import {
   LuBadgeCheck,
-  LuBlocks,
   LuBookOpen,
   LuBot,
   LuBrain,
+  LuChrome,
   LuGraduationCap,
   LuHouse,
-  LuLayoutGrid,
   LuListChecks,
   LuPackage,
   LuScanSearch,
   LuShieldCheck,
   LuShieldPlus,
+  LuSquareSlash,
   LuStar,
-  LuWandSparkles,
 } from 'react-icons/lu';
 import {
   TbCircleNumber1,
@@ -197,7 +196,23 @@ export const HIGHLIGHTS: {
 }[] = [
   {
     Icon: LuShieldCheck,
-    title: 'Security-driven by default',
+    title: 'Secure as you build',
+    lead: (
+      <>
+        One command, <strong className='text-ink font-semibold'>/lagune</strong>
+        , brings security while the code is written, not after.
+      </>
+    ),
+    body: (
+      <>
+        Mark it on any prompt and the agent builds what you asked for as always,
+        now with security knowledge on-demand.
+      </>
+    ),
+  },
+  {
+    Icon: LuSquareSlash,
+    title: 'Inspired by Spec-Driven',
     lead: (
       <>
         A five-phase,{' '}
@@ -208,27 +223,11 @@ export const HIGHLIGHTS: {
     body: (
       <>
         It detects what your system actually does, maps the matching attack
-        vectors, then drives the security work that fits.
+        vectors, then applies the security work that fits.
       </>
     ),
   },
-  {
-    Icon: LuBlocks,
-    title: 'Works with any agent',
-    lead: (
-      <>
-        <strong className='text-ink font-semibold'>37 agents</strong> and{' '}
-        <strong className='text-ink font-semibold'>any language</strong>: Claude
-        Code, Codex, Cursor, Gemini, and more. No lock-in.
-      </>
-    ),
-    body: (
-      <>
-        Initialize Lagune with your agent of choice and it sets up the right
-        command files and conventions, ready to run in your project.
-      </>
-    ),
-  },
+
   {
     Icon: LuBrain,
     title: 'Knowledge on demand',
@@ -238,7 +237,7 @@ export const HIGHLIGHTS: {
         <strong className='text-ink font-semibold'>
           only for what your project is
         </strong>
-        , never a generic flood.
+        .
       </>
     ),
     body: (
@@ -249,21 +248,21 @@ export const HIGHLIGHTS: {
     ),
   },
   {
-    Icon: LuWandSparkles,
-    title: 'Specializations of your own',
+    Icon: LuChrome,
+    title: 'Progress in your browser',
     lead: (
       <>
-        Craft{' '}
+        A{' '}
         <strong className='text-ink font-semibold'>
-          unique, authentic specializations
+          local, private dashboard
         </strong>{' '}
-        shaped to what your project actually needs.
+        follows your findings, fixes, and proofs live.
       </>
     ),
     body: (
       <>
-        Point it at an article, an exploit, or a topic and it distills a new
-        sub-skill into your private catalog, loaded exactly like the built-ins.
+        Live view of your project's security, as the agent works. It runs on
+        your machine and nothing leaves it.
       </>
     ),
   },
@@ -339,8 +338,7 @@ export const FEATURE: Record<
           Security-Driven Hardening
         </strong>
         : instead of running a generic checklist, the agent first detects what
-        your system does, then drives the fixes that matter for it, governed by
-        a spec, framed for defense.
+        your system does, then drives the fixes that matter for it.
       </>
     ),
     chip: 'Security-Driven Hardening',
