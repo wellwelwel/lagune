@@ -1,6 +1,6 @@
 <img src="./website/static/img/banner.png" />
 
-# 🌊 Security-Driven Hardening: Lagune
+# 🌊 Lagune | [**lagune.ai**](https://lagune.ai)
 
 [![Version](https://img.shields.io/npm/v/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
 [![Docs](https://img.shields.io/badge/Documentation-2f7bff?logo=docusaurus&logoColor=white)](https://lagune.ai/docs)
@@ -24,7 +24,7 @@ Love **Lagune**? [**Give us a ⭐ on GitHub!**](https://github.com/wellwelwel/la
 - 💽 [**Requirements**](#requirements)
 - 🔐 [**Security**](#security)
 - 🖖 [**Acknowledgements**](#acknowledgements)
-- 🧑‍⚖️ [**License**](#license) (**MIT**)
+- 🧑‍⚖️ [**License**](#license)
 
 ---
 
