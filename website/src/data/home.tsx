@@ -12,6 +12,7 @@ import {
   LuScanSearch,
   LuShieldCheck,
   LuShieldPlus,
+  LuSparkle,
   LuSquareSlash,
   LuStar,
 } from 'react-icons/lu';
@@ -49,6 +50,7 @@ export type Phase = {
   desc: string;
   banner: string;
   modes: PromptMode[];
+  nextLabel?: string;
 };
 
 export type Group = {
@@ -57,6 +59,30 @@ export type Group = {
 };
 
 export const PHASE_GROUPS: Group[] = [
+  {
+    label: 'Any prompt, any time',
+    phases: [
+      {
+        no: 'UNIVERSAL',
+        title: 'Build',
+        command: '/lagune',
+        desc: 'Builds what your prompt asks for, with security guarding the work as it happens.',
+        banner: '/img/docs/banner-0.png',
+        nextLabel: 'See how to audit your existing project',
+        modes: [
+          {
+            label: 'Recommended (Feature)',
+            prompt:
+              'Create a dashboard for my SaaS users. They should be able to change their profile picture and view all the content they have access to.',
+          },
+          {
+            label: 'Refactor',
+            prompt: 'Extract the credits checkout into its own module.',
+          },
+        ],
+      },
+    ],
+  },
   {
     label: 'Establish',
     phases: [
@@ -165,6 +191,7 @@ export const PHASE_GROUPS: Group[] = [
 ];
 
 export const STEP_ICONS: ComponentType[] = [
+  LuSparkle,
   TbCircleNumber1,
   TbCircleNumber2,
   TbCircleNumber3,
@@ -173,6 +200,7 @@ export const STEP_ICONS: ComponentType[] = [
 ];
 
 export const STEP_THEME: ComponentType<{ className?: string }>[] = [
+  LuSparkle,
   LuShieldCheck,
   LuScanSearch,
   LuListChecks,

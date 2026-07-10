@@ -49,6 +49,54 @@ const WaveIcon = (): ReactNode => (
   </span>
 );
 
+let glideId = 0;
+
+/**
+ * Native smooth scrolling is unreliable on touch browsers: the tab-swap reflow, Safari's toolbar animation, or a leftover fling abort it partway.
+ * Driving the same glide frame by frame keeps it smooth and keeps re-pinning the page until the toolbar settles, yielding the moment the user scrolls on their own.
+ */
+const glideToTop = () => {
+  const id = ++glideId;
+  const from = window.scrollY;
+  const glide = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? 0
+    : 420;
+  const settle = glide + 250;
+  const started = performance.now();
+
+  const cancel = () => {
+    if (id === glideId) glideId += 1;
+  };
+
+  const detach = () => {
+    window.removeEventListener('touchstart', cancel);
+    window.removeEventListener('wheel', cancel);
+  };
+
+  window.addEventListener('touchstart', cancel, { passive: true });
+  window.addEventListener('wheel', cancel, { passive: true });
+
+  const frame = () => {
+    if (id !== glideId) {
+      detach();
+      return;
+    }
+
+    const elapsed = performance.now() - started;
+
+    if (elapsed < glide) {
+      window.scrollTo(0, Math.round(from * (1 - elapsed / glide) ** 3));
+    } else if (window.scrollY !== 0) {
+      window.scrollTo(0, 0);
+    }
+
+    if (elapsed < settle) requestAnimationFrame(frame);
+    else detach();
+  };
+
+  frame();
+};
+
 const Home = (): ReactNode => {
   const [active, setActive] = useState<WindowId>('overview');
   const [selected, setSelected] = useState<string>('claude');
@@ -137,6 +185,12 @@ const Home = (): ReactNode => {
 
     setActive(id);
     contentRef.current?.scrollTo({ top: 0 });
+
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+      glideToTop();
+      return;
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -374,7 +428,7 @@ const Home = (): ReactNode => {
                                 ? 'lagune-rail__item--active text-ink'
                                 : 'text-[#515664]'
                             }`}
-                            aria-label={`${step.phase.title} (step ${index + 1} of ${PHASE_STEPS.length})`}
+                            aria-label={`${step.phase.title} (${step.phase.no})`}
                             aria-current={
                               index === usageStep ? 'step' : undefined
                             }

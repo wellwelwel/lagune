@@ -42,12 +42,20 @@ const UsagePanelComponent = ({
             type='button'
             onClick={() => onStep(usageStep + 1)}
             className='lagune-fade-in group inline-flex items-center gap-2 self-start mt-5 mx-1 font-mono text-[12px] tracking-[0.04em] uppercase text-muted cursor-pointer transition-colors duration-200 hover:text-ink [&>svg]:size-4 [&>svg]:text-accent'
-            aria-label={`Next: ${next.phase.title}`}
+            aria-label={step.phase.nextLabel ?? `Next: ${next.phase.title}`}
           >
-            Next:{' '}
-            <span className='font-semibold text-[rgba(233, 237, 247,0.82)] group-hover:text-ink'>
-              {next.phase.title}
-            </span>
+            {step.phase.nextLabel ? (
+              <span className='font-semibold text-[rgba(233, 237, 247,0.82)] group-hover:text-ink'>
+                {step.phase.nextLabel}
+              </span>
+            ) : (
+              <>
+                Next:{' '}
+                <span className='font-semibold text-[rgba(233, 237, 247,0.82)] group-hover:text-ink'>
+                  {next.phase.title}
+                </span>
+              </>
+            )}
             <LuArrowDown className='transition-transform duration-200 group-hover:translate-y-0.5' />
           </button>
         ) : (
