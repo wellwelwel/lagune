@@ -35,7 +35,7 @@ const CONTENT_SECURITY_POLICY = [
   "script-src 'self'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' https://lagune.weslley.io data:",
+  "img-src 'self' https://lagune.ai data:",
   "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'none'",

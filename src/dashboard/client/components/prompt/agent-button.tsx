@@ -18,7 +18,7 @@ const SIDE_QUEST_MODAL: PromptModalContent = {
   eyebrowIcon: 'compass',
   title: 'One side quest at a time',
   subtitle: 'Copy this prompt to your agent:',
-  banner: 'https://lagune.weslley.io/img/docs/banner-5.png',
+  banner: 'https://lagune.ai/img/docs/banner-5.png',
   hint: 'Works with any coding agent',
   prompt: SIDE_QUEST_PROMPT,
 };

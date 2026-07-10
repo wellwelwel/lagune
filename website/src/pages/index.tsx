@@ -182,9 +182,9 @@ const Home = (): ReactNode => {
           name='description'
           content='Lagune helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.'
         />
-        <link rel='canonical' href='https://lagune.weslley.io/' />
+        <link rel='canonical' href='https://lagune.ai/' />
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://lagune.weslley.io/' />
+        <meta property='og:url' content='https://lagune.ai/' />
         <meta
           property='og:title'
           content='SDH: Lagune — Security-Driven Hardening for AI-built software'
@@ -193,10 +193,7 @@ const Home = (): ReactNode => {
           property='og:description'
           content='Lagune helps your AI agent make a project more secure. Point it at your code, and it guides you through the security work that matters for it.'
         />
-        <meta
-          property='og:image'
-          content='https://lagune.weslley.io/img/og.png'
-        />
+        <meta property='og:image' content='https://lagune.ai/img/og.png' />
         <meta
           name='twitter:title'
           content='SDH: Lagune — Security-Driven Hardening'
@@ -205,10 +202,7 @@ const Home = (): ReactNode => {
           name='twitter:description'
           content='Lagune helps your AI agent make a project more secure. Point it at your code, and it guides you through the security work that matters for it.'
         />
-        <meta
-          name='twitter:image'
-          content='https://lagune.weslley.io/img/og.png'
-        />
+        <meta name='twitter:image' content='https://lagune.ai/img/og.png' />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link
           rel='preconnect'
@@ -224,7 +218,7 @@ const Home = (): ReactNode => {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'Lagune',
-            url: 'https://lagune.weslley.io',
+            url: 'https://lagune.ai',
             description:
               'Lagune helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.',
           })}

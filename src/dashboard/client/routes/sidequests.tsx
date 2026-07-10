@@ -45,7 +45,7 @@ export const SideQuests = (): VNode => {
   return (
     <>
       <PageHeader
-        background='https://lagune.weslley.io/img/docs/banner-2.png'
+        background='https://lagune.ai/img/docs/banner-2.png'
         eyebrow='Side Quests'
         title='Optional runs that level up the chain'
         description="Objectives outside Lagune's main quest. It won't clear them for you, but completing one makes the phase it feeds land better."

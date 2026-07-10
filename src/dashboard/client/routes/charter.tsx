@@ -33,7 +33,7 @@ export const Charter = (): VNode => {
   return (
     <>
       <PageHeader
-        background='https://lagune.weslley.io/img/docs/banner-3.png'
+        background='https://lagune.ai/img/docs/banner-3.png'
         eyebrow='Governance'
         title='Charter'
         description={`The governing principles every phase respects · v${data.version}.`}

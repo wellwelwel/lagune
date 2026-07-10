@@ -3,12 +3,12 @@
 # 🌊 Security-Driven Hardening: Lagune
 
 [![Version](https://img.shields.io/npm/v/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
-[![Docs](https://img.shields.io/badge/Documentation-2f7bff?logo=docusaurus&logoColor=white)](https://lagune.weslley.io/docs)
-[![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.weslley.io/docs/supported-agents)
+[![Docs](https://img.shields.io/badge/Documentation-2f7bff?logo=docusaurus&logoColor=white)](https://lagune.ai/docs)
+[![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.ai/docs/supported-agents)
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
-- **Lagune** works with projects in **any programming language** and supports [**37 agents**](https://lagune.weslley.io/docs/supported-agents) ✨
+- **Lagune** works with projects in **any programming language** and supports [**37 agents**](https://lagune.ai/docs/supported-agents) ✨
 
 ---
 
@@ -34,7 +34,7 @@ Love **Lagune**? Give us a ⭐ on **GitHub**!
 
 > [!TIP]
 >
-> No API keys are needed, it runs directly through your own agent [(**Claude**, **Codex**, and more)](https://lagune.weslley.io/docs/supported-agents).
+> No API keys are needed, it runs directly through your own agent [(**Claude**, **Codex**, and more)](https://lagune.ai/docs/supported-agents).
 
 ---
 
@@ -111,31 +111,31 @@ Once **Lagune** is set up in your project, your **AI** agent unlocks a set of sl
 
 Secure the work as you build it, guided by the charter, with no flow to follow:
 
-| Command                                                       | What it does for you                                                      |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| [**/lagune**](https://lagune.weslley.io/docs/commands/lagune) | Enforces security along with your development, on any prompt, at any time |
+| Command                                               | What it does for you                                                      |
+| ----------------------------------------------------- | ------------------------------------------------------------------------- |
+| [**/lagune**](https://lagune.ai/docs/commands/lagune) | Enforces security along with your development, on any prompt, at any time |
 
 - Pull in the on-demand specializations in real time while your agent works.
-- Combine it with the [**/lagune.charter**](https://lagune.weslley.io/docs/commands/charter) command to shape every build around your project's own security rules.
+- Combine it with the [**/lagune.charter**](https://lagune.ai/docs/commands/charter) command to shape every build around your project's own security rules.
 
 #### › The Blue Team flow
 
 These five run in order. Each builds on the previous, so following the list top to bottom is all it takes:
 
-| #   | Command                                                                | What it does for you                                                           |
-| --- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| 1   | [**/lagune.charter**](https://lagune.weslley.io/docs/commands/charter) | Sets your project's security rules, proposed for you or shaped by what you say |
-| 2   | [**/lagune.detect**](https://lagune.weslley.io/docs/commands/detect)   | Reads your code and maps what your system does and where the risks are         |
-| 3   | [**/lagune.plan**](https://lagune.weslley.io/docs/commands/plan)       | Turns what detect found into a defense plan, with a fix for each finding       |
-| 4   | [**/lagune.harden**](https://lagune.weslley.io/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
-| 5   | [**/lagune.verify**](https://lagune.weslley.io/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
+| #   | Command                                                        | What it does for you                                                           |
+| --- | -------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 1   | [**/lagune.charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, proposed for you or shaped by what you say |
+| 2   | [**/lagune.detect**](https://lagune.ai/docs/commands/detect)   | Reads your code and maps what your system does and where the risks are         |
+| 3   | [**/lagune.plan**](https://lagune.ai/docs/commands/plan)       | Turns what detect found into a defense plan, with a fix for each finding       |
+| 4   | [**/lagune.harden**](https://lagune.ai/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
+| 5   | [**/lagune.verify**](https://lagune.ai/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
 
 #### › Special commands
 
-| Command                                                                      | What it does                                                                            |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| [**/lagune.specialize**](https://lagune.weslley.io/docs/commands/specialize) | Specializes **Lagune** in a new security _sub_-skill from articles, exploits, or topics |
-| [**/lagune.prove**](https://lagune.weslley.io/docs/commands/prove)           | Turns each detected finding into a runnable proof for responsible disclosure            |
+| Command                                                              | What it does                                                                            |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [**/lagune.specialize**](https://lagune.ai/docs/commands/specialize) | Specializes **Lagune** in a new security _sub_-skill from articles, exploits, or topics |
+| [**/lagune.prove**](https://lagune.ai/docs/commands/prove)           | Turns each detected finding into a runnable proof for responsible disclosure            |
 
 > [!TIP]
 >
@@ -143,7 +143,7 @@ These five run in order. Each builds on the previous, so following the list top 
 
 > [!IMPORTANT]
 >
-> See the full [**documentation**](https://lagune.weslley.io/) for usage examples and more.
+> See the full [**documentation**](https://lagune.ai/) for usage examples and more.
 
 ---
 
@@ -152,7 +152,7 @@ These five run in order. Each builds on the previous, so following the list top 
 You will need these tools installed on your system:
 
 - [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- At least one of the [**Supported Agents**](https://lagune.weslley.io/docs/supported-agents)
+- At least one of the [**Supported Agents**](https://lagune.ai/docs/supported-agents)
 
 ---
 
@@ -174,7 +174,7 @@ To details, report a vulnerability, and see the supported versions, see the [**S
 
 Partners get an exclusive logo across the repositories and landing pages, plus a spot on a dedicated partners page.
 
-> Help my work grow by [**becoming a partner**](https://lagune.weslley.io/docs?partners) 🖖
+> Help my work grow by [**becoming a partner**](https://lagune.ai/docs?partners) 🖖
 
 ### Supporters
 

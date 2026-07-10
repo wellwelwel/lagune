@@ -110,7 +110,7 @@ const NextStepHint = (props: { finding: Finding }): VNode | null => {
           eyebrowIcon: hint.eyebrowIcon,
           title: hint.title,
           subtitle: 'Copy this prompt to your agent:',
-          banner: 'https://lagune.weslley.io/img/docs/banner-5.png',
+          banner: 'https://lagune.ai/img/docs/banner-5.png',
           hint: 'Works with any coding agent',
           prompt: stepPrompt(props.finding, hint),
         }}

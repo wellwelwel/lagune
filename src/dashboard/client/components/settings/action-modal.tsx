@@ -276,7 +276,7 @@ export const ActionModal = (): VNode | null => {
       <div class='relative flex-none overflow-hidden bg-banner px-6 py-5 text-white'>
         <img
           class='pointer-events-none absolute inset-0 z-0 size-full object-cover mask-[linear-gradient(to_right,transparent,rgba(0,0,0,0.35)_38%,black)]'
-          src='https://lagune.weslley.io/img/docs/banner-5.png'
+          src='https://lagune.ai/img/docs/banner-5.png'
           alt=''
           aria-hidden='true'
         />

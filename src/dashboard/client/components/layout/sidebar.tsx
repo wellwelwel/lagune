@@ -140,14 +140,14 @@ export const Sidebar = (): VNode => {
         <span class='grid size-19 flex-none transition-transform duration-300 ease-out group-hover:scale-102'>
           <img
             class='col-start-1 row-start-1 size-19 object-contain mix-blend-multiply transition-[opacity,scale,filter] duration-200 ease-house scale-100 opacity-100 [filter:blur(0)] dark:scale-[0.25] dark:opacity-0 dark:[filter:blur(4px)]'
-            src='https://lagune.weslley.io/img/docs/octocat.gif'
+            src='https://lagune.ai/img/docs/octocat.gif'
             alt=''
             width={76}
             height={76}
           />
           <img
             class='col-start-1 row-start-1 size-19 object-contain transition-[opacity,scale,filter] duration-200 ease-house scale-[0.25] opacity-0 [filter:drop-shadow(0_2px_6px_rgba(0,0,0,0.55))_blur(4px)] dark:scale-[0.85] dark:opacity-100 dark:[filter:drop-shadow(0_2px_6px_rgba(0,0,0,0.55))_blur(0)]'
-            src='https://lagune.weslley.io/img/docs/octocat-2.png'
+            src='https://lagune.ai/img/docs/octocat-2.png'
             alt=''
             width={76}
             height={76}

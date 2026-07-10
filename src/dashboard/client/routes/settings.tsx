@@ -29,7 +29,7 @@ export const Settings = (): VNode => {
   return (
     <>
       <PageHeader
-        background='https://lagune.weslley.io/img/docs/banner-5.png'
+        background='https://lagune.ai/img/docs/banner-5.png'
         eyebrow='Configuration'
         title='Settings'
         description='Install, update, and shape Lagune for this project.'

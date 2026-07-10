@@ -129,7 +129,7 @@ export const Findings = (): VNode => {
   return (
     <>
       <PageHeader
-        background='https://lagune.weslley.io/img/docs/banner-2.png'
+        background='https://lagune.ai/img/docs/banner-2.png'
         eyebrow='The chain'
         title='Findings'
         description='Detect → plan → harden → verify · one tracked item each.'

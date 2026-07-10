@@ -154,7 +154,7 @@ export const Skills = (): VNode => {
   return (
     <>
       <PageHeader
-        background='https://lagune.weslley.io/img/docs/banner-4.png'
+        background='https://lagune.ai/img/docs/banner-4.png'
         eyebrow='Knowledge'
         title='Skills'
         description='Security skills applied, installed, and available for this project.'

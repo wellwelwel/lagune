@@ -1,6 +1,6 @@
 export const LINKS = {
   repo: 'https://github.com/wellwelwel/lagune',
-  docs: 'https://lagune.weslley.io/docs',
+  docs: 'https://lagune.ai/docs',
   sponsor: 'https://github.com/sponsors/wellwelwel',
 };
 

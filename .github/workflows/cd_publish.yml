@@ -81,6 +81,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./website/build
-          cname: lagune.weslley.io
+          cname: lagune.ai
           publish_branch: 'website'
           allow_empty_commit: false
