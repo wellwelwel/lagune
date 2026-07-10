@@ -63,6 +63,9 @@ export const updateInto = (workspace: string): Promise<void> =>
 export const pullInto = (workspace: string): Promise<void> =>
   runHeadless({ ...baseArgs, command: 'pull' }, workspace);
 
+export const migrateInto = (workspace: string): Promise<void> =>
+  runHeadless({ ...baseArgs, command: 'migrate' }, workspace);
+
 const clear = async () => {
   await Promise.all(
     workspaces.map((workspace) =>

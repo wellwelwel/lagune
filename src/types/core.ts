@@ -1,5 +1,12 @@
 export type CliCommand =
-  'init' | 'update' | 'pull' | 'add' | 'remove' | 'list' | 'dashboard';
+  | 'init'
+  | 'update'
+  | 'pull'
+  | 'add'
+  | 'remove'
+  | 'list'
+  | 'dashboard'
+  | 'migrate';
 
 export type ParsedCliArgs = {
   command: CliCommand | undefined;
@@ -309,6 +316,32 @@ export type PerformSpecializeResult =
       removed: number;
       categories: string[];
     };
+
+export type PerformMigrateInput = {
+  cwd: string;
+  packageRoot: URL;
+  now: Date;
+};
+
+export type MigrateBlockedReason =
+  'not-initialized' | 'already-migrated' | 'conflict';
+
+export type PerformMigrateResult =
+  | { migrated: false; reason: MigrateBlockedReason }
+  | {
+      migrated: true;
+      agents: string[];
+      removedCommands: FileOutcome[];
+      rewrittenState: string[];
+      gitignore: GitignoreOutcome;
+      refresh: RefreshResult;
+    };
+
+export type LegacyInstall = {
+  agents: string[];
+  categories: string[];
+  files: string[];
+};
 
 export type ManifestAgent = string | string[];
 

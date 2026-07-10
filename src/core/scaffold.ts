@@ -10,10 +10,10 @@ import type {
   ScaffoldResult,
   TemplateKey,
 } from '../types/core.js';
-import { access } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import {
   ensureDir,
+  pathExists,
   writeFileIfAbsent,
   writeFileOverwrite,
 } from './fs-actions.js';
@@ -105,16 +105,6 @@ const writeJobsIfAbsent = (
       return { path: job.relativePath, status: outcome.status };
     })
   );
-
-const pathExists = async (path: string): Promise<boolean> => {
-  try {
-    await access(path);
-
-    return true;
-  } catch {
-    return false;
-  }
-};
 
 const renderSpecializationsOutcome = async (
   targetDir: string

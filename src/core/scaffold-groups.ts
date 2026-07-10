@@ -22,6 +22,11 @@ const FIXED_BUCKETS: ScaffoldBucket[] = [
     owns: (path) => path.startsWith('.lagune/skills/'),
   },
   {
+    label: 'Memory',
+    baseDir: '.lagune/memory/',
+    owns: (path) => path.startsWith('.lagune/memory/'),
+  },
+  {
     label: 'State',
     baseDir: '.lagune/',
     owns: (path) =>

@@ -2,6 +2,7 @@ import type {
   AgentChoice,
   FileOutcome,
   GitignoreOutcome,
+  MigrateBlockedReason,
   ScaffoldGroup,
   ScaffoldResult,
   SkillGroup,
@@ -63,6 +64,7 @@ const HELP_USAGE: string[] = [
   'npx lagune remove --skills',
   'npx lagune list [--findings] [--skills]',
   'npx lagune dashboard [-p, --port <number>]',
+  'npx lagune migrate',
 ];
 
 const HELP_COMMANDS: [string, string][] = [
@@ -73,6 +75,10 @@ const HELP_COMMANDS: [string, string][] = [
   ['remove', 'Uninstall security specializations, by category'],
   ['list', 'List tracked findings or specialization categories (asks which)'],
   ['dashboard', 'Serve a live view of .lagune/ and open it in the browser'],
+  [
+    'migrate',
+    'Rename a legacy .bluespec/ install to Lagune, keeping its state',
+  ],
 ];
 
 const HELP_OPTIONS: [string, string][] = [
@@ -327,6 +333,42 @@ export const pullSummary = (
 
   return done(
     `Reconstructed for ${agentDisplayName} ${color.dim('·')} ${result.created.length} restored${restAt(result.skipped.length, 'already present')}`
+  );
+};
+
+export const migrateBlocked = (
+  reason: MigrateBlockedReason,
+  agentKeys: string[]
+): string => {
+  if (reason === 'already-migrated')
+    return color.dim(
+      'This project already runs on Lagune. Nothing to migrate.'
+    );
+
+  if (reason === 'conflict')
+    return [
+      'Found both .bluespec/ and .lagune/ in this project.',
+      'Keep the directory that holds your charter and artifacts, remove the other, then run npx lagune migrate again.',
+    ].join('\n');
+
+  const first = agentKeys[0];
+
+  return [
+    'No legacy .bluespec/ install found here. Nothing to migrate.',
+    `For a fresh setup, run npx lagune init <agent> (available: ${agentKeys.join(', ')}).`,
+    `Example: npx lagune init ${first}`,
+  ].join('\n');
+};
+
+export const migrateSummary = (
+  agentDisplayName: string,
+  removed: number,
+  refreshed: number
+): string => {
+  const target = agentDisplayName ? ` for ${agentDisplayName}` : '';
+
+  return done(
+    `Migrated to Lagune${target} ${color.dim('·')} ${refreshed} refreshed${restAt(removed, 'legacy removed')}`
   );
 };
 

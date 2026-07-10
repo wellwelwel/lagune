@@ -1,5 +1,5 @@
 import type { FileOutcome } from '../types/core.js';
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { access, mkdir, rm, writeFile } from 'node:fs/promises';
 
 const hasErrorCode = (error: unknown, code: string): boolean =>
   error instanceof Error && (error as NodeJS.ErrnoException).code === code;
@@ -9,6 +9,16 @@ const isFileExistsError = (error: unknown): error is NodeJS.ErrnoException =>
 
 export const ensureDir = async (dir: string): Promise<void> => {
   await mkdir(dir, { recursive: true });
+};
+
+export const pathExists = async (path: string): Promise<boolean> => {
+  try {
+    await access(path);
+
+    return true;
+  } catch {
+    return false;
+  }
 };
 
 export const writeFileIfAbsent = async (

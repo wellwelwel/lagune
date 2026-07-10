@@ -24,7 +24,7 @@ export const buildManifest = (input: ManifestInput): ManifestData => ({
 export const serializeManifest = (data: ManifestData): string =>
   `${JSON.stringify(data, null, 2)}\n`;
 
-const isStringArray = (value: unknown): value is string[] =>
+export const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every((item) => typeof item === 'string');
 
 const readManifestFields = async (

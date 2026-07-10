@@ -9,6 +9,7 @@ const COMMANDS: CliCommand[] = [
   'remove',
   'list',
   'dashboard',
+  'migrate',
 ];
 
 const toCommand = (value: string | undefined): CliCommand | undefined =>

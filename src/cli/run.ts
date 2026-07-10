@@ -16,6 +16,7 @@ import {
   readManifestCategories,
   readManifestInstall,
 } from '../core/manifest.js';
+import { performMigrate } from '../core/migrate.js';
 import {
   groupOutcomes,
   groupScaffoldOutcomes,
@@ -44,6 +45,8 @@ import {
   gitignoreResult,
   groupedReport,
   helpText,
+  migrateBlocked,
+  migrateSummary,
   nextSteps,
   pullNotInitialized,
   pullSummary,
@@ -315,6 +318,56 @@ const runRemove = async (
   );
 };
 
+const dedupeOutcomes = (outcomes: FileOutcome[]): FileOutcome[] => {
+  const seen = new Set<string>();
+
+  return outcomes.filter((outcome) => {
+    if (seen.has(outcome.path)) return false;
+
+    seen.add(outcome.path);
+    return true;
+  });
+};
+
+const runMigrate = async (cwd: string, packageRoot: URL): Promise<void> => {
+  const result = await performMigrate({ cwd, packageRoot, now: new Date() });
+
+  if (!result.migrated) {
+    print(migrateBlocked(result.reason, listAgentKeys()));
+    return;
+  }
+
+  const label = getProviders(result.agents)
+    .map((provider) => provider.displayName)
+    .join(', ');
+  const outcomes = dedupeOutcomes([
+    ...result.removedCommands.filter((outcome) => outcome.status === 'removed'),
+    ...result.rewrittenState.map((path): FileOutcome => ({
+      path,
+      status: 'refreshed',
+    })),
+    ...result.refresh.refreshed.map((path): FileOutcome => ({
+      path,
+      status: 'refreshed',
+    })),
+  ]);
+  const removedCount = result.removedCommands.filter(
+    (outcome) => outcome.status === 'removed'
+  ).length;
+  const refreshedCount = outcomes.length - removedCount;
+
+  printReport(groupOutcomes(outcomes, label));
+
+  print(migrateSummary(label, removedCount, refreshedCount));
+
+  const gitignoreMessage = gitignoreResult(result.gitignore);
+
+  if (gitignoreMessage) {
+    print('');
+    print(gitignoreMessage);
+  }
+};
+
 const findingNames = async (cwd: string): Promise<string[]> => {
   const map = await loadTrackingMap(cwd);
 
@@ -403,6 +456,11 @@ export const run = async (
 
   if (args.command === 'dashboard') {
     await runDashboard(cwd, packageRoot, args.port);
+    return;
+  }
+
+  if (args.command === 'migrate') {
+    await runMigrate(cwd, packageRoot);
     return;
   }
 
