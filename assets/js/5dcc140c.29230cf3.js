@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([["2035"],{8155(e){e.exports=JSON.parse('{"name":"lagune-docs-content","id":"default"}')}}]);
