@@ -428,4 +428,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.tinycloud/skills',
   },
+  {
+    key: 'warp',
+    displayName: 'Warp',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.agents/skills',
+  },
 ];

@@ -95,6 +95,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'terramind', name: 'Terramind' },
   { key: 'tinycloud', name: 'Tinycloud' },
   { key: 'trae', name: 'Trae' },
+  { key: 'warp', name: 'Warp' },
   { key: 'windsurf', name: 'Windsurf' },
 ];
 
