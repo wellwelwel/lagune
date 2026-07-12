@@ -281,4 +281,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.codemaker/skills',
   },
+  {
+    key: 'codestudio',
+    displayName: 'Code Studio',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.codestudio/skills',
+  },
 ];
