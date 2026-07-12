@@ -92,6 +92,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'rovodev', name: 'RovoDev ACLI' },
   { key: 'shai', name: 'SHAI (OVHcloud)' },
   { key: 'tabnine', name: 'Tabnine CLI' },
+  { key: 'terramind', name: 'Terramind' },
   { key: 'trae', name: 'Trae' },
   { key: 'windsurf', name: 'Windsurf' },
 ];
