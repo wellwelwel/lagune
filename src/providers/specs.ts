@@ -344,4 +344,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.kode/skills',
   },
+  {
+    key: 'loaf',
+    displayName: 'Loaf',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.agents/skills',
+  },
 ];
