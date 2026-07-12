@@ -83,6 +83,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'opencode', name: 'opencode' },
   { key: 'pi', name: 'Pi Coding Agent' },
   { key: 'pochi', name: 'Pochi' },
+  { key: 'promptscript', name: 'PromptScript' },
   { key: 'qodercli', name: 'Qoder CLI' },
   { key: 'qwen', name: 'Qwen Code' },
   { key: 'roo', name: 'Roo Code' },

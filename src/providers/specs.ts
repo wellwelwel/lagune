@@ -393,4 +393,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.pochi/skills',
   },
+  {
+    key: 'promptscript',
+    displayName: 'PromptScript',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.agents/skills',
+  },
 ];
