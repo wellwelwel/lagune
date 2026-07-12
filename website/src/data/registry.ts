@@ -49,6 +49,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'codex', name: 'Codex CLI' },
   { key: 'commandcode', name: 'Command Code' },
   { key: 'continue', name: 'Continue' },
+  { key: 'cortex', name: 'Cortex Code (Snowflake)' },
   { key: 'costrict', name: 'CoStrict' },
   { key: 'crush', name: 'Crush' },
   { key: 'cursor-agent', name: 'Cursor' },

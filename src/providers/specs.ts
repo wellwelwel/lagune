@@ -295,4 +295,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.commandcode/skills',
   },
+  {
+    key: 'cortex',
+    displayName: 'Cortex Code (Snowflake)',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.cortex/skills',
+  },
 ];
