@@ -56,6 +56,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'deepagents', name: 'Deep Agents (LangChain)' },
   { key: 'devin', name: 'Devin for Terminal' },
   { key: 'dexto', name: 'Dexto' },
+  { key: 'eve', name: 'Eve' },
   { key: 'factory', name: 'Factory Droid' },
   { key: 'forge', name: 'Forge' },
   { key: 'gemini', name: 'Gemini CLI' },

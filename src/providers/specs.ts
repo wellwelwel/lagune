@@ -316,4 +316,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.agents/skills',
   },
+  {
+    key: 'eve',
+    displayName: 'Eve',
+    format: 'skill',
+    layout: 'skill',
+    dir: 'agent/skills',
+  },
 ];
