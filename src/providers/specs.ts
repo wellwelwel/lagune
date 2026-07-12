@@ -239,4 +239,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.hermes/skills',
   },
+  {
+    key: 'adal',
+    displayName: 'AdaL',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.adal/skills',
+  },
 ];

@@ -8,7 +8,7 @@
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
-- **Lagune** works with projects in **any programming language** and supports [**37 agents**](https://lagune.ai/docs/supported-agents) ✨
+- **Lagune** works with projects in **any programming language** and supports [**38 agents**](https://lagune.ai/docs/supported-agents) ✨
 
 ---
 
@@ -25,6 +25,7 @@ Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lag
 - 🔐 [**Security**](#security)
 - 🖖 [**Acknowledgements**](#acknowledgements)
 - 🧑‍⚖️ [**License**](#license)
+- 📊 [**Comparison**](#comparison)
 
 ---
 
@@ -196,3 +197,85 @@ Copyright © 2026-present [**Weslley Araújo**](https://github.com/wellwelwel) a
 > ### Disclaimer
 >
 > All product names, trademarks, and registered trademarks mentioned are the property of their respective owners and are used for identification purposes only.
+
+---
+
+## Comparison
+
+Agent-by-agent compatibility across other agent-driven workflow tools: [**OpenSpec**](https://github.com/Fission-AI/OpenSpec) (v1.4.1), [**Spec Kit**](https://github.com/github/spec-kit) (v0.10.x), [**Superpowers**](https://github.com/obra/superpowers) (v6.0.3), and [**Skills.sh**](https://github.com/vercel-labs/skills) (v1.5.16).
+
+| Agent                   | OpenSpec | Spec Kit | Superpowers | Skills.sh | Lagune |
+| ----------------------- | :------: | :------: | :---------: | :-------: | :----: |
+| Claude Code             |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| Codex (OpenAI)          |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| Cursor                  |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| Gemini CLI              |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| GitHub Copilot          |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| Antigravity             |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| Kimi                    |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| OpenCode                |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| Pi                      |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| Factory Droid           |    ✅    |    ❌    |     ✅      |    ✅     |   ✅   |
+| Amazon Q Developer      |    ✅    |    ❌    |     ❌      |    ❌     |   ✅   |
+| Amp                     |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Auggie                  |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Cline                   |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| CodeBuddy               |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Continue                |    ✅    |    ❌    |     ❌      |    ✅     |   ✅   |
+| CoStrict                |    ✅    |    ❌    |     ❌      |    ❌     |   ✅   |
+| Crush                   |    ✅    |    ❌    |     ❌      |    ✅     |   ✅   |
+| Devin                   |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Forge / ForgeCode       |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Goose                   |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Hermes                  |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| IBM Bob                 |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| iFlow                   |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Junie (JetBrains)       |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Kilo Code               |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Kiro                    |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Lingma                  |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Mistral Vibe            |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Qoder                   |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Qwen Code               |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Roo Code                |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| RovoDev (Atlassian)     |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| SHAI (OVHcloud)         |    ❌    |    ✅    |     ❌      |    ❌     |   ✅   |
+| Tabnine CLI             |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Trae                    |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| Windsurf                |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| AdaL                    |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| AiderDesk               |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| AstrBot                 |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Autohand Code CLI       |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| CodeArts Agent (Huawei) |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Codemaker               |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Code Studio             |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Command Code            |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Cortex Code (Snowflake) |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Deep Agents (LangChain) |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Dexto                   |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Eve                     |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Firebender              |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| inference.sh            |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Jazz                    |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Kode                    |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Loaf                    |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| MCPJam                  |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Moxby                   |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Mux                     |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Neovate                 |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Ona                     |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| OpenClaw                |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| OpenHands               |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Pochi                   |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| PromptScript            |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Reasonix                |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Replit                  |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Terramind               |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Tinycloud               |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Warp                    |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Zed                     |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| ZCode                   |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Zencoder                |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Zenflow                 |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| **Total**               |  **30**  |  **32**  |   **10**    |  **69**   | **38** |

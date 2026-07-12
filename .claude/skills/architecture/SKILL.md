@@ -53,12 +53,14 @@ Adapters are **data, not code**. Each supported agent is a single entry in the a
 
 The command formats are:
 
-- **Skill** (`<dir>/lagune.<phase>/SKILL.md`): a directory per command with `name` / `description` / `argument-hint` / `user-invocable` frontmatter. Used by Claude Code, Codex CLI, Antigravity, Cursor, Devin, Kimi, Lingma, RovoDev, Trae, and Mistral Vibe. Skill directories use each agent's current, project-scoped location (for example `.claude/skills`, `.codex/skills`, `.agent/skills`, `.cursor/skills`).
+- **Skill** (`<dir>/lagune.<phase>/SKILL.md`): a directory per command with `name` / `description` / `argument-hint` / `user-invocable` frontmatter. Skill directories use each agent's current, project-scoped location (for example `.claude/skills`, `.codex/skills`, `.agent/skills`, `.cursor/skills`).
 - **Copilot prompt file** (`.github/prompts/lagune.<phase>.prompt.md`): GitHub Copilot's prompt-file format, invoked as `/lagune.<phase>`.
-- **Markdown command** (`<dir>/lagune.<phase>.md`): a single markdown file whose name becomes the command. Used by Amazon Q Developer, Amp, Auggie, IBM Bob, Cline, CodeBuddy, Continue, CoStrict, Crush, Factory Droid, iFlow, Junie, Kilo Code, Kiro CLI, opencode, Pi, Qoder, Qwen, Roo, SHAI, and Windsurf.
+- **Markdown command** (`<dir>/lagune.<phase>.md`): a single markdown file whose name becomes the command.
 - **Forge** (`.forge/commands/lagune.<phase>.md`): a markdown command that swaps `$ARGUMENTS` for Forge's `{{parameters}}` placeholder.
-- **TOML** (`<dir>/lagune.<phase>.toml`): `description` plus a multi-line `prompt`, with `$ARGUMENTS` rendered as `{{args}}`. Used by Gemini CLI and Tabnine CLI.
+- **TOML** (`<dir>/lagune.<phase>.toml`): `description` plus a multi-line `prompt`, with `$ARGUMENTS` rendered as `{{args}}`.
 - **Goose recipe** (`.goose/recipes/lagune.<phase>.yaml`): a YAML recipe with the required `version` / `title` / `description` / `instructions` / `prompt` fields, with `$ARGUMENTS` rendered as `{{ args }}`.
+
+Which agent uses which format, and its exact directory, lives in the registry (`src/providers/specs.ts`), the single source of truth. Consult it rather than duplicating the mapping here.
 
 A future agent is one more row, leaving the core untouched. Keep adapters thin and the core neutral. Any logic that an adapter would duplicate belongs in the core instead.
 
