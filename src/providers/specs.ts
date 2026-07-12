@@ -386,4 +386,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: 'skills',
   },
+  {
+    key: 'pochi',
+    displayName: 'Pochi',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.pochi/skills',
+  },
 ];
