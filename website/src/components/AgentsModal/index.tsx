@@ -1,6 +1,7 @@
 import type { AgentEntry } from '@site/src/data/registry';
 import type { ReactNode } from 'react';
 import { IconSwap } from '@site/src/components/IconSwap';
+import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
   Modal,
   ModalAction,
@@ -14,6 +15,7 @@ import {
 } from '@site/src/components/selectable';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { LuArrowLeft, LuCircle, LuCircleCheckBig } from 'react-icons/lu';
+import { RiRobot2Fill } from 'react-icons/ri';
 
 const AgentRow = memo(
   ({
@@ -30,8 +32,19 @@ const AgentRow = memo(
       role='radio'
       aria-checked={on}
       onClick={() => onPick(agent.key)}
-      className={`flex items-center gap-3 p-[12px_14px] ${selectableCard(on)}`}
+      className={`flex items-center gap-3 px-3.5 py-3.5 ${selectableCard(on)}`}
     >
+      {agent.icon ? (
+        <MaskIcon
+          src={agent.icon}
+          className={`shrink-0 size-5 bg-current transition-colors duration-200 ease-out ${selectableTint(on)}`}
+        />
+      ) : (
+        <RiRobot2Fill
+          aria-hidden
+          className={`shrink-0 size-5 opacity-25 transition-colors duration-200 ease-out ${selectableTint(on)}`}
+        />
+      )}
       <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
         {agent.name}
       </span>
@@ -83,7 +96,7 @@ export const AgentsModal = ({
       open={open}
       onClose={onClose}
       label='All agents'
-      panelClassName='lagune-modal-panel relative flex flex-col w-full max-w-[680px] h-[860px] max-h-full rounded-[20px] border border-[#0c155c] bg-[#0a0f1f] overflow-hidden [box-shadow:0_40px_120px_-30px_rgba(0,0,0,0.8)] outline-none'
+      panelClassName='lagune-modal-panel relative flex flex-col w-full max-w-[820px] h-[860px] max-h-full rounded-[20px] border border-[#0c155c] bg-[#0a0f1f] overflow-hidden [box-shadow:0_40px_120px_-30px_rgba(0,0,0,0.8)] outline-none'
     >
       <ModalSearch value={query} onChange={setQuery} label='Search agents' />
 
@@ -94,7 +107,7 @@ export const AgentsModal = ({
         aria-label='Choose your agent'
       >
         {filtered.length > 0 ? (
-          <div className='grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-2'>
+          <div className='grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3'>
             {filtered.map((agent) => (
               <AgentRow
                 key={agent.key}
