@@ -65,6 +65,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'hermes', name: 'Hermes' },
   { key: 'bob', name: 'IBM Bob' },
   { key: 'iflow', name: 'iFlow CLI' },
+  { key: 'inferencesh', name: 'inference.sh' },
   { key: 'junie', name: 'Junie' },
   { key: 'kilocode', name: 'Kilo Code' },
   { key: 'kimi', name: 'Kimi Code' },
