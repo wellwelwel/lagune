@@ -400,4 +400,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.agents/skills',
   },
+  {
+    key: 'reasonix',
+    displayName: 'Reasonix',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.reasonix/skills',
+  },
 ];
