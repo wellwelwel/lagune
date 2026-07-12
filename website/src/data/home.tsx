@@ -388,7 +388,7 @@ export const FEATURE: Record<
       <>
         Any Codebase
         <br />
-        <span className='text-accent'>70</span> Agents
+        <span className='text-accent'>71</span> Agents
       </>
     ),
   },

@@ -470,4 +470,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.openhands/skills',
   },
+  {
+    key: 'firebender',
+    displayName: 'Firebender',
+    format: 'markdown',
+    dir: '.firebender/commands',
+    extension: '.mdc',
+  },
 ];

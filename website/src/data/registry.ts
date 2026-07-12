@@ -58,6 +58,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'dexto', name: 'Dexto' },
   { key: 'eve', name: 'Eve' },
   { key: 'factory', name: 'Factory Droid' },
+  { key: 'firebender', name: 'Firebender' },
   { key: 'forge', name: 'Forge' },
   { key: 'gemini', name: 'Gemini CLI' },
   { key: 'copilot', name: 'GitHub Copilot' },
