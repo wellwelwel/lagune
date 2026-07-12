@@ -93,6 +93,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'shai', name: 'SHAI (OVHcloud)' },
   { key: 'tabnine', name: 'Tabnine CLI' },
   { key: 'terramind', name: 'Terramind' },
+  { key: 'tinycloud', name: 'Tinycloud' },
   { key: 'trae', name: 'Trae' },
   { key: 'windsurf', name: 'Windsurf' },
 ];

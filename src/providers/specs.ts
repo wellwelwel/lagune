@@ -421,4 +421,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.terramind/skills',
   },
+  {
+    key: 'tinycloud',
+    displayName: 'Tinycloud',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.tinycloud/skills',
+  },
 ];
