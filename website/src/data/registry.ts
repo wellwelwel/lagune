@@ -47,6 +47,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'codebuddy', name: 'CodeBuddy CLI' },
   { key: 'codemaker', name: 'Codemaker' },
   { key: 'codex', name: 'Codex CLI' },
+  { key: 'commandcode', name: 'Command Code' },
   { key: 'continue', name: 'Continue' },
   { key: 'costrict', name: 'CoStrict' },
   { key: 'crush', name: 'Crush' },
