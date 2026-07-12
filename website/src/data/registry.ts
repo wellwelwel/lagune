@@ -87,6 +87,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'qodercli', name: 'Qoder CLI' },
   { key: 'qwen', name: 'Qwen Code' },
   { key: 'reasonix', name: 'Reasonix' },
+  { key: 'replit', name: 'Replit' },
   { key: 'roo', name: 'Roo Code' },
   { key: 'rovodev', name: 'RovoDev ACLI' },
   { key: 'shai', name: 'SHAI (OVHcloud)' },

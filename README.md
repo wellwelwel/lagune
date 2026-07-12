@@ -8,7 +8,7 @@
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
-- **Lagune** works with projects in **any programming language** and supports [**61 agents**](https://lagune.ai/docs/supported-agents) ✨
+- **Lagune** works with projects in **any programming language** and supports [**62 agents**](https://lagune.ai/docs/supported-agents) ✨
 
 ---
 
@@ -270,7 +270,7 @@ Agent-by-agent compatibility across other agent-driven workflow tools: [**OpenSp
 | Pochi                   |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
 | PromptScript            |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
 | Reasonix                |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
-| Replit                  |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
+| Replit                  |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
 | Terramind               |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
 | Tinycloud               |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
 | Warp                    |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
@@ -278,4 +278,4 @@ Agent-by-agent compatibility across other agent-driven workflow tools: [**OpenSp
 | ZCode                   |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
 | Zencoder                |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
 | Zenflow                 |    ❌    |    ❌    |     ❌      |    ✅     |   ❌   |
-| **Total**               |  **30**  |  **32**  |   **10**    |  **69**   | **61** |
+| **Total**               |  **30**  |  **32**  |   **10**    |  **69**   | **62** |

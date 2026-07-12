@@ -407,4 +407,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     layout: 'skill',
     dir: '.reasonix/skills',
   },
+  {
+    key: 'replit',
+    displayName: 'Replit',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.agents/skills',
+  },
 ];
