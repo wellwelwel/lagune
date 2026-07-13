@@ -1,6 +1,6 @@
 <img src="./website/static/img/banner.png" />
 
-# 🌊 Lagune | [**lagune.ai**](https://lagune.ai)
+# 🌊 [Lagune AI](https://lagune.ai)
 
 [![Version](https://img.shields.io/npm/v/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
 [![Docs](https://img.shields.io/badge/Documentation-2f7bff?logo=docusaurus&logoColor=white)](https://lagune.ai/docs)

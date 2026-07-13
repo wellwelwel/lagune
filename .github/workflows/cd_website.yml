@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Actions - Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Actions - Setup Node.js
         uses: actions/setup-node@v6

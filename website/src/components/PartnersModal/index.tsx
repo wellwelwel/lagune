@@ -522,7 +522,7 @@ export const PartnersModal = ({
 
               <div className='flex flex-col items-center gap-4'>
                 <img
-                  src='/img/wellwelwel.png'
+                  src='/img/wellwelwel.webp'
                   alt='Weslley Araújo'
                   decoding='async'
                   draggable={false}

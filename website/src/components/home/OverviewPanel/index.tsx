@@ -6,8 +6,8 @@ import { LuTerminal } from 'react-icons/lu';
 const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
   <div className='flex flex-col min-w-0 h-full max-[920px]:h-auto'>
     <p className='mx-1 mb-9 text-[16px] leading-[1.6] font-semibold text-[rgba(233, 237, 247,0.78)]'>
-      Your security copilot as you build, your Blue Team when you audit, whether
-      you're a developer or not.
+      Lagune is your security copilot as you build, your Blue Team when you
+      audit, whether you're a developer or not.
     </p>
 
     <div className='grid grid-cols-2 max-[600px]:grid-cols-1'>

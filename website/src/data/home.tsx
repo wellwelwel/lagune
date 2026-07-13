@@ -67,7 +67,7 @@ export const PHASE_GROUPS: Group[] = [
         title: 'Build',
         command: '/lagune',
         desc: 'Builds what your prompt asks for, with security guarding the work as it happens, not later.',
-        banner: '/img/docs/banner-0.png',
+        banner: '/img/docs/banner-0.webp',
         nextLabel: 'See how to audit your existing project',
         modes: [
           {
@@ -96,7 +96,7 @@ export const PHASE_GROUPS: Group[] = [
         title: 'Charter',
         command: '/lagune.charter',
         desc: "Sets your project's security rules, proposed for you or shaped by what you say.",
-        banner: '/img/docs/banner-1.png',
+        banner: '/img/docs/banner-1.webp',
         modes: [
           {
             label: 'Recommended (Describe)',
@@ -119,7 +119,7 @@ export const PHASE_GROUPS: Group[] = [
         title: 'Detect',
         command: '/lagune.detect',
         desc: 'Reads your code and maps what your system does and where the risks are.',
-        banner: '/img/docs/banner-5.png',
+        banner: '/img/docs/banner-5.webp',
         modes: [
           {
             label: 'Recommended (Full)',
@@ -140,7 +140,7 @@ export const PHASE_GROUPS: Group[] = [
         title: 'Plan',
         command: '/lagune.plan',
         desc: 'Turns what detect found into a defense plan, with a fix for each finding.',
-        banner: '/img/docs/banner-3.png',
+        banner: '/img/docs/banner-3.webp',
         modes: [
           {
             label: 'Recommended (Full)',
@@ -162,7 +162,7 @@ export const PHASE_GROUPS: Group[] = [
         title: 'Harden',
         command: '/lagune.harden',
         desc: "Applies the plan's fixes to your code, safely and one at a time.",
-        banner: '/img/docs/banner-2.png',
+        banner: '/img/docs/banner-2.webp',
         modes: [
           {
             label: 'Recommended (Full)',
@@ -179,7 +179,7 @@ export const PHASE_GROUPS: Group[] = [
         title: 'Verify',
         command: '/lagune.verify',
         desc: 'Proves each applied fix holds and closes out the ones that do.',
-        banner: '/img/docs/banner-4.png',
+        banner: '/img/docs/banner-4.webp',
         modes: [
           {
             label: 'Recommended (Full)',
@@ -354,9 +354,9 @@ export const TABS: { id: WindowId; label: string }[] = [
 ];
 
 export const BACKGROUNDS: Record<WindowId, string> = {
-  overview: '/img/bg-1.png',
-  install: '/img/bg-2.png',
-  usage: '/img/bg-3.png',
+  overview: '/img/bg-1.webp',
+  install: '/img/bg-2.webp',
+  usage: '/img/bg-3.webp',
 };
 
 export const FEATURE: Record<

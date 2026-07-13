@@ -6,6 +6,7 @@ import { createMDXLoaderRule } from '@docusaurus/mdx-loader';
 import {
   addTrailingPathSeparator,
   aliasedSitePath,
+  aliasedSitePathToRelativePath,
   docuHash,
   Globby,
   parseMarkdownFile,
@@ -150,6 +151,7 @@ export const docsContentPlugin: PluginModule = async (context) => {
     options: {
       useCrossCompilerCache: siteConfig.future.faster.mdxCrossCompilerCache,
       admonitions: true,
+      removeContentTitle: true,
       staticDirs: siteConfig.staticDirectories.map((directory) =>
         path.resolve(siteDir, directory)
       ),
@@ -196,6 +198,12 @@ export const docsContentPlugin: PluginModule = async (context) => {
             component: docPageComponent,
             exact: true,
             modules: { content: doc.source },
+            metadata: {
+              sourceFilePath: path.join(
+                siteDir,
+                aliasedSitePathToRelativePath(doc.source)
+              ),
+            },
           });
         })
       );

@@ -213,7 +213,7 @@ const SidebarNav = ({
         />
         <img
           className='col-start-1 row-start-1 size-19 scale-[0.25] object-contain opacity-0 filter-[drop-shadow(0_2px_6px_rgba(0,0,0,0.55))_blur(4px)] transition-[opacity,scale,filter] duration-200 ease-[cubic-bezier(0.2,0,0,1)] docs-dark:scale-[0.85] docs-dark:opacity-100 docs-dark:filter-[drop-shadow(0_2px_6px_rgba(0,0,0,0.55))_blur(0)]'
-          src='/img/docs/octocat-2.png'
+          src='/img/docs/octocat-2.webp'
           alt=''
           width={76}
           height={76}

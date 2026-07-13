@@ -1,6 +1,7 @@
 import type { DocEntry } from '@site/plugins/docs-content';
 import type { ComponentType, ReactNode } from 'react';
 import type { DocTocItem } from '../Toc';
+import Head from '@docusaurus/Head';
 import { PageMetadata } from '@docusaurus/theme-common';
 import MDXContent from '@theme/MDXContent';
 import { findDocContext, useDocsData } from '../data';
@@ -19,10 +20,33 @@ type DocPageProps = {
   content: DocContent;
 };
 
+const SITE_URL = 'https://lagune.ai';
+
 export default function DocPage({ content: Content }: DocPageProps): ReactNode {
   const { metadata, frontMatter } = Content;
   const { sidebar } = useDocsData();
   const context = findDocContext(sidebar, metadata.docId);
+
+  const trail = [
+    { name: 'Home', url: `${SITE_URL}/` },
+    { name: 'Docs', url: `${SITE_URL}/docs` },
+  ];
+  if (metadata.permalink !== '/docs')
+    trail.push({
+      name: metadata.title,
+      url: `${SITE_URL}${metadata.permalink}`,
+    });
+
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url,
+    })),
+  };
 
   return (
     <DocsShell rail={<DocsToc toc={Content.toc} />}>
@@ -31,6 +55,9 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
         description={metadata.description}
         keywords={frontMatter.keywords}
       />
+      <Head>
+        <script type='application/ld+json'>{JSON.stringify(breadcrumb)}</script>
+      </Head>
       <section className='lagune-docs-route-fade relative mb-5 flex-none overflow-hidden rounded-card bg-banner px-5 py-6 text-white shadow-card sm:px-9 sm:py-7.5'>
         <img
           className='lagune-docs-route-rise pointer-events-none absolute inset-0 z-0 size-full object-cover mask-[linear-gradient(to_right,transparent,rgba(0,0,0,0.35)_38%,black)]'

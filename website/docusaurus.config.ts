@@ -15,6 +15,7 @@ const config: Config = {
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
     faster: true,
+    experimental_vcs: true,
   },
 
   url: 'https://lagune.ai',
@@ -58,25 +59,28 @@ const config: Config = {
       },
     },
     {
+      tagName: 'link',
+      attributes: {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
+      },
+    },
+    {
       tagName: 'script',
       attributes: { type: 'application/ld+json' },
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'SoftwareApplication',
+        '@type': 'Organization',
+        '@id': 'https://lagune.ai/#organization',
         name: 'Lagune',
-        applicationCategory: 'DeveloperApplication',
-        applicationSubCategory: 'Security',
-        operatingSystem: 'Node.js',
-        url: 'https://lagune.ai',
+        alternateName: ['Lagune AI', 'Lagune Security', 'lagune', 'lagune.ai'],
+        url: 'https://lagune.ai/',
+        logo: 'https://lagune.ai/img/logo.png',
         description:
           "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
-        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-        author: {
-          '@type': 'Person',
-          name: 'Weslley Araújo',
-          url: 'https://github.com/wellwelwel',
-        },
-        license: 'https://github.com/wellwelwel/lagune/blob/main/LICENSE',
+        disambiguatingDescription:
+          'Lagune (also written Lagune AI) is a Security-Driven Hardening workflow for AI-built software. It is not related to Laguna AI.',
         sameAs: [
           'https://github.com/wellwelwel/lagune',
           'https://www.npmjs.com/package/lagune',
@@ -108,6 +112,7 @@ const config: Config = {
           customCss: ['./src/css/custom.css', './src/css/docs.css'],
         },
         sitemap: {
+          lastmod: 'date',
           changefreq: 'weekly',
           priority: 0.5,
           filename: 'sitemap.xml',
@@ -132,17 +137,24 @@ const config: Config = {
       { name: 'author', content: 'Weslley Araújo' },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
-        name: 'twitter:title',
-        content: 'Lagune — Security-Driven Hardening',
-      },
-      {
-        name: 'twitter:description',
+        name: 'twitter:image:alt',
         content:
-          "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
+          'Lagune: AI code security for AI-built and vibe-coded software',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Lagune' },
       { property: 'og:locale', content: 'en_US' },
+      {
+        property: 'og:image:alt',
+        content:
+          'Lagune: AI code security for AI-built and vibe-coded software',
+      },
+      { property: 'og:image:width', content: '1280' },
+      { property: 'og:image:height', content: '640' },
+      {
+        property: 'og:image:secure_url',
+        content: 'https://lagune.ai/img/og.png',
+      },
     ],
     colorMode: {
       defaultMode: 'dark',

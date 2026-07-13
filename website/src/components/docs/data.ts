@@ -42,7 +42,7 @@ export const findDocContext = (
 
   return {
     eyebrow: entry && isCategory(entry) ? entry.label : 'Documentation',
-    banner: `/img/docs/banner-${(Math.max(owner, 0) % 5) + 1}.png`,
+    banner: `/img/docs/banner-${(Math.max(owner, 0) % 5) + 1}.webp`,
     previous: position > 0 ? links[position - 1] : undefined,
     next:
       position !== -1 && position < links.length - 1
