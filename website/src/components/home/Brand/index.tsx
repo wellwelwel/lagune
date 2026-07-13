@@ -6,11 +6,9 @@ type BrandProps = {
 };
 
 export const Brand = ({ onClick, className = '' }: BrandProps): ReactNode => (
-  <button
-    type='button'
+  <h1
+    className={`m-0 items-center gap-2 font-display text-[clamp(18px,1.8vw,23px)] font-extrabold tracking-[-0.02em] leading-none cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4 ${className}`}
     onClick={onClick}
-    aria-label='Lagune, back to overview'
-    className={`inline-flex items-center gap-2 font-display text-[clamp(18px,1.8vw,23px)] font-extrabold tracking-[-0.02em] leading-none cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4 ${className}`}
   >
     <span>
       Lagune
@@ -18,5 +16,5 @@ export const Brand = ({ onClick, className = '' }: BrandProps): ReactNode => (
         .ai
       </span>
     </span>
-  </button>
+  </h1>
 );
