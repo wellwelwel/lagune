@@ -40,7 +40,7 @@ const WaveIcon = (): ReactNode => (
     <img
       src='/img/icons/wave.svg'
       className='absolute inset-0 size-full transition-opacity duration-200 ease-out group-hover:opacity-0'
-      alt=''
+      alt='Lagune'
       aria-hidden
     />
     <MaskIcon
@@ -232,7 +232,7 @@ const Home = (): ReactNode => {
         <body className='lagune-canvas-body' />
         <meta
           name='description'
-          content='Lagune helps your AI agent secure any codebase: it detects what your system does, then drives the defensive work that fits, before, during, and after you build.'
+          content='Lagune helps your AI agent secure any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.'
         />
         <link rel='canonical' href='https://lagune.ai/' />
         <meta property='og:type' content='website' />
@@ -243,7 +243,7 @@ const Home = (): ReactNode => {
         />
         <meta
           property='og:description'
-          content='Lagune helps your AI agent secure any codebase: it detects what your system does, then drives the defensive work that fits, before, during, and after you build.'
+          content='Lagune helps your AI agent secure any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.'
         />
         <meta property='og:image' content='https://lagune.ai/img/og.png' />
         <meta
@@ -252,7 +252,7 @@ const Home = (): ReactNode => {
         />
         <meta
           name='twitter:description'
-          content='Lagune helps your AI agent secure any codebase: it detects what your system does, then drives the defensive work that fits, before, during, and after you build.'
+          content='Lagune helps your AI agent secure any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.'
         />
         <meta name='twitter:image' content='https://lagune.ai/img/og.png' />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
@@ -555,7 +555,8 @@ const Home = (): ReactNode => {
                       active === tab.id ? 'opacity-25' : 'opacity-0'
                     }`}
                     src={BACKGROUNDS[tab.id]}
-                    alt=''
+                    alt={`Lagune ${tab.label}`}
+                    aria-hidden
                     decoding='async'
                     loading={active === tab.id ? 'eager' : 'lazy'}
                     fetchPriority={active === tab.id ? 'auto' : 'low'}

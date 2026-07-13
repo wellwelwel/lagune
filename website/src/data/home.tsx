@@ -30,7 +30,7 @@ const DocsRailIcon = (): ReactNode => (
     <img
       src='/img/icons/wave.svg'
       className='hidden size-[19px] max-[600px]:block'
-      alt=''
+      alt='Lagune'
       aria-hidden
     />
   </>

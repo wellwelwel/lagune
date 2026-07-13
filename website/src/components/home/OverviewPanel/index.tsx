@@ -58,7 +58,7 @@ const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
         <img
           src='/img/icons/wave.svg'
           className='size-[17px] shrink-0'
-          alt=''
+          alt='Lagune'
           aria-hidden
         />
         <span>Docs</span>

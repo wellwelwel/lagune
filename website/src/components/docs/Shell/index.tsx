@@ -161,7 +161,8 @@ const SidebarNav = ({
       <img
         className='size-9.5 flex-none rounded-field object-contain'
         src='/favicon.png'
-        alt=''
+        alt='Lagune'
+        aria-hidden
         width={38}
         height={38}
       />
@@ -207,14 +208,16 @@ const SidebarNav = ({
         <img
           className='col-start-1 row-start-1 size-19 scale-100 object-contain opacity-100 mix-blend-multiply filter-[blur(0)] transition-[opacity,scale,filter] duration-200 ease-[cubic-bezier(0.2,0,0,1)] docs-dark:scale-[0.25] docs-dark:opacity-0 docs-dark:filter-[blur(4px)]'
           src='/img/docs/octocat.gif'
-          alt=''
+          alt='GitHub'
+          aria-hidden
           width={76}
           height={76}
         />
         <img
           className='col-start-1 row-start-1 size-19 scale-[0.25] object-contain opacity-0 filter-[drop-shadow(0_2px_6px_rgba(0,0,0,0.55))_blur(4px)] transition-[opacity,scale,filter] duration-200 ease-[cubic-bezier(0.2,0,0,1)] docs-dark:scale-[0.85] docs-dark:opacity-100 docs-dark:filter-[drop-shadow(0_2px_6px_rgba(0,0,0,0.55))_blur(0)]'
           src='/img/docs/octocat-2.webp'
-          alt=''
+          alt='GitHub'
+          aria-hidden
           width={76}
           height={76}
         />
@@ -374,7 +377,8 @@ export const DocsShell = ({
                   <img
                     className='size-4.5 flex-none object-contain'
                     src='/img/icons/wave.svg'
-                    alt=''
+                    alt='Lagune'
+                    aria-hidden
                     width={18}
                     height={18}
                   />
@@ -388,7 +392,8 @@ export const DocsShell = ({
                   <img
                     className='size-4.75 object-contain'
                     src='/img/icons/wave.svg'
-                    alt=''
+                    alt='Lagune'
+                    aria-hidden
                     width={19}
                     height={19}
                   />

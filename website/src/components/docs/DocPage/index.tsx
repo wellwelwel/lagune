@@ -62,7 +62,7 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
         <img
           className='lagune-docs-route-rise pointer-events-none absolute inset-0 z-0 size-full object-cover mask-[linear-gradient(to_right,transparent,rgba(0,0,0,0.35)_38%,black)]'
           src={context.banner}
-          alt=''
+          alt={metadata.title}
           aria-hidden='true'
         />
         <span className='pointer-events-none absolute inset-0 z-1 bg-linear-to-r from-banner via-banner/85 to-banner/40' />

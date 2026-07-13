@@ -227,7 +227,12 @@ const AgentReply = ({
       className={`flex translate-y-1 items-start gap-2.5 opacity-0 transition-[opacity,translate] delay-150 duration-300 ${EASE} group-data-[open=true]/pop:translate-y-0 group-data-[open=true]/pop:opacity-100`}
     >
       {theme.coloredIcon ? (
-        <img src={theme.icon} alt='' className='mt-0.5 size-5 flex-none' />
+        <img
+          src={theme.icon}
+          alt={theme.name}
+          aria-hidden
+          className='mt-0.5 size-5 flex-none'
+        />
       ) : (
         <MaskIcon
           src={theme.icon}

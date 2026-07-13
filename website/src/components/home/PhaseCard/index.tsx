@@ -19,7 +19,7 @@ export const PhaseCard = ({
     <div className='relative h-[140px] bg-[linear-gradient(135deg,rgba(10,26,74,0.55),rgba(3,8,28,0.65))]'>
       <img
         src={phase.banner}
-        alt=''
+        alt={`${phase.title} phase`}
         decoding='async'
         className='lagune-img-outline absolute inset-0 size-full object-cover'
         aria-hidden
