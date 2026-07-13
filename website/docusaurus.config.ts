@@ -8,7 +8,7 @@ import { laguneCode } from './src/prism/lagune';
 
 const config: Config = {
   title: 'Lagune',
-  tagline: 'Security-Driven Hardening for AI-built software',
+  tagline: 'Security-Driven Hardening for any codebase',
   favicon: 'favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -80,7 +80,7 @@ const config: Config = {
         description:
           "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
         disambiguatingDescription:
-          'Lagune (also written Lagune AI) is a Security-Driven Hardening workflow for AI-built software. It is not related to Laguna AI.',
+          'Lagune (also written Lagune AI) is a Security-Driven Hardening workflow that hardens any codebase, in any language, whether written by humans or an AI. It is not related to Laguna AI.',
         sameAs: [
           'https://github.com/wellwelwel/lagune',
           'https://www.npmjs.com/package/lagune',
@@ -138,16 +138,14 @@ const config: Config = {
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:image:alt',
-        content:
-          'Lagune: AI code security for AI-built and vibe-coded software',
+        content: 'Lagune: AI-driven security hardening for any codebase',
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Lagune' },
       { property: 'og:locale', content: 'en_US' },
       {
         property: 'og:image:alt',
-        content:
-          'Lagune: AI code security for AI-built and vibe-coded software',
+        content: 'Lagune: AI-driven security hardening for any codebase',
       },
       { property: 'og:image:width', content: '1280' },
       { property: 'og:image:height', content: '640' },

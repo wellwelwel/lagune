@@ -227,32 +227,32 @@ const Home = (): ReactNode => {
   return (
     <div className='lagune-canvas relative min-h-screen m-0 antialiased text-ink bg-[#050a18] font-sans'>
       <Head>
-        <title>Lagune — Security-Driven Hardening for AI-built software</title>
+        <title>AI-Driven Security Hardening for Any Codebase | Lagune</title>
         <html className='lagune-canvas-html' lang='en' />
         <body className='lagune-canvas-body' />
         <meta
           name='description'
-          content="Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not."
+          content='Lagune helps your AI agent secure any codebase: it detects what your system does, then drives the defensive work that fits, before, during, and after you build.'
         />
         <link rel='canonical' href='https://lagune.ai/' />
         <meta property='og:type' content='website' />
         <meta property='og:url' content='https://lagune.ai/' />
         <meta
           property='og:title'
-          content='Lagune — Security-Driven Hardening for AI-built software'
+          content='AI-Driven Security Hardening for Any Codebase | Lagune'
         />
         <meta
           property='og:description'
-          content="Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not."
+          content='Lagune helps your AI agent secure any codebase: it detects what your system does, then drives the defensive work that fits, before, during, and after you build.'
         />
         <meta property='og:image' content='https://lagune.ai/img/og.png' />
         <meta
           name='twitter:title'
-          content='Lagune — Security-Driven Hardening'
+          content='AI-Driven Security Hardening for Any Codebase | Lagune'
         />
         <meta
           name='twitter:description'
-          content="Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not."
+          content='Lagune helps your AI agent secure any codebase: it detects what your system does, then drives the defensive work that fits, before, during, and after you build.'
         />
         <meta name='twitter:image' content='https://lagune.ai/img/og.png' />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
