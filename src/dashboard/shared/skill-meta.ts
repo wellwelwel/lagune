@@ -56,11 +56,11 @@ const SKILL_DESCRIPTIONS: Record<string, string> = {
     "Protects the login, signup, and password-reset flows, so attackers can't guess passwords, take over accounts, or reset someone else's.",
   crypto:
     "Makes sure sensitive data is scrambled properly, so passwords, tokens, and personal info can't be read even if they leak.",
-  csv: "Keeps exported spreadsheets safe, so opening a downloaded file can't quietly run a harmful command on someone's computer.",
+  csv: "Hardens exported spreadsheets, so opening a downloaded file is far less likely to quietly run a harmful command on someone's computer.",
   dotnet:
     'Covers security pitfalls specific to .NET apps that can let an attacker run their own code on your server.',
   federation:
-    "Secures “sign in with Google/Microsoft/etc.” so an attacker can't impersonate a user or slip into an account that isn't theirs.",
+    "Hardens “sign in with Google/Microsoft/etc.” so an attacker has a much harder time impersonating a user or slipping into an account that isn't theirs.",
   go: 'Covers security pitfalls specific to Go apps, especially subtle bugs that show up under real traffic.',
   'http-request':
     "Inspects the data that arrives with each web request, so hidden or malicious input can't bend your app into doing the wrong thing.",
@@ -74,12 +74,12 @@ const SKILL_DESCRIPTIONS: Record<string, string> = {
     "Checks how your app talks to other services, so it can't be tricked into fetching or trusting something an attacker controls.",
   path: "Prevents attackers from wandering your server's files, so they can't read private files or overwrite important ones by manipulating a filename.",
   payment:
-    'Secures checkout and billing, so no one can tamper with prices, dodge payment, or replay a charge.',
+    'Hardens checkout and billing, making it far harder to tamper with prices, dodge payment, or replay a charge.',
   php: 'Covers security pitfalls specific to PHP apps that can let an attacker run their own code or bypass a login.',
   python:
     "Covers security pitfalls specific to Python apps, especially loading untrusted data that can run an attacker's code.",
   regex:
-    "Makes sure text checks are safe and efficient, so a malicious input can't freeze your app by overloading it.",
+    'Hardens text checks so they stay efficient, making it far harder for a malicious input to freeze your app by overloading it.',
   ruby: "Covers security pitfalls specific to Ruby apps, especially loading untrusted data that can run an attacker's code.",
   rust: 'Covers security pitfalls specific to Rust apps, especially unsafe code that can corrupt memory or crash the program.',
   serverless:
@@ -87,10 +87,10 @@ const SKILL_DESCRIPTIONS: Record<string, string> = {
   supabase:
     "Locks down your Supabase backend, so your database rules actually hold and secret keys don't end up exposed to the public.",
   transport:
-    "Makes sure data travels over a secure, encrypted connection, so it can't be read or altered on the way between your users and your app.",
+    'Hardens transport so data travels over an encrypted connection, making it far harder to read or alter on the way between your users and your app.',
   upload:
-    "Keeps file uploads safe, so someone can't upload a disguised file that runs code, overwrites data, or fills up your storage.",
-  xml: "Secures how your app reads XML data, so a crafted file can't leak server files or knock your app offline.",
+    'Hardens file uploads, making it far harder for someone to upload a disguised file that runs code, overwrites data, or fills up your storage.',
+  xml: 'Hardens how your app reads XML data, so a crafted file is far less able to leak server files or knock your app offline.',
 };
 
 const SKILL_PROMPT_TASKS: Record<string, string> = {

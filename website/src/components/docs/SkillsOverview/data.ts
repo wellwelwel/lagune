@@ -105,7 +105,7 @@ export const skillsCatalog: CatalogSkill[] = [
     label: 'CSV',
     icon: 'file',
     description:
-      "Keeps exported spreadsheets safe, so opening a downloaded file can't quietly run a harmful command on someone's computer.",
+      "Hardens exported spreadsheets, so opening a downloaded file is far less likely to quietly run a harmful command on someone's computer.",
     promptTask: 'Add a button to export my contacts to a spreadsheet',
     groups: [owasp],
   },
@@ -123,7 +123,7 @@ export const skillsCatalog: CatalogSkill[] = [
     label: 'Federation',
     icon: 'key',
     description:
-      "Secures “sign in with Google/Microsoft/etc.” so an attacker can't impersonate a user or slip into an account that isn't theirs.",
+      "Hardens “sign in with Google/Microsoft/etc.” so an attacker has a much harder time impersonating a user or slipping into an account that isn't theirs.",
     promptTask: 'Add a “Continue with Google” button to my login page',
     groups: [owasp],
   },
@@ -205,7 +205,7 @@ export const skillsCatalog: CatalogSkill[] = [
     label: 'Payment',
     icon: 'key',
     description:
-      'Secures checkout and billing, so no one can tamper with prices, dodge payment, or replay a charge.',
+      'Hardens checkout and billing, making it far harder to tamper with prices, dodge payment, or replay a charge.',
     promptTask: 'Add Stripe checkout so customers can pay on the pricing page',
     groups: [owasp, lovable],
   },
@@ -232,7 +232,7 @@ export const skillsCatalog: CatalogSkill[] = [
     label: 'Regex',
     icon: 'code',
     description:
-      "Makes sure text checks are safe and efficient, so a malicious input can't freeze your app by overloading it.",
+      'Hardens text checks so they stay efficient, making it far harder for a malicious input to freeze your app by overloading it.',
     promptTask: 'Add a coupon field to checkout that only accepts valid codes',
     groups: [owasp],
   },
@@ -278,7 +278,7 @@ export const skillsCatalog: CatalogSkill[] = [
     label: 'Transport',
     icon: 'globe',
     description:
-      "Makes sure data travels over a secure, encrypted connection, so it can't be read or altered on the way between your users and your app.",
+      'Hardens transport so data travels over an encrypted connection, making it far harder to read or alter on the way between your users and your app.',
     promptTask: 'Make my whole site load securely over https',
     groups: [owasp],
   },
@@ -287,7 +287,7 @@ export const skillsCatalog: CatalogSkill[] = [
     label: 'Upload',
     icon: 'upload',
     description:
-      "Keeps file uploads safe, so someone can't upload a disguised file that runs code, overwrites data, or fills up your storage.",
+      'Hardens file uploads, making it far harder for someone to upload a disguised file that runs code, overwrites data, or fills up your storage.',
     promptTask: 'Let people upload a profile photo in account settings',
     groups: [owasp],
   },
@@ -296,7 +296,7 @@ export const skillsCatalog: CatalogSkill[] = [
     label: 'XML',
     icon: 'file',
     description:
-      "Secures how your app reads XML data, so a crafted file can't leak server files or knock your app offline.",
+      'Hardens how your app reads XML data, so a crafted file is far less able to leak server files or knock your app offline.',
     promptTask: 'Let suppliers upload their invoices as XML files',
     groups: [owasp],
   },

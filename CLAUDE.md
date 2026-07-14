@@ -36,7 +36,7 @@ Lagune is for **any user who wants a development flow with the security practice
 
 What makes that possible is the core idea: Lagune is **not a static catalog of generic recommendations**. It is a spec **intelligent enough to detect the context of the system** it is run against, for example whether the project has login, file uploads, payments, and so on. From that detection it **directs the user to the specific recommendations that matter for that context**.
 
-This is why developers and non-developers are served equally: the intelligence lives in the spec, not in the user. Findings and recommendations should still be expressed in plain language, so they are actionable regardless of the user's technical depth.
+This is why developers and non-developers are served equally: the deep security knowledge is carried by the spec and its on-demand sub-skills, a baseline every user can build on: the more they know, the more they can drive it. Findings and recommendations should still be expressed in plain language, so they are actionable regardless of the user's technical depth.
 
 ---
 
@@ -77,7 +77,7 @@ Lagune also carries **sub-skills**: focused, language-agnostic security knowledg
 These are binding instructions for any agent or contributor working here.
 
 1. **Safe-by-default, in plain language, for everyone equally.** Every default, message, and fix must be safe out of the box and intelligible to any user, developer or not. No user tier is privileged over another.
-2. **Context-aware over generic.** Every phase must start from the context detected in `detect` (login, uploads, payments, and so on) and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The intelligence lives in the spec, not in the user.
+2. **Context-aware over generic.** Every phase must start from the context detected in `detect` (login, uploads, payments, and so on) and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The deep security knowledge is carried by the spec and its on-demand sub-skills, a baseline every user can build on.
 3. **Flexible over rigid.** Lagune flexes to the project and the user. Principles, requirements, and recommendations are starting points, not a fixed contract. Let the user reword, drop, add, or scope anything down. Every phase adapts to what the project actually is. Flexibility never weakens the safe-by-default baseline, it only lets the user shape how it is applied.
 4. **Reconcile, never append-only.** Lagune's artifacts are living documents, not logs. When a phase re-runs and its artifact already exists, reconcile it against the current truth: re-check each existing entry, keep what still holds, rewrite what changed, and remove what no longer applies (for example, a finding the code shows is now resolved). Write genuinely new content only for what is actually new. The past does not matter for its own sake. Never let an artifact grow by accumulation alone. Closure is this same reconcile reaching its conclusion: when `verify` proves a risk closed, it stands the finding down across the whole chain, with the user's confirmation, instead of leaving a later phase to drop it. This is why `verify` is the one phase that writes to the other phases' artifacts.
 5. **Defense only.** Lagune audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm. Dual-use security content is acceptable only in a clearly defensive, authorized framing.

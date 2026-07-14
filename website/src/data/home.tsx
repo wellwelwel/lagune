@@ -229,7 +229,7 @@ export const HIGHLIGHTS: {
 }[] = [
   {
     Icon: LuShieldCheck,
-    title: 'Secure as you build',
+    title: 'Harden as you build',
     lead: (
       <>
         One command, <strong className='text-ink font-semibold'>/lagune</strong>

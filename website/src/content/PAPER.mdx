@@ -9,7 +9,7 @@
 
 Security-Driven Hardening (SDH) is a structured, AI-driven, defense-only security methodology for the era in which software is increasingly written by AI agents and by people who are not security specialists. Instead of running a fixed catalog of generic checks, SDH first detects what a system actually does (login, file uploads, payments, data exposure, and so on) and then drives the security work that is specific to that context. It is governed by safe-by-default principles, framed entirely around defense, and expressed in plain language so that any user can act on it.
 
-This document argues that SDH is a missing convention, not a single tool. The intelligence lives in the methodology, not in the user, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
+This document argues that SDH is a missing convention, not a single tool. The security knowledge lives in the methodology and its on-demand modules, a baseline every user can build on, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
 
 **Lagune** is the reference implementation. It realizes SDH across 72 AI coding agents and proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
 
@@ -25,11 +25,11 @@ Software is increasingly shipped by people, and by AI agents, who cannot reliabl
 
 Generic security advice does not close this gap. A static checklist is not specific to what a system does, so it floods a small project with irrelevant items and still misses the risk that matters for that one project. The problem is not a shortage of security knowledge in the world. The problem is matching the right knowledge to the system actually in front of the user, and doing it for someone who may not know what to ask for.
 
-SDH answers this with a single inversion: **the intelligence lives in the spec, not in the user**. The methodology detects the context, triages the risks that context carries, and guides the fixes, so a developer and a non-developer are served through the same flow. The findings and recommendations stay in plain language, so they are actionable regardless of the reader's technical depth. The expert is not constrained by this, but amplified by it, a duality we develop in `§VI`.
+SDH answers this with a single inversion: **the security knowledge lives in the spec and its on-demand modules, a baseline every user can build on**. The methodology detects the context, triages the risks that context carries, and guides the fixes, so a developer and a non-developer are served through the same flow. The findings and recommendations stay in plain language, so they are actionable regardless of the reader's technical depth. The expert is not constrained by this, but amplified by it, a duality we develop in `§VI`.
 
 > **Key Insight**
 >
-> **The core inversion:** The intelligence lives in the spec, not in the user. The methodology learns what the system does and matches the security work to it, so the user is never required to know what to ask for.
+> **The core inversion:** The security knowledge lives in the spec and its on-demand modules, a baseline every user can build on. The methodology learns what the system does and matches the security work to it, and it extends whatever the user already knows.
 
 Consider a developer who tells an AI assistant, "my app lets users upload a profile picture." Without a security pass, the assistant produces working code that quietly trusts whatever the client sends: the declared file type, the file name, the size. The upload ships, and a file disguised as an image can carry code, a crafted name can break out of the storage path, an oversized file can exhaust the server. None of this is visible in a demo, so it ships.
 
@@ -73,14 +73,14 @@ The most direct prior art is Spec-Driven Development (SDD), the family of spec-f
 
 SDH is defined by a set of binding principles. Each one is a rule, and each one confers a specific guarantee on the user.
 
-| Principle                                                | The rule                                                                                                                                        | What it guarantees the user                                                                                                                      |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Safe-by-default, in plain language, for everyone equally | Every default, message, and fix is safe out of the box and intelligible to any reader, developer or not. No user tier is privileged.            | A novice receives a safe baseline without asking for it, and reads the result in their own terms.                                                |
-| Context-aware over generic                               | Every phase starts from the context detected in detect, and acts on what the system actually does.                                              | Recommendations fit the project, not a checklist. The intelligence is in the spec, not the user.                                                 |
-| Flexible over rigid                                      | Principles, requirements, and recommendations are starting points. The user can reword, drop, add, or scope anything down.                      | The methodology bends to the project and the user, and never harder than the user wants. Flexibility never weakens the safe-by-default baseline. |
-| Reconcile, never append-only                             | Artifacts are living documents, not logs. Each run re-checks every entry: keep what holds, rewrite what changed, remove what no longer applies. | The record always reflects the present, so it never decays into a stale backlog.                                                                 |
-| Defense only                                             | SDH audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm.              | The methodology cannot be turned into a weapon. Dual-use content appears only in a clearly defensive framing.                                    |
-| Spec-first, agent-driven, framed for security            | The workflow is built from templates, commands, a governing charter, and an agent that runs the phases.                                         | A proven development structure, repurposed so the agent performs the substantive security work.                                                  |
+| Principle                                                | The rule                                                                                                                                        | What it guarantees the user                                                                                                                               |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Safe-by-default, in plain language, for everyone equally | Every default, message, and fix is safe out of the box and intelligible to any reader, developer or not. No user tier is privileged.            | A novice receives a safe baseline without asking for it, and reads the result in their own terms.                                                         |
+| Context-aware over generic                               | Every phase starts from the context detected in detect, and acts on what the system actually does.                                              | Recommendations fit the project, not a checklist. The security knowledge lives in the spec and its on-demand modules, extending whatever the user brings. |
+| Flexible over rigid                                      | Principles, requirements, and recommendations are starting points. The user can reword, drop, add, or scope anything down.                      | The methodology bends to the project and the user, and never harder than the user wants. Flexibility never weakens the safe-by-default baseline.          |
+| Reconcile, never append-only                             | Artifacts are living documents, not logs. Each run re-checks every entry: keep what holds, rewrite what changed, remove what no longer applies. | The record always reflects the present, so it never decays into a stale backlog.                                                                          |
+| Defense only                                             | SDH audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm.              | The methodology cannot be turned into a weapon. Dual-use content appears only in a clearly defensive framing.                                             |
+| Spec-first, agent-driven, framed for security            | The workflow is built from templates, commands, a governing charter, and an agent that runs the phases.                                         | A proven development structure, repurposed so the agent performs the substantive security work.                                                           |
 
 **Table 1.** SDH's design principles and the guarantee each one confers on the user.
 
@@ -88,17 +88,17 @@ These principles are not ornamental. They are the constraints every phase below 
 
 The rest of the document develops nine named pillars. They are the parts a reader should be able to keep in mind, and the parts another team would reimplement to claim they are doing SDH.
 
-| Pillar                                              | What it provides                                                                                 | Section     |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------- |
-| The context-aware inversion                         | The intelligence is in the spec, not the user, so a novice and an expert share one flow.         | `§I`, `§VI` |
-| The five-phase defensive lifecycle                  | Separation of duties: policy, detect, triage, remediate, verify, each with one job.              | `§IV`       |
-| Closability                                         | A finding has an end state, not an endless loop. Closed work is stood down.                      | `§V`        |
-| The dev-knowledge-extender duality                  | One flow that protects the novice and amplifies the expert, never replacing either.              | `§VI`       |
-| Prompt-on-demand, non-invocable knowledge           | Relevant security knowledge is loaded for what the project is, never by default.                 | `§VII`      |
-| State-independence and non-authoritative adaptivity | Fits any development state in any stack, and adapts to the scenario instead of imposing a scope. | `§VIII`     |
-| The preventive mode                                 | The same defense runs while new work is built, so the code lands safe-by-default.                | `§IX`       |
-| Identity-by-name tracking                           | A finding stays one item across phases, and a rename breaks the link in one place.               | `§XI`       |
-| The agent-agnostic carrier                          | The security value is written once and runs across agents and stacks.                            | `§XII`      |
+| Pillar                                              | What it provides                                                                                              | Section     |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------- |
+| The context-aware inversion                         | The security knowledge lives in the spec and its on-demand modules, so a novice and an expert share one flow. | `§I`, `§VI` |
+| The five-phase defensive lifecycle                  | Separation of duties: policy, detect, triage, remediate, verify, each with one job.                           | `§IV`       |
+| Closability                                         | A finding has an end state, not an endless loop. Closed work is stood down.                                   | `§V`        |
+| The dev-knowledge-extender duality                  | One flow that protects the novice and amplifies the expert, never replacing either.                           | `§VI`       |
+| Prompt-on-demand, non-invocable knowledge           | Relevant security knowledge is loaded for what the project is, never by default.                              | `§VII`      |
+| State-independence and non-authoritative adaptivity | Fits any development state in any stack, and adapts to the scenario instead of imposing a scope.              | `§VIII`     |
+| The preventive mode                                 | The same defense runs while new work is built, so the code lands safe-by-default.                             | `§IX`       |
+| Identity-by-name tracking                           | A finding stays one item across phases, and a rename breaks the link in one place.                            | `§XI`       |
+| The agent-agnostic carrier                          | The security value is written once and runs across agents and stacks.                                         | `§XII`      |
 
 **Table 2.** The nine named pillars of SDH and where each is developed.
 
@@ -197,13 +197,13 @@ When everything in scope is stood down, the cycle is settled, and the settled st
 
 SDH does not replace people, and it does not replace specialized Blue Team tooling. It **extends the developer's own knowledge**. The more a developer understands security, the more precisely they can drive the flow, and the more autonomy they have. A developer who understands little still receives a safe result, because the automatic mode safeguards them.
 
-The inversion from `§I`, the intelligence lives in the spec, applies in both directions. For the novice, it is protection: they do not need to know what to ask for, because the spec proposes. For the expert, it is amplification: the same spec lets them aim the flow with precision instead of working against a fixed checklist.
+The inversion from `§I`, the security knowledge lives in the spec, applies in both directions. For the novice, it is protection: they do not need to know what to ask for, because the spec proposes. For the expert, it is amplification: the same spec lets them aim the flow with precision instead of working against a fixed checklist.
 
 Every phase carries this duality in its own operation (Figure 3). Run with no input, it acts on the whole scope on the user's behalf. Given direction, the same phase narrows to exactly what the user aimed it at.
 
 ```mermaid
 flowchart TB
-    inversion["one inversion, two directions:<br/>the intelligence lives in the spec"]
+    inversion["one inversion, two directions:<br/>the security knowledge lives in the spec"]
     inversion --> auto["automatic mode (no input)<br/>the phase proposes and acts<br/>on the whole scope"]
     inversion --> directed["directed mode (input given)<br/>the phase narrows to exactly<br/>what the user aimed it at"]
     auto --> novice["the novice, protected:<br/>a safe result without<br/>knowing what to ask for"]
@@ -525,7 +525,7 @@ The methodology and its reference implementation have clear next steps.
 
 ## XVIII. Conclusion
 
-AI-assisted development opened a security gap that generic checklists cannot fill, because the risk that matters is specific to what a system actually does, and the person shipping it may not know what to ask for. SDH closes that gap with a context-aware, defense-only, closable flow in which the intelligence lives in the methodology rather than the user. It detects the system's real context, triages the risks that context carries, applies fixes carefully, and verifies each one, then stands down what it has closed so each finding reaches an end state. The same defense also runs preventively while new work is built, so what the flow closes stays closed. It adapts to any development state in any stack, and it extends the developer's knowledge instead of replacing the people and tools that already do that job.
+AI-assisted development opened a security gap that generic checklists cannot fill, because the risk that matters is specific to what a system actually does, and the person shipping it may not know what to ask for. SDH closes that gap with a context-aware, defense-only, closable flow in which the security knowledge lives in the methodology and its on-demand modules, a baseline every user can build on. It detects the system's real context, triages the risks that context carries, applies fixes carefully, and verifies each one, then stands down what it has closed so each finding reaches an end state. The same defense also runs preventively while new work is built, so what the flow closes stays closed. It adapts to any development state in any stack, and it extends the developer's knowledge instead of replacing the people and tools that already do that job.
 
 Lagune is the proof, but the contribution is the convention. SDH is offered as the essential security flow for the era of development with AI, for others to adopt, refine, and implement in their own stacks.
 
@@ -562,7 +562,7 @@ Lagune is the proof, but the contribution is the convention. SDH is offered as t
 1. **Safe-by-default, in plain language, for everyone equally:**
    Every default, message, and fix must be safe out of the box and intelligible to any user, developer or not. No user tier is privileged over another.
 2. **Context-aware over generic:**
-   Every phase must start from the context detected in detect and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The intelligence lives in the spec, not in the user.
+   Every phase must start from the context detected in detect and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The security knowledge lives in the spec and its on-demand modules, extending whatever the user brings.
 3. **Flexible over rigid:**
    SDH flexes to the project and the user. Principles, requirements, and recommendations are starting points, not a fixed contract. Let the user reword, drop, add, or scope anything down. Flexibility never weakens the safe-by-default baseline, it only lets the user shape how it is applied.
 4. **Reconcile, never append-only:**

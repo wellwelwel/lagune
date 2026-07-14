@@ -109,7 +109,7 @@ Once **Lagune** is set up in your project, your **AI** agent unlocks a set of sl
 
 #### › Development flow
 
-Secure the work as you build it, guided by the charter, with no flow to follow:
+Harden the work as you build it, guided by the charter, with no flow to follow:
 
 | Command                                               | What it does for you                                                      |
 | ----------------------------------------------------- | ------------------------------------------------------------------------- |

@@ -293,7 +293,7 @@ export const docsContentPlugin: PluginModule = async (context) => {
         '',
         `> ${siteConfig.tagline}`,
         '',
-        'Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent secure any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command secures work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with 72 AI coding agents and needs no API key.',
+        'Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with 72 AI coding agents and needs no API key.',
       ];
 
       const lines = [
