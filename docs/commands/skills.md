@@ -1,0 +1,126 @@
+# Skills: On-Demand Security Modules
+
+> How sub-skills are loaded, by a phase on demand, and by you directly.
+
+Canonical: https://lagune.ai/docs/commands/skills
+Last updated: 2026-07-14
+
+🧠 **Lagune**'s sub-skills are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. The detect and verify phases reach for them while they run, and you can use one directly any time.
+
+**Overview**
+
+*The interactive sub-skill overview lives on the web page. The full catalog is in the table below.*
+
+**How it Works**
+
+## Run yourself
+
+To use a sub-skill directly, import its file with `@` and write the task in the same prompt. The knowledge then acts on what you asked for. This works in any prompt, even one unrelated to the **Lagune** flow.
+
+They all live in `.lagune/skills/`, so the file to import is always `@.lagune/skills/<name>.md`.
+
+For example, a direct free-form prompt to generate a safe **RegExp** collection with **Python**:
+
+```prompt
+@.lagune/skills/regex.md
+Create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
+```
+
+This uses a deterministic hook to test each **RegExp** against **ReDoS**, keeps the safe ones, and produces something like:
+
+```python
+import re
+
+EMAIL = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+USERNAME = re.compile(r"^[a-zA-Z0-9_]{3,20}$")
+
+def is_email(value: str) -> bool:
+    return EMAIL.match(value) is not None
+
+def is_username(value: str) -> bool:
+    return USERNAME.match(value) is not None
+```
+
+**Try the ReDoS checker**
+
+Test a pattern yourself at [**devina.io/redos-checker**](https://devina.io/redos-checker).
+
+## The catalog
+
+The built-in sub-skills are grouped into **categories** you install on demand. This is the set that ships with **Lagune**:
+
+| _Sub_-Skill           | Category                    | Focus                                                                          |
+| --------------------- | --------------------------- | ------------------------------------------------------------------------------ |
+| `regex`               | `owasp`                     | **ReDoS:** patterns that explode on crafted input.                             |
+| `network`             | `owasp`                     | **SSRF & redirects:** user-supplied fetch or redirect destinations.            |
+| `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, dynamic include, name dispatch.                    |
+| `path`                | `owasp`                     | **Filesystem paths:** traversal, null-byte, NTFS streams, planting.            |
+| `upload`              | `owasp`                     | **File uploads:** type/signature, malicious content, storage, limits.          |
+| `access-control`      | `owasp`, `lovable`          | **Authn/authz/session:** IDOR, mass assignment, tenants, sessions.             |
+| `credential-endpoint` | `owasp`, `lovable`          | **Guessing & bots:** brute force, spraying, stuffing, throttling.              |
+| `federation`          | `owasp`                     | **Token trust:** OAuth/OIDC, SAML, JWT validation, QR login.                   |
+| `http-request`        | `owasp`                     | **Request provenance:** CSRF, CORS misconfig, spoofed client-IP.               |
+| `transport`           | `owasp`                     | **Channel security:** TLS config, HTTPS/cleartext, HSTS, pinning.              |
+| `crypto`              | `owasp`, `lovable`          | **Crypto at rest:** weak/custom algorithms, CSPRNG, key management.            |
+| `api-endpoint`        | `owasp`                     | **Non-REST surfaces:** GraphQL, gRPC, WebSocket authz, DoS, schema.            |
+| `payment`             | `owasp`, `lovable`          | **Checkout flow:** verify gateway server-side, signed callbacks, idempotency.  |
+| `xml`                 | `owasp`                     | **XML parsing:** XXE, external entities, billion-laughs expansion.             |
+| `csv`                 | `owasp`                     | **Formula injection:** spreadsheet cells starting `=`/`+`/`-`/`@`.             |
+| `container`           | `owasp`, `infra`            | **Container config:** root, capabilities, socket mount, image hardening.       |
+| `serverless`          | `owasp`, `infra`, `lovable` | **FaaS functions:** least-privilege IAM, event input, context, secrets.        |
+| `llm`                 | `ai`, `lovable`             | **AI/LLM risks:** prompt injection, agency, RAG, MCP, output.                  |
+| `supabase`            | `lovable`                   | **Supabase backend:** RLS off by default, AI-misgenerated policies, key model. |
+| `browser`             | `javascript`, `lovable`     | **Client-side risks:** XSS, CSP, framing, storage, etc.                        |
+| `javascript`          | `javascript`                | **Language-level risks:** RCE, prototype pollution, etc.                       |
+| `python`              | `python`                    | **Language-level risks:** `pickle` RCE, class pollution, `-O`, etc.            |
+| `rust`                | `rust`                      | **`unsafe` soundness:** UB from safe callers, `transmute`, overflow.           |
+| `java`                | `java`                      | **Deserialization & mobile code:** `readObject` chains, object hijack.         |
+| `ruby`                | `ruby`                      | **Deserialization & `open`:** `Marshal`/YAML revival, pipe quirk.              |
+| `php`                 | `php`                       | **Type juggling & `unserialize`:** magic hashes, POP chains.                   |
+| `go`                  | `go`                        | **Typed-nil & data races:** `nil != nil`, shared-memory goroutines.            |
+| `c-cpp`               | `c-cpp`                     | **Format strings:** `printf(user_input)`, `%n` write-what-where.               |
+| `dotnet`              | `dotnet`                    | **Platform-level risks:** `BinaryFormatter` RCE, `@Html.Raw`, enum gaps.       |
+
+You choose which categories to install when you set up **Lagune**, and change them any time with `add` and `remove`. See [**Install**](https://lagune.ai/docs/get-started/install#specializations) for the `--skills` flag. Each installed sub-skill is a file under `.lagune/skills/`.
+
+Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](https://lagune.ai/docs/references/skills-sources) for the full mapping of each sub-skill to its canonical OWASP attack and Cheat Sheet pages. A few stack-specific modules draw from the vendor's own guidance instead: `supabase`, for instance, comes from the Supabase docs and CVE-2025-48757.
+
+The catalog grows by adding one knowledge file plus one catalog row, never a new command. You add your own the same way, with [`/lagune.specialize`](https://lagune.ai/docs/commands/specialize): point it at an article or a topic and it distills a new sub-skill into the project's own catalog (the file under `.lagune/skills/`, the row in `.lagune/skills.json`), loaded exactly like the built-ins.
+
+**Internally, Lagune loads sub-skills automatically, on demand**
+
+When the detect or verify phase hits a context a sub-skill covers, it finds the installed sub-skill and reads the matching `.lagune/skills/<name>.md` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
+
+## Discover what is available
+
+To see every **category** and whether it is installed, from the terminal:
+
+```bash
+npx -y lagune@latest list --skills
+# Specializations .lagune/skills/
+#   • owasp       [installed]  Harden against the application security risks OWASP tracks
+#   • ai          [available]  AI and LLM integrations: prompts, tools, agents, retrieval, and MCP
+#   • lovable     [available]  AI-generated Supabase apps (Lovable and similar): RLS and key model, plus the defaults that ship insecure
+#   • javascript  [available]  JavaScript and its runtimes
+#   • python      [available]  Python and its language-specific risks
+#   • rust        [available]  Rust and its language-specific risks
+#   ...
+```
+
+**_Sub_-Skills are not loaded by default**
+
+The relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
+
+## Frequently Asked Questions
+
+### What is a Lagune sub-skill?
+
+A focused, language-agnostic security knowledge module that loads only on demand, never by default. It is not a command as the usual skills.
+
+### Are Lagune skills loaded by default?
+
+No. They load only on demand, for what the project actually is.
+
+### How do I load a sub-skill directly?
+
+Import it into any prompt with @.lagune/skills/<name>.md.

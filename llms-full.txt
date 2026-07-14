@@ -1,0 +1,2789 @@
+# Lagune
+
+> Security-Driven Hardening for any codebase
+
+Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with 72 AI coding agents and needs no API key.
+
+---
+
+# What Is Lagune? AI-Driven Security for Any Codebase
+
+> Get started with Lagune, an open-source, defense-only security workflow that hardens any codebase: set the rules, detect risks, apply fixes, and verify.
+
+Canonical: https://lagune.ai/docs
+Last updated: 2026-07-14
+
+**Lagune** helps your AI agent make a project more secure. You point it at your code, the agent figures out what your system actually does, then it guides you through the security work that matters for it.
+
+- **Lagune** works with projects in **any programming language** and supports [72 agents](https://lagune.ai/docs/supported-agents) ✨
+- **Lagune** is the first project of the [Security-Driven Hardening (SDH)](https://lagune.ai/docs/references/paper) methodology.
+
+---
+
+**Support the OSS**
+
+Love **Lagune**? [Give us a ⭐ on **GitHub**](https://github.com/wellwelwel/lagune)
+
+## The idea in one line
+
+Instead of running a generic checklist, Lagune detects the context of your system, then drives the fixes specific to that context.
+
+**Okay, two lines:** the deep security knowledge is carried by the spec and its on-demand sub-skills, a baseline every user can build on: the more you know, the more you can drive it. A developer and a non-developer are served through the same flow, and every finding stays in plain language so you can act on it regardless of your technical depth.
+
+## Where to go next
+
+- New here? Start with [Install](https://lagune.ai/docs/get-started/install)
+- Want the command map? See [Commands](https://lagune.ai/docs/get-started/commands)
+- Curious about the on-demand knowledge? Read about the [sub-skills](https://lagune.ai/docs/commands/skills)
+
+## Frequently Asked Questions
+
+### What is Lagune?
+
+Lagune is an open-source, defense-only security workflow that helps your AI agent harden any codebase. You point it at your code, it detects what your system actually does, then it guides the security fixes that matter for that context.
+
+### Do I need to finish building before securing my project?
+
+No. The /lagune command hardens work as it is written: it takes any prompt, builds what you asked, and hardens it with safe defaults, guided by the charter. The five-phase Blue Team flow audits what already exists.
+
+### Can Lagune audit an existing project?
+
+Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.
+
+### What programming languages does Lagune support?
+
+Any. Lagune runs on Node.js under the hood, but it audits and hardens projects written in any programming language.
+
+### How many AI agents does Lagune work with?
+
+72, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot.
+
+### What is Security-Driven Hardening (SDH)?
+
+SDH is the methodology Lagune implements: a context-aware, blue-team convention that detects a system's context, triages the risks that context carries, and guides the fixes. The security knowledge lives in the spec and its on-demand sub-skills, so a developer and a non-developer are served through the same flow.
+
+### Does Lagune need an API key?
+
+No. It runs through your own AI agent, so no API keys are required.
+
+## Acknowledgements
+
+### Partners
+
+Partners get an exclusive logo across the repositories and landing pages, plus a spot on a dedicated partners page.
+
+> Help my work grow by [becoming a partner](https://lagune.ai/docs#partners)
+
+### Supporters
+
+Really thanks to everyone who has supported and keeps supporting this work.
+
+[![Sponsors](https://wellwelwel.github.io/wellwelwel/sponsors.svg?v=1)](https://github.com/sponsors/wellwelwel)
+
+> Support my work by [becoming a sponsor](https://github.com/sponsors/wellwelwel)
+
+## Security Policy
+
+Please check the [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md).
+
+## License
+
+**Lagune** is under the [MIT License](https://github.com/wellwelwel/lagune/blob/main/LICENSE).
+
+Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) and [contributors](https://github.com/wellwelwel/lagune/graphs/contributors).
+
+---
+
+# Install: Security Hardening in Any Project via npx
+
+> Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
+
+Canonical: https://lagune.ai/docs/get-started/install
+Last updated: 2026-07-14
+
+**Lagune** adapts to your environment, whether it is a new project or an existing one.
+
+**No keys**
+
+No API keys are needed, it runs directly through your own agent ([**Claude**, **Codex**, and more](https://lagune.ai/docs/supported-agents)).
+
+**CLI**
+
+Run without an agent key and **Lagune** asks you to choose one, then which specializations to install:
+
+```bash
+npx -y lagune@latest init
+
+# Example using Lagune with Claude and OWASP specializations
+npx -y lagune@latest init claude --skills owasp
+```
+
+See every key in [**Supported Agents**](https://lagune.ai/docs/supported-agents).
+
+**Any language**
+
+🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+
+## What gets created
+
+Running **Lagune** in your project creates two things:
+
+- **`.lagune/`** holds Lagune's state in that project: the charter, the artifact each phase produces, the on-demand skills you installed, and the internal tracking.
+- **Agent commands** are written into your agent's own location, in its native format, so the `/lagune.*` commands are ready to run.
+
+Your security work is committed alongside your code, versioned and reviewable like any other part of the project. **Lagune**'s own files are gitignored by default, since [`pull`](#pull) brings them back from the manifest.
+
+## Update
+
+To update **Lagune**'s own files and its commands to their latest versions, run:
+
+```bash
+npx -y lagune@latest update
+```
+
+**Tip**
+
+Your charter, the artifacts each phase produces, the internal tracking, and any _sub_-skill you authored with [`/lagune.specialize`](https://lagune.ai/docs/commands/specialize) stay untouched.
+
+## Pull
+
+When you clone or fork a project that already has **Lagune**, run pull to install its files from the manifest:
+
+```bash
+npx -y lagune@latest pull
+```
+
+**Tip**
+
+💡 Think of it as the **Lagune** equivalent of `npm i`, `pip install -r requirements.txt`, and the like.
+
+## Specializations
+
+**Lagune** ships focused security [**_sub_-skills**](https://lagune.ai/docs/commands/skills) grouped into **categories**, from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
+
+The agent commands are always set up. Specializations are what you choose on top.
+
+### Install at init
+
+**Interactive**
+
+`--skills` with no category opens an interactive picker (space to toggle, enter to confirm, empty to skip):
+
+```bash
+npx -y lagune@latest init claude --skills
+```
+
+**Pick categories**
+
+Pass the categories after `--skills`, on the same line as the agent:
+
+```bash
+npx -y lagune@latest init claude --skills owasp
+npx -y lagune@latest init claude --skills owasp javascript
+```
+
+**No specialization**
+
+Without `--skills`, the agent is set up and no specialization is installed. You can always add them later:
+
+```bash
+npx -y lagune@latest init claude
+```
+
+### Add and remove anytime
+
+The same `--skills` flag, without touching the agent.
+
+**Add**
+
+```bash
+npx -y lagune@latest add --skills # interactive
+npx -y lagune@latest add --skills owasp
+npx -y lagune@latest add --skills owasp rust
+```
+
+**Remove**
+
+```bash
+npx -y lagune@latest remove --skills # interactive
+npx -y lagune@latest remove --skills owasp
+npx -y lagune@latest remove --skills owasp rust
+```
+
+### See what exists
+
+`list` on its own asks what you want to see, the findings Lagune is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--skills` for the categories.
+
+```bash
+npx -y lagune@latest list --skills
+# Specializations .lagune/skills/
+#   • owasp       [installed]  Harden against the application security risks OWASP tracks
+#   • javascript  [available]  JavaScript and its runtimes
+#   • php         [available]  PHP and its language-specific risks
+#   • go          [available]  Go and its language-specific risks
+#   ...
+```
+
+**Dashboard**
+
+Run **Lagune** directly with no subcommand for an interactive live view, follow-up, and maintenance. It serves a dashboard and opens it on a random port:
+
+```bash
+npx -y lagune@latest
+```
+
+- [x] **Live Reload**
+- [x] **Private** and **Local**
+- [x] **Install**, **Pull**, **Update**, and **Manage** all **Lagune** features directly from your browser
+- [x] No `node_modules` or `package.json` is needed 📦
+
+![Lagune dashboard overview](https://lagune.ai/img/dashboard/01.webp)
+
+![Lagune dashboard charter](https://lagune.ai/img/dashboard/02.webp)
+
+![Lagune dashboard findings](https://lagune.ai/img/dashboard/03.webp)
+
+![Lagune dashboard side quests](https://lagune.ai/img/dashboard/04.webp)
+
+![Lagune dashboard finding detail](https://lagune.ai/img/dashboard/05.webp)
+
+![Lagune dashboard skills](https://lagune.ai/img/dashboard/06.webp)
+
+**Tip**
+
+- 🚪 Use `--port` or `-p` to specify a custom port.
+- ⏏️ Press `Ctrl+C` to stop.
+
+**Any language**
+
+🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+
+## What the dashboard sets up
+
+Running **Lagune** in your project creates two things:
+
+- **`.lagune/`** holds Lagune's state in that project: the charter, the artifact each phase produces, the on-demand skills you installed, and the internal tracking.
+- **Agent commands** are written into your agent's own location, in its native format, so the `/lagune.*` commands are ready to run.
+
+Your security work is committed alongside your code, versioned and reviewable like any other part of the project. **Lagune**'s own files are gitignored by default, since [`pull`](#pull) brings them back from the manifest.
+
+## Requirements
+
+You will need these tools installed on your system:
+
+- [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
+- At least one of the [**Supported Agents**](https://lagune.ai/docs/supported-agents)
+
+## Next
+
+Once **Lagune** is set up, your agent unlocks a set of slash commands. See [**Commands**](https://lagune.ai/docs/get-started/commands).
+
+## Frequently Asked Questions
+
+### How do I install Lagune?
+
+Run npx -y lagune@latest init in your project. It works in both new and existing projects.
+
+### Does Lagune need an API key?
+
+No. It runs through your own AI agent, so no API keys are required.
+
+### What does Lagune add to my project?
+
+A .lagune/ state directory and a set of slash commands your AI agent can run.
+
+### How do I update Lagune?
+
+Run npx -y lagune@latest update. Your charter, phase artifacts, and custom specializations stay untouched.
+
+### What are the requirements?
+
+Node.js (LTS) and at least one supported AI agent.
+
+---
+
+# Security Slash Commands for AI Agents
+
+> The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
+
+Canonical: https://lagune.ai/docs/get-started/commands
+Last updated: 2026-07-14
+
+Once **Lagune** is set up in your project, your **AI** agent unlocks a set of slash commands. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
+
+**⌨️ Build / Development**
+
+You don't need to finish your work before securing it. Use [**`/lagune`**](https://lagune.ai/docs/commands/lagune) for the work you are writing **right now**:
+
+| Command                                       | What it does for you                                                        |
+| --------------------------------------------- | --------------------------------------------------------------------------- |
+| [**/lagune.charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, the foundation `/lagune` builds against |
+| [**/lagune**](https://lagune.ai/docs/commands/lagune)          | Builds what you ask and hardens it as it is written, guided by the charter  |
+
+**Use it anytime**
+
+[**`/lagune`**](https://lagune.ai/docs/commands/lagune) honors your charter rules whenever it runs. It takes any prompt, builds what you asked, and hardens it with safe defaults as it goes, not later.
+
+---
+
+#### Special commands
+
+| Command                                             | What it does                                                                            |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [**/lagune.specialize**](https://lagune.ai/docs/commands/specialize) | Specializes **Lagune** in a new security _sub_-skill from articles, exploits, or topics |
+
+**🔬 Audit: Blue Team Flow**
+
+The full **Blue Team flow**: read what a project does, map its risks, and close them. Each command builds on the previous, so following the list top to bottom is all it takes:
+
+| #   | Command                                       | What it does for you                                                           |
+| --- | --------------------------------------------- | ------------------------------------------------------------------------------ |
+| 1   | [**/lagune.charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, proposed for you or shaped by what you say |
+| 2   | [**/lagune.detect**](https://lagune.ai/docs/commands/detect)   | Reads your code and maps what your system does and where the risks are         |
+| 3   | [**/lagune.plan**](https://lagune.ai/docs/commands/plan)       | Turns what detect found into a defense plan, with a fix for each finding       |
+| 4   | [**/lagune.harden**](https://lagune.ai/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
+| 5   | [**/lagune.verify**](https://lagune.ai/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
+
+---
+
+#### Special commands
+
+| Command                                             | What it does                                                                               |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| [**/lagune.specialize**](https://lagune.ai/docs/commands/specialize) | Specializes **Lagune** in a new security _sub_-skill from articles, exploits, or topics    |
+| [**/lagune.prove**](https://lagune.ai/docs/commands/prove)           | Turns each detected finding into a runnable, defense-only proof for responsible disclosure |
+
+---
+
+#### Internal commands
+
+| Command                                     | What it does                           |
+| ------------------------------------------- | -------------------------------------- |
+| [**/lagune.repair**](https://lagune.ai/docs/commands/repair) | Repairs **Lagune**'s internal tracking |
+
+**Tip**
+
+Security is not a cost, it is an investment: what you put in upfront, you save many times over in the incidents you never have 🙋🏻‍♂️
+
+## Frequently Asked Questions
+
+### What slash commands does Lagune add?
+
+/lagune to harden work as you build it, and the five-phase Blue Team audit flow: /lagune.charter, /lagune.detect, /lagune.plan, /lagune.harden, /lagune.verify. Plus /lagune.specialize and /lagune.prove.
+
+### What is the Lagune Blue Team flow?
+
+A five-phase audit: charter (set rules), detect (map risks), plan (score and plan fixes), harden (apply fixes), verify (prove they hold and close them).
+
+### What is the difference between /lagune and the audit flow?
+
+/lagune secures new work as you write it, with no flow to follow. The audit flow runs the five phases in order over an existing project.
+
+---
+
+# Supported Agents
+
+> The 72 AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
+
+Canonical: https://lagune.ai/docs/supported-agents
+Last updated: 2026-07-14
+
+Lagune works with **72 AI coding agents**, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot. Each agent maps to a CLI key you pass to `init`, listed in the table below.
+
+Pick your agent by passing its key, for example `npx -y lagune@latest init <alias>`. Without it, **Lagune** asks you to choose.
+
+```prompt
+# For example, using Lagune with Claude
+npx -y lagune@latest init claude
+```
+
+| Agent                                                                                       | Key (Alias)    |
+| ------------------------------------------------------------------------------------------- | -------------- |
+| [AdaL](https://docs.sylph.ai/)                                                              | `adal`         |
+| [AiderDesk](https://github.com/hotovo/aider-desk)                                           | `aiderdesk`    |
+| [Amazon Q Developer](https://aws.amazon.com/q/developer/)                                   | `amazonq`      |
+| [Amp](https://ampcode.com/)                                                                 | `amp`          |
+| [Antigravity](https://antigravity.google/)                                                  | `agy`          |
+| [AstrBot](https://astrbot.app/)                                                             | `astrbot`      |
+| [Auggie CLI](https://docs.augmentcode.com/cli/overview)                                     | `auggie`       |
+| [Autohand Code CLI](https://autohand.ai/)                                                   | `autohand`     |
+| [Claude Code](https://www.anthropic.com/claude-code)                                        | `claude`       |
+| [Cline](https://github.com/cline/cline)                                                     | `cline`        |
+| [Code Studio](https://www.syncfusion.com/code-studio/)                                      | `codestudio`   |
+| [CodeArts Agent (Huawei)](https://codearts.huaweicloud.com/)                                | `codearts`     |
+| [CodeBuddy CLI](https://www.codebuddy.ai/cli)                                               | `codebuddy`    |
+| [Codemaker](https://github.com/codemakerai)                                                 | `codemaker`    |
+| [Codex CLI](https://github.com/openai/codex)                                                | `codex`        |
+| [Command Code](https://commandcode.ai/)                                                     | `commandcode`  |
+| [Continue](https://continue.dev/)                                                           | `continue`     |
+| [Cortex Code (Snowflake)](https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code) | `cortex`       |
+| [CoStrict](https://github.com/zgsm-ai/costrict)                                             | `costrict`     |
+| [Crush](https://github.com/charmbracelet/crush)                                             | `crush`        |
+| [Cursor](https://cursor.sh/)                                                                | `cursor-agent` |
+| [Deep Agents (LangChain)](https://github.com/langchain-ai/deepagents)                       | `deepagents`   |
+| [Devin for Terminal](https://cli.devin.ai/docs)                                             | `devin`        |
+| [Dexto](https://dexto.ai/)                                                                  | `dexto`        |
+| [Eve](https://eve.dev/)                                                                     | `eve`          |
+| [Factory Droid](https://factory.ai/)                                                        | `factory`      |
+| [Firebender](https://docs.firebender.com/)                                                  | `firebender`   |
+| [Forge](https://forgecode.dev/)                                                             | `forge`        |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli)                                   | `gemini`       |
+| [GitHub Copilot](https://code.visualstudio.com/)                                            | `copilot`      |
+| [Goose](https://block.github.io/goose/)                                                     | `goose`        |
+| [Hermes](https://hermes-agent.nousresearch.com/)                                            | `hermes`       |
+| [IBM Bob](https://www.ibm.com/products/bob)                                                 | `bob`          |
+| [iFlow CLI](https://docs.iflow.cn/en/cli/quickstart)                                        | `iflow`        |
+| [inference.sh](https://inference.sh/)                                                       | `inferencesh`  |
+| [Jazz](https://github.com/lvndry/jazz)                                                      | `jazz`         |
+| [Junie](https://junie.jetbrains.com/)                                                       | `junie`        |
+| [Kilo Code](https://github.com/Kilo-Org/kilocode)                                           | `kilocode`     |
+| [Kimi Code](https://code.kimi.com/)                                                         | `kimi`         |
+| [Kiro CLI](https://kiro.dev/docs/cli/)                                                      | `kiro-cli`     |
+| [Kode](https://github.com/shareAI-lab/kode)                                                 | `kode`         |
+| [Lingma](https://lingma.aliyun.com/)                                                        | `lingma`       |
+| [Loaf](https://github.com/levifig/loaf)                                                     | `loaf`         |
+| [MCPJam](https://mcpjam.com/)                                                               | `mcpjam`       |
+| [Mistral Vibe](https://github.com/mistralai/mistral-vibe)                                   | `vibe`         |
+| [Moxby](https://moxby.com/)                                                                 | `moxby`        |
+| [Mux](https://mux.coder.com/)                                                               | `mux`          |
+| [Neovate](https://neovateai.dev/)                                                           | `neovate`      |
+| [Ona](https://ona.com/)                                                                     | `ona`          |
+| [OpenClaw](https://docs.openclaw.ai/)                                                       | `openclaw`     |
+| [opencode](https://opencode.ai/)                                                            | `opencode`     |
+| [OpenHands](https://docs.openhands.dev/)                                                    | `openhands`    |
+| [Pi Coding Agent](https://pi.dev)                                                           | `pi`           |
+| [Pochi](https://getpochi.com/)                                                              | `pochi`        |
+| [PromptScript](https://getpromptscript.dev/)                                                | `promptscript` |
+| [Qoder CLI](https://qoder.com/cli)                                                          | `qodercli`     |
+| [Qwen Code](https://github.com/QwenLM/qwen-code)                                            | `qwen`         |
+| [Reasonix](https://github.com/esengine/DeepSeek-Reasonix)                                   | `reasonix`     |
+| [Replit](https://replit.com/)                                                               | `replit`       |
+| [Roo Code](https://roocode.com/)                                                            | `roo`          |
+| [RovoDev ACLI](https://www.atlassian.com/software/rovo-dev)                                 | `rovodev`      |
+| [SHAI (OVHcloud)](https://github.com/ovh/shai)                                              | `shai`         |
+| [Tabnine CLI](https://docs.tabnine.com/main/getting-started/tabnine-cli)                    | `tabnine`      |
+| [Terramind](https://terramind.com/)                                                         | `terramind`    |
+| [Tinycloud](https://tinycloud.cloudglue.dev/)                                               | `tinycloud`    |
+| [Trae](https://www.trae.ai/)                                                                | `trae`         |
+| [Warp](https://www.warp.dev/)                                                               | `warp`         |
+| [Windsurf](https://windsurf.com/)                                                           | `windsurf`     |
+| [ZCode](https://zcode.z.ai/)                                                                | `zcode`        |
+| [Zed](https://zed.dev/)                                                                     | `zed`          |
+| [Zencoder](https://zencoder.ai/)                                                            | `zencoder`     |
+| [Zenflow](https://zencoder.ai/zenflow)                                                      | `zenflow`      |
+
+## Frequently Asked Questions
+
+### How many agents does Lagune support?
+
+72.
+
+### Does Lagune work with Cursor, GitHub Copilot, Hermes, and Gemini?
+
+Yes. All three are supported, along with Claude Code, Codex, and 66 others.
+
+### How do I pick my agent when installing?
+
+Pass the agent's CLI key to init, for example npx -y lagune@latest init claude. Each agent's key is listed in the table.
+
+---
+
+# /lagune: Secure Code as Your AI Writes It
+
+> Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
+
+Canonical: https://lagune.ai/docs/commands/lagune
+Last updated: 2026-07-14
+
+⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
+
+## Run it
+
+Mark **`/lagune`** on any prompt, and describe the work as you always would.
+
+**📘 Agent Instructions**
+
+```md
+# My project instructions for agents
+
+<!-- ... -->
+
+## Security
+
+- Use the `/lagune` skill whenever you build or change code, so it improves safety by default.
+```
+
+    - For example: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules**, etc.
+
+**💬 A feature**
+
+```prompt
+/lagune let users upload a custom photo on their profile.
+```
+
+**💬 A fix**
+
+```prompt
+/lagune nothing happens when the user submits the form. Look into what it might be and fix it.
+```
+
+**💬 A refactor**
+
+```prompt
+/lagune decouple and improve the payload logic
+```
+
+**Charter optional, but better with it**
+
+**`/lagune`** runs with or without a charter. With one, your project's own rules shape every build. Set them once with [`/lagune.charter`](https://lagune.ai/docs/commands/charter).
+
+## How it works
+
+It wraps the work in three movements, without writing anything to Lagune:
+
+1. It loads your charter, if it exists, and its principles govern the whole build, falling back to a safe-by-default baseline when you have none yet.
+2. It reads what you asked and matches the [sub-skills](https://lagune.ai/docs/commands/skills) your work touches, the same on-demand knowledge the audit flow uses.
+3. It applies the defense as the code is written, then re-reads its own result to confirm the controls actually hold before handing the work back.
+
+The result is working code in your project, safe from the first line.
+
+**Use it anytime**
+
+No detect, no plan, no cleanup afterward. **`/lagune`** fits a fresh scaffold or a change on a mature codebase equally, and it hardens the work as it goes, not later.
+
+## What it does not do
+
+- It writes nothing to the `.lagune` directory, no artifact and no tracking, so the only thing it produces is the hardened code you asked for.
+- It doesn't weaken a rule to satisfy a prompt, so if what you asked would break a charter principle, it stops and tells you first, instead of building it unsafely directly.
+
+## Frequently Asked Questions
+
+### What does /lagune do?
+
+It takes any prompt at any stage, builds what you asked, and hardens it with safe defaults before handing it back. The defense is applied as the code is written, not later.
+
+### Do I need a charter to use /lagune?
+
+No. It runs with or without one. With a charter, your project's own rules shape every build. Without one, it falls back to a safe-by-default baseline.
+
+### What is the difference between /lagune and the Blue Team flow?
+
+/lagune secures new work as you write it, with no flow to follow. The Blue Team flow runs the five audit phases in order over an existing project.
+
+### Does /lagune track findings or write artifacts?
+
+No. It writes nothing to the .lagune directory, no artifact and no tracking. The only thing it produces is the hardened code you asked for.
+
+### How do I make my agent use /lagune automatically?
+
+Add an instruction to your agent's instruction file (AGENTS.md, CLAUDE.md, .cursorrules, and the like) telling it to use the /lagune skill whenever it builds or changes code.
+
+---
+
+# /lagune.charter: Set Your Security Principles
+
+> Establish your project's security principles, the rules every later phase respects.
+
+Canonical: https://lagune.ai/docs/commands/charter
+Last updated: 2026-07-14
+
+🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
+
+The charter is the governing layer: a set of security-first principles every later phase must respect. Think of it as the compile-time check for your project's security posture.
+
+## Run it
+
+**Describe it**
+
+```prompt
+/lagune.charter My project is an online store that sells video games. Customers add products to a cart and pay by credit card or bank slip. They can see their orders and the status of each one.
+```
+
+**Let Lagune propose**
+
+```prompt
+/lagune.charter
+```
+
+> _I see a payment library, a login setup, and an order model tied to a customer. This looks like an online store that sells something. Customers pay and track their own orders..._ ☁️
+
+## What it works out
+
+**Lagune** takes your description or **PRD** as the direction and works out what it implies for security, then reads the project to go further than you named. For example:
+
+- A cart that holds orders means there is a **database**:
+  - e.g., `"Where does the data live?"`, `"Who can reach it?"`, `"Whether it leaks?"`.
+- Customers who can see their own orders means there is some kind of **login or access control**:
+  - e.g., `"Can one customer reach another's orders?"`, `"Are sessions protected?"`.
+- Taking card and bank slip payments means **money and sensitive data are involved**:
+  - e.g., `"Is card data stored?"`, `"Are payments verified?"`.
+
+Your description and the project add up, so while your description sets the intent, reading the dependencies, the README, and the configuration surfaces what you did not mention. If something important is still unclear, **Lagune** asks a short, plain question rather than guess.
+
+From there, **Lagune** builds a tailored set of security rules for the project, which you can review and adjust whenever you need.
+
+**Get the most out of it**
+
+- You can also define your own security rules for the project.
+- The more relevant detail you give, the better the final report:
+  - Explain the project, how it works, and what happens under the hood.
+  - Who is the end user? What can users do, and what can they not?
+  - Behavioral detail is as valuable as technical detail.
+- The charter memory lives in `.lagune/memory/charter.md`.
+
+## Next
+
+With the rules set, map what your system actually does: [`/lagune.detect`](https://lagune.ai/docs/commands/detect).
+
+## Frequently Asked Questions
+
+### What is a charter in Lagune?
+
+The charter is Lagune's governing layer, a set of security-first principles every later phase must respect. Think of it as the compile-time check for your project's security posture.
+
+### Where is the charter stored?
+
+At .lagune/memory/charter.md.
+
+### Can I write my own charter rules?
+
+Yes. Lagune proposes rules from your description and your code, and you can reword, drop, add, or scope them down.
+
+---
+
+# /lagune.detect: Map Your System and Its Risks
+
+> Read your code and map what your system does and where the risks are.
+
+Canonical: https://lagune.ai/docs/commands/detect
+Last updated: 2026-07-14
+
+🔬 Find out what your system really does and where the risks are.
+
+Detect reads the code and records only what it actually finds, with the evidence the later phases need. Its governing instruction is detection, not invention.
+
+## Run it
+
+**Full scan**
+
+```prompt
+/lagune.detect
+```
+
+**Point at paths**
+
+```prompt
+/lagune.detect src/routes/ src/auth.ts
+```
+
+**Describe a concern**
+
+```prompt
+/lagune.detect make sure customer data is never exposed
+```
+
+## What it maps
+
+**Lagune** reads the code and maps what it finds. Each finding carries what it is, why it matters, and the evidence. For example:
+
+- **File uploads**, the system accepts files from users:
+  - _Why it matters:_ a file disguised as an image can hide malicious code.
+  - _Evidence:_ the `POST /upload` handler trusts the MIME type the client sends, without checking the file's real type.
+- **Login and sessions**, users sign in to reach their account:
+  - _Why it matters:_ weak session handling lets one account be taken over by another.
+  - _Evidence:_ the session issuance logic, where sessions are issued with no expiry set.
+
+From there, you have a clear map of what your system does and where the risks live, ready for the next steps to act on.
+
+**Tip**
+
+- Running it again updates the map: solved findings drop off, new ones come in.
+- The detect map lives in `.lagune/memory/detect.md`.
+
+## Next
+
+Turn the map into a plan: [`/lagune.plan`](https://lagune.ai/docs/commands/plan).
+
+## Frequently Asked Questions
+
+### What does /lagune.detect do?
+
+It reads your code and maps what your system does and where the risks are, recording only what it actually finds. Its rule is detection, not invention.
+
+### What is a finding in Lagune?
+
+A finding is one detected risk, carrying what it is, why it matters, and the evidence in code. It is the tracked unit that plan, harden, and verify carry forward.
+
+### Where is the detect map stored?
+
+At .lagune/memory/detect.md.
+
+---
+
+# /lagune.plan: Score Findings and Plan Fixes
+
+> Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
+
+Canonical: https://lagune.ai/docs/commands/plan
+Last updated: 2026-07-14
+
+🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
+
+## Run it
+
+**Plan everything**
+
+```prompt
+/lagune.plan
+```
+
+**Point at paths**
+
+```prompt
+/lagune.plan src/routes/upload.ts
+```
+
+**Focus a worry**
+
+```prompt
+/lagune.plan where sensitive data could leak
+```
+
+## How it works
+
+This phase continues from detect. Detect already found what your system does and the risk each thing carries, so the plan does not repeat the risk, it rates how serious it is and decides what to do about it. Plan never reads the code, which forces every fix to point at something detect actually detected. It rates each finding with the CVSS v4.0 method: a category, a CVSS v4.0 vector and score reasoned from what detect and the charter captured, and the priority band that score lands on. Each fix also carries the charter principle it upholds.
+
+For example:
+
+- **File uploads** (Priority: **Critical**)
+  - _Category:_ Unrestricted file upload (CWE-434).
+  - _CVSS:_ CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, Critical).
+  - _Why this priority:_ anyone can reach the upload over the internet, and it sits on the server that stores customer files.
+  - _Upholds:_ III. All input is untrusted until validated.
+  - _Fix:_ check the file's real type and size, rename it on save, and store uploads where they cannot be run as code.
+
+From there, you have a rated, prioritized list of fixes, each tied to a finding and ready for the next phase to apply. Because the CVSS vector is Base-only, anyone can paste it into the FIRST or NVD calculator and rederive the same score.
+
+**Tip**
+
+- It builds entirely on detect. If a file or worry was never mapped, it tells you to run `/lagune.detect` on it first.
+- Running it again updates the plan: done fixes drop off, new ones come in.
+- The defense plan lives in `.lagune/memory/plan.md`.
+
+**Depends on detect**
+
+Plan works only from what [`/lagune.detect`](https://lagune.ai/docs/commands/detect) already mapped, so run detect first.
+
+## Next
+
+Apply the plan: [`/lagune.harden`](https://lagune.ai/docs/commands/harden).
+
+## Frequently Asked Questions
+
+### How does Lagune prioritize vulnerabilities?
+
+/lagune.plan rates each finding with a category and a CVSS v4.0 base score, then pairs it with the fix to apply.
+
+### Does Lagune use CVSS v4.0?
+
+Yes. Each finding gets a CVSS v4.0 base vector and score. Because the vector is Base-only, anyone can paste it into the FIRST or NVD calculator and re-derive the score.
+
+### Does the plan read my code?
+
+No. Plan never reads the code, which forces every fix to point at something detect actually detected.
+
+---
+
+# /lagune.harden: Apply Security Fixes to Your Code
+
+> Apply the plan's fixes to your code, safely and one at a time.
+
+Canonical: https://lagune.ai/docs/commands/harden
+Last updated: 2026-07-14
+
+🔧 Apply the plan's fixes to your code, safely and one at a time.
+
+## Run it
+
+**Apply everything**
+
+```prompt
+/lagune.harden
+```
+
+**Point at paths**
+
+```prompt
+/lagune.harden src/routes/upload.ts
+```
+
+**By priority**
+
+```prompt
+/lagune.harden Critical and High
+```
+
+## How it works
+
+The plan already decided each fix, so harden just applies it. Since this is the one phase that touches your code, it goes carefully: it shows you each change and asks first, applies one fix at a time so every change stays easy to review, and never weakens a control to make a fix fit. For example, the upload fix:
+
+- **File uploads** (Status: **Applied**)
+  - _What changed:_ checks the file's real type and size, rejects anything unexpected, renames it on save, and stores it where it cannot be run as code.
+  - _Where:_ the `handleUpload` function, plus the storage helper it calls.
+
+If a fix cannot be fully applied, harden does what it safely can and marks the rest **Partial** or **Blocked**, leaving it open.
+
+**Applied is not verified**
+
+Applied does not mean proven yet. That is what [verify](https://lagune.ai/docs/commands/verify) is for.
+
+**Tip**
+
+- It builds entirely on the plan. If a fix or file was never planned, it tells you to run `/lagune.plan` on it first.
+- It confirms before changing anything and never makes a destructive change without asking.
+- Running it again reconciles the record: reverted changes drop off, newly applied fixes come in.
+- The hardening record lives in `.lagune/memory/harden.md`.
+
+**Depends on plan, and changes your code**
+
+Harden builds on [`/lagune.plan`](https://lagune.ai/docs/commands/plan). It is the one phase that changes your code.
+
+## Next
+
+Prove each fix holds: [`/lagune.verify`](https://lagune.ai/docs/commands/verify).
+
+## Frequently Asked Questions
+
+### Does /lagune.harden change my code?
+
+Yes. It is the one phase that touches your code, applying the plan's fixes one at a time.
+
+### What do Applied, Partial, and Blocked mean?
+
+They are the status Lagune records for each fix. Applied means the fix was made, Partial means only part of it, Blocked means it could not be applied. Applied does not mean proven yet.
+
+### Does Lagune apply fixes without asking?
+
+No. It never weakens a control to satisfy a prompt. If a fix would conflict with a charter rule, it stops and tells you first.
+
+---
+
+# /lagune.verify: Prove Security Controls Hold
+
+> Prove each applied fix holds, then close out the ones that do.
+
+Canonical: https://lagune.ai/docs/commands/verify
+Last updated: 2026-07-14
+
+⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
+
+## Run it
+
+**Verify everything**
+
+```prompt
+/lagune.verify
+```
+
+**Point at paths**
+
+```prompt
+/lagune.verify src/routes/upload.ts
+```
+
+**By priority**
+
+```prompt
+/lagune.verify Critical and High
+```
+
+## How it works
+
+It reads the code at each spot harden recorded and confirms it really matches the claim. The proof is that confrontation, code against record. Each control gets one of three verdicts:
+
+| Verdict                      | Meaning                                                     |
+| ---------------------------- | ----------------------------------------------------------- |
+| ✅ Risk closed               | The code does exactly what the record claims.               |
+| ❌ Risk not closed           | The control is still open. Verify sends you back to harden. |
+| ❓ Cannot tell from the code | The evidence is not visible in the code alone.              |
+
+A risk proven closed is then stood down out of the chain, with your confirmation. For example:
+
+- **File uploads** (Verdict: **✅ Risk closed**)
+  - _How proven:_ read the upload handler and saw it detects the file's real type from its content, enforces a size limit, and refuses anything else, exactly as the record claims.
+  - _Evidence:_ the `handleUpload` function, which detects the real file type from content.
+
+If the risk is not closed, verify says so plainly and sends you back to [`/lagune.harden`](https://lagune.ai/docs/commands/harden), since the fix is still open.
+
+**Tip**
+
+- It builds entirely on the hardening record.
+- It only reads your code to judge it, and never weakens a control or rewrites the code to make a verdict pass.
+- Running it again reconciles the report: stale verdicts drop off, and a risk that is no longer closed is flagged again.
+- When a risk is proven closed, it asks once, then clears that finding from the whole chain (detect, plan, harden, verify, and tracking).
+- The verification report lives in `.lagune/memory/verify.md`.
+
+**Depends on harden**
+
+Verify builds on [`/lagune.harden`](https://lagune.ai/docs/commands/harden).
+
+## The cycle closes
+
+When everything in scope is stood down, the cycle is at rest. It reopens only when the code changes. Security is closable, so the flow has an end state, not an endless loop.
+
+## Frequently Asked Questions
+
+### How does Lagune verify a fix?
+
+/lagune.verify reads the code and confronts it with what harden recorded, returning one of three verdicts: Risk closed, Risk not closed, or Cannot tell from the code.
+
+### What is a stand down?
+
+When verify proves a risk closed, the finding is stood down: removed from the whole chain, with your confirmation, so it stops being reprocessed.
+
+### Can security work ever be finished?
+
+Yes. SDH is closable: a proven-closed finding is stood down, so the flow has an end state, not an endless loop.
+
+---
+
+# Skills: On-Demand Security Modules
+
+> How sub-skills are loaded, by a phase on demand, and by you directly.
+
+Canonical: https://lagune.ai/docs/commands/skills
+Last updated: 2026-07-14
+
+🧠 **Lagune**'s sub-skills are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. The detect and verify phases reach for them while they run, and you can use one directly any time.
+
+**Overview**
+
+*The interactive sub-skill overview lives on the web page. The full catalog is in the table below.*
+
+**How it Works**
+
+## Run yourself
+
+To use a sub-skill directly, import its file with `@` and write the task in the same prompt. The knowledge then acts on what you asked for. This works in any prompt, even one unrelated to the **Lagune** flow.
+
+They all live in `.lagune/skills/`, so the file to import is always `@.lagune/skills/<name>.md`.
+
+For example, a direct free-form prompt to generate a safe **RegExp** collection with **Python**:
+
+```prompt
+@.lagune/skills/regex.md
+Create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
+```
+
+This uses a deterministic hook to test each **RegExp** against **ReDoS**, keeps the safe ones, and produces something like:
+
+```python
+import re
+
+EMAIL = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+USERNAME = re.compile(r"^[a-zA-Z0-9_]{3,20}$")
+
+def is_email(value: str) -> bool:
+    return EMAIL.match(value) is not None
+
+def is_username(value: str) -> bool:
+    return USERNAME.match(value) is not None
+```
+
+**Try the ReDoS checker**
+
+Test a pattern yourself at [**devina.io/redos-checker**](https://devina.io/redos-checker).
+
+## The catalog
+
+The built-in sub-skills are grouped into **categories** you install on demand. This is the set that ships with **Lagune**:
+
+| _Sub_-Skill           | Category                    | Focus                                                                          |
+| --------------------- | --------------------------- | ------------------------------------------------------------------------------ |
+| `regex`               | `owasp`                     | **ReDoS:** patterns that explode on crafted input.                             |
+| `network`             | `owasp`                     | **SSRF & redirects:** user-supplied fetch or redirect destinations.            |
+| `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, dynamic include, name dispatch.                    |
+| `path`                | `owasp`                     | **Filesystem paths:** traversal, null-byte, NTFS streams, planting.            |
+| `upload`              | `owasp`                     | **File uploads:** type/signature, malicious content, storage, limits.          |
+| `access-control`      | `owasp`, `lovable`          | **Authn/authz/session:** IDOR, mass assignment, tenants, sessions.             |
+| `credential-endpoint` | `owasp`, `lovable`          | **Guessing & bots:** brute force, spraying, stuffing, throttling.              |
+| `federation`          | `owasp`                     | **Token trust:** OAuth/OIDC, SAML, JWT validation, QR login.                   |
+| `http-request`        | `owasp`                     | **Request provenance:** CSRF, CORS misconfig, spoofed client-IP.               |
+| `transport`           | `owasp`                     | **Channel security:** TLS config, HTTPS/cleartext, HSTS, pinning.              |
+| `crypto`              | `owasp`, `lovable`          | **Crypto at rest:** weak/custom algorithms, CSPRNG, key management.            |
+| `api-endpoint`        | `owasp`                     | **Non-REST surfaces:** GraphQL, gRPC, WebSocket authz, DoS, schema.            |
+| `payment`             | `owasp`, `lovable`          | **Checkout flow:** verify gateway server-side, signed callbacks, idempotency.  |
+| `xml`                 | `owasp`                     | **XML parsing:** XXE, external entities, billion-laughs expansion.             |
+| `csv`                 | `owasp`                     | **Formula injection:** spreadsheet cells starting `=`/`+`/`-`/`@`.             |
+| `container`           | `owasp`, `infra`            | **Container config:** root, capabilities, socket mount, image hardening.       |
+| `serverless`          | `owasp`, `infra`, `lovable` | **FaaS functions:** least-privilege IAM, event input, context, secrets.        |
+| `llm`                 | `ai`, `lovable`             | **AI/LLM risks:** prompt injection, agency, RAG, MCP, output.                  |
+| `supabase`            | `lovable`                   | **Supabase backend:** RLS off by default, AI-misgenerated policies, key model. |
+| `browser`             | `javascript`, `lovable`     | **Client-side risks:** XSS, CSP, framing, storage, etc.                        |
+| `javascript`          | `javascript`                | **Language-level risks:** RCE, prototype pollution, etc.                       |
+| `python`              | `python`                    | **Language-level risks:** `pickle` RCE, class pollution, `-O`, etc.            |
+| `rust`                | `rust`                      | **`unsafe` soundness:** UB from safe callers, `transmute`, overflow.           |
+| `java`                | `java`                      | **Deserialization & mobile code:** `readObject` chains, object hijack.         |
+| `ruby`                | `ruby`                      | **Deserialization & `open`:** `Marshal`/YAML revival, pipe quirk.              |
+| `php`                 | `php`                       | **Type juggling & `unserialize`:** magic hashes, POP chains.                   |
+| `go`                  | `go`                        | **Typed-nil & data races:** `nil != nil`, shared-memory goroutines.            |
+| `c-cpp`               | `c-cpp`                     | **Format strings:** `printf(user_input)`, `%n` write-what-where.               |
+| `dotnet`              | `dotnet`                    | **Platform-level risks:** `BinaryFormatter` RCE, `@Html.Raw`, enum gaps.       |
+
+You choose which categories to install when you set up **Lagune**, and change them any time with `add` and `remove`. See [**Install**](https://lagune.ai/docs/get-started/install#specializations) for the `--skills` flag. Each installed sub-skill is a file under `.lagune/skills/`.
+
+Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](https://lagune.ai/docs/references/skills-sources) for the full mapping of each sub-skill to its canonical OWASP attack and Cheat Sheet pages. A few stack-specific modules draw from the vendor's own guidance instead: `supabase`, for instance, comes from the Supabase docs and CVE-2025-48757.
+
+The catalog grows by adding one knowledge file plus one catalog row, never a new command. You add your own the same way, with [`/lagune.specialize`](https://lagune.ai/docs/commands/specialize): point it at an article or a topic and it distills a new sub-skill into the project's own catalog (the file under `.lagune/skills/`, the row in `.lagune/skills.json`), loaded exactly like the built-ins.
+
+**Internally, Lagune loads sub-skills automatically, on demand**
+
+When the detect or verify phase hits a context a sub-skill covers, it finds the installed sub-skill and reads the matching `.lagune/skills/<name>.md` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
+
+## Discover what is available
+
+To see every **category** and whether it is installed, from the terminal:
+
+```bash
+npx -y lagune@latest list --skills
+# Specializations .lagune/skills/
+#   • owasp       [installed]  Harden against the application security risks OWASP tracks
+#   • ai          [available]  AI and LLM integrations: prompts, tools, agents, retrieval, and MCP
+#   • lovable     [available]  AI-generated Supabase apps (Lovable and similar): RLS and key model, plus the defaults that ship insecure
+#   • javascript  [available]  JavaScript and its runtimes
+#   • python      [available]  Python and its language-specific risks
+#   • rust        [available]  Rust and its language-specific risks
+#   ...
+```
+
+**_Sub_-Skills are not loaded by default**
+
+The relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
+
+## Frequently Asked Questions
+
+### What is a Lagune sub-skill?
+
+A focused, language-agnostic security knowledge module that loads only on demand, never by default. It is not a command as the usual skills.
+
+### Are Lagune skills loaded by default?
+
+No. They load only on demand, for what the project actually is.
+
+### How do I load a sub-skill directly?
+
+Import it into any prompt with @.lagune/skills/<name>.md.
+
+---
+
+# /lagune.specialize: Train a Security Specialization with Plain Text
+
+> Distill a security source or topic you give it into a new on-demand sub-skill.
+
+Canonical: https://lagune.ai/docs/commands/specialize
+Last updated: 2026-07-14
+
+🎓 Specialize **Lagune** in a specific security area, from a source or topic you give it.
+
+It reads the material and distills it into a focused, defense-only [sub-skill](https://lagune.ai/docs/commands/skills), shaped exactly like the built-in ones, so the detect and verify phases load it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
+
+**From an article**
+
+```prompt
+# A link or reference: Lagune distills it into the defense
+/lagune.specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+**From an exploit**
+
+```prompt
+# An attack as the source: the sub-skill is still the defense
+/lagune.specialize "' OR 1=1 -- splices SQL into the query text"
+```
+
+**From a topic**
+
+```prompt
+# Or just name the area to cover
+/lagune.specialize SQL injection
+```
+
+**An attack can be the source, never the output**
+
+Pointing it at an attack is fine when the goal is to defend against it: an exploit write-up is study material it distills into the defense. The sub-skill it produces always audits and explains, it never produces a working exploit, payload, or evasion.
+
+## What it writes
+
+The result is two files in your project, committed and reviewable alongside your code. Lagune ignores the built-in sub-skills by default, so it re-includes yours in `.gitignore` to keep it versioned:
+
+- The sub-skill at `.lagune/skills/<name>.md`, following the [sub-skill shape](https://lagune.ai/docs/commands/skills).
+- One entry in `.lagune/skills.json`, the catalog the dispatcher reads at runtime to list and match it.
+
+You never add a command or touch the package: a new specialty is one knowledge file plus one catalog row, written into your own project.
+
+## Refine, never overwrite
+
+Specializing a name that already exists, whether a built-in like `regex` or one you specialized before, **reconciles** the current file instead of replacing it. It reads what is there, folds the new knowledge in, keeps what still holds, and rewrites what changed. Nothing is discarded unseen. A sub-skill of yours shadows a built-in of the same name, so you can sharpen a built-in for your own project without losing it.
+
+**Tip**
+
+- The new _sub_-skill loads exactly like a built-in: the detect and verify phases pick it up on demand, or import it yourself with `@.lagune/skills/<name>.md` and give it a task.
+- When the material has an identifiable origin (an article, an author, a link, a standard), the sub-skill credits it. A bare topic carries no source.
+
+## Frequently Asked Questions
+
+### How do I add a custom security skill?
+
+Run /lagune.specialize with a source or topic. It distills it into a defense-only sub-skill, written to .lagune/skills/<name>.md plus a row in .lagune/skills.json.
+
+### Can Lagune learn from an exploit write-up?
+
+Yes, as a source, never as output. An attack can be the source, never the product. Specialize never writes attack inputs or exploits.
+
+### Does specialize overwrite built-in skills?
+
+No. It refines, never overwrites.
+
+---
+
+# /lagune.prove: Defense-Only Proof of Concept
+
+> Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
+
+Canonical: https://lagune.ai/docs/commands/prove
+Last updated: 2026-07-14
+
+🧪 Turn each detected finding into runnable, defense-only evidence for responsible disclosure.
+
+For every finding the detect map carries, it writes a self-contained advisory and a test that asserts the **safe path**, so the test fails while the issue is live and passes once the code is fixed.
+
+**Tip**
+
+**Lagune** tests live isolated under `.lagune/`, apart from your own suite.
+
+## Run it
+
+**Every finding**
+
+```prompt
+/lagune.prove
+```
+
+**A named finding**
+
+See the findings already tracked by name:
+
+```prompt
+npx -y lagune@latest list --findings
+
+# Findings
+#   ...
+#   • SQL injection in user lookup
+#   ...
+```
+
+```prompt
+# Then prove one of them
+/lagune.prove SQL injection in user lookup
+```
+
+## How it works
+
+It reads the source each finding points at and writes one directory per proven finding under `.lagune/proofs/`, holding exactly two files:
+
+| File                          | What it is                                                                                                                          |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `report.test.mjs` (or `.cjs`) | The test. It runs on Poku when your project already uses it, otherwise on the native Node.js runner, so it needs nothing installed. |
+| `report.md`                   | A self-contained advisory: severity, impact, how it reproduces, and the run command, readable on its own.                           |
+
+The proofs are always JavaScript, so they stay portable whatever language your project is written in. A `README.md` index links every proof and gives a single command to run them all.
+
+**Tip**
+
+- It is **optional and autonomous**: not one of the five phases, and not part of the tracking chain.
+- It writes only into `.lagune/proofs/` and never touches the phase artifacts or your code, which it only reads.
+- A finding whose test does not reproduce the issue gets no proof, and it tells you to run [`/lagune.detect`](https://lagune.ai/docs/commands/detect) on that spot to reconcile.
+- Running it again reconciles the proofs: a finding that is gone or no longer reproduces has its directory removed.
+
+**Builds on detect**
+
+Prove reads the detect map from [`/lagune.detect`](https://lagune.ai/docs/commands/detect), so run detect first.
+
+## Defense only, and authorized
+
+Before generating anything, it confirms you are authorized to test the target, and it refuses any request for a working exploit, an attack payload, or detection-evasion. A proof demonstrates the safe behavior, it never emits an attack input.
+
+## From proof to disclosure
+
+Each proven finding's two files belong together in a **private GitHub Gist** to report the vulnerability. They are evidence of a live, undisclosed issue, so keep them out of commits and share them only through that Gist until the maintainers have resolved it.
+
+Closing a finding in the **Lagune** chain is still the job of [`/lagune.harden`](https://lagune.ai/docs/commands/harden) and [`/lagune.verify`](https://lagune.ai/docs/commands/verify): prove produces evidence, it does not close anything.
+
+## Frequently Asked Questions
+
+### Does Lagune generate exploits?
+
+No. /lagune.prove writes defense-only evidence: a test that asserts the safe path, so it fails while the issue is live and passes once the code is fixed, plus an advisory for responsible disclosure.
+
+### What does prove output?
+
+Two files per finding: a test (report.test.mjs or .cjs) and an advisory (report.md).
+
+### How do I responsibly disclose a bug Lagune found?
+
+Prove writes a self-contained advisory you can share through a private channel such as a private GitHub Gist, following responsible disclosure.
+
+---
+
+# regex hook: Detect ReDoS Patterns
+
+> Sweep a codebase for ReDoS-prone regex, or score a single pattern, from the command line.
+
+Canonical: https://lagune.ai/docs/hooks/regex
+Last updated: 2026-07-14
+
+The `regex` hook is the deterministic regex-safety engine the [`regex` sub-skill](https://lagune.ai/docs/commands/skills) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
+
+## Scan a codebase
+
+With no flag it scans the whole project. `-d` scopes the scan to a directory, `-f` to a single file. Both repeat and combine into one report, each file listed once even when more than one target covers it.
+
+**Whole project**
+
+```bash
+node ./.lagune/hooks/regex.mjs
+```
+
+**A directory**
+
+```bash
+node ./.lagune/hooks/regex.mjs -d src/services
+```
+
+**A single file**
+
+```bash
+node ./.lagune/hooks/regex.mjs -f bin/import.pl
+```
+
+**Several targets**
+
+```bash
+node ./.lagune/hooks/regex.mjs -d core -d workers -f Sources/App/Router.swift
+```
+
+**With a limit**
+
+`-l` sets the ReDoS threshold for the sweep (default 25), the same limit the check mode takes. A lower limit is stricter.
+
+```bash
+node ./.lagune/hooks/regex.mjs -d src/services -l 15
+```
+
+The output is raw text whose headers say how to read each section. A section is shown only when it has findings.
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$
+
+Dynamically built regular expressions (review manually):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+When nothing is found, it prints a single line.
+
+```bash
+node ./.lagune/hooks/regex.mjs -d src/clean
+# => no unsafe patterns found
+```
+
+### How to read the sections
+
+| Section                                                         | Meaning                                                                                                                         |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                          | ReDoS-prone patterns, grouped by file with each pattern indented beneath. Every line is unsafe, so the verdict is not repeated. |
+| `Dynamically built regular expressions (review manually)`       | Files that build a regex from a variable, a concatenation, or an interpolation. Not a finding on its own: read each by hand.    |
+| `Static regex wrapped in a constructor (use a literal instead)` | Files that pass a plain string literal to a regex constructor where a regex literal is simpler and skips a runtime compile.     |
+
+The first section is a security finding. The second is a pointer to code a static check cannot judge, so it asks for a human read. The third is a clarity hint, not a security finding.
+
+### CLI options
+
+| Option      | Alias | Value                  | Description                                                                                    |
+| ----------- | ----- | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `--pattern` | `-p`  | a regex source         | Check one pattern. Repeat to check several, one verdict per pattern, in order.                 |
+| `--dir`     | `-d`  | a directory            | Scope a scan to a directory. Repeats and combines with `-f`.                                   |
+| `--file`    | `-f`  | a file                 | Scope a scan to a single file. Repeats and combines with `-d`.                                 |
+| `--limit`   | `-l`  | a non-negative integer | Set the ReDoS repetition limit (default 25). Applies to both modes. A lower limit is stricter. |
+
+With no option it scans the whole project. `-p` is the check mode and cannot be combined with `-d` or `-f`.
+
+### Supported languages
+
+The scan reads these languages, keyed by file extension, each by its own rules so a pattern from one is never tested against another. Everything else is skipped rather than scanned with the wrong rules.
+
+| #   | Language                    | Extensions                                                                                                   |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`, `.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`, `.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`, `.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`, `.psm1`, `.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`, `.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`, `.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`, `.cljs`, `.cljc`, `.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`, `.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`, `.pm`                                                                                                 |
+
+**Best-effort, not exhaustive**
+
+It reads source as text, so it cannot judge a pattern assembled at runtime, and a pattern spread across lines, hidden behind an alias, or written in a form it does not recognize can slip past. Treat the three sections as a strong starting point, not a complete inventory, and keep reading the code for what they cannot reach.
+
+## Check a single pattern
+
+Pass `-p` with the pattern's source to score it. The hook prints one word: `safe`, `unsafe`, or `invalid regex`. Repeat `-p` to score several at once, one verdict per pattern, in order.
+
+**One pattern**
+
+```bash
+node ./.lagune/hooks/regex.mjs -p '(a+)+$'
+# => unsafe
+
+node ./.lagune/hooks/regex.mjs -p '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+**Several patterns**
+
+```bash
+node ./.lagune/hooks/regex.mjs -p '(a+)+$' -p '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+**With a limit**
+
+`-l` sets the repetition limit (default 25) and applies to every `-p` in the call. A lower limit is stricter.
+
+```bash
+node ./.lagune/hooks/regex.mjs -p 'a?a?a?' -l 2
+# => unsafe
+```
+
+**Why a quoted argument**
+
+Each pattern is passed as a flag value, never interpolated into the command. A value with quotes or backticks stays inert and cannot inject into the shell. Always wrap the pattern in single quotes so your shell does not expand it first.
+
+**Tip**
+
+This is the same engine the [`regex` sub-skill](https://lagune.ai/docs/commands/skills) runs: the scan opens a ReDoS pass, the check confirms a pattern it surfaces.
+
+## Frequently Asked Questions
+
+### How do I check a regex for ReDoS from the CLI?
+
+Run node ./.lagune/hooks/regex.mjs -p '<pattern>'. It returns safe, unsafe, or invalid regex.
+
+### How do I scan a whole project for unsafe regex?
+
+Run the regex hook in scan mode over the codebase. It reports ReDoS-prone patterns across 25 supported languages.
+
+---
+
+# network hook: Score URLs for SSRF
+
+> Score one or many fetch destinations for SSRF, straight from the command line.
+
+Canonical: https://lagune.ai/docs/hooks/network
+Last updated: 2026-07-14
+
+The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` sub-skill](https://lagune.ai/docs/commands/skills), and you can run it yourself.
+
+## Run it
+
+Pass each destination with `-u`. The hook prints one word per destination, read in the table below.
+
+**One destination**
+
+```bash
+node ./.lagune/hooks/network.mjs -u 'http://example.com/'
+# => safe
+
+node ./.lagune/hooks/network.mjs -u 'http://0x7f000001/'
+# => private-target
+```
+
+**Several destinations**
+
+Repeat `-u` to score a whole allowlist or denylist in one call, one verdict per line, in order.
+
+```bash
+node ./.lagune/hooks/network.mjs \
+  -u 'http://example.com/' \
+  -u 'http://[::1]/' \
+  -u 'http://allowed.com@evil.example/'
+# => safe
+# => private-target
+# => parser-divergent
+```
+
+It resolves the host the way the network does, so encoded forms of an internal address do not slip past: hex, octal, dotless decimal, shorthand, IPv6, and IPv4-mapped all read `private-target`. And where a sloppy validator and the real fetcher would read different hosts, the verdict is `parser-divergent`.
+
+## How to read the verdict
+
+| Verdict            | Meaning                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------- |
+| `safe`             | The destination connects to a public host, and a sloppy validator would read the same host.    |
+| `private-target`   | The host resolves to a private, loopback, link-local, unspecified, or cloud-metadata address.  |
+| `parser-divergent` | A sloppy text validator would read a different real host than the one the fetcher connects to. |
+| `invalid url`      | The string does not parse as a URL, so there is nothing to fetch.                              |
+
+Only `safe` is an allow. Treat `private-target`, `parser-divergent`, and `invalid url` all as a block.
+
+### CLI options
+
+| Option  | Alias | Value         | Description                                                           |
+| ------- | ----- | ------------- | --------------------------------------------------------------------- |
+| `--url` | `-u`  | a URL or host | Check one destination. Repeat to check several, one verdict per line. |
+
+At least one `-u` is required. The destination is never a bare positional, so it cannot be mistaken for a flag.
+
+**Why a flag value**
+
+Each destination is passed as a flag value, never interpolated into the command. A value with quotes or backticks stays inert and cannot inject into the shell. Always wrap it in single quotes so your shell does not expand it first.
+
+**What it does not cover**
+
+The hook is pure and never resolves DNS, so two runtime gaps are out of scope: **DNS rebinding** (a name that resolves public when checked, internal when fetched) and **redirect chains** (a first hop that passes, then redirects inward). Close those by resolving once and connecting to the validated address, and by refusing redirects. It pins the reserved loopback names (`localhost` and the `.localhost` family) to internal with no lookup, but any other DNS name reads `safe`, because asserting it resolves inward would require resolution: the allowlist guards those, and is what this checker validates.
+
+**Tip**
+
+This is the same check the [`network` sub-skill](https://lagune.ai/docs/commands/skills) runs to prove a destination filter holds.
+
+## Frequently Asked Questions
+
+### How do I test a URL for SSRF?
+
+Run the network hook. It scores a fetch destination and returns safe, private-target, parser-divergent, or invalid url. Only safe is an allow.
+
+### What is a parser-divergent URL?
+
+A URL that different parsers read differently, which is a classic SSRF bypass. The network hook flags it rather than allowing it.
+
+---
+
+# Security-Driven Hardening: A Convention for the AI-Assisted Development Age
+
+> The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
+
+Canonical: https://lagune.ai/docs/references/paper
+Last updated: 2026-07-13
+
+- **Weslley Araújo**
+- **Methodology Paper, 2026.**
+
+---
+
+## Abstract
+
+Security-Driven Hardening (SDH) is a structured, AI-driven, defense-only security methodology for the era in which software is increasingly written by AI agents and by people who are not security specialists. Instead of running a fixed catalog of generic checks, SDH first detects what a system actually does (login, file uploads, payments, data exposure, and so on) and then drives the security work that is specific to that context. It is governed by safe-by-default principles, framed entirely around defense, and expressed in plain language so that any user can act on it.
+
+This document argues that SDH is a missing convention, not a single tool. The security knowledge lives in the methodology and its on-demand modules, a baseline every user can build on, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
+
+**Lagune** is the reference implementation. It realizes SDH across 72 AI coding agents and proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
+
+> **Index Terms**
+>
+> AI-assisted development, software security, defensive security, spec-driven development, security hardening, agent-driven workflows, closability, context-aware security, on-demand knowledge, agent-agnostic tooling.
+
+---
+
+## I. Introduction: the security gap AI-assisted development opened
+
+Software is increasingly shipped by people, and by AI agents, who cannot reliably recognize an insecure pattern: a leaked secret, a missing authorization check, an injectable query. These are not exotic risks. They sit among the risk classes that dominate real incidents, catalogued for years in public references `[6]`, `[7]`, and recent studies report that a meaningful share of AI-generated code ships with exactly such defects `[8]`. AI coding assistants made this acute by letting non-developers ship real software, but the gap is broader than any single audience. Most projects never get a security pass that is specific to what they actually do. The ecosystem becomes more fragile with every premature "it works, ship it" decision.
+
+Generic security advice does not close this gap. A static checklist is not specific to what a system does, so it floods a small project with irrelevant items and still misses the risk that matters for that one project. The problem is not a shortage of security knowledge in the world. The problem is matching the right knowledge to the system actually in front of the user, and doing it for someone who may not know what to ask for.
+
+SDH answers this with a single inversion: **the security knowledge lives in the spec and its on-demand modules, a baseline every user can build on**. The methodology detects the context, triages the risks that context carries, and guides the fixes, so a developer and a non-developer are served through the same flow. The findings and recommendations stay in plain language, so they are actionable regardless of the reader's technical depth. The expert is not constrained by this, but amplified by it, a duality we develop in `§VI`.
+
+> **Key Insight**
+>
+> **The core inversion:** The security knowledge lives in the spec and its on-demand modules, a baseline every user can build on. The methodology learns what the system does and matches the security work to it, and it extends whatever the user already knows.
+
+Consider a developer who tells an AI assistant, "my app lets users upload a profile picture." Without a security pass, the assistant produces working code that quietly trusts whatever the client sends: the declared file type, the file name, the size. The upload ships, and a file disguised as an image can carry code, a crafted name can break out of the storage path, an oversized file can exhaust the server. None of this is visible in a demo, so it ships.
+
+The same code run through SDH behaves differently. It detects that the system accepts files from outside (detect), triages that into the risks an upload carries (triage), proposes checking the real file type and size, renaming on save, and storing where code cannot run (remediate), then reads the result and confirms each control actually holds (verify). The developer never had to know the phrase "unrestricted file upload." The methodology supplied it on their behalf.
+
+This document makes the following contributions:
+
+- A precise definition of SDH as a methodology, independent of any one implementation, with its design principles (`§III`).
+- A five-phase defensive lifecycle in which the separation of duties is itself the contribution: detection never invents, planning never reads code, only one phase changes code, and verification never softens its judgment (`§IV`).
+- **Closability** as a methodological stance: an individual finding has an end state, not an endless loop (`§V`).
+- The **dev-knowledge-extender** duality: one flow that protects the novice and amplifies the expert (`§VI`).
+- **Non-invocable knowledge modules and prompt-on-demand**: focused security knowledge the agent loads only when the project's context calls for it, never by default (`§VII`).
+- **State-independence** and **non-authoritative adaptivity**: SDH fits any development state and adapts to the scenario instead of imposing a fixed scope (`§VIII`).
+- A **preventive mode**: the same defense run while ordinary work is built, so the code lands safe-by-default and the phases have less to correct (`§IX`).
+- A dedicated comparison with Spec-Driven Development, the lineage SDH grew from and then diverged from (`§X`).
+- The engineering disciplines that make the methodology hold under refactors and across agents: identity-by-name tracking (`§XI`) and an agent-agnostic carrier (`§XII`).
+
+---
+
+## II. Background and related work
+
+SDH builds on prior work. It inherits a proven structure from spec-first, agent-driven development `[1]`, `[2]`, `[3]`: scaffolded templates, slash commands an agent consumes, a governing document, and an agent that runs the phases. It reimplements that structure with a defensive purpose. The lineage is deliberate, and one of SDH's working principles names it directly: build the workflow from a proven structure, then frame it for security.
+
+SDH is not a static catalog of generic recommendations. A catalog knows a great deal about security in general and nothing about the project in front of it. SDH reverses that emphasis. It spends its first effort on detection, on learning what the system does, and only then reaches for the knowledge that detection makes relevant.
+
+SDH is also not a replacement for security people or for specialized Blue Team tooling. It is an extender of the developer's knowledge (`§VI`). A team with a dedicated security function should keep it. SDH gives that team a structured carrier, and it gives a team without one a defensible baseline.
+
+SDH also sits next to deterministic security scanners (static analysis, linters) `[4]`, `[5]`. Those tools are valuable precisely because they are deterministic and repeatable. SDH is mostly agent-reasoned, which trades strict determinism for context-awareness. The methodology does not pretend otherwise. Where determinism matters, it embeds a deterministic engine inside the reasoning (`§VII`): the agent decides whether an input is worth checking, and a deterministic program decides whether that input is dangerous.
+
+The most direct prior art is Spec-Driven Development (SDD), the family of spec-first methodologies that drives a build forward from an executable specification. We treat SDD as a class. Its clearest statement as a practitioner methodology is Piskala's report `[1]`, and its most visible agent-driven toolkit is GitHub's Spec Kit `[2]`, with OpenSpec `[3]` as a second tool from the same family. These name the canonical references for the comparison in `§X`.
+
+---
+
+## III. SDH: definition and design principles
+
+**Security-Driven Hardening** is a structured, AI-driven security methodology that turns a codebase into a more secure one by driving the work from a spec the agent runs, rather than from ad-hoc fixes. The name is inspired by **Blue Teams**, the defenders in security. SDH is about defense, hardening, and verification, never offense.
+
+> **Definition**
+>
+> **Security-Driven Hardening (SDH):** A structured, AI-driven, defense-only security methodology that first detects what a system actually does, then drives the context-specific security work, governed by safe-by-default principles and expressed in plain language.
+
+SDH is defined by a set of binding principles. Each one is a rule, and each one confers a specific guarantee on the user.
+
+| Principle                                                | The rule                                                                                                                                        | What it guarantees the user                                                                                                                               |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Safe-by-default, in plain language, for everyone equally | Every default, message, and fix is safe out of the box and intelligible to any reader, developer or not. No user tier is privileged.            | A novice receives a safe baseline without asking for it, and reads the result in their own terms.                                                         |
+| Context-aware over generic                               | Every phase starts from the context detected in detect, and acts on what the system actually does.                                              | Recommendations fit the project, not a checklist. The security knowledge lives in the spec and its on-demand modules, extending whatever the user brings. |
+| Flexible over rigid                                      | Principles, requirements, and recommendations are starting points. The user can reword, drop, add, or scope anything down.                      | The methodology bends to the project and the user, and never harder than the user wants. Flexibility never weakens the safe-by-default baseline.          |
+| Reconcile, never append-only                             | Artifacts are living documents, not logs. Each run re-checks every entry: keep what holds, rewrite what changed, remove what no longer applies. | The record always reflects the present, so it never decays into a stale backlog.                                                                          |
+| Defense only                                             | SDH audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm.              | The methodology cannot be turned into a weapon. Dual-use content appears only in a clearly defensive framing.                                             |
+| Spec-first, agent-driven, framed for security            | The workflow is built from templates, commands, a governing charter, and an agent that runs the phases.                                         | A proven development structure, repurposed so the agent performs the substantive security work.                                                           |
+
+**Table 1.** SDH's design principles and the guarantee each one confers on the user.
+
+These principles are not ornamental. They are the constraints every phase below must respect, and the discussion in `§XV` returns to them to mark the methodology's limits.
+
+The rest of the document develops nine named pillars. They are the parts a reader should be able to keep in mind, and the parts another team would reimplement to claim they are doing SDH.
+
+| Pillar                                              | What it provides                                                                                              | Section     |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------- |
+| The context-aware inversion                         | The security knowledge lives in the spec and its on-demand modules, so a novice and an expert share one flow. | `§I`, `§VI` |
+| The five-phase defensive lifecycle                  | Separation of duties: policy, detect, triage, remediate, verify, each with one job.                           | `§IV`       |
+| Closability                                         | A finding has an end state, not an endless loop. Closed work is stood down.                                   | `§V`        |
+| The dev-knowledge-extender duality                  | One flow that protects the novice and amplifies the expert, never replacing either.                           | `§VI`       |
+| Prompt-on-demand, non-invocable knowledge           | Relevant security knowledge is loaded for what the project is, never by default.                              | `§VII`      |
+| State-independence and non-authoritative adaptivity | Fits any development state in any stack, and adapts to the scenario instead of imposing a scope.              | `§VIII`     |
+| The preventive mode                                 | The same defense runs while new work is built, so the code lands safe-by-default.                             | `§IX`       |
+| Identity-by-name tracking                           | A finding stays one item across phases, and a rename breaks the link in one place.                            | `§XI`       |
+| The agent-agnostic carrier                          | The security value is written once and runs across agents and stacks.                                         | `§XII`      |
+
+**Table 2.** The nine named pillars of SDH and where each is developed.
+
+---
+
+## IV. The 5-phase Blue Team flow
+
+SDH structures the work as a five-phase defensive lifecycle (Figure 1). Each phase is framed around defense, each builds on the previous, and the phases follow real Blue Team activity: establish policy, detect, triage, remediate, verify.
+
+```mermaid
+flowchart TB
+    charter["1 · charter (policy)<br/>reads: the project, and the user's description if given<br/>writes: the charter<br/>principles carry the risk they prevent, in plain language"]
+    detect["2 · detect (detect)<br/>reads: the user's code<br/>writes: the detect map<br/>detection, not invention: record only what the code supports"]
+    plan["3 · plan (triage)<br/>reads: the detect map, never the code<br/>writes: the defense plan<br/>every fix points at something detect actually mapped"]
+    harden["4 · harden (remediate)<br/>reads: the defense plan, and the code it touches<br/>writes: the code, and the hardening record<br/>the only phase that changes code, one fix at a time, confirmed first"]
+    verify["5 · verify (verify)<br/>reads: the code, and the hardening record<br/>writes: each open verdict onto the hardening record<br/>the confrontation of code against record, statically, never softened"]
+    charter --> detect --> plan --> harden --> verify
+    verify -.->|"reproved: reopened work for harden,<br/>re-applied against the recorded reason"| harden
+    verify -.->|"closure: stands what it proved closed<br/>down across the whole chain,<br/>one line in the history"| detect
+```
+
+**Figure 1.** The five-phase flow: what each phase reads, what it writes, and its load-bearing invariant. Verify drives both returns: a reproved control reopens harden, and a proven-closed finding is stood down across the chain, one line in the history.
+
+The separation of duties is the contribution. Because each phase has one job, a failure mode is contained to one place, and the reader can trust what each artifact claims.
+
+> **Key Insight**
+>
+> **Applied is not verified:** Harden records that a fix was applied. Verify verifies it by confronting the code against that record, and the verdict is never softened to match the record. A control can be present in the code and still leave the risk reachable, and then the honest verdict is "risk not closed."
+
+### charter (policy)
+
+The charter establishes the project's security principles, the rules every later phase must respect. It is the governing layer, a kind of compile-time check for the project's security posture. Each principle has a clear name, a non-negotiable rule that can be checked against the code, and a `Why:` line stating the risk it prevents, not just the fix. The charter always reads the project itself (its manifests, structure, and dependencies), and a user's description, when given, is direction the reading then broadens beyond what the user named. With no description, the project is the only source. The two add up rather than compete, and the charter records the policy the project should hold to, not the state of its code. A non-developer should be able to read it and understand both the rule and the risk.
+
+### detect (detect)
+
+Detect reads the code and maps what the system actually does that carries security weight. The governing instruction is "detection, not invention": record only what the code supports, with the evidence later phases need. Detect is neutral. It does not force its findings to fit the charter, because matching risks against the charter's rules is the plan phase's job. Each finding carries three parts: what it is (plain-language description), why it matters (the risk, not just the fact), and the evidence (the function or route where it lives). The evidence carries no file path. The path lives only in the tracking map (`§XI`), so the prose never holds a path that can go stale.
+
+### plan (triage)
+
+Plan turns each finding into a fix, named by its risk class (citing the established catalogs, CWE and OWASP, where they ground it) and tied to the charter principle the fix upholds. The priority (Critical, High, Medium, Low) is not a free choice: plan rates each finding with the CVSS v4.0 Base-and-Environmental method, so the band is the score in plain words, justified by one plain-language line of exposure and stakes, and two runs land the same order. The vector is the precise anchor for an expert, the band and its justification the same rating anyone can follow. Plan works only from the detect map and never reads the code. This is a deliberate constraint, not a limitation: it forces every fix to point at something detect actually detected. If a scope was never mapped, plan stops and routes the user back to detect rather than guessing.
+
+### harden (remediate)
+
+Harden is the only phase that changes code, so it proceeds with caution. It lists the fixes it is about to apply and asks the user to confirm before touching anything, and the user can leave any fix out. It then applies one fix at a time, dependencies first, then highest priority, so each change stays small, reviewable, and easy to undo. It never weakens an existing control to make a new fix fit, and it never breaks a charter principle. If a fix would conflict with a principle, harden stops and surfaces the conflict instead of applying it. Each block is recorded as Applied, Partial, or Blocked. "Applied does not mean verified yet", which is the concern the next phase addresses.
+
+### verify (verify)
+
+Verify verifies each applied control by reading the code and confronting it with what harden recorded. The verification is that confrontation, code against record, and it is static: it confirms a control is present and correct in the code, not that the control holds under attack on a running system. That runtime check, the kind that executes real or simulated attacks against the live system, is out of scope by design. Verify returns one of three verdicts: risk closed, risk not closed, or cannot tell from the code. It produces no artifact of its own: harden and verify share the hardening record, harden owning what was done and verify owning the verdict and its reason, and neither ever writes the other's fields. A reproved control is reopened work for harden, whose next run treats the verdict as overriding its own reading of the code and re-applies against the exact gap the reason names. Verify trusts the code over the record, because a record can claim more than the code delivers. It is read-only on the user's code, and it never softens a verdict to match the record. A control can be present and still leave the risk reachable another way, and in that case the honest verdict is "risk not closed." If, while reading, verify notices a security problem the detect map never covered, it does not invent a verdict for it, since detection is detect's job: it surfaces the problem and routes the user back to detect, so the finding enters through the same flow rather than bypassing it.
+
+> **Worked thread: file uploads.** A single finding shows the spine end to end.
+>
+> - **detect** finds it: the system accepts files from users, and the upload handler trusts the MIME type the client sends without checking the file's real type. _Why it matters:_ a file disguised as an image can hide malicious code.
+> - **plan** decides the fix, priority **Critical**, upholding the principle "All input is untrusted until validated": check the file's real type and size, rename it on save, and store uploads where they cannot be run as code.
+> - **harden** applies it, status **Applied**: the handler now detects the real type from content, enforces a size limit, rejects anything unexpected, renames on save, and stores where code cannot run.
+> - **verify** reads the handler, confronts it with the record, and returns **risk closed**: the code does exactly what the record claims.
+>
+> The same finding name carries through the detect map, the plan, and the hardening record, and verify acts on that record under the same name: an open verdict is written onto the finding's block, and a proven-closed finding is stood down (`§V`). That shared name is its identity (`§XI`).
+
+---
+
+## V. Closability: a finding has an end state
+
+Most security tooling leaves the user with a backlog that only grows. SDH adopts a different position: **a finding is closable, so it has an end state instead of living in an endless backlog** (Figure 2). This follows directly from the reconcile principle.
+
+> **Definition**
+>
+> **Closability:** A risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. A finding has an end state, even though the security program itself stays continuous.
+
+SDH artifacts are living documents, not logs. Every time a phase re-runs, it re-checks each existing entry against the current truth and does one of three things: keeps what still holds, rewrites what changed, or removes what no longer applies. A finding the code shows is now resolved is simply removed. The working record reflects the present, not the past.
+
+Closure is that same reconcile reaching its conclusion. When verify verifies a risk closed, it stands the finding down across the whole flow, the detect map, the plan, the hardening record, and the tracking map. This is why verify is the one phase that writes to the other phases' artifacts: it is the phase that closes the loop. As the finding leaves the chain, standing down distills it into a short entry in a history record that lives outside the working chain and is never reprocessed. This is the line between disappearing and closing: a finding reconcile removed because it stopped being true leaves nothing behind, while a finding proven closed earns its line in the history. A finding stood down is absent from every working artifact afterward, and that absence is expected, not a broken chain.
+
+```mermaid
+stateDiagram-v2
+    direction TB
+    [*] --> OPEN: detect detects
+    OPEN --> Plan: plan
+    Plan --> Harden: harden
+    Harden --> Verify: verify
+    Verify --> StoodDown: risk closed
+    StoodDown --> SETTLED
+    SETTLED --> OPEN: code changes reopen a finding
+    Plan: plan
+    Harden: harden
+    Verify: verify
+    StoodDown: STOOD DOWN · one line in the history
+```
+
+**Figure 2.** The closability state machine. A finding moves OPEN → STOOD DOWN → SETTLED, and reopens only when the code changes.
+
+When everything in scope is stood down, the cycle is settled, and the settled state has a concrete form: an artifact whose last finding closed is removed whole, so a fully closed chain leaves only the charter and the history, the policy and the proof. The cycle is reopened only when the code changes. The methodology gives each finding a definite end, which is exactly what an endless backlog cannot.
+
+---
+
+## VI. The dev-knowledge-extender duality
+
+SDH does not replace people, and it does not replace specialized Blue Team tooling. It **extends the developer's own knowledge**. The more a developer understands security, the more precisely they can drive the flow, and the more autonomy they have. A developer who understands little still receives a safe result, because the automatic mode safeguards them.
+
+The inversion from `§I`, the security knowledge lives in the spec, applies in both directions. For the novice, it is protection: they do not need to know what to ask for, because the spec proposes. For the expert, it is amplification: the same spec lets them aim the flow with precision instead of working against a fixed checklist.
+
+Every phase carries this duality in its own operation (Figure 3). Run with no input, it acts on the whole scope on the user's behalf. Given direction, the same phase narrows to exactly what the user aimed it at.
+
+```mermaid
+flowchart TB
+    inversion["one inversion, two directions:<br/>the security knowledge lives in the spec"]
+    inversion --> auto["automatic mode (no input)<br/>the phase proposes and acts<br/>on the whole scope"]
+    inversion --> directed["directed mode (input given)<br/>the phase narrows to exactly<br/>what the user aimed it at"]
+    auto --> novice["the novice, protected:<br/>a safe result without<br/>knowing what to ask for"]
+    directed --> expert["the expert, amplified:<br/>the flow aimed with precision,<br/>not a fixed checklist"]
+    novice -.-> phases["the same five phases serve both:<br/>charter · detect · plan · harden · verify"]
+    expert -.-> phases
+```
+
+**Figure 3.** The dev-knowledge-extender duality. One inversion serves two audiences: the automatic mode protects the novice, and the directed mode amplifies the expert, through the same five phases.
+
+The on-demand knowledge modules (`§VII`) make the duality explicit in their own text. Each one tells the agent that its knowledge "extends your judgment" and to keep reasoning beyond what the module provides. The knowledge is a floor, not a ceiling. This is what serves both audiences in the document's intended balance: the developer community gains a substantial instrument, and the Blue Team practitioner gains a structured carrier that does not pretend to do their job for them.
+
+---
+
+## VII. Non-invocable knowledge modules and prompt-on-demand
+
+This is the methodology's most novel pattern. SDH carries focused security knowledge as modules that load **only on demand**, and the agent itself decides which to load by matching the project's context. We call this **prompt-on-demand**: a way for the agent to choose which knowledge to activate based on the scope of the project it is in, instead of running every check by default. The modules are evolutionary, and any one of them can change or be replaced at any time. The contribution is the pattern, not the modules themselves.
+
+> **Definition**
+>
+> **Prompt-on-demand:** The agent selects which security knowledge to activate by matching it against the scope of the project in front of it, so the relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
+
+> **Definition**
+>
+> **Non-invocable knowledge module:** A focused, language-agnostic unit of security knowledge for one risk area. It audits and explains, never rewrites code, and never produces an attack input. Nothing opens it directly: a single dispatcher loads it only when the project's context calls for it.
+
+A knowledge module is focused, language-agnostic security knowledge for one risk area. It audits and explains. It never rewrites the user's code, and it never produces an attack input. Each module names the safer shapes for the risks it covers and tells the agent how to act on a finding in each phase that consumes it: how to judge it at detection, how to apply its fix safely at remediation, and how to prove it at verification. The modules are evolutionary by design: the collection grows and reshapes over time, while the pattern around it stays the same. This section describes that pattern, not any particular module.
+
+The defining trait is that a module is **non-invocable on its own**. Nothing opens it directly, not the user, not a phase. There is a single dispatcher entry point: the detection phase lists the catalog once, matches the project's context against what each entry covers, and loads only the modules whose area is present in scope. The later phases reuse that matched list instead of re-listing, so one match serves the whole chain. A module whose context is absent is skipped, and the skip is as accountable as the load: every entry in the catalog receives an explicit verdict, applied or skipped with the reason read off the code, so a vague sense of irrelevance never stands in for absence. Finding none applicable is a valid outcome.
+
+The catalog is data, and growth is one knowledge file plus one catalog row, never a new command. This is the same context-aware principle as the phases, applied to knowledge: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default. The same property lets the user, not only the maintainer, grow the catalog: a security source or topic the user supplies is distilled into a new module, written into the project's own catalog and loaded thereafter exactly like a built-in. Authoring a module is itself defense-only and obeys the same boundary the modules enforce: an attack write-up may be the source, but the module it yields audits and explains, it never emits a working exploit. So the inversion of `§I`, the intelligence living in the spec, extends to the catalog itself, which the user can deepen for their own context without writing code.
+
+A short dispatch example illustrates prompt-on-demand. Detect reads a folder of code that runs in the browser. It matches that area in the catalog, loads the module that covers it, and surfaces a client-side finding through detect's normal steps. The modules for areas not present in this scope do not match, so they never load and are never mentioned. The project decided what knowledge was relevant, not a fixed configuration.
+
+Determinism appears precisely where it matters. A module can carry a deterministic checker, not just prose. Where a risk class has a crisp decision procedure, the module ships a small program that returns a fixed verdict for a given input, for example a short set of words such as `safe`, `unsafe`, or `invalid input`. Some risk classes are deterministically decidable in exactly this way, with a body of prior work behind the decision procedure `[9]`, `[10]`, `[11]`. The checker either scores candidates the agent supplies or scans the scope to find them itself, and in both cases the checker, not the agent, returns the verdict. A module universal enough can be marked required in the catalog and is then always applied, its checker run over the whole scope. This is the one case where knowledge loads without a context match, and it is declared in the catalog's data, never decided by the agent in the moment. This is where SDH grounds its agent reasoning in something repeatable, without pretending the whole flow is deterministic.
+
+Finally, the modules are **detachable**. Because the knowledge stands on its own, a user can run one directly in a prompt that has nothing to do with the full SDH flow, keeping security alongside ordinary development. A module with a deterministic checker can, for instance, screen each candidate produced during ordinary coding and keep only the safe ones. This detachability is part of why SDH adapts to so many situations, which is the subject of `§VIII`, and its full expression is the preventive mode (`§IX`), where the same knowledge guards ordinary development end to end.
+
+---
+
+## VIII. State-independence and non-authoritative adaptivity
+
+Two properties separate SDH from rigid spec methodologies.
+
+### State-independence
+
+> **Definition**
+>
+> **State-independence:** The methodology does not depend on the development state. It fits an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack, because it learns the starting point by reading it.
+
+Every phase works the same way whether the project is brand new or already exists. The charter infers principles from whatever code is present. Detect maps whatever code is there, even if there is very little. There is no assumed starting point.
+
+### Non-authoritative adaptivity
+
+> **Definition**
+>
+> **Non-authoritative adaptivity:** The methodology adapts to the scenario rather than imposing a fixed scope the user must follow. When the user does not know what to say, it reads the environment it was invoked in, generates context, and asks the questions that shape what it does next.
+
+The charter's propose mode is the clearest case: SDH derives a safe-by-default charter by analyzing the project, asking the user only when a gap actually changes the result, then writes it and presents each principle in plain language with the risk it prevents. The charter is a living document the user reworks by re-running, not a contract gated behind an approval prompt, so it never requires the user to know what to ask for.
+
+This adaptivity shows up as a sensitivity to the shape of the input: the same phase reads what it was given and chooses a mode (Figure 4). A file in the prompt, a finding from the list, a worry, a focused mission against a known weak point, or a request for a full brute-force scan: each fits the user's need, because the flow is non-authoritative by design. None of this weakens the safe-by-default baseline. Flexibility shapes how the baseline is applied, it never lowers it.
+
+```mermaid
+flowchart TB
+    shape["the phase reads the shape<br/>of what it was given"]
+    shape --> none["no input"]
+    shape --> paths["one or more paths"]
+    shape --> concern["a described concern"]
+    shape --> finding["a named finding"]
+    shape --> band["a priority band"]
+    none --> auto["the automatic mode:<br/>propose, or scan<br/>the whole scope"]
+    paths --> focus["focus only on those<br/>files or directories"]
+    concern --> scoped["scope to that<br/>one concern"]
+    finding --> item["act on that single<br/>tracked item"]
+    band --> priority["act only on Critical,<br/>High, Medium, or Low"]
+```
+
+**Figure 4.** Non-authoritative adaptivity. The same phase reads the shape of its input and chooses a mode, so the scope is always the user's, never imposed.
+
+---
+
+## IX. The universal preventive mode: the same defense while the work is built
+
+SDH carries one complementary mode: ordinary development done with the same defense active while the code is written. The user asks for the work itself, a login page, an upload, an endpoint, and the methodology guards the build as it happens, so the result is safe-by-default the moment it lands rather than after a later hardening pass.
+
+> **Definition**
+>
+> **The preventive mode:** ordinary development run under SDH's governing layer and knowledge. The charter binds the build, the knowledge modules relevant to what is about to be created load on demand, and the result is confronted against exactly the defense that was used before the work is called done.
+
+The mode reuses each piece the phases already carry, pointed at code that does not exist yet. Context detection turns from the code to the intent: the agent reasons through what it is about to build and the boundaries that work crosses (a login implies credentials, a session, and input from outside), and that reasoning is what the knowledge catalog is matched against. Prompt-on-demand (`§VII`) generalizes here: context can be detected in the plan for code, not only in code that exists. The charter governs as it always does, and a request that would break a principle is surfaced as a conflict, never built. The defense is applied inline, at the moment each part is written, validating at the boundary and reaching for the safe construct the first time, so a working-but-unsafe version never exists to be corrected.
+
+The mode ends the way verify begins. Before the work is called done, the builder confronts its own result with the defense it used: the control must sit on the risk's path, not beside it, it must be complete, and where a module ships a deterministic checker, the checker's verdict stands over the agent's own reading. A gap found here is closed as part of the same piece of work, because finishing the work means finishing it securely.
+
+What the mode refuses is as deliberate as what it does. It builds only what was asked and audits nothing around it: auditing what exists belongs to the phases. It writes no artifact and tracks no finding, because a finding is a risk detected in what exists, and this mode's purpose is that the unsafe version never lands at all. The two directions complete each other: the phases close what is already there (`§V`), and the preventive mode keeps new work from reopening it. A chain at rest stays at rest not because development stopped, but because what is built while it rests is built defended.
+
+---
+
+## X. Security-Driven Hardening versus Spec-Driven Development
+
+Security-Driven Hardening (SDH) grew from the Spec-Driven Development (SDD) base and then diverged sharply. The structural inheritance is real and acknowledged: spec-first, agent-driven, a governing document, and a set of phased commands the agent runs. SDH reuses that structure deliberately. What differs is the purpose, the authority model, the assumed state, and the end condition. We treat SDD as a class, using Piskala's report `[1]` as the canonical statement of the methodology, GitHub's Spec Kit `[2]` as the canonical agent toolkit, and OpenSpec `[3]` as a second tool from the same family.
+
+SDD flips traditional development by making specifications executable: the spec directly generates a working implementation rather than just guiding it `[1]`. Its phase set drives a build forward `[2]` (establish governing principles, specify what to build, plan the tech stack, break the plan into tasks, then implement). Its governing document, a constitution of principles, is the foundational piece the agent must adhere to throughout. That is the heart of the difference. SDD's authority flows from the spec into the build, and the implementation is expected to follow it.
+
+SDH inverts almost every axis of that contract (Table 3).
+
+> **Key Insight**
+>
+> **The core difference:** SDD's authority flows from the spec into the build, and the implementation is expected to follow it. SDH is non-authoritative and flows the other way, inward from the system's detected context, hardening what is already there.
+
+| Axis                | SDD                                                                                   | SDH                                                                                                            |
+| ------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Goal                | Deliver features. The spec becomes a working implementation.                          | Harden what exists or is being built. Every phase is framed for defense.                                       |
+| Authority model     | Authoritative. The spec and constitution confine the build to a scope it must follow. | Non-authoritative. SDH adapts to the scenario, and the user can reword, drop, or scope down.                   |
+| State assumption    | A forward build from a specification.                                                 | State-independent: empty directory, project in progress, a single PR, or legacy.                               |
+| End condition       | Ends when the feature is built.                                                       | Closable. A finding reaches a settled state, reopened only when the code changes.                              |
+| Governing document  | A constitution of principles the agent must adhere to.                                | A charter of risk-framed principles (each carries a `Why:` line), explicitly not a fixed contract.             |
+| How knowledge grows | Add a command (or extend the phase set).                                              | Add a non-invocable knowledge module the agent loads on demand: one file plus one catalog row, no new command. |
+| Who it serves       | A builder driving a feature forward.                                                  | Any user, developer or not, served through the same flow.                                                      |
+| What changes code   | The implement phase generates the build.                                              | Only the harden phase changes code, one fix at a time, confirmed first.                                        |
+
+**Table 3.** SDD versus SDH across eight axes. Borrowed structure, inverted contract.
+
+In fairness to the lineage: SDD is proven prior art, and SDH owes it the structure it runs on. The divergence is not a criticism of SDD, which solves a different problem (building forward) well. SDH takes the same proven machinery and points it at defense, adaptivity, and closure. OpenSpec `[3]`, organized around change proposals, task lists, and per-change specs, confirms the pattern: the family drives a build forward from a spec, where SDH hardens a system inward from its detected context. Even SDH's preventive mode (`§IX`), the one place it accompanies a forward build, keeps the inverted contract: it governs how the work is built and never decides what to build.
+
+---
+
+## XI. Engineering rigor: the tracking discipline
+
+The reconcile-never-append discipline (`§V`) needs a substrate that survives refactors. A finding must stay one item across every phase that touches it, and a renamed or moved file must not break the chain. SDH solves this with **identity-by-name** and **paths held only in tracking**.
+
+> **Definition**
+>
+> **Identity-by-name:** A finding's identity is its name, written identically in every artifact. The prose carries the name, never a path. File paths live only in the tracking map, so a rename or a moved file breaks the link in exactly one place.
+
+Each detect finding is one tracked item. Its identity is its **name**, the section title, written identically in the detect map, the plan, and the hardening record. The later phases reuse that name verbatim as they act on the same item, and verify writes its verdict onto the hardening record under that same name. The tracking map (`.lagune/tracking.json`) holds tracking and nothing else:
+
+```json
+{
+  "name": "lagune",
+  "entries": [{ "name": "File uploads", "paths": ["src/routes/upload.ts"] }]
+}
+```
+
+The map records no prose, no annotations, no separate identifier, and no phase. The prose artifacts carry the wording, and the map carries only identity and paths. File paths are the one volatile thing, and they live only here. A rename or a moved file can break the link in exactly one place, never in two diverging copies.
+
+```mermaid
+flowchart TB
+    detect["detect.md"] --> name
+    plan["plan.md"] --> name
+    harden["harden.md<br/>verify writes its verdict here"] --> name
+    name["name = &quot;File uploads&quot;<br/>the prose carries the name, never a path"]
+    name -.-> tracking
+    tracking["tracking.json<br/>entries: [ { name: &quot;File uploads&quot;,<br/>paths: [&quot;src/routes/upload.ts&quot;] } ]<br/>the path lives only here; a rename corrects only this entry"]
+```
+
+**Figure 5.** The identity conveyor. One finding name flows through every artifact, while its path lives only in the tracking map, so a rename is corrected in one place.
+
+Two acts maintain the map in the normal flow, and a third stands apart as maintenance. **Track** is additive registration: a phase reports the findings it wrote, and the engine records the new ones and follows a renamed path for the rest, classifying each as new, moved, or unchanged. It never removes anything the phase did not report. **Untrack** stands the findings verify closed down: in one deterministic pass it distills each into its history entry, removes its whole section from the artifacts, deletes an artifact whose last finding is gone, and drops its tracking entry, so the agent performs none of that by hand. Where the deterministic pass cannot go safely, a stood-down name still quoted in another finding's prose, it flags the spot for the agent rather than guess an edit. These two are what the phases call as they run. **Repair** is the maintenance act: a phase delegates to it automatically when its own reconciliation finds the tracking inconsistent (a recorded path that no longer exists), and otherwise it is run on demand. It realigns the whole map at once, reading every artifact and the current code, correcting each item's paths, and surfacing what it cannot decide alone, an orphan (a tracked item no artifact names anymore) or a renamed-candidate (an item whose paths match a different reported name).
+
+Repair is maintenance, not a sixth phase. It touches neither the user's code nor the prose artifacts, only the tracking. It reads the user's source for one reason only, to learn a renamed file's new path, and it never authors security content. The human is the final arbiter on the one call the engine refuses to guess: whether a vanished item was resolved or merely renamed. Prefer to ask than to guess, because a wrongly dropped item breaks the chain.
+
+The methodology applies its own defense discipline to itself. The deterministic engines ship as hooks invoked as a command-line program, and each input is passed as its own process argument, which keeps it inert, so a value with quotes or backticks can never inject into the command. SDH does not exempt its own plumbing from the safe-by-default principle.
+
+---
+
+## XII. The carrier: agent-agnostic architecture as a portability proof
+
+For SDH to be a convention others adopt, it must not be tied to one agent or one stack. Lagune proves this is achievable. Its guiding rule is "adapters are data, not code."
+
+The codebase splits into two layers. The **core is agent-agnostic**: the templates, the per-phase content, and the context-detection logic know nothing about which agent runs them. This is where the security value lives, and it is written once. An **adapter is thin**: its only job is to translate the core's commands into the format and location a given agent expects. It carries no security logic of its own.
+
+Each supported agent is a single row in a registry, declaring its key, display name, command format, and target directory. A factory turns each row into a provider. Adding an agent is adding a row, not writing a module. The same core command renders into six packaging formats from one markdown source with an arguments placeholder: a skill directory, a Copilot prompt file, a plain markdown command, a Forge command, a TOML command, and a Goose YAML recipe. A future agent is one more row, leaving the core untouched.
+
+```mermaid
+flowchart TB
+    core["one agent-agnostic core<br/>(templates, phase content, context detection)"]
+    core --> dispatcher
+    dispatcher["format dispatcher<br/>render the same command per format"]
+    dispatcher --> skill["skill<br/>(.claude)"]
+    dispatcher --> copilot["copilot<br/>(.github)"]
+    dispatcher --> markdown["markdown<br/>(.opencode)"]
+    dispatcher --> toml["TOML<br/>(gemini)"]
+    dispatcher --> goose["Goose ...<br/>(.goose)"]
+    dispatcher -.-> lagune[".lagune/<br/>(charter, phase artifacts, hooks,<br/>knowledge modules, tracking)"]
+```
+
+**Figure 6.** The agent-agnostic carrier. One core renders through a format dispatcher into each agent's packaging, with the project state as a shared sibling.
+
+What the carrier produces in a project follows the same separation. It scaffolds two things: a state directory holding the agent-agnostic artifacts (the charter, each phase's artifact, the knowledge modules, and the tracking map), committed and reviewable like any other part of the project, and the agent's own command directory in that agent's native format. The split in the filesystem mirrors the split in the codebase. None of this is specific to a language or a runtime. The reference implementation happens to be authored in one stack, but the methodology is the core and the adapter boundary, not the toolchain that builds them. The same design could be reimplemented in another language entirely without changing what SDH is.
+
+Portability is what lets SDH be a convention rather than a single vendor's tool. The supported-agent count is verifiable in the registry, not a marketing figure.
+
+---
+
+## XIII. Worked case: SDH end to end
+
+> **Worked Case**
+>
+> **Defensive hardening of an upload and admin surface.**
+> **Context:** a small app that accepts user file uploads and lists them on an admin page.
+> **Pattern:** charter → detect (with on-demand knowledge activated by context) → plan → harden → verify, with one closure and one genuine failure.
+> **Outcome (capability):** one risk verified closed and stood down across the chain, and one control verified _not_ closed and routed back to harden. The verdict reflects the code, not the record.
+
+_This is an illustrative worked example of the methodology's mechanics, not a field-measured study, and it reports no efficacy metrics._
+
+One continuous walkthrough shows the methodology operating, not just its parts. We extend the file-upload thread from `§IV` with an on-demand knowledge activation and a closure, and we include one genuine failure.
+
+1. **charter** proposes the principle "All input is untrusted until validated," with its risk in plain language: input that is not checked is the most common way a system is broken.
+2. **detect** scans the upload route and the small admin page that lists uploaded files. It detects the upload finding (the handler trusts the client's MIME type). The admin page runs in the browser, a context that prompt-on-demand (`§VII`) recognizes, so detect loads the knowledge module for that area and surfaces a second finding, a place where a filename is written into the page as markup rather than text, so a crafted name can run as script in the visitor's browser. Knowledge modules for areas not present in this scope never load, and each skip is recorded with the absence read off the code.
+3. **plan** assigns the upload fix priority Critical, tied to the principle: check the file's real type and size, rename on save, store where code cannot run. It assigns the second fix priority High: render the filename as text, not markup.
+4. **harden** lists the two fixes, asks once for confirmation, then applies the upload fix first (highest priority) and records it Applied, and the second next, Applied.
+5. **verify** reads each spot and confronts code against record. The upload control holds: the handler detects the real type from content, enforces a size limit, and refuses the rest. Verdict: risk closed. Verify stands the upload finding down across the whole chain, and its distilled summary lands in the history.
+
+The genuine failure follows. Suppose harden's second fix added a safe text-rendering helper but left the old markup-writing call still reachable on another code path. Verify reads the page, sees the safe helper, and also sees the unsafe path is still live. The control is present, but the risk is not closed. Verify refuses to soften the verdict to match the record. It returns "risk not closed," records the gap, and points back to harden. A control that does not fully address the risk is not a pass.
+
+This is the methodology's character in one example: context-aware detection, prioritized fixes tied to principles, careful application, and a verification that reports the actual state of the code regardless of the record.
+
+---
+
+## XIV. When to use SDH, and its limits
+
+SDH is rarely disproportionate in the way a heavy process can be, because it is state-independent and closable: it scales down to a single file and a single concern, and it reaches a settled state instead of leaving a standing burden. Its boundary is not project size, it is **depth of assurance**.
+
+```mermaid
+flowchart TB
+    q1{"Does the code do anything security-relevant?<br/>(input, auth, data, secrets, external calls)"}
+    q1 -->|no| little["SDH adds little here."]
+    q1 -->|yes| q2{"Run SDH. Is there a compliance bar,<br/>or a dedicated security function?"}
+    q2 -->|no| baseline["SDH is a defensible baseline."]
+    q2 -->|yes| carrier["SDH is the structured carrier:<br/>it supports expert review and audit,<br/>it does not replace them."]
+```
+
+**Figure 7.** When to use SDH. The branch is security relevance first, then depth of assurance, never project size.
+
+Where SDH reaches its boundary: behavior that only appears when the system runs (verify reads code, it does not execute the system), risk that depends on configuration or an environment the agent cannot read, and high-stakes contexts where expert review is required regardless. In each of these, SDH still adds value as a structured first pass, but it is a floor, not a ceiling.
+
+> **Key Insight**
+>
+> **The boundary:** SDH's limit is depth of assurance, not project size. It can serve as a defensible baseline almost anywhere, and it supports expert review where stakes demand it, but it does not replace running-system testing or a security professional's judgment.
+
+---
+
+## XV. Discussion: positioning, limits, and what SDH does not claim
+
+SDH is precise about its boundaries.
+
+### It extends, it does not replace
+
+SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's knowledge (`§VI`). A measured claim is the right one: applied well, SDH **can** close real risks effectively, especially for projects that would otherwise get no security pass at all. It is not a guarantee, and it is not a substitute for expert review where the stakes demand one.
+
+### Defense only, by construction
+
+SDH audits, hardens, and verifies. It never produces offensive tooling, exploits, or detection-evasion for harm. Dual-use security content is acceptable only in a clearly defensive, authorized framing. This is a hard boundary, not a preference.
+
+### Verification is substantive, not theatrical
+
+Verify verifies by reading the code and confronting it with the record, not by running the system. This is static verification: it confirms a control is present and correct in the code, and it does not prove the control holds under attack at runtime. So "cannot tell from the code" is a legitimate verdict, not a failure concealed behind a passing result. When the evidence is not in the code (it depends on configuration, or a path the agent cannot read), SDH says so rather than guessing.
+
+### Determinism is scoped, and named
+
+Most of SDH is agent-reasoned, which is what enables its context-awareness. Determinism is reserved for the deterministic engines: the checkers a knowledge module may carry (`§VII`) and the tracking engine (`§XI`). The document does not blur this line. Where a result is deterministic, it is a program's result. Where it is reasoned, it is the agent's reading of the code, with the user as the final arbiter.
+
+### Cost and scale
+
+A full scan is token-heavy. The manual modes (`§VI`, `§VIII`) exist partly to keep the cost proportional to the concern.
+
+### The user is the final arbiter
+
+SDH confirms before it changes code, and asks the human to decide renamed-versus-resolved. The methodology proposes and verifies. It does not overrule the person.
+
+### Objections and responses
+
+A fair skeptic will raise several objections. The substantive ones are worth posing in their own words.
+
+**"Isn't this just a static analyzer with an LLM bolted on?"** No. A static analyzer runs every rule it has by default. SDH detects what the system is first, then reaches for the relevant knowledge (`§II`, `§VII`), and it _embeds_ a deterministic checker only where a risk class has a crisp decision procedure. The reasoning is context-first, the determinism is targeted.
+
+**"Isn't this just a security checklist?"** A checklist knows security in general and nothing about the project in front of it. SDH inverts that: detection comes first, and knowledge is pulled in for what the project actually does (`§II`, `§VII`).
+
+**"Isn't this just SDD rebranded for security?"** No. SDH borrows SDD's structure and inverts its contract: authority, state assumption, end condition, and who it serves all differ (`§X`). Same machinery, opposite direction.
+
+**"Doesn't an AI-reasoned method just hallucinate findings?"** The design constrains invention rather than trusting the model to behave. Detect records only what the code supports ("detection, not invention," `§IV`), verify confronts code against record and may answer "cannot tell from the code" (`§XV`), deterministic checkers ground the decidable cases (`§VII`), and the user is the final arbiter. This does not make the agent infallible, it makes its claims checkable.
+
+A note on positioning. SDH is defined here independently of its reference implementation. The five phases, the risk-framed charter, reconcile-never-append and its closability, prompt-on-demand knowledge, the preventive mode, identity-by-name tracking, and the defense-only boundary are the methodology. Another team could implement them in another stack and another agent ecosystem, and the result would still be SDH. Lagune is its proof, not its definition.
+
+---
+
+## XVI. Pitfalls, and how SDH structurally avoids them
+
+Methodologies in this family share a known set of failure modes. SDH's answer to most of them is structural, baked into the flow rather than left to discipline.
+
+| Pitfall                          | The failure                                     | SDH's structural answer                                                                                              |
+| -------------------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Spec rot, stale backlog          | Artifacts accumulate dead entries no one trusts | Reconcile-never-append (`§V`): each run re-checks every entry and removes what is resolved                           |
+| False confidence, passing result | A present control is assumed to close the risk  | Verify confronts code against record, so "risk not closed" and "cannot tell" are first-class verdicts (`§IV`, `§XV`) |
+| Checklist flood                  | Generic items obscure the one risk that matters | Context-aware over generic, with prompt-on-demand loading only what the scope calls for (`§VII`)                     |
+| Tooling lock-in                  | The method is welded to one vendor or agent     | Agent-agnostic carrier, adapters are data (`§XII`)                                                                   |
+| The endless loop                 | The backlog never closes, the work never rests  | Closability and the settled state (`§V`)                                                                             |
+
+**Table 4.** Known pitfalls in this methodology family and SDH's structural answer to each.
+
+Naming the pitfall and pointing at the mechanism is the point: these are not warnings to be careful, they are properties of the flow.
+
+---
+
+## XVII. Future work
+
+The methodology and its reference implementation have clear next steps.
+
+- **Grow the knowledge catalog:**
+  Each addition keeps the `§VII` shape: a knowledge file and a catalog row, no new command. The user-side path already exists there: the user distills their own modules on demand. More built-in languages, runtimes, and risk classes are the maintainer-side direction, and the modules are expected to evolve.
+- **More deterministic checkers:**
+  Where a risk class has a crisp decision procedure, a knowledge module can ship a deterministic engine that grounds the agent's reasoning in a repeatable check. Extending this to more risk classes is a natural direction.
+- **Empirical evaluation:**
+  The strongest open question is measured efficacy: closure quality and false-verdict rates across real codebases. A study of SDH's security outcomes is future work, and the claims here are scoped accordingly.
+- **Multi-agent breadth:**
+  Keeping the carrier's breadth current as the ecosystem moves is ongoing work, and the "adapters are data" design is what keeps the cost of it low.
+
+---
+
+## XVIII. Conclusion
+
+AI-assisted development opened a security gap that generic checklists cannot fill, because the risk that matters is specific to what a system actually does, and the person shipping it may not know what to ask for. SDH closes that gap with a context-aware, defense-only, closable flow in which the security knowledge lives in the methodology and its on-demand modules, a baseline every user can build on. It detects the system's real context, triages the risks that context carries, applies fixes carefully, and verifies each one, then stands down what it has closed so each finding reaches an end state. The same defense also runs preventively while new work is built, so what the flow closes stays closed. It adapts to any development state in any stack, and it extends the developer's knowledge instead of replacing the people and tools that already do that job.
+
+Lagune is the proof, but the contribution is the convention. SDH is offered as the essential security flow for the era of development with AI, for others to adopt, refine, and implement in their own stacks.
+
+---
+
+## References
+
+**[1]** D. B. Piskala, "Spec-Driven Development: From Code to Contract in the Age of AI Coding Assistants," arXiv preprint arXiv:2602.00180v1 [cs.SE], Jan. 2026. (Submitted to AIWare 2026.) [Online]. Available: https://arxiv.org/abs/2602.00180
+
+**[2]** GitHub, "Spec Kit: Toolkit for Spec-Driven Development." [Online]. Available: https://github.com/github/spec-kit. Accessed: 2026.
+
+**[3]** Fission AI, "OpenSpec: Spec-Driven Development for AI Coding Assistants." [Online]. Available: https://github.com/Fission-AI/OpenSpec. Accessed: 2026.
+
+**[4]** B. Chess and G. McGraw, "Static Analysis for Security," IEEE Security & Privacy, vol. 2, no. 6, pp. 76-79, 2004, doi: 10.1109/MSP.2004.111.
+
+**[5]** OWASP Foundation, "Source Code Analysis Tools." [Online]. Available: https://owasp.org/www-community/Source_Code_Analysis_Tools. Accessed: 2026.
+
+**[6]** OWASP Foundation, "OWASP Top 10:2021." [Online]. Available: https://owasp.org/Top10/. Accessed: 2026.
+
+**[7]** MITRE, "Common Weakness Enumeration (CWE)." [Online]. Available: https://cwe.mitre.org/. Accessed: 2026.
+
+**[8]** N. Perry, M. Srivastava, D. Kumar, and D. Boneh, "Do Users Write More Insecure Code with AI Assistants?," in Proc. ACM SIGSAC Conf. on Computer and Communications Security (CCS '23), 2023, pp. 2785-2799, doi: 10.1145/3576915.3623157. [Online]. Available: https://arxiv.org/abs/2211.03622
+
+**[9]** J. Davis and contributors, "safe-regex: Detect Possibly Catastrophic, Exponential-Time Regular Expressions." [Online]. Available: https://github.com/davisjam/safe-regex. Accessed: 2026.
+
+**[10]** D. Soshnikov, "regexp-tree: Regular Expressions Processor in JavaScript." [Online]. Available: https://github.com/DmitrySoshnikov/regexp-tree. Accessed: 2026.
+
+**[11]** T. Jenkinson, "redos-detector: A CLI and Library to Score How Vulnerable a Regex Pattern Is to ReDoS Attacks." [Online]. Available: https://github.com/tjenkinson/redos-detector. Accessed: 2026.
+
+---
+
+## Appendix A: The principles, verbatim
+
+1. **Safe-by-default, in plain language, for everyone equally:**
+   Every default, message, and fix must be safe out of the box and intelligible to any user, developer or not. No user tier is privileged over another.
+2. **Context-aware over generic:**
+   Every phase must start from the context detected in detect and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The security knowledge lives in the spec and its on-demand modules, extending whatever the user brings.
+3. **Flexible over rigid:**
+   SDH flexes to the project and the user. Principles, requirements, and recommendations are starting points, not a fixed contract. Let the user reword, drop, add, or scope anything down. Flexibility never weakens the safe-by-default baseline, it only lets the user shape how it is applied.
+4. **Reconcile, never append-only:**
+   Artifacts are living documents, not logs. When a phase re-runs, reconcile each existing entry against the current truth: keep what still holds, rewrite what changed, and remove what no longer applies. Closure is this same reconcile reaching its conclusion.
+5. **Defense only:**
+   SDH audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm. Dual-use security content is acceptable only in a clearly defensive, authorized framing.
+6. **Spec-first, agent-driven, framed for security:**
+   Build the workflow from a proven structure: templates, commands, a governing charter, and an agent that runs the phases. Reimplement that structure with a defensive purpose.
+
+---
+
+# Lagune Glossary: SDH, Charter, Findings, and Controls
+
+> Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, sub-skills, and specializations.
+
+Canonical: https://lagune.ai/docs/references/glossary
+Last updated: 2026-07-14
+
+Every load-bearing term in Lagune and the Security-Driven Hardening methodology, defined once, in plain language.
+
+### Security-Driven Hardening (SDH)
+
+The methodology Lagune implements: a context-aware, blue-team convention that detects a system's context, triages the risks that context carries, and guides the fixes. The security knowledge lives in the spec and its on-demand sub-skills, so a developer and a non-developer are served through the same flow.
+
+### Lagune
+
+The reference implementation of SDH. A collection of templates and agent commands that an AI agent runs to harden a codebase, distributed via npm and run with `npx`.
+
+### Charter
+
+Lagune's governing layer: a set of security-first principles every later phase must respect. Think of it as the compile-time check for a project's security posture. It is stored at `.lagune/memory/charter.md`.
+
+### Development flow
+
+The universal command `/lagune` that hardens work as it is written. It takes any prompt at any stage, builds what you asked, and hardens it with safe defaults before handing it back, guided by the charter when one exists. It writes nothing to Lagune's tracking, so its only product is the hardened code. Together with the charter (before) and the Blue Team flow (after), it is how Lagune protects during the build.
+
+### Blue Team flow
+
+The five-phase audit at the core of Lagune: charter, detect, plan, harden, verify. Each phase builds on the previous one. "Blue Team" is the security tradition of defenders, as opposed to the offensive Red Team.
+
+### Finding
+
+One detected risk. Each finding carries what it is, why it matters, and the evidence in the code. A finding is the single tracked unit that plan, harden, and verify carry forward, identified by name across every artifact.
+
+### Control
+
+A security measure applied to close a risk. Harden applies controls, verify proves they hold. Lagune never weakens a control to satisfy a prompt.
+
+### Detect
+
+The phase that reads the code and maps what the system does and where the risks are. Its governing rule is detection, not invention: it records only what the code supports.
+
+### Harden
+
+The one phase that touches your code. It applies the plan's fixes one at a time and records each as Applied, Partial, or Blocked. Applied does not mean proven yet.
+
+### Verify
+
+The phase that proves each applied fix holds, by reading the code and confronting it with what harden recorded. It returns one of three verdicts: Risk closed, Risk not closed, or Cannot tell from the code.
+
+### Stand down
+
+When verify proves a risk closed, the finding is stood down: removed from the whole chain, with your confirmation, so it stops being reprocessed.
+
+### Closability
+
+The property that security work has an end state. Because a proven-closed finding is stood down, the flow can come to rest, reopened only when the code changes. SDH is closable, not an endless loop.
+
+### Sub-skill
+
+A focused, language-agnostic security knowledge module that loads only on demand, never by default. A sub-skill is not a command. You can load one into any prompt with `@.lagune/skills/<name>.md`.
+
+### Specialization
+
+A category that groups sub-skills you install together, from `owasp` to per-language ones like `javascript`, `python`, `go`, and `rust`. You pick them with the `--skills` flag at init and change them anytime with `add` and `remove`. The agent commands are always set up, specializations are what you choose on top.
+
+### Prompt-on-demand
+
+The principle that the relevant security knowledge is pulled in for what the project actually is, instead of every check running by default.
+
+### Identity-by-name
+
+Lagune's tracking model: each finding's name, written identically as a section title in every artifact, is its identity throughout the chain. The tracking map (`.lagune/tracking.json`) holds only tracking, never prose.
+
+## Frequently Asked Questions
+
+### What is Security-Driven Hardening (SDH)?
+
+SDH is a context-aware, blue-team security methodology. It detects a system's context, triages the risks that context carries, and guides the fixes, keeping every finding in plain language. Lagune is its reference implementation.
+
+### What is a charter in Lagune?
+
+The charter is Lagune's governing layer, a set of security-first principles every later phase must respect. It is stored at .lagune/memory/charter.md.
+
+### What does it mean to stand down a finding?
+
+When verify proves a risk closed, the finding is stood down: removed from the whole chain with your confirmation, so it stops being reprocessed.
+
+---
+
+# Agent Compatibility: Lagune vs OpenSpec, Spec Kit, and Skills.sh
+
+> Agent-by-agent compatibility of Lagune against other agent-driven workflow tools, OpenSpec, Spec Kit, Superpowers, and Skills.sh.
+
+Canonical: https://lagune.ai/docs/references/comparison
+Last updated: 2026-07-14
+
+Agent-by-agent compatibility across other agent-driven workflow tools: [OpenSpec](https://github.com/Fission-AI/OpenSpec) (v1.4.1), [Spec Kit](https://github.com/github/spec-kit) (v0.10.x), [Superpowers](https://github.com/obra/superpowers) (v6.0.3), and [Skills.sh](https://github.com/vercel-labs/skills) (v1.5.16).
+
+On agent compatibility, Lagune covers **72 agents**, more than OpenSpec (30), Spec Kit (32), Superpowers (10), and Skills.sh (69). Lagune is security-focused where the others are general-purpose workflow tools, so the comparison is compatibility-only.
+
+| Agent                                                                                       | OpenSpec | Spec Kit | Superpowers | Skills.sh | Lagune |
+| ------------------------------------------------------------------------------------------- | :------: | :------: | :---------: | :-------: | :----: |
+| [AdaL](https://docs.sylph.ai/)                                                              |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [AiderDesk](https://github.com/hotovo/aider-desk)                                           |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Amazon Q Developer](https://aws.amazon.com/q/developer/)                                   |    ✅    |    ❌    |     ❌      |    ❌     |   ✅   |
+| [Amp](https://ampcode.com/)                                                                 |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Antigravity](https://antigravity.google/)                                                  |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [AstrBot](https://astrbot.app/)                                                             |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Auggie](https://docs.augmentcode.com/cli/overview)                                         |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Autohand Code CLI](https://autohand.ai/)                                                   |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Claude Code](https://www.anthropic.com/claude-code)                                        |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [Cline](https://github.com/cline/cline)                                                     |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Code Studio](https://www.syncfusion.com/code-studio/)                                      |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [CodeArts Agent (Huawei)](https://codearts.huaweicloud.com/)                                |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [CodeBuddy](https://www.codebuddy.ai/cli)                                                   |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Codemaker](https://github.com/codemakerai)                                                 |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Codex (OpenAI)](https://github.com/openai/codex)                                           |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [Command Code](https://commandcode.ai/)                                                     |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Continue](https://continue.dev/)                                                           |    ✅    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Cortex Code (Snowflake)](https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code) |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [CoStrict](https://github.com/zgsm-ai/costrict)                                             |    ✅    |    ❌    |     ❌      |    ❌     |   ✅   |
+| [Crush](https://github.com/charmbracelet/crush)                                             |    ✅    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Cursor](https://cursor.sh/)                                                                |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [Deep Agents (LangChain)](https://github.com/langchain-ai/deepagents)                       |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Devin](https://cli.devin.ai/docs)                                                          |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Dexto](https://dexto.ai/)                                                                  |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Eve](https://eve.dev/)                                                                     |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Factory Droid](https://factory.ai/)                                                        |    ✅    |    ❌    |     ✅      |    ✅     |   ✅   |
+| [Firebender](https://docs.firebender.com/)                                                  |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Forge / ForgeCode](https://forgecode.dev/)                                                 |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli)                                   |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [GitHub Copilot](https://code.visualstudio.com/)                                            |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [Goose](https://block.github.io/goose/)                                                     |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Hermes](https://hermes-agent.nousresearch.com/)                                            |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [IBM Bob](https://www.ibm.com/products/bob)                                                 |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [iFlow](https://docs.iflow.cn/en/cli/quickstart)                                            |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [inference.sh](https://inference.sh/)                                                       |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Jazz](https://github.com/lvndry/jazz)                                                      |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Junie (JetBrains)](https://junie.jetbrains.com/)                                           |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Kilo Code](https://github.com/Kilo-Org/kilocode)                                           |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Kimi](https://code.kimi.com/)                                                              |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [Kiro](https://kiro.dev/docs/cli/)                                                          |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Kode](https://github.com/shareAI-lab/kode)                                                 |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Lingma](https://lingma.aliyun.com/)                                                        |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Loaf](https://github.com/levifig/loaf)                                                     |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [MCPJam](https://mcpjam.com/)                                                               |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Mistral Vibe](https://github.com/mistralai/mistral-vibe)                                   |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Moxby](https://moxby.com/)                                                                 |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Mux](https://mux.coder.com/)                                                               |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Neovate](https://neovateai.dev/)                                                           |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Ona](https://ona.com/)                                                                     |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [OpenClaw](https://docs.openclaw.ai/)                                                       |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [OpenCode](https://opencode.ai/)                                                            |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [OpenHands](https://docs.openhands.dev/)                                                    |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Pi](https://pi.dev)                                                                        |    ✅    |    ✅    |     ✅      |    ✅     |   ✅   |
+| [Pochi](https://getpochi.com/)                                                              |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [PromptScript](https://getpromptscript.dev/)                                                |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Qoder](https://qoder.com/cli)                                                              |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Qwen Code](https://github.com/QwenLM/qwen-code)                                            |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Reasonix](https://github.com/esengine/DeepSeek-Reasonix)                                   |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Replit](https://replit.com/)                                                               |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Roo Code](https://roocode.com/)                                                            |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [RovoDev (Atlassian)](https://www.atlassian.com/software/rovo-dev)                          |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [SHAI (OVHcloud)](https://github.com/ovh/shai)                                              |    ❌    |    ✅    |     ❌      |    ❌     |   ✅   |
+| [Tabnine CLI](https://docs.tabnine.com/main/getting-started/tabnine-cli)                    |    ❌    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Terramind](https://terramind.com/)                                                         |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Tinycloud](https://tinycloud.cloudglue.dev/)                                               |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Trae](https://www.trae.ai/)                                                                |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [Warp](https://www.warp.dev/)                                                               |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Windsurf](https://windsurf.com/)                                                           |    ✅    |    ✅    |     ❌      |    ✅     |   ✅   |
+| [ZCode](https://zcode.z.ai/)                                                                |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Zed](https://zed.dev/)                                                                     |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Zencoder](https://zencoder.ai/)                                                            |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| [Zenflow](https://zencoder.ai/zenflow)                                                      |    ❌    |    ❌    |     ❌      |    ✅     |   ✅   |
+| **Total**                                                                                   |  **30**  |  **32**  |   **10**    |  **69**   | **72** |
+
+## Frequently Asked Questions
+
+### How does Lagune compare to OpenSpec, Spec Kit, Superpowers, and Skills.sh?
+
+On agent compatibility, Lagune covers 72 agents, more than OpenSpec (30), Spec Kit (32), Superpowers (10), and Skills.sh (69).
+
+### Which agent-workflow tool supports the most agents?
+
+Lagune, at 72 agents in this comparison.
+
+---
+
+# OWASP Sources
+
+> Where the built-in OWASP sub-skill knowledge comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
+
+Canonical: https://lagune.ai/docs/references/skills-sources
+Last updated: 2026-07-10
+
+This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
+
+- Credit belongs to OWASP. Attacks live at `https://owasp.org/www-community/attacks/<attack>` and cheat sheets at `https://cheatsheetseries.owasp.org/cheatsheets/<cheat>.html`.
+
+---
+
+## 1. Injection (generic)
+
+- [x] [Code Injection](https://owasp.org/www-community/attacks/Code_Injection), [Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html), [Injection Prevention in Java](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_in_Java_Cheat_Sheet.html) (interpreter)
+- [x] [Direct Dynamic Code Evaluation (Eval Injection)](https://owasp.org/www-community/attacks/Direct_Dynamic_Code_Evaluation_Eval_Injection) (interpreter)
+- [x] [Function Injection](https://owasp.org/www-community/attacks/Function_Injection) (interpreter)
+- [x] [Resource Injection](https://owasp.org/www-community/attacks/Resource_Injection) (network)
+- [x] [Special Element Injection](https://owasp.org/www-community/attacks/Special_Element_Injection) (interpreter)
+- [x] [Custom Special Character Injection](https://owasp.org/www-community/attacks/Custom_Special_Character_Injection) (interpreter)
+- [x] [Comment Injection Attack](https://owasp.org/www-community/attacks/Comment_Injection_Attack) (interpreter)
+- [x] [Parameter Delimiter](https://owasp.org/www-community/attacks/Parameter_Delimiter) (interpreter)
+- [x] [Server-Side Includes (SSI) Injection](https://owasp.org/www-community/attacks/Server-Side_Includes_%28SSI%29_Injection) (interpreter)
+- [x] [Input Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html), [Bean Validation](https://cheatsheetseries.owasp.org/cheatsheets/Bean_Validation_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 2. SQL / Database Injection
+
+- [x] [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html), [Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) (interpreter)
+- [x] [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) (interpreter)
+- [x] [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF) (interpreter)
+- [x] [RSQL Injection](https://owasp.org/www-community/attacks/RSQL_Injection) (interpreter)
+- [x] [NoSQL Security](https://cheatsheetseries.owasp.org/cheatsheets/NoSQL_Security_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 3. OS / Command Injection
+
+- [x] [Command Injection](https://owasp.org/www-community/attacks/Command_Injection), [OS Command Injection Defense](https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 4. LDAP / XPath / XML Injection
+
+- [x] [LDAP Injection](https://owasp.org/www-community/attacks/LDAP_Injection), [LDAP Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html) (interpreter)
+- [x] [XPATH Injection](https://owasp.org/www-community/attacks/XPATH_Injection) (interpreter)
+- [x] [Blind XPath Injection](https://owasp.org/www-community/attacks/Blind_XPath_Injection) (interpreter)
+- [x] [XML External Entity (XXE) Prevention](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html), [XML Security](https://cheatsheetseries.owasp.org/cheatsheets/XML_Security_Cheat_Sheet.html) (xml)
+
+---
+
+## 5. Cross-Site Scripting (XSS)
+
+- [x] [Cross Site Scripting (XSS)](https://owasp.org/www-community/attacks/Cross-site-Scripting-%28XSS%29), [Cross Site Scripting Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html), [XSS Filter Evasion](https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html) (browser)
+- [x] [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS), [DOM based XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html), [DOM Clobbering Prevention](https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html) (browser)
+- [x] [Reflected DOM Injection](https://owasp.org/www-community/attacks/Reflected_DOM_Injection) (browser)
+- [x] [XSS in Converting File Content to Text](https://owasp.org/www-community/attacks/XSS_in_Converting_File_Content_to_Text) (browser)
+- [x] [XSS in subtitle](https://owasp.org/www-community/attacks/Xss_in_subtitle) (browser)
+- [x] [Cross Frame Scripting](https://owasp.org/www-community/attacks/Cross_Frame_Scripting) (browser)
+- [x] [Cross Site Tracing](https://owasp.org/www-community/attacks/Cross_Site_Tracing) (browser)
+- [x] [Content Security Policy](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html) (browser)
+
+---
+
+## 6. Cross-Site Request Forgery (CSRF) & Clickjacking
+
+- [x] [Cross Site Request Forgery (CSRF)](https://owasp.org/www-community/attacks/cross-site-request-forgery), [XSRF](https://owasp.org/www-community/attacks/XSRF), [Cross-Site Request Forgery Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) (http-request)
+- [x] [Clickjacking](https://owasp.org/www-community/attacks/Clickjacking), [Clickjacking Defense](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html) (browser)
+- [x] [Cross Site History Manipulation (XSHM)](https://owasp.org/www-community/attacks/Cross_Site_History_Manipulation_%28XSHM%29) (browser)
+- [x] [Form action hijacking](https://owasp.org/www-community/attacks/Form_action_hijacking) (network)
+- [x] [Reverse Tabnabbing](https://owasp.org/www-community/attacks/Reverse_Tabnabbing) (browser)
+
+---
+
+## 7. Redirects & Forwards
+
+- [x] [Open Redirect](https://owasp.org/www-community/attacks/open_redirect), [Unvalidated Redirects and Forwards](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) (network)
+- [x] [Execution After Redirect (EAR)](https://owasp.org/www-community/attacks/Execution_After_Redirect_%28EAR%29) (browser)
+
+---
+
+## 8. Access Control & Authorization
+
+- [x] [Insecure Direct Object Reference (IDOR)](https://owasp.org/www-community/attacks/insecure_direct_object_reference), [Insecure Direct Object Reference Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html) (access-control)
+- [x] [Forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) (access-control)
+- [x] [Web Parameter Tampering](https://owasp.org/www-community/attacks/Web_Parameter_Tampering) (access-control)
+- [x] [Setting Manipulation](https://owasp.org/www-community/attacks/Setting_Manipulation) (access-control)
+- [x] [Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) (access-control)
+- [x] [Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html) (access-control)
+- [x] [Mass Assignment](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html) (access-control)
+- [x] [Multi-Tenant Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Multi_Tenant_Security_Cheat_Sheet.html) (access-control)
+
+---
+
+## 9. Authentication & Credentials
+
+- [x] [Brute Force Attack](https://owasp.org/www-community/attacks/Brute_force_attack), [Password Spraying Attack](https://owasp.org/www-community/attacks/Password_Spraying_Attack), [Bot Management and Anti-Automation](https://cheatsheetseries.owasp.org/cheatsheets/Bot_Management_and_Anti-Automation_Cheat_Sheet.html) (credential-endpoint)
+- [x] [Credential stuffing](https://owasp.org/www-community/attacks/Credential_stuffing), [Credential Stuffing Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html) (credential-endpoint)
+- [x] [Qrljacking](https://owasp.org/www-community/attacks/Qrljacking) (federation)
+- [x] [Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html), [Multifactor Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html) (access-control)
+- [x] [Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) (access-control)
+- [x] [Forgot Password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html), [Choosing and Using Security Questions](https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html) (access-control)
+- [x] [Email Validation and Verification in Identity Systems](https://cheatsheetseries.owasp.org/cheatsheets/Email_Validation_and_Verification_Cheat_Sheet.html) (access-control)
+
+---
+
+## 10. Session Management
+
+- [x] [Session fixation](https://owasp.org/www-community/attacks/Session_fixation), [Session hijacking attack](https://owasp.org/www-community/attacks/Session_hijacking_attack), [Session Prediction](https://owasp.org/www-community/attacks/Session_Prediction), [Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) (access-control)
+- [x] [Cookie Theft Mitigation](https://cheatsheetseries.owasp.org/cheatsheets/Cookie_Theft_Mitigation_Cheat_Sheet.html) (access-control)
+
+---
+
+## 11. Identity Federation (OAuth / SAML / JWT)
+
+- [x] [OAuth 2.0 Protocol](https://cheatsheetseries.owasp.org/cheatsheets/OAuth2_Cheat_Sheet.html) (federation)
+- [x] [SAML Security](https://cheatsheetseries.owasp.org/cheatsheets/SAML_Security_Cheat_Sheet.html) (federation)
+- [x] [JSON Web Token for Java](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html) (federation)
+
+---
+
+## 12. Cryptography & Transport Security
+
+- [x] [Cryptanalysis](https://owasp.org/www-community/attacks/Cryptanalysis), [Cryptographic Storage](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html), [Key Management](https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html) (crypto)
+- [x] [Manipulator-in-the-Middle (MITM)](https://owasp.org/www-community/attacks/Man-in-the-middle_attack), [Transport Layer Security](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html) (transport)
+- [x] [HTTP Strict Transport Security](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html) (transport)
+- [x] [Pinning](https://cheatsheetseries.owasp.org/cheatsheets/Pinning_Cheat_Sheet.html) (transport)
+
+---
+
+## 13. Server-Side Request Forgery (SSRF)
+
+- [x] [Server Side Request Forgery](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery), [Server-Side Request Forgery Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html) (network)
+
+---
+
+## 14. Path Traversal & File Handling
+
+- [x] [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal) (path)
+- [x] [Binary Planting](https://owasp.org/www-community/attacks/Binary_planting) (path)
+- [x] [Windows ::DATA Alternate Data Stream](https://owasp.org/www-community/attacks/Windows_DATA_alternate_data_stream) (path)
+- [x] [Embedding Null Code](https://owasp.org/www-community/attacks/Embedding_Null_Code) (path)
+- [x] [File Upload](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html) (upload)
+
+---
+
+## 15. HTTP Protocol Abuse (Headers, Caching, Splitting)
+
+- [x] [HTTP Response Splitting](https://owasp.org/www-community/attacks/HTTP_Response_Splitting), [Cross-User Defacement](https://owasp.org/www-community/attacks/Cross-User_Defacement) (interpreter)
+- [x] [HTTP Security Response Headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html) (split: browser, transport, http-request, access-control)
+- [x] [Cache Poisoning](https://owasp.org/www-community/attacks/Cache_Poisoning) (interpreter)
+- [x] [IP Spoofing via HTTP Headers](https://owasp.org/www-community/attacks/ip_spoofing_via_http_headers) (http-request)
+
+---
+
+## 16. Encoding & Content Spoofing
+
+- [x] [Unicode Encoding](https://owasp.org/www-community/attacks/Unicode_Encoding) (interpreter)
+- [x] [Double Encoding](https://owasp.org/www-community/Double_Encoding) (interpreter)
+- [x] [Content Spoofing](https://owasp.org/www-community/attacks/Content_Spoofing) (browser)
+
+---
+
+## 17. CSV / Spreadsheet Injection
+
+- [x] [CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection) (csv)
+
+---
+
+## 18. CORS (Cross-Origin Resource Sharing)
+
+- [x] [CORS OriginHeaderScrutiny](https://owasp.org/www-community/attacks/CORS_OriginHeaderScrutiny) (http-request)
+- [x] [CORS RequestPreflightScrutiny](https://owasp.org/www-community/attacks/CORS_RequestPreflightScrutiny) (http-request)
+
+---
+
+## 19. Denial of Service
+
+- [x] [Regular expression Denial of Service (ReDoS)](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS) (regex)
+
+---
+
+## 20. Memory Safety & Native Code
+
+- [x] [Buffer Overflow Attack](https://owasp.org/www-community/attacks/Buffer_overflow_attack), [Buffer Overflow via Environment Variables](https://owasp.org/www-community/attacks/Buffer_Overflow_via_Environment_Variables) (c-cpp)
+- [x] [Format string attack](https://owasp.org/www-community/attacks/Format_string_attack) (c-cpp)
+
+---
+
+## 21. Mobile Code & Untrusted Code Execution
+
+- [x] [Mobile code invoking untrusted mobile code](https://owasp.org/www-community/attacks/Mobile_code_invoking_untrusted_mobile_code) (interpreter)
+- [x] [Mobile code non-final public field](https://owasp.org/www-community/attacks/Mobile_code_non-final_public_field) (java)
+- [x] [Mobile code object hijack](https://owasp.org/www-community/attacks/Mobile_code_object_hijack) (java)
+
+---
+
+## 22. Deserialization
+
+- [x] [Deserialization](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html) (split: python, ruby, php, java, dotnet)
+
+---
+
+## 23. Malware & Client-Side Threats
+
+- [x] [Man-in-the-browser attack](https://owasp.org/www-community/attacks/Man-in-the-browser_attack), [Browser Extension Security Vulnerabilities](https://cheatsheetseries.owasp.org/cheatsheets/Browser_Extension_Vulnerabilities_Cheat_Sheet.html) (browser)
+- [x] [Third Party JavaScript Management](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Javascript_Management_Cheat_Sheet.html) (browser)
+
+---
+
+## 24. Logging, Repudiation & Error Handling
+
+- [x] [Log Injection](https://owasp.org/www-community/attacks/Log_Injection), [Logging](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), [Application Logging Vocabulary](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Vocabulary_Cheat_Sheet.html) (interpreter)
+- [x] [Repudiation Attack](https://owasp.org/www-community/attacks/Repudiation_Attack) (interpreter)
+
+---
+
+## 25. Business Logic & Abuse of Functionality
+
+Business logic and abuse of functionality have no single code surface a per-surface sub-skill defends: the defense is application-specific design, the same reasoning the project's threat modeling drives. Moved to "Out of scope".
+
+---
+
+## 26. AI / LLM / Agent Security
+
+- [x] [Prompt Injection](https://owasp.org/www-community/attacks/prompt-injection), [LLM Prompt Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html) (llm)
+- [x] [MCP Tool Poisoning](https://owasp.org/www-community/attacks/MCP_Tool_Poisoning), [MCP (Model Context Protocol) Security](https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html) (llm)
+- [x] [HITL Dialog Forging (Lies-in-the-Loop)](https://owasp.org/www-community/attacks/lies-in-the-loop) (llm)
+- [x] [AI Agent Security](https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html), [Secure Coding with AI](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Coding_with_AI_Cheat_Sheet.html) (llm)
+- [x] [Retrieval-Augmented Generation (RAG) Security](https://cheatsheetseries.owasp.org/cheatsheets/RAG_Security_Cheat_Sheet.html) (llm)
+- [x] [Secure AI/ML Model Ops](https://cheatsheetseries.owasp.org/cheatsheets/Secure_AI_Model_Ops_Cheat_Sheet.html) (llm)
+- [x] [AML and Sanctions Compliance for AI Agent Payments](https://cheatsheetseries.owasp.org/cheatsheets/AML_Sanctions_AI_Agent_Payments_Cheat_Sheet.html) (llm)
+
+---
+
+## 27. Prototype Pollution & Cross-Site Leaks
+
+- [x] [Prototype Pollution Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html) (javascript)
+- [x] [Cross-site leaks (XS-Leaks)](https://cheatsheetseries.owasp.org/cheatsheets/XS_Leaks_Cheat_Sheet.html) (browser)
+
+---
+
+## 28. Frameworks & Language Platforms
+
+- [x] [Django Security](https://cheatsheetseries.owasp.org/cheatsheets/Django_Security_Cheat_Sheet.html), [Django REST Framework](https://cheatsheetseries.owasp.org/cheatsheets/Django_REST_Framework_Cheat_Sheet.html) (python)
+- [x] [Ruby on Rails](https://cheatsheetseries.owasp.org/cheatsheets/Ruby_on_Rails_Cheat_Sheet.html) (ruby)
+- [x] [Laravel](https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html) (php)
+- [x] [Symfony](https://cheatsheetseries.owasp.org/cheatsheets/Symfony_Cheat_Sheet.html) (php)
+- [x] [Java Security](https://cheatsheetseries.owasp.org/cheatsheets/Java_Security_Cheat_Sheet.html) (java)
+- [x] [DotNet Security](https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html) (dotnet)
+- [x] [NodeJS Security](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html) (javascript)
+- [x] [PHP Configuration](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html) (php)
+
+---
+
+## 29. Web Front-End & Browser
+
+- [x] [HTML5 Security](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html) (browser)
+- [x] [AJAX Security](https://cheatsheetseries.owasp.org/cheatsheets/AJAX_Security_Cheat_Sheet.html) (browser)
+- [x] [Securing Cascading Style Sheets](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html) (split: access-control, browser)
+
+---
+
+## 30. APIs & Services
+
+- [x] [GraphQL](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html) (api-endpoint)
+- [x] [gRPC Security](https://cheatsheetseries.owasp.org/cheatsheets/gRPC_Security_Cheat_Sheet.html) (api-endpoint)
+- [x] [WebSocket Security](https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html) (api-endpoint)
+
+---
+
+## 31. Cloud, Containers & Infrastructure
+
+Container and workload config is config-as-code the developer ships with the app (`Dockerfile`, Compose, Pod `securityContext`), a real surface `harden` fixes and `verify` proves, so it is in scope. Cluster administration (RBAC, etcd, API server, admission, network segmentation) is the operator's domain and stays out of scope.
+
+- [x] [Docker Security](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html), [Node.js Docker](https://cheatsheetseries.owasp.org/cheatsheets/NodeJS_Docker_Cheat_Sheet.html) (container)
+- [x] [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) (container — the workload/Pod portion; cluster administration stays out of scope)
+- [x] [Serverless / FaaS Security](https://cheatsheetseries.owasp.org/cheatsheets/Serverless_FaaS_Security_Cheat_Sheet.html) (serverless)
+
+---
+
+## 32. Supply Chain & CI/CD
+
+- [x] [NPM Security](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html) (interpreter)
+- [x] [Dependency Graph & SBOM Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Dependency_Graph_SBOM_Cheat_Sheet.html), [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 33. Secrets & Configuration
+
+Secrets management is operational: vaults, CI/CD, cloud config, rotation. The one code-level facet (a secret hardcoded in source) is a deterministic scan, not a risk sub-skill. Moved to "Out of scope".
+
+---
+
+## 34. Process, Design & Governance
+
+User privacy protection is policy and design (data minimization, transparency, retention), not a code surface a sub-skill defends. Moved to "Out of scope".
+
+---
+
+## 35. Payments & Compliance
+
+- [x] [Secure Integration of Third-Party Payment Gateways](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Payment_Gateway_Integration_Cheat_Sheet.html) (payment)
+
+---
+
+## 36. Embedded / IoT / Specialized Domains
+
+Automotive and drone security are embedded-system domains (CAN bus, OTA firmware, sensor and radio integrity, physical access), not the web/API application source Lagune audits. Moved to "Out of scope".
+
+---
+
+## Out of scope (no code surface)
+
+These are not sub-skill terrains and carry no checkbox: they are governance, process, operational hardening, or framework usage with no single code surface a per-surface sub-skill defends. Their security value is real, but it lives in process and architecture (or, for a framework, in that language's own skill), not in a defense this catalog ships. Listed for reference, not as work.
+
+- [Database Security](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html)
+- [Authorization Regression Testing](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Regression_Testing_Cheat_Sheet.html), [Authorization Testing Automation](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Testing_Automation_Cheat_Sheet.html)
+- [JAAS](https://cheatsheetseries.owasp.org/cheatsheets/JAAS_Cheat_Sheet.html)
+- [Denial of Service](https://owasp.org/www-community/attacks/Denial_of_Service), [Denial of Service](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)
+- [HTTP/2 Reset Attack](https://owasp.org/www-community/attacks/HTTP2_Reset_Attack)
+- [Traffic flood](https://owasp.org/www-community/attacks/Traffic_flood)
+- [Web Service Amplification Attack](https://owasp.org/www-community/attacks/web_service_amplificaiton) (SOAP/WS-Addressing amplification, a DoS variant; operational, no code surface)
+- [Cash Overflow](https://owasp.org/www-community/attacks/Cash_Overflow)
+- [Spyware](https://owasp.org/www-community/attacks/Spyware), [Trojan Horse](https://owasp.org/www-community/attacks/Trojan_Horse) (end-user malware, not a code surface in the audited project; the in-browser delivery facet lives in `browser`)
+- [REST Security](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html), [REST Assessment](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
+- [Web Service Security](https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html)
+- [Cloud Architecture Security](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Cloud_Architecture_Cheat_Sheet.html) (design and trade-offs: IAM vs signed URLs, public/private VPCs, trust boundaries, shared-responsibility; no concrete config a sub-skill rewrites, unlike `container`)
+- [Infrastructure as Code Security](https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html) (despite the name, it is SDLC process and tooling for _managing_ IaC: IDE plugins, static analysis, image scanning, CI/CD, signing; no insecure-pattern-to-safe-shape in a Terraform/CloudFormation file)
+- [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) — _cluster-administration portion only_ (RBAC, etcd, API server, admission); the workload/Pod portion is in scope under `container`
+- [Network Segmentation](https://cheatsheetseries.owasp.org/cheatsheets/Network_Segmentation_Cheat_Sheet.html) (network architecture and firewall policy)
+- [Subdomain Takeover Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Subdomain_Takeover_Prevention_Cheat_Sheet.html) (DNS lifecycle and monitoring, not code)
+- [Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) (vaults, CI/CD, rotation; the hardcoded-secret facet is a deterministic scan, not a risk sub-skill)
+- [C-Based Toolchain Hardening](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html) (compiler, linker, and build flags; no source sink)
+- [Microservices Security](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_Security_Cheat_Sheet.html), [Microservices based Security Arch Doc](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_based_Security_Arch_Doc_Cheat_Sheet.html)
+- [Zero Trust Architecture](https://cheatsheetseries.owasp.org/cheatsheets/Zero_Trust_Architecture_Cheat_Sheet.html)
+- [CI/CD Security](https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html), [GitHub Actions Security](https://cheatsheetseries.owasp.org/cheatsheets/GitHub_Actions_Security_Cheat_Sheet.html)
+- [Software Supply Chain Security](https://cheatsheetseries.owasp.org/cheatsheets/Software_Supply_Chain_Security_Cheat_Sheet.html)
+- [Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html), [Full Path Disclosure](https://owasp.org/www-community/attacks/Full_Path_Disclosure) (global error-handler configuration per stack; the leak is the same disclosure error handling already governs)
+- [Abuse of Functionality](https://owasp.org/www-community/attacks/Abuse_of_Functionality), [Business Logic Security](https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html), [Abuse Case _(historical)_](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html) (application-specific design, no single code sink)
+- [User Privacy Protection](https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html) (data minimization, transparency, retention policy)
+- [Top 10 Automotive Security Vulnerabilities](https://cheatsheetseries.owasp.org/cheatsheets/Automotive_Security_Cheat_Sheet.html), [Drone Security](https://cheatsheetseries.owasp.org/cheatsheets/Drone_Security_Cheat_Sheet.html) (embedded-system domains: CAN bus, OTA firmware, sensor/radio integrity, not web/API source)
+- [Mobile Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Mobile_Application_Security_Cheat_Sheet.html) (Android/iOS platform hardening: storage, biometrics, pinning, PII; no single code surface. The untrusted-code-loading facet went to `interpreter`)
+- [Threat Modeling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html), [Threat Modeling _(community page)_](https://owasp.org/www-community/Threat_Modeling)
+- [Attack Surface Analysis](https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html)
+- [Secure Product Design](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Product_Design_Cheat_Sheet.html)
+- [Secure Code Review](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Code_Review_Cheat_Sheet.html)
+- [Virtual Patching](https://cheatsheetseries.owasp.org/cheatsheets/Virtual_Patching_Cheat_Sheet.html)
+- [Vulnerability Disclosure](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html)
+- [Legacy Application Management](https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html)
+- [Security Terminology](https://cheatsheetseries.owasp.org/cheatsheets/Security_Terminology_Cheat_Sheet.html)
+
+---
+
+# /lagune.repair: Fix Broken Finding Tracking
+
+> Repair the chain when a rename or a moved file confuses Lagune's tracking.
+
+Canonical: https://lagune.ai/docs/commands/repair
+Last updated: 2026-07-13
+
+🧰 Repair the chain when a rename or a moved file confuses it.
+
+**Internal maintenance, not a security phase**
+
+Repair is not a sixth phase in the linear flow. Its job is to keep the tracking coherent.
+
+```prompt
+# It takes no input: it always repairs the whole chain
+/lagune.repair
+```
+
+## How it works
+
+Each detect finding is one tracked item that plan, harden, and verify carry forward, each acting on it and re-reporting it by name. That name, written identically as the section title in every artifact, is its identity throughout.
+
+The one volatile thing the tracking stores is the file paths the item points at. Those paths live nowhere else, so a rename or a moved file can break the link only there, never in two diverging copies. When that happens, repair corrects the map (`.lagune/tracking.json`) so identity survives the rename. It reads the artifacts and the tracking map, reads your source only to learn a renamed file's new path, and never authors security content.
+
+**Tip**
+
+- It touches neither your code nor the prose artifacts, only the tracking.
+- You rarely run it by hand. When a phase notices the chain is inconsistent, it runs repair for you and continues.
+- The tracking it maintains lives in `.lagune/tracking.json`, internal state you never edit by hand.
+
+---
+
+# Migrate
+
+> Move a legacy .bluespec/ install to Lagune with a single command, keeping your charter, artifacts, tracking, and own sub-skills.
+
+Canonical: https://lagune.ai/docs/commands/migrate
+Last updated: 2026-07-10
+
+🔀 Move a legacy `.bluespec/` install to **Lagune**, keeping everything you wrote.
+
+**For projects installed under the legacy name**
+
+If your project was set up by the legacy `blue-spec` package, its state lives in `.bluespec/` and its agent commands answer to `/bluespec.*`. Migrate brings all of it to Lagune in one run.
+
+Run it once, from the project root:
+
+```bash
+npx -y lagune@latest migrate
+```
+
+**Your memories and specializations are never lost**
+
+Only the old name inside them changes, never the content. The one exception, as in [`update`](https://lagune.ai/docs/get-started/install#update): a built-in you refined is reset to the shipped version, still recoverable from your git history.
+
+**Tip**
+
+In doubt? Make sure your project's current state is committed before running the migration.
+
+## What changes
+
+Once migrated, your project will answer to the new commands and paths:
+
+**Commands**
+
+| Before                 | After                |
+| ---------------------- | -------------------- |
+| `/bluespec`            | `/lagune`            |
+| `/bluespec.charter`    | `/lagune.charter`    |
+| `/bluespec.detect`     | `/lagune.detect`     |
+| `/bluespec.plan`       | `/lagune.plan`       |
+| `/bluespec.harden`     | `/lagune.harden`     |
+| `/bluespec.verify`     | `/lagune.verify`     |
+| `/bluespec.repair`     | `/lagune.repair`     |
+| `/bluespec.specialize` | `/lagune.specialize` |
+| `/bluespec.prove`      | `/lagune.prove`      |
+
+**Files**
+
+In your `.gitignore`, every line of the legacy block is rewritten in place (an entry missing from an older block is backfilled):
+
+| Before                                   | After                                  |
+| ---------------------------------------- | -------------------------------------- |
+| `# Blue Spec`                            | `# Lagune`                             |
+| `/.bluespec/templates/`                  | `/.lagune/templates/`                  |
+| `/.bluespec/hooks/`                      | `/.lagune/hooks/`                      |
+| `/.bluespec/proofs/`                     | `/.lagune/proofs/`                     |
+| `/.bluespec/specializations.md`          | `/.lagune/specializations.md`          |
+| `/.bluespec/skills/*`                    | `/.lagune/skills/*`                    |
+| `!/.bluespec/skills/<your-sub-skill>.md` | `!/.lagune/skills/<your-sub-skill>.md` |
+| `/**/bluespec.*`                         | `/**/lagune.*`                         |
+| `/**/bluespec/`                          | `/**/lagune/`                          |
+
+In `.lagune/manifest.json` and `.lagune/tracking.json`, the identity field is renamed and everything else is kept:
+
+| Before                | After              |
+| --------------------- | ------------------ |
+| `"name": "blue-spec"` | `"name": "lagune"` |
+
+**Paths**
+
+Lagune's own state moves as one directory:
+
+| Before       | After      |
+| ------------ | ---------- |
+| `.bluespec/` | `.lagune/` |
+
+In your agent's own location, the command artifacts are renamed, one line per supported agent:
+
+| Before                                   | After                                  |
+| ---------------------------------------- | -------------------------------------- |
+| `.agent/skills/bluespec*`                | `.agent/skills/lagune*`                |
+| `.agents/commands/bluespec*.md`          | `.agents/commands/lagune*.md`          |
+| `.amazonq/prompts/bluespec*.md`          | `.amazonq/prompts/lagune*.md`          |
+| `.augment/commands/bluespec*.md`         | `.augment/commands/lagune*.md`         |
+| `.bob/commands/bluespec*.md`             | `.bob/commands/lagune*.md`             |
+| `.claude/skills/bluespec*`               | `.claude/skills/lagune*`               |
+| `.clinerules/workflows/bluespec*.md`     | `.clinerules/workflows/lagune*.md`     |
+| `.codebuddy/commands/bluespec*.md`       | `.codebuddy/commands/lagune*.md`       |
+| `.codex/skills/bluespec*`                | `.codex/skills/lagune*`                |
+| `.continue/prompts/bluespec*.prompt`     | `.continue/prompts/lagune*.prompt`     |
+| `.cospec/commands/bluespec*.md`          | `.cospec/commands/lagune*.md`          |
+| `.crush/commands/bluespec*.md`           | `.crush/commands/lagune*.md`           |
+| `.cursor/skills/bluespec*`               | `.cursor/skills/lagune*`               |
+| `.devin/skills/bluespec*`                | `.devin/skills/lagune*`                |
+| `.factory/commands/bluespec*.md`         | `.factory/commands/lagune*.md`         |
+| `.forge/commands/bluespec*.md`           | `.forge/commands/lagune*.md`           |
+| `.gemini/commands/bluespec*.toml`        | `.gemini/commands/lagune*.toml`        |
+| `.github/prompts/bluespec*.prompt.md`    | `.github/prompts/lagune*.prompt.md`    |
+| `.goose/recipes/bluespec*.yaml`          | `.goose/recipes/lagune*.yaml`          |
+| `.hermes/skills/bluespec*`               | `.hermes/skills/lagune*`               |
+| `.iflow/commands/bluespec*.md`           | `.iflow/commands/lagune*.md`           |
+| `.junie/commands/bluespec*.md`           | `.junie/commands/lagune*.md`           |
+| `.kilocode/workflows/bluespec*.md`       | `.kilocode/workflows/lagune*.md`       |
+| `.kimi/skills/bluespec*`                 | `.kimi/skills/lagune*`                 |
+| `.kiro/prompts/bluespec*.md`             | `.kiro/prompts/lagune*.md`             |
+| `.lingma/skills/bluespec*`               | `.lingma/skills/lagune*`               |
+| `.opencode/commands/bluespec*.md`        | `.opencode/commands/lagune*.md`        |
+| `.pi/prompts/bluespec*.md`               | `.pi/prompts/lagune*.md`               |
+| `.qoder/commands/bluespec*.md`           | `.qoder/commands/lagune*.md`           |
+| `.qwen/commands/bluespec*.md`            | `.qwen/commands/lagune*.md`            |
+| `.roo/commands/bluespec*.md`             | `.roo/commands/lagune*.md`             |
+| `.rovodev/skills/bluespec*`              | `.rovodev/skills/lagune*`              |
+| `.shai/commands/bluespec*.md`            | `.shai/commands/lagune*.md`            |
+| `.tabnine/agent/commands/bluespec*.toml` | `.tabnine/agent/commands/lagune*.toml` |
+| `.trae/skills/bluespec*`                 | `.trae/skills/lagune*`                 |
+| `.vibe/skills/bluespec*`                 | `.vibe/skills/lagune*`                 |
+| `.windsurf/workflows/bluespec*.md`       | `.windsurf/workflows/lagune*.md`       |
+
+## How it works
+
+Migrate reads your legacy manifest and carries the whole install over:
+
+1. Renames `.bluespec/` to `.lagune/`.
+2. Removes the legacy `/bluespec.*` agent commands and writes the `/lagune.*` ones in their place, in your agent's own format.
+3. Rewrites the old name inside the manifest, the tracking, the phase artifacts, and any sub-skill you authored, keeping their content otherwise intact.
+4. Migrates the Lagune block in your `.gitignore`, preserving your own entries and any sub-skill re-include.
+5. Refreshes the templates, hooks, and built-in sub-skills to the installed version, the same way [`update`](https://lagune.ai/docs/get-started/install#update) does.
+
+Your security work survives as it is: the charter, the artifacts each phase produced, the tracked findings and the paths they point at, and every sub-skill of your own.
+
+**Tip**
+
+- It touches only Lagune's own files, never your code.
+- Running it again is a no-op: once the project runs on Lagune, there is nothing left to migrate.
+- If both `.bluespec/` and `.lagune/` exist, it stops and asks you to keep the one holding your state before running again.

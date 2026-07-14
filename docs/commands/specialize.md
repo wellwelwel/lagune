@@ -1,0 +1,67 @@
+# /lagune.specialize: Train a Security Specialization with Plain Text
+
+> Distill a security source or topic you give it into a new on-demand sub-skill.
+
+Canonical: https://lagune.ai/docs/commands/specialize
+Last updated: 2026-07-14
+
+🎓 Specialize **Lagune** in a specific security area, from a source or topic you give it.
+
+It reads the material and distills it into a focused, defense-only [sub-skill](https://lagune.ai/docs/commands/skills), shaped exactly like the built-in ones, so the detect and verify phases load it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
+
+**From an article**
+
+```prompt
+# A link or reference: Lagune distills it into the defense
+/lagune.specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+**From an exploit**
+
+```prompt
+# An attack as the source: the sub-skill is still the defense
+/lagune.specialize "' OR 1=1 -- splices SQL into the query text"
+```
+
+**From a topic**
+
+```prompt
+# Or just name the area to cover
+/lagune.specialize SQL injection
+```
+
+**An attack can be the source, never the output**
+
+Pointing it at an attack is fine when the goal is to defend against it: an exploit write-up is study material it distills into the defense. The sub-skill it produces always audits and explains, it never produces a working exploit, payload, or evasion.
+
+## What it writes
+
+The result is two files in your project, committed and reviewable alongside your code. Lagune ignores the built-in sub-skills by default, so it re-includes yours in `.gitignore` to keep it versioned:
+
+- The sub-skill at `.lagune/skills/<name>.md`, following the [sub-skill shape](https://lagune.ai/docs/commands/skills).
+- One entry in `.lagune/skills.json`, the catalog the dispatcher reads at runtime to list and match it.
+
+You never add a command or touch the package: a new specialty is one knowledge file plus one catalog row, written into your own project.
+
+## Refine, never overwrite
+
+Specializing a name that already exists, whether a built-in like `regex` or one you specialized before, **reconciles** the current file instead of replacing it. It reads what is there, folds the new knowledge in, keeps what still holds, and rewrites what changed. Nothing is discarded unseen. A sub-skill of yours shadows a built-in of the same name, so you can sharpen a built-in for your own project without losing it.
+
+**Tip**
+
+- The new _sub_-skill loads exactly like a built-in: the detect and verify phases pick it up on demand, or import it yourself with `@.lagune/skills/<name>.md` and give it a task.
+- When the material has an identifiable origin (an article, an author, a link, a standard), the sub-skill credits it. A bare topic carries no source.
+
+## Frequently Asked Questions
+
+### How do I add a custom security skill?
+
+Run /lagune.specialize with a source or topic. It distills it into a defense-only sub-skill, written to .lagune/skills/<name>.md plus a row in .lagune/skills.json.
+
+### Can Lagune learn from an exploit write-up?
+
+Yes, as a source, never as output. An attack can be the source, never the product. Specialize never writes attack inputs or exploits.
+
+### Does specialize overwrite built-in skills?
+
+No. It refines, never overwrites.
