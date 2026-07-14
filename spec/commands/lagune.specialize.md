@@ -52,7 +52,7 @@ Fill in `.lagune/templates/specialize-template.md`:
 - Set the `# [SKILL_DOMAIN] vulnerabilities` title to the terrain you settled in Step 3.
 - Keep the purpose line, the two rules under `## Rules`, and the detect/verify shape under `## How to act on the result` verbatim.
 - **Credit the source, when there is one.** If the material the user gave you has an identifiable origin (an article title, an author, a link, a standard), keep the optional `> - Source: ...` quote and fill it with a short plain credit. If the input was just a topic, or has no attributable source, drop that line entirely. Never invent a source.
-- Under `## What to look for`, add one `### ` block per risk class in scope, each in plain language: what the dangerous pattern is, why it matters, and how to make it safe (the `Safer shape:` line, or the bullet list / `#### Common safer shapes` variants the template's comments allow). It may reference an existing deterministic hook only if one genuinely fits, never invent a new hook.
+- Under `## What to look for`, add one `### ` block per risk class in scope, each in plain language: what the dangerous pattern is, why it matters, and how to make it safe (the `Safer shape:` line, or the bullet list / `#### Common safer shapes` variants the template's comments allow). Where a popular control is commonly mistaken for the fix, add the optional `Does not close it:` line, naming that decoy and why it leaves the risk open so it is never accepted as closing the finding. It may reference an existing deterministic hook only if one genuinely fits, never invent a new hook.
 
 On a refine, apply these to the existing file rather than a blank one. Write no frontmatter: the tags live in the catalog, not the `.md`.
 

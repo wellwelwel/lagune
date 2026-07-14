@@ -15,7 +15,7 @@
 <!--
   One ### block per vulnerability this domain carries. Each is a self-contained risk the agent checks against the code in scope, one at a time. The block's title is the vulnerability's name, and it is the section's identity. Order the vulnerabilities however reads best for the domain; there is no fixed list. A domain with a single risk has a single ### block (see the regex sub-skill). Write freeform security prose, not [TOKEN] fields: the placeholders below mark where your prose goes, the shape is the convention to follow.
 
-  Each block states, in plain language: what the dangerous pattern is (the named sinks, calls, or constructs and the sources that reach them), why it matters (the concrete impact), and how to make it safe. The common form is one inline "Safer shape:" note, but it varies (see the comment on that line).
+  Each block states, in plain language: what the dangerous pattern is (the named sinks, calls, or constructs and the sources that reach them), why it matters (the concrete impact), and how to make it safe. The common form is one inline "Safer shape:" note, but it varies (see the comment on that line). Where a popular control is commonly mistaken for the fix, an optional "Does not close it:" note names that decoy so it is not accepted as closing the finding (see the comment on that line).
 -->
 
 ### [VULN_1_NAME] <!-- Example: a short name for the vulnerability class, such as "DOM-based XSS", "Prototype pollution", or "ReDoS (Regular expression Denial of Service)" -->
@@ -23,6 +23,8 @@
 [VULN_1_WHAT] <!-- Example: the dangerous pattern in plain language: the sinks, calls, or constructs that are unsafe, and the untrusted sources that reach them. Such as "The DOM sinks execute markup from their input: innerHTML, document.write, ... Any of these fed by a value from outside the code is XSS." -->
 
 Safer shape: [VULN_1_SAFER] <!-- The common case: one inline "Safer shape:" line giving the defensive form (such as "write text through textContent, build nodes with createElement/append, and keep untrusted values out of HTML-parsing sinks"), with the lead-in kept literal. It is not mandatory. When a vulnerability has more than one safer form, write "Safer shapes, applied where they fit:" followed by bullets (as the javascript sub-skill does for prototype pollution), or move them into a "#### Common safer shapes" subsection (as the regex sub-skill does). Where the only guidance is to remove the pattern, fold it into the prose above and drop this line. -->
+
+Does not close it: [VULN_1_DECOY] <!-- Optional. One inline "Does not close it:" line naming the decoy that looks sufficient but leaves the risk open, and why, such as "a host blocklist. It filters the URL text while the client connects to a resolved number, so one encoded form always slips past. Allowlist instead." Keep the lead-in literal and pair it with the risk it qualifies. Write it only when a reader would plausibly accept the decoy as closing the finding, and omit it otherwise, exactly like "Safer shape:". It names a control that is NOT enough, so the finding stays open. Never use it for the opposite case, a shape that looks unsafe but is actually safe. -->
 
 #### [VULN_1_TOOL_STEP] <!-- Optional. Add #### subsections when the vulnerability is backed by a deterministic check, a multi-step procedure, or a set of safer shapes worth their own list. The regex sub-skill uses three: "How to check a pattern", "How to read the verdict", and "Common safer shapes". Remove this subsection when the prose above is enough. -->
 
