@@ -8,7 +8,7 @@ type BrandProps = {
 export const Brand = ({ onClick, className = '' }: BrandProps): ReactNode => (
   <button
     type='button'
-    aria-label='Lagune, back to top'
+    aria-label='Lagune.ai, back to top'
     className={`flex m-0 items-center gap-2 border-0 bg-transparent p-0 font-display text-[clamp(18px,1.8vw,23px)] font-extrabold tracking-[-0.02em] leading-none cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4 ${className}`}
     onClick={onClick}
   >
