@@ -2,6 +2,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import tailwindPostcss from '@tailwindcss/postcss';
 import { docsContentPlugin } from './plugins/docs-content';
+import { dropWoff } from './plugins/drop-woff';
+import { fontPreloadPlugin } from './plugins/font-preload';
 import { laguneCode } from './src/prism/lagune';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
 import { sitemapPriority } from './src/seo/sitemap/priority';
@@ -112,11 +114,12 @@ const config: Config = {
 
   plugins: [
     docsContentPlugin,
+    fontPreloadPlugin,
     function tailwindPlugin() {
       return {
         name: 'tailwind-plugin',
         configurePostCss(postcssOptions) {
-          postcssOptions.plugins.push(tailwindPostcss);
+          postcssOptions.plugins.push(tailwindPostcss, dropWoff());
           return postcssOptions;
         },
       };

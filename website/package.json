@@ -11,7 +11,8 @@
     "serve": "docusaurus serve --host 0.0.0.0",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "purge": "tsx --env-file-if-exists=.env ../tools/purge-cache.ts"
   },
   "devDependencies": {
     "@docusaurus/core": "3.10.2",

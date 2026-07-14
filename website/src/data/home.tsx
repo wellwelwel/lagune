@@ -360,7 +360,7 @@ export const BACKGROUNDS: Record<WindowId, string> = {
 };
 
 const backgroundSrcSet = (name: string) =>
-  `/img/${name}-480.webp 480w, /img/${name}-912.webp 912w, /img/${name}.webp 1380w`;
+  `/img/${name}-480.webp 480w, /img/${name}-720.webp 720w, /img/${name}-912.webp 912w, /img/${name}.webp 1380w`;
 
 export const BACKGROUND_SRCSETS: Record<WindowId, string> = {
   overview: backgroundSrcSet('bg-1'),
@@ -368,7 +368,8 @@ export const BACKGROUND_SRCSETS: Record<WindowId, string> = {
   usage: backgroundSrcSet('bg-3'),
 };
 
-export const BACKGROUND_SIZES = '(max-width: 920px) 100vw, 456px';
+export const BACKGROUND_SIZES =
+  '(max-width: 600px) calc(100vw - 40px), (max-width: 920px) calc(100vw - 130px), 456px';
 
 export const FEATURE: Record<
   WindowId,

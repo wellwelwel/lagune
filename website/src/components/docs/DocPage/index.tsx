@@ -49,6 +49,7 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
     })),
   };
 
+  const imageAlt = `Lagune ${context.eyebrow}: ${metadata.title}`;
   const isPaper = metadata.docId === 'references/paper';
 
   const article = {
@@ -84,6 +85,8 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
           type='text/markdown'
           href={`${SITE_URL}${metadata.permalink}.md`}
         />
+        <meta property='og:image:alt' content={imageAlt} />
+        <meta name='twitter:image:alt' content={imageAlt} />
         <script type='application/ld+json'>{JSON.stringify(breadcrumb)}</script>
         <script type='application/ld+json'>{JSON.stringify(article)}</script>
       </Head>

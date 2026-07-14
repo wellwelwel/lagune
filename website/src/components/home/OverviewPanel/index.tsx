@@ -5,10 +5,10 @@ import { LuTerminal } from 'react-icons/lu';
 
 const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
   <div className='flex flex-col min-w-0 h-full max-[920px]:h-auto'>
-    <p className='mx-1 mb-9 text-[16px] leading-[1.6] font-semibold text-[rgba(233, 237, 247,0.78)]'>
+    <h1 className='mx-1 mb-9 text-[16px] leading-[1.6] font-semibold text-[rgba(233, 237, 247,0.78)]'>
       Lagune is your security copilot as you build, your Blue Team when you
       audit, whether you're a developer or not.
-    </p>
+    </h1>
 
     <div className='grid grid-cols-2 max-[600px]:grid-cols-1'>
       {HIGHLIGHTS.map((item, index) => {
@@ -27,10 +27,10 @@ const OverviewPanelComponent = ({ onInstall }: { onInstall: () => void }) => (
 
         return (
           <div key={item.title} className={cell}>
-            <h3 className='flex items-center gap-2.5 m-0 text-[17px] font-semibold tracking-[-0.01em] text-ink'>
+            <h2 className='flex items-center gap-2.5 m-0 text-[17px] font-semibold tracking-[-0.01em] text-ink'>
               <item.Icon className='size-[22px] shrink-0 text-accent' />
               {item.title}
-            </h3>
+            </h2>
             <p className='mt-3.5 m-0 text-[13px] leading-[1.55] text-[rgba(233, 237, 247,0.72)]'>
               {item.lead}
             </p>
