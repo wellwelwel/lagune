@@ -276,7 +276,7 @@ export const HIGHLIGHTS: {
     body: (
       <>
         It pulls in the module that fits the context it finds, drawing from a
-        catalog that keeps growing as new risks emerge.
+        catalog that keeps adapting as new risks emerge.
       </>
     ),
   },
