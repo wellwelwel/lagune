@@ -4,6 +4,8 @@ export type InitArgs = {
   skills?: string[];
 };
 
+export type HookRun = { stdout: string; stderr: string; code: number | null };
+
 export type ManifestSeed = {
   name?: string;
   version?: string;

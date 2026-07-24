@@ -16,6 +16,7 @@ describe('skillsInGroup derives membership by exact key', () => {
       'http-request',
       'transport',
       'crypto',
+      'secrets',
       'api-endpoint',
       'payment',
       'xml',
@@ -25,6 +26,7 @@ describe('skillsInGroup derives membership by exact key', () => {
     ]);
     strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'infra'), [
       'container',
+      'infra',
       'serverless',
     ]);
     strict.deepStrictEqual(skillsInGroup(SKILLS_CATALOG, 'javascript'), [

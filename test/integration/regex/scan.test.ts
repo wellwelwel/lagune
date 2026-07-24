@@ -95,7 +95,11 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
   await it('returns empty lists for an unreadable path', async () => {
     const result = await scan('/nope', ['/nope/missing']);
 
-    strict.deepStrictEqual(result, { unsafe: [], dynamic: [], staticWrap: [] });
+    strict.deepStrictEqual(result, {
+      unsafe: [],
+      dynamic: [],
+      staticWrap: [],
+    });
   });
 
   await it('silences false positives that fooled the agnostic scan', async () => {

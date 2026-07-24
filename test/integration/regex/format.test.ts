@@ -32,7 +32,7 @@ describe('format renders findings grouped by file with no colors', () => {
         staticWrap: ['src/wrap.js'],
       }),
       'Vulnerable regular expressions found:\n\na.js\n  (a+)+$\n\n' +
-        'Dynamically built regular expressions (review manually):\n\n' +
+        'Dynamically built regular expressions (review manually by simulating a constructed regex):\n\n' +
         'lib/build.py\nsrc/router.js\n\n' +
         'Static regex wrapped in a constructor (use a literal instead):\n\n' +
         'src/wrap.js\n'
@@ -41,7 +41,11 @@ describe('format renders findings grouped by file with no colors', () => {
 
   it('shows the static-wrap section on its own when it is the only finding', () => {
     strict.strictEqual(
-      format({ unsafe: [], dynamic: [], staticWrap: ['src/wrap.js'] }),
+      format({
+        unsafe: [],
+        dynamic: [],
+        staticWrap: ['src/wrap.js'],
+      }),
       'Static regex wrapped in a constructor (use a literal instead):\n\nsrc/wrap.js\n'
     );
   });

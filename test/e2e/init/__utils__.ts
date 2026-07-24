@@ -1,9 +1,10 @@
 import type { ParsedCliArgs } from '../../../src/types/core.js';
-import type { InitArgs } from '../../../src/types/test.js';
+import type { HookRun, InitArgs } from '../../../src/types/test.js';
+import { spawn } from 'node:child_process';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { stdin } from 'node:process';
+import { execPath, stdin } from 'node:process';
 import { afterEach, beforeEach } from 'poku';
 import { run } from '../../../src/cli/run.js';
 
@@ -44,6 +45,28 @@ export const readManifest = async (
   workspace: string
 ): Promise<Record<string, unknown>> =>
   JSON.parse(await readFile(join(workspace, '.lagune/manifest.json'), 'utf8'));
+
+export const spawnHook = (
+  workspace: string,
+  hookFile: string,
+  args: string[]
+): Promise<HookRun> =>
+  new Promise((resolve, reject) => {
+    const child = spawn(execPath, [`.lagune/hooks/${hookFile}`, ...args], {
+      cwd: workspace,
+    });
+    const out: string[] = [];
+    const err: string[] = [];
+
+    child.stdout.setEncoding('utf8');
+    child.stderr.setEncoding('utf8');
+    child.stdout.on('data', (chunk: string) => out.push(chunk));
+    child.stderr.on('data', (chunk: string) => err.push(chunk));
+    child.on('error', reject);
+    child.on('close', (code) =>
+      resolve({ stdout: out.join(''), stderr: err.join(''), code })
+    );
+  });
 
 export const initInto = (workspace: string, args: InitArgs): Promise<void> =>
   runHeadless(
