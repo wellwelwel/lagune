@@ -16,6 +16,23 @@ The application accepts a **token or assertion** from an external party (an OAut
 
 A JSON Web Token carries claims and a signature, trustworthy only when the signature is verified with the **right key and the right algorithm** and the claims are checked. The failures all let an attacker supply a token the application accepts as genuine:
 
+The algorithm-confusion case (the verifier reads `alg` from the token, with no pin) is decidable, so run the jwt hook first. It is language-aware (javascript, python, go, java, kotlin, php, ruby, rust, csharp), reading each file by its own JWT library, and its verdict is literal.
+
+```bash
+node ./.lagune/hooks/jwt.mjs           # scans the whole project
+node ./.lagune/hooks/jwt.mjs -d <DIR>  # scans a directory
+node ./.lagune/hooks/jwt.mjs -f <FILE> # scans a single file
+```
+
+Every line under **Unpinned JWT verification found** is a verify call that trusts the token's own `alg` header: it sets no algorithm allowlist (where the library needs one), accepts an unsafe one (`none`, or an asymmetric algorithm mixed with HMAC), or disables signature checking. Each is a confirmed exposure that exits non-zero. A clean run prints a single line. Score one call with `-p`, passing its language with `-l`:
+
+```bash
+node ./.lagune/hooks/jwt.mjs -l javascript -p 'jwt.verify(token, secret)'          # => unpinned
+node ./.lagune/hooks/jwt.mjs -l python -p 'jwt.decode(t, k, algorithms=["HS256"])' # => safe
+```
+
+The hook decides only the pin. The claim, key, and flow checks below stay yours.
+
 - **`alg: none`:** the token declares no signature, and a library that honors the header accepts an unsigned token as valid. An attacker drops the signature, edits the claims, and is admitted.
 - **Algorithm confusion (`RS256` to `HS256`):** the verifier picks the algorithm from the token's own header, so an attacker changes a token signed with RSA (`RS256`) to claim `HS256` and signs it with the server's **public** key as the HMAC secret. Because the public key is public, the forged signature verifies. The token's header must never decide the algorithm.
 - **Signature not verified at all:** the code decodes the token and reads its claims without verifying the signature, treating a base64 payload anyone can edit as authenticated state.
