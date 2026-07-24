@@ -89,6 +89,7 @@
     "prompt-engineering",
     "llm",
     "prompt-toolkit",
+    "deepsec",
     "superpowers",
     "spec-kit",
     "openspec",
