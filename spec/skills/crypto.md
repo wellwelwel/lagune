@@ -12,6 +12,26 @@
 
 This terrain is the **cryptography itself**: the algorithm that protects a secret, the randomness it draws on, and the key it depends on. The weakness shows only in the code, never at runtime. This terrain covers data **at rest** and the keys that protect it. Data **in transit** is `transport` (TLS), and **password** storage is `access-control` (a password hash like Argon2/bcrypt, never the reversible encryption discussed here).
 
+### Deterministic pre-pass
+
+Before reading by hand, run the crypto hook. It is deterministic (regex over source, no runtime), and its verdict is literal.
+
+```bash
+node ./.lagune/hooks/crypto.mjs           # scans the whole project
+node ./.lagune/hooks/crypto.mjs -d <DIR>  # scans a directory
+node ./.lagune/hooks/crypto.mjs -f <FILE> # scans a single file
+```
+
+It is language-aware, reading each file by its own cryptographic APIs (javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp), so a construct from one language is never flagged in another. It prints up to two sections. **Weak cryptography found** is the finding set (DES/3DES/RC4/Blowfish/RC2, ECB mode): each is a broken cipher primitive, so it exits non-zero. **Cryptography to review manually** is a lead set the scanner cannot judge alone: an MD5/SHA-1 digest (broken where collision or preimage resistance matters, but legitimate as a plain checksum, so intent decides), a non-cryptographic RNG in a security context, or a timing-unsafe comparison. Read each by hand. A clean run prints a single line. Score one construct with `-p`, passing its language with `-l`:
+
+```bash
+node ./.lagune/hooks/crypto.mjs -l javascript -p 'createCipher("aes-256-cbc", k)' # => weak
+node ./.lagune/hooks/crypto.mjs -l python -p 'hashlib.md5(data)'                   # => review
+node ./.lagune/hooks/crypto.mjs -l go -p 'sha256.Sum256(data)'                     # => safe
+```
+
+The hook guarantees the floor (these constructs exist). The sections below carry what it cannot decide (key management, IV reuse, RSA padding).
+
 ### Weak or homegrown algorithms
 
 The code protects data with a cipher an attacker can break. The clearest tell is a **custom or homegrown algorithm**: a scheme that never survived public cryptanalysis. Beyond that, named-but-broken primitives are the common finding:
