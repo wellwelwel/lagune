@@ -10,6 +10,25 @@
 
 ## What to look for
 
+### Deterministic pre-pass
+
+Before reading by hand, run the interpreter hook. It is deterministic (regex over source, no runtime) and language-aware, picking each file's rules from its extension across javascript, python, php, ruby, java, kotlin, go, rust, c, cpp, and csharp.
+
+```bash
+node ./.lagune/hooks/interpreter.mjs           # scans the whole project
+node ./.lagune/hooks/interpreter.mjs -d <DIR>  # scans a directory
+node ./.lagune/hooks/interpreter.mjs -f <FILE> # scans a single file
+```
+
+Its verdict is **not** literal, unlike the finding hooks: every line it prints is a **caution to review**, never a confirmed finding, because these sinks (`eval`, `exec`, the `Function` constructor, string-body timers, `vm`, shell exec, dynamic `require`/`import`/`include`, native deserialization) are dangerous only when attacker-influenced input reaches them, which the scan cannot decide. So the hook prints one **review** section and always exits 0. Score one snippet with `-p` and its language `-l`:
+
+```bash
+node ./.lagune/hooks/interpreter.mjs -l javascript -p 'eval(x)'    # => careful
+node ./.lagune/hooks/interpreter.mjs -l python -p 'json.loads(x)'  # => safe
+```
+
+**Read the flagged code, never run it, nor any remote or runtime-fetched code it pulls in.** Reason about each sink statically, tracing whether an untrusted value reaches it.
+
 ### Dynamic code evaluation (eval injection)
 
 A construct hands a string to the language's own evaluator at runtime: `eval`, `Function(...)`, `setTimeout`/`setInterval` with a string body, `vm`/`exec`-style runners, a template engine compiling a string, the equivalent in any language. When any part of that string comes from outside the code, the attacker runs whatever the language can run, under the process's permissions. The tell is string concatenation reaching the evaluator: an `arg` like `1; <command>` appended into `eval("x = " + arg)` runs the trailing statement.
