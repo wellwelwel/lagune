@@ -33,6 +33,26 @@ CORS relaxes the same-origin policy so a browser will _let one origin read anoth
 
 The first is **reflecting or over-allowing the `Origin`**. The `Origin` request header is attacker-controlled, so a server that **echoes** the incoming `Origin` back into `Access-Control-Allow-Origin`, especially with `Access-Control-Allow-Credentials: true`, has told the browser "every site may read this user's authenticated data". A wildcard `Access-Control-Allow-Origin: *` on a credentialed endpoint, or an allowlist matched by a loose substring/regex (so `your-site.com.attacker.com` or `attacker-your-site.com` passes), is the same failure. Never authorize a request _because of_ its `Origin` value.
 
+The wildcard and `null` cases are decidable value by value, so score each origin your config allows with the cors hook, one verdict per line.
+
+```bash
+node ./.lagune/hooks/cors.mjs -o '*'                       # => wildcard
+node ./.lagune/hooks/cors.mjs -o 'null'                    # => null
+node ./.lagune/hooks/cors.mjs -o 'https://app.example.com' # => safe
+```
+
+The `-o` score exits non-zero on any `wildcard` or `null`. A `safe` verdict means only that the literal is not `*`/`null`, never that CORS is correctly configured.
+
+For the other shape it can catch, a bypassable-regex allowlist, the hook also scans source: a host validator whose `.+`/`.*` sits before the trusted suffix (`^https?://.+\.trusted\.com`), which an attacker host like `your-site.com.attacker.com` slips through.
+
+```bash
+node ./.lagune/hooks/cors.mjs           # scans the whole project
+node ./.lagune/hooks/cors.mjs -d src    # scans a directory
+node ./.lagune/hooks/cors.mjs -f api.js # scans a single file
+```
+
+It lists each match under `Origin-allowlist patterns with a greedy wildcard (bypassable, review):` as a review lead, not a closed finding, so a scan never changes the exit code: read each and confirm the allowlist compares by full equality. Reflection of the request's `Origin`, and a permissive `endsWith`/substring allowlist, stay source patterns the hook cannot score: recognize them in the code and treat them as this block describes.
+
 Safer shape: allowlist exact, trusted origins and compare by full equality, never reflect the request's `Origin` and never use `*` with credentials. Send `Access-Control-Allow-Credentials: true` only for those specific origins, drop a stale or wildcard subdomain rule, and remember that owning a subdomain in the allowlist (takeover, user content) is enough to inherit the trust.
 
 The second mistake is **trusting that the preflight ran**. The CORS preflight (`OPTIONS` with `Access-Control-Request-Method`/`-Headers`) is enforced **by the browser**, not by your server. A raw client (`curl`, a script, an intercepting proxy) skips it entirely and sends the "complex" request directly. So treating a request as safe because it _would_ require a preflight, or because one was seen earlier, lets a non-browser caller act unchecked.
