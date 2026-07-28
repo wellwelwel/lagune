@@ -41,3 +41,9 @@ jobs:
       - name: 🚫 Type Declarations Check
         if: always()
         run: npm run typecheck
+
+      - name: 🌊 Basic Security Check
+        if: always()
+        run: |
+          npx -y lagune@latest pull
+          node .lagune/hooks/regex.mjs -d src
