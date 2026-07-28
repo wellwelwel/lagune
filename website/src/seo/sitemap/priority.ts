@@ -22,6 +22,7 @@ const tiers: Tier[] = [
     match: (pathname) =>
       pathname.startsWith('/docs/get-started/') ||
       pathname === '/docs/supported-agents' ||
+      pathname === '/docs/skill-categories' ||
       pathname === '/docs/commands/lagune' ||
       pathname === '/docs/references/paper',
   },

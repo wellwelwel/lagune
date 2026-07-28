@@ -43,8 +43,6 @@ Findings, recommendations, messages, and fixes are expressed in plain language, 
 
 Lagune's artifacts are living documents, not logs. When a phase re-runs and its artifact already exists, reconcile it against the current truth: re-check each existing entry, keep what still holds, rewrite what changed, and remove what no longer applies (for example, a finding the code shows is now resolved). Write genuinely new content only for what is actually new. The past does not matter for its own sake. Never let an artifact grow by accumulation alone.
 
-Closure is this same reconcile reaching its conclusion. When `verify` proves a risk closed, it stands the finding down across the whole chain, with the user's confirmation, instead of leaving a later phase to drop it. This is why `verify` is the one phase that writes to the other phases' artifacts.
-
 ## Review
 
 After writing, run this checklist:
