@@ -3,7 +3,7 @@
 > Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs/get-started/install
-Last updated: 2026-07-24
+Last updated: 2026-07-28
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
@@ -63,7 +63,7 @@ npx -y lagune@latest pull
 
 ## Specializations
 
-**Lagune** ships focused security [**_sub_-skills**](https://lagune.ai/docs/commands/skills) grouped into **categories**, from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
+**Lagune** ships focused security [**_sub_-skills**](https://lagune.ai/docs/commands/skills) grouped into [**categories**](https://lagune.ai/docs/skill-categories), from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
 
 The agent commands are always set up. Specializations are what you choose on top.
 
@@ -127,6 +127,8 @@ npx -y lagune@latest list --skills
 #   • go          [available]  Go and its language-specific risks
 #   ...
 ```
+
+See every category in [**Skill Categories**](https://lagune.ai/docs/skill-categories).
 
 **Dashboard**
 

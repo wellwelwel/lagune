@@ -150,7 +150,7 @@ Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) and [
 > Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs/get-started/install
-Last updated: 2026-07-24
+Last updated: 2026-07-28
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
@@ -210,7 +210,7 @@ npx -y lagune@latest pull
 
 ## Specializations
 
-**Lagune** ships focused security [**_sub_-skills**](https://lagune.ai/docs/commands/skills) grouped into **categories**, from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
+**Lagune** ships focused security [**_sub_-skills**](https://lagune.ai/docs/commands/skills) grouped into [**categories**](https://lagune.ai/docs/skill-categories), from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
 
 The agent commands are always set up. Specializations are what you choose on top.
 
@@ -274,6 +274,8 @@ npx -y lagune@latest list --skills
 #   • go          [available]  Go and its language-specific risks
 #   ...
 ```
+
+See every category in [**Skill Categories**](https://lagune.ai/docs/skill-categories).
 
 **Dashboard**
 
@@ -349,7 +351,7 @@ Node.js (LTS) and at least one supported AI agent.
 > The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 
 Canonical: https://lagune.ai/docs/get-started/commands
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 Once **Lagune** is set up in your project, your **AI** agent unlocks a set of slash commands. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 
@@ -428,7 +430,7 @@ A five-phase audit: charter (set rules), detect (map risks), plan (score and pla
 > The 72 AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
 
 Canonical: https://lagune.ai/docs/supported-agents
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 Lagune works with **72 AI coding agents**, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot. Each agent maps to a CLI key you pass to `init`, listed in the table below.
 
@@ -530,12 +532,75 @@ Pass the agent's CLI key to init, for example npx -y lagune@latest init claude. 
 
 ---
 
+# Skill Categories
+
+> The 13 specialization categories Lagune installs with --skills, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
+
+Canonical: https://lagune.ai/docs/skill-categories
+Last updated: 2026-07-28
+
+**Lagune** groups its [**_sub_-skills**](https://lagune.ai/docs/commands/skills) into **13 categories**, the unit you install. Each category maps to a CLI key you pass to `--skills`, and they split in two: what the system does, and what it is written in.
+
+Pick a category by passing its key, for example `npx -y lagune@latest init <agent> --skills <category>`. Pass several on the same line to install more than one, or pass none and **Lagune** opens an interactive picker.
+
+```bash
+# For example, adding Claude with the OWASP and JavaScript categories to a project
+npx -y lagune@latest init claude --skills owasp javascript
+```
+
+## What the system does
+
+| Category       | Key (Alias) | What it hardens                                                                                               |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------- |
+| OWASP          | `owasp`     | The application security risks OWASP tracks: injection, broken access control, auth, and crypto failures      |
+| Infrastructure | `infra`     | Container, workload, and serverless config: Dockerfile, Compose, Pod security, FaaS IAM and triggers          |
+| AI / LLM       | `ai`        | AI and LLM integrations, against prompt injection and unsafe tool, agent, retrieval, and MCP wiring           |
+| Lovable        | `lovable`   | AI-generated Supabase apps (Lovable and similar): RLS gaps, leaked `service_role` keys, and insecure defaults |
+
+## What it is written in
+
+| Category   | Key (Alias)  | What it hardens                                                                                  |
+| ---------- | ------------ | ------------------------------------------------------------------------------------------------ |
+| JavaScript | `javascript` | `eval` and `child_process` RCE, path traversal, and prototype pollution, across its runtimes     |
+| Python     | `python`     | `pickle` and YAML deserialization RCE, `str.format` string traversal, and class pollution        |
+| Rust       | `rust`       | Unsound `unsafe` APIs, `transmute` misuse, integer overflow, and FFI boundary undefined behavior |
+| C / C++    | `c-cpp`      | Format-string bugs, buffer overflows, and out-of-bounds writes that enable code execution        |
+| PHP        | `php`        | Type-juggling auth bypass, object injection gadget chains, and insecure configuration defaults   |
+| Go         | `go`         | Typed-nil interface bugs, goroutine data races, and unsafe concurrency on security paths         |
+| Java       | `java`       | `ObjectInputStream` deserialization gadget chains that culminate in remote code execution        |
+| Ruby       | `ruby`       | `Marshal.load` and YAML deserialization gadget chains that reach remote code execution           |
+| .NET / C#  | `dotnet`     | `BinaryFormatter` deserialization RCE and the encoder bypasses that reach XSS                    |
+
+**Tip**
+
+**Lagune** is language-agnostic: the whole flow reads whatever your project is written in, and these categories only add depth on the pitfalls specific to one language.
+
+A category is a starting point, not a commitment. Install what fits the project now and change it any time with `add` and `remove`, the same `--skills` flag either way. See [**Install**](https://lagune.ai/docs/get-started/install#specializations) for every form of the flag, and [**Skills**](https://lagune.ai/docs/commands/skills) for which sub-skills each category carries.
+
+Your own sub-skills, written with [`/lagune.specialize`](https://lagune.ai/docs/commands/specialize), join the project's catalog alongside these and are loaded exactly the same way.
+
+## Frequently Asked Questions
+
+### How do I install a category?
+
+Pass the category's key to --skills. At setup, alongside your agent, with npx -y lagune@latest init claude --skills owasp. In a project that already has Lagune, with npx -y lagune@latest add --skills owasp.
+
+### Can I install more than one category?
+
+Yes. List them on the same line, one after the other.
+
+### Which category should I install?
+
+Start with owasp, then add the one for your language or stack. Nothing is loaded by default, so a category only costs you when a phase actually needs it.
+
+---
+
 # /lagune: Secure Code as Your AI Writes It
 
 > Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 
 Canonical: https://lagune.ai/docs/commands/lagune
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 ⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
 
@@ -627,7 +692,7 @@ Add an instruction to your agent's instruction file (AGENTS.md, CLAUDE.md, .curs
 > Establish your project's security principles, the rules every later phase respects.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -698,7 +763,7 @@ Yes. Lagune proposes rules from your description and your code, and you can rewo
 > Read your code and map what your system does and where the risks are.
 
 Canonical: https://lagune.ai/docs/commands/detect
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 🔬 Find out what your system really does and where the risks are.
 
@@ -767,7 +832,7 @@ At .lagune/memory/detect.md.
 > Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
 
 Canonical: https://lagune.ai/docs/commands/plan
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
 
@@ -841,7 +906,7 @@ No. Plan never reads the code, which forces every fix to point at something dete
 > Apply the plan's fixes to your code, safely and one at a time.
 
 Canonical: https://lagune.ai/docs/commands/harden
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 🔧 Apply the plan's fixes to your code, safely and one at a time.
 
@@ -915,7 +980,7 @@ No. It never weakens a control to satisfy a prompt. If a fix would conflict with
 > Prove each applied fix holds, then close out the ones that do.
 
 Canonical: https://lagune.ai/docs/commands/verify
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 ⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
 
@@ -994,7 +1059,7 @@ Yes. SDH is closable: a proven-closed finding is stood down, so the flow has an 
 > How sub-skills are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/commands/skills
-Last updated: 2026-07-24
+Last updated: 2026-07-28
 
 🧠 **Lagune**'s sub-skills are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. The detect and verify phases reach for them while they run, and you can use one directly any time.
 
@@ -1038,7 +1103,7 @@ Test a pattern yourself at [**devina.io/redos-checker**](https://devina.io/redos
 
 ## The catalog
 
-The built-in sub-skills are grouped into **categories** you install on demand. This is the set that ships with **Lagune**:
+The built-in sub-skills are grouped into [**categories**](https://lagune.ai/docs/skill-categories) you install on demand. This is the set that ships with **Lagune**:
 
 | _Sub_-Skill           | Category                    | Focus                                                                          |
 | --------------------- | --------------------------- | ------------------------------------------------------------------------------ |
@@ -1123,7 +1188,7 @@ Import it into any prompt with @.lagune/skills/<name>.md.
 > Distill a security source or topic you give it into a new on-demand sub-skill.
 
 Canonical: https://lagune.ai/docs/commands/specialize
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 🎓 Specialize **Lagune** in a specific security area, from a source or topic you give it.
 
@@ -1193,7 +1258,7 @@ No. It refines, never overwrites.
 > Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
 
 Canonical: https://lagune.ai/docs/commands/prove
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 🧪 Turn each detected finding into runnable, defense-only evidence for responsible disclosure.
 
@@ -1758,7 +1823,7 @@ A verifier that reads the algorithm from the token header lets an attacker swap 
 > Score one or many fetch destinations for SSRF, straight from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/network
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` sub-skill](https://lagune.ai/docs/commands/skills), and you can run it yourself.
 
@@ -2324,7 +2389,7 @@ At the end, merge all sub-agent reports into one final verdict.
 > The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
 
 Canonical: https://lagune.ai/docs/references/paper
-Last updated: 2026-07-24
+Last updated: 2026-07-13
 
 - **Weslley Araújo**
 - **Methodology Paper, 2026.**
@@ -2905,7 +2970,7 @@ Lagune is the proof, but the contribution is the convention. SDH is offered as t
 > Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, sub-skills, and specializations.
 
 Canonical: https://lagune.ai/docs/references/glossary
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 Every load-bearing term in Lagune and the Security-Driven Hardening methodology, defined once, in plain language.
 
@@ -3158,7 +3223,7 @@ Lagune does: harden applies fixes to your code. Deepsec does not: it is static a
 > Where the built-in OWASP sub-skill knowledge comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/skills-sources
-Last updated: 2026-07-24
+Last updated: 2026-07-10
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -3514,7 +3579,7 @@ These are not sub-skill terrains and carry no checkbox: they are governance, pro
 > Agent-by-agent compatibility of Lagune against other agent-driven workflow tools, OpenSpec, Spec Kit, Superpowers, and Skills.sh.
 
 Canonical: https://lagune.ai/docs/references/comparison
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 Agent-by-agent compatibility across other agent-driven workflow tools: [OpenSpec](https://github.com/Fission-AI/OpenSpec) (v1.4.1), [Spec Kit](https://github.com/github/spec-kit) (v0.10.x), [Superpowers](https://github.com/obra/superpowers) (v6.0.3), and [Skills.sh](https://github.com/vercel-labs/skills) (v1.5.16).
 
@@ -3613,7 +3678,7 @@ Lagune, at 72 agents in this comparison.
 > Repair the chain when a rename or a moved file confuses Lagune's tracking.
 
 Canonical: https://lagune.ai/docs/commands/repair
-Last updated: 2026-07-24
+Last updated: 2026-07-13
 
 🧰 Repair the chain when a rename or a moved file confuses it.
 
@@ -3645,7 +3710,7 @@ The one volatile thing the tracking stores is the file paths the item points at.
 > Move a legacy .bluespec/ install to Lagune with a single command, keeping your charter, artifacts, tracking, and own sub-skills.
 
 Canonical: https://lagune.ai/docs/commands/migrate
-Last updated: 2026-07-24
+Last updated: 2026-07-14
 
 🔀 Move a legacy `.bluespec/` install to **Lagune**, keeping everything you wrote.
 

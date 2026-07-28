@@ -12,6 +12,7 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 - [Install: Security Hardening in Any Project via npx](https://lagune.ai/docs/get-started/install.md): Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 - [Security Slash Commands for AI Agents](https://lagune.ai/docs/get-started/commands.md): The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 - [Supported Agents](https://lagune.ai/docs/supported-agents.md): The 72 AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
+- [Skill Categories](https://lagune.ai/docs/skill-categories.md): The 13 specialization categories Lagune installs with --skills, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
 - [/lagune: Secure Code as Your AI Writes It](https://lagune.ai/docs/commands/lagune.md): Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 - [/lagune.charter: Set Your Security Principles](https://lagune.ai/docs/commands/charter.md): Establish your project's security principles, the rules every later phase respects.
 - [/lagune.detect: Map Your System and Its Risks](https://lagune.ai/docs/commands/detect.md): Read your code and map what your system does and where the risks are.

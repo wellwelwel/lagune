@@ -3,7 +3,7 @@
 > How sub-skills are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/commands/skills
-Last updated: 2026-07-24
+Last updated: 2026-07-28
 
 🧠 **Lagune**'s sub-skills are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. The detect and verify phases reach for them while they run, and you can use one directly any time.
 
@@ -47,7 +47,7 @@ Test a pattern yourself at [**devina.io/redos-checker**](https://devina.io/redos
 
 ## The catalog
 
-The built-in sub-skills are grouped into **categories** you install on demand. This is the set that ships with **Lagune**:
+The built-in sub-skills are grouped into [**categories**](https://lagune.ai/docs/skill-categories) you install on demand. This is the set that ships with **Lagune**:
 
 | _Sub_-Skill           | Category                    | Focus                                                                          |
 | --------------------- | --------------------------- | ------------------------------------------------------------------------------ |
