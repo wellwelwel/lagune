@@ -45,5 +45,5 @@ jobs:
       - name: 🌊 Basic Security Check
         if: always()
         run: |
-          npx -y lagune@latest pull
+          npx -y lagune@latest init claude
           node .lagune/hooks/regex.mjs -d src
