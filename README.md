@@ -54,12 +54,18 @@ It serves a dashboard and opens it in a random port:
 - [x] **Install**, **Pull**, **Update**, and **Manage** all **Lagune** features directly from your browser
 - [x] No `node_modules` or `package.json` is needed 📦
 
-> <img width="240" src="./website/static/img/dashboard/01.png" />
-> <img width="240" src="./website/static/img/dashboard/02.png" />
-> <img width="240" src="./website/static/img/dashboard/03.png" />
-> <img width="240" src="./website/static/img/dashboard/04.png" />
-> <img width="240" src="./website/static/img/dashboard/05.png" />
-> <img width="240" src="./website/static/img/dashboard/06.png" />
+<details>
+<summary>Overview</summary>
+<br />
+
+<img width="320" src="./website/static/img/dashboard/01.png" />
+<img width="320" src="./website/static/img/dashboard/02.png" />
+<img width="320" src="./website/static/img/dashboard/03.png" />
+<img width="320" src="./website/static/img/dashboard/04.png" />
+<img width="320" src="./website/static/img/dashboard/05.png" />
+<img width="320" src="./website/static/img/dashboard/06.png" />
+
+</details>
 
 > [!TIP]
 >
