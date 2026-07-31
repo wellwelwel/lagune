@@ -23,6 +23,7 @@ Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lag
   - 💬 [**Slash Commands**](#slash-commands)
 - 💽 [**Requirements**](#requirements)
 - 🔐 [**Security**](#security)
+- 🤝 [**Contributing**](#contributing)
 - 🖖 [**Acknowledgements**](#acknowledgements)
 - 🧑‍⚖️ [**License**](#license)
 
@@ -164,7 +165,7 @@ To details, report a vulnerability, and see the supported versions, see the [**S
 
 ## Contributing
 
-🚧 Coming Soon.
+See the [**Contributing Guide**](https://github.com/wellwelwel/lagune/blob/main/CONTRIBUTING.md) and please follow our [**Code of Conduct**](https://github.com/wellwelwel/lagune/blob/main/CODE_OF_CONDUCT.md) 🚀
 
 ---
 
