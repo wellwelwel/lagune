@@ -57,6 +57,8 @@ npm ci
 
 > Please, do not change the _package-lock.json_ manually.
 
+---
+
 ### 🌊 What you are changing
 
 **Lagune** is two layers, and knowing which one you are in saves most of the guesswork.
@@ -64,9 +66,13 @@ npm ci
 - **`spec/`** carries the security value: the commands each phase runs, the templates they fill, and the sub-skills they load on demand. It is agent-agnostic and written once.
 - **`src/`** carries the machinery that scaffolds all of that into a user's project, plus the deterministic hooks and the dashboard.
 
+---
+
 ### 🔧 Fixes
 
 Where possible, provide a test case that the fix covers.
+
+---
 
 ### ❇️ Features
 
@@ -80,6 +86,8 @@ It's better to discuss a feature before actually starting to implement it. You c
 > - [ ] Is it defensive? **Lagune** hardens and verifies, and never ships offensive tooling or exploits for malicious use.
 > - [ ] Is the behavior consistent across all runtimes?
 > - [ ] Are the tests simulating real user usage?
+
+---
 
 ### 🧠 Design Preferences (Architecture)
 
@@ -100,10 +108,11 @@ It's better to discuss a feature before actually starting to implement it. You c
 
 #### ✌🏻 Tips
 
-- When using global variables such as `process`, make sure to import them as `import process from 'node:process'` to ensure interoperability with **Deno**.
 - You can open a Pull Request in your own fork to run the entire test suite without having to install anything on your computer.
   - Just remember to enable the workflows in the Actions tab of your fork.
   - When you're done, you can open your Pull Request in the **Lagune** repository to share your changes with the entire community.
+
+---
 
 ### 📘 Documentation
 
