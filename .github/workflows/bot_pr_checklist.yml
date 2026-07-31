@@ -1,0 +1,45 @@
+name: '🚦 Bot — PR Checklist'
+
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, ready_for_review]
+
+permissions: {}
+
+concurrency:
+  group: bot-pr-checklist-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  checklist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    name: Required Checklist
+    permissions:
+      contents: read
+      pull-requests: write
+    if: >-
+      github.event.repository.fork == false &&
+      github.event.pull_request.state == 'open' &&
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.user.type != 'Bot' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip-checklist')
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            .github
+            tools
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: 🚦 Checking the required checklist
+        run: node tools/pr-checklist.ts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

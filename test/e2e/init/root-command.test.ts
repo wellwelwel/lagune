@@ -54,7 +54,7 @@ const placeholderToken: Record<CommandFormat, string> = {
 
 for (const spec of AGENT_SPECS) {
   await describe(`the root /lagune command (${spec.key})`, async () => {
-    await it('renders with the bare name, never lagune.lagune', () => {
+    it('renders with the bare name, never lagune.lagune', () => {
       const path = rootCommandPath(spec);
 
       strict(
@@ -63,7 +63,7 @@ for (const spec of AGENT_SPECS) {
       );
     });
 
-    await it('is distinct from every phase command', () => {
+    it('is distinct from every phase command', () => {
       const rootPath = rootCommandPath(spec);
       const others = commandPathsOf(spec.key).filter(
         (relativePath) => relativePath !== rootPath
