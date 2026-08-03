@@ -28,6 +28,11 @@ export const SKILLS_CATALOG: BuiltinSkillEntry[] = [
     groups: ['owasp', 'lovable'],
   },
   {
+    name: 'sql',
+    tags: ['MySQL', 'PostgreSQL', 'MariaDB', 'ORM'],
+    groups: ['owasp'],
+  },
+  {
     name: 'path',
     tags: ['Directory Traversal', 'File Path', 'Filesystem', 'NTFS'],
     groups: ['owasp'],

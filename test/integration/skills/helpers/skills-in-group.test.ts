@@ -8,6 +8,7 @@ describe('skillsInGroup derives membership by exact key', () => {
       'regex',
       'network',
       'interpreter',
+      'sql',
       'path',
       'upload',
       'access-control',

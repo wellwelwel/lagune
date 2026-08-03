@@ -56,7 +56,7 @@ Safer shape: make sensitive classes `final` so they cannot be subclassed, and do
 
 ### Injection through string-built commands and queries
 
-Injection is a cross-language surface (the `interpreter` sub-skill covers SQL, OS command, XPath, NoSQL, LDAP, and log injection generically), but Java has its own safe idioms and one Java-specific variant: **JPA / JPQL injection**, concatenating untrusted input into a string passed to `EntityManager.createQuery`, the JPQL equivalent of SQL injection with the same impact. The rule across all of these: never build the command or query by string concatenation, use the API the stack already provides.
+Injection is a cross-language surface (the `interpreter` sub-skill covers OS command, XPath, NoSQL, LDAP, and log injection generically), but Java has its own safe idioms and one Java-specific variant: **JPA / JPQL injection**, concatenating untrusted input into a string passed to `EntityManager.createQuery`, the JPQL equivalent of SQL injection with the same impact. The rule across all of these: never build the command or query by string concatenation, use the API the stack already provides.
 
 Safer shape: parameterize. Use `PreparedStatement` with `?` placeholders for SQL, named parameters with `setParameter` for JPQL, an `XPathVariableResolver` for XPath, and the driver's expression builder (MongoDB's `Bson` filters) for NoSQL. For system actions, prefer the Java API over shelling out: `InetAddress.isReachable` instead of `ping`, file APIs instead of `Runtime.exec`. When untrusted data must reach HTML, encode with the OWASP Java Encoder and sanitize allowed markup with the OWASP Java HTML Sanitizer. Trace each finding through the `interpreter` surface, this block only names the Java APIs that close it.
 
