@@ -45,6 +45,8 @@ A subtler variant is correct primitives **applied wrong**: a fixed or reused ini
 
 Safer shape: use a vetted crypto library and let it choose modes and IVs, pick a current standard algorithm sized for how long the data must stay secret, never hand-roll a cipher or a mode, and encrypt as few fields as possible (the safest sensitive field is the one not stored).
 
+Does not close it: naming a strong algorithm. AES-256 in ECB leaks the plaintext's structure block by block, and AES-GCM with one nonce reused under the same key surrenders both confidentiality and integrity. The strength lives in the mode and in the values fed to it, so read those before accepting the primitive as the answer.
+
 ### Predictable randomness
 
 A security-sensitive value, an encryption key, an IV, a session ID, a CSRF or password-reset token, a nonce, is generated with a general-purpose (non-cryptographic) random source, so an attacker who guesses the generator's state can predict it. The unsafe call is the default in most languages and produces identical-looking output, so only the call site reveals it. Match the call against the language:

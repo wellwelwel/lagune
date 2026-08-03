@@ -33,6 +33,8 @@ Safer shapes, applied where they fit (prefer the first that the feature allows):
 - **Allowlist known-good, do not sanitize.** Accept only values matching a tight pattern, rather than trying to strip the dangerous ones. A single strip-and-continue pass is bypassable by nesting, rejection is not.
 - **Keep a containment backstop.** Run file features under least privilege and a chroot, jail, or container so even a successful escape reaches little, keep secrets and source outside any servable web root, and never trust the path filter as the only barrier.
 
+Does not close it: joining the input to the base and checking the result starts with that base. The comparison reads text while the OS resolves a location, so it passes an encoding layer the check never decoded, a null byte that truncates after it, and a symlink sitting inside the base that points outside. Resolve to the canonical path first, then compare: the order is the control.
+
 ### Null-byte truncation (embedding null code)
 
 A path that passes a suffix check can still open a different file, because the validator and the OS disagree on where the string ends. A null byte (`%00`, `\0`, `0x00`, or an alternate encoding of it) embedded in the input terminates the filename for a lower-level API written in C, while the higher-level language sees the full string. So `?file=../../../../etc/passwd%00.pdf` passes an "it must end in `.pdf`" check in the application, yet the OS opens `/etc/passwd`. The same truncation defeats an "always append `.php`" assumption. The tell is a validator that trusts the **end** of the name (its extension) without rejecting embedded terminators first.

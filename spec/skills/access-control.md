@@ -18,6 +18,8 @@ The application exposes a reference to an internal object, a database id, a file
 
 Safer shape: enforce ownership or permission on every object access, at the data layer where the object is loaded, keyed on the authenticated identity (`where id = ? and owner_id = current_user`). Where the reference itself should not be enumerable, map the user-facing handle to the real id through a per-user indirection or an unguessable identifier, but treat that as defense in depth: an unguessable id layers over the ownership check, it does not replace it.
 
+Does not close it: swapping the sequential id for a UUID. An unguessable reference stops enumeration and not access, so anyone holding one legitimate reference (a shared link, a referer, a log line, another user's export) still reaches the object. Randomness decides how references are found, the ownership check decides who may use one.
+
 ### Broken function-level authorization (forced browsing)
 
 Access to a privileged page, endpoint, or action is gated only by **not linking to it**, or by a check that runs in the UI and not on the server. The admin panel at `/admin`, the bulk-export endpoint, the "delete user" action, all reachable by typing the URL or replaying the request, because the server renders or executes them without re-checking the caller's role. Hiding a button is not authorization. The usual ways in: predictable paths, leftover debug or backup endpoints, and an HTTP method the UI never uses (a `PUT` where the page only sends `GET`).

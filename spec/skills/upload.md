@@ -26,6 +26,8 @@ Safer shapes, applied where they fit:
 - **Verify the bytes match the claimed type** by the file's **magic-number signature**, not the header or the name. Signature checks alone are bypassable, so pair them with the allowlist and the content handling below.
 - **Make the storage location non-executable regardless.** Even a correctly-typed upload should land where the server never runs it (see "Dangerous filename and where the file lands"), so a type-check miss does not become code execution.
 
+Does not close it: a magic-number check on its own. A polyglot file is a valid image **and** a valid script at once, so it satisfies the signature and still runs wherever it is served or parsed. The signature narrows what may be stored, the storage location and the serving headers decide what it can do.
+
 ### Malicious or active file content
 
 A file with an allowed type and a clean name can still be dangerous in its **content**. A library parses the image, document, or archive, and a crafted file exploits that parser (ImageTragick/ImageMagick, a malformed media file, an XXE-laden document, the `xml` surface). A polyglot file is a valid image **and** a valid script at once, passing a type check yet executing where served. An office document carries a macro. Active markup served back to other users delivers stored XSS.
@@ -36,6 +38,8 @@ Safer shapes, applied where they fit:
 - **Scan untrusted files** through antivirus or a sandbox before they are stored or shared, as one layer, not the whole defense.
 - **Keep parsers current and configured safely**, disabling external-entity resolution for any XML-bearing format (the `xml` surface) and keeping upload libraries patched.
 - **Serve downloads inertly:** force `Content-Disposition: attachment` with a correct, code-set `Content-Type` and `X-Content-Type-Options: nosniff` so the browser never renders a stored file as active content (the `browser` surface owns the rendering side).
+
+Does not close it: storing the file outside the web root. That stops the server from serving it as code and does nothing about the library that opens it next, so a crafted image reaching an image processor, or a document reaching a parser, exploits that parser wherever the file sits. Trace what reads the file after it lands, not only what serves it.
 
 ### Dangerous filename and where the file lands
 

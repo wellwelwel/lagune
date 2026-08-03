@@ -41,6 +41,8 @@ The hook decides only the pin. The claim, key, and flow checks below stay yours.
 
 Safer shape: pin the accepted algorithm in the code, never read it from the token header, and reject any token whose `alg` is not the expected one (and reject `none` outright). Verify the signature against the issuer's published key (the JWKS, matched by `kid`) for asymmetric tokens, and use a long, random, per-service secret for symmetric ones. After the signature passes, validate every claim that bounds the token: `iss` is the expected issuer, `aud` is this application, `exp` is in the future and `nbf`/`iat` are sane, and the subject and scopes are what the operation requires. Keep token lifetimes short, and prefer a vetted library configured strictly over hand-rolled verification.
 
+Does not close it: reaching for a vetted JWT library. Every failure above is reachable inside a maintained one, because the library follows the configuration it is handed: a verify call with no algorithm list still takes `alg` from the token, and a signature that checks out still admits a token minted for a different audience. The audit question is the call's arguments, never the dependency's name.
+
 ### OAuth 2.0 and OpenID Connect flow integrity
 
 OAuth/OIDC delegates authentication to a provider through a sequence of browser redirects, and the integrity of that sequence is the security. The breakages:

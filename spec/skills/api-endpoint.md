@@ -22,6 +22,8 @@ Safer shapes, applied where they fit:
 - **Authorize objects by ownership, not by the caller naming the ID.** Possession of an identifier is not permission, verify the caller may reach that object. This is the same control the `access-control` sub-skill details for IDOR/BOLA, reached through the API instead of a REST route.
 - **Apply checks to edges and nodes both,** and disable or guard `node`/`nodes` global-ID lookups that sidestep field-level authorization.
 
+Does not close it: authenticating the connection. A valid token at the handshake, or on the first call, proves who is asking and says nothing about whether this operation is theirs, so every later field, method, and message rides in on a check made once at the door.
+
 ### Query-shape and message-volume denial of service
 
 The request itself is a program whose cost the client controls, and left unbounded it exhausts the server. GraphQL is the sharpest case: a query can nest deeply (each level resolving more objects), ask for a huge `first:`/page count, or **batch** many operations and aliased object requests into one network call, so a single innocuous-looking request fans out to thousands of resolutions. Batching also amplifies brute force: aliasing the same field hundreds of times enumerates objects, sprays passwords, or grinds OTPs and tokens, while a perimeter rate limiter or WAF counts network requests and sees one. gRPC streaming lets a client send arbitrarily large messages or an unbounded count per stream, exhausting memory. WebSocket's persistent connection invites connection exhaustion, message flooding, oversized payloads, and memory blowup from a producer faster than the server drains it (missing backpressure).
