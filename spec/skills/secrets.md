@@ -34,6 +34,8 @@ Flagging a committed secret by its format is standard defensive tooling (gitleak
 
 Safer shape: keep every credential out of source, config, and version control. Read it from the environment or a secrets manager at runtime, and if a literal ever reached a commit, rotate it, it is already burned.
 
+Does not close it: deleting the literal from the working tree. The value stays in the history, and in every clone, fork, and mirror already taken, so the credential is burned from the moment it was pushed and only rotation ends it. Moving it into a committed `.env` is the same finding in a new file.
+
 ## How to act on the result
 
 - **In detect (detection):** each provider token, environment fallback, and connection-string credential the hook reports is a finding. Record what it is (a committed credential), why it matters (anyone with repo or history access holds the secret), and the evidence (the file and the identifier). A bare literal bound to a secret-named identifier, and a secret flowing into a sink, are leads to confirm, not automatic findings. Confirmed leads flow through detect's normal steps and are tracked like any other finding.

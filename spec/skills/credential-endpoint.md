@@ -20,7 +20,7 @@ The same endpoint is attacked along three axes, and a defense tuned for one miss
 - **Password spraying:** **one** common password (`Spring2025!`, `Password1`) tried against **many** accounts, one or two attempts each. It is built to stay under a per-account failure counter: no single account ever trips the lockout, yet the attacker sweeps the whole user base.
 - **Credential stuffing:** username-and-password **pairs leaked from another breach** replayed here, betting on password reuse. Each pair is tried once or twice, so it also evades per-account counters, and because the pairs are real elsewhere the success rate is worth automating at scale.
 
-The consequence: **per-account lockout alone does not defend this endpoint.** It stops classic brute force but is blind to spraying and stuffing, which spread thinly across accounts on purpose. A naive lockout also creates its own denial-of-service: an attacker who knows a username can lock its owner out at will. The control must watch the endpoint as a whole (failures per source, per endpoint, globally), not just per account.
+Does not close it: a per-account lockout. It stops classic brute force and is blind to spraying and stuffing, which spread thinly across accounts on purpose, and a naive one hands the attacker a denial of service of its own, since anyone who knows a username can lock its owner out at will. The control must watch the endpoint as a whole, failures per source, per endpoint, and globally, never only per account.
 
 Safer shapes, applied where they fit:
 

@@ -16,7 +16,9 @@ This terrain is the config-as-code a developer ships to build and run the applic
 
 By default a container process runs as UID 0, so a flaw that escapes the process (a runtime CVE, a writable mount) lands on the host with root-equivalent reach. The image runs as root unless the config drops it.
 
-Safer shape: add a dedicated user in the `Dockerfile` and switch to it with `USER` (or run with `-u`/`runAsUser`), and assert it at the workload level with `runAsNonRoot: true` and a numeric `runAsUser` in the Pod `securityContext`. Prefer rootless mode (or Podman's rootless model) for the daemon itself, and confirm the running process is not UID 0, not merely that a `USER` line exists somewhere before a later step switched back.
+Safer shape: add a dedicated user in the `Dockerfile` and switch to it with `USER` (or run with `-u`/`runAsUser`), and assert it at the workload level with `runAsNonRoot: true` and a numeric `runAsUser` in the Pod `securityContext`. Prefer rootless mode (or Podman's rootless model) for the daemon itself.
+
+Does not close it: a `USER` line in the `Dockerfile`. A later stage can switch back, and a multi-stage build routinely does, so the finding rests on the user the process actually runs as, never on the presence of the instruction.
 
 ### Over-privileged container (capabilities, privileged, privilege escalation)
 
