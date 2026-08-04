@@ -33,6 +33,7 @@ export const VPILL_TONE: Record<VerdictKind, string> = {
   pending: SOFT_TONE.amber,
   passed: SOFT_TONE.teal,
   reproved: SOFT_TONE.red,
+  inconclusive: SOFT_TONE.blue,
 };
 
 export const CARD = 'rounded-lg bg-surface shadow-card';

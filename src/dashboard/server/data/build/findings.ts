@@ -48,6 +48,7 @@ export const buildFindings = (
         status:
           (hardened && bulletField(hardened.body, 'Status')) ?? 'Not applied',
         verdict: (hardened && bulletField(hardened.body, 'Verdict')) ?? null,
+        reason: inlineText(hardened && bulletField(hardened.body, 'Reason')),
         upholds: parseUpholds(
           planned ? bulletField(planned.body, 'Upholds') : null
         ),

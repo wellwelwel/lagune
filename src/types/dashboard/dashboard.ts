@@ -37,6 +37,7 @@ export type Finding = {
   planned: boolean;
   status: string;
   verdict: string | null;
+  reason: string;
   upholds: Uphold[];
   dependsOn: FindingRef | null;
   references: string;

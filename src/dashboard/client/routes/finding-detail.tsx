@@ -1,5 +1,5 @@
 import type {
-  AdmonitionKind,
+  ChainView,
   NavDirection,
   StepHint,
   TypeSegment,
@@ -23,9 +23,7 @@ import { BADGE_MUTED, LINK } from '../utils/tailwind-classes';
 const META_ROW =
   'flex items-start gap-3 border-t border-line px-4.5 py-3 last:pb-4.5';
 
-const chainView = (
-  finding: Finding
-): { kind: AdmonitionKind; title: string; body: string } => {
+const chainView = (finding: Finding): ChainView => {
   const verdict = verdictKind(finding.verdict);
 
   if (verdict === 'passed')
@@ -33,6 +31,7 @@ const chainView = (
       kind: 'tip',
       title: 'Fix proven',
       body: 'Verify proved this fix holds. Standing it down removes it from the chain and closes the loop.',
+      reason: '',
     };
 
   if (verdict === 'reproved')
@@ -40,6 +39,15 @@ const chainView = (
       kind: 'danger',
       title: 'Fix reproved',
       body: 'Verify could not prove this fix holds. Run `/lagune.harden` to rework it, then verify again.',
+      reason: finding.reason,
+    };
+
+  if (verdict === 'inconclusive')
+    return {
+      kind: 'warning',
+      title: 'Fix inconclusive',
+      body: 'Verify could not settle this fix from the code alone. Run `/lagune.verify` again once what it needs is within reach.',
+      reason: finding.reason,
     };
 
   const harden = hardenState(finding.status);
@@ -49,6 +57,7 @@ const chainView = (
       kind: 'tip',
       title: 'Applied, not yet proven',
       body: 'Harden applied this fix, but nothing has proven it holds yet. Run `/lagune.verify` to prove it and close this finding.',
+      reason: '',
     };
 
   if (harden === 'active')
@@ -56,6 +65,7 @@ const chainView = (
       kind: 'info',
       title: 'Fix in progress',
       body: 'Harden started this fix but has not finished it. Run `/lagune.harden` to complete it.',
+      reason: '',
     };
 
   if (finding.planned)
@@ -63,12 +73,14 @@ const chainView = (
       kind: 'info',
       title: 'Planned, not yet applied',
       body: 'Plan prioritized this finding, but the fix is not applied yet. Run `/lagune.harden` to apply it.',
+      reason: '',
     };
 
   return {
     kind: 'info',
     title: 'Mapped, not yet planned',
     body: 'Detect mapped this finding, but it has no priority or shaped fix yet. Run `/lagune.plan` to prioritize it and shape the fix.',
+    reason: '',
   };
 };
 
@@ -243,6 +255,11 @@ export const FindingDetail = (): VNode => {
           <p class='text-pretty'>
             <Inline text={chain.body} />
           </p>
+          {chain.reason && (
+            <p class='mt-2.5 text-[0.8rem] text-pretty'>
+              <b class='mr-1'>Reason:</b> <Inline text={chain.reason} />
+            </p>
+          )}
         </Admonition>
 
         {(finding.cvss || finding.references) && (

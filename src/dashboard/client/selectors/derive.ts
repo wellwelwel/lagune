@@ -10,6 +10,7 @@ import type { Finding } from '@/types/dashboard/dashboard';
 export const verdictKind = (verdict: string | null): VerdictKind => {
   if (!verdict || /^pending$/i.test(verdict)) return 'pending';
   if (/reprov|fail|open|block/i.test(verdict)) return 'reproved';
+  if (/inconclus|unclear/i.test(verdict)) return 'inconclusive';
   return 'passed';
 };
 
@@ -23,6 +24,7 @@ export const chainStep = (finding: Finding): ChainStep => {
   const kind = verdictKind(finding.verdict);
   if (kind === 'passed') return { phase: 'Verify', next: 'Stand down', kind };
   if (kind === 'reproved') return { phase: 'Verify', next: 'Harden', kind };
+  if (kind === 'inconclusive') return { phase: 'Verify', next: 'Verify', kind };
   if (hardenState(finding.status) === 'done')
     return { phase: 'Harden', next: 'Verify', kind };
   if (finding.planned) return { phase: 'Plan', next: 'Harden', kind };
@@ -32,6 +34,7 @@ export const chainStep = (finding: Finding): ChainStep => {
 const VERIFY_STEP_STATE: Record<VerdictKind, StepState> = {
   pending: 'pending',
   reproved: 'reproved',
+  inconclusive: 'active',
   passed: 'done',
 };
 

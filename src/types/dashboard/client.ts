@@ -145,7 +145,14 @@ export type AgentTheme = {
   actionsHover: string;
 };
 
-export type VerdictKind = 'pending' | 'passed' | 'reproved';
+export type VerdictKind = 'pending' | 'passed' | 'reproved' | 'inconclusive';
+
+export type ChainView = {
+  kind: AdmonitionKind;
+  title: string;
+  body: string;
+  reason: string;
+};
 
 export type InstallPresentation = {
   icon: IconName;
