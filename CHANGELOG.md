@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.14.0](https://github.com/wellwelwel/lagune/compare/v0.13.0...v0.14.0) (2026-08-04)
+
+
+### Features
+
+* add specialization in `sql` defense ([06ee7ad](https://github.com/wellwelwel/lagune/commit/06ee7ad156c86392f3fced6aa1afd83274122c22))
+* **skills:** name the decoy controls that pass for closure ([aa85fcb](https://github.com/wellwelwel/lagune/commit/aa85fcb70f767f643018aec750fbbe2aefbc171a))
+* **skills:** stop a single correct control from reading as a closed risk ([90bca6f](https://github.com/wellwelwel/lagune/commit/90bca6f943842027d458ac06ac2d623b4460f8c7))
+
+
+### Bug Fixes
+
+* **dashboard:** display reason and veredicts for rejects ([f9c1786](https://github.com/wellwelwel/lagune/commit/f9c17862b43ff54c572a75e9289ad4d4041e3689))
+
 ## [0.13.0](https://github.com/wellwelwel/lagune/compare/v0.12.0...v0.13.0) (2026-07-24)
 
 
