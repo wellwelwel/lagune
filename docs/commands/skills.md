@@ -3,7 +3,7 @@
 > How sub-skills are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/commands/skills
-Last updated: 2026-07-28
+Last updated: 2026-08-04
 
 🧠 **Lagune**'s sub-skills are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. The detect and verify phases reach for them while they run, and you can use one directly any time.
 
@@ -54,6 +54,7 @@ The built-in sub-skills are grouped into [**categories**](https://lagune.ai/docs
 | `regex`               | `owasp`                     | **ReDoS:** patterns that explode on crafted input.                             |
 | `network`             | `owasp`                     | **SSRF & redirects:** user-supplied fetch or redirect destinations.            |
 | `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, dynamic include, name dispatch.                    |
+| `sql`                 | `owasp`                     | **Relational databases:** injection, raw ORM calls, privileges, engine reach.  |
 | `path`                | `owasp`                     | **Filesystem paths:** traversal, null-byte, NTFS streams, planting.            |
 | `upload`              | `owasp`                     | **File uploads:** type/signature, malicious content, storage, limits.          |
 | `access-control`      | `owasp`, `lovable`          | **Authn/authz/session:** IDOR, mass assignment, tenants, sessions.             |
@@ -62,11 +63,13 @@ The built-in sub-skills are grouped into [**categories**](https://lagune.ai/docs
 | `http-request`        | `owasp`                     | **Request provenance:** CSRF, CORS misconfig, spoofed client-IP.               |
 | `transport`           | `owasp`                     | **Channel security:** TLS config, HTTPS/cleartext, HSTS, pinning.              |
 | `crypto`              | `owasp`, `lovable`          | **Crypto at rest:** weak/custom algorithms, CSPRNG, key management.            |
+| `secrets`             | `owasp`, `lovable`          | **Hardcoded credentials:** keys, tokens, passwords literal in source.          |
 | `api-endpoint`        | `owasp`                     | **Non-REST surfaces:** GraphQL, gRPC, WebSocket authz, DoS, schema.            |
 | `payment`             | `owasp`, `lovable`          | **Checkout flow:** verify gateway server-side, signed callbacks, idempotency.  |
 | `xml`                 | `owasp`                     | **XML parsing:** XXE, external entities, billion-laughs expansion.             |
 | `csv`                 | `owasp`                     | **Formula injection:** spreadsheet cells starting `=`/`+`/`-`/`@`.             |
 | `container`           | `owasp`, `infra`            | **Container config:** root, capabilities, socket mount, image hardening.       |
+| `infra`               | `infra`                     | **Infrastructure as code:** Terraform, Dockerfile, GitHub Actions.             |
 | `serverless`          | `owasp`, `infra`, `lovable` | **FaaS functions:** least-privilege IAM, event input, context, secrets.        |
 | `llm`                 | `ai`, `lovable`             | **AI/LLM risks:** prompt injection, agency, RAG, MCP, output.                  |
 | `supabase`            | `lovable`                   | **Supabase backend:** RLS off by default, AI-misgenerated policies, key model. |

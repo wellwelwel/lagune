@@ -3,7 +3,7 @@
 > Get started with Lagune, an open-source, defense-only security workflow that hardens any codebase: set the rules, detect risks, apply fixes, and verify.
 
 Canonical: https://lagune.ai/docs
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, the agent figures out what your system actually does, then it guides you through the security work that matters for it.
 
@@ -49,52 +49,6 @@ Really thanks to everyone who has supported and keeps supporting this work.
 
 ---
 
-## Use a badge ✨
-
-Using **Lagune**? Add one to your **README**:
-
-**Two tones**
-
-![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)
-
-```md
-[![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
-```
-
-![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)
-
-```md
-[![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)](https://lagune.ai)
-```
-
-![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)
-
-```md
-[![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)](https://lagune.ai)
-```
-
-**Solid**
-
-![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
-
-```md
-[![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
-![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
-
-```md
-[![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
-![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)
-
-```md
-[![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
----
-
 ## Frequently Asked Questions
 
 ### What is Lagune?
@@ -109,6 +63,14 @@ No. The /lagune command hardens work as it is written: it takes any prompt, buil
 
 Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.
 
+### What is the difference between using Lagune and just asking the agent to map vulnerabilities and security flaws?
+
+An agent reading on its own finds what looks like a vulnerability and skips what looks like a control. A list of blocked addresses reads as though someone already handled the risk, so nobody checks that it misses most of them, and the code ships. Lagune inverts that default: a guard already in the code is presumed unproven until it is checked, every sub-skill in the catalog gets an explicit verdict, and verify asks whether the risk is gone, not whether a control is there. Each finding also stays one tracked item across runs, so it can be proven closed and stood down, where a plain request gives you a different report every time with nothing to compare.
+
+### What is the difference between developing with Lagune and just asking the agent to write secure code?
+
+Asking for secure code leaves the definition of secure to the agent, and it assumes you know what to ask for. The requirement is usually already inside your request without either of you seeing it: asking for a page that shows the courses a user has access to states an authorization rule, and a check that is never written leaves nothing in the code to notice. The /lagune command loads your charter and the sub-skills that match what is about to be built before the first line is written, then re-reads the result against the defense it used. The safe shape rarely costs more than the unsafe one, so what decides the outcome is knowing which one to reach for, and that is what arrives up front.
+
 ### What programming languages does Lagune support?
 
 Any. Lagune runs on Node.js under the hood, but it audits and hardens projects written in any programming language.
@@ -120,6 +82,14 @@ Any. Lagune runs on Node.js under the hood, but it audits and hardens projects w
 ### What is Security-Driven Hardening (SDH)?
 
 SDH is the methodology Lagune implements: a context-aware, blue-team convention that detects a system's context, triages the risks that context carries, and guides the fixes. The security knowledge lives in the spec and its on-demand sub-skills, so a developer and a non-developer are served through the same flow.
+
+### Does Lagune run DAST (Dynamic Application Security Testing) or test my running application?
+
+No. Lagune reads code and never runs your system or sends it crafted requests. Verify confirms a control is present and correct in the source, which is a different question from whether it survives an attack on a live target, so "cannot tell from the code" is a legitimate verdict instead of a quiet pass. DAST answers the runtime question and Lagune answers the source question, so neither replaces the other. Even the optional prove command holds this line: its tests assert the safe behavior, never an attack payload.
+
+### Does Lagune replace a Pentest (penetration test)?
+
+No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow, to detect the concerns, so what a professional reports gets planned, hardened, and verified.
 
 ### Does Lagune need an API key?
 

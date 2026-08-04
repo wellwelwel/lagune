@@ -3,7 +3,7 @@
 > Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs/get-started/install
-Last updated: 2026-07-28
+Last updated: 2026-08-04
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
@@ -170,6 +170,50 @@ You will need these tools installed on your system:
 
 - [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
 - At least one of the [**Supported Agents**](https://lagune.ai/docs/supported-agents)
+
+## Use a badge ✨
+
+Using **Lagune**? Add one to your **README**:
+
+**Two tones**
+
+![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)
+
+```md
+[![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
+```
+
+![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)
+
+```md
+[![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)](https://lagune.ai)
+```
+
+![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)
+
+```md
+[![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)](https://lagune.ai)
+```
+
+**Solid**
+
+![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
+![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
+![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
 
 ## Next
 

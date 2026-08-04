@@ -3,7 +3,7 @@
 > Where the built-in OWASP sub-skill knowledge comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/skills-sources
-Last updated: 2026-07-10
+Last updated: 2026-08-04
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -28,10 +28,11 @@ This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** 
 
 ## 2. SQL / Database Injection
 
-- [x] [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html), [Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) (interpreter)
-- [x] [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) (interpreter)
-- [x] [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF) (interpreter)
+- [x] [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html), [Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) (sql)
+- [x] [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) (sql)
+- [x] [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF) (sql)
 - [x] [RSQL Injection](https://owasp.org/www-community/attacks/RSQL_Injection) (interpreter)
+- [x] [Database Security](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html) (sql)
 - [x] [NoSQL Security](https://cheatsheetseries.owasp.org/cheatsheets/NoSQL_Security_Cheat_Sheet.html) (interpreter)
 
 ---
@@ -316,7 +317,6 @@ Automotive and drone security are embedded-system domains (CAN bus, OTA firmware
 
 These are not sub-skill terrains and carry no checkbox: they are governance, process, operational hardening, or framework usage with no single code surface a per-surface sub-skill defends. Their security value is real, but it lives in process and architecture (or, for a framework, in that language's own skill), not in a defense this catalog ships. Listed for reference, not as work.
 
-- [Database Security](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html)
 - [Authorization Regression Testing](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Regression_Testing_Cheat_Sheet.html), [Authorization Testing Automation](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Testing_Automation_Cheat_Sheet.html)
 - [JAAS](https://cheatsheetseries.owasp.org/cheatsheets/JAAS_Cheat_Sheet.html)
 - [Denial of Service](https://owasp.org/www-community/attacks/Denial_of_Service), [Denial of Service](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)

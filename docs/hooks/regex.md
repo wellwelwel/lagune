@@ -3,7 +3,7 @@
 > Sweep a codebase for ReDoS-prone regex, or score a single pattern, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/regex
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `regex` hook is the deterministic regex-safety engine the [`regex` sub-skill](https://lagune.ai/docs/commands/skills) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 

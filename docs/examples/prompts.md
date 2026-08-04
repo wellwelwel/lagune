@@ -3,7 +3,7 @@
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 

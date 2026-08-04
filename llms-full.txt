@@ -11,7 +11,7 @@ Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow.
 > Get started with Lagune, an open-source, defense-only security workflow that hardens any codebase: set the rules, detect risks, apply fixes, and verify.
 
 Canonical: https://lagune.ai/docs
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, the agent figures out what your system actually does, then it guides you through the security work that matters for it.
 
@@ -57,52 +57,6 @@ Really thanks to everyone who has supported and keeps supporting this work.
 
 ---
 
-## Use a badge ✨
-
-Using **Lagune**? Add one to your **README**:
-
-**Two tones**
-
-![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)
-
-```md
-[![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
-```
-
-![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)
-
-```md
-[![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)](https://lagune.ai)
-```
-
-![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)
-
-```md
-[![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)](https://lagune.ai)
-```
-
-**Solid**
-
-![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
-
-```md
-[![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
-![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
-
-```md
-[![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
-![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)
-
-```md
-[![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
----
-
 ## Frequently Asked Questions
 
 ### What is Lagune?
@@ -117,6 +71,14 @@ No. The /lagune command hardens work as it is written: it takes any prompt, buil
 
 Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.
 
+### What is the difference between using Lagune and just asking the agent to map vulnerabilities and security flaws?
+
+An agent reading on its own finds what looks like a vulnerability and skips what looks like a control. A list of blocked addresses reads as though someone already handled the risk, so nobody checks that it misses most of them, and the code ships. Lagune inverts that default: a guard already in the code is presumed unproven until it is checked, every sub-skill in the catalog gets an explicit verdict, and verify asks whether the risk is gone, not whether a control is there. Each finding also stays one tracked item across runs, so it can be proven closed and stood down, where a plain request gives you a different report every time with nothing to compare.
+
+### What is the difference between developing with Lagune and just asking the agent to write secure code?
+
+Asking for secure code leaves the definition of secure to the agent, and it assumes you know what to ask for. The requirement is usually already inside your request without either of you seeing it: asking for a page that shows the courses a user has access to states an authorization rule, and a check that is never written leaves nothing in the code to notice. The /lagune command loads your charter and the sub-skills that match what is about to be built before the first line is written, then re-reads the result against the defense it used. The safe shape rarely costs more than the unsafe one, so what decides the outcome is knowing which one to reach for, and that is what arrives up front.
+
 ### What programming languages does Lagune support?
 
 Any. Lagune runs on Node.js under the hood, but it audits and hardens projects written in any programming language.
@@ -128,6 +90,14 @@ Any. Lagune runs on Node.js under the hood, but it audits and hardens projects w
 ### What is Security-Driven Hardening (SDH)?
 
 SDH is the methodology Lagune implements: a context-aware, blue-team convention that detects a system's context, triages the risks that context carries, and guides the fixes. The security knowledge lives in the spec and its on-demand sub-skills, so a developer and a non-developer are served through the same flow.
+
+### Does Lagune run DAST (Dynamic Application Security Testing) or test my running application?
+
+No. Lagune reads code and never runs your system or sends it crafted requests. Verify confirms a control is present and correct in the source, which is a different question from whether it survives an attack on a live target, so "cannot tell from the code" is a legitimate verdict instead of a quiet pass. DAST answers the runtime question and Lagune answers the source question, so neither replaces the other. Even the optional prove command holds this line: its tests assert the safe behavior, never an attack payload.
+
+### Does Lagune replace a Pentest (penetration test)?
+
+No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow, to detect the concerns, so what a professional reports gets planned, hardened, and verified.
 
 ### Does Lagune need an API key?
 
@@ -150,7 +120,7 @@ Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) and [
 > Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs/get-started/install
-Last updated: 2026-07-28
+Last updated: 2026-08-04
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
@@ -318,6 +288,50 @@ You will need these tools installed on your system:
 - [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
 - At least one of the [**Supported Agents**](https://lagune.ai/docs/supported-agents)
 
+## Use a badge ✨
+
+Using **Lagune**? Add one to your **README**:
+
+**Two tones**
+
+![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)
+
+```md
+[![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
+```
+
+![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)
+
+```md
+[![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)](https://lagune.ai)
+```
+
+![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)
+
+```md
+[![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)](https://lagune.ai)
+```
+
+**Solid**
+
+![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
+![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
+![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
 ## Next
 
 Once **Lagune** is set up, your agent unlocks a set of slash commands. See [**Commands**](https://lagune.ai/docs/get-started/commands).
@@ -351,7 +365,7 @@ Node.js (LTS) and at least one supported AI agent.
 > The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 
 Canonical: https://lagune.ai/docs/get-started/commands
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 Once **Lagune** is set up in your project, your **AI** agent unlocks a set of slash commands. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 
@@ -430,7 +444,7 @@ A five-phase audit: charter (set rules), detect (map risks), plan (score and pla
 > The 72 AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
 
 Canonical: https://lagune.ai/docs/supported-agents
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 Lagune works with **72 AI coding agents**, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot. Each agent maps to a CLI key you pass to `init`, listed in the table below.
 
@@ -537,7 +551,7 @@ Pass the agent's CLI key to init, for example npx -y lagune@latest init claude. 
 > The 13 specialization categories Lagune installs with --skills, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
 
 Canonical: https://lagune.ai/docs/skill-categories
-Last updated: 2026-07-28
+Last updated: 2026-08-04
 
 **Lagune** groups its [**_sub_-skills**](https://lagune.ai/docs/commands/skills) into **13 categories**, the unit you install. Each category maps to a CLI key you pass to `--skills`, and they split in two: what the system does, and what it is written in.
 
@@ -600,7 +614,7 @@ Start with owasp, then add the one for your language or stack. Nothing is loaded
 > Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 
 Canonical: https://lagune.ai/docs/commands/lagune
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 ⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
 
@@ -692,7 +706,7 @@ Add an instruction to your agent's instruction file (AGENTS.md, CLAUDE.md, .curs
 > Establish your project's security principles, the rules every later phase respects.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -763,7 +777,7 @@ Yes. Lagune proposes rules from your description and your code, and you can rewo
 > Read your code and map what your system does and where the risks are.
 
 Canonical: https://lagune.ai/docs/commands/detect
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 🔬 Find out what your system really does and where the risks are.
 
@@ -832,7 +846,7 @@ At .lagune/memory/detect.md.
 > Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
 
 Canonical: https://lagune.ai/docs/commands/plan
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
 
@@ -906,7 +920,7 @@ No. Plan never reads the code, which forces every fix to point at something dete
 > Apply the plan's fixes to your code, safely and one at a time.
 
 Canonical: https://lagune.ai/docs/commands/harden
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 🔧 Apply the plan's fixes to your code, safely and one at a time.
 
@@ -980,7 +994,7 @@ No. It never weakens a control to satisfy a prompt. If a fix would conflict with
 > Prove each applied fix holds, then close out the ones that do.
 
 Canonical: https://lagune.ai/docs/commands/verify
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 ⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
 
@@ -1059,7 +1073,7 @@ Yes. SDH is closable: a proven-closed finding is stood down, so the flow has an 
 > How sub-skills are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/commands/skills
-Last updated: 2026-07-28
+Last updated: 2026-08-04
 
 🧠 **Lagune**'s sub-skills are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. The detect and verify phases reach for them while they run, and you can use one directly any time.
 
@@ -1110,6 +1124,7 @@ The built-in sub-skills are grouped into [**categories**](https://lagune.ai/docs
 | `regex`               | `owasp`                     | **ReDoS:** patterns that explode on crafted input.                             |
 | `network`             | `owasp`                     | **SSRF & redirects:** user-supplied fetch or redirect destinations.            |
 | `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, dynamic include, name dispatch.                    |
+| `sql`                 | `owasp`                     | **Relational databases:** injection, raw ORM calls, privileges, engine reach.  |
 | `path`                | `owasp`                     | **Filesystem paths:** traversal, null-byte, NTFS streams, planting.            |
 | `upload`              | `owasp`                     | **File uploads:** type/signature, malicious content, storage, limits.          |
 | `access-control`      | `owasp`, `lovable`          | **Authn/authz/session:** IDOR, mass assignment, tenants, sessions.             |
@@ -1118,11 +1133,13 @@ The built-in sub-skills are grouped into [**categories**](https://lagune.ai/docs
 | `http-request`        | `owasp`                     | **Request provenance:** CSRF, CORS misconfig, spoofed client-IP.               |
 | `transport`           | `owasp`                     | **Channel security:** TLS config, HTTPS/cleartext, HSTS, pinning.              |
 | `crypto`              | `owasp`, `lovable`          | **Crypto at rest:** weak/custom algorithms, CSPRNG, key management.            |
+| `secrets`             | `owasp`, `lovable`          | **Hardcoded credentials:** keys, tokens, passwords literal in source.          |
 | `api-endpoint`        | `owasp`                     | **Non-REST surfaces:** GraphQL, gRPC, WebSocket authz, DoS, schema.            |
 | `payment`             | `owasp`, `lovable`          | **Checkout flow:** verify gateway server-side, signed callbacks, idempotency.  |
 | `xml`                 | `owasp`                     | **XML parsing:** XXE, external entities, billion-laughs expansion.             |
 | `csv`                 | `owasp`                     | **Formula injection:** spreadsheet cells starting `=`/`+`/`-`/`@`.             |
 | `container`           | `owasp`, `infra`            | **Container config:** root, capabilities, socket mount, image hardening.       |
+| `infra`               | `infra`                     | **Infrastructure as code:** Terraform, Dockerfile, GitHub Actions.             |
 | `serverless`          | `owasp`, `infra`, `lovable` | **FaaS functions:** least-privilege IAM, event input, context, secrets.        |
 | `llm`                 | `ai`, `lovable`             | **AI/LLM risks:** prompt injection, agency, RAG, MCP, output.                  |
 | `supabase`            | `lovable`                   | **Supabase backend:** RLS off by default, AI-misgenerated policies, key model. |
@@ -1188,7 +1205,7 @@ Import it into any prompt with @.lagune/skills/<name>.md.
 > Distill a security source or topic you give it into a new on-demand sub-skill.
 
 Canonical: https://lagune.ai/docs/commands/specialize
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 🎓 Specialize **Lagune** in a specific security area, from a source or topic you give it.
 
@@ -1258,7 +1275,7 @@ No. It refines, never overwrites.
 > Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
 
 Canonical: https://lagune.ai/docs/commands/prove
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 🧪 Turn each detected finding into runnable, defense-only evidence for responsible disclosure.
 
@@ -1347,7 +1364,7 @@ Prove writes a self-contained advisory you can share through a private channel s
 > Sweep a codebase for agent/LLM calls with no step or time cap, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/agent
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1411,7 +1428,7 @@ An uncapped agent can be driven into unbounded recursion, cost, or prompt-inject
 > Scan source for a bypassable CORS origin allowlist, or score a single origin value for over-permissive access, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/cors
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `cors` hook is the deterministic engine behind the [`http-request` sub-skill](https://lagune.ai/docs/commands/skills), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
 
@@ -1518,7 +1535,7 @@ Run node ./.lagune/hooks/cors.mjs over the codebase. It flags a host-validation 
 > Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/crypto
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1603,7 +1620,7 @@ Only as a review lead in a security context, never as an automatic finding, sinc
 > Sweep Terraform, Dockerfiles, and GitHub Actions for misconfiguration, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/infra
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `infra` hook flags **infrastructure-as-code misconfiguration** that is decidable from the file: a network open to the world, a wildcard permission, a secret in a manifest, a root container, an untrusted value in a CI shell. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). It is the deterministic engine behind the [`infra` sub-skill](https://lagune.ai/docs/commands/skills), in **scan** or **check** mode.
 
@@ -1660,7 +1677,7 @@ Terraform/HCL (.tf, .tf.json, .hcl), Dockerfiles, and GitHub Actions workflow an
 > Sweep a codebase for dynamic-code-execution sinks across languages, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/interpreter
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1748,7 +1765,7 @@ It reads the languages in the Supported languages table, keyed by file extension
 > Sweep a codebase for JWT verification without an algorithm pin, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/jwt
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1823,7 +1840,7 @@ A verifier that reads the algorithm from the token header lets an attacker swap 
 > Score one or many fetch destinations for SSRF, straight from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/network
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` sub-skill](https://lagune.ai/docs/commands/skills), and you can run it yourself.
 
@@ -1905,7 +1922,7 @@ A URL that different parsers read differently, which is a classic SSRF bypass. T
 > Sweep a codebase for ReDoS-prone regex, or score a single pattern, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/regex
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `regex` hook is the deterministic regex-safety engine the [`regex` sub-skill](https://lagune.ai/docs/commands/skills) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 
@@ -2084,7 +2101,7 @@ Run the regex hook in scan mode over the codebase. It reports ReDoS-prone patter
 > Sweep a codebase for hardcoded credentials from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/secrets
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `secrets` hook flags **credentials compiled into the source** instead of read from the environment. It keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` sub-skill](https://lagune.ai/docs/commands/skills).
 
@@ -2135,7 +2152,7 @@ It keys on provenance, not on the value contents. High-confidence formats (provi
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -2389,7 +2406,7 @@ At the end, merge all sub-agent reports into one final verdict.
 > The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
 
 Canonical: https://lagune.ai/docs/references/paper
-Last updated: 2026-07-13
+Last updated: 2026-08-04
 
 - **Weslley Araújo**
 - **Methodology Paper, 2026.**
@@ -2970,7 +2987,7 @@ Lagune is the proof, but the contribution is the convention. SDH is offered as t
 > Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, sub-skills, and specializations.
 
 Canonical: https://lagune.ai/docs/references/glossary
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 Every load-bearing term in Lagune and the Security-Driven Hardening methodology, defined once, in plain language.
 
@@ -3059,7 +3076,7 @@ When verify proves a risk closed, the finding is stood down: removed from the wh
 > A reference comparing Lagune and Vercel's Deepsec across how they work, lifecycle, detection, cost, findings, and closure.
 
 Canonical: https://lagune.ai/docs/references/deepsec
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 [Lagune](https://github.com/wellwelwel/lagune) and [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) are two defensive answers to the same problem: security in the age of AI-assisted development. Their premise, their beginning, middle, and end, and how each presents itself to a user diverge by design, even where their mechanics overlap.
 
@@ -3223,7 +3240,7 @@ Lagune does: harden applies fixes to your code. Deepsec does not: it is static a
 > Where the built-in OWASP sub-skill knowledge comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/skills-sources
-Last updated: 2026-07-10
+Last updated: 2026-08-04
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -3248,10 +3265,11 @@ This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** 
 
 ## 2. SQL / Database Injection
 
-- [x] [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html), [Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) (interpreter)
-- [x] [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) (interpreter)
-- [x] [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF) (interpreter)
+- [x] [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html), [Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) (sql)
+- [x] [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) (sql)
+- [x] [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF) (sql)
 - [x] [RSQL Injection](https://owasp.org/www-community/attacks/RSQL_Injection) (interpreter)
+- [x] [Database Security](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html) (sql)
 - [x] [NoSQL Security](https://cheatsheetseries.owasp.org/cheatsheets/NoSQL_Security_Cheat_Sheet.html) (interpreter)
 
 ---
@@ -3536,7 +3554,6 @@ Automotive and drone security are embedded-system domains (CAN bus, OTA firmware
 
 These are not sub-skill terrains and carry no checkbox: they are governance, process, operational hardening, or framework usage with no single code surface a per-surface sub-skill defends. Their security value is real, but it lives in process and architecture (or, for a framework, in that language's own skill), not in a defense this catalog ships. Listed for reference, not as work.
 
-- [Database Security](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html)
 - [Authorization Regression Testing](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Regression_Testing_Cheat_Sheet.html), [Authorization Testing Automation](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Testing_Automation_Cheat_Sheet.html)
 - [JAAS](https://cheatsheetseries.owasp.org/cheatsheets/JAAS_Cheat_Sheet.html)
 - [Denial of Service](https://owasp.org/www-community/attacks/Denial_of_Service), [Denial of Service](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)
@@ -3579,7 +3596,7 @@ These are not sub-skill terrains and carry no checkbox: they are governance, pro
 > Agent-by-agent compatibility of Lagune against other agent-driven workflow tools, OpenSpec, Spec Kit, Superpowers, and Skills.sh.
 
 Canonical: https://lagune.ai/docs/references/comparison
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 Agent-by-agent compatibility across other agent-driven workflow tools: [OpenSpec](https://github.com/Fission-AI/OpenSpec) (v1.4.1), [Spec Kit](https://github.com/github/spec-kit) (v0.10.x), [Superpowers](https://github.com/obra/superpowers) (v6.0.3), and [Skills.sh](https://github.com/vercel-labs/skills) (v1.5.16).
 
@@ -3678,7 +3695,7 @@ Lagune, at 72 agents in this comparison.
 > Repair the chain when a rename or a moved file confuses Lagune's tracking.
 
 Canonical: https://lagune.ai/docs/commands/repair
-Last updated: 2026-07-13
+Last updated: 2026-08-04
 
 🧰 Repair the chain when a rename or a moved file confuses it.
 
@@ -3710,7 +3727,7 @@ The one volatile thing the tracking stores is the file paths the item points at.
 > Move a legacy .bluespec/ install to Lagune with a single command, keeping your charter, artifacts, tracking, and own sub-skills.
 
 Canonical: https://lagune.ai/docs/commands/migrate
-Last updated: 2026-07-14
+Last updated: 2026-08-04
 
 🔀 Move a legacy `.bluespec/` install to **Lagune**, keeping everything you wrote.
 

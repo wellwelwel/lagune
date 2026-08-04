@@ -3,7 +3,7 @@
 > Sweep a codebase for agent/LLM calls with no step or time cap, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/agent
-Last updated: 2026-07-24
+Last updated: 2026-08-04
 
 The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 

@@ -3,7 +3,7 @@
 > The 13 specialization categories Lagune installs with --skills, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
 
 Canonical: https://lagune.ai/docs/skill-categories
-Last updated: 2026-07-28
+Last updated: 2026-08-04
 
 **Lagune** groups its [**_sub_-skills**](https://lagune.ai/docs/commands/skills) into **13 categories**, the unit you install. Each category maps to a CLI key you pass to `--skills`, and they split in two: what the system does, and what it is written in.
 
