@@ -92,10 +92,6 @@ const transformInline = (line: string, siteUrl: string): string =>
       /<ArrowLink\s+to=["']([^"']+)["']\s*>(.*?)<\/ArrowLink>/g,
       '[$2]($1)'
     )
-    .replace(
-      /<PartnerLink\s*>(.*?)<\/PartnerLink>/g,
-      `[$1](${siteUrl}/docs#partners)`
-    )
     .replace(/<Level\s+value=\{(\d+)\}\s*\/>/g, '$1/5')
     .replace(/\]\(\//g, `](${siteUrl}/`);
 

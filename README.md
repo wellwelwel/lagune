@@ -181,7 +181,7 @@ See the [**Contributing Guide**](https://github.com/wellwelwel/lagune/blob/main/
 
 Partners get an exclusive logo across the repositories and landing pages, plus a spot on a dedicated partners page.
 
-> Help my work grow by [**becoming a partner**](https://lagune.ai/docs?partners) 🖖
+> Help my work grow by [**becoming a partner**](https://weslley.io/?partners) 🖖
 
 ### Supporters
 
