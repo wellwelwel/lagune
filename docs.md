@@ -3,7 +3,7 @@
 > Get started with Lagune, an open-source, defense-only security workflow that hardens any codebase: set the rules, detect risks, apply fixes, and verify.
 
 Canonical: https://lagune.ai/docs
-Last updated: 2026-08-04
+Last updated: 2026-08-30
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, the agent figures out what your system actually does, then it guides you through the security work that matters for it.
 
@@ -34,7 +34,7 @@ Instead of running a generic checklist, Lagune detects the context of your syste
 
 Partners get an exclusive logo across the repositories and landing pages, plus a spot on a dedicated partners page.
 
-> Help my work grow by [becoming a partner](https://lagune.ai/docs#partners)
+> Help my work grow by [becoming a partner](https://weslley.io/?partners)
 
 ### Supporters
 

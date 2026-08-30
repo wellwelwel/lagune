@@ -3,7 +3,7 @@
 > Sweep a codebase for dynamic-code-execution sinks across languages, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/interpreter
-Last updated: 2026-08-04
+Last updated: 2026-07-24
 
 The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 

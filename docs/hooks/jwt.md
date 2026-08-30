@@ -3,7 +3,7 @@
 > Sweep a codebase for JWT verification without an algorithm pin, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/jwt
-Last updated: 2026-08-04
+Last updated: 2026-07-24
 
 The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
