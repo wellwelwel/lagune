@@ -1,18 +1,22 @@
 name: '🗑️ CD (Website) — Purge Cache'
 
 on:
-  deployment_status:
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    name: Deploy
+  purge:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (github.event.deployment_status.state == 'success' &&
-       github.event.deployment.environment == 'github-pages')
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    name: Purge
     steps:
       - name: Actions - Checkout
         uses: actions/checkout@v6
