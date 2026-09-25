@@ -122,6 +122,30 @@ const AGENT_THEMES: AgentTheme[] = [
     actions: 'text-[#e7e5e4]/40',
     actionsHover: 'hover:bg-white/8 hover:text-[#fafaf9]',
   },
+  {
+    key: 'muse',
+    name: 'Muse Code',
+    icon: '/assets/icons/muse.svg',
+    panel: 'bg-[#0c1526]',
+    ring: 'ring-1 ring-white/8',
+    shadow:
+      'shadow-[0_4px_12px_-2px_rgba(0,0,0,0.5),0_18px_40px_-12px_rgba(0,0,0,0.7),0_40px_80px_-24px_rgba(0,0,0,0.8)]',
+    avatar: 'bg-[#0866ff]',
+    accent: 'text-[#5aa9ff]',
+    cursor: '[&_.typed-cursor]:text-[#0866ff]',
+    readDot: 'bg-[#31c48d]',
+    userBubble: 'bg-[#162236]',
+    userText: 'text-[#e6eefb]',
+    userLabel: 'text-[#e6eefb]/40',
+    mention: 'text-[#5aa9ff]',
+    agentName: 'text-[#f4f8ff]',
+    readLabel: 'text-[#cdd9ee]',
+    readPath: 'text-[#cdd9ee]/55',
+    body: 'text-[#cdd9ee]',
+    bodyStrong: 'text-[#f4f8ff]',
+    actions: 'text-[#cdd9ee]/40',
+    actionsHover: 'hover:bg-white/8 hover:text-[#f4f8ff]',
+  },
 ];
 
 export const agentThemeAt = (index: number): AgentTheme =>

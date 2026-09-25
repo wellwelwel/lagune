@@ -483,4 +483,11 @@ export const AGENT_SPECS: AgentSpec[] = [
     format: 'markdown',
     dir: '.neovate/commands',
   },
+  {
+    key: 'muse',
+    displayName: 'Muse Code',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.agents/skills',
+  },
 ];
