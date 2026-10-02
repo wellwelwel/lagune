@@ -1,4 +1,5 @@
 import type {
+  AgentProvider,
   PerformInitInput,
   PerformInitResult,
   PerformPullInput,
@@ -8,7 +9,7 @@ import type {
   PerformUpdateInput,
   PerformUpdateResult,
 } from '../types/core.js';
-import { getProviders } from '../providers/registry.js';
+import { getProviders, listAgentKeys } from '../providers/registry.js';
 import { loadAssets, loadVersion } from './assets.js';
 import { ensureGitignoreEntries } from './gitignore.js';
 import { addSkills, removeSkills, selectSkillAssets } from './manage-skills.js';
@@ -20,18 +21,27 @@ import {
 import { reconstruct, refresh, scaffold } from './scaffold.js';
 import { renderSpecializations } from './specializations.js';
 
+const installedProvidersOf = async (cwd: string): Promise<AgentProvider[]> => {
+  const { agents } = await readManifestInstall(cwd);
+  const known = new Set(listAgentKeys());
+
+  return getProviders(agents.filter((agent) => known.has(agent)));
+};
+
 export const performInit = async (
   input: PerformInitInput
 ): Promise<PerformInitResult> => {
   const { cwd, packageRoot, provider, categoryKeys, now } = input;
-  const [assets, version] = await Promise.all([
+  const [assets, version, installedProviders] = await Promise.all([
     loadAssets(packageRoot),
     loadVersion(packageRoot),
+    installedProvidersOf(cwd),
   ]);
 
   const result = await scaffold({
     targetDir: cwd,
     provider,
+    installedProviders,
     assets: { ...assets, skills: selectSkillAssets(assets, categoryKeys) },
   });
 
@@ -40,7 +50,7 @@ export const performInit = async (
     categories: categoryKeys,
     version,
     now,
-    addFiles: result.created,
+    addFiles: [...result.created, ...result.linked.map((file) => file.path)],
   });
 
   await renderSpecializations(cwd);

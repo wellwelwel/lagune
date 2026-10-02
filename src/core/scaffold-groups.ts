@@ -37,6 +37,11 @@ const FIXED_BUCKETS: ScaffoldBucket[] = [
 
 const toOutcomes = (result: ScaffoldResult): FileOutcome[] => [
   ...result.created.map((path): FileOutcome => ({ path, status: 'created' })),
+  ...result.linked.map((file): FileOutcome => ({
+    path: file.path,
+    status: 'linked',
+    linkTo: file.target,
+  })),
   ...result.skipped.map((path): FileOutcome => ({ path, status: 'skipped' })),
 ];
 

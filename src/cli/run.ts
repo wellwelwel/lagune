@@ -156,7 +156,7 @@ const runInit = async (
     print(gitignoreMessage);
   }
 
-  printNextSteps(result.created.length, agentsLabel);
+  printNextSteps(result.created.length + result.linked.length, agentsLabel);
 };
 
 const runUpdate = async (cwd: string, packageRoot: URL): Promise<void> => {
@@ -206,7 +206,10 @@ const runPull = async (cwd: string, packageRoot: URL): Promise<void> => {
     print(gitignoreMessage);
   }
 
-  printNextSteps(pulled.scaffold.created.length, label);
+  printNextSteps(
+    pulled.scaffold.created.length + pulled.scaffold.linked.length,
+    label
+  );
 };
 
 const runAdd = async (

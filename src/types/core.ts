@@ -101,12 +101,19 @@ export type SpecTokenCount = {
 };
 
 export type FileStatus =
-  'created' | 'refreshed' | 'skipped' | 'removed' | 'absent' | 'kept';
+  | 'created'
+  | 'linked'
+  | 'refreshed'
+  | 'skipped'
+  | 'removed'
+  | 'absent'
+  | 'kept';
 
 export type FileOutcome = {
   path: string;
   status: FileStatus;
   keptBy?: string;
+  linkTo?: string;
 };
 
 export type GitignoreOutcome = 'created' | 'updated' | 'unchanged';
@@ -137,6 +144,15 @@ export type ManifestChange = {
 export type CommandWrite = {
   relativePath: string;
   contents: string;
+};
+
+export type PlannedCommandWrite = CommandWrite & {
+  linkTo?: string;
+};
+
+export type LinkedFile = {
+  path: string;
+  target: string;
 };
 
 export type CommandFormat =
@@ -231,6 +247,7 @@ export type SelectCategoriesDeps = {
 export type ScaffoldOptions = {
   targetDir: string;
   provider?: AgentProvider;
+  installedProviders?: AgentProvider[];
   assets: BundledAssets;
 };
 
@@ -250,6 +267,7 @@ export type ReconstructOptions = {
 
 export type ScaffoldResult = {
   created: string[];
+  linked: LinkedFile[];
   skipped: string[];
   manifestPath: string;
 };

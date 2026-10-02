@@ -4,6 +4,7 @@ import { groupScaffoldOutcomes } from '../../../src/core/scaffold-groups.js';
 
 const result = (created: string[], skipped: string[] = []): ScaffoldResult => ({
   created,
+  linked: [],
   skipped,
   manifestPath: '.lagune/manifest.json',
 });

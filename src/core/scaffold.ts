@@ -3,6 +3,8 @@ import type {
   BundledAssets,
   CommandWrite,
   FileOutcome,
+  LinkedFile,
+  PlannedCommandWrite,
   ReconstructOptions,
   RefreshOptions,
   RefreshResult,
@@ -10,12 +12,16 @@ import type {
   ScaffoldResult,
   TemplateKey,
 } from '../types/core.js';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative } from 'node:path';
+import { planCommandReuse } from './command-reuse.js';
 import {
   ensureDir,
   pathExists,
+  removeSymlinkIfPresent,
   writeFileIfAbsent,
   writeFileOverwrite,
+  writeSymlinkIfAbsent,
+  writeSymlinkOverwrite,
 } from './fs-actions.js';
 import { restampManifestVersion } from './manifest.js';
 import {
@@ -64,11 +70,6 @@ const sharedJobs = (assets: BundledAssets): CommandWrite[] => [
   ...skillJobs(assets.skills),
 ];
 
-const laguneOwnedJobs = (
-  provider: AgentProvider,
-  assets: BundledAssets
-): CommandWrite[] => [...sharedJobs(assets), ...provider.buildCommands(assets)];
-
 const userStateJobs = (): CommandWrite[] => [
   {
     relativePath: TRACKING_PATH,
@@ -106,6 +107,152 @@ const writeJobsIfAbsent = (
     })
   );
 
+const relativeLinkTarget = (
+  targetDir: string,
+  linkRelativePath: string,
+  ownerRelativePath: string
+): string =>
+  relative(
+    dirname(toAbsolute(targetDir, linkRelativePath)),
+    toAbsolute(targetDir, ownerRelativePath)
+  );
+
+const reclaimFileIfAbsent = async (
+  absolutePath: string,
+  contents: string
+): Promise<FileOutcome> => {
+  const outcome = await writeFileIfAbsent(absolutePath, contents);
+
+  if (outcome.status === 'created') return outcome;
+  if (!(await removeSymlinkIfPresent(absolutePath))) return outcome;
+  return writeFileIfAbsent(absolutePath, contents);
+};
+
+const linkFileIfAbsent = async (
+  targetDir: string,
+  job: PlannedCommandWrite,
+  linkTo: string
+): Promise<FileOutcome> => {
+  const linkPath = toAbsolute(targetDir, job.relativePath);
+
+  if (!(await pathExists(toAbsolute(targetDir, linkTo))))
+    return reclaimFileIfAbsent(linkPath, job.contents);
+
+  try {
+    return await writeSymlinkIfAbsent(
+      linkPath,
+      relativeLinkTarget(targetDir, job.relativePath, linkTo)
+    );
+  } catch {
+    return reclaimFileIfAbsent(linkPath, job.contents);
+  }
+};
+
+const writePlannedIfAbsent = async (
+  targetDir: string,
+  job: PlannedCommandWrite
+): Promise<FileOutcome> => {
+  const outcome =
+    job.linkTo === undefined
+      ? await reclaimFileIfAbsent(
+          toAbsolute(targetDir, job.relativePath),
+          job.contents
+        )
+      : await linkFileIfAbsent(targetDir, job, job.linkTo);
+
+  if (outcome.status === 'linked')
+    return { path: job.relativePath, status: 'linked', linkTo: job.linkTo };
+
+  return { path: job.relativePath, status: outcome.status };
+};
+
+const splitPlanned = (
+  jobs: PlannedCommandWrite[]
+): { files: PlannedCommandWrite[]; links: PlannedCommandWrite[] } => ({
+  files: jobs.filter((job) => job.linkTo === undefined),
+  links: jobs.filter((job) => job.linkTo !== undefined),
+});
+
+const writePlannedJobsIfAbsent = async (
+  targetDir: string,
+  jobs: PlannedCommandWrite[]
+): Promise<FileOutcome[]> => {
+  const { files, links } = splitPlanned(jobs);
+  const fileOutcomes = await Promise.all(
+    files.map((job) => writePlannedIfAbsent(targetDir, job))
+  );
+  const linkOutcomes = await Promise.all(
+    links.map((job) => writePlannedIfAbsent(targetDir, job))
+  );
+
+  return [...fileOutcomes, ...linkOutcomes];
+};
+
+const overwriteAsFile = async (
+  absolutePath: string,
+  contents: string
+): Promise<void> => {
+  await removeSymlinkIfPresent(absolutePath);
+  await writeFileOverwrite(absolutePath, contents);
+};
+
+const writePlannedOverwrite = async (
+  targetDir: string,
+  job: PlannedCommandWrite
+): Promise<string> => {
+  const absolutePath = toAbsolute(targetDir, job.relativePath);
+  const { linkTo } = job;
+
+  if (
+    linkTo === undefined ||
+    !(await pathExists(toAbsolute(targetDir, linkTo)))
+  ) {
+    await overwriteAsFile(absolutePath, job.contents);
+
+    return job.relativePath;
+  }
+
+  try {
+    await writeSymlinkOverwrite(
+      absolutePath,
+      relativeLinkTarget(targetDir, job.relativePath, linkTo)
+    );
+  } catch {
+    await overwriteAsFile(absolutePath, job.contents);
+  }
+
+  return job.relativePath;
+};
+
+const writePlannedJobsOverwrite = async (
+  targetDir: string,
+  jobs: PlannedCommandWrite[]
+): Promise<string[]> => {
+  const { files, links } = splitPlanned(jobs);
+  const fileWritten = await Promise.all(
+    files.map((job) => writePlannedOverwrite(targetDir, job))
+  );
+  const linkWritten = await Promise.all(
+    links.map((job) => writePlannedOverwrite(targetDir, job))
+  );
+
+  return [...fileWritten, ...linkWritten];
+};
+
+const providerCommandPlan = (
+  installedProviders: AgentProvider[],
+  provider: AgentProvider,
+  assets: BundledAssets
+): PlannedCommandWrite[] => {
+  const providerPaths = new Set(
+    provider.buildCommands(assets).map((command) => command.relativePath)
+  );
+
+  return planCommandReuse([...installedProviders, provider], assets).filter(
+    (job) => providerPaths.has(job.relativePath)
+  );
+};
+
 const renderSpecializationsOutcome = async (
   targetDir: string
 ): Promise<FileOutcome> => {
@@ -125,8 +272,16 @@ const pathsWithStatus = (
     .filter((outcome) => outcome.status === status)
     .map((outcome) => outcome.path);
 
+const linkedFiles = (outcomes: FileOutcome[]): LinkedFile[] =>
+  outcomes.flatMap((outcome) =>
+    outcome.status === 'linked' && outcome.linkTo !== undefined
+      ? [{ path: outcome.path, target: outcome.linkTo }]
+      : []
+  );
+
 const toScaffoldResult = (outcomes: FileOutcome[]): ScaffoldResult => ({
   created: pathsWithStatus(outcomes, 'created'),
+  linked: linkedFiles(outcomes),
   skipped: pathsWithStatus(outcomes, 'skipped'),
   manifestPath: MANIFEST_PATH,
 });
@@ -134,16 +289,19 @@ const toScaffoldResult = (outcomes: FileOutcome[]): ScaffoldResult => ({
 export const scaffold = async (
   options: ScaffoldOptions
 ): Promise<ScaffoldResult> => {
-  const { targetDir, provider, assets } = options;
-  const ownedJobs = provider
-    ? laguneOwnedJobs(provider, assets)
-    : sharedJobs(assets);
-  const jobs = [...ownedJobs, ...userStateJobs()];
+  const { targetDir, provider, installedProviders = [], assets } = options;
+  const fileJobs = [...sharedJobs(assets), ...userStateJobs()];
+  const commandJobs = provider
+    ? providerCommandPlan(installedProviders, provider, assets)
+    : [];
 
   await ensureDir(toAbsolute(targetDir, MEMORY_DIR));
-  await ensureJobDirs(targetDir, jobs);
+  await ensureJobDirs(targetDir, [...fileJobs, ...commandJobs]);
 
-  const outcomes = await writeJobsIfAbsent(targetDir, jobs);
+  const outcomes = [
+    ...(await writeJobsIfAbsent(targetDir, fileJobs)),
+    ...(await writePlannedJobsIfAbsent(targetDir, commandJobs)),
+  ];
 
   return toScaffoldResult([
     ...outcomes,
@@ -151,30 +309,17 @@ export const scaffold = async (
   ]);
 };
 
-const dedupeByPath = (jobs: CommandWrite[]): CommandWrite[] => {
-  const seen = new Set<string>();
-
-  return jobs.filter((job) => {
-    if (seen.has(job.relativePath)) return false;
-
-    seen.add(job.relativePath);
-    return true;
-  });
-};
-
 export const refresh = async (
   options: RefreshOptions
 ): Promise<RefreshResult> => {
   const { targetDir, providers, assets, version, now } = options;
-  const jobs = dedupeByPath([
-    ...sharedJobs(assets),
-    ...providers.flatMap((provider) => provider.buildCommands(assets)),
-  ]);
+  const fileJobs = sharedJobs(assets);
+  const commandJobs = planCommandReuse(providers, assets);
 
-  await ensureJobDirs(targetDir, jobs);
+  await ensureJobDirs(targetDir, [...fileJobs, ...commandJobs]);
 
   const written = await Promise.all(
-    jobs.map(async (job): Promise<string> => {
+    fileJobs.map(async (job): Promise<string> => {
       await writeFileOverwrite(
         toAbsolute(targetDir, job.relativePath),
         job.contents
@@ -183,8 +328,16 @@ export const refresh = async (
       return job.relativePath;
     })
   );
+  const commandsWritten = await writePlannedJobsOverwrite(
+    targetDir,
+    commandJobs
+  );
 
-  const refreshed = [...written, await renderSpecializations(targetDir)];
+  const refreshed = [
+    ...written,
+    ...commandsWritten,
+    await renderSpecializations(targetDir),
+  ];
 
   await restampManifestVersion(targetDir, { version, now, files: refreshed });
 
@@ -195,14 +348,15 @@ export const reconstruct = async (
   options: ReconstructOptions
 ): Promise<ScaffoldResult> => {
   const { targetDir, providers, assets } = options;
-  const jobs = dedupeByPath([
-    ...sharedJobs(assets),
-    ...providers.flatMap((provider) => provider.buildCommands(assets)),
-  ]);
+  const fileJobs = sharedJobs(assets);
+  const commandJobs = planCommandReuse(providers, assets);
 
-  await ensureJobDirs(targetDir, jobs);
+  await ensureJobDirs(targetDir, [...fileJobs, ...commandJobs]);
 
-  const outcomes = await writeJobsIfAbsent(targetDir, jobs);
+  const outcomes = [
+    ...(await writeJobsIfAbsent(targetDir, fileJobs)),
+    ...(await writePlannedJobsIfAbsent(targetDir, commandJobs)),
+  ];
 
   return toScaffoldResult([
     ...outcomes,

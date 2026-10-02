@@ -178,6 +178,9 @@ export const skillsSelectHint = (): string =>
 
 const createdLine = (path: string): string => `  ${GLYPH.added} ${path}`;
 
+const linkedLine = (path: string, target: string): string =>
+  `  ${GLYPH.added} ${path} ${note(`→ ${target}`)}`;
+
 const refreshedLine = (path: string): string =>
   `  ${GLYPH.refreshed} ${path} ${note('refreshed')}`;
 
@@ -258,6 +261,8 @@ const relativeTo = (baseDir: string, path: string): string =>
 
 const lineFor = (outcome: FileOutcome, path: string): string => {
   if (outcome.status === 'created') return createdLine(path);
+  if (outcome.status === 'linked')
+    return linkedLine(path, outcome.linkTo ?? '');
   if (outcome.status === 'refreshed') return refreshedLine(path);
   if (outcome.status === 'removed') return removedLine(path);
   if (outcome.status === 'kept') return keptLine(path, outcome.keptBy ?? '');
@@ -282,11 +287,11 @@ export const summaryLine = (
   agentDisplayName: string,
   result: ScaffoldResult
 ): string => {
-  if (result.created.length === 0)
+  if (result.created.length === 0 && result.linked.length === 0)
     return color.dim(`Already initialized for ${agentDisplayName}.`);
 
   return done(
-    `Initialized for ${agentDisplayName} ${color.dim('·')} ${result.created.length} created${restAt(result.skipped.length, 'skipped')}`
+    `Initialized for ${agentDisplayName} ${color.dim('·')} ${result.created.length} created${restAt(result.linked.length, 'linked')}${restAt(result.skipped.length, 'skipped')}`
   );
 };
 
@@ -325,11 +330,11 @@ export const pullSummary = (
   agentDisplayName: string,
   result: ScaffoldResult
 ): string => {
-  if (result.created.length === 0)
+  if (result.created.length === 0 && result.linked.length === 0)
     return color.dim(`Already up to date for ${agentDisplayName}.`);
 
   return done(
-    `Reconstructed for ${agentDisplayName} ${color.dim('·')} ${result.created.length} restored${restAt(result.skipped.length, 'already present')}`
+    `Reconstructed for ${agentDisplayName} ${color.dim('·')} ${result.created.length} restored${restAt(result.linked.length, 'linked')}${restAt(result.skipped.length, 'already present')}`
   );
 };
 

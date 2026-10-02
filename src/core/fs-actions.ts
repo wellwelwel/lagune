@@ -1,5 +1,12 @@
 import type { FileOutcome } from '../types/core.js';
-import { access, mkdir, rm, writeFile } from 'node:fs/promises';
+import {
+  access,
+  mkdir,
+  readlink,
+  rm,
+  symlink,
+  writeFile,
+} from 'node:fs/promises';
 
 const hasErrorCode = (error: unknown, code: string): boolean =>
   error instanceof Error && (error as NodeJS.ErrnoException).code === code;
@@ -41,6 +48,61 @@ export const writeFileOverwrite = async (
   contents: string
 ): Promise<void> => {
   await writeFile(filePath, contents, 'utf8');
+};
+
+export const readSymlinkTarget = async (
+  path: string
+): Promise<string | undefined> => {
+  try {
+    return await readlink(path);
+  } catch {
+    return undefined;
+  }
+};
+
+export const removeSymlinkIfPresent = async (
+  path: string
+): Promise<boolean> => {
+  if ((await readSymlinkTarget(path)) === undefined) return false;
+
+  await rm(path);
+
+  return true;
+};
+
+export const writeSymlinkIfAbsent = async (
+  linkPath: string,
+  linkTarget: string
+): Promise<FileOutcome> => {
+  try {
+    await symlink(linkTarget, linkPath);
+
+    return { path: linkPath, status: 'linked' };
+  } catch (error) {
+    if (!isFileExistsError(error)) throw error;
+
+    const existing = await readSymlinkTarget(linkPath);
+    if (existing === undefined || existing === linkTarget)
+      return { path: linkPath, status: 'skipped' };
+
+    await rm(linkPath);
+    await symlink(linkTarget, linkPath);
+
+    return { path: linkPath, status: 'linked' };
+  }
+};
+
+export const writeSymlinkOverwrite = async (
+  linkPath: string,
+  linkTarget: string
+): Promise<void> => {
+  const existing = await readSymlinkTarget(linkPath);
+
+  if (existing === linkTarget) return;
+  if (existing !== undefined || (await pathExists(linkPath)))
+    await rm(linkPath);
+
+  await symlink(linkTarget, linkPath);
 };
 
 export const removeFileIfPresent = async (
