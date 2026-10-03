@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.15.0](https://github.com/wellwelwel/lagune/compare/v0.14.0...v0.15.0) (2026-10-03)
+
+
+### Features
+
+* add support to Muse Code agent ([ffc4c55](https://github.com/wellwelwel/lagune/commit/ffc4c5554ed7b217471e069a0dc722cca54c1cbf))
+* reuse agent commands through symlinks ([d367b3d](https://github.com/wellwelwel/lagune/commit/d367b3d7ff59e3be62701248d95777d7691735e0))
+* validate memory artifacts after each phase ([e33a071](https://github.com/wellwelwel/lagune/commit/e33a071b19e092222548a59565e48cd51ede5b97))
+
+
+### Bug Fixes
+
+* remove harden's confirmation gate ([d89ad09](https://github.com/wellwelwel/lagune/commit/d89ad09faecb5b7c23fd9e06bdd2a09162392d5d))
+
 ## [0.14.0](https://github.com/wellwelwel/lagune/compare/v0.13.0...v0.14.0) (2026-08-04)
 
 
