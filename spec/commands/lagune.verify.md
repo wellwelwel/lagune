@@ -94,7 +94,7 @@ Write each open control's verdict onto its block in `.lagune/memory/harden.md`, 
 - **`❓ Inconclusive`:** write the verdict and a `Reason` naming what is missing to settle it.
 - A block left at `Verdict: Pending` that you did not reach this run keeps its `Pending`.
 
-### Step 8: Validate before writing
+### Step 8: Validate the pass
 
 - Every open control carries `❌ Reproved` or `❓ Inconclusive` with a `Reason`, and every closed finding was handed to the untrack hook so its section is gone.
 - Every `dangling` mention the untrack hook reported was reconciled, and you touched no free-prose line it did not flag.
@@ -102,7 +102,11 @@ Write each open control's verdict onto its block in `.lagune/memory/harden.md`, 
 - Every verdict rests on the code you read, not the record's claim, and nothing was written to the user's code.
 - Every sub-skill detect listed was applied, none skipped, and where one ships a checker its printed verdict is the control's, not your own reading. If any is unapplied, go back and finish Step 5 first.
 
-### Step 9: Summarize
+### Step 9: Check the written verdicts
+
+If the untrack hook removed the record itself because every finding closed, skip this step, otherwise run `node ./.lagune/hooks/validate.mjs harden` from the project root, and if it reports problems, follow its output and rerun it until it passes.
+
+### Step 10: Summarize
 
 This summary is your report to the user, the phase's only outward output. Output a short summary:
 

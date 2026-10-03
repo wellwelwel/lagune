@@ -5,7 +5,7 @@ import { walk } from './lines';
 const OPEN_COMMENT = '<!--';
 const CLOSE_COMMENT = '-->';
 
-const commentSpans = (text: string): TextSpan[] => {
+export const commentSpans = (text: string): TextSpan[] => {
   const spans: TextSpan[] = [];
 
   walk(fromMarkdown(text), (node) => {

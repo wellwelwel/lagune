@@ -70,7 +70,7 @@ The charter has no tracking map and is not part of the finding chain, so reconci
 - For a brand new charter, set `Version` to `1.0.0`. For an update, increment it: MAJOR for removing or redefining a principle, MINOR for adding a principle or materially expanding one, PATCH for wording and clarity fixes.
 - Set `Ratified` to today's date in ISO format `YYYY-MM-DD`. Keep the original ratification date on later updates.
 
-### Step 7: Validate, write, and summarize
+### Step 7: Validate and write
 
 Validate before writing:
 
@@ -80,7 +80,15 @@ Validate before writing:
 - The `## Baseline discipline` section is present and verbatim, with its three blocks intact: only the controls the project needs, prefer the simplest vetted control, and when a control seems skippable.
 - **Boundary check:** every principle states a rule the project must hold to, never an observation of what the code does. `Always validate all input before use` is a principle. `The config value is read without validation` is a finding, so drop it or rewrite it as a rule. Likewise, `Always validate data against its schema before persisting it` is a principle, while `Unstructured data is written straight to the database` is a finding.
 
-Then write the completed charter to `.lagune/memory/charter.md` and output a short summary:
+Then write the completed charter to `.lagune/memory/charter.md`.
+
+### Step 8: Check the written charter
+
+Run `node ./.lagune/hooks/validate.mjs charter` from the project root. If it reports problems, follow its output and rerun it until it passes.
+
+### Step 9: Summarize
+
+Output a short summary:
 
 - The principles now in the charter, each with its one-line risk.
 - The version and, for an update, why it changed and what reconciled (kept, rewritten, removed).

@@ -101,7 +101,7 @@ One finding is one item, with one rating. When a finding needs more than one fix
 - The `Scope` line matches the mode you actually ran.
 - The date is ISO `YYYY-MM-DD`.
 
-### Step 7: Write and summarize
+### Step 7: Write and track
 
 - Write the reconciled plan to `.lagune/memory/plan.md`.
 - Register the items you planned so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run planned, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name detect used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the fix touches. The path lives here, in tracking, never in the prose. Run it from the project root, passing the payload as the single argument:
@@ -112,12 +112,19 @@ node ./.lagune/hooks/track.mjs '{"entries":[{"name":"<FINDING NAME>","paths":["<
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase planned. Repairing the map across the conveyor stays with `/lagune.repair`.
 
-- Output a short summary to the user:
-  - The scope you ran (all findings, named files or directories, or concern).
-  - The fixes planned, each with its category, priority band, and one-line fix, highest priority first. When a fix depends on another, say so.
-  - What changed since the last run: fixes added, fixes removed because they are now done, and fixes updated (including a rating that moved band).
-  - Anything left under Open questions, including any part of the scope the detect map did not cover.
-  - A suggested commit message, for example `docs: update defense plan`.
-  - **Next step:** point the user to `/lagune.harden`, the phase that applies these fixes to the code, safely and one at a time, highest priority first. Frame it as the recommended next step. If anything is left under Open questions, point them instead to `/lagune.detect` on that uncovered scope first, so the plan can cover it before harden runs.
+### Step 8: Check the written plan
+
+Run `node ./.lagune/hooks/validate.mjs plan` from the project root. If it reports problems, follow its output and rerun it until it passes.
+
+### Step 9: Summarize
+
+Output a short summary to the user:
+
+- The scope you ran (all findings, named files or directories, or concern).
+- The fixes planned, each with its category, priority band, and one-line fix, highest priority first. When a fix depends on another, say so.
+- What changed since the last run: fixes added, fixes removed because they are now done, and fixes updated (including a rating that moved band).
+- Anything left under Open questions, including any part of the scope the detect map did not cover.
+- A suggested commit message, for example `docs: update defense plan`.
+- **Next step:** point the user to `/lagune.harden`, the phase that applies these fixes to the code, safely and one at a time, highest priority first. Frame it as the recommended next step. If anything is left under Open questions, point them instead to `/lagune.detect` on that uncovered scope first, so the plan can cover it before harden runs.
 
 Keep the plan in plain language throughout. A non-developer should understand what each fix does and why it is prioritized: the CVSS vector and category are the precise, reproducible anchor, and the `Priority` band with its `Why this priority` line is that rating in words anyone can follow. The finding name in each title stays precise enough for harden to act on.

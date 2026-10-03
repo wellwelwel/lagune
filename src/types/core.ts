@@ -496,3 +496,21 @@ export type UntrackSummary = {
   prose: ProseRemoval[];
   history: HistoryAppend;
 };
+
+export type ValidateTarget = 'charter' | 'detect' | 'plan' | 'harden';
+
+export type MemoryContents = Record<ValidateTarget, string | null>;
+
+export type ValidationStatus = 'valid' | 'invalid' | 'absent';
+
+export type ArtifactValidation = {
+  target: ValidateTarget;
+  file: string;
+  status: ValidationStatus;
+  problems: string[];
+  warnings: string[];
+};
+
+export type ValidateSummary = {
+  results: ArtifactValidation[];
+};

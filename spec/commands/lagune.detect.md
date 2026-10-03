@@ -72,7 +72,7 @@ Work from the list Step 4 printed, the authoritative work list. The **tags are t
 - **The context is present.** Apply the sub-skill. Read `.lagune/skills/<name>.md` directly and follow it, scoped to the paths in question: do what it says, do not improvise beyond it, and do not edit the user's code. The verdict is whatever its checker prints over each pattern, destination, or value the code contains, or where it ships no checker, what its reasoning concludes against the actual code. A guard the code already applies is judged here, never waved through for being present.
 - **The context is absent.** The code contains nothing the tags name, so there is nothing to apply. Skip it. Finding that many entries do not apply is a normal outcome.
 
-Anything a sub-skill surfaces is recorded as a finding through the steps below, like any other. Hold each entry's verdict for the table Step 9 emits.
+Anything a sub-skill surfaces is recorded as a finding through the steps below, like any other. Hold each entry's verdict for the table Step 11 emits.
 
 ### Step 7: Fill the template
 
@@ -98,7 +98,7 @@ Anything a sub-skill surfaces is recorded as a finding through the steps below, 
 - Step 6 holds a verdict for every entry Step 4 printed, none missing. For each, you either applied the sub-skill or can point to the code and show its context is genuinely absent. "It did not seem relevant" is not absence, nor is a guard the code already applies. If any entry has no verdict, go back and finish Step 6 first.
 - The date is ISO `YYYY-MM-DD`.
 
-### Step 9: Write and summarize
+### Step 9: Write and track
 
 - Write the reconciled map to `.lagune/memory/detect.md`.
 - Register the findings you wrote so the tracking map keeps each one's identity. This is registration, not reconciliation: hand the track hook only the findings this run wrote, as the `entries` list of `{name, paths}`, and it records the new ones and follows a renamed path for the rest. It never removes anything you did not report. `name` is the finding's name (this section's title), and `paths` holds the file paths the finding points at (one or more). The path lives here, in tracking, never in the prose. The tracking map holds no note: the prose carries the wording, the map carries only identity and paths. Run it from the project root, passing the payload as the single argument (a name with quotes or backticks stays intact) and reading the JSON result from standard output:
@@ -109,20 +109,27 @@ node ./.lagune/hooks/track.mjs '{"entries":[{"name":"<FINDING NAME>","paths":["<
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only registers what this phase wrote. Repairing the chain across phases stays with `/lagune.repair`.
 
-- Output a short summary to the user:
-  - The scope you ran (full scan, paths, or focus).
-  - The findings detected, each with its one-line risk.
-  - The verdict table from Step 6, one row for **every** entry Step 4 printed, never only the applied ones:
+### Step 10: Check the written map
 
-    | Sub-skill        | Context present?                                 | Verdict                                     |
-    | ---------------- | ------------------------------------------------ | ------------------------------------------- |
-    | the entry's name | Yes or No, with a short reason read off the code | `Applied`, with what it surfaced, or `Skip` |
+Run `node ./.lagune/hooks/validate.mjs detect` from the project root. If it reports problems, follow its output and rerun it until it passes.
 
-    A `[required]` entry always reads `Applied`, even when its checker found nothing: its `Context present?` cell then states the checker ran across the whole project and what it returned.
+### Step 11: Summarize
 
-  - What changed since the last run: findings added, findings removed because they are now resolved, and findings updated.
-  - Anything left under Not determined.
-  - A suggested commit message, for example `docs: update detect map`.
-  - **Next step:** point the user to `/lagune.plan`, the phase that turns these findings into prioritized fixes, each tied to a charter principle. Frame it as the recommended next step, and note they can rerun `/lagune.detect` (on the whole project or a narrower scope) whenever the code changes.
+Output a short summary to the user:
+
+- The scope you ran (full scan, paths, or focus).
+- The findings detected, each with its one-line risk.
+- The verdict table from Step 6, one row for **every** entry Step 4 printed, never only the applied ones:
+
+  | Sub-skill        | Context present?                                 | Verdict                                     |
+  | ---------------- | ------------------------------------------------ | ------------------------------------------- |
+  | the entry's name | Yes or No, with a short reason read off the code | `Applied`, with what it surfaced, or `Skip` |
+
+  A `[required]` entry always reads `Applied`, even when its checker found nothing: its `Context present?` cell then states the checker ran across the whole project and what it returned.
+
+- What changed since the last run: findings added, findings removed because they are now resolved, and findings updated.
+- Anything left under Not determined.
+- A suggested commit message, for example `docs: update detect map`.
+- **Next step:** point the user to `/lagune.plan`, the phase that turns these findings into prioritized fixes, each tied to a charter principle. Frame it as the recommended next step, and note they can rerun `/lagune.detect` (on the whole project or a narrower scope) whenever the code changes.
 
 Keep the map in plain language throughout. A non-developer should understand what each finding is and the risk it carries, while the evidence stays precise enough for the next phases to use.

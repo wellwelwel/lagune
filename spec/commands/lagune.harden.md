@@ -100,7 +100,7 @@ This is the one place Lagune changes the user's code. Apply the planned fixes ca
 - The `Scope` line matches the mode you actually ran.
 - The date is ISO `YYYY-MM-DD`.
 
-### Step 7: Write and summarize
+### Step 7: Write and track
 
 - Write the reconciled record to `.lagune/memory/harden.md`.
 - Register the items you hardened so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run hardened, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name the plan used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the change landed in. The path lives here, in tracking, never in the prose. Run it from the project root, passing the payload as the single argument:
@@ -111,12 +111,19 @@ node ./.lagune/hooks/track.mjs '{"entries":[{"name":"<FINDING NAME>","paths":["<
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase hardened. Repairing the map across the conveyor stays with `/lagune.repair`.
 
-- Output a short summary to the user:
-  - The scope you ran (all fixes, named fixes or paths, or priorities).
-  - The fixes applied, each with its status and a one-line note of what changed, in the order you applied them.
-  - What changed since the last run: blocks added, blocks removed because the fix is gone or the change was reverted, and blocks updated.
-  - Anything left under Remaining, including any part of the scope the plan did not cover, and any Blocked fix.
-  - A suggested commit message, for example `fix: apply security hardening from the defense plan`.
-  - **Next step:** point the user to `/lagune.verify`, the phase that proves each applied control actually holds. Make clear the applied controls are not yet proven until verify confirms them. Frame it as the recommended next step. If anything is left under Remaining (a Blocked fix, or a part the plan did not cover), name what is still open so the user can decide whether to revisit `/lagune.plan` or rerun `/lagune.harden` before verifying.
+### Step 8: Check the written record
+
+Run `node ./.lagune/hooks/validate.mjs harden` from the project root. If it reports problems, follow its output and rerun it until it passes.
+
+### Step 9: Summarize
+
+Output a short summary to the user:
+
+- The scope you ran (all fixes, named fixes or paths, or priorities).
+- The fixes applied, each with its status and a one-line note of what changed, in the order you applied them.
+- What changed since the last run: blocks added, blocks removed because the fix is gone or the change was reverted, and blocks updated.
+- Anything left under Remaining, including any part of the scope the plan did not cover, and any Blocked fix.
+- A suggested commit message, for example `fix: apply security hardening from the defense plan`.
+- **Next step:** point the user to `/lagune.verify`, the phase that proves each applied control actually holds. Make clear the applied controls are not yet proven until verify confirms them. Frame it as the recommended next step. If anything is left under Remaining (a Blocked fix, or a part the plan did not cover), name what is still open so the user can decide whether to revisit `/lagune.plan` or rerun `/lagune.harden` before verifying.
 
 Keep the record in plain language throughout. A non-developer should understand what was changed and what is still open, while the `Where` note stays precise enough that, with the path from the tracking map, `/lagune.verify` can act on it.

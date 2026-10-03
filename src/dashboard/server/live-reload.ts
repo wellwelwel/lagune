@@ -4,8 +4,8 @@ import type { LiveReload } from '../../types/dashboard/server';
 import { watch } from 'node:fs';
 import { access } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
+import { readText } from '../../core/markdown/read';
 import { buildInstall, installWatchRoots } from './data/build/install';
-import { readText } from './data/read';
 
 const dirExists = async (path: string): Promise<boolean> => {
   try {

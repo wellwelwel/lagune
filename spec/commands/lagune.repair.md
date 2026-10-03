@@ -1,5 +1,5 @@
 ---
-description: Repair Lagune's internal tracking so each item stays whole when files are renamed or moved. A maintenance pass, not a security phase. It reads every artifact and the current code, then rewrites the tracking map across all phases in one pass.
+description: Repair Lagune's internal tracking so each item stays whole when files are renamed or moved, and check every memory artifact against its template. A maintenance pass, not a security phase, rewriting the tracking map across all phases in one pass.
 ---
 
 ## User Input
@@ -14,7 +14,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 You are reconciling Lagune's internal **tracking map** at `.lagune/tracking.json`: the side index that holds one entry per tracked item (a detect finding the later phases carry forward as the same item) so the item survives a rename or a moved file. Each item is one entry, identified by its name. The file paths live only in this map, never in the prose artifacts. So when a refactor renames or moves a file, the map is the one place that points at a path that no longer exists. Reconcile is the one act that corrects it.
 
-Reconcile is whole, never partial. It reads **every** artifact under `.lagune/memory/` and the project's **current code**, works out where each item lives, and rewrites the tracking map in one pass. It never reconciles one phase in isolation, because a file renamed mid-flow touches every phase that referenced it, and updating only some of them is exactly the inconsistency this command exists to remove.
+Reconcile is whole, never partial. It reads **every** artifact under `.lagune/memory/` and the project's **current code**, works out where each item lives, and rewrites the tracking map in one pass. It never reconciles one phase in isolation, because a file renamed mid-flow touches every phase that referenced it, and updating only some of them is exactly the inconsistency this command exists to remove. The same whole-chain seat makes this the one command that checks every memory artifact against its template, reporting what drifted without touching it.
 
 This is plumbing, not a security phase. It does **not** edit any `.lagune/memory/*.md` artifact and does **not** create a `.lagune/memory/repair.md`. The only file it changes is `.lagune/tracking.json`. The repair is internal.
 
@@ -47,12 +47,17 @@ The hook returns `unresolved` for each item that was in the map but not named in
 - **`renamed-candidate`**: an item observed under a different name shares this one's tracked paths. Likely a rename, but the hook must not decide it alone. Confirm with the user, and if they confirm, run the hook again with the item under its current name so its identity carries over.
 - **`orphan`**: the item is in the map but no artifact names it anymore. It may have been genuinely resolved (the logic deleted), or dropped by mistake. Ask the user before treating it as gone. If confirmed gone, delete that one entry from the map and remove the same-titled section from each `.md` that still carries it. Prefer to ask than to guess: a wrongly dropped item is how the chain breaks.
 
-### Step 5: Summarize
+### Step 5: Check the whole memory
+
+Run `node ./.lagune/hooks/validate.mjs` from the project root with no argument, which checks every memory artifact present against its template. Fix nothing: each artifact's shape belongs to the phase that writes it, so carry what the hook reports into the summary, each drifted artifact pointed at its own command (`/lagune.charter`, `/lagune.detect`, `/lagune.plan`, or `/lagune.harden`).
+
+### Step 6: Summarize
 
 - Write nothing to the artifacts. The hook already wrote `.lagune/tracking.json`.
 - Output a short summary to the user, in plain language, leading with the items' names, never an internal id:
   - What was reconciled: items whose path was corrected after a rename or move, items newly registered, and any rename you confirmed.
   - Anything still unresolved and what would settle it.
+  - What the memory check reported: each drifted artifact with the phase command that fixes it, and any warning worth attention. Nothing reported means the memory kept its shape, so say so.
   - A suggested commit message, for example `chore: repair the Lagune tracking map`.
   - **Next step:** if anything is still unresolved, name it so the user can settle it and rerun. Otherwise tell the user the tracking is coherent again. Say it as a suggestion, not a mandate.
 
