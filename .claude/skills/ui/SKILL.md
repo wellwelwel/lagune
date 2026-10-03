@@ -1,9 +1,11 @@
 ---
-name: interface
+name: ui
 description: Design engineering principles for making interfaces feel polished. Use when building UI, reviewing frontend code, or working on any visual detail, from animations, hover states, shadows, borders, and typography to optical alignment and tabular numbers.
 user-invocable: true
 metadata:
-  internal: true
+  author: Weslley Araújo
+  version: '1.0.0'
+  source: https://github.com/wellwelwel/skills, adapted from https://github.com/jakubkrehel/make-interfaces-feel-better/tree/384562064fcdd99778fcbafd8729626fe6aab02f
 ---
 
 # Details that make interfaces feel better
@@ -83,7 +85,7 @@ Content must never reflow after it appears. Reserve space up front for anything 
 
 ### 16. Canonical Tailwind Classes
 
-Prefer a scale class over an arbitrary value when one exists: `size-8.5` over `size-[34px]`, `duration-220` over `duration-[220ms]`. Every `px` on the spacing scale maps by `N / 4`. Reserve `[...]` for values with no canonical form (breakpoints, `color-mix`, `cubic-bezier`, `rounded-[…]`).
+On Tailwind, prefer a scale class over an arbitrary value when one exists: `size-8.5` over `size-[34px]`, `duration-220` over `duration-[220ms]`. Every `px` on the spacing scale maps by `N / 4`. Reserve `[...]` for values with no canonical form (breakpoints, `color-mix`, `cubic-bezier`, `rounded-[…]`). Bare numeric values like `size-8.5` and `duration-220` need Tailwind v4, so on v3 check the project's theme scale first.
 
 ## Common Mistakes
 
@@ -104,15 +106,7 @@ Prefer a scale class over an arbitrary value when one exists: `size-8.5` over `s
 
 ## Verifying the rendered result
 
-Verify by measuring, not by eyeballing. For any spacing or alignment claim, measure the rendered DOM (`getBoundingClientRect` between an element and its container's edges) and report the numbers. A screenshot that looks aligned is not evidence.
-
-For complex visual changes, or whenever seeing the rendered result matters, drive the running page through Chrome's built-in DevTools Protocol (CDP) to inspect the DOM, computed styles, and layout, and to capture screenshots. It works against any URL, whatever app or domain is serving it. The `tools/cdp.ts` helper does exactly this:
-
-```sh
-npx tsx tools/cdp.ts --out ./temp/shots --shot 'label|<url>'
-```
-
-Pass an optional `--measure` snippet to read geometry off the rendered DOM. Put any query params the page supports (a forced theme, a route, a flag) straight in the URL. Reach for it when a change is hard to verify from the source alone: layout, spacing, alignment, overflow, theme tokens, or anything that only shows up once rendered. Skip it for simple, self-evident edits (for example, adding a shadow) where the result is obvious from the diff.
+Whenever a change needs to be seen to be trusted, hand the verification to the `cdp` skill when it is installed. It captures the page and measures the rendered DOM, and its numbers are the evidence. Without it, measure the rendered DOM by whatever means the project already has, and never settle for a screenshot that merely looks right.
 
 ## Review Output Format
 

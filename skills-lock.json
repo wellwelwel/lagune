@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "cdp": {
+      "source": "wellwelwel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend/cdp/SKILL.md",
+      "computedHash": "32e59c05d49c93972ac0644a03197561123aac4da49f2901163741fcd615cf3b"
+    },
+    "engineering": {
+      "source": "wellwelwel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/development/engineering/SKILL.md",
+      "computedHash": "3004865a0b03e8fc60f3f8b9818d7258253de61f9469f315ce4b30350bcfeebe"
+    },
+    "ui": {
+      "source": "wellwelwel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend/ui/SKILL.md",
+      "computedHash": "e3a6b5afdba06aae2e4e7b3018f6052c8b706925658e550e76e999d528ab2294"
+    },
+    "writer": {
+      "source": "wellwelwel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/texts/writer/SKILL.md",
+      "computedHash": "9c145f6b619de88503d1505a322aa7a981ed4e241eca2601e1994bbc6092ab7e"
+    }
+  }
+}
