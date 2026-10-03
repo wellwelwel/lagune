@@ -1,33 +1,13 @@
-import type { PromptModalContent, TypeSegment } from '@/types/dashboard/client';
+import type { PromptModalContent } from '@/types/dashboard/client';
 import type { VNode } from 'preact';
 import { useState } from 'preact/hooks';
 import { Icon } from '../primitives/icons';
 import { PromptAgentModal } from './agent-modal';
 
-const SIDE_QUEST_PROMPT: TypeSegment[] = [
-  { text: 'Build a plan to address this recommendation made by Lagune:' },
-  { text: '\n\n' },
-  {
-    text: 'The /api/orders/{id} endpoint returns an order to any signed-in user without checking who owns it, so anyone can read orders that belong to other customers by changing the ID in the URL. Add an ownership check before returning the order.',
-    bold: true,
-  },
-];
-
-const SIDE_QUEST_MODAL: PromptModalContent = {
-  eyebrow: 'Side quests',
-  eyebrowIcon: 'compass',
-  title: 'One side quest at a time',
-  subtitle: 'Copy this prompt to your agent:',
-  banner: 'https://lagune.ai/img/docs/banner-5.png',
-  hint: 'Works with any coding agent',
-  prompt: SIDE_QUEST_PROMPT,
-};
-
 export const PromptAgentButton = (props: {
-  modal?: PromptModalContent;
+  modal: PromptModalContent;
   robotClass?: string;
 }): VNode => {
-  const modal = props.modal ?? SIDE_QUEST_MODAL;
   const robotClass = props.robotClass ?? 'text-accent';
   const [open, setOpen] = useState(false);
 
@@ -55,7 +35,9 @@ export const PromptAgentButton = (props: {
           </span>
         </span>
       </button>
-      {open && <PromptAgentModal onClose={() => setOpen(false)} {...modal} />}
+      {open && (
+        <PromptAgentModal onClose={() => setOpen(false)} {...props.modal} />
+      )}
     </>
   );
 };

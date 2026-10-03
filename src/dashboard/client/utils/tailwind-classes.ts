@@ -38,6 +38,9 @@ export const VPILL_TONE: Record<VerdictKind, string> = {
 
 export const CARD = 'rounded-lg bg-surface shadow-card';
 
+export const LIST_ROW =
+  'flex items-start gap-3 border-t border-line px-4.5 py-3 last:pb-4.5';
+
 export const TILE_SM =
   'grid size-8.5 flex-none place-items-center rounded-sm text-[1.05rem]';
 

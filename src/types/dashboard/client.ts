@@ -104,9 +104,6 @@ export type PromptModalContent = {
   eyebrow: string;
   eyebrowIcon: IconName;
   title: string;
-  subtitle: string;
-  banner: string;
-  hint: string;
   prompt: TypeSegment[];
 };
 

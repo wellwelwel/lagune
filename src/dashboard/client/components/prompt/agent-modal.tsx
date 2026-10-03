@@ -14,6 +14,12 @@ const AGENT_CHIPS = [0, 1, 2, 3, 4]
   .filter((theme) => !theme.coloredIcon)
   .slice(0, 4);
 
+const BANNER = 'https://lagune.ai/img/docs/banner-0.png';
+
+const SUBTITLE = 'Copy this prompt to your agent:';
+
+const ANY_AGENT = 'Works with any coding agent';
+
 const HINT =
   'col-start-1 row-start-1 text-[0.72rem] font-semibold transition-opacity duration-300';
 
@@ -61,7 +67,7 @@ export const PromptAgentModal = (
       <div class='relative flex-none overflow-hidden bg-banner px-6 py-5 text-white'>
         <img
           class='pointer-events-none absolute inset-0 z-0 size-full object-cover mask-[linear-gradient(to_right,transparent,rgba(0,0,0,0.35)_38%,black)]'
-          src={props.banner}
+          src={BANNER}
           alt=''
           aria-hidden='true'
         />
@@ -86,7 +92,7 @@ export const PromptAgentModal = (
           <h2 class='mt-1 text-[1.25rem] font-extrabold leading-[1.15] tracking-[-0.02em]'>
             {props.title}
           </h2>
-          <p class='mt-1.5 text-[0.85rem] text-white/90'>{props.subtitle}</p>
+          <p class='mt-1.5 text-[0.85rem] text-white/90'>{SUBTITLE}</p>
         </div>
       </div>
 
@@ -166,7 +172,7 @@ export const PromptAgentModal = (
             <span
               class={`${HINT} text-muted ${copied ? 'opacity-0' : 'opacity-100'}`}
             >
-              {props.hint}
+              {ANY_AGENT}
             </span>
             <span
               class={`${HINT} text-accent ${copied ? 'opacity-100' : 'opacity-0'}`}

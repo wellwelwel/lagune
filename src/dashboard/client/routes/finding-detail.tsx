@@ -18,10 +18,7 @@ import { PromptAgentButton } from '../components/prompt/agent-button';
 import { useData } from '../data/state';
 import { chainStep, hardenState, verdictKind } from '../selectors/derive';
 import { findingHref } from '../utils/links';
-import { BADGE_MUTED, LINK } from '../utils/tailwind-classes';
-
-const META_ROW =
-  'flex items-start gap-3 border-t border-line px-4.5 py-3 last:pb-4.5';
+import { BADGE_MUTED, LINK, LIST_ROW } from '../utils/tailwind-classes';
 
 const chainView = (finding: Finding): ChainView => {
   const verdict = verdictKind(finding.verdict);
@@ -121,9 +118,6 @@ const NextStepHint = (props: { finding: Finding }): VNode | null => {
           eyebrow: hint.eyebrow,
           eyebrowIcon: hint.eyebrowIcon,
           title: hint.title,
-          subtitle: 'Copy this prompt to your agent:',
-          banner: 'https://lagune.ai/img/docs/banner-5.png',
-          hint: 'Works with any coding agent',
           prompt: stepPrompt(props.finding, hint),
         }}
       />
@@ -271,7 +265,7 @@ export const FindingDetail = (): VNode => {
             count={finding.references ? 2 : 1}
           >
             {finding.cvss && (
-              <div class={META_ROW}>
+              <div class={LIST_ROW}>
                 <span class='mt-2 size-1.75 flex-none rounded-full bg-teal' />
                 <span class='min-w-0 flex-1 break-all font-mono text-[0.78rem] font-semibold text-ink-2 tabular-nums'>
                   {finding.cvss}
@@ -279,7 +273,7 @@ export const FindingDetail = (): VNode => {
               </div>
             )}
             {finding.references && (
-              <div class={META_ROW}>
+              <div class={LIST_ROW}>
                 <span class='mt-2 size-1.75 flex-none rounded-full border border-teal' />
                 <p class='min-w-0 flex-1 text-[0.8rem] leading-normal text-muted text-pretty'>
                   <Inline text={finding.references} />
@@ -298,7 +292,7 @@ export const FindingDetail = (): VNode => {
         >
           {finding.upholds.length > 0 ? (
             finding.upholds.map((uphold) => (
-              <div class={META_ROW}>
+              <div class={LIST_ROW}>
                 <span
                   class={`mt-2 size-1.75 flex-none rounded-full ${
                     uphold.baseline ? 'border border-accent' : 'bg-accent'
@@ -310,7 +304,7 @@ export const FindingDetail = (): VNode => {
               </div>
             ))
           ) : (
-            <div class={`${META_ROW} text-[0.8rem] italic text-faint`}>
+            <div class={`${LIST_ROW} text-[0.8rem] italic text-faint`}>
               No principle directly.
             </div>
           )}
@@ -324,7 +318,7 @@ export const FindingDetail = (): VNode => {
             count={finding.skills.length}
           >
             {finding.skills.map((skill) => (
-              <div class={META_ROW}>
+              <div class={LIST_ROW}>
                 <span class='mt-2 size-1.75 flex-none rounded-full bg-blue' />
                 <div class='flex min-w-0 flex-1 flex-col gap-1'>
                   <a
@@ -351,7 +345,7 @@ export const FindingDetail = (): VNode => {
             blurb='Fix that finding first, this one builds on it.'
             count={1}
           >
-            <div class={META_ROW}>
+            <div class={LIST_ROW}>
               <span class='mt-2 size-1.75 flex-none rounded-full bg-amber' />
               <a
                 class='min-w-0 flex-1 text-[0.82rem] font-bold text-accent no-underline hover:underline'
@@ -371,7 +365,7 @@ export const FindingDetail = (): VNode => {
         >
           {finding.files.length > 0 ? (
             finding.files.map((file) => (
-              <div class={META_ROW}>
+              <div class={LIST_ROW}>
                 <span class='mt-2 size-1.75 flex-none rounded-full bg-faint' />
                 <span class='min-w-0 flex-1 font-mono text-[0.78rem] font-semibold text-ink-2'>
                   {file}
@@ -379,7 +373,7 @@ export const FindingDetail = (): VNode => {
               </div>
             ))
           ) : (
-            <div class={`${META_ROW} text-[0.8rem] italic text-faint`}>
+            <div class={`${LIST_ROW} text-[0.8rem] italic text-faint`}>
               No tracked paths yet.
             </div>
           )}

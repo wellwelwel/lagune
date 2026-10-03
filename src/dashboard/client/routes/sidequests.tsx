@@ -1,5 +1,8 @@
-import type { PhaseMeta } from '@/types/dashboard/client';
-import type { SideQuestPhase } from '@/types/dashboard/dashboard';
+import type { PhaseMeta, PromptModalContent } from '@/types/dashboard/client';
+import type {
+  SideQuestItem,
+  SideQuestPhase,
+} from '@/types/dashboard/dashboard';
 import type { VNode } from 'preact';
 import { BANNER_CHIP, PageHeader } from '../components/page-header';
 import { Admonition } from '../components/primitives/admonition';
@@ -7,7 +10,7 @@ import { Inline } from '../components/primitives/inline';
 import { SectionCard } from '../components/primitives/section-card';
 import { PromptAgentButton } from '../components/prompt/agent-button';
 import { useData } from '../data/state';
-import { EMPTY } from '../utils/tailwind-classes';
+import { EMPTY, LIST_ROW } from '../utils/tailwind-classes';
 
 const PHASE_META: Record<SideQuestPhase, PhaseMeta> = {
   Detect: {
@@ -37,6 +40,19 @@ const PHASE_META: Record<SideQuestPhase, PhaseMeta> = {
 };
 
 const PHASE_ORDER: SideQuestPhase[] = ['Detect', 'Plan', 'Harden'];
+
+const sideQuestModal = (item: SideQuestItem): PromptModalContent => ({
+  eyebrow: 'Side quests',
+  eyebrowIcon: 'compass',
+  title: 'One side quest at a time',
+  prompt: [
+    {
+      text: 'Build a plan and ask whatever you need to address this side quest made by Lagune:',
+    },
+    { text: '\n\n' },
+    { text: item.text, bold: true },
+  ],
+});
 
 export const SideQuests = (): VNode => {
   const data = useData();
@@ -90,18 +106,18 @@ export const SideQuests = (): VNode => {
                   count={group.length}
                 >
                   {group.map((item) => (
-                    <div class='flex items-start gap-3 border-t border-line px-4.5 py-3'>
+                    <div class={LIST_ROW}>
                       <span
                         class={`mt-2 size-1.75 flex-none rounded-full ${meta.dot}`}
                       />
-                      <p class='min-w-0 flex-1 text-[0.82rem] leading-[1.55] text-ink-2 text-pretty'>
-                        <Inline text={item.text} />
-                      </p>
+                      <div class='flex min-w-0 flex-1 flex-col gap-3'>
+                        <p class='text-[0.82rem] leading-[1.55] text-ink-2 text-pretty'>
+                          <Inline text={item.text} />
+                        </p>
+                        <PromptAgentButton modal={sideQuestModal(item)} />
+                      </div>
                     </div>
                   ))}
-                  <div class='px-4.5 py-2.5 last:pb-4'>
-                    <PromptAgentButton />
-                  </div>
                 </SectionCard>
               );
             })}

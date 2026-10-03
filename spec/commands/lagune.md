@@ -33,6 +33,8 @@ Before any sub-skill or any code, think through the work the prompt asks for the
 
 This is your own reasoning about the task, not a checklist. Its only job is to give Step 3 something concrete to match: the security-relevant surfaces of what you are about to create.
 
+A prompt may also mention a side quest. That is the dashboard's name for anything a phase left open under `.lagune/memory/`: detect's **Not determined**, plan's **Open questions**, and harden's **Remaining**.
+
 ### Step 3: Match the sub-skills to the work
 
 Sub-skills are focused, language-agnostic security knowledge modules that load only on demand. Match them to the work you scoped in Step 2, through this mechanism.
