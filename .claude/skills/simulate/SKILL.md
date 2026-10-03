@@ -77,7 +77,7 @@ A reliable pattern: run the command, redirect raw output to a file under `./temp
 "Running the command" is you executing `spec/commands/lagune.<phase>.md` step by step, not doing the phase your own way and calling it the command.
 
 - **Open that spec first and treat it as the single source of truth.** Follow its steps in order. Do not run the phase from memory or from this skill's summary.
-- **Perform every confirmation stop the spec gates, for real.** `harden` must confirm before it edits any code, a full `detect` scan must be confirmed because it is token-heavy. Present what the spec says to present, in a transcript block, and wait. Never edit code or run a gated step without the confirmation first.
+- **Perform every user interaction the spec calls for, for real.** When a step says to ask the user or to tell them something before proceeding, present it in a transcript block and, where it needs an answer, wait. Never skip the stop or answer in the user's place.
 - **Decide scope, verdicts, fixes, priorities, and findings the way the spec's steps decide them**, against the real scenario. If you cannot point to the spec step that justifies a line of output, you are acting as yourself, so stop and follow the spec.
 
 ### Rule 4: Each phase's input must come from running the previous phase, not from you
@@ -112,7 +112,7 @@ Then, for the command you are simulating:
 - Did this actually run, or am I typing what I think would happen?
 - Is every transcript line backed by raw output I pasted, or a `./temp` file the user can open, rather than a truncated tool call? (Rule 2)
 - Have I already pasted the output of every step so far, so the user never has to ask? (Rule 2)
-- Did I follow each phase's spec, confirmation stops included, instead of acting as myself? (Rule 3)
+- Did I follow each phase's spec, its user interactions included, instead of acting as myself? (Rule 3)
 - Did each upstream artifact come from running its phase, not from me hand-writing the result I wanted? (Rule 4)
 - Is the scenario under `./temp`, not hidden in `/tmp`? (Rule 1)
 

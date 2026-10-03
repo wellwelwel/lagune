@@ -12,7 +12,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 ## Outline
 
-You are applying the **defense plan** to the code and producing a **hardening record** at `.lagune/memory/harden.md`: a record of which plan fixes were applied, what changed in the code, and what is still left. This phase **continues from plan**. Plan already decided the fix for each finding and its priority, so this phase does not re-decide the fix: it applies it. Every change you make must come from a fix that is really in the defense plan, never a fix you invent here. This is the one phase that **changes the user's code**, so it is the one that must be the most careful: it confirms with the user before it starts.
+You are applying the **defense plan** to the code and producing a **hardening record** at `.lagune/memory/harden.md`: a record of which plan fixes were applied, what changed in the code, and what is still left. This phase **continues from plan**. Plan already decided the fix for each finding and its priority, so this phase does not re-decide the fix: it applies it. Every change you make must come from a fix that is really in the defense plan, never a fix you invent here. This is the one phase that **changes the user's code**, so it is the one that must be the most careful.
 
 The defense plan is the primary input: the changes follow from the fixes it lists. The charter is the governing context: its principles still bind what you do, and a fix must never be applied in a way that breaks one.
 
@@ -55,9 +55,8 @@ If reconciling reveals the chain is inconsistent (for example the tracking map p
 
 ### Step 4: Apply the fixes, safely and one at a time
 
-This is the one place Lagune changes the user's code. Apply the planned fixes carefully:
+This is the one place Lagune changes the user's code. Do not ask for a confirmation of your own before you start: whether an edit needs the user's approval belongs to the agent and the permission mode it runs under, not to Lagune. Apply the planned fixes carefully:
 
-- **Confirm before you change anything.** List the in-scope fixes you are about to apply, by name, in the order you will apply them: dependencies first, then highest priority. Ask the user for one confirmation to proceed. If they decline, change nothing, stop, and tell them nothing was applied. If they ask to leave some fixes out, skip those and apply the rest. Only then start editing.
 - **One fix at a time, dependencies first, then highest priority.** When a fix carries a `Depends on`, apply the fix it depends on before it, even when that one's priority is lower. Among the fixes free to apply, follow priority order (Critical, then High, then Medium, then Low). Apply each fix on its own so each change stays small, reviewable, and easy to undo.
 - **Apply the smallest change that holds the control.** Make the fix the plan described, nothing more. Do not refactor unrelated code, do not add features, do not widen the change beyond the fix.
 - **Close the risk at its chokepoint, not only the reported path.** When the same weakness is reachable through more than one caller, place the control where they converge (the shared function, the boundary they all pass through) so every path is covered at once. Patching only the path the finding named leaves the sibling callers open.
@@ -94,7 +93,6 @@ This is the one place Lagune changes the user's code. Apply the planned fixes ca
 - No block for a finding the plan no longer carries, or a change no longer in the code, is still in the record, and no block is duplicated.
 - Every `Status` is one of `Applied`, `Partial`, or `Blocked`, and every `Partial` or `Blocked` fix has a matching entry under Remaining.
 - Every block you wrote or re-applied this run carries `Verdict: Pending` with no `Reason`, and you wrote no other verdict value.
-- Nothing was applied before the user confirmed the run, and any fix the user left out was not applied.
 - No applied change breaks a charter principle or weakens an existing control.
 - Each applied fix whose class has a sub-skill follows that sub-skill's guidance, with nothing it says about the applied control skipped.
 - The `Scope` line matches the mode you actually ran.
