@@ -60,14 +60,7 @@ const readDescription = (frontmatter: string): string => {
 const assemble = (frontmatterLines: string[], body: string): string =>
   `---\n${frontmatterLines.join('\n')}\n---\n${body}`;
 
-const injectSkillFrontmatter = (
-  asset: BundledAsset,
-  key: CommandKey,
-  {
-    withUserInvocable,
-    withInternalMetadata,
-  }: { withUserInvocable: boolean; withInternalMetadata: boolean }
-): string => {
+const transformSkill = (asset: BundledAsset, key: CommandKey): string => {
   const { frontmatter, body } = parseFrontmatter(asset, key);
 
   if (hasField(frontmatter, 'name')) return asset.contents;
@@ -77,26 +70,14 @@ const injectSkillFrontmatter = (
   if (!hasField(frontmatter, 'argument-hint'))
     lines.push(`argument-hint: ${ARGUMENT_HINTS[key]}`);
 
-  if (withUserInvocable && !hasField(frontmatter, 'user-invocable'))
+  if (!hasField(frontmatter, 'user-invocable'))
     lines.push('user-invocable: true');
 
-  if (withInternalMetadata && !hasField(frontmatter, 'metadata'))
+  if (!hasField(frontmatter, 'metadata'))
     lines.push('metadata:', '  internal: true');
 
   return assemble(lines, body);
 };
-
-const transformSkill = (asset: BundledAsset, key: CommandKey): string =>
-  injectSkillFrontmatter(asset, key, {
-    withUserInvocable: true,
-    withInternalMetadata: true,
-  });
-
-const transformCopilotPrompt = (asset: BundledAsset, key: CommandKey): string =>
-  injectSkillFrontmatter(asset, key, {
-    withUserInvocable: false,
-    withInternalMetadata: false,
-  });
 
 const validateFrontmatter = (asset: BundledAsset, key: CommandKey): string => {
   parseFrontmatter(asset, key);
@@ -161,7 +142,6 @@ const TRANSFORMS: Record<
   (asset: BundledAsset, key: CommandKey) => string
 > = {
   skill: transformSkill,
-  'copilot-prompt': transformCopilotPrompt,
   markdown: validateFrontmatter,
   forge: transformForge,
   'gemini-toml': transformGeminiToml,

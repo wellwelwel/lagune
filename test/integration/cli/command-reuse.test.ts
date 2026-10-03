@@ -48,12 +48,10 @@ describe('planning command reuse across agents', () => {
   });
 
   it('keeps a real file when the rendered contents differ', () => {
-    const jobs = plan(['claude', 'copilot']);
+    const jobs = plan(['claude', 'gemini']);
 
     strict(
-      jobsUnder(jobs, '.github/prompts/').every(
-        (job) => job.linkTo === undefined
-      ),
+      jobsUnder(jobs, '.gemini/').every((job) => job.linkTo === undefined),
       'a format that renders differently never links'
     );
   });

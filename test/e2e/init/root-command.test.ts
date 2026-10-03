@@ -36,7 +36,6 @@ const rootCommandPath = (spec: AgentSpec): string => {
 
 const rootNameToken: Record<CommandFormat, string> = {
   skill: 'name: lagune\n',
-  'copilot-prompt': 'name: lagune\n',
   markdown: '',
   forge: '',
   'gemini-toml': '',
@@ -45,7 +44,6 @@ const rootNameToken: Record<CommandFormat, string> = {
 
 const placeholderToken: Record<CommandFormat, string> = {
   skill: '$ARGUMENTS',
-  'copilot-prompt': '$ARGUMENTS',
   markdown: '$ARGUMENTS',
   forge: '{{parameters}}',
   'gemini-toml': '{{args}}',

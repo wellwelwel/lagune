@@ -1,4 +1,5 @@
-import type { Frontmatter } from '../../../src/types/test.js';
+import type { Frontmatter, SkillsLock } from '../../../src/types/test.js';
+import { readFile } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
 import { parse } from 'yaml.min';
 import { listFrontmatterSources, packageRoot } from './__utils__.js';
@@ -20,9 +21,39 @@ const skillSources = await listFrontmatterSources(
   (relativePath) => relativePath.endsWith('SKILL.md')
 );
 
+const lock: SkillsLock = JSON.parse(
+  await readFile(new URL('skills-lock.json', packageRoot), 'utf8')
+);
+const installedSkills = new Set(Object.keys(lock.skills));
+
+const skillNameOf = (relativePath: string): string =>
+  relativePath.split('/')[0];
+
+const isStringMap = (value: unknown): boolean =>
+  typeof value === 'object' &&
+  value !== null &&
+  Object.values(value).every((entry) => typeof entry === 'string');
+
+const assertMetadata = (metadata: unknown, installed: boolean): void => {
+  if (installed) {
+    strict(
+      isStringMap(metadata),
+      'an installed skill carries its provenance as strings'
+    );
+    return;
+  }
+
+  strict.deepStrictEqual(
+    metadata,
+    { internal: true },
+    'metadata carries only the skills.sh internal marker'
+  );
+};
+
 const assertValid = (
   frontmatter: string,
-  allowed: Record<string, true>
+  allowed: Record<string, true>,
+  installed = false
 ): void => {
   const parsed = parse<Frontmatter>(frontmatter);
 
@@ -51,12 +82,7 @@ const assertValid = (
       'user-invocable must be a boolean when present'
     );
 
-  if ('metadata' in parsed)
-    strict.deepStrictEqual(
-      parsed.metadata,
-      { internal: true },
-      'metadata carries only the skills.sh internal marker'
-    );
+  if ('metadata' in parsed) assertMetadata(parsed.metadata, installed);
 
   const unknownKeys = Object.keys(parsed).filter((key) => !(key in allowed));
 
@@ -81,7 +107,7 @@ describe('every spec frontmatter is valid and well-typed', () => {
     });
 });
 
-describe('every internal skill frontmatter is valid and well-typed', () => {
+describe('every repository skill frontmatter is valid and well-typed', () => {
   it('finds SKILL.md files under .claude/skills', () => {
     strict(
       skillSources.length > 0,
@@ -91,6 +117,10 @@ describe('every internal skill frontmatter is valid and well-typed', () => {
 
   for (const { relativePath, frontmatter } of skillSources)
     it(`.claude/skills/${relativePath} declares only known keys`, () => {
-      assertValid(frontmatter, SKILL_KEYS);
+      assertValid(
+        frontmatter,
+        SKILL_KEYS,
+        installedSkills.has(skillNameOf(relativePath))
+      );
     });
 });

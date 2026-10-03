@@ -18,9 +18,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'copilot',
     displayName: 'GitHub Copilot',
-    format: 'copilot-prompt',
-    dir: '.github/prompts',
-    extension: '.prompt.md',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.github/skills',
   },
   {
     key: 'cursor-agent',

@@ -50,6 +50,9 @@ export const manifestAgents = (value: unknown): string[] => {
 const fieldAgents = (fields: Record<string, unknown>): string[] =>
   manifestAgents(fields.agent);
 
+const fieldFiles = (fields: Record<string, unknown>): string[] =>
+  isStringArray(fields.files) ? fields.files : [];
+
 export const serializeAgents = (agents: string[]): ManifestAgent =>
   agents.length === 1 ? agents[0] : agents;
 
@@ -62,6 +65,9 @@ export const readManifestAgents = async (
   targetDir: string
 ): Promise<string[]> =>
   fieldAgents(await readManifestFields(join(targetDir, MANIFEST_PATH)));
+
+export const readManifestFiles = async (targetDir: string): Promise<string[]> =>
+  fieldFiles(await readManifestFields(join(targetDir, MANIFEST_PATH)));
 
 export const readManifestInstall = async (
   targetDir: string

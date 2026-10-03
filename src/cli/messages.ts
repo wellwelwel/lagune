@@ -305,13 +305,14 @@ export const gitignoreResult = (result: GitignoreOutcome): string => {
 
 export const updateSummary = (
   agentDisplayName: string,
-  refreshed: number
+  refreshed: number,
+  removed: number
 ): string => {
-  if (refreshed === 0)
+  if (refreshed === 0 && removed === 0)
     return color.dim(`Nothing to update for ${agentDisplayName}.`);
 
   return done(
-    `Updated for ${agentDisplayName} ${color.dim('·')} ${refreshed} refreshed`
+    `Updated for ${agentDisplayName} ${color.dim('·')} ${refreshed} refreshed${restAt(removed, 'removed')}`
   );
 };
 

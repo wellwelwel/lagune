@@ -1,4 +1,4 @@
-import { readFile, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { loadVersion } from '../../../src/core/assets.js';
@@ -136,6 +136,84 @@ await describe('update refreshes managed files to the installed version', async 
       'the original createdAt is preserved'
     );
     strict.strictEqual(after.agent, 'claude', 'the agent is preserved');
+  });
+
+  await it('removes a recorded agent command the installed version no longer produces', async () => {
+    const workspace = await newWorkspace();
+    const stale = '.github/prompts/lagune.charter.prompt.md';
+
+    await initInto(workspace, { init: true, agent: 'claude' });
+    await mkdir(join(workspace, '.github/prompts'), { recursive: true });
+    await writeFile(join(workspace, stale), 'legacy prompt file', 'utf8');
+
+    const before: { files: string[] } = JSON.parse(
+      await read(workspace, '.lagune/manifest.json')
+    );
+    await writeFile(
+      join(workspace, '.lagune/manifest.json'),
+      JSON.stringify({ ...before, files: [...before.files, stale] }, null, 2),
+      'utf8'
+    );
+
+    await updateInto(workspace);
+
+    await strict.rejects(
+      stat(join(workspace, stale)),
+      'the stale command should be removed'
+    );
+
+    const after: { files: string[] } = JSON.parse(
+      await read(workspace, '.lagune/manifest.json')
+    );
+
+    strict(!after.files.includes(stale), 'the manifest no longer lists it');
+  });
+
+  await it('keeps a user file the manifest happens to record', async () => {
+    const workspace = await newWorkspace();
+    const recorded = 'docs/security.md';
+
+    await initInto(workspace, { init: true, agent: 'claude' });
+    await mkdir(join(workspace, 'docs'), { recursive: true });
+    await writeFile(join(workspace, recorded), 'my notes', 'utf8');
+
+    const before: { files: string[] } = JSON.parse(
+      await read(workspace, '.lagune/manifest.json')
+    );
+    await writeFile(
+      join(workspace, '.lagune/manifest.json'),
+      JSON.stringify(
+        { ...before, files: [...before.files, recorded] },
+        null,
+        2
+      ),
+      'utf8'
+    );
+
+    await updateInto(workspace);
+
+    strict.strictEqual(
+      await read(workspace, recorded),
+      'my notes',
+      'only Lagune-named commands are ever removed'
+    );
+  });
+
+  await it('leaves a file it never recorded alone', async () => {
+    const workspace = await newWorkspace();
+    const own = '.github/prompts/mine.prompt.md';
+
+    await initInto(workspace, { init: true, agent: 'claude' });
+    await mkdir(join(workspace, '.github/prompts'), { recursive: true });
+    await writeFile(join(workspace, own), 'my own prompt', 'utf8');
+
+    await updateInto(workspace);
+
+    strict.strictEqual(
+      await read(workspace, own),
+      'my own prompt',
+      'an unrecorded file is untouched'
+    );
   });
 
   await it('does nothing in a project that was never initialized', async () => {

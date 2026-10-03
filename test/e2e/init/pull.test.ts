@@ -149,17 +149,17 @@ await describe('pull rebuilds generated files from a committed manifest', async 
 
   await it('rebuilds the commands of every recorded agent', async () => {
     const workspace = await newWorkspace();
-    const copilotCharter = '.github/prompts/lagune.charter.prompt.md';
+    const geminiCharter = '.gemini/commands/lagune.charter.toml';
 
     await initInto(workspace, { init: true, agent: 'claude' });
-    await initInto(workspace, { init: true, agent: 'copilot' });
+    await initInto(workspace, { init: true, agent: 'gemini' });
 
     await remove(workspace, '.claude/skills/lagune.charter');
-    await remove(workspace, copilotCharter);
+    await remove(workspace, geminiCharter);
     await pullInto(workspace);
 
     await stat(join(workspace, charterCommand));
-    await stat(join(workspace, copilotCharter));
+    await stat(join(workspace, geminiCharter));
   });
 
   await it('does nothing in a project that was never initialized', async () => {

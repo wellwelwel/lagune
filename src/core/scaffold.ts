@@ -17,13 +17,14 @@ import { planCommandReuse } from './command-reuse.js';
 import {
   ensureDir,
   pathExists,
+  removeFileIfPresent,
   removeSymlinkIfPresent,
   writeFileIfAbsent,
   writeFileOverwrite,
   writeSymlinkIfAbsent,
   writeSymlinkOverwrite,
 } from './fs-actions.js';
-import { restampManifestVersion } from './manifest.js';
+import { readManifestFiles, restampManifestVersion } from './manifest.js';
 import {
   emptySkillsCatalog,
   serializeSkillsCatalog,
@@ -31,6 +32,7 @@ import {
 import { renderSpecializations } from './specializations.js';
 import { emptyTrackingMap, serializeTrackingMap } from './tracking.js';
 
+const COMMAND_NAME = 'lagune';
 const MEMORY_DIR = '.lagune/memory';
 const MANIFEST_PATH = '.lagune/manifest.json';
 const TRACKING_PATH = '.lagune/tracking.json';
@@ -309,10 +311,57 @@ export const scaffold = async (
   ]);
 };
 
+const commandStem = (relativePath: string): string => {
+  const segments = relativePath.split('/');
+  const depth = relativePath.endsWith('/SKILL.md') ? 2 : 1;
+
+  return segments[segments.length - depth] ?? '';
+};
+
+const isLaguneCommandPath = (relativePath: string): boolean => {
+  const stem = commandStem(relativePath);
+
+  return stem === COMMAND_NAME || stem.startsWith(`${COMMAND_NAME}.`);
+};
+
+const staleCommandPaths = (previous: string[], current: string[]): string[] => {
+  const kept = new Set(current);
+
+  return previous.filter(
+    (path) => isLaguneCommandPath(path) && !kept.has(path)
+  );
+};
+
+const removeStaleCommand = async (
+  targetDir: string,
+  relativePath: string
+): Promise<FileOutcome> => {
+  const outcome = await removeFileIfPresent(
+    toAbsolute(targetDir, relativePath)
+  );
+
+  return { path: relativePath, status: outcome.status };
+};
+
+const removeStaleCommands = async (
+  targetDir: string,
+  previous: string[],
+  current: string[]
+): Promise<string[]> => {
+  const outcomes = await Promise.all(
+    staleCommandPaths(previous, current).map((path) =>
+      removeStaleCommand(targetDir, path)
+    )
+  );
+
+  return pathsWithStatus(outcomes, 'removed');
+};
+
 export const refresh = async (
   options: RefreshOptions
 ): Promise<RefreshResult> => {
   const { targetDir, providers, assets, version, now } = options;
+  const previousFiles = await readManifestFiles(targetDir);
   const fileJobs = sharedJobs(assets);
   const commandJobs = planCommandReuse(providers, assets);
 
@@ -338,10 +387,15 @@ export const refresh = async (
     ...commandsWritten,
     await renderSpecializations(targetDir),
   ];
+  const removed = await removeStaleCommands(
+    targetDir,
+    previousFiles,
+    refreshed
+  );
 
   await restampManifestVersion(targetDir, { version, now, files: refreshed });
 
-  return { refreshed, manifestPath: MANIFEST_PATH };
+  return { refreshed, removed, manifestPath: MANIFEST_PATH };
 };
 
 export const reconstruct = async (

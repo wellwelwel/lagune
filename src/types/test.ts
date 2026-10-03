@@ -20,7 +20,11 @@ export type Frontmatter = {
   description: string;
   'argument-hint'?: string;
   'user-invocable'?: boolean;
-  metadata?: { internal: boolean };
+  metadata?: Record<string, unknown>;
+};
+
+export type SkillsLock = {
+  skills: Record<string, unknown>;
 };
 
 export type SpecLimits = {

@@ -11,7 +11,7 @@ import {
 
 const claudeCharter = '.claude/skills/lagune.charter/SKILL.md';
 const codexCharter = '.codex/skills/lagune.charter/SKILL.md';
-const copilotCharter = '.github/prompts/lagune.charter.prompt.md';
+const geminiCharter = '.gemini/commands/lagune.charter.toml';
 
 const read = (workspace: string, relativePath: string): Promise<string> =>
   readFile(join(workspace, relativePath), 'utf8');
@@ -68,10 +68,10 @@ await describe('a later install reuses the first through symlinks', async () => 
     const workspace = await newWorkspace();
 
     await initInto(workspace, { init: true, agent: 'claude' });
-    await initInto(workspace, { init: true, agent: 'copilot' });
+    await initInto(workspace, { init: true, agent: 'gemini' });
 
     strict(
-      !(await isSymlink(workspace, copilotCharter)),
+      !(await isSymlink(workspace, geminiCharter)),
       'a different rendering never links'
     );
   });

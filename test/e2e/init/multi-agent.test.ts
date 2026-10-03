@@ -10,7 +10,7 @@ import {
 } from './__utils__.js';
 
 const claudeCharter = '.claude/skills/lagune.charter/SKILL.md';
-const copilotCharter = '.github/prompts/lagune.charter.prompt.md';
+const geminiCharter = '.gemini/commands/lagune.charter.toml';
 
 await describe('the manifest records every agent installed', async () => {
   await it('keeps a single agent as a string', async () => {
@@ -25,15 +25,15 @@ await describe('the manifest records every agent installed', async () => {
     const workspace = await newWorkspace();
 
     await initInto(workspace, { init: true, agent: 'claude' });
-    await initInto(workspace, { init: true, agent: 'copilot' });
+    await initInto(workspace, { init: true, agent: 'gemini' });
 
     const manifest = await readManifest(workspace);
 
-    strict.deepStrictEqual(manifest.agent, ['claude', 'copilot']);
+    strict.deepStrictEqual(manifest.agent, ['claude', 'gemini']);
     await stat(join(workspace, claudeCharter));
-    await stat(join(workspace, copilotCharter));
+    await stat(join(workspace, geminiCharter));
     strict(
-      Array.isArray(manifest.files) && manifest.files.includes(copilotCharter),
+      Array.isArray(manifest.files) && manifest.files.includes(geminiCharter),
       "the second agent's commands are recorded in files"
     );
   });
@@ -51,18 +51,18 @@ await describe('the manifest records every agent installed', async () => {
     const workspace = await newWorkspace();
 
     await initInto(workspace, { init: true, agent: 'claude' });
-    await initInto(workspace, { init: true, agent: 'copilot' });
+    await initInto(workspace, { init: true, agent: 'gemini' });
 
     const claudeShipped = await readFile(
       join(workspace, claudeCharter),
       'utf8'
     );
-    const copilotShipped = await readFile(
-      join(workspace, copilotCharter),
+    const geminiShipped = await readFile(
+      join(workspace, geminiCharter),
       'utf8'
     );
     await writeFile(join(workspace, claudeCharter), 'edited', 'utf8');
-    await writeFile(join(workspace, copilotCharter), 'edited', 'utf8');
+    await writeFile(join(workspace, geminiCharter), 'edited', 'utf8');
 
     const before = await readManifest(workspace);
 
@@ -74,9 +74,9 @@ await describe('the manifest records every agent installed', async () => {
       "claude's command is refreshed"
     );
     strict.strictEqual(
-      await readFile(join(workspace, copilotCharter), 'utf8'),
-      copilotShipped,
-      "copilot's command is refreshed"
+      await readFile(join(workspace, geminiCharter), 'utf8'),
+      geminiShipped,
+      "gemini's command is refreshed"
     );
     strict.deepStrictEqual(
       (await readManifest(workspace)).agent,

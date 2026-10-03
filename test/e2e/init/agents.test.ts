@@ -60,10 +60,6 @@ const placeholderExpectations: Record<
     ],
     absent: [],
   },
-  'copilot-prompt': {
-    present: ['$ARGUMENTS', 'name: lagune.charter'],
-    absent: ['user-invocable', 'internal: true'],
-  },
   markdown: { present: ['$ARGUMENTS'], absent: ['internal: true'] },
   forge: {
     present: ['{{parameters}}'],

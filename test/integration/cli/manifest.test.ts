@@ -209,7 +209,7 @@ await describe('recordManifestInstall', async () => {
       categories: ['python'],
       version: '9.9.9',
       now,
-      addFiles: ['.github/prompts/lagune.charter.prompt.md'],
+      addFiles: ['.github/skills/lagune.charter/SKILL.md'],
     });
 
     const manifest = await readManifest(workspace);

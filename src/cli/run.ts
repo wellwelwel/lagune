@@ -171,13 +171,28 @@ const runUpdate = async (cwd: string, packageRoot: URL): Promise<void> => {
     .map((provider) => provider.displayName)
     .join(', ');
   const groups = groupOutcomes(
-    updated.refresh.refreshed.map((path) => ({ path, status: 'refreshed' })),
+    [
+      ...updated.refresh.refreshed.map((path): FileOutcome => ({
+        path,
+        status: 'refreshed',
+      })),
+      ...updated.refresh.removed.map((path): FileOutcome => ({
+        path,
+        status: 'removed',
+      })),
+    ],
     label
   );
 
   printReport(groups);
 
-  print(updateSummary(label, updated.refresh.refreshed.length));
+  print(
+    updateSummary(
+      label,
+      updated.refresh.refreshed.length,
+      updated.refresh.removed.length
+    )
+  );
 
   printNextSteps(updated.refresh.refreshed.length, label);
 };
@@ -345,6 +360,10 @@ const runMigrate = async (cwd: string, packageRoot: URL): Promise<void> => {
     .join(', ');
   const outcomes = dedupeOutcomes([
     ...result.removedCommands.filter((outcome) => outcome.status === 'removed'),
+    ...result.refresh.removed.map((path): FileOutcome => ({
+      path,
+      status: 'removed',
+    })),
     ...result.rewrittenState.map((path): FileOutcome => ({
       path,
       status: 'refreshed',
@@ -354,9 +373,7 @@ const runMigrate = async (cwd: string, packageRoot: URL): Promise<void> => {
       status: 'refreshed',
     })),
   ]);
-  const removedCount = result.removedCommands.filter(
-    (outcome) => outcome.status === 'removed'
-  ).length;
+  const removedCount = countStatus(outcomes, 'removed');
   const refreshedCount = outcomes.length - removedCount;
 
   printReport(groupOutcomes(outcomes, label));

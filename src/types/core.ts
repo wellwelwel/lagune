@@ -158,12 +158,7 @@ export type LinkedFile = {
 };
 
 export type CommandFormat =
-  | 'skill'
-  | 'copilot-prompt'
-  | 'markdown'
-  | 'forge'
-  | 'gemini-toml'
-  | 'goose-yaml';
+  'skill' | 'markdown' | 'forge' | 'gemini-toml' | 'goose-yaml';
 
 export type CommandLayout = 'skill' | 'file';
 
@@ -304,6 +299,7 @@ export type PerformPullResult =
 
 export type RefreshResult = {
   refreshed: string[];
+  removed: string[];
   manifestPath: string;
 };
 

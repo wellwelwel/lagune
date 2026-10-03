@@ -1,6 +1,13 @@
 {
   "include": ["src", "scripts", "test", ".claude/skills"],
-  "exclude": ["src/dashboard/client", "temp"],
+  "exclude": [
+    "src/dashboard/client",
+    "temp",
+    ".claude/skills/cdp",
+    ".claude/skills/engineering",
+    ".claude/skills/ui",
+    ".claude/skills/writer"
+  ],
   "compilerOptions": {
     "target": "ES2023",
     "module": "ESNext",
