@@ -62,7 +62,3 @@ The tracking-map model (item identity, where the map lives, its shape, who calls
 ## The validate hook
 
 It reads the memory artifacts through the shared markdown module under `src/core/`, the same one the dashboard parses with, so whatever the hook approves the dashboard can parse. The contract the tests pin down: a named target must exist, the sweep takes an absent artifact as legitimate and an empty memory as a failure, output is plain prose for agent or human, problems alone exit non-zero, and warnings never fail the run.
-
-## The cvss hook
-
-The CVSS v4.0 scoring engine lives under `src/core/`, shared by the **cvss** hook, which scores the vector a phase built and prints the score and band the phase writes, and by the **validate** hook, which rescores every CVSS line in the plan so the written score, band, and Priority are the ones the vector yields. It follows the FIRST reference calculator, so a vector scores there exactly as it does here. The contract the tests pin down: the reference vectors score as the reference does, an invalid vector is named inline and exits non-zero, and the first line per vector is its score and band.
