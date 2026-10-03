@@ -1,4 +1,5 @@
 import type { Block } from '../../types/core.js';
+import { oneOf } from '../../core/collections.js';
 import { bulletField } from '../../core/markdown/fields.js';
 import { headingLevel, markdownLines } from '../../core/markdown/lines.js';
 
@@ -11,13 +12,6 @@ export const structuralLines = (text: string): string[] =>
     .map((line) => line.text);
 
 export const isIsoDate = (value: string): boolean => ISO_DATE.test(value);
-
-export const oneOf = (values: string[]): string => {
-  if (values.length <= 1) return values[0] ?? '';
-  if (values.length === 2) return `${values[0]} or ${values[1]}`;
-
-  return `${values.slice(0, -1).join(', ')}, or ${values[values.length - 1]}`;
-};
 
 export const placeholderProblems = (text: string): string[] => {
   const tokens = structuralLines(text).flatMap((line) =>

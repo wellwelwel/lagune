@@ -1,6 +1,12 @@
 import { describe, it, strict } from 'poku';
-import { validatePlan } from '../../../src/hooks/validate/plan.js';
+import {
+  planWarnings,
+  validatePlan,
+} from '../../../src/hooks/validate/plan.js';
 import { validDetect, validPlan } from './__utils__.js';
+
+const CVSS_LINE =
+  '- **CVSS:** CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, Critical)';
 
 describe('validatePlan accepts the template shape and flags drift', () => {
   it('accepts a plan that keeps the template shape', () => {
@@ -38,6 +44,107 @@ describe('validatePlan accepts the template shape and flags drift', () => {
     );
 
     strict(problems.some((problem) => problem.includes('CVSS:4.0/')));
+  });
+
+  it('flags a CVSS line without the score and band the cvss hook prints', () => {
+    const problems = validatePlan(
+      validPlan.replace(' (9.3, Critical)', ''),
+      validDetect
+    );
+
+    strict(
+      problems.some((problem) =>
+        problem.includes('is not the vector followed by "(score, band)"')
+      )
+    );
+  });
+
+  it('flags an invalid vector on the CVSS line', () => {
+    const problems = validatePlan(
+      validPlan.replace('AV:N/', 'AV:X/'),
+      validDetect
+    );
+
+    strict(
+      problems.some(
+        (problem) =>
+          problem.includes('carries an invalid vector') &&
+          problem.includes('AV (Attack Vector) does not take "X"')
+      )
+    );
+  });
+
+  it('flags a score that is not the one the vector yields', () => {
+    const problems = validatePlan(
+      validPlan.replace('(9.3, Critical)', '(9.0, Critical)'),
+      validDetect
+    );
+
+    strict(
+      problems.some((problem) =>
+        problem.includes(
+          'reads (9.0, Critical), but its vector scores (9.3, Critical)'
+        )
+      )
+    );
+  });
+
+  it('flags a band that is not the one the score maps to', () => {
+    const problems = validatePlan(
+      validPlan.replace('(9.3, Critical)', '(9.3, High)'),
+      validDetect
+    );
+
+    strict(
+      problems.some((problem) =>
+        problem.includes(
+          'reads (9.3, High), but its vector scores (9.3, Critical)'
+        )
+      )
+    );
+  });
+
+  it('flags a Priority that is not the band its CVSS line scores', () => {
+    const problems = validatePlan(
+      validPlan.replace('- **Priority:** Critical', '- **Priority:** High'),
+      validDetect
+    );
+
+    strict(
+      problems.some((problem) =>
+        problem.includes(
+          'the Priority "High" on the fix "Unrestricted file upload" is not the band "Critical"'
+        )
+      )
+    );
+  });
+
+  it('accepts a Priority that follows an Environmental adjustment in the vector', () => {
+    strict.deepStrictEqual(
+      validatePlan(
+        validPlan
+          .replace('SA:N (9.3, Critical)', 'SA:N/MAV:A (8.7, High)')
+          .replace('- **Priority:** Critical', '- **Priority:** High'),
+        validDetect
+      ),
+      []
+    );
+  });
+
+  it('flags a vector with no impact, which fits no Priority band', () => {
+    const problems = validatePlan(
+      validPlan.replace(
+        'VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, Critical)',
+        'VC:N/VI:N/VA:N/SC:N/SI:N/SA:N (0.0, None)'
+      ),
+      validDetect
+    );
+
+    strict(
+      problems.some((problem) =>
+        problem.includes('scores (0.0, None), which fits no Priority band')
+      )
+    );
   });
 
   it('flags a fix title no detect finding carries', () => {
@@ -106,6 +213,33 @@ describe('validatePlan accepts the template shape and flags drift', () => {
 
     strict(
       problems.some((problem) => problem.includes('loops back to itself'))
+    );
+  });
+});
+
+describe('planWarnings surfaces what deserves attention without failing', () => {
+  it('stays quiet on a plan rated from the Base and Environmental metrics', () => {
+    strict.deepStrictEqual(planWarnings(validPlan), []);
+    strict.deepStrictEqual(
+      planWarnings(validPlan.replace('SA:N (9.3', 'SA:N/MAV:A/CR:L (9.3')),
+      []
+    );
+  });
+
+  it('warns about a Threat metric, which the rating keeps out of scope', () => {
+    const warnings = planWarnings(
+      validPlan.replace('SA:N (9.3, Critical)', 'SA:N/E:U (9.3, Critical)')
+    );
+
+    strict.deepStrictEqual(warnings, [
+      'the CVSS line on the fix "Unrestricted file upload" carries the Threat metric E, which the rating guide keeps out of scope',
+    ]);
+  });
+
+  it('stays quiet on a CVSS line that does not parse, which the problems already cover', () => {
+    strict.deepStrictEqual(
+      planWarnings(validPlan.replace(CVSS_LINE, '- **CVSS:** 9.3 Critical')),
+      []
     );
   });
 });

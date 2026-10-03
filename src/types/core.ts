@@ -1,3 +1,5 @@
+import type { CvssSeverity } from './cvss.js';
+
 export type CliCommand =
   | 'init'
   | 'update'
@@ -498,6 +500,11 @@ export type UntrackSummary = {
 };
 
 export type ValidateTarget = 'charter' | 'detect' | 'plan' | 'harden';
+
+export type PlanRatingCheck = {
+  problem: string | null;
+  severity: CvssSeverity | null;
+};
 
 export type MemoryContents = Record<ValidateTarget, string | null>;
 

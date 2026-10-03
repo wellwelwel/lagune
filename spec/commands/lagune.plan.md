@@ -14,7 +14,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 You are producing a **defense plan** at `.lagune/memory/plan.md`: a prioritized set of fixes for what detect found, each one pointing at a detect finding, rated with a category and a CVSS v4.0 score, paired with the charter principle it upholds, and the control to apply. This phase **continues from detect**. Detect already detected what the system does and recorded the risk each thing carries, so the plan does not restate the risk: it rates how serious it is and decides what to do about it. Every fix must point at something detect actually detected, never a generic checklist. The fixes are the WHAT to do. Applying them is the next phase, harden, not this one.
 
-The detect map is the primary input: the fixes follow from what detect found. The charter is the governing context: it tells you which fixes matter most for this project, gives each fix a principle to uphold, and supplies the exposure and stakes that adjust each rating. The rating follows the CVSS v4.0 Base-and-Environmental method, so a finding earns a realistic, sourced band with a named category, reasoned from the detect map and the charter alone.
+The detect map is the primary input: the fixes follow from what detect found. The charter is the governing context: it tells you which fixes matter most for this project, gives each fix a principle to uphold, and supplies the exposure and stakes that adjust each rating. The rating follows the CVSS v4.0 Base-and-Environmental method, scored by the cvss hook, so a finding earns a realistic, reproducible band with a named category, reasoned from the detect map and the charter alone.
 
 ### Step 1: Decide the scope from the input
 
@@ -55,16 +55,22 @@ If reconciling reveals the chain is inconsistent (for example the tracking map p
 
 ### Step 4: Plan the fixes
 
-For each in-scope detect finding, read the risk detect already recorded for it (do not restate that risk in the plan), then rate it and decide the fix that answers it. Reason the rating from the detect finding and the charter alone, and when a fact it needs is in neither, name the assumption rather than open the source (see Step 5's rating guide). For each finding you plan:
+For each in-scope detect finding, read the risk detect already recorded for it (do not restate that risk in the plan), then rate it and decide the fix that answers it. Reason the rating from the detect finding and the charter alone, and when a fact it needs is in neither, name the assumption rather than open the source. For each finding you plan:
 
 - Title the block with the detect finding's name, verbatim, so it is the same item. Do not rename it or add an action prefix, and do not copy its file path into the plan: the path lives in the tracking map.
 - Name the **category**: the risk class the finding maps to (for example "SQL injection", "Prototype pollution"), and a CVE only if one already exists for it. Name the class alone when there is none, and add the matching CWE where it sharpens the class.
-- **Rate the finding** with the CVSS v4.0 Base-and-Environmental method in Step 5's rating guide. Build the CVSS:4.0 Base vector from what detect recorded, read its score, and set the `Priority` band from that score. The band is the score in plain words, not a free choice.
-- Write one plain-language line for **why this priority**: the Environmental adjustment behind the band, how exposed the finding is (from detect) and what is at stake (from charter or detect). Do not restate the risk. This lets any reader see the order is justified.
+- **Rate the finding** by the rating guide at the foot of `plan-template.md`: build the CVSS:4.0 vector from what detect and the charter recorded, score it with the cvss hook, write it on `CVSS` followed by the score and band printed, and set `Priority` to that band, not a free choice.
+- Write one plain-language line for **why this priority**: the Environmental metrics behind the band, how exposed the finding is (from detect) and what is at stake (from charter or detect). Do not restate the risk. This lets any reader see the order is justified.
 - Name the charter principle the fix upholds, if the charter names one. If the fix supports more than one principle, name them all, separated by commas. If no principle fits, write `None directly` and keep the fix.
 - Add a `Depends on` line only when this fix cannot hold until another finding's fix lands first, for example validating an input before encoding its output. Name that other finding verbatim, and omit the line otherwise. It sets the order to apply in, not the priority: the depended-on fix is applied first even when its priority is lower.
 - Describe the control to apply: the WHAT to do, not the application. Applying is harden's job.
 - Add **references** when they ground the category, CWE or OWASP links written as `[label](url)` markdown (not bare URLs), comma-separated. Omit them when there is nothing to cite beyond the class named, and never invent one.
+
+Run the cvss hook from the project root, passing each vector as a flag value:
+
+```bash
+node ./.lagune/hooks/cvss.mjs -v '<VECTOR>' -v '<VECTOR>'
+```
 
 One finding is one item, with one rating. When a finding needs more than one fix, write them as more than one paragraph under the block's `Fix`, never a second block. Plan what the findings support, nothing speculative.
 
@@ -75,14 +81,13 @@ One finding is one item, with one rating. When a finding needs more than one fix
 - **Merge, do not overwrite.** The plan now holds the reconciled fixes from Step 3 plus what you planned in Step 4. Add a new block only for a finding genuinely new, not already represented. Do not duplicate a finding that is already there under a different wording.
 - Write one block per finding, titled with the finding's name (verbatim from detect, no action prefix). Each block MUST carry these parts:
   - **Category:** the risk class the finding maps to, and a CVE only when one already exists. Name the class alone otherwise.
-  - **CVSS:** the CVSS v4.0 Base vector string with its score and band, reasoned by the rating guide below.
-  - **Priority:** one of `Critical`, `High`, `Medium`, or `Low`. It is the CVSS band in plain words, after the Environmental adjustment, not a free choice.
-  - **Why this priority:** one plain-language line for the Environmental adjustment behind the band, exposure and stakes (see Step 4).
+  - **CVSS:** the CVSS v4.0 vector with the score and band the cvss hook printed.
+  - **Priority:** one of `Critical`, `High`, `Medium`, or `Low`: the band the cvss hook printed, not a free choice.
+  - **Why this priority:** one plain-language line for the Environmental metrics behind the band, exposure and stakes (see Step 4).
   - **Upholds:** the charter principle the fix supports, or several separated by commas if it supports more than one. If no charter is loaded or none fits, write `None directly` and keep the fix.
   - **Depends on:** optional. Another finding this fix must follow, verbatim, several separated by commas. Omit the line when there is no real dependency.
   - **Fix:** the control to apply in harden, described not applied.
   - **References:** optional. CWE or OWASP links grounding the category, written as `[label](url)` markdown, comma-separated. Omit when there is nothing to cite beyond the class named, and never invent one.
-- **Rate every finding by the rating guide at the foot of `plan-template.md`, so two runs land the same.** It is the CVSS v4.0 Base-and-Environmental method. The Base score maps to the `Priority` band: None `0.0`, Low `0.1-3.9`, Medium `4.0-6.9`, High `7.0-8.9`, Critical `9.0-10.0`. The threat layer (EPSS, exploit maturity) stays out of scope, since the finding has no CVE of its own.
 - The template ships with three starter fixes. This is a starting point, not a limit. Add or remove fixes so the plan matches what the findings actually need.
 - If part of the scope was not covered by the detect map, record it under **Open questions**. Do not invent a finding to fill the gap. Remove that section if there are none.
 - Set `Planned` to today's date in ISO format `YYYY-MM-DD`.
@@ -91,8 +96,8 @@ One finding is one item, with one rating. When a finding needs more than one fix
 
 - No bracket tokens remain.
 - Every block is titled with a finding name that really exists in the detect map, and carries Category, CVSS, Priority, Why this priority, Upholds, and Fix.
-- Every `CVSS` is a `CVSS:4.0` Base vector string with a score and band, and its `Priority` is the band that score maps to, after the Environmental adjustment reasoned in `Why this priority`. The vector carries no Threat or Environmental metrics.
-- Every block has a non-empty `Why this priority` line that gives the Environmental adjustment (exposure and stakes) and does not restate the risk.
+- Every `CVSS` carries the score and band the cvss hook printed for its vector, its `Priority` is that band, and the vector carries no Threat metric.
+- Every block has a non-empty `Why this priority` line that gives the Environmental metrics (exposure and stakes) in plain words and does not restate the risk.
 - No fix for a finding that Step 3 found resolved is still in the plan, and no finding is duplicated.
 - Every `Priority` is one of `Critical`, `High`, `Medium`, or `Low`.
 - Every `References`, where present, cites a real CWE or OWASP source, none invented.

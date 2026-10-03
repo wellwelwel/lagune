@@ -11,7 +11,7 @@ import { readText } from '../../core/markdown/read.js';
 import { charterWarnings, validateCharter } from './charter.js';
 import { validateDetect } from './detect.js';
 import { validateHarden } from './harden.js';
-import { validatePlan } from './plan.js';
+import { planWarnings, validatePlan } from './plan.js';
 
 const MEMORY_FILES: Record<ValidateTarget, string> = {
   charter: '.lagune/memory/charter.md',
@@ -35,7 +35,7 @@ const RULES: Record<
 const WARNING_RULES: Record<ValidateTarget, (content: string) => string[]> = {
   charter: (content) => charterWarnings(content),
   detect: () => [],
-  plan: () => [],
+  plan: (content) => planWarnings(content),
   harden: () => [],
 };
 

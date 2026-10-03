@@ -120,6 +120,37 @@ await describe('the validate hook logic', async () => {
     strict(result.output.includes('one markdown comment'));
   });
 
+  await it('warns about a Threat metric on the plan without failing the run', async () => {
+    const workspace = await newWorkspace();
+    await seedMemory(workspace, 'detect.md', validDetect);
+    await seedMemory(
+      workspace,
+      'plan.md',
+      validPlan.replace('SA:N (9.3, Critical)', 'SA:N/E:A (9.3, Critical)')
+    );
+
+    const result = await validate(workspace, 'plan');
+
+    strict.strictEqual(result.hasFinding, false);
+    strict(result.output.startsWith(ALL_CLEAR));
+    strict(result.output.includes('carries the Threat metric E'));
+  });
+
+  await it('fails the plan whose CVSS score is not the one its vector yields', async () => {
+    const workspace = await newWorkspace();
+    await seedMemory(workspace, 'detect.md', validDetect);
+    await seedMemory(
+      workspace,
+      'plan.md',
+      validPlan.replace('(9.3, Critical)', '(8.0, High)')
+    );
+
+    const result = await validate(workspace, 'plan');
+
+    strict.strictEqual(result.hasFinding, true);
+    strict(result.output.includes('but its vector scores (9.3, Critical)'));
+  });
+
   await it('rejects an unknown target', async () => {
     const workspace = await newWorkspace();
 

@@ -1,4 +1,12 @@
-import type { Block } from '../../types/core.js';
+import type { Block, PlanRatingCheck } from '../../types/core.js';
+import type { CvssSeverity } from '../../types/cvss.js';
+import { isDefined } from '../../core/cvss/metrics.js';
+import { CVSS_PREFIX, isProblem, parseVector } from '../../core/cvss/parse.js';
+import {
+  formatScore,
+  rateVector,
+  readRatingLine,
+} from '../../core/cvss/rating.js';
 import { bulletField } from '../../core/markdown/fields.js';
 import { sectionBlocks } from '../../core/markdown/sections.js';
 import {
@@ -21,29 +29,89 @@ const FIX_FIELDS = [
   'Fix',
 ];
 const PRIORITY_BANDS = ['Critical', 'High', 'Medium', 'Low'];
-const CVSS_PREFIX = 'CVSS:4.0/';
 
 const detectNames = (detect: string | null): string[] =>
   detect === null
     ? []
     : sectionBlocks(detect, 'Findings').map((block) => block.name);
 
+const unchecked = (problem: string): PlanRatingCheck => ({
+  problem,
+  severity: null,
+});
+
+const checkRating = (name: string, cvss: string): PlanRatingCheck => {
+  if (!cvss.startsWith(CVSS_PREFIX))
+    return unchecked(
+      `the CVSS line on the fix "${name}" does not carry a ${CVSS_PREFIX} vector`
+    );
+
+  const written = readRatingLine(cvss);
+
+  if (written === null)
+    return unchecked(
+      `the CVSS line on the fix "${name}" is not the vector followed by "(score, band)"`
+    );
+
+  const reading = parseVector(written.vector);
+
+  if (isProblem(reading))
+    return unchecked(
+      `the CVSS line on the fix "${name}" carries an invalid vector: ${reading.problem}`
+    );
+
+  const { overall } = rateVector(reading.metrics);
+
+  if (overall.score !== written.score || overall.severity !== written.severity)
+    return unchecked(
+      `the CVSS line on the fix "${name}" reads (${formatScore(written)}), but its vector scores (${formatScore(overall)}): run the cvss hook and copy the score and band it prints`
+    );
+
+  return { problem: null, severity: overall.severity };
+};
+
+const priorityProblems = (
+  name: string,
+  priority: string | null,
+  severity: CvssSeverity | null
+): string[] => {
+  if (
+    priority === null ||
+    severity === null ||
+    !PRIORITY_BANDS.includes(priority)
+  )
+    return [];
+
+  if (severity === 'None')
+    return [
+      `the CVSS line on the fix "${name}" scores (0.0, None), which fits no Priority band`,
+    ];
+
+  return priority === severity
+    ? []
+    : [
+        `the Priority "${priority}" on the fix "${name}" is not the band "${severity}" its CVSS line scores`,
+      ];
+};
+
 const ratingProblems = (block: Block): string[] => {
   const cvss = bulletField(block.body, 'CVSS');
+  const priority = bulletField(block.body, 'Priority');
+  const check =
+    cvss === null
+      ? { problem: null, severity: null }
+      : checkRating(block.name, cvss);
 
   return [
-    ...(cvss !== null && !cvss.startsWith(CVSS_PREFIX)
-      ? [
-          `the CVSS line on the fix "${block.name}" does not carry a ${CVSS_PREFIX} vector`,
-        ]
-      : []),
+    ...(check.problem === null ? [] : [check.problem]),
     ...allowedValueProblems(
       'fix',
       block.name,
       'Priority',
-      bulletField(block.body, 'Priority'),
+      priority,
       PRIORITY_BANDS
     ),
+    ...priorityProblems(block.name, priority, check.severity),
   ];
 };
 
@@ -134,3 +202,18 @@ export const validatePlan = (plan: string, detect: string | null): string[] => {
         ]),
   ];
 };
+
+const threatWarnings = (block: Block): string[] => {
+  const cvss = bulletField(block.body, 'CVSS');
+  const reading = cvss === null ? null : parseVector(cvss.split(/\s+/)[0]);
+
+  if (reading === null || isProblem(reading) || !isDefined(reading.metrics.E))
+    return [];
+
+  return [
+    `the CVSS line on the fix "${block.name}" carries the Threat metric E, which the rating guide keeps out of scope`,
+  ];
+};
+
+export const planWarnings = (plan: string): string[] =>
+  sectionBlocks(plan, 'Fixes').flatMap(threatWarnings);
