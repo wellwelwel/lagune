@@ -231,6 +231,12 @@ export const AGENT_SPECS: AgentSpec[] = [
     dir: '.forge/commands',
   },
   {
+    key: 'forgecode',
+    displayName: 'ForgeCode',
+    format: 'forge',
+    dir: '.forge/commands',
+  },
+  {
     key: 'gemini',
     displayName: 'Gemini CLI',
     format: 'gemini-toml',

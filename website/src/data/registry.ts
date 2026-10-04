@@ -87,6 +87,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'factory', name: 'Factory Droid', icon: '/img/icons/droid.svg' },
   { key: 'firebender', name: 'Firebender', icon: '/img/icons/firebender.svg' },
   { key: 'forge', name: 'Forge', icon: '/img/icons/forge.svg' },
+  { key: 'forgecode', name: 'ForgeCode', icon: '/img/icons/forge.svg' },
   { key: 'gemini', name: 'Gemini CLI', icon: '/img/icons/gemini.svg' },
   { key: 'copilot', name: 'GitHub Copilot', icon: '/img/icons/copilot.svg' },
   { key: 'goose', name: 'Goose', icon: '/img/icons/goose.svg' },

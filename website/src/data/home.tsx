@@ -400,7 +400,7 @@ export const FEATURE: Record<
       <>
         Any Codebase
         <br />
-        <span className='text-accent'>77</span> Agents
+        <span className='text-accent'>78</span> Agents
       </>
     ),
   },
