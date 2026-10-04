@@ -156,6 +156,12 @@ const transformGooseYaml = (asset: BundledAsset, key: CommandKey): string => {
     `instructions: ${JSON.stringify(description)}`,
     'prompt: |',
     indented,
+    'parameters:',
+    '  - key: args',
+    '    input_type: string',
+    '    requirement: optional',
+    "    default: ''",
+    `    description: ${JSON.stringify(ARGUMENT_HINTS[key])}`,
     '',
   ].join('\n');
 };

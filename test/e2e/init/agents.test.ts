@@ -74,7 +74,7 @@ const placeholderExpectations: Record<
     absent: ['$ARGUMENTS', 'internal: true'],
   },
   'goose-yaml': {
-    present: ['{{ args }}'],
+    present: ['{{ args }}', 'key: args'],
     absent: ['$ARGUMENTS', 'internal: true'],
   },
 };
