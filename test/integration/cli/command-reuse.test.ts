@@ -25,7 +25,7 @@ describe('planning command reuse across agents', () => {
       'the first agent owns every file it writes'
     );
     strict(
-      jobsUnder(jobs, '.codex/').every(
+      jobsUnder(jobs, '.agents/').every(
         (job) => job.linkTo?.startsWith('.claude/') === true
       ),
       'the second agent links every command to the first'
@@ -36,12 +36,12 @@ describe('planning command reuse across agents', () => {
     const jobs = plan(['codex', 'claude']);
 
     strict(
-      jobsUnder(jobs, '.codex/').every((job) => job.linkTo === undefined),
+      jobsUnder(jobs, '.agents/').every((job) => job.linkTo === undefined),
       'codex owns the files when it comes first'
     );
     strict(
       jobsUnder(jobs, '.claude/').every(
-        (job) => job.linkTo?.startsWith('.codex/') === true
+        (job) => job.linkTo?.startsWith('.agents/') === true
       ),
       'claude links to codex when it comes second'
     );

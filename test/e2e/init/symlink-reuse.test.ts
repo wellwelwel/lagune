@@ -10,7 +10,7 @@ import {
 } from './__utils__.js';
 
 const claudeCharter = '.claude/skills/lagune.charter/SKILL.md';
-const codexCharter = '.codex/skills/lagune.charter/SKILL.md';
+const codexCharter = '.agents/skills/lagune.charter/SKILL.md';
 const geminiCharter = '.gemini/commands/lagune.charter.toml';
 
 const read = (workspace: string, relativePath: string): Promise<string> =>

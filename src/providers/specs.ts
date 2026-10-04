@@ -13,7 +13,7 @@ export const AGENT_SPECS: AgentSpec[] = [
     displayName: 'Codex CLI',
     format: 'skill',
     layout: 'skill',
-    dir: '.codex/skills',
+    dir: '.agents/skills',
   },
   {
     key: 'copilot',
