@@ -66,7 +66,7 @@ const placeholderExpectations: Record<
   },
   markdown: { present: ['$ARGUMENTS'], absent: ['internal: true'] },
   forge: {
-    present: ['{{parameters}}'],
+    present: ['{{parameters}}', 'name: lagune.charter'],
     absent: ['$ARGUMENTS', 'internal: true'],
   },
   'gemini-toml': {

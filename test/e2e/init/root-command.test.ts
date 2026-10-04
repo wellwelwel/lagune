@@ -38,7 +38,7 @@ const rootNameToken: Record<CommandFormat, string> = {
   skill: 'name: lagune\n',
   'continue-prompt': 'name: lagune\n',
   markdown: '',
-  forge: '',
+  forge: 'name: lagune\n',
   'gemini-toml': '',
   'goose-yaml': 'title: "lagune"',
 };

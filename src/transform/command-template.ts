@@ -102,8 +102,14 @@ const validateFrontmatter = (asset: BundledAsset, key: CommandKey): string => {
   return asset.contents;
 };
 
-const transformForge = (asset: BundledAsset, key: CommandKey): string =>
-  validateFrontmatter(asset, key).replaceAll('$ARGUMENTS', '{{parameters}}');
+const transformForge = (asset: BundledAsset, key: CommandKey): string => {
+  const { frontmatter, body } = parseFrontmatter(asset, key);
+
+  return assemble(withName(frontmatter, key), body).replaceAll(
+    '$ARGUMENTS',
+    '{{parameters}}'
+  );
+};
 
 const splitDescriptionAndBody = (
   asset: BundledAsset,
