@@ -322,6 +322,13 @@ export const AGENT_SPECS: AgentSpec[] = [
     dir: '.cortex/skills',
   },
   {
+    key: 'coco',
+    displayName: 'Snowflake CoCo',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.cortex/skills',
+  },
+  {
     key: 'deepagents',
     displayName: 'Deep Agents (LangChain)',
     format: 'skill',

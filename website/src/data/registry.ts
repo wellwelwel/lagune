@@ -52,6 +52,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'claude', name: 'Claude Code', icon: '/img/icons/claude.svg' },
   { key: 'cline', name: 'Cline', icon: '/img/icons/cline.svg' },
   { key: 'codestudio', name: 'Code Studio', icon: '/img/icons/codestudio.svg' },
+  { key: 'coco', name: 'Snowflake CoCo', icon: '/img/icons/snowflake.svg' },
   {
     key: 'codearts',
     name: 'CodeArts Agent (Huawei)',
