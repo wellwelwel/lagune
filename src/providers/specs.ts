@@ -56,6 +56,13 @@ export const AGENT_SPECS: AgentSpec[] = [
     dir: '.devin/skills',
   },
   {
+    key: 'devin-desktop',
+    displayName: 'Devin Desktop',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.devin/skills',
+  },
+  {
     key: 'kimi',
     displayName: 'Kimi Code',
     format: 'skill',

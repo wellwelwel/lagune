@@ -80,6 +80,7 @@ export const ALL_AGENTS: AgentEntry[] = [
     icon: '/img/icons/deepagents.svg',
   },
   { key: 'devin', name: 'Devin for Terminal', icon: '/img/icons/devin.svg' },
+  { key: 'devin-desktop', name: 'Devin Desktop', icon: '/img/icons/devin.svg' },
   { key: 'dexto', name: 'Dexto', icon: '/img/icons/dexto.svg' },
   { key: 'eve', name: 'Eve', icon: '/img/icons/eve.svg' },
   { key: 'factory', name: 'Factory Droid', icon: '/img/icons/droid.svg' },
