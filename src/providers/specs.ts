@@ -125,8 +125,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'factory',
     displayName: 'Factory Droid',
-    format: 'markdown',
-    dir: '.factory/commands',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.factory/skills',
   },
   {
     key: 'auggie',
