@@ -340,7 +340,7 @@ export const AGENT_SPECS: AgentSpec[] = [
     displayName: 'Jazz',
     format: 'skill',
     layout: 'skill',
-    dir: '.jazz/skills',
+    dir: 'skills',
   },
   {
     key: 'kode',
