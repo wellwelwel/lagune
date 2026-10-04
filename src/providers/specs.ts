@@ -167,8 +167,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'kilocode',
     displayName: 'Kilo Code',
-    format: 'markdown',
-    dir: '.kilocode/workflows',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.kilo/skills',
   },
   {
     key: 'kiro-cli',
