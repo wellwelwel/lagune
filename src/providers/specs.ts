@@ -465,7 +465,7 @@ export const AGENT_SPECS: AgentSpec[] = [
     displayName: 'Zenflow',
     format: 'skill',
     layout: 'skill',
-    dir: '.zencoder/skills',
+    dir: '.agents/skills',
   },
   {
     key: 'openhands',
