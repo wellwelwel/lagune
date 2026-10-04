@@ -15,6 +15,7 @@ import {
 import { docsThemeBootScript } from '../../src/components/docs/theme';
 import { renderDocMarkdown } from './markdown';
 import { docsNav } from './nav';
+import { substituteCounts } from './tokens';
 
 export type DocEntry = {
   docId: string;
@@ -265,7 +266,10 @@ export const docsContentPlugin: PluginModule = async (context) => {
             doc.docId === 'references/paper'
               ? path.join(siteDir, 'src', 'content', 'PAPER.mdx')
               : path.join(siteDir, aliasedSitePathToRelativePath(doc.source));
-          const body = await fs.readFile(sourceFile, 'utf8');
+          const body = substituteCounts(
+            await fs.readFile(sourceFile, 'utf8'),
+            sourceFile
+          );
 
           return { doc, markdown: renderDocMarkdown({ ...doc, body }, site) };
         })
@@ -293,7 +297,10 @@ export const docsContentPlugin: PluginModule = async (context) => {
         '',
         `> ${siteConfig.tagline}`,
         '',
-        'Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with 72 AI coding agents and needs no API key.',
+        substituteCounts(
+          'Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with {{agents}} AI coding agents and needs no API key.',
+          'llms.txt'
+        ),
       ];
 
       const lines = [

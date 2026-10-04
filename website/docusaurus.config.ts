@@ -3,6 +3,7 @@ import type { Config } from '@docusaurus/types';
 import tailwindPostcss from '@tailwindcss/postcss';
 import { criticalCssPlugin } from './plugins/critical-css';
 import { docsContentPlugin } from './plugins/docs-content';
+import { substituteCounts } from './plugins/docs-content/tokens';
 import { dropWoff } from './plugins/drop-woff';
 import { laguneCode } from './src/prism/lagune';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
@@ -29,9 +30,13 @@ const config: Config = {
   projectName: 'lagune',
   deploymentBranch: 'website',
 
+  staticDirectories: ['static', '../src/dashboard/client/public'],
+
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   markdown: {
+    preprocessor: ({ filePath, fileContent }) =>
+      substituteCounts(fileContent, filePath),
     hooks: {
       onBrokenMarkdownLinks: 'throw',
     },

@@ -1,12 +1,14 @@
+import type { AgentTheme } from '@site/src/data/lagune';
 import type { ReactNode } from 'react';
-import type { AgentTheme, CatalogSkill } from './data';
+import type { CatalogSkill } from './data';
 import { MaskIcon } from '@site/src/components/MaskIcon';
+import { agentThemeAt } from '@site/src/data/lagune';
 import clsx from 'clsx';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactTyped } from 'react-typed';
 import { Icon } from '../icons';
-import { agentThemeAt, skillsCatalog } from './data';
+import { skillsCatalog } from './data';
 
 /* The global .font-mono rule (custom.css) carries the landing page's weight
    and size, so the mono bits here set the family directly. */
@@ -412,10 +414,7 @@ const SkillCard = ({
             key={group.label}
             className='group/chip relative grid size-8 place-items-center rounded-chip bg-accent-soft text-faint'
           >
-            <MaskIcon
-              src={`/img/icons/${group.icon}.svg`}
-              className='size-4 bg-accent'
-            />
+            <MaskIcon src={group.icon} className='size-4 bg-accent' />
             <span
               className={`pointer-events-none absolute bottom-[calc(100%+0.375rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 whitespace-nowrap rounded-chip bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ${EASE} group-hover/chip:translate-y-0 group-hover/chip:scale-100 group-hover/chip:opacity-100`}
             >

@@ -1,9 +1,9 @@
 import type { PromptModalContent, TypeSegment } from '@/types/dashboard/client';
 import type { VNode } from 'preact';
+import { agentThemeAt } from '@/dashboard/shared/agent-themes';
 import { AGENT_REPLY } from '@/dashboard/shared/skill-meta';
 import { useEffect, useState } from 'preact/hooks';
 import { GLYPH_SWAP } from '../../utils/tailwind-classes';
-import { agentThemeAt } from '../agent-themes';
 import { Icon } from '../primitives/icons';
 import { MaskIcon } from '../primitives/mask-icon';
 import { Modal } from '../primitives/modal';

@@ -1,13 +1,14 @@
 import type { SkillGroupKey } from '../../types/core';
 import type {
-  IconName,
   PromptSpec,
   SkillGroupBadge,
+  SkillIconName,
   TypeSegment,
 } from '../../types/dashboard/client';
 import type { Skill } from '../../types/dashboard/dashboard';
 import { SKILLS_CATALOG } from '../../hooks/skills/catalog';
 import { SKILL_GROUPS } from '../../hooks/skills/groups';
+import { iconPath } from './assets';
 
 const SKILL_LABELS: Record<string, string> = {
   'access-control': 'Access Control',
@@ -22,6 +23,7 @@ const SKILL_LABELS: Record<string, string> = {
   federation: 'Federation',
   go: 'Go',
   'http-request': 'HTTP Request',
+  infra: 'Infrastructure',
   interpreter: 'Interpreter',
   java: 'Java',
   javascript: 'JavaScript',
@@ -34,7 +36,9 @@ const SKILL_LABELS: Record<string, string> = {
   regex: 'Regex',
   ruby: 'Ruby',
   rust: 'Rust',
+  secrets: 'Secrets',
   serverless: 'Serverless',
+  sql: 'SQL',
   supabase: 'Supabase',
   transport: 'Transport',
   upload: 'Upload',
@@ -64,6 +68,8 @@ const SKILL_DESCRIPTIONS: Record<string, string> = {
   go: 'Covers security pitfalls specific to Go apps, especially subtle bugs that show up under real traffic.',
   'http-request':
     "Inspects the data that arrives with each web request, so hidden or malicious input can't bend your app into doing the wrong thing.",
+  infra:
+    "Reviews the files that build and deploy your app, like Dockerfiles, Terraform, and CI workflows, so one loose setting can't expose the whole environment.",
   interpreter:
     "Stops user input from being run as commands, so a form field or upload can't make your server execute an attacker's instructions.",
   java: 'Covers security pitfalls specific to Java apps that can let an attacker run their own code on your server.',
@@ -82,8 +88,11 @@ const SKILL_DESCRIPTIONS: Record<string, string> = {
     'Hardens text checks so they stay efficient, making it far harder for a malicious input to freeze your app by overloading it.',
   ruby: "Covers security pitfalls specific to Ruby apps, especially loading untrusted data that can run an attacker's code.",
   rust: 'Covers security pitfalls specific to Rust apps, especially unsafe code that can corrupt memory or crash the program.',
+  secrets:
+    'Keeps passwords, API keys, and tokens out of your source code, so a shared repository or a leaked build never hands them to an attacker.',
   serverless:
     "Reviews cloud functions and their permissions, so a single function can't be abused to reach far more than it should.",
+  sql: "Guards how your app talks to its database, so a crafted input can't read, change, or delete data it was never meant to touch.",
   supabase:
     "Locks down your Supabase backend, so your database rules actually hold and secret keys don't end up exposed to the public.",
   transport:
@@ -100,6 +109,7 @@ const SKILL_PROMPT_TASKS: Record<string, string> = {
   network: 'Let users paste a link and show a little preview of it',
   interpreter:
     'Add a field where people can write their own formulas, like in an Excel spreadsheet',
+  sql: 'Add a search box so users can find orders by customer name',
   path: 'Let people download their files by clicking on them',
   upload: 'Let people upload a profile photo in account settings',
   'access-control': 'Add an admin area to manage all the user accounts',
@@ -108,11 +118,13 @@ const SKILL_PROMPT_TASKS: Record<string, string> = {
   'http-request': 'Let users update their email from their profile page',
   transport: 'Make my whole site load securely over https',
   crypto: 'Let people create an account with a password and log back in',
+  secrets: 'Connect my app to the payment provider using their API key',
   'api-endpoint': 'Build an API so my mobile app can talk to the backend',
   payment: 'Add Stripe checkout so customers can pay on the pricing page',
   xml: 'Let suppliers upload their invoices as XML files',
   csv: 'Add a button to export my contacts to a spreadsheet',
   container: 'Package my app so I can deploy it to the cloud',
+  infra: 'Set up a pipeline that deploys my app to the cloud on every push',
   serverless: 'Automatically make a thumbnail whenever someone uploads a photo',
   llm: 'Add a chatbot that answers questions from my help docs',
   supabase: 'Set up Supabase so each user only sees their own notes',
@@ -142,20 +154,23 @@ const GROUP_ICONS: Record<SkillGroupKey, string> = {
   dotnet: 'dot-net',
 };
 
-const SKILL_ICON: Record<string, IconName> = {
+const SKILL_ICON: Record<string, SkillIconName> = {
   upload: 'upload',
   path: 'file',
   interpreter: 'terminal',
+  sql: 'layers',
   network: 'globe',
   javascript: 'code',
   regex: 'code',
   crypto: 'key',
+  secrets: 'key',
   'access-control': 'key',
   'credential-endpoint': 'key',
   'api-endpoint': 'globe',
   'http-request': 'globe',
   browser: 'globe',
   container: 'layers',
+  infra: 'layers',
   serverless: 'activity',
   transport: 'globe',
   federation: 'key',
@@ -182,7 +197,7 @@ const titleCase = (slug: string): string =>
     .join(' ');
 
 export const skillGroupIcon = (key: SkillGroupKey): string =>
-  `/assets/icons/${GROUP_ICONS[key]}.svg`;
+  iconPath(GROUP_ICONS[key]);
 
 export const catalogSkillNames = (): string[] =>
   SKILLS_CATALOG.map((entry) => entry.name);
@@ -190,7 +205,7 @@ export const catalogSkillNames = (): string[] =>
 export const skillLabel = (name: string): string =>
   SKILL_LABELS[name] ?? titleCase(name);
 
-export const skillIconName = (name: string): IconName =>
+export const skillIconName = (name: string): SkillIconName =>
   SKILL_ICON[name] ?? 'brain';
 
 export const skillDescription = (name: string): string =>

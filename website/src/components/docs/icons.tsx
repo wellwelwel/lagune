@@ -1,3 +1,4 @@
+import type { SkillIconName } from '@site/src/data/lagune';
 import type { ReactNode } from 'react';
 import type { IconBaseProps, IconType } from 'react-icons';
 import {
@@ -30,6 +31,7 @@ import {
   FiUploadCloud,
   FiX,
 } from 'react-icons/fi';
+import { LuBrain } from 'react-icons/lu';
 import { RiMessageAi3Line } from 'react-icons/ri';
 
 const registry = {
@@ -37,6 +39,7 @@ const registry = {
   arrowLeft: FiArrowLeft,
   arrowRight: FiArrowRight,
   arrowUpRight: FiArrowUpRight,
+  brain: LuBrain,
   check: FiCheck,
   chevronRight: FiChevronRight,
   code: FiCode,
@@ -62,7 +65,7 @@ const registry = {
   thumbsUp: FiThumbsUp,
   upload: FiUploadCloud,
   x: FiX,
-} satisfies Record<string, IconType>;
+} satisfies Record<string, IconType> & Record<SkillIconName, IconType>;
 
 export type DocsIconName = keyof typeof registry;
 

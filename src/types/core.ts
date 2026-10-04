@@ -167,9 +167,14 @@ export type CommandFormat =
 
 export type CommandLayout = 'skill' | 'file';
 
+export type AgentDeprecation = { successor: string } | { endOfLife: string };
+
 export type AgentSpec = {
   key: string;
   displayName: string;
+  url: string;
+  icon?: string;
+  deprecated?: AgentDeprecation;
   format: CommandFormat;
   dir: string;
   extension?: string;

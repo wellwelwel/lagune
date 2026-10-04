@@ -28,7 +28,20 @@ export type PhaseMeta = {
 
 export type LoadStatus = 'loading' | 'ready' | 'error';
 
+export type SkillIconName =
+  | 'activity'
+  | 'brain'
+  | 'code'
+  | 'cpu'
+  | 'file'
+  | 'globe'
+  | 'key'
+  | 'layers'
+  | 'terminal'
+  | 'upload';
+
 export type IconName =
+  | SkillIconName
   | 'grid'
   | 'shield'
   | 'shieldCheck'
@@ -43,19 +56,11 @@ export type IconName =
   | 'arrowUp'
   | 'flame'
   | 'alertTriangle'
-  | 'layers'
   | 'check'
   | 'checkCircle'
   | 'plus'
   | 'more'
-  | 'file'
   | 'link'
-  | 'activity'
-  | 'upload'
-  | 'key'
-  | 'terminal'
-  | 'globe'
-  | 'code'
   | 'compass'
   | 'live'
   | 'wifiOn'
@@ -72,7 +77,6 @@ export type IconName =
   | 'pull'
   | 'refresh'
   | 'download'
-  | 'brain'
   | 'graduationCap'
   | 'copy'
   | 'checkSquare'
@@ -82,7 +86,6 @@ export type IconName =
   | 'chat'
   | 'messageAi'
   | 'robot'
-  | 'cpu'
   | 'thumbsUp'
   | 'thumbsDown'
   | 'info'
@@ -241,7 +244,7 @@ export type SkillGroupBadge = {
 export type InstallAgent = {
   key: string;
   name: string;
-  icon: string | null;
+  icon: string;
 };
 
 export type InstallCategory = {

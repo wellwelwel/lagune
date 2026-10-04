@@ -32,13 +32,7 @@ export const AgentButton = (props: {
         props.on || props.locked ? 'text-accent' : 'text-muted'
       )}
     >
-      {props.agent.icon ? (
-        <MaskIcon src={props.agent.icon} class='size-4.5 bg-current' />
-      ) : (
-        <span class='inline-flex text-[1.05rem]'>
-          <Icon name='terminal' />
-        </span>
-      )}
+      <MaskIcon src={props.agent.icon} class='size-4.5 bg-current' />
     </span>
     <span class='min-w-0 flex-1 truncate text-[0.85rem] font-semibold'>
       {props.agent.name}

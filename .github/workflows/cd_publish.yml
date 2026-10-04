@@ -59,21 +59,9 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: npm publish --provenance
 
-      - name: ➕ Cache dependencies (Website)
-        if: ${{ steps.release.outputs.release_created }}
-        uses: actions/cache@v5
-        with:
-          path: ~/.npm
-          key: npm-website-${{ hashFiles('website/package-lock.json') }}
-          restore-keys: npm-website-
-
-      - name: 📦 Installing Dependencies (Website)
-        if: ${{ steps.release.outputs.release_created }}
-        run: npm --prefix website ci
-
       - name: 🚀 Building Site
         if: ${{ steps.release.outputs.release_created }}
-        run: npm --prefix website run build
+        run: npm run website:build
 
       - name: 📤 Deploying Site
         if: ${{ steps.release.outputs.release_created }}

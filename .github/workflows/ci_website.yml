@@ -4,6 +4,14 @@ on:
   pull_request:
     paths:
       - 'website/**'
+      - 'src/dashboard/client/public/**'
+      - 'src/dashboard/shared/**'
+      - 'src/hooks/skills/**'
+      - 'src/providers/**'
+      - 'src/types/**'
+      - '.github/workflows/ci_website.yml'
+      - 'package-lock.json'
+      - 'package.json'
   workflow_dispatch:
 
 jobs:
@@ -25,14 +33,14 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.npm
-          key: npm-website-${{ hashFiles('website/package-lock.json') }}
-          restore-keys: npm-website-
+          key: npm-linux-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-linux-
 
       - name: Installing Dependencies
-        run: npm --prefix website ci
+        run: npm ci
 
       - name: Checking Types
-        run: npm --prefix website run typecheck
+        run: npm -w website run typecheck
 
       - name: Checking Build
-        run: npm --prefix website run build
+        run: npm run website:build

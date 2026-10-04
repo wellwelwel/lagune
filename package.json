@@ -24,6 +24,9 @@
     "lib",
     "spec"
   ],
+  "workspaces": [
+    "website"
+  ],
   "engines": {
     "node": ">=22.x.x"
   },
@@ -38,8 +41,8 @@
     "dashboard:build": "bash scripts/dashboard/build.sh",
     "dashboard:dev": "bash scripts/dashboard/dev.sh",
     "update": "bash scripts/update.sh",
-    "website:dev": "npm --prefix website start",
-    "website:build": "npm --prefix website run build"
+    "website:dev": "npm -w website run start",
+    "website:build": "npm -w website run build"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
@@ -47,6 +50,7 @@
     "@preact/signals": "^2.11.2",
     "@tailwindcss/vite": "^4.3.3",
     "@types/babel__core": "^7.20.5",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^26.5.1",
     "concurrently": "^10.0.5",
     "esbuild": "^0.28.2",

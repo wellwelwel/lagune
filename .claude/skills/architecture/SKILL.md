@@ -26,6 +26,7 @@ Top-level directories. Their internal structure is defined in the sections below
 | `spec/templates/` | The files a command fills in (the security artifacts produced per phase).    |
 | `spec/skills/`    | Non-invocable sub-skills: on-demand knowledge the phases load.               |
 | `test/`           | Poku test suites, run against Node, Bun, and Deno.                           |
+| `website/`        | The documentation site, an npm workspace of the root package.                |
 
 ## Build & ship
 
@@ -33,6 +34,10 @@ Top-level directories. Their internal structure is defined in the sections below
 - **Output:** `lib/` holds the shipped JavaScript. It is generated, never edited by hand.
 - **Entry point:** the `package.json` `bin` field maps the `lagune` command to a file in `lib/` (with a `node` shebang), so `npx lagune ...` runs the bundle directly.
 - **End-user install:** none. The bundle is self-contained, so running via `npx` needs no dependency install on the user's machine.
+
+## Website
+
+The documentation site under `website/` is an npm workspace of the root package, so one `npm ci` installs both and one lockfile covers them. The site never redeclares what the package already knows: a single bridge module in its data folder is the only website file that imports from `src/`, re-exporting the agent registry, the skill groups, the catalog, and the dashboard's shared presentation metadata, and every other website module reads from that bridge. Logos live once, in the dashboard's public assets folder, which the site serves as a second static directory. Counts in the docs are the build-time tokens `{{agents}}` and `{{categories}}`, substituted before MDX compiles and again when the plain-Markdown mirrors are written, and the supported-agents table is rendered from the registry in both outputs. The README holds the one hand-typed count, and a test keeps it equal to the registry.
 
 ## Command & template anatomy
 
@@ -56,7 +61,7 @@ The codebase splits into two layers, and the split is what lets new agents be ad
 - **The core is agent-agnostic.** Templates, the per-phase content, and the context-detection logic know nothing about which agent runs them. This is where the security value lives, and it is written once.
 - **An adapter is thin.** Its only job is to translate the core's commands into the format and location a given agent expects. It carries no security logic of its own.
 
-Adapters are **data, not code**. Each supported agent is a single entry in the agent registry under `src/providers/`, declaring its key, display name, command format, and target directory. A factory turns each entry into a provider, and a format dispatcher under `src/transform/` renders the same core command into that agent's packaging. Adding an agent is adding a row, not writing a module. The registry is the single source of truth for which agents are supported.
+Adapters are **data, not code**. Each supported agent is a single entry in the agent registry under `src/providers/`, declaring its key, display name, homepage, logo, command format, target directory, and, when it applies, its deprecation (a successor or an end-of-life date). A factory turns each entry into a provider, and a format dispatcher under `src/transform/` renders the same core command into that agent's packaging. Adding an agent is adding a row, not writing a module. The registry is the single source of truth for which agents are supported.
 
 The command formats are:
 

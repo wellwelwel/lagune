@@ -22,6 +22,7 @@ await describe('the specialize command is wired as a command + template pair', a
     const provider = createProvider({
       key: 'claude',
       displayName: 'Claude Code',
+      url: 'https://example.com/',
       format: 'skill',
       layout: 'skill',
       dir: '.claude/skills',

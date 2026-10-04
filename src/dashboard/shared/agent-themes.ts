@@ -1,4 +1,4 @@
-import type { AgentTheme } from '@/types/dashboard/client';
+import type { AgentTheme } from '../../types/dashboard/client';
 
 const AGENT_THEMES: AgentTheme[] = [
   {

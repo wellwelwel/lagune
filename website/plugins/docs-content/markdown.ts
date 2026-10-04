@@ -1,3 +1,6 @@
+import type { Agent } from '../../src/data/registry';
+import { ALL_AGENTS, deprecationNote } from '../../src/data/registry';
+
 export type MarkdownDocInput = {
   title: string;
   description: string | undefined;
@@ -62,6 +65,25 @@ const renderFaq = (pairs: FaqPair[]): string[] =>
           '',
         ]),
       ];
+
+const agentStatus = (agent: Agent): string => {
+  if (agent.deprecation === undefined) return '';
+
+  const note = deprecationNote(agent.deprecation);
+
+  return note.code === undefined
+    ? note.lead
+    : `${note.lead} (\`${note.code}\`)`;
+};
+
+const renderAgentsTable = (): string[] => [
+  '| Agent | Key (Alias) | Status |',
+  '| --- | --- | --- |',
+  ...ALL_AGENTS.map(
+    (agent) =>
+      `| [${agent.name}](${agent.url}) | \`${agent.key}\` | ${agentStatus(agent)} |`
+  ),
+];
 
 const renderImage = (block: string): string[] => {
   const src = block.match(/src=["']([^"']+)["']/)?.[1];
@@ -192,6 +214,14 @@ export const cleanMdxBody = (source: string, siteUrl: string): string => {
       for (const imageLine of renderImage(block))
         emit(transformInline(imageLine, siteUrl));
       index = nextIndex;
+      continue;
+    }
+
+    if (trimmed.startsWith('<SupportedAgents')) {
+      emit('');
+      for (const row of renderAgentsTable()) emit(row);
+      emit('');
+      index += 1;
       continue;
     }
 

@@ -266,7 +266,7 @@ export const InstallTab = (): VNode => {
             key={agent ?? 'none'}
             class='icon-in flex min-w-0 items-center gap-1.5'
           >
-            {selectedAgent?.icon ? (
+            {selectedAgent ? (
               <MaskIcon
                 src={selectedAgent.icon}
                 class='size-3.5 flex-none bg-white'

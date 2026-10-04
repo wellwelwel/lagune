@@ -7,10 +7,13 @@ on:
   pull_request:
     paths:
       - 'src/**'
+      - 'spec/**'
       - 'scripts/**'
       - 'test/**'
       - 'tools/**'
+      - 'website/docs/**'
       - '.github/workflows/ci_test.yml'
+      - 'README.md'
       - 'package-lock.json'
       - 'package.json'
   workflow_dispatch:

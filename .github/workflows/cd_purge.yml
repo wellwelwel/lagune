@@ -38,7 +38,7 @@ jobs:
         run: npm ci
 
       - name: Purge Cache
-        run: npm --prefix website run purge
+        run: npm -w website run purge
         env:
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
           CF_TOKEN: ${{ secrets.CF_TOKEN }}

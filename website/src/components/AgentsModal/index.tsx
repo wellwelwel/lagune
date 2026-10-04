@@ -1,4 +1,4 @@
-import type { AgentEntry } from '@site/src/data/registry';
+import type { Agent } from '@site/src/data/registry';
 import type { ReactNode } from 'react';
 import { IconSwap } from '@site/src/components/IconSwap';
 import { MaskIcon } from '@site/src/components/MaskIcon';
@@ -15,7 +15,6 @@ import {
 } from '@site/src/components/selectable';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { LuArrowLeft, LuCircle, LuCircleCheckBig } from 'react-icons/lu';
-import { RiRobot2Fill } from 'react-icons/ri';
 
 const AgentRow = memo(
   ({
@@ -23,7 +22,7 @@ const AgentRow = memo(
     on,
     onPick,
   }: {
-    agent: AgentEntry;
+    agent: Agent;
     on: boolean;
     onPick: (key: string) => void;
   }) => (
@@ -34,17 +33,10 @@ const AgentRow = memo(
       onClick={() => onPick(agent.key)}
       className={`flex items-center gap-3 px-3.5 py-3.5 ${selectableCard(on)}`}
     >
-      {agent.icon ? (
-        <MaskIcon
-          src={agent.icon}
-          className={`shrink-0 size-5 bg-current transition-colors duration-200 ease-out ${selectableTint(on)}`}
-        />
-      ) : (
-        <RiRobot2Fill
-          aria-hidden
-          className={`shrink-0 size-5 opacity-25 transition-colors duration-200 ease-out ${selectableTint(on)}`}
-        />
-      )}
+      <MaskIcon
+        src={agent.icon}
+        className={`shrink-0 size-5 bg-current transition-colors duration-200 ease-out ${selectableTint(on)}`}
+      />
       <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
         {agent.name}
       </span>
@@ -65,7 +57,7 @@ export const AgentsModal = ({
   onClose,
 }: {
   open: boolean;
-  agents: AgentEntry[];
+  agents: Agent[];
   onSelect: (key: string) => void;
   onClose: () => void;
 }): ReactNode => {

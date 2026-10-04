@@ -4,9 +4,9 @@ import type {
   PromptTone,
 } from '@/types/dashboard/client';
 import type { VNode } from 'preact';
+import { agentThemeAt } from '@/dashboard/shared/agent-themes';
 import { useEffect, useState } from 'preact/hooks';
 import { classes } from '../../utils/tailwind-classes';
-import { agentThemeAt } from '../agent-themes';
 import { HoverPopover } from '../primitives/hover-popover';
 import { Icon } from '../primitives/icons';
 import { MaskIcon } from '../primitives/mask-icon';

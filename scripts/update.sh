@@ -3,7 +3,7 @@
 set -e
 
 echo '◯ update'
-pu && npm i && npm update && (npm audit fix || true)
+pu && (cd website && pu) && npm i && npm update --workspaces --include-workspace-root && (npm audit fix || true)
 echo '◉ update'
 
 echo '◯ postupdate'

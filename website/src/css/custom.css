@@ -15,6 +15,7 @@
 @import '@fontsource/ubuntu-mono/latin-700.css';
 
 @source '../pages';
+@source '../../../src/dashboard/shared/*.ts';
 @source '../components';
 
 /*

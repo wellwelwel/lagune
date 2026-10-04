@@ -4,6 +4,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'claude',
     displayName: 'Claude Code',
+    url: 'https://www.anthropic.com/claude-code',
     format: 'skill',
     layout: 'skill',
     dir: '.claude/skills',
@@ -11,6 +12,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'codex',
     displayName: 'Codex CLI',
+    url: 'https://github.com/openai/codex',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -18,6 +20,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'copilot',
     displayName: 'GitHub Copilot',
+    url: 'https://code.visualstudio.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.github/skills',
@@ -25,6 +28,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'cursor-agent',
     displayName: 'Cursor',
+    url: 'https://cursor.sh/',
+    icon: 'cursor',
     format: 'skill',
     layout: 'skill',
     dir: '.cursor/skills',
@@ -32,6 +37,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'agy',
     displayName: 'Antigravity',
+    url: 'https://antigravity.google/',
+    icon: 'antigravity',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -39,18 +46,22 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'opencode',
     displayName: 'opencode',
+    url: 'https://opencode.ai/',
     format: 'markdown',
     dir: '.opencode/commands',
   },
   {
     key: 'windsurf',
     displayName: 'Windsurf',
+    url: 'https://windsurf.com/',
+    deprecated: { successor: 'devin-desktop' },
     format: 'markdown',
     dir: '.windsurf/workflows',
   },
   {
     key: 'devin',
     displayName: 'Devin for Terminal',
+    url: 'https://cli.devin.ai/docs',
     format: 'skill',
     layout: 'skill',
     dir: '.devin/skills',
@@ -58,6 +69,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'devin-desktop',
     displayName: 'Devin Desktop',
+    url: 'https://docs.devin.ai/desktop',
+    icon: 'devin',
     format: 'skill',
     layout: 'skill',
     dir: '.devin/skills',
@@ -65,6 +78,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'kimi',
     displayName: 'Kimi Code',
+    url: 'https://code.kimi.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.kimi/skills',
@@ -72,6 +86,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'lingma',
     displayName: 'Lingma',
+    url: 'https://lingma.aliyun.com/',
+    deprecated: { successor: 'qoder-cn' },
     format: 'skill',
     layout: 'skill',
     dir: '.lingma/skills',
@@ -79,6 +95,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'qoder-cn',
     displayName: 'Qoder CN',
+    url: 'https://docs.qoder.cn/',
+    icon: 'qodercli',
     format: 'skill',
     layout: 'skill',
     dir: '.lingma/skills',
@@ -86,6 +104,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'rovodev',
     displayName: 'RovoDev ACLI',
+    url: 'https://www.atlassian.com/software/rovo-dev',
     format: 'skill',
     layout: 'skill',
     dir: '.rovodev/skills',
@@ -93,6 +112,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'trae',
     displayName: 'Trae',
+    url: 'https://www.trae.ai/',
     format: 'skill',
     layout: 'skill',
     dir: '.trae/skills',
@@ -100,6 +120,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'vibe',
     displayName: 'Mistral Vibe',
+    url: 'https://github.com/mistralai/mistral-vibe',
     format: 'skill',
     layout: 'skill',
     dir: '.vibe/skills',
@@ -107,12 +128,15 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'amazonq',
     displayName: 'Amazon Q Developer',
+    url: 'https://aws.amazon.com/q/developer/',
+    deprecated: { successor: 'kiro-cli' },
     format: 'markdown',
     dir: '.amazonq/prompts',
   },
   {
     key: 'amp',
     displayName: 'Amp',
+    url: 'https://ampcode.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -120,18 +144,21 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'continue',
     displayName: 'Continue',
+    url: 'https://continue.dev/',
     format: 'continue-prompt',
     dir: '.continue/prompts',
   },
   {
     key: 'costrict',
     displayName: 'CoStrict',
+    url: 'https://github.com/zgsm-ai/costrict',
     format: 'markdown',
     dir: '.roo/commands',
   },
   {
     key: 'crush',
     displayName: 'Crush',
+    url: 'https://github.com/charmbracelet/crush',
     format: 'skill',
     layout: 'skill',
     dir: '.crush/skills',
@@ -139,6 +166,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'factory',
     displayName: 'Factory Droid',
+    url: 'https://factory.ai/',
+    icon: 'droid',
     format: 'skill',
     layout: 'skill',
     dir: '.factory/skills',
@@ -146,18 +175,21 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'auggie',
     displayName: 'Auggie CLI',
+    url: 'https://docs.augmentcode.com/cli/overview',
     format: 'markdown',
     dir: '.augment/commands',
   },
   {
     key: 'bob',
     displayName: 'IBM Bob',
+    url: 'https://www.ibm.com/products/bob',
     format: 'markdown',
     dir: '.bob/commands',
   },
   {
     key: 'cline',
     displayName: 'Cline',
+    url: 'https://github.com/cline/cline',
     format: 'skill',
     layout: 'skill',
     dir: '.cline/skills',
@@ -165,24 +197,29 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'codebuddy',
     displayName: 'CodeBuddy CLI',
+    url: 'https://www.codebuddy.ai/cli',
     format: 'markdown',
     dir: '.codebuddy/commands',
   },
   {
     key: 'iflow',
     displayName: 'iFlow CLI',
+    url: 'https://docs.iflow.cn/en/cli/quickstart',
     format: 'markdown',
     dir: '.iflow/commands',
   },
   {
     key: 'junie',
     displayName: 'Junie',
+    url: 'https://junie.jetbrains.com/',
     format: 'markdown',
     dir: '.junie/commands',
   },
   {
     key: 'kilocode',
     displayName: 'Kilo Code',
+    url: 'https://github.com/Kilo-Org/kilocode',
+    icon: 'kilo',
     format: 'skill',
     layout: 'skill',
     dir: '.kilo/skills',
@@ -190,36 +227,43 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'kiro-cli',
     displayName: 'Kiro CLI',
+    url: 'https://kiro.dev/docs/cli/',
     format: 'markdown',
     dir: '.kiro/prompts',
   },
   {
     key: 'pi',
     displayName: 'Pi Coding Agent',
+    url: 'https://pi.dev',
     format: 'markdown',
     dir: '.pi/prompts',
   },
   {
     key: 'qodercli',
     displayName: 'Qoder CLI',
+    url: 'https://qoder.com/cli',
     format: 'markdown',
     dir: '.qoder/commands',
   },
   {
     key: 'qwen',
     displayName: 'Qwen Code',
+    url: 'https://github.com/QwenLM/qwen-code',
     format: 'markdown',
     dir: '.qwen/commands',
   },
   {
     key: 'roo',
     displayName: 'Roo Code',
+    url: 'https://roocode.com/',
     format: 'markdown',
     dir: '.roo/commands',
   },
   {
     key: 'shai',
     displayName: 'SHAI (OVHcloud)',
+    url: 'https://github.com/ovh/shai',
+    icon: 'ovhcloud',
     format: 'skill',
     layout: 'skill',
     dir: '.shai/skills',
@@ -227,18 +271,23 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'forge',
     displayName: 'Forge',
+    url: 'https://forgecode.dev/',
+    deprecated: { successor: 'forgecode' },
     format: 'forge',
     dir: '.forge/commands',
   },
   {
     key: 'forgecode',
     displayName: 'ForgeCode',
+    url: 'https://forgecode.dev/',
+    icon: 'forge',
     format: 'forge',
     dir: '.forge/commands',
   },
   {
     key: 'gemini',
     displayName: 'Gemini CLI',
+    url: 'https://github.com/google-gemini/gemini-cli',
     format: 'gemini-toml',
     dir: '.gemini/commands',
     extension: '.toml',
@@ -246,6 +295,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'tabnine',
     displayName: 'Tabnine CLI',
+    url: 'https://docs.tabnine.com/main/getting-started/tabnine-cli',
+    deprecated: { endOfLife: '2026-12-31' },
     format: 'gemini-toml',
     dir: '.tabnine/agent/commands',
     extension: '.toml',
@@ -253,6 +304,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'goose',
     displayName: 'Goose',
+    url: 'https://block.github.io/goose/',
     format: 'goose-yaml',
     dir: '.goose/recipes',
     extension: '.yaml',
@@ -260,6 +312,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'hermes',
     displayName: 'Hermes',
+    url: 'https://hermes-agent.nousresearch.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.hermes/skills',
@@ -267,6 +320,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'adal',
     displayName: 'AdaL',
+    url: 'https://docs.sylph.ai/',
     format: 'skill',
     layout: 'skill',
     dir: '.adal/skills',
@@ -274,6 +328,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'aiderdesk',
     displayName: 'AiderDesk',
+    url: 'https://github.com/hotovo/aider-desk',
     format: 'skill',
     layout: 'skill',
     dir: '.aider-desk/skills',
@@ -281,6 +336,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'astrbot',
     displayName: 'AstrBot',
+    url: 'https://astrbot.app/',
     format: 'skill',
     layout: 'skill',
     dir: 'data/skills',
@@ -288,6 +344,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'autohand',
     displayName: 'Autohand Code CLI',
+    url: 'https://autohand.ai/',
     format: 'skill',
     layout: 'skill',
     dir: '.autohand/skills',
@@ -295,6 +352,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'codearts',
     displayName: 'CodeArts Agent (Huawei)',
+    url: 'https://codearts.huaweicloud.com/',
+    icon: 'huawei',
     format: 'skill',
     layout: 'skill',
     dir: '.codeartsdoer/skills',
@@ -302,6 +361,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'codemaker',
     displayName: 'Codemaker',
+    url: 'https://github.com/codemakerai',
     format: 'skill',
     layout: 'skill',
     dir: '.codemaker/skills',
@@ -309,6 +369,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'codestudio',
     displayName: 'Code Studio',
+    url: 'https://www.syncfusion.com/code-studio/',
     format: 'skill',
     layout: 'skill',
     dir: '.codestudio/skills',
@@ -316,6 +377,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'commandcode',
     displayName: 'Command Code',
+    url: 'https://commandcode.ai/',
     format: 'skill',
     layout: 'skill',
     dir: '.commandcode/skills',
@@ -323,6 +385,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'cortex',
     displayName: 'Cortex Code (Snowflake)',
+    url: 'https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code',
+    icon: 'snowflake',
+    deprecated: { successor: 'coco' },
     format: 'skill',
     layout: 'skill',
     dir: '.cortex/skills',
@@ -330,6 +395,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'coco',
     displayName: 'Snowflake CoCo',
+    url: 'https://www.snowflake.com/en/product/snowflake-coco/',
+    icon: 'snowflake',
     format: 'skill',
     layout: 'skill',
     dir: '.cortex/skills',
@@ -337,6 +404,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'deepagents',
     displayName: 'Deep Agents (LangChain)',
+    url: 'https://github.com/langchain-ai/deepagents',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -344,6 +412,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'dexto',
     displayName: 'Dexto',
+    url: 'https://dexto.ai/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -351,6 +420,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'eve',
     displayName: 'Eve',
+    url: 'https://eve.dev/',
     format: 'skill',
     layout: 'skill',
     dir: 'agent/skills',
@@ -358,6 +428,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'inferencesh',
     displayName: 'inference.sh',
+    url: 'https://inference.sh/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -365,6 +436,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'jazz',
     displayName: 'Jazz',
+    url: 'https://github.com/lvndry/jazz',
     format: 'skill',
     layout: 'skill',
     dir: 'skills',
@@ -372,6 +444,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'kode',
     displayName: 'Kode',
+    url: 'https://github.com/shareAI-lab/kode',
     format: 'skill',
     layout: 'skill',
     dir: '.kode/skills',
@@ -379,6 +452,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'loaf',
     displayName: 'Loaf',
+    url: 'https://github.com/levifig/loaf',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -386,6 +460,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'mcpjam',
     displayName: 'MCPJam',
+    url: 'https://mcpjam.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.mcpjam/skills',
@@ -393,6 +468,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'moxby',
     displayName: 'Moxby',
+    url: 'https://moxby.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.moxby/skills',
@@ -400,6 +476,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'mux',
     displayName: 'Mux',
+    url: 'https://mux.coder.com/',
+    deprecated: { successor: 'xum' },
     format: 'skill',
     layout: 'skill',
     dir: '.mux/skills',
@@ -407,6 +485,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'xum',
     displayName: 'Xum',
+    url: 'https://xum.coder.com/',
+    icon: 'mux',
     format: 'skill',
     layout: 'skill',
     dir: '.xum/skills',
@@ -414,6 +494,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'ona',
     displayName: 'Ona',
+    url: 'https://ona.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.ona/skills',
@@ -421,6 +502,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'openclaw',
     displayName: 'OpenClaw',
+    url: 'https://docs.openclaw.ai/',
     format: 'skill',
     layout: 'skill',
     dir: 'skills',
@@ -428,6 +510,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'pochi',
     displayName: 'Pochi',
+    url: 'https://getpochi.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.pochi/skills',
@@ -435,6 +518,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'promptscript',
     displayName: 'PromptScript',
+    url: 'https://getpromptscript.dev/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -442,6 +526,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'reasonix',
     displayName: 'Reasonix',
+    url: 'https://github.com/esengine/DeepSeek-Reasonix',
     format: 'skill',
     layout: 'skill',
     dir: '.reasonix/skills',
@@ -449,6 +534,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'replit',
     displayName: 'Replit',
+    url: 'https://replit.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -456,6 +542,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'terramind',
     displayName: 'Terramind',
+    url: 'https://terramind.com/',
     format: 'skill',
     layout: 'skill',
     dir: '.terramind/skills',
@@ -463,6 +550,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'tinycloud',
     displayName: 'Tinycloud',
+    url: 'https://tinycloud.cloudglue.dev/',
     format: 'skill',
     layout: 'skill',
     dir: '.tinycloud/skills',
@@ -470,6 +558,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'warp',
     displayName: 'Warp',
+    url: 'https://www.warp.dev/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -477,6 +566,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'zed',
     displayName: 'Zed',
+    url: 'https://zed.dev/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -484,6 +574,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'zcode',
     displayName: 'ZCode',
+    url: 'https://zcode.z.ai/',
     format: 'skill',
     layout: 'skill',
     dir: '.zcode/skills',
@@ -491,6 +582,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'zencoder',
     displayName: 'Zencoder',
+    url: 'https://zencoder.ai/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -498,6 +590,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'zenflow',
     displayName: 'Zenflow',
+    url: 'https://zencoder.ai/zenflow',
+    icon: 'zencoder',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -505,6 +599,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'openhands',
     displayName: 'OpenHands',
+    url: 'https://docs.openhands.dev/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',
@@ -512,6 +607,7 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'firebender',
     displayName: 'Firebender',
+    url: 'https://docs.firebender.com/',
     format: 'markdown',
     dir: '.firebender/commands',
     extension: '.mdc',
@@ -519,12 +615,14 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'neovate',
     displayName: 'Neovate',
+    url: 'https://neovateai.dev/',
     format: 'markdown',
     dir: '.neovate/commands',
   },
   {
     key: 'muse',
     displayName: 'Muse Code',
+    url: 'https://dev.meta.ai/products/muse-code/',
     format: 'skill',
     layout: 'skill',
     dir: '.agents/skills',

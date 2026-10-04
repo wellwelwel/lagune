@@ -23,6 +23,7 @@ import {
   TbCircleNumber4,
   TbCircleNumber5,
 } from 'react-icons/tb';
+import { ALL_AGENTS } from './registry';
 
 const DocsRailIcon = (): ReactNode => (
   <>
@@ -400,7 +401,7 @@ export const FEATURE: Record<
       <>
         Any Codebase
         <br />
-        <span className='text-accent'>78</span> Agents
+        <span className='text-accent'>{ALL_AGENTS.length}</span> Agents
       </>
     ),
   },

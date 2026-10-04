@@ -31,17 +31,17 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.npm
-          key: npm-website-${{ hashFiles('website/package-lock.json') }}
-          restore-keys: npm-website-
+          key: npm-linux-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-linux-
 
       - name: Installing Dependencies
-        run: npm --prefix website ci
+        run: npm ci
 
       - name: Checking Types
-        run: npm --prefix website run typecheck
+        run: npm -w website run typecheck
 
       - name: Building Site
-        run: npm --prefix website run build
+        run: npm run website:build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4

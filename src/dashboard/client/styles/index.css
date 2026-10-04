@@ -3,6 +3,7 @@
 
 @source '../**/*.tsx';
 @source '../index.html';
+@source '../../shared/*.ts';
 
 @custom-variant dark (&:where([data-theme='dark'] *));
 

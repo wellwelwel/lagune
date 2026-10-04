@@ -42,7 +42,7 @@ const SpecializationRow = memo(
         </span>
       </span>
       <span className='block h-[3lh] text-[12.5px] leading-[1.5] text-muted [text-wrap:pretty] line-clamp-3'>
-        {category.desc}
+        {category.description}
       </span>
     </button>
   )
@@ -79,7 +79,7 @@ export const SpecializationsModal = ({
     return sorted.filter(
       (category) =>
         category.name.toLowerCase().includes(term) ||
-        category.desc.toLowerCase().includes(term)
+        category.description.toLowerCase().includes(term)
     );
   }, [sorted, query]);
 
