@@ -3,7 +3,7 @@
 > Move a legacy .bluespec/ install to Lagune with a single command, keeping your charter, artifacts, tracking, and own sub-skills.
 
 Canonical: https://lagune.ai/docs/commands/migrate
-Last updated: 2026-07-14
+Last updated: 2026-10-04
 
 🔀 Move a legacy `.bluespec/` install to **Lagune**, keeping everything you wrote.
 
@@ -77,29 +77,29 @@ In your agent's own location, the command artifacts are renamed, one line per su
 
 | Before                                   | After                                  |
 | ---------------------------------------- | -------------------------------------- |
-| `.agent/skills/bluespec*`                | `.agent/skills/lagune*`                |
-| `.agents/commands/bluespec*.md`          | `.agents/commands/lagune*.md`          |
+| `.agent/skills/bluespec*`                | `.agents/skills/lagune*`               |
+| `.agents/commands/bluespec*.md`          | `.agents/skills/lagune*`               |
 | `.amazonq/prompts/bluespec*.md`          | `.amazonq/prompts/lagune*.md`          |
 | `.augment/commands/bluespec*.md`         | `.augment/commands/lagune*.md`         |
 | `.bob/commands/bluespec*.md`             | `.bob/commands/lagune*.md`             |
 | `.claude/skills/bluespec*`               | `.claude/skills/lagune*`               |
-| `.clinerules/workflows/bluespec*.md`     | `.clinerules/workflows/lagune*.md`     |
+| `.clinerules/workflows/bluespec*.md`     | `.cline/skills/lagune*`                |
 | `.codebuddy/commands/bluespec*.md`       | `.codebuddy/commands/lagune*.md`       |
-| `.codex/skills/bluespec*`                | `.codex/skills/lagune*`                |
-| `.continue/prompts/bluespec*.prompt`     | `.continue/prompts/lagune*.prompt`     |
-| `.cospec/commands/bluespec*.md`          | `.cospec/commands/lagune*.md`          |
-| `.crush/commands/bluespec*.md`           | `.crush/commands/lagune*.md`           |
+| `.codex/skills/bluespec*`                | `.agents/skills/lagune*`               |
+| `.continue/prompts/bluespec*.prompt`     | `.continue/prompts/lagune*.md`         |
+| `.cospec/commands/bluespec*.md`          | `.roo/commands/lagune*.md`             |
+| `.crush/commands/bluespec*.md`           | `.crush/skills/lagune*`                |
 | `.cursor/skills/bluespec*`               | `.cursor/skills/lagune*`               |
 | `.devin/skills/bluespec*`                | `.devin/skills/lagune*`                |
-| `.factory/commands/bluespec*.md`         | `.factory/commands/lagune*.md`         |
+| `.factory/commands/bluespec*.md`         | `.factory/skills/lagune*`              |
 | `.forge/commands/bluespec*.md`           | `.forge/commands/lagune*.md`           |
 | `.gemini/commands/bluespec*.toml`        | `.gemini/commands/lagune*.toml`        |
-| `.github/prompts/bluespec*.prompt.md`    | `.github/prompts/lagune*.prompt.md`    |
+| `.github/prompts/bluespec*.prompt.md`    | `.github/skills/lagune*`               |
 | `.goose/recipes/bluespec*.yaml`          | `.goose/recipes/lagune*.yaml`          |
 | `.hermes/skills/bluespec*`               | `.hermes/skills/lagune*`               |
 | `.iflow/commands/bluespec*.md`           | `.iflow/commands/lagune*.md`           |
 | `.junie/commands/bluespec*.md`           | `.junie/commands/lagune*.md`           |
-| `.kilocode/workflows/bluespec*.md`       | `.kilocode/workflows/lagune*.md`       |
+| `.kilocode/workflows/bluespec*.md`       | `.kilo/skills/lagune*`                 |
 | `.kimi/skills/bluespec*`                 | `.kimi/skills/lagune*`                 |
 | `.kiro/prompts/bluespec*.md`             | `.kiro/prompts/lagune*.md`             |
 | `.lingma/skills/bluespec*`               | `.lingma/skills/lagune*`               |
@@ -109,7 +109,7 @@ In your agent's own location, the command artifacts are renamed, one line per su
 | `.qwen/commands/bluespec*.md`            | `.qwen/commands/lagune*.md`            |
 | `.roo/commands/bluespec*.md`             | `.roo/commands/lagune*.md`             |
 | `.rovodev/skills/bluespec*`              | `.rovodev/skills/lagune*`              |
-| `.shai/commands/bluespec*.md`            | `.shai/commands/lagune*.md`            |
+| `.shai/commands/bluespec*.md`            | `.shai/skills/lagune*`                 |
 | `.tabnine/agent/commands/bluespec*.toml` | `.tabnine/agent/commands/lagune*.toml` |
 | `.trae/skills/bluespec*`                 | `.trae/skills/lagune*`                 |
 | `.vibe/skills/bluespec*`                 | `.vibe/skills/lagune*`                 |

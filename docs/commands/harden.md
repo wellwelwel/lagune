@@ -3,7 +3,7 @@
 > Apply the plan's fixes to your code, safely and one at a time.
 
 Canonical: https://lagune.ai/docs/commands/harden
-Last updated: 2026-07-14
+Last updated: 2026-10-04
 
 🔧 Apply the plan's fixes to your code, safely and one at a time.
 
@@ -29,7 +29,7 @@ Last updated: 2026-07-14
 
 ## How it works
 
-The plan already decided each fix, so harden just applies it. Since this is the one phase that touches your code, it goes carefully: it shows you each change and asks first, applies one fix at a time so every change stays easy to review, and never weakens a control to make a fix fit. For example, the upload fix:
+The plan already decided each fix, so harden just applies it. Since this is the one phase that touches your code, it goes carefully: it applies one fix at a time so every change stays easy to review, and it never weakens a control to make a fix fit. For example, the upload fix:
 
 - **File uploads** (Status: **Applied**)
   - _What changed:_ checks the file's real type and size, rejects anything unexpected, renames it on save, and stores it where it cannot be run as code.
@@ -44,7 +44,6 @@ Applied does not mean proven yet. That is what [verify](https://lagune.ai/docs/c
 **Tip**
 
 - It builds entirely on the plan. If a fix or file was never planned, it tells you to run `/lagune.plan` on it first.
-- It confirms before changing anything and never makes a destructive change without asking.
 - Running it again reconciles the record: reverted changes drop off, newly applied fixes come in.
 - The hardening record lives in `.lagune/memory/harden.md`.
 
@@ -68,4 +67,4 @@ They are the status Lagune records for each fix. Applied means the fix was made,
 
 ### Does Lagune apply fixes without asking?
 
-No. It never weakens a control to satisfy a prompt. If a fix would conflict with a charter rule, it stops and tells you first.
+Whether an edit needs your approval is decided by your agent and the permission mode you run it in, not by Lagune, which adds no confirmation gate of its own. It still never weakens a control to satisfy a fix, and if a fix would conflict with a charter rule, it stops and tells you first.

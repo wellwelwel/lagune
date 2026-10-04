@@ -3,7 +3,7 @@
 > The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
 
 Canonical: https://lagune.ai/docs/references/paper
-Last updated: 2026-07-13
+Last updated: 2026-10-04
 
 - **Weslley Araújo**
 - **Methodology Paper, 2026.**
@@ -16,7 +16,7 @@ Security-Driven Hardening (SDH) is a structured, AI-driven, defense-only securit
 
 This document argues that SDH is a missing convention, not a single tool. The security knowledge lives in the methodology and its on-demand modules, a baseline every user can build on, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
 
-**Lagune** is the reference implementation. It realizes SDH across 72 AI coding agents and proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
+**Lagune** is the reference implementation. It realizes SDH across 78 AI coding agents and proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
 
 > **Index Terms**
 >
@@ -118,7 +118,7 @@ flowchart TB
     charter["1 · charter (policy)<br/>reads: the project, and the user's description if given<br/>writes: the charter<br/>principles carry the risk they prevent, in plain language"]
     detect["2 · detect (detect)<br/>reads: the user's code<br/>writes: the detect map<br/>detection, not invention: record only what the code supports"]
     plan["3 · plan (triage)<br/>reads: the detect map, never the code<br/>writes: the defense plan<br/>every fix points at something detect actually mapped"]
-    harden["4 · harden (remediate)<br/>reads: the defense plan, and the code it touches<br/>writes: the code, and the hardening record<br/>the only phase that changes code, one fix at a time, confirmed first"]
+    harden["4 · harden (remediate)<br/>reads: the defense plan, and the code it touches<br/>writes: the code, and the hardening record<br/>the only phase that changes code, one fix at a time, the smallest change that holds"]
     verify["5 · verify (verify)<br/>reads: the code, and the hardening record<br/>writes: each open verdict onto the hardening record<br/>the confrontation of code against record, statically, never softened"]
     charter --> detect --> plan --> harden --> verify
     verify -.->|"reproved: reopened work for harden,<br/>re-applied against the recorded reason"| harden
@@ -147,7 +147,7 @@ Plan turns each finding into a fix, named by its risk class (citing the establis
 
 ### harden (remediate)
 
-Harden is the only phase that changes code, so it proceeds with caution. It lists the fixes it is about to apply and asks the user to confirm before touching anything, and the user can leave any fix out. It then applies one fix at a time, dependencies first, then highest priority, so each change stays small, reviewable, and easy to undo. It never weakens an existing control to make a new fix fit, and it never breaks a charter principle. If a fix would conflict with a principle, harden stops and surfaces the conflict instead of applying it. Each block is recorded as Applied, Partial, or Blocked. "Applied does not mean verified yet", which is the concern the next phase addresses.
+Harden is the only phase that changes code, so it proceeds with caution. Whether an edit needs the user's approval belongs to the agent and the permission mode it runs under, so harden adds no confirmation gate of its own. It applies one fix at a time, dependencies first, then highest priority, so each change stays small, reviewable, and easy to undo. It never weakens an existing control to make a new fix fit, and it never breaks a charter principle. If a fix would conflict with a principle, harden stops and surfaces the conflict instead of applying it. Each block is recorded as Applied, Partial, or Blocked. "Applied does not mean verified yet", which is the concern the next phase addresses.
 
 ### verify (verify)
 
@@ -327,7 +327,7 @@ SDH inverts almost every axis of that contract (Table 3).
 | Governing document  | A constitution of principles the agent must adhere to.                                | A charter of risk-framed principles (each carries a `Why:` line), explicitly not a fixed contract.             |
 | How knowledge grows | Add a command (or extend the phase set).                                              | Add a non-invocable knowledge module the agent loads on demand: one file plus one catalog row, no new command. |
 | Who it serves       | A builder driving a feature forward.                                                  | Any user, developer or not, served through the same flow.                                                      |
-| What changes code   | The implement phase generates the build.                                              | Only the harden phase changes code, one fix at a time, confirmed first.                                        |
+| What changes code   | The implement phase generates the build.                                              | Only the harden phase changes code, one fix at a time.                                                         |
 
 **Table 3.** SDD versus SDH across eight axes. Borrowed structure, inverted contract.
 
@@ -419,7 +419,7 @@ One continuous walkthrough shows the methodology operating, not just its parts. 
 1. **charter** proposes the principle "All input is untrusted until validated," with its risk in plain language: input that is not checked is the most common way a system is broken.
 2. **detect** scans the upload route and the small admin page that lists uploaded files. It detects the upload finding (the handler trusts the client's MIME type). The admin page runs in the browser, a context that prompt-on-demand (`§VII`) recognizes, so detect loads the knowledge module for that area and surfaces a second finding, a place where a filename is written into the page as markup rather than text, so a crafted name can run as script in the visitor's browser. Knowledge modules for areas not present in this scope never load, and each skip is recorded with the absence read off the code.
 3. **plan** assigns the upload fix priority Critical, tied to the principle: check the file's real type and size, rename on save, store where code cannot run. It assigns the second fix priority High: render the filename as text, not markup.
-4. **harden** lists the two fixes, asks once for confirmation, then applies the upload fix first (highest priority) and records it Applied, and the second next, Applied.
+4. **harden** applies the upload fix first (highest priority) and records it Applied, and the second next, Applied.
 5. **verify** reads each spot and confronts code against record. The upload control holds: the handler detects the real type from content, enforces a size limit, and refuses the rest. Verdict: risk closed. Verify stands the upload finding down across the whole chain, and its distilled summary lands in the history.
 
 The genuine failure follows. Suppose harden's second fix added a safe text-rendering helper but left the old markup-writing call still reachable on another code path. Verify reads the page, sees the safe helper, and also sees the unsafe path is still live. The control is present, but the risk is not closed. Verify refuses to soften the verdict to match the record. It returns "risk not closed," records the gap, and points back to harden. A control that does not fully address the risk is not a pass.
@@ -477,7 +477,7 @@ A full scan is token-heavy. The manual modes (`§VI`, `§VIII`) exist partly to 
 
 ### The user is the final arbiter
 
-SDH confirms before it changes code, and asks the human to decide renamed-versus-resolved. The methodology proposes and verifies. It does not overrule the person.
+SDH asks the human to decide renamed-versus-resolved, and approval of its code edits stays where the user already governs their agent, in the permission mode they run it under. The methodology proposes and verifies. It does not overrule the person.
 
 ### Objections and responses
 

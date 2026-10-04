@@ -3,7 +3,7 @@
 > Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs/get-started/install
-Last updated: 2026-08-03
+Last updated: 2026-10-04
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
@@ -47,7 +47,8 @@ npx -y lagune@latest update
 
 **Tip**
 
-Your charter, the artifacts each phase produces, the internal tracking, and any _sub_-skill you authored with [`/lagune.specialize`](https://lagune.ai/docs/commands/specialize) stay untouched.
+- Your charter, the artifacts each phase produces, the internal tracking, and any _sub_-skill you authored with [`/lagune.specialize`](https://lagune.ai/docs/commands/specialize) stay untouched.
+- A command an earlier version wrote where your agent no longer reads it is removed in the same pass, so nothing stale lingers.
 
 ## Pull
 

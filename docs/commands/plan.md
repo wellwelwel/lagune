@@ -3,7 +3,7 @@
 > Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
 
 Canonical: https://lagune.ai/docs/commands/plan
-Last updated: 2026-07-14
+Last updated: 2026-10-04
 
 🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
 
@@ -29,7 +29,7 @@ Last updated: 2026-07-14
 
 ## How it works
 
-This phase continues from detect. Detect already found what your system does and the risk each thing carries, so the plan does not repeat the risk, it rates how serious it is and decides what to do about it. Plan never reads the code, which forces every fix to point at something detect actually detected. It rates each finding with the CVSS v4.0 method: a category, a CVSS v4.0 vector and score reasoned from what detect and the charter captured, and the priority band that score lands on. Each fix also carries the charter principle it upholds.
+This phase continues from detect. Detect already found what your system does and the risk each thing carries, so the plan does not repeat the risk, it rates how serious it is and decides what to do about it. Plan never reads the code, which forces every fix to point at something detect actually detected. It rates each finding with the CVSS v4.0 method: a category, a CVSS v4.0 vector reasoned from what detect and the charter captured and scored by the [`cvss` hook](https://lagune.ai/docs/hooks/cvss), and the priority band that score lands on. Each fix also carries the charter principle it upholds.
 
 For example:
 
@@ -40,7 +40,7 @@ For example:
   - _Upholds:_ III. All input is untrusted until validated.
   - _Fix:_ check the file's real type and size, rename it on save, and store uploads where they cannot be run as code.
 
-From there, you have a rated, prioritized list of fixes, each tied to a finding and ready for the next phase to apply. Because the CVSS vector is Base-only, anyone can paste it into the FIRST or NVD calculator and rederive the same score.
+From there, you have a rated, prioritized list of fixes, each tied to a finding and ready for the next phase to apply. The score is computed, never estimated: the vector carries the project's exposure and stakes as Environmental metrics, and anyone can paste it into the FIRST or NVD calculator and rederive the same score.
 
 **Tip**
 
@@ -60,11 +60,11 @@ Apply the plan: [`/lagune.harden`](https://lagune.ai/docs/commands/harden).
 
 ### How does Lagune prioritize vulnerabilities?
 
-/lagune.plan rates each finding with a category and a CVSS v4.0 base score, then pairs it with the fix to apply.
+/lagune.plan rates each finding with a category and a CVSS v4.0 score computed by the cvss hook, then pairs it with the fix to apply.
 
 ### Does Lagune use CVSS v4.0?
 
-Yes. Each finding gets a CVSS v4.0 base vector and score. Because the vector is Base-only, anyone can paste it into the FIRST or NVD calculator and re-derive the score.
+Yes. Each finding gets a CVSS v4.0 vector and score, computed by the cvss hook with the same arithmetic as the FIRST calculator, so anyone can paste the vector there and re-derive the score.
 
 ### Does the plan read my code?
 

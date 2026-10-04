@@ -3,11 +3,11 @@
 > Get started with Lagune, an open-source, defense-only security workflow that hardens any codebase: set the rules, detect risks, apply fixes, and verify.
 
 Canonical: https://lagune.ai/docs
-Last updated: 2026-08-30
+Last updated: 2026-10-04
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, the agent figures out what your system actually does, then it guides you through the security work that matters for it.
 
-- **Lagune** works with projects in **any programming language** and supports [72 agents](https://lagune.ai/docs/supported-agents) ✨
+- **Lagune** works with projects in **any programming language** and supports [78 agents](https://lagune.ai/docs/supported-agents) ✨
 - **Lagune** is the first project of the [Security-Driven Hardening (SDH)](https://lagune.ai/docs/references/paper) methodology.
 
 ---
@@ -77,7 +77,7 @@ Any. Lagune runs on Node.js under the hood, but it audits and hardens projects w
 
 ### How many AI agents does Lagune work with?
 
-72, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot.
+78, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot.
 
 ### What is Security-Driven Hardening (SDH)?
 

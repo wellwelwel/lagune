@@ -11,7 +11,7 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 - [What Is Lagune? AI-Driven Security for Any Codebase](https://lagune.ai/docs.md): Get started with Lagune, an open-source, defense-only security workflow that hardens any codebase: set the rules, detect risks, apply fixes, and verify.
 - [Install: Security Hardening in Any Project via npx](https://lagune.ai/docs/get-started/install.md): Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 - [Security Slash Commands for AI Agents](https://lagune.ai/docs/get-started/commands.md): The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
-- [Supported Agents](https://lagune.ai/docs/supported-agents.md): The 72 AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
+- [Supported Agents](https://lagune.ai/docs/supported-agents.md): The 78 AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
 - [Skill Categories](https://lagune.ai/docs/skill-categories.md): The 13 specialization categories Lagune installs with --skills, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
 - [/lagune: Secure Code as Your AI Writes It](https://lagune.ai/docs/commands/lagune.md): Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 - [/lagune.charter: Set Your Security Principles](https://lagune.ai/docs/commands/charter.md): Establish your project's security principles, the rules every later phase respects.
@@ -25,6 +25,7 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 - [agent hook: Detect uncapped agent loops](https://lagune.ai/docs/hooks/agent.md): Sweep a codebase for agent/LLM calls with no step or time cap, or score a single call, from the command line.
 - [cors hook: Audit CORS origins](https://lagune.ai/docs/hooks/cors.md): Scan source for a bypassable CORS origin allowlist, or score a single origin value for over-permissive access, from the command line.
 - [crypto hook: Detect weak cryptography](https://lagune.ai/docs/hooks/crypto.md): Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.
+- [cvss hook: Score a CVSS v4.0 vector](https://lagune.ai/docs/hooks/cvss.md): Score one or many CVSS v4.0 vectors from the command line, with the same arithmetic as the FIRST calculator, and read each one back in plain words.
 - [infra hook: Detect IaC misconfiguration](https://lagune.ai/docs/hooks/infra.md): Sweep Terraform, Dockerfiles, and GitHub Actions for misconfiguration, or score a single snippet, from the command line.
 - [interpreter hook: Flag dynamic-code-execution sinks](https://lagune.ai/docs/hooks/interpreter.md): Sweep a codebase for dynamic-code-execution sinks across languages, or score a single snippet, from the command line.
 - [jwt hook: Detect unpinned JWT verification](https://lagune.ai/docs/hooks/jwt.md): Sweep a codebase for JWT verification without an algorithm pin, or score a single call, from the command line.

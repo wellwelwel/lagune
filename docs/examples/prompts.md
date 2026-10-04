@@ -3,7 +3,7 @@
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-07-24
+Last updated: 2026-10-04
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -63,7 +63,7 @@ A quick scan is one broad, unscoped prompt, so some agents are likelier to refus
 
 ## 🌊 Auto Blue Team Audit Flow
 
-Runs the [full command flow](https://lagune.ai/docs/get-started/commands) end to end without asking for user confirmation.
+Runs the [full command flow](https://lagune.ai/docs/get-started/commands) end to end without pausing for input.
 
 **🪼 Default**
 
@@ -81,8 +81,6 @@ Execute the following commands, one by one: `/lagune.charter`, `/lagune.detect`,
 When `/lagune.verify` reproves one or more fixes, repeat `/lagune.harden` and then `/lagune.verify` until all findings are properly resolved.
 
 ## Important
-
-The `/lagune.harden` command requires user confirmation before executing. Confirm everything automatically to not block the execution.
 
 - Don't pause, don't ask: in case of doubt, do everything in "full" mode.
 ```
@@ -134,8 +132,6 @@ In the `/lagune.detect`, `/lagune.plan`, `/lagune.harden`, and `/lagune.verify` 
 When `/lagune.verify` reproves one or more fixes, repeat `/lagune.harden` and then `/lagune.verify` until all findings are properly resolved.
 
 ## Important
-
-The `/lagune.harden` command requires user confirmation before executing. Confirm everything automatically to not block the execution.
 
 - Don't pause, don't ask: in case of doubt, do everything in "full" mode.
 ````
