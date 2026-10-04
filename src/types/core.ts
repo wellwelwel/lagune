@@ -158,7 +158,12 @@ export type LinkedFile = {
 };
 
 export type CommandFormat =
-  'skill' | 'markdown' | 'forge' | 'gemini-toml' | 'goose-yaml';
+  | 'skill'
+  | 'continue-prompt'
+  | 'markdown'
+  | 'forge'
+  | 'gemini-toml'
+  | 'goose-yaml';
 
 export type CommandLayout = 'skill' | 'file';
 

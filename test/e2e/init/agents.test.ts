@@ -60,6 +60,10 @@ const placeholderExpectations: Record<
     ],
     absent: [],
   },
+  'continue-prompt': {
+    present: ['$ARGUMENTS', 'name: lagune.charter', 'invokable: true'],
+    absent: ['internal: true'],
+  },
   markdown: { present: ['$ARGUMENTS'], absent: ['internal: true'] },
   forge: {
     present: ['{{parameters}}'],

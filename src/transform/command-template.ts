@@ -60,12 +60,17 @@ const readDescription = (frontmatter: string): string => {
 const assemble = (frontmatterLines: string[], body: string): string =>
   `---\n${frontmatterLines.join('\n')}\n---\n${body}`;
 
+const withName = (frontmatter: string, key: CommandKey): string[] =>
+  hasField(frontmatter, 'name')
+    ? [frontmatter.trim()]
+    : [`name: ${commandName(key)}`, frontmatter.trim()];
+
 const transformSkill = (asset: BundledAsset, key: CommandKey): string => {
   const { frontmatter, body } = parseFrontmatter(asset, key);
 
   if (hasField(frontmatter, 'name')) return asset.contents;
 
-  const lines = [`name: ${commandName(key)}`, frontmatter.trim()];
+  const lines = withName(frontmatter, key);
 
   if (!hasField(frontmatter, 'argument-hint'))
     lines.push(`argument-hint: ${ARGUMENT_HINTS[key]}`);
@@ -75,6 +80,18 @@ const transformSkill = (asset: BundledAsset, key: CommandKey): string => {
 
   if (!hasField(frontmatter, 'metadata'))
     lines.push('metadata:', '  internal: true');
+
+  return assemble(lines, body);
+};
+
+const transformContinuePrompt = (
+  asset: BundledAsset,
+  key: CommandKey
+): string => {
+  const { frontmatter, body } = parseFrontmatter(asset, key);
+  const lines = withName(frontmatter, key);
+
+  if (!hasField(frontmatter, 'invokable')) lines.push('invokable: true');
 
   return assemble(lines, body);
 };
@@ -142,6 +159,7 @@ const TRANSFORMS: Record<
   (asset: BundledAsset, key: CommandKey) => string
 > = {
   skill: transformSkill,
+  'continue-prompt': transformContinuePrompt,
   markdown: validateFrontmatter,
   forge: transformForge,
   'gemini-toml': transformGeminiToml,

@@ -106,9 +106,8 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'continue',
     displayName: 'Continue',
-    format: 'markdown',
+    format: 'continue-prompt',
     dir: '.continue/prompts',
-    extension: '.prompt',
   },
   {
     key: 'costrict',

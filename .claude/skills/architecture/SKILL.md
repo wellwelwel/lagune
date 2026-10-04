@@ -61,6 +61,7 @@ Adapters are **data, not code**. Each supported agent is a single entry in the a
 The command formats are:
 
 - **Skill** (`<dir>/lagune.<phase>/SKILL.md`): a directory per command with `name` / `description` / `argument-hint` / `user-invocable` frontmatter. Skill directories use each agent's current, project-scoped location (for example `.claude/skills`, `.agents/skills`, `.github/skills`, `.cursor/skills`).
+- **Continue prompt** (`.continue/prompts/lagune.<phase>.md`): a markdown prompt with `name`, `description`, and `invokable: true` frontmatter, the shape Continue lists under `/`.
 - **Markdown command** (`<dir>/lagune.<phase>.md`): a single markdown file whose name becomes the command.
 - **Forge** (`.forge/commands/lagune.<phase>.md`): a markdown command that swaps `$ARGUMENTS` for Forge's `{{parameters}}` placeholder.
 - **TOML** (`<dir>/lagune.<phase>.toml`): `description` plus a multi-line `prompt`, with `$ARGUMENTS` rendered as `{{args}}`.
