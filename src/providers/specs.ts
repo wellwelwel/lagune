@@ -143,8 +143,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'cline',
     displayName: 'Cline',
-    format: 'markdown',
-    dir: '.clinerules/workflows',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.cline/skills',
   },
   {
     key: 'codebuddy',
