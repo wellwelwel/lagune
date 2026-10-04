@@ -333,7 +333,7 @@ export const AGENT_SPECS: AgentSpec[] = [
     displayName: 'inference.sh',
     format: 'skill',
     layout: 'skill',
-    dir: '.inferencesh/skills',
+    dir: '.agents/skills',
   },
   {
     key: 'jazz',
