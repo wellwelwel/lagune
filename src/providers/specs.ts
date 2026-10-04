@@ -113,7 +113,7 @@ export const AGENT_SPECS: AgentSpec[] = [
     key: 'costrict',
     displayName: 'CoStrict',
     format: 'markdown',
-    dir: '.cospec/commands',
+    dir: '.roo/commands',
   },
   {
     key: 'crush',
