@@ -119,8 +119,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'crush',
     displayName: 'Crush',
-    format: 'markdown',
-    dir: '.crush/commands',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.crush/skills',
   },
   {
     key: 'factory',
