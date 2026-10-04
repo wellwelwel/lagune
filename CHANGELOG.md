@@ -1,5 +1,44 @@
 # Changelog
 
+## [0.15.0](https://github.com/wellwelwel/lagune/compare/v0.14.0...v0.15.0) (2026-10-04)
+
+
+### Features
+
+* add deterministic `cvss` hook ([d4e3cdf](https://github.com/wellwelwel/lagune/commit/d4e3cdf32510c9b4cb8780d6e71a34898cb8fd5c))
+* add support to Devin Desktop agent ([eb297c8](https://github.com/wellwelwel/lagune/commit/eb297c84e484c9c6db516252175e71062b6e3972))
+* add support to ForgeCode agent ([2e40b83](https://github.com/wellwelwel/lagune/commit/2e40b83324e7abc9f51f4552661a074fe67403f4))
+* add support to Muse Code agent ([ffc4c55](https://github.com/wellwelwel/lagune/commit/ffc4c5554ed7b217471e069a0dc722cca54c1cbf))
+* add support to Qoder CN agent ([b409189](https://github.com/wellwelwel/lagune/commit/b409189b6197fdab0cb8441f6c14803bf47b61bc))
+* add support to Snowflake CoCo agent ([0a6d021](https://github.com/wellwelwel/lagune/commit/0a6d02112be22e17167e4c70d0af12622e1c020e))
+* add support to Xum agent ([460639b](https://github.com/wellwelwel/lagune/commit/460639b2e3d66cac00c73d0b31a13f7ce32bebb4))
+* **agy:** ship agent skills in .agents/skills instead of the deprecated .agent/skills ([2ffe838](https://github.com/wellwelwel/lagune/commit/2ffe8380964249655ada513635f11af4548a13f1))
+* **amp:** ship agent skills instead of deprecated custom commands ([ee7296a](https://github.com/wellwelwel/lagune/commit/ee7296a28d1685451f5353d3b9e1ffc68d95fa09))
+* **cline:** ship agent skills instead of deprecated workflows ([65cbd52](https://github.com/wellwelwel/lagune/commit/65cbd526152492e79ae75711c5db5305ceb4c610))
+* **codex:** ship agent skills in .agents/skills instead of the undocumented .codex/skills ([4a70082](https://github.com/wellwelwel/lagune/commit/4a7008214cabafb73a34926fd35df4f513bca16a))
+* **continue:** ship markdown prompts instead of deprecated .prompt files ([1eb82f7](https://github.com/wellwelwel/lagune/commit/1eb82f7d4e12c3625bc15f0486c9bf2a174c883a))
+* **copilot:** ship agent skills instead of deprecated prompt files ([2a1adac](https://github.com/wellwelwel/lagune/commit/2a1adac64556554617e9b9ac3b7d4746b8742957))
+* **crush:** ship agent skills instead of undocumented custom commands ([e0c1b35](https://github.com/wellwelwel/lagune/commit/e0c1b3508a893900ca8f59b4a8306f474dd0547d))
+* **factory:** ship agent skills instead of deprecated custom commands ([f7cd76b](https://github.com/wellwelwel/lagune/commit/f7cd76bf698990f44b630c08ecef42b0bb3c97f6))
+* **inferencesh:** ship agent skills in .agents/skills instead of the unread .inferencesh/skills ([575c230](https://github.com/wellwelwel/lagune/commit/575c230fbc77c77b8a24069143eeff1f175cb541))
+* **jazz:** ship agent skills in skills/ instead of the unread .jazz/skills ([ff00c23](https://github.com/wellwelwel/lagune/commit/ff00c23aea8f9341110c7e0295ad1acf5513a012))
+* **kilocode:** ship agent skills instead of deprecated workflows ([900d4ec](https://github.com/wellwelwel/lagune/commit/900d4ec0bf3441af48d4a4be8864cdc4e5c2cad5))
+* **openhands:** ship agent skills in .agents/skills instead of the deprecated .openhands/skills ([bd31cc8](https://github.com/wellwelwel/lagune/commit/bd31cc89dbf3c5cf417ca9a2d12a15fcf3ff8651))
+* reuse agent commands through symlinks ([d367b3d](https://github.com/wellwelwel/lagune/commit/d367b3d7ff59e3be62701248d95777d7691735e0))
+* **shai:** ship agent skills in .shai/skills instead of the unread .shai/commands ([c4e26d4](https://github.com/wellwelwel/lagune/commit/c4e26d4fb4196b8707371542dc44a1e30f96716c))
+* validate memory artifacts after each phase ([e33a071](https://github.com/wellwelwel/lagune/commit/e33a071b19e092222548a59565e48cd51ede5b97))
+* **zencoder:** ship agent skills in .agents/skills instead of the deprecated .zencoder/skills ([3fc1a68](https://github.com/wellwelwel/lagune/commit/3fc1a68c95ea737d3053d736c2c9756f1b51d18e))
+* **zenflow:** ship agent skills in .agents/skills instead of the deprecated .zencoder/skills ([3ae0cda](https://github.com/wellwelwel/lagune/commit/3ae0cdac521c0cdd0cf21d2b076e5a0687a3e573))
+
+
+### Bug Fixes
+
+* **costrict:** ship commands in .roo/commands instead of the unread .cospec/commands ([d816b90](https://github.com/wellwelwel/lagune/commit/d816b9089b5329727682181137dba7734178d447))
+* **dashboard:** prompt each side quest with its own text ([7c2391b](https://github.com/wellwelwel/lagune/commit/7c2391b00247d56e53501937be00b79e6e428bf1))
+* **forge:** name each command so Forge lists all of them ([8ec4cf4](https://github.com/wellwelwel/lagune/commit/8ec4cf49af96015d1767a24075d4ee4457f189d8))
+* **goose:** declare the args parameter the recipe prompt uses ([32314a4](https://github.com/wellwelwel/lagune/commit/32314a4e65137b487c4c13724301a1e474b1fa10))
+* remove harden's confirmation gate ([d89ad09](https://github.com/wellwelwel/lagune/commit/d89ad09faecb5b7c23fd9e06bdd2a09162392d5d))
+
 ## [0.14.0](https://github.com/wellwelwel/lagune/compare/v0.13.0...v0.14.0) (2026-08-04)
 
 
