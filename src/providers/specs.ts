@@ -99,8 +99,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'amp',
     displayName: 'Amp',
-    format: 'markdown',
-    dir: '.agents/commands',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.agents/skills',
   },
   {
     key: 'continue',
