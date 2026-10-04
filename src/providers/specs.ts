@@ -34,7 +34,7 @@ export const AGENT_SPECS: AgentSpec[] = [
     displayName: 'Antigravity',
     format: 'skill',
     layout: 'skill',
-    dir: '.agent/skills',
+    dir: '.agents/skills',
   },
   {
     key: 'opencode',
