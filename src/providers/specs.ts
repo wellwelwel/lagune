@@ -206,8 +206,9 @@ export const AGENT_SPECS: AgentSpec[] = [
   {
     key: 'shai',
     displayName: 'SHAI (OVHcloud)',
-    format: 'markdown',
-    dir: '.shai/commands',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.shai/skills',
   },
   {
     key: 'forge',
