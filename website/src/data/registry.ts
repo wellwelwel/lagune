@@ -134,6 +134,7 @@ export const ALL_AGENTS: AgentEntry[] = [
   { key: 'trae', name: 'Trae', icon: '/img/icons/trae.svg' },
   { key: 'warp', name: 'Warp', icon: '/img/icons/warp.svg' },
   { key: 'windsurf', name: 'Windsurf', icon: '/img/icons/windsurf.svg' },
+  { key: 'xum', name: 'Xum', icon: '/img/icons/mux.svg' },
   { key: 'zcode', name: 'ZCode', icon: '/img/icons/zcode.svg' },
   { key: 'zed', name: 'Zed', icon: '/img/icons/zed.svg' },
   { key: 'zencoder', name: 'Zencoder', icon: '/img/icons/zencoder.svg' },

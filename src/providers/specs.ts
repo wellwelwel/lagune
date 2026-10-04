@@ -378,6 +378,13 @@ export const AGENT_SPECS: AgentSpec[] = [
     dir: '.mux/skills',
   },
   {
+    key: 'xum',
+    displayName: 'Xum',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.xum/skills',
+  },
+  {
     key: 'ona',
     displayName: 'Ona',
     format: 'skill',
