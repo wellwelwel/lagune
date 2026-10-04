@@ -77,6 +77,13 @@ export const AGENT_SPECS: AgentSpec[] = [
     dir: '.lingma/skills',
   },
   {
+    key: 'qoder-cn',
+    displayName: 'Qoder CN',
+    format: 'skill',
+    layout: 'skill',
+    dir: '.lingma/skills',
+  },
+  {
     key: 'rovodev',
     displayName: 'RovoDev ACLI',
     format: 'skill',

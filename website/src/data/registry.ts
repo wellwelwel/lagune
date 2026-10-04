@@ -122,6 +122,7 @@ export const ALL_AGENTS: AgentEntry[] = [
     name: 'PromptScript',
     icon: '/img/icons/promptscript.svg',
   },
+  { key: 'qoder-cn', name: 'Qoder CN', icon: '/img/icons/qodercli.svg' },
   { key: 'qodercli', name: 'Qoder CLI', icon: '/img/icons/qodercli.svg' },
   { key: 'qwen', name: 'Qwen Code', icon: '/img/icons/qwen.svg' },
   { key: 'reasonix', name: 'Reasonix', icon: '/img/icons/reasonix.svg' },
