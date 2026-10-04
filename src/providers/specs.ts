@@ -472,7 +472,7 @@ export const AGENT_SPECS: AgentSpec[] = [
     displayName: 'OpenHands',
     format: 'skill',
     layout: 'skill',
-    dir: '.openhands/skills',
+    dir: '.agents/skills',
   },
   {
     key: 'firebender',
