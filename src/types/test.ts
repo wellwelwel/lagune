@@ -20,6 +20,7 @@ export type Frontmatter = {
   description: string;
   'argument-hint'?: string;
   'user-invocable'?: boolean;
+  'disable-model-invocation'?: boolean;
   metadata?: Record<string, unknown>;
 };
 

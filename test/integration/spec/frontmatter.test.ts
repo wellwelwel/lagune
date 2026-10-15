@@ -9,10 +9,15 @@ const SKILL_KEYS: Record<keyof Required<Frontmatter>, true> = {
   description: true,
   'argument-hint': true,
   'user-invocable': true,
+  'disable-model-invocation': true,
   metadata: true,
 };
 
-const { metadata, ...CORE_KEYS } = SKILL_KEYS;
+const {
+  metadata,
+  'disable-model-invocation': disableModelInvocation,
+  ...CORE_KEYS
+} = SKILL_KEYS;
 
 const specSources = await listFrontmatterSources(new URL('spec/', packageRoot));
 
@@ -80,6 +85,13 @@ const assertValid = (
       typeof parsed['user-invocable'],
       'boolean',
       'user-invocable must be a boolean when present'
+    );
+
+  if ('disable-model-invocation' in parsed)
+    strict.strictEqual(
+      typeof parsed['disable-model-invocation'],
+      'boolean',
+      'disable-model-invocation must be a boolean when present'
     );
 
   if ('metadata' in parsed) assertMetadata(parsed.metadata, installed);
