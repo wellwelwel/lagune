@@ -67,7 +67,7 @@ A package runs on the person's computer, so the review covers the code it brings
 | Pin                     | An exact version for **npm** and **PyPI**, or an `@sha256:` digest for an image (resolve a tag with `docker buildx imagetools inspect`, for example)                                                                                                                                                             |
 | Transport               | `stdio`                                                                                                                                                                                                                                                                                                          |
 | Arguments and variables | On **npm** and **PyPI**, runtime arguments are the runner's own flags (such as `-y`), and on any package no variable changes how code loads (`NODE_OPTIONS`, `LD_PRELOAD`, `PYTHONPATH`) or which registry packages come from (`NPM_CONFIG_*`, `UV_INDEX`). **Lagune Code** lists anything else as not supported |
-| Image flags             | An image runs with no flag that widens its reach on the host: `--privileged`, `--cap-add`, a mounted host path or Docker socket, `--network host`, or `--pid host`. **Lagune Code** accepts any flag an image entry names, so the review is the only guard                                                       |
+| Image flags             | An image runs only with `-i`, `--rm`, `--init`, `--read-only`, `--env`, or `--network none`. **Lagune Code** lists any other flag, such as `--privileged` or a host mount, as not supported                                                                                                                      |
 | Ownership               | On **npm**, the version's `mcpName` equals the server name. On **PyPI**, its description carries `mcp-name: <server name>`                                                                                                                                                                                       |
 | Provenance              | Published through trusted publishing, with an attestation built by the vendor's repository at the release tag                                                                                                                                                                                                    |
 | Dependencies            | Pinned to exact versions, with no `preinstall`, `install`, or `postinstall` script anywhere in the tree                                                                                                                                                                                                          |
@@ -96,7 +96,7 @@ Write a scoped **npm** name with its slash escaped (`@playwright%2fmcp`).
 
 ## Add
 
-1. Copy the registry's `server` object, keeping `$schema`, `name`, `title`, `description`, `version`, `websiteUrl`, `repository`, and the reviewed `remotes` or `packages`. Leave out `_meta`, which holds publisher data nobody reviewed.
+1. Copy the registry's `server` object, keeping `$schema`, `name`, `title`, `description`, `version`, `websiteUrl`, `repository`, and the reviewed `remotes` or `packages`. Leave out the `server`'s own `_meta`, which holds publisher data nobody reviewed.
 2. Keep at most 20 options in an entry, the most **Lagune Code** reads, dropping `sse` twins of `streamable-http` addresses first.
 3. Insert the entry in name order, set `metadata.count` to the number of servers, and never add a `nextCursor`, since a static file cannot serve another page.
 4. Format the list, scan it for credentials, and run its tests:
@@ -106,6 +106,32 @@ npx prettier --write --parser json website/static/registry/v0.1/servers
 node lib/hooks/secrets.mjs -f website/static/registry/v0.1/servers
 npx poku test/integration/website
 ```
+
+## Questions
+
+An entry can carry, in the `_meta` beside its `server`, a plain-language question for each tool that acts beyond the computer: one that creates, changes, deletes, sends, publishes, or spends money or compute. The call card shows the question instead of the raw arguments, and still lists every value the call holds.
+
+```json
+"_meta": {
+  "ai.lagune/questions": [
+    {
+      "tool": "create_issue",
+      "question": "Create an issue titled {title} in {owner}/{repo}?",
+      "parameters": [
+        { "name": "title", "label": "Title" },
+        { "name": "owner", "label": "Owner" },
+        { "name": "repo", "label": "Repository" }
+      ]
+    }
+  ]
+}
+```
+
+- Take tool names and parameters from the server's source at the reviewed version, or from its official documentation. A hosted server can drift from its repository, so prefer the documentation of what is served when the two disagree.
+- A wrong name only leaves the card on the raw arguments, while a question that misdescribes the action is a harm. Say what the tool does and any side effect worth knowing (public, billed, irreversible), and claim nothing it does not do.
+- Write a value as `{parameter}` only for a parameter the schema requires that holds text, a number, or a list of them. A missing value, a boolean, or an object makes the card fall back to the raw arguments, and long free text (a comment body, a SQL query) reads better as a labeled value than inside the question.
+- Give each parameter a short label, distinct within its tool, which names that value on the card.
+- When a server reaches its writes through one generic tool (an API caller or an `execute` tool), ask about that tool and name the action it runs.
 
 ## Update or remove
 

@@ -14,8 +14,22 @@ type RegistryServer = {
   remotes?: { url: string }[];
 };
 
+type QuestionParameter = {
+  name: string;
+  label: string;
+};
+
+type ToolQuestion = {
+  tool: string;
+  question: string;
+  parameters: QuestionParameter[];
+};
+
 type ReviewedList = {
-  servers: { server: RegistryServer }[];
+  servers: {
+    server: RegistryServer;
+    _meta?: { 'ai.lagune/questions'?: ToolQuestion[] };
+  }[];
   metadata?: { nextCursor?: string };
 };
 
@@ -31,6 +45,11 @@ const exactVersions = new Map([
   ['pypi', /^\d+(?:\.\d+)*(?:(?:a|b|rc)\d+)?(?:\.post\d+)?(?:\.dev\d+)?$/],
 ]);
 
+const placeholder = /\{([A-Za-z0-9_.-]{1,64})\}/g;
+const parameterName = /^[A-Za-z0-9_.-]{1,64}$/;
+const hiddenCharacter = /[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/u;
+const questionLimits = { question: 200, label: 40, parameters: 16 };
+
 const accountNamespace = 'io.github.';
 
 const publisherDomain = (name: string): string | undefined => {
@@ -45,6 +64,37 @@ const isServedFrom = (address: string, domain: string): boolean => {
   const host = URL.parse(address)?.hostname ?? '';
 
   return host === domain || host.endsWith(`.${domain}`);
+};
+
+const isShownText = (text: string, limit: number): boolean =>
+  text.trim() !== '' && text.length <= limit && !hiddenCharacter.test(text);
+
+const questionProblem = ({
+  question,
+  parameters,
+}: ToolQuestion): string | undefined => {
+  const names = new Set(parameters.map(({ name }) => name));
+  const labels = new Set(parameters.map(({ label }) => label.toLowerCase()));
+  const placed = [...question.matchAll(placeholder)].map(([, name]) => name);
+
+  if (!isShownText(question, questionLimits.question))
+    return 'its question is empty, too long, or holds a hidden character';
+  if (/[{}]/.test(question.replaceAll(placeholder, '')))
+    return 'its question holds a brace outside a placeholder';
+  if (!placed.every((name) => names.has(name)))
+    return 'its question names a parameter it never declares';
+  if (parameters.length > questionLimits.parameters)
+    return 'it declares too many parameters';
+  if (names.size !== parameters.length || labels.size !== parameters.length)
+    return 'it repeats a parameter or a label';
+  if (!parameters.every(({ name }) => parameterName.test(name)))
+    return 'it declares a parameter name Lagune Code does not read';
+  if (
+    !parameters.every(({ label }) => isShownText(label, questionLimits.label))
+  )
+    return 'it gives a label that is empty, too long, or hidden';
+
+  return undefined;
 };
 
 const isPinned = ({
@@ -72,6 +122,10 @@ await describe('the catalog list Lagune Code reviews', async () => {
       url,
     }));
   });
+  const entryQuestions = list.servers.map(({ server, _meta: meta }) => ({
+    server: server.name,
+    questions: meta?.['ai.lagune/questions'] ?? [],
+  }));
 
   it('answers with the list shape a registry client reads', () => {
     strict(Array.isArray(list.servers));
@@ -113,4 +167,27 @@ await describe('the catalog list Lagune Code reviews', async () => {
         `${name} reaches ${url} outside ${domain}`
       );
     });
+
+  for (const { server, questions } of entryQuestions)
+    it('asks at most one question per tool of a server', () => {
+      const tools = questions.map(({ tool }) => tool);
+
+      strict.strictEqual(
+        new Set(tools).size,
+        tools.length,
+        `${server} asks twice about one tool`
+      );
+    });
+
+  for (const { server, questions } of entryQuestions)
+    for (const toolQuestion of questions)
+      it('words every question so Lagune Code can show it', () => {
+        const problem = questionProblem(toolQuestion);
+
+        strict.strictEqual(
+          problem,
+          undefined,
+          `${server} ${toolQuestion.tool}: ${problem}`
+        );
+      });
 });
