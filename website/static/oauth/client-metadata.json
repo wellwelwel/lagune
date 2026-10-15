@@ -1,0 +1,15 @@
+{
+  "client_id": "https://lagune.ai/oauth/client-metadata.json",
+  "client_name": "Lagune Code",
+  "client_uri": "https://lagune.ai",
+  "redirect_uris": [
+    "http://127.0.0.1:18723/callback",
+    "http://127.0.0.1:18724/callback",
+    "http://127.0.0.1:18725/callback",
+    "http://127.0.0.1:18726/callback"
+  ],
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "none",
+  "application_type": "native"
+}
