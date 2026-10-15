@@ -3,7 +3,7 @@
 > Score one or many CVSS v4.0 vectors from the command line, with the same arithmetic as the FIRST calculator, and read each one back in plain words.
 
 Canonical: https://lagune.ai/docs/hooks/cvss
-Last updated: 2026-10-04
+Last updated: 2026-10-03
 
 The `cvss` hook scores a **CVSS v4.0 vector** and prints its score and severity band, the rating [`/lagune.plan`](https://lagune.ai/docs/commands/plan) writes on each fix and [`/lagune.prove`](https://lagune.ai/docs/commands/prove) on each advisory. It is the deterministic engine behind those ratings, with the same arithmetic as the [FIRST calculator](https://www.first.org/cvss/calculator/4.0), and you can run it yourself.
 

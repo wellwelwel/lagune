@@ -7,7 +7,7 @@ Last updated: 2026-10-04
 
 Agent-by-agent compatibility across other agent-driven workflow tools: [OpenSpec](https://github.com/Fission-AI/OpenSpec) (v1.13.2), [Spec Kit](https://github.com/github/spec-kit) (v1.0.11), [Superpowers](https://github.com/obra/superpowers) (v6.4.1), and [Skills.sh](https://github.com/vercel-labs/skills) (v1.7.0).
 
-On agent compatibility, Lagune covers **73 agents**, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69). Lagune is security-focused where the others are general-purpose workflow tools, so the comparison is compatibility-only.
+On agent compatibility, Lagune covers **78 agents**, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69). Lagune is security-focused where the others are general-purpose workflow tools, so the comparison is compatibility-only.
 
 | Agent                                                                                       | OpenSpec | Spec Kit | Superpowers | Skills.sh | Lagune |
 | ------------------------------------------------------------------------------------------- | :------: | :------: | :---------: | :-------: | :----: |
@@ -90,7 +90,7 @@ On agent compatibility, Lagune covers **73 agents**, more than OpenSpec (37), Sp
 
 ### How does Lagune compare to OpenSpec, Spec Kit, Superpowers, and Skills.sh?
 
-On agent compatibility, Lagune covers 73 agents, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69).
+On agent compatibility, Lagune covers 78 agents, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69).
 
 ### Which agent-workflow tool supports the most agents?
 

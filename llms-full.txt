@@ -2,7 +2,7 @@
 
 > Security-Driven Hardening for any codebase
 
-Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with 72 AI coding agents and needs no API key.
+Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with 78 AI coding agents and needs no API key.
 
 ---
 
@@ -120,7 +120,7 @@ Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) and [
 > Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs/get-started/install
-Last updated: 2026-10-04
+Last updated: 2026-10-03
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
@@ -366,7 +366,7 @@ Node.js (LTS) and at least one supported AI agent.
 > The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 
 Canonical: https://lagune.ai/docs/get-started/commands
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 Once **Lagune** is set up in your project, your **AI** agent unlocks a set of slash commands. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 
@@ -442,7 +442,7 @@ A five-phase audit: charter (set rules), detect (map risks), plan (score and pla
 
 # Supported Agents
 
-> The 78 AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
+> The AI agents Lagune works with, and the key for each, including Claude Code, Codex, Cursor, Gemini, and Copilot.
 
 Canonical: https://lagune.ai/docs/supported-agents
 Last updated: 2026-10-04
@@ -456,86 +456,86 @@ Pick your agent by passing its key, for example `npx -y lagune@latest init <alia
 npx -y lagune@latest init claude
 ```
 
-| Agent                                                                                       | Key (Alias)     | Status                                              |
-| ------------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------- |
-| [AdaL](https://docs.sylph.ai/)                                                              | `adal`          |                                                     |
-| [AiderDesk](https://github.com/hotovo/aider-desk)                                           | `aiderdesk`     |                                                     |
-| [Amazon Q Developer](https://aws.amazon.com/q/developer/)                                   | `amazonq`       | Deprecated, rebranded as Kiro CLI (`kiro-cli`)      |
-| [Amp](https://ampcode.com/)                                                                 | `amp`           |                                                     |
-| [Antigravity](https://antigravity.google/)                                                  | `agy`           |                                                     |
-| [AstrBot](https://astrbot.app/)                                                             | `astrbot`       |                                                     |
-| [Auggie CLI](https://docs.augmentcode.com/cli/overview)                                     | `auggie`        |                                                     |
-| [Autohand Code CLI](https://autohand.ai/)                                                   | `autohand`      |                                                     |
-| [Claude Code](https://www.anthropic.com/claude-code)                                        | `claude`        |                                                     |
-| [Cline](https://github.com/cline/cline)                                                     | `cline`         |                                                     |
-| [Code Studio](https://www.syncfusion.com/code-studio/)                                      | `codestudio`    |                                                     |
-| [CodeArts Agent (Huawei)](https://codearts.huaweicloud.com/)                                | `codearts`      |                                                     |
-| [CodeBuddy CLI](https://www.codebuddy.ai/cli)                                               | `codebuddy`     |                                                     |
-| [Codemaker](https://github.com/codemakerai)                                                 | `codemaker`     |                                                     |
-| [Codex CLI](https://github.com/openai/codex)                                                | `codex`         |                                                     |
-| [Command Code](https://commandcode.ai/)                                                     | `commandcode`   |                                                     |
-| [Continue](https://continue.dev/)                                                           | `continue`      |                                                     |
-| [Cortex Code (Snowflake)](https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code) | `cortex`        | Deprecated, renamed Snowflake CoCo (`coco`)         |
-| [CoStrict](https://github.com/zgsm-ai/costrict)                                             | `costrict`      |                                                     |
-| [Crush](https://github.com/charmbracelet/crush)                                             | `crush`         |                                                     |
-| [Cursor](https://cursor.sh/)                                                                | `cursor-agent`  |                                                     |
-| [Deep Agents (LangChain)](https://github.com/langchain-ai/deepagents)                       | `deepagents`    |                                                     |
-| [Devin Desktop](https://docs.devin.ai/desktop)                                              | `devin-desktop` |                                                     |
-| [Devin for Terminal](https://cli.devin.ai/docs)                                             | `devin`         |                                                     |
-| [Dexto](https://dexto.ai/)                                                                  | `dexto`         |                                                     |
-| [Eve](https://eve.dev/)                                                                     | `eve`           |                                                     |
-| [Factory Droid](https://factory.ai/)                                                        | `factory`       |                                                     |
-| [Firebender](https://docs.firebender.com/)                                                  | `firebender`    |                                                     |
-| [Forge](https://forgecode.dev/)                                                             | `forge`         | Deprecated, renamed ForgeCode (`forgecode`)         |
-| [ForgeCode](https://forgecode.dev/)                                                         | `forgecode`     |                                                     |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli)                                   | `gemini`        |                                                     |
-| [GitHub Copilot](https://code.visualstudio.com/)                                            | `copilot`       |                                                     |
-| [Goose](https://block.github.io/goose/)                                                     | `goose`         |                                                     |
-| [Hermes](https://hermes-agent.nousresearch.com/)                                            | `hermes`        |                                                     |
-| [IBM Bob](https://www.ibm.com/products/bob)                                                 | `bob`           |                                                     |
-| [iFlow CLI](https://docs.iflow.cn/en/cli/quickstart)                                        | `iflow`         |                                                     |
-| [inference.sh](https://inference.sh/)                                                       | `inferencesh`   |                                                     |
-| [Jazz](https://github.com/lvndry/jazz)                                                      | `jazz`          |                                                     |
-| [Junie](https://junie.jetbrains.com/)                                                       | `junie`         |                                                     |
-| [Kilo Code](https://github.com/Kilo-Org/kilocode)                                           | `kilocode`      |                                                     |
-| [Kimi Code](https://code.kimi.com/)                                                         | `kimi`          |                                                     |
-| [Kiro CLI](https://kiro.dev/docs/cli/)                                                      | `kiro-cli`      |                                                     |
-| [Kode](https://github.com/shareAI-lab/kode)                                                 | `kode`          |                                                     |
-| [Lingma](https://lingma.aliyun.com/)                                                        | `lingma`        | Deprecated, renamed Qoder CN (`qoder-cn`)           |
-| [Loaf](https://github.com/levifig/loaf)                                                     | `loaf`          |                                                     |
-| [MCPJam](https://mcpjam.com/)                                                               | `mcpjam`        |                                                     |
-| [Mistral Vibe](https://github.com/mistralai/mistral-vibe)                                   | `vibe`          |                                                     |
-| [Moxby](https://moxby.com/)                                                                 | `moxby`         |                                                     |
-| [Muse Code](https://dev.meta.ai/products/muse-code/)                                        | `muse`          |                                                     |
-| [Mux](https://mux.coder.com/)                                                               | `mux`           | Deprecated, renamed Xum (`xum`)                     |
-| [Neovate](https://neovateai.dev/)                                                           | `neovate`       |                                                     |
-| [Ona](https://ona.com/)                                                                     | `ona`           |                                                     |
-| [OpenClaw](https://docs.openclaw.ai/)                                                       | `openclaw`      |                                                     |
-| [opencode](https://opencode.ai/)                                                            | `opencode`      |                                                     |
-| [OpenHands](https://docs.openhands.dev/)                                                    | `openhands`     |                                                     |
-| [Pi Coding Agent](https://pi.dev)                                                           | `pi`            |                                                     |
-| [Pochi](https://getpochi.com/)                                                              | `pochi`         |                                                     |
-| [PromptScript](https://getpromptscript.dev/)                                                | `promptscript`  |                                                     |
-| [Qoder CLI](https://qoder.com/cli)                                                          | `qodercli`      |                                                     |
-| [Qoder CN](https://docs.qoder.cn/)                                                          | `qoder-cn`      |                                                     |
-| [Qwen Code](https://github.com/QwenLM/qwen-code)                                            | `qwen`          |                                                     |
-| [Reasonix](https://github.com/esengine/DeepSeek-Reasonix)                                   | `reasonix`      |                                                     |
-| [Replit](https://replit.com/)                                                               | `replit`        |                                                     |
-| [Roo Code](https://roocode.com/)                                                            | `roo`           |                                                     |
-| [RovoDev ACLI](https://www.atlassian.com/software/rovo-dev)                                 | `rovodev`       |                                                     |
-| [SHAI (OVHcloud)](https://github.com/ovh/shai)                                              | `shai`          |                                                     |
-| [Snowflake CoCo](https://www.snowflake.com/en/product/snowflake-coco/)                      | `coco`          |                                                     |
-| [Tabnine CLI](https://docs.tabnine.com/main/getting-started/tabnine-cli)                    | `tabnine`       | Deprecated by the vendor after 2026-12-31           |
-| [Terramind](https://terramind.com/)                                                         | `terramind`     |                                                     |
-| [Tinycloud](https://tinycloud.cloudglue.dev/)                                               | `tinycloud`     |                                                     |
-| [Trae](https://www.trae.ai/)                                                                | `trae`          |                                                     |
-| [Warp](https://www.warp.dev/)                                                               | `warp`          |                                                     |
-| [Windsurf](https://windsurf.com/)                                                           | `windsurf`      | Deprecated, renamed Devin Desktop (`devin-desktop`) |
-| [Xum](https://xum.coder.com/)                                                               | `xum`           |                                                     |
-| [ZCode](https://zcode.z.ai/)                                                                | `zcode`         |                                                     |
-| [Zed](https://zed.dev/)                                                                     | `zed`           |                                                     |
-| [Zencoder](https://zencoder.ai/)                                                            | `zencoder`      |                                                     |
-| [Zenflow](https://zencoder.ai/zenflow)                                                      | `zenflow`       |                                                     |
+| Agent | Key (Alias) | Status |
+| --- | --- | --- |
+| [AdaL](https://docs.sylph.ai/) | `adal` |  |
+| [AiderDesk](https://github.com/hotovo/aider-desk) | `aiderdesk` |  |
+| [Amazon Q Developer](https://aws.amazon.com/q/developer/) | `amazonq` | Deprecated, renamed Kiro CLI (`kiro-cli`) |
+| [Amp](https://ampcode.com/) | `amp` |  |
+| [Antigravity](https://antigravity.google/) | `agy` |  |
+| [AstrBot](https://astrbot.app/) | `astrbot` |  |
+| [Auggie CLI](https://docs.augmentcode.com/cli/overview) | `auggie` |  |
+| [Autohand Code CLI](https://autohand.ai/) | `autohand` |  |
+| [Claude Code](https://www.anthropic.com/claude-code) | `claude` |  |
+| [Cline](https://github.com/cline/cline) | `cline` |  |
+| [Code Studio](https://www.syncfusion.com/code-studio/) | `codestudio` |  |
+| [CodeArts Agent (Huawei)](https://codearts.huaweicloud.com/) | `codearts` |  |
+| [CodeBuddy CLI](https://www.codebuddy.ai/cli) | `codebuddy` |  |
+| [Codemaker](https://github.com/codemakerai) | `codemaker` |  |
+| [Codex CLI](https://github.com/openai/codex) | `codex` |  |
+| [Command Code](https://commandcode.ai/) | `commandcode` |  |
+| [Continue](https://continue.dev/) | `continue` |  |
+| [Cortex Code (Snowflake)](https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code) | `cortex` | Deprecated, renamed Snowflake CoCo (`coco`) |
+| [CoStrict](https://github.com/zgsm-ai/costrict) | `costrict` |  |
+| [Crush](https://github.com/charmbracelet/crush) | `crush` |  |
+| [Cursor](https://cursor.sh/) | `cursor-agent` |  |
+| [Deep Agents (LangChain)](https://github.com/langchain-ai/deepagents) | `deepagents` |  |
+| [Devin Desktop](https://docs.devin.ai/desktop) | `devin-desktop` |  |
+| [Devin for Terminal](https://cli.devin.ai/docs) | `devin` |  |
+| [Dexto](https://dexto.ai/) | `dexto` |  |
+| [Eve](https://eve.dev/) | `eve` |  |
+| [Factory Droid](https://factory.ai/) | `factory` |  |
+| [Firebender](https://docs.firebender.com/) | `firebender` |  |
+| [Forge](https://forgecode.dev/) | `forge` | Deprecated, renamed ForgeCode (`forgecode`) |
+| [ForgeCode](https://forgecode.dev/) | `forgecode` |  |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | `gemini` |  |
+| [GitHub Copilot](https://code.visualstudio.com/) | `copilot` |  |
+| [Goose](https://block.github.io/goose/) | `goose` |  |
+| [Hermes](https://hermes-agent.nousresearch.com/) | `hermes` |  |
+| [IBM Bob](https://www.ibm.com/products/bob) | `bob` |  |
+| [iFlow CLI](https://docs.iflow.cn/en/cli/quickstart) | `iflow` |  |
+| [inference.sh](https://inference.sh/) | `inferencesh` |  |
+| [Jazz](https://github.com/lvndry/jazz) | `jazz` |  |
+| [Junie](https://junie.jetbrains.com/) | `junie` |  |
+| [Kilo Code](https://github.com/Kilo-Org/kilocode) | `kilocode` |  |
+| [Kimi Code](https://code.kimi.com/) | `kimi` |  |
+| [Kiro CLI](https://kiro.dev/docs/cli/) | `kiro-cli` |  |
+| [Kode](https://github.com/shareAI-lab/kode) | `kode` |  |
+| [Lingma](https://lingma.aliyun.com/) | `lingma` | Deprecated, renamed Qoder CN (`qoder-cn`) |
+| [Loaf](https://github.com/levifig/loaf) | `loaf` |  |
+| [MCPJam](https://mcpjam.com/) | `mcpjam` |  |
+| [Mistral Vibe](https://github.com/mistralai/mistral-vibe) | `vibe` |  |
+| [Moxby](https://moxby.com/) | `moxby` |  |
+| [Muse Code](https://dev.meta.ai/products/muse-code/) | `muse` |  |
+| [Mux](https://mux.coder.com/) | `mux` | Deprecated, renamed Xum (`xum`) |
+| [Neovate](https://neovateai.dev/) | `neovate` |  |
+| [Ona](https://ona.com/) | `ona` |  |
+| [OpenClaw](https://docs.openclaw.ai/) | `openclaw` |  |
+| [opencode](https://opencode.ai/) | `opencode` |  |
+| [OpenHands](https://docs.openhands.dev/) | `openhands` |  |
+| [Pi Coding Agent](https://pi.dev) | `pi` |  |
+| [Pochi](https://getpochi.com/) | `pochi` |  |
+| [PromptScript](https://getpromptscript.dev/) | `promptscript` |  |
+| [Qoder CLI](https://qoder.com/cli) | `qodercli` |  |
+| [Qoder CN](https://docs.qoder.cn/) | `qoder-cn` |  |
+| [Qwen Code](https://github.com/QwenLM/qwen-code) | `qwen` |  |
+| [Reasonix](https://github.com/esengine/DeepSeek-Reasonix) | `reasonix` |  |
+| [Replit](https://replit.com/) | `replit` |  |
+| [Roo Code](https://roocode.com/) | `roo` |  |
+| [RovoDev ACLI](https://www.atlassian.com/software/rovo-dev) | `rovodev` |  |
+| [SHAI (OVHcloud)](https://github.com/ovh/shai) | `shai` |  |
+| [Snowflake CoCo](https://www.snowflake.com/en/product/snowflake-coco/) | `coco` |  |
+| [Tabnine CLI](https://docs.tabnine.com/main/getting-started/tabnine-cli) | `tabnine` | Deprecated by the vendor after 2026-12-31 |
+| [Terramind](https://terramind.com/) | `terramind` |  |
+| [Tinycloud](https://tinycloud.cloudglue.dev/) | `tinycloud` |  |
+| [Trae](https://www.trae.ai/) | `trae` |  |
+| [Warp](https://www.warp.dev/) | `warp` |  |
+| [Windsurf](https://windsurf.com/) | `windsurf` | Deprecated, renamed Devin Desktop (`devin-desktop`) |
+| [Xum](https://xum.coder.com/) | `xum` |  |
+| [ZCode](https://zcode.z.ai/) | `zcode` |  |
+| [Zed](https://zed.dev/) | `zed` |  |
+| [Zencoder](https://zencoder.ai/) | `zencoder` |  |
+| [Zenflow](https://zencoder.ai/zenflow) | `zenflow` |  |
 
 - Deprecated agents will be removed in v1.0.0. Until then they keep their last shape, and the Status column names the agent to pick instead.
 
@@ -547,7 +547,7 @@ npx -y lagune@latest init claude
 
 ### Does Lagune work with Cursor, GitHub Copilot, Hermes, and Gemini?
 
-Yes. All four are supported, along with Claude Code, Codex, and 72 others.
+Yes. All four are supported, along with Claude Code, Codex, and every other agent in the table.
 
 ### How do I pick my agent when installing?
 
@@ -557,7 +557,7 @@ Pass the agent's CLI key to init, for example npx -y lagune@latest init claude. 
 
 # Skill Categories
 
-> The 13 specialization categories Lagune installs with --skills, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
+> The specialization categories Lagune installs with --skills, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
 
 Canonical: https://lagune.ai/docs/skill-categories
 Last updated: 2026-10-04
@@ -623,7 +623,7 @@ Start with owasp, then add the one for your language or stack. Nothing is loaded
 > Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 
 Canonical: https://lagune.ai/docs/commands/lagune
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 ⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
 
@@ -715,7 +715,7 @@ Add an instruction to your agent's instruction file (AGENTS.md, CLAUDE.md, .curs
 > Establish your project's security principles, the rules every later phase respects.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -786,7 +786,7 @@ Yes. Lagune proposes rules from your description and your code, and you can rewo
 > Read your code and map what your system does and where the risks are.
 
 Canonical: https://lagune.ai/docs/commands/detect
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 🔬 Find out what your system really does and where the risks are.
 
@@ -855,7 +855,7 @@ At .lagune/memory/detect.md.
 > Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
 
 Canonical: https://lagune.ai/docs/commands/plan
-Last updated: 2026-10-04
+Last updated: 2026-10-03
 
 🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
 
@@ -929,7 +929,7 @@ No. Plan never reads the code, which forces every fix to point at something dete
 > Apply the plan's fixes to your code, safely and one at a time.
 
 Canonical: https://lagune.ai/docs/commands/harden
-Last updated: 2026-10-04
+Last updated: 2026-10-03
 
 🔧 Apply the plan's fixes to your code, safely and one at a time.
 
@@ -1002,7 +1002,7 @@ Whether an edit needs your approval is decided by your agent and the permission 
 > Prove each applied fix holds, then close out the ones that do.
 
 Canonical: https://lagune.ai/docs/commands/verify
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 ⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
 
@@ -1081,7 +1081,7 @@ Yes. SDH is closable: a proven-closed finding is stood down, so the flow has an 
 > How sub-skills are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/commands/skills
-Last updated: 2026-10-04
+Last updated: 2026-08-04
 
 🧠 **Lagune**'s sub-skills are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. The detect and verify phases reach for them while they run, and you can use one directly any time.
 
@@ -1213,7 +1213,7 @@ Import it into any prompt with @.lagune/skills/<name>.md.
 > Distill a security source or topic you give it into a new on-demand sub-skill.
 
 Canonical: https://lagune.ai/docs/commands/specialize
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 🎓 Specialize **Lagune** in a specific security area, from a source or topic you give it.
 
@@ -1283,7 +1283,7 @@ No. It refines, never overwrites.
 > Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
 
 Canonical: https://lagune.ai/docs/commands/prove
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 🧪 Turn each detected finding into runnable, defense-only evidence for responsible disclosure.
 
@@ -1372,7 +1372,7 @@ Prove writes a self-contained advisory you can share through a private channel s
 > Sweep a codebase for agent/LLM calls with no step or time cap, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/agent
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1436,7 +1436,7 @@ An uncapped agent can be driven into unbounded recursion, cost, or prompt-inject
 > Scan source for a bypassable CORS origin allowlist, or score a single origin value for over-permissive access, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/cors
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `cors` hook is the deterministic engine behind the [`http-request` sub-skill](https://lagune.ai/docs/commands/skills), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
 
@@ -1543,7 +1543,7 @@ Run node ./.lagune/hooks/cors.mjs over the codebase. It flags a host-validation 
 > Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/crypto
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1628,7 +1628,7 @@ Only as a review lead in a security context, never as an automatic finding, sinc
 > Score one or many CVSS v4.0 vectors from the command line, with the same arithmetic as the FIRST calculator, and read each one back in plain words.
 
 Canonical: https://lagune.ai/docs/hooks/cvss
-Last updated: 2026-10-04
+Last updated: 2026-10-03
 
 The `cvss` hook scores a **CVSS v4.0 vector** and prints its score and severity band, the rating [`/lagune.plan`](https://lagune.ai/docs/commands/plan) writes on each fix and [`/lagune.prove`](https://lagune.ai/docs/commands/prove) on each advisory. It is the deterministic engine behind those ratings, with the same arithmetic as the [FIRST calculator](https://www.first.org/cvss/calculator/4.0), and you can run it yourself.
 
@@ -1724,7 +1724,7 @@ It reads each metric back in plain words and shows the Base score beside the ove
 > Sweep Terraform, Dockerfiles, and GitHub Actions for misconfiguration, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/infra
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `infra` hook flags **infrastructure-as-code misconfiguration** that is decidable from the file: a network open to the world, a wildcard permission, a secret in a manifest, a root container, an untrusted value in a CI shell. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). It is the deterministic engine behind the [`infra` sub-skill](https://lagune.ai/docs/commands/skills), in **scan** or **check** mode.
 
@@ -1781,7 +1781,7 @@ Terraform/HCL (.tf, .tf.json, .hcl), Dockerfiles, and GitHub Actions workflow an
 > Sweep a codebase for dynamic-code-execution sinks across languages, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/interpreter
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1869,7 +1869,7 @@ It reads the languages in the Supported languages table, keyed by file extension
 > Sweep a codebase for JWT verification without an algorithm pin, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/jwt
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
 
@@ -1944,7 +1944,7 @@ A verifier that reads the algorithm from the token header lets an attacker swap 
 > Score one or many fetch destinations for SSRF, straight from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/network
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` sub-skill](https://lagune.ai/docs/commands/skills), and you can run it yourself.
 
@@ -2026,7 +2026,7 @@ A URL that different parsers read differently, which is a classic SSRF bypass. T
 > Sweep a codebase for ReDoS-prone regex, or score a single pattern, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/regex
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `regex` hook is the deterministic regex-safety engine the [`regex` sub-skill](https://lagune.ai/docs/commands/skills) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 
@@ -2205,7 +2205,7 @@ Run the regex hook in scan mode over the codebase. It reports ReDoS-prone patter
 > Sweep a codebase for hardcoded credentials from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/secrets
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 The `secrets` hook flags **credentials compiled into the source** instead of read from the environment. It keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` sub-skill](https://lagune.ai/docs/commands/skills).
 
@@ -2256,7 +2256,7 @@ It keys on provenance, not on the value contents. High-confidence formats (provi
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-10-04
+Last updated: 2026-10-03
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -2506,7 +2506,7 @@ At the end, merge all sub-agent reports into one final verdict.
 > The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
 
 Canonical: https://lagune.ai/docs/references/paper
-Last updated: 2026-10-04
+Last updated: 2026-07-13
 
 - **Weslley Araújo**
 - **Methodology Paper, 2026.**
@@ -3087,7 +3087,7 @@ Lagune is the proof, but the contribution is the convention. SDH is offered as t
 > Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, sub-skills, and specializations.
 
 Canonical: https://lagune.ai/docs/references/glossary
-Last updated: 2026-10-04
+Last updated: 2026-07-14
 
 Every load-bearing term in Lagune and the Security-Driven Hardening methodology, defined once, in plain language.
 
@@ -3176,7 +3176,7 @@ When verify proves a risk closed, the finding is stood down: removed from the wh
 > A reference comparing Lagune and Vercel's Deepsec across how they work, lifecycle, detection, cost, findings, and closure.
 
 Canonical: https://lagune.ai/docs/references/deepsec
-Last updated: 2026-10-04
+Last updated: 2026-07-24
 
 [Lagune](https://github.com/wellwelwel/lagune) and [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) are two defensive answers to the same problem: security in the age of AI-assisted development. Their premise, their beginning, middle, and end, and how each presents itself to a user diverge by design, even where their mechanics overlap.
 
@@ -3340,7 +3340,7 @@ Lagune does: harden applies fixes to your code. Deepsec does not: it is static a
 > Where the built-in OWASP sub-skill knowledge comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/skills-sources
-Last updated: 2026-10-04
+Last updated: 2026-08-03
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -3700,7 +3700,7 @@ Last updated: 2026-10-04
 
 Agent-by-agent compatibility across other agent-driven workflow tools: [OpenSpec](https://github.com/Fission-AI/OpenSpec) (v1.13.2), [Spec Kit](https://github.com/github/spec-kit) (v1.0.11), [Superpowers](https://github.com/obra/superpowers) (v6.4.1), and [Skills.sh](https://github.com/vercel-labs/skills) (v1.7.0).
 
-On agent compatibility, Lagune covers **73 agents**, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69). Lagune is security-focused where the others are general-purpose workflow tools, so the comparison is compatibility-only.
+On agent compatibility, Lagune covers **78 agents**, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69). Lagune is security-focused where the others are general-purpose workflow tools, so the comparison is compatibility-only.
 
 | Agent                                                                                       | OpenSpec | Spec Kit | Superpowers | Skills.sh | Lagune |
 | ------------------------------------------------------------------------------------------- | :------: | :------: | :---------: | :-------: | :----: |
@@ -3783,7 +3783,7 @@ On agent compatibility, Lagune covers **73 agents**, more than OpenSpec (37), Sp
 
 ### How does Lagune compare to OpenSpec, Spec Kit, Superpowers, and Skills.sh?
 
-On agent compatibility, Lagune covers 73 agents, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69).
+On agent compatibility, Lagune covers 78 agents, more than OpenSpec (37), Spec Kit (35), Superpowers (14), and Skills.sh (69).
 
 ### Which agent-workflow tool supports the most agents?
 
@@ -3796,7 +3796,7 @@ Lagune, at 73 agents in this comparison.
 > Repair the chain when a rename or a moved file confuses Lagune's tracking.
 
 Canonical: https://lagune.ai/docs/commands/repair
-Last updated: 2026-10-04
+Last updated: 2026-07-13
 
 🧰 Repair the chain when a rename or a moved file confuses it.
 
