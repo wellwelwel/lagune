@@ -31,6 +31,22 @@ const exactVersions = new Map([
   ['pypi', /^\d+(?:\.\d+)*(?:(?:a|b|rc)\d+)?(?:\.post\d+)?(?:\.dev\d+)?$/],
 ]);
 
+const accountNamespace = 'io.github.';
+
+const publisherDomain = (name: string): string | undefined => {
+  const namespace = name.slice(0, name.indexOf('/'));
+
+  if (namespace.startsWith(accountNamespace)) return undefined;
+
+  return namespace.split('.').reverse().join('.');
+};
+
+const isServedFrom = (address: string, domain: string): boolean => {
+  const host = URL.parse(address)?.hostname ?? '';
+
+  return host === domain || host.endsWith(`.${domain}`);
+};
+
 const isPinned = ({
   registryType,
   identifier,
@@ -45,6 +61,17 @@ const isPinned = ({
 
 await describe('the catalog list Lagune Code reviews', async () => {
   const list: ReviewedList = JSON.parse(await readFile(reviewedList, 'utf8'));
+  const domainRemotes = list.servers.flatMap(({ server }) => {
+    const domain = publisherDomain(server.name);
+
+    if (domain === undefined) return [];
+
+    return (server.remotes ?? []).map(({ url }) => ({
+      name: server.name,
+      domain,
+      url,
+    }));
+  });
 
   it('answers with the list shape a registry client reads', () => {
     strict(Array.isArray(list.servers));
@@ -78,4 +105,12 @@ await describe('the catalog list Lagune Code reviews', async () => {
           `${server.name} reaches ${remote.url} without HTTPS`
         );
       });
+
+  for (const { name, domain, url } of domainRemotes)
+    it('serves every remote of a domain-named publisher from that domain', () => {
+      strict(
+        isServedFrom(url, domain),
+        `${name} reaches ${url} outside ${domain}`
+      );
+    });
 });
