@@ -16,4 +16,5 @@ node_modules
 /**/lagune/
 !/spec/commands/lagune.*
 !/website/docs/commands/lagune.*
+!/website/src/data/lagune.*
 !/website/src/prism/lagune.*
