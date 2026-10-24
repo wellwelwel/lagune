@@ -2,6 +2,7 @@ node_modules
 /lib/
 /temp/
 /draft/
+/playground/
 .DS_Store
 .lagune/
 /PLAN.md
