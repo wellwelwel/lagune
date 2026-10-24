@@ -1,5 +1,6 @@
 ---
 description: Specialize Lagune in a security area from a source or topic you give it, distilling it into a new on-demand sub-skill the detect and verify phases load later. It writes a focused, language-agnostic, defense-only knowledge module, never an exploit.
+disable-model-invocation: true
 ---
 
 ## User Input

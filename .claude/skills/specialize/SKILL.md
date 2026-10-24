@@ -2,6 +2,7 @@
 name: specialize
 description: Author a new built-in Lagune sub-skill inside the Lagune source, not a scaffolded `.lagune/` target. Use when adding or refining a security knowledge module that ships with Lagune, against the native layout (`spec/skills/*.md` plus the catalog).
 user-invocable: true
+disable-model-invocation: true
 metadata:
   internal: true
 ---

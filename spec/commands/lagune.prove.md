@@ -1,5 +1,6 @@
 ---
 description: Prove detected findings with runnable, defense-only evidence. For each finding the detect map carries, it writes a safe-path JavaScript test and a self-contained advisory under `.lagune/proofs/`. The test asserts secure behavior, never an exploit.
+disable-model-invocation: true
 ---
 
 ## User Input

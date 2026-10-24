@@ -2,6 +2,7 @@
 name: simulate
 description: How to simulate a Lagune command end to end so the user sees both the process and the results in chat. Use when the user asks to simulate, demo, preview, run, or see in action any lagune command. Read this before attempting any such simulation.
 user-invocable: true
+disable-model-invocation: true
 metadata:
   internal: true
 ---

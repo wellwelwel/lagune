@@ -13,11 +13,7 @@ const SKILL_KEYS: Record<keyof Required<Frontmatter>, true> = {
   metadata: true,
 };
 
-const {
-  metadata,
-  'disable-model-invocation': disableModelInvocation,
-  ...CORE_KEYS
-} = SKILL_KEYS;
+const { metadata, ...CORE_KEYS } = SKILL_KEYS;
 
 const specSources = await listFrontmatterSources(new URL('spec/', packageRoot));
 
@@ -114,7 +110,7 @@ describe('every spec frontmatter is valid and well-typed', () => {
   });
 
   for (const { relativePath, frontmatter } of specSources)
-    it(`spec/${relativePath} declares only name, description, and user-invocable`, () => {
+    it(`spec/${relativePath} declares only known keys without metadata`, () => {
       assertValid(frontmatter, CORE_KEYS);
     });
 });
