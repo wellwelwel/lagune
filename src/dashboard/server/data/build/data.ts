@@ -1,44 +1,45 @@
+import type { ProjectCatalog } from '../../../../types/catalog';
 import type { DashboardData } from '../../../../types/dashboard/dashboard';
 import { join, resolve } from 'node:path';
-import { loadVersion } from '../../../../core/assets';
+import {
+  readProjectCatalog,
+  resolveCatalog,
+  usedCategories,
+} from '../../../../catalog/project';
 import { bulletField } from '../../../../core/markdown/fields';
 import { readMarkdown, readText } from '../../../../core/markdown/read';
-import { readSkillNames } from '../read';
+import { loadVersion } from '../../../../core/version';
 import { parseTracking, pathsByName } from '../tracking';
+import { buildCatalog } from './catalog';
 import { buildCharter } from './charter';
 import { buildFindings } from './findings';
 import { buildHistory } from './history';
-import { buildInstall, missingFiles } from './install';
 import { matchProject, matchVersion } from './meta';
 import { buildPhases } from './phases';
 import { buildSideQuests } from './sidequests';
-import { buildSkills } from './skills';
+
+const UNREADABLE_CATALOG: ProjectCatalog = {
+  categories: undefined,
+  entries: [],
+};
 
 export const buildData = async (
   laguneDir: string,
   packageRoot: URL
 ): Promise<DashboardData> => {
-  const [
-    detect,
-    plan,
-    harden,
-    charter,
-    history,
-    tracking,
-    installedSkills,
-    manifest,
-    running,
-  ] = await Promise.all([
-    readMarkdown(join(laguneDir, 'memory/detect.md')),
-    readMarkdown(join(laguneDir, 'memory/plan.md')),
-    readMarkdown(join(laguneDir, 'memory/harden.md')),
-    readMarkdown(join(laguneDir, 'memory/charter.md')),
-    readMarkdown(join(laguneDir, 'memory/history.md')),
-    readText(join(laguneDir, 'tracking.json')),
-    readSkillNames(join(laguneDir, 'skills')),
-    readText(join(laguneDir, 'manifest.json')),
-    loadVersion(packageRoot).catch(() => null),
-  ]);
+  const projectRoot = resolve(laguneDir, '..');
+  const [detect, plan, harden, charter, history, tracking, project, engine] =
+    await Promise.all([
+      readMarkdown(join(laguneDir, 'memory/detect.md')),
+      readMarkdown(join(laguneDir, 'memory/plan.md')),
+      readMarkdown(join(laguneDir, 'memory/harden.md')),
+      readMarkdown(join(laguneDir, 'memory/charter.md')),
+      readMarkdown(join(laguneDir, 'memory/history.md')),
+      readText(join(laguneDir, 'tracking.json')),
+      readProjectCatalog(projectRoot).catch(() => UNREADABLE_CATALOG),
+      loadVersion(packageRoot).catch(() => null),
+    ]);
+  const entries = await resolveCatalog(projectRoot, project);
 
   const findings = buildFindings(
     detect,
@@ -46,8 +47,6 @@ export const buildData = async (
     harden,
     pathsByName(parseTracking(tracking))
   );
-
-  const { files, ...install } = buildInstall(manifest);
 
   return {
     project: matchProject(detect, charter),
@@ -63,12 +62,15 @@ export const buildData = async (
     findings,
     sidequests: buildSideQuests(detect, plan, harden),
     charter: buildCharter(charter),
-    skills: buildSkills(detect, installedSkills),
-    history: buildHistory(history).reverse(),
-    install: {
-      ...install,
-      running,
-      missing: await missingFiles(resolve(laguneDir, '..'), files),
+    catalog: buildCatalog(detect, entries),
+    categories: {
+      used: usedCategories(project),
+      recorded: project.categories !== undefined,
     },
+    history: buildHistory(history).reverse(),
+    artifacts: [detect, plan, harden, charter, history].some(
+      (artifact) => artifact !== null
+    ),
+    engine,
   };
 };

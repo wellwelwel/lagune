@@ -9,9 +9,9 @@
 
 Security-Driven Hardening (SDH) is a structured, AI-driven, defense-only security methodology for the era in which software is increasingly written by AI agents and by people who are not security specialists. Instead of running a fixed catalog of generic checks, SDH first detects what a system actually does (login, file uploads, payments, data exposure, and so on) and then drives the security work that is specific to that context. It is governed by safe-by-default principles, framed entirely around defense, and expressed in plain language so that any user can act on it.
 
-This document argues that SDH is a missing convention, not a single tool. The security knowledge lives in the methodology and its on-demand modules, a baseline every user can build on, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
+This document argues that SDH is a missing convention, not a single tool. The security knowledge lives in the methodology and its on-demand specializations, a baseline every user can build on, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
 
-**Lagune** is the reference implementation. It realizes SDH across 78 AI coding agents and proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
+**Lagune** is the reference implementation. It realizes SDH as nine agent skills, installed through the open skills ecosystem for whichever agents a user runs, and proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
 
 > **Index Terms**
 >
@@ -25,11 +25,11 @@ Software is increasingly shipped by people, and by AI agents, who cannot reliabl
 
 Generic security advice does not close this gap. A static checklist is not specific to what a system does, so it floods a small project with irrelevant items and still misses the risk that matters for that one project. The problem is not a shortage of security knowledge in the world. The problem is matching the right knowledge to the system actually in front of the user, and doing it for someone who may not know what to ask for.
 
-SDH answers this with a single inversion: **the security knowledge lives in the spec and its on-demand modules, a baseline every user can build on**. The methodology detects the context, triages the risks that context carries, and guides the fixes, so a developer and a non-developer are served through the same flow. The findings and recommendations stay in plain language, so they are actionable regardless of the reader's technical depth. The expert is not constrained by this, but amplified by it, a duality we develop in `§VI`.
+SDH answers this with a single inversion: **the security knowledge lives in the spec and its on-demand specializations, a baseline every user can build on**. The methodology detects the context, triages the risks that context carries, and guides the fixes, so a developer and a non-developer are served through the same flow. The findings and recommendations stay in plain language, so they are actionable regardless of the reader's technical depth. The expert is not constrained by this, but amplified by it, a duality we develop in `§VI`.
 
 > **Key Insight**
 >
-> **The core inversion:** The security knowledge lives in the spec and its on-demand modules, a baseline every user can build on. The methodology learns what the system does and matches the security work to it, and it extends whatever the user already knows.
+> **The core inversion:** The security knowledge lives in the spec and its on-demand specializations, a baseline every user can build on. The methodology learns what the system does and matches the security work to it, and it extends whatever the user already knows.
 
 Consider a developer who tells an AI assistant, "my app lets users upload a profile picture." Without a security pass, the assistant produces working code that quietly trusts whatever the client sends: the declared file type, the file name, the size. The upload ships, and a file disguised as an image can carry code, a crafted name can break out of the storage path, an oversized file can exhaust the server. None of this is visible in a demo, so it ships.
 
@@ -41,7 +41,7 @@ This document makes the following contributions:
 - A five-phase defensive lifecycle in which the separation of duties is itself the contribution: detection never invents, planning never reads code, only one phase changes code, and verification never softens its judgment (`§IV`).
 - **Closability** as a methodological stance: an individual finding has an end state, not an endless loop (`§V`).
 - The **dev-knowledge-extender** duality: one flow that protects the novice and amplifies the expert (`§VI`).
-- **Non-invocable knowledge modules and prompt-on-demand**: focused security knowledge the agent loads only when the project's context calls for it, never by default (`§VII`).
+- **Non-invocable specializations and prompt-on-demand**: focused security knowledge the agent loads only when the project's context calls for it, never by default (`§VII`).
 - **State-independence** and **non-authoritative adaptivity**: SDH fits any development state and adapts to the scenario instead of imposing a fixed scope (`§VIII`).
 - A **preventive mode**: the same defense run while ordinary work is built, so the code lands safe-by-default and the phases have less to correct (`§IX`).
 - A dedicated comparison with Spec-Driven Development, the lineage SDH grew from and then diverged from (`§X`).
@@ -51,7 +51,7 @@ This document makes the following contributions:
 
 ## II. Background and related work
 
-SDH builds on prior work. It inherits a proven structure from spec-first, agent-driven development `[1]`, `[2]`, `[3]`: scaffolded templates, slash commands an agent consumes, a governing document, and an agent that runs the phases. It reimplements that structure with a defensive purpose. The lineage is deliberate, and one of SDH's working principles names it directly: build the workflow from a proven structure, then frame it for security.
+SDH builds on prior work. It inherits a proven structure from spec-first, agent-driven development `[1]`, `[2]`, `[3]`: templates, slash commands an agent consumes, a governing document, and an agent that runs the phases. It reimplements that structure with a defensive purpose. The lineage is deliberate, and one of SDH's working principles names it directly: build the workflow from a proven structure, then frame it for security.
 
 SDH is not a static catalog of generic recommendations. A catalog knows a great deal about security in general and nothing about the project in front of it. SDH reverses that emphasis. It spends its first effort on detection, on learning what the system does, and only then reaches for the knowledge that detection makes relevant.
 
@@ -73,14 +73,14 @@ The most direct prior art is Spec-Driven Development (SDD), the family of spec-f
 
 SDH is defined by a set of binding principles. Each one is a rule, and each one confers a specific guarantee on the user.
 
-| Principle                                                | The rule                                                                                                                                        | What it guarantees the user                                                                                                                               |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Safe-by-default, in plain language, for everyone equally | Every default, message, and fix is safe out of the box and intelligible to any reader, developer or not. No user tier is privileged.            | A novice receives a safe baseline without asking for it, and reads the result in their own terms.                                                         |
-| Context-aware over generic                               | Every phase starts from the context detected in detect, and acts on what the system actually does.                                              | Recommendations fit the project, not a checklist. The security knowledge lives in the spec and its on-demand modules, extending whatever the user brings. |
-| Flexible over rigid                                      | Principles, requirements, and recommendations are starting points. The user can reword, drop, add, or scope anything down.                      | The methodology bends to the project and the user, and never harder than the user wants. Flexibility never weakens the safe-by-default baseline.          |
-| Reconcile, never append-only                             | Artifacts are living documents, not logs. Each run re-checks every entry: keep what holds, rewrite what changed, remove what no longer applies. | The record always reflects the present, so it never decays into a stale backlog.                                                                          |
-| Defense only                                             | SDH audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm.              | The methodology cannot be turned into a weapon. Dual-use content appears only in a clearly defensive framing.                                             |
-| Spec-first, agent-driven, framed for security            | The workflow is built from templates, commands, a governing charter, and an agent that runs the phases.                                         | A proven development structure, repurposed so the agent performs the substantive security work.                                                           |
+| Principle                                                | The rule                                                                                                                                        | What it guarantees the user                                                                                                                                       |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Safe-by-default, in plain language, for everyone equally | Every default, message, and fix is safe out of the box and intelligible to any reader, developer or not. No user tier is privileged.            | A novice receives a safe baseline without asking for it, and reads the result in their own terms.                                                                 |
+| Context-aware over generic                               | Every phase starts from the context detected in detect, and acts on what the system actually does.                                              | Recommendations fit the project, not a checklist. The security knowledge lives in the spec and its on-demand specializations, extending whatever the user brings. |
+| Flexible over rigid                                      | Principles, requirements, and recommendations are starting points. The user can reword, drop, add, or scope anything down.                      | The methodology bends to the project and the user, and never harder than the user wants. Flexibility never weakens the safe-by-default baseline.                  |
+| Reconcile, never append-only                             | Artifacts are living documents, not logs. Each run re-checks every entry: keep what holds, rewrite what changed, remove what no longer applies. | The record always reflects the present, so it never decays into a stale backlog.                                                                                  |
+| Defense only                                             | SDH audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm.              | The methodology cannot be turned into a weapon. Dual-use content appears only in a clearly defensive framing.                                                     |
+| Spec-first, agent-driven, framed for security            | The workflow is built from templates, commands, a governing charter, and an agent that runs the phases.                                         | A proven development structure, repurposed so the agent performs the substantive security work.                                                                   |
 
 **Table 1.** SDH's design principles and the guarantee each one confers on the user.
 
@@ -88,17 +88,17 @@ These principles are not ornamental. They are the constraints every phase below 
 
 The rest of the document develops nine named pillars. They are the parts a reader should be able to keep in mind, and the parts another team would reimplement to claim they are doing SDH.
 
-| Pillar                                              | What it provides                                                                                              | Section     |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------- |
-| The context-aware inversion                         | The security knowledge lives in the spec and its on-demand modules, so a novice and an expert share one flow. | `§I`, `§VI` |
-| The five-phase defensive lifecycle                  | Separation of duties: policy, detect, triage, remediate, verify, each with one job.                           | `§IV`       |
-| Closability                                         | A finding has an end state, not an endless loop. Closed work is stood down.                                   | `§V`        |
-| The dev-knowledge-extender duality                  | One flow that protects the novice and amplifies the expert, never replacing either.                           | `§VI`       |
-| Prompt-on-demand, non-invocable knowledge           | Relevant security knowledge is loaded for what the project is, never by default.                              | `§VII`      |
-| State-independence and non-authoritative adaptivity | Fits any development state in any stack, and adapts to the scenario instead of imposing a scope.              | `§VIII`     |
-| The preventive mode                                 | The same defense runs while new work is built, so the code lands safe-by-default.                             | `§IX`       |
-| Identity-by-name tracking                           | A finding stays one item across phases, and a rename breaks the link in one place.                            | `§XI`       |
-| The agent-agnostic carrier                          | The security value is written once and runs across agents and stacks.                                         | `§XII`      |
+| Pillar                                              | What it provides                                                                                                      | Section     |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
+| The context-aware inversion                         | The security knowledge lives in the spec and its on-demand specializations, so a novice and an expert share one flow. | `§I`, `§VI` |
+| The five-phase defensive lifecycle                  | Separation of duties: policy, detect, triage, remediate, verify, each with one job.                                   | `§IV`       |
+| Closability                                         | A finding has an end state, not an endless loop. Closed work is stood down.                                           | `§V`        |
+| The dev-knowledge-extender duality                  | One flow that protects the novice and amplifies the expert, never replacing either.                                   | `§VI`       |
+| Prompt-on-demand, non-invocable knowledge           | Relevant security knowledge is loaded for what the project is, never by default.                                      | `§VII`      |
+| State-independence and non-authoritative adaptivity | Fits any development state in any stack, and adapts to the scenario instead of imposing a scope.                      | `§VIII`     |
+| The preventive mode                                 | The same defense runs while new work is built, so the code lands safe-by-default.                                     | `§IX`       |
+| Identity-by-name tracking                           | A finding stays one item across phases, and a rename breaks the link in one place.                                    | `§XI`       |
+| The agent-agnostic carrier                          | The security value is written once and runs across agents and stacks.                                                 | `§XII`      |
 
 **Table 2.** The nine named pillars of SDH and where each is developed.
 
@@ -214,13 +214,13 @@ flowchart TB
 
 **Figure 3.** The dev-knowledge-extender duality. One inversion serves two audiences: the automatic mode protects the novice, and the directed mode amplifies the expert, through the same five phases.
 
-The on-demand knowledge modules (`§VII`) make the duality explicit in their own text. Each one tells the agent that its knowledge "extends your judgment" and to keep reasoning beyond what the module provides. The knowledge is a floor, not a ceiling. This is what serves both audiences in the document's intended balance: the developer community gains a substantial instrument, and the Blue Team practitioner gains a structured carrier that does not pretend to do their job for them.
+The on-demand specializations (`§VII`) make the duality explicit in their own text. Each one tells the agent that its knowledge "extends your judgment" and to keep reasoning beyond what the specialization provides. The knowledge is a floor, not a ceiling. This is what serves both audiences in the document's intended balance: the developer community gains a substantial instrument, and the Blue Team practitioner gains a structured carrier that does not pretend to do their job for them.
 
 ---
 
-## VII. Non-invocable knowledge modules and prompt-on-demand
+## VII. Non-invocable specializations and prompt-on-demand
 
-This is the methodology's most novel pattern. SDH carries focused security knowledge as modules that load **only on demand**, and the agent itself decides which to load by matching the project's context. We call this **prompt-on-demand**: a way for the agent to choose which knowledge to activate based on the scope of the project it is in, instead of running every check by default. The modules are evolutionary, and any one of them can change or be replaced at any time. The contribution is the pattern, not the modules themselves.
+This is the methodology's most novel pattern. SDH carries focused security knowledge as specializations that load **only on demand**, and the agent itself decides which to load by matching the project's context. We call this **prompt-on-demand**: a way for the agent to choose which knowledge to activate based on the scope of the project it is in, instead of running every check by default. The specializations are evolutionary, and any one of them can change or be replaced at any time. The contribution is the pattern, not the specializations themselves.
 
 > **Definition**
 >
@@ -228,19 +228,19 @@ This is the methodology's most novel pattern. SDH carries focused security knowl
 
 > **Definition**
 >
-> **Non-invocable knowledge module:** A focused, language-agnostic unit of security knowledge for one risk area. It audits and explains, never rewrites code, and never produces an attack input. Nothing opens it directly: a single dispatcher loads it only when the project's context calls for it.
+> **Non-invocable specialization:** A focused, language-agnostic unit of security knowledge for one risk area. It audits and explains, never rewrites code, and never produces an attack input. Nothing opens it directly: a single dispatcher loads it only when the project's context calls for it.
 
-A knowledge module is focused, language-agnostic security knowledge for one risk area. It audits and explains. It never rewrites the user's code, and it never produces an attack input. Each module names the safer shapes for the risks it covers and tells the agent how to act on a finding in each phase that consumes it: how to judge it at detection, how to apply its fix safely at remediation, and how to prove it at verification. The modules are evolutionary by design: the collection grows and reshapes over time, while the pattern around it stays the same. This section describes that pattern, not any particular module.
+A specialization is focused, language-agnostic security knowledge for one risk area. It audits and explains. It never rewrites the user's code, and it never produces an attack input. Each specialization names the safer shapes for the risks it covers and tells the agent how to act on a finding in each phase that consumes it: how to judge it at detection, how to apply its fix safely at remediation, and how to prove it at verification. The specializations are evolutionary by design: the collection grows and reshapes over time, while the pattern around it stays the same. This section describes that pattern, not any particular specialization.
 
-The defining trait is that a module is **non-invocable on its own**. Nothing opens it directly, not the user, not a phase. There is a single dispatcher entry point: the detection phase lists the catalog once, matches the project's context against what each entry covers, and loads only the modules whose area is present in scope. The later phases reuse that matched list instead of re-listing, so one match serves the whole chain. A module whose context is absent is skipped, and the skip is as accountable as the load: every entry in the catalog receives an explicit verdict, applied or skipped with the reason read off the code, so a vague sense of irrelevance never stands in for absence. Finding none applicable is a valid outcome.
+The defining trait is that a specialization is **non-invocable on its own**. Nothing opens it directly, not the user, not a phase. There is a single dispatcher entry point: the detection phase lists the catalog once, matches the project's context against what each entry covers, and loads only the specializations whose area is present in scope. The later phases reuse that matched list instead of re-listing, so one match serves the whole chain. A specialization whose context is absent is skipped, and the skip is as accountable as the load: every entry in the catalog receives an explicit verdict, applied or skipped with the reason read off the code, so a vague sense of irrelevance never stands in for absence. Finding none applicable is a valid outcome.
 
-The catalog is data, and growth is one knowledge file plus one catalog row, never a new command. This is the same context-aware principle as the phases, applied to knowledge: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default. The same property lets the user, not only the maintainer, grow the catalog: a security source or topic the user supplies is distilled into a new module, written into the project's own catalog and loaded thereafter exactly like a built-in. Authoring a module is itself defense-only and obeys the same boundary the modules enforce: an attack write-up may be the source, but the module it yields audits and explains, it never emits a working exploit. So the inversion of `§I`, the intelligence living in the spec, extends to the catalog itself, which the user can deepen for their own context without writing code.
+The catalog is data, and growth is one knowledge file plus one catalog row, never a new command. The built-in specializations are grouped into categories, such as OWASP, a language, or AI integrations, and the catalog a project uses holds the built-ins of its categories. The project records that choice with the rest of its state, so a whole team matches against the same catalog. While no category is recorded, the project uses OWASP alone, and the charter, which already reads the project to set its principles, records the categories that reading supports. This is the same context-aware principle as the phases, applied to knowledge: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default. The same property lets the user, not only the maintainer, grow the catalog: a security source or topic the user supplies is distilled into a new specialization, written into the project's own catalog and loaded thereafter exactly like a built-in, which it replaces when the two share a name. Authoring a specialization is itself defense-only and obeys the same boundary the specializations enforce: an attack write-up may be the source, but the specialization it yields audits and explains, it never emits a working exploit. So the inversion of `§I`, the intelligence living in the spec, extends to the catalog itself, which the user can deepen for their own context without writing code.
 
-A short dispatch example illustrates prompt-on-demand. Detect reads a folder of code that runs in the browser. It matches that area in the catalog, loads the module that covers it, and surfaces a client-side finding through detect's normal steps. The modules for areas not present in this scope do not match, so they never load and are never mentioned. The project decided what knowledge was relevant, not a fixed configuration.
+A short dispatch example illustrates prompt-on-demand. Detect reads a folder of code that runs in the browser. It matches that area in the catalog, loads the specialization that covers it, and surfaces a client-side finding through detect's normal steps. The specializations for areas not present in this scope do not match, so they never load and are never mentioned. The project decided what knowledge was relevant, not a fixed configuration.
 
-Determinism appears precisely where it matters. A module can carry a deterministic checker, not just prose. Where a risk class has a crisp decision procedure, the module ships a small program that returns a fixed verdict for a given input, for example a short set of words such as `safe`, `unsafe`, or `invalid input`. Some risk classes are deterministically decidable in exactly this way, with a body of prior work behind the decision procedure `[9]`, `[10]`, `[11]`. The checker either scores candidates the agent supplies or scans the scope to find them itself, and in both cases the checker, not the agent, returns the verdict. A module universal enough can be marked required in the catalog and is then always applied, its checker run over the whole scope. This is the one case where knowledge loads without a context match, and it is declared in the catalog's data, never decided by the agent in the moment. This is where SDH grounds its agent reasoning in something repeatable, without pretending the whole flow is deterministic.
+Determinism appears precisely where it matters. A specialization can carry a deterministic checker, not just prose. Where a risk class has a crisp decision procedure, the specialization names a small program in the engine that returns a fixed verdict for a given input, for example a short set of words such as `safe`, `unsafe`, or `invalid input`. Some risk classes are deterministically decidable in exactly this way, with a body of prior work behind the decision procedure `[9]`, `[10]`, `[11]`. The checker either scores candidates the agent supplies or scans the scope to find them itself, and in both cases the checker, not the agent, returns the verdict. A specialization universal enough can be marked required in the catalog and is then always applied, its checker run over the whole scope. This is the one case where knowledge loads without a context match, and it is declared in the catalog's data, never decided by the agent in the moment. This is where SDH grounds its agent reasoning in something repeatable, without pretending the whole flow is deterministic.
 
-Finally, the modules are **detachable**. Because the knowledge stands on its own, a user can run one directly in a prompt that has nothing to do with the full SDH flow, keeping security alongside ordinary development. A module with a deterministic checker can, for instance, screen each candidate produced during ordinary coding and keep only the safe ones. This detachability is part of why SDH adapts to so many situations, which is the subject of `§VIII`, and its full expression is the preventive mode (`§IX`), where the same knowledge guards ordinary development end to end.
+Finally, the specializations are **detachable**. Because the knowledge stands on its own, and the engine prints any one of them by name, a user can run one directly in a prompt that has nothing to do with the full SDH flow, keeping security alongside ordinary development. A specialization with a deterministic checker can, for instance, screen each candidate produced during ordinary coding and keep only the safe ones. This detachability is part of why SDH adapts to so many situations, which is the subject of `§VIII`, and its full expression is the preventive mode (`§IX`), where the same knowledge guards ordinary development end to end.
 
 ---
 
@@ -291,11 +291,11 @@ SDH carries one complementary mode: ordinary development done with the same defe
 
 > **Definition**
 >
-> **The preventive mode:** ordinary development run under SDH's governing layer and knowledge. The charter binds the build, the knowledge modules relevant to what is about to be created load on demand, and the result is confronted against exactly the defense that was used before the work is called done.
+> **The preventive mode:** ordinary development run under SDH's governing layer and knowledge. The charter binds the build, the specializations relevant to what is about to be created load on demand, and the result is confronted against exactly the defense that was used before the work is called done.
 
 The mode reuses each piece the phases already carry, pointed at code that does not exist yet. Context detection turns from the code to the intent: the agent reasons through what it is about to build and the boundaries that work crosses (a login implies credentials, a session, and input from outside), and that reasoning is what the knowledge catalog is matched against. Prompt-on-demand (`§VII`) generalizes here: context can be detected in the plan for code, not only in code that exists. The charter governs as it always does, and a request that would break a principle is surfaced as a conflict, never built. The defense is applied inline, at the moment each part is written, validating at the boundary and reaching for the safe construct the first time, so a working-but-unsafe version never exists to be corrected.
 
-The mode ends the way verify begins. Before the work is called done, the builder confronts its own result with the defense it used: the control must sit on the risk's path, not beside it, it must be complete, and where a module ships a deterministic checker, the checker's verdict stands over the agent's own reading. A gap found here is closed as part of the same piece of work, because finishing the work means finishing it securely.
+The mode ends the way verify begins. Before the work is called done, the builder confronts its own result with the defense it used: the control must sit on the risk's path, not beside it, it must be complete, and where a specialization carries a deterministic checker, the checker's verdict stands over the agent's own reading. A gap found here is closed as part of the same piece of work, because finishing the work means finishing it securely.
 
 What the mode refuses is as deliberate as what it does. It builds only what was asked and audits nothing around it: auditing what exists belongs to the phases. It writes no artifact and tracks no finding, because a finding is a risk detected in what exists, and this mode's purpose is that the unsafe version never lands at all. The two directions complete each other: the phases close what is already there (`§V`), and the preventive mode keeps new work from reopening it. A chain at rest stays at rest not because development stopped, but because what is built while it rests is built defended.
 
@@ -313,16 +313,16 @@ SDH inverts almost every axis of that contract (Table 3).
 >
 > **The core difference:** SDD's authority flows from the spec into the build, and the implementation is expected to follow it. SDH is non-authoritative and flows the other way, inward from the system's detected context, hardening what is already there.
 
-| Axis                | SDD                                                                                   | SDH                                                                                                            |
-| ------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Goal                | Deliver features. The spec becomes a working implementation.                          | Harden what exists or is being built. Every phase is framed for defense.                                       |
-| Authority model     | Authoritative. The spec and constitution confine the build to a scope it must follow. | Non-authoritative. SDH adapts to the scenario, and the user can reword, drop, or scope down.                   |
-| State assumption    | A forward build from a specification.                                                 | State-independent: empty directory, project in progress, a single PR, or legacy.                               |
-| End condition       | Ends when the feature is built.                                                       | Closable. A finding reaches a settled state, reopened only when the code changes.                              |
-| Governing document  | A constitution of principles the agent must adhere to.                                | A charter of risk-framed principles (each carries a `Why:` line), explicitly not a fixed contract.             |
-| How knowledge grows | Add a command (or extend the phase set).                                              | Add a non-invocable knowledge module the agent loads on demand: one file plus one catalog row, no new command. |
-| Who it serves       | A builder driving a feature forward.                                                  | Any user, developer or not, served through the same flow.                                                      |
-| What changes code   | The implement phase generates the build.                                              | Only the harden phase changes code, one fix at a time.                                                         |
+| Axis                | SDD                                                                                   | SDH                                                                                                          |
+| ------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Goal                | Deliver features. The spec becomes a working implementation.                          | Harden what exists or is being built. Every phase is framed for defense.                                     |
+| Authority model     | Authoritative. The spec and constitution confine the build to a scope it must follow. | Non-authoritative. SDH adapts to the scenario, and the user can reword, drop, or scope down.                 |
+| State assumption    | A forward build from a specification.                                                 | State-independent: empty directory, project in progress, a single PR, or legacy.                             |
+| End condition       | Ends when the feature is built.                                                       | Closable. A finding reaches a settled state, reopened only when the code changes.                            |
+| Governing document  | A constitution of principles the agent must adhere to.                                | A charter of risk-framed principles (each carries a `Why:` line), explicitly not a fixed contract.           |
+| How knowledge grows | Add a command (or extend the phase set).                                              | Add a non-invocable specialization the agent loads on demand: one file plus one catalog row, no new command. |
+| Who it serves       | A builder driving a feature forward.                                                  | Any user, developer or not, served through the same flow.                                                    |
+| What changes code   | The implement phase generates the build.                                              | Only the harden phase changes code, one fix at a time.                                                       |
 
 **Table 3.** SDD versus SDH across eight axes. Borrowed structure, inverted contract.
 
@@ -365,36 +365,31 @@ Two acts maintain the map in the normal flow, and a third stands apart as mainte
 
 Repair is maintenance, not a sixth phase. It touches neither the user's code nor the prose artifacts, only the tracking. It reads the user's source for one reason only, to learn a renamed file's new path, and it never authors security content. The human is the final arbiter on the one call the engine refuses to guess: whether a vanished item was resolved or merely renamed. Prefer to ask than to guess, because a wrongly dropped item breaks the chain.
 
-The methodology applies its own defense discipline to itself. The deterministic engines ship as hooks invoked as a command-line program, and each input is passed as its own process argument, which keeps it inert, so a value with quotes or backticks can never inject into the command. SDH does not exempt its own plumbing from the safe-by-default principle.
+The methodology applies its own defense discipline to itself. The deterministic engines ship as hooks of one command-line engine, always called through the same exact command with a pinned version, and each input is passed as its own process argument, which keeps it inert, so a value with quotes or backticks can never inject into the command. A hook name the engine does not know fails instead of answering, so a misspelled check never reads as a clean result. SDH does not exempt its own plumbing from the safe-by-default principle.
 
 ---
 
-## XII. The carrier: agent-agnostic architecture as a portability proof
+## XII. The carrier: three owners as a portability proof
 
-For SDH to be a convention others adopt, it must not be tied to one agent or one stack. Lagune proves this is achievable. Its guiding rule is "adapters are data, not code."
+For SDH to be a convention others adopt, it must not be tied to one agent or one stack. Lagune proves this is achievable by owning as little as it can. Reaching an agent is the work of the open agent-skills ecosystem, so Lagune keeps no agent list, no per-agent format, and no installer of its own.
 
-The codebase splits into two layers. The **core is agent-agnostic**: the templates, the per-phase content, and the context-detection logic know nothing about which agent runs them. This is where the security value lives, and it is written once. An **adapter is thin**: its only job is to translate the core's commands into the format and location a given agent expects. It carries no security logic of its own.
-
-Each supported agent is a single row in a registry, declaring its key, display name, command format, and target directory. A factory turns each row into a provider. Adding an agent is adding a row, not writing a module. The same core command renders into six packaging formats from one markdown source with an arguments placeholder: a skill directory, a Copilot prompt file, a plain markdown command, a Forge command, a TOML command, and a Goose YAML recipe. A future agent is one more row, leaving the core untouched.
+What Lagune ships splits among three owners (Figure 6). **The project** owns its state: the charter and the phase artifacts, the tracking map, the categories it chose, and its own specializations, kept in one directory committed with the code and read and written by the commands and the engine. **Lagune's instructions** are nine agent skills, one per command, written once in the open skill format, with each template beside the skill that fills it. The skills CLI installs them for whichever agents the user runs (`npx skills add wellwelwel/lagune`), in one project or, with `--global`, for every project, and updates them with `npx skills update`. **Lagune's engine** is one package on npm, reached through a single exact command whose version the skills pin and move with each release, never `latest`. It runs the deterministic hooks, the catalog, and the validation, so no instruction ever has to find a file inside an installed skill.
 
 ```mermaid
 flowchart TB
-    core["one agent-agnostic core<br/>(templates, phase content, context detection)"]
-    core --> dispatcher
-    dispatcher["format dispatcher<br/>render the same command per format"]
-    dispatcher --> skill["skill<br/>(.claude)"]
-    dispatcher --> copilot["copilot<br/>(.github)"]
-    dispatcher --> markdown["markdown<br/>(.opencode)"]
-    dispatcher --> toml["TOML<br/>(gemini)"]
-    dispatcher --> goose["Goose ...<br/>(.goose)"]
-    dispatcher -.-> lagune[".lagune/<br/>(charter, phase artifacts, hooks,<br/>knowledge modules, tracking)"]
+    skills["Lagune's instructions<br/>nine agent skills and their templates<br/>installed and updated by the skills CLI"]
+    engine["Lagune's engine<br/>one package, one pinned command<br/>hooks · catalog · validation"]
+    project["the project<br/>its committed state<br/>charter · phase artifacts · tracking · categories · own specializations"]
+    skills -->|"the agent runs them"| project
+    skills -->|"exact command, pinned version"| engine
+    engine -->|"reads and writes the state"| project
 ```
 
-**Figure 6.** The agent-agnostic carrier. One core renders through a format dispatcher into each agent's packaging, with the project state as a shared sibling.
+**Figure 6.** The three owners. The instructions reach each agent through the skills CLI, the engine answers one pinned command, and the project owns only its state.
 
-What the carrier produces in a project follows the same separation. It scaffolds two things: a state directory holding the agent-agnostic artifacts (the charter, each phase's artifact, the knowledge modules, and the tracking map), committed and reviewable like any other part of the project, and the agent's own command directory in that agent's native format. The split in the filesystem mirrors the split in the codebase. None of this is specific to a language or a runtime. The reference implementation happens to be authored in one stack, but the methodology is the core and the adapter boundary, not the toolchain that builds them. The same design could be reimplemented in another language entirely without changing what SDH is.
+The separation shows in the project itself. Installing the commands generates nothing there: the agent's skill directory belongs to the skills CLI, and the project gains only what the work writes, created by the first command or hook that writes it. There is no manifest to restore and no generated file to keep out of version control. None of this is specific to a language or a runtime. The reference implementation happens to be authored in one stack, but the methodology is the separation of owners, not the toolchain that builds them. The same design could be reimplemented in another language entirely without changing what SDH is.
 
-Portability is what lets SDH be a convention rather than a single vendor's tool. The supported-agent count is verifiable in the registry, not a marketing figure.
+Portability is what lets SDH be a convention rather than a single vendor's tool. The breadth of agents belongs to the skills ecosystem, not to a registry Lagune maintains.
 
 ---
 
@@ -412,7 +407,7 @@ _This is an illustrative worked example of the methodology's mechanics, not a fi
 One continuous walkthrough shows the methodology operating, not just its parts. We extend the file-upload thread from `§IV` with an on-demand knowledge activation and a closure, and we include one genuine failure.
 
 1. **charter** proposes the principle "All input is untrusted until validated," with its risk in plain language: input that is not checked is the most common way a system is broken.
-2. **detect** scans the upload route and the small admin page that lists uploaded files. It detects the upload finding (the handler trusts the client's MIME type). The admin page runs in the browser, a context that prompt-on-demand (`§VII`) recognizes, so detect loads the knowledge module for that area and surfaces a second finding, a place where a filename is written into the page as markup rather than text, so a crafted name can run as script in the visitor's browser. Knowledge modules for areas not present in this scope never load, and each skip is recorded with the absence read off the code.
+2. **detect** scans the upload route and the small admin page that lists uploaded files. It detects the upload finding (the handler trusts the client's MIME type). The admin page runs in the browser, a context that prompt-on-demand (`§VII`) recognizes, so detect loads the specialization for that area and surfaces a second finding, a place where a filename is written into the page as markup rather than text, so a crafted name can run as script in the visitor's browser. Specializations for areas not present in this scope never load, and each skip is recorded with the absence read off the code.
 3. **plan** assigns the upload fix priority Critical, tied to the principle: check the file's real type and size, rename on save, store where code cannot run. It assigns the second fix priority High: render the filename as text, not markup.
 4. **harden** applies the upload fix first (highest priority) and records it Applied, and the second next, Applied.
 5. **verify** reads each spot and confronts code against record. The upload control holds: the handler detects the real type from content, enforces a size limit, and refuses the rest. Verdict: risk closed. Verify stands the upload finding down across the whole chain, and its distilled summary lands in the history.
@@ -464,7 +459,7 @@ Verify verifies by reading the code and confronting it with the record, not by r
 
 ### Determinism is scoped, and named
 
-Most of SDH is agent-reasoned, which is what enables its context-awareness. Determinism is reserved for the deterministic engines: the checkers a knowledge module may carry (`§VII`) and the tracking engine (`§XI`). The document does not blur this line. Where a result is deterministic, it is a program's result. Where it is reasoned, it is the agent's reading of the code, with the user as the final arbiter.
+Most of SDH is agent-reasoned, which is what enables its context-awareness. Determinism is reserved for the deterministic engines: the checkers a specialization may carry (`§VII`) and the tracking engine (`§XI`). The document does not blur this line. Where a result is deterministic, it is a program's result. Where it is reasoned, it is the agent's reading of the code, with the user as the final arbiter.
 
 ### Cost and scale
 
@@ -494,13 +489,13 @@ A note on positioning. SDH is defined here independently of its reference implem
 
 Methodologies in this family share a known set of failure modes. SDH's answer to most of them is structural, baked into the flow rather than left to discipline.
 
-| Pitfall                          | The failure                                     | SDH's structural answer                                                                                              |
-| -------------------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Spec rot, stale backlog          | Artifacts accumulate dead entries no one trusts | Reconcile-never-append (`§V`): each run re-checks every entry and removes what is resolved                           |
-| False confidence, passing result | A present control is assumed to close the risk  | Verify confronts code against record, so "risk not closed" and "cannot tell" are first-class verdicts (`§IV`, `§XV`) |
-| Checklist flood                  | Generic items obscure the one risk that matters | Context-aware over generic, with prompt-on-demand loading only what the scope calls for (`§VII`)                     |
-| Tooling lock-in                  | The method is welded to one vendor or agent     | Agent-agnostic carrier, adapters are data (`§XII`)                                                                   |
-| The endless loop                 | The backlog never closes, the work never rests  | Closability and the settled state (`§V`)                                                                             |
+| Pitfall                          | The failure                                     | SDH's structural answer                                                                                                                                             |
+| -------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Spec rot, stale backlog          | Artifacts accumulate dead entries no one trusts | Reconcile-never-append (`§V`): each run re-checks every entry and removes what is resolved                                                                          |
+| False confidence, passing result | A present control is assumed to close the risk  | Verify confronts code against record, so "risk not closed" and "cannot tell" are first-class verdicts (`§IV`, `§XV`)                                                |
+| Checklist flood                  | Generic items obscure the one risk that matters | Context-aware over generic, with prompt-on-demand loading only what the scope calls for (`§VII`)                                                                    |
+| Tooling lock-in                  | The method is welded to one vendor or agent     | Three owners: agent skills the open skills CLI installs for any agent it supports, an engine behind one pinned command, and state that stays the project's (`§XII`) |
+| The endless loop                 | The backlog never closes, the work never rests  | Closability and the settled state (`§V`)                                                                                                                            |
 
 **Table 4.** Known pitfalls in this methodology family and SDH's structural answer to each.
 
@@ -513,19 +508,19 @@ Naming the pitfall and pointing at the mechanism is the point: these are not war
 The methodology and its reference implementation have clear next steps.
 
 - **Grow the knowledge catalog:**
-  Each addition keeps the `§VII` shape: a knowledge file and a catalog row, no new command. The user-side path already exists there: the user distills their own modules on demand. More built-in languages, runtimes, and risk classes are the maintainer-side direction, and the modules are expected to evolve.
+  Each addition keeps the `§VII` shape: a knowledge file and a catalog row, no new command. The user-side path already exists there: the user distills their own specializations on demand. More built-in languages, runtimes, and risk classes, each joining a category, are the maintainer-side direction, and the specializations are expected to evolve.
 - **More deterministic checkers:**
-  Where a risk class has a crisp decision procedure, a knowledge module can ship a deterministic engine that grounds the agent's reasoning in a repeatable check. Extending this to more risk classes is a natural direction.
+  Where a risk class has a crisp decision procedure, a specialization can carry a deterministic checker that grounds the agent's reasoning in a repeatable verdict. Extending this to more risk classes is a natural direction.
 - **Empirical evaluation:**
   The strongest open question is measured efficacy: closure quality and false-verdict rates across real codebases. A study of SDH's security outcomes is future work, and the claims here are scoped accordingly.
-- **Multi-agent breadth:**
-  Keeping the carrier's breadth current as the ecosystem moves is ongoing work, and the "adapters are data" design is what keeps the cost of it low.
+- **Agent breadth through the skills ecosystem:**
+  Reaching an agent is the open skills ecosystem's work, so every agent it adds can run SDH without Lagune keeping a list of its own. One question that distribution leaves open is how a team settles on a single version of the commands, which the reference implementation has not settled yet.
 
 ---
 
 ## XVIII. Conclusion
 
-AI-assisted development opened a security gap that generic checklists cannot fill, because the risk that matters is specific to what a system actually does, and the person shipping it may not know what to ask for. SDH closes that gap with a context-aware, defense-only, closable flow in which the security knowledge lives in the methodology and its on-demand modules, a baseline every user can build on. It detects the system's real context, triages the risks that context carries, applies fixes carefully, and verifies each one, then stands down what it has closed so each finding reaches an end state. The same defense also runs preventively while new work is built, so what the flow closes stays closed. It adapts to any development state in any stack, and it extends the developer's knowledge instead of replacing the people and tools that already do that job.
+AI-assisted development opened a security gap that generic checklists cannot fill, because the risk that matters is specific to what a system actually does, and the person shipping it may not know what to ask for. SDH closes that gap with a context-aware, defense-only, closable flow in which the security knowledge lives in the methodology and its on-demand specializations, a baseline every user can build on. It detects the system's real context, triages the risks that context carries, applies fixes carefully, and verifies each one, then stands down what it has closed so each finding reaches an end state. The same defense also runs preventively while new work is built, so what the flow closes stays closed. It adapts to any development state in any stack, and it extends the developer's knowledge instead of replacing the people and tools that already do that job.
 
 Lagune is the proof, but the contribution is the convention. SDH is offered as the essential security flow for the era of development with AI, for others to adopt, refine, and implement in their own stacks.
 
@@ -562,7 +557,7 @@ Lagune is the proof, but the contribution is the convention. SDH is offered as t
 1. **Safe-by-default, in plain language, for everyone equally:**
    Every default, message, and fix must be safe out of the box and intelligible to any user, developer or not. No user tier is privileged over another.
 2. **Context-aware over generic:**
-   Every phase must start from the context detected in detect and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The security knowledge lives in the spec and its on-demand modules, extending whatever the user brings.
+   Every phase must start from the context detected in detect and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The security knowledge lives in the spec and its on-demand specializations, extending whatever the user brings.
 3. **Flexible over rigid:**
    SDH flexes to the project and the user. Principles, requirements, and recommendations are starting points, not a fixed contract. Let the user reword, drop, add, or scope anything down. Flexibility never weakens the safe-by-default baseline, it only lets the user shape how it is applied.
 4. **Reconcile, never append-only:**

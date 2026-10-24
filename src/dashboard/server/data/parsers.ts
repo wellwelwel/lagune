@@ -1,70 +1,37 @@
-import type { Skill, Uphold } from '../../../types/dashboard/dashboard';
-import { afterSeparator } from '../../../core/markdown/fields';
-import { bulletText, inlineText } from '../../../core/markdown/lines';
+import type {
+  FindingSpecialization,
+  Uphold,
+} from '../../../types/dashboard/dashboard';
+import { APPLIED_HEADINGS, appliedEntry } from '../../../core/markdown/applied';
+import { bulletText } from '../../../core/markdown/lines';
 import { withinSection } from '../../../core/markdown/sections';
-import { skillLabel } from '../../shared/skill-meta';
+import { specializationLabel } from '../../shared/specialization-meta';
 
-const SKILL_PATH_PREFIX = '.lagune/skills/';
-const SKILL_PATH_EXTENSION = '.md';
-const BOLD_MARKS = ['**', '__'];
-const CODE_MARK = '`';
-
-const dropPrefix = (text: string, mark: string): string =>
-  text.startsWith(mark) ? text.slice(mark.length) : text;
-
-const dropOpeningDecoration = (text: string): string => {
-  const withoutBold = BOLD_MARKS.reduce(dropPrefix, text);
-
-  return dropPrefix(withoutBold, CODE_MARK);
-};
-
-const skipClosingDecoration = (text: string, index: number): number => {
-  let cursor = index;
-
-  if (text.startsWith(CODE_MARK, cursor)) cursor += CODE_MARK.length;
-
-  for (const mark of BOLD_MARKS)
-    if (text.startsWith(mark, cursor)) cursor += mark.length;
-
-  return cursor;
-};
-
-const skillRow = (line: string): Skill | null => {
-  const bullet = bulletText(line);
-  if (bullet === null) return null;
-
-  const content = dropOpeningDecoration(bullet);
-  if (!content.startsWith(SKILL_PATH_PREFIX)) return null;
-
-  const dot = content.indexOf(SKILL_PATH_EXTENSION, SKILL_PATH_PREFIX.length);
-  if (dot === -1) return null;
-
-  const name = content.slice(SKILL_PATH_PREFIX.length, dot);
-  if (name === '' || name.includes('`') || name.includes('/')) return null;
-
-  const afterPath = skipClosingDecoration(
-    content,
-    dot + SKILL_PATH_EXTENSION.length
+const isAppliedHeading = (heading: string): boolean =>
+  APPLIED_HEADINGS.some((header) =>
+    heading.toLowerCase().includes(header.toLowerCase())
   );
 
-  const cursor = afterSeparator(content, afterPath);
-  if (cursor === -1) return null;
+const appliedRow = (line: string): FindingSpecialization | null => {
+  const bullet = bulletText(line);
+  const entry = bullet === null ? undefined : appliedEntry(bullet);
 
-  const surfaced = inlineText(content.slice(cursor));
-  if (surfaced === '') return null;
+  if (entry === undefined) return null;
 
-  return { name, label: skillLabel(name), applied: true, surfaced };
+  return {
+    name: entry.name,
+    label: specializationLabel(entry.name),
+    surfaced: entry.contribution,
+  };
 };
 
-export const parseSkills = (text: string | null): Skill[] => {
-  const out: Skill[] = [];
+export const parseApplied = (text: string | null): FindingSpecialization[] => {
+  const out: FindingSpecialization[] = [];
 
-  for (const line of withinSection(text, (heading) =>
-    /applied sub-skills/i.test(heading)
-  )) {
+  for (const line of withinSection(text, isAppliedHeading)) {
     if (line.code) continue;
 
-    const row = skillRow(line.text);
+    const row = appliedRow(line.text);
     if (row) out.push(row);
   }
   return out;

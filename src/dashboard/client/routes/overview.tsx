@@ -1,7 +1,7 @@
 import type { VNode } from 'preact';
 import { FindingTable } from '../components/findings/finding-table';
+import { EmptyState } from '../components/overview/empty-state';
 import { Hotspots } from '../components/overview/hotspots';
-import { InstallStatus } from '../components/overview/install-status';
 import { NextStep } from '../components/overview/next-step';
 import { SectionHead } from '../components/overview/section-head';
 import { Surfaces } from '../components/overview/surfaces';
@@ -13,7 +13,7 @@ import { postureState } from '../selectors/overview';
 export const Overview = (): VNode => {
   const data = useData();
   const counts = countFindings(data.findings);
-  const posture = postureState(data.project, counts);
+  const posture = postureState(data.project, counts, data.artifacts);
 
   return (
     <>
@@ -26,9 +26,9 @@ export const Overview = (): VNode => {
       />
 
       <div class='route-rise'>
-        <InstallStatus install={data.install} />
+        {!data.artifacts && <EmptyState />}
 
-        <NextStep phases={data.phases} install={data.install} />
+        <NextStep phases={data.phases} />
 
         {data.findings.length > 0 && (
           <section class='mb-6'>
@@ -41,7 +41,7 @@ export const Overview = (): VNode => {
         )}
 
         <div class='mb-6 grid items-stretch gap-6 min-[1280px]:grid-cols-2'>
-          <Surfaces skills={data.skills} findings={data.findings} />
+          <Surfaces catalog={data.catalog} findings={data.findings} />
           <Hotspots findings={data.findings} />
         </div>
       </div>

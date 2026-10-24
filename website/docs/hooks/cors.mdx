@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `cors` hook is the deterministic engine behind the [`http-request` sub-skill](/docs/commands/skills), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
+The `cors` hook is the deterministic engine behind the [`http-request` specialization](/docs/commands/catalog), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
 
 ## Scan a codebase
 
@@ -19,21 +19,21 @@ With no flag it scans the whole project.
   <TabItem value="all" label="Whole project" default>
 
 ```bash
-node ./.lagune/hooks/cors.mjs
+npx --yes --prefer-offline lagune@{{version}} cors
 ```
 
   </TabItem>
   <TabItem value="dir" label="A directory">
 
 ```bash
-node ./.lagune/hooks/cors.mjs -d src/server
+npx --yes --prefer-offline lagune@{{version}} cors --dir src/server
 ```
 
   </TabItem>
   <TabItem value="file" label="A single file">
 
 ```bash
-node ./.lagune/hooks/cors.mjs -f internal/auth/origin.go
+npx --yes --prefer-offline lagune@{{version}} cors --file internal/auth/origin.go
 ```
 
   </TabItem>
@@ -51,33 +51,33 @@ internal/auth/origin.go
 This is a review lead, not a closed finding: whether the regex gates a real trust decision is undecidable from the text, so a scan never changes the exit code. Read each and confirm the allowlist compares by full equality. When nothing is found, it prints a single line.
 
 ```bash
-node ./.lagune/hooks/cors.mjs -d src/clean
+npx --yes --prefer-offline lagune@{{version}} cors --dir src/clean
 # => no bypassable origin allowlist found
 ```
 
 ## Score an origin
 
-Pass each origin with `-o`. The hook prints one word per origin and exits non-zero on any `wildcard` or `null`.
+Pass each origin with `--origin`. The hook prints one word per origin and exits non-zero on any `wildcard` or `null`.
 
 <Tabs>
   <TabItem value="one" label="One origin" default>
 
 ```bash
-node ./.lagune/hooks/cors.mjs -o '*'                       # => wildcard
-node ./.lagune/hooks/cors.mjs -o 'null'                    # => null
-node ./.lagune/hooks/cors.mjs -o 'https://app.example.com' # => safe
+npx --yes --prefer-offline lagune@{{version}} cors --origin '*'                       # => wildcard
+npx --yes --prefer-offline lagune@{{version}} cors --origin 'null'                    # => null
+npx --yes --prefer-offline lagune@{{version}} cors --origin 'https://app.example.com' # => safe
 ```
 
   </TabItem>
   <TabItem value="many" label="Several origins">
 
-Repeat `-o` to score a whole allowlist in one call, one verdict per line, in order.
+Repeat `--origin` to score a whole allowlist in one call, one verdict per line, in order.
 
 ```bash
-node ./.lagune/hooks/cors.mjs \
-  -o 'https://app.example.com' \
-  -o '*' \
-  -o 'null'
+npx --yes --prefer-offline lagune@{{version}} cors \
+  --origin 'https://app.example.com' \
+  --origin '*' \
+  --origin 'null'
 # => safe
 # => wildcard
 # => null
@@ -92,21 +92,21 @@ node ./.lagune/hooks/cors.mjs \
 | `wildcard` | `*`, a subdomain/host/port glob: any site (or a wide set) may read the response. |
 | `null`     | The `null` origin, which sandboxed iframes and redirects can forge.              |
 
-Only `safe` is an allow, and `-o` is a value oracle: it judges the value, not the handler, so confirm the handler with the `http-request` sub-skill.
+Only `safe` is an allow, and `--origin` is a value oracle: it judges the value, not the handler, so confirm the handler with the `http-request` specialization.
 
 ### CLI options
 
-| Option     | Alias | Value       | Description                                                    |
-| ---------- | ----- | ----------- | -------------------------------------------------------------- |
-| `--origin` | `-o`  | an origin   | Score one origin value. Repeat to score several, one per line. |
-| `--dir`    | `-d`  | a directory | Scope a scan to a directory. Repeats and combines with `-f`.   |
-| `--file`   | `-f`  | a file      | Scope a scan to a single file. Repeats and combines with `-d`. |
+| Option     | Value       | Description                                                       |
+| ---------- | ----------- | ----------------------------------------------------------------- |
+| `--origin` | an origin   | Score one origin value. Repeat to score several, one per line.    |
+| `--dir`    | a directory | Scope a scan to a directory. Repeats and combines with `--file`.  |
+| `--file`   | a file      | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
-With no option it scans the whole project. `-o` is the score mode and cannot be combined with `-d` or `-f`.
+With no option it scans the whole project. `--origin` is the score mode and cannot be combined with `--dir` or `--file`.
 
 :::note[What it does not cover]
 
-The scan reads the **bypassable-regex** shape, and `-o` scores origin **values**. Two source-level patterns stay out of reach: reflection of the request's `Origin` (the server echoes the incoming `Origin` back, or pairs it with credentials), and a permissive `endsWith`/substring allowlist. Recognize them in the code and treat them as the [`http-request` sub-skill](/docs/commands/skills) describes.
+The scan reads the **bypassable-regex** shape, and `--origin` scores origin **values**. Two source-level patterns stay out of reach: reflection of the request's `Origin` (the server echoes the incoming `Origin` back, or pairs it with credentials), and a permissive `endsWith`/substring allowlist. Recognize them in the code and treat them as the [`http-request` specialization](/docs/commands/catalog) describes.
 :::
 
 <Faq
@@ -119,7 +119,7 @@ The scan reads the **bypassable-regex** shape, and `-o` scores origin **values**
     {
       question: 'How do I catch a bypassable CORS origin allowlist?',
       answer:
-        'Run node ./.lagune/hooks/cors.mjs over the codebase. It flags a host-validation regex whose greedy wildcard sits before the trusted suffix, so an attacker host like your-site.com.attacker.com slips past.',
+        'Run npx --yes --prefer-offline lagune@{{version}} cors over the codebase. It flags a host-validation regex whose greedy wildcard sits before the trusted suffix, so an attacker host like your-site.com.attacker.com slips past.',
     },
   ]}
 />

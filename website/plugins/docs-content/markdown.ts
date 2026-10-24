@@ -1,6 +1,3 @@
-import type { Agent } from '../../src/data/registry';
-import { ALL_AGENTS, deprecationNote } from '../../src/data/registry';
-
 export type MarkdownDocInput = {
   title: string;
   description: string | undefined;
@@ -65,25 +62,6 @@ const renderFaq = (pairs: FaqPair[]): string[] =>
           '',
         ]),
       ];
-
-const agentStatus = (agent: Agent): string => {
-  if (agent.deprecation === undefined) return '';
-
-  const note = deprecationNote(agent.deprecation);
-
-  return note.code === undefined
-    ? note.lead
-    : `${note.lead} (\`${note.code}\`)`;
-};
-
-const renderAgentsTable = (): string[] => [
-  '| Agent | Key (Alias) | Status |',
-  '| --- | --- | --- |',
-  ...ALL_AGENTS.map(
-    (agent) =>
-      `| [${agent.name}](${agent.url}) | \`${agent.key}\` | ${agentStatus(agent)} |`
-  ),
-];
 
 const renderImage = (block: string): string[] => {
   const src = block.match(/src=["']([^"']+)["']/)?.[1];
@@ -217,17 +195,9 @@ export const cleanMdxBody = (source: string, siteUrl: string): string => {
       continue;
     }
 
-    if (trimmed.startsWith('<SupportedAgents')) {
-      emit('');
-      for (const row of renderAgentsTable()) emit(row);
-      emit('');
-      index += 1;
-      continue;
-    }
-
-    if (trimmed.startsWith('<SkillsOverview')) {
+    if (trimmed.startsWith('<CatalogOverview')) {
       emit(
-        '*The interactive sub-skill overview lives on the web page. The full catalog is in the table below.*'
+        '*The interactive catalog overview lives on the web page. Every built-in specialization is in the table below.*'
       );
       index += 1;
       continue;

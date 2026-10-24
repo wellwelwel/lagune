@@ -12,8 +12,15 @@ export const resumeStepKey = (phases: Phase[]): string =>
 
 export const postureState = (
   project: string,
-  counts: Counts
+  counts: Counts,
+  artifacts: boolean
 ): { headline: string; subline: string } => {
+  if (!artifacts)
+    return {
+      headline: 'Nothing to show yet',
+      subline:
+        'The chain starts with the charter, the security rules every later phase respects.',
+    };
   if (counts.total === 0)
     return {
       headline: `${project} has a clean chain`,

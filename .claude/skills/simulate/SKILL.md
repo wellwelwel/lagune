@@ -24,7 +24,7 @@ Only after the command is named and the fixture is chosen do you proceed to the 
 
 ## Why this skill exists (read this first)
 
-A Lagune command is **not a standalone program**. It is a file of instructions (`spec/commands/lagune.<phase>.md`, scaffolded as a skill the agent reads) that tells an AI agent how to do a phase of security work. "Running the command" means **an agent following those instructions**. There is no binary that emits a deterministic result independent of the agent. So a "simulation" is the agent executing the command's steps for real, against a real scenario, while showing its work.
+A Lagune command is **not a standalone program**. It is a file of instructions (`skills/lagune.<phase>/SKILL.md`, installed as a skill the agent reads) that tells an AI agent how to do a phase of security work. "Running the command" means **an agent following those instructions**. There is no binary that emits a deterministic result independent of the agent. So a "simulation" is the agent executing the command's steps for real, against a real scenario, while showing its work.
 
 The failure mode to avoid: narrating what you _imagine_ the command would output, formatting it to look like a terminal, and presenting it as if it ran. That is theatre. The user cannot tell invented output from real output, and they will (rightly) call it a farce. Everything below is designed to make the simulation **real and verifiable by the user**, not a performance.
 
@@ -56,6 +56,8 @@ cp -R .claude/skills/simulate/fixtures/<name>/. ./temp/
 
 Then build the chain on top in `./temp` by running the upstream phases for real (per Rule 4), so the `.lagune/memory/*.md` artifact the command reads is produced by its own phase, not hand-written. Run the command's steps against `./temp`, following its spec to the letter (per Rule 3), and show every step's output per Rule 2.
 
+Where a step calls the engine command (`npx --yes --prefer-offline lagune@<version> <subcommand>`), run this repository's build in its place, `node ../lib/bin/index.js <subcommand>` from `./temp` after `npm run build`, with the same arguments. The version the skills carry may not be published yet, and the published one would not exercise the code under test. Say so in the transcript, so the substitution is visible.
+
 To add a fixture, create `.claude/skills/simulate/fixtures/<new-name>/` as a small, real project with its own `package.json`, keep robust and fragile code in neutral pairs, add no revealing comments or names, and list it above. Add one when a command needs material the current fixtures do not cover (a different language or stack, secrets handling, auth, a database, and so on).
 
 ### Rule 2: Expose prompts and responses as fenced code blocks IN the chat message
@@ -75,7 +77,7 @@ A reliable pattern: run the command, redirect raw output to a file under `./temp
 
 ### Rule 3: You are the command, so follow its spec to the letter
 
-"Running the command" is you executing `spec/commands/lagune.<phase>.md` step by step, not doing the phase your own way and calling it the command.
+"Running the command" is you executing `skills/lagune.<phase>/SKILL.md` step by step, not doing the phase your own way and calling it the command.
 
 - **Open that spec first and treat it as the single source of truth.** Follow its steps in order. Do not run the phase from memory or from this skill's summary.
 - **Perform every user interaction the spec calls for, for real.** When a step says to ask the user or to tell them something before proceeding, present it in a transcript block and, where it needs an answer, wait. Never skip the stop or answer in the user's place.
@@ -105,7 +107,7 @@ Then, for the command you are simulating:
 
 1. Copy the fixture raw into `./temp` (Rule 1).
 2. Build the chain by running each upstream phase, in order, against `./temp` (Rule 4).
-3. Run the target phase under its `spec/commands/lagune.<phase>.md`, to the letter (Rule 3).
+3. Run the target phase under its `skills/lagune.<phase>/SKILL.md`, to the letter (Rule 3).
 4. Show every input, transcript, and artifact in a fenced block as you go (Rule 2). Write each output artifact as a real file, then `Read` and show it.
 
 ## Honesty checks before you present anything

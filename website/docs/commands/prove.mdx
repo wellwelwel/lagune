@@ -48,7 +48,7 @@ For every finding the detect map carries, it writes a self-contained advisory an
 See the findings already tracked by name:
 
 ```prompt
-npx -y lagune@latest list --findings
+npx --yes lagune@latest list --findings
 
 # Findings
 #   ...
@@ -94,7 +94,7 @@ Before generating anything, it confirms you are authorized to test the target, a
 
 ## From proof to disclosure
 
-Each proven finding's two files belong together in a **private GitHub Gist** to report the vulnerability. They are evidence of a live, undisclosed issue, so keep them out of commits and share them only through that Gist until the maintainers have resolved it.
+Each proven finding's two files belong together in a **private GitHub Gist** to report the vulnerability. They are evidence of a live, undisclosed issue, so a `.gitignore` inside `.lagune/proofs/` keeps them out of every commit: share them only through that Gist until the maintainers have resolved it.
 
 Closing a finding in the **Lagune** chain is still the job of [`/lagune.harden`](/docs/commands/harden) and [`/lagune.verify`](/docs/commands/verify): prove produces evidence, it does not close anything.
 

@@ -13,9 +13,10 @@ export const docsNav: DocsNavEntry[] = [
     collapsed: false,
     items: [
       'get-started/install',
+      'get-started/offline',
       'get-started/commands',
       'supported-agents',
-      'skill-categories',
+      'categories',
     ],
   },
   {
@@ -37,7 +38,7 @@ export const docsNav: DocsNavEntry[] = [
   {
     label: 'Tools',
     collapsed: false,
-    items: ['commands/skills', 'commands/specialize', 'commands/prove'],
+    items: ['commands/catalog', 'commands/specialize', 'commands/prove'],
   },
   {
     label: 'Hooks',

@@ -1,29 +1,24 @@
-import type {
-  AgentChoice,
-  FileOutcome,
-  GitignoreOutcome,
-  MigrateBlockedReason,
-  ScaffoldGroup,
-  ScaffoldResult,
-  SkillGroup,
-} from '../types/core.js';
+import type { Category, CategoryChange } from '../types/catalog.js';
+import type { MigrateSummary } from '../types/core.js';
+import { allOf } from '../core/collections.js';
 import { color } from './colors.js';
+
+const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
+const SKILLS_UPDATE = 'npx skills update';
+const CATALOG_FILE = '.lagune/catalog.json';
+
+export const MIGRATE_PAGE = 'https://lagune.ai/docs/commands/migrate';
 
 const GLYPH = {
   added: color.blue('+'),
-  refreshed: color.blue('↻'),
+  moved: color.blue('↻'),
   kept: color.dim('·'),
   removed: color.blue('-'),
 };
 
-const note = (text: string): string => color.dim(`(${text})`);
-
 export const banner = (): string => `\n🌊 ${color.bold(color.blue('Lagune'))}`;
 
 const done = (text: string): string => `${color.blue('✓')} ${text}`;
-
-const restAt = (count: number, label: string): string =>
-  count === 0 ? '' : color.dim(`, ${count} ${label}`);
 
 const heading = (text: string): string => color.blue(text);
 
@@ -37,62 +32,47 @@ const definitions = (rows: [string, string][]): string[] => {
   );
 };
 
-const agentsByInitial = (agents: AgentChoice[]): string[] => {
-  const byInitial = new Map<string, string[]>();
-
-  for (const agent of agents) {
-    const initial = agent.displayName[0].toUpperCase();
-    const label = `${agent.displayName} ${color.dim(`(${agent.key})`)}`;
-
-    byInitial.set(initial, [...(byInitial.get(initial) ?? []), label]);
-  }
-
-  return [...byInitial].map(([initial, group]) =>
-    bullet(`${initial}${color.dim(':')} ${group.join(color.dim(', '))}`)
-  );
-};
+export const engineCommand = (version: string): string =>
+  `npx --yes --prefer-offline lagune@${version}`;
 
 const HELP_USAGE: string[] = [
   'npx lagune [--port <number>]',
-  'npx lagune init <agent> [--skills <category...>]',
-  'npx lagune update',
-  'npx lagune pull',
-  'npx lagune add --skills',
-  'npx lagune remove --skills',
-  'npx lagune list [--findings] [--skills]',
-  'npx lagune dashboard [-p, --port <number>]',
+  'npx lagune catalog [<name>]',
+  'npx lagune add --categories [<category...>]',
+  'npx lagune remove --categories [<category...>]',
+  'npx lagune list [--findings] [--categories]',
+  'npx lagune dashboard [--port <number>]',
   'npx lagune migrate',
+  'npx lagune <hook> [<arguments...>]',
 ];
 
 const HELP_COMMANDS: [string, string][] = [
-  ['init <agent>', 'Scaffold Lagune into the current project'],
-  ['update', 'Update Lagune files to their latest version'],
-  ['pull', 'Rebuild Lagune from a committed manifest (after a clone)'],
-  ['add', 'Install security specializations, by category'],
-  ['remove', 'Uninstall security specializations, by category'],
+  ['catalog', "List this project's specializations, or print one by name"],
+  ['add', 'Record specialization categories for this project'],
+  ['remove', 'Drop specialization categories from this project'],
   ['list', 'List tracked findings or specialization categories (asks which)'],
   ['dashboard', 'Serve a live view of .lagune/ and open it in the browser'],
   [
     'migrate',
-    'Rename a legacy .bluespec/ install to Lagune, keeping its state',
+    'Move a project the Lagune CLI installed to the skills-based layout',
   ],
 ];
 
 const HELP_OPTIONS: [string, string][] = [
   [
-    '--skills <...>',
-    'Security specializations, by category (no value to choose interactively)',
+    '--categories <...>',
+    'With add, remove, or list, the categories (no value to choose interactively)',
   ],
   ['--findings', 'With list, show the tracked findings'],
   [
-    '-p, --port <1024-65535>',
+    '--port <1024-65535>',
     'With dashboard, the port to serve on (default: random)',
   ],
-  ['-h, --help', 'Show this help'],
-  ['-v, --version', 'Show the version'],
+  ['--help', 'Show this help'],
+  ['--version', 'Show the version'],
 ];
 
-export const helpText = (agents: AgentChoice[]): string =>
+export const helpText = (hooks: string[]): string =>
   [
     banner(),
     color.dim('A defensive, security-first workflow for your project.'),
@@ -103,120 +83,125 @@ export const helpText = (agents: AgentChoice[]): string =>
     heading('Commands'),
     ...definitions(HELP_COMMANDS),
     '',
+    heading('Hooks'),
+    bullet(hooks.join(color.dim(', '))),
+    '',
     heading('Options'),
     ...definitions(HELP_OPTIONS),
     '',
-    heading('Agents'),
-    ...agentsByInitial(agents),
+    heading('Agent skills'),
+    bullet(`Install them with ${SKILLS_ADD}`),
+    bullet(`Update them with ${SKILLS_UPDATE}`),
   ].join('\n');
 
-export const addUsage = (): string =>
+export const unknownCommand = (command: string): string =>
   [
-    'usage: npx lagune add --skills',
-    'options:',
-    '  --skills   security specializations to install (run with no value to choose interactively)',
-    'run `npx lagune list` to see available categories',
+    `Unknown command: ${command}`,
+    'Run npx lagune --help to see the commands.',
   ].join('\n');
 
-export const removeUsage = (): string =>
+export const movedToSkills = (command: string): string =>
   [
-    'usage: npx lagune remove --skills',
-    'options:',
-    '  --skills   security specializations to uninstall (run with no value to choose interactively)',
-    'run `npx lagune list` to see available categories',
+    `${command} moved to the skills CLI, which installs and updates Lagune's commands:`,
+    `  ${SKILLS_ADD}`,
+    `  ${SKILLS_UPDATE}`,
   ].join('\n');
 
-export const noAgentSelected = (agentKeys: string[]): string => {
-  const first = agentKeys[0];
-
-  return [
-    'No agent selected.',
-    `Pass an agent (available: ${agentKeys.join(', ')}).`,
-    `Example: npx lagune init ${first}`,
+export const categoriesUsage = (command: string): string =>
+  [
+    `usage: npx lagune ${command} --categories <category...>`,
+    'Run npx lagune list --categories to see every category.',
   ].join('\n');
-};
 
-export const updateNotInitialized = (agentKeys: string[]): string => {
-  const first = agentKeys[0];
-
-  return [
-    'No Lagune install found here.',
-    `Run npx lagune init <agent> first (available: ${agentKeys.join(', ')}).`,
-    `Example: npx lagune init ${first}`,
+export const listUsage = (): string =>
+  [
+    'usage: npx lagune list --findings',
+    '       npx lagune list --categories',
   ].join('\n');
-};
 
-export const agentSelectTitle = (): string => 'Which agent are you using?';
+export const catalogUsage = (): string => 'usage: npx lagune catalog [<name>]';
 
-export const agentSelectHint = (): string =>
-  'Type to filter, arrow keys to move.';
+export const invalidSpecializationName = (name: string): string =>
+  `"${name}" is not a specialization name: a name uses only lowercase letters, digits, and hyphens.`;
 
-export const agentChoiceLabel = (
-  displayName: string,
-  installed: boolean
-): string =>
-  installed ? `${displayName} ${color.green('[installed]')}` : displayName;
+export const noSpecialization = (name: string, version: string): string =>
+  `No specialization is named "${name}". Run ${engineCommand(version)} catalog to list the ones this project uses.`;
 
-export const selectionAborted = (): string => 'No agent selected: cancelled.';
+export const frozenHandoff = (version: string): string =>
+  `This project was installed by the Lagune CLI and keeps working with it: lagune@${version} answers here. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
+
+export const frozenRefusal = (command: string): string =>
+  `This project was installed by the Lagune CLI, which keeps working here, but ${command} is part of the skills-based Lagune the project has not moved to yet. To move it, see ${MIGRATE_PAGE}`;
+
+export const handoffRefused = (version: string): string =>
+  `An argument holds a character the Windows shell would read as syntax. Run ${engineCommand(version)} yourself with the same arguments.`;
 
 const footer = (...middle: string[]): string =>
   ['Enter to confirm', ...middle, 'Esc to cancel'].join(' · ');
 
 export const selectFooter = (): string => footer();
 
-export const skillsSelectFooter = (): string => footer('empty to skip');
+export const categoriesSelectFooter = (): string => footer('empty to skip');
 
 export const listSelectTitle = (): string => 'What do you want to list?';
 
 export const listSelectHint = (): string => 'Arrow keys to move.';
 
-export const skillsSelectTitle = (): string =>
-  'Which security specializations do you want?';
+export const categoriesSelectTitle = (): string =>
+  'Which specialization categories do you want?';
 
-export const skillsSelectHint = (): string =>
+export const categoriesSelectHint = (): string =>
   'Space to toggle, arrow keys to move.';
 
-const createdLine = (path: string): string => `  ${GLYPH.added} ${path}`;
+export const nothingSelected = (): string => color.dim('Nothing selected.');
 
-const linkedLine = (path: string, target: string): string =>
-  `  ${GLYPH.added} ${path} ${note(`→ ${target}`)}`;
-
-const refreshedLine = (path: string): string =>
-  `  ${GLYPH.refreshed} ${path} ${note('refreshed')}`;
-
-const skippedLine = (path: string): string =>
-  `  ${GLYPH.kept} ${path} ${note('already exists')}`;
-
-const removedLine = (path: string): string => `  ${GLYPH.removed} ${path}`;
-
-const notInstalledLine = (path: string): string =>
-  `  ${GLYPH.kept} ${path} ${note('not installed')}`;
-
-const keptLine = (path: string, keptBy: string): string =>
-  `  ${GLYPH.kept} ${path} ${note(`still used by ${keptBy}`)}`;
+const usedLine = (used: string[]): string =>
+  used.length === 0
+    ? 'This project uses no category.'
+    : `This project uses ${allOf(used)}.`;
 
 export const categoryList = (
-  groups: SkillGroup[],
-  installedKeys: string[]
+  categories: Category[],
+  used: string[],
+  recorded: boolean
 ): string => {
-  if (groups.length === 0)
-    return color.dim('No specialization categories available.');
-
-  const installed = new Set(installedKeys);
-  const keyWidth = Math.max(...groups.map((group) => group.key.length));
-
-  const rows = groups.map((group) => {
-    const key = group.key.padEnd(keyWidth);
-    const state = installed.has(group.key)
-      ? color.green('[installed]')
+  const keyWidth = Math.max(
+    ...categories.map((category) => category.key.length)
+  );
+  const rows = categories.map((category) => {
+    const key = category.key.padEnd(keyWidth);
+    const state = used.includes(category.key)
+      ? color.green('[used]     ')
       : color.dim('[available]');
 
-    return bullet(`${key}  ${state}  ${group.description}`);
+    return bullet(`${key}  ${state}  ${category.description}`);
   });
+  const origin = recorded
+    ? `Recorded in ${CATALOG_FILE}.`
+    : `No category is recorded yet, so this project uses the default: ${allOf(used)}.`;
+
+  return [heading('Categories'), ...rows, '', color.dim(origin)].join('\n');
+};
+
+export const categoriesRecorded = (
+  action: 'add' | 'remove',
+  change: CategoryChange
+): string => {
+  const verb = action === 'add' ? 'Added' : 'Removed';
+  const untouched = action === 'add' ? 'Already used' : 'Not used';
 
   return [
-    `${heading('Specializations')} ${color.dim('.lagune/skills/')}`,
-    ...rows,
+    ...(change.changed.length > 0
+      ? [
+          done(
+            `${verb} ${allOf(change.changed)} ${color.dim(`· ${CATALOG_FILE}`)}`
+          ),
+        ]
+      : []),
+    ...(change.unchanged.length > 0
+      ? [color.dim(`${untouched}: ${allOf(change.unchanged)}.`)]
+      : []),
+    usedLine(change.categories),
   ].join('\n');
 };
 
@@ -226,168 +211,47 @@ export const findingsReport = (names: string[]): string => {
   return [heading('Findings'), ...names.map(bullet)].join('\n');
 };
 
-export const addSummary = (created: number, skipped: number): string => {
-  if (created === 0)
-    return color.dim(
-      skipped === 0
-        ? 'Nothing to install.'
-        : 'Specializations already installed.'
-    );
-
-  return done(
-    `Installed ${color.dim('·')} ${created} added${restAt(skipped, 'already present')}`
-  );
-};
-
-export const removeSummary = (
-  removed: number,
-  notInstalled: number,
-  kept: number
-): string => {
-  if (removed === 0 && kept === 0)
-    return color.dim(
-      notInstalled === 0
-        ? 'Nothing to remove.'
-        : 'Specializations not installed.'
-    );
-
-  return done(
-    `Removed ${color.dim('·')} ${removed} removed${restAt(kept, 'kept, still used elsewhere')}`
-  );
-};
-
-const relativeTo = (baseDir: string, path: string): string =>
-  baseDir && path.startsWith(baseDir) ? path.slice(baseDir.length) : path;
-
-const lineFor = (outcome: FileOutcome, path: string): string => {
-  if (outcome.status === 'created') return createdLine(path);
-  if (outcome.status === 'linked')
-    return linkedLine(path, outcome.linkTo ?? '');
-  if (outcome.status === 'refreshed') return refreshedLine(path);
-  if (outcome.status === 'removed') return removedLine(path);
-  if (outcome.status === 'kept') return keptLine(path, outcome.keptBy ?? '');
-  if (outcome.status === 'absent') return notInstalledLine(path);
-
-  return skippedLine(path);
-};
-
-const groupBlock = (group: ScaffoldGroup): string => {
-  const header = `${color.blue(group.label)} ${color.dim(group.baseDir)}`;
-  const rows = group.outcomes.map((outcome) =>
-    lineFor(outcome, relativeTo(group.baseDir, outcome.path))
+export const migrateNothing = (): string =>
+  color.dim(
+    'No Lagune CLI install found here, so there is nothing to migrate.'
   );
 
-  return [header, ...rows].join('\n');
+const removedLine = (path: string): string => `  ${GLYPH.removed} ${path}`;
+
+const movedLine = (from: string, to: string): string =>
+  `  ${GLYPH.moved} ${from} ${color.dim(`→ ${to}`)}`;
+
+const keptLine = (path: string): string =>
+  `  ${GLYPH.kept} ${path} ${color.dim('(kept: its destination already exists)')}`;
+
+const GITIGNORE_NOTES: Record<MigrateSummary['gitignore'], string> = {
+  removed: 'Removed .gitignore, which held only the Lagune block',
+  updated: 'Removed the Lagune block from .gitignore',
+  unchanged: '',
 };
 
-export const groupedReport = (groups: ScaffoldGroup[]): string =>
-  groups.map(groupBlock).join('\n\n');
-
-export const summaryLine = (
-  agentDisplayName: string,
-  result: ScaffoldResult
-): string => {
-  if (result.created.length === 0 && result.linked.length === 0)
-    return color.dim(`Already initialized for ${agentDisplayName}.`);
-
-  return done(
-    `Initialized for ${agentDisplayName} ${color.dim('·')} ${result.created.length} created${restAt(result.linked.length, 'linked')}${restAt(result.skipped.length, 'skipped')}`
-  );
-};
-
-export const gitignoreResult = (result: GitignoreOutcome): string => {
-  if (result === 'unchanged') return '';
-
-  const action = result === 'created' ? 'Created' : 'Updated';
-
-  return done(`${action} .gitignore with Lagune entries`);
-};
-
-export const updateSummary = (
-  agentDisplayName: string,
-  refreshed: number,
-  removed: number
-): string => {
-  if (refreshed === 0 && removed === 0)
-    return color.dim(`Nothing to update for ${agentDisplayName}.`);
-
-  return done(
-    `Updated for ${agentDisplayName} ${color.dim('·')} ${refreshed} refreshed${restAt(removed, 'removed')}`
-  );
-};
-
-export const pullNotInitialized = (agentKeys: string[]): string => {
-  const first = agentKeys[0];
-
-  return [
-    'No Lagune manifest found here.',
-    'pull reconstructs Lagune from a committed .lagune/manifest.json.',
-    `If this is a fresh project, run npx lagune init <agent> first (available: ${agentKeys.join(', ')}).`,
-    `Example: npx lagune init ${first}`,
-  ].join('\n');
-};
-
-export const pullSummary = (
-  agentDisplayName: string,
-  result: ScaffoldResult
-): string => {
-  if (result.created.length === 0 && result.linked.length === 0)
-    return color.dim(`Already up to date for ${agentDisplayName}.`);
-
-  return done(
-    `Reconstructed for ${agentDisplayName} ${color.dim('·')} ${result.created.length} restored${restAt(result.linked.length, 'linked')}${restAt(result.skipped.length, 'already present')}`
-  );
-};
-
-export const migrateBlocked = (
-  reason: MigrateBlockedReason,
-  agentKeys: string[]
-): string => {
-  if (reason === 'already-migrated')
-    return color.dim(
-      'This project already runs on Lagune. Nothing to migrate.'
-    );
-
-  if (reason === 'conflict')
-    return [
-      'Found both .bluespec/ and .lagune/ in this project.',
-      'Keep the directory that holds your charter and artifacts, remove the other, then run npx lagune migrate again.',
-    ].join('\n');
-
-  const first = agentKeys[0];
-
-  return [
-    'No legacy .bluespec/ install found here. Nothing to migrate.',
-    `For a fresh setup, run npx lagune init <agent> (available: ${agentKeys.join(', ')}).`,
-    `Example: npx lagune init ${first}`,
-  ].join('\n');
-};
-
-export const migrateSummary = (
-  agentDisplayName: string,
-  removed: number,
-  refreshed: number
-): string => {
-  const target = agentDisplayName ? ` for ${agentDisplayName}` : '';
-
-  return done(
-    `Migrated to Lagune${target} ${color.dim('·')} ${refreshed} refreshed${restAt(removed, 'legacy removed')}`
-  );
-};
-
-const STEPS: string[] = [
-  `Open ${color.bold('{{agent}}')} in this project`,
-  `Run ${color.blue('/lagune.charter')} to set your security rules`,
-  `Run ${color.blue('/lagune.detect')} to map what your project does and where the risks are`,
-  `Run ${color.blue('/lagune.plan')} to turn those findings into a prioritized fix plan`,
-  `Run ${color.blue('/lagune.harden')} to apply the fixes, then ${color.blue('/lagune.verify')} to prove they hold`,
-];
-
-export const nextSteps = (agentDisplayName: string): string =>
+export const migrateReport = (summary: MigrateSummary): string =>
   [
-    color.bold('Next steps'),
-    ...STEPS.map(
-      (step, index) =>
-        `  ${color.dim(`${index + 1}`)}  ${step.replace('{{agent}}', agentDisplayName)}`
+    ...(summary.removed.length > 0
+      ? [heading('Removed'), ...summary.removed.map(removedLine), '']
+      : []),
+    ...(summary.moved.length > 0 || summary.kept.length > 0
+      ? [
+          heading('Moved'),
+          ...summary.moved.map((file) => movedLine(file.from, file.to)),
+          ...summary.kept.map(keptLine),
+          '',
+        ]
+      : []),
+    done(
+      `Moved to the skills-based layout ${color.dim('·')} ${summary.removed.length} removed${color.dim(`, ${summary.moved.length} moved`)}`
     ),
+    ...(summary.gitignore === 'unchanged'
+      ? []
+      : [done(GITIGNORE_NOTES[summary.gitignore])]),
+    '',
+    color.bold('Next steps'),
+    `  ${color.dim('1')}  Commit this change on its own`,
+    `  ${color.dim('2')}  Install Lagune's commands with ${color.blue(SKILLS_ADD)}`,
+    `  ${color.dim('3')}  Follow the rest of the move at ${MIGRATE_PAGE}`,
   ].join('\n');

@@ -1,79 +1,78 @@
 ---
 name: specialize
-description: Author a new built-in Lagune sub-skill inside the Lagune source, not a scaffolded `.lagune/` target. Use when adding or refining a security knowledge module that ships with Lagune, against the native layout (`spec/skills/*.md` plus the catalog).
+description: Author a new built-in Lagune specialization inside the Lagune source, not a project's own catalog. Use when adding or refining a security knowledge module that ships with Lagune, against the native layout (`catalog/*.md` plus the built-in index).
 user-invocable: true
 disable-model-invocation: true
 metadata:
   internal: true
 ---
 
-# Authoring a built-in Lagune sub-skill (development workspace)
+# Authoring a built-in Lagune specialization (development workspace)
 
-The end-user command `@spec/commands/lagune.specialize.md` writes into a **scaffolded target project**: `.lagune/skills/<name>.md` and `.lagune/skills.json`. Neither path exists here. This repo is the **Lagune source**, where built-in sub-skills live in `spec/skills/<name>.md` and the catalog is a hardcoded TypeScript array, not a runtime JSON file. There is also no "user" registry: a built-in is registered in code, compiled, scaffolded, and tested.
+The published skill `skills/lagune.specialize/SKILL.md` writes into a **project's own catalog**: `.lagune/catalog/<name>.md` plus its entry in `.lagune/catalog.json`. This repo is the **Lagune source**, where built-in specializations live in `catalog/<name>.md` and their index is a TypeScript array, not a runtime JSON file. A built-in is registered in code, published with the engine, and tested.
 
-So you reuse the command's **authoring discipline** (terrain, defense-only gate, template, tags, reconcile-never-append) but **override every output path** to the native layout, and you update the registration points the end-user command never has to.
+So you reuse the skill's **authoring discipline** (terrain, defense-only gate, template, tags, reconcile-never-append) but **override every output path** to the native layout, and you update the registration points the published skill never has to.
 
-## Step 1: Run the command's authoring steps, with redirected paths
+## Step 1: Run the skill's authoring steps, with redirected paths
 
-Read and follow `@spec/commands/lagune.specialize.md` in full. Its authoring steps hold unchanged. The one thing that does not is where files are read and written, since the command targets a scaffolded project and you are in the source. Remap every path it names:
+Read and follow `skills/lagune.specialize/SKILL.md` in full. Its authoring steps hold unchanged. The one thing that does not is where files are read and written, since the skill targets a project and you are in the source. Remap every path it names:
 
-| Command path (end-user target)                                   | Native path (use this instead)                                                      |
-| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `.lagune/skills/{regex,javascript,browser}.md` (worked examples) | every `*.md` already in `spec/skills/` (list the directory, mirror the closest one) |
-| `.lagune/templates/specialize-template.md`                       | `spec/templates/specialize-template.md`                                             |
-| `@.lagune/specializations.md` (list what exists)                 | read `spec/skills/` and `SKILLS_CATALOG` in `src/hooks/skills/catalog.ts`           |
-| `.lagune/skills/<name>.md` (the sub-skill file)                  | `spec/skills/<name>.md`                                                             |
-| `.lagune/skills.json` (catalog entry)                            | a `BuiltinSkillEntry` in `src/hooks/skills/catalog.ts`                              |
+| Skill path (a project's own catalog)                  | Native path (use this instead)                                                  |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `catalog <name>` for `regex`, `javascript`, `browser` | every `*.md` already in `catalog/` (list the directory, mirror the closest one) |
+| `template.md`, next to the skill                      | `skills/lagune.specialize/template.md`                                          |
+| `catalog` (list what exists)                          | read `catalog/` and `BUILTIN_SPECIALIZATIONS` in `src/catalog/builtin.ts`       |
+| `.lagune/catalog/<name>.md` (the specialization file) | `catalog/<name>.md`                                                             |
+| `.lagune/catalog.json` (index entry)                  | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
 
-One path it names stays put: a hook reference inside the `.md` body keeps the `./.lagune/hooks/<x>.mjs` form, because that body ships verbatim to the end user and must point at their scaffolded path, not the source.
+A hook reference inside the `.md` body uses the engine command, `npx --yes --prefer-offline lagune@<version> <hook>`, with the package version and long flags only, because that body ships verbatim to the end user. The release step moves that version with each release.
 
-## Step 2: Decide the category (group)
+## Step 2: Decide the category
 
-Every built-in belongs to a **category** (`group`), which is how `npx lagune add --skills <category>` bundles it into a target project. Categories live in `SKILL_GROUPS` in `src/hooks/skills/groups.ts`.
+Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx --yes lagune@latest add --categories <category>`. Categories live in `CATEGORIES` in `src/catalog/categories.ts`.
 
-- A language sub-skill goes under its language key (`python` under `python`, and so on).
-- A sub-skill about an application-security risk OWASP tracks goes under `owasp`.
-- Match the sub-skill to the category that actually describes it. If none fits, that is a signal a new category may be needed, adding a `SkillGroup` to `SKILL_GROUPS` (key, label, description). Ask the user before inventing one, do not force an unrelated module into `owasp` to avoid the question.
+- A language specialization goes under its language key (`python` under `python`, and so on).
+- A specialization about an application-security risk OWASP tracks goes under `owasp`.
+- Match the specialization to the category that actually describes it. If none fits, that is a signal a new category may be needed, adding a `Category` to `CATEGORIES` (key, label, description) and its icon. Ask the user before inventing one, do not force an unrelated module into `owasp` to avoid the question.
 
-The end-user `skills.json` has no `groups` field by default, but the **built-in** catalog entry does. Set it.
+A project's own index entry carries no categories, but the **built-in** index entry does. Set it.
 
 ## Step 3: Write and register, then verify
 
 A new built-in is not done when the `.md` exists. Touch each of these:
 
-### Required (a sub-skill is broken without these)
+### Required (a specialization is broken without these)
 
-1. Write the authored module to **`spec/skills/<name>.md`** (Step 1). `src/core/assets.ts` reads `spec/skills/` by directory listing, so the file loads automatically once it is on disk, with no code change.
-2. Add the `BuiltinSkillEntry` `{ name, tags, groups }` to **`src/hooks/skills/catalog.ts`**. Without this row the file scaffolds, but `.lagune/specializations.md` never lists it and `add --skills` cannot bundle it.
-3. Add a `SkillGroup` to **`src/hooks/skills/groups.ts`**, but only when you introduced a new category.
+1. Write the authored module to **`catalog/<name>.md`** (Step 1). The engine reads `catalog/<name>.md` by name, so the file resolves once it is on disk and indexed.
+2. Add the `BuiltinSpecialization` `{ name, tags, categories }` to **`src/catalog/builtin.ts`**. Without this row, `catalog` never lists it and `catalog <name>` cannot resolve it.
+3. Add a `Category` to **`src/catalog/categories.ts`**, but only when you introduced a new category.
+4. Add its label, description, icon, and prompt task to **`src/dashboard/shared/specialization-meta.ts`**, which the dashboard and the website share.
 
-### Tests (the suite asserts the catalog and the docs stay in sync)
+### Tests (the suite asserts the index, the files, and the docs stay in sync)
 
-4. **`test/integration/skills/skills.test.ts`** iterates `SKILLS_CATALOG` (e.g. "never repeats the name inside its own tags"), so a new entry is exercised automatically. Check that no count-based or hardcoded-list assertion now fails.
-5. **`test/e2e/init/skills-hook.test.ts`** and **`test/e2e/init/manage-cli.test.ts`** assert scaffold and listing behavior, sometimes by sub-skill name. Update any hardcoded expectation that should now include the new one.
-6. **`test/integration/cli/manifest.test.ts`** and **`test/integration/cli/scaffold-groups.test.ts`** reference specific skill paths like `.lagune/skills/regex.md`. Update them only when your change alters what a given category scaffolds.
-7. Run the full suite: `npm test`. Its `pretest` hook runs `scripts/build.sh` first, so the compiled `lib/hooks/*.mjs` the e2e tests exercise are rebuilt automatically, no separate build step needed. All green before you call it done.
+5. The catalog tests iterate `BUILTIN_SPECIALIZATIONS` (for example, no built-in repeats its name inside its own tags, every index row has a file and every file a row, every engine call carries the package version and long flags), so a new entry is exercised automatically. Update a hardcoded list only when your change alters it, such as the built-ins a category holds.
+6. Run the full suite: `npm test`. It runs `scripts/build.sh` first, so the engine the e2e tests exercise is rebuilt automatically. All green before you call it done.
 
 ### Documentation (the built-in catalog is enumerated by hand in the website)
 
-8. Add a row to the "set that ships with Lagune" table in **`website/docs/commands/skills.mdx`** (around line 48), giving the built-in its category and focus. This table is maintained by hand and drifts silently when a built-in is missing.
-9. The example listing output in **`website/docs/hooks/skills.mdx`** (`# => regex: ...`) is illustrative. Update it only when it should showcase the new one.
-10. Update **`README.md`** only when it enumerates built-ins.
+7. Add a row to the table of built-ins in **`website/docs/commands/catalog.mdx`**, giving the built-in its categories and focus. The sync test fails until the row matches the index.
+8. Update **`README.md`** only when it enumerates built-ins.
 
 ### Not touched
 
-- `src/core/skills-catalog.ts` (the _empty user_ catalog factory), `src/hooks/skills/discover.ts` (reads the _user's_ `.lagune/skills.json`), and `.lagune/skills.json` itself: these are the **end-user** registry. A built-in never writes there.
+- `.lagune/catalog.json` and `.lagune/catalog/`: these are a **project's own** catalog. A built-in never writes there.
 
 ## Quick checklist
 
 ```
-[ ] spec/skills/<name>.md            authored from spec/templates/specialize-template.md (reconciled on a refine)
-[ ] src/hooks/skills/catalog.ts      BuiltinSkillEntry added { name, tags, groups }
-[ ] src/hooks/skills/groups.ts       only if a new category was introduced
+[ ] catalog/<name>.md                        authored from skills/lagune.specialize/template.md (reconciled on a refine)
+[ ] src/catalog/builtin.ts                   BuiltinSpecialization added { name, tags, categories }
+[ ] src/catalog/categories.ts                only if a new category was introduced
+[ ] src/dashboard/shared/specialization-meta.ts  label, description, icon, prompt task
 [ ] tests updated + npm test green
-[ ] website/docs/commands/skills.mdx table row added
+[ ] website/docs/commands/catalog.mdx table row added
 ```
 
 ## Summary to the user
 
-As Step 8 of the command: state the name, tags, category, what it covers, and that the phases now load it on demand once shipped (end users import it with `@.lagune/skills/<name>.md`). Note it shadows any same-named entry on a refine. Suggest a commit such as ``feat: add specialization in `<name>` defense``, matching the wording the existing built-ins use, as a suggestion, not a mandate.
+As Step 8 of the skill: state the name, tags, categories, what it covers, and that the phases load it on demand once shipped (a prompt loads it directly with the engine's `catalog <name>`). Note that a project's own specialization of the same name shadows it. Suggest a commit such as ``feat: add specialization in `<name>` defense``, matching the wording the existing built-ins use, as a suggestion, not a mandate.

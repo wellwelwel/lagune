@@ -2,14 +2,15 @@ import type { CliCommand, ParsedCliArgs } from '../types/core.js';
 import { parseArgs } from 'node:util';
 
 const COMMANDS: CliCommand[] = [
-  'init',
-  'update',
-  'pull',
+  'catalog',
   'add',
   'remove',
   'list',
   'dashboard',
   'migrate',
+  'init',
+  'pull',
+  'update',
 ];
 
 const toCommand = (value: string | undefined): CliCommand | undefined =>
@@ -34,35 +35,34 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
     options: {
       help: { type: 'boolean', short: 'h' },
       version: { type: 'boolean', short: 'v' },
-      skills: { type: 'boolean' },
+      categories: { type: 'boolean' },
       findings: { type: 'boolean' },
       port: { type: 'string', short: 'p' },
     },
   });
 
-  const command = toCommand(positionals[0]);
-  const skillsRequested = values.skills === true;
+  const [first, ...rest] = positionals;
+  const command = toCommand(first);
+  const categoriesRequested = values.categories === true;
   const findingsRequested = values.findings === true;
   const help = values.help === true;
   const version = values.version === true;
-  const categoryStart = command === 'init' ? 2 : 1;
-  const port = parsePort(values.port);
   const bare =
     positionals.length === 0 &&
-    !skillsRequested &&
+    !categoriesRequested &&
     !findingsRequested &&
     !help &&
     !version;
 
   return {
     command,
-    agent: command === 'init' ? positionals[1] : undefined,
-    skills: skillsRequested ? positionals.slice(categoryStart) : [],
-    skillsRequested,
+    unknown: command === undefined ? first : undefined,
+    values: rest,
+    categoriesRequested,
     findingsRequested,
     help,
     version,
     bare,
-    port,
+    port: parsePort(values.port),
   };
 };

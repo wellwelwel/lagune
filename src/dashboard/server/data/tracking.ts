@@ -1,8 +1,6 @@
 import type { TrackingEntry } from '../../../types/core';
 import type { Tracking } from '../../../types/dashboard/server';
-
-const isStringArray = (value: unknown): value is string[] =>
-  Array.isArray(value) && value.every((item) => typeof item === 'string');
+import { isStringArray } from '../../../core/collections';
 
 const toEntry = (value: unknown): TrackingEntry | null => {
   if (typeof value !== 'object' || value === null) return null;

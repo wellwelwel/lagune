@@ -7,14 +7,3 @@ node_modules
 /PLAN.md
 /.plans
 .env
-
-# Lagune
-/.lagune/templates/
-/.lagune/hooks/
-/.lagune/skills/*
-/**/lagune.*
-/**/lagune/
-!/spec/commands/lagune.*
-!/website/docs/commands/lagune.*
-!/website/src/data/lagune.*
-!/website/src/prism/lagune.*

@@ -1,5 +1,4 @@
 import type { PointerEvent } from 'react';
-import { AgentButton } from '@site/src/components/home/AgentButton';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { GroupHead } from '@site/src/components/home/GroupHead';
 import { IconSwap } from '@site/src/components/IconSwap';
@@ -8,9 +7,24 @@ import {
   selectableCard,
   selectableTint,
 } from '@site/src/components/selectable';
-import { AGENTS, ALL_AGENTS, ALL_CATEGORIES } from '@site/src/data/registry';
+import { ALL_CATEGORIES } from '@site/src/data/registry';
 import { memo, useMemo } from 'react';
-import { LuChevronRight, LuCircleCheckBig, LuLayoutGrid } from 'react-icons/lu';
+import {
+  LuChevronRight,
+  LuCircle,
+  LuCircleCheckBig,
+  LuFolderGit2,
+  LuGlobe,
+  LuLayoutGrid,
+} from 'react-icons/lu';
+
+const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
+const CATEGORIES_ADD = 'npx --yes lagune@latest add';
+
+const SCOPES = [
+  { global: false, label: 'This project', Icon: LuFolderGit2 },
+  { global: true, label: 'Every project', Icon: LuGlobe },
+];
 
 const clampTip = (event: PointerEvent<HTMLButtonElement>) => {
   const wrap = event.currentTarget;
@@ -32,84 +46,83 @@ const clampTip = (event: PointerEvent<HTMLButtonElement>) => {
 };
 
 const InstallPanelComponent = ({
-  selected,
-  onSelect,
-  onOpenAgents,
-  onOpenSpecs,
-  onToggleSkill,
-  skills,
+  global,
+  onScope,
+  onOpenCategories,
+  onToggleCategory,
+  chosen,
 }: {
-  selected: string;
-  onSelect: (key: string) => void;
-  onOpenAgents: () => void;
-  onOpenSpecs: () => void;
-  onToggleSkill: (key: string) => void;
-  skills: string[];
+  global: boolean;
+  onScope: (global: boolean) => void;
+  onOpenCategories: () => void;
+  onToggleCategory: (key: string) => void;
+  chosen: string[];
 }) => {
-  const orderedSkills = useMemo(
+  const orderedCategories = useMemo(
     () =>
-      skills
+      chosen
         .map((key) => ALL_CATEGORIES.find((category) => category.key === key))
         .filter((category) => category !== undefined),
-    [skills]
+    [chosen]
   );
 
-  const installCommand = useMemo(
-    () =>
-      orderedSkills.length
-        ? `npx lagune@latest init ${selected} --skills ${orderedSkills.map((category) => category.key).join(' ')}`
-        : `npx lagune@latest init ${selected}`,
-    [selected, orderedSkills]
+  const commands = useMemo(
+    () => [
+      global ? `${SKILLS_ADD} --global` : SKILLS_ADD,
+      ...(orderedCategories.length > 0
+        ? [
+            `${CATEGORIES_ADD} --categories ${orderedCategories.map((category) => category.key).join(' ')}`,
+          ]
+        : []),
+    ],
+    [global, orderedCategories]
   );
-
-  const selectedFromModal = !AGENTS.some((agent) => agent.key === selected);
-  const selectedName = ALL_AGENTS.find((agent) => agent.key === selected)?.name;
 
   return (
     <div className='flex flex-col min-w-0'>
-      <GroupHead title='Choose your agent' meta='Required' />
+      <GroupHead title='Install the commands' meta='Required' />
 
       <div
         className='grid grid-cols-2 gap-2 mb-[22px]'
         role='radiogroup'
-        aria-label='Choose your agent'
+        aria-label='Install the commands'
       >
-        {AGENTS.map((agent) => (
-          <AgentButton
-            key={agent.key}
-            agent={agent}
-            on={selected === agent.key}
-            onClick={() => onSelect(agent.key)}
-          />
-        ))}
-        <button
-          type='button'
-          onClick={onOpenAgents}
-          className={`flex items-center gap-3 p-[13px_14px] ${selectableCard(selectedFromModal)}`}
-        >
-          <span
-            className={`shrink-0 size-5 flex items-center justify-center [&>svg]:size-5 transition-colors duration-200 ease-out ${selectableTint(selectedFromModal)}`}
-          >
-            <LuLayoutGrid aria-hidden />
-          </span>
-          <span className='flex-1 min-w-0 text-[14px] font-medium tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
-            {ALL_AGENTS.length - AGENTS.length} more
-            {selectedFromModal && selectedName ? ` (${selectedName})` : ''}
-          </span>
-          <IconSwap
-            on={selectedFromModal}
-            className={`shrink-0 [&_svg]:size-[18px] ${selectableTint(selectedFromModal)}`}
-            active={<LuCircleCheckBig />}
-            inactive={<LuChevronRight />}
-          />
-        </button>
+        {SCOPES.map((scope) => {
+          const on = scope.global === global;
+
+          return (
+            <button
+              key={scope.label}
+              type='button'
+              role='radio'
+              aria-checked={on}
+              onClick={() => onScope(scope.global)}
+              className={`flex items-center gap-3 p-[12px_14px] ${selectableCard(on)}`}
+            >
+              <span
+                className={`shrink-0 size-5 flex items-center justify-center [&>svg]:size-5 transition-colors duration-200 ease-out ${selectableTint(on)}`}
+              >
+                <scope.Icon aria-hidden />
+              </span>
+              <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
+                {scope.label}
+              </span>
+              <IconSwap
+                on={on}
+                className={`shrink-0 [&_svg]:size-[18px] ${selectableTint(on)}`}
+                active={<LuCircleCheckBig />}
+                inactive={<LuCircle />}
+              />
+            </button>
+          );
+        })}
       </div>
 
-      <GroupHead title='Add specializations' meta='Optional' />
+      <GroupHead title='Choose categories' meta='Optional' />
 
       <div className='flex flex-wrap items-center gap-3 mb-[22px]'>
         {ALL_CATEGORIES.map((category) => {
-          const on = skills.includes(category.key);
+          const on = chosen.includes(category.key);
 
           return (
             <button
@@ -119,7 +132,7 @@ const InstallPanelComponent = ({
               aria-checked={on}
               aria-label={category.name}
               onClick={(event) => {
-                onToggleSkill(category.key);
+                onToggleCategory(category.key);
                 event.currentTarget.focus({ preventScroll: true });
               }}
               onPointerEnter={clampTip}
@@ -141,7 +154,7 @@ const InstallPanelComponent = ({
         <span className='hidden w-full max-[600px]:block' aria-hidden />
         <button
           type='button'
-          onClick={onOpenSpecs}
+          onClick={onOpenCategories}
           className={`flex items-center gap-3 p-[12px_14px] ml-auto max-[600px]:ml-0 ${selectableCard(false)}`}
         >
           <span
@@ -162,33 +175,56 @@ const InstallPanelComponent = ({
       <GroupHead title='Run this' />
 
       <div className='flex items-center gap-3 p-[15px_16px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px]'>
-        <span className='select-none text-accent' aria-hidden>
-          $
-        </span>
-        <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
-          npx lagune@latest init{' '}
-          <span key={selected} className='lagune-token-in text-[#5191ff]'>
-            {selected}
-          </span>
-          {orderedSkills.length > 0 && (
-            <>
-              {' '}
-              <span className='lagune-token-in text-muted'>--skills</span>
-              {orderedSkills.map((category) => (
-                <span key={category.key}>
+        <span className='flex flex-1 min-w-0 flex-col gap-1.5'>
+          <span className='flex min-w-0 gap-3'>
+            <span className='select-none text-accent' aria-hidden>
+              $
+            </span>
+            <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+              {SKILLS_ADD}
+              {global && (
+                <>
                   {' '}
                   <span className='lagune-token-in text-[#5191ff]'>
-                    {category.key}
+                    --global
                   </span>
-                </span>
-              ))}
-            </>
+                </>
+              )}
+            </code>
+          </span>
+          {orderedCategories.length > 0 && (
+            <span className='flex min-w-0 gap-3'>
+              <span className='select-none text-accent' aria-hidden>
+                $
+              </span>
+              <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+                {CATEGORIES_ADD}{' '}
+                <span className='lagune-token-in text-muted'>--categories</span>
+                {orderedCategories.map((category) => (
+                  <span key={category.key}>
+                    {' '}
+                    <span className='lagune-token-in text-[#5191ff]'>
+                      {category.key}
+                    </span>
+                  </span>
+                ))}
+              </code>
+            </span>
           )}
-        </code>
-        <CopyButton value={installCommand} label='Copy install command' />
+        </span>
+        <CopyButton
+          value={commands.join(' && ')}
+          label='Copy install command'
+        />
       </div>
 
-      <p className='mx-1 mt-6 text-[12px] leading-[1.6] text-muted'>
+      <p className='mx-1 mt-6 text-[12px] leading-[1.6] text-muted [text-wrap:pretty]'>
+        The skills CLI finds your agents or asks which ones to use. Then run{' '}
+        <code>/lagune.charter</code>: with no category chosen, it records the
+        ones its reading of your project supports.
+      </p>
+
+      <p className='mx-1 mt-3 text-[12px] leading-[1.6] text-muted'>
         All product names, trademarks, and registered trademarks mentioned are
         the property of their respective owners and are used for identification
         purposes only.

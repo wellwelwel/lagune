@@ -1,16 +1,8 @@
-export type InstallRequest = {
-  agent: string;
+export type CategoriesRequest = {
   categories: string[];
 };
 
-export type SpecializeRequest = {
-  categories: string[];
-};
-
-export type ActionSuccess =
-  | { ok: true; created: number; skipped: number }
-  | { ok: true; refreshed: number }
-  | { ok: true; added: number; removed: number };
+export type ActionSuccess = { ok: true; added: number; removed: number };
 
 export type ActionFailure = {
   ok: false;

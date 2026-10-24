@@ -1,9 +1,7 @@
 import { access } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
-import { agentIcon } from '../../../src/dashboard/shared/agent-meta.js';
-import { skillGroupIcon } from '../../../src/dashboard/shared/skill-meta.js';
-import { SKILL_GROUPS } from '../../../src/hooks/skills/groups.js';
-import { AGENT_SPECS } from '../../../src/providers/specs.js';
+import { CATEGORIES } from '../../../src/catalog/categories.js';
+import { categoryIcon } from '../../../src/dashboard/shared/specialization-meta.js';
 
 const publicDir = new URL(
   '../../../src/dashboard/client/public/',
@@ -16,22 +14,16 @@ const exists = (icon: string): Promise<boolean> =>
     () => false
   );
 
-await describe('the shared icons folder carries every registered logo', async () => {
-  for (const spec of AGENT_SPECS) {
-    const icon = agentIcon(spec);
-    const present = await exists(icon);
+await describe('the shared icons folder carries every category logo', async () => {
+  const missing = (
+    await Promise.all(
+      CATEGORIES.map(async (category) =>
+        (await exists(categoryIcon(category.key))) ? [] : [category.key]
+      )
+    )
+  ).flat();
 
-    it('gives every agent a logo', () => {
-      strict(present, `${spec.key} points at a missing logo ${icon}`);
-    });
-  }
-
-  for (const group of SKILL_GROUPS) {
-    const icon = skillGroupIcon(group.key);
-    const present = await exists(icon);
-
-    it('gives every category an icon', () => {
-      strict(present, `${group.key} points at a missing icon ${icon}`);
-    });
-  }
+  it('gives every category an icon', () => {
+    strict.deepStrictEqual(missing, []);
+  });
 });

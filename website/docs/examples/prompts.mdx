@@ -209,9 +209,11 @@ Describe what happened in your own words. Lagune reads the situation, not a flag
 
 Treats the whole workspace and every dependency as hostile: it hunts for interpreters, network calls, encoded payloads, and code hidden in unlikely places to slip past scanners, then ends with a go/no-go verdict on whether the project is safe to use.
 
-We recommend installing with the specializations this audit leans on:
+The prompts load the specializations this audit relies on directly, whatever your project's categories. For the rest of the catalog `/lagune` matches, make sure the project uses **OWASP**, **AI/LLM**, and the category of its stack (e.g., **JavaScript**, **Python**, etc.):
 
-- **OWASP**, **AI/LLM**, and the project's stack (e.g., **JavaScript**, **Python**, etc.).
+```bash
+npx --yes lagune@latest add --categories owasp ai javascript
+```
 
 :::danger
 Be careful when running projects from untrusted sources in your local environment. Use an isolated environment, such as a **sandbox** (recommended), **VM**, or similar, to prevent malicious code from affecting your system.
@@ -220,11 +222,11 @@ Be careful when running projects from untrusted sources in your local environmen
 <Tabs>
   <TabItem value="default" label="🪼 Default" default>
 
-| Aspect          | Trade-off                                                                                       | Level               |
-| --------------- | ----------------------------------------------------------------------------------------------- | ------------------- |
-| **Effort**      | One agent sweeps the whole workspace, no sub-agents.                                            | <Level value={2} /> |
-| **Time**        | Medium. One agent works through the code and its dependencies in sequence.                      | <Level value={3} /> |
-| **Token Usage** | Moderate, but shared. The sub-skills, the code, and the dependencies all load into one context. | <Level value={3} /> |
+| Aspect          | Trade-off                                                                                            | Level               |
+| --------------- | ---------------------------------------------------------------------------------------------------- | ------------------- |
+| **Effort**      | One agent sweeps the whole workspace, no sub-agents.                                                 | <Level value={2} /> |
+| **Time**        | Medium. One agent works through the code and its dependencies in sequence.                           | <Level value={3} /> |
+| **Token Usage** | Moderate, but shared. The specializations, the code, and the dependencies all load into one context. | <Level value={3} /> |
 
 ```md
 /lagune You are a cybersecurity researcher with deep expertise in zero trust defensive security, using Lagune to improve your knowledge and precision.
@@ -233,12 +235,12 @@ Map the entire workspace as an untrusted source and a potential malicious scope.
 
 Extend your analysis to the dependencies and sub-dependencies: a project may try to hide malicious code in an unlikely place to slip past scanners.
 
-Mandatory sub-skills (read them one at a time):
+Mandatory specializations (load them one at a time with `npx --yes --prefer-offline lagune@{{version}} catalog <name>`):
 
-- @.lagune/skills/interpreter.md
-- @.lagune/skills/secrets.md
-- @.lagune/skills/llm.md
-- @.lagune/skills/path.md
+- interpreter
+- secrets
+- llm
+- path
 
 To be clear: every mapped vulnerability must be treated as a potential threat, without exception.
 
@@ -248,11 +250,11 @@ At the end, give a verdict on whether the project is safe and trustworthy for me
   </TabItem>
   <TabItem value="sub-agents" label="🐋 Multi Agents (Deep Scan)" >
 
-| Aspect          | Trade-off                                                                             | Level               |
-| --------------- | ------------------------------------------------------------------------------------- | ------------------- |
-| **Effort**      | One sub-agent per file, scaled to the size of your codebase.                          | <Level value={5} /> |
-| **Time**        | Longer, but more thorough. Files are swept in parallel, then merged into one verdict. | <Level value={4} /> |
-| **Token Usage** | Highest, but safest. Each sub-agent reads the sub-skills in its own isolated context. | <Level value={5} /> |
+| Aspect          | Trade-off                                                                                  | Level               |
+| --------------- | ------------------------------------------------------------------------------------------ | ------------------- |
+| **Effort**      | One sub-agent per file, scaled to the size of your codebase.                               | <Level value={5} /> |
+| **Time**        | Longer, but more thorough. Files are swept in parallel, then merged into one verdict.      | <Level value={4} /> |
+| **Token Usage** | Highest, but safest. Each sub-agent reads the specializations in its own isolated context. | <Level value={5} /> |
 
 ````md
 /lagune You are a cybersecurity orchestrator using Lagune to enumerate, dispatch a subagent per file, and generate reports (all content is read by the subagents).
@@ -266,12 +268,12 @@ Treat <file> as an untrusted source and a potential malicious scope. Every inter
 
 Extend the analysis to whatever <file> imports, including dependencies and sub-dependencies, where malicious code may hide to slip past scanners.
 
-Mandatory sub-skills for every sub-agent (read them one at a time):
+Mandatory specializations for every sub-agent (load them one at a time with `npx --yes --prefer-offline lagune@{{version}} catalog <name>`):
 
-- @.lagune/skills/interpreter.md
-- @.lagune/skills/secrets.md
-- @.lagune/skills/llm.md
-- @.lagune/skills/path.md
+- interpreter
+- secrets
+- llm
+- path
 
 To be clear: every mapped vulnerability must be treated as a potential threat, without exception.
 

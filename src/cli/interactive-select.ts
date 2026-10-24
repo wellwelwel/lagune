@@ -199,8 +199,8 @@ export const interactiveSelect = (
   const {
     options,
     maxVisible = DEFAULT_MAX_VISIBLE,
-    emptyLabel = 'No matching agents.',
-    confirmLabel = 'Agent:',
+    emptyLabel = 'No matching options.',
+    confirmLabel = 'Choice:',
     footer,
   } = config;
 
@@ -326,10 +326,7 @@ export const interactiveMultiSelect = (
 
       if (visible.length === 0)
         return withFooter(
-          [
-            ...header(config, query),
-            color.dim('  No matching specializations.'),
-          ],
+          [...header(config, query), color.dim('  No matching categories.')],
           footer
         );
 
@@ -347,8 +344,8 @@ export const interactiveMultiSelect = (
         result === undefined
           ? color.dim('Cancelled')
           : result.length === 0
-            ? color.dim('Specializations: none')
-            : `${color.green('Specializations:')} ${result
+            ? color.dim('Categories: none')
+            : `${color.green('Categories:')} ${result
                 .map((index) => options[index]?.label)
                 .join(', ')}`;
 

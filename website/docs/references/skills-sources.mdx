@@ -2,7 +2,7 @@
 id: skills-sources
 title: OWASP Sources
 sidebar_label: OWASP Sources
-description: Where the built-in OWASP sub-skill knowledge comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
+description: Where the knowledge of the built-in OWASP specializations comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 ---
 
 # OWASP Source Mapping: Attacks × Cheat Sheets
@@ -222,7 +222,7 @@ This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** 
 
 ## 25. Business Logic & Abuse of Functionality
 
-Business logic and abuse of functionality have no single code surface a per-surface sub-skill defends: the defense is application-specific design, the same reasoning the project's threat modeling drives. Moved to "Out of scope".
+Business logic and abuse of functionality have no single code surface a per-surface specialization defends: the defense is application-specific design, the same reasoning the project's threat modeling drives. Moved to "Out of scope".
 
 ---
 
@@ -293,13 +293,13 @@ Container and workload config is config-as-code the developer ships with the app
 
 ## 33. Secrets & Configuration
 
-Secrets management is operational: vaults, CI/CD, cloud config, rotation. The one code-level facet (a secret hardcoded in source) is a deterministic scan, not a risk sub-skill. Moved to "Out of scope".
+Secrets management is operational: vaults, CI/CD, cloud config, rotation. The one code-level facet (a secret hardcoded in source) is a deterministic scan, not a risk specialization. Moved to "Out of scope".
 
 ---
 
 ## 34. Process, Design & Governance
 
-User privacy protection is policy and design (data minimization, transparency, retention), not a code surface a sub-skill defends. Moved to "Out of scope".
+User privacy protection is policy and design (data minimization, transparency, retention), not a code surface a specialization defends. Moved to "Out of scope".
 
 ---
 
@@ -317,7 +317,7 @@ Automotive and drone security are embedded-system domains (CAN bus, OTA firmware
 
 ## Out of scope (no code surface)
 
-These are not sub-skill terrains and carry no checkbox: they are governance, process, operational hardening, or framework usage with no single code surface a per-surface sub-skill defends. Their security value is real, but it lives in process and architecture (or, for a framework, in that language's own skill), not in a defense this catalog ships. Listed for reference, not as work.
+These are not specialization terrains and carry no checkbox: they are governance, process, operational hardening, or framework usage with no single code surface a per-surface specialization defends. Their security value is real, but it lives in process and architecture (or, for a framework, in that language's own skill), not in a defense this catalog ships. Listed for reference, not as work.
 
 - [Authorization Regression Testing](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Regression_Testing_Cheat_Sheet.html), [Authorization Testing Automation](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Testing_Automation_Cheat_Sheet.html)
 - [JAAS](https://cheatsheetseries.owasp.org/cheatsheets/JAAS_Cheat_Sheet.html)
@@ -329,12 +329,12 @@ These are not sub-skill terrains and carry no checkbox: they are governance, pro
 - [Spyware](https://owasp.org/www-community/attacks/Spyware), [Trojan Horse](https://owasp.org/www-community/attacks/Trojan_Horse) (end-user malware, not a code surface in the audited project; the in-browser delivery facet lives in `browser`)
 - [REST Security](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html), [REST Assessment](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
 - [Web Service Security](https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html)
-- [Cloud Architecture Security](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Cloud_Architecture_Cheat_Sheet.html) (design and trade-offs: IAM vs signed URLs, public/private VPCs, trust boundaries, shared-responsibility; no concrete config a sub-skill rewrites, unlike `container`)
+- [Cloud Architecture Security](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Cloud_Architecture_Cheat_Sheet.html) (design and trade-offs: IAM vs signed URLs, public/private VPCs, trust boundaries, shared-responsibility; no concrete config a specialization checks, unlike `container`)
 - [Infrastructure as Code Security](https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html) (despite the name, it is SDLC process and tooling for _managing_ IaC: IDE plugins, static analysis, image scanning, CI/CD, signing; no insecure-pattern-to-safe-shape in a Terraform/CloudFormation file)
 - [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) — _cluster-administration portion only_ (RBAC, etcd, API server, admission); the workload/Pod portion is in scope under `container`
 - [Network Segmentation](https://cheatsheetseries.owasp.org/cheatsheets/Network_Segmentation_Cheat_Sheet.html) (network architecture and firewall policy)
 - [Subdomain Takeover Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Subdomain_Takeover_Prevention_Cheat_Sheet.html) (DNS lifecycle and monitoring, not code)
-- [Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) (vaults, CI/CD, rotation; the hardcoded-secret facet is a deterministic scan, not a risk sub-skill)
+- [Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) (vaults, CI/CD, rotation; the hardcoded-secret facet is a deterministic scan, not a risk specialization)
 - [C-Based Toolchain Hardening](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html) (compiler, linker, and build flags; no source sink)
 - [Microservices Security](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_Security_Cheat_Sheet.html), [Microservices based Security Arch Doc](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_based_Security_Arch_Doc_Cheat_Sheet.html)
 - [Zero Trust Architecture](https://cheatsheetseries.owasp.org/cheatsheets/Zero_Trust_Architecture_Cheat_Sheet.html)

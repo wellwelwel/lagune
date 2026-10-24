@@ -3,7 +3,8 @@ import type { Config } from '@docusaurus/types';
 import tailwindPostcss from '@tailwindcss/postcss';
 import { criticalCssPlugin } from './plugins/critical-css';
 import { docsContentPlugin } from './plugins/docs-content';
-import { substituteCounts } from './plugins/docs-content/tokens';
+import { substituteTokens } from './plugins/docs-content/tokens';
+import { LAGUNE_VERSION } from './plugins/docs-content/version';
 import { dropWoff } from './plugins/drop-woff';
 import { laguneCode } from './src/prism/lagune';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
@@ -32,11 +33,13 @@ const config: Config = {
 
   staticDirectories: ['static', '../src/dashboard/client/public'],
 
+  customFields: { laguneVersion: LAGUNE_VERSION },
+
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
   markdown: {
     preprocessor: ({ filePath, fileContent }) =>
-      substituteCounts(fileContent, filePath),
+      substituteTokens(fileContent, filePath),
     hooks: {
       onBrokenMarkdownLinks: 'throw',
     },
@@ -234,7 +237,7 @@ const config: Config = {
           items: [
             { label: 'Get Started', to: '/docs/get-started/install' },
             { label: 'Commands', to: '/docs/commands/charter' },
-            { label: 'Skills', to: '/docs/commands/skills' },
+            { label: 'Catalog', to: '/docs/commands/catalog' },
           ],
         },
         {

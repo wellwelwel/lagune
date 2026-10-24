@@ -13,7 +13,7 @@ import {
   withinSection,
 } from '../../../src/core/markdown/sections.js';
 import { buildCharter } from '../../../src/dashboard/server/data/build/charter.js';
-import { parseSkills } from '../../../src/dashboard/server/data/parsers.js';
+import { parseApplied } from '../../../src/dashboard/server/data/parsers.js';
 
 const lines = (...items: string[]): string => items.join('\n');
 
@@ -266,7 +266,7 @@ describe('prose extractors skip fences and headings', () => {
   });
 });
 
-describe('parseSkills reads only structural rows', () => {
+describe('parseApplied reads only structural rows', () => {
   it('ignores a fenced example row', () => {
     const text = lines(
       '## Applied sub-skills',
@@ -277,9 +277,64 @@ describe('parseSkills reads only structural rows', () => {
     );
 
     strict.deepStrictEqual(
-      parseSkills(text).map((skill) => skill.name),
+      parseApplied(text).map((specialization) => specialization.name),
       ['authentication']
     );
+  });
+});
+
+describe('parseApplied reads specializations named as the catalog lists them', () => {
+  it('reads named rows under the applied specializations heading', () => {
+    const text = lines(
+      '## Applied specializations',
+      '- regex: Multipart boundary regex',
+      '- **`network`** — Remote import fetches user URLs',
+      '* `interpreter`: Thumbnail command interpolates request input'
+    );
+
+    strict.deepStrictEqual(
+      parseApplied(text).map((specialization) => [
+        specialization.name,
+        specialization.surfaced,
+      ]),
+      [
+        ['regex', 'Multipart boundary regex'],
+        ['network', 'Remote import fetches user URLs'],
+        ['interpreter', 'Thumbnail command interpolates request input'],
+      ]
+    );
+  });
+
+  it('reads a legacy path row under the new heading and a named row under the old one', () => {
+    const renamed = lines(
+      '## Applied specializations',
+      '- .lagune/skills/upload.md: Avatar keeps the filename'
+    );
+    const legacy = lines(
+      '## Applied sub-skills',
+      '- upload: Avatar keeps the filename'
+    );
+
+    strict.deepStrictEqual(
+      [...parseApplied(renamed), ...parseApplied(legacy)].map(
+        (specialization) => [specialization.name, specialization.surfaced]
+      ),
+      [
+        ['upload', 'Avatar keeps the filename'],
+        ['upload', 'Avatar keeps the filename'],
+      ]
+    );
+  });
+
+  it('rejects a capitalized label, a row with no separator, and a row with nothing surfaced', () => {
+    const text = lines(
+      '## Applied specializations',
+      '- None: nothing applied',
+      '- regex applied to the validator',
+      '- network:'
+    );
+
+    strict.deepStrictEqual(parseApplied(text), []);
   });
 });
 
@@ -353,7 +408,7 @@ describe('list markers tolerate drift beyond the dash', () => {
     ]);
   });
 
-  it('parseSkills accepts a drifted separator and marker', () => {
+  it('parseApplied accepts a drifted separator and marker', () => {
     const text = lines(
       '## Applied sub-skills',
       '- `.lagune/skills/authentication.md` — surfaced Weak cookie.',
@@ -362,7 +417,10 @@ describe('list markers tolerate drift beyond the dash', () => {
     );
 
     strict.deepStrictEqual(
-      parseSkills(text).map((skill) => [skill.name, skill.surfaced]),
+      parseApplied(text).map((specialization) => [
+        specialization.name,
+        specialization.surfaced,
+      ]),
       [
         ['authentication', 'surfaced Weak cookie.'],
         ['injection', 'surfaced SQL injection.'],
@@ -370,7 +428,7 @@ describe('list markers tolerate drift beyond the dash', () => {
     );
   });
 
-  it('parseSkills reads a path a weaker agent left without backticks', () => {
+  it('parseApplied reads a path a weaker agent left without backticks', () => {
     const text = lines(
       '## Applied sub-skills',
       '- .lagune/skills/regex.md: Multipart boundary regex',
@@ -379,7 +437,10 @@ describe('list markers tolerate drift beyond the dash', () => {
     );
 
     strict.deepStrictEqual(
-      parseSkills(text).map((skill) => [skill.name, skill.surfaced]),
+      parseApplied(text).map((specialization) => [
+        specialization.name,
+        specialization.surfaced,
+      ]),
       [
         ['regex', 'Multipart boundary regex'],
         ['network', 'Remote import fetches user URLs'],
@@ -388,7 +449,7 @@ describe('list markers tolerate drift beyond the dash', () => {
     );
   });
 
-  it('parseSkills accepts bold and half-quoted paths alike', () => {
+  it('parseApplied accepts bold and half-quoted paths alike', () => {
     const text = lines(
       '## Applied sub-skills',
       '- **`.lagune/skills/crypto.md`**: Weak key derivation',
@@ -397,7 +458,10 @@ describe('list markers tolerate drift beyond the dash', () => {
     );
 
     strict.deepStrictEqual(
-      parseSkills(text).map((skill) => [skill.name, skill.surfaced]),
+      parseApplied(text).map((specialization) => [
+        specialization.name,
+        specialization.surfaced,
+      ]),
       [
         ['crypto', 'Weak key derivation'],
         ['upload', 'Avatar keeps the filename'],
@@ -406,14 +470,14 @@ describe('list markers tolerate drift beyond the dash', () => {
     );
   });
 
-  it('parseSkills still rejects a non-skill bullet', () => {
+  it('parseApplied still rejects a non-skill bullet', () => {
     const text = lines(
       '## Applied sub-skills',
       '- .lagune/memory/detect.md: not a sub-skill path',
       '- just some prose about skills'
     );
 
-    strict.deepStrictEqual(parseSkills(text), []);
+    strict.deepStrictEqual(parseApplied(text), []);
   });
 
   it('buildCharter keeps drifted bullets and drops drifted rationale', () => {

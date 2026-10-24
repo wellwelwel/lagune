@@ -13,25 +13,25 @@ The `cvss` hook scores a **CVSS v4.0 vector** and prints its score and severity 
 
 ## Run it
 
-Pass each vector with `-v`. The hook prints one line per vector: its score and band.
+Pass each vector with `--vector`. The hook prints one line per vector: its score and band.
 
 <Tabs>
   <TabItem value="one" label="One vector" default>
 
 ```bash
-node ./.lagune/hooks/cvss.mjs -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+npx --yes --prefer-offline lagune@{{version}} cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
 # => 9.3, Critical
 ```
 
   </TabItem>
   <TabItem value="many" label="Several vectors">
 
-Repeat `-v` to score several at once, one line each, in order.
+Repeat `--vector` to score several at once, one line each, in order.
 
 ```bash
-node ./.lagune/hooks/cvss.mjs \
-  -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
-  -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+npx --yes --prefer-offline lagune@{{version}} cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
 # => 9.3, Critical
 # => 8.7, High
 ```
@@ -39,10 +39,10 @@ node ./.lagune/hooks/cvss.mjs \
   </TabItem>
   <TabItem value="explain" label="In plain words">
 
-Add `-e` to read each metric back in plain words. When Threat or Environmental metrics move the score, the Base score alone comes first.
+Add `--explain` to read each metric back in plain words. When Threat or Environmental metrics move the score, the Base score alone comes first.
 
 ```bash
-node ./.lagune/hooks/cvss.mjs -e -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+npx --yes --prefer-offline lagune@{{version}} cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
 # => 8.7, High
 # =>   Base metrics alone: 9.3, Critical
 # =>   Attack Vector: Network, modified to Adjacent
@@ -69,12 +69,12 @@ An invalid vector prints `invalid vector:` and what is wrong, and the hook exits
 
 ### CLI options
 
-| Option      | Alias | Value               | Description                                                               |
-| ----------- | ----- | ------------------- | ------------------------------------------------------------------------- |
-| `--vector`  | `-v`  | a `CVSS:4.0` vector | Score one vector. Repeat to score several, one line per vector, in order. |
-| `--explain` | `-e`  |                     | Add each metric in plain words under every rating line.                   |
+| Option      | Value               | Description                                                               |
+| ----------- | ------------------- | ------------------------------------------------------------------------- |
+| `--vector`  | a `CVSS:4.0` vector | Score one vector. Repeat to score several, one line per vector, in order. |
+| `--explain` |                     | Add each metric in plain words under every rating line.                   |
 
-At least one `-v` is required. The vector is never a bare positional, so it cannot be mistaken for a flag.
+At least one `--vector` is required. The vector is never a bare positional, so it cannot be mistaken for a flag.
 
 :::note[Why a flag value]
 
@@ -104,7 +104,7 @@ The plan phase's validation reruns this same arithmetic on every CVSS line, so a
         'No. Lagune rates every finding in CVSS v4.0, and the hook rejects any other version rather than scoring it.',
     },
     {
-      question: 'What does the -e flag do?',
+      question: 'What does the --explain flag do?',
       answer:
         'It reads each metric back in plain words and shows the Base score beside the overall one, so anyone can see what the vector says and how the project context moved it.',
     },

@@ -2,10 +2,10 @@ import { runHook } from '../../cli/run-hook.js';
 import { run } from './cli.js';
 
 /**
- * @example node ./.lagune/hooks/interpreter.mjs                              // scans the whole project
- * @example node ./.lagune/hooks/interpreter.mjs -d src                       // scans a directory
- * @example node ./.lagune/hooks/interpreter.mjs -f src/app.js                // scans a single file
- * @example node ./.lagune/hooks/interpreter.mjs -l javascript -p 'eval(x)'   // => careful
- * @example node ./.lagune/hooks/interpreter.mjs -l python -p 'json.loads(x)' // => safe
+ * @example npx lagune interpreter                                         // scans the whole project
+ * @example npx lagune interpreter --dir src                               // scans a directory
+ * @example npx lagune interpreter --file src/app.js                       // scans a single file
+ * @example npx lagune interpreter --lang javascript --pattern 'eval(x)'   // => careful
+ * @example npx lagune interpreter --lang python --pattern 'json.loads(x)' // => safe
  */
 await runHook(import.meta.url, (args) => run(args));

@@ -15,7 +15,8 @@ import {
 import { docsThemeBootScript } from '../../src/components/docs/theme';
 import { renderDocMarkdown } from './markdown';
 import { docsNav } from './nav';
-import { substituteCounts } from './tokens';
+import { docsRedirects, redirectMarkdown, redirectPage } from './redirects';
+import { substituteTokens } from './tokens';
 
 export type DocEntry = {
   docId: string;
@@ -266,7 +267,7 @@ export const docsContentPlugin: PluginModule = async (context) => {
             doc.docId === 'references/paper'
               ? path.join(siteDir, 'src', 'content', 'PAPER.mdx')
               : path.join(siteDir, aliasedSitePathToRelativePath(doc.source));
-          const body = substituteCounts(
+          const body = substituteTokens(
             await fs.readFile(sourceFile, 'utf8'),
             sourceFile
           );
@@ -276,16 +277,35 @@ export const docsContentPlugin: PluginModule = async (context) => {
       );
 
       const outRoot = path.resolve(outDir);
+      const insideBuild = (relativeFile: string): string => {
+        const target = path.resolve(outRoot, relativeFile);
+
+        if (!target.startsWith(`${outRoot}${path.sep}`))
+          throw new Error(
+            `[${pluginName}] Refusing to write "${target}" outside the build directory.`
+          );
+
+        return target;
+      };
+
+      await Promise.all(
+        Object.entries(docsRedirects).map(async ([from, to]) => {
+          const target = `${site}${joinRoutePath(baseUrl, 'docs', to)}`;
+          const page = insideBuild(`docs/${from}.html`);
+
+          await fs.mkdir(path.dirname(page), { recursive: true });
+          await fs.writeFile(page, redirectPage(target), 'utf8');
+          await fs.writeFile(
+            insideBuild(`docs/${from}.md`),
+            redirectMarkdown(target),
+            'utf8'
+          );
+        })
+      );
+
       await Promise.all(
         markdownDocs.map(async ({ doc, markdown }) => {
-          const target = path.resolve(
-            outRoot,
-            `${doc.permalink.replace(/^\//, '')}.md`
-          );
-          if (!target.startsWith(`${outRoot}${path.sep}`))
-            throw new Error(
-              `[${pluginName}] Refusing to write "${target}" outside the build directory.`
-            );
+          const target = insideBuild(`${doc.permalink.replace(/^\//, '')}.md`);
 
           await fs.mkdir(path.dirname(target), { recursive: true });
           await fs.writeFile(target, markdown, 'utf8');
@@ -297,10 +317,7 @@ export const docsContentPlugin: PluginModule = async (context) => {
         '',
         `> ${siteConfig.tagline}`,
         '',
-        substituteCounts(
-          'Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. It works with {{agents}} AI coding agents and needs no API key.',
-          'llms.txt'
-        ),
+        'Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow. It helps your AI agent harden any codebase in any language, at every moment: the charter sets the security rules before you build, the universal /lagune command hardens work as it is written, and the five-phase Blue Team flow detects what your system actually does and drives the fixes that matter for that context. Its commands install into your agent with the skills CLI, and it needs no API key.',
       ];
 
       const lines = [

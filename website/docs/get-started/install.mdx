@@ -2,14 +2,15 @@
 id: install
 title: 'Install: Security Hardening in Any Project via npx'
 sidebar_label: Install
-description: Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
+description: Install Lagune's commands in any project, new or existing, with the skills CLI, and choose the security specializations that fit it.
 keywords:
   - install lagune
-  - npx lagune
+  - npx skills add
+  - skills CLI
   - setup
   - getting started
   - specializations
-  - skills
+  - categories
   - requirements
   - badge
 ---
@@ -27,16 +28,17 @@ No API keys are needed, it runs directly through your own agent ([**Claude**, **
 <Tabs>
   <TabItem value="prompt" label="CLI" default>
 
-Run without an agent key and **Lagune** asks you to choose one, then which specializations to install:
+Install **Lagune**'s commands with the [**skills** CLI](https://github.com/vercel-labs/skills). It detects the agents in your project, or asks which ones to set up:
 
 ```bash
-npx -y lagune@latest init
-
-# Example using Lagune with Claude and OWASP specializations
-npx -y lagune@latest init claude --skills owasp
+npx skills add wellwelwel/lagune
 ```
 
-See every key in [**Supported Agents**](/docs/supported-agents).
+The commands land in the project by default. To install them once for every project, add `--global`:
+
+```bash
+npx skills add wellwelwel/lagune --global
+```
 
 :::info[Any language]
 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
@@ -44,132 +46,99 @@ See every key in [**Supported Agents**](/docs/supported-agents).
 
 ## What gets created
 
-Running **Lagune** in your project creates two things:
+**Lagune** keeps three things apart, so nothing is generated into your project:
 
-- **`.lagune/`** holds Lagune's state in that project: the charter, the artifact each phase produces, the on-demand skills you installed, and the internal tracking.
-- **Agent commands** are written into your agent's own location, in its native format, so the `/lagune.*` commands are ready to run.
-
-Your security work is committed alongside your code, versioned and reviewable like any other part of the project. **Lagune**'s own files are gitignored by default, since [`pull`](#pull) brings them back from the manifest.
+- **Your project's state** lives in `.lagune/`: the charter, the artifact each phase produces, the internal tracking, and the project's catalog (the categories it uses and its own specializations). The first command that writes creates it, and it is committed alongside your code, versioned and reviewable like any other part of the project.
+- **Lagune's commands** are the nine skills the **skills** CLI installs where your agent reads them, so the `/lagune.*` commands are ready to run.
+- **Lagune's engine** is the `lagune` package on **npm**. The commands run it through `npx` for every deterministic step, at the exact version they carry. The first call downloads it once, and later calls stay off the network. To run with no network at all, see [**Offline**](/docs/get-started/offline).
 
 ## Update
 
-To update **Lagune**'s own files and its commands to their latest versions, run:
+To update **Lagune**'s commands to their latest version, run:
 
 ```bash
-npx -y lagune@latest update
+npx skills update
 ```
 
-:::tip
-
-- Your charter, the artifacts each phase produces, the internal tracking, and any _sub_-skill you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
-- A command an earlier version wrote where your agent no longer reads it is removed in the same pass, so nothing stale lingers.
-
-:::
-
-## Pull
-
-When you clone or fork a project that already has **Lagune**, run pull to install its files from the manifest:
-
-```bash
-npx -y lagune@latest pull
-```
+The engine version the commands call moves with them.
 
 :::tip
-💡 Think of it as the **Lagune** equivalent of `npm i`, `pip install -r requirements.txt`, and the like.
+Your charter, the artifacts each phase produces, the internal tracking, and every specialization you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
 :::
 
 ## Specializations
 
-**Lagune** ships focused security [**_sub_-skills**](/docs/commands/skills) grouped into [**categories**](/docs/skill-categories), from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
+**Lagune** ships focused security [**specializations**](/docs/commands/catalog) grouped into [**categories**](/docs/categories), from `owasp` to per-language ones like `python`, `go`, and `rust`. The categories a project uses decide which built-in specializations join its catalog, and `.lagune/catalog.json` records them, so the whole team works with the same set.
 
-The agent commands are always set up. Specializations are what you choose on top.
-
-### Install at init
-
-<Tabs>
-  <TabItem value="picker" label="Interactive" default>
-
-`--skills` with no category opens an interactive picker (space to toggle, enter to confirm, empty to skip):
-
-```bash
-npx -y lagune@latest init claude --skills
-```
-
-  </TabItem>
-  <TabItem value="categories" label="Pick categories">
-
-Pass the categories after `--skills`, on the same line as the agent:
-
-```bash
-npx -y lagune@latest init claude --skills owasp
-npx -y lagune@latest init claude --skills owasp javascript
-```
-
-  </TabItem>
-  <TabItem value="none" label="No specialization">
-
-Without `--skills`, the agent is set up and no specialization is installed. You can always add them later:
-
-```bash
-npx -y lagune@latest init claude
-```
-
-  </TabItem>
-</Tabs>
+While no category is recorded, the project uses `owasp` alone. [`/lagune.charter`](/docs/commands/charter) then records each category its reading of the project supports, such as its language, calls to an LLM, or containers, and never changes them once recorded. You can change them yourself anytime.
 
 ### Add and remove anytime
 
-The same `--skills` flag, without touching the agent.
+`--categories` with no value opens an interactive picker in a terminal (space to toggle, enter to confirm, empty to skip). Outside a terminal, pass the categories after it.
 
 <Tabs>
   <TabItem value="add" label="Add" default>
 
 ```bash
-npx -y lagune@latest add --skills # interactive
-npx -y lagune@latest add --skills owasp
-npx -y lagune@latest add --skills owasp rust
+npx --yes lagune@latest add --categories # interactive
+npx --yes lagune@latest add --categories owasp
+npx --yes lagune@latest add --categories owasp rust
 ```
 
   </TabItem>
   <TabItem value="remove" label="Remove">
 
 ```bash
-npx -y lagune@latest remove --skills # interactive
-npx -y lagune@latest remove --skills owasp
-npx -y lagune@latest remove --skills owasp rust
+npx --yes lagune@latest remove --categories # interactive
+npx --yes lagune@latest remove --categories owasp
+npx --yes lagune@latest remove --categories owasp rust
 ```
 
   </TabItem>
 </Tabs>
 
+The first `add` or `remove` starts from `owasp`, so removing every category leaves an empty list, never the default.
+
 ### See what exists
 
-`list` on its own asks what you want to see, the findings Lagune is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--skills` for the categories.
+`list` on its own asks what you want to see, the findings **Lagune** is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--categories` for the categories.
 
 ```bash
-npx -y lagune@latest list --skills
-# Specializations .lagune/skills/
-#   • owasp       [installed]  Harden against the application security risks OWASP tracks
-#   • javascript  [available]  JavaScript and its runtimes
-#   • php         [available]  PHP and its language-specific risks
-#   • go          [available]  Go and its language-specific risks
+npx --yes lagune@latest list --categories
+# Categories
+#   • owasp       [used]       Harden against the application security risks OWASP tracks
+#   • javascript  [available]  Harden JavaScript and its runtimes
+#   • php         [available]  Harden PHP against type-juggling auth bypass
+#   • go          [available]  Harden Go against typed-nil interface bugs
 #   ...
+#
+# No category is recorded yet, so this project uses the default: owasp.
 ```
 
-See every category in [**Skill Categories**](/docs/skill-categories).
+`catalog` prints the specializations the project uses, built-in and its own, one per line:
+
+```bash
+npx --yes lagune@latest catalog
+# regex: Regular Expression [required]
+# network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
+# ...
+```
+
+See every category in [**Categories**](/docs/categories).
 
   </TabItem>
   <TabItem value="dashboard" label="Dashboard">
 
-Run **Lagune** directly with no subcommand for an interactive live view, follow-up, and maintenance. It serves a dashboard and opens it on a random port:
+Run **Lagune** directly with no subcommand for an interactive live view of `.lagune/`. It serves a dashboard and opens it on a random port:
 
 ```bash
-npx -y lagune@latest
+npx --yes lagune@latest
 ```
 
 - [x] **Live Reload**
 - [x] **Private** and **Local**
-- [x] **Install**, **Pull**, **Update**, and **Manage** all **Lagune** features directly from your browser
+- [x] Shows whatever `.lagune/` holds, from the first charter on
+- [x] **Manage** the project's categories directly from your browser
 - [x] No `node_modules` or `package.json` is needed 📦
 
 <div className='lagune-docs-gallery'>
@@ -207,13 +176,13 @@ npx -y lagune@latest
     loading='lazy'
     decoding='async'
     src='/img/dashboard/06.webp'
-    alt='Lagune dashboard skills'
+    alt='Lagune dashboard catalog'
   />
 </div>
 
 :::tip
 
-- 🚪 Use `--port` or `-p` to specify a custom port.
+- 🚪 Use `--port` to specify a custom port.
 - ⏏️ Press `Ctrl+C` to stop.
 
 :::
@@ -230,7 +199,7 @@ npx -y lagune@latest
 You will need these tools installed on your system:
 
 - [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- At least one of the [**Supported Agents**](/docs/supported-agents)
+- An agent the **skills** CLI supports, see [**Supported Agents**](/docs/supported-agents)
 
 ## Use a badge ✨
 
@@ -301,14 +270,14 @@ Using **Lagune**? Add one to your **README**:
 
 ## Next
 
-Once **Lagune** is set up, your agent unlocks a set of slash commands. See [**Commands**](/docs/get-started/commands).
+Once **Lagune**'s commands are installed, your agent unlocks a set of slash commands. See [**Commands**](/docs/get-started/commands).
 
 <Faq
   items={[
     {
       question: 'How do I install Lagune?',
       answer:
-        'Run npx -y lagune@latest init in your project. It works in both new and existing projects.',
+        'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects, and the skills CLI detects your agents or asks which ones to set up.',
     },
     {
       question: 'Does Lagune need an API key?',
@@ -318,16 +287,21 @@ Once **Lagune** is set up, your agent unlocks a set of slash commands. See [**Co
     {
       question: 'What does Lagune add to my project?',
       answer:
-        'A .lagune/ state directory and a set of slash commands your AI agent can run.',
+        "Its slash commands, installed by the skills CLI where your agent reads them, and a .lagune/ directory with your project's security state, created by the first command that writes.",
     },
     {
       question: 'How do I update Lagune?',
       answer:
-        'Run npx -y lagune@latest update. Your charter, phase artifacts, and custom specializations stay untouched.',
+        'Run npx skills update. The commands and the engine version they call move together, and your charter, phase artifacts, and own specializations stay untouched.',
+    },
+    {
+      question: 'Which specializations does a project use?',
+      answer:
+        'The built-in ones of its categories, plus its own. The charter records the categories its reading of the project supports, and npx --yes lagune@latest add --categories changes them.',
     },
     {
       question: 'What are the requirements?',
-      answer: 'Node.js (LTS) and at least one supported AI agent.',
+      answer: 'Node.js (LTS) and an agent the skills CLI supports.',
     },
   ]}
 />

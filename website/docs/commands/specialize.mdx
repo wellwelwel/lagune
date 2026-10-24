@@ -2,7 +2,7 @@
 id: specialize
 title: '/lagune.specialize: Train a Security Specialization with Plain Text'
 sidebar_label: Specialize
-description: Distill a security source or topic you give it into a new on-demand sub-skill.
+description: Distill a security source or topic you give it into a new on-demand specialization.
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -13,7 +13,7 @@ import Tabs from '@theme/Tabs';
 
 🎓 Specialize **Lagune** in a specific security area, from a source or topic you give it.
 
-It reads the material and distills it into a focused, defense-only [sub-skill](/docs/commands/skills), shaped exactly like the built-in ones, so the detect and verify phases load it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
+It reads the material and distills it into a focused, defense-only specialization, shaped exactly like the [built-in ones](/docs/commands/catalog), so the detect and verify phases load it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
 
 <Tabs>
   <TabItem value="article" label="From an article" default>
@@ -27,7 +27,7 @@ It reads the material and distills it into a focused, defense-only [sub-skill](/
   <TabItem value="exploit" label="From an exploit">
 
 ```prompt
-# An attack as the source: the sub-skill is still the defense
+# An attack as the source: the specialization is still the defense
 /lagune.specialize "' OR 1=1 -- splices SQL into the query text"
 ```
 
@@ -43,35 +43,35 @@ It reads the material and distills it into a focused, defense-only [sub-skill](/
 </Tabs>
 
 :::note[An attack can be the source, never the output]
-Pointing it at an attack is fine when the goal is to defend against it: an exploit write-up is study material it distills into the defense. The sub-skill it produces always audits and explains, it never produces a working exploit, payload, or evasion.
+Pointing it at an attack is fine when the goal is to defend against it: an exploit write-up is study material it distills into the defense. The specialization it produces always audits and explains, it never produces a working exploit, payload, or evasion.
 :::
 
 ## What it writes
 
-The result is two files in your project, committed and reviewable alongside your code. Lagune ignores the built-in sub-skills by default, so it re-includes yours in `.gitignore` to keep it versioned:
+The result is two files in your project, committed and reviewable alongside your code:
 
-- The sub-skill at `.lagune/skills/<name>.md`, following the [sub-skill shape](/docs/commands/skills).
-- One entry in `.lagune/skills.json`, the catalog the dispatcher reads at runtime to list and match it.
+- The specialization at `.lagune/catalog/<name>.md`, shaped like the [built-in ones](/docs/commands/catalog).
+- Its entry in `.lagune/catalog.json`, your project's index, which the catalog merges with the built-ins.
 
-You never add a command or touch the package: a new specialty is one knowledge file plus one catalog row, written into your own project.
+It then lists the catalog to confirm the new entry is there. Your own specializations are always in the catalog, whatever its categories. You never add a command or touch the package: a new specialty is one knowledge file plus one index entry, written into your own project.
 
 ## Refine, never overwrite
 
-Specializing a name that already exists, whether a built-in like `regex` or one you specialized before, **reconciles** the current file instead of replacing it. It reads what is there, folds the new knowledge in, keeps what still holds, and rewrites what changed. Nothing is discarded unseen. A sub-skill of yours shadows a built-in of the same name, so you can sharpen a built-in for your own project without losing it.
+Specializing a name that already exists, whether a built-in like `regex` or one you specialized before, **reconciles** the current file instead of replacing it. It reads what is there, folds the new knowledge in, keeps what still holds, and rewrites what changed. Nothing is discarded unseen. A specialization of yours shadows a built-in of the same name, so you can sharpen a built-in for your own project without losing it.
 
 :::tip
 
-- The new _sub_-skill loads exactly like a built-in: the detect and verify phases pick it up on demand, or import it yourself with `@.lagune/skills/<name>.md` and give it a task.
-- When the material has an identifiable origin (an article, an author, a link, a standard), the sub-skill credits it. A bare topic carries no source.
+- The new specialization loads exactly like a built-in: the detect and verify phases pick it up on demand, or load it yourself with `npx --yes --prefer-offline lagune@{{version}} catalog <name>` and give it a task.
+- When the material has an identifiable origin (an article, an author, a link, a standard), the specialization credits it. A bare topic carries no source.
 
 :::
 
 <Faq
   items={[
     {
-      question: 'How do I add a custom security skill?',
+      question: 'How do I add a custom security specialization?',
       answer:
-        'Run /lagune.specialize with a source or topic. It distills it into a defense-only sub-skill, written to .lagune/skills/<name>.md plus a row in .lagune/skills.json.',
+        'Run /lagune.specialize with a source or topic. It distills it into a defense-only specialization, written to .lagune/catalog/<name>.md plus its entry in .lagune/catalog.json.',
     },
     {
       question: 'Can Lagune learn from an exploit write-up?',
@@ -79,7 +79,7 @@ Specializing a name that already exists, whether a built-in like `regex` or one 
         'Yes, as a source, never as output. An attack can be the source, never the product. Specialize never writes attack inputs or exploits.',
     },
     {
-      question: 'Does specialize overwrite built-in skills?',
+      question: 'Does specialize overwrite the built-in specializations?',
       answer: 'No. It refines, never overwrites.',
     },
   ]}

@@ -1,4 +1,4 @@
-import type { SkillIconName } from '@site/src/data/lagune';
+import type { SpecializationIconName } from '@site/src/data/lagune';
 import type { ReactNode } from 'react';
 import type { IconBaseProps, IconType } from 'react-icons';
 import {
@@ -65,7 +65,7 @@ const registry = {
   thumbsUp: FiThumbsUp,
   upload: FiUploadCloud,
   x: FiX,
-} satisfies Record<string, IconType> & Record<SkillIconName, IconType>;
+} satisfies Record<string, IconType> & Record<SpecializationIconName, IconType>;
 
 export type DocsIconName = keyof typeof registry;
 

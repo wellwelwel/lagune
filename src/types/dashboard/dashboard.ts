@@ -18,7 +18,7 @@ export type FindingRef = {
   name: string;
 };
 
-export type FindingSkill = {
+export type FindingSpecialization = {
   name: string;
   label: string;
   surfaced: string;
@@ -41,7 +41,7 @@ export type Finding = {
   upholds: Uphold[];
   dependsOn: FindingRef | null;
   references: string;
-  skills: FindingSkill[];
+  specializations: FindingSpecialization[];
   files: string[];
 };
 
@@ -64,11 +64,17 @@ export type Charter = {
   };
 };
 
-export type Skill = {
+export type CatalogItem = {
   name: string;
   label: string;
   applied: boolean;
+  inCatalog: boolean;
   surfaced?: string;
+};
+
+export type ProjectCategories = {
+  used: string[];
+  recorded: boolean;
 };
 
 export type DashboardDates = {
@@ -84,17 +90,6 @@ export type SideQuestPhase = Exclude<PhaseName, 'Verify'>;
 export type SideQuestItem = {
   phase: SideQuestPhase;
   text: string;
-};
-
-export type Install = {
-  agents: string[];
-  version: string | null;
-  running: string | null;
-  createdAt: string | null;
-  categories: string[];
-  present: boolean;
-  filesTotal: number;
-  missing: string[];
 };
 
 export type HistoryItem = {
@@ -115,7 +110,9 @@ export type DashboardData = {
   findings: Finding[];
   sidequests: SideQuestItem[];
   charter: Charter;
-  skills: Skill[];
+  catalog: CatalogItem[];
+  categories: ProjectCategories;
   history: HistoryItem[];
-  install: Install;
+  artifacts: boolean;
+  engine: string | null;
 };

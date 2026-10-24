@@ -63,8 +63,8 @@ npm ci
 
 **Lagune** is two layers, and knowing which one you are in saves most of the guesswork.
 
-- **`spec/`** carries the security value: the commands each phase runs, the templates they fill, and the sub-skills they load on demand. It is agent-agnostic and written once.
-- **`src/`** carries the machinery that scaffolds all of that into a user's project, plus the deterministic hooks and the dashboard.
+- **`skills/`** and **`catalog/`** carry the security value: the nine commands the **skills** CLI installs, each beside the template it fills, and the built-in specializations they load on demand. They are agent-agnostic and written once.
+- **`src/`** carries the engine the commands call: the deterministic hooks, the catalog, validation, the move from a **Lagune** CLI install, and the dashboard.
 
 ---
 
@@ -82,7 +82,7 @@ It's better to discuss a feature before actually starting to implement it. You c
 
 > [!TIP]
 >
-> - [ ] Does it belong in the agent-agnostic core, or only in one agent's adapter?
+> - [ ] Does it belong in a command's text, a specialization, or the engine?
 > - [ ] Is it defensive? **Lagune** hardens and verifies, and never ships offensive tooling or exploits for malicious use.
 > - [ ] Is the behavior consistent across all runtimes?
 > - [ ] Are the tests simulating real user usage?
@@ -95,9 +95,9 @@ It's better to discuss a feature before actually starting to implement it. You c
 - **Every type declaration lives in `src/types/`.** Nothing declares a `type` or an `interface` anywhere else.
 - **`any` and `as unknown as` are forbidden.** Reach for `as` last, preferring a direct annotation or `satisfies`.
 - **Named exports only**, arrow functions declared with `const`, early returns over nesting, and no abbreviated names.
-- **Prefer native capabilities over external dependencies.** The published bundle is self-contained, so `npx lagune` needs no install on the user's machine.
-- **Adding an agent is data, not code.** A new agent is one entry in the provider registry, which is the single source of truth for what is supported. The core stays neutral, and adapters stay thin.
-- **Adding a sub-skill is one knowledge file plus one catalog row**, never a new command.
+- **Prefer native capabilities over external dependencies.** The published bundle is self-contained, so the engine command needs no install on the user's machine.
+- **Adding a built-in specialization is one file in `catalog/` plus one row in the built-in index**, never a new command.
+- **A command only calls what its engine version supports.** The **skills** CLI installs `skills/` from the default branch as it stands, so a change that needs new engine behavior lands together with the release that publishes it.
 - **Prefer the async Node.js APIs**, and always prefix native imports with `node:`.
 
 > [!NOTE]

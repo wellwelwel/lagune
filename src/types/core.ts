@@ -1,26 +1,30 @@
+import type { Category } from './catalog.js';
 import type { CvssSeverity } from './cvss.js';
 
 export type CliCommand =
-  | 'init'
-  | 'update'
-  | 'pull'
+  | 'catalog'
   | 'add'
   | 'remove'
   | 'list'
   | 'dashboard'
-  | 'migrate';
+  | 'migrate'
+  | 'init'
+  | 'pull'
+  | 'update';
 
 export type ParsedCliArgs = {
   command: CliCommand | undefined;
-  agent: string | undefined;
-  skills: string[];
-  skillsRequested: boolean;
+  unknown: string | undefined;
+  values: string[];
+  categoriesRequested: boolean;
   findingsRequested: boolean;
   help: boolean;
   version: boolean;
   bare: boolean;
   port: number | undefined;
 };
+
+export type InstalledRoute = 'local' | 'frozen' | 'refused';
 
 export type HookResult = {
   output: string;
@@ -31,166 +35,28 @@ export type HookReturn = string | HookResult;
 
 export type HookHandler = (args: string[]) => Promise<HookReturn> | HookReturn;
 
-export type SkillGroupKey =
-  | 'owasp'
+export type HookName =
+  | 'agent'
+  | 'cors'
+  | 'crypto'
+  | 'cvss'
   | 'infra'
-  | 'ai'
-  | 'lovable'
-  | 'javascript'
-  | 'python'
-  | 'rust'
-  | 'java'
-  | 'ruby'
-  | 'php'
-  | 'go'
-  | 'c-cpp'
-  | 'dotnet';
-
-export type SkillGroup = {
-  key: SkillGroupKey;
-  label: string;
-  description: string;
-};
-
-export type BuiltinSkillEntry = {
-  name: string;
-  tags: string[];
-  groups: SkillGroupKey[];
-  required?: boolean;
-};
-
-export type SkillCatalogEntry = {
-  name: string;
-  tags: string[];
-  groups: string[];
-};
-
-export type ListableSkillEntry = SkillCatalogEntry & { required?: boolean };
-
-export type SkillsCatalogFile = {
-  name: 'lagune';
-  entries: SkillCatalogEntry[];
-};
-
-export type CommandKey =
-  | 'lagune'
-  | 'charter'
-  | 'detect'
-  | 'plan'
-  | 'harden'
-  | 'verify'
+  | 'interpreter'
+  | 'jwt'
+  | 'network'
+  | 'regex'
   | 'repair'
-  | 'specialize'
-  | 'prove';
+  | 'secrets'
+  | 'track'
+  | 'untrack'
+  | 'validate';
 
-export type TemplateKey = Exclude<CommandKey, 'lagune' | 'repair' | 'verify'>;
-
-export type BundledAsset = {
-  fileName: string;
-  contents: string;
-};
-
-export type BundledAssets = {
-  commands: Record<CommandKey, BundledAsset>;
-  templates: Record<TemplateKey, BundledAsset>;
-  hooks: BundledAsset[];
-  skills: BundledAsset[];
-};
-
-export type SpecTokenCount = {
+export type TokenCount = {
   relativePath: string;
   tokens: number;
 };
 
-export type FileStatus =
-  | 'created'
-  | 'linked'
-  | 'refreshed'
-  | 'skipped'
-  | 'removed'
-  | 'absent'
-  | 'kept';
-
-export type FileOutcome = {
-  path: string;
-  status: FileStatus;
-  keptBy?: string;
-  linkTo?: string;
-};
-
-export type GitignoreOutcome = 'created' | 'updated' | 'unchanged';
-
-export type ScaffoldGroup = {
-  label: string;
-  baseDir: string;
-  outcomes: FileOutcome[];
-};
-
-export type ScaffoldBucket = {
-  label: string;
-  baseDir: string;
-  owns: (path: string) => boolean;
-};
-
-export type SkillsChange = {
-  outcomes: FileOutcome[];
-  categories: string[];
-};
-
-export type ManifestChange = {
-  categories: string[];
-  addFiles: string[];
-  removeFiles: string[];
-};
-
-export type CommandWrite = {
-  relativePath: string;
-  contents: string;
-};
-
-export type PlannedCommandWrite = CommandWrite & {
-  linkTo?: string;
-};
-
-export type LinkedFile = {
-  path: string;
-  target: string;
-};
-
-export type CommandFormat =
-  | 'skill'
-  | 'continue-prompt'
-  | 'markdown'
-  | 'forge'
-  | 'gemini-toml'
-  | 'goose-yaml';
-
-export type CommandLayout = 'skill' | 'file';
-
-export type AgentDeprecation = { successor: string } | { endOfLife: string };
-
-export type AgentSpec = {
-  key: string;
-  displayName: string;
-  url: string;
-  icon?: string;
-  deprecated?: AgentDeprecation;
-  format: CommandFormat;
-  dir: string;
-  extension?: string;
-  layout?: CommandLayout;
-};
-
-export type AgentProvider = {
-  key: string;
-  displayName: string;
-  buildCommands: (assets: BundledAssets) => CommandWrite[];
-};
-
-export type AgentChoice = {
-  key: string;
-  displayName: string;
-};
+export type RemovalStatus = 'removed' | 'absent';
 
 export type SelectOption = {
   label: string;
@@ -209,7 +75,7 @@ export type SelectConfig = {
   footer?: string;
 };
 
-export type ListTarget = 'findings' | 'skills';
+export type ListTarget = 'findings' | 'categories';
 
 export type FilteredOption = {
   option: SelectOption;
@@ -227,170 +93,40 @@ export type KeypressEvent = {
   ctrl?: boolean;
 };
 
-export type SelectAgentDeps = {
-  isInteractive: () => boolean;
-  promptForAgent: (
-    agents: AgentChoice[],
-    installed: string[]
-  ) => Promise<string>;
-};
-
 export type SelectCategoriesInput = {
   requested: string[];
-  shouldPrompt: boolean;
-  groups: SkillGroup[];
-  preselected: string[];
+  categories: Category[];
   locked: string[];
 };
 
 export type SelectCategoriesDeps = {
   isInteractive: () => boolean;
-  promptForSkills: (
-    groups: SkillGroup[],
-    options: { preselected: string[]; locked: string[] }
+  promptForCategories: (
+    categories: Category[],
+    locked: string[]
   ) => Promise<string[]>;
 };
 
-export type ScaffoldOptions = {
-  targetDir: string;
-  provider?: AgentProvider;
-  installedProviders?: AgentProvider[];
-  assets: BundledAssets;
+export type MovedFile = {
+  from: string;
+  to: string;
 };
 
-export type RefreshOptions = {
-  targetDir: string;
-  providers: AgentProvider[];
-  assets: BundledAssets;
-  version: string;
-  now: Date;
-};
+export type GitignoreChange = 'removed' | 'updated' | 'unchanged';
 
-export type ReconstructOptions = {
-  targetDir: string;
-  providers: AgentProvider[];
-  assets: BundledAssets;
-};
-
-export type ScaffoldResult = {
-  created: string[];
-  linked: LinkedFile[];
-  skipped: string[];
-  manifestPath: string;
-};
-
-export type PerformInitInput = {
-  cwd: string;
-  packageRoot: URL;
-  provider?: AgentProvider;
-  categoryKeys: string[];
-  now: Date;
-};
-
-export type PerformInitResult = {
-  scaffold: ScaffoldResult;
-  gitignore: GitignoreOutcome;
-  installedAgents: string[];
-};
-
-export type PerformPullInput = {
-  cwd: string;
-  packageRoot: URL;
-};
-
-export type PerformPullResult =
-  | { initialized: false }
-  | {
-      initialized: true;
-      scaffold: ScaffoldResult;
-      gitignore: GitignoreOutcome;
-      agents: string[];
-    };
-
-export type RefreshResult = {
-  refreshed: string[];
+export type MigrateSummary = {
   removed: string[];
-  manifestPath: string;
+  moved: MovedFile[];
+  kept: string[];
+  gitignore: GitignoreChange;
 };
 
-export type PerformUpdateInput = {
-  cwd: string;
-  packageRoot: URL;
-  now: Date;
-};
-
-export type PerformUpdateResult =
-  | { initialized: false }
-  | {
-      initialized: true;
-      refresh: RefreshResult;
-      agents: string[];
-    };
-
-export type PerformSpecializeInput = {
-  cwd: string;
-  packageRoot: URL;
-  categories: string[];
-  now: Date;
-};
-
-export type PerformSpecializeResult =
-  | { initialized: false }
-  | {
-      initialized: true;
-      added: number;
-      removed: number;
-      categories: string[];
-    };
-
-export type PerformMigrateInput = {
-  cwd: string;
-  packageRoot: URL;
-  now: Date;
-};
-
-export type MigrateBlockedReason =
-  'not-initialized' | 'already-migrated' | 'conflict';
-
-export type PerformMigrateResult =
-  | { migrated: false; reason: MigrateBlockedReason }
-  | {
-      migrated: true;
-      agents: string[];
-      removedCommands: FileOutcome[];
-      rewrittenState: string[];
-      gitignore: GitignoreOutcome;
-      refresh: RefreshResult;
-    };
+export type MigrateResult =
+  { migrated: false } | ({ migrated: true } & MigrateSummary);
 
 export type LegacyInstall = {
-  agents: string[];
-  categories: string[];
   files: string[];
-};
-
-export type ManifestAgent = string | string[];
-
-export type ManifestInstall = {
-  agents: string[];
-  categories: string[];
-};
-
-export type ManifestInput = {
-  version: string;
-  agent: string;
-  now: Date;
-  files: string[];
-  categories: string[];
-};
-
-export type ManifestData = {
-  name: 'lagune';
-  version: string;
-  agent: ManifestAgent;
-  createdAt: string;
-  files: string[];
-  categories: string[];
+  categories: string[] | undefined;
 };
 
 export type TrackingEntry = {
@@ -453,6 +189,11 @@ export type RemovalResult = {
 export type Block = {
   name: string;
   body: string;
+};
+
+export type AppliedEntry = {
+  name: string;
+  contribution: string;
 };
 
 export type MarkdownLine = {
