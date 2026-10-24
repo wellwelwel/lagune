@@ -1,4 +1,4 @@
-import type { Category } from '@site/src/data/registry';
+import type { Category } from '@site/src/data/categories';
 import type { ReactNode } from 'react';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {

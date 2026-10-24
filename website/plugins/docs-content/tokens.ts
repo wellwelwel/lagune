@@ -1,4 +1,4 @@
-import { ALL_CATEGORIES } from '../../src/data/registry';
+import { ALL_CATEGORIES } from '../../src/data/categories';
 import { LAGUNE_VERSION } from './version';
 
 const TOKENS: Record<string, string> = {

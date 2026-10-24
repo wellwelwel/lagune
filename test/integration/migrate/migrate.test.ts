@@ -4,6 +4,7 @@ import {
   readdir,
   readFile,
   rm,
+  symlink,
   writeFile,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -85,6 +86,21 @@ const newProject = async (files: Record<string, string>): Promise<string> => {
   await writeFile(join(root, 'outside/lagune.md'), 'outside\n');
 
   return project;
+};
+
+const without = (
+  files: Record<string, string>,
+  path: string
+): Record<string, string> =>
+  Object.fromEntries(Object.entries(files).filter(([file]) => file !== path));
+
+const linkAt = async (
+  project: string,
+  path: string,
+  target: string
+): Promise<void> => {
+  await mkdir(dirname(join(project, path)), { recursive: true });
+  await symlink(target, join(project, path));
 };
 
 const read = (project: string, path: string): Promise<string | null> =>
@@ -255,4 +271,67 @@ await describe('migrate changes nothing it cannot account for', async () => {
       strict.notStrictEqual(manifest, null);
       strict.strictEqual(copy, '# copy of the built-in\n');
     });
+});
+
+await describe('migrate never reaches outside the project', async () => {
+  await it('removes a generated folder that is a link, never what it points to', async () => {
+    const project = await newProject(
+      without(INSTALL, '.lagune/hooks/regex.mjs')
+    );
+
+    await linkAt(project, '.lagune/hooks', '../../outside');
+    await performMigrate(project);
+
+    const [outside, lagune] = await Promise.all([
+      read(project, '../outside/lagune.md'),
+      listing(project, '.lagune'),
+    ]);
+
+    strict.strictEqual(outside, 'outside\n');
+    strict.strictEqual(lagune.includes('hooks'), false);
+  });
+
+  await it('leaves alone an agent command whose folder resolves outside the project', async () => {
+    const project = await newProject(
+      without(INSTALL, '.claude/skills/lagune.detect/SKILL.md')
+    );
+
+    await mkdir(join(project, '../outside/agent/skills/lagune.detect'), {
+      recursive: true,
+    });
+    await writeFile(
+      join(project, '../outside/agent/skills/lagune.detect/SKILL.md'),
+      'shared\n'
+    );
+    await linkAt(project, '.claude', '../outside/agent');
+    await performMigrate(project);
+
+    const shared = await read(
+      project,
+      '../outside/agent/skills/lagune.detect/SKILL.md'
+    );
+
+    strict.strictEqual(shared, 'shared\n');
+  });
+
+  await it('refuses a catalog file that is a link before touching anything', async () => {
+    const project = await newProject(INSTALL);
+    const shared = '{"name":"lagune","entries":[]}\n';
+
+    await writeFile(join(project, '../outside/catalog.json'), shared);
+    await linkAt(project, '.lagune/catalog.json', '../../outside/catalog.json');
+
+    const outcome = await performMigrate(project).then(
+      () => 'migrated',
+      () => 'refused'
+    );
+    const [outside, hook] = await Promise.all([
+      read(project, '../outside/catalog.json'),
+      read(project, '.lagune/hooks/regex.mjs'),
+    ]);
+
+    strict.strictEqual(outcome, 'refused');
+    strict.strictEqual(outside, shared);
+    strict.strictEqual(hook, INSTALL['.lagune/hooks/regex.mjs']);
+  });
 });

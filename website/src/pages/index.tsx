@@ -11,6 +11,7 @@ import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
 import { RailTip } from '@site/src/components/home/RailTip';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { MaskIcon } from '@site/src/components/MaskIcon';
+import { ALL_CATEGORIES } from '@site/src/data/categories';
 import {
   BACKGROUND_SIZES,
   BACKGROUND_SRCSETS,
@@ -21,7 +22,6 @@ import {
   STEP_ICONS,
   TABS,
 } from '@site/src/data/home';
-import { ALL_CATEGORIES } from '@site/src/data/registry';
 import {
   lazy,
   Suspense,
@@ -116,7 +116,6 @@ const glideToTop = () => {
 
 const Home = (): ReactNode => {
   const [active, setActive] = useState<WindowId>('overview');
-  const [global, setGlobal] = useState(false);
   const [categories, setCategories] = useState<string[]>([]);
   const [usageStep, setUsageStep] = useState(0);
   const [modeIndex, setModeIndex] = useState(0);
@@ -396,7 +395,7 @@ const Home = (): ReactNode => {
                     name: 'How do I install Lagune?',
                     acceptedAnswer: {
                       '@type': 'Answer',
-                      text: 'Run npx skills add wellwelwel/lagune in your project, or add --global to install the commands once for every project. It works in both new and existing projects and needs no API key.',
+                      text: 'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects and needs no API key.',
                     },
                   },
                   {
@@ -636,8 +635,6 @@ const Home = (): ReactNode => {
 
                   {active === 'install' && (
                     <InstallPanel
-                      global={global}
-                      onScope={setGlobal}
                       onOpenCategories={openCategories}
                       onToggleCategory={toggleCategory}
                       chosen={categories}

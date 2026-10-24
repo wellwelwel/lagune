@@ -21,7 +21,6 @@ const tiers: Tier[] = [
     priority: 0.8,
     match: (pathname) =>
       pathname.startsWith('/docs/get-started/') ||
-      pathname === '/docs/supported-agents' ||
       pathname === '/docs/categories' ||
       pathname === '/docs/commands/lagune' ||
       pathname === '/docs/references/paper',

@@ -1,6 +1,10 @@
 import type { GitignoreChange } from '../types/core.js';
 import { join } from 'node:path';
-import { removeFileIfPresent, writeFileOverwrite } from './fs-actions.js';
+import {
+  fileWithin,
+  removeFileIfPresent,
+  writeFileOverwrite,
+} from './fs-actions.js';
 import { readText } from './markdown/read.js';
 
 const SECTION_HEADER = '# Lagune';
@@ -32,7 +36,10 @@ const tidy = (lines: string[]): string =>
 export const removeLaguneBlock = async (
   cwd: string
 ): Promise<GitignoreChange> => {
-  const path = join(cwd, '.gitignore');
+  const path = await fileWithin(cwd, join(cwd, '.gitignore'));
+
+  if (path === undefined) return 'unchanged';
+
   const existing = await readText(path);
 
   if (existing === null) return 'unchanged';

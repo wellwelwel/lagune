@@ -23,10 +23,6 @@ Earlier versions installed **Lagune** with `npx lagune init`, which wrote the co
 
 A project with a manifest keeps working as it is. `npx --yes lagune@latest` hands `init`, `pull`, `update`, `add`, `remove`, `list`, and the dashboard to `lagune@0.15.0`, the last version of the **Lagune** CLI, and prints a notice pointing here. What only the skills-based **Lagune** has (the hook subcommands, `catalog`, and the `--categories` flag) fails in such a project instead of reaching that version.
 
-:::warning[Agents the skills CLI does not cover]
-The **skills** CLI does not cover **CoStrict**, **SHAI**, or **Xum**. A project that runs **Lagune** through one of them keeps its **Lagune** CLI install.
-:::
-
 ## Move it
 
 1. Make sure your current work is committed, then run migrate from the project root:
@@ -36,7 +32,7 @@ The **skills** CLI does not cover **CoStrict**, **SHAI**, or **Xum**. A project 
    ```
 
 2. Commit what it changed on its own, so the move stays one reviewable change.
-3. Install the commands, and the **skills** CLI detects your agents or asks for them:
+3. Install the commands:
 
    ```bash
    npx skills add wellwelwel/lagune

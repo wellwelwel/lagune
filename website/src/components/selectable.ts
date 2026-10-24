@@ -1,6 +1,6 @@
 /*
  * The selectable-card look shared by every pick-one / pick-many button on
- * the landing page (agents, specializations, and their "more" openers).
+ * the landing page (install scopes, categories, and their "more" opener).
  * Callers prepend their own layout classes (flex, gap, padding).
  */
 

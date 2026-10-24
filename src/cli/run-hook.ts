@@ -1,15 +1,12 @@
 import type { HookHandler, HookReturn } from '../types/core.js';
-import { realpath } from 'node:fs/promises';
 import process, { argv, stderr, stdout } from 'node:process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { realPathOf } from '../core/fs-actions.js';
 
 const normalize = (result: HookReturn): { output: string; finding: boolean } =>
   typeof result === 'string'
     ? { output: result, finding: false }
     : { output: result.output, finding: result.hasFinding };
-
-const realPathOf = (path: string): Promise<string | undefined> =>
-  realpath(path).catch(() => undefined);
 
 const isExecutedEntry = async (moduleUrl: string): Promise<boolean> => {
   const entry = argv[1];

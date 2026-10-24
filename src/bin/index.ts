@@ -3,7 +3,12 @@ import { frozenHandoff, frozenRefusal } from '../cli/messages.js';
 import { parseCliArgs } from '../cli/parse-args.js';
 import { executeHook } from '../cli/run-hook.js';
 import { hasManifest } from '../core/migrate.js';
-import { FROZEN_VERSION, handOff, installedRoute } from './fallback.js';
+import {
+  FROZEN_VERSION,
+  frozenNpx,
+  handOff,
+  installedRoute,
+} from './fallback.js';
 import { HOOKS, isHookName } from './hooks.js';
 import { run } from './run.js';
 
@@ -37,8 +42,10 @@ const answer = async (): Promise<void> => {
     );
   if (route === 'local') return run(parsed, cwd, packageRoot);
 
+  const npx = await frozenNpx();
+
   process.stderr.write(`${frozenHandoff(FROZEN_VERSION)}\n`);
-  process.exitCode = await handOff(args);
+  process.exitCode = await handOff(npx, args);
 };
 
 try {

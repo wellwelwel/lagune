@@ -15,7 +15,6 @@ export const docsNav: DocsNavEntry[] = [
       'get-started/install',
       'get-started/offline',
       'get-started/commands',
-      'supported-agents',
       'categories',
     ],
   },
@@ -66,7 +65,6 @@ export const docsNav: DocsNavEntry[] = [
       'references/glossary',
       'references/deepsec',
       'references/skills-sources',
-      'references/comparison',
     ],
   },
   {

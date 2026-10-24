@@ -25,10 +25,11 @@ export const newWorkspace = async (): Promise<string> => {
 export const runScript = (
   cwd: string,
   script: string,
-  args: string[]
+  args: string[],
+  env?: NodeJS.ProcessEnv
 ): Promise<HookRun> =>
   new Promise((resolve, reject) => {
-    const child = spawn(execPath, [script, ...args], { cwd });
+    const child = spawn(execPath, [script, ...args], { cwd, env });
     const out: string[] = [];
     const err: string[] = [];
 
@@ -42,8 +43,11 @@ export const runScript = (
     );
   });
 
-export const runEngine = (cwd: string, args: string[]): Promise<HookRun> =>
-  runScript(cwd, ENGINE, args);
+export const runEngine = (
+  cwd: string,
+  args: string[],
+  env?: NodeJS.ProcessEnv
+): Promise<HookRun> => runScript(cwd, ENGINE, args, env);
 
 afterEach(async () => {
   await Promise.all(

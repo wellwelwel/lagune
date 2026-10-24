@@ -133,8 +133,8 @@ export const frozenHandoff = (version: string): string =>
 export const frozenRefusal = (command: string): string =>
   `This project was installed by the Lagune CLI, which keeps working here, but ${command} is part of the skills-based Lagune the project has not moved to yet. To move it, see ${MIGRATE_PAGE}`;
 
-export const handoffRefused = (version: string): string =>
-  `An argument holds a character the Windows shell would read as syntax. Run ${engineCommand(version)} yourself with the same arguments.`;
+export const handoffUnavailable = (version: string): string =>
+  `This project was installed by the Lagune CLI, which keeps working with lagune@${version}, but this runtime brings no npm to start it. Run npx --yes lagune@${version} yourself with the same arguments. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
 
 const footer = (...middle: string[]): string =>
   ['Enter to confirm', ...middle, 'Esc to cancel'].join(' · ');

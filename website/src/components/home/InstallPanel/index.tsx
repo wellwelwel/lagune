@@ -1,30 +1,17 @@
 import type { PointerEvent } from 'react';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { GroupHead } from '@site/src/components/home/GroupHead';
-import { IconSwap } from '@site/src/components/IconSwap';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
   selectableCard,
   selectableTint,
 } from '@site/src/components/selectable';
-import { ALL_CATEGORIES } from '@site/src/data/registry';
+import { ALL_CATEGORIES } from '@site/src/data/categories';
 import { memo, useMemo } from 'react';
-import {
-  LuChevronRight,
-  LuCircle,
-  LuCircleCheckBig,
-  LuFolderGit2,
-  LuGlobe,
-  LuLayoutGrid,
-} from 'react-icons/lu';
+import { LuChevronRight, LuLayoutGrid } from 'react-icons/lu';
 
 const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
 const CATEGORIES_ADD = 'npx --yes lagune@latest add';
-
-const SCOPES = [
-  { global: false, label: 'This project', Icon: LuFolderGit2 },
-  { global: true, label: 'Every project', Icon: LuGlobe },
-];
 
 const clampTip = (event: PointerEvent<HTMLButtonElement>) => {
   const wrap = event.currentTarget;
@@ -46,14 +33,10 @@ const clampTip = (event: PointerEvent<HTMLButtonElement>) => {
 };
 
 const InstallPanelComponent = ({
-  global,
-  onScope,
   onOpenCategories,
   onToggleCategory,
   chosen,
 }: {
-  global: boolean;
-  onScope: (global: boolean) => void;
   onOpenCategories: () => void;
   onToggleCategory: (key: string) => void;
   chosen: string[];
@@ -68,56 +51,18 @@ const InstallPanelComponent = ({
 
   const commands = useMemo(
     () => [
-      global ? `${SKILLS_ADD} --global` : SKILLS_ADD,
+      SKILLS_ADD,
       ...(orderedCategories.length > 0
         ? [
             `${CATEGORIES_ADD} --categories ${orderedCategories.map((category) => category.key).join(' ')}`,
           ]
         : []),
     ],
-    [global, orderedCategories]
+    [orderedCategories]
   );
 
   return (
     <div className='flex flex-col min-w-0'>
-      <GroupHead title='Install the commands' meta='Required' />
-
-      <div
-        className='grid grid-cols-2 gap-2 mb-[22px]'
-        role='radiogroup'
-        aria-label='Install the commands'
-      >
-        {SCOPES.map((scope) => {
-          const on = scope.global === global;
-
-          return (
-            <button
-              key={scope.label}
-              type='button'
-              role='radio'
-              aria-checked={on}
-              onClick={() => onScope(scope.global)}
-              className={`flex items-center gap-3 p-[12px_14px] ${selectableCard(on)}`}
-            >
-              <span
-                className={`shrink-0 size-5 flex items-center justify-center [&>svg]:size-5 transition-colors duration-200 ease-out ${selectableTint(on)}`}
-              >
-                <scope.Icon aria-hidden />
-              </span>
-              <span className='flex-1 min-w-0 text-[13.5px] font-semibold tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
-                {scope.label}
-              </span>
-              <IconSwap
-                on={on}
-                className={`shrink-0 [&_svg]:size-[18px] ${selectableTint(on)}`}
-                active={<LuCircleCheckBig />}
-                inactive={<LuCircle />}
-              />
-            </button>
-          );
-        })}
-      </div>
-
       <GroupHead title='Choose categories' meta='Optional' />
 
       <div className='flex flex-wrap items-center gap-3 mb-[22px]'>
@@ -182,14 +127,6 @@ const InstallPanelComponent = ({
             </span>
             <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
               {SKILLS_ADD}
-              {global && (
-                <>
-                  {' '}
-                  <span className='lagune-token-in text-[#5191ff]'>
-                    --global
-                  </span>
-                </>
-              )}
             </code>
           </span>
           {orderedCategories.length > 0 && (
@@ -219,9 +156,8 @@ const InstallPanelComponent = ({
       </div>
 
       <p className='mx-1 mt-6 text-[12px] leading-[1.6] text-muted [text-wrap:pretty]'>
-        The skills CLI finds your agents or asks which ones to use. Then run{' '}
-        <code>/lagune.charter</code>: with no category chosen, it records the
-        ones its reading of your project supports.
+        Then run <code>/lagune.charter</code> in your agent: with no category
+        chosen, it records the ones its reading of your project supports.
       </p>
 
       <p className='mx-1 mt-3 text-[12px] leading-[1.6] text-muted'>

@@ -8,7 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { isRecord, isStringArray } from '../core/collections.js';
 import {
   ensureDir,
-  pathExists,
+  existingWithin,
+  fileWithin,
   writeFileOverwrite,
 } from '../core/fs-actions.js';
 import { parseJsonObject } from '../core/json.js';
@@ -67,18 +68,19 @@ export const readProjectCatalog = async (
 export const usedCategories = (catalog: ProjectCatalog): string[] =>
   catalog.categories ?? DEFAULT_CATEGORIES;
 
-const ownFile = (cwd: string, name: string): string =>
-  join(cwd, CATALOG_DIR, `${name}.md`);
+/** The project's own file for a name, only when it resolves inside the project */
+const ownFile = (cwd: string, name: string): Promise<string | undefined> =>
+  existingWithin(cwd, join(cwd, CATALOG_DIR, `${name}.md`));
 
 const presentOwn = async (
   cwd: string,
   entries: Specialization[]
 ): Promise<Specialization[]> => {
   const present = await Promise.all(
-    entries.map((entry) => pathExists(ownFile(cwd, entry.name)))
+    entries.map((entry) => ownFile(cwd, entry.name))
   );
 
-  return entries.filter((_entry, index) => present[index]);
+  return entries.filter((_entry, index) => present[index] !== undefined);
 };
 
 /** The catalog the project uses: the built-ins of its categories plus its own, its own winning a name */
@@ -97,13 +99,19 @@ export const catalogEntries = async (cwd: string): Promise<CatalogEntry[]> =>
 const isBuiltin = (name: string): boolean =>
   BUILTIN_SPECIALIZATIONS.some((entry) => entry.name === name);
 
+const readOwn = async (cwd: string, name: string): Promise<string | null> => {
+  const file = await ownFile(cwd, name);
+
+  return file === undefined ? null : readText(file);
+};
+
 /** The specialization the project resolves under a name, its own first and then the built-in, whatever the categories */
 export const readSpecialization = async (
   cwd: string,
   packageRoot: URL,
   name: string
 ): Promise<string | undefined> => {
-  const own = await readText(ownFile(cwd, name));
+  const own = await readOwn(cwd, name);
 
   if (own !== null) return own;
   if (!isBuiltin(name)) return undefined;
@@ -115,11 +123,25 @@ export const readSpecialization = async (
   return builtin ?? undefined;
 };
 
+/** The project's catalog file, refusing a link or a state folder that resolves outside the project */
+export const containedCatalogFile = async (cwd: string): Promise<string> => {
+  const file = await fileWithin(cwd, join(cwd, CATALOG_FILE));
+
+  if (file === undefined)
+    throw new Error(
+      `${CATALOG_FILE} must be a file inside this project, not a link or a path outside it: fix it, then run this again.`
+    );
+
+  return file;
+};
+
 export const recordCategories = async (
   cwd: string,
   categories: string[]
 ): Promise<void> => {
-  const path = join(cwd, CATALOG_FILE);
+  await ensureDir(join(cwd, '.lagune'));
+
+  const path = await containedCatalogFile(cwd);
   const raw = await readText(path);
   const fields: Record<string, unknown> =
     raw === null ? {} : parseJsonObject(raw, CATALOG_FILE);
@@ -130,6 +152,5 @@ export const recordCategories = async (
     entries: fields.entries ?? [],
   };
 
-  await ensureDir(join(cwd, '.lagune'));
   await writeFileOverwrite(path, `${JSON.stringify(recorded, null, 2)}\n`);
 };

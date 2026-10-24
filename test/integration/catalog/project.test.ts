@@ -1,13 +1,22 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  rm,
+  symlink,
+  writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, it, strict } from 'poku';
 import {
   catalogEntries,
   readProjectCatalog,
+  readSpecialization,
   recordCategories,
 } from '../../../src/catalog/project.js';
 
+const packageRoot = new URL('../../../', import.meta.url);
 const projects: string[] = [];
 
 const newProject = async (catalog?: string): Promise<string> => {
@@ -26,6 +35,17 @@ const newProject = async (catalog?: string): Promise<string> => {
 const writeOwn = async (project: string, name: string): Promise<void> => {
   await mkdir(join(project, '.lagune/catalog'), { recursive: true });
   await writeFile(join(project, `.lagune/catalog/${name}.md`), `# ${name}\n`);
+};
+
+const SECRET = '{"secret":true}\n';
+
+const secretOutside = async (): Promise<string> => {
+  const outside = await newProject();
+  const secret = join(outside, 'secret.json');
+
+  await writeFile(secret, SECRET);
+
+  return secret;
 };
 
 afterEach(async () => {
@@ -118,6 +138,24 @@ await describe('the catalog a project uses', async () => {
     ]);
   });
 
+  await it('never lists or prints an own specialization that resolves outside the project', async () => {
+    const project = await newProject(
+      JSON.stringify({ categories: [], entries: [{ name: 'leak', tags: [] }] })
+    );
+    const secret = await secretOutside();
+
+    await mkdir(join(project, '.lagune/catalog'), { recursive: true });
+    await symlink(secret, join(project, '.lagune/catalog/leak.md'));
+
+    const [entries, printed] = await Promise.all([
+      catalogEntries(project),
+      readSpecialization(project, packageRoot, 'leak'),
+    ]);
+
+    strict.deepStrictEqual(entries, []);
+    strict.strictEqual(printed, undefined);
+  });
+
   await it('lets an own specialization replace the built-in of the same name', async () => {
     const project = await newProject(
       JSON.stringify({
@@ -181,5 +219,22 @@ await describe('recording categories', async () => {
 
     strict.strictEqual(outcome, 'refused');
     strict.strictEqual(contents, '{"entries": [');
+  });
+
+  await it('refuses to write through a link, leaving its target untouched', async () => {
+    const project = await newProject();
+    const secret = await secretOutside();
+
+    await mkdir(join(project, '.lagune'), { recursive: true });
+    await symlink(secret, join(project, '.lagune/catalog.json'));
+
+    const outcome = await recordCategories(project, ['go']).then(
+      () => 'recorded',
+      () => 'refused'
+    );
+    const contents = await readFile(secret, 'utf8');
+
+    strict.strictEqual(outcome, 'refused');
+    strict.strictEqual(contents, SECRET);
   });
 });

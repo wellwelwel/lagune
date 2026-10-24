@@ -64,7 +64,7 @@ The engine computes the catalog on demand: `catalog` prints it as `name: tags`, 
 
 Every skill calls the engine as `npx --yes --prefer-offline lagune@<version> <subcommand>` from the project root. A hook subcommand is routed ahead of the argument parser, so its arguments reach the hook untouched, and a subcommand the engine does not know fails instead of reading as clean. The engine's own subcommands are `catalog`, the category subcommands (`add`, `remove`, and `list` with `--categories`), `list --findings`, `migrate`, and the dashboard.
 
-A project the **Lagune** CLI installed carries `.lagune/manifest.json`, and that manifest alone decides who answers there: `migrate` runs this design, everything else the old CLI knows is handed to the frozen `lagune@0.15.0`, and what only this design has fails with a notice pointing to the migrate page. Without a manifest, `init`, `pull`, and `update` fail, pointing to the **skills** CLI.
+A project the **Lagune** CLI installed carries `.lagune/manifest.json`, and that manifest alone decides who answers there: `migrate` runs this design, everything else the old CLI knows is handed to the frozen `lagune@0.15.0`, and what only this design has fails with a notice pointing to the migrate page. The hand-off runs the npm installed with the running **Node.js**, with no shell and never one a search path or the project could plant, and a runtime without one fails with the command to run instead. Without a manifest, `init`, `pull`, and `update` fail, pointing to the **skills** CLI.
 
 ## Project state
 

@@ -1,17 +1,20 @@
 import type { ProjectCatalog, Specialization } from '../types/catalog.js';
 import type { LegacyInstall, MigrateResult, MovedFile } from '../types/core.js';
 import { readdir, rename, rmdir } from 'node:fs/promises';
-import { join, resolve, sep } from 'node:path';
+import { join, resolve } from 'node:path';
 import { BUILTIN_SPECIALIZATIONS } from '../catalog/builtin.js';
 import {
   CATALOG_DIR,
-  CATALOG_FILE,
+  containedCatalogFile,
   readProjectCatalog,
   specializationsOf,
 } from '../catalog/project.js';
 import { isStringArray } from './collections.js';
 import {
   ensureDir,
+  entryWithin,
+  existingWithin,
+  fileWithin,
   pathExists,
   removeEntryIfPresent,
   removeFileIfPresent,
@@ -61,9 +64,6 @@ const readLegacyIndex = async (cwd: string): Promise<Specialization[]> => {
   return specializationsOf(parseJsonObject(raw, LEGACY_INDEX_FILE).entries);
 };
 
-const isInside = (cwd: string, path: string): boolean =>
-  resolve(cwd, path).startsWith(resolve(cwd) + sep);
-
 /** The folder or file the Lagune CLI generated for one agent command, never anything else */
 const commandEntry = (path: string): string | undefined => {
   const segments = path.split('/');
@@ -76,31 +76,43 @@ const commandEntry = (path: string): string | undefined => {
   return COMMAND_FILE.test(file) ? path : undefined;
 };
 
-const agentCommands = (cwd: string, files: string[]): string[] => [
+const agentCommands = (files: string[]): string[] => [
   ...new Set(
     files
-      .filter((file) => !file.startsWith('.lagune/') && isInside(cwd, file))
+      .filter((file) => !file.startsWith('.lagune/'))
       .map(commandEntry)
       .filter((entry): entry is string => entry !== undefined)
   ),
 ];
 
+/** Removes the entry itself, never a link's target, and only when it sits inside the project */
+const removeWithin = async (cwd: string, path: string): Promise<boolean> => {
+  const entry = await entryWithin(cwd, resolve(cwd, path));
+
+  if (entry === undefined) return false;
+
+  return (await removeEntryIfPresent(entry)) === 'removed';
+};
+
 const removeAll = async (cwd: string, paths: string[]): Promise<string[]> => {
-  const statuses = await Promise.all(
-    paths.map((path) => removeEntryIfPresent(join(cwd, path)))
+  const removed = await Promise.all(
+    paths.map((path) => removeWithin(cwd, path))
   );
 
-  return paths.filter((_path, index) => statuses[index] === 'removed');
+  return paths.filter((_path, index) => removed[index]);
 };
 
 const legacyFiles = async (cwd: string): Promise<string[]> => {
-  try {
-    const entries = await readdir(join(cwd, LEGACY_SPECIALIZATIONS_DIR));
+  const folder = await existingWithin(
+    cwd,
+    join(cwd, LEGACY_SPECIALIZATIONS_DIR)
+  );
 
-    return entries.filter((entry) => entry.endsWith('.md')).toSorted();
-  } catch {
-    return [];
-  }
+  if (folder === undefined) return [];
+
+  const entries = await readdir(folder).catch((): string[] => []);
+
+  return entries.filter((entry) => entry.endsWith('.md')).toSorted();
 };
 
 const isGeneratedCopy = (file: string, ownNames: Set<string>): boolean => {
@@ -113,9 +125,15 @@ const isGeneratedCopy = (file: string, ownNames: Set<string>): boolean => {
 };
 
 const moveIfFree = async (cwd: string, file: MovedFile): Promise<boolean> => {
-  if (await pathExists(join(cwd, file.to))) return false;
+  const [from, to] = await Promise.all([
+    entryWithin(cwd, join(cwd, file.from)),
+    entryWithin(cwd, join(cwd, file.to)),
+  ]);
 
-  await rename(join(cwd, file.from), join(cwd, file.to));
+  if (from === undefined || to === undefined) return false;
+  if (await pathExists(to)) return false;
+
+  await rename(from, to);
 
   return true;
 };
@@ -157,7 +175,7 @@ const mergedEntries = (
 ];
 
 const writeProjectCatalog = async (
-  cwd: string,
+  catalogFile: string,
   current: ProjectCatalog,
   install: LegacyInstall,
   legacy: Specialization[]
@@ -170,15 +188,15 @@ const writeProjectCatalog = async (
   };
 
   await writeFileOverwrite(
-    join(cwd, CATALOG_FILE),
+    catalogFile,
     `${JSON.stringify(catalog, null, 2)}\n`
   );
 };
 
 const guardProofs = async (cwd: string): Promise<void> => {
-  const ignore = join(cwd, PROOFS_DIR, '.gitignore');
+  const ignore = await fileWithin(cwd, join(cwd, PROOFS_DIR, '.gitignore'));
 
-  if (!(await pathExists(join(cwd, PROOFS_DIR)))) return;
+  if (ignore === undefined) return;
   if (await pathExists(ignore)) return;
 
   await writeFileOverwrite(ignore, '*\n');
@@ -190,6 +208,7 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
 
   if (install === undefined) return { migrated: false };
 
+  const catalogFile = await containedCatalogFile(cwd);
   const [legacy, current, files] = await Promise.all([
     readLegacyIndex(cwd),
     readProjectCatalog(cwd),
@@ -203,12 +222,12 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
   const removed = await removeAll(cwd, [
     ...GENERATED,
     ...copies,
-    ...agentCommands(cwd, install.files),
+    ...agentCommands(install.files),
   ]);
   const { moved, kept } = await moveOwnSpecializations(cwd, own);
 
   await removeIfEmpty(join(cwd, LEGACY_SPECIALIZATIONS_DIR));
-  await writeProjectCatalog(cwd, current, install, legacy);
+  await writeProjectCatalog(catalogFile, current, install, legacy);
   await removeFileIfPresent(join(cwd, LEGACY_INDEX_FILE));
   await guardProofs(cwd);
 

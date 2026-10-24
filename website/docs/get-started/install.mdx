@@ -22,22 +22,16 @@ import Tabs from '@theme/Tabs';
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
 :::info[No keys]
-No API keys are needed, it runs directly through your own agent ([**Claude**, **Codex**, and more](/docs/supported-agents)).
+No API keys are needed, it runs directly through your own agent.
 :::
 
 <Tabs>
   <TabItem value="prompt" label="CLI" default>
 
-Install **Lagune**'s commands with the [**skills** CLI](https://github.com/vercel-labs/skills). It detects the agents in your project, or asks which ones to set up:
+Install **Lagune**'s commands with the [**skills** CLI](https://github.com/vercel-labs/skills):
 
 ```bash
 npx skills add wellwelwel/lagune
-```
-
-The commands land in the project by default. To install them once for every project, add `--global`:
-
-```bash
-npx skills add wellwelwel/lagune --global
 ```
 
 :::info[Any language]
@@ -199,7 +193,7 @@ npx --yes lagune@latest
 You will need these tools installed on your system:
 
 - [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- An agent the **skills** CLI supports, see [**Supported Agents**](/docs/supported-agents)
+- An agent the [**skills** CLI supports](https://github.com/vercel-labs/skills#supported-agents)
 
 ## Use a badge ✨
 
@@ -277,7 +271,7 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
     {
       question: 'How do I install Lagune?',
       answer:
-        'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects, and the skills CLI detects your agents or asks which ones to set up.',
+        'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects.',
     },
     {
       question: 'Does Lagune need an API key?',
