@@ -30,14 +30,19 @@ export const LinkArrow = (): ReactNode => (
 type ArrowLinkProps = {
   to: string;
   children: ReactNode;
+  className?: string;
 };
 
-export const ArrowLink = ({ to, children }: ArrowLinkProps): ReactNode => {
+export const ArrowLink = ({
+  to,
+  children,
+  className,
+}: ArrowLinkProps): ReactNode => {
   const external = /^https?:\/\//.test(to);
 
   return (
     <Link
-      className='group'
+      className={className ? `group ${className}` : 'group'}
       to={to}
       {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
     >

@@ -11,10 +11,10 @@ import { SearchField } from '../primitives/search-field';
 import { ManageCategoryRow } from './tiles';
 
 const RUN_BUTTON: Record<ActionRunState, RunButton> = {
-  idle: { icon: 'refresh', label: 'Record categories' },
+  idle: { icon: 'save', label: 'Record categories' },
   pending: { icon: 'refresh', label: 'Recording…' },
   success: { icon: 'check', label: 'Recorded' },
-  error: { icon: 'refresh', label: 'Record categories' },
+  error: { icon: 'save', label: 'Record categories' },
 };
 
 export const CategoriesTab = (): VNode => {

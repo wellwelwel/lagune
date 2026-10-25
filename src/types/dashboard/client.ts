@@ -90,7 +90,8 @@ export type IconName =
   | 'thumbsDown'
   | 'info'
   | 'bulb'
-  | 'pencil';
+  | 'pencil'
+  | 'save';
 
 export type AdmonitionKind = 'note' | 'info' | 'tip' | 'warning' | 'danger';
 

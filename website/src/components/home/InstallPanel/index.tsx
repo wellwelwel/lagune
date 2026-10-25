@@ -1,4 +1,5 @@
 import type { PointerEvent } from 'react';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { GroupHead } from '@site/src/components/home/GroupHead';
 import { MaskIcon } from '@site/src/components/MaskIcon';
@@ -9,6 +10,9 @@ import {
 import { ALL_CATEGORIES } from '@site/src/data/categories';
 import { memo, useMemo } from 'react';
 import { LuChevronRight, LuLayoutGrid } from 'react-icons/lu';
+
+const NEXT_STEP_LINK = 'font-semibold text-ink hover:text-ink';
+const COPY_PLACEMENT = 'order-last max-[600px]:float-right max-[600px]:ml-2';
 
 const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
 const CATEGORIES_ADD = 'npx lagune add';
@@ -126,13 +130,18 @@ const InstallPanelComponent = ({
 
       <GroupHead title='Run this' />
 
-      <div className='flex items-center gap-3 p-[15px_16px] mb-[22px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px]'>
-        <span className='flex flex-1 min-w-0 flex-col gap-1.5'>
+      <div className='flex items-center gap-3 p-[15px_16px] mb-[22px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px] max-[600px]:flow-root'>
+        <CopyButton
+          value={command}
+          label='Copy install command'
+          className={COPY_PLACEMENT}
+        />
+        <span className='flex flex-1 min-w-0 flex-col gap-1.5 max-[600px]:block max-[600px]:space-y-1.5'>
           <span className='flex min-w-0 gap-3'>
             <span className='select-none text-accent' aria-hidden>
               $
             </span>
-            <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+            <code className='lagune-scroll-fade flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
               {SKILLS_ADD}
             </code>
           </span>
@@ -141,7 +150,7 @@ const InstallPanelComponent = ({
               <span className='select-none text-accent' aria-hidden>
                 $
               </span>
-              <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+              <code className='lagune-scroll-fade flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
                 {CATEGORIES_ADD}{' '}
                 <span className='lagune-token-in text-muted'>--categories</span>
                 {orderedCategories.map((category) => (
@@ -156,25 +165,61 @@ const InstallPanelComponent = ({
             </span>
           )}
         </span>
-        <CopyButton value={command} label='Copy install command' />
       </div>
 
       <GroupHead title='Or ask your agent' />
 
-      <div className='flex items-center gap-3 p-[15px_16px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px]'>
-        <p className='flex-1 min-w-0 m-0 leading-[1.65] text-muted [text-wrap:pretty]'>
+      <div className='flex items-center gap-3 p-[15px_16px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px] max-[600px]:flow-root'>
+        <CopyButton
+          value={prompt}
+          label='Copy install prompt'
+          className={COPY_PLACEMENT}
+        />
+        <p className='flex-1 min-w-0 m-0 text-[13px] leading-[1.65] text-ink [text-wrap:pretty]'>
           Run{' '}
-          <span className='text-ink'>
-            {promptTokens.map((token, index) => (
-              <span key={index}>
-                {index > 0 && ' '}
-                <span className='whitespace-nowrap'>{token}</span>
-              </span>
-            ))}
-          </span>{' '}
+          {promptTokens.map((token, index) => (
+            <span key={index}>
+              {index > 0 && ' '}
+              <span className='whitespace-nowrap'>{token}</span>
+            </span>
+          ))}{' '}
           {PROMPT_TAIL}
         </p>
-        <CopyButton value={prompt} label='Copy install prompt' />
+      </div>
+
+      <div className='mx-1 mt-4 text-[13px] leading-[1.65] text-muted [text-wrap:pretty]'>
+        <p className='m-0'>
+          Then, run{' '}
+          <ArrowLink
+            to='/docs/commands/charter'
+            className={`font-mono ${NEXT_STEP_LINK}`}
+          >
+            /lagune.charter
+          </ArrowLink>{' '}
+          in your agent to set your project's security principles.
+        </p>
+        <ul className='m-0 mt-2 flex list-disc flex-col gap-1 pl-[1.15em] marker:text-faint'>
+          <li>
+            Use{' '}
+            <ArrowLink
+              to='/docs/commands/lagune'
+              className={`font-mono ${NEXT_STEP_LINK}`}
+            >
+              /lagune
+            </ArrowLink>{' '}
+            to harden your code as your agent writes it.
+          </li>
+          <li>
+            Run the{' '}
+            <ArrowLink
+              to='/docs/get-started/commands?mode=audit'
+              className={NEXT_STEP_LINK}
+            >
+              Blue Team flow
+            </ArrowLink>{' '}
+            to audit your entire project or a scope of it.
+          </li>
+        </ul>
       </div>
     </div>
   );
