@@ -6,14 +6,13 @@ import {
   usedCategories,
 } from '../categories/project.js';
 import { isRecord, isStringArray } from '../core/collections.js';
+import { readConfigs } from '../core/configs.js';
 import { existingWithin } from '../core/fs-actions.js';
-import { parseJsonObject } from '../core/json.js';
 import { readText } from '../core/markdown/read.js';
 import { BUILTIN_SPECIALIZATIONS } from './builtin.js';
 import { builtinsIn, merge } from './catalog.js';
 import { isSpecializationName } from './name.js';
 
-export const CATALOG_FILE = '.lagune/catalog.json';
 export const CATALOG_DIR = '.lagune/catalog';
 
 const toSpecialization = (value: unknown): Specialization[] => {
@@ -32,13 +31,8 @@ export const specializationsOf = (entries: unknown): Specialization[] =>
   Array.isArray(entries) ? entries.flatMap(toSpecialization) : [];
 
 /** Reads the index of the project's own specializations, refusing a file it cannot trust */
-export const readOwnIndex = async (cwd: string): Promise<Specialization[]> => {
-  const raw = await readText(join(cwd, CATALOG_FILE));
-
-  if (raw === null) return [];
-
-  return specializationsOf(parseJsonObject(raw, CATALOG_FILE).entries);
-};
+export const readOwnIndex = async (cwd: string): Promise<Specialization[]> =>
+  specializationsOf((await readConfigs(cwd)).catalog);
 
 /** The project's own file for a name, only when it resolves inside the project */
 const ownFile = (cwd: string, name: string): Promise<string | undefined> =>

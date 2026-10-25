@@ -13,10 +13,7 @@ export const newWorkspace = async (): Promise<string> => {
   return workspace;
 };
 
-export const mapOf = (entries: TrackingEntry[]): TrackingMap => ({
-  name: 'lagune',
-  entries,
-});
+export const mapOf = (entries: TrackingEntry[]): TrackingMap => ({ entries });
 
 export const seedMemoryFile = async (
   workspace: string,

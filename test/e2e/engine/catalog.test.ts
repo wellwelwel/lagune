@@ -25,7 +25,7 @@ await describe('catalog lists the specializations a project uses', async () => {
     const workspace = await newWorkspace();
 
     await seed(workspace, {
-      '.lagune/categories.json': '{"categories":["python","ai"]}',
+      '.lagune/configs.json': '{"categories":["python","ai"]}',
     });
 
     const run = await runEngine(workspace, ['catalog']);
@@ -41,8 +41,8 @@ await describe('catalog lists the specializations a project uses', async () => {
     const workspace = await newWorkspace();
 
     await seed(workspace, {
-      '.lagune/catalog.json': JSON.stringify({
-        entries: [{ name: 'graphql', tags: ['GraphQL', 'API'] }],
+      '.lagune/configs.json': JSON.stringify({
+        catalog: [{ name: 'graphql', tags: ['GraphQL', 'API'] }],
       }),
       '.lagune/catalog/graphql.md': '# GraphQL vulnerabilities\n',
     });
@@ -58,7 +58,7 @@ await describe('catalog lists the specializations a project uses', async () => {
   await it('says so when the project uses no category and has none of its own', async () => {
     const workspace = await newWorkspace();
 
-    await seed(workspace, { '.lagune/categories.json': '{"categories":[]}' });
+    await seed(workspace, { '.lagune/configs.json': '{"categories":[]}' });
 
     const run = await runEngine(workspace, ['catalog']);
 
@@ -69,25 +69,24 @@ await describe('catalog lists the specializations a project uses', async () => {
     });
   });
 
-  for (const file of ['.lagune/categories.json', '.lagune/catalog.json'])
-    await it(`fails on ${file} it cannot read instead of listing a default`, async () => {
-      const workspace = await newWorkspace();
+  await it('fails on a configs file it cannot read instead of listing a default', async () => {
+    const workspace = await newWorkspace();
 
-      await seed(workspace, { [file]: '{"name": ' });
+    await seed(workspace, { '.lagune/configs.json': '{"categories": ' });
 
-      const run = await runEngine(workspace, ['catalog']);
+    const run = await runEngine(workspace, ['catalog']);
 
-      strict.strictEqual(run.code, 1);
-      strict.strictEqual(run.stdout, '');
-      strict(run.stderr.includes(file));
-    });
+    strict.strictEqual(run.code, 1);
+    strict.strictEqual(run.stdout, '');
+    strict(run.stderr.includes('.lagune/configs.json'));
+  });
 });
 
 await describe('catalog <name> prints the specialization the project resolves', async () => {
   await it('prints a built-in whatever the categories', async () => {
     const workspace = await newWorkspace();
 
-    await seed(workspace, { '.lagune/categories.json': '{"categories":[]}' });
+    await seed(workspace, { '.lagune/configs.json': '{"categories":[]}' });
 
     const [run, expected] = await Promise.all([
       runEngine(workspace, ['catalog', 'regex']),
@@ -123,7 +122,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
   });
 
   for (const name of [
-    '../catalog.json',
+    '../configs.json',
     '../../package',
     'Regex',
     'regex.md',
@@ -132,7 +131,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
     await it(`refuses the name ${JSON.stringify(name)} before reading anything`, async () => {
       const workspace = await newWorkspace();
 
-      await seed(workspace, { '.lagune/catalog.json': '{"secret":true}' });
+      await seed(workspace, { '.lagune/configs.json': '{"secret":true}' });
 
       const run = await runEngine(workspace, ['catalog', name]);
 

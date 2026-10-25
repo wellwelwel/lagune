@@ -9,7 +9,7 @@ describe('a specialization name uses only lowercase letters, digits, and hyphens
 
   for (const name of [
     '',
-    '../catalog.json',
+    '../configs.json',
     '..',
     'a/b',
     'a\\b',

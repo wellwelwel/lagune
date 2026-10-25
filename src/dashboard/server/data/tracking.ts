@@ -1,5 +1,4 @@
-import type { TrackingEntry } from '../../../types/core';
-import type { Tracking } from '../../../types/dashboard/server';
+import type { TrackingEntry, TrackingMap } from '../../../types/core';
 import { isStringArray } from '../../../core/collections';
 
 const toEntry = (value: unknown): TrackingEntry | null => {
@@ -10,7 +9,7 @@ const toEntry = (value: unknown): TrackingEntry | null => {
   return { name, paths };
 };
 
-export const parseTracking = (raw: string | null): Tracking => {
+export const parseTracking = (raw: string | null): TrackingMap => {
   if (!raw) return { entries: [] };
   try {
     const parsed: unknown = JSON.parse(raw);
@@ -33,7 +32,7 @@ export const parseTracking = (raw: string | null): Tracking => {
   }
 };
 
-export const pathsByName = (tracking: Tracking): Record<string, string[]> =>
+export const pathsByName = (tracking: TrackingMap): Record<string, string[]> =>
   Object.fromEntries(
     tracking.entries.map((entry) => [entry.name, entry.paths])
   );

@@ -133,8 +133,7 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
 
     strict.deepStrictEqual(lagune, [
       'catalog',
-      'catalog.json',
-      'categories.json',
+      'configs.json',
       'memory',
       'proofs',
       'tracking.json',
@@ -147,25 +146,20 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
 
     await performMigrate(project);
 
-    const [crypto, graphql, catalog, categories] = await Promise.all([
+    const [crypto, graphql, configs] = await Promise.all([
       read(project, '.lagune/catalog/crypto.md'),
       read(project, '.lagune/catalog/graphql.md'),
-      read(project, '.lagune/catalog.json'),
-      read(project, '.lagune/categories.json'),
+      read(project, '.lagune/configs.json'),
     ]);
 
     strict.strictEqual(crypto, '# Crypto, refined for this project\n');
     strict.strictEqual(graphql, '# GraphQL vulnerabilities\n');
-    strict.deepStrictEqual(JSON.parse(catalog ?? '{}'), {
-      name: 'lagune',
-      entries: [
+    strict.deepStrictEqual(JSON.parse(configs ?? '{}'), {
+      categories: ['owasp', 'javascript'],
+      catalog: [
         { name: 'graphql', tags: ['GraphQL'] },
         { name: 'crypto', tags: ['Own crypto'] },
       ],
-    });
-    strict.deepStrictEqual(JSON.parse(categories ?? '{}'), {
-      name: 'lagune',
-      categories: ['owasp', 'javascript'],
     });
   });
 
@@ -259,7 +253,11 @@ await describe('migrate changes nothing it cannot account for', async () => {
     strict.deepStrictEqual(lagune, ['memory']);
   });
 
-  for (const file of ['.lagune/manifest.json', '.lagune/skills.json'])
+  for (const file of [
+    '.lagune/manifest.json',
+    '.lagune/skills.json',
+    '.lagune/configs.json',
+  ])
     await it(`refuses an unreadable ${file} before touching anything`, async () => {
       const project = await newProject({ ...INSTALL, [file]: '{"entries": [' });
 
@@ -319,25 +317,24 @@ await describe('migrate never reaches outside the project', async () => {
     strict.strictEqual(shared, 'shared\n');
   });
 
-  for (const file of ['catalog.json', 'categories.json'])
-    await it(`refuses a ${file} that is a link before touching anything`, async () => {
-      const project = await newProject(INSTALL);
-      const shared = '{"name":"lagune"}\n';
+  await it('refuses a configs file that is a link before touching anything', async () => {
+    const project = await newProject(INSTALL);
+    const shared = '{"categories":[]}\n';
 
-      await writeFile(join(project, `../outside/${file}`), shared);
-      await linkAt(project, `.lagune/${file}`, `../../outside/${file}`);
+    await writeFile(join(project, '../outside/configs.json'), shared);
+    await linkAt(project, '.lagune/configs.json', '../../outside/configs.json');
 
-      const outcome = await performMigrate(project).then(
-        () => 'migrated',
-        () => 'refused'
-      );
-      const [outside, hook] = await Promise.all([
-        read(project, `../outside/${file}`),
-        read(project, '.lagune/hooks/regex.mjs'),
-      ]);
+    const outcome = await performMigrate(project).then(
+      () => 'migrated',
+      () => 'refused'
+    );
+    const [outside, hook] = await Promise.all([
+      read(project, '../outside/configs.json'),
+      read(project, '.lagune/hooks/regex.mjs'),
+    ]);
 
-      strict.strictEqual(outcome, 'refused');
-      strict.strictEqual(outside, shared);
-      strict.strictEqual(hook, INSTALL['.lagune/hooks/regex.mjs']);
-    });
+    strict.strictEqual(outcome, 'refused');
+    strict.strictEqual(outside, shared);
+    strict.strictEqual(hook, INSTALL['.lagune/hooks/regex.mjs']);
+  });
 });

@@ -8,15 +8,15 @@ import { ACTIONS } from '../../../src/dashboard/server/actions.js';
 const packageRoot = new URL('../../../', import.meta.url);
 const projects: string[] = [];
 
-const newProject = async (categories?: string): Promise<string> => {
+const newProject = async (configs?: string): Promise<string> => {
   const project = await mkdtemp(join(tmpdir(), 'lagune-action-'));
 
   projects.push(project);
 
-  if (categories === undefined) return project;
+  if (configs === undefined) return project;
 
   await mkdir(join(project, '.lagune'), { recursive: true });
-  await writeFile(join(project, '.lagune/categories.json'), categories);
+  await writeFile(join(project, '.lagune/configs.json'), configs);
 
   return project;
 };
@@ -31,7 +31,7 @@ const record = (project: string, body: unknown): Promise<ActionResult> => {
 };
 
 const recorded = (project: string): Promise<string | null> =>
-  readFile(join(project, '.lagune/categories.json'), 'utf8').catch(() => null);
+  readFile(join(project, '.lagune/configs.json'), 'utf8').catch(() => null);
 
 afterEach(async () => {
   await Promise.all(

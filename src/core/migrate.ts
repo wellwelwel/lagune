@@ -5,15 +5,12 @@ import { join, resolve } from 'node:path';
 import { BUILTIN_SPECIALIZATIONS } from '../catalog/builtin.js';
 import {
   CATALOG_DIR,
-  CATALOG_FILE,
   readOwnIndex,
   specializationsOf,
 } from '../catalog/project.js';
-import {
-  CATEGORIES_FILE,
-  readProjectCategories,
-} from '../categories/project.js';
+import { readProjectCategories } from '../categories/project.js';
 import { isStringArray } from './collections.js';
+import { CONFIGS_FILE, writeConfigs } from './configs.js';
 import {
   ensureDir,
   entryWithin,
@@ -179,31 +176,22 @@ const mergedEntries = (
   ),
 ];
 
-const writeStateFile = (
-  path: string,
-  fields: Record<string, unknown>
-): Promise<void> =>
-  writeFileOverwrite(
-    path,
-    `${JSON.stringify({ name: 'lagune', ...fields }, null, 2)}\n`
-  );
-
-const writeOwnIndex = async (
-  catalogFile: string,
-  entries: Specialization[]
-): Promise<void> => {
-  if (entries.length === 0) return;
-
-  await writeStateFile(catalogFile, { entries });
-};
-
 const writeCategories = async (
-  categoriesFile: string,
+  configsFile: string,
   categories: string[] | undefined
 ): Promise<void> => {
   if (categories === undefined) return;
 
-  await writeStateFile(categoriesFile, { categories });
+  await writeConfigs(configsFile, { categories });
+};
+
+const writeOwnIndex = async (
+  configsFile: string,
+  catalog: Specialization[]
+): Promise<void> => {
+  if (catalog.length === 0) return;
+
+  await writeConfigs(configsFile, { catalog });
 };
 
 const guardProofs = async (cwd: string): Promise<void> => {
@@ -221,10 +209,7 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
 
   if (install === undefined) return { migrated: false };
 
-  const [catalogFile, categoriesFile] = await Promise.all([
-    containedStateFile(cwd, CATALOG_FILE),
-    containedStateFile(cwd, CATEGORIES_FILE),
-  ]);
+  const configsFile = await containedStateFile(cwd, CONFIGS_FILE);
   const [legacy, ownIndex, recorded, files] = await Promise.all([
     readLegacyIndex(cwd),
     readOwnIndex(cwd),
@@ -244,8 +229,8 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
   const { moved, kept } = await moveOwnSpecializations(cwd, own);
 
   await removeIfEmpty(join(cwd, LEGACY_SPECIALIZATIONS_DIR));
-  await writeOwnIndex(catalogFile, mergedEntries(ownIndex, legacy));
-  await writeCategories(categoriesFile, recorded ?? install.categories);
+  await writeCategories(configsFile, recorded ?? install.categories);
+  await writeOwnIndex(configsFile, mergedEntries(ownIndex, legacy));
   await removeFileIfPresent(join(cwd, LEGACY_INDEX_FILE));
   await guardProofs(cwd);
 

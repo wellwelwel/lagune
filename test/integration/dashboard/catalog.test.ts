@@ -65,9 +65,9 @@ await describe('the dashboard shows whatever .lagune/ holds', async () => {
 await describe('the dashboard catalog follows the project catalog', async () => {
   await it('lists the applied specializations first, then the rest of the catalog', async () => {
     const data = await dataOf({
-      '.lagune/categories.json': JSON.stringify({ categories: ['python'] }),
-      '.lagune/catalog.json': JSON.stringify({
-        entries: [{ name: 'graphql', tags: ['GraphQL'] }],
+      '.lagune/configs.json': JSON.stringify({
+        categories: ['python'],
+        catalog: [{ name: 'graphql', tags: ['GraphQL'] }],
       }),
       '.lagune/catalog/graphql.md': '# GraphQL vulnerabilities\n',
       '.lagune/memory/detect.md': [

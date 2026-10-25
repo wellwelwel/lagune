@@ -135,7 +135,6 @@ export type TrackingEntry = {
 };
 
 export type TrackingMap = {
-  name: 'lagune';
   entries: TrackingEntry[];
 };
 

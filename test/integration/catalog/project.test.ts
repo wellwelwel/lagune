@@ -52,7 +52,7 @@ afterEach(async () => {
   projects.length = 0;
 });
 
-await describe('the own index file', async () => {
+await describe('the own index', async () => {
   await it('reads no own specialization while the file is absent', async () => {
     const project = await newProject();
 
@@ -60,21 +60,21 @@ await describe('the own index file', async () => {
   });
 
   for (const [label, contents] of [
-    ['malformed JSON', '{"entries": ['],
+    ['malformed JSON', '{"catalog": ['],
     ['a JSON array', '[]'],
   ])
     await it(`refuses ${label}, naming the file`, async () => {
-      const project = await newProject({ '.lagune/catalog.json': contents });
+      const project = await newProject({ '.lagune/configs.json': contents });
 
       await strict.rejects(readOwnIndex(project), (error: Error) =>
-        error.message.startsWith('.lagune/catalog.json ')
+        error.message.startsWith('.lagune/configs.json ')
       );
     });
 
   await it('drops every entry it cannot read, a hostile name included', async () => {
     const project = await newProject({
-      '.lagune/catalog.json': JSON.stringify({
-        entries: [
+      '.lagune/configs.json': JSON.stringify({
+        catalog: [
           { name: 'graphql', tags: ['GraphQL'] },
           { name: '../../etc/passwd', tags: ['x'] },
           { name: 'Upper', tags: [] },
@@ -94,7 +94,7 @@ await describe('the catalog a project uses', async () => {
   await it('holds the OWASP built-ins while no category is recorded', async () => {
     const [unrecorded, recorded] = await Promise.all([
       newProject(),
-      newProject({ '.lagune/categories.json': '{"categories":["owasp"]}' }),
+      newProject({ '.lagune/configs.json': '{"categories":["owasp"]}' }),
     ]);
 
     strict.deepStrictEqual(
@@ -105,9 +105,9 @@ await describe('the catalog a project uses', async () => {
 
   await it('lists an own specialization only while its file exists', async () => {
     const project = await newProject({
-      '.lagune/categories.json': '{"categories":[]}',
-      '.lagune/catalog.json': JSON.stringify({
-        entries: [
+      '.lagune/configs.json': JSON.stringify({
+        categories: [],
+        catalog: [
           { name: 'graphql', tags: ['GraphQL'] },
           { name: 'ghost', tags: ['Missing'] },
         ],
@@ -124,9 +124,9 @@ await describe('the catalog a project uses', async () => {
 
   await it('never lists or prints an own specialization that resolves outside the project', async () => {
     const project = await newProject({
-      '.lagune/categories.json': '{"categories":[]}',
-      '.lagune/catalog.json': JSON.stringify({
-        entries: [{ name: 'leak', tags: [] }],
+      '.lagune/configs.json': JSON.stringify({
+        categories: [],
+        catalog: [{ name: 'leak', tags: [] }],
       }),
     });
     const secret = await secretOutside();
@@ -145,9 +145,9 @@ await describe('the catalog a project uses', async () => {
 
   await it('lets an own specialization replace the built-in of the same name', async () => {
     const project = await newProject({
-      '.lagune/categories.json': '{"categories":["ai"]}',
-      '.lagune/catalog.json': JSON.stringify({
-        entries: [{ name: 'llm', tags: ['Own LLM'] }],
+      '.lagune/configs.json': JSON.stringify({
+        categories: ['ai'],
+        catalog: [{ name: 'llm', tags: ['Own LLM'] }],
       }),
     });
 

@@ -14,7 +14,7 @@ await describe('tracking map I/O', async () => {
     const workspace = await newWorkspace();
     const map = await loadTrackingMap(workspace);
 
-    strict.deepStrictEqual(map, { name: 'lagune', entries: [] });
+    strict.deepStrictEqual(map, { entries: [] });
   });
 
   await it('rebuilds from the empty map when the file is corrupt', async () => {
@@ -28,7 +28,7 @@ await describe('tracking map I/O', async () => {
 
     const map = await loadTrackingMap(workspace);
 
-    strict.deepStrictEqual(map, { name: 'lagune', entries: [] });
+    strict.deepStrictEqual(map, { entries: [] });
   });
 
   await it('round-trips a written map byte-for-byte', async () => {
@@ -43,7 +43,7 @@ await describe('tracking map I/O', async () => {
     strict.deepStrictEqual(reloaded, original);
   });
 
-  await it('normalizes an old-shape entry on load, dropping its id, phase, and prose', async () => {
+  await it('normalizes an old-shape map on load, dropping its name and each entry id, phase, and prose', async () => {
     const workspace = await newWorkspace();
     await ensureDir(join(workspace, '.lagune'));
     await writeFile(
@@ -64,16 +64,14 @@ await describe('tracking map I/O', async () => {
 
     const map = await loadTrackingMap(workspace);
 
-    strict.deepStrictEqual(map.entries, [{ name: 'Leaked secret', paths: [] }]);
+    strict.deepStrictEqual(map, {
+      entries: [{ name: 'Leaked secret', paths: [] }],
+    });
   });
 
   it('serializes with two-space indent and a trailing newline', () => {
     const serialized = serializeTrackingMap(mapOf([]));
 
-    strict.strictEqual(
-      serialized,
-      `${JSON.stringify({ name: 'lagune', entries: [] }, null, 2)}\n`
-    );
-    strict(serialized.endsWith('\n'), 'should end with a newline');
+    strict.strictEqual(serialized, '{\n  "entries": []\n}\n');
   });
 });

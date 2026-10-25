@@ -14,10 +14,7 @@ import { ensureDir, writeFileOverwrite } from './fs-actions.js';
 const TRACKING_DIR = '.lagune';
 const TRACKING_PATH = '.lagune/tracking.json';
 
-export const emptyTrackingMap = (): TrackingMap => ({
-  name: 'lagune',
-  entries: [],
-});
+export const emptyTrackingMap = (): TrackingMap => ({ entries: [] });
 
 export const samePaths = (left: string[], right: string[]): boolean => {
   if (left.length !== right.length) return false;
@@ -67,10 +64,7 @@ export const foldEntries = (
       const match = matchItem(item, state.map);
 
       return {
-        map: {
-          name: 'lagune',
-          entries: upsert(state.map.entries, match.entry),
-        },
+        map: { entries: upsert(state.map.entries, match.entry) },
         classifications: [...state.classifications, match.classification],
       };
     },
@@ -91,7 +85,7 @@ export const removeEntries = (
   );
 
   return {
-    updatedMap: { name: 'lagune', entries: kept },
+    updatedMap: { entries: kept },
     removed,
     notFound,
   };
@@ -156,7 +150,7 @@ const parseTrackingMap = (raw: string): TrackingMap => {
     .map(normalizeEntry)
     .filter((entry): entry is TrackingEntry => entry !== undefined);
 
-  return { name: 'lagune', entries };
+  return { entries };
 };
 
 export const loadTrackingMap = async (

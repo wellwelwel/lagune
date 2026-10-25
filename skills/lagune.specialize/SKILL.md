@@ -18,7 +18,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 You are giving Lagune a new **specialty**: a focused, language-agnostic security specialization the detect and verify phases load on demand, listed by the catalog and loaded directly with `npx --yes lagune catalog <name>`. You distill the user's source or topic into it. A specialization audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `template.md`, next to this file, and the built-in specializations `regex`, `javascript`, and `browser` are worked examples to mirror, each read with `npx --yes lagune catalog <name>` from the project root.
 
-The result is the specialization at `.lagune/catalog/<name>.md` and its one-line entry in the project's index `.lagune/catalog.json`, which the catalog merges with the built-ins. You write both, and both stay under version control with the rest of `.lagune/`. You never touch the user's source.
+The result is the specialization at `.lagune/catalog/<name>.md` and its one-line entry in the project's index, the `catalog` list in `.lagune/configs.json`, which the catalog merges with the built-ins. You write both, and both stay under version control with the rest of `.lagune/`. You never touch the user's source.
 
 ### Step 1: Read the input
 
@@ -32,7 +32,7 @@ This command is defense only. If the topic asks for offensive tooling, a working
 
 First settle the **terrain**: what the specialization covers, never the vulnerability. The terrain is what the knowledge is about, and the attacks are what it teaches you to defend, so when the topic names an attack, settle on the surface that attack targets. For example, the built-ins set the rule: the regex specialization covers ReDoS, yet its terrain is `regex`, not `redos`. This same terrain is the title in Step 5 and the tags in Step 6, so name it once here.
 
-The name is that terrain as a safe filename: lowercase, replace every run of characters outside `a-z 0-9 -` with a single `-`, trim leading and trailing `-`, and collapse repeats. Derive it from the terrain you settled, never from the raw topic, so an attack topic never becomes the name. If the terrain is unclear, ask the user for a short name for it. This name is also the identity used in `.lagune/catalog.json`.
+The name is that terrain as a safe filename: lowercase, replace every run of characters outside `a-z 0-9 -` with a single `-`, trim leading and trailing `-`, and collapse repeats. Derive it from the terrain you settled, never from the raw topic, so an attack topic never becomes the name. If the terrain is unclear, ask the user for a short name for it. This name is also the identity of its entry in `.lagune/configs.json`.
 
 List what the project already uses by running the catalog from the project root:
 
@@ -67,7 +67,7 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 ### Step 7: Write the files
 
 - Ensure `.lagune/catalog/` exists, then write `.lagune/catalog/<name>.md` with the authored or reconciled content. An existing name is reconciled from its current content first, so this never discards a built-in or an earlier version unseen. On a refine of a built-in, this file becomes the project's own version and shadows the built-in from then on.
-- Update `.lagune/catalog.json`. If it is absent, create it as `{ "name": "lagune", "entries": [] }`. Add the `{ "name": "<name>", "tags": [...] }` entry, or on a refine rewrite that one entry, preserving every other entry untouched.
+- Update `.lagune/configs.json`. If the file or its `catalog` list is absent, create it. Add the `{ "name": "<name>", "tags": [...] }` entry to that list, or on a refine rewrite that one entry, preserving every other entry and every other field untouched.
 - Run the catalog again from the project root and confirm it lists the entry with the tags the user confirmed:
 
   ```bash

@@ -1,10 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import type { TrackingEntry } from '../core.js';
 import type { ActionResponse } from './api.js';
-
-export type Tracking = {
-  entries: TrackingEntry[];
-};
 
 export type StaticAsset = {
   status: number;

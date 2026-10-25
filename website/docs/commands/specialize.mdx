@@ -51,7 +51,7 @@ Pointing it at an attack is fine when the goal is to defend against it: an explo
 The result is two files in your project, committed and reviewable alongside your code:
 
 - The specialization at `.lagune/catalog/<name>.md`, shaped like the [built-in ones](/docs/catalog).
-- Its entry in `.lagune/catalog.json`, your project's index, which the catalog merges with the built-ins.
+- Its entry in `.lagune/configs.json`, where your project indexes its own specializations for the catalog to merge with the built-ins.
 
 It then lists the catalog to confirm the new entry is there. Your own specializations are always in the catalog, whatever its categories. You never add a command or touch the package: a new specialty is one knowledge file plus one index entry, written into your own project.
 
@@ -71,7 +71,7 @@ Specializing a name that already exists, whether a built-in like `regex` or one 
     {
       question: 'How do I add a custom security specialization?',
       answer:
-        'Run /lagune.specialize with a source or topic. It distills it into a defense-only specialization, written to .lagune/catalog/<name>.md plus its entry in .lagune/catalog.json.',
+        'Run /lagune.specialize with a source or topic. It distills it into a defense-only specialization, written to .lagune/catalog/<name>.md plus its entry in .lagune/configs.json.',
     },
     {
       question: 'Can Lagune learn from an exploit write-up?',

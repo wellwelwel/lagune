@@ -104,7 +104,7 @@ export const CategoriesTab = (): VNode => {
         )}
         <p class='mb-4 text-[0.82rem] leading-[1.5] text-muted text-pretty'>
           On-demand security knowledge, by category. The categories this project
-          uses, recorded in <code>.lagune/categories.json</code> for the whole
+          uses, recorded in <code>.lagune/configs.json</code> for the whole
           team, decide which built-in specializations join its catalog.
           {!data.categories.recorded &&
             ' None is recorded yet, so the default applies.'}

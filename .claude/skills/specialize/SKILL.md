@@ -9,7 +9,7 @@ metadata:
 
 # Authoring a built-in Lagune specialization (development workspace)
 
-The published skill `skills/lagune.specialize/SKILL.md` writes into a **project's own catalog**: `.lagune/catalog/<name>.md` plus its entry in `.lagune/catalog.json`. This repo is the **Lagune source**, where built-in specializations live in `catalog/<name>.md` and their index is a TypeScript array, not a runtime JSON file. A built-in is registered in code, published with the engine, and tested.
+The published skill `skills/lagune.specialize/SKILL.md` writes into a **project's own catalog**: `.lagune/catalog/<name>.md` plus its entry in `.lagune/configs.json`. This repo is the **Lagune source**, where built-in specializations live in `catalog/<name>.md` and their index is a TypeScript array, not a runtime JSON file. A built-in is registered in code, published with the engine, and tested.
 
 So you reuse the skill's **authoring discipline** (terrain, defense-only gate, template, tags, reconcile-never-append) but **override every output path** to the native layout, and you update the registration points the published skill never has to.
 
@@ -23,7 +23,7 @@ Read and follow `skills/lagune.specialize/SKILL.md` in full. Its authoring steps
 | `template.md`, next to the skill                      | `skills/lagune.specialize/template.md`                                          |
 | `catalog` (list what exists)                          | read `catalog/` and `BUILTIN_SPECIALIZATIONS` in `src/catalog/builtin.ts`       |
 | `.lagune/catalog/<name>.md` (the specialization file) | `catalog/<name>.md`                                                             |
-| `.lagune/catalog.json` (index entry)                  | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
+| `.lagune/configs.json` (index entry)                  | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
 
 A hook reference inside the `.md` body uses the engine command, `npx --yes lagune <hook>`, with long flags only, because that body ships verbatim to the end user.
 
@@ -60,7 +60,7 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 
 ### Not touched
 
-- `.lagune/catalog.json` and `.lagune/catalog/`: these are a **project's own** catalog. A built-in never writes there.
+- `.lagune/configs.json` and `.lagune/catalog/`: these hold a **project's own** catalog. A built-in never writes there.
 
 ## Quick checklist
 
