@@ -16,19 +16,6 @@ Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lag
 
 ---
 
-## Table of Contents
-
-- 🌊 [**Get Started**](#get-started)
-  - 📦 [**Install**](#install) | [**Dashboard**](#dashboard)
-  - 💬 [**Slash Commands**](#slash-commands)
-- 💽 [**Requirements**](#requirements)
-- 🔐 [**Security**](#security)
-- 🤝 [**Contributing**](#contributing)
-- 🖖 [**Acknowledgements**](#acknowledgements)
-- 🧑‍⚖️ [**License**](#license)
-
----
-
 ## Get Started
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
@@ -80,40 +67,6 @@ npx lagune remove --categories javascript
 
 ---
 
-### Dashboard
-
-For an interactive live view and follow-up, run:
-
-```bash
-npx lagune
-```
-
-It serves a dashboard and opens it in a random port:
-
-- [x] **Live Reload**
-- [x] **Private** and **Local**
-- [x] Follow the findings, fixes, and verdicts, and manage the specialization categories, directly from your browser
-- [x] No `node_modules` or `package.json` is needed 📦
-
-<details>
-<summary>Overview</summary>
-<br />
-
-<img width="320" src="./website/static/img/dashboard/02.png" />
-<img width="320" src="./website/static/img/dashboard/03.png" />
-<img width="320" src="./website/static/img/dashboard/04.png" />
-<img width="320" src="./website/static/img/dashboard/05.png" />
-<img width="320" src="./website/static/img/dashboard/06.png" />
-
-</details>
-
-> [!TIP]
->
-> - 🚪 Use `--port` to specify a custom port.
-> - ⏏️ Press `Ctrl+C` to stop.
-
----
-
 ### Slash Commands
 
 Once **Lagune**'s commands are installed, your **AI** agent unlocks a set of slash commands:
@@ -155,6 +108,40 @@ These five run in order. Each builds on the previous, so following the list top 
 > [!IMPORTANT]
 >
 > See the full [**documentation**](https://lagune.ai/) for usage examples and more.
+
+---
+
+### Dashboard
+
+For an interactive live view and follow-up, run:
+
+```bash
+npx lagune
+```
+
+It serves a dashboard and opens it in a random port:
+
+- [x] **Live Reload**
+- [x] **Private** and **Local**
+- [x] Follow the findings, fixes, and verdicts, and manage the specialization categories, directly from your browser
+- [x] No `node_modules` or `package.json` is needed 📦
+
+<details>
+<summary>Overview</summary>
+<br />
+
+<img width="320" src="./website/static/img/dashboard/02.png" />
+<img width="320" src="./website/static/img/dashboard/03.png" />
+<img width="320" src="./website/static/img/dashboard/04.png" />
+<img width="320" src="./website/static/img/dashboard/05.png" />
+<img width="320" src="./website/static/img/dashboard/06.png" />
+
+</details>
+
+> [!TIP]
+>
+> - 🚪 Use `--port` to specify a custom port.
+> - ⏏️ Press `Ctrl+C` to stop.
 
 ---
 
