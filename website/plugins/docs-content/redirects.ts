@@ -1,8 +1,6 @@
 export const docsRedirects: Record<string, string> = {
   'commands/skills': 'commands/catalog',
   'skill-categories': 'categories',
-  'supported-agents': '',
-  'references/comparison': '',
   'get-started/install': '',
 };
 
