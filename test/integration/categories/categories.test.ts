@@ -2,11 +2,11 @@ import { describe, it, strict } from 'poku';
 import {
   addCategories,
   assertKnownCategories,
+  CATEGORIES,
   findCategory,
   removeCategories,
   unknownCategoryKeys,
-} from '../../../src/catalog/catalog.js';
-import { CATEGORIES } from '../../../src/catalog/categories.js';
+} from '../../../src/categories/categories.js';
 
 describe('a category resolves by its exact key', () => {
   it('finds a known key and nothing for a wrong case or an unknown key', () => {

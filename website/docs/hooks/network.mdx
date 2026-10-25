@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` specialization](/docs/commands/catalog), and you can run it yourself.
+The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` specialization](/docs/catalog), and you can run it yourself.
 
 ## Run it
 
@@ -77,7 +77,7 @@ The hook is pure and never resolves DNS, so two runtime gaps are out of scope: *
 
 :::tip
 
-This is the same check the [`network` specialization](/docs/commands/catalog) runs to prove a destination filter holds.
+This is the same check the [`network` specialization](/docs/catalog) runs to prove a destination filter holds.
 :::
 
 <Faq

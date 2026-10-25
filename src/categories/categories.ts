@@ -1,4 +1,4 @@
-import type { Category } from '../types/catalog.js';
+import type { Category, CategoryChange } from '../types/categories.js';
 
 export const CATEGORIES: Category[] = [
   {
@@ -80,3 +80,66 @@ export const CATEGORIES: Category[] = [
       'Harden .NET and C# against BinaryFormatter deserialization RCE and the encoder bypasses that reach XSS',
   },
 ];
+
+export const findCategory = (
+  categories: Category[],
+  key: string
+): Category | undefined => categories.find((category) => category.key === key);
+
+export const unknownCategoryKeys = (
+  categories: Category[],
+  keys: string[]
+): string[] =>
+  keys.filter((key) => findCategory(categories, key) === undefined);
+
+const unknownCategoriesMessage = (
+  keys: string[],
+  availableKeys: string[]
+): string =>
+  [
+    `Unknown specialization ${keys.length === 1 ? 'category' : 'categories'}: ${keys.join(', ')}`,
+    `Available categories: ${availableKeys.join(', ')}`,
+  ].join('\n');
+
+/** Throws for any key that names no registered category */
+export const assertKnownCategories = (
+  categories: Category[],
+  keys: string[]
+): void => {
+  const unknown = unknownCategoryKeys(categories, keys);
+
+  if (unknown.length > 0)
+    throw new Error(
+      unknownCategoriesMessage(
+        unknown,
+        categories.map((category) => category.key)
+      )
+    );
+};
+
+export const addCategories = (
+  current: string[],
+  requested: string[]
+): CategoryChange => {
+  const keys = [...new Set(requested)];
+  const changed = keys.filter((key) => !current.includes(key));
+
+  return {
+    categories: [...current, ...changed],
+    changed,
+    unchanged: keys.filter((key) => current.includes(key)),
+  };
+};
+
+export const removeCategories = (
+  current: string[],
+  requested: string[]
+): CategoryChange => {
+  const keys = [...new Set(requested)];
+
+  return {
+    categories: current.filter((key) => !keys.includes(key)),
+    changed: keys.filter((key) => current.includes(key)),
+    unchanged: keys.filter((key) => !current.includes(key)),
+  };
+};

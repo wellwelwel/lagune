@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `regex` hook is the deterministic regex-safety engine the [`regex` specialization](/docs/commands/catalog) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
+The `regex` hook is the deterministic regex-safety engine the [`regex` specialization](/docs/catalog) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 
 ## Scan a codebase
 
@@ -181,7 +181,7 @@ Each pattern is passed as a flag value, never interpolated into the command. A v
 :::
 
 :::tip
-This is the same engine the [`regex` specialization](/docs/commands/catalog) runs: the scan opens a ReDoS pass, the check confirms a pattern it surfaces.
+This is the same engine the [`regex` specialization](/docs/catalog) runs: the scan opens a ReDoS pass, the check confirms a pattern it surfaces.
 :::
 
 <Faq

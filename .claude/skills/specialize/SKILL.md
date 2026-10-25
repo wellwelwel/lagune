@@ -29,7 +29,7 @@ A hook reference inside the `.md` body uses the engine command, `npx --yes lagun
 
 ## Step 2: Decide the category
 
-Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx lagune add --categories <category>`. Categories live in `CATEGORIES` in `src/catalog/categories.ts`.
+Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx lagune add --categories <category>`. Categories live in `CATEGORIES` in `src/categories/categories.ts`.
 
 - A language specialization goes under its language key (`python` under `python`, and so on).
 - A specialization about an application-security risk OWASP tracks goes under `owasp`.
@@ -45,7 +45,7 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 
 1. Write the authored module to **`catalog/<name>.md`** (Step 1). The engine reads `catalog/<name>.md` by name, so the file resolves once it is on disk and indexed.
 2. Add the `BuiltinSpecialization` `{ name, tags, categories }` to **`src/catalog/builtin.ts`**. Without this row, `catalog` never lists it and `catalog <name>` cannot resolve it.
-3. Add a `Category` to **`src/catalog/categories.ts`**, but only when you introduced a new category.
+3. Add a `Category` to **`src/categories/categories.ts`**, but only when you introduced a new category.
 4. Add its label, description, icon, and prompt task to **`src/dashboard/shared/specialization-meta.ts`**, which the dashboard and the website share.
 
 ### Tests (the suite asserts the index, the files, and the docs stay in sync)
@@ -55,7 +55,7 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 
 ### Documentation (the built-in catalog is enumerated by hand in the website)
 
-7. Add a row to the table of built-ins in **`website/docs/commands/catalog.mdx`**, giving the built-in its categories and focus. The sync test fails until the row matches the index.
+7. Add a row to the table of built-ins in **`website/docs/catalog.mdx`**, giving the built-in its categories and focus. The sync test fails until the row matches the index.
 8. Update **`README.md`** only when it enumerates built-ins.
 
 ### Not touched
@@ -67,10 +67,10 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 ```
 [ ] catalog/<name>.md                        authored from skills/lagune.specialize/template.md (reconciled on a refine)
 [ ] src/catalog/builtin.ts                   BuiltinSpecialization added { name, tags, categories }
-[ ] src/catalog/categories.ts                only if a new category was introduced
+[ ] src/categories/categories.ts             only if a new category was introduced
 [ ] src/dashboard/shared/specialization-meta.ts  label, description, icon, prompt task
 [ ] tests updated + npm test green
-[ ] website/docs/commands/catalog.mdx table row added
+[ ] website/docs/catalog.mdx table row added
 ```
 
 ## Summary to the user

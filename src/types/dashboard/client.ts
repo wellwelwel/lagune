@@ -1,4 +1,4 @@
-import type { CategoryKey } from '../catalog.js';
+import type { CategoryKey } from '../categories.js';
 import type { Finding, PhaseName, Severity } from './dashboard.js';
 
 export type RouteScope =

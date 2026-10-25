@@ -7,6 +7,7 @@ on:
       - 'src/dashboard/client/public/**'
       - 'src/dashboard/shared/**'
       - 'src/catalog/**'
+      - 'src/categories/**'
       - 'src/types/**'
       - '.github/workflows/ci_website.yml'
       - 'package-lock.json'

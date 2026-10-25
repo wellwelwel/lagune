@@ -1,17 +1,17 @@
-import type { CategoryAction, CategoryChange } from '../types/catalog.js';
+import type { CategoryAction, CategoryChange } from '../types/categories.js';
 import { stdout } from 'node:process';
 import {
   addCategories,
   assertKnownCategories,
+  CATEGORIES,
   findCategory,
   removeCategories,
-} from '../catalog/catalog.js';
-import { CATEGORIES } from '../catalog/categories.js';
+} from '../categories/categories.js';
 import {
-  readProjectCatalog,
+  readProjectCategories,
   recordCategories,
   usedCategories,
-} from '../catalog/project.js';
+} from '../categories/project.js';
 import {
   banner,
   categoriesRecorded,
@@ -43,13 +43,13 @@ const choices = (action: CategoryAction, used: string[]) =>
         locked: [],
       };
 
-/** Records the categories the project uses in its catalog, starting from the default while none is recorded */
+/** Records the categories the project uses, starting from the default while none is recorded */
 export const runCategoryChange = async (
   action: CategoryAction,
   requested: string[],
   cwd: string
 ): Promise<void> => {
-  const used = usedCategories(await readProjectCatalog(cwd));
+  const used = usedCategories(await readProjectCategories(cwd));
   const selected = await selectCategories({
     requested,
     ...choices(action, used),
@@ -69,11 +69,11 @@ export const runCategoryChange = async (
 };
 
 export const categoriesReport = async (cwd: string): Promise<string> => {
-  const catalog = await readProjectCatalog(cwd);
+  const recorded = await readProjectCategories(cwd);
 
   return categoryList(
     CATEGORIES,
-    usedCategories(catalog),
-    catalog.categories !== undefined
+    usedCategories(recorded),
+    recorded !== undefined
   );
 };

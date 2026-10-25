@@ -11,9 +11,9 @@ import Tabs from '@theme/Tabs';
 
 # /lagune.specialize
 
-🎓 Specialize **Lagune** in a specific security area, from a source or topic you give it.
+🎓 Teach **Lagune** a new specialization, from a source or topic you give it.
 
-It reads the material and distills it into a focused, defense-only specialization, shaped exactly like the [built-in ones](/docs/commands/catalog), so the detect and verify phases load it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
+It reads the material and distills it into a focused, defense-only specialization, shaped exactly like the [built-in ones](/docs/catalog), so the detect and verify phases load it afterwards like any other. It only audits and explains: it never writes attack inputs or exploits, and it never touches your code.
 
 <Tabs>
   <TabItem value="article" label="From an article" default>
@@ -35,7 +35,7 @@ It reads the material and distills it into a focused, defense-only specializatio
   <TabItem value="topic" label="From a topic">
 
 ```prompt
-# Or just name the area to cover
+# Or just name what to cover
 /lagune.specialize SQL injection
 ```
 
@@ -50,7 +50,7 @@ Pointing it at an attack is fine when the goal is to defend against it: an explo
 
 The result is two files in your project, committed and reviewable alongside your code:
 
-- The specialization at `.lagune/catalog/<name>.md`, shaped like the [built-in ones](/docs/commands/catalog).
+- The specialization at `.lagune/catalog/<name>.md`, shaped like the [built-in ones](/docs/catalog).
 - Its entry in `.lagune/catalog.json`, your project's index, which the catalog merges with the built-ins.
 
 It then lists the catalog to confirm the new entry is there. Your own specializations are always in the catalog, whatever its categories. You never add a command or touch the package: a new specialty is one knowledge file plus one index entry, written into your own project.

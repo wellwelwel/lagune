@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` specialization](/docs/commands/catalog), which you can run yourself in **scan** or **check** mode.
+The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` specialization](/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
@@ -80,7 +80,7 @@ It reads source as text, so a sink assembled at runtime, hidden behind an alias,
 :::
 
 :::tip
-The hook guarantees the floor (these sinks exist and where): whether an untrusted value actually reaches one is the judgment the [`interpreter` specialization](/docs/commands/catalog) covers.
+The hook guarantees the floor (these sinks exist and where): whether an untrusted value actually reaches one is the judgment the [`interpreter` specialization](/docs/catalog) covers.
 :::
 
 <Faq

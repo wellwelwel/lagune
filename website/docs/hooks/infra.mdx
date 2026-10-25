@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `infra` hook flags **infrastructure-as-code misconfiguration** that is decidable from the file: a network open to the world, a wildcard permission, a secret in a manifest, a root container, an untrusted value in a CI shell. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). It is the deterministic engine behind the [`infra` specialization](/docs/commands/catalog), in **scan** or **check** mode.
+The `infra` hook flags **infrastructure-as-code misconfiguration** that is decidable from the file: a network open to the world, a wildcard permission, a secret in a manifest, a root container, an untrusted value in a CI shell. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). It is the deterministic engine behind the [`infra` specialization](/docs/catalog), in **scan** or **check** mode.
 
 ## Run it
 
@@ -53,7 +53,7 @@ The check mode prints the highest-severity tag it matched (for example `public-i
 With no option it scans every IaC file in the project. `--pattern` cannot be combined with `--dir` or `--file`.
 
 :::tip
-The hook catches the blunt, decidable cases: absent encryption, `pull_request_target` exposure, and the right IAM scope are judgment the [`infra` specialization](/docs/commands/catalog) still covers.
+The hook catches the blunt, decidable cases: absent encryption, `pull_request_target` exposure, and the right IAM scope are judgment the [`infra` specialization](/docs/catalog) still covers.
 :::
 
 <Faq

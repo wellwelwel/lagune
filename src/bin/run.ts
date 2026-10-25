@@ -1,4 +1,4 @@
-import type { CategoryAction } from '../types/catalog.js';
+import type { CategoryAction } from '../types/categories.js';
 import type { CliCommand, ParsedCliArgs } from '../types/core.js';
 import { stdout } from 'node:process';
 import {

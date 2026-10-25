@@ -234,7 +234,7 @@ const config: Config = {
           items: [
             { label: 'Get Started', to: '/docs' },
             { label: 'Commands', to: '/docs/commands/charter' },
-            { label: 'Catalog', to: '/docs/commands/catalog' },
+            { label: 'Catalog', to: '/docs/catalog' },
           ],
         },
         {

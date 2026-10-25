@@ -1,17 +1,12 @@
-import type {
-  CatalogEntry,
-  ProjectCatalog,
-  Specialization,
-} from '../types/catalog.js';
+import type { CatalogEntry, Specialization } from '../types/catalog.js';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isRecord, isStringArray } from '../core/collections.js';
 import {
-  ensureDir,
-  existingWithin,
-  fileWithin,
-  writeFileOverwrite,
-} from '../core/fs-actions.js';
+  readProjectCategories,
+  usedCategories,
+} from '../categories/project.js';
+import { isRecord, isStringArray } from '../core/collections.js';
+import { existingWithin } from '../core/fs-actions.js';
 import { parseJsonObject } from '../core/json.js';
 import { readText } from '../core/markdown/read.js';
 import { BUILTIN_SPECIALIZATIONS } from './builtin.js';
@@ -20,7 +15,6 @@ import { isSpecializationName } from './name.js';
 
 export const CATALOG_FILE = '.lagune/catalog.json';
 export const CATALOG_DIR = '.lagune/catalog';
-export const DEFAULT_CATEGORIES = ['owasp'];
 
 const toSpecialization = (value: unknown): Specialization[] => {
   if (!isRecord(value)) return [];
@@ -37,36 +31,14 @@ const toSpecialization = (value: unknown): Specialization[] => {
 export const specializationsOf = (entries: unknown): Specialization[] =>
   Array.isArray(entries) ? entries.flatMap(toSpecialization) : [];
 
-const recordedCategories = (
-  fields: Record<string, unknown>
-): string[] | undefined => {
-  if (fields.categories === undefined) return undefined;
-  if (!isStringArray(fields.categories))
-    throw new Error(
-      `${CATALOG_FILE} records categories that are not a list of names: fix it, then run this again.`
-    );
-
-  return [...fields.categories];
-};
-
-/** Reads the project's recorded categories and its own index, refusing a file it cannot trust */
-export const readProjectCatalog = async (
-  cwd: string
-): Promise<ProjectCatalog> => {
+/** Reads the index of the project's own specializations, refusing a file it cannot trust */
+export const readOwnIndex = async (cwd: string): Promise<Specialization[]> => {
   const raw = await readText(join(cwd, CATALOG_FILE));
 
-  if (raw === null) return { categories: undefined, entries: [] };
+  if (raw === null) return [];
 
-  const fields = parseJsonObject(raw, CATALOG_FILE);
-
-  return {
-    categories: recordedCategories(fields),
-    entries: specializationsOf(fields.entries),
-  };
+  return specializationsOf(parseJsonObject(raw, CATALOG_FILE).entries);
 };
-
-export const usedCategories = (catalog: ProjectCatalog): string[] =>
-  catalog.categories ?? DEFAULT_CATEGORIES;
 
 /** The project's own file for a name, only when it resolves inside the project */
 const ownFile = (cwd: string, name: string): Promise<string | undefined> =>
@@ -86,15 +58,22 @@ const presentOwn = async (
 /** The catalog the project uses: the built-ins of its categories plus its own, its own winning a name */
 export const resolveCatalog = async (
   cwd: string,
-  catalog: ProjectCatalog
+  categories: string[],
+  own: Specialization[]
 ): Promise<CatalogEntry[]> =>
   merge(
-    builtinsIn(BUILTIN_SPECIALIZATIONS, usedCategories(catalog)),
-    await presentOwn(cwd, catalog.entries)
+    builtinsIn(BUILTIN_SPECIALIZATIONS, categories),
+    await presentOwn(cwd, own)
   );
 
-export const catalogEntries = async (cwd: string): Promise<CatalogEntry[]> =>
-  resolveCatalog(cwd, await readProjectCatalog(cwd));
+export const catalogEntries = async (cwd: string): Promise<CatalogEntry[]> => {
+  const [categories, own] = await Promise.all([
+    readProjectCategories(cwd),
+    readOwnIndex(cwd),
+  ]);
+
+  return resolveCatalog(cwd, usedCategories(categories), own);
+};
 
 const isBuiltin = (name: string): boolean =>
   BUILTIN_SPECIALIZATIONS.some((entry) => entry.name === name);
@@ -121,36 +100,4 @@ export const readSpecialization = async (
   );
 
   return builtin ?? undefined;
-};
-
-/** The project's catalog file, refusing a link or a state folder that resolves outside the project */
-export const containedCatalogFile = async (cwd: string): Promise<string> => {
-  const file = await fileWithin(cwd, join(cwd, CATALOG_FILE));
-
-  if (file === undefined)
-    throw new Error(
-      `${CATALOG_FILE} must be a file inside this project, not a link or a path outside it: fix it, then run this again.`
-    );
-
-  return file;
-};
-
-export const recordCategories = async (
-  cwd: string,
-  categories: string[]
-): Promise<void> => {
-  await ensureDir(join(cwd, '.lagune'));
-
-  const path = await containedCatalogFile(cwd);
-  const raw = await readText(path);
-  const fields: Record<string, unknown> =
-    raw === null ? {} : parseJsonObject(raw, CATALOG_FILE);
-  const recorded = {
-    ...fields,
-    name: 'lagune',
-    categories,
-    entries: fields.entries ?? [],
-  };
-
-  await writeFileOverwrite(path, `${JSON.stringify(recorded, null, 2)}\n`);
 };

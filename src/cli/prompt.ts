@@ -1,4 +1,4 @@
-import type { Category } from '../types/catalog.js';
+import type { Category } from '../types/categories.js';
 import type { ListTarget } from '../types/core.js';
 import { stdin } from 'node:process';
 import {

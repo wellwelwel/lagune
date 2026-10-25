@@ -14,6 +14,7 @@ export const docsNav: DocsNavEntry[] = [
       'get-started/install',
       'get-started/commands',
       'categories',
+      'catalog',
       'get-started/dashboard',
     ],
   },
@@ -35,7 +36,7 @@ export const docsNav: DocsNavEntry[] = [
   },
   {
     label: 'Tools',
-    items: ['commands/catalog', 'commands/specialize', 'commands/prove'],
+    items: ['commands/specialize', 'commands/prove'],
   },
   {
     label: 'Hooks',
@@ -62,7 +63,7 @@ export const docsNav: DocsNavEntry[] = [
       'references/paper',
       'references/glossary',
       'references/deepsec',
-      'references/skills-sources',
+      'references/owasp-sources',
     ],
   },
   {

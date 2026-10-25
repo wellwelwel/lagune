@@ -1,14 +1,18 @@
-import type { ProjectCatalog, Specialization } from '../types/catalog.js';
+import type { Specialization } from '../types/catalog.js';
 import type { LegacyInstall, MigrateResult, MovedFile } from '../types/core.js';
 import { readdir, rename, rmdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { BUILTIN_SPECIALIZATIONS } from '../catalog/builtin.js';
 import {
   CATALOG_DIR,
-  containedCatalogFile,
-  readProjectCatalog,
+  CATALOG_FILE,
+  readOwnIndex,
   specializationsOf,
 } from '../catalog/project.js';
+import {
+  CATEGORIES_FILE,
+  readProjectCategories,
+} from '../categories/project.js';
 import { isStringArray } from './collections.js';
 import {
   ensureDir,
@@ -23,6 +27,7 @@ import {
 import { removeLaguneBlock } from './gitignore.js';
 import { parseJsonObject } from './json.js';
 import { readText } from './markdown/read.js';
+import { containedStateFile } from './state-file.js';
 
 const MANIFEST_FILE = '.lagune/manifest.json';
 const LEGACY_INDEX_FILE = '.lagune/skills.json';
@@ -174,23 +179,31 @@ const mergedEntries = (
   ),
 ];
 
-const writeProjectCatalog = async (
-  catalogFile: string,
-  current: ProjectCatalog,
-  install: LegacyInstall,
-  legacy: Specialization[]
-): Promise<void> => {
-  const categories = current.categories ?? install.categories;
-  const catalog = {
-    name: 'lagune',
-    ...(categories === undefined ? {} : { categories }),
-    entries: mergedEntries(current.entries, legacy),
-  };
-
-  await writeFileOverwrite(
-    catalogFile,
-    `${JSON.stringify(catalog, null, 2)}\n`
+const writeStateFile = (
+  path: string,
+  fields: Record<string, unknown>
+): Promise<void> =>
+  writeFileOverwrite(
+    path,
+    `${JSON.stringify({ name: 'lagune', ...fields }, null, 2)}\n`
   );
+
+const writeOwnIndex = async (
+  catalogFile: string,
+  entries: Specialization[]
+): Promise<void> => {
+  if (entries.length === 0) return;
+
+  await writeStateFile(catalogFile, { entries });
+};
+
+const writeCategories = async (
+  categoriesFile: string,
+  categories: string[] | undefined
+): Promise<void> => {
+  if (categories === undefined) return;
+
+  await writeStateFile(categoriesFile, { categories });
 };
 
 const guardProofs = async (cwd: string): Promise<void> => {
@@ -208,10 +221,14 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
 
   if (install === undefined) return { migrated: false };
 
-  const catalogFile = await containedCatalogFile(cwd);
-  const [legacy, current, files] = await Promise.all([
+  const [catalogFile, categoriesFile] = await Promise.all([
+    containedStateFile(cwd, CATALOG_FILE),
+    containedStateFile(cwd, CATEGORIES_FILE),
+  ]);
+  const [legacy, ownIndex, recorded, files] = await Promise.all([
     readLegacyIndex(cwd),
-    readProjectCatalog(cwd),
+    readOwnIndex(cwd),
+    readProjectCategories(cwd),
     legacyFiles(cwd),
   ]);
   const ownNames = new Set(legacy.map((entry) => entry.name));
@@ -227,7 +244,8 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
   const { moved, kept } = await moveOwnSpecializations(cwd, own);
 
   await removeIfEmpty(join(cwd, LEGACY_SPECIALIZATIONS_DIR));
-  await writeProjectCatalog(catalogFile, current, install, legacy);
+  await writeOwnIndex(catalogFile, mergedEntries(ownIndex, legacy));
+  await writeCategories(categoriesFile, recorded ?? install.categories);
   await removeFileIfPresent(join(cwd, LEGACY_INDEX_FILE));
   await guardProofs(cwd);
 

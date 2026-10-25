@@ -1,12 +1,12 @@
-import type { Category, CategoryChange } from '../types/catalog.js';
+import type { Category, CategoryChange } from '../types/categories.js';
 import type { MigrateSummary } from '../types/core.js';
+import { CATEGORIES_FILE } from '../categories/project.js';
 import { allOf } from '../core/collections.js';
 import { color } from './colors.js';
 
 const ENGINE_COMMAND = 'npx lagune';
 const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
 const SKILLS_UPDATE = 'npx skills update';
-const CATALOG_FILE = '.lagune/catalog.json';
 
 export const MIGRATE_PAGE = 'https://lagune.ai/docs/commands/migrate';
 
@@ -176,7 +176,7 @@ export const categoryList = (
     return bullet(`${key}  ${state}  ${category.description}`);
   });
   const origin = recorded
-    ? `Recorded in ${CATALOG_FILE}.`
+    ? `Recorded in ${CATEGORIES_FILE}.`
     : `No category is recorded yet, so this project uses the default: ${allOf(used)}.`;
 
   return [heading('Categories'), ...rows, '', color.dim(origin)].join('\n');
@@ -193,7 +193,7 @@ export const categoriesRecorded = (
     ...(change.changed.length > 0
       ? [
           done(
-            `${verb} ${allOf(change.changed)} ${color.dim(`· ${CATALOG_FILE}`)}`
+            `${verb} ${allOf(change.changed)} ${color.dim(`· ${CATEGORIES_FILE}`)}`
           ),
         ]
       : []),

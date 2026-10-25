@@ -1,4 +1,4 @@
-import type { Category } from './catalog.js';
+import type { Category } from './categories.js';
 import type { CvssSeverity } from './cvss.js';
 
 export type CliCommand =

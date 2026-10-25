@@ -69,65 +69,9 @@ The engine needs no update of its own. One installed in the project updates with
 Your charter, the artifacts each phase produces, the internal tracking, and every specialization you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
 :::
 
-## Specializations
+## Categories and catalog
 
-**Lagune** ships focused security [**specializations**](/docs/commands/catalog) grouped into [**categories**](/docs/categories), from `owasp` to per-language ones like `python`, `go`, and `rust`. The categories a project uses decide which built-in specializations join its catalog, and `.lagune/catalog.json` records them, so the whole team works with the same set.
-
-While no category is recorded, the project uses `owasp` alone. [`/lagune.charter`](/docs/commands/charter) then records each category its reading of the project supports, such as its language, calls to an LLM, or containers, and never changes them once recorded. You can change them yourself anytime.
-
-### Add and remove anytime
-
-`--categories` with no value opens an interactive picker in a terminal (space to toggle, enter to confirm, empty to skip). Outside a terminal, pass the categories after it.
-
-<Tabs>
-  <TabItem value="add" label="Add" default>
-
-```bash
-npx lagune add --categories # interactive
-npx lagune add --categories owasp
-npx lagune add --categories owasp rust
-```
-
-  </TabItem>
-  <TabItem value="remove" label="Remove">
-
-```bash
-npx lagune remove --categories # interactive
-npx lagune remove --categories owasp
-npx lagune remove --categories owasp rust
-```
-
-  </TabItem>
-</Tabs>
-
-The first `add` or `remove` starts from `owasp`, so removing every category leaves an empty list, never the default.
-
-### See what exists
-
-`list` on its own asks what you want to see, the findings **Lagune** is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--categories` for the categories.
-
-```bash
-npx lagune list --categories
-# Categories
-#   • owasp       [used]       Harden against the application security risks OWASP tracks
-#   • javascript  [available]  Harden JavaScript and its runtimes
-#   • php         [available]  Harden PHP against type-juggling auth bypass
-#   • go          [available]  Harden Go against typed-nil interface bugs
-#   ...
-#
-# No category is recorded yet, so this project uses the default: owasp.
-```
-
-`catalog` prints the specializations the project uses, built-in and its own, one per line:
-
-```bash
-npx lagune catalog
-# regex: Regular Expression [required]
-# network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
-# ...
-```
-
-See every category in [**Categories**](/docs/categories).
+**Lagune**'s security knowledge comes as [**specializations**](/docs/catalog), grouped into [**categories**](/docs/categories). A project starts with `owasp`, and [`/lagune.charter`](/docs/commands/charter) adds the categories its reading of the project supports, such as its language, calls to an LLM, or containers. The built-ins of those categories, plus the specializations you write yourself, form the project's [**catalog**](/docs/catalog).
 
 ## Requirements
 

@@ -1,4 +1,4 @@
-import type { CategoryKey } from '../../types/catalog';
+import type { CategoryKey } from '../../types/categories';
 import type {
   CategoryBadge,
   PromptSpec,
@@ -7,7 +7,7 @@ import type {
 } from '../../types/dashboard/client';
 import type { CatalogItem } from '../../types/dashboard/dashboard';
 import { BUILTIN_SPECIALIZATIONS } from '../../catalog/builtin';
-import { CATEGORIES } from '../../catalog/categories';
+import { CATEGORIES } from '../../categories/categories';
 import { iconPath } from './assets';
 
 const LABELS: Record<string, string> = {

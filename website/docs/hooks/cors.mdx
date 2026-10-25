@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `cors` hook is the deterministic engine behind the [`http-request` specialization](/docs/commands/catalog), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
+The `cors` hook is the deterministic engine behind the [`http-request` specialization](/docs/catalog), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
 
 ## Scan a codebase
 
@@ -106,7 +106,7 @@ With no option it scans the whole project. `--origin` is the score mode and cann
 
 :::note[What it does not cover]
 
-The scan reads the **bypassable-regex** shape, and `--origin` scores origin **values**. Two source-level patterns stay out of reach: reflection of the request's `Origin` (the server echoes the incoming `Origin` back, or pairs it with credentials), and a permissive `endsWith`/substring allowlist. Recognize them in the code and treat them as the [`http-request` specialization](/docs/commands/catalog) describes.
+The scan reads the **bypassable-regex** shape, and `--origin` scores origin **values**. Two source-level patterns stay out of reach: reflection of the request's `Origin` (the server echoes the incoming `Origin` back, or pairs it with credentials), and a permissive `endsWith`/substring allowlist. Recognize them in the code and treat them as the [`http-request` specialization](/docs/catalog) describes.
 :::
 
 <Faq

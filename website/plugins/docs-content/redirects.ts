@@ -1,7 +1,8 @@
 export const docsRedirects: Record<string, string> = {
-  'commands/skills': 'commands/catalog',
+  'commands/skills': 'catalog',
   'skill-categories': 'categories',
   'get-started/install': '',
+  'references/skills-sources': 'references/owasp-sources',
 };
 
 export const redirectPage = (target: string): string =>

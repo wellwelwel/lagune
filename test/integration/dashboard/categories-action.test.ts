@@ -8,15 +8,15 @@ import { ACTIONS } from '../../../src/dashboard/server/actions.js';
 const packageRoot = new URL('../../../', import.meta.url);
 const projects: string[] = [];
 
-const newProject = async (catalog?: string): Promise<string> => {
+const newProject = async (categories?: string): Promise<string> => {
   const project = await mkdtemp(join(tmpdir(), 'lagune-action-'));
 
   projects.push(project);
 
-  if (catalog === undefined) return project;
+  if (categories === undefined) return project;
 
   await mkdir(join(project, '.lagune'), { recursive: true });
-  await writeFile(join(project, '.lagune/catalog.json'), catalog);
+  await writeFile(join(project, '.lagune/categories.json'), categories);
 
   return project;
 };
@@ -31,7 +31,7 @@ const record = (project: string, body: unknown): Promise<ActionResult> => {
 };
 
 const recorded = (project: string): Promise<string | null> =>
-  readFile(join(project, '.lagune/catalog.json'), 'utf8').catch(() => null);
+  readFile(join(project, '.lagune/categories.json'), 'utf8').catch(() => null);
 
 afterEach(async () => {
   await Promise.all(
@@ -45,24 +45,22 @@ await describe('the dashboard records the chosen categories as add and remove do
   await it('adds to the default while none is recorded', async () => {
     const project = await newProject();
     const result = await record(project, { categories: ['owasp', 'ai'] });
-    const catalog = JSON.parse((await recorded(project)) ?? '{}');
+    const file = JSON.parse((await recorded(project)) ?? '{}');
 
     strict.deepStrictEqual(result, {
       status: 200,
       body: { ok: true, added: 1, removed: 0 },
     });
-    strict.deepStrictEqual(catalog.categories, ['owasp', 'ai']);
+    strict.deepStrictEqual(file.categories, ['owasp', 'ai']);
   });
 
   await it('removes what is no longer chosen, down to an empty list', async () => {
-    const project = await newProject(
-      '{"categories":["owasp","go"],"entries":[]}'
-    );
+    const project = await newProject('{"categories":["owasp","go"]}');
     const result = await record(project, { categories: [] });
-    const catalog = JSON.parse((await recorded(project)) ?? '{}');
+    const file = JSON.parse((await recorded(project)) ?? '{}');
 
     strict.deepStrictEqual(result.body, { ok: true, added: 0, removed: 2 });
-    strict.deepStrictEqual(catalog.categories, []);
+    strict.deepStrictEqual(file.categories, []);
   });
 
   for (const [label, body] of [
@@ -75,9 +73,9 @@ await describe('the dashboard records the chosen categories as add and remove do
     await it(`rejects ${label} without writing anything`, async () => {
       const project = await newProject();
       const result = await record(project, body);
-      const catalog = await recorded(project);
+      const file = await recorded(project);
 
       strict.strictEqual(result.status, 400);
-      strict.strictEqual(catalog, null);
+      strict.strictEqual(file, null);
     });
 });

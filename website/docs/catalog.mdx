@@ -94,14 +94,7 @@ The built-in specializations are grouped into [**categories**](/docs/categories)
 | `c-cpp`               | `c-cpp`                     | **Format strings:** `printf(user_input)`, `%n` write-what-where.               |
 | `dotnet`              | `dotnet`                    | **Platform-level risks:** `BinaryFormatter` RCE, `@Html.Raw`, enum gaps.       |
 
-While your project records no category, it uses `owasp` alone. [`/lagune.charter`](/docs/commands/charter) records the categories its reading supports, and you change them any time with `add` and `remove`, recorded in `.lagune/catalog.json` for the whole project:
-
-```bash
-npx lagune add --categories python
-npx lagune remove --categories python
-```
-
-Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](/docs/references/skills-sources) for the full mapping of each specialization to its canonical OWASP attack and Cheat Sheet pages. A few stack-specific modules draw from the vendor's own guidance instead: `supabase`, for instance, comes from the Supabase docs and CVE-2025-48757.
+Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](/docs/references/owasp-sources) for the full mapping of each specialization to its canonical OWASP attack and Cheat Sheet pages. A few stack-specific modules draw from the vendor's own guidance instead: `supabase`, for instance, comes from the Supabase docs and CVE-2025-48757.
 
 ## Your own specializations
 
@@ -125,16 +118,7 @@ npx lagune catalog
 # ...
 ```
 
-A `[required]` specialization always applies, whatever the work. To see every **category** and whether your project uses it:
-
-```bash
-npx lagune list --categories
-# Categories
-#   • owasp       [used]       Harden against the application security risks OWASP tracks: injection, broken access control, auth, and crypto failures
-#   • infra       [available]  Harden container, workload, and serverless config: Dockerfile, Compose, Pod security, FaaS IAM and triggers
-#   • ai          [available]  Harden AI and LLM integrations against prompt injection and unsafe tool, agent, retrieval, and MCP wiring
-#   ...
-```
+A `[required]` specialization always applies, whatever the work. Which built-ins the list holds depends on your project's [**categories**](/docs/categories).
 
 :::note[Specializations are not loaded by default]
 The relevant knowledge is pulled in for what the project actually is, instead of every check running by default.

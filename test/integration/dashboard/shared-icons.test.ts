@@ -1,6 +1,6 @@
 import { access } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
-import { CATEGORIES } from '../../../src/catalog/categories.js';
+import { CATEGORIES } from '../../../src/categories/categories.js';
 import { categoryIcon } from '../../../src/dashboard/shared/specialization-meta.js';
 
 const publicDir = new URL(

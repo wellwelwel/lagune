@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` specialization](/docs/commands/catalog), which you can run yourself in **scan** or **check** mode.
+The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` specialization](/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
@@ -71,7 +71,7 @@ The scan reads these libraries, keyed by file extension. Because some pin the al
 | **C#**                      | Microsoft.IdentityModel | No (multi-line params)                                          | `none`, `RequireSignedTokens = false`           |
 
 :::tip
-The hook decides only the algorithm pin: the claim, key, and flow checks are judgment the [`federation` specialization](/docs/commands/catalog) still covers.
+The hook decides only the algorithm pin: the claim, key, and flow checks are judgment the [`federation` specialization](/docs/catalog) still covers.
 :::
 
 <Faq

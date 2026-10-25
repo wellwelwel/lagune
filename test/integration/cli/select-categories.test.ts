@@ -1,4 +1,4 @@
-import type { Category } from '../../../src/types/catalog.js';
+import type { Category } from '../../../src/types/categories.js';
 import type { SelectCategoriesDeps } from '../../../src/types/core.js';
 import { describe, it, strict } from 'poku';
 import { selectCategories } from '../../../src/cli/select-categories.js';

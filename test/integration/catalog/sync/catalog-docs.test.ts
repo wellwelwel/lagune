@@ -3,7 +3,7 @@ import { describe, it, strict } from 'poku';
 import { BUILTIN_SPECIALIZATIONS } from '../../../../src/catalog/builtin.js';
 
 const packageRoot = new URL('../../../../', import.meta.url);
-const catalogPage = new URL('website/docs/commands/catalog.mdx', packageRoot);
+const catalogPage = new URL('website/docs/catalog.mdx', packageRoot);
 const TABLE_ROW = /^\| `([^`]+)` +\|([^|]+)\|/gm;
 const INLINE_CODE = /`([^`]+)`/g;
 

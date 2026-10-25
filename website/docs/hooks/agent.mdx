@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` specialization](/docs/commands/catalog), which you can run yourself in **scan** or **check** mode.
+The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` specialization](/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
@@ -60,7 +60,7 @@ A hand-rolled agent loop, in any language, is beyond a static scan. Treat this a
 :::
 
 :::tip
-The hook decides only the cap: capability scoping, trust mixing, and authorization are judgment the [`llm` specialization](/docs/commands/catalog) still covers.
+The hook decides only the cap: capability scoping, trust mixing, and authorization are judgment the [`llm` specialization](/docs/catalog) still covers.
 :::
 
 <Faq

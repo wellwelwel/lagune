@@ -3,21 +3,23 @@ import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { newWorkspace, runEngine } from './__utils__.js';
 
+const CATEGORIES_FILE = '.lagune/categories.json';
 const CATALOG_FILE = '.lagune/catalog.json';
 
-const seedCatalog = async (
+const seed = async (
   workspace: string,
+  file: string,
   contents: string
 ): Promise<void> => {
   await mkdir(join(workspace, '.lagune'), { recursive: true });
-  await writeFile(join(workspace, CATALOG_FILE), contents);
+  await writeFile(join(workspace, file), contents);
 };
 
-const recorded = async (workspace: string): Promise<unknown> =>
-  JSON.parse(await readFile(join(workspace, CATALOG_FILE), 'utf8')).categories;
+const textOf = (workspace: string, file: string): Promise<string | null> =>
+  readFile(join(workspace, file), 'utf8').catch(() => null);
 
-const catalogText = (workspace: string): Promise<string | null> =>
-  readFile(join(workspace, CATALOG_FILE), 'utf8').catch(() => null);
+const recorded = async (workspace: string): Promise<unknown> =>
+  JSON.parse((await textOf(workspace, CATEGORIES_FILE)) ?? '{}').categories;
 
 await describe('add and remove record the categories a project uses', async () => {
   await it('starts the first add from the default', async () => {
@@ -59,16 +61,24 @@ await describe('add and remove record the categories a project uses', async () =
     strict.deepStrictEqual(categories, ['owasp']);
   });
 
-  await it('keeps the own index untouched', async () => {
+  await it('never touches the own index', async () => {
     const workspace = await newWorkspace();
-    const entries = [{ name: 'graphql', tags: ['GraphQL'] }];
+    const index = JSON.stringify({
+      name: 'lagune',
+      entries: [{ name: 'graphql', tags: ['GraphQL'] }],
+    });
 
-    await seedCatalog(workspace, JSON.stringify({ name: 'lagune', entries }));
-    await runEngine(workspace, ['add', '--categories', 'go']);
+    await seed(workspace, CATALOG_FILE, index);
 
-    const catalog = JSON.parse((await catalogText(workspace)) ?? '{}');
+    const run = await runEngine(workspace, ['add', '--categories', 'go']);
+    const [categories, catalog] = await Promise.all([
+      recorded(workspace),
+      textOf(workspace, CATALOG_FILE),
+    ]);
 
-    strict.deepStrictEqual(catalog.entries, entries);
+    strict.strictEqual(run.code, 0);
+    strict.deepStrictEqual(categories, ['owasp', 'go']);
+    strict.strictEqual(catalog, index);
   });
 
   for (const args of [
@@ -80,22 +90,26 @@ await describe('add and remove record the categories a project uses', async () =
     await it(`fails on ${args.join(' ')} without writing anything`, async () => {
       const workspace = await newWorkspace();
       const run = await runEngine(workspace, args);
-      const catalog = await catalogText(workspace);
+      const [categories, catalog] = await Promise.all([
+        textOf(workspace, CATEGORIES_FILE),
+        textOf(workspace, CATALOG_FILE),
+      ]);
 
       strict.strictEqual(run.code, 1);
+      strict.strictEqual(categories, null);
       strict.strictEqual(catalog, null);
     });
 
-  await it('refuses to record over a catalog file it cannot read', async () => {
+  await it('refuses to record over a categories file it cannot read', async () => {
     const workspace = await newWorkspace();
 
-    await seedCatalog(workspace, '{"entries": [');
+    await seed(workspace, CATEGORIES_FILE, '{"categories": [');
 
     const run = await runEngine(workspace, ['add', '--categories', 'go']);
-    const catalog = await catalogText(workspace);
+    const categories = await textOf(workspace, CATEGORIES_FILE);
 
     strict.strictEqual(run.code, 1);
-    strict.strictEqual(catalog, '{"entries": [');
+    strict.strictEqual(categories, '{"categories": [');
   });
 });
 
@@ -113,13 +127,13 @@ await describe('list --categories shows every category and the ones in use', asy
   await it('marks the recorded categories and says they are recorded', async () => {
     const workspace = await newWorkspace();
 
-    await seedCatalog(workspace, '{"categories":["go"]}');
+    await seed(workspace, CATEGORIES_FILE, '{"categories":["go"]}');
 
     const run = await runEngine(workspace, ['list', '--categories']);
 
     strict.match(run.stdout, /owasp +\[available\] /);
     strict.match(run.stdout, /go +\[used\] /);
-    strict(run.stdout.includes('Recorded in .lagune/catalog.json.'));
+    strict(run.stdout.includes('Recorded in .lagune/categories.json.'));
   });
 
   await it('needs a target outside a terminal', async () => {

@@ -7,11 +7,11 @@
 
 ## Abstract
 
-Security-Driven Hardening (SDH) is a structured, AI-driven, defense-only security methodology for the era in which software is increasingly written by AI agents and by people who are not security specialists. Instead of running a fixed catalog of generic checks, SDH first detects what a system actually does (login, file uploads, payments, data exposure, and so on) and then drives the security work that is specific to that context. It is governed by safe-by-default principles, framed entirely around defense, and expressed in plain language so that any user can act on it.
+Security-Driven Hardening (SDH) is a structured, AI-driven, defense-only security methodology for the era in which software is increasingly written by AI agents and by people who are not security specialists. Instead of running a generic checklist, SDH first detects what a system actually does (login, file uploads, payments, data exposure, and so on) and then drives the security work that is specific to that context. It is governed by safe-by-default principles, framed entirely around defense, and expressed in plain language so that any user can act on it.
 
 This document argues that SDH is a missing convention, not a single tool. The security knowledge lives in the methodology and its on-demand specializations, a baseline every user can build on, which lets it serve a novice and an expert through the same flow. Two properties set it apart from prior spec-first approaches `[1]`. SDH is **state-independent**: it adapts to an empty directory, a project in progress, a single pull request, or a large legacy codebase, in any stack. And SDH is **closable**: a risk verified closed is stood down out of the whole flow, so that finding reaches a settled state and is reopened only when the code changes. SDH does not replace security professionals or specialized Blue Team tooling. It extends the developer's own knowledge, and the more a developer understands security, the more they can drive it.
 
-**Lagune** is the reference implementation. It realizes SDH across AI coding agents and proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
+**Lagune** is the reference implementation, and it proves the methodology is buildable and portable. SDH is offered as a convention others can adopt.
 
 > **Index Terms**
 >
@@ -21,7 +21,7 @@ This document argues that SDH is a missing convention, not a single tool. The se
 
 ## I. Introduction: the security gap AI-assisted development opened
 
-Software is increasingly shipped by people, and by AI agents, who cannot reliably recognize an insecure pattern: a leaked secret, a missing authorization check, an injectable query. These are not exotic risks. They sit among the risk classes that dominate real incidents, catalogued for years in public references `[6]`, `[7]`, and recent studies report that a meaningful share of AI-generated code ships with exactly such defects `[8]`. AI coding assistants made this acute by letting non-developers ship real software, but the gap is broader than any single audience. Most projects never get a security pass that is specific to what they actually do. The ecosystem becomes more fragile with every premature "it works, ship it" decision.
+Software is increasingly shipped by people, and by AI agents, who cannot reliably recognize an insecure pattern: a leaked secret, a missing authorization check, an injectable query. These are not exotic risks. They sit among the risk classes that dominate real incidents, documented for years in public references `[6]`, `[7]`, and recent studies report that a meaningful share of AI-generated code ships with exactly such defects `[8]`. AI coding assistants made this acute by letting non-developers ship real software, but the gap is broader than any single audience. Most projects never get a security pass that is specific to what they actually do. The ecosystem becomes more fragile with every premature "it works, ship it" decision.
 
 Generic security advice does not close this gap. A static checklist is not specific to what a system does, so it floods a small project with irrelevant items and still misses the risk that matters for that one project. The problem is not a shortage of security knowledge in the world. The problem is matching the right knowledge to the system actually in front of the user, and doing it for someone who may not know what to ask for.
 
@@ -41,11 +41,11 @@ This document makes the following contributions:
 - A five-phase defensive lifecycle in which the separation of duties is itself the contribution: detection never invents, planning never reads code, only one phase changes code, and verification never softens its judgment (`§IV`).
 - **Closability** as a methodological stance: an individual finding has an end state, not an endless loop (`§V`).
 - The **dev-knowledge-extender** duality: one flow that protects the novice and amplifies the expert (`§VI`).
-- **Non-invocable specializations and prompt-on-demand**: focused security knowledge the agent loads only when the project's context calls for it, never by default (`§VII`).
+- **Non-invocable specializations and prompt-on-demand**: focused security knowledge the agent loads when the project's context calls for it, never by default (`§VII`).
 - **State-independence** and **non-authoritative adaptivity**: SDH fits any development state and adapts to the scenario instead of imposing a fixed scope (`§VIII`).
 - A **preventive mode**: the same defense run while ordinary work is built, so the code lands safe-by-default and the phases have less to correct (`§IX`).
 - A dedicated comparison with Spec-Driven Development, the lineage SDH grew from and then diverged from (`§X`).
-- The engineering disciplines that make the methodology hold under refactors and across agents: identity-by-name tracking (`§XI`) and an agent-agnostic carrier (`§XII`).
+- The engineering disciplines that let the methodology survive refactors and stay independent of any agent: identity-by-name tracking (`§XI`) and an agent-agnostic carrier (`§XII`).
 
 ---
 
@@ -53,7 +53,7 @@ This document makes the following contributions:
 
 SDH builds on prior work. It inherits a proven structure from spec-first, agent-driven development `[1]`, `[2]`, `[3]`: templates, slash commands an agent consumes, a governing document, and an agent that runs the phases. It reimplements that structure with a defensive purpose. The lineage is deliberate, and one of SDH's working principles names it directly: build the workflow from a proven structure, then frame it for security.
 
-SDH is not a static catalog of generic recommendations. A catalog knows a great deal about security in general and nothing about the project in front of it. SDH reverses that emphasis. It spends its first effort on detection, on learning what the system does, and only then reaches for the knowledge that detection makes relevant.
+SDH is not a static checklist of generic recommendations. A checklist knows a great deal about security in general and nothing about the project in front of it. SDH reverses that emphasis. It spends its first effort on detection, on learning what the system does, and only then reaches for the knowledge that detection makes relevant.
 
 SDH is also not a replacement for security people or for specialized Blue Team tooling. It is an extender of the developer's knowledge (`§VI`). A team with a dedicated security function should keep it. SDH gives that team a structured carrier, and it gives a team without one a defensible baseline.
 
@@ -98,7 +98,7 @@ The rest of the document develops nine named pillars. They are the parts a reade
 | State-independence and non-authoritative adaptivity | Fits any development state in any stack, and adapts to the scenario instead of imposing a scope.                      | `§VIII`     |
 | The preventive mode                                 | The same defense runs while new work is built, so the code lands safe-by-default.                                     | `§IX`       |
 | Identity-by-name tracking                           | A finding stays one item across phases, and a rename breaks the link in one place.                                    | `§XI`       |
-| The agent-agnostic carrier                          | The security value is written once and runs across agents and stacks.                                                 | `§XII`      |
+| The agent-agnostic carrier                          | The security value is written once and depends on no agent or stack.                                                  | `§XII`      |
 
 **Table 2.** The nine named pillars of SDH and where each is developed.
 
@@ -138,7 +138,7 @@ Detect reads the code and maps what the system actually does that carries securi
 
 ### plan (triage)
 
-Plan turns each finding into a fix, named by its risk class (citing the established catalogs, CWE and OWASP, where they ground it) and tied to the charter principle the fix upholds. The priority (Critical, High, Medium, Low) is not a free choice: plan rates each finding with the CVSS v4.0 Base-and-Environmental method, so the band is the score in plain words, justified by one plain-language line of exposure and stakes, and two runs land the same order. The vector is the precise anchor for an expert, the band and its justification the same rating anyone can follow. Plan works only from the detect map and never reads the code. This is a deliberate constraint, not a limitation: it forces every fix to point at something detect actually detected. If a scope was never mapped, plan stops and routes the user back to detect rather than guessing.
+Plan turns each finding into a fix, named by its risk class (citing the established references, CWE and OWASP, where they ground it) and tied to the charter principle the fix upholds. The priority (Critical, High, Medium, Low) is not a free choice: plan rates each finding with the CVSS v4.0 Base-and-Environmental method, so the band is the score in plain words, justified by one plain-language line of exposure and stakes, and two runs land the same order. The vector is the precise anchor for an expert, the band and its justification the same rating anyone can follow. Plan works only from the detect map and never reads the code. This is a deliberate constraint, not a limitation: it forces every fix to point at something detect actually detected. If a scope was never mapped, plan stops and routes the user back to detect rather than guessing.
 
 ### harden (remediate)
 
@@ -228,15 +228,15 @@ This is the methodology's most novel pattern. SDH carries focused security knowl
 
 > **Definition**
 >
-> **Non-invocable specialization:** A focused, language-agnostic unit of security knowledge for one risk area. It audits and explains, never rewrites code, and never produces an attack input. Nothing opens it directly: a single dispatcher loads it only when the project's context calls for it.
+> **Non-invocable specialization:** A focused, language-agnostic unit of security knowledge for one context, such as file uploads or code that runs in the browser. It audits and explains, never rewrites code, and never produces an attack input. It is not a command: it loads when the context it covers is in scope, or when a prompt asks for it by name.
 
-A specialization is focused, language-agnostic security knowledge for one risk area. It audits and explains. It never rewrites the user's code, and it never produces an attack input. Each specialization names the safer shapes for the risks it covers and tells the agent how to act on a finding in each phase that consumes it: how to judge it at detection, how to apply its fix safely at remediation, and how to prove it at verification. The specializations are evolutionary by design: the collection grows and reshapes over time, while the pattern around it stays the same. This section describes that pattern, not any particular specialization.
+Each specialization names the safer shapes for the risks it covers and tells the agent how to act on a finding in each phase that consumes it: how to judge it at detection, how to apply its fix safely at remediation, and how to prove it at verification.
 
-The defining trait is that a specialization is **non-invocable on its own**. Nothing opens it directly, not the user, not a phase. There is a single dispatcher entry point: the detection phase lists the catalog once, matches the project's context against what each entry covers, and loads only the specializations whose area is present in scope. The later phases reuse that matched list instead of re-listing, so one match serves the whole chain. A specialization whose context is absent is skipped, and the skip is as accountable as the load: every entry in the catalog receives an explicit verdict, applied or skipped with the reason read off the code, so a vague sense of irrelevance never stands in for absence. Finding none applicable is a valid outcome.
+The defining trait is that a specialization is **non-invocable on its own**: it is not a command, and inside the flow a match is what loads it. The detection phase lists the catalog once, matches the project's context against what each entry covers, and loads only the specializations whose context is present in scope. The later phases reuse that matched list instead of re-listing, so one match serves the whole chain, and the preventive mode (`§IX`) runs the same match against the work about to be built. A specialization whose context is absent is skipped, and the skip is as accountable as the load: every entry in the catalog receives an explicit verdict, applied or skipped with the reason read off the code, so a vague sense of irrelevance never stands in for absence. Finding none applicable is a valid outcome.
 
-The catalog is data, and growth is one knowledge file plus one catalog row, never a new command. The built-in specializations are grouped into categories, such as OWASP, a language, or AI integrations, and the catalog a project uses holds the built-ins of the categories it chose. The project records that choice with the rest of its state, so a whole team matches against the same catalog. This is the same context-aware principle as the phases, applied to knowledge: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default. The same property lets the user, not only the maintainer, grow the catalog: a security source or topic the user supplies is distilled into a new specialization, written into the project's own catalog and loaded thereafter exactly like a built-in, which it replaces when the two share a name. Authoring a specialization is itself defense-only and obeys the same boundary the specializations enforce: an attack write-up may be the source, but the specialization it yields audits and explains, it never emits a working exploit. So the inversion of `§I`, the intelligence living in the spec, extends to the catalog itself, which the user can deepen for their own context without writing code.
+The catalog is data, and growth is one knowledge file plus one catalog row, never a new command. The built-in specializations are grouped into categories, such as OWASP, a language, or AI integrations, and the catalog a project uses holds the built-ins of the categories it chose plus its own specializations. The project records that choice with the rest of its state, so a whole team matches against the same catalog. This is the same context-aware principle as the phases, applied to knowledge: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default. The same property lets the user, not only the maintainer, grow the catalog: a security source or topic the user supplies is distilled into a new specialization that belongs to the project, joins its catalog whatever the categories, and loads exactly like a built-in, replacing the built-in of the same name. Authoring a specialization is itself defense-only and obeys the same boundary the specializations enforce: an attack write-up may be the source, but the specialization it yields audits and explains, it never emits a working exploit. So the inversion of `§I`, the intelligence living in the spec, extends to the catalog itself, which the user can deepen for their own context without writing code.
 
-A short dispatch example illustrates prompt-on-demand. Detect reads a folder of code that runs in the browser. It matches that area in the catalog, loads the specialization that covers it, and surfaces a client-side finding through detect's normal steps. The specializations for areas not present in this scope do not match, so they never load and are never mentioned. The project decided what knowledge was relevant, not a fixed configuration.
+A short example illustrates prompt-on-demand. Detect reads a folder of code that runs in the browser. It matches that context in the catalog, loads the specialization that covers it, and surfaces a client-side finding through detect's normal steps. The specializations whose context is absent from this scope do not match, so they never load, and each is recorded as skipped. The project decided what knowledge was relevant, not a fixed configuration.
 
 Determinism appears precisely where it matters. A specialization can carry a deterministic checker, not just prose: where a risk class has a crisp decision procedure, a small program returns a fixed verdict for a given input, for example a short set of words such as `safe`, `unsafe`, or `invalid input`. Some risk classes are deterministically decidable in exactly this way, with a body of prior work behind the decision procedure `[9]`, `[10]`, `[11]`. The checker either scores candidates the agent supplies or scans the scope to find them itself, and in both cases the checker, not the agent, returns the verdict. A specialization universal enough can be marked required in the catalog and is then always applied, its checker run over the whole scope. This is the one case where knowledge loads without a context match, and it is declared in the catalog's data, never decided by the agent in the moment. This is where SDH grounds its agent reasoning in something repeatable, without pretending the whole flow is deterministic.
 
@@ -384,7 +384,7 @@ flowchart TB
 
 **Figure 6.** The agent-agnostic carrier. The security value is written once, a thin delivery brings it to each agent, and the state stays the project's.
 
-Because delivery carries no security logic, how it is built changes nothing in SDH. A carrier can render each agent's native format itself or hand distribution to an ecosystem that already reaches those agents, and the phases, their artifacts, and their guarantees stay the same. None of this is specific to a language or a runtime either. The reference implementation happens to be authored in one stack, but the methodology is the boundary between these concerns, not the toolchain that builds them. The same design could be reimplemented in another language entirely without changing what SDH is.
+Because delivery carries no security logic, how it is built changes nothing in SDH. A carrier can build delivery itself or hand it to an ecosystem that already distributes agent skills, as the reference implementation does, and the phases, their artifacts, and their guarantees stay the same. None of this is specific to a language or a runtime either. The reference implementation happens to be authored in one stack, but the methodology is the boundary between these concerns, not the toolchain that builds them. The same design could be reimplemented in another language entirely without changing what SDH is.
 
 ---
 
@@ -402,7 +402,7 @@ _This is an illustrative worked example of the methodology's mechanics, not a fi
 One continuous walkthrough shows the methodology operating, not just its parts. We extend the file-upload thread from `§IV` with an on-demand knowledge activation and a closure, and we include one genuine failure.
 
 1. **charter** proposes the principle "All input is untrusted until validated," with its risk in plain language: input that is not checked is the most common way a system is broken.
-2. **detect** scans the upload route and the small admin page that lists uploaded files. It detects the upload finding (the handler trusts the client's MIME type). The admin page runs in the browser, a context that prompt-on-demand (`§VII`) recognizes, so detect loads the specialization for that area and surfaces a second finding, a place where a filename is written into the page as markup rather than text, so a crafted name can run as script in the visitor's browser. Specializations for areas not present in this scope never load, and each skip is recorded with the absence read off the code.
+2. **detect** scans the upload route and the small admin page that lists uploaded files. It detects the upload finding (the handler trusts the client's MIME type). The admin page runs in the browser, a context that prompt-on-demand (`§VII`) recognizes, so detect loads the specialization for that context and surfaces a second finding, a place where a filename is written into the page as markup rather than text, so a crafted name can run as script in the visitor's browser. Specializations whose context is absent from this scope never load, and each skip is recorded with the absence read off the code.
 3. **plan** assigns the upload fix priority Critical, tied to the principle: check the file's real type and size, rename on save, store where code cannot run. It assigns the second fix priority High: render the filename as text, not markup.
 4. **harden** applies the upload fix first (highest priority) and records it Applied, and the second next, Applied.
 5. **verify** reads each spot and confronts code against record. The upload control holds: the handler detects the real type from content, enforces a size limit, and refuses the rest. Verdict: risk closed. Verify stands the upload finding down across the whole chain, and its distilled summary lands in the history.
@@ -470,7 +470,7 @@ A fair skeptic will raise several objections. The substantive ones are worth pos
 
 **"Isn't this just a static analyzer with an LLM bolted on?"** No. A static analyzer runs every rule it has by default. SDH detects what the system is first, then reaches for the relevant knowledge (`§II`, `§VII`), and it _embeds_ a deterministic checker only where a risk class has a crisp decision procedure. The reasoning is context-first, the determinism is targeted.
 
-**"Isn't this just a security checklist?"** A checklist knows security in general and nothing about the project in front of it. SDH inverts that: detection comes first, and knowledge is pulled in for what the project actually does (`§II`, `§VII`).
+**"Isn't this just a security checklist?"** No. SDH inverts the checklist: detection comes first, and knowledge is pulled in for what the project actually does (`§II`, `§VII`).
 
 **"Isn't this just SDD rebranded for security?"** No. SDH borrows SDD's structure and inverts its contract: authority, state assumption, end condition, and who it serves all differ (`§X`). Same machinery, opposite direction.
 
@@ -508,8 +508,6 @@ The methodology and its reference implementation have clear next steps.
   Where a risk class has a crisp decision procedure, a specialization can carry a deterministic checker that grounds the agent's reasoning in a repeatable verdict. Extending this to more risk classes is a natural direction.
 - **Empirical evaluation:**
   The strongest open question is measured efficacy: closure quality and false-verdict rates across real codebases. A study of SDH's security outcomes is future work, and the claims here are scoped accordingly.
-- **Agent breadth:**
-  Reaching new agents as the ecosystem moves is ongoing work, and it is delivery's alone (`§XII`), so it never touches the security value.
 
 ---
 

@@ -1,7 +1,7 @@
 import { describe, it, strict } from 'poku';
 import { BUILTIN_SPECIALIZATIONS } from '../../../../src/catalog/builtin.js';
 import { builtinsIn } from '../../../../src/catalog/catalog.js';
-import { CATEGORIES } from '../../../../src/catalog/categories.js';
+import { CATEGORIES } from '../../../../src/categories/categories.js';
 
 describe('the categories and the built-in index stay in sync', () => {
   const keys = CATEGORIES.map((category) => category.key);

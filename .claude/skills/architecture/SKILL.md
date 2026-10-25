@@ -24,20 +24,21 @@ Everything about installing commands, updating them, and supporting agents belon
 
 ## Repository layout
 
-| Directory        | Purpose                                                                                                      |
-| ---------------- | ------------------------------------------------------------------------------------------------------------ |
-| `skills/`        | The nine published skills, authored here and installed as they stand.                                        |
-| `catalog/`       | The built-in specializations, published with the engine.                                                     |
-| `src/bin/`       | The engine's entry: the hook routing, `catalog`, the categories, `migrate`, the dashboard, and the fallback. |
-| `src/cli/`       | Argument parsing, messages, pickers, and the hook runner.                                                    |
-| `src/catalog/`   | The built-in index, the categories, the name grammar, listing and merging, and the project catalog file.     |
-| `src/core/`      | Tracking, markdown, CVSS, scanning, and the migration.                                                       |
-| `src/hooks/`     | The 14 hooks.                                                                                                |
-| `src/dashboard/` | The live view of `.lagune/`.                                                                                 |
-| `src/types/`     | The single home for every type declaration. No type is declared elsewhere.                                   |
-| `lib/`           | Build output, ignored by git, published together with `catalog/`.                                            |
-| `test/`          | Poku test suites, run against Node, Bun, and Deno.                                                           |
-| `website/`       | The documentation site, an npm workspace of the root package.                                                |
+| Directory         | Purpose                                                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------------------ |
+| `skills/`         | The nine published skills, authored here and installed as they stand.                                        |
+| `catalog/`        | The built-in specializations, published with the engine.                                                     |
+| `src/bin/`        | The engine's entry: the hook routing, `catalog`, the categories, `migrate`, the dashboard, and the fallback. |
+| `src/cli/`        | Argument parsing, messages, pickers, and the hook runner.                                                    |
+| `src/catalog/`    | The built-in index, the name grammar, listing and merging, and the project's own index.                      |
+| `src/categories/` | The categories, their changes, and the project's record of them.                                             |
+| `src/core/`       | Tracking, markdown, CVSS, scanning, and the migration.                                                       |
+| `src/hooks/`      | The 14 hooks.                                                                                                |
+| `src/dashboard/`  | The live view of `.lagune/`.                                                                                 |
+| `src/types/`      | The single home for every type declaration. No type is declared elsewhere.                                   |
+| `lib/`            | Build output, ignored by git, published together with `catalog/`.                                            |
+| `test/`           | Poku test suites, run against Node, Bun, and Deno.                                                           |
+| `website/`        | The documentation site, an npm workspace of the root package.                                                |
 
 ## Build & ship
 
@@ -56,7 +57,7 @@ Every deterministic step a skill or a built-in specialization writes uses the en
 
 ## The catalog
 
-A **specialization** is an agent-agnostic knowledge module that loads only on demand. The built-ins live in `catalog/`, each indexed in `src/catalog/builtin.ts` with its tags and its **categories**. A project's **catalog** is the built-ins of the categories it records plus its own specializations, which live in `.lagune/catalog/<name>.md` with their index in `.lagune/catalog.json`, its own winning a name collision. While no category is recorded the project uses OWASP alone.
+A **specialization** is an agent-agnostic knowledge module that loads only on demand. The built-ins live in `catalog/`, each indexed in `src/catalog/builtin.ts` with its tags and its **categories**. A project's **catalog** is the built-ins of the categories it records in `.lagune/categories.json` plus its own specializations, which live in `.lagune/catalog/<name>.md` with their index in `.lagune/catalog.json`, its own winning a name collision. While no category is recorded the project uses OWASP alone.
 
 The engine computes the catalog on demand: `catalog` prints it as `name: tags`, flagging a required built-in, and `catalog <name>` prints the one specialization the project resolves under that name, its own first and then the built-in, whatever the categories. Adding a built-in is one file in `catalog/` plus one row in the index, never a new command. `/lagune.specialize` grows a project's own catalog the same way.
 
@@ -68,7 +69,7 @@ A project the **Lagune** CLI installed carries `.lagune/manifest.json`, and that
 
 ## Project state
 
-`.lagune/` holds only the project's state, created by the first command or hook that writes: the memory artifacts under `memory/`, the tracking map, `catalog.json` with the recorded categories and the index of the project's own specializations, their files under `catalog/`, and the proofs, which keep themselves out of version control with their own `.gitignore`. There is no manifest, no generated file, and no `.gitignore` block.
+`.lagune/` holds only the project's state, created by the first command or hook that writes: the memory artifacts under `memory/`, the tracking map, `categories.json` with the recorded categories, `catalog.json` with the index of the project's own specializations, their files under `catalog/`, and the proofs, which keep themselves out of version control with their own `.gitignore`. There is no manifest, no generated file, and no `.gitignore` block.
 
 ## The tracking map
 

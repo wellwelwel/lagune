@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
-import { CATEGORIES } from '../../../../src/catalog/categories.js';
+import { CATEGORIES } from '../../../../src/categories/categories.js';
 
 const packageRoot = new URL('../../../../', import.meta.url);
 const categoriesPage = new URL('website/docs/categories.mdx', packageRoot);

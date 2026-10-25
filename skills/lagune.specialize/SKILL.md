@@ -1,6 +1,6 @@
 ---
 name: lagune.specialize
-description: Specialize Lagune in a security area from a source or topic you give it, distilling it into a new on-demand specialization the detect and verify phases load later. It writes a focused, language-agnostic, defense-only knowledge module, never an exploit.
+description: Specialize Lagune from a source or topic you give it, distilling it into a new on-demand specialization the detect and verify phases load later. It writes a focused, language-agnostic, defense-only knowledge module, never an exploit.
 disable-model-invocation: true
 argument-hint: Describe the security topic the specialization should cover, or name an existing specialization to refine
 user-invocable: true
@@ -30,9 +30,9 @@ This command is defense only. If the topic asks for offensive tooling, a working
 
 ### Step 3: Settle the terrain and name, decide create or refine
 
-First settle the **terrain**: the area the specialization covers, never the vulnerability. The area is what the knowledge is about, and the attacks are what it teaches you to defend, so when the topic names an attack, settle on the surface that attack targets. For example, the built-ins set the rule: the regex specialization covers ReDoS, yet its terrain is `regex`, not `redos`. This same terrain is the title in Step 5 and the tags in Step 6, so name it once here.
+First settle the **terrain**: what the specialization covers, never the vulnerability. The terrain is what the knowledge is about, and the attacks are what it teaches you to defend, so when the topic names an attack, settle on the surface that attack targets. For example, the built-ins set the rule: the regex specialization covers ReDoS, yet its terrain is `regex`, not `redos`. This same terrain is the title in Step 5 and the tags in Step 6, so name it once here.
 
-The name is that terrain as a safe filename: lowercase, replace every run of characters outside `a-z 0-9 -` with a single `-`, trim leading and trailing `-`, and collapse repeats. Derive it from the terrain you settled, never from the raw topic, so an attack topic never becomes the name. If the terrain is unclear, ask the user for a short area name. This name is also the identity used in `.lagune/catalog.json`.
+The name is that terrain as a safe filename: lowercase, replace every run of characters outside `a-z 0-9 -` with a single `-`, trim leading and trailing `-`, and collapse repeats. Derive it from the terrain you settled, never from the raw topic, so an attack topic never becomes the name. If the terrain is unclear, ask the user for a short name for it. This name is also the identity used in `.lagune/catalog.json`.
 
 List what the project already uses by running the catalog from the project root:
 
@@ -67,7 +67,7 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 ### Step 7: Write the files
 
 - Ensure `.lagune/catalog/` exists, then write `.lagune/catalog/<name>.md` with the authored or reconciled content. An existing name is reconciled from its current content first, so this never discards a built-in or an earlier version unseen. On a refine of a built-in, this file becomes the project's own version and shadows the built-in from then on.
-- Update `.lagune/catalog.json`. If it is absent, create it as `{ "name": "lagune", "entries": [] }`. Add the `{ "name": "<name>", "tags": [...] }` entry, or on a refine rewrite that one entry, preserving every other entry and the recorded categories untouched.
+- Update `.lagune/catalog.json`. If it is absent, create it as `{ "name": "lagune", "entries": [] }`. Add the `{ "name": "<name>", "tags": [...] }` entry, or on a refine rewrite that one entry, preserving every other entry untouched.
 - Run the catalog again from the project root and confirm it lists the entry with the tags the user confirmed:
 
   ```bash

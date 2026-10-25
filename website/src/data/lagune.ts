@@ -13,4 +13,4 @@ export {
   specializationPromptTask,
 } from '../../../src/dashboard/shared/specialization-meta';
 export { BUILTIN_SPECIALIZATIONS } from '../../../src/catalog/builtin';
-export { CATEGORIES } from '../../../src/catalog/categories';
+export { CATEGORIES } from '../../../src/categories/categories';

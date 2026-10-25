@@ -1,11 +1,10 @@
-import type { ProjectCatalog } from '../../../../types/catalog';
 import type { DashboardData } from '../../../../types/dashboard/dashboard';
 import { join, resolve } from 'node:path';
+import { readOwnIndex, resolveCatalog } from '../../../../catalog/project';
 import {
-  readProjectCatalog,
-  resolveCatalog,
+  readProjectCategories,
   usedCategories,
-} from '../../../../catalog/project';
+} from '../../../../categories/project';
 import { bulletField } from '../../../../core/markdown/fields';
 import { readMarkdown, readText } from '../../../../core/markdown/read';
 import { parseTracking, pathsByName } from '../tracking';
@@ -17,14 +16,9 @@ import { matchProject, matchVersion } from './meta';
 import { buildPhases } from './phases';
 import { buildSideQuests } from './sidequests';
 
-const UNREADABLE_CATALOG: ProjectCatalog = {
-  categories: undefined,
-  entries: [],
-};
-
 export const buildData = async (laguneDir: string): Promise<DashboardData> => {
   const projectRoot = resolve(laguneDir, '..');
-  const [detect, plan, harden, charter, history, tracking, project] =
+  const [detect, plan, harden, charter, history, tracking, categories, own] =
     await Promise.all([
       readMarkdown(join(laguneDir, 'memory/detect.md')),
       readMarkdown(join(laguneDir, 'memory/plan.md')),
@@ -32,9 +26,11 @@ export const buildData = async (laguneDir: string): Promise<DashboardData> => {
       readMarkdown(join(laguneDir, 'memory/charter.md')),
       readMarkdown(join(laguneDir, 'memory/history.md')),
       readText(join(laguneDir, 'tracking.json')),
-      readProjectCatalog(projectRoot).catch(() => UNREADABLE_CATALOG),
+      readProjectCategories(projectRoot).catch(() => undefined),
+      readOwnIndex(projectRoot).catch(() => []),
     ]);
-  const entries = await resolveCatalog(projectRoot, project);
+  const used = usedCategories(categories);
+  const entries = await resolveCatalog(projectRoot, used, own);
 
   const findings = buildFindings(
     detect,
@@ -59,8 +55,8 @@ export const buildData = async (laguneDir: string): Promise<DashboardData> => {
     charter: buildCharter(charter),
     catalog: buildCatalog(detect, entries),
     categories: {
-      used: usedCategories(project),
-      recorded: project.categories !== undefined,
+      used,
+      recorded: categories !== undefined,
     },
     history: buildHistory(history).reverse(),
     artifacts: [detect, plan, harden, charter, history].some(

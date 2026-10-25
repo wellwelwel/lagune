@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` specialization](/docs/commands/catalog), which you can run yourself in **scan** or **check** mode.
+The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` specialization](/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
@@ -77,7 +77,7 @@ It reads source as text, so a primitive assembled at runtime, hidden behind an a
 :::
 
 :::tip
-The hook guarantees the floor (these constructs exist): key management, IV reuse, and RSA padding are judgment the [`crypto` specialization](/docs/commands/catalog) still covers.
+The hook guarantees the floor (these constructs exist): key management, IV reuse, and RSA padding are judgment the [`crypto` specialization](/docs/catalog) still covers.
 :::
 
 <Faq

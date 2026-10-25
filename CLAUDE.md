@@ -34,7 +34,7 @@ Lagune is meant to flex, never to impose a rigid contract. Its principles, requi
 
 Lagune is for **any user who wants a development flow with the security practices Lagune specializes in**. "User" means a person or a system, developer or not, and **all are served the same way**. There is no primary or secondary audience. The project must be **self-sufficient**, so the experience does not depend on the user already knowing what to ask for.
 
-What makes that possible is the core idea: Lagune is **not a static catalog of generic recommendations**. It is a spec **intelligent enough to detect the context of the system** it is run against, for example whether the project has login, file uploads, payments, and so on. From that detection it **directs the user to the specific recommendations that matter for that context**.
+What makes that possible is the core idea: Lagune is **not a static checklist of generic recommendations**. It is a spec **intelligent enough to detect the context of the system** it is run against, for example whether the project has login, file uploads, payments, and so on. From that detection it **directs the user to the specific recommendations that matter for that context**.
 
 This is why developers and non-developers are served equally: the deep security knowledge is carried by the spec and its on-demand specializations, a baseline every user can build on: the more they know, the more they can drive it. Findings and recommendations should still be expressed in plain language, so they are actionable regardless of the user's technical depth.
 

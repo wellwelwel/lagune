@@ -173,7 +173,7 @@ export const Catalog = (): VNode => {
         )}
         {rest.length > 0 && (
           <section class='flex flex-col gap-3'>
-            <h2 class={MICRO_LABEL}>In the catalog</h2>
+            <h2 class={MICRO_LABEL}>In use</h2>
             <SpecializationGrid items={rest} seedOffset={applied.length} />
           </section>
         )}

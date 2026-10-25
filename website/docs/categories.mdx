@@ -2,7 +2,7 @@
 id: categories
 title: Categories
 sidebar_label: Categories
-description: The specialization categories a Lagune project can use, and the key for each, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust.
+description: The specialization categories a Lagune project can use, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust, and how to change them.
 keywords:
   - specializations
   - categories
@@ -12,15 +12,12 @@ keywords:
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
 
-**Lagune** groups its built-in [**specializations**](/docs/commands/catalog) into **{{categories}} categories**. The categories a project uses decide which built-ins join its catalog, and they split in two: what the system does, and what it is written in.
+**Lagune** groups its built-in [**specializations**](/docs/catalog) into **{{categories}} categories**. The categories a project uses decide which built-ins join its [**catalog**](/docs/catalog), and they split in two: what the system does, and what it is written in.
 
-While no category is recorded, a project uses `owasp` alone. [`/lagune.charter`](/docs/commands/charter) records each category its reading of the project supports, and you can change them yourself anytime by key. Pass several on the same line, or pass none in a terminal to open an interactive picker:
-
-```bash
-# For example, adding the JavaScript and AI / LLM categories to a project
-npx lagune add --categories javascript ai
-```
+While no category is recorded, a project uses `owasp` alone. [`/lagune.charter`](/docs/commands/charter) records each category its reading of the project supports, and you can change them yourself anytime.
 
 ## What the system does
 
@@ -49,9 +46,50 @@ npx lagune add --categories javascript ai
 **Lagune** is language-agnostic: the whole flow reads whatever your project is written in, and these categories only add depth on the pitfalls specific to one language.
 :::
 
-A category is a starting point, not a commitment. Use what fits the project now and change it any time with `add` and `remove`, the same `--categories` flag either way. Every change lands in `.lagune/catalog.json`, so the whole team works with the same set. See [**Install**](/docs#specializations) for every form of the flag, and [**Catalog**](/docs/commands/catalog) for which specializations each category carries.
+## Add and remove anytime
 
-Your own specializations, written with [`/lagune.specialize`](/docs/commands/specialize), join the project's catalog alongside these whatever the categories, and are loaded exactly the same way.
+A category is a starting point, not a commitment. Use what fits the project now and change it any time by key, with `add` and `remove`. `--categories` with no value opens an interactive picker in a terminal (space to toggle, enter to confirm, empty to skip). Outside a terminal, pass the categories after it.
+
+<Tabs>
+  <TabItem value="add" label="Add" default>
+
+```bash
+npx lagune add --categories # interactive
+npx lagune add --categories owasp
+npx lagune add --categories owasp rust
+```
+
+  </TabItem>
+  <TabItem value="remove" label="Remove">
+
+```bash
+npx lagune remove --categories # interactive
+npx lagune remove --categories owasp
+npx lagune remove --categories owasp rust
+```
+
+  </TabItem>
+</Tabs>
+
+The first `add` or `remove` starts from `owasp`, so removing every category leaves an empty list, never the default. Every change lands in `.lagune/categories.json`, so the whole team works with the same set.
+
+## See what a project uses
+
+`list --categories` shows every category and whether the project uses it:
+
+```bash
+npx lagune list --categories
+# Categories
+#   • owasp       [used]       Harden against the application security risks OWASP tracks
+#   • javascript  [available]  Harden JavaScript and its runtimes
+#   • php         [available]  Harden PHP against type-juggling auth bypass
+#   • go          [available]  Harden Go against typed-nil interface bugs
+#   ...
+#
+# No category is recorded yet, so this project uses the default: owasp.
+```
+
+See [**Catalog**](/docs/catalog) for which specializations each category carries. Your own specializations, written with [`/lagune.specialize`](/docs/commands/specialize), join the catalog whatever the categories.
 
 <Faq
   items={[

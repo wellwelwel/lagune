@@ -1,12 +1,15 @@
 import type { CategoriesRequest } from '../../types/dashboard/api';
 import type { ActionHandler, ActionResult } from '../../types/dashboard/server';
-import { addCategories, removeCategories } from '../../catalog/catalog';
-import { CATEGORIES } from '../../catalog/categories';
 import {
-  readProjectCatalog,
+  addCategories,
+  CATEGORIES,
+  removeCategories,
+} from '../../categories/categories';
+import {
+  readProjectCategories,
   recordCategories,
   usedCategories,
-} from '../../catalog/project';
+} from '../../categories/project';
 import { isRecord } from '../../core/collections';
 
 const CATEGORY_KEYS: ReadonlySet<string> = new Set(
@@ -67,7 +70,7 @@ const handleCategories: ActionHandler = async (body, context) => {
   if (request === undefined) return INVALID_REQUEST;
 
   try {
-    const used = usedCategories(await readProjectCatalog(context.cwd));
+    const used = usedCategories(await readProjectCategories(context.cwd));
     const removed = removeCategories(
       used,
       used.filter((key) => !request.categories.includes(key))

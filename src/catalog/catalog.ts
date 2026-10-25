@@ -1,9 +1,4 @@
-import type {
-  BuiltinSpecialization,
-  CatalogEntry,
-  Category,
-  CategoryChange,
-} from '../types/catalog.js';
+import type { BuiltinSpecialization, CatalogEntry } from '../types/catalog.js';
 
 /** The built-in specializations belonging to any of the given categories, in index order */
 export const builtinsIn = (
@@ -40,67 +35,4 @@ export const list = (catalog: CatalogEntry[]): string => {
   });
 
   return `${lines.join('\n')}\n`;
-};
-
-export const findCategory = (
-  categories: Category[],
-  key: string
-): Category | undefined => categories.find((category) => category.key === key);
-
-export const unknownCategoryKeys = (
-  categories: Category[],
-  keys: string[]
-): string[] =>
-  keys.filter((key) => findCategory(categories, key) === undefined);
-
-const unknownCategoriesMessage = (
-  keys: string[],
-  availableKeys: string[]
-): string =>
-  [
-    `Unknown specialization ${keys.length === 1 ? 'category' : 'categories'}: ${keys.join(', ')}`,
-    `Available categories: ${availableKeys.join(', ')}`,
-  ].join('\n');
-
-/** Throws for any key that names no registered category */
-export const assertKnownCategories = (
-  categories: Category[],
-  keys: string[]
-): void => {
-  const unknown = unknownCategoryKeys(categories, keys);
-
-  if (unknown.length > 0)
-    throw new Error(
-      unknownCategoriesMessage(
-        unknown,
-        categories.map((category) => category.key)
-      )
-    );
-};
-
-export const addCategories = (
-  current: string[],
-  requested: string[]
-): CategoryChange => {
-  const keys = [...new Set(requested)];
-  const changed = keys.filter((key) => !current.includes(key));
-
-  return {
-    categories: [...current, ...changed],
-    changed,
-    unchanged: keys.filter((key) => current.includes(key)),
-  };
-};
-
-export const removeCategories = (
-  current: string[],
-  requested: string[]
-): CategoryChange => {
-  const keys = [...new Set(requested)];
-
-  return {
-    categories: current.filter((key) => !keys.includes(key)),
-    changed: keys.filter((key) => current.includes(key)),
-    unchanged: keys.filter((key) => !current.includes(key)),
-  };
 };
