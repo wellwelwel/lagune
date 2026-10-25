@@ -40,6 +40,7 @@ import {
   FiPlay,
   FiPlus,
   FiRefreshCw,
+  FiSave,
   FiSearch,
   FiSettings,
   FiShield,
@@ -118,6 +119,7 @@ const registry = {
   info: FiInfo,
   bulb: LuLightbulb,
   pencil: FiEdit3,
+  save: FiSave,
 } satisfies Record<IconName, IconType>;
 
 export const Icon = (props: { name: IconName }): VNode => {

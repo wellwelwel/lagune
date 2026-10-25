@@ -1,90 +1,73 @@
-import type {
-  SelectCategoriesDeps,
-  SkillGroup,
-} from '../../../src/types/core.js';
+import type { Category } from '../../../src/types/categories.js';
+import type { SelectCategoriesDeps } from '../../../src/types/core.js';
 import { describe, it, strict } from 'poku';
 import { selectCategories } from '../../../src/cli/select-categories.js';
 
-const GROUPS: SkillGroup[] = [
+const CATEGORIES: Category[] = [
   { key: 'owasp', label: 'OWASP', description: 'OWASP risks' },
   { key: 'python', label: 'Python', description: 'Python risks' },
 ];
 
-const spyDeps = (
+const terminal = (
+  interactive: boolean,
   picked: string[]
-): { deps: SelectCategoriesDeps; wasPrompted: () => boolean } => {
+): { deps: SelectCategoriesDeps; prompted: () => boolean } => {
   let prompted = false;
 
   return {
     deps: {
-      isInteractive: () => true,
-      promptForSkills: () => {
+      isInteractive: () => interactive,
+      promptForCategories: () => {
         prompted = true;
         return Promise.resolve(picked);
       },
     },
-    wasPrompted: () => prompted,
+    prompted: () => prompted,
   };
 };
 
-await describe('selectCategories', async () => {
-  await it('returns the requested categories without prompting', async () => {
-    const { deps, wasPrompted } = spyDeps([]);
-
+await describe('choosing the categories to act on', async () => {
+  await it('takes the values given, without asking', async () => {
+    const { deps, prompted } = terminal(true, ['python']);
     const result = await selectCategories(
-      {
-        requested: ['owasp'],
-        shouldPrompt: true,
-        groups: GROUPS,
-        preselected: [],
-        locked: [],
-      },
+      { requested: ['owasp'], categories: CATEGORIES, locked: [] },
       deps
     );
 
     strict.deepStrictEqual(result, ['owasp']);
-    strict(!wasPrompted(), 'an explicit request should skip the prompt');
+    strict.strictEqual(prompted(), false);
   });
 
-  await it('skips the prompt when every group is already installed', async () => {
-    const { deps, wasPrompted } = spyDeps([]);
-
+  await it('needs the values outside a terminal', async () => {
+    const { deps, prompted } = terminal(false, ['python']);
     const result = await selectCategories(
-      {
-        requested: [],
-        shouldPrompt: true,
-        groups: GROUPS,
-        preselected: [],
-        locked: ['owasp', 'python'],
-      },
+      { requested: [], categories: CATEGORIES, locked: [] },
       deps
     );
 
-    strict(!wasPrompted(), 'the picker should not open when all are locked');
-    strict.deepStrictEqual(
-      result,
-      ['owasp', 'python'],
-      'the installed set is returned unchanged'
-    );
+    strict.strictEqual(result, undefined);
+    strict.strictEqual(prompted(), false);
   });
 
-  await it('still prompts when some groups remain available', async () => {
-    const { deps, wasPrompted } = spyDeps(['owasp']);
-
-    await selectCategories(
-      {
-        requested: [],
-        shouldPrompt: true,
-        groups: GROUPS,
-        preselected: [],
-        locked: ['owasp'],
-      },
+  await it('chooses nothing when every category is already used', async () => {
+    const { deps, prompted } = terminal(true, ['python']);
+    const result = await selectCategories(
+      { requested: [], categories: CATEGORIES, locked: ['owasp', 'python'] },
       deps
     );
 
-    strict(
-      wasPrompted(),
-      'a partly-installed set should still open the picker'
+    strict.deepStrictEqual(result, []);
+    strict.strictEqual(prompted(), false);
+  });
+
+  await it('asks in a terminal and returns the choice', async () => {
+    const { deps, prompted } = terminal(true, ['python']);
+    const result = await selectCategories(
+      { requested: [], categories: CATEGORIES, locked: ['owasp'] },
+      deps
     );
+
+    strict.deepStrictEqual(result, ['python']);
+    strict.strictEqual(prompted(), true);
   });
 });

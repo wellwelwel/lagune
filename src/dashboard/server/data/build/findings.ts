@@ -3,7 +3,7 @@ import { bulletField } from '../../../../core/markdown/fields';
 import { inlineText, slugify } from '../../../../core/markdown/lines';
 import { sectionBlocks } from '../../../../core/markdown/sections';
 import { severityRank, toSeverity } from '../../../shared/severity';
-import { parseSkills, parseUpholds } from '../parsers';
+import { parseApplied, parseUpholds } from '../parsers';
 
 export const buildFindings = (
   detect: string | null,
@@ -14,7 +14,7 @@ export const buildFindings = (
   const detectBlocks = sectionBlocks(detect, 'Findings');
   const planBlocks = sectionBlocks(plan, 'Fixes');
   const hardenBlocks = sectionBlocks(harden, 'Applied');
-  const skills = parseSkills(detect);
+  const applied = parseApplied(detect);
 
   return detectBlocks
     .map((detected) => {
@@ -58,13 +58,9 @@ export const buildFindings = (
         references: planned
           ? (bulletField(planned.body, 'References') ?? '')
           : '',
-        skills: skills
-          .filter((skill) => skill.surfaced?.includes(detected.name))
-          .map((skill) => ({
-            name: skill.name,
-            label: skill.label,
-            surfaced: skill.surfaced ?? '',
-          })),
+        specializations: applied.filter((specialization) =>
+          specialization.surfaced.includes(detected.name)
+        ),
         files: filesByName[detected.name] ?? [],
       };
     })

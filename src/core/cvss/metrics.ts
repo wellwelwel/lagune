@@ -174,7 +174,7 @@ export const modifiedOf = (metric: CvssBaseMetric): CvssModifiedMetric =>
   `M${metric}`;
 
 const safetyOf = (metric: CvssBaseMetric): Record<string, string> =>
-  metric === 'SI' || metric === 'SA' ? SAFETY_VALUE : {};
+  metric === 'SI' || metric === 'SA' ? SAFETY_VALUE : Object.create(null);
 
 const modifiedDefinition = (
   definition: CvssMetricDefinition<CvssBaseMetric>
@@ -182,11 +182,12 @@ const modifiedDefinition = (
   code: modifiedOf(definition.code),
   name: `Modified ${definition.name}`,
   group: 'environmental',
-  values: {
-    ...NOT_DEFINED_VALUE,
-    ...safetyOf(definition.code),
-    ...definition.values,
-  },
+  values: Object.assign(
+    Object.create(null),
+    NOT_DEFINED_VALUE,
+    safetyOf(definition.code),
+    definition.values
+  ),
 });
 
 export const CVSS_METRICS: CvssMetricDefinition[] = [

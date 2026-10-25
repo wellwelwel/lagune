@@ -1,16 +1,32 @@
 import type { PointerEvent } from 'react';
-import { AgentButton } from '@site/src/components/home/AgentButton';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { GroupHead } from '@site/src/components/home/GroupHead';
-import { IconSwap } from '@site/src/components/IconSwap';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
   selectableCard,
   selectableTint,
 } from '@site/src/components/selectable';
-import { AGENTS, ALL_AGENTS, ALL_CATEGORIES } from '@site/src/data/registry';
+import { ALL_CATEGORIES } from '@site/src/data/categories';
 import { memo, useMemo } from 'react';
-import { LuChevronRight, LuCircleCheckBig, LuLayoutGrid } from 'react-icons/lu';
+import { LuChevronRight, LuLayoutGrid } from 'react-icons/lu';
+
+const NEXT_STEP_LINK = 'font-semibold text-ink hover:text-ink';
+const COPY_PLACEMENT = 'order-last max-[600px]:float-right max-[600px]:ml-2';
+
+const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
+const CATEGORIES_ADD = 'npx lagune add';
+const PROMPT_TAIL =
+  'and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.';
+
+const installCommands = (keys: string[]) => [
+  SKILLS_ADD,
+  ...(keys.length > 0
+    ? [`${CATEGORIES_ADD} --categories ${keys.join(' ')}`]
+    : []),
+];
+
+const unattended = (command: string) => command.replace(/^npx /, 'npx --yes ');
 
 const clampTip = (event: PointerEvent<HTMLButtonElement>) => {
   const wrap = event.currentTarget;
@@ -32,84 +48,37 @@ const clampTip = (event: PointerEvent<HTMLButtonElement>) => {
 };
 
 const InstallPanelComponent = ({
-  selected,
-  onSelect,
-  onOpenAgents,
-  onOpenSpecs,
-  onToggleSkill,
-  skills,
+  onOpenCategories,
+  onToggleCategory,
+  chosen,
 }: {
-  selected: string;
-  onSelect: (key: string) => void;
-  onOpenAgents: () => void;
-  onOpenSpecs: () => void;
-  onToggleSkill: (key: string) => void;
-  skills: string[];
+  onOpenCategories: () => void;
+  onToggleCategory: (key: string) => void;
+  chosen: string[];
 }) => {
-  const orderedSkills = useMemo(
+  const orderedCategories = useMemo(
     () =>
-      skills
+      chosen
         .map((key) => ALL_CATEGORIES.find((category) => category.key === key))
         .filter((category) => category !== undefined),
-    [skills]
+    [chosen]
   );
 
-  const installCommand = useMemo(
-    () =>
-      orderedSkills.length
-        ? `npx lagune@latest init ${selected} --skills ${orderedSkills.map((category) => category.key).join(' ')}`
-        : `npx lagune@latest init ${selected}`,
-    [selected, orderedSkills]
+  const commands = installCommands(
+    orderedCategories.map((category) => category.key)
   );
-
-  const selectedFromModal = !AGENTS.some((agent) => agent.key === selected);
-  const selectedName = ALL_AGENTS.find((agent) => agent.key === selected)?.name;
+  const command = commands.join(' && ');
+  const agentCommand = commands.map(unattended).join(' && ');
+  const prompt = `Run \`${agentCommand}\` ${PROMPT_TAIL}`;
+  const promptTokens = `\`${agentCommand}\``.split(' ');
 
   return (
     <div className='flex flex-col min-w-0'>
-      <GroupHead title='Choose your agent' meta='Required' />
-
-      <div
-        className='grid grid-cols-2 gap-2 mb-[22px]'
-        role='radiogroup'
-        aria-label='Choose your agent'
-      >
-        {AGENTS.map((agent) => (
-          <AgentButton
-            key={agent.key}
-            agent={agent}
-            on={selected === agent.key}
-            onClick={() => onSelect(agent.key)}
-          />
-        ))}
-        <button
-          type='button'
-          onClick={onOpenAgents}
-          className={`flex items-center gap-3 p-[13px_14px] ${selectableCard(selectedFromModal)}`}
-        >
-          <span
-            className={`shrink-0 size-5 flex items-center justify-center [&>svg]:size-5 transition-colors duration-200 ease-out ${selectableTint(selectedFromModal)}`}
-          >
-            <LuLayoutGrid aria-hidden />
-          </span>
-          <span className='flex-1 min-w-0 text-[14px] font-medium tracking-[-0.01em] overflow-hidden text-ellipsis whitespace-nowrap'>
-            {ALL_AGENTS.length - AGENTS.length} more
-            {selectedFromModal && selectedName ? ` (${selectedName})` : ''}
-          </span>
-          <IconSwap
-            on={selectedFromModal}
-            className={`shrink-0 [&_svg]:size-[18px] ${selectableTint(selectedFromModal)}`}
-            active={<LuCircleCheckBig />}
-            inactive={<LuChevronRight />}
-          />
-        </button>
-      </div>
-
-      <GroupHead title='Add specializations' meta='Optional' />
+      <GroupHead title='Choose categories' meta='Optional' />
 
       <div className='flex flex-wrap items-center gap-3 mb-[22px]'>
         {ALL_CATEGORIES.map((category) => {
-          const on = skills.includes(category.key);
+          const on = chosen.includes(category.key);
 
           return (
             <button
@@ -119,7 +88,7 @@ const InstallPanelComponent = ({
               aria-checked={on}
               aria-label={category.name}
               onClick={(event) => {
-                onToggleSkill(category.key);
+                onToggleCategory(category.key);
                 event.currentTarget.focus({ preventScroll: true });
               }}
               onPointerEnter={clampTip}
@@ -141,7 +110,7 @@ const InstallPanelComponent = ({
         <span className='hidden w-full max-[600px]:block' aria-hidden />
         <button
           type='button'
-          onClick={onOpenSpecs}
+          onClick={onOpenCategories}
           className={`flex items-center gap-3 p-[12px_14px] ml-auto max-[600px]:ml-0 ${selectableCard(false)}`}
         >
           <span
@@ -161,38 +130,97 @@ const InstallPanelComponent = ({
 
       <GroupHead title='Run this' />
 
-      <div className='flex items-center gap-3 p-[15px_16px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px]'>
-        <span className='select-none text-accent' aria-hidden>
-          $
-        </span>
-        <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
-          npx lagune@latest init{' '}
-          <span key={selected} className='lagune-token-in text-[#5191ff]'>
-            {selected}
+      <div className='flex items-center gap-3 p-[15px_16px] mb-[22px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px] max-[600px]:flow-root'>
+        <CopyButton
+          value={command}
+          label='Copy install command'
+          className={COPY_PLACEMENT}
+        />
+        <span className='flex flex-1 min-w-0 flex-col gap-1.5 max-[600px]:block max-[600px]:space-y-1.5'>
+          <span className='flex min-w-0 gap-3'>
+            <span className='select-none text-accent' aria-hidden>
+              $
+            </span>
+            <code className='lagune-scroll-fade flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+              {SKILLS_ADD}
+            </code>
           </span>
-          {orderedSkills.length > 0 && (
-            <>
-              {' '}
-              <span className='lagune-token-in text-muted'>--skills</span>
-              {orderedSkills.map((category) => (
-                <span key={category.key}>
-                  {' '}
-                  <span className='lagune-token-in text-[#5191ff]'>
-                    {category.key}
+          {orderedCategories.length > 0 && (
+            <span className='flex min-w-0 gap-3'>
+              <span className='select-none text-accent' aria-hidden>
+                $
+              </span>
+              <code className='lagune-scroll-fade flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+                {CATEGORIES_ADD}{' '}
+                <span className='lagune-token-in text-muted'>--categories</span>
+                {orderedCategories.map((category) => (
+                  <span key={category.key}>
+                    {' '}
+                    <span className='lagune-token-in text-[#5191ff]'>
+                      {category.key}
+                    </span>
                   </span>
-                </span>
-              ))}
-            </>
+                ))}
+              </code>
+            </span>
           )}
-        </code>
-        <CopyButton value={installCommand} label='Copy install command' />
+        </span>
       </div>
 
-      <p className='mx-1 mt-6 text-[12px] leading-[1.6] text-muted'>
-        All product names, trademarks, and registered trademarks mentioned are
-        the property of their respective owners and are used for identification
-        purposes only.
-      </p>
+      <GroupHead title='Or ask your agent' />
+
+      <div className='flex items-center gap-3 p-[15px_16px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px] max-[600px]:flow-root'>
+        <CopyButton
+          value={prompt}
+          label='Copy install prompt'
+          className={COPY_PLACEMENT}
+        />
+        <p className='flex-1 min-w-0 m-0 text-[13px] leading-[1.65] text-ink [text-wrap:pretty]'>
+          Run{' '}
+          {promptTokens.map((token, index) => (
+            <span key={index}>
+              {index > 0 && ' '}
+              <span className='whitespace-nowrap'>{token}</span>
+            </span>
+          ))}{' '}
+          {PROMPT_TAIL}
+        </p>
+      </div>
+
+      <div className='mx-1 mt-4 text-[13px] leading-[1.65] text-muted [text-wrap:pretty]'>
+        <p className='m-0'>
+          Then, run{' '}
+          <ArrowLink
+            to='/docs/commands/charter'
+            className={`font-mono ${NEXT_STEP_LINK}`}
+          >
+            /lagune.charter
+          </ArrowLink>{' '}
+          in your agent to set your project's security principles.
+        </p>
+        <ul className='m-0 mt-2 flex list-disc flex-col gap-1 pl-[1.15em] marker:text-faint'>
+          <li>
+            Use{' '}
+            <ArrowLink
+              to='/docs/commands/lagune'
+              className={`font-mono ${NEXT_STEP_LINK}`}
+            >
+              /lagune
+            </ArrowLink>{' '}
+            to harden your code as your agent writes it.
+          </li>
+          <li>
+            Run the{' '}
+            <ArrowLink
+              to='/docs/get-started/commands?mode=audit'
+              className={NEXT_STEP_LINK}
+            >
+              Blue Team flow
+            </ArrowLink>{' '}
+            to audit your entire project or a scope of it.
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

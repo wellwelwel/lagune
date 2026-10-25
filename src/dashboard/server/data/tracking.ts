@@ -1,8 +1,5 @@
-import type { TrackingEntry } from '../../../types/core';
-import type { Tracking } from '../../../types/dashboard/server';
-
-const isStringArray = (value: unknown): value is string[] =>
-  Array.isArray(value) && value.every((item) => typeof item === 'string');
+import type { TrackingEntry, TrackingMap } from '../../../types/core';
+import { isStringArray } from '../../../core/collections';
 
 const toEntry = (value: unknown): TrackingEntry | null => {
   if (typeof value !== 'object' || value === null) return null;
@@ -12,7 +9,7 @@ const toEntry = (value: unknown): TrackingEntry | null => {
   return { name, paths };
 };
 
-export const parseTracking = (raw: string | null): Tracking => {
+export const parseTracking = (raw: string | null): TrackingMap => {
   if (!raw) return { entries: [] };
   try {
     const parsed: unknown = JSON.parse(raw);
@@ -35,7 +32,10 @@ export const parseTracking = (raw: string | null): Tracking => {
   }
 };
 
-export const pathsByName = (tracking: Tracking): Record<string, string[]> =>
-  Object.fromEntries(
-    tracking.entries.map((entry) => [entry.name, entry.paths])
+export const pathsByName = (tracking: TrackingMap): Record<string, string[]> =>
+  Object.assign(
+    Object.create(null),
+    Object.fromEntries(
+      tracking.entries.map((entry) => [entry.name, entry.paths])
+    )
   );

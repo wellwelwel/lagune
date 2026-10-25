@@ -2,235 +2,80 @@
 id: install
 title: 'Install: Security Hardening in Any Project via npx'
 sidebar_label: Install
-description: Set Lagune up in any project, new or existing, with a single command via npx, and choose the security specializations that fit it.
+slug: /
+description: Install Lagune's commands in any project, new or existing, with the skills CLI, and choose the security specializations that fit it.
 keywords:
   - install lagune
-  - npx lagune
+  - npx skills add
+  - skills CLI
   - setup
   - getting started
   - specializations
-  - skills
+  - categories
   - requirements
   - badge
+  - security-driven hardening
+  - AI security
+  - application security
+  - defensive security
+  - blue team
+  - secure coding
+  - AI agents
 ---
 
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
 import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-**Lagune** adapts to your environment, whether it is a new project or an existing one.
+**Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it. **Lagune** is the first project of the [Security-Driven Hardening (SDH)](/docs/references/paper) methodology.
 
-:::info[No keys]
-No API keys are needed, it runs directly through your own agent ([**Claude**, **Codex**, and more](/docs/supported-agents)).
+:::tip[Support the OSS]
+Love **Lagune**? <ArrowLink to="https://github.com/wellwelwel/lagune">Give us a ⭐ on **GitHub**</ArrowLink>
 :::
 
-<Tabs>
-  <TabItem value="prompt" label="CLI" default>
+---
 
-Run without an agent key and **Lagune** asks you to choose one, then which specializations to install:
+Install **Lagune**'s commands with the [**skills** CLI](https://github.com/vercel-labs/skills):
 
 ```bash
-npx -y lagune@latest init
-
-# Example using Lagune with Claude and OWASP specializations
-npx -y lagune@latest init claude --skills owasp
+npx skills add wellwelwel/lagune
 ```
 
-See every key in [**Supported Agents**](/docs/supported-agents).
+Or paste this prompt into your agent:
 
-:::info[Any language]
-🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+```md
+Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
+```
+
+:::info
+
+- 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+- After skills are added, to run completely offline, you can install the engine locally with `npm i -D lagune`.
+
 :::
-
-## What gets created
-
-Running **Lagune** in your project creates two things:
-
-- **`.lagune/`** holds Lagune's state in that project: the charter, the artifact each phase produces, the on-demand skills you installed, and the internal tracking.
-- **Agent commands** are written into your agent's own location, in its native format, so the `/lagune.*` commands are ready to run.
-
-Your security work is committed alongside your code, versioned and reviewable like any other part of the project. **Lagune**'s own files are gitignored by default, since [`pull`](#pull) brings them back from the manifest.
 
 ## Update
 
-To update **Lagune**'s own files and its commands to their latest versions, run:
+To update **Lagune**'s commands to their latest version, run:
 
 ```bash
-npx -y lagune@latest update
+npx skills update
 ```
+
+The engine needs no update of its own. One installed in the project updates with the same `npm install --save-dev lagune`.
 
 :::tip
-
-- Your charter, the artifacts each phase produces, the internal tracking, and any _sub_-skill you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
-- A command an earlier version wrote where your agent no longer reads it is removed in the same pass, so nothing stale lingers.
-
+Your charter, the artifacts each phase produces, the internal tracking, and every specialization you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
 :::
 
-## Pull
+## Categories and catalog
 
-When you clone or fork a project that already has **Lagune**, run pull to install its files from the manifest:
-
-```bash
-npx -y lagune@latest pull
-```
-
-:::tip
-💡 Think of it as the **Lagune** equivalent of `npm i`, `pip install -r requirements.txt`, and the like.
-:::
-
-## Specializations
-
-**Lagune** ships focused security [**_sub_-skills**](/docs/commands/skills) grouped into [**categories**](/docs/skill-categories), from `owasp` to per-language ones like `python`, `go`, and `rust`. You install them by category with the `--skills` flag. The flag is the same everywhere, so what you learn for `init` works for `add` and `remove` too.
-
-The agent commands are always set up. Specializations are what you choose on top.
-
-### Install at init
-
-<Tabs>
-  <TabItem value="picker" label="Interactive" default>
-
-`--skills` with no category opens an interactive picker (space to toggle, enter to confirm, empty to skip):
-
-```bash
-npx -y lagune@latest init claude --skills
-```
-
-  </TabItem>
-  <TabItem value="categories" label="Pick categories">
-
-Pass the categories after `--skills`, on the same line as the agent:
-
-```bash
-npx -y lagune@latest init claude --skills owasp
-npx -y lagune@latest init claude --skills owasp javascript
-```
-
-  </TabItem>
-  <TabItem value="none" label="No specialization">
-
-Without `--skills`, the agent is set up and no specialization is installed. You can always add them later:
-
-```bash
-npx -y lagune@latest init claude
-```
-
-  </TabItem>
-</Tabs>
-
-### Add and remove anytime
-
-The same `--skills` flag, without touching the agent.
-
-<Tabs>
-  <TabItem value="add" label="Add" default>
-
-```bash
-npx -y lagune@latest add --skills # interactive
-npx -y lagune@latest add --skills owasp
-npx -y lagune@latest add --skills owasp rust
-```
-
-  </TabItem>
-  <TabItem value="remove" label="Remove">
-
-```bash
-npx -y lagune@latest remove --skills # interactive
-npx -y lagune@latest remove --skills owasp
-npx -y lagune@latest remove --skills owasp rust
-```
-
-  </TabItem>
-</Tabs>
-
-### See what exists
-
-`list` on its own asks what you want to see, the findings Lagune is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--skills` for the categories.
-
-```bash
-npx -y lagune@latest list --skills
-# Specializations .lagune/skills/
-#   • owasp       [installed]  Harden against the application security risks OWASP tracks
-#   • javascript  [available]  JavaScript and its runtimes
-#   • php         [available]  PHP and its language-specific risks
-#   • go          [available]  Go and its language-specific risks
-#   ...
-```
-
-See every category in [**Skill Categories**](/docs/skill-categories).
-
-  </TabItem>
-  <TabItem value="dashboard" label="Dashboard">
-
-Run **Lagune** directly with no subcommand for an interactive live view, follow-up, and maintenance. It serves a dashboard and opens it on a random port:
-
-```bash
-npx -y lagune@latest
-```
-
-- [x] **Live Reload**
-- [x] **Private** and **Local**
-- [x] **Install**, **Pull**, **Update**, and **Manage** all **Lagune** features directly from your browser
-- [x] No `node_modules` or `package.json` is needed 📦
-
-<div className='lagune-docs-gallery'>
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/01.webp'
-    alt='Lagune dashboard overview'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/02.webp'
-    alt='Lagune dashboard charter'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/03.webp'
-    alt='Lagune dashboard findings'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/04.webp'
-    alt='Lagune dashboard side quests'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/05.webp'
-    alt='Lagune dashboard finding detail'
-  />
-  <img
-    loading='lazy'
-    decoding='async'
-    src='/img/dashboard/06.webp'
-    alt='Lagune dashboard skills'
-  />
-</div>
-
-:::tip
-
-- 🚪 Use `--port` or `-p` to specify a custom port.
-- ⏏️ Press `Ctrl+C` to stop.
-
-:::
-
-:::info[Any language]
-🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
-:::
-
-  </TabItem>
-</Tabs>
+**Lagune**'s security knowledge comes as [**specializations**](/docs/catalog), grouped into [**categories**](/docs/categories). A project starts with `owasp`, and [`/lagune.charter`](/docs/commands/charter) adds the categories its reading of the project supports, such as its language, calls to an LLM, or containers. The built-ins of those categories, plus the specializations you write yourself, form the project's [**catalog**](/docs/catalog).
 
 ## Requirements
 
-You will need these tools installed on your system:
-
-- [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- At least one of the [**Supported Agents**](/docs/supported-agents)
+You will need [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installed on your system.
 
 ## Use a badge ✨
 
@@ -301,14 +146,19 @@ Using **Lagune**? Add one to your **README**:
 
 ## Next
 
-Once **Lagune** is set up, your agent unlocks a set of slash commands. See [**Commands**](/docs/get-started/commands).
+Once **Lagune**'s commands are installed, your agent unlocks a set of slash commands. See [**Commands**](/docs/get-started/commands).
 
 <Faq
   items={[
     {
+      question: 'What is Lagune?',
+      answer:
+        'Lagune is an open-source, defense-only security workflow that helps your AI agent harden any codebase. You point it at your code, it detects what your system actually does, then it guides the security fixes that matter for that context.',
+    },
+    {
       question: 'How do I install Lagune?',
       answer:
-        'Run npx -y lagune@latest init in your project. It works in both new and existing projects.',
+        'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects.',
     },
     {
       question: 'Does Lagune need an API key?',
@@ -316,18 +166,71 @@ Once **Lagune** is set up, your agent unlocks a set of slash commands. See [**Co
         'No. It runs through your own AI agent, so no API keys are required.',
     },
     {
+      question: 'What are the requirements?',
+      answer: 'You need Node.js (LTS) installed on your system.',
+    },
+    {
+      question: 'What programming languages does Lagune support?',
+      answer:
+        'Any. Lagune runs on Node.js under the hood, but it audits and hardens projects written in any programming language.',
+    },
+    {
       question: 'What does Lagune add to my project?',
       answer:
-        'A .lagune/ state directory and a set of slash commands your AI agent can run.',
+        "Its slash commands, installed by the skills CLI where your agent reads them, and a .lagune/ directory with your project's security state, created by the first command that writes.",
     },
     {
       question: 'How do I update Lagune?',
       answer:
-        'Run npx -y lagune@latest update. Your charter, phase artifacts, and custom specializations stay untouched.',
+        'Run npx skills update. Your charter, phase artifacts, and own specializations stay untouched.',
     },
     {
-      question: 'What are the requirements?',
-      answer: 'Node.js (LTS) and at least one supported AI agent.',
+      question: 'Which specializations does a project use?',
+      answer:
+        'The built-in ones of its categories, plus its own. The charter records the categories its reading of the project supports, and npx lagune add --categories changes them.',
+    },
+    {
+      question: 'Do I need to finish building before securing my project?',
+      answer:
+        'No. The /lagune command hardens work as it is written: it takes any prompt, builds what you asked, and hardens it with safe defaults, guided by the charter. The five-phase Blue Team flow audits what already exists.',
+    },
+    {
+      question: 'Can Lagune audit an existing project?',
+      answer:
+        'Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.',
+    },
+    {
+      question:
+        'What is the difference between using Lagune and just asking the agent to map vulnerabilities and security flaws?',
+      answer:
+        'An agent reading on its own finds what looks like a vulnerability and skips what looks like a control. A list of blocked addresses reads as though someone already handled the risk, so nobody checks that it misses most of them, and the code ships. Lagune inverts that default: a guard already in the code is presumed unproven until it is checked, every specialization in the catalog gets an explicit verdict, and verify asks whether the risk is gone, not whether a control is there. Each finding also stays one tracked item across runs, so it can be proven closed and stood down, where a plain request gives you a different report every time with nothing to compare.',
+    },
+    {
+      question:
+        'What is the difference between developing with Lagune and just asking the agent to write secure code?',
+      answer:
+        'Asking for secure code leaves the definition of secure to the agent, and it assumes you know what to ask for. The requirement is usually already inside your request without either of you seeing it: asking for a page that shows the courses a user has access to states an authorization rule, and a check that is never written leaves nothing in the code to notice. The /lagune command loads your charter and the specializations that match what is about to be built before the first line is written, then re-reads the result against the defense it used. The safe shape rarely costs more than the unsafe one, so what decides the outcome is knowing which one to reach for, and that is what arrives up front.',
+    },
+    {
+      question:
+        'Does Lagune run DAST (Dynamic Application Security Testing) or test my running application?',
+      answer:
+        'No. Lagune reads code and never runs your system or sends it crafted requests. Verify confirms a control is present and correct in the source, which is a different question from whether it survives an attack on a live target, so "cannot tell from the code" is a legitimate verdict instead of a quiet pass. DAST answers the runtime question and Lagune answers the source question, so neither replaces the other. Even the optional prove command holds this line: its tests assert the safe behavior, never an attack payload.',
+    },
+    {
+      question: 'Does Lagune replace a Pentest (penetration test)?',
+      answer:
+        'No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow, to detect the concerns, so what a professional reports gets planned, hardened, and verified.',
     },
   ]}
 />
+
+## Security Policy
+
+Please check the [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md).
+
+## License
+
+**Lagune** is under the [MIT License](https://github.com/wellwelwel/lagune/blob/main/LICENSE).
+
+Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) and [contributors](https://github.com/wellwelwel/lagune/graphs/contributors).

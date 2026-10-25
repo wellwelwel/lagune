@@ -1,9 +1,9 @@
 import { stdout } from 'node:process';
 import { fileURLToPath } from 'node:url';
-import { countSpecTokens } from '../src/core/tokens.js';
+import { countTokens } from '../src/core/tokens.js';
 
-const specDir = fileURLToPath(new URL('../spec', import.meta.url));
-const counts = await countSpecTokens(specDir);
+const root = fileURLToPath(new URL('..', import.meta.url));
+const counts = await countTokens(root, ['skills', 'catalog']);
 
 const pathWidth = counts.reduce(
   (widest, count) => Math.max(widest, count.relativePath.length),

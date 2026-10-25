@@ -7,15 +7,15 @@ export type DocsNavCategory = {
 export type DocsNavEntry = string | DocsNavCategory;
 
 export const docsNav: DocsNavEntry[] = [
-  'intro',
   {
     label: 'Get Started',
     collapsed: false,
     items: [
       'get-started/install',
       'get-started/commands',
-      'supported-agents',
-      'skill-categories',
+      'categories',
+      'catalog',
+      'get-started/dashboard',
     ],
   },
   {
@@ -36,8 +36,7 @@ export const docsNav: DocsNavEntry[] = [
   },
   {
     label: 'Tools',
-    collapsed: false,
-    items: ['commands/skills', 'commands/specialize', 'commands/prove'],
+    items: ['commands/specialize', 'commands/prove'],
   },
   {
     label: 'Hooks',
@@ -64,8 +63,7 @@ export const docsNav: DocsNavEntry[] = [
       'references/paper',
       'references/glossary',
       'references/deepsec',
-      'references/skills-sources',
-      'references/comparison',
+      'references/owasp-sources',
     ],
   },
   {

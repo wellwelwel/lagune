@@ -1,18 +1,16 @@
-export type InitArgs = {
-  init?: boolean;
-  agent?: string;
-  skills?: string[];
-};
-
 export type HookRun = { stdout: string; stderr: string; code: number | null };
 
-export type ManifestSeed = {
-  name?: string;
-  version?: string;
-  agent?: string | string[];
-  createdAt?: string;
-  files?: string[];
-  categories?: string[];
+export type FrontmatterSource = {
+  relativePath: string;
+  frontmatter: string;
+};
+
+export type HookCase = {
+  label: string;
+  hook: string;
+  args: string[];
+  verdict: string;
+  code: number;
 };
 
 export type Frontmatter = {

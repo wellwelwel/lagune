@@ -1,21 +1,18 @@
 import type { HookHandler, HookReturn } from '../types/core.js';
-import process, { argv, stderr, stdout } from 'node:process';
-import { pathToFileURL } from 'node:url';
+import process, { stderr, stdout } from 'node:process';
 
 const normalize = (result: HookReturn): { output: string; finding: boolean } =>
   typeof result === 'string'
     ? { output: result, finding: false }
     : { output: result.output, finding: result.hasFinding };
 
-/** Runs the handler only when the module is the executed entry, printing its result */
-export const runHook = async (
-  moduleUrl: string,
-  handler: HookHandler
+/** Runs the handler over the arguments, printing its result and failing on an error or a finding */
+export const executeHook = async (
+  handler: HookHandler,
+  args: string[]
 ): Promise<void> => {
-  if (moduleUrl !== pathToFileURL(argv[1]).href) return;
-
   try {
-    const { output, finding } = normalize(await handler(argv.slice(2)));
+    const { output, finding } = normalize(await handler(args));
 
     stdout.write(output);
     if (finding) process.exitCode = 1;

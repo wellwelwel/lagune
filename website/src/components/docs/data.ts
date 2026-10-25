@@ -26,7 +26,7 @@ export const flattenSidebar = (
 ): DocsSidebarLink[] =>
   sidebar.flatMap((entry) => (isCategory(entry) ? entry.items : [entry]));
 
-const banners = [0, 2, 3, 4, 5];
+const banners = [2, 3, 4, 5, 0];
 
 export const findDocContext = (
   sidebar: DocsSidebarEntry[],

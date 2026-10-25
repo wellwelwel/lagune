@@ -2,7 +2,6 @@ import type { NavItem, RouteScope } from '@/types/dashboard/client';
 import type { VNode } from 'preact';
 import { useLocation } from 'preact-iso';
 import { useData } from '../../data/state';
-import { isLocked } from '../../domain/install';
 import { LINKS } from '../../utils/links';
 import { classes, MICRO_LABEL, SOFT_TONE } from '../../utils/tailwind-classes';
 import { Icon } from '../primitives/icons';
@@ -11,7 +10,7 @@ const scopeForPath = (path: string): RouteScope => {
   if (path.startsWith('/findings')) return 'findings';
   if (path.startsWith('/sidequests')) return 'sidequests';
   if (path.startsWith('/charter')) return 'charter';
-  if (path.startsWith('/skills')) return 'skills';
+  if (path.startsWith('/catalog')) return 'catalog';
   if (path.startsWith('/history')) return 'history';
   if (path.startsWith('/settings')) return 'settings';
   return 'overview';
@@ -26,7 +25,6 @@ export const Sidebar = (): VNode => {
   const data = useData();
   const { path } = useLocation();
   const active = scopeForPath(path);
-  const locked = isLocked(data.install);
 
   const items: NavItem[] = [
     { scope: 'overview', href: '/', label: 'Overview', icon: 'grid' },
@@ -53,11 +51,11 @@ export const Sidebar = (): VNode => {
       badge: data.sidequests.length,
     },
     {
-      scope: 'skills',
-      href: '/skills',
-      label: 'Skills',
+      scope: 'catalog',
+      href: '/catalog',
+      label: 'Catalog',
       icon: 'brain',
-      badge: data.skills.length,
+      badge: data.catalog.length,
     },
     {
       scope: 'history',
@@ -98,20 +96,15 @@ export const Sidebar = (): VNode => {
         <span class={GROUP}>Workspace</span>
         {items.map((item) => {
           const on = active === item.scope;
-          const disabled = locked && item.scope !== 'settings';
           return (
             <a
               class={classes(
                 'flex items-center gap-3 rounded-md px-3 py-2.75 text-[0.85rem] font-semibold no-underline transition-colors',
                 on
                   ? SOFT_TONE.accent
-                  : disabled
-                    ? 'pointer-events-none cursor-not-allowed text-faint opacity-50'
-                    : 'text-muted hover:bg-canvas hover:text-ink-2'
+                  : 'text-muted hover:bg-canvas hover:text-ink-2'
               )}
-              href={disabled ? undefined : item.href}
-              aria-disabled={disabled || undefined}
-              tabIndex={disabled ? -1 : undefined}
+              href={item.href}
             >
               <span class='inline-flex text-[1.2rem]'>
                 <Icon name={item.icon} />

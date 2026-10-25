@@ -2,7 +2,7 @@
 id: glossary
 title: 'Lagune Glossary: SDH, Charter, Findings, and Controls'
 sidebar_label: Glossary
-description: 'Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, sub-skills, and specializations.'
+description: 'Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, specializations, categories, and the catalog.'
 keywords:
   - Security-Driven Hardening
   - SDH
@@ -11,8 +11,9 @@ keywords:
   - control
   - stand down
   - closability
-  - sub-skill
   - specialization
+  - category
+  - catalog
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -21,11 +22,11 @@ Every load-bearing term in Lagune and the Security-Driven Hardening methodology,
 
 ### Security-Driven Hardening (SDH)
 
-The methodology Lagune implements: a context-aware, blue-team convention that detects a system's context, triages the risks that context carries, and guides the fixes. The security knowledge lives in the spec and its on-demand sub-skills, so a developer and a non-developer are served through the same flow.
+The methodology Lagune implements: a context-aware, blue-team convention that detects a system's context, triages the risks that context carries, and guides the fixes. The security knowledge lives in the spec and its on-demand specializations, so a developer and a non-developer are served through the same flow.
 
 ### Lagune
 
-The reference implementation of SDH. A collection of templates and agent commands that an AI agent runs to harden a codebase, distributed via npm and run with `npx`.
+The reference implementation of SDH: nine agent commands, each with the template it fills, that an AI agent runs to harden a codebase. The **skills** CLI installs them, and they run Lagune's engine for every deterministic step.
 
 ### Charter
 
@@ -67,13 +68,21 @@ When verify proves a risk closed, the finding is stood down: removed from the wh
 
 The property that security work has an end state. Because a proven-closed finding is stood down, the flow can come to rest, reopened only when the code changes. SDH is closable, not an endless loop.
 
-### Sub-skill
+### Engine
 
-A focused, language-agnostic security knowledge module that loads only on demand, never by default. A sub-skill is not a command. You can load one into any prompt with `@.lagune/skills/<name>.md`.
+The `lagune` package on **npm**, which the commands run through `npx` for every deterministic step: the hooks, the catalog, and the categories.
 
 ### Specialization
 
-A category that groups sub-skills you install together, from `owasp` to per-language ones like `javascript`, `python`, `go`, and `rust`. You pick them with the `--skills` flag at init and change them anytime with `add` and `remove`. The agent commands are always set up, specializations are what you choose on top.
+A focused, language-agnostic security knowledge module that loads only on demand, never by default. A specialization is not a command. Load one into any prompt with the engine's `catalog <name>`, for example `npx lagune catalog regex`.
+
+### Category
+
+A named group of built-in specializations, from `owasp` to per-language ones like `javascript`, `python`, `go`, and `rust`. The categories a project uses, recorded in `.lagune/configs.json`, decide which built-ins join its catalog. While none is recorded, the project uses `owasp` alone.
+
+### Catalog
+
+The set of specializations a project uses: the built-ins of its categories plus its own, written with `/lagune.specialize`. The engine's `catalog` lists it, and the phases match it against the code.
 
 ### Prompt-on-demand
 

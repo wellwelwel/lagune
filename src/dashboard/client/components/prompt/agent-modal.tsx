@@ -1,7 +1,7 @@
 import type { PromptModalContent, TypeSegment } from '@/types/dashboard/client';
 import type { VNode } from 'preact';
 import { agentThemeAt } from '@/dashboard/shared/agent-themes';
-import { AGENT_REPLY } from '@/dashboard/shared/skill-meta';
+import { AGENT_REPLY } from '@/dashboard/shared/specialization-meta';
 import { useEffect, useState } from 'preact/hooks';
 import { GLYPH_SWAP } from '../../utils/tailwind-classes';
 import { Icon } from '../primitives/icons';

@@ -2,7 +2,6 @@ import type { ComponentType, ReactNode } from 'react';
 import {
   LuBadgeCheck,
   LuBookOpen,
-  LuBot,
   LuBrain,
   LuChrome,
   LuGraduationCap,
@@ -23,7 +22,6 @@ import {
   TbCircleNumber4,
   TbCircleNumber5,
 } from 'react-icons/tb';
-import { ALL_AGENTS } from './registry';
 
 const DocsRailIcon = (): ReactNode => (
   <>
@@ -307,7 +305,7 @@ export type RailItem = {
   tip: string;
   active: boolean;
   Icon: ComponentType;
-  action?: 'agents' | 'specs';
+  action?: 'categories';
   href?: string;
 };
 
@@ -332,18 +330,11 @@ export const RAILS: Record<'overview' | 'install', RailItem[]> = {
   install: [
     { label: 'Install', tip: 'Install', active: true, Icon: LuPackage },
     {
-      label: 'All agents',
-      tip: 'All agents',
-      active: false,
-      Icon: LuBot,
-      action: 'agents',
-    },
-    {
-      label: 'Specializations',
-      tip: 'Specializations',
+      label: 'Categories',
+      tip: 'Categories',
       active: false,
       Icon: LuGraduationCap,
-      action: 'specs',
+      action: 'categories',
     },
   ],
 };
@@ -394,14 +385,14 @@ export const FEATURE: Record<
     ),
   },
   install: {
-    kicker: 'Pick your agents, copy one command, you are set.',
+    kicker: 'Copy one command, and your agent is set.',
     chip: 'Fits your existing flow',
     eyebrow: 'Get started',
     title: (
       <>
         Any Codebase
         <br />
-        <span className='text-accent'>{ALL_AGENTS.length}</span> Agents
+        <span className='text-accent'>Your</span> Agent
       </>
     ),
   },

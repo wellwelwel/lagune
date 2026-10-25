@@ -1,9 +1,14 @@
 import type {
+  ActionFailure,
   ActionResponse,
-  InstallRequest,
+  CategoriesRequest,
   SessionPayload,
-  SpecializeRequest,
 } from '@/types/dashboard/api';
+
+export const REQUEST_FAILED: ActionFailure = {
+  ok: false,
+  error: 'Request failed',
+};
 
 const fetchSession = async (): Promise<SessionPayload> => {
   const response = await fetch('/api/session', { cache: 'no-store' });
@@ -29,19 +34,10 @@ const postAction = async (
 
     return body;
   } catch {
-    return { ok: false, error: 'Request failed' };
+    return REQUEST_FAILED;
   }
 };
 
-export const runInstall = (request: InstallRequest): Promise<ActionResponse> =>
-  postAction('/api/actions/install', request);
-
-export const runPull = (): Promise<ActionResponse> =>
-  postAction('/api/actions/pull', Object.create(null));
-
-export const runUpdate = (): Promise<ActionResponse> =>
-  postAction('/api/actions/update', Object.create(null));
-
-export const runSpecialize = (
-  request: SpecializeRequest
-): Promise<ActionResponse> => postAction('/api/actions/specialize', request);
+export const runCategories = (
+  request: CategoriesRequest
+): Promise<ActionResponse> => postAction('/api/actions/categories', request);

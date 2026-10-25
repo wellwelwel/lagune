@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 import tailwindPostcss from '@tailwindcss/postcss';
 import { criticalCssPlugin } from './plugins/critical-css';
 import { docsContentPlugin } from './plugins/docs-content';
-import { substituteCounts } from './plugins/docs-content/tokens';
+import { substituteTokens } from './plugins/docs-content/tokens';
 import { dropWoff } from './plugins/drop-woff';
 import { laguneCode } from './src/prism/lagune';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
@@ -36,7 +36,7 @@ const config: Config = {
   onBrokenAnchors: 'throw',
   markdown: {
     preprocessor: ({ filePath, fileContent }) =>
-      substituteCounts(fileContent, filePath),
+      substituteTokens(fileContent, filePath),
     hooks: {
       onBrokenMarkdownLinks: 'throw',
     },
@@ -232,9 +232,9 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
-            { label: 'Get Started', to: '/docs/get-started/install' },
+            { label: 'Get Started', to: '/docs' },
             { label: 'Commands', to: '/docs/commands/charter' },
-            { label: 'Skills', to: '/docs/commands/skills' },
+            { label: 'Catalog', to: '/docs/catalog' },
           ],
         },
         {

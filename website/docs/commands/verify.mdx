@@ -61,9 +61,9 @@ If the risk is not closed, verify says so plainly and sends you back to [`/lagun
 
 - It builds entirely on the hardening record.
 - It only reads your code to judge it, and never weakens a control or rewrites the code to make a verdict pass.
-- Running it again reconciles the report: stale verdicts drop off, and a risk that is no longer closed is flagged again.
-- When a risk is proven closed, it asks once, then clears that finding from the whole chain (detect, plan, harden, verify, and tracking).
-- The verification report lives in `.lagune/memory/verify.md`.
+- Running it again reconciles the verdicts: stale ones drop off, and a risk that is no longer closed is flagged again.
+- When a risk is proven closed, it asks once, then clears that finding from the whole chain (detect, plan, harden, and tracking).
+- It writes no report of its own: each verdict lives on its control's block in `.lagune/memory/harden.md`, where harden reads it next run.
 
 :::
 

@@ -4,6 +4,8 @@ export const LINKS = {
   sponsor: 'https://github.com/sponsors/wellwelwel',
 };
 
+export const INSTALL_DOC_HREF = LINKS.docs;
+
 export const findingHref = (id: string): string => `/findings/${id}`;
 
 export const commandDocHref = (key: string): string =>

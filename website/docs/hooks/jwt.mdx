@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` sub-skill](/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
+The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` specialization](/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
@@ -17,18 +17,18 @@ The `jwt` hook flags **JWT verification without an algorithm pin**, the algorith
   <TabItem value="scan" label="Scan the codebase" default>
 
 ```bash
-node ./.lagune/hooks/jwt.mjs           # scans the whole project
-node ./.lagune/hooks/jwt.mjs -d src    # scans a directory
-node ./.lagune/hooks/jwt.mjs -f auth.ts # scans a single file
+npx lagune jwt                # scans the whole project
+npx lagune jwt --dir src      # scans a directory
+npx lagune jwt --file auth.ts # scans a single file
 ```
 
   </TabItem>
   <TabItem value="check" label="Check a call">
 
 ```bash
-node ./.lagune/hooks/jwt.mjs -l javascript -p 'jwt.verify(token, secret)'                    # => unpinned
-node ./.lagune/hooks/jwt.mjs -l python -p 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
-node ./.lagune/hooks/jwt.mjs -l python -p 'jwt.decode(t, k, algorithms=["HS256"])'           # => safe
+npx lagune jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
 ```
 
   </TabItem>
@@ -46,14 +46,14 @@ Every line under **Unpinned JWT verification found** is a verify call that sets 
 
 ### CLI options
 
-| Option      | Alias | Value          | Description                                                                               |
-| ----------- | ----- | -------------- | ----------------------------------------------------------------------------------------- |
-| `--pattern` | `-p`  | a code snippet | Check one call. Repeat to check several, one verdict per line.                            |
-| `--lang`    | `-l`  | a language     | Required with `-p`: one of javascript, python, go, java, kotlin, php, ruby, rust, csharp. |
-| `--dir`     | `-d`  | a directory    | Scope a scan to a directory. Repeats and combines with `-f`.                              |
-| `--file`    | `-f`  | a file         | Scope a scan to a single file. Repeats and combines with `-d`.                            |
+| Option      | Value          | Description                                                                                      |
+| ----------- | -------------- | ------------------------------------------------------------------------------------------------ |
+| `--pattern` | a code snippet | Check one call. Repeat to check several, one verdict per line.                                   |
+| `--lang`    | a language     | Required with `--pattern`: one of javascript, python, go, java, kotlin, php, ruby, rust, csharp. |
+| `--dir`     | a directory    | Scope a scan to a directory. Repeats and combines with `--file`.                                 |
+| `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`.                                |
 
-With no option it scans the whole project. `-p` needs `-l` and cannot be combined with `-d` or `-f`.
+With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
 
 ### Supported languages
 
@@ -71,7 +71,7 @@ The scan reads these libraries, keyed by file extension. Because some pin the al
 | **C#**                      | Microsoft.IdentityModel | No (multi-line params)                                          | `none`, `RequireSignedTokens = false`           |
 
 :::tip
-The hook decides only the algorithm pin: the claim, key, and flow checks are judgment the [`federation` sub-skill](/docs/commands/skills) still covers.
+The hook decides only the algorithm pin: the claim, key, and flow checks are judgment the [`federation` specialization](/docs/catalog) still covers.
 :::
 
 <Faq

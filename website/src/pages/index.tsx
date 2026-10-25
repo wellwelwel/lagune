@@ -11,6 +11,7 @@ import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
 import { RailTip } from '@site/src/components/home/RailTip';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { MaskIcon } from '@site/src/components/MaskIcon';
+import { ALL_CATEGORIES } from '@site/src/data/categories';
 import {
   BACKGROUND_SIZES,
   BACKGROUND_SRCSETS,
@@ -21,7 +22,6 @@ import {
   STEP_ICONS,
   TABS,
 } from '@site/src/data/home';
-import { ALL_AGENTS, ALL_CATEGORIES } from '@site/src/data/registry';
 import {
   lazy,
   Suspense,
@@ -41,15 +41,9 @@ const WaterField = lazy(() =>
   }))
 );
 
-const AgentsModal = lazy(() =>
-  import('@site/src/components/AgentsModal').then((module) => ({
-    default: module.AgentsModal,
-  }))
-);
-
-const SpecializationsModal = lazy(() =>
-  import('@site/src/components/SpecializationsModal').then((module) => ({
-    default: module.SpecializationsModal,
+const CategoriesModal = lazy(() =>
+  import('@site/src/components/CategoriesModal').then((module) => ({
+    default: module.CategoriesModal,
   }))
 );
 
@@ -122,13 +116,11 @@ const glideToTop = () => {
 
 const Home = (): ReactNode => {
   const [active, setActive] = useState<WindowId>('overview');
-  const [selected, setSelected] = useState<string>('claude');
-  const [skills, setSkills] = useState<string[]>(['owasp']);
+  const [categories, setCategories] = useState<string[]>([]);
   const [usageStep, setUsageStep] = useState(0);
   const [modeIndex, setModeIndex] = useState(0);
   const [typedDone, setTypedDone] = useState(false);
-  const [agentsOpen, setAgentsOpen] = useState(false);
-  const [specsOpen, setSpecsOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<WindowId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -218,19 +210,17 @@ const Home = (): ReactNode => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const toggleSkill = useCallback((key: string) => {
-    setSkills((current) =>
+  const toggleCategory = useCallback((key: string) => {
+    setCategories((current) =>
       current.includes(key)
-        ? current.filter((skill) => skill !== key)
+        ? current.filter((category) => category !== key)
         : [...current, key]
     );
   }, []);
 
   const openInstall = useCallback(() => goToTab('install'), []);
-  const openAgents = useCallback(() => setAgentsOpen(true), []);
-  const openSpecs = useCallback(() => setSpecsOpen(true), []);
+  const openCategories = useCallback(() => setCategoriesOpen(true), []);
   const markTyped = useCallback(() => setTypedDone(true), []);
-  const closeAgents = useCallback(() => setAgentsOpen(false), []);
 
   const feature = FEATURE[active];
 
@@ -318,8 +308,8 @@ const Home = (): ReactNode => {
                   'Secures new work as it is written with the universal /lagune command, guided by the charter',
                   'Five-phase Blue Team flow: charter, detect, plan, harden, verify',
                   'CVSS v4.0 scoring for each finding',
-                  'On-demand, language-agnostic security sub-skills',
-                  'Works with 72 AI coding agents, no API key required',
+                  'On-demand, language-agnostic security specializations, grouped in categories',
+                  'Installs into your agent with the skills CLI, no API key required',
                   'Defense-only: never generates exploits or attack tooling',
                   'Local, private dashboard to follow findings, fixes, and proofs',
                 ],
@@ -405,15 +395,7 @@ const Home = (): ReactNode => {
                     name: 'How do I install Lagune?',
                     acceptedAnswer: {
                       '@type': 'Answer',
-                      text: 'Run npx -y lagune@latest init in your project. It works in both new and existing projects and needs no API key.',
-                    },
-                  },
-                  {
-                    '@type': 'Question',
-                    name: 'How many AI agents does Lagune work with?',
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: 'Lagune works with 72 AI coding agents, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot.',
+                      text: 'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects and needs no API key.',
                     },
                   },
                 ],
@@ -614,11 +596,9 @@ const Home = (): ReactNode => {
                           <button
                             type='button'
                             onClick={
-                              item.action === 'agents'
-                                ? () => setAgentsOpen(true)
-                                : item.action === 'specs'
-                                  ? () => setSpecsOpen(true)
-                                  : undefined
+                              item.action === 'categories'
+                                ? openCategories
+                                : undefined
                             }
                             className={railItemClass}
                             aria-label={item.label}
@@ -647,12 +627,9 @@ const Home = (): ReactNode => {
 
                   {active === 'install' && (
                     <InstallPanel
-                      selected={selected}
-                      onSelect={setSelected}
-                      onOpenAgents={openAgents}
-                      onOpenSpecs={openSpecs}
-                      onToggleSkill={toggleSkill}
-                      skills={skills}
+                      onOpenCategories={openCategories}
+                      onToggleCategory={toggleCategory}
+                      chosen={categories}
                     />
                   )}
 
@@ -724,24 +701,14 @@ const Home = (): ReactNode => {
         </section>
       </main>
 
-      {agentsOpen && (
+      {categoriesOpen && (
         <Suspense fallback={null}>
-          <AgentsModal
-            open={agentsOpen}
-            agents={ALL_AGENTS}
-            onSelect={setSelected}
-            onClose={closeAgents}
-          />
-        </Suspense>
-      )}
-      {specsOpen && (
-        <Suspense fallback={null}>
-          <SpecializationsModal
-            open={specsOpen}
+          <CategoriesModal
+            open={categoriesOpen}
             categories={ALL_CATEGORIES}
-            skills={skills}
-            onToggle={toggleSkill}
-            onClose={() => setSpecsOpen(false)}
+            chosen={categories}
+            onToggle={toggleCategory}
+            onClose={() => setCategoriesOpen(false)}
           />
         </Suspense>
       )}

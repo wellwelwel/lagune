@@ -1,20 +1,17 @@
-import type { AgentChoice, ListTarget, SkillGroup } from '../types/core.js';
+import type { Category } from '../types/categories.js';
+import type { ListTarget } from '../types/core.js';
 import { stdin } from 'node:process';
 import {
   interactiveMultiSelect,
   interactiveSelect,
 } from './interactive-select.js';
 import {
-  agentChoiceLabel,
-  agentSelectHint,
-  agentSelectTitle,
+  categoriesSelectFooter,
+  categoriesSelectHint,
+  categoriesSelectTitle,
   listSelectHint,
   listSelectTitle,
   selectFooter,
-  selectionAborted,
-  skillsSelectFooter,
-  skillsSelectHint,
-  skillsSelectTitle,
 } from './messages.js';
 
 export const isInteractive = (): boolean => stdin.isTTY === true;
@@ -33,8 +30,9 @@ const LIST_TARGETS: { value: ListTarget; label: string }[] = [
     label: 'Findings: the security findings Lagune tracks',
   },
   {
-    value: 'skills',
-    label: 'Skills: the specialization categories and their state',
+    value: 'categories',
+    label:
+      'Categories: the specialization categories and which this project uses',
   },
 ];
 
@@ -57,47 +55,27 @@ export const promptForListTarget = async (): Promise<
   return LIST_TARGETS[index].value;
 };
 
-export const promptForAgent = async (
-  agents: AgentChoice[],
-  installed: string[]
-): Promise<string> => {
-  const ordered = lockedFirst(agents, (agent) => installed.includes(agent.key));
-  const index = await interactiveSelect({
-    title: agentSelectTitle(),
-    hint: agentSelectHint(),
-    options: ordered.map((agent) => ({
-      label: agentChoiceLabel(agent.displayName, installed.includes(agent.key)),
-      keywords: agent.key,
-      locked: installed.includes(agent.key),
-    })),
-    footer: selectFooter(),
-  });
-
-  if (index === undefined) throw new Error(selectionAborted());
-
-  return ordered[index].key;
-};
-
-export const promptForSkills = async (
-  groups: SkillGroup[],
-  options: { preselected: string[]; locked: string[] }
+export const promptForCategories = async (
+  categories: Category[],
+  locked: string[]
 ): Promise<string[]> => {
-  const ordered = lockedFirst(groups, (group) =>
-    options.locked.includes(group.key)
+  const ordered = lockedFirst(categories, (category) =>
+    locked.includes(category.key)
   );
   const indexes = await interactiveMultiSelect({
-    title: skillsSelectTitle(),
-    hint: skillsSelectHint(),
-    options: ordered.map((group) => ({
-      label: `${group.label}: ${group.description}`,
-      keywords: group.key,
-      selected: options.preselected.includes(group.key),
-      locked: options.locked.includes(group.key),
+    title: categoriesSelectTitle(),
+    hint: categoriesSelectHint(),
+    options: ordered.map((category) => ({
+      label: `${category.label}: ${category.description}`,
+      keywords: category.key,
+      locked: locked.includes(category.key),
     })),
-    footer: skillsSelectFooter(),
+    footer: categoriesSelectFooter(),
   });
 
   if (indexes === undefined) return [];
 
-  return indexes.map((index) => ordered[index].key);
+  return indexes
+    .map((index) => ordered[index].key)
+    .filter((key) => !locked.includes(key));
 };

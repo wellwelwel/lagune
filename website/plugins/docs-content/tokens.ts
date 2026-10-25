@@ -1,20 +1,19 @@
-import { ALL_AGENTS, ALL_CATEGORIES } from '../../src/data/registry';
+import { ALL_CATEGORIES } from '../../src/data/categories';
 
-const COUNTS: Record<string, number> = {
-  agents: ALL_AGENTS.length,
-  categories: ALL_CATEGORIES.length,
+const TOKENS: Record<string, string> = {
+  categories: String(ALL_CATEGORIES.length),
 };
 
 const TOKEN = /\{\{\s*([a-z]+)\s*\}\}/g;
 
-export const substituteCounts = (source: string, origin: string): string =>
+export const substituteTokens = (source: string, origin: string): string =>
   source.replace(TOKEN, (token: string, name: string) => {
-    const count = COUNTS[name];
+    const value = TOKENS[name];
 
-    if (count === undefined)
+    if (value === undefined)
       throw new Error(
-        `[lagune-docs-content] Unknown count token ${token} in ${origin}.`
+        `[lagune-docs-content] Unknown token ${token} in ${origin}.`
       );
 
-    return String(count);
+    return value;
   });

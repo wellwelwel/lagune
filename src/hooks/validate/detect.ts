@@ -1,3 +1,8 @@
+import {
+  APPLIED_HEADINGS,
+  appliedEntry,
+  LEGACY_SPECIALIZATION_PATH,
+} from '../../core/markdown/applied.js';
 import { sectionBlocks, sectionBullets } from '../../core/markdown/sections.js';
 import {
   dateProblems,
@@ -11,7 +16,6 @@ import {
 } from './shared.js';
 
 const FINDING_FIELDS = ['What it is', 'Why it matters', 'Evidence'];
-const SKILL_PATH = '.lagune/skills/';
 
 const findingProblems = (detect: string): string[] => {
   const blocks = sectionBlocks(detect, 'Findings');
@@ -27,16 +31,17 @@ const findingProblems = (detect: string): string[] => {
   ];
 };
 
-const appliedSkillsProblems = (detect: string): string[] => {
-  if (!hasSection(detect, 'Applied sub-skills')) return [];
+const namesSpecialization = (row: string): boolean =>
+  row.includes(LEGACY_SPECIALIZATION_PATH) || appliedEntry(row) !== undefined;
 
-  const rows = sectionBullets(detect, 'Applied sub-skills');
+const appliedProblems = (detect: string): string[] => {
+  const heading = APPLIED_HEADINGS.find((header) => hasSection(detect, header));
 
-  return rows.some((row) => row.includes(SKILL_PATH))
+  if (heading === undefined) return [];
+
+  return sectionBullets(detect, heading).some(namesSpecialization)
     ? []
-    : [
-        `the "Applied sub-skills" section names no sub-skill file under ${SKILL_PATH}`,
-      ];
+    : [`the "${heading}" section names no specialization`];
 };
 
 export const validateDetect = (detect: string): string[] => [
@@ -45,5 +50,5 @@ export const validateDetect = (detect: string): string[] => [
   ...missingFieldProblems(detect, 'Scope'),
   ...dateProblems(detect, 'Mapped'),
   ...findingProblems(detect),
-  ...appliedSkillsProblems(detect),
+  ...appliedProblems(detect),
 ];

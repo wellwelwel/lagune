@@ -26,24 +26,24 @@ describe('the escape byte that drives the redraw', () => {
 
 describe('filtering options by a typed query', () => {
   it('keeps every option when the query is empty', () => {
-    strict(matches({ label: 'Claude Code' }, ''), 'empty query matches all');
+    strict(matches({ label: 'OWASP' }, ''), 'empty query matches all');
   });
 
   it('matches against the visible label', () => {
-    strict(matches({ label: 'GitHub Copilot' }, 'copilot'));
-    strict(!matches({ label: 'GitHub Copilot' }, 'cursor'));
+    strict(matches({ label: 'AI / LLM' }, 'llm'));
+    strict(!matches({ label: 'AI / LLM' }, 'rust'));
   });
 
-  it('matches against the hidden keywords (the agent key)', () => {
-    const option = { label: 'Antigravity', keywords: 'agy' };
+  it('matches against the hidden keywords (the category key)', () => {
+    const option = { label: '.NET', keywords: 'dotnet' };
 
-    strict(matches(option, 'agy'), 'typing the key filters the agent');
+    strict(matches(option, 'dotnet'), 'typing the key filters the category');
     strict(!matches(option, 'zzz'));
   });
 
   it('is case-insensitive on both sides', () => {
-    strict(matches({ label: 'Mistral Vibe', keywords: 'vibe' }, 'MISTRAL'));
-    strict(matches({ label: 'GEMINI CLI', keywords: 'gemini' }, 'gem'));
+    strict(matches({ label: 'C / C++', keywords: 'c-cpp' }, 'C-CPP'));
+    strict(matches({ label: 'JavaScript', keywords: 'javascript' }, 'JAVA'));
   });
 });
 

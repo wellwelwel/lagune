@@ -94,40 +94,6 @@ const RunTimeline = (): VNode => {
   );
 };
 
-const Installed = (): VNode | null => {
-  const { version, running } = useData().install;
-  if (!version) return null;
-
-  const updateAvailable = running !== null && running !== version;
-
-  return (
-    <div class={RAIL_BLOCK}>
-      <div class='flex items-baseline justify-between gap-3'>
-        <h3 class={CARD_TITLE}>Installed</h3>
-        <span class={`${RAIL_HINT} tabular-nums`}>v{version}</span>
-      </div>
-      {updateAvailable && (
-        <a
-          class='group mt-4 flex cursor-pointer items-center justify-center gap-1.5 rounded-md bg-accent px-4 py-2.5 text-[0.8rem] font-bold text-white no-underline transition-[background-color] duration-200 hover:bg-accent-3'
-          href='/settings?tab=update'
-        >
-          <span class='relative grid size-[1rem] flex-none place-items-center overflow-hidden text-[1rem]'>
-            <span class='col-start-1 row-start-1 inline-flex transition-transform duration-300 ease-house group-hover:-translate-y-[120%]'>
-              <Icon name='arrowUp' />
-            </span>
-            <span class='col-start-1 row-start-1 inline-flex translate-y-[120%] transition-transform duration-300 ease-house group-hover:translate-y-0'>
-              <Icon name='arrowUp' />
-            </span>
-          </span>
-          <span>
-            Update to <span class='tabular-nums'>v{running}</span>
-          </span>
-        </a>
-      )}
-    </div>
-  );
-};
-
 export const RightRail = (): VNode => {
   const data = useData();
   const percent = phasePercent(data.phases);
@@ -150,7 +116,6 @@ export const RightRail = (): VNode => {
 
         <VerifyNext findings={data.findings} />
         <RunTimeline />
-        <Installed />
       </div>
     </aside>
   );

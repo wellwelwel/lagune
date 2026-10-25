@@ -7,7 +7,8 @@ on:
   pull_request:
     paths:
       - 'src/**'
-      - 'spec/**'
+      - 'skills/**'
+      - 'catalog/**'
       - 'scripts/**'
       - 'test/**'
       - 'tools/**'
@@ -121,3 +122,20 @@ jobs:
 
       - name: 🔬 Bun ${{ matrix.bun-version }}
         run: bun run test:bun
+
+  skills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    name: Skills discovery
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: 🧩 Listing the published skills
+        run: bash scripts/skills/discovery.sh

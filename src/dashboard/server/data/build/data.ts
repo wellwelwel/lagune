@@ -1,44 +1,36 @@
 import type { DashboardData } from '../../../../types/dashboard/dashboard';
 import { join, resolve } from 'node:path';
-import { loadVersion } from '../../../../core/assets';
+import { readOwnIndex, resolveCatalog } from '../../../../catalog/project';
+import {
+  readProjectCategories,
+  usedCategories,
+} from '../../../../categories/project';
 import { bulletField } from '../../../../core/markdown/fields';
 import { readMarkdown, readText } from '../../../../core/markdown/read';
-import { readSkillNames } from '../read';
 import { parseTracking, pathsByName } from '../tracking';
+import { buildCatalog } from './catalog';
 import { buildCharter } from './charter';
 import { buildFindings } from './findings';
 import { buildHistory } from './history';
-import { buildInstall, missingFiles } from './install';
 import { matchProject, matchVersion } from './meta';
 import { buildPhases } from './phases';
 import { buildSideQuests } from './sidequests';
-import { buildSkills } from './skills';
 
-export const buildData = async (
-  laguneDir: string,
-  packageRoot: URL
-): Promise<DashboardData> => {
-  const [
-    detect,
-    plan,
-    harden,
-    charter,
-    history,
-    tracking,
-    installedSkills,
-    manifest,
-    running,
-  ] = await Promise.all([
-    readMarkdown(join(laguneDir, 'memory/detect.md')),
-    readMarkdown(join(laguneDir, 'memory/plan.md')),
-    readMarkdown(join(laguneDir, 'memory/harden.md')),
-    readMarkdown(join(laguneDir, 'memory/charter.md')),
-    readMarkdown(join(laguneDir, 'memory/history.md')),
-    readText(join(laguneDir, 'tracking.json')),
-    readSkillNames(join(laguneDir, 'skills')),
-    readText(join(laguneDir, 'manifest.json')),
-    loadVersion(packageRoot).catch(() => null),
-  ]);
+export const buildData = async (laguneDir: string): Promise<DashboardData> => {
+  const projectRoot = resolve(laguneDir, '..');
+  const [detect, plan, harden, charter, history, tracking, categories, own] =
+    await Promise.all([
+      readMarkdown(join(laguneDir, 'memory/detect.md')),
+      readMarkdown(join(laguneDir, 'memory/plan.md')),
+      readMarkdown(join(laguneDir, 'memory/harden.md')),
+      readMarkdown(join(laguneDir, 'memory/charter.md')),
+      readMarkdown(join(laguneDir, 'memory/history.md')),
+      readText(join(laguneDir, 'tracking.json')),
+      readProjectCategories(projectRoot).catch(() => undefined),
+      readOwnIndex(projectRoot).catch(() => []),
+    ]);
+  const used = usedCategories(categories);
+  const entries = await resolveCatalog(projectRoot, used, own);
 
   const findings = buildFindings(
     detect,
@@ -46,8 +38,6 @@ export const buildData = async (
     harden,
     pathsByName(parseTracking(tracking))
   );
-
-  const { files, ...install } = buildInstall(manifest);
 
   return {
     project: matchProject(detect, charter),
@@ -63,12 +53,14 @@ export const buildData = async (
     findings,
     sidequests: buildSideQuests(detect, plan, harden),
     charter: buildCharter(charter),
-    skills: buildSkills(detect, installedSkills),
-    history: buildHistory(history).reverse(),
-    install: {
-      ...install,
-      running,
-      missing: await missingFiles(resolve(laguneDir, '..'), files),
+    catalog: buildCatalog(detect, entries),
+    categories: {
+      used,
+      recorded: categories !== undefined,
     },
+    history: buildHistory(history).reverse(),
+    artifacts: [detect, plan, harden, charter, history].some(
+      (artifact) => artifact !== null
+    ),
   };
 };

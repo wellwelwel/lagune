@@ -2,26 +2,26 @@ import type {
   SelectCategoriesDeps,
   SelectCategoriesInput,
 } from '../types/core.js';
-import { isInteractive, promptForSkills } from './prompt.js';
+import { isInteractive, promptForCategories } from './prompt.js';
 
-const defaultDeps: SelectCategoriesDeps = { isInteractive, promptForSkills };
+const defaultDeps: SelectCategoriesDeps = {
+  isInteractive,
+  promptForCategories,
+};
 
 const allLocked = (input: SelectCategoriesInput): boolean =>
-  input.groups.length > 0 &&
-  input.groups.every((group) => input.locked.includes(group.key));
+  input.categories.every((category) => input.locked.includes(category.key));
 
+/** The categories to act on: the values given, or a choice in a terminal, or undefined when neither is possible */
 export const selectCategories = async (
   input: SelectCategoriesInput,
   deps: SelectCategoriesDeps = defaultDeps
-): Promise<string[]> => {
+): Promise<string[] | undefined> => {
   if (input.requested.length > 0) return input.requested;
 
-  if (!input.shouldPrompt || !deps.isInteractive()) return [];
+  if (!deps.isInteractive()) return undefined;
 
-  if (allLocked(input)) return input.locked;
+  if (allLocked(input)) return [];
 
-  return deps.promptForSkills(input.groups, {
-    preselected: input.preselected,
-    locked: input.locked,
-  });
+  return deps.promptForCategories(input.categories, input.locked);
 };

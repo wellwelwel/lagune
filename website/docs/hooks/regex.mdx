@@ -9,47 +9,47 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `regex` hook is the deterministic regex-safety engine the [`regex` sub-skill](/docs/commands/skills) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
+The `regex` hook is the deterministic regex-safety engine the [`regex` specialization](/docs/catalog) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 
 ## Scan a codebase
 
-With no flag it scans the whole project. `-d` scopes the scan to a directory, `-f` to a single file. Both repeat and combine into one report, each file listed once even when more than one target covers it.
+With no flag it scans the whole project. `--dir` scopes the scan to a directory, `--file` to a single file. Both repeat and combine into one report, each file listed once even when more than one target covers it.
 
 <Tabs>
   <TabItem value="all" label="Whole project" default>
 
 ```bash
-node ./.lagune/hooks/regex.mjs
+npx lagune regex
 ```
 
   </TabItem>
   <TabItem value="dir" label="A directory">
 
 ```bash
-node ./.lagune/hooks/regex.mjs -d src/services
+npx lagune regex --dir src/services
 ```
 
   </TabItem>
   <TabItem value="file" label="A single file">
 
 ```bash
-node ./.lagune/hooks/regex.mjs -f bin/import.pl
+npx lagune regex --file bin/import.pl
 ```
 
   </TabItem>
   <TabItem value="many" label="Several targets">
 
 ```bash
-node ./.lagune/hooks/regex.mjs -d core -d workers -f Sources/App/Router.swift
+npx lagune regex --dir core --dir workers --file Sources/App/Router.swift
 ```
 
   </TabItem>
   <TabItem value="limit" label="With a limit">
 
-`-l` sets the ReDoS threshold for the sweep (default 25), the same limit the check mode takes. A lower limit is stricter.
+`--limit` sets the ReDoS threshold for the sweep (default 25), the same limit the check mode takes. A lower limit is stricter.
 
 ```bash
-node ./.lagune/hooks/regex.mjs -d src/services -l 15
+npx lagune regex --dir src/services --limit 15
 ```
 
   </TabItem>
@@ -77,7 +77,7 @@ config/token.rb
 When nothing is found, it prints a single line.
 
 ```bash
-node ./.lagune/hooks/regex.mjs -d src/clean
+npx lagune regex --dir src/clean
 # => no unsafe patterns found
 ```
 
@@ -93,14 +93,14 @@ The first section is a security finding. The second is a pointer to code a stati
 
 ### CLI options
 
-| Option      | Alias | Value                  | Description                                                                                    |
-| ----------- | ----- | ---------------------- | ---------------------------------------------------------------------------------------------- |
-| `--pattern` | `-p`  | a regex source         | Check one pattern. Repeat to check several, one verdict per pattern, in order.                 |
-| `--dir`     | `-d`  | a directory            | Scope a scan to a directory. Repeats and combines with `-f`.                                   |
-| `--file`    | `-f`  | a file                 | Scope a scan to a single file. Repeats and combines with `-d`.                                 |
-| `--limit`   | `-l`  | a non-negative integer | Set the ReDoS repetition limit (default 25). Applies to both modes. A lower limit is stricter. |
+| Option      | Value                  | Description                                                                                    |
+| ----------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `--pattern` | a regex source         | Check one pattern. Repeat to check several, one verdict per pattern, in order.                 |
+| `--dir`     | a directory            | Scope a scan to a directory. Repeats and combines with `--file`.                               |
+| `--file`    | a file                 | Scope a scan to a single file. Repeats and combines with `--dir`.                              |
+| `--limit`   | a non-negative integer | Set the ReDoS repetition limit (default 25). Applies to both modes. A lower limit is stricter. |
 
-With no option it scans the whole project. `-p` is the check mode and cannot be combined with `-d` or `-f`.
+With no option it scans the whole project. `--pattern` is the check mode and cannot be combined with `--dir` or `--file`.
 
 ### Supported languages
 
@@ -140,16 +140,16 @@ It reads source as text, so it cannot judge a pattern assembled at runtime, and 
 
 ## Check a single pattern
 
-Pass `-p` with the pattern's source to score it. The hook prints one word: `safe`, `unsafe`, or `invalid regex`. Repeat `-p` to score several at once, one verdict per pattern, in order.
+Pass `--pattern` with the pattern's source to score it. The hook prints one word: `safe`, `unsafe`, or `invalid regex`. Repeat `--pattern` to score several at once, one verdict per pattern, in order.
 
 <Tabs>
   <TabItem value="one" label="One pattern" default>
 
 ```bash
-node ./.lagune/hooks/regex.mjs -p '(a+)+$'
+npx lagune regex --pattern '(a+)+$'
 # => unsafe
 
-node ./.lagune/hooks/regex.mjs -p '^[a-z0-9_]{3,20}$'
+npx lagune regex --pattern '^[a-z0-9_]{3,20}$'
 # => safe
 ```
 
@@ -157,7 +157,7 @@ node ./.lagune/hooks/regex.mjs -p '^[a-z0-9_]{3,20}$'
   <TabItem value="many" label="Several patterns">
 
 ```bash
-node ./.lagune/hooks/regex.mjs -p '(a+)+$' -p '^[a-z]+$'
+npx lagune regex --pattern '(a+)+$' --pattern '^[a-z]+$'
 # => unsafe
 # => safe
 ```
@@ -165,10 +165,10 @@ node ./.lagune/hooks/regex.mjs -p '(a+)+$' -p '^[a-z]+$'
   </TabItem>
   <TabItem value="limit" label="With a limit">
 
-`-l` sets the repetition limit (default 25) and applies to every `-p` in the call. A lower limit is stricter.
+`--limit` sets the repetition limit (default 25) and applies to every `--pattern` in the call. A lower limit is stricter.
 
 ```bash
-node ./.lagune/hooks/regex.mjs -p 'a?a?a?' -l 2
+npx lagune regex --pattern 'a?a?a?' --limit 2
 # => unsafe
 ```
 
@@ -181,7 +181,7 @@ Each pattern is passed as a flag value, never interpolated into the command. A v
 :::
 
 :::tip
-This is the same engine the [`regex` sub-skill](/docs/commands/skills) runs: the scan opens a ReDoS pass, the check confirms a pattern it surfaces.
+This is the same engine the [`regex` specialization](/docs/catalog) runs: the scan opens a ReDoS pass, the check confirms a pattern it surfaces.
 :::
 
 <Faq
@@ -189,7 +189,7 @@ This is the same engine the [`regex` sub-skill](/docs/commands/skills) runs: the
     {
       question: 'How do I check a regex for ReDoS from the CLI?',
       answer:
-        "Run node ./.lagune/hooks/regex.mjs -p '<pattern>'. It returns safe, unsafe, or invalid regex.",
+        "Run npx lagune regex --pattern '<pattern>'. It returns safe, unsafe, or invalid regex.",
     },
     {
       question: 'How do I scan a whole project for unsafe regex?',

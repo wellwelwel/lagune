@@ -6,7 +6,7 @@ import type {
 } from '@/types/dashboard/client';
 import type { Finding, PhaseName } from '@/types/dashboard/dashboard';
 import type { VNode } from 'preact';
-import { skillLabel } from '@/dashboard/shared/skill-meta';
+import { specializationLabel } from '@/dashboard/shared/specialization-meta';
 import { useRoute } from 'preact-iso';
 import { SeverityTag } from '../components/findings/severity';
 import { Stepper } from '../components/findings/stepper';
@@ -309,27 +309,27 @@ export const FindingDetail = (): VNode => {
             </div>
           )}
         </SectionCard>
-        {finding.skills.length > 0 && (
+        {finding.specializations.length > 0 && (
           <SectionCard
             icon='brain'
             tone='bg-blue-soft text-blue'
             title='Surfaced by'
-            blurb='The sub-skills that spotted this finding.'
-            count={finding.skills.length}
+            blurb='The specializations that spotted this finding.'
+            count={finding.specializations.length}
           >
-            {finding.skills.map((skill) => (
+            {finding.specializations.map((specialization) => (
               <div class={LIST_ROW}>
                 <span class='mt-2 size-1.75 flex-none rounded-full bg-blue' />
                 <div class='flex min-w-0 flex-1 flex-col gap-1'>
                   <a
                     class='text-[0.82rem] font-bold text-ink-2 no-underline transition-colors hover:text-accent'
-                    href='/skills'
+                    href='/catalog'
                   >
-                    {skillLabel(skill.name)}
+                    {specializationLabel(specialization.name)}
                   </a>
-                  {skill.surfaced && (
+                  {specialization.surfaced && (
                     <p class='text-[0.8rem] leading-normal text-muted text-pretty'>
-                      <Inline text={skill.surfaced} />
+                      <Inline text={specialization.surfaced} />
                     </p>
                   )}
                 </div>

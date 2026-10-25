@@ -24,6 +24,8 @@ Each detect finding is one tracked item that plan, harden, and verify carry forw
 
 The one volatile thing the tracking stores is the file paths the item points at. Those paths live nowhere else, so a rename or a moved file can break the link only there, never in two diverging copies. When that happens, repair corrects the map (`.lagune/tracking.json`) so identity survives the rename. It reads the artifacts and the tracking map, reads your source only to learn a renamed file's new path, and never authors security content.
 
+In the same pass, it checks every memory artifact against its template and reports what drifted, pointing each one at the phase that fixes it.
+
 :::tip
 
 - It touches neither your code nor the prose artifacts, only the tracking.

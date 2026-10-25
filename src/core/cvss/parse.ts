@@ -96,8 +96,9 @@ export const parseVector = (input: string): CvssParse => {
   if (repeated !== undefined)
     return { problem: `the metric ${repeated.code} appears more than once` };
 
-  const metrics: CvssMetrics = Object.fromEntries(
-    pairs.map((pair) => [pair.code, pair.value])
+  const metrics: CvssMetrics = Object.assign(
+    Object.create(null),
+    Object.fromEntries(pairs.map((pair) => [pair.code, pair.value]))
   );
 
   if (!hasBaseMetrics(metrics)) return { problem: missingBaseProblem(metrics) };

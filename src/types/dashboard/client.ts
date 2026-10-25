@@ -1,4 +1,4 @@
-import type { SkillGroupKey } from '../core.js';
+import type { CategoryKey } from '../categories.js';
 import type { Finding, PhaseName, Severity } from './dashboard.js';
 
 export type RouteScope =
@@ -6,7 +6,7 @@ export type RouteScope =
   | 'findings'
   | 'sidequests'
   | 'charter'
-  | 'skills'
+  | 'catalog'
   | 'history'
   | 'settings';
 
@@ -28,7 +28,7 @@ export type PhaseMeta = {
 
 export type LoadStatus = 'loading' | 'ready' | 'error';
 
-export type SkillIconName =
+export type SpecializationIconName =
   | 'activity'
   | 'brain'
   | 'code'
@@ -41,7 +41,7 @@ export type SkillIconName =
   | 'upload';
 
 export type IconName =
-  | SkillIconName
+  | SpecializationIconName
   | 'grid'
   | 'shield'
   | 'shieldCheck'
@@ -90,7 +90,8 @@ export type IconName =
   | 'thumbsDown'
   | 'info'
   | 'bulb'
-  | 'pencil';
+  | 'pencil'
+  | 'save';
 
 export type AdmonitionKind = 'note' | 'info' | 'tip' | 'warning' | 'danger';
 
@@ -112,9 +113,12 @@ export type PromptModalContent = {
 
 export type PromptTone = 'neutral' | 'tip';
 
+export type PromptMark = 'mention' | 'command';
+
+export type PromptSegment = { text: string; mark?: PromptMark };
+
 export type PromptSpec = {
-  task: string;
-  mention: string;
+  lines: PromptSegment[][];
   readPath: string;
   reply: TypeSegment[];
   tone?: PromptTone;
@@ -152,14 +156,6 @@ export type ChainView = {
   title: string;
   body: string;
   reason: string;
-};
-
-export type InstallPresentation = {
-  icon: IconName;
-  tile: string;
-  title: string;
-  detail: string;
-  action: { href: string; label: string } | null;
 };
 
 export type PhaseCommand = {
@@ -235,43 +231,21 @@ export type TokenMatch = {
   length: number;
 };
 
-export type SkillGroupBadge = {
-  key: SkillGroupKey;
+export type CategoryBadge = {
+  key: CategoryKey;
   label: string;
   icon: string;
 };
 
-export type InstallAgent = {
-  key: string;
-  name: string;
-  icon: string;
-};
-
-export type InstallCategory = {
+export type CategoryOption = {
   key: string;
   name: string;
   description: string;
   icon: string;
 };
 
-export type SettingsTab = 'install' | 'pull' | 'update' | 'specializations';
-
 export type TabItem = {
   key: string;
-  label: string;
-  icon: IconName;
-};
-
-export type SettingsTabItem = {
-  key: SettingsTab;
-  label: string;
-  icon: IconName;
-};
-
-export type InstallSubtab = 'agent' | 'specializations';
-
-export type InstallSubtabItem = {
-  key: InstallSubtab;
   label: string;
   icon: IconName;
 };
@@ -280,38 +254,12 @@ export type ActionRunState = 'idle' | 'pending' | 'success' | 'error';
 
 export type RunButton = { icon: IconName; label: string };
 
-export type InstallModalState = {
-  kind: 'install';
-  run: ActionRunState;
-  agentName: string;
-  created: number;
-  skipped: number;
-};
-
-export type PullModalState = {
-  kind: 'pull';
-  run: ActionRunState;
-  created: number;
-  skipped: number;
-  defaultKey: string;
-};
-
-export type UpdateModalState = {
-  kind: 'update';
-  run: ActionRunState;
-  refreshed: number;
-  defaultKey: string;
-};
-
-export type SpecializeModalState = {
-  kind: 'specialize';
+export type ModalState = {
+  kind: 'categories';
   run: ActionRunState;
   added: number;
   removed: number;
 };
-
-export type ModalState =
-  InstallModalState | PullModalState | UpdateModalState | SpecializeModalState;
 
 export type ActionModalHeader = {
   eyebrow: string;

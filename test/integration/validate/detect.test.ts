@@ -62,26 +62,51 @@ describe('validateDetect accepts the template shape and flags drift', () => {
 
     strict(problems.some((problem) => problem.includes('"Mapped"')));
   });
+});
 
-  it('flags an Applied sub-skills section with no sub-skill row', () => {
-    const detect = `${validDetect}
-## Applied sub-skills
+const withApplied = (heading: string, row: string): string => `${validDetect}
+## ${heading}
 
-- a row that names no sub-skill file
+${row}
 `;
 
-    const problems = validateDetect(detect);
+describe('the applied section names each specialization it lists', () => {
+  const accepted: [string, string][] = [
+    [
+      'Applied specializations',
+      '- upload: the unchecked upload under "Unrestricted file upload".',
+    ],
+    [
+      'Applied specializations',
+      '- **`upload`** — the unchecked upload under "Unrestricted file upload".',
+    ],
+    [
+      'Applied specializations',
+      '- .lagune/skills/upload.md: the unchecked upload under "Unrestricted file upload".',
+    ],
+    [
+      'Applied sub-skills',
+      '- .lagune/skills/upload.md: the unchecked upload under "Unrestricted file upload".',
+    ],
+    [
+      'Applied sub-skills',
+      '- upload: the unchecked upload under "Unrestricted file upload".',
+    ],
+  ];
 
-    strict(problems.some((problem) => problem.includes('Applied sub-skills')));
-  });
+  for (const [heading, row] of accepted)
+    it(`accepts "${row}" under "${heading}"`, () => {
+      strict.deepStrictEqual(validateDetect(withApplied(heading, row)), []);
+    });
 
-  it('accepts an Applied sub-skills section with a sub-skill row', () => {
-    const detect = `${validDetect}
-## Applied sub-skills
+  for (const heading of ['Applied specializations', 'Applied sub-skills'])
+    it(`flags a "${heading}" row that names no specialization`, () => {
+      const problems = validateDetect(
+        withApplied(heading, '- None of the catalog applied here.')
+      );
 
-- .lagune/skills/upload.md: the unchecked upload under "Unrestricted file upload".
-`;
-
-    strict.deepStrictEqual(validateDetect(detect), []);
-  });
+      strict.deepStrictEqual(problems, [
+        `the "${heading}" section names no specialization`,
+      ]);
+    });
 });

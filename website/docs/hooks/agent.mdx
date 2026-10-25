@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` sub-skill](/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
+The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` specialization](/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
@@ -17,18 +17,18 @@ The `agent` hook flags **agent runtimes that loop with no turn, budget, or time 
   <TabItem value="scan" label="Scan the codebase" default>
 
 ```bash
-node ./.lagune/hooks/agent.mjs           # scans the whole project
-node ./.lagune/hooks/agent.mjs -d src/ai # scans a directory
-node ./.lagune/hooks/agent.mjs -f chat.ts # scans a single file
+npx lagune agent                # scans the whole project
+npx lagune agent --dir src/ai   # scans a directory
+npx lagune agent --file chat.ts # scans a single file
 ```
 
   </TabItem>
   <TabItem value="check" label="Check a call">
 
 ```bash
-node ./.lagune/hooks/agent.mjs -l javascript -p 'query({ prompt })'                        # => uncapped
-node ./.lagune/hooks/agent.mjs -l javascript -p 'query({ prompt, options: { maxTurns: 5 } })' # => safe
-node ./.lagune/hooks/agent.mjs -l python -p 'AgentExecutor(agent=a, max_iterations=None)' # => uncapped
+npx lagune agent --lang javascript --pattern 'query({ prompt })'                           # => uncapped
+npx lagune agent --lang javascript --pattern 'query({ prompt, options: { maxTurns: 5 } })' # => safe
+npx lagune agent --lang python --pattern 'AgentExecutor(agent=a, max_iterations=None)'     # => uncapped
 ```
 
   </TabItem>
@@ -46,21 +46,21 @@ Every line under **Uncapped agent loops found** is, in a file that imports an ag
 
 ### CLI options
 
-| Option      | Alias | Value          | Description                                                    |
-| ----------- | ----- | -------------- | -------------------------------------------------------------- |
-| `--pattern` | `-p`  | a code snippet | Check one call. Repeat to check several, one verdict per line. |
-| `--lang`    | `-l`  | a language     | Required with `-p`: `javascript` or `python`.                  |
-| `--dir`     | `-d`  | a directory    | Scope a scan to a directory. Repeats and combines with `-f`.   |
-| `--file`    | `-f`  | a file         | Scope a scan to a single file. Repeats and combines with `-d`. |
+| Option      | Value          | Description                                                       |
+| ----------- | -------------- | ----------------------------------------------------------------- |
+| `--pattern` | a code snippet | Check one call. Repeat to check several, one verdict per line.    |
+| `--lang`    | a language     | Required with `--pattern`: `javascript` or `python`.              |
+| `--dir`     | a directory    | Scope a scan to a directory. Repeats and combines with `--file`.  |
+| `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
-With no option it scans the whole project. `-p` needs `-l` and cannot be combined with `-d` or `-f`.
+With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
 
 :::note[Best-effort, not exhaustive]
 A hand-rolled agent loop, in any language, is beyond a static scan. Treat this as a strong floor, not a complete inventory.
 :::
 
 :::tip
-The hook decides only the cap: capability scoping, trust mixing, and authorization are judgment the [`llm` sub-skill](/docs/commands/skills) still covers.
+The hook decides only the cap: capability scoping, trust mixing, and authorization are judgment the [`llm` specialization](/docs/catalog) still covers.
 :::
 
 <Faq

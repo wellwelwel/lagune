@@ -4,11 +4,11 @@
 
 [![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
 [![Version](https://img.shields.io/npm/v/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
-[![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.ai/docs/supported-agents)
+[![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.ai/docs)
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
-- **Lagune** works with projects in **any programming language** and supports [**78 agents**](https://lagune.ai/docs/supported-agents) ✨
+- **Lagune** works with projects in **any programming language** ✨
 
 ---
 
@@ -19,7 +19,7 @@ Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lag
 ## Table of Contents
 
 - 🌊 [**Get Started**](#get-started)
-  - 📦 [**Dashboard**](#dashboard) | [**CLI**](#cli)
+  - 📦 [**Install**](#install) | [**Dashboard**](#dashboard)
   - 💬 [**Slash Commands**](#slash-commands)
 - 💽 [**Requirements**](#requirements)
 - 🔐 [**Security**](#security)
@@ -39,26 +39,66 @@ Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lag
 
 ---
 
-### Dashboard
+### Install
 
-For an interactive live view, follow-up, and maintenance, run:
+Install **Lagune**'s commands into your agent with the [**skills**](https://github.com/vercel-labs/skills) CLI:
 
 ```bash
-npx -y lagune@latest
+npx skills add wellwelwel/lagune
+```
+
+Or paste this prompt into your agent:
+
+```md
+Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
+```
+
+- 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+
+#### › Update
+
+```bash
+npx skills update
+```
+
+> [!TIP]
+>
+> Your charter, the phase artifacts, the tracking, and your own specializations live in `.lagune/` and stay untouched.
+
+#### › Specialization categories
+
+[**/lagune.charter**](https://lagune.ai/docs/commands/charter) records the [**categories**](https://lagune.ai/docs/categories) your project needs. Change them anytime:
+
+```bash
+npx lagune add --categories javascript
+npx lagune remove --categories javascript
+```
+
+> [!NOTE]
+>
+> A project set up by the **Lagune** CLI (`npx lagune init`) keeps working as it is. To move it, see [**Migrate**](https://lagune.ai/docs/commands/migrate).
+
+---
+
+### Dashboard
+
+For an interactive live view and follow-up, run:
+
+```bash
+npx lagune
 ```
 
 It serves a dashboard and opens it in a random port:
 
 - [x] **Live Reload**
 - [x] **Private** and **Local**
-- [x] **Install**, **Pull**, **Update**, and **Manage** all **Lagune** features directly from your browser
+- [x] Follow the findings, fixes, and verdicts, and manage the specialization categories, directly from your browser
 - [x] No `node_modules` or `package.json` is needed 📦
 
 <details>
 <summary>Overview</summary>
 <br />
 
-<img width="320" src="./website/static/img/dashboard/01.png" />
 <img width="320" src="./website/static/img/dashboard/02.png" />
 <img width="320" src="./website/static/img/dashboard/03.png" />
 <img width="320" src="./website/static/img/dashboard/04.png" />
@@ -69,50 +109,14 @@ It serves a dashboard and opens it in a random port:
 
 > [!TIP]
 >
-> - 🚪 Use `--port` or `-p` to specify a custom port.
+> - 🚪 Use `--port` to specify a custom port.
 > - ⏏️ Press `Ctrl+C` to stop.
-
----
-
-### CLI
-
-#### › Install
-
-```bash
-npx -y lagune@latest init
-```
-
-- 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
-
-#### › Update
-
-To update **Lagune**'s own files and its commands to their latest versions, run:
-
-```bash
-npx -y lagune@latest update
-```
-
-> [!TIP]
->
-> Your charter, the phase artifacts, and any custom specializations stay untouched.
-
-#### › Pull
-
-When you clone or fork a project that already has **Lagune**, run pull to install its files from the manifest:
-
-```bash
-npx -y lagune@latest pull
-```
-
-> [!TIP]
->
-> 💡 Think of it as the **Lagune** equivalent of `npm i`, `pip install -r requirements.txt`, and the like.
 
 ---
 
 ### Slash Commands
 
-Once **Lagune** is set up in your project, your **AI** agent unlocks a set of slash commands:
+Once **Lagune**'s commands are installed, your **AI** agent unlocks a set of slash commands:
 
 #### › Development flow
 
@@ -139,10 +143,10 @@ These five run in order. Each builds on the previous, so following the list top 
 
 #### › Special commands
 
-| Command                                                              | What it does                                                                            |
-| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| [**/lagune.specialize**](https://lagune.ai/docs/commands/specialize) | Specializes **Lagune** in a new security _sub_-skill from articles, exploits, or topics |
-| [**/lagune.prove**](https://lagune.ai/docs/commands/prove)           | Turns each detected finding into a runnable proof for responsible disclosure            |
+| Command                                                              | What it does                                                                        |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [**/lagune.specialize**](https://lagune.ai/docs/commands/specialize) | Teaches **Lagune** a new security specialization from articles, exploits, or topics |
+| [**/lagune.prove**](https://lagune.ai/docs/commands/prove)           | Turns each detected finding into a runnable proof for responsible disclosure        |
 
 > [!TIP]
 >
@@ -156,10 +160,7 @@ These five run in order. Each builds on the previous, so following the list top 
 
 ## Requirements
 
-You will need these tools installed on your system:
-
-- [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- At least one of the [**Supported Agents**](https://lagune.ai/docs/supported-agents)
+You will need [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installed on your system.
 
 ---
 

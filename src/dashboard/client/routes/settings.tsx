@@ -1,30 +1,11 @@
-import type { SettingsTab } from '@/types/dashboard/client';
-import type { ComponentType, VNode } from 'preact';
-import { useLocation } from 'preact-iso';
-import { useState } from 'preact/hooks';
+import type { VNode } from 'preact';
 import { BANNER_CHIP, PageHeader } from '../components/page-header';
 import { Icon } from '../components/primitives/icons';
-import { InstallTab } from '../components/settings/install-tab';
-import { PullTab } from '../components/settings/pull-tab';
-import { SpecializationsTab } from '../components/settings/specializations-tab';
-import { initialTab, TabBar } from '../components/settings/tab-bar';
-import { UpdateTab } from '../components/settings/update-tab';
+import { CategoriesTab } from '../components/settings/categories-tab';
 import { useData } from '../data/state';
-import { AGENTS, isLocked } from '../domain/install';
-
-const TAB_VIEW: Record<SettingsTab, ComponentType> = {
-  install: InstallTab,
-  pull: PullTab,
-  update: UpdateTab,
-  specializations: SpecializationsTab,
-};
 
 export const Settings = (): VNode => {
-  const { query } = useLocation();
-  const locked = isLocked(useData().install);
-  const [tab, setTab] = useState<SettingsTab>(initialTab(query.tab));
-  const active = locked ? 'install' : tab;
-  const View = TAB_VIEW[active];
+  const { used } = useData().categories;
 
   return (
     <>
@@ -32,24 +13,19 @@ export const Settings = (): VNode => {
         background='https://lagune.ai/img/docs/banner-5.png'
         eyebrow='Configuration'
         title='Settings'
-        description='Install, update, and shape Lagune for this project.'
+        description='Shape the security knowledge Lagune draws on for this project.'
         actions={
           <span class={BANNER_CHIP}>
             <span class='inline-flex text-white/80'>
-              <Icon name='package' />
+              <Icon name='graduationCap' />
             </span>
-            <span class='tabular-nums'>{AGENTS.length}</span> agents
+            <span class='tabular-nums'>{used.length}</span>
+            {used.length === 1 ? 'category' : 'categories'}
           </span>
         }
       />
 
-      <TabBar
-        active={active}
-        only={locked ? 'install' : undefined}
-        onSelect={setTab}
-      />
-
-      <View key={active} />
+      <CategoriesTab />
     </>
   );
 };

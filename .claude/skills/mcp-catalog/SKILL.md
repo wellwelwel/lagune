@@ -13,7 +13,7 @@ metadata:
 
 The list is `website/static/registry/v0.1/servers`, an extensionless JSON file in the **MCP Registry** v0.1 list shape that the site serves as written. `test/integration/website/reviewed-catalog.test.ts` enforces the rules a script can check, and the review covers everything else.
 
-Before reviewing, read the sub-skills this work touches: @spec/skills/llm.md (trust in MCP servers and in the package supply chain), @spec/skills/interpreter.md (what installing and running a package executes), @spec/skills/network.md (the addresses a review sends requests to), @spec/skills/container.md (the flags an image runs with), and @spec/skills/secrets.md (credentials an entry must never carry). Their checkers run from `lib/hooks/` once `npm run build` has produced them.
+Before reviewing, read the specializations this work touches with `node lib/bin/index.js catalog <name>` once `npm run build` has produced the engine: `llm` (trust in MCP servers and in the package supply chain), `interpreter` (what installing and running a package executes), `network` (the addresses a review sends requests to), `container` (the flags an image runs with), and `secrets` (credentials an entry must never carry). Their checkers run through the same build, `node lib/bin/index.js <hook>`.
 
 ## Find candidates
 
@@ -47,7 +47,7 @@ Run these checks from top to bottom, and send no request to an address that fail
 | Transport   | `streamable-http`, or `sse` only when the entry offers no `streamable-http` for that service                                                                                                                 |
 | Address     | HTTPS, with no `{` placeholder, which **Lagune Code** never fills from a catalog                                                                                                                             |
 | Host        | Inside the domain a reverse-DNS namespace proves (`com.cloudflare.mcp` serves from `*.mcp.cloudflare.com`). For an `io.github.<account>` namespace, confirm by hand that the host belongs to the same vendor |
-| Destination | The network checker **Lagune** ships reads `safe` (`node lib/hooks/network.mjs -u '<address>'`), so no parser trick or private address reaches the probe                                                     |
+| Destination | The network checker **Lagune** ships reads `safe` (`node lib/bin/index.js network --url '<address>'`), so no parser trick or private address reaches the probe                                               |
 | Liveness    | An `initialize` answers 200, or 401 with a `resource_metadata` link that **Lagune Code** follows to sign in. A redirect, a 404, or an HTML page is a reject                                                  |
 
 ```sh
@@ -103,7 +103,7 @@ Write a scoped **npm** name with its slash escaped (`@playwright%2fmcp`).
 
 ```sh
 npx prettier --write --parser json website/static/registry/v0.1/servers
-node lib/hooks/secrets.mjs -f website/static/registry/v0.1/servers
+node lib/bin/index.js secrets --file website/static/registry/v0.1/servers
 npx poku test/integration/website
 ```
 
