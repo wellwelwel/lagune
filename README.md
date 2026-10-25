@@ -99,7 +99,6 @@ It serves a dashboard and opens it in a random port:
 <summary>Overview</summary>
 <br />
 
-<img width="320" src="./website/static/img/dashboard/01.png" />
 <img width="320" src="./website/static/img/dashboard/02.png" />
 <img width="320" src="./website/static/img/dashboard/03.png" />
 <img width="320" src="./website/static/img/dashboard/04.png" />
