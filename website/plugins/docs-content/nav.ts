@@ -10,7 +10,12 @@ export const docsNav: DocsNavEntry[] = [
   {
     label: 'Get Started',
     collapsed: false,
-    items: ['get-started/install', 'get-started/commands', 'categories'],
+    items: [
+      'get-started/install',
+      'get-started/commands',
+      'categories',
+      'get-started/dashboard',
+    ],
   },
   {
     label: 'Development Flow',
@@ -30,7 +35,6 @@ export const docsNav: DocsNavEntry[] = [
   },
   {
     label: 'Tools',
-    collapsed: false,
     items: ['commands/catalog', 'commands/specialize', 'commands/prove'],
   },
   {
