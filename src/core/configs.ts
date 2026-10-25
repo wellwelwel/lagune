@@ -6,7 +6,7 @@ import { readText } from './markdown/read.js';
 export const CONFIGS_FILE = '.lagune/configs.json';
 
 const parseConfigs = (raw: string | null): Record<string, unknown> =>
-  raw === null ? {} : parseJsonObject(raw, CONFIGS_FILE);
+  raw === null ? Object.create(null) : parseJsonObject(raw, CONFIGS_FILE);
 
 /** Reads the project's configs, none while the file is absent, refusing a file it cannot trust */
 export const readConfigs = async (
@@ -20,9 +20,11 @@ export const writeConfigs = async (
   fields: Record<string, unknown>
 ): Promise<void> => {
   const current = parseConfigs(await readText(path));
-
-  await writeFileOverwrite(
-    path,
-    `${JSON.stringify({ ...current, ...fields }, null, 2)}\n`
+  const merged: Record<string, unknown> = Object.assign(
+    Object.create(null),
+    current,
+    fields
   );
+
+  await writeFileOverwrite(path, `${JSON.stringify(merged, null, 2)}\n`);
 };

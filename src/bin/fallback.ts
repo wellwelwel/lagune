@@ -68,6 +68,15 @@ export const pinnedPath = (
 const pathKey = (): string =>
   Object.keys(env).find((key) => key.toUpperCase() === 'PATH') ?? 'PATH';
 
+const pinnedEnv = (): NodeJS.ProcessEnv => {
+  const key = pathKey();
+  const pinned: NodeJS.ProcessEnv = Object.assign(Object.create(null), env);
+
+  pinned[key] = pinnedPath(execPath, env[key]);
+
+  return pinned;
+};
+
 /** The npx the hand-off runs, failing before anything runs when the runtime brings none */
 export const frozenNpx = async (): Promise<string> => {
   const npx = await npxBeside(execPath);
@@ -80,11 +89,10 @@ export const frozenNpx = async (): Promise<string> => {
 /** Runs the frozen version with the same arguments, resolving with its exit code */
 export const handOff = (npx: string, args: string[]): Promise<number> =>
   new Promise((resolve, reject) => {
-    const key = pathKey();
     const child = spawn(execPath, [npx, ...FROZEN_ENGINE, ...args], {
       stdio: 'inherit',
       shell: false,
-      env: { ...env, [key]: pinnedPath(execPath, env[key]) },
+      env: pinnedEnv(),
     });
 
     child.once('error', reject);

@@ -33,6 +33,9 @@ export const parseTracking = (raw: string | null): TrackingMap => {
 };
 
 export const pathsByName = (tracking: TrackingMap): Record<string, string[]> =>
-  Object.fromEntries(
-    tracking.entries.map((entry) => [entry.name, entry.paths])
+  Object.assign(
+    Object.create(null),
+    Object.fromEntries(
+      tracking.entries.map((entry) => [entry.name, entry.paths])
+    )
   );

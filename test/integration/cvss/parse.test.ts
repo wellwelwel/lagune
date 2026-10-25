@@ -1,8 +1,9 @@
+import type { CvssVector } from '../../../src/types/cvss.js';
 import { describe, it, strict } from 'poku';
 import { parseVector } from '../../../src/core/cvss/parse.js';
 import { BASE_VECTOR, problemOf, vectorOf } from './__utils__.js';
 
-const BASE_METRICS = {
+const BASE_METRICS: CvssVector = Object.assign(Object.create(null), {
   AV: 'N',
   AC: 'L',
   AT: 'N',
@@ -14,7 +15,7 @@ const BASE_METRICS = {
   SC: 'N',
   SI: 'N',
   SA: 'N',
-};
+});
 
 describe('parseVector reads a CVSS v4.0 vector into its metrics', () => {
   it('reads every base metric', () => {
@@ -24,11 +25,7 @@ describe('parseVector reads a CVSS v4.0 vector into its metrics', () => {
   it('keeps the optional metrics, in whatever order they come', () => {
     strict.deepStrictEqual(
       vectorOf(`CVSS:4.0/MAV:A/${BASE_VECTOR.slice(9)}/E:U`),
-      {
-        ...BASE_METRICS,
-        MAV: 'A',
-        E: 'U',
-      }
+      Object.assign(Object.create(null), BASE_METRICS, { MAV: 'A', E: 'U' })
     );
   });
 

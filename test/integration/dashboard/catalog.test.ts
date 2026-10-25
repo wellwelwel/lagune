@@ -60,6 +60,35 @@ await describe('the dashboard shows whatever .lagune/ holds', async () => {
 
     strict.deepStrictEqual(installed, plain);
   });
+
+  await it('gives each finding only the paths the tracking map records for it', async () => {
+    const data = await dataOf({
+      '.lagune/tracking.json': JSON.stringify({
+        entries: [{ name: 'Leaked secret', paths: ['src/config.ts'] }],
+      }),
+      '.lagune/memory/detect.md': [
+        '# Demo Detect Map',
+        '',
+        '## Findings',
+        '',
+        '### Leaked secret',
+        '',
+        '### constructor',
+        '',
+        '### toString',
+        '',
+      ].join('\n'),
+    });
+
+    strict.deepStrictEqual(
+      data.findings.map((finding) => [finding.name, finding.files]),
+      [
+        ['Leaked secret', ['src/config.ts']],
+        ['constructor', []],
+        ['toString', []],
+      ]
+    );
+  });
 });
 
 await describe('the dashboard catalog follows the project catalog', async () => {

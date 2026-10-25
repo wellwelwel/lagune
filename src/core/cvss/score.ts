@@ -122,7 +122,10 @@ const lowerScore = (
 };
 
 const parseHighest = (text: string): Record<string, string> =>
-  Object.fromEntries(text.split('/').map((part) => part.split(':')));
+  Object.assign(
+    Object.create(null),
+    Object.fromEntries(text.split('/').map((part) => part.split(':')))
+  );
 
 const distancesTo = (
   effective: CvssEffectiveMetrics,
