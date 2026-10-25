@@ -45,7 +45,7 @@ export const DocsSmallPrint = ({
         target='_blank'
         rel='noreferrer'
       >
-        MIT License
+        Apache License 2.0
       </a>
       . Please check the{' '}
       <a
@@ -57,11 +57,6 @@ export const DocsSmallPrint = ({
         Security Policy
       </a>
       .
-    </p>
-    <p className='m-0'>
-      All product names, trademarks, and registered trademarks mentioned are the
-      property of their respective owners and are used for identification
-      purposes only.
     </p>
   </footer>
 );
