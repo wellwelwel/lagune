@@ -212,7 +212,7 @@ Treats the whole workspace and every dependency as hostile: it hunts for interpr
 The prompts load the specializations this audit relies on directly, whatever your project's categories. For the rest of the catalog `/lagune` matches, make sure the project uses **OWASP**, **AI/LLM**, and the category of its stack (e.g., **JavaScript**, **Python**, etc.):
 
 ```bash
-npx --prefer-offline lagune@{{version}} add --categories owasp ai javascript
+npx lagune add --categories owasp ai javascript
 ```
 
 :::danger
@@ -235,7 +235,7 @@ Map the entire workspace as an untrusted source and a potential malicious scope.
 
 Extend your analysis to the dependencies and sub-dependencies: a project may try to hide malicious code in an unlikely place to slip past scanners.
 
-Mandatory specializations (load them one at a time with `npx --yes --prefer-offline lagune@{{version}} catalog <name>`):
+Mandatory specializations (load them one at a time with `npx lagune catalog <name>`):
 
 - interpreter
 - secrets
@@ -268,7 +268,7 @@ Treat <file> as an untrusted source and a potential malicious scope. Every inter
 
 Extend the analysis to whatever <file> imports, including dependencies and sub-dependencies, where malicious code may hide to slip past scanners.
 
-Mandatory specializations for every sub-agent (load them one at a time with `npx --yes --prefer-offline lagune@{{version}} catalog <name>`):
+Mandatory specializations for every sub-agent (load them one at a time with `npx lagune catalog <name>`):
 
 - interpreter
 - secrets

@@ -52,7 +52,7 @@ Each command is a folder under `skills/` holding its `SKILL.md`, plus `template.
 - **A skill instructs.** It is the agent's reading: how to think about the phase, what to look for, what questions to resolve. Its frontmatter carries `name` (equal to its folder), the description, `argument-hint`, and `user-invocable`, plus `disable-model-invocation` on prove and specialize, and never `metadata.internal`, which would hide it from discovery.
 - **A template structures.** It is the mould for the phase's output, read from `template.md` next to the skill. The skill carries the reasoning, the template carries the shape of the result.
 
-Every deterministic step a skill or a built-in specialization writes uses the engine command with its version and long flags. The version equals the package version, and a release step moves it in `skills/` and `catalog/` alone.
+Every deterministic step a skill or a built-in specialization writes uses the engine command with long flags only.
 
 ## The catalog
 
@@ -62,7 +62,7 @@ The engine computes the catalog on demand: `catalog` prints it as `name: tags`, 
 
 ## The engine command
 
-Every skill calls the engine as `npx --yes --prefer-offline lagune@<version> <subcommand>` from the project root. A hook subcommand is routed ahead of the argument parser, so its arguments reach the hook untouched, and a subcommand the engine does not know fails instead of reading as clean. The engine's own subcommands are `catalog`, the category subcommands (`add`, `remove`, and `list` with `--categories`), `list --findings`, `migrate`, and the dashboard.
+Every skill calls the engine as `npx --yes lagune <subcommand>` from the project root, never at a pinned version, so nothing moves with a release. Everything a person reads, from the docs to the engine's own messages, shows it as `npx lagune <subcommand>`. A hook subcommand is routed ahead of the argument parser, so its arguments reach the hook untouched, and a subcommand the engine does not know fails instead of reading as clean. The engine's own subcommands are `catalog`, the category subcommands (`add`, `remove`, and `list` with `--categories`), `list --findings`, `migrate`, and the dashboard.
 
 A project the **Lagune** CLI installed carries `.lagune/manifest.json`, and that manifest alone decides who answers there: `migrate` runs this design, everything else the old CLI knows is handed to the frozen `lagune@0.15.0`, and what only this design has fails with a notice pointing to the migrate page. The hand-off runs the npm installed with the running **Node.js**, with no shell and never one a search path or the project could plant, and a runtime without one fails with the command to run instead. Without a manifest, `init`, `pull`, and `update` fail, pointing to the **skills** CLI.
 

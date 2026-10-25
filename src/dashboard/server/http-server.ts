@@ -16,13 +16,12 @@ import { tokenMatches } from './session';
 import { serveStatic } from './static-files';
 
 const sendData = async (
-  laguneDir: string,
-  packageRoot: URL
+  laguneDir: string
 ): Promise<{ status: number; body: string }> => {
   try {
     return {
       status: 200,
-      body: JSON.stringify(await buildData(laguneDir, packageRoot)),
+      body: JSON.stringify(await buildData(laguneDir)),
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
@@ -202,7 +201,7 @@ export const createDashboardServer = (
     if (url === '/api/data') {
       if (rejectCrossSite(req, res)) return;
 
-      const { status, body } = await sendData(paths.lagune, packageRoot);
+      const { status, body } = await sendData(paths.lagune);
       sendJson(res, status, body);
       return;
     }

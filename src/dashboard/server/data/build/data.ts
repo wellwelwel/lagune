@@ -8,7 +8,6 @@ import {
 } from '../../../../catalog/project';
 import { bulletField } from '../../../../core/markdown/fields';
 import { readMarkdown, readText } from '../../../../core/markdown/read';
-import { loadVersion } from '../../../../core/version';
 import { parseTracking, pathsByName } from '../tracking';
 import { buildCatalog } from './catalog';
 import { buildCharter } from './charter';
@@ -23,12 +22,9 @@ const UNREADABLE_CATALOG: ProjectCatalog = {
   entries: [],
 };
 
-export const buildData = async (
-  laguneDir: string,
-  packageRoot: URL
-): Promise<DashboardData> => {
+export const buildData = async (laguneDir: string): Promise<DashboardData> => {
   const projectRoot = resolve(laguneDir, '..');
-  const [detect, plan, harden, charter, history, tracking, project, engine] =
+  const [detect, plan, harden, charter, history, tracking, project] =
     await Promise.all([
       readMarkdown(join(laguneDir, 'memory/detect.md')),
       readMarkdown(join(laguneDir, 'memory/plan.md')),
@@ -37,7 +33,6 @@ export const buildData = async (
       readMarkdown(join(laguneDir, 'memory/history.md')),
       readText(join(laguneDir, 'tracking.json')),
       readProjectCatalog(projectRoot).catch(() => UNREADABLE_CATALOG),
-      loadVersion(packageRoot).catch(() => null),
     ]);
   const entries = await resolveCatalog(projectRoot, project);
 
@@ -71,6 +66,5 @@ export const buildData = async (
     artifacts: [detect, plan, harden, charter, history].some(
       (artifact) => artifact !== null
     ),
-    engine,
   };
 };

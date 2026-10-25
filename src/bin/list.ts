@@ -12,14 +12,11 @@ const REQUESTED: Record<ListTarget, (args: ParsedCliArgs) => boolean> = {
   categories: (args) => args.categoriesRequested,
 };
 
-const chosenTargets = async (
-  args: ParsedCliArgs,
-  version: string
-): Promise<ListTarget[]> => {
+const chosenTargets = async (args: ParsedCliArgs): Promise<ListTarget[]> => {
   const requested = TARGETS.filter((target) => REQUESTED[target](args));
 
   if (requested.length > 0) return requested;
-  if (!isInteractive()) throw new Error(listUsage(version));
+  if (!isInteractive()) throw new Error(listUsage());
 
   const chosen = await promptForListTarget();
 
@@ -39,10 +36,9 @@ const REPORTS: Record<ListTarget, (cwd: string) => Promise<string>> = {
 
 export const runList = async (
   args: ParsedCliArgs,
-  cwd: string,
-  version: string
+  cwd: string
 ): Promise<void> => {
-  const targets = await chosenTargets(args, version);
+  const targets = await chosenTargets(args);
 
   if (targets.length === 0) return;
 

@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import type { CatalogSpecialization } from './data';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import { agentThemeAt } from '@site/src/data/lagune';
-import { useLaguneVersion } from '@site/src/data/version';
 import clsx from 'clsx';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -16,6 +15,8 @@ import { builtinCatalog } from './data';
 const MONO = "[font-family:'Fira_Code',ui-monospace,'SF_Mono',Menlo,monospace]";
 
 const EASE = 'ease-[cubic-bezier(0.2,0,0,1)]';
+
+const ENGINE_COMMAND = 'npx lagune';
 
 type Anchor = { right: number; bottom: number };
 
@@ -400,8 +401,7 @@ const SpecializationCard = ({
   specialization: CatalogSpecialization;
   seed: number;
 }): ReactNode => {
-  const prefix = `npx --yes --prefer-offline lagune@${useLaguneVersion()}`;
-  const loadCommand = `${prefix} catalog ${specialization.name}`;
+  const loadCommand = `${ENGINE_COMMAND} catalog ${specialization.name}`;
 
   return (
     <article className='group/card flex flex-col overflow-hidden rounded-panel border border-line bg-surface shadow-card'>
@@ -445,7 +445,7 @@ const SpecializationCard = ({
               MONO
             )}
           >
-            <span className='min-w-0 truncate'>{prefix}</span>
+            <span className='min-w-0 truncate'>{ENGINE_COMMAND}</span>
             <span className='flex-none whitespace-pre'>
               {' '}
               catalog {specialization.name}

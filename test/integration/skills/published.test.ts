@@ -23,12 +23,9 @@ const FILLS_A_TEMPLATE = [
   'lagune.specialize',
 ];
 
-const ENGINE_CALL = /npx (?:--yes )?--prefer-offline lagune@(\S+) [^\n`]*/g;
+const ENGINE_COMMAND = 'npx --yes lagune ';
+const ENGINE_CALL = /npx (?:-\S+ )*lagune(?:@\S*)? [^\n`]*/g;
 const SHORT_FLAG = /(?:^|\s)-[a-zA-Z](?=\s|$)/;
-
-const { version } = JSON.parse(
-  await readFile(new URL('package.json', packageRoot), 'utf8')
-);
 
 const folders = (await readdir(new URL('skills/', packageRoot))).toSorted();
 
@@ -44,23 +41,17 @@ const publishedFiles = async (): Promise<string[]> => {
     (file) => `catalog/${file}`
   );
 
-  return [...skills.flat(), ...catalog, 'README.md'];
+  return [...skills.flat(), ...catalog];
 };
 
-const engineCalls = async (): Promise<
-  { file: string; call: string; called: string }[]
-> => {
+const engineCalls = async (): Promise<{ file: string; call: string }[]> => {
   const files = await publishedFiles();
   const texts = await Promise.all(
     files.map((file) => readFile(new URL(file, packageRoot), 'utf8'))
   );
 
   return files.flatMap((file, index) =>
-    [...texts[index].matchAll(ENGINE_CALL)].map(([call, called]) => ({
-      file,
-      call,
-      called,
-    }))
+    [...texts[index].matchAll(ENGINE_CALL)].map(([call]) => ({ file, call }))
   );
 };
 
@@ -84,17 +75,17 @@ await describe('the published skills', async () => {
     });
 });
 
-await describe('every engine call the skills, the specializations, and the README write', async () => {
+await describe('every engine call the skills and specializations write', async () => {
   const calls = await engineCalls();
 
   await it('finds engine calls to check', () => {
     strict(calls.length > 0);
   });
 
-  await it('carries the package version', () => {
+  await it('runs the engine unattended, never at a pinned version', () => {
     strict.deepStrictEqual(
       calls
-        .filter(({ called }) => called !== version)
+        .filter(({ call }) => !call.startsWith(ENGINE_COMMAND))
         .map(({ file, call }) => `${file}: ${call}`),
       []
     );

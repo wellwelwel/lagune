@@ -97,7 +97,7 @@ It's better to discuss a feature before actually starting to implement it. You c
 - **Named exports only**, arrow functions declared with `const`, early returns over nesting, and no abbreviated names.
 - **Prefer native capabilities over external dependencies.** The published bundle is self-contained, so the engine command needs no install on the user's machine.
 - **Adding a built-in specialization is one file in `catalog/` plus one row in the built-in index**, never a new command.
-- **A command only calls what its engine version supports.** The **skills** CLI installs `skills/` from the default branch as it stands, so a change that needs new engine behavior lands together with the release that publishes it.
+- **A command only calls what the published engine supports.** The **skills** CLI installs `skills/` from the default branch as it stands, so a change that needs new engine behavior lands together with the release that publishes it.
 - **Prefer the async Node.js APIs**, and always prefix native imports with `node:`.
 
 > [!NOTE]

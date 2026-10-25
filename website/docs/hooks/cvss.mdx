@@ -19,7 +19,7 @@ Pass each vector with `--vector`. The hook prints one line per vector: its score
   <TabItem value="one" label="One vector" default>
 
 ```bash
-npx --prefer-offline lagune@{{version}} cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+npx lagune cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
 # => 9.3, Critical
 ```
 
@@ -29,7 +29,7 @@ npx --prefer-offline lagune@{{version}} cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/P
 Repeat `--vector` to score several at once, one line each, in order.
 
 ```bash
-npx --prefer-offline lagune@{{version}} cvss \
+npx lagune cvss \
   --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
   --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
 # => 9.3, Critical
@@ -42,7 +42,7 @@ npx --prefer-offline lagune@{{version}} cvss \
 Add `--explain` to read each metric back in plain words. When Threat or Environmental metrics move the score, the Base score alone comes first.
 
 ```bash
-npx --prefer-offline lagune@{{version}} cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+npx lagune cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
 # => 8.7, High
 # =>   Base metrics alone: 9.3, Critical
 # =>   Attack Vector: Network, modified to Adjacent

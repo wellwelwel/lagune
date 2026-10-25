@@ -4,7 +4,6 @@ import { dirname, join } from 'node:path';
 import { afterEach, describe, it, strict } from 'poku';
 import { buildData } from '../../../src/dashboard/server/data/build/data.js';
 
-const packageRoot = new URL('../../../', import.meta.url);
 const projects: string[] = [];
 
 const dataOf = async (files: Record<string, string>) => {
@@ -19,7 +18,7 @@ const dataOf = async (files: Record<string, string>) => {
     })
   );
 
-  return buildData(join(project, '.lagune'), packageRoot);
+  return buildData(join(project, '.lagune'));
 };
 
 afterEach(async () => {

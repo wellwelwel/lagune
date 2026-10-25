@@ -3,6 +3,7 @@ import type { MigrateSummary } from '../types/core.js';
 import { allOf } from '../core/collections.js';
 import { color } from './colors.js';
 
+const ENGINE_COMMAND = 'npx lagune';
 const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
 const SKILLS_UPDATE = 'npx skills update';
 const CATALOG_FILE = '.lagune/catalog.json';
@@ -32,23 +33,15 @@ const definitions = (rows: [string, string][]): string[] => {
   );
 };
 
-export const engineCommand = (version: string): string =>
-  `npx --yes --prefer-offline lagune@${version}`;
-
-const typedCommand = (version: string): string =>
-  `npx --prefer-offline lagune@${version}`;
-
-const DASHBOARD_COMMAND = 'npx lagune@latest';
-
-const helpUsage = (version: string): string[] => [
-  `${DASHBOARD_COMMAND} [--port <number>]`,
-  `${typedCommand(version)} catalog [<name>]`,
-  `${typedCommand(version)} add --categories [<category...>]`,
-  `${typedCommand(version)} remove --categories [<category...>]`,
-  `${typedCommand(version)} list [--findings] [--categories]`,
-  `${DASHBOARD_COMMAND} dashboard [--port <number>]`,
-  `${typedCommand(version)} migrate`,
-  `${typedCommand(version)} <hook> [<arguments...>]`,
+const HELP_USAGE: string[] = [
+  `${ENGINE_COMMAND} [--port <number>]`,
+  `${ENGINE_COMMAND} catalog [<name>]`,
+  `${ENGINE_COMMAND} add --categories [<category...>]`,
+  `${ENGINE_COMMAND} remove --categories [<category...>]`,
+  `${ENGINE_COMMAND} list [--findings] [--categories]`,
+  `${ENGINE_COMMAND} dashboard [--port <number>]`,
+  `${ENGINE_COMMAND} migrate`,
+  `${ENGINE_COMMAND} <hook> [<arguments...>]`,
 ];
 
 const HELP_COMMANDS: [string, string][] = [
@@ -77,13 +70,13 @@ const HELP_OPTIONS: [string, string][] = [
   ['--version', 'Show the version'],
 ];
 
-export const helpText = (hooks: string[], version: string): string =>
+export const helpText = (hooks: string[]): string =>
   [
     banner(),
     color.dim('A defensive, security-first workflow for your project.'),
     '',
     heading('Usage'),
-    ...helpUsage(version).map(bullet),
+    ...HELP_USAGE.map(bullet),
     '',
     heading('Commands'),
     ...definitions(HELP_COMMANDS),
@@ -99,10 +92,10 @@ export const helpText = (hooks: string[], version: string): string =>
     bullet(`Update them with ${SKILLS_UPDATE}`),
   ].join('\n');
 
-export const unknownCommand = (command: string, version: string): string =>
+export const unknownCommand = (command: string): string =>
   [
     `Unknown command: ${command}`,
-    `Run ${typedCommand(version)} --help to see the commands.`,
+    `Run ${ENGINE_COMMAND} --help to see the commands.`,
   ].join('\n');
 
 export const movedToSkills = (command: string): string =>
@@ -112,26 +105,26 @@ export const movedToSkills = (command: string): string =>
     `  ${SKILLS_UPDATE}`,
   ].join('\n');
 
-export const categoriesUsage = (command: string, version: string): string =>
+export const categoriesUsage = (command: string): string =>
   [
-    `usage: ${typedCommand(version)} ${command} --categories <category...>`,
-    `Run ${typedCommand(version)} list --categories to see every category.`,
+    `usage: ${ENGINE_COMMAND} ${command} --categories <category...>`,
+    `Run ${ENGINE_COMMAND} list --categories to see every category.`,
   ].join('\n');
 
-export const listUsage = (version: string): string =>
+export const listUsage = (): string =>
   [
-    `usage: ${typedCommand(version)} list --findings`,
-    `       ${typedCommand(version)} list --categories`,
+    `usage: ${ENGINE_COMMAND} list --findings`,
+    `       ${ENGINE_COMMAND} list --categories`,
   ].join('\n');
 
-export const catalogUsage = (version: string): string =>
-  `usage: ${typedCommand(version)} catalog [<name>]`;
+export const catalogUsage = (): string =>
+  `usage: ${ENGINE_COMMAND} catalog [<name>]`;
 
 export const invalidSpecializationName = (name: string): string =>
   `"${name}" is not a specialization name: a name uses only lowercase letters, digits, and hyphens.`;
 
-export const noSpecialization = (name: string, version: string): string =>
-  `No specialization is named "${name}". Run ${engineCommand(version)} catalog to list the ones this project uses.`;
+export const noSpecialization = (name: string): string =>
+  `No specialization is named "${name}". Run ${ENGINE_COMMAND} catalog to list the ones this project uses.`;
 
 export const frozenHandoff = (version: string): string =>
   `This project was installed by the Lagune CLI and keeps working with it: lagune@${version} answers here. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;

@@ -70,8 +70,8 @@ npx skills update
 [**/lagune.charter**](https://lagune.ai/docs/commands/charter) records the [**categories**](https://lagune.ai/docs/categories) your project needs. Change them anytime:
 
 ```bash
-npx --prefer-offline lagune@0.15.0 add --categories javascript
-npx --prefer-offline lagune@0.15.0 remove --categories javascript
+npx lagune add --categories javascript
+npx lagune remove --categories javascript
 ```
 
 > [!NOTE]
@@ -85,7 +85,7 @@ npx --prefer-offline lagune@0.15.0 remove --categories javascript
 For an interactive live view and follow-up, run:
 
 ```bash
-npx lagune@latest
+npx lagune
 ```
 
 It serves a dashboard and opens it in a random port:

@@ -36,9 +36,9 @@ The first is **reflecting or over-allowing the `Origin`**. The `Origin` request 
 The wildcard and `null` cases are decidable value by value, so score each origin your config allows with the cors hook, one verdict per line.
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 cors --origin '*'                       # => wildcard
-npx --yes --prefer-offline lagune@0.15.0 cors --origin 'null'                    # => null
-npx --yes --prefer-offline lagune@0.15.0 cors --origin 'https://app.example.com' # => safe
+npx --yes lagune cors --origin '*'                       # => wildcard
+npx --yes lagune cors --origin 'null'                    # => null
+npx --yes lagune cors --origin 'https://app.example.com' # => safe
 ```
 
 The `--origin` score exits non-zero on any `wildcard` or `null`. A `safe` verdict means only that the literal is not `*`/`null`, never that CORS is correctly configured.
@@ -46,9 +46,9 @@ The `--origin` score exits non-zero on any `wildcard` or `null`. A `safe` verdic
 For the other shape it can catch, a bypassable-regex allowlist, the hook also scans source: a host validator whose `.+`/`.*` sits before the trusted suffix (`^https?://.+\.trusted\.com`), which an attacker host like `your-site.com.attacker.com` slips through.
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 cors               # scans the whole project
-npx --yes --prefer-offline lagune@0.15.0 cors --dir src     # scans a directory
-npx --yes --prefer-offline lagune@0.15.0 cors --file api.js # scans a single file
+npx --yes lagune cors               # scans the whole project
+npx --yes lagune cors --dir src     # scans a directory
+npx --yes lagune cors --file api.js # scans a single file
 ```
 
 It lists each match under `Origin-allowlist patterns with a greedy wildcard (bypassable, review):` as a review lead, not a closed finding, so a scan never changes the exit code: read each and confirm the allowlist compares by full equality. Reflection of the request's `Origin`, and a permissive `endsWith`/substring allowlist, stay source patterns the hook cannot score: recognize them in the code and treat them as this block describes.

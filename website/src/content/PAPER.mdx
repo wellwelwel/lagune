@@ -365,7 +365,7 @@ Two acts maintain the map in the normal flow, and a third stands apart as mainte
 
 Repair is maintenance, not a sixth phase. It touches neither the user's code nor the prose artifacts, only the tracking. It reads the user's source for one reason only, to learn a renamed file's new path, and it never authors security content. The human is the final arbiter on the one call the engine refuses to guess: whether a vanished item was resolved or merely renamed. Prefer to ask than to guess, because a wrongly dropped item breaks the chain.
 
-The methodology applies its own defense discipline to itself. The deterministic engines ship as hooks of one command-line engine, always called through the same exact command with a pinned version, and each input is passed as its own process argument, which keeps it inert, so a value with quotes or backticks can never inject into the command. A hook name the engine does not know fails instead of answering, so a misspelled check never reads as a clean result. SDH does not exempt its own plumbing from the safe-by-default principle.
+The methodology applies its own defense discipline to itself. The deterministic engines ship as hooks of one command-line engine, always called through the same command, and each input is passed as its own process argument, which keeps it inert, so a value with quotes or backticks can never inject into the command. A hook name the engine does not know fails instead of answering, so a misspelled check never reads as a clean result. SDH does not exempt its own plumbing from the safe-by-default principle.
 
 ---
 
@@ -373,19 +373,19 @@ The methodology applies its own defense discipline to itself. The deterministic 
 
 For SDH to be a convention others adopt, it must not be tied to one agent or one stack. Lagune proves this is achievable by owning as little as it can. Reaching an agent is the work of the open agent-skills ecosystem, so Lagune keeps no agent list, no per-agent format, and no installer of its own.
 
-What Lagune ships splits among three owners (Figure 6). **The project** owns its state: the charter and the phase artifacts, the tracking map, the categories it chose, and its own specializations, kept in one directory committed with the code and read and written by the commands and the engine. **Lagune's instructions** are nine agent skills, one per command, written once in the open skill format, with each template beside the skill that fills it. The skills CLI installs them for whichever agents the user runs (`npx skills add wellwelwel/lagune`) and updates them with `npx skills update`. **Lagune's engine** is one package on npm, reached through a single exact command whose version the skills pin and move with each release, never `latest`. It runs the deterministic hooks, the catalog, and the validation, so no instruction ever has to find a file inside an installed skill.
+What Lagune ships splits among three owners (Figure 6). **The project** owns its state: the charter and the phase artifacts, the tracking map, the categories it chose, and its own specializations, kept in one directory committed with the code and read and written by the commands and the engine. **Lagune's instructions** are nine agent skills, one per command, written once in the open skill format, with each template beside the skill that fills it. The skills CLI installs them for whichever agents the user runs (`npx skills add wellwelwel/lagune`) and updates them with `npx skills update`. **Lagune's engine** is one package on npm, reached through a single command, `npx lagune`. It runs the deterministic hooks, the catalog, and the validation, so no instruction ever has to find a file inside an installed skill.
 
 ```mermaid
 flowchart TB
     skills["Lagune's instructions<br/>nine agent skills and their templates<br/>installed and updated by the skills CLI"]
-    engine["Lagune's engine<br/>one package, one pinned command<br/>hooks · catalog · validation"]
+    engine["Lagune's engine<br/>one package, one command<br/>hooks · catalog · validation"]
     project["the project<br/>its committed state<br/>charter · phase artifacts · tracking · categories · own specializations"]
     skills -->|"the agent runs them"| project
-    skills -->|"exact command, pinned version"| engine
+    skills -->|"one command"| engine
     engine -->|"reads and writes the state"| project
 ```
 
-**Figure 6.** The three owners. The instructions reach each agent through the skills CLI, the engine answers one pinned command, and the project owns only its state.
+**Figure 6.** The three owners. The instructions reach each agent through the skills CLI, the engine answers one command, and the project owns only its state.
 
 The separation shows in the project itself. Installing the commands generates nothing there: the agent's skill directory belongs to the skills CLI, and the project gains only what the work writes, created by the first command or hook that writes it. There is no manifest to restore and no generated file to keep out of version control. None of this is specific to a language or a runtime. The reference implementation happens to be authored in one stack, but the methodology is the separation of owners, not the toolchain that builds them. The same design could be reimplemented in another language entirely without changing what SDH is.
 
@@ -489,13 +489,13 @@ A note on positioning. SDH is defined here independently of its reference implem
 
 Methodologies in this family share a known set of failure modes. SDH's answer to most of them is structural, baked into the flow rather than left to discipline.
 
-| Pitfall                          | The failure                                     | SDH's structural answer                                                                                                                                             |
-| -------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Spec rot, stale backlog          | Artifacts accumulate dead entries no one trusts | Reconcile-never-append (`§V`): each run re-checks every entry and removes what is resolved                                                                          |
-| False confidence, passing result | A present control is assumed to close the risk  | Verify confronts code against record, so "risk not closed" and "cannot tell" are first-class verdicts (`§IV`, `§XV`)                                                |
-| Checklist flood                  | Generic items obscure the one risk that matters | Context-aware over generic, with prompt-on-demand loading only what the scope calls for (`§VII`)                                                                    |
-| Tooling lock-in                  | The method is welded to one vendor or agent     | Three owners: agent skills the open skills CLI installs for any agent it supports, an engine behind one pinned command, and state that stays the project's (`§XII`) |
-| The endless loop                 | The backlog never closes, the work never rests  | Closability and the settled state (`§V`)                                                                                                                            |
+| Pitfall                          | The failure                                     | SDH's structural answer                                                                                                                                      |
+| -------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Spec rot, stale backlog          | Artifacts accumulate dead entries no one trusts | Reconcile-never-append (`§V`): each run re-checks every entry and removes what is resolved                                                                   |
+| False confidence, passing result | A present control is assumed to close the risk  | Verify confronts code against record, so "risk not closed" and "cannot tell" are first-class verdicts (`§IV`, `§XV`)                                         |
+| Checklist flood                  | Generic items obscure the one risk that matters | Context-aware over generic, with prompt-on-demand loading only what the scope calls for (`§VII`)                                                             |
+| Tooling lock-in                  | The method is welded to one vendor or agent     | Three owners: agent skills the open skills CLI installs for any agent it supports, an engine behind one command, and state that stays the project's (`§XII`) |
+| The endless loop                 | The backlog never closes, the work never rests  | Closability and the settled state (`§V`)                                                                                                                     |
 
 **Table 4.** Known pitfalls in this methodology family and SDH's structural answer to each.
 

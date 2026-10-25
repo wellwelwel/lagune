@@ -21,14 +21,14 @@ Earlier versions installed **Lagune** with `npx lagune init`, which wrote the co
 
 ## Nothing forces the move
 
-A project with a manifest keeps working as it is. `npx lagune@latest` hands `init`, `pull`, `update`, `add`, `remove`, `list`, and the dashboard to `lagune@0.15.0`, the last version of the **Lagune** CLI, and prints a notice pointing here. What only the skills-based **Lagune** has (the hook subcommands, `catalog`, and the `--categories` flag) fails in such a project instead of reaching that version.
+A project with a manifest keeps working as it is. `npx lagune` hands `init`, `pull`, `update`, `add`, `remove`, `list`, and the dashboard to `lagune@0.15.0`, the last version of the **Lagune** CLI, and prints a notice pointing here. What only the skills-based **Lagune** has (the hook subcommands, `catalog`, and the `--categories` flag) fails in such a project instead of reaching that version.
 
 ## Move it
 
 1. Make sure your current work is committed, then run migrate from the project root:
 
    ```bash
-   npx --prefer-offline lagune@{{version}} migrate
+   npx lagune migrate
    ```
 
 2. Commit what it changed on its own, so the move stays one reviewable change.
@@ -52,7 +52,7 @@ A project with a manifest keeps working as it is. `npx lagune@latest` hands `ini
    node ./.lagune/hooks/regex.mjs --dir src
 
    # After
-   npx --yes --prefer-offline lagune@{{version}} regex --dir src
+   npx --yes lagune regex --dir src
    ```
 
 :::tip[Migrate first, install second]
@@ -89,7 +89,7 @@ Your security work stays as it is: the charter, the artifact each phase produced
     {
       question: 'Do I have to migrate?',
       answer:
-        'No. A project the Lagune CLI installed keeps working: lagune@latest hands its commands to lagune@0.15.0, the last version of the Lagune CLI.',
+        'No. A project the Lagune CLI installed keeps working: npx lagune hands its commands to lagune@0.15.0, the last version of the Lagune CLI.',
     },
     {
       question: 'What does migrate keep?',

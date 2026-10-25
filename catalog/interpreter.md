@@ -15,16 +15,16 @@
 Before reading by hand, run the interpreter hook. It is deterministic (regex over source, no runtime) and language-aware, picking each file's rules from its extension across javascript, python, php, ruby, java, kotlin, go, rust, c, cpp, and csharp.
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 interpreter               # scans the whole project
-npx --yes --prefer-offline lagune@0.15.0 interpreter --dir <DIR>   # scans a directory
-npx --yes --prefer-offline lagune@0.15.0 interpreter --file <FILE> # scans a single file
+npx --yes lagune interpreter               # scans the whole project
+npx --yes lagune interpreter --dir <DIR>   # scans a directory
+npx --yes lagune interpreter --file <FILE> # scans a single file
 ```
 
 Its verdict is **not** literal, unlike the finding hooks: every line it prints is a **caution to review**, never a confirmed finding, because these sinks (`eval`, `exec`, the `Function` constructor, string-body timers, `vm`, shell exec, dynamic `require`/`import`/`include`, native deserialization) are dangerous only when attacker-influenced input reaches them, which the scan cannot decide. So the hook prints one **review** section and always exits 0. Score one snippet with `--pattern` and its language `--lang`:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 interpreter --lang javascript --pattern 'eval(x)'   # => careful
-npx --yes --prefer-offline lagune@0.15.0 interpreter --lang python --pattern 'json.loads(x)' # => safe
+npx --yes lagune interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx --yes lagune interpreter --lang python --pattern 'json.loads(x)' # => safe
 ```
 
 **Read the flagged code, never run it, nor any remote or runtime-fetched code it pulls in.** Reason about each sink statically, tracing whether an untrusted value reaches it.

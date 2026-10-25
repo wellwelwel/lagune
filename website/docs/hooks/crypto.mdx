@@ -17,18 +17,18 @@ The `crypto` hook flags **weak cryptographic primitives** at the call site: a de
   <TabItem value="scan" label="Scan the codebase" default>
 
 ```bash
-npx --prefer-offline lagune@{{version}} crypto                # scans the whole project
-npx --prefer-offline lagune@{{version}} crypto --dir src      # scans a directory
-npx --prefer-offline lagune@{{version}} crypto --file hash.ts # scans a single file
+npx lagune crypto                # scans the whole project
+npx lagune crypto --dir src      # scans a directory
+npx lagune crypto --file hash.ts # scans a single file
 ```
 
   </TabItem>
   <TabItem value="check" label="Check a snippet">
 
 ```bash
-npx --prefer-offline lagune@{{version}} crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
-npx --prefer-offline lagune@{{version}} crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
-npx --prefer-offline lagune@{{version}} crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+npx lagune crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
 ```
 
   </TabItem>

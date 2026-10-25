@@ -20,21 +20,14 @@ const print = (line: string): void => {
   stdout.write(`${line}\n`);
 };
 
-const printHelp = (version: string): void =>
-  print(helpText(Object.keys(HOOKS), version));
+const printHelp = (): void => print(helpText(Object.keys(HOOKS)));
 
 const changeCategories =
   (action: CategoryAction) =>
-  (
-    args: ParsedCliArgs,
-    cwd: string,
-    _packageRoot: URL,
-    version: string
-  ): Promise<void> => {
-    if (!args.categoriesRequested)
-      throw new Error(categoriesUsage(action, version));
+  (args: ParsedCliArgs, cwd: string): Promise<void> => {
+    if (!args.categoriesRequested) throw new Error(categoriesUsage(action));
 
-    return runCategoryChange(action, args.values, cwd, version);
+    return runCategoryChange(action, args.values, cwd);
   };
 
 const moved = (command: string) => async (): Promise<void> => {
@@ -43,18 +36,13 @@ const moved = (command: string) => async (): Promise<void> => {
 
 const COMMANDS: Record<
   CliCommand,
-  (
-    args: ParsedCliArgs,
-    cwd: string,
-    packageRoot: URL,
-    version: string
-  ) => Promise<void>
+  (args: ParsedCliArgs, cwd: string, packageRoot: URL) => Promise<void>
 > = {
-  catalog: (args, cwd, packageRoot, version) =>
-    runCatalog(args.values, cwd, packageRoot, version),
+  catalog: (args, cwd, packageRoot) =>
+    runCatalog(args.values, cwd, packageRoot),
   add: changeCategories('add'),
   remove: changeCategories('remove'),
-  list: (args, cwd, _packageRoot, version) => runList(args, cwd, version),
+  list: (args, cwd) => runList(args, cwd),
   dashboard: (args, cwd, packageRoot) =>
     runDashboard(cwd, packageRoot, args.port),
   migrate: (_args, cwd) => runMigrate(cwd),
@@ -68,16 +56,13 @@ export const run = async (
   cwd: string,
   packageRoot: URL
 ): Promise<void> => {
-  const version = await loadVersion(packageRoot);
-
-  if (args.version) return print(version);
-  if (args.help) return printHelp(version);
-  if (args.unknown !== undefined)
-    throw new Error(unknownCommand(args.unknown, version));
+  if (args.version) return print(await loadVersion(packageRoot));
+  if (args.help) return printHelp();
+  if (args.unknown !== undefined) throw new Error(unknownCommand(args.unknown));
   if (args.command !== undefined)
-    return COMMANDS[args.command](args, cwd, packageRoot, version);
+    return COMMANDS[args.command](args, cwd, packageRoot);
   if (args.bare && isInteractive())
     return runDashboard(cwd, packageRoot, args.port);
 
-  printHelp(version);
+  printHelp();
 };

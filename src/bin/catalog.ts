@@ -11,15 +11,14 @@ import {
 const printSpecialization = async (
   name: string,
   cwd: string,
-  packageRoot: URL,
-  version: string
+  packageRoot: URL
 ): Promise<void> => {
   if (!isSpecializationName(name))
     throw new Error(invalidSpecializationName(name));
 
   const text = await readSpecialization(cwd, packageRoot, name);
 
-  if (text === undefined) throw new Error(noSpecialization(name, version));
+  if (text === undefined) throw new Error(noSpecialization(name));
 
   stdout.write(text);
 };
@@ -28,15 +27,13 @@ const printSpecialization = async (
 export const runCatalog = async (
   names: string[],
   cwd: string,
-  packageRoot: URL,
-  version: string
+  packageRoot: URL
 ): Promise<void> => {
-  if (names.length > 1) throw new Error(catalogUsage(version));
+  if (names.length > 1) throw new Error(catalogUsage());
 
   const [name] = names;
 
-  if (name !== undefined)
-    return printSpecialization(name, cwd, packageRoot, version);
+  if (name !== undefined) return printSpecialization(name, cwd, packageRoot);
 
   stdout.write(list(await catalogEntries(cwd)));
 };

@@ -50,7 +50,7 @@ Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill inst
 
 - **Your project's state** lives in `.lagune/`: the charter, the artifact each phase produces, the internal tracking, and the project's catalog (the categories it uses and its own specializations). The first command that writes creates it, and it is committed alongside your code, versioned and reviewable like any other part of the project.
 - **Lagune's commands** are the nine skills the **skills** CLI installs where your agent reads them, so the `/lagune.*` commands are ready to run.
-- **Lagune's engine** is the `lagune` package on **npm**. The commands run it through `npx` for every deterministic step, at the exact version they carry. The first call downloads it once, and later calls stay off the network. To run with no network at all, see [**Offline**](/docs/get-started/offline).
+- **Lagune's engine** is the `lagune` package on **npm**, which the commands run through `npx` for every deterministic step. To run with no network at all, see [**Offline**](/docs/get-started/offline).
 
 ## Update
 
@@ -60,7 +60,7 @@ To update **Lagune**'s commands to their latest version, run:
 npx skills update
 ```
 
-The engine version the commands call moves with them.
+The engine needs no update of its own, unless you [installed it in the project](/docs/get-started/offline).
 
 :::tip
 Your charter, the artifacts each phase produces, the internal tracking, and every specialization you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
@@ -80,18 +80,18 @@ While no category is recorded, the project uses `owasp` alone. [`/lagune.charter
   <TabItem value="add" label="Add" default>
 
 ```bash
-npx --prefer-offline lagune@{{version}} add --categories # interactive
-npx --prefer-offline lagune@{{version}} add --categories owasp
-npx --prefer-offline lagune@{{version}} add --categories owasp rust
+npx lagune add --categories # interactive
+npx lagune add --categories owasp
+npx lagune add --categories owasp rust
 ```
 
   </TabItem>
   <TabItem value="remove" label="Remove">
 
 ```bash
-npx --prefer-offline lagune@{{version}} remove --categories # interactive
-npx --prefer-offline lagune@{{version}} remove --categories owasp
-npx --prefer-offline lagune@{{version}} remove --categories owasp rust
+npx lagune remove --categories # interactive
+npx lagune remove --categories owasp
+npx lagune remove --categories owasp rust
 ```
 
   </TabItem>
@@ -104,7 +104,7 @@ The first `add` or `remove` starts from `owasp`, so removing every category leav
 `list` on its own asks what you want to see, the findings **Lagune** is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--categories` for the categories.
 
 ```bash
-npx --prefer-offline lagune@{{version}} list --categories
+npx lagune list --categories
 # Categories
 #   • owasp       [used]       Harden against the application security risks OWASP tracks
 #   • javascript  [available]  Harden JavaScript and its runtimes
@@ -118,7 +118,7 @@ npx --prefer-offline lagune@{{version}} list --categories
 `catalog` prints the specializations the project uses, built-in and its own, one per line:
 
 ```bash
-npx --prefer-offline lagune@{{version}} catalog
+npx lagune catalog
 # regex: Regular Expression [required]
 # network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
 # ...
@@ -132,7 +132,7 @@ See every category in [**Categories**](/docs/categories).
 Run **Lagune** directly with no subcommand for an interactive live view of `.lagune/`. It serves a dashboard and opens it on a random port:
 
 ```bash
-npx lagune@latest
+npx lagune
 ```
 
 - [x] **Live Reload**
@@ -292,12 +292,12 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
     {
       question: 'How do I update Lagune?',
       answer:
-        'Run npx skills update. The commands and the engine version they call move together, and your charter, phase artifacts, and own specializations stay untouched.',
+        'Run npx skills update. Your charter, phase artifacts, and own specializations stay untouched.',
     },
     {
       question: 'Which specializations does a project use?',
       answer:
-        'The built-in ones of its categories, plus its own. The charter records the categories its reading of the project supports, and npx --prefer-offline lagune@{{version}} add --categories changes them.',
+        'The built-in ones of its categories, plus its own. The charter records the categories its reading of the project supports, and npx lagune add --categories changes them.',
     },
     {
       question: 'What are the requirements?',

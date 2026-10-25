@@ -25,11 +25,11 @@ Read and follow `skills/lagune.specialize/SKILL.md` in full. Its authoring steps
 | `.lagune/catalog/<name>.md` (the specialization file) | `catalog/<name>.md`                                                             |
 | `.lagune/catalog.json` (index entry)                  | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
 
-A hook reference inside the `.md` body uses the engine command, `npx --yes --prefer-offline lagune@<version> <hook>`, with the package version and long flags only, because that body ships verbatim to the end user. The release step moves that version with each release.
+A hook reference inside the `.md` body uses the engine command, `npx --yes lagune <hook>`, with long flags only, because that body ships verbatim to the end user.
 
 ## Step 2: Decide the category
 
-Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx --yes --prefer-offline lagune@<version> add --categories <category>`. Categories live in `CATEGORIES` in `src/catalog/categories.ts`.
+Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx lagune add --categories <category>`. Categories live in `CATEGORIES` in `src/catalog/categories.ts`.
 
 - A language specialization goes under its language key (`python` under `python`, and so on).
 - A specialization about an application-security risk OWASP tracks goes under `owasp`.

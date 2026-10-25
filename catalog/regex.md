@@ -18,9 +18,9 @@ On a crafted input, the pattern takes an exploding amount of time to match, stal
 Begin every ReDoS pass with the deterministic scanner:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 regex               # scans the whole project
-npx --yes --prefer-offline lagune@0.15.0 regex --dir <DIR>   # scans a directory
-npx --yes --prefer-offline lagune@0.15.0 regex --file <FILE> # scans a single file
+npx --yes lagune regex               # scans the whole project
+npx --yes lagune regex --dir <DIR>   # scans a directory
+npx --yes lagune regex --file <FILE> # scans a single file
 ```
 
 - `--dir` and `--file` repeat to scan several targets at once.
@@ -32,14 +32,14 @@ npx --yes --prefer-offline lagune@0.15.0 regex --file <FILE> # scans a single fi
 Use `--pattern` only for a pattern the scan could not reach. Quote each pattern so its slashes or backticks cannot break the command:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 regex --pattern '<PATTERN>'
+npx --yes lagune regex --pattern '<PATTERN>'
 ```
 
 - `--pattern` cannot combine with `--file` or `--dir`.
 - Repeat `--pattern` to check several at once, one verdict printed per pattern, in order.
 - `--limit` sets a custom repetition limit (a non-negative integer) for patterns with many small repeats. It applies to every `--pattern` in the call, and to a scan:
   ```bash
-  npx --yes --prefer-offline lagune@0.15.0 regex --pattern '<PATTERN>' --limit <LIMIT>
+  npx --yes lagune regex --pattern '<PATTERN>' --limit <LIMIT>
   ```
 
 #### How to read the verdict

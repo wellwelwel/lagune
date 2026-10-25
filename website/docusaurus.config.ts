@@ -4,7 +4,6 @@ import tailwindPostcss from '@tailwindcss/postcss';
 import { criticalCssPlugin } from './plugins/critical-css';
 import { docsContentPlugin } from './plugins/docs-content';
 import { substituteTokens } from './plugins/docs-content/tokens';
-import { LAGUNE_VERSION } from './plugins/docs-content/version';
 import { dropWoff } from './plugins/drop-woff';
 import { laguneCode } from './src/prism/lagune';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
@@ -32,8 +31,6 @@ const config: Config = {
   deploymentBranch: 'website',
 
   staticDirectories: ['static', '../src/dashboard/client/public'],
-
-  customFields: { laguneVersion: LAGUNE_VERSION },
 
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',

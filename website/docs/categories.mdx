@@ -19,7 +19,7 @@ While no category is recorded, a project uses `owasp` alone. [`/lagune.charter`]
 
 ```bash
 # For example, adding the JavaScript and AI / LLM categories to a project
-npx --prefer-offline lagune@{{version}} add --categories javascript ai
+npx lagune add --categories javascript ai
 ```
 
 ## What the system does
@@ -58,7 +58,7 @@ Your own specializations, written with [`/lagune.specialize`](/docs/commands/spe
     {
       question: 'How do I add a category?',
       answer:
-        "Pass the category's key to --categories, for example npx --prefer-offline lagune@{{version}} add --categories javascript. The charter also records the categories its reading of the project supports while none is recorded.",
+        "Pass the category's key to --categories, for example npx lagune add --categories javascript. The charter also records the categories its reading of the project supports while none is recorded.",
     },
     {
       question: 'Can I use more than one category?',

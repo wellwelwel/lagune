@@ -33,7 +33,7 @@ To use a specialization directly, ask your agent to load it with `catalog <name>
 For example, a direct free-form prompt to generate a safe **RegExp** collection with **Python**:
 
 ```prompt
-Load the regex specialization with `npx --yes --prefer-offline lagune@{{version}} catalog regex`, then create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
+Load the regex specialization with `npx lagune catalog regex`, then create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
 ```
 
 This uses a deterministic hook to test each **RegExp** against **ReDoS**, keeps the safe ones, and produces something like:
@@ -97,8 +97,8 @@ The built-in specializations are grouped into [**categories**](/docs/categories)
 While your project records no category, it uses `owasp` alone. [`/lagune.charter`](/docs/commands/charter) records the categories its reading supports, and you change them any time with `add` and `remove`, recorded in `.lagune/catalog.json` for the whole project:
 
 ```bash
-npx --prefer-offline lagune@{{version}} add --categories python
-npx --prefer-offline lagune@{{version}} remove --categories python
+npx lagune add --categories python
+npx lagune remove --categories python
 ```
 
 Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](/docs/references/skills-sources) for the full mapping of each specialization to its canonical OWASP attack and Cheat Sheet pages. A few stack-specific modules draw from the vendor's own guidance instead: `supabase`, for instance, comes from the Supabase docs and CVE-2025-48757.
@@ -118,7 +118,7 @@ When the detect or verify phase hits a context a specialization covers, it loads
 To list your project's catalog from the terminal, one specialization per line with its tags:
 
 ```bash
-npx --prefer-offline lagune@{{version}} catalog
+npx lagune catalog
 # regex: Regular Expression [required]
 # network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
 # interpreter: Evaluator, Sink, Shell, Dynamic Execution
@@ -128,7 +128,7 @@ npx --prefer-offline lagune@{{version}} catalog
 A `[required]` specialization always applies, whatever the work. To see every **category** and whether your project uses it:
 
 ```bash
-npx --prefer-offline lagune@{{version}} list --categories
+npx lagune list --categories
 # Categories
 #   • owasp       [used]       Harden against the application security risks OWASP tracks: injection, broken access control, auth, and crypto failures
 #   • infra       [available]  Harden container, workload, and serverless config: Dockerfile, Compose, Pod security, FaaS IAM and triggers
@@ -162,7 +162,7 @@ The relevant knowledge is pulled in for what the project actually is, instead of
     {
       question: 'How do I load a specialization directly?',
       answer:
-        'In the same prompt as the task, ask your agent to run npx --yes --prefer-offline lagune@{{version}} catalog <name>.',
+        'In the same prompt as the task, ask your agent to run npx lagune catalog <name>.',
     },
   ]}
 />

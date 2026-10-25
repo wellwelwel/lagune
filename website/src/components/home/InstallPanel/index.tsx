@@ -7,21 +7,18 @@ import {
   selectableTint,
 } from '@site/src/components/selectable';
 import { ALL_CATEGORIES } from '@site/src/data/categories';
-import { useLaguneVersion } from '@site/src/data/version';
 import { memo, useMemo } from 'react';
 import { LuChevronRight, LuLayoutGrid } from 'react-icons/lu';
 
 const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
+const CATEGORIES_ADD = 'npx lagune add';
 const PROMPT_TAIL =
   'and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.';
 
-const categoriesAdd = (version: string) =>
-  `npx --prefer-offline lagune@${version} add`;
-
-const installCommands = (version: string, keys: string[]) => [
+const installCommands = (keys: string[]) => [
   SKILLS_ADD,
   ...(keys.length > 0
-    ? [`${categoriesAdd(version)} --categories ${keys.join(' ')}`]
+    ? [`${CATEGORIES_ADD} --categories ${keys.join(' ')}`]
     : []),
 ];
 
@@ -55,7 +52,6 @@ const InstallPanelComponent = ({
   onToggleCategory: (key: string) => void;
   chosen: string[];
 }) => {
-  const version = useLaguneVersion();
   const orderedCategories = useMemo(
     () =>
       chosen
@@ -65,7 +61,6 @@ const InstallPanelComponent = ({
   );
 
   const commands = installCommands(
-    version,
     orderedCategories.map((category) => category.key)
   );
   const command = commands.join(' && ');
@@ -147,7 +142,7 @@ const InstallPanelComponent = ({
                 $
               </span>
               <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
-                {categoriesAdd(version)}{' '}
+                {CATEGORIES_ADD}{' '}
                 <span className='lagune-token-in text-muted'>--categories</span>
                 {orderedCategories.map((category) => (
                   <span key={category.key}>

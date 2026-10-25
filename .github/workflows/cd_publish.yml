@@ -27,22 +27,6 @@ jobs:
           config-file: .github/release/config.json
           manifest-file: .github/release/manifest.json
 
-      - name: ➕ Actions - Checkout the release pull request
-        uses: actions/checkout@v6
-        if: ${{ steps.release.outputs.prs_created == 'true' }}
-        with:
-          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
-
-      - name: 🔢 Moving the engine version in the skills
-        if: ${{ steps.release.outputs.prs_created == 'true' }}
-        run: |
-          bash scripts/release/version.sh
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add skills catalog README.md
-          git diff --cached --quiet || git commit -m 'chore: move the engine version in the skills'
-          git push
-
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v6
         if: ${{ steps.release.outputs.release_created }}

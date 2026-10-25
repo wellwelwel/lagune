@@ -44,7 +44,7 @@ This is why developers and non-developers are served equally: the deep security 
 
 - **Development language: TypeScript.** All source is authored in strict TypeScript.
 - **Execution / distribution language: JavaScript.** End users never run TypeScript. The project is **built/compiled to JavaScript** and that build is what ships.
-- **Distribution: the skills CLI and npm.** The commands install with `npx skills add wellwelwel/lagune` and update with `npx skills update`. The engine ships on **npm**, and every command calls it through one pinned engine command, `npx --yes --prefer-offline lagune@<version> <subcommand>`, so nothing is generated in the project. This is the friendliest path for the AI / vibe-coder audience and the native idiom of the JS/TS ecosystem.
+- **Distribution: the skills CLI and npm.** The commands install with `npx skills add wellwelwel/lagune` and update with `npx skills update`. The engine ships on **npm**, and every command calls it through one engine command, `npx --yes lagune <subcommand>`, so nothing is generated in the project. This is the friendliest path for the AI / vibe-coder audience and the native idiom of the JS/TS ecosystem.
 
 ---
 

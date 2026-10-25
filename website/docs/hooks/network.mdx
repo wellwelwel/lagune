@@ -19,10 +19,10 @@ Pass each destination with `--url`. The hook prints one word per destination, re
   <TabItem value="one" label="One destination" default>
 
 ```bash
-npx --prefer-offline lagune@{{version}} network --url 'http://example.com/'
+npx lagune network --url 'http://example.com/'
 # => safe
 
-npx --prefer-offline lagune@{{version}} network --url 'http://0x7f000001/'
+npx lagune network --url 'http://0x7f000001/'
 # => private-target
 ```
 
@@ -32,7 +32,7 @@ npx --prefer-offline lagune@{{version}} network --url 'http://0x7f000001/'
 Repeat `--url` to score a whole allowlist or denylist in one call, one verdict per line, in order.
 
 ```bash
-npx --prefer-offline lagune@{{version}} network \
+npx lagune network \
   --url 'http://example.com/' \
   --url 'http://[::1]/' \
   --url 'http://allowed.com@evil.example/'

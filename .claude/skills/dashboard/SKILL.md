@@ -39,7 +39,7 @@ Micro labels (uppercase group titles, table headers, card labels) come from `MIC
 End users run it against their own project, with no install:
 
 ```sh
-npx --yes lagune@latest dashboard
+npx lagune dashboard
 ```
 
 That serves the built client and opens the browser on the workspace's `.lagune/`.

@@ -16,8 +16,7 @@ import { PromptPreview } from '../components/prompt/preview';
 import { useData } from '../data/state';
 import { BADGE, classes, MICRO_LABEL } from '../utils/tailwind-classes';
 
-const enginePrefix = (engine: string | null): string =>
-  `npx --yes --prefer-offline ${engine === null ? 'lagune' : `lagune@${engine}`}`;
+const ENGINE_COMMAND = 'npx lagune';
 
 const SpecializationCard = ({
   item,
@@ -28,8 +27,7 @@ const SpecializationCard = ({
 }): VNode => {
   const data = useData();
   const used = new Set(data.categories.used);
-  const prefix = enginePrefix(data.engine);
-  const command = `${prefix} catalog ${item.name}`;
+  const command = `${ENGINE_COMMAND} catalog ${item.name}`;
 
   return (
     <article
@@ -102,7 +100,7 @@ const SpecializationCard = ({
               <Icon name='messageAi' />
             </span>
             <code class='flex min-w-0 flex-1 border-0 bg-transparent p-0 font-mono text-[0.72rem] font-semibold text-[#6b737a]'>
-              <span class='min-w-0 truncate'>{prefix}</span>
+              <span class='min-w-0 truncate'>{ENGINE_COMMAND}</span>
               <span class='flex-none whitespace-pre'> catalog {item.name}</span>
             </code>
             <CopyButton

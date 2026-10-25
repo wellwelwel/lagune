@@ -1,9 +1,7 @@
 import { ALL_CATEGORIES } from '../../src/data/categories';
-import { LAGUNE_VERSION } from './version';
 
 const TOKENS: Record<string, string> = {
   categories: String(ALL_CATEGORIES.length),
-  version: LAGUNE_VERSION,
 };
 
 const TOKEN = /\{\{\s*([a-z]+)\s*\}\}/g;

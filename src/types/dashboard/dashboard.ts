@@ -114,5 +114,4 @@ export type DashboardData = {
   categories: ProjectCategories;
   history: HistoryItem[];
   artifacts: boolean;
-  engine: string | null;
 };

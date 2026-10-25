@@ -2,7 +2,7 @@
 id: offline
 title: 'Offline: Run Lagune With No Network'
 sidebar_label: Offline
-description: Install Lagune's engine in your project so every deterministic step runs with no network, at the exact version your commands carry.
+description: Install Lagune's engine in your project so every deterministic step runs with no network.
 keywords:
   - offline
   - no network
@@ -14,43 +14,39 @@ keywords:
 
 import { Faq } from '@site/src/components/docs/Faq';
 
-**Lagune**'s commands run every deterministic step through its engine, the `lagune` package on **npm**, with the exact version they carry:
+**Lagune**'s commands run every deterministic step through its engine, the `lagune` package on **npm**:
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} <subcommand>
+npx lagune <subcommand>
 ```
 
-The first call downloads the engine once, and `--prefer-offline` keeps every later call off the network. To work with no network at all, install the engine in the project instead, at the version your commands carry:
+Each call checks **npm** for the engine's latest version. To work with no network at all, install the engine in the project:
 
 ```bash
-npm install --save-dev --save-exact lagune@{{version}}
+npm install --save-dev lagune
 ```
 
-`npx` then resolves the engine command from the project's `node_modules`, with no download.
+`npx` then runs the project's copy, with no download.
 
 :::info[Sandboxed agents]
-Some agents start with the network off. In the **Codex** `workspace-write` sandbox, for example, the first engine download needs one approval, and an engine installed in the project never asks.
+Some agents start with the network off. In the **Codex** `workspace-write` sandbox, for example, downloading the engine needs an approval, and an engine installed in the project never asks.
 :::
 
 ## Keep it in step
 
-The version your commands call moves with each `npx skills update`. After each update, run the same `npm install` with the version the updated commands call.
-
-:::tip
-A mismatch never breaks silently: when the installed engine is not the version a command calls, `npx` fetches that version, which needs the network again.
-:::
+An installed engine stays at its version. Run the same `npm install` after each `npx skills update`, so it keeps up with the updated commands.
 
 <Faq
   items={[
     {
       question: 'Does Lagune need the network?',
       answer:
-        'Only to download its engine on the first call. Later calls run from the cache, and an engine installed in the project needs no network at all.',
+        'Only to fetch its engine through npx. An engine installed in the project needs no network at all.',
     },
     {
       question: 'Which version of the engine do I install?',
       answer:
-        'The one your commands call, written in each engine command as lagune@<version>. Install it with npm install --save-dev --save-exact, and move it with each npx skills update.',
+        'The latest, which npm install --save-dev lagune installs. Run it again after each npx skills update.',
     },
   ]}
 />
