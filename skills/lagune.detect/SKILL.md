@@ -53,7 +53,7 @@ If reconciling reveals the chain is inconsistent (for example the tracking map p
 Before you read the code, list the catalog once from the project root. This is the only read of the catalog in this phase:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 catalog
+npx --yes lagune catalog
 ```
 
 It prints each specialization this project uses as `name: tags`. The list does two jobs. Its tags are search targets: each one sends you looking for that context in the code, widening the detection in Step 5. The list itself is the work list Step 6 carries forward to give every entry a verdict, so keep it whole and do not read the catalog again.
@@ -72,7 +72,7 @@ Work from the list Step 4 printed, the authoritative work list. The **tags are t
 
 **Reach a verdict on every entry on that list, one at a time, before you write any finding.** An entry marked `[required]` is always applied: when it ships a deterministic checker, you run that checker over the whole project and its output is the verdict, never a skip. For every other entry, the only question is whether the code you read in Step 5 contains the context its tags name, read off the code, not estimated from how relevant the entry feels:
 
-- **The context is present.** Apply the specialization. Read it with `npx --yes --prefer-offline lagune@0.15.0 catalog <name>` and follow it, scoped to the paths in question: do what it says, do not improvise beyond it, and do not edit the user's code. The verdict is whatever its checker prints over each pattern, destination, or value the code contains, or where it ships no checker, what its reasoning concludes against the actual code. A guard the code already applies is judged here, never waved through for being present.
+- **The context is present.** Apply the specialization. Read it with `npx --yes lagune catalog <name>` and follow it, scoped to the paths in question: do what it says, do not improvise beyond it, and do not edit the user's code. The verdict is whatever its checker prints over each pattern, destination, or value the code contains, or where it ships no checker, what its reasoning concludes against the actual code. A guard the code already applies is judged here, never waved through for being present.
 - **The context is absent.** The code contains nothing the tags name, so there is nothing to apply. Skip it. Finding that many entries do not apply is a normal outcome.
 
 Anything a specialization surfaces is recorded as a finding through the steps below, like any other. Hold each entry's verdict for the table Step 11 emits.
@@ -107,14 +107,14 @@ Anything a specialization surfaces is recorded as a finding through the steps be
 - Register the findings you wrote so the tracking map keeps each one's identity. This is registration, not reconciliation: hand the track hook only the findings this run wrote, as the `entries` list of `{name, paths}`, and it records the new ones and follows a renamed path for the rest. It never removes anything you did not report. `name` is the finding's name (this section's title), and `paths` holds the file paths the finding points at (one or more). The path lives here, in tracking, never in the prose. The tracking map holds no note: the prose carries the wording, the map carries only identity and paths. Run it from the project root, passing the payload as the single argument (a name with quotes or backticks stays intact) and reading the JSON result from standard output:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+npx --yes lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only registers what this phase wrote. Repairing the chain across phases stays with `/lagune.repair`.
 
 ### Step 10: Check the written map
 
-Run `npx --yes --prefer-offline lagune@0.15.0 validate detect` from the project root. If it reports problems, follow its output and rerun it until it passes.
+Run `npx --yes lagune validate detect` from the project root. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 11: Summarize
 

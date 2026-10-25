@@ -38,7 +38,7 @@ Where you genuinely cannot tell whether an item was resolved or merely renamed, 
 Hand the hook one item per finding the artifacts still name, using the corrected paths from Step 2. The payload is `{ entries: [...] }`, the same shape as `tracking.json`: each entry is `{ name, paths }`, where `name` is the finding's title and `paths` holds its current file paths. List each item once, no matter how many phases name it. Run the repair hook from the project root, passing the payload as the single argument (a name with quotes or backticks stays intact) and reading the JSON result from standard output:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 repair '{"entries":[{"name":"<NAME>","paths":["<PATH>"]}]}'
+npx --yes lagune repair '{"entries":[{"name":"<NAME>","paths":["<PATH>"]}]}'
 ```
 
 The hook compares every entry against the map and rewrites it: an item still named keeps its identity, an item whose paths moved gets the new paths, a name the map does not hold is registered, and an item you did not report is kept rather than deleted. It returns a classification per item and a list of `unresolved` items it could not decide alone. It never guesses the one call it cannot make: whether an item that disappeared was fixed or merely renamed.
@@ -52,7 +52,7 @@ The hook returns `unresolved` for each item that was in the map but not named in
 
 ### Step 5: Check the whole memory
 
-Run `npx --yes --prefer-offline lagune@0.15.0 validate` from the project root with no argument, which checks every memory artifact present against its template. Fix nothing: each artifact's shape belongs to the phase that writes it, so carry what the hook reports into the summary, each drifted artifact pointed at its own command (`/lagune.charter`, `/lagune.detect`, `/lagune.plan`, or `/lagune.harden`).
+Run `npx --yes lagune validate` from the project root with no argument, which checks every memory artifact present against its template. Fix nothing: each artifact's shape belongs to the phase that writes it, so carry what the hook reports into the summary, each drifted artifact pointed at its own command (`/lagune.charter`, `/lagune.detect`, `/lagune.plan`, or `/lagune.harden`).
 
 ### Step 6: Summarize
 

@@ -72,7 +72,7 @@ For each in-scope detect finding, read the risk detect already recorded for it (
 Run the cvss hook from the project root, passing each vector as a flag value:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 cvss --vector '<VECTOR>' --vector '<VECTOR>'
+npx --yes lagune cvss --vector '<VECTOR>' --vector '<VECTOR>'
 ```
 
 One finding is one item, with one rating. When a finding needs more than one fix, write them as more than one paragraph under the block's `Fix`, never a second block. Plan what the findings support, nothing speculative.
@@ -115,14 +115,14 @@ One finding is one item, with one rating. When a finding needs more than one fix
 - Register the items you planned so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run planned, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name detect used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the fix touches. The path lives here, in tracking, never in the prose. Run it from the project root, passing the payload as the single argument:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+npx --yes lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase planned. Repairing the map across the conveyor stays with `/lagune.repair`.
 
 ### Step 8: Check the written plan
 
-Run `npx --yes --prefer-offline lagune@0.15.0 validate plan` from the project root. If it reports problems, follow its output and rerun it until it passes.
+Run `npx --yes lagune validate plan` from the project root. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Summarize
 

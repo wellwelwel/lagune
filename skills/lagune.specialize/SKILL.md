@@ -16,7 +16,7 @@ The User Input above decides how this command runs. Read it before proceeding.
 
 ## Outline
 
-You are giving Lagune a new **specialty**: a focused, language-agnostic security specialization the detect and verify phases load on demand, listed by the catalog and loaded directly with `npx --yes --prefer-offline lagune@0.15.0 catalog <name>`. You distill the user's source or topic into it. A specialization audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `template.md`, next to this file, and the built-in specializations `regex`, `javascript`, and `browser` are worked examples to mirror, each read with `npx --yes --prefer-offline lagune@0.15.0 catalog <name>` from the project root.
+You are giving Lagune a new **specialty**: a focused, language-agnostic security specialization the detect and verify phases load on demand, listed by the catalog and loaded directly with `npx --yes lagune catalog <name>`. You distill the user's source or topic into it. A specialization audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `template.md`, next to this file, and the built-in specializations `regex`, `javascript`, and `browser` are worked examples to mirror, each read with `npx --yes lagune catalog <name>` from the project root.
 
 The result is the specialization at `.lagune/catalog/<name>.md` and its one-line entry in the project's index `.lagune/catalog.json`, which the catalog merges with the built-ins. You write both, and both stay under version control with the rest of `.lagune/`. You never touch the user's source.
 
@@ -37,10 +37,10 @@ The name is that terrain as a safe filename: lowercase, replace every run of cha
 List what the project already uses by running the catalog from the project root:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 catalog
+npx --yes lagune catalog
 ```
 
-Then run `npx --yes --prefer-offline lagune@0.15.0 catalog <name>`. It prints the specialization the project resolves under that name, its own first and then the built-in, or reports that no specialization has that name.
+Then run `npx --yes lagune catalog <name>`. It prints the specialization the project resolves under that name, its own first and then the built-in, or reports that no specialization has that name.
 
 - **It exists** (a built-in like `regex`, or one you specialized before): this is a **refine**. Use what it printed as the base. Reconcile, never append: fold the new knowledge into the existing sections, keep what still holds, rewrite what changed, and preserve the file's shape. Never replace a built-in from scratch and never blindly clobber an earlier version.
 - **It is new:** author from the template in Step 5.
@@ -71,9 +71,9 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 - Run the catalog again from the project root and confirm it lists the entry with the tags the user confirmed:
 
   ```bash
-  npx --yes --prefer-offline lagune@0.15.0 catalog
+  npx --yes lagune catalog
   ```
 
 ### Step 8: Summarize
 
-In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes --prefer-offline lagune@0.15.0 catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
+In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.

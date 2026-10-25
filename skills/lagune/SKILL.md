@@ -45,7 +45,7 @@ Specializations are focused, language-agnostic security knowledge modules that l
 First, list the catalog once from the project root:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 catalog
+npx --yes lagune catalog
 ```
 
 It prints each specialization this project uses as `name: tags`, suffixing ` [required]` on any the catalog flags. The tags say what each one covers. Reach a verdict on every entry, one at a time:
@@ -54,7 +54,7 @@ It prints each specialization this project uses as `name: tags`, suffixing ` [re
 - **Its context is in the work:** the thing its tags name is part of what you are about to build (its tags say uploads and you are building an upload). It applies.
 - **Its context is not in the work:** nothing you are building touches what its tags name. Skip it. Most entries will not apply to a given piece of work, and that is normal.
 
-Judge from what the work actually involves, read off your Step 2 reasoning, not from how relevant an entry feels. For every entry that applies, read it with `npx --yes --prefer-offline lagune@0.15.0 catalog <name>`, one at a time, and follow it. Each carries the defense knowledge for its class of work (uploads, shell, sessions, and so on): let it shape how you build that part, in line with the charter.
+Judge from what the work actually involves, read off your Step 2 reasoning, not from how relevant an entry feels. For every entry that applies, read it with `npx --yes lagune catalog <name>`, one at a time, and follow it. Each carries the defense knowledge for its class of work (uploads, shell, sessions, and so on): let it shape how you build that part, in line with the charter.
 
 Keep the list of specializations you applied. Step 5 reuses it to check your own work.
 

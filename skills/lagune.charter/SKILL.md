@@ -87,20 +87,20 @@ Then write the completed charter to `.lagune/memory/charter.md`.
 
 ### Step 8: Check the written charter
 
-Run `npx --yes --prefer-offline lagune@0.15.0 validate charter` from the project root. If it reports problems, follow its output and rerun it until it passes.
+Run `npx --yes lagune validate charter` from the project root. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Record the specialization categories
 
 Specializations, the security knowledge the later phases load on demand, join the project's catalog by category. List every category, with whether the project uses it, from the project root:
 
 ```bash
-npx --yes --prefer-offline lagune@0.15.0 list --categories
+npx --yes lagune list --categories
 ```
 
 - **No category is recorded yet** (the listing says so): record, in one call, each category the listing describes that your reading in Step 2 supports, such as the project's language, calls to an LLM, or containers. Record only what the reading supports, never a category for completeness:
 
   ```bash
-  npx --yes --prefer-offline lagune@0.15.0 add --categories <category> <category>
+  npx --yes lagune add --categories <category> <category>
   ```
 
 - **Categories are already recorded:** leave them as they are, since they are the project's choice. Name in the summary each category your reading supports that the project does not use yet.
