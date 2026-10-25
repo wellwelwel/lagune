@@ -1,3 +1,9 @@
+> [!IMPORTANT]
+>
+> To install **Lagune**, [follow the website instructions](https://lagune.ai/docs/get-started/install).
+
+---
+
 <img src="./website/static/img/banner.png" />
 
 # 🌊 [Lagune AI](https://lagune.ai)
