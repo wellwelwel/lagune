@@ -101,7 +101,7 @@ if (!RUNTIME_SHIPS_NPM)
 
       strict.strictEqual(run.code, 1);
       strict.strictEqual(run.stdout.includes('frozen'), false);
-      strict(run.stderr.includes('npx --yes lagune@0.15.0'));
+      strict(run.stderr.includes('npx lagune@0.15.0'));
     });
   });
 

@@ -47,7 +47,8 @@ const choices = (action: CategoryAction, used: string[]) =>
 export const runCategoryChange = async (
   action: CategoryAction,
   requested: string[],
-  cwd: string
+  cwd: string,
+  version: string
 ): Promise<void> => {
   const used = usedCategories(await readProjectCatalog(cwd));
   const selected = await selectCategories({
@@ -55,7 +56,7 @@ export const runCategoryChange = async (
     ...choices(action, used),
   });
 
-  if (selected === undefined) throw new Error(categoriesUsage(action));
+  if (selected === undefined) throw new Error(categoriesUsage(action, version));
 
   assertKnownCategories(CATEGORIES, selected);
 

@@ -34,6 +34,12 @@ Install **Lagune**'s commands with the [**skills** CLI](https://github.com/verce
 npx skills add wellwelwel/lagune
 ```
 
+Or paste this prompt into your agent:
+
+```md
+Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
+```
+
 :::info[Any language]
 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
 :::
@@ -74,18 +80,18 @@ While no category is recorded, the project uses `owasp` alone. [`/lagune.charter
   <TabItem value="add" label="Add" default>
 
 ```bash
-npx --yes lagune@latest add --categories # interactive
-npx --yes lagune@latest add --categories owasp
-npx --yes lagune@latest add --categories owasp rust
+npx --prefer-offline lagune@{{version}} add --categories # interactive
+npx --prefer-offline lagune@{{version}} add --categories owasp
+npx --prefer-offline lagune@{{version}} add --categories owasp rust
 ```
 
   </TabItem>
   <TabItem value="remove" label="Remove">
 
 ```bash
-npx --yes lagune@latest remove --categories # interactive
-npx --yes lagune@latest remove --categories owasp
-npx --yes lagune@latest remove --categories owasp rust
+npx --prefer-offline lagune@{{version}} remove --categories # interactive
+npx --prefer-offline lagune@{{version}} remove --categories owasp
+npx --prefer-offline lagune@{{version}} remove --categories owasp rust
 ```
 
   </TabItem>
@@ -98,7 +104,7 @@ The first `add` or `remove` starts from `owasp`, so removing every category leav
 `list` on its own asks what you want to see, the findings **Lagune** is tracking or the specialization categories, then prints that. Skip the prompt with a flag: `--findings` for the tracked findings, `--categories` for the categories.
 
 ```bash
-npx --yes lagune@latest list --categories
+npx --prefer-offline lagune@{{version}} list --categories
 # Categories
 #   • owasp       [used]       Harden against the application security risks OWASP tracks
 #   • javascript  [available]  Harden JavaScript and its runtimes
@@ -112,7 +118,7 @@ npx --yes lagune@latest list --categories
 `catalog` prints the specializations the project uses, built-in and its own, one per line:
 
 ```bash
-npx --yes lagune@latest catalog
+npx --prefer-offline lagune@{{version}} catalog
 # regex: Regular Expression [required]
 # network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
 # ...
@@ -126,7 +132,7 @@ See every category in [**Categories**](/docs/categories).
 Run **Lagune** directly with no subcommand for an interactive live view of `.lagune/`. It serves a dashboard and opens it on a random port:
 
 ```bash
-npx --yes lagune@latest
+npx lagune@latest
 ```
 
 - [x] **Live Reload**
@@ -291,7 +297,7 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
     {
       question: 'Which specializations does a project use?',
       answer:
-        'The built-in ones of its categories, plus its own. The charter records the categories its reading of the project supports, and npx --yes lagune@latest add --categories changes them.',
+        'The built-in ones of its categories, plus its own. The charter records the categories its reading of the project supports, and npx --prefer-offline lagune@{{version}} add --categories changes them.',
     },
     {
       question: 'What are the requirements?',

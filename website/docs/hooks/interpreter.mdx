@@ -17,17 +17,17 @@ The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that t
   <TabItem value="scan" label="Scan the codebase" default>
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} interpreter               # scans the whole project
-npx --yes --prefer-offline lagune@{{version}} interpreter --dir src     # scans a directory
-npx --yes --prefer-offline lagune@{{version}} interpreter --file app.py # scans a single file
+npx --prefer-offline lagune@{{version}} interpreter               # scans the whole project
+npx --prefer-offline lagune@{{version}} interpreter --dir src     # scans a directory
+npx --prefer-offline lagune@{{version}} interpreter --file app.py # scans a single file
 ```
 
   </TabItem>
   <TabItem value="check" label="Check a snippet">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} interpreter --lang javascript --pattern 'eval(x)'   # => careful
-npx --yes --prefer-offline lagune@{{version}} interpreter --lang python --pattern 'json.loads(x)' # => safe
+npx --prefer-offline lagune@{{version}} interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx --prefer-offline lagune@{{version}} interpreter --lang python --pattern 'json.loads(x)' # => safe
 ```
 
   </TabItem>

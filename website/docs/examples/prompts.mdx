@@ -212,7 +212,7 @@ Treats the whole workspace and every dependency as hostile: it hunts for interpr
 The prompts load the specializations this audit relies on directly, whatever your project's categories. For the rest of the catalog `/lagune` matches, make sure the project uses **OWASP**, **AI/LLM**, and the category of its stack (e.g., **JavaScript**, **Python**, etc.):
 
 ```bash
-npx --yes lagune@latest add --categories owasp ai javascript
+npx --prefer-offline lagune@{{version}} add --categories owasp ai javascript
 ```
 
 :::danger

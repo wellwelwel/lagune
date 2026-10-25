@@ -47,6 +47,12 @@ Install **Lagune**'s commands into your agent with the [**skills**](https://gith
 npx skills add wellwelwel/lagune
 ```
 
+Or paste this prompt into your agent:
+
+```md
+Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
+```
+
 - 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
 
 #### › Update
@@ -64,8 +70,8 @@ npx skills update
 [**/lagune.charter**](https://lagune.ai/docs/commands/charter) records the [**categories**](https://lagune.ai/docs/categories) your project needs. Change them anytime:
 
 ```bash
-npx --yes lagune@latest add --categories javascript
-npx --yes lagune@latest remove --categories javascript
+npx --prefer-offline lagune@0.15.0 add --categories javascript
+npx --prefer-offline lagune@0.15.0 remove --categories javascript
 ```
 
 > [!NOTE]
@@ -79,7 +85,7 @@ npx --yes lagune@latest remove --categories javascript
 For an interactive live view and follow-up, run:
 
 ```bash
-npx --yes lagune@latest
+npx lagune@latest
 ```
 
 It serves a dashboard and opens it in a random port:

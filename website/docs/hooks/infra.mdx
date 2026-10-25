@@ -17,9 +17,9 @@ The `infra` hook flags **infrastructure-as-code misconfiguration** that is decid
   <TabItem value="scan" label="Scan the codebase" default>
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} infra                   # scans every IaC file
-npx --yes --prefer-offline lagune@{{version}} infra --dir infra       # scans a directory
-npx --yes --prefer-offline lagune@{{version}} infra --file Dockerfile # scans a single file
+npx --prefer-offline lagune@{{version}} infra                   # scans every IaC file
+npx --prefer-offline lagune@{{version}} infra --dir infra       # scans a directory
+npx --prefer-offline lagune@{{version}} infra --file Dockerfile # scans a single file
 ```
 
   </TabItem>
@@ -28,8 +28,8 @@ npx --yes --prefer-offline lagune@{{version}} infra --file Dockerfile # scans a 
 Pass the snippet with `--pattern` and its kind with `--kind` (`terraform`, `dockerfile`, or `github-actions`).
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
-npx --yes --prefer-offline lagune@{{version}} infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
+npx --prefer-offline lagune@{{version}} infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
+npx --prefer-offline lagune@{{version}} infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
 ```
 
   </TabItem>

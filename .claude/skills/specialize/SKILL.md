@@ -29,7 +29,7 @@ A hook reference inside the `.md` body uses the engine command, `npx --yes --pre
 
 ## Step 2: Decide the category
 
-Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx --yes lagune@latest add --categories <category>`. Categories live in `CATEGORIES` in `src/catalog/categories.ts`.
+Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx --yes --prefer-offline lagune@<version> add --categories <category>`. Categories live in `CATEGORIES` in `src/catalog/categories.ts`.
 
 - A language specialization goes under its language key (`python` under `python`, and so on).
 - A specialization about an application-security risk OWASP tracks goes under `owasp`.

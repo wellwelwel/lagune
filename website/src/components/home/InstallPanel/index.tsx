@@ -7,11 +7,25 @@ import {
   selectableTint,
 } from '@site/src/components/selectable';
 import { ALL_CATEGORIES } from '@site/src/data/categories';
+import { useLaguneVersion } from '@site/src/data/version';
 import { memo, useMemo } from 'react';
 import { LuChevronRight, LuLayoutGrid } from 'react-icons/lu';
 
 const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
-const CATEGORIES_ADD = 'npx --yes lagune@latest add';
+const PROMPT_TAIL =
+  'and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.';
+
+const categoriesAdd = (version: string) =>
+  `npx --prefer-offline lagune@${version} add`;
+
+const installCommands = (version: string, keys: string[]) => [
+  SKILLS_ADD,
+  ...(keys.length > 0
+    ? [`${categoriesAdd(version)} --categories ${keys.join(' ')}`]
+    : []),
+];
+
+const unattended = (command: string) => command.replace(/^npx /, 'npx --yes ');
 
 const clampTip = (event: PointerEvent<HTMLButtonElement>) => {
   const wrap = event.currentTarget;
@@ -41,6 +55,7 @@ const InstallPanelComponent = ({
   onToggleCategory: (key: string) => void;
   chosen: string[];
 }) => {
+  const version = useLaguneVersion();
   const orderedCategories = useMemo(
     () =>
       chosen
@@ -49,17 +64,14 @@ const InstallPanelComponent = ({
     [chosen]
   );
 
-  const commands = useMemo(
-    () => [
-      SKILLS_ADD,
-      ...(orderedCategories.length > 0
-        ? [
-            `${CATEGORIES_ADD} --categories ${orderedCategories.map((category) => category.key).join(' ')}`,
-          ]
-        : []),
-    ],
-    [orderedCategories]
+  const commands = installCommands(
+    version,
+    orderedCategories.map((category) => category.key)
   );
+  const command = commands.join(' && ');
+  const agentCommand = commands.map(unattended).join(' && ');
+  const prompt = `Run \`${agentCommand}\` ${PROMPT_TAIL}`;
+  const promptTokens = `\`${agentCommand}\``.split(' ');
 
   return (
     <div className='flex flex-col min-w-0'>
@@ -119,7 +131,7 @@ const InstallPanelComponent = ({
 
       <GroupHead title='Run this' />
 
-      <div className='flex items-center gap-3 p-[15px_16px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px]'>
+      <div className='flex items-center gap-3 p-[15px_16px] mb-[22px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px]'>
         <span className='flex flex-1 min-w-0 flex-col gap-1.5'>
           <span className='flex min-w-0 gap-3'>
             <span className='select-none text-accent' aria-hidden>
@@ -135,7 +147,7 @@ const InstallPanelComponent = ({
                 $
               </span>
               <code className='flex-1 min-w-0 text-ink overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
-                {CATEGORIES_ADD}{' '}
+                {categoriesAdd(version)}{' '}
                 <span className='lagune-token-in text-muted'>--categories</span>
                 {orderedCategories.map((category) => (
                   <span key={category.key}>
@@ -149,22 +161,26 @@ const InstallPanelComponent = ({
             </span>
           )}
         </span>
-        <CopyButton
-          value={commands.join(' && ')}
-          label='Copy install command'
-        />
+        <CopyButton value={command} label='Copy install command' />
       </div>
 
-      <p className='mx-1 mt-6 text-[12px] leading-[1.6] text-muted [text-wrap:pretty]'>
-        Then run <code>/lagune.charter</code> in your agent: with no category
-        chosen, it records the ones its reading of your project supports.
-      </p>
+      <GroupHead title='Or ask your agent' />
 
-      <p className='mx-1 mt-3 text-[12px] leading-[1.6] text-muted'>
-        All product names, trademarks, and registered trademarks mentioned are
-        the property of their respective owners and are used for identification
-        purposes only.
-      </p>
+      <div className='flex items-center gap-3 p-[15px_16px] rounded-[14px] border border-line bg-[rgba(6,7,9,0.5)] font-mono text-[13px]'>
+        <p className='flex-1 min-w-0 m-0 leading-[1.65] text-muted [text-wrap:pretty]'>
+          Run{' '}
+          <span className='text-ink'>
+            {promptTokens.map((token, index) => (
+              <span key={index}>
+                {index > 0 && ' '}
+                <span className='whitespace-nowrap'>{token}</span>
+              </span>
+            ))}
+          </span>{' '}
+          {PROMPT_TAIL}
+        </p>
+        <CopyButton value={prompt} label='Copy install prompt' />
+      </div>
     </div>
   );
 };

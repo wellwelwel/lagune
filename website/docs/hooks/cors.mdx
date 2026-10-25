@@ -19,21 +19,21 @@ With no flag it scans the whole project.
   <TabItem value="all" label="Whole project" default>
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} cors
+npx --prefer-offline lagune@{{version}} cors
 ```
 
   </TabItem>
   <TabItem value="dir" label="A directory">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} cors --dir src/server
+npx --prefer-offline lagune@{{version}} cors --dir src/server
 ```
 
   </TabItem>
   <TabItem value="file" label="A single file">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} cors --file internal/auth/origin.go
+npx --prefer-offline lagune@{{version}} cors --file internal/auth/origin.go
 ```
 
   </TabItem>
@@ -51,7 +51,7 @@ internal/auth/origin.go
 This is a review lead, not a closed finding: whether the regex gates a real trust decision is undecidable from the text, so a scan never changes the exit code. Read each and confirm the allowlist compares by full equality. When nothing is found, it prints a single line.
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} cors --dir src/clean
+npx --prefer-offline lagune@{{version}} cors --dir src/clean
 # => no bypassable origin allowlist found
 ```
 
@@ -63,9 +63,9 @@ Pass each origin with `--origin`. The hook prints one word per origin and exits 
   <TabItem value="one" label="One origin" default>
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} cors --origin '*'                       # => wildcard
-npx --yes --prefer-offline lagune@{{version}} cors --origin 'null'                    # => null
-npx --yes --prefer-offline lagune@{{version}} cors --origin 'https://app.example.com' # => safe
+npx --prefer-offline lagune@{{version}} cors --origin '*'                       # => wildcard
+npx --prefer-offline lagune@{{version}} cors --origin 'null'                    # => null
+npx --prefer-offline lagune@{{version}} cors --origin 'https://app.example.com' # => safe
 ```
 
   </TabItem>
@@ -74,7 +74,7 @@ npx --yes --prefer-offline lagune@{{version}} cors --origin 'https://app.example
 Repeat `--origin` to score a whole allowlist in one call, one verdict per line, in order.
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} cors \
+npx --prefer-offline lagune@{{version}} cors \
   --origin 'https://app.example.com' \
   --origin '*' \
   --origin 'null'
@@ -119,7 +119,7 @@ The scan reads the **bypassable-regex** shape, and `--origin` scores origin **va
     {
       question: 'How do I catch a bypassable CORS origin allowlist?',
       answer:
-        'Run npx --yes --prefer-offline lagune@{{version}} cors over the codebase. It flags a host-validation regex whose greedy wildcard sits before the trusted suffix, so an attacker host like your-site.com.attacker.com slips past.',
+        'Run npx --prefer-offline lagune@{{version}} cors over the codebase. It flags a host-validation regex whose greedy wildcard sits before the trusted suffix, so an attacker host like your-site.com.attacker.com slips past.',
     },
   ]}
 />

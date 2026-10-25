@@ -35,15 +35,20 @@ const definitions = (rows: [string, string][]): string[] => {
 export const engineCommand = (version: string): string =>
   `npx --yes --prefer-offline lagune@${version}`;
 
-const HELP_USAGE: string[] = [
-  'npx lagune [--port <number>]',
-  'npx lagune catalog [<name>]',
-  'npx lagune add --categories [<category...>]',
-  'npx lagune remove --categories [<category...>]',
-  'npx lagune list [--findings] [--categories]',
-  'npx lagune dashboard [--port <number>]',
-  'npx lagune migrate',
-  'npx lagune <hook> [<arguments...>]',
+const typedCommand = (version: string): string =>
+  `npx --prefer-offline lagune@${version}`;
+
+const DASHBOARD_COMMAND = 'npx lagune@latest';
+
+const helpUsage = (version: string): string[] => [
+  `${DASHBOARD_COMMAND} [--port <number>]`,
+  `${typedCommand(version)} catalog [<name>]`,
+  `${typedCommand(version)} add --categories [<category...>]`,
+  `${typedCommand(version)} remove --categories [<category...>]`,
+  `${typedCommand(version)} list [--findings] [--categories]`,
+  `${DASHBOARD_COMMAND} dashboard [--port <number>]`,
+  `${typedCommand(version)} migrate`,
+  `${typedCommand(version)} <hook> [<arguments...>]`,
 ];
 
 const HELP_COMMANDS: [string, string][] = [
@@ -72,13 +77,13 @@ const HELP_OPTIONS: [string, string][] = [
   ['--version', 'Show the version'],
 ];
 
-export const helpText = (hooks: string[]): string =>
+export const helpText = (hooks: string[], version: string): string =>
   [
     banner(),
     color.dim('A defensive, security-first workflow for your project.'),
     '',
     heading('Usage'),
-    ...HELP_USAGE.map(bullet),
+    ...helpUsage(version).map(bullet),
     '',
     heading('Commands'),
     ...definitions(HELP_COMMANDS),
@@ -94,10 +99,10 @@ export const helpText = (hooks: string[]): string =>
     bullet(`Update them with ${SKILLS_UPDATE}`),
   ].join('\n');
 
-export const unknownCommand = (command: string): string =>
+export const unknownCommand = (command: string, version: string): string =>
   [
     `Unknown command: ${command}`,
-    'Run npx lagune --help to see the commands.',
+    `Run ${typedCommand(version)} --help to see the commands.`,
   ].join('\n');
 
 export const movedToSkills = (command: string): string =>
@@ -107,19 +112,20 @@ export const movedToSkills = (command: string): string =>
     `  ${SKILLS_UPDATE}`,
   ].join('\n');
 
-export const categoriesUsage = (command: string): string =>
+export const categoriesUsage = (command: string, version: string): string =>
   [
-    `usage: npx lagune ${command} --categories <category...>`,
-    'Run npx lagune list --categories to see every category.',
+    `usage: ${typedCommand(version)} ${command} --categories <category...>`,
+    `Run ${typedCommand(version)} list --categories to see every category.`,
   ].join('\n');
 
-export const listUsage = (): string =>
+export const listUsage = (version: string): string =>
   [
-    'usage: npx lagune list --findings',
-    '       npx lagune list --categories',
+    `usage: ${typedCommand(version)} list --findings`,
+    `       ${typedCommand(version)} list --categories`,
   ].join('\n');
 
-export const catalogUsage = (): string => 'usage: npx lagune catalog [<name>]';
+export const catalogUsage = (version: string): string =>
+  `usage: ${typedCommand(version)} catalog [<name>]`;
 
 export const invalidSpecializationName = (name: string): string =>
   `"${name}" is not a specialization name: a name uses only lowercase letters, digits, and hyphens.`;
@@ -134,7 +140,7 @@ export const frozenRefusal = (command: string): string =>
   `This project was installed by the Lagune CLI, which keeps working here, but ${command} is part of the skills-based Lagune the project has not moved to yet. To move it, see ${MIGRATE_PAGE}`;
 
 export const handoffUnavailable = (version: string): string =>
-  `This project was installed by the Lagune CLI, which keeps working with lagune@${version}, but this runtime brings no npm to start it. Run npx --yes lagune@${version} yourself with the same arguments. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
+  `This project was installed by the Lagune CLI, which keeps working with lagune@${version}, but this runtime brings no npm to start it. Run npx lagune@${version} yourself with the same arguments. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
 
 const footer = (...middle: string[]): string =>
   ['Enter to confirm', ...middle, 'Esc to cancel'].join(' · ');

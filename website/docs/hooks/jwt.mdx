@@ -17,18 +17,18 @@ The `jwt` hook flags **JWT verification without an algorithm pin**, the algorith
   <TabItem value="scan" label="Scan the codebase" default>
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} jwt                # scans the whole project
-npx --yes --prefer-offline lagune@{{version}} jwt --dir src      # scans a directory
-npx --yes --prefer-offline lagune@{{version}} jwt --file auth.ts # scans a single file
+npx --prefer-offline lagune@{{version}} jwt                # scans the whole project
+npx --prefer-offline lagune@{{version}} jwt --dir src      # scans a directory
+npx --prefer-offline lagune@{{version}} jwt --file auth.ts # scans a single file
 ```
 
   </TabItem>
   <TabItem value="check" label="Check a call">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
-npx --yes --prefer-offline lagune@{{version}} jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
-npx --yes --prefer-offline lagune@{{version}} jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
+npx --prefer-offline lagune@{{version}} jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx --prefer-offline lagune@{{version}} jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx --prefer-offline lagune@{{version}} jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
 ```
 
   </TabItem>

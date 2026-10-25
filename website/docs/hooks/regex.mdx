@@ -19,28 +19,28 @@ With no flag it scans the whole project. `--dir` scopes the scan to a directory,
   <TabItem value="all" label="Whole project" default>
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex
+npx --prefer-offline lagune@{{version}} regex
 ```
 
   </TabItem>
   <TabItem value="dir" label="A directory">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --dir src/services
+npx --prefer-offline lagune@{{version}} regex --dir src/services
 ```
 
   </TabItem>
   <TabItem value="file" label="A single file">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --file bin/import.pl
+npx --prefer-offline lagune@{{version}} regex --file bin/import.pl
 ```
 
   </TabItem>
   <TabItem value="many" label="Several targets">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --dir core --dir workers --file Sources/App/Router.swift
+npx --prefer-offline lagune@{{version}} regex --dir core --dir workers --file Sources/App/Router.swift
 ```
 
   </TabItem>
@@ -49,7 +49,7 @@ npx --yes --prefer-offline lagune@{{version}} regex --dir core --dir workers --f
 `--limit` sets the ReDoS threshold for the sweep (default 25), the same limit the check mode takes. A lower limit is stricter.
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --dir src/services --limit 15
+npx --prefer-offline lagune@{{version}} regex --dir src/services --limit 15
 ```
 
   </TabItem>
@@ -77,7 +77,7 @@ config/token.rb
 When nothing is found, it prints a single line.
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --dir src/clean
+npx --prefer-offline lagune@{{version}} regex --dir src/clean
 # => no unsafe patterns found
 ```
 
@@ -146,10 +146,10 @@ Pass `--pattern` with the pattern's source to score it. The hook prints one word
   <TabItem value="one" label="One pattern" default>
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --pattern '(a+)+$'
+npx --prefer-offline lagune@{{version}} regex --pattern '(a+)+$'
 # => unsafe
 
-npx --yes --prefer-offline lagune@{{version}} regex --pattern '^[a-z0-9_]{3,20}$'
+npx --prefer-offline lagune@{{version}} regex --pattern '^[a-z0-9_]{3,20}$'
 # => safe
 ```
 
@@ -157,7 +157,7 @@ npx --yes --prefer-offline lagune@{{version}} regex --pattern '^[a-z0-9_]{3,20}$
   <TabItem value="many" label="Several patterns">
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+npx --prefer-offline lagune@{{version}} regex --pattern '(a+)+$' --pattern '^[a-z]+$'
 # => unsafe
 # => safe
 ```
@@ -168,7 +168,7 @@ npx --yes --prefer-offline lagune@{{version}} regex --pattern '(a+)+$' --pattern
 `--limit` sets the repetition limit (default 25) and applies to every `--pattern` in the call. A lower limit is stricter.
 
 ```bash
-npx --yes --prefer-offline lagune@{{version}} regex --pattern 'a?a?a?' --limit 2
+npx --prefer-offline lagune@{{version}} regex --pattern 'a?a?a?' --limit 2
 # => unsafe
 ```
 
@@ -189,7 +189,7 @@ This is the same engine the [`regex` specialization](/docs/commands/catalog) run
     {
       question: 'How do I check a regex for ReDoS from the CLI?',
       answer:
-        "Run npx --yes --prefer-offline lagune@{{version}} regex --pattern '<pattern>'. It returns safe, unsafe, or invalid regex.",
+        "Run npx --prefer-offline lagune@{{version}} regex --pattern '<pattern>'. It returns safe, unsafe, or invalid regex.",
     },
     {
       question: 'How do I scan a whole project for unsafe regex?',

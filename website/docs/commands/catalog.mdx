@@ -97,8 +97,8 @@ The built-in specializations are grouped into [**categories**](/docs/categories)
 While your project records no category, it uses `owasp` alone. [`/lagune.charter`](/docs/commands/charter) records the categories its reading supports, and you change them any time with `add` and `remove`, recorded in `.lagune/catalog.json` for the whole project:
 
 ```bash
-npx --yes lagune@latest add --categories python
-npx --yes lagune@latest remove --categories python
+npx --prefer-offline lagune@{{version}} add --categories python
+npx --prefer-offline lagune@{{version}} remove --categories python
 ```
 
 Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](/docs/references/skills-sources) for the full mapping of each specialization to its canonical OWASP attack and Cheat Sheet pages. A few stack-specific modules draw from the vendor's own guidance instead: `supabase`, for instance, comes from the Supabase docs and CVE-2025-48757.
@@ -118,7 +118,7 @@ When the detect or verify phase hits a context a specialization covers, it loads
 To list your project's catalog from the terminal, one specialization per line with its tags:
 
 ```bash
-npx --yes lagune@latest catalog
+npx --prefer-offline lagune@{{version}} catalog
 # regex: Regular Expression [required]
 # network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
 # interpreter: Evaluator, Sink, Shell, Dynamic Execution
@@ -128,7 +128,7 @@ npx --yes lagune@latest catalog
 A `[required]` specialization always applies, whatever the work. To see every **category** and whether your project uses it:
 
 ```bash
-npx --yes lagune@latest list --categories
+npx --prefer-offline lagune@{{version}} list --categories
 # Categories
 #   • owasp       [used]       Harden against the application security risks OWASP tracks: injection, broken access control, auth, and crypto failures
 #   • infra       [available]  Harden container, workload, and serverless config: Dockerfile, Compose, Pod security, FaaS IAM and triggers
