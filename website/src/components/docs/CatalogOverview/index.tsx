@@ -480,6 +480,9 @@ const SpecializationCard = ({
       <PromptPreview specialization={specialization} seed={seed} />
     </div>
     <div className='flex items-center border-t border-line bg-surface-2 py-0.5 pr-1 pl-4.5'>
+      <span className='mr-2 inline-flex flex-none text-[0.9rem] text-faint'>
+        <Icon name='messageAi' />
+      </span>
       <span className='flex min-w-0 flex-1 items-baseline gap-1.5 text-[0.72rem] leading-none font-semibold text-[#6b737a] docs-dark:text-muted'>
         <span className='flex-none'>{LOAD_VERB}</span>
         <code

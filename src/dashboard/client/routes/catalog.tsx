@@ -95,6 +95,9 @@ const SpecializationCard = ({
       </div>
       {item.inCatalog ? (
         <div class='flex items-center border-t border-line bg-surface-2 py-0.5 pr-1 pl-4.5'>
+          <span class='mr-2 inline-flex flex-none text-[0.9rem] text-faint'>
+            <Icon name='messageAi' />
+          </span>
           <span class='flex min-w-0 flex-1 items-baseline gap-1.5 text-[0.72rem] leading-none font-semibold text-[#6b737a] dark:text-muted'>
             <span class='flex-none'>{LOAD_VERB}</span>
             <code class='flex min-w-0 rounded-[5px] border-0 bg-surface px-1.5 py-px font-mono text-[0.72rem] leading-4 text-inherit dark:bg-surface-3'>
