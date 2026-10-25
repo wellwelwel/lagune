@@ -40,7 +40,16 @@ Or paste this prompt into your agent:
 Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
 ```
 
-:::info[Any language]
+:::info[Offline]
+After skills are added, to run with no network at all, such as in a sandboxed agent, you can install the engine locally in the project:
+
+```bash
+npm i -D lagune
+```
+
+:::
+
+:::tip[Any language]
 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
 :::
 
@@ -50,7 +59,7 @@ Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill inst
 
 - **Your project's state** lives in `.lagune/`: the charter, the artifact each phase produces, the internal tracking, and the project's catalog (the categories it uses and its own specializations). The first command that writes creates it, and it is committed alongside your code, versioned and reviewable like any other part of the project.
 - **Lagune's commands** are the nine skills the **skills** CLI installs where your agent reads them, so the `/lagune.*` commands are ready to run.
-- **Lagune's engine** is the `lagune` package on **npm**, which the commands run through `npx` for every deterministic step. To run with no network at all, see [**Offline**](/docs/get-started/offline).
+- **Lagune's engine** is the `lagune` package on **npm**, which the commands run through `npx` for every deterministic step.
 
 ## Update
 
@@ -60,7 +69,7 @@ To update **Lagune**'s commands to their latest version, run:
 npx skills update
 ```
 
-The engine needs no update of its own, unless you [installed it in the project](/docs/get-started/offline).
+The engine needs no update of its own. One installed in the project updates with the same `npm install --save-dev lagune`.
 
 :::tip
 Your charter, the artifacts each phase produces, the internal tracking, and every specialization you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
