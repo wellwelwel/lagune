@@ -12,9 +12,6 @@ const workspaces: string[] = [];
 
 export const ENGINE = fileURLToPath(new URL('lib/bin/index.js', packageRoot));
 
-export const hookFile = (hook: string): string =>
-  fileURLToPath(new URL(`lib/hooks/${hook}.mjs`, packageRoot));
-
 export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-engine-'));
 
@@ -22,14 +19,13 @@ export const newWorkspace = async (): Promise<string> => {
   return workspace;
 };
 
-export const runScript = (
+export const runEngine = (
   cwd: string,
-  script: string,
   args: string[],
   env?: NodeJS.ProcessEnv
 ): Promise<HookRun> =>
   new Promise((resolve, reject) => {
-    const child = spawn(execPath, [script, ...args], { cwd, env });
+    const child = spawn(execPath, [ENGINE, ...args], { cwd, env });
     const out: string[] = [];
     const err: string[] = [];
 
@@ -42,12 +38,6 @@ export const runScript = (
       resolve({ stdout: out.join(''), stderr: err.join(''), code })
     );
   });
-
-export const runEngine = (
-  cwd: string,
-  args: string[],
-  env?: NodeJS.ProcessEnv
-): Promise<HookRun> => runScript(cwd, ENGINE, args, env);
 
 afterEach(async () => {
   await Promise.all(

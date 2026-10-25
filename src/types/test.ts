@@ -9,6 +9,7 @@ export type HookCase = {
   label: string;
   hook: string;
   args: string[];
+  verdict: string;
   code: number;
 };
 
