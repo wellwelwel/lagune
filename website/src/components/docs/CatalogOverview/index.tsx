@@ -328,7 +328,7 @@ const PromptPreview = ({
 
   return (
     <HoverPopover
-      width={344}
+      width={364}
       triggerClassName='group/eg relative inline-flex'
       panelClassName={clsx(
         'overflow-hidden rounded-[15px]',
@@ -337,13 +337,11 @@ const PromptPreview = ({
         theme.shadow
       )}
       trigger={
-        <span className='inline-flex h-8 cursor-help items-center gap-1.5'>
-          <span className='lagune-robot-hop inline-flex text-[1.5rem]'>
+        <span className='inline-flex h-8 cursor-help items-center gap-1.5 rounded-chip px-2.5 text-[0.8rem] font-bold text-muted transition-colors group-hover/eg:bg-accent-soft group-hover/eg:text-accent'>
+          <span className='lagune-robot-hop inline-flex text-[1.25rem]'>
             <Icon name='messageAi' />
           </span>
-          <span className='relative rounded-chip border border-line-2 bg-surface-2 px-3 py-1 text-[.9rem]! font-mono font-extrabold text-gray-800 transition-colors before:absolute before:top-1/2 before:-left-1 before:size-2.5 before:-translate-y-1/2 before:rotate-45 before:rounded-[2px] before:border-b before:border-l before:border-line-2 before:bg-surface-2 before:transition-colors docs-dark:text-white group-hover/eg:bg-accent-soft group-hover/eg:text-accent group-hover/eg:before:bg-accent-soft'>
-            {isTouch ? 'Touch me!' : 'Hover me!'}
-          </span>
+          {isTouch ? 'Touch me' : 'Hover me'}
         </span>
       }
     >
@@ -404,16 +402,16 @@ const SpecializationCard = ({
   const loadCommand = `${ENGINE_COMMAND} catalog ${specialization.name}`;
 
   return (
-    <article className='group/card flex flex-col overflow-hidden rounded-panel border border-line bg-surface shadow-card'>
+    <article className='group/card flex flex-col overflow-hidden rounded-panel bg-surface shadow-card'>
       <header className='flex items-center gap-3 p-4.5 pb-3.5'>
-        <span className='grid size-11 flex-none place-items-center rounded-field bg-accent-soft text-[1.25rem] text-accent ring-1 ring-line-2 ring-offset-2 ring-offset-surface'>
+        <span className='grid size-8 flex-none place-items-center rounded-field bg-surface-2 text-[1rem] text-faint ring-1 ring-line-2 ring-offset-2 ring-offset-surface'>
           <Icon name={specialization.icon} />
         </span>
-        <h3 className='m-0 min-w-0 flex-1 truncate font-jakarta text-[0.9rem] font-bold text-ink-2'>
+        <h3 className='m-0 min-w-0 flex-1 truncate font-jakarta text-[0.9rem]! leading-normal! font-bold! tracking-[-0.01em]! text-ink-2'>
           {specialization.label}
         </h3>
       </header>
-      <p className='m-0 px-4.5 text-[0.82rem] leading-normal text-muted'>
+      <p className='m-0 px-4.5 font-sans text-[0.82rem] leading-normal text-faint'>
         {specialization.description}
       </p>
       <div className='flex flex-1 items-end justify-between gap-3 px-4.5 pt-3 pb-4.5'>
@@ -421,9 +419,9 @@ const SpecializationCard = ({
           {specialization.categories.map((category) => (
             <span
               key={category.label}
-              className='group/chip relative grid size-8 place-items-center rounded-chip bg-accent-soft text-faint'
+              className='group/chip relative grid size-8 place-items-center rounded-chip bg-accent-soft text-accent'
             >
-              <MaskIcon src={category.icon} className='size-4 bg-accent' />
+              <MaskIcon src={category.icon} className='size-4 bg-current' />
               <span
                 className={`pointer-events-none absolute bottom-[calc(100%+0.375rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 whitespace-nowrap rounded-chip bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ${EASE} group-hover/chip:translate-y-0 group-hover/chip:scale-100 group-hover/chip:opacity-100`}
               >
