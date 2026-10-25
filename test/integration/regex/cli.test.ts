@@ -141,22 +141,22 @@ describe('parseArgs chooses a mode from the flags', () => {
   });
 });
 
-describe('run dispatches the check mode', () => {
-  it('prints one verdict per pattern, in order, newline-terminated', async () => {
+await describe('run dispatches the check mode', async () => {
+  await it('prints one verdict per pattern, in order, newline-terminated', async () => {
     strict.deepStrictEqual(
       await run(['-p', '(a+)+$', '-p', '^[a-z]+$', '-p', '(']),
       { output: 'unsafe\nsafe\ninvalid regex\n', hasFinding: true }
     );
   });
 
-  it('applies the shared limit to every pattern', async () => {
+  await it('applies the shared limit to every pattern', async () => {
     strict.deepStrictEqual(await run(['-p', 'a?a?a?', '-l', '2']), {
       output: 'unsafe\n',
       hasFinding: true,
     });
   });
 
-  it('reports a finding only for unsafe, not safe or invalid', async () => {
+  await it('reports a finding only for unsafe, not safe or invalid', async () => {
     strict.deepStrictEqual(await run(['-p', '^[a-z]+$', '-p', '(']), {
       output: 'safe\ninvalid regex\n',
       hasFinding: false,

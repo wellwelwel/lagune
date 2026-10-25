@@ -37,19 +37,19 @@ export const CategoriesTab = (): VNode => {
   const apply = () => {
     modal.value = { kind: 'categories', run: 'pending', added: 0, removed: 0 };
 
-    trigger(async () => {
-      const response = await runCategories({ categories: chosen });
-      const succeeded = response.ok;
+    trigger(
+      () => runCategories({ categories: chosen }),
+      (response) => {
+        const succeeded = response.ok;
 
-      modal.value = {
-        kind: 'categories',
-        run: succeeded ? 'success' : 'error',
-        added: succeeded ? response.added : 0,
-        removed: succeeded ? response.removed : 0,
-      };
-
-      return response;
-    });
+        modal.value = {
+          kind: 'categories',
+          run: succeeded ? 'success' : 'error',
+          added: succeeded ? response.added : 0,
+          removed: succeeded ? response.removed : 0,
+        };
+      }
+    );
   };
 
   const shownCategories = useMemo(() => {

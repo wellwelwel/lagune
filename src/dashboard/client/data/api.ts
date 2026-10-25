@@ -1,8 +1,14 @@
 import type {
+  ActionFailure,
   ActionResponse,
   CategoriesRequest,
   SessionPayload,
 } from '@/types/dashboard/api';
+
+export const REQUEST_FAILED: ActionFailure = {
+  ok: false,
+  error: 'Request failed',
+};
 
 const fetchSession = async (): Promise<SessionPayload> => {
   const response = await fetch('/api/session', { cache: 'no-store' });
@@ -28,7 +34,7 @@ const postAction = async (
 
     return body;
   } catch {
-    return { ok: false, error: 'Request failed' };
+    return REQUEST_FAILED;
   }
 };
 

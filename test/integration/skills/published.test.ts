@@ -56,7 +56,7 @@ const engineCalls = async (): Promise<{ file: string; call: string }[]> => {
 };
 
 await describe('the published skills', async () => {
-  await it('are the nine commands', () => {
+  it('are the nine commands', () => {
     strict.deepStrictEqual(folders, COMMANDS);
   });
 
@@ -78,11 +78,11 @@ await describe('the published skills', async () => {
 await describe('every engine call the skills and specializations write', async () => {
   const calls = await engineCalls();
 
-  await it('finds engine calls to check', () => {
+  it('finds engine calls to check', () => {
     strict(calls.length > 0);
   });
 
-  await it('runs the engine unattended, never at a pinned version', () => {
+  it('runs the engine unattended, never at a pinned version', () => {
     strict.deepStrictEqual(
       calls
         .filter(({ call }) => !call.startsWith(ENGINE_COMMAND))
@@ -91,7 +91,7 @@ await describe('every engine call the skills and specializations write', async (
     );
   });
 
-  await it('spells out every flag in full', () => {
+  it('spells out every flag in full', () => {
     strict.deepStrictEqual(
       calls
         .filter(({ call }) => SHORT_FLAG.test(call))

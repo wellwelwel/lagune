@@ -99,8 +99,8 @@ await describe('the npm the hand-off to the frozen version runs', async () => {
   });
 });
 
-await describe('the search path the frozen version runs with', async () => {
-  await it('leads with the runtime and drops every relative or package folder', () => {
+describe('the search path the frozen version runs with', () => {
+  it('leads with the runtime and drops every relative or package folder', () => {
     const inherited = [
       '/usr/bin',
       '.',
