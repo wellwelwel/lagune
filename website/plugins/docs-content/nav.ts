@@ -7,7 +7,6 @@ export type DocsNavCategory = {
 export type DocsNavEntry = string | DocsNavCategory;
 
 export const docsNav: DocsNavEntry[] = [
-  'intro',
   {
     label: 'Get Started',
     collapsed: false,

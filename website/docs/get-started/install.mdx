@@ -2,6 +2,7 @@
 id: install
 title: 'Install: Security Hardening in Any Project via npx'
 sidebar_label: Install
+slug: /
 description: Install Lagune's commands in any project, new or existing, with the skills CLI, and choose the security specializations that fit it.
 keywords:
   - install lagune
@@ -13,17 +14,27 @@ keywords:
   - categories
   - requirements
   - badge
+  - security-driven hardening
+  - AI security
+  - application security
+  - defensive security
+  - blue team
+  - secure coding
+  - AI agents
 ---
 
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
 import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-**Lagune** adapts to your environment, whether it is a new project or an existing one.
+**Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it. **Lagune** is the first project of the [Security-Driven Hardening (SDH)](/docs/references/paper) methodology.
 
-:::info[No keys]
-No API keys are needed, it runs directly through your own agent.
+:::tip[Support the OSS]
+Love **Lagune**? <ArrowLink to="https://github.com/wellwelwel/lagune">Give us a ⭐ on **GitHub**</ArrowLink>
 :::
+
+---
 
 Install **Lagune**'s commands with the [**skills** CLI](https://github.com/vercel-labs/skills):
 
@@ -37,26 +48,12 @@ Or paste this prompt into your agent:
 Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
 ```
 
-:::info[Offline]
-After skills are added, to run with no network at all, such as in a sandboxed agent, you can install the engine locally in the project:
+:::info
 
-```bash
-npm i -D lagune
-```
+- 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+- After skills are added, to run completely offline, you can install the engine locally with `npm i -D lagune`.
 
 :::
-
-:::tip[Any language]
-🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
-:::
-
-## What gets created
-
-**Lagune** keeps three things apart, so nothing is generated into your project:
-
-- **Your project's state** lives in `.lagune/`: the charter, the artifact each phase produces, the internal tracking, and the project's catalog (the categories it uses and its own specializations). The first command that writes creates it, and it is committed alongside your code, versioned and reviewable like any other part of the project.
-- **Lagune's commands** are the nine skills the **skills** CLI installs where your agent reads them, so the `/lagune.*` commands are ready to run.
-- **Lagune's engine** is the `lagune` package on **npm**, which the commands run through `npx` for every deterministic step.
 
 ## Update
 
@@ -188,10 +185,7 @@ npx lagune
 
 ## Requirements
 
-You will need these tools installed on your system:
-
-- [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- An agent the [**skills** CLI supports](https://github.com/vercel-labs/skills#supported-agents)
+You will need [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installed on your system.
 
 ## Use a badge ✨
 
@@ -267,6 +261,11 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
 <Faq
   items={[
     {
+      question: 'What is Lagune?',
+      answer:
+        'Lagune is an open-source, defense-only security workflow that helps your AI agent harden any codebase. You point it at your code, it detects what your system actually does, then it guides the security fixes that matter for that context.',
+    },
+    {
       question: 'How do I install Lagune?',
       answer:
         'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects.',
@@ -275,6 +274,15 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
       question: 'Does Lagune need an API key?',
       answer:
         'No. It runs through your own AI agent, so no API keys are required.',
+    },
+    {
+      question: 'What are the requirements?',
+      answer: 'You need Node.js (LTS) installed on your system.',
+    },
+    {
+      question: 'What programming languages does Lagune support?',
+      answer:
+        'Any. Lagune runs on Node.js under the hood, but it audits and hardens projects written in any programming language.',
     },
     {
       question: 'What does Lagune add to my project?',
@@ -292,8 +300,47 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
         'The built-in ones of its categories, plus its own. The charter records the categories its reading of the project supports, and npx lagune add --categories changes them.',
     },
     {
-      question: 'What are the requirements?',
-      answer: 'Node.js (LTS) and an agent the skills CLI supports.',
+      question: 'Do I need to finish building before securing my project?',
+      answer:
+        'No. The /lagune command hardens work as it is written: it takes any prompt, builds what you asked, and hardens it with safe defaults, guided by the charter. The five-phase Blue Team flow audits what already exists.',
+    },
+    {
+      question: 'Can Lagune audit an existing project?',
+      answer:
+        'Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.',
+    },
+    {
+      question:
+        'What is the difference between using Lagune and just asking the agent to map vulnerabilities and security flaws?',
+      answer:
+        'An agent reading on its own finds what looks like a vulnerability and skips what looks like a control. A list of blocked addresses reads as though someone already handled the risk, so nobody checks that it misses most of them, and the code ships. Lagune inverts that default: a guard already in the code is presumed unproven until it is checked, every specialization in the catalog gets an explicit verdict, and verify asks whether the risk is gone, not whether a control is there. Each finding also stays one tracked item across runs, so it can be proven closed and stood down, where a plain request gives you a different report every time with nothing to compare.',
+    },
+    {
+      question:
+        'What is the difference between developing with Lagune and just asking the agent to write secure code?',
+      answer:
+        'Asking for secure code leaves the definition of secure to the agent, and it assumes you know what to ask for. The requirement is usually already inside your request without either of you seeing it: asking for a page that shows the courses a user has access to states an authorization rule, and a check that is never written leaves nothing in the code to notice. The /lagune command loads your charter and the specializations that match what is about to be built before the first line is written, then re-reads the result against the defense it used. The safe shape rarely costs more than the unsafe one, so what decides the outcome is knowing which one to reach for, and that is what arrives up front.',
+    },
+    {
+      question:
+        'Does Lagune run DAST (Dynamic Application Security Testing) or test my running application?',
+      answer:
+        'No. Lagune reads code and never runs your system or sends it crafted requests. Verify confirms a control is present and correct in the source, which is a different question from whether it survives an attack on a live target, so "cannot tell from the code" is a legitimate verdict instead of a quiet pass. DAST answers the runtime question and Lagune answers the source question, so neither replaces the other. Even the optional prove command holds this line: its tests assert the safe behavior, never an attack payload.',
+    },
+    {
+      question: 'Does Lagune replace a Pentest (penetration test)?',
+      answer:
+        'No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow, to detect the concerns, so what a professional reports gets planned, hardened, and verified.',
     },
   ]}
 />
+
+## Security Policy
+
+Please check the [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md).
+
+## License
+
+**Lagune** is under the [MIT License](https://github.com/wellwelwel/lagune/blob/main/LICENSE).
+
+Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) and [contributors](https://github.com/wellwelwel/lagune/graphs/contributors).

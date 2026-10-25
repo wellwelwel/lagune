@@ -232,7 +232,7 @@ const config: Config = {
         {
           title: 'Docs',
           items: [
-            { label: 'Get Started', to: '/docs/get-started/install' },
+            { label: 'Get Started', to: '/docs' },
             { label: 'Commands', to: '/docs/commands/charter' },
             { label: 'Catalog', to: '/docs/commands/catalog' },
           ],

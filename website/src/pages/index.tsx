@@ -398,14 +398,6 @@ const Home = (): ReactNode => {
                       text: 'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects and needs no API key.',
                     },
                   },
-                  {
-                    '@type': 'Question',
-                    name: 'Which AI agents does Lagune work with?',
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: 'Lagune installs into the agents the skills CLI supports, including Claude Code, Codex, Cursor, Gemini CLI, and GitHub Copilot.',
-                    },
-                  },
                 ],
               },
             ],

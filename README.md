@@ -4,11 +4,11 @@
 
 [![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
 [![Version](https://img.shields.io/npm/v/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
-[![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.ai/docs/get-started/install)
+[![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.ai/docs)
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
-- **Lagune** works with projects in **any programming language** and installs into the [**agents the skills CLI supports**](https://github.com/vercel-labs/skills#supported-agents) ✨
+- **Lagune** works with projects in **any programming language** ✨
 
 ---
 
@@ -160,10 +160,7 @@ These five run in order. Each builds on the previous, so following the list top 
 
 ## Requirements
 
-You will need these tools installed on your system:
-
-- [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- At least one of the [**agents the skills CLI supports**](https://github.com/vercel-labs/skills#supported-agents)
+You will need [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installed on your system.
 
 ---
 
