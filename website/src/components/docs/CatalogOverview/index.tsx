@@ -1,10 +1,19 @@
-import type { AgentTheme } from '@site/src/data/lagune';
+import type {
+  AgentTheme,
+  PromptMark,
+  PromptSegment,
+} from '@site/src/data/lagune';
 import type { ReactNode } from 'react';
 import type { CatalogSpecialization } from './data';
 import { MaskIcon } from '@site/src/components/MaskIcon';
-import { agentThemeAt } from '@site/src/data/lagune';
+import {
+  agentThemeAt,
+  ENGINE_COMMAND,
+  LOAD_VERB,
+  specializationLoadPrompt,
+} from '@site/src/data/lagune';
 import clsx from 'clsx';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactTyped } from 'react-typed';
 import { Icon } from '../icons';
@@ -16,7 +25,16 @@ const MONO = "[font-family:'Fira_Code',ui-monospace,'SF_Mono',Menlo,monospace]";
 
 const EASE = 'ease-[cubic-bezier(0.2,0,0,1)]';
 
-const ENGINE_COMMAND = 'npx lagune';
+const MARKS: Record<PromptMark, (theme: AgentTheme) => string> = {
+  mention: (theme) => clsx('font-bold', theme.mention),
+  command: () =>
+    clsx(
+      'rounded-[5px] bg-white/8 px-1.5 py-px text-[0.72rem] leading-4',
+      MONO
+    ),
+};
+
+const COMMAND_ROW = 'flex flex-wrap items-baseline gap-x-1.5 gap-y-0.75';
 
 type Anchor = { right: number; bottom: number };
 
@@ -306,6 +324,38 @@ const AgentReply = ({
   );
 };
 
+const UnbrokenWords = ({ text }: { text: string }): ReactNode =>
+  text.split(' ').map((word, position) => (
+    <Fragment key={position}>
+      {position > 0 && ' '}
+      <span className='whitespace-nowrap'>{word}</span>
+    </Fragment>
+  ));
+
+const PromptLine = ({
+  segments,
+  theme,
+}: {
+  segments: PromptSegment[];
+  theme: AgentTheme;
+}): ReactNode => (
+  <span
+    className={clsx(
+      segments.some((segment) => segment.mark === 'command') && COMMAND_ROW
+    )}
+  >
+    {segments.map((segment) =>
+      segment.mark ? (
+        <span key={segment.text} className={MARKS[segment.mark](theme)}>
+          <UnbrokenWords text={segment.text} />
+        </span>
+      ) : (
+        segment.text
+      )
+    )}
+  </span>
+);
+
 const PromptPreview = ({
   specialization,
   seed,
@@ -328,7 +378,7 @@ const PromptPreview = ({
 
   return (
     <HoverPopover
-      width={364}
+      width={448}
       triggerClassName='group/eg relative inline-flex'
       panelClassName={clsx(
         'overflow-hidden rounded-[15px]',
@@ -358,18 +408,18 @@ const PromptPreview = ({
             >
               <span
                 className={clsx(
-                  'flex max-w-[86%] flex-col gap-1.5 rounded-card rounded-br-[3px] px-3.5 py-2.5 text-left text-[0.78rem] leading-relaxed shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_10px_-6px_rgba(0,0,0,0.5)]',
+                  'flex max-w-[86%] flex-col gap-1.5 rounded-card rounded-br-[3px] px-3.5 py-2.5 text-left text-[0.78rem] leading-relaxed text-pretty shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_10px_-6px_rgba(0,0,0,0.5)]',
                   theme.userBubble,
                   theme.userText
                 )}
               >
-                <span>{specialization.promptTask}.</span>
-                <span>
-                  Use{' '}
-                  <span className={clsx('font-bold', theme.mention)}>
-                    /lagune
-                  </span>
-                </span>
+                {specialization.prompt.map((segments) => (
+                  <PromptLine
+                    key={segments.map((segment) => segment.text).join('')}
+                    segments={segments}
+                    theme={theme}
+                  />
+                ))}
               </span>
               <span
                 className={clsx(
@@ -398,66 +448,60 @@ const SpecializationCard = ({
 }: {
   specialization: CatalogSpecialization;
   seed: number;
-}): ReactNode => {
-  const loadCommand = `${ENGINE_COMMAND} catalog ${specialization.name}`;
-
-  return (
-    <article className='group/card flex flex-col overflow-hidden rounded-panel bg-surface shadow-card'>
-      <header className='flex items-center gap-3 p-4.5 pb-3.5'>
-        <span className='grid size-8 flex-none place-items-center rounded-field bg-surface-2 text-[1rem] text-faint ring-1 ring-line-2 ring-offset-2 ring-offset-surface'>
-          <Icon name={specialization.icon} />
-        </span>
-        <h3 className='m-0 min-w-0 flex-1 truncate font-jakarta text-[0.9rem]! leading-normal! font-bold! tracking-[-0.01em]! text-ink-2'>
-          {specialization.label}
-        </h3>
-      </header>
-      <p className='m-0 px-4.5 font-sans text-[0.82rem] leading-normal text-faint'>
-        {specialization.description}
-      </p>
-      <div className='flex flex-1 items-end justify-between gap-3 px-4.5 pt-3 pb-4.5'>
-        <div className='flex flex-wrap content-end items-end gap-1.5'>
-          {specialization.categories.map((category) => (
-            <span
-              key={category.label}
-              className='group/chip relative grid size-8 place-items-center rounded-chip bg-accent-soft text-accent'
-            >
-              <MaskIcon src={category.icon} className='size-4 bg-current' />
-              <span
-                className={`pointer-events-none absolute bottom-[calc(100%+0.375rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 whitespace-nowrap rounded-chip bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ${EASE} group-hover/chip:translate-y-0 group-hover/chip:scale-100 group-hover/chip:opacity-100`}
-              >
-                {category.label}
-              </span>
-            </span>
-          ))}
-        </div>
-        <PromptPreview specialization={specialization} seed={seed} />
-      </div>
-      <div className='flex flex-col gap-1 border-t border-line bg-surface-2 px-4.5 py-0.5'>
-        <div className='flex items-center gap-2'>
-          <span className='inline-flex flex-none text-[0.9rem] text-faint'>
-            <Icon name='messageAi' />
-          </span>
-          <code
-            className={clsx(
-              'flex min-w-0 flex-1 border-0! bg-transparent p-0! text-[0.72rem] font-semibold text-[#6b737a]!',
-              MONO
-            )}
+}): ReactNode => (
+  <article className='group/card flex flex-col overflow-hidden rounded-panel bg-surface shadow-card'>
+    <header className='flex items-center gap-3 p-4.5 pb-3.5'>
+      <span className='grid size-8 flex-none place-items-center rounded-field bg-surface-2 text-[1rem] text-faint ring-1 ring-line-2 ring-offset-2 ring-offset-surface'>
+        <Icon name={specialization.icon} />
+      </span>
+      <h3 className='m-0 min-w-0 flex-1 truncate font-jakarta text-[0.9rem]! leading-normal! font-bold! tracking-[-0.01em]! text-ink-2'>
+        {specialization.label}
+      </h3>
+    </header>
+    <p className='m-0 px-4.5 font-sans text-[0.82rem] leading-normal text-faint'>
+      {specialization.description}
+    </p>
+    <div className='flex flex-1 items-end justify-between gap-3 px-4.5 pt-3 pb-4.5'>
+      <div className='flex flex-wrap content-end items-end gap-1.5'>
+        {specialization.categories.map((category) => (
+          <span
+            key={category.label}
+            className='group/chip relative grid size-8 place-items-center rounded-chip bg-accent-soft text-accent'
           >
-            <span className='min-w-0 truncate'>{ENGINE_COMMAND}</span>
-            <span className='flex-none whitespace-pre'>
-              {' '}
-              catalog {specialization.name}
+            <MaskIcon src={category.icon} className='size-4 bg-current' />
+            <span
+              className={`pointer-events-none absolute bottom-[calc(100%+0.375rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 whitespace-nowrap rounded-chip bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ${EASE} group-hover/chip:translate-y-0 group-hover/chip:scale-100 group-hover/chip:opacity-100`}
+            >
+              {category.label}
             </span>
-          </code>
-          <CopyButton
-            text={loadCommand}
-            label={`Copy the command that loads ${specialization.label}`}
-          />
-        </div>
+          </span>
+        ))}
       </div>
-    </article>
-  );
-};
+      <PromptPreview specialization={specialization} seed={seed} />
+    </div>
+    <div className='flex items-center border-t border-line bg-surface-2 py-0.5 pr-1 pl-4.5'>
+      <span className='flex min-w-0 flex-1 items-baseline gap-1.5 text-[0.72rem] leading-none font-semibold text-[#6b737a] docs-dark:text-muted'>
+        <span className='flex-none'>{LOAD_VERB}</span>
+        <code
+          className={clsx(
+            'flex min-w-0 rounded-[5px]! border-0! bg-surface! px-1.5! py-px! text-[0.72rem] leading-4 text-inherit! docs-dark:bg-surface-3!',
+            MONO
+          )}
+        >
+          <span className='min-w-0 truncate'>{ENGINE_COMMAND}</span>
+          <span className='flex-none whitespace-pre'>
+            {' '}
+            catalog {specialization.name}
+          </span>
+        </code>
+      </span>
+      <CopyButton
+        text={specializationLoadPrompt(specialization.name)}
+        label={`Copy the prompt that loads ${specialization.label}`}
+      />
+    </div>
+  </article>
+);
 
 export const CatalogOverview = (): ReactNode => (
   <div className='grid grid-cols-1 gap-4 font-jakarta leading-normal md:grid-cols-2 min-[1600px]:grid-cols-3'>

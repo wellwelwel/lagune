@@ -1,10 +1,13 @@
 import type {
   AgentTheme,
+  PromptMark,
+  PromptSegment,
   PromptSpec,
   PromptTone,
 } from '@/types/dashboard/client';
 import type { VNode } from 'preact';
 import { agentThemeAt } from '@/dashboard/shared/agent-themes';
+import { Fragment } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { classes } from '../../utils/tailwind-classes';
 import { HoverPopover } from '../primitives/hover-popover';
@@ -25,6 +28,49 @@ const TRIGGER_TONES: Record<PromptTone, string> = {
     'px-2.5 text-muted group-hover/eg:bg-accent-soft group-hover/eg:text-accent',
   tip: 'text-teal/100 group-hover/eg:text-teal',
 };
+
+const MARKS: Record<PromptMark, (theme: AgentTheme) => string> = {
+  mention: (theme) => classes('font-bold', theme.mention),
+  command: () =>
+    'rounded-[5px] bg-white/8 px-1.5 py-px font-mono text-[0.72rem] leading-4',
+};
+
+const COMMAND_ROW = 'flex flex-wrap items-baseline gap-x-1.5 gap-y-0.75';
+
+const UnbrokenWords = (props: { text: string }): VNode => (
+  <>
+    {props.text.split(' ').map((word, position) => (
+      <Fragment key={position}>
+        {position > 0 && ' '}
+        <span class='whitespace-nowrap'>{word}</span>
+      </Fragment>
+    ))}
+  </>
+);
+
+const PromptLine = ({
+  segments,
+  theme,
+}: {
+  segments: PromptSegment[];
+  theme: AgentTheme;
+}): VNode => (
+  <span
+    class={classes(
+      segments.some((segment) => segment.mark === 'command') && COMMAND_ROW
+    )}
+  >
+    {segments.map((segment) =>
+      segment.mark ? (
+        <span class={MARKS[segment.mark](theme)}>
+          <UnbrokenWords text={segment.text} />
+        </span>
+      ) : (
+        segment.text
+      )
+    )}
+  </span>
+);
 
 const AgentReply = ({
   spec,
@@ -118,7 +164,7 @@ export const PromptPreview = ({
   const theme = agentThemeAt(seed);
   return (
     <HoverPopover
-      width={364}
+      width={448}
       triggerClass='group/eg relative inline-flex'
       panelClass={classes(
         'overflow-hidden rounded-[15px]',
@@ -151,18 +197,14 @@ export const PromptPreview = ({
             <span class='flex translate-y-1 flex-col items-end gap-1 opacity-0 transition-[opacity,translate] duration-300 ease-house group-data-[open=true]/pop:translate-y-0 group-data-[open=true]/pop:opacity-100'>
               <span
                 class={classes(
-                  'flex max-w-[86%] flex-col gap-1.5 rounded-xl rounded-br-[3px] px-3.5 py-2.5 text-left text-[0.78rem] leading-relaxed shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_10px_-6px_rgba(0,0,0,0.5)]',
+                  'flex max-w-[86%] flex-col gap-1.5 rounded-xl rounded-br-[3px] px-3.5 py-2.5 text-left text-[0.78rem] leading-relaxed text-pretty shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_10px_-6px_rgba(0,0,0,0.5)]',
                   theme.userBubble,
                   theme.userText
                 )}
               >
-                <span>{spec.task}</span>
-                <span>
-                  Use{' '}
-                  <span class={classes('font-bold', theme.mention)}>
-                    {spec.mention}
-                  </span>
-                </span>
+                {spec.lines.map((segments) => (
+                  <PromptLine segments={segments} theme={theme} />
+                ))}
               </span>
               <span
                 class={classes(

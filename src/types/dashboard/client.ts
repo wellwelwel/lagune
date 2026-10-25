@@ -113,9 +113,12 @@ export type PromptModalContent = {
 
 export type PromptTone = 'neutral' | 'tip';
 
+export type PromptMark = 'mention' | 'command';
+
+export type PromptSegment = { text: string; mark?: PromptMark };
+
 export type PromptSpec = {
-  task: string;
-  mention: string;
+  lines: PromptSegment[][];
   readPath: string;
   reply: TypeSegment[];
   tone?: PromptTone;

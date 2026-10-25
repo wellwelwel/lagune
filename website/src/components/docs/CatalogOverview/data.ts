@@ -1,5 +1,6 @@
 import type {
   CategoryBadge,
+  PromptSegment,
   SpecializationIconName,
 } from '@site/src/data/lagune';
 import {
@@ -8,7 +9,7 @@ import {
   specializationDescription,
   specializationIconName,
   specializationLabel,
-  specializationPromptTask,
+  specializationPrompt,
 } from '@site/src/data/lagune';
 
 export type CatalogSpecialization = {
@@ -16,7 +17,7 @@ export type CatalogSpecialization = {
   label: string;
   icon: SpecializationIconName;
   description: string;
-  promptTask: string;
+  prompt: PromptSegment[][];
   categories: CategoryBadge[];
 };
 
@@ -31,6 +32,6 @@ export const builtinCatalog: CatalogSpecialization[] =
     label: specializationLabel(entry.name),
     icon: specializationIconName(entry.name),
     description: specializationDescription(entry.name),
-    promptTask: specializationPromptTask(entry.name),
+    prompt: specializationPrompt(entry.name),
     categories: specializationCategories(entry.name),
   })).sort(byName);

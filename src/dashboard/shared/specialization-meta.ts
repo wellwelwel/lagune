@@ -1,6 +1,7 @@
 import type { CategoryKey } from '../../types/categories';
 import type {
   CategoryBadge,
+  PromptSegment,
   PromptSpec,
   SpecializationIconName,
   TypeSegment,
@@ -212,15 +213,35 @@ export const specializationDescription = (name: string): string =>
   DESCRIPTIONS[name] ??
   'Adds focused security checks for this part of your project.';
 
-export const specializationPromptTask = (name: string): string =>
+const specializationPromptTask = (name: string): string =>
   PROMPT_TASKS[name] ??
   `Add a feature that touches ${specializationLabel(name)}`;
+
+export const ENGINE_COMMAND = 'npx lagune';
+
+export const LOAD_VERB = 'Load';
+
+const specializationCommand = (name: string): string =>
+  `${ENGINE_COMMAND} catalog ${name}`;
+
+export const specializationLoadPrompt = (name: string): string =>
+  `${LOAD_VERB} \`${specializationCommand(name)}\``;
+
+export const specializationPrompt = (name: string): PromptSegment[][] => [
+  [
+    { text: '/lagune', mark: 'mention' },
+    { text: ` ${specializationPromptTask(name)}.` },
+  ],
+  [
+    { text: `${LOAD_VERB} ` },
+    { text: specializationCommand(name), mark: 'command' },
+  ],
+];
 
 export const AGENT_REPLY: TypeSegment[] = [{ text: 'On it!' }];
 
 export const specializationPromptSpec = (item: CatalogItem): PromptSpec => ({
-  task: `${specializationPromptTask(item.name)}.`,
-  mention: '/lagune',
+  lines: specializationPrompt(item.name),
   readPath: `catalog ${item.name}`,
   reply: AGENT_REPLY,
 });

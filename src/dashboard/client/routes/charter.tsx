@@ -10,8 +10,10 @@ import { useData } from '../data/state';
 import { BADGE_MUTED, EMPTY } from '../utils/tailwind-classes';
 
 const CHARTER_PROMPT: PromptSpec = {
-  task: 'Create a login page.',
-  mention: '@.lagune/memory/charter.md',
+  lines: [
+    [{ text: 'Create a login page.' }],
+    [{ text: 'Use ' }, { text: '@.lagune/memory/charter.md', mark: 'mention' }],
+  ],
   readPath: 'charter.md',
   tone: 'tip',
   reply: [{ text: 'On it!' }],
