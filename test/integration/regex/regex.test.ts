@@ -143,6 +143,19 @@ describe('flags change which characters the steps share', () => {
     strict.strictEqual(check('^(?:\\w|K)+$', { flags: 'u' }), 'safe');
   });
 
+  it('folds final sigma and sigma together only under the iu flags', () => {
+    strict.strictEqual(
+      check('^(?:\\u03c2|\\u03c3)+$', { flags: 'iu' }),
+      'unsafe'
+    );
+    strict.strictEqual(check('^(?:\\u03c2|\\u03c3)+$', { flags: 'u' }), 'safe');
+  });
+
+  it('keeps the dotless i apart from I under caseless matching', () => {
+    strict.strictEqual(check('^(?:\\u0131|I)+$', { flags: 'iu' }), 'safe');
+    strict.strictEqual(check('^(?:\\u0131|I)+$', { flags: 'i' }), 'safe');
+  });
+
   it('lets the dot reach a newline only under the s flag', () => {
     strict.strictEqual(check('^(?:.|\\n)*!$', { flags: 's' }), 'unsafe');
     strict.strictEqual(check('^(?:.|\\n)*!$'), 'safe');
@@ -151,6 +164,41 @@ describe('flags change which characters the steps share', () => {
   it('lets $ succeed before a newline under the m flag', () => {
     strict.strictEqual(check('(.*)$'), 'unsafe');
     strict.strictEqual(check('(.*)$', { flags: 'm' }), 'safe');
+  });
+});
+
+describe('Unicode classes cover the characters the engine assigns to them', () => {
+  it('reads \\s as every Unicode space and nothing else', () => {
+    strict.strictEqual(check('^(?:\\s|\\u3000)+$'), 'unsafe');
+    strict.strictEqual(check('^(?:\\s|\\u200b)+$'), 'safe');
+  });
+
+  it('reads a general category property by the letters it holds', () => {
+    strict.strictEqual(check('^(?:\\p{L}|a)+$', { flags: 'u' }), 'unsafe');
+    strict.strictEqual(check('^(?:\\p{Lu}|a)+$', { flags: 'u' }), 'safe');
+  });
+
+  it('widens a property to the other case under the iu flags', () => {
+    strict.strictEqual(check('^(?:\\p{Lu}|a)+$', { flags: 'iu' }), 'unsafe');
+  });
+
+  it('reads a script property by its value', () => {
+    strict.strictEqual(
+      check('^(?:\\p{Script=Greek}|\\u03b1)+$', { flags: 'u' }),
+      'unsafe'
+    );
+    strict.strictEqual(
+      check('^(?:\\p{Script=Greek}|a)+$', { flags: 'u' }),
+      'safe'
+    );
+  });
+
+  it('reads a property of strings by the emoji it holds', () => {
+    strict.strictEqual(
+      check('^\\u{1f600}*\\p{RGI_Emoji}\\u{1f600}*$', { flags: 'v' }),
+      'unsafe'
+    );
+    strict.strictEqual(check('^a*\\p{RGI_Emoji}a*$', { flags: 'v' }), 'safe');
   });
 });
 

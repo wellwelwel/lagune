@@ -45,6 +45,20 @@ export const BASIC_WORD: CodeSet = fromRanges([
   [0x61, 0x7b],
 ]);
 
+const CASE_CHANGING_RUN =
+  /[\p{Changes_When_Casemapped}\p{Changes_When_Casefolded}]+/gu;
+
+const SPACE_RUN = /\s+/gu;
+
+const CASELESS_WORD_RUN = /\w+/giu;
+
+const EMOJI_RUN = /[\p{Emoji}\p{Emoji_Component}\p{Extended_Pictographic}]+/gu;
+
+const EMOJI_COMPONENT_RUN =
+  /[\p{Emoji}\p{Emoji_Component}\p{Extended_Pictographic}\u200d\ufe0f\u20e3\u{e0020}-\u{e007f}]+/gu;
+
+const CASELESS_REPEAT = /^(.)\1$/isu;
+
 const nativeCache = new Map<string, CodeSet>();
 
 const caseCache = new Map<boolean, CaseTable>();
@@ -85,26 +99,20 @@ const unicodeSegments = (): readonly Segment[] => {
   return segments;
 };
 
-const nativeSet = (source: string, flags: string): CodeSet => {
-  const key = `${flags}/${source}`;
+const nativeSet = (matcher: RegExp): CodeSet => {
+  const key = `${matcher.flags}/${matcher.source}`;
   const cached = nativeCache.get(key);
 
   if (cached) return cached;
 
-  const matcher = new RegExp(`(?:${source})+`, `g${flags}`);
-  const ranges: number[][] = [];
-
-  for (const { start, width, text } of unicodeSegments()) {
-    matcher.lastIndex = 0;
-
-    for (let match = matcher.exec(text); match; match = matcher.exec(text))
-      ranges.push([
+  const set = fromRanges(
+    unicodeSegments().flatMap(({ start, width, text }) =>
+      Array.from(text.matchAll(matcher), (match) => [
         start + match.index / width,
         start + (match.index + match[0].length) / width,
-      ]);
-  }
-
-  const set = fromRanges(ranges);
+      ])
+    )
+  );
 
   nativeCache.set(key, set);
   return set;
@@ -169,9 +177,7 @@ const singlePoint = (text: string): number | null => {
 };
 
 const foldsTogether = (left: number, right: number): boolean =>
-  new RegExp(`^\\u{${left.toString(16)}}$`, 'iu').test(
-    String.fromCodePoint(right)
-  );
+  CASELESS_REPEAT.test(String.fromCodePoint(left, right));
 
 const unicodeLinks = (point: number): number[] => {
   const text = String.fromCodePoint(point);
@@ -183,9 +189,7 @@ const unicodeLinks = (point: number): number[] => {
 
 const unicodeTable = (): CaseTable => {
   const parents = new Map<number, number>();
-  const points = expandPoints(
-    nativeSet('[\\p{Changes_When_Casemapped}\\p{Changes_When_Casefolded}]', 'u')
-  );
+  const points = expandPoints(nativeSet(CASE_CHANGING_RUN));
   const links = [
     ...points.flatMap((point) =>
       unicodeLinks(point).map((other) => [point, other])
@@ -234,32 +238,25 @@ export const caseClosure = (set: CodeSet, unicode: boolean): CodeSet => {
 export const caseRepresentative = (point: number, unicode: boolean): number =>
   caseTable(unicode).classes.get(point)?.[0] ?? point;
 
-export const spaceSet = (): CodeSet => nativeSet('\\s', 'u');
+export const spaceSet = (): CodeSet => nativeSet(SPACE_RUN);
 
 export const wordSet = (ignoreCase: boolean, unicode: boolean): CodeSet =>
-  ignoreCase && unicode ? nativeSet('\\w', 'iu') : BASIC_WORD;
+  ignoreCase && unicode ? nativeSet(CASELESS_WORD_RUN) : BASIC_WORD;
 
 export const propertySet = (expression: string): CodeSet =>
-  nativeSet(`\\p{${expression}}`, 'u');
+  nativeSet(new RegExp(`\\p{${expression}}+`, 'gu'));
 
 export const stringPropertySingles = (expression: string): CodeSet => {
   const single = new RegExp(`^\\p{${expression}}$`, 'v');
 
   return fromPoints(
-    expandPoints(
-      nativeSet(
-        '[\\p{Emoji}\\p{Emoji_Component}\\p{Extended_Pictographic}]',
-        'u'
-      )
-    ).filter((point) => single.test(String.fromCodePoint(point)))
+    expandPoints(nativeSet(EMOJI_RUN)).filter((point) =>
+      single.test(String.fromCodePoint(point))
+    )
   );
 };
 
-export const emojiComponents = (): CodeSet =>
-  nativeSet(
-    '[\\p{Emoji}\\p{Emoji_Component}\\p{Extended_Pictographic}\\u200d\\ufe0f\\u20e3\\u{e0020}-\\u{e007f}]',
-    'u'
-  );
+export const emojiComponents = (): CodeSet => nativeSet(EMOJI_COMPONENT_RUN);
 
 export const universeLimit = (unicode: boolean): number =>
   unicode ? UNICODE_LIMIT : LEGACY_LIMIT;
