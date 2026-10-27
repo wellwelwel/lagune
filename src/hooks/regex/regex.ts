@@ -9,6 +9,7 @@ import type {
   RegexSafetyOptions,
   RegexVerdict,
 } from '../../types/hooks/regex.js';
+import { compilePattern } from '../../core/dynamic-regex.js';
 import { amplifies } from './amplification/amplification.js';
 import { createMeter, isCapReached } from './budget.js';
 import { analyzeJob, grows, outgrows } from './growth/growth.js';
@@ -37,7 +38,7 @@ const AMPLIFIED: RankedReason = {
 
 const isValid = (source: string, flags: string): boolean => {
   try {
-    new RegExp(source, flags);
+    compilePattern(source, flags);
     return true;
   } catch {
     return false;

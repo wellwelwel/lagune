@@ -3,6 +3,7 @@ import type {
   CodeSet,
   Segment,
 } from '../../../types/hooks/regex.js';
+import { propertyRun } from '../../../core/dynamic-regex.js';
 import {
   expandPoints,
   fromPoints,
@@ -254,7 +255,7 @@ export const wordSet = (ignoreCase: boolean, unicode: boolean): CodeSet =>
   ignoreCase && unicode ? nativeSet(CASELESS_WORD_RUN) : BASIC_WORD;
 
 export const propertySet = (expression: string): CodeSet =>
-  nativeSet(new RegExp(`\\p{${expression}}+`, 'gu'));
+  nativeSet(propertyRun(expression));
 
 export const stringPropertySingles = (expression: string): CodeSet | null => {
   const matcher = STRING_PROPERTY_MATCHERS.get(expression);
