@@ -1,4 +1,4 @@
-import type { LanguageId, LanguageMap } from '../../types/hooks/regex.js';
+import type { LanguageId, LanguageMap } from '../../types/scan.js';
 import { extname } from 'node:path';
 
 const EXTENSIONS = {

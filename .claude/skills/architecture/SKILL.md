@@ -37,12 +37,12 @@ Everything about installing commands, updating them, and supporting agents belon
 | `src/dashboard/`  | The live view of `.lagune/`.                                                                                 |
 | `src/types/`      | The single home for every type declaration. No type is declared elsewhere.                                   |
 | `lib/`            | Build output, ignored by git, published together with `catalog/`.                                            |
-| `test/`           | Poku test suites, run against Node, Bun, and Deno.                                                           |
+| `test/`           | Poku test suites.                                                                                            |
 | `website/`        | The documentation site, an npm workspace of the root package.                                                |
 
 ## Build & ship
 
-- **Build tool:** **esbuild** bundles the engine, hooks included, from `src/` into one self-contained JavaScript file in `lib/`, so the published package carries no runtime `node_modules` for the end user. **Vite** builds the dashboard client into `lib/dashboard`.
+- **Build tool:** **esbuild** bundles the engine, hooks included, from `src/` into one self-contained JavaScript file in `lib/`, with the worker the regex scan spreads its analysis across bundled beside it, so the published package carries no runtime `node_modules` for the end user. **Vite** builds the dashboard client into `lib/dashboard`.
 - **Entry point:** the `package.json` `bin` field maps the `lagune` command to the engine entry in `lib/`, so the engine command runs the bundle directly.
 - **Published:** `lib/` and `catalog/`. The skills are not part of the package: the **skills** CLI installs them from the repository, so the default branch is what users get.
 

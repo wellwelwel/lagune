@@ -6,7 +6,7 @@ import type {
 } from '../../types/scan.js';
 
 const groupByFile = (
-  items: (ScanFinding | ScanNote)[]
+  items: readonly (ScanFinding | ScanNote)[]
 ): Map<string, string[]> => {
   const groups = new Map<string, string[]>();
 
@@ -20,15 +20,15 @@ const groupByFile = (
   return groups;
 };
 
-const section = (header: string, items: (ScanFinding | ScanNote)[]): string => {
-  const groups = groupByFile(items);
-  const blocks = [...groups.keys()]
-    .toSorted((a, b) => a.localeCompare(b))
-    .map((file) => {
-      const lines = groups
-        .get(file)!
-        .map((detail) => `  ${detail}`)
-        .join('\n');
+/** Lists each file once under the header, sorted, with its details indented beneath it */
+export const groupedSection = (
+  header: string,
+  items: readonly (ScanFinding | ScanNote)[]
+): string => {
+  const blocks = [...groupByFile(items)]
+    .toSorted(([left], [right]) => left.localeCompare(right))
+    .map(([file, details]) => {
+      const lines = details.map((detail) => `  ${detail}`).join('\n');
 
       return `${file}\n${lines}`;
     });
@@ -43,13 +43,13 @@ export const formatReport = (
   const sections: string[] = [];
 
   if (report.findings.length > 0)
-    sections.push(section(headings.findings, report.findings));
+    sections.push(groupedSection(headings.findings, report.findings));
 
   if (report.review.length > 0 && headings.review !== undefined)
-    sections.push(section(headings.review, report.review));
+    sections.push(groupedSection(headings.review, report.review));
 
   if (report.advisory.length > 0 && headings.advisory !== undefined)
-    sections.push(section(headings.advisory, report.advisory));
+    sections.push(groupedSection(headings.advisory, report.advisory));
 
   if (sections.length === 0) return headings.sentinel;
 

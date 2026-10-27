@@ -23,8 +23,6 @@ const PLANTED_NPX = `#!/usr/bin/env node
 process.stdout.write('planted\\n');
 `;
 
-const RUNTIME_SHIPS_NPM = !('Bun' in globalThis) && !('Deno' in globalThis);
-
 const installFrozen = async (workspace: string): Promise<void> => {
   const stub = join(workspace, 'node_modules/lagune');
 
@@ -63,47 +61,34 @@ const plantNpx = async (workspace: string): Promise<NodeJS.ProcessEnv> => {
   return { ...env, PATH: [bin, env.PATH].join(delimiter) };
 };
 
-if (RUNTIME_SHIPS_NPM)
-  await describe('a project the Lagune CLI installed hands its commands to the frozen version', async () => {
-    for (const args of [
-      ['init', 'claude', '--skills', 'owasp'],
-      ['pull'],
-      ['update'],
-      ['add', '--skills', 'ai'],
-      ['list', '--findings'],
-      ['dashboard', '--port', '4000'],
-      ['--version'],
-    ])
-      await it(`hands off ${args.join(' ')} with its arguments and exit code`, async () => {
-        const workspace = await installedProject();
-        const run = await runEngine(workspace, args);
-
-        strict(run.stdout.includes(`frozen ${JSON.stringify(args)}\n`));
-        strict.strictEqual(run.code, FROZEN_EXIT);
-        strict(run.stderr.includes('https://lagune.ai/docs/commands/migrate'));
-      });
-
-    await it('hands off an argument a shell would read as syntax, as plain text', async () => {
+await describe('a project the Lagune CLI installed hands its commands to the frozen version', async () => {
+  for (const args of [
+    ['init', 'claude', '--skills', 'owasp'],
+    ['pull'],
+    ['update'],
+    ['add', '--skills', 'ai'],
+    ['list', '--findings'],
+    ['dashboard', '--port', '4000'],
+    ['--version'],
+  ])
+    await it(`hands off ${args.join(' ')} with its arguments and exit code`, async () => {
       const workspace = await installedProject();
-      const args = ['add', '--skills', 'a&b|c;$(d)`e`%f%'];
       const run = await runEngine(workspace, args);
 
       strict(run.stdout.includes(`frozen ${JSON.stringify(args)}\n`));
       strict.strictEqual(run.code, FROZEN_EXIT);
+      strict(run.stderr.includes('https://lagune.ai/docs/commands/migrate'));
     });
-  });
 
-if (!RUNTIME_SHIPS_NPM)
-  await describe('a runtime without npm refuses the hand-off before anything runs', async () => {
-    await it('fails, pointing to the frozen version', async () => {
-      const workspace = await installedProject();
-      const run = await runEngine(workspace, ['pull']);
+  await it('hands off an argument a shell would read as syntax, as plain text', async () => {
+    const workspace = await installedProject();
+    const args = ['add', '--skills', 'a&b|c;$(d)`e`%f%'];
+    const run = await runEngine(workspace, args);
 
-      strict.strictEqual(run.code, 1);
-      strict.strictEqual(run.stdout.includes('frozen'), false);
-      strict(run.stderr.includes('npx lagune@0.15.0'));
-    });
+    strict(run.stdout.includes(`frozen ${JSON.stringify(args)}\n`));
+    strict.strictEqual(run.code, FROZEN_EXIT);
   });
+});
 
 await describe('the hand-off never runs an npx the project plants', async () => {
   await it('ignores one ahead on the search path, where npx puts the project bin folder', async () => {

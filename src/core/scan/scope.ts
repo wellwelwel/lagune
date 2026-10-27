@@ -1,5 +1,4 @@
-import type { LanguageId } from '../../types/hooks/regex.js';
-import type { FileAnalysis } from '../../types/scan.js';
+import type { FileAnalysis, LanguageId } from '../../types/scan.js';
 import { languageOf } from './language.js';
 
 const EMPTY: FileAnalysis = { findings: [], review: [], advisory: [] };

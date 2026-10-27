@@ -1,4 +1,4 @@
-import type { LanguageId } from '../../../src/types/hooks/regex.js';
+import type { LanguageId } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
 import { analyze, analyzeFor } from '../../../src/hooks/secrets/secrets.js';
 

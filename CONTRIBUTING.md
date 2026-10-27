@@ -40,11 +40,7 @@ The final commit message will be generated from the _PR_ title by using "**Squas
 
 ### ⚙️ Environment
 
-You will need these tools installed on your system:
-
-- [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)
-- [**Bun**](https://bun.sh/docs/installation) (optional)
-- [**Deno**](https://docs.deno.com/runtime/manual/getting_started/installation) (optional)
+You will need [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installed on your system.
 
 ---
 
@@ -84,7 +80,6 @@ It's better to discuss a feature before actually starting to implement it. You c
 >
 > - [ ] Does it belong in a command's text, a specialization, or the engine?
 > - [ ] Is it defensive? **Lagune** hardens and verifies, and never ships offensive tooling or exploits for malicious use.
-> - [ ] Is the behavior consistent across all runtimes?
 > - [ ] Are the tests simulating real user usage?
 
 ---
@@ -137,9 +132,7 @@ npm run website:build     # Ensuring it still builds
 ## Testing
 
 ```sh
-npm test              # Test with the locally installed Node.js version
-bun run test:bun      # Test with the locally installed Bun version
-deno task test:deno   # Test with the locally installed Deno version
+npm test
 ```
 
 ---

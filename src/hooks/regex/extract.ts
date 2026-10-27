@@ -1,13 +1,7 @@
-import type { LanguageId } from '../../types/hooks/regex.js';
-import { carriersOf } from './language.js';
-import {
-  argumentStart,
-  isIdentChar,
-  isWordBoundaryMatch,
-  QUOTES,
-  readLiteral,
-  skipSpace,
-} from './lexer.js';
+import type { CallSite, RegexCandidate } from '../../types/hooks/regex.js';
+import type { LanguageId } from '../../types/scan.js';
+import { callsOf, patternArgumentStarts } from './calls.js';
+import { decodeLiteral, readLiteral, staticLiteralAt } from './lexer.js';
 
 const METACHARACTERS = /[.*+?^${}()|[\]\\]/;
 
@@ -16,10 +10,22 @@ const REGEX_TOKENS =
 
 const MIN_LENGTH = 3;
 
-const looksLikeRegex = (source: string): boolean =>
-  source.length >= MIN_LENGTH &&
-  METACHARACTERS.test(source) &&
-  REGEX_TOKENS.test(source);
+const JS_FLAGS = 'dgimsuvy';
+
+const SLASH_LITERAL_LANGUAGES: ReadonlySet<LanguageId> = new Set([
+  'javascript',
+  'ruby',
+  'php',
+  'elixir',
+  'crystal',
+  'perl',
+]);
+
+const JS_STRING_METHODS: readonly CallSite[] = [
+  { name: '.match', argumentIndex: 0 },
+  { name: '.matchAll', argumentIndex: 0 },
+  { name: '.search', argumentIndex: 0 },
+];
 
 const JS_REGEX_OPENERS = new Set([
   '(',
@@ -37,6 +43,11 @@ const JS_REGEX_OPENERS = new Set([
   '\n',
 ]);
 
+const looksLikeRegex = (source: string): boolean =>
+  source.length >= MIN_LENGTH &&
+  METACHARACTERS.test(source) &&
+  REGEX_TOKENS.test(source);
+
 const opensJsRegex = (text: string, slash: number): boolean => {
   let index = slash - 1;
 
@@ -46,28 +57,28 @@ const opensJsRegex = (text: string, slash: number): boolean => {
   return index < 0 || JS_REGEX_OPENERS.has(text[index]);
 };
 
-const readSlashLiteral = (
-  text: string,
-  open: number
-): { value: string; end: number } | null => {
-  let value = '';
-
+const slashLiteralEnd = (text: string, open: number): number => {
   for (let index = open + 1; index < text.length; index += 1) {
     const char = text[index];
 
     if (char === '\\') {
-      value += char + (text[index + 1] ?? '');
       index += 1;
       continue;
     }
 
-    if (char === '/') return { value, end: index };
-    if (char === '\n') return null;
-
-    value += char;
+    if (char === '/') return index;
+    if (char === '\n') return -1;
   }
 
-  return null;
+  return -1;
+};
+
+const readFlags = (text: string, from: number): string => {
+  let end = from;
+
+  while (end < text.length && JS_FLAGS.includes(text[end])) end += 1;
+
+  return text.slice(from, end);
 };
 
 const skipComment = (text: string, start: number): number => {
@@ -82,10 +93,22 @@ const skipComment = (text: string, start: number): number => {
   return close === -1 ? text.length : close + 1;
 };
 
+export const readingKey = ({ source, flags }: RegexCandidate): string =>
+  `${flags}/${source}`;
+
+const keep = (
+  out: Map<string, RegexCandidate>,
+  source: string,
+  flags: string
+): void => {
+  if (looksLikeRegex(source))
+    out.set(readingKey({ source, flags }), { source, flags });
+};
+
 const collectSlashLiterals = (
   text: string,
   language: LanguageId,
-  out: Set<string>
+  out: Map<string, RegexCandidate>
 ): void => {
   for (let index = 0; index < text.length; index += 1) {
     if (text[index] !== '/') continue;
@@ -99,92 +122,74 @@ const collectSlashLiterals = (
 
     if (language === 'javascript' && !opensJsRegex(text, index)) continue;
 
-    const literal = readSlashLiteral(text, index);
+    const end = slashLiteralEnd(text, index);
 
-    if (literal === null) continue;
+    if (end === -1) continue;
 
-    if (looksLikeRegex(literal.value)) out.add(literal.value);
+    const flags = language === 'javascript' ? readFlags(text, end + 1) : '';
 
-    index = literal.end;
+    keep(out, text.slice(index + 1, end), flags);
+    index = end + flags.length;
   }
 };
 
-const isLiteralArgument = (text: string, afterName: number): string | null => {
-  const start = argumentStart(text, afterName, 'paren', 0);
-
-  if (start === -1) return null;
-
-  const at = skipSpace(text, start);
-
-  if (!QUOTES.has(text[at])) return null;
-
-  const literal = readLiteral(text, at);
-
-  if (literal === null || literal.interpolated) return null;
-
-  return text.slice(at + 1, literal.end);
-};
-
-const collectApiArguments = (
+const collectCallArguments = (
   text: string,
-  apis: readonly string[],
-  methods: boolean,
-  out: Set<string>
+  language: LanguageId,
+  calls: readonly CallSite[],
+  out: Map<string, RegexCandidate>
 ): void => {
-  for (const name of apis) {
-    let from = 0;
+  for (const call of calls)
+    for (const start of patternArgumentStarts(text, call)) {
+      const literal = staticLiteralAt(text, start, language);
 
-    for (;;) {
-      const at = text.indexOf(name, from);
-
-      if (at === -1) break;
-
-      from = at + name.length;
-
-      if (!methods && !isWordBoundaryMatch(text, at, name)) continue;
-      if (isIdentChar(text[at + name.length] ?? '')) continue;
-
-      const body = isLiteralArgument(text, at + name.length);
-
-      if (body !== null && looksLikeRegex(body)) out.add(body);
+      if (literal !== null)
+        keep(out, decodeLiteral(text, literal.open, literal.end, language), '');
     }
-  }
 };
 
-const collectQuotedFallback = (text: string, out: Set<string>): void => {
+const collectQuotedFallback = (
+  text: string,
+  language: LanguageId,
+  out: Map<string, RegexCandidate>
+): void => {
   for (let index = 0; index < text.length; index += 1) {
     if (text[index] !== "'" && text[index] !== '"') continue;
 
     const literal = readLiteral(text, index);
 
-    if (literal === null) {
-      continue;
-    }
+    if (literal === null) continue;
 
-    if (!literal.interpolated) {
-      const body = text.slice(index + 1, literal.end);
-
-      if (looksLikeRegex(body)) out.add(body);
-    }
+    if (!literal.interpolated)
+      keep(out, decodeLiteral(text, index, literal.end, language), '');
 
     index = literal.end;
   }
 };
 
-/** Pulls ReDoS-checkable regex literals from a file, gated to its language */
-export const extractCandidates = (
+/** Pulls ReDoS-checkable regexes from a file as the program holds them, with the flags a JavaScript literal carries */
+export const extractPatterns = (
   text: string,
   language: LanguageId
-): string[] => {
-  const carriers = carriersOf(language);
-  const out = new Set<string>();
+): RegexCandidate[] => {
+  const out = new Map<string, RegexCandidate>();
 
-  if (carriers.slashLiteral) collectSlashLiterals(text, language, out);
+  if (SLASH_LITERAL_LANGUAGES.has(language))
+    collectSlashLiterals(text, language, out);
 
-  collectApiArguments(text, carriers.quoteApis, false, out);
-  collectApiArguments(text, carriers.stringApis, true, out);
+  collectCallArguments(text, language, callsOf(language), out);
 
-  if (language !== 'javascript') collectQuotedFallback(text, out);
+  if (language === 'javascript')
+    collectCallArguments(text, language, JS_STRING_METHODS, out);
+  else collectQuotedFallback(text, language, out);
 
-  return [...out];
+  return [...out.values()];
 };
+
+/** Pulls the distinct regex sources from a file, gated to its language */
+export const extractSources = (
+  text: string,
+  language: LanguageId
+): string[] => [
+  ...new Set(extractPatterns(text, language).map(({ source }) => source)),
+];

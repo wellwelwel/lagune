@@ -10,7 +10,7 @@ metadata:
 
 A live view of a project's `.lagune/` chain: charter, findings, hardening, verification, and the catalog of specializations. It parses the real memory artifacts, tracking map, and project catalog on every request and pushes a browser reload whenever anything under `.lagune/` changes. It has no notion of installation: it shows whatever artifacts `.lagune/` holds, with an empty state while there are none, and reads nothing the **skills** CLI writes. Viewing is read-only. The one write path is the Settings action surface, which records the project's categories in-process behind the guards described under Actions.
 
-Authored in strict TypeScript with Node APIs, runtime-agnostic across Node, Bun, and Deno. It ships as a self-contained static client plus a zero-dependency server, both bundled into `lib/` at build time. `src/` is never published.
+Authored in strict TypeScript with Node APIs. It ships as a self-contained static client plus a zero-dependency server, both bundled into `lib/` at build time. `src/` is never published.
 
 The product mission and workflow philosophy live in [CLAUDE.md](../../../CLAUDE.md). The toolchain, code conventions, and build path live in the [engineering](../engineering/SKILL.md) skill, the repository layout in the [architecture](../architecture/SKILL.md) skill, and design-engineering principles, including how to verify rendered output, in the [/interface](../interface/SKILL.md) skill.
 
@@ -56,7 +56,7 @@ The server prints its URL. By default it binds port `0`, so the OS hands back a 
 
 ## How it fits together
 
-- **Server** (`server/`): a `node:http` server, runtime-agnostic across Node, Bun, and Deno.
+- **Server** (`server/`): a `node:http` server.
   - `start.ts` is the reusable entry: it resolves the paths, listens (port `0` by default, climbing only when `PORT` pins a busy one), opens the browser, and stays up until `SIGINT`. The `dashboard` CLI command and the dev entry (`tools/dashboard-serve.ts`) both call it.
   - `data/` parses the Markdown memories, `tracking.json`, the project's categories and its own specializations (`.lagune/configs.json` and `.lagune/catalog/`) into one typed `DashboardData` object, served at `GET /api/data`. Understanding markdown is deliberately not our code: the `markdown/` module asks `mdast-util-from-markdown` (micromark, the same CommonMark engine behind the website's Docusaurus, bundled at build time so the published package still needs zero runtime installs) which lines are code and which spans are HTML comments. Code of any kind (fenced, indented, diffs, mermaid diagrams) is never structure, and comments are stripped before any parsing without ever touching code or inline code. Only the domain mapping is manual: which heading opens a section, which `- **Field:**` line is a field, what goes where. An h1 ends any section, and h4 to h6 stay inside the block they annotate, out of the extracted prose. Field lines are read by a staged grammar (`fieldValue`) whose canonical shape is the template's and whose fallbacks absorb common LLM punctuation drift: any list marker (`-`, `*`, `+`), optional bold (`**` or `__`), case-insensitive field name, then a required separator (colon canonically, em or en dash, or a spaced hyphen). The separator is what keeps prose from matching, and the value is never rewritten. Never hand-roll markdown lexing here (fence pairing, comment masking): extend the mapping over the tree instead.
   - `live-reload.ts` watches `.lagune/`, streaming a reload over `GET /events` (SSE).

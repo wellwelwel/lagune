@@ -1,5 +1,4 @@
-import type { LanguageId } from '../../types/hooks/regex.js';
-import type { FileAnalysis } from '../../types/scan.js';
+import type { FileAnalysis, LanguageId } from '../../types/scan.js';
 import { languageOf } from '../../core/scan/language.js';
 import { codeLines } from '../../core/scan/lines.js';
 import { envFallbacksOf, SIGNATURES, sinkOf } from './patterns.js';

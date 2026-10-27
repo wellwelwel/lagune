@@ -36,7 +36,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           check-latest: true
-          node-version: lts/*
+          node-version: ${{ matrix.node-version }}
 
       - name: ➕ Cache dependencies
         uses: actions/cache@v5
@@ -50,78 +50,6 @@ jobs:
 
       - name: 🔬 Node ${{ matrix.node-version }}
         run: npm test
-
-  deno:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    strategy:
-      fail-fast: false
-      matrix:
-        deno-version: ['latest']
-    name: Deno ${{ matrix.deno-version }}
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v6
-
-      - name: ➕ Actions - Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          check-latest: true
-          node-version: lts/*
-
-      - name: ➕ Actions - Setup Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: ${{ matrix.deno-version }}
-
-      - name: ➕ Cache dependencies
-        uses: actions/cache@v5
-        with:
-          path: ~/.npm
-          key: npm-linux-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-linux-
-
-      - name: 📦 Installing Dependencies
-        run: npm ci
-
-      - name: 🔬 Deno ${{ matrix.deno-version }}
-        run: deno task test:deno
-
-  bun:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    strategy:
-      fail-fast: false
-      matrix:
-        bun-version: ['latest']
-    name: Bun ${{ matrix.bun-version }}
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v6
-
-      - name: ➕ Actions - Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          check-latest: true
-          node-version: lts/*
-
-      - name: ➕ Actions - Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: ${{ matrix.bun-version }}
-
-      - name: ➕ Cache dependencies
-        uses: actions/cache@v5
-        with:
-          path: ~/.npm
-          key: npm-linux-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-linux-
-
-      - name: 📦 Installing Dependencies
-        run: npm ci
-
-      - name: 🔬 Bun ${{ matrix.bun-version }}
-        run: bun run test:bun
 
   skills:
     runs-on: ubuntu-latest

@@ -1,6 +1,5 @@
 import type { CryptoVerdict } from '../../types/hooks/crypto.js';
-import type { LanguageId } from '../../types/hooks/regex.js';
-import type { FileAnalysis } from '../../types/scan.js';
+import type { FileAnalysis, LanguageId } from '../../types/scan.js';
 import { languageOf } from '../../core/scan/language.js';
 import { codeLines, firedRules } from '../../core/scan/lines.js';
 import {

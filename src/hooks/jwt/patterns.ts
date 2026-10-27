@@ -1,4 +1,4 @@
-import type { LanguageId } from '../../types/hooks/regex.js';
+import type { LanguageId } from '../../types/scan.js';
 
 const VERIFY_CALL: Partial<Record<LanguageId, RegExp>> = {
   javascript:

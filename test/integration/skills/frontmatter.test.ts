@@ -1,8 +1,12 @@
-import type { Frontmatter, SkillsLock } from '../../../src/types/test.js';
-import { readFile } from 'node:fs/promises';
+import type { Frontmatter } from '../../../src/types/test.js';
 import { describe, it, strict } from 'poku';
 import { parse } from 'yaml.min';
-import { listFrontmatterSources, packageRoot } from './__utils__.js';
+import {
+  folderOf,
+  listFrontmatterSources,
+  packageRoot,
+  readInstalledSkills,
+} from './__utils__.js';
 
 const SKILL_KEYS: Record<keyof Required<Frontmatter>, true> = {
   name: true,
@@ -20,8 +24,6 @@ const ON_REQUEST_ONLY = ['lagune.prove', 'lagune.specialize'];
 const isSkill = (relativePath: string): boolean =>
   relativePath.endsWith('SKILL.md');
 
-const folderOf = (relativePath: string): string => relativePath.split('/')[0];
-
 const published = await listFrontmatterSources(
   new URL('skills/', packageRoot),
   isSkill
@@ -32,10 +34,7 @@ const development = await listFrontmatterSources(
   isSkill
 );
 
-const lock: SkillsLock = JSON.parse(
-  await readFile(new URL('skills-lock.json', packageRoot), 'utf8')
-);
-const installedSkills = new Set(Object.keys(lock.skills));
+const installedSkills = await readInstalledSkills();
 
 const isStringMap = (value: unknown): boolean =>
   typeof value === 'object' &&

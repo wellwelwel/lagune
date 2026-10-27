@@ -85,6 +85,7 @@ These are binding instructions for any agent or contributor working here.
 7. **Spec-first, agent-driven, framed for security.** Build the workflow from a proven structure: templates, commands, a governing charter, and an agent that runs the phases. Reimplement that structure in our stack with a defensive purpose.
 8. **Structure, engineering, and writing live elsewhere.** Concrete repo structure and file layout belong in the internal `/architecture` skill, the toolchain, code conventions, type rules, and build path belong in the `/engineering` skill, and the language conventions, the plain-language rule, and the reconcile discipline for prose belong in the `/writer` skill. They load when an agent touches the relevant work. Keep this file focused on the _what_ and _why_, and keep those decisions in those skills.
 9. **Never kill processes you did not start.** Only stop the processes you launched yourself (for example a headless browser you spawned for verification). Before starting a server, check whether the port is already serving what you need (for example the dashboard on its dev port) and reuse it instead of launching another.
+10. **Use `/lagune` skill from source.** This workspace authors the published skills instead of installing them. Wherever the `/engineering` skill or the user calls for the `/lagune` skill, read the matching skill under `skills/` and follow it as if it were installed, instead of pulling or initializing anything. Specializations are in ./catalog and there is no charter neither ./.lagune directory.
 
 ---
 

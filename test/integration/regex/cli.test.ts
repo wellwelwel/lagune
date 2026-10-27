@@ -54,19 +54,38 @@ describe('parseArgs chooses a mode from the flags', () => {
   it('collects one or many -p patterns in order', () => {
     strict.deepStrictEqual(parseArgs(['-p', '(a+)+']), {
       mode: 'check',
+      flags: '',
       patterns: ['(a+)+'],
       repetitionLimit: undefined,
     });
     strict.deepStrictEqual(parseArgs(['-p', 'a', '-p', 'b', '-p', 'c']), {
       mode: 'check',
+      flags: '',
       patterns: ['a', 'b', 'c'],
       repetitionLimit: undefined,
+    });
+  });
+
+  it('reads --flags into the check, shared by every -p pattern', () => {
+    strict.deepStrictEqual(parseArgs(['-p', 'a', '-p', 'b', '--flags', 'iu']), {
+      mode: 'check',
+      patterns: ['a', 'b'],
+      flags: 'iu',
+      repetitionLimit: undefined,
+    });
+  });
+
+  it('rejects --flags in a scan, where each literal carries its own', () => {
+    strict.throws(() => parseArgs(['-d', 'src', '--flags', 'i']), {
+      message:
+        '--flags applies to -p patterns, a scan reads each literal with its own flags',
     });
   });
 
   it('reads -l into the repetition limit for the checks', () => {
     strict.deepStrictEqual(parseArgs(['-p', 'a?a?a?', '-l', '2']), {
       mode: 'check',
+      flags: '',
       patterns: ['a?a?a?'],
       repetitionLimit: 2,
     });
@@ -75,6 +94,7 @@ describe('parseArgs chooses a mode from the flags', () => {
   it('accepts the long-form aliases', () => {
     strict.deepStrictEqual(parseArgs(['--pattern', '(a+)+', '--limit', '3']), {
       mode: 'check',
+      flags: '',
       patterns: ['(a+)+'],
       repetitionLimit: 3,
     });
@@ -149,6 +169,32 @@ await describe('run dispatches the check mode', async () => {
     );
   });
 
+  await it('checks every pattern with the shared flags', async () => {
+    strict.deepStrictEqual(
+      await run(['-p', '^(?:a|A)+$', '-p', '(.*)$', '--flags', 'im']),
+      { output: 'unsafe\nsafe\n', hasFinding: true }
+    );
+  });
+
+  await it('prints undetermined for a pattern the analysis cannot settle, which is not a finding', async () => {
+    strict.deepStrictEqual(
+      await run([
+        '-p',
+        `${'('.repeat(600)}a+${')'.repeat(600)}`,
+        '-p',
+        '^abc$',
+      ]),
+      { output: 'undetermined\nsafe\n', hasFinding: false }
+    );
+  });
+
+  await it('reports flags the engine rejects as an invalid regex', async () => {
+    strict.deepStrictEqual(await run(['-p', 'a', '--flags', 'uv']), {
+      output: 'invalid regex\n',
+      hasFinding: false,
+    });
+  });
+
   await it('applies the shared limit to every pattern', async () => {
     strict.deepStrictEqual(await run(['-p', 'a?a?a?', '-l', '2']), {
       output: 'unsafe\n',
@@ -185,7 +231,8 @@ await describe('run dispatches the scan mode', async () => {
   await it('scans the whole project from cwd when given no scope', async () => {
     await inWorkspace(async () => {
       strict.deepStrictEqual(await run([]), {
-        output: 'Vulnerable regular expressions found:\n\napp.js\n  (a+)+$\n',
+        output:
+          'Vulnerable regular expressions found:\n\napp.js\n  (a+)+$ (exponential, search)\n',
         hasFinding: true,
       });
     }, 'const re = /(a+)+$/;\n');
@@ -207,7 +254,8 @@ await describe('run dispatches the scan mode', async () => {
         hasFinding: false,
       });
       strict.deepStrictEqual(await run(['-l', '2']), {
-        output: 'Vulnerable regular expressions found:\n\napp.js\n  a?a?a?\n',
+        output:
+          'Vulnerable regular expressions found:\n\napp.js\n  a?a?a? (more than 2 quantifiers)\n',
         hasFinding: true,
       });
     }, 'const re = /a?a?a?/;\n');

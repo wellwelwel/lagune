@@ -3,8 +3,11 @@
   "exclude": [
     "src/dashboard/client",
     "temp",
+    ".claude/skills/blind-review",
     ".claude/skills/cdp",
     ".claude/skills/engineering",
+    ".claude/skills/ingest",
+    ".claude/skills/refine",
     ".claude/skills/ui",
     ".claude/skills/writer"
   ],

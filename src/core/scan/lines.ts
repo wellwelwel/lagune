@@ -1,7 +1,7 @@
-import type { LanguageId } from '../../types/hooks/regex.js';
 import type {
   CommentScan,
   CommentSpec,
+  LanguageId,
   LineRule,
   WindowRule,
 } from '../../types/scan.js';

@@ -64,10 +64,10 @@ await describe('CLAUDE.md stays within Skill limits', async () => {
 await describe('internal skills stay within Skill limits', async () => {
   const measurements = await measureSkills();
 
-  it('finds the SKILL.md files under .claude/skills', () => {
+  it('finds the internal SKILL.md files under .claude/skills', () => {
     strict(
       measurements.length > 0,
-      'SKILL.md files should exist under .claude/skills'
+      'internal SKILL.md files should exist under .claude/skills'
     );
   });
 

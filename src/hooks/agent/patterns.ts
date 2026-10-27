@@ -1,5 +1,4 @@
-import type { LanguageId } from '../../types/hooks/regex.js';
-import type { LineRule } from '../../types/scan.js';
+import type { LanguageId, LineRule } from '../../types/scan.js';
 
 const SDK_IMPORT: Partial<Record<LanguageId, RegExp>> = {
   javascript:

@@ -1,4 +1,31 @@
-import type { LanguageId } from './hooks/regex.js';
+export type LanguageId =
+  | 'javascript'
+  | 'python'
+  | 'ruby'
+  | 'go'
+  | 'php'
+  | 'rust'
+  | 'java'
+  | 'csharp'
+  | 'c'
+  | 'cpp'
+  | 'kotlin'
+  | 'swift'
+  | 'scala'
+  | 'dart'
+  | 'powershell'
+  | 'elixir'
+  | 'objc'
+  | 'r'
+  | 'julia'
+  | 'clojure'
+  | 'crystal'
+  | 'nim'
+  | 'vlang'
+  | 'dlang'
+  | 'perl';
+
+export type LanguageMap = Readonly<Record<string, LanguageId>>;
 
 export type WalkFilter = {
   ignoredDirs: ReadonlySet<string>;

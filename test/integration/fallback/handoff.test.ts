@@ -74,15 +74,18 @@ await describe('the npm the hand-off to the frozen version runs', async () => {
   await it('is none for a runtime without npm, even linked from a folder that holds one', async () => {
     const root = await newRoot();
 
-    await place(join(root, 'deno/bin/deno'));
+    await place(join(root, 'standalone/bin/node'));
     await place(join(root, 'node/lib/node_modules/npm/bin/npx-cli.js'));
-    await link(join(root, 'deno/bin/deno'), join(root, 'shared/bin/deno'));
+    await link(
+      join(root, 'standalone/bin/node'),
+      join(root, 'shared/bin/node')
+    );
     await link(
       join(root, 'node/lib/node_modules/npm/bin/npx-cli.js'),
       join(root, 'shared/bin/npx')
     );
 
-    const npx = await npxBeside(join(root, 'shared/bin/deno'));
+    const npx = await npxBeside(join(root, 'shared/bin/node'));
 
     strict.strictEqual(npx, undefined);
   });
@@ -108,7 +111,6 @@ describe('the search path the frozen version runs with', () => {
       '/work/project/node_modules/.bin',
       '/usr/local/bin',
     ].join(delimiter);
-
     const path = pinnedPath('/opt/node/bin/node', inherited);
 
     strict.strictEqual(

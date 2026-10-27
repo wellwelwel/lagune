@@ -1,6 +1,7 @@
 import type {
   Frontmatter,
   FrontmatterSource,
+  SkillsLock,
   SpecLimits,
   SpecLimitViolation,
   SpecMeasurement,
@@ -101,10 +102,27 @@ export const measurePublished = async (): Promise<SpecMeasurement[]> => [
   ...(await measureMarkdown(new URL('catalog/', packageRoot), () => true)),
 ];
 
-export const measureSkills = (): Promise<SpecMeasurement[]> =>
-  measureMarkdown(new URL('.claude/skills/', packageRoot), (relativePath) =>
-    relativePath.endsWith('SKILL.md')
+export const folderOf = (relativePath: string): string =>
+  relativePath.split('/')[0];
+
+export const readInstalledSkills = async (): Promise<Set<string>> => {
+  const lock: SkillsLock = JSON.parse(
+    await readFile(new URL('skills-lock.json', packageRoot), 'utf8')
   );
+
+  return new Set(Object.keys(lock.skills));
+};
+
+export const measureSkills = async (): Promise<SpecMeasurement[]> => {
+  const installedSkills = await readInstalledSkills();
+
+  return measureMarkdown(
+    new URL('.claude/skills/', packageRoot),
+    (relativePath) =>
+      relativePath.endsWith('SKILL.md') &&
+      !installedSkills.has(folderOf(relativePath))
+  );
+};
 
 export const measureClaudeMd = (): Promise<SpecMeasurement[]> =>
   measureFiles(packageRoot, ['CLAUDE.md']);

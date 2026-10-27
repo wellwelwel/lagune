@@ -24,21 +24,41 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
         'readme.md': 'This describes the feature in plain words.',
       },
       ({ unsafe }) => {
-        const seen = unsafe.map((f) => `${f.file}:${f.source}`).toSorted();
+        const seen = unsafe
+          .map((finding) => `${finding.file}:${finding.source}`)
+          .toSorted();
 
         strict.deepStrictEqual(seen, ['auth.js:(a+)+$', 'parse.py:(.*)x']);
       }
     );
   });
 
-  await it('is deterministic across repeated runs', async () => {
+  await it('judges each pattern with the flags and escapes the program gives it', async () => {
     await withWorkspace(
-      { 'a.js': 'const x = /(a+)+$/; const y = /(.+)$/;' },
+      {
+        'lines.js': 'const re = /^\\s*#[^\\n]+/m;',
+        'Main.java': 'Pattern p = Pattern.compile("^(\\\\w+\\\\s?)*$");',
+      },
       ({ unsafe }) => {
-        strict.deepStrictEqual(unsafe.map((f) => f.source).toSorted(), [
-          '(.+)$',
-          '(a+)+$',
-        ]);
+        strict.deepStrictEqual(
+          unsafe.toSorted((left, right) => left.file.localeCompare(right.file)),
+          [
+            {
+              file: 'lines.js',
+              source: '^\\s*#[^\\n]+',
+              flags: 'm',
+              reason: 'polynomial of degree 2',
+              scope: 'search',
+            },
+            {
+              file: 'Main.java',
+              source: '^(\\w+\\s?)*$',
+              flags: '',
+              reason: 'exponential',
+              scope: 'search',
+            },
+          ]
+        );
       }
     );
   });
@@ -58,7 +78,7 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
     ]);
 
     strict.deepStrictEqual(
-      unsafe.map((f) => `${f.file}:${f.source}`).toSorted(),
+      unsafe.map((finding) => `${finding.file}:${finding.source}`).toSorted(),
       [join('lib', 'b.js') + ':(.+)$', join('src', 'a.js') + ':(a+)+$']
     );
   });
@@ -73,7 +93,7 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
 
     strict.deepStrictEqual(loose.unsafe, []);
     strict.deepStrictEqual(
-      tight.unsafe.map((f) => f.source),
+      tight.unsafe.map((finding) => finding.source),
       ['a?a?a?']
     );
   });
@@ -97,12 +117,36 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
 
     strict.deepStrictEqual(result, {
       unsafe: [],
+      undetermined: [],
       dynamic: [],
       staticWrap: [],
     });
   });
 
-  await it('silences false positives that fooled the agnostic scan', async () => {
+  await it('lists a pattern the analysis could not settle apart from the vulnerable ones', async () => {
+    const nested = `${'('.repeat(600)}a+${')'.repeat(600)}`;
+
+    await withWorkspace(
+      { 'deep.js': `const re = /${nested}/;\nconst bad = /(a+)+$/;` },
+      ({ unsafe, undetermined }) => {
+        strict.deepStrictEqual(
+          unsafe.map(({ source, reason }) => `${source} ${reason}`),
+          ['(a+)+$ exponential']
+        );
+        strict.deepStrictEqual(undetermined, [
+          {
+            file: 'deep.js',
+            source: nested,
+            flags: '',
+            reason: 'work cap reached',
+            scope: null,
+          },
+        ]);
+      }
+    );
+  });
+
+  await it('reports nothing for template literals, URLs, prose strings, and shell globs', async () => {
     await withWorkspace(
       {
         'reporter.ts': 'const line = `${a ? b : c} ${d.relative}`;',
@@ -143,25 +187,6 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
     );
   });
 
-  await it('treats single-file component extensions as JavaScript', async () => {
-    await withWorkspace(
-      {
-        'a.vue': '<script>const re = /(a+)+$/;</script>',
-        'b.svelte': '<script>const re = /(a+)+$/;</script>',
-        'c.marko': '<script>const re = /(a+)+$/;</script>',
-        'd.riot': '<script>const re = /(a+)+$/;</script>',
-      },
-      ({ unsafe }) => {
-        strict.deepStrictEqual(unsafe.map((f) => f.file).toSorted(), [
-          'a.vue',
-          'b.svelte',
-          'c.marko',
-          'd.riot',
-        ]);
-      }
-    );
-  });
-
   await it('lists files that wrap a static regex in a constructor, JS and Ruby only', async () => {
     await withWorkspace(
       {
@@ -177,7 +202,7 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
     );
   });
 
-  await it('classifies the new languages end to end', async () => {
+  await it('classifies Clojure, Elixir, R, C, and Go files end to end', async () => {
     await withWorkspace(
       {
         'core.clj': '(re-find #"[0-9]+" s)',
@@ -190,104 +215,6 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
         strict.deepStrictEqual(dynamic, ['app.ex', 'parser.c', 'stats.R']);
         strict.deepStrictEqual(staticWrap, ['core.clj']);
       }
-    );
-  });
-
-  await it('skips common non-source extensions, test files, and env files', async () => {
-    await withWorkspace(
-      {
-        'app.js': 'const re = /(a+)+$/;',
-        'app.test.js': 'const re = /(a+)+$/;',
-        'app.spec.ts': 'const re = /(a+)+$/;',
-        'data.json': '{"re": "(a+)+$"}',
-        'notes.md': 'a pattern (a+)+$ in prose',
-        '.env': 'SECRET="(a+)+$"',
-        '.env.production': 'SECRET="(a+)+$"',
-      },
-      ({ unsafe }) => {
-        strict.deepStrictEqual(
-          unsafe.map((f) => f.file),
-          ['app.js']
-        );
-      }
-    );
-  });
-
-  await it('skips unambiguous dependency and cache dirs across ecosystems', async () => {
-    const workspace = await newWorkspace();
-    const pattern = 'const re = /(a+)+$/;';
-    const files: Record<string, string> = { 'app.js': pattern };
-
-    for (const dir of [
-      'node_modules',
-      '.next',
-      '__pycache__',
-      '.venv',
-      'Pods',
-      'pkg.egg-info',
-    ])
-      files[join(dir, 'noise.js')] = pattern;
-
-    await writeFiles(workspace, files);
-
-    const { unsafe } = await scan(workspace, [workspace]);
-
-    strict.deepStrictEqual(
-      unsafe.map((f) => f.file),
-      ['app.js']
-    );
-  });
-
-  await it('scans ambiguous dirs that may hold real source', async () => {
-    const workspace = await newWorkspace();
-    const pattern = 'const re = /(a+)+$/;';
-    const files: Record<string, string> = Object.create(null);
-
-    for (const dir of ['dist', 'build', 'bin', 'vendor'])
-      files[join(dir, 'tool.js')] = pattern;
-
-    await writeFiles(workspace, files);
-
-    const { unsafe } = await scan(workspace, [workspace]);
-
-    strict.deepStrictEqual(unsafe.map((f) => f.file).toSorted(), [
-      join('bin', 'tool.js'),
-      join('build', 'tool.js'),
-      join('dist', 'tool.js'),
-      join('vendor', 'tool.js'),
-    ]);
-  });
-
-  await it('ignores the root .lagune dir and any lagune.* dir', async () => {
-    const workspace = await newWorkspace();
-    const pattern = 'const re = /(a+)+$/;';
-    const files: Record<string, string> = { 'kept.js': pattern };
-
-    for (const dir of ['.lagune', 'lagune.detect', 'src/lagune.cache'])
-      files[join(dir, 'noise.js')] = pattern;
-
-    await writeFiles(workspace, files);
-
-    const { unsafe } = await scan(workspace, [workspace]);
-
-    strict.deepStrictEqual(
-      unsafe.map((f) => f.file),
-      ['kept.js']
-    );
-  });
-
-  await it('scans a .lagune dir that is not at the project root', async () => {
-    const workspace = await newWorkspace();
-
-    await writeFiles(workspace, {
-      'pkg/.lagune/r.js': 'const re = /(a+)+$/;',
-    });
-
-    const { unsafe } = await scan(workspace, [workspace]);
-
-    strict.deepStrictEqual(
-      unsafe.map((f) => f.file),
-      [join('pkg', '.lagune', 'r.js')]
     );
   });
 });

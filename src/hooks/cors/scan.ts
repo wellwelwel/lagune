@@ -1,13 +1,12 @@
-import type { LanguageId } from '../../types/hooks/regex.js';
-import type { FileAnalysis } from '../../types/scan.js';
+import type { FileAnalysis, LanguageId } from '../../types/scan.js';
 import { languageOf } from '../../core/scan/language.js';
-import { extractCandidates } from '../regex/extract.js';
+import { extractSources } from '../regex/extract.js';
 import { validatesUrlWithGreedyWildcard } from './url.js';
 
 const EMPTY: FileAnalysis = { findings: [], review: [], advisory: [] };
 
 const bypassable = (content: string, language: LanguageId): string[] =>
-  extractCandidates(content, language)
+  extractSources(content, language)
     .filter(validatesUrlWithGreedyWildcard)
     .toSorted((left, right) => left.localeCompare(right));
 

@@ -1,76 +1,114 @@
 import type {
-  FileScan,
+  ExtractedFile,
+  RegexAssessment,
+  RegexCandidate,
+  RegexFinding,
   RegexScanResult,
-  UnsafeFinding,
 } from '../../types/hooks/regex.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { SOURCE_FILTER } from '../../core/scan/filters.js';
 import { languageOf } from '../../core/scan/language.js';
-import { buildsDynamicRegex, wrapsStaticRegex } from './dynamic.js';
-import { extractCandidates } from './extract.js';
-import { check } from './regex.js';
-import { walk } from './walk.js';
+import { walk } from '../../core/scan/walk.js';
+import { extractPatterns, readingKey } from './extract.js';
+import { assessReadings } from './pool.js';
+import { regexUsage } from './usage.js';
 
-const EMPTY: FileScan = {
-  unsafe: [],
-  dynamic: null,
-  staticWrap: null,
-};
+const byReading = (left: RegexCandidate, right: RegexCandidate): number =>
+  left.source.localeCompare(right.source) ||
+  left.flags.localeCompare(right.flags);
 
-const findings = (sources: Set<string>, file: string): UnsafeFinding[] =>
-  [...sources]
-    .toSorted((a, b) => a.localeCompare(b))
-    .map((source) => ({ file, source }));
-
-const scanFile = async (
+const extractFile = async (
   root: string,
-  file: string,
-  repetitionLimit: number | undefined
-): Promise<FileScan> => {
+  file: string
+): Promise<ExtractedFile | null> => {
   const language = languageOf(file);
 
-  if (language === null) return EMPTY;
+  if (language === null) return null;
 
   let text;
 
   try {
     text = await readFile(join(root, file), 'utf8');
   } catch {
-    return EMPTY;
+    return null;
   }
 
-  const unsafe = new Set<string>();
-
-  for (const source of extractCandidates(text, language))
-    if (check(source, { repetitionLimit }) === 'unsafe') unsafe.add(source);
-
   return {
-    unsafe: findings(unsafe, file),
-    dynamic: buildsDynamicRegex(text, language) ? file : null,
-    staticWrap: wrapsStaticRegex(text, language) ? file : null,
+    file,
+    candidates: extractPatterns(text, language).toSorted(byReading),
+    ...regexUsage(text, language),
   };
 };
 
-const sortedFiles = (files: (string | null)[]): string[] =>
-  files
-    .filter((file): file is string => file !== null)
-    .toSorted((a, b) => a.localeCompare(b));
+const isExtracted = (entry: ExtractedFile | null): entry is ExtractedFile =>
+  entry !== null;
 
-/** Maps ReDoS-prone literals and dynamic-regex files across paths, deterministic */
+const distinctReadings = (
+  extracted: readonly ExtractedFile[]
+): Map<string, RegexCandidate> =>
+  new Map(
+    extracted.flatMap(({ candidates }) =>
+      candidates.map((candidate): [string, RegexCandidate] => [
+        readingKey(candidate),
+        candidate,
+      ])
+    )
+  );
+
+const findingsOf = (
+  extracted: readonly ExtractedFile[],
+  assessments: ReadonlyMap<string, RegexAssessment>,
+  verdict: 'unsafe' | 'undetermined'
+): RegexFinding[] =>
+  extracted.flatMap(({ file, candidates }) =>
+    candidates.flatMap((candidate) => {
+      const assessment = assessments.get(readingKey(candidate));
+
+      return assessment?.verdict === verdict
+        ? [
+            {
+              file,
+              source: candidate.source,
+              flags: candidate.flags,
+              reason: assessment.reason,
+              scope: assessment.scope,
+            },
+          ]
+        : [];
+    })
+  );
+
+const filesWhere = (
+  extracted: readonly ExtractedFile[],
+  holds: (entry: ExtractedFile) => boolean
+): string[] =>
+  extracted
+    .filter(holds)
+    .map(({ file }) => file)
+    .toSorted((left, right) => left.localeCompare(right));
+
+/** Maps ReDoS-prone, unsettled, and dynamic regexes across paths, judging each distinct reading once */
 export const scan = async (
   root: string,
   targets: string[],
   repetitionLimit?: number
 ): Promise<RegexScanResult> => {
-  const walked = await Promise.all(targets.map((target) => walk(root, target)));
+  const walked = await Promise.all(
+    targets.map((target) => walk(root, target, SOURCE_FILTER))
+  );
   const files = [...new Set(walked.flat())];
-  const perFile = await Promise.all(
-    files.map((file) => scanFile(root, file, repetitionLimit))
+  const read = await Promise.all(files.map((file) => extractFile(root, file)));
+  const extracted = read.filter(isExtracted);
+  const assessments = await assessReadings(
+    distinctReadings(extracted),
+    repetitionLimit
   );
 
   return {
-    unsafe: perFile.flatMap((entry) => entry.unsafe),
-    dynamic: sortedFiles(perFile.map((entry) => entry.dynamic)),
-    staticWrap: sortedFiles(perFile.map((entry) => entry.staticWrap)),
+    unsafe: findingsOf(extracted, assessments, 'unsafe'),
+    undetermined: findingsOf(extracted, assessments, 'undetermined'),
+    dynamic: filesWhere(extracted, ({ dynamic }) => dynamic),
+    staticWrap: filesWhere(extracted, ({ staticWrap }) => staticWrap),
   };
 };
