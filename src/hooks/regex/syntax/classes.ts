@@ -39,16 +39,6 @@ import {
 
 const MAX_EMOJI_LENGTH = 16;
 
-const STRING_PROPERTIES = new Set([
-  'Basic_Emoji',
-  'Emoji_Keycap_Sequence',
-  'RGI_Emoji_Modifier_Sequence',
-  'RGI_Emoji_Flag_Sequence',
-  'RGI_Emoji_Tag_Sequence',
-  'RGI_Emoji_ZWJ_Sequence',
-  'RGI_Emoji',
-]);
-
 export const closeOver = (
   set: CodeSet,
   mode: MatchMode,
@@ -88,12 +78,10 @@ const propertyValue = (
   mode: MatchMode,
   cursor: ParseCursor
 ): ClassValue => {
-  if (STRING_PROPERTIES.has(expression))
-    return {
-      chars: stringPropertySingles(expression),
-      strings: [],
-      approximate: true,
-    };
+  const singles = stringPropertySingles(expression);
+
+  if (singles !== null)
+    return { chars: singles, strings: [], approximate: true };
 
   const base = propertySet(expression);
   const folded = cursor.sets ? closeOver(base, mode, true) : base;

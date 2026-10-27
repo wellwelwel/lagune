@@ -59,6 +59,16 @@ const EMOJI_COMPONENT_RUN =
 
 const CASELESS_REPEAT = /^(.)\1$/isu;
 
+const STRING_PROPERTY_MATCHERS = new Map<string, RegExp>([
+  ['Basic_Emoji', /^\p{Basic_Emoji}$/v],
+  ['Emoji_Keycap_Sequence', /^\p{Emoji_Keycap_Sequence}$/v],
+  ['RGI_Emoji_Modifier_Sequence', /^\p{RGI_Emoji_Modifier_Sequence}$/v],
+  ['RGI_Emoji_Flag_Sequence', /^\p{RGI_Emoji_Flag_Sequence}$/v],
+  ['RGI_Emoji_Tag_Sequence', /^\p{RGI_Emoji_Tag_Sequence}$/v],
+  ['RGI_Emoji_ZWJ_Sequence', /^\p{RGI_Emoji_ZWJ_Sequence}$/v],
+  ['RGI_Emoji', /^\p{RGI_Emoji}$/v],
+]);
+
 const nativeCache = new Map<string, CodeSet>();
 
 const caseCache = new Map<boolean, CaseTable>();
@@ -246,12 +256,14 @@ export const wordSet = (ignoreCase: boolean, unicode: boolean): CodeSet =>
 export const propertySet = (expression: string): CodeSet =>
   nativeSet(new RegExp(`\\p{${expression}}+`, 'gu'));
 
-export const stringPropertySingles = (expression: string): CodeSet => {
-  const single = new RegExp(`^\\p{${expression}}$`, 'v');
+export const stringPropertySingles = (expression: string): CodeSet | null => {
+  const matcher = STRING_PROPERTY_MATCHERS.get(expression);
+
+  if (matcher === undefined) return null;
 
   return fromPoints(
     expandPoints(nativeSet(EMOJI_RUN)).filter((point) =>
-      single.test(String.fromCodePoint(point))
+      matcher.test(String.fromCodePoint(point))
     )
   );
 };

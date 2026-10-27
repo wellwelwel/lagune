@@ -202,6 +202,26 @@ describe('Unicode classes cover the characters the engine assigns to them', () =
   });
 });
 
+describe('a property of strings keeps only its single-character members in a set intersection', () => {
+  const cases: Array<[string, 'safe' | 'unsafe']> = [
+    ['Basic_Emoji', 'unsafe'],
+    ['RGI_Emoji', 'unsafe'],
+    ['Emoji_Keycap_Sequence', 'safe'],
+    ['RGI_Emoji_Modifier_Sequence', 'safe'],
+    ['RGI_Emoji_Flag_Sequence', 'safe'],
+    ['RGI_Emoji_Tag_Sequence', 'safe'],
+    ['RGI_Emoji_ZWJ_Sequence', 'safe'],
+  ];
+
+  for (const [property, verdict] of cases)
+    it(`reads ${property} intersected with U+1F600 as ${verdict}`, () => {
+      strict.strictEqual(
+        check(`^[\\p{${property}}&&\\u{1f600}]*\\u{1f600}*$`, { flags: 'v' }),
+        verdict
+      );
+    });
+});
+
 describe('a lookaround is judged by the work it repeats', () => {
   expectAll('safe', [
     '^a(?=a+a+)$',
