@@ -7,8 +7,9 @@ export const matchProject = (
 ): string => {
   const source = structuralText(detect ?? charter ?? '');
   return (
-    source.match(/^#\s+(.+?)\s+(Detect Map|Security Charter)/m)?.[1] ??
-    'Project'
+    source.match(
+      /^#[ \t]+(\S+(?:[ \t]+\S+)*?)[ \t]+(?:Detect Map|Security Charter)/m
+    )?.[1] ?? 'Project'
   );
 };
 

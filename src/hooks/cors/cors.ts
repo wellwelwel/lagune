@@ -5,7 +5,7 @@ const normalize = (origin: string): string =>
   origin
     .trim()
     .replace(/^access-control-allow-origin\s*:\s*/i, '')
-    .replace(/^['"`]+|['"`]+$/g, '')
+    .replace(/^['"`]+|(?<!['"`])['"`]+$/g, '')
     .trim();
 
 const scoreToken = (token: string): CorsVerdict => {

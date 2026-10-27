@@ -47,7 +47,8 @@ export const SIGNATURES: LineRule[] = [
     detail: 'Google API key (AIza…) committed in source',
   },
   {
-    regex: /\beyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b/,
+    regex:
+      /(?<![A-Za-z0-9_-])eyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b/,
     detail: 'JSON Web Token (eyJ…) committed in source',
   },
   {

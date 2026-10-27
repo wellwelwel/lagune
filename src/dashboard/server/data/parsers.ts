@@ -64,11 +64,11 @@ export const parseUpholds = (raw: string | null): Uphold[] => {
     .map((part) => part.trim())
     .filter(Boolean)
     .map((text) => {
-      const numbered = text.match(/^([IVXLC]+)\.\s*(.*)$/);
+      const numbered = text.match(/^([IVXLC]+)\.\s*(\S.*)?$/);
       if (numbered)
         return {
           baseline: false,
-          label: `${numbered[1]} · ${numbered[2]}`,
+          label: `${numbered[1]} · ${numbered[2] ?? ''}`,
           full: text,
         };
       return { baseline: true, label: `Baseline · ${text}`, full: text };

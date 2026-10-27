@@ -121,6 +121,13 @@ describe('github-actions findings and advisories', () => {
     strict.strictEqual(classify(wf, 'github-actions'), 'script-injection');
   });
 
+  it('does not flag an event field an outsider cannot shape', () => {
+    const wf =
+      'jobs:\n  x:\n    steps:\n      - run: echo "${{ github.event.pull_request.number }}"';
+
+    strict.strictEqual(classify(wf, 'github-actions'), 'safe');
+  });
+
   it('flags permissions: write-all', () => {
     strict.strictEqual(
       classify('permissions: write-all', 'github-actions'),
@@ -263,4 +270,83 @@ describe('terraform, dockerfile, and github-actions coverage gaps', () => {
 
     strict.strictEqual(classify(wf, 'github-actions'), 'script-injection');
   });
+});
+
+describe('terraform comments hide only what they enclose', () => {
+  const openIngress = `resource "aws_security_group" "db" {
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}`;
+
+  it('does not flag an ingress rule inside a block comment', () => {
+    strict.strictEqual(
+      analyze(`/*\n${openIngress}\n*/`, 'terraform').findings.length,
+      0
+    );
+  });
+
+  it('does not flag an ingress line commented out with // in a CRLF file', () => {
+    const tf = [
+      'resource "aws_security_group" "db" {',
+      '  ingress {',
+      '    from_port   = 5432',
+      '    to_port     = 5432',
+      '    // cidr_blocks = ["0.0.0.0/0"]',
+      '  }',
+      '}',
+    ].join('\r\n');
+
+    strict.strictEqual(analyze(tf, 'terraform').findings.length, 0);
+  });
+
+  it('still flags an open ingress after a wildcard ARN that never closes a comment', () => {
+    const tf = `data "aws_iam_policy_document" "read" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["arn:aws:s3:::assets/*"]
+  }
+}
+
+${openIngress}`;
+
+    strict.strictEqual(classify(tf, 'terraform'), 'public-ingress');
+  });
+});
+
+describe('dockerfile curl-pipe reads the stage the download feeds', () => {
+  const cases: Array<[string, string, 'curl-pipe' | 'safe']> = [
+    [
+      'a download piped into sh',
+      'RUN curl -fsSL https://x.sh | sh',
+      'curl-pipe',
+    ],
+    [
+      'a download piped into sudo bash',
+      'RUN wget -qO- https://x.sh | sudo bash',
+      'curl-pipe',
+    ],
+    [
+      'a long download command piped into zsh',
+      `RUN curl ${'-H "X: y" '.repeat(80)}https://x.sh | zsh`,
+      'curl-pipe',
+    ],
+    [
+      'a download piped into a JSON reader',
+      'RUN curl -fsSL https://x/api.json | jq .name',
+      'safe',
+    ],
+    [
+      'a download piped into a tool named after a shell',
+      'RUN curl -fsSL https://x.sh | shellcheck -',
+      'safe',
+    ],
+  ];
+
+  for (const [description, run, verdict] of cases)
+    it(`reads ${description} as ${verdict}`, () => {
+      strict.strictEqual(classify(`USER node\n${run}`, 'dockerfile'), verdict);
+    });
 });

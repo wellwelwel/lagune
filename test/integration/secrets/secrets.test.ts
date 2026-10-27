@@ -90,6 +90,19 @@ describe('analyzeFor flags hardcoded credentials as findings', () => {
       analyzeFor('rust', `let t = "${GITHUB_TOKEN}";`).findings.length >= 1
     );
   });
+
+  it('flags a committed JSON Web Token by its three base64url segments', () => {
+    const token = [
+      'eyJhbGciOiJIUzI1NiJ9',
+      'eyJzdWIiOiIxMjM0NTY3ODkwIn0',
+      'dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U',
+    ].join('.');
+
+    strict.ok(
+      analyzeFor('javascript', `const auth = "Bearer ${token}";`).findings
+        .length >= 1
+    );
+  });
 });
 
 describe('analyzeFor reads the environment fallback in each language', () => {

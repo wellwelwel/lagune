@@ -20,12 +20,30 @@ const PORT_ASSIGNMENT =
 // A protocol of "-1" (all protocols) opens every port at once.
 const OPEN_PROTOCOL = /\b(?:protocol|ip_protocol)\s{0,16}=\s{0,16}["']-1["']/;
 
+const stripBlockComments = (content: string): string => {
+  const kept: string[] = [];
+  let cursor = 0;
+
+  while (cursor < content.length) {
+    const open = content.indexOf('/*', cursor);
+    const close = open === -1 ? -1 : content.indexOf('*/', open + 2);
+
+    if (close === -1) break;
+
+    kept.push(content.slice(cursor, open));
+    cursor = close + 2;
+  }
+
+  kept.push(content.slice(cursor));
+
+  return kept.join(' ');
+};
+
 /** Strips HCL comments so braces inside them do not corrupt block matching */
 const stripHclComments = (content: string): string =>
-  content
-    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+  stripBlockComments(content)
     .split('\n')
-    .map((line) => line.replace(/#[^\n]*/, '').replace(/(^|[^:])\/\/.*$/, '$1'))
+    .map((line) => line.replace(/#[^\n]*/, '').replace(/(^|[^:])\/\/.*/, '$1'))
     .join('\n');
 
 const balancedSpan = (
@@ -175,15 +193,27 @@ const runsAsRoot = (content: string): boolean => {
   return /^(?:root|0)\b/i.test(users[users.length - 1][1]);
 };
 
+const DOWNLOADER = /\b(?:curl|wget)\b/;
+
+const SHELL_STAGE = /^\s{0,16}(?:sudo\s{1,16})?(?:sh|bash|zsh)\b/;
+
+const pipesDownloadIntoShell = (line: string): boolean =>
+  line
+    .split('|')
+    .some(
+      (stage, index, stages) =>
+        index > 0 &&
+        SHELL_STAGE.test(stage) &&
+        DOWNLOADER.test(stages[index - 1])
+    );
+
 const hasCurlPipe = (content: string): boolean =>
   content
     .replace(/\\\s{0,16}\n/g, ' ')
     .split('\n')
     .some(
       (line) =>
-        /\b(?:curl|wget)\b[^|\n]{0,500}\|\s{0,16}(?:sudo\s{1,16})?(?:sh|bash|zsh)\b/.test(
-          line
-        ) &&
+        pipesDownloadIntoShell(line) &&
         !/\b(?:sha256sum|sha512sum|gpg|cosign|checksum|--verify)\b/i.test(line)
     );
 
@@ -210,8 +240,10 @@ const hasMutableFrom = (content: string): boolean => {
 
 // --- github-actions ---
 
-const SCRIPT_INJECTION =
-  /\$\{\{\s{0,16}github\.event\.[^}]{0,200}(?:title|body|message|name|email|label|ref|head_ref|comment|description|author|default_branch)[^}]{0,200}\}\}/i;
+const EVENT_EXPRESSION = /\$\{\{\s{0,16}github\.event\.([^}]{0,400})\}\}/gi;
+
+const UNTRUSTED_EVENT_FIELD =
+  /title|body|message|name|email|label|ref|head_ref|comment|description|author|default_branch/i;
 
 /** Scoped to `run:` bodies, so GitHub's own mitigation (a `github.event` value mapped into `env:` and read as `$VAR`) is not flagged */
 const runStepBodies = (content: string): string[] => {
@@ -246,8 +278,13 @@ const runStepBodies = (content: string): string[] => {
   return bodies;
 };
 
+const interpolatesUntrustedField = (body: string): boolean =>
+  [...body.matchAll(EVENT_EXPRESSION)].some((match) =>
+    UNTRUSTED_EVENT_FIELD.test(match[1])
+  );
+
 const hasScriptInjection = (content: string): boolean =>
-  runStepBodies(content).some((body) => SCRIPT_INJECTION.test(body));
+  runStepBodies(content).some(interpolatesUntrustedField);
 
 const hasUnpinnedUses = (content: string): boolean =>
   content.split('\n').some((line) => {

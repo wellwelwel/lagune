@@ -13,7 +13,11 @@ import {
   withinSection,
 } from '../../../src/core/markdown/sections.js';
 import { buildCharter } from '../../../src/dashboard/server/data/build/charter.js';
-import { parseApplied } from '../../../src/dashboard/server/data/parsers.js';
+import { matchProject } from '../../../src/dashboard/server/data/build/meta.js';
+import {
+  parseApplied,
+  parseUpholds,
+} from '../../../src/dashboard/server/data/parsers.js';
 
 const lines = (...items: string[]): string => items.join('\n');
 
@@ -615,5 +619,65 @@ describe('heading and fence primitives', () => {
       sectionBlocks(text, 'Findings').map((block) => block.name),
       ['Before']
     );
+  });
+});
+
+describe('matchProject names the project from its map heading', () => {
+  const cases: Array<[string, string | null, string | null, string]> = [
+    ['the detect map heading', '# Acme Shop Detect Map', null, 'Acme Shop'],
+    [
+      'the charter heading when no detect map exists',
+      null,
+      '# Acme Shop Security Charter',
+      'Acme Shop',
+    ],
+    [
+      'a heading below a fenced example',
+      lines('```markdown', '# Example Detect Map', '```', '# Acme Detect Map'),
+      null,
+      'Acme',
+    ],
+    [
+      'a heading with no name as the default',
+      '#    Detect Map',
+      null,
+      'Project',
+    ],
+    ['no map at all as the default', null, null, 'Project'],
+  ];
+
+  for (const [description, detect, charter, project] of cases)
+    it(`reads ${description}`, () => {
+      strict.strictEqual(matchProject(detect, charter), project);
+    });
+});
+
+describe('parseUpholds labels each upheld principle', () => {
+  it('labels a numbered principle by its numeral and a baseline phrase as baseline', () => {
+    strict.deepStrictEqual(
+      parseUpholds('II. Least privilege, Prefer the simplest vetted control'),
+      [
+        {
+          baseline: false,
+          label: 'II · Least privilege',
+          full: 'II. Least privilege',
+        },
+        {
+          baseline: true,
+          label: 'Baseline · Prefer the simplest vetted control',
+          full: 'Prefer the simplest vetted control',
+        },
+      ]
+    );
+  });
+
+  it('labels a bare numeral without inventing text', () => {
+    strict.deepStrictEqual(parseUpholds('IV.'), [
+      { baseline: false, label: 'IV · ', full: 'IV.' },
+    ]);
+  });
+
+  it('reads "None directly" as no upheld principle', () => {
+    strict.deepStrictEqual(parseUpholds('None directly'), []);
   });
 });

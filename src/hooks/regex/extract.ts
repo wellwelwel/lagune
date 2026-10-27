@@ -6,7 +6,7 @@ import { decodeLiteral, readLiteral, staticLiteralAt } from './lexer.js';
 const METACHARACTERS = /[.*+?^${}()|[\]\\]/;
 
 const REGEX_TOKENS =
-  /\\[dwsbDWSB]|\[[^\]]{1,200}\]|[*+?]|\{\d{1,9}(,\d{0,9})?\}|\|/;
+  /\\[dwsbDWSB]|\[[^[\]]{1,200}\]|[*+?]|\{\d{1,9}(,\d{0,9})?\}|\|/;
 
 const MIN_LENGTH = 3;
 

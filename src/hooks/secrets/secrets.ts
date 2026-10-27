@@ -4,7 +4,7 @@ import { codeLines } from '../../core/scan/lines.js';
 import { envFallbacksOf, SIGNATURES, sinkOf } from './patterns.js';
 
 const ASSIGN =
-  /[a-z0-9_]{0,64}(?:password|passwd|pwd|secret|api[_-]?key|apikey|access[_-]?key|auth[_-]?token|token|credential|private[_-]?key|client[_-]?secret)\s{0,16}[:=]\s{0,16}(['"`])([^'"`]{0,4096})\1/i;
+  /(?:password|passwd|pwd|secret|api[_-]?key|apikey|access[_-]?key|auth[_-]?token|token|credential|private[_-]?key|client[_-]?secret)\s{0,16}[:=]\s{0,16}(['"`])([^'"`]{0,4096})\1/i;
 
 const CONNECTION_STRING =
   /\b[a-z][a-z0-9+.-]{1,20}:\/\/[^\s:'"`@/]{0,64}:([^\s:'"`@/]{1,256})@[^\s'"`/]{1,256}/i;
