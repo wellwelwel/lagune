@@ -14,7 +14,7 @@ import {
 } from '../automaton/intern.js';
 import { KIND_COUNT } from '../automaton/kinds.js';
 import { spend } from '../budget.js';
-import { chainRanges, GAIN, walkOf } from './groups.js';
+import { chainRanges } from './chains.js';
 import {
   entryOf,
   movesOf,
@@ -25,15 +25,15 @@ import {
 import { createPairs, livesOf, outlives } from './pairs.js';
 import { advanceInto, createScratch, pushPath, spreadInto } from './spread.js';
 import {
+  blindRepresentativesInto,
   gainsInto,
-  NO_PRIORS,
-  representativesInto,
   resetSlots,
   sortEvents,
   sweepEvery,
   sweepPieces,
 } from './sweep.js';
 import { quietenSlot, startValue, totalOf } from './vectors.js';
+import { GAIN, walkOf } from './walk.js';
 
 const ATTEMPT_FRONTIERS = 20_000;
 
@@ -294,7 +294,7 @@ const openFrontiers = (
         );
 
     const events = sortEvents(scratch);
-    const choice = representativesInto(walk, scratch, NO_PRIORS, 0, 1, 0);
+    const choice = blindRepresentativesInto(walk, scratch);
 
     sweepPieces(scratch, walk, events, choice, cap);
 
@@ -337,7 +337,7 @@ const attemptPaths = (
     spend(meter, 1 + scratch.incidences);
 
     const events = sortEvents(scratch);
-    const choice = representativesInto(walk, scratch, NO_PRIORS, 0, 1, 0);
+    const choice = blindRepresentativesInto(walk, scratch);
 
     sweepPieces(scratch, walk, events, choice, cap);
 
@@ -387,7 +387,7 @@ const loosePaths = (
     spend(meter, 1 + scratch.incidences);
 
     const events = sortEvents(scratch);
-    const choice = representativesInto(walk, scratch, NO_PRIORS, 0, 1, 0);
+    const choice = blindRepresentativesInto(walk, scratch);
 
     sweepPieces(scratch, walk, events, choice, cap);
 

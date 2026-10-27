@@ -5,30 +5,7 @@ import type {
   ScoreMoveTable,
 } from '../../../types/hooks/regex.js';
 import { runsInOrder } from '../automaton/lookahead.js';
-import { NO_LOOP } from './layout.js';
-
-export const remembered = <Value>(
-  cache: WeakMap<Lookahead, Map<number, Value>>,
-  lookahead: Lookahead,
-  klass: number,
-  build: () => Value
-): Value => {
-  let byClass = cache.get(lookahead);
-
-  if (byClass === undefined) {
-    byClass = new Map();
-    cache.set(lookahead, byClass);
-  }
-
-  const known = byClass.get(klass);
-
-  if (known !== undefined) return known;
-
-  const value = build();
-
-  byClass.set(klass, value);
-  return value;
-};
+import { NO_LOOP, remembered } from './layout.js';
 
 /** Lists where the surviving steps of every state lead for one class of the input that follows, the search loop's own step apart */
 const tableOf = (

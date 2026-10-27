@@ -398,6 +398,11 @@ export type ScoreBundles = {
   pieces: number[][];
 };
 
+export type BundleStreaks = {
+  sorted: readonly number[];
+  lengths: readonly number[];
+};
+
 export type ScoreGroups = {
   count: number;
   kinds: Uint8Array;

@@ -5,7 +5,7 @@ import type {
 } from '../../../types/hooks/regex.js';
 import { grownFloat64, grownInt32 } from '../automaton/buffers.js';
 import { createRunTable } from '../automaton/intern.js';
-import { GAIN, MIRROR, mirrorAxis, SHIFT } from './groups.js';
+import { GAIN, MIRROR, mirrorAxis, SHIFT } from './walk.js';
 
 const EXACT_SUMS = 2 ** 53;
 
@@ -45,6 +45,17 @@ export const createScratch = (): ScoreScratch => ({
   representatives: new Int32Array(64),
 });
 
+const reservePaths = (scratch: ScoreScratch, extra: number): void => {
+  const size = scratch.pathCount + extra;
+
+  if (size <= scratch.pathPieces.length) return;
+
+  scratch.pathPieces = grownInt32(scratch.pathPieces, size);
+  scratch.pathStarts = grownInt32(scratch.pathStarts, size);
+  scratch.pathEnds = grownInt32(scratch.pathEnds, size);
+  scratch.pathValues = grownFloat64(scratch.pathValues, size);
+};
+
 export const pushPath = (
   scratch: ScoreScratch,
   pieces: number,
@@ -54,13 +65,7 @@ export const pushPath = (
 ): void => {
   const path = scratch.pathCount;
 
-  if (path === scratch.pathPieces.length) {
-    scratch.pathPieces = grownInt32(scratch.pathPieces, path + 1);
-    scratch.pathStarts = grownInt32(scratch.pathStarts, path + 1);
-    scratch.pathEnds = grownInt32(scratch.pathEnds, path + 1);
-    scratch.pathValues = grownFloat64(scratch.pathValues, path + 1);
-  }
-
+  reservePaths(scratch, 1);
   scratch.pathPieces[path] = pieces;
   scratch.pathStarts[path] = start;
   scratch.pathEnds[path] = end;
@@ -126,17 +131,6 @@ const memberAt = (
 ): number =>
   index === first ? segments.members[slot] : segments.openMembers[slot];
 
-const reservePaths = (scratch: ScoreScratch, extra: number): void => {
-  const size = scratch.pathCount + extra;
-
-  if (size <= scratch.pathPieces.length) return;
-
-  scratch.pathPieces = grownInt32(scratch.pathPieces, size);
-  scratch.pathStarts = grownInt32(scratch.pathStarts, size);
-  scratch.pathEnds = grownInt32(scratch.pathEnds, size);
-  scratch.pathValues = grownFloat64(scratch.pathValues, size);
-};
-
 /** Spreads a vector back one group per run, telling whether its sums match the segment by segment spread */
 const spreadMerged = (
   walk: ScoreWalk,
@@ -186,22 +180,26 @@ const spreadMerged = (
         pathPieces[path] = pieces[group];
         pathValues[path] = amount;
 
-        if (kinds[group] === SHIFT) {
-          pathStarts[path] =
-            Math.max(start, targets[group]) + source - targets[group];
-          pathEnds[path] =
-            Math.min(end, targets[group] + lengths[group]) +
-            source -
-            targets[group];
-        } else if (kinds[group] === MIRROR) {
-          const axis = mirrorAxis(walk.groups, group);
+        switch (kinds[group]) {
+          case SHIFT:
+            pathStarts[path] =
+              Math.max(start, targets[group]) + source - targets[group];
+            pathEnds[path] =
+              Math.min(end, targets[group] + lengths[group]) +
+              source -
+              targets[group];
+            break;
+          case MIRROR: {
+            const axis = mirrorAxis(walk.groups, group);
 
-          pathStarts[path] =
-            axis - Math.min(end, targets[group] + lengths[group]);
-          pathEnds[path] = axis - Math.max(start, targets[group]);
-        } else {
-          pathStarts[path] = source;
-          pathEnds[path] = source + lengths[group];
+            pathStarts[path] =
+              axis - Math.min(end, targets[group] + lengths[group]);
+            pathEnds[path] = axis - Math.max(start, targets[group]);
+            break;
+          }
+          default:
+            pathStarts[path] = source;
+            pathEnds[path] = source + lengths[group];
         }
 
         path += 1;
@@ -254,10 +252,9 @@ const spreadSegments = (
           continue;
         }
 
-        const offset = source - groups.targets[group];
-        const axis = mirrorAxis(groups, group);
+        if (kind === SHIFT) {
+          const offset = source - groups.targets[group];
 
-        if (kind === SHIFT)
           pushPath(
             scratch,
             groups.pieces[group],
@@ -265,7 +262,12 @@ const spreadSegments = (
             high + offset,
             amount
           );
-        else if (kind === MIRROR)
+          continue;
+        }
+
+        if (kind === MIRROR) {
+          const axis = mirrorAxis(groups, group);
+
           pushPath(
             scratch,
             groups.pieces[group],
@@ -273,14 +275,16 @@ const spreadSegments = (
             axis - low,
             amount
           );
-        else
-          pushPath(
-            scratch,
-            groups.pieces[group],
-            source,
-            source + groups.lengths[group],
-            amount
-          );
+          continue;
+        }
+
+        pushPath(
+          scratch,
+          groups.pieces[group],
+          source,
+          source + groups.lengths[group],
+          amount
+        );
       }
     }
   }
@@ -406,10 +410,10 @@ const advanceSegments = (
         const group = sources.members[slot];
         const amount = value * groups.multiplicities[group];
         const target = groups.targets[group];
-        const offset = target - groups.sources[group];
-        const axis = mirrorAxis(groups, group);
 
-        if (groups.kinds[group] === SHIFT)
+        if (groups.kinds[group] === SHIFT) {
+          const offset = target - groups.sources[group];
+
           pushPath(
             scratch,
             groups.pieces[group],
@@ -417,7 +421,12 @@ const advanceSegments = (
             high + offset,
             amount
           );
-        else if (groups.kinds[group] === MIRROR)
+          continue;
+        }
+
+        if (groups.kinds[group] === MIRROR) {
+          const axis = mirrorAxis(groups, group);
+
           pushPath(
             scratch,
             groups.pieces[group],
@@ -425,14 +434,16 @@ const advanceSegments = (
             axis - low,
             amount
           );
-        else
-          pushPath(
-            scratch,
-            groups.pieces[group],
-            target,
-            target + 1,
-            amount * (high - low)
-          );
+          continue;
+        }
+
+        pushPath(
+          scratch,
+          groups.pieces[group],
+          target,
+          target + 1,
+          amount * (high - low)
+        );
       }
     }
   }

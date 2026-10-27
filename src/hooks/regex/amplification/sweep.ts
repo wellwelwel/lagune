@@ -17,7 +17,7 @@ const DENSE_FACTOR = 8;
 
 const MASK_WIDTH = 32;
 
-export const NO_PRIORS = new Int32Array(0);
+const NO_PRIORS = new Int32Array(0);
 
 const placeEvent = (
   scratch: ScoreScratch,
@@ -348,6 +348,12 @@ export const representativesInto = (
   scratch.choices.push(choice);
   return choice;
 };
+
+/** Picks the representatives for a walk whose lookahead tells no classes of the input apart */
+export const blindRepresentativesInto = (
+  walk: ScoreWalk,
+  scratch: ScoreScratch
+): ScoreChoice => representativesInto(walk, scratch, NO_PRIORS, 0, 1, 0);
 
 export const resetSlots = (scratch: ScoreScratch, count: number): void => {
   if (count > scratch.levels.length) {

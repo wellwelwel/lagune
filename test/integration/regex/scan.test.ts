@@ -1,3 +1,4 @@
+import type { RegexScanResult } from '../../../src/types/hooks/regex.js';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { scan } from '../../../src/hooks/regex/scan.js';
@@ -6,7 +7,7 @@ import { newWorkspace, writeFiles } from './__utils__.js';
 await describe('scan maps unsafe regex across a path, language-gated', async () => {
   const withWorkspace = async (
     files: Record<string, string>,
-    assert: (result: Awaited<ReturnType<typeof scan>>) => void
+    assert: (result: RegexScanResult) => void
   ) => {
     const workspace = await newWorkspace();
 

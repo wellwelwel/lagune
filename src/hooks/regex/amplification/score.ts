@@ -17,7 +17,6 @@ import {
   hashRuns,
 } from '../automaton/intern.js';
 import { spend } from '../budget.js';
-import { walkOf } from './groups.js';
 import { NO_LOOP } from './layout.js';
 import { createScratch, spreadInto } from './spread.js';
 import {
@@ -32,6 +31,7 @@ import {
   quietenSlot,
   startValue,
 } from './vectors.js';
+import { walkOf } from './walk.js';
 
 const createNodes = (loops: number): ScoreNodes => ({
   table: createRunTable(),

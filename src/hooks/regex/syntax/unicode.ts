@@ -74,6 +74,8 @@ const nativeCache = new Map<string, CodeSet>();
 
 const caseCache = new Map<boolean, CaseTable>();
 
+let segments: readonly Segment[] | null = null;
+
 /** Spells every code point of a range in order, writing an astral one as the surrogate pair that encodes it */
 const segmentText = (start: number, end: number): string => {
   const parts: string[] = [];
@@ -97,8 +99,6 @@ const segmentText = (start: number, end: number): string => {
 
   return parts.join('');
 };
-
-let segments: readonly Segment[] | null = null;
 
 const unicodeSegments = (): readonly Segment[] => {
   segments ??= UNICODE_SEGMENTS.map(([start, end, width]) => ({

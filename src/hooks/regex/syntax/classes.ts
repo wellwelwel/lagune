@@ -45,19 +45,30 @@ export const closeOver = (
   unicode: boolean
 ): CodeSet => (mode.ignoreCase ? caseClosure(set, unicode) : set);
 
+const closeOverInSets = (
+  set: CodeSet,
+  mode: MatchMode,
+  cursor: ParseCursor
+): CodeSet => (cursor.sets ? closeOver(set, mode, true) : set);
+
+const escapeBase = (
+  lower: string,
+  mode: MatchMode,
+  cursor: ParseCursor
+): CodeSet => {
+  if (lower === 'd') return DIGITS;
+  if (lower === 's') return spaceSet();
+
+  return wordSet(mode.ignoreCase, cursor.unicode);
+};
+
 const escapeClassSet = (
   letter: string,
   mode: MatchMode,
   cursor: ParseCursor
 ): CodeSet => {
   const lower = letter.toLowerCase();
-  const base =
-    lower === 'd'
-      ? DIGITS
-      : lower === 's'
-        ? spaceSet()
-        : wordSet(mode.ignoreCase, cursor.unicode);
-  const folded = cursor.sets ? closeOver(base, mode, true) : base;
+  const folded = closeOverInSets(escapeBase(lower, mode, cursor), mode, cursor);
 
   return letter === lower
     ? folded
@@ -83,8 +94,7 @@ const propertyValue = (
   if (singles !== null)
     return { chars: singles, strings: [], approximate: true };
 
-  const base = propertySet(expression);
-  const folded = cursor.sets ? closeOver(base, mode, true) : base;
+  const folded = closeOverInSets(propertySet(expression), mode, cursor);
 
   return {
     chars: negated ? complement(folded, universeLimit(true)) : folded,
@@ -329,6 +339,49 @@ const parseSetOperand = (cursor: ParseCursor, mode: MatchMode): ClassValue => {
   return charValue(closeOver(rangeSet(start, end + 1), mode, true));
 };
 
+const combineOperands = (
+  cursor: ParseCursor,
+  mode: MatchMode,
+  first: ClassValue,
+  operator: string,
+  combine: (left: ClassValue, right: ClassValue) => ClassValue
+): ClassValue => {
+  let value = first;
+
+  while (startsWith(cursor, operator)) {
+    cursor.position += operator.length;
+    value = combine(value, parseSetOperand(cursor, mode));
+  }
+
+  return value;
+};
+
+const unionOperands = (
+  cursor: ParseCursor,
+  mode: MatchMode,
+  first: ClassValue
+): ClassValue => {
+  let value = first;
+
+  while (cursor.position < cursor.source.length && peek(cursor) !== ']')
+    value = unionValues(value, parseSetOperand(cursor, mode));
+
+  return value;
+};
+
+const parseSetBody = (cursor: ParseCursor, mode: MatchMode): ClassValue => {
+  if (peek(cursor) === ']') return charValue(EMPTY_SET);
+
+  const first = parseSetOperand(cursor, mode);
+
+  if (startsWith(cursor, '&&'))
+    return combineOperands(cursor, mode, first, '&&', intersectValues);
+  if (startsWith(cursor, '--'))
+    return combineOperands(cursor, mode, first, '--', subtractValues);
+
+  return unionOperands(cursor, mode, first);
+};
+
 export const parseSetClass = (
   cursor: ParseCursor,
   mode: MatchMode
@@ -339,25 +392,7 @@ export const parseSetClass = (
 
   if (negated) cursor.position += 1;
 
-  let value: ClassValue = charValue(EMPTY_SET);
-
-  if (peek(cursor) !== ']') {
-    value = parseSetOperand(cursor, mode);
-
-    if (startsWith(cursor, '&&'))
-      while (startsWith(cursor, '&&')) {
-        cursor.position += 2;
-        value = intersectValues(value, parseSetOperand(cursor, mode));
-      }
-    else if (startsWith(cursor, '--'))
-      while (startsWith(cursor, '--')) {
-        cursor.position += 2;
-        value = subtractValues(value, parseSetOperand(cursor, mode));
-      }
-    else
-      while (cursor.position < cursor.source.length && peek(cursor) !== ']')
-        value = unionValues(value, parseSetOperand(cursor, mode));
-  }
+  const value = parseSetBody(cursor, mode);
 
   cursor.position += 1;
 

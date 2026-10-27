@@ -158,7 +158,6 @@ await describe('the regex hook runs through the engine', async () => {
 
   await it('rejects mixing a check with a scan scope', async () => {
     const workspace = await newWorkspace();
-
     const { code, stderr } = await runEngine(workspace, [
       'regex',
       '-p',
@@ -191,7 +190,6 @@ await describe('the regex hook runs through the engine', async () => {
       (await runEngine(workspace, ['regex', '-f', 'app.js'])).code,
       1
     );
-
     strict.strictEqual(
       (await runEngine(workspace, ['regex', '-p', '^abc$'])).code,
       0

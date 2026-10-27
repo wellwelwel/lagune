@@ -1,9 +1,7 @@
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
 import { chdir, cwd } from 'node:process';
 import { describe, it, strict } from 'poku';
 import { parseArgs, run } from '../../../src/hooks/regex/cli.js';
+import { newWorkspace, writeFiles } from './__utils__.js';
 
 describe('parseArgs chooses a mode from the flags', () => {
   it('defaults to a whole-project scan with no flags', () => {
@@ -145,7 +143,7 @@ describe('parseArgs chooses a mode from the flags', () => {
     }
   });
 
-  it('rejects a dash-prefixed limit at the parser, before parseLimit', () => {
+  it('rejects a negative repetition limit', () => {
     strict.throws(() => parseArgs(['-p', 'a', '-l', '-1']), {
       code: 'ERR_PARSE_ARGS_INVALID_OPTION_VALUE',
     });
@@ -212,19 +210,19 @@ await describe('run dispatches the check mode', async () => {
 
 await describe('run dispatches the scan mode', async () => {
   const inWorkspace = async (
-    run_: () => Promise<void>,
+    scenario: () => Promise<void>,
     seed: string
   ): Promise<void> => {
-    const workspace = await mkdtemp(join(tmpdir(), 'lagune-regex-cli-'));
+    const workspace = await newWorkspace();
     const previous = cwd();
 
+    await writeFiles(workspace, { 'app.js': seed });
+
     try {
-      await writeFile(join(workspace, 'app.js'), seed, 'utf8');
       chdir(workspace);
-      await run_();
+      await scenario();
     } finally {
       chdir(previous);
-      await rm(workspace, { recursive: true, force: true });
     }
   };
 
@@ -236,15 +234,6 @@ await describe('run dispatches the scan mode', async () => {
         hasFinding: true,
       });
     }, 'const re = /(a+)+$/;\n');
-  });
-
-  await it('scans only the directory named by -d', async () => {
-    await inWorkspace(async () => {
-      strict.deepStrictEqual(await run(['-d', '.']), {
-        output: 'no unsafe patterns found\n',
-        hasFinding: false,
-      });
-    }, 'const ok = /^[a-z]+$/;\n');
   });
 
   await it('tightens the scan verdict with -l', async () => {

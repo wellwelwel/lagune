@@ -9,10 +9,11 @@ import { lookaheadFrom } from '../automaton/lookahead.js';
 import { reachCap } from '../budget.js';
 import { someNode } from '../syntax/tree.js';
 import { attemptBound } from './attempts.js';
+import { quietRanges, steadyRanges } from './chains.js';
 import { confirms } from './confirmation.js';
-import { quietRanges, steadyRanges, walkOf } from './groups.js';
 import { consultedFor, layoutOf, readerFor, sureOf } from './layout.js';
 import { walkScore } from './score.js';
+import { walkOf } from './walk.js';
 
 const EXACT_NODES = 20_000;
 

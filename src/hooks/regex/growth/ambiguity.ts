@@ -218,7 +218,6 @@ const reachKey = (
   exploration.parts[entry * 3] = first;
   exploration.parts[entry * 3 + 1] = second;
   exploration.parts[entry * 3 + 2] = third;
-
   spend(exploration.meter, 1);
   return entry;
 };

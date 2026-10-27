@@ -1,4 +1,5 @@
 import type {
+  AssertionNode,
   AutomatonJob,
   AutomatonShape,
   RegexNode,
@@ -6,7 +7,7 @@ import type {
 import { someNode } from '../syntax/tree.js';
 import { isLineTest } from './kinds.js';
 
-const isLineAssertion = (node: RegexNode): boolean =>
+const isLineAssertion = (node: RegexNode): node is AssertionNode =>
   node.kind === 'assertion' && isLineTest(node.test);
 
 const lineAssertionInMiddle = (
@@ -87,8 +88,7 @@ const anchoring = (root: RegexNode, sticky: boolean): AutomatonShape => {
   const trails = !everyEdge(root, false, strictLine('end'));
   const multilineAnchor = someNode(
     root,
-    (node) =>
-      isLineAssertion(node) && node.kind === 'assertion' && node.multiline
+    (node) => isLineAssertion(node) && node.multiline
   );
   const anyAnchor = someNode(root, isLineAssertion);
   const ragged =

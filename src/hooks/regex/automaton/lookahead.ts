@@ -260,26 +260,35 @@ export const readerOf = (
   };
 };
 
-/** Reads one concrete input backward, listing for each position the states that succeed on the input left from it */
-export const acceptanceAlong = (
+/** Reads one concrete input backward into a lookahead whose classes are its positions, each knowing the states that succeed on the input left from it */
+export const lookaheadAlong = (
   ordered: OrderedAutomaton,
   { plain, gated, start }: ReverseReader,
-  pieces: readonly number[],
+  input: readonly number[],
   meter: WorkMeter
-): Set<number>[] => {
+): Lookahead => {
   const scratch = createBackScratch(ordered.states.length + 1);
   const accepting = [start];
 
-  for (let index = pieces.length - 1; index >= 0; index -= 1) {
+  for (let index = input.length - 1; index >= 0; index -= 1) {
     const current = accepting[accepting.length - 1];
 
     spend(meter, current.length + 1);
     accepting.push(
-      stepBack(current, plain[pieces[index]], gated[pieces[index]], scratch)
+      stepBack(current, plain[input[index]], gated[input[index]], scratch)
     );
   }
 
-  return accepting.toReversed().map((states) => new Set(states));
+  const members = accepting.toReversed().map((states) => new Set(states));
+
+  return {
+    blind: false,
+    classCount: members.length,
+    pieces: plain.length,
+    predecessors: [],
+    members,
+    back: new Int32Array(0),
+  };
 };
 
 /** Builds, from a backward reader, the machine that tells for every remaining input which prioritized steps would already succeed */
@@ -353,21 +362,6 @@ export const lookaheadFrom = (
   return { blind: false, classCount, pieces, predecessors, members, back };
 };
 
-/** Builds the machine that tells, for every remaining input, which prioritized steps would already succeed */
-export const buildLookahead = (
-  ordered: OrderedAutomaton,
-  alphabet: Alphabet,
-  relevant: ReadonlySet<number>,
-  meter: WorkMeter
-): Lookahead =>
-  lookaheadFrom(
-    readerOf(ordered, alphabet, relevant),
-    ordered,
-    alphabet,
-    relevant,
-    meter
-  );
-
 /** A one-class lookahead that knows only the states sure to succeed */
 export const sureLookahead = (
   pieces: number,
@@ -380,10 +374,6 @@ export const sureLookahead = (
   members: [sure],
   back: new Int32Array(pieces),
 });
-
-/** A one-class lookahead that knows nothing about the remaining input */
-export const blindLookahead = (pieces: number): Lookahead =>
-  sureLookahead(pieces, new Set());
 
 const acceptsIn = (
   lookahead: Lookahead,

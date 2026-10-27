@@ -1,4 +1,5 @@
 import type {
+  BundleStreaks,
   Lookahead,
   ScoreBundles,
   ScoreGroups,
@@ -8,8 +9,8 @@ import type {
   ScoreWalk,
 } from '../../../types/hooks/regex.js';
 import { lowerBound } from '../syntax/codeset.js';
-import { NO_LOOP } from './layout.js';
-import { movesOf, remembered, stateCountOf } from './moves.js';
+import { NO_LOOP, remembered } from './layout.js';
+import { movesOf, stateCountOf } from './moves.js';
 
 const MULTIPLICITY_SLOTS = 2 ** 21;
 
@@ -109,6 +110,50 @@ const streakLengths = (
   return lengths;
 };
 
+/** Splits the steps, ordered by piece set, multiplicity, and key, into streaks whose sources climb by one as their targets move by the step */
+const streaksBy = (
+  bundles: ScoreBundles,
+  pieceIds: Int32Array,
+  edges: readonly number[],
+  keys: readonly number[],
+  step: number
+): BundleStreaks => {
+  const { sources, targets, multiplicities } = bundles;
+  const sorted = edges.toSorted(
+    (left, right) =>
+      pieceIds[left] - pieceIds[right] ||
+      multiplicities[left] - multiplicities[right] ||
+      keys[left] - keys[right] ||
+      sources[left] - sources[right]
+  );
+  const lengths = streakLengths(
+    sorted,
+    (previous, edge) =>
+      pieceIds[previous] === pieceIds[edge] &&
+      multiplicities[previous] === multiplicities[edge] &&
+      sources[edge] === sources[previous] + 1 &&
+      targets[edge] === targets[previous] + step
+  );
+
+  return { sorted, lengths };
+};
+
+const singlesOf = ({ sorted, lengths }: BundleStreaks): number[] => {
+  const singles: number[] = [];
+  let start = 0;
+
+  for (const length of lengths) {
+    if (length === 1) singles.push(sorted[start]);
+
+    start += length;
+  }
+
+  return singles;
+};
+
+const runCount = ({ lengths }: BundleStreaks): number =>
+  lengths.reduce((total, length) => total + (length > 1 ? 1 : 0), 0);
+
 /** Bundles steps that move a range of states together, onto the next range, onto it in reverse, or into one shared state */
 const groupBundles = (
   bundles: ScoreBundles,
@@ -122,71 +167,23 @@ const groupBundles = (
     if (bundles.gains[bundle] === 1) gains.push(bundle);
     else edges.push(bundle);
 
-  const sameBundle = (previous: number, edge: number): boolean =>
-    pieceIds[previous] === pieceIds[edge] &&
-    multiplicities[previous] === multiplicities[edge] &&
-    sources[edge] === sources[previous] + 1;
-  const shifted = edges.toSorted(
-    (left, right) =>
-      pieceIds[left] - pieceIds[right] ||
-      multiplicities[left] - multiplicities[right] ||
-      targets[left] - sources[left] - (targets[right] - sources[right]) ||
-      sources[left] - sources[right]
+  const shiftOffsets = sources.map(
+    (source, bundle) => targets[bundle] - source
   );
-  const shiftLengths = streakLengths(
-    shifted,
-    (previous, edge) =>
-      sameBundle(previous, edge) && targets[edge] === targets[previous] + 1
+  const mirrorSums = sources.map((source, bundle) => targets[bundle] + source);
+  const shifted = streaksBy(bundles, pieceIds, edges, shiftOffsets, 1);
+  const fanned = streaksBy(bundles, pieceIds, singlesOf(shifted), targets, 0);
+  const mirrored = streaksBy(
+    bundles,
+    pieceIds,
+    singlesOf(fanned),
+    mirrorSums,
+    -1
   );
-  const loose: number[] = [];
-  let cursor = 0;
-
-  for (const length of shiftLengths) {
-    if (length === 1) loose.push(shifted[cursor]);
-
-    cursor += length;
-  }
-
-  const fanned = loose.toSorted(
-    (left, right) =>
-      pieceIds[left] - pieceIds[right] ||
-      multiplicities[left] - multiplicities[right] ||
-      targets[left] - targets[right] ||
-      sources[left] - sources[right]
-  );
-  const fanLengths = streakLengths(
-    fanned,
-    (previous, edge) =>
-      sameBundle(previous, edge) && targets[edge] === targets[previous]
-  );
-  const singles: number[] = [];
-
-  cursor = 0;
-
-  for (const length of fanLengths) {
-    if (length === 1) singles.push(fanned[cursor]);
-
-    cursor += length;
-  }
-
-  const mirrored = singles.toSorted(
-    (left, right) =>
-      pieceIds[left] - pieceIds[right] ||
-      multiplicities[left] - multiplicities[right] ||
-      targets[left] + sources[left] - (targets[right] + sources[right]) ||
-      sources[left] - sources[right]
-  );
-  const mirrorLengths = streakLengths(
-    mirrored,
-    (previous, edge) =>
-      sameBundle(previous, edge) && targets[edge] === targets[previous] - 1
-  );
-  const runsOf = (lengths: readonly number[]): number =>
-    lengths.reduce((total, length) => total + (length > 1 ? 1 : 0), 0);
   const count =
-    runsOf(shiftLengths) +
-    runsOf(fanLengths) +
-    mirrorLengths.length +
+    runCount(shifted) +
+    runCount(fanned) +
+    mirrored.lengths.length +
     gains.length;
   const groups: ScoreGroups = {
     count,
@@ -211,8 +208,7 @@ const groupBundles = (
   };
 
   const placeRuns = (
-    sorted: readonly number[],
-    lengths: readonly number[],
+    { sorted, lengths }: BundleStreaks,
     kind: number,
     single: boolean
   ): void => {
@@ -225,10 +221,10 @@ const groupBundles = (
     }
   };
 
-  placeRuns(shifted, shiftLengths, SHIFT, false);
-  placeRuns(fanned, fanLengths, FAN, false);
-  placeRuns(mirrored, mirrorLengths, MIRROR, false);
-  placeRuns(mirrored, mirrorLengths, FAN, true);
+  placeRuns(shifted, SHIFT, false);
+  placeRuns(fanned, FAN, false);
+  placeRuns(mirrored, MIRROR, false);
+  placeRuns(mirrored, FAN, true);
 
   for (const gain of gains) place(gain, GAIN, 1);
 
@@ -346,7 +342,7 @@ const targetSegments = (groups: ScoreGroups): ScoreSegments => {
   return segmentsOf(groups.targets, ends, members);
 };
 
-const sourceEnd = (groups: ScoreGroups, group: number): number =>
+export const sourceEnd = (groups: ScoreGroups, group: number): number =>
   groups.sources[group] + groups.lengths[group];
 
 const sourceSegments = (groups: ScoreGroups): ScoreSegments => {
@@ -467,79 +463,6 @@ export const walkOf = (
   remembered(layout.walks, lookahead, klass, () =>
     buildWalk(layout, lookahead.pieces, movesOf(layout, lookahead, klass))
   );
-
-const isChain = (groups: ScoreGroups, group: number): boolean =>
-  groups.kinds[group] === SHIFT &&
-  groups.targets[group] === groups.sources[group] + 1;
-
-const sharesPiece = (walk: ScoreWalk, left: number, right: number): boolean => {
-  const { pieceSets, pieceCount } = walk;
-
-  for (let piece = 0; piece < pieceCount; piece += 1)
-    if (
-      pieceSets[left * pieceCount + piece] === 1 &&
-      pieceSets[right * pieceCount + piece] === 1
-    )
-      return true;
-
-  return false;
-};
-
-const startsAttempt = (walk: ScoreWalk, pieces: number): boolean => {
-  const { groups } = walk;
-
-  for (let group = 0; group < groups.count; group += 1)
-    if (
-      groups.kinds[group] === GAIN &&
-      sharesPiece(walk, groups.pieces[group], pieces)
-    )
-      return true;
-
-  return false;
-};
-
-const splitsChain = (walk: ScoreWalk, chain: number): boolean => {
-  const { groups } = walk;
-  const first = groups.sources[chain];
-  const last = first + groups.lengths[chain];
-
-  for (let group = 0; group < groups.count; group += 1)
-    if (
-      group !== chain &&
-      groups.kinds[group] !== GAIN &&
-      groups.sources[group] <= last &&
-      sourceEnd(groups, group) > first &&
-      sharesPiece(walk, groups.pieces[group], groups.pieces[chain])
-    )
-      return true;
-
-  return false;
-};
-
-export const chainRanges = (
-  walk: ScoreWalk,
-  keep: (group: number) => boolean
-): number[] => {
-  const { groups } = walk;
-  const ranges: number[] = [];
-
-  for (let group = 0; group < groups.count; group += 1)
-    if (isChain(groups, group) && keep(group))
-      ranges.push(
-        groups.sources[group],
-        groups.sources[group] + groups.lengths[group] + 1
-      );
-
-  return ranges;
-};
-
-/** Lists the runs of states that read one class in a row and that no new attempt can start within */
-export const quietRanges = (walk: ScoreWalk): number[] =>
-  chainRanges(walk, (group) => !startsAttempt(walk, walk.groups.pieces[group]));
-
-/** Lists the runs of states that read one class in a row and never split on it */
-export const steadyRanges = (walk: ScoreWalk): number[] =>
-  chainRanges(walk, (group) => !splitsChain(walk, group));
 
 /** The axis of a mirrored group: [low, high) on one side lands on [axis - high, axis - low) on the other */
 export const mirrorAxis = (groups: ScoreGroups, group: number): number =>

@@ -23,6 +23,13 @@ import { LINE_TERMINATORS, universeLimit } from './unicode.js';
 
 const NESTING_LIMIT = 512;
 
+const SHORTHAND_BOUNDS: ReadonlyMap<string, readonly [number, number]> =
+  new Map([
+    ['*', [0, Infinity]],
+    ['+', [1, Infinity]],
+    ['?', [0, 1]],
+  ]);
+
 const decodeName = (raw: string): string =>
   raw.replace(
     /\\u\{([0-9A-Fa-f]+)\}|\\u([0-9A-Fa-f]{4})/g,
@@ -39,17 +46,25 @@ const skipClass = (source: string, open: number, sets: boolean): number => {
   while (index < source.length) {
     const char = source[index];
 
-    if (char === '\\') index += 2;
-    else if (char === '[' && (sets || depth === 0)) {
+    if (char === '\\') {
+      index += 2;
+      continue;
+    }
+
+    index += 1;
+
+    if (char === '[' && (sets || depth === 0)) {
       depth += 1;
-      index += 1;
+
       if (depth > NESTING_LIMIT) reachCap();
-    } else if (char === ']') {
+      continue;
+    }
+
+    if (char === ']') {
       depth -= 1;
-      index += 1;
 
       if (depth === 0) return index;
-    } else index += 1;
+    }
   }
 
   return index;
@@ -109,35 +124,35 @@ const dotSet = (mode: MatchMode, unicode: boolean): CodeSet => {
   return mode.dotAll ? all : subtract(all, LINE_TERMINATORS);
 };
 
-const readQuantifier = (cursor: ParseCursor): Quantifier | null => {
-  const char = peek(cursor);
-  let bounds: readonly [number, number] | null = null;
+const readBracedBounds = (
+  cursor: ParseCursor
+): readonly [number, number] | null => {
+  const braced = /^\{(\d+)(?:,(\d*))?\}/.exec(
+    cursor.source.slice(cursor.position)
+  );
 
-  if (char === '*') bounds = [0, Infinity];
-  if (char === '+') bounds = [1, Infinity];
-  if (char === '?') bounds = [0, 1];
+  if (!braced) return null;
 
-  if (bounds) cursor.position += 1;
+  cursor.position += braced[0].length;
+  return [
+    Number(braced[1]),
+    braced[2] === '' ? Infinity : Number(braced[2] ?? braced[1]),
+  ];
+};
 
-  if (char === '{') {
-    const braced = /^\{(\d+)(,(\d*))?\}/.exec(
-      cursor.source.slice(cursor.position)
-    );
+const readBounds = (cursor: ParseCursor): readonly [number, number] | null => {
+  const shorthand = SHORTHAND_BOUNDS.get(peek(cursor) ?? '');
 
-    if (!braced) return null;
-
-    const min = Number(braced[1]);
-
-    bounds = [
-      min,
-      braced[2] === undefined
-        ? min
-        : braced[3] === ''
-          ? Infinity
-          : Number(braced[3]),
-    ];
-    cursor.position += braced[0].length;
+  if (shorthand) {
+    cursor.position += 1;
+    return shorthand;
   }
+
+  return peek(cursor) === '{' ? readBracedBounds(cursor) : null;
+};
+
+const readQuantifier = (cursor: ParseCursor): Quantifier | null => {
+  const bounds = readBounds(cursor);
 
   if (!bounds) return null;
 
@@ -217,8 +232,9 @@ const readModifiers = (cursor: ParseCursor, mode: MatchMode): MatchMode => {
   const [enable = '', disable = ''] = cursor.source
     .slice(cursor.position + 2, close)
     .split('-');
+
   const flag = (letter: string, current: boolean): boolean =>
-    enable.includes(letter) ? true : disable.includes(letter) ? false : current;
+    enable.includes(letter) || (current && !disable.includes(letter));
 
   cursor.position = close + 1;
   return {

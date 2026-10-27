@@ -11,9 +11,10 @@ import { EXTRA_WORD, LINE, maskOf, OTHER, WORD } from './kinds.js';
 const kindSets = (
   automaton: EpsilonAutomaton
 ): readonly (readonly [CodeSet, number])[] => {
+  const sets: (readonly [CodeSet, number])[] = [];
+
   const uses = (kind: number): boolean =>
     (automaton.kinds & maskOf(kind)) !== 0;
-  const sets: (readonly [CodeSet, number])[] = [];
 
   if (uses(LINE)) sets.push([LINE_TERMINATORS, LINE]);
   if (uses(EXTRA_WORD))

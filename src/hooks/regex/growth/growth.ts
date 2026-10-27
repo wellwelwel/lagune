@@ -17,7 +17,11 @@ import {
   cyclicStates,
   stronglyConnected,
 } from '../automaton/graph.js';
-import { blindLookahead, buildLookahead } from '../automaton/lookahead.js';
+import {
+  lookaheadFrom,
+  readerOf,
+  sureLookahead,
+} from '../automaton/lookahead.js';
 import {
   buildOrdered,
   consultedStates,
@@ -101,10 +105,12 @@ const preciseGrowth = (
   graph: Digraph,
   ancestors: Uint8Array
 ): GrowthReport => {
-  const lookahead = buildLookahead(
+  const relevant = consultedStates(ordered, (state) => ancestors[state] === 1);
+  const lookahead = lookaheadFrom(
+    readerOf(ordered, alphabet, relevant),
     ordered,
     alphabet,
-    consultedStates(ordered, (state) => ancestors[state] === 1),
+    relevant,
     job.meter
   );
 
@@ -139,7 +145,7 @@ const judge = (
   const coarse = assessGrowth(
     buildProduct(
       ordered,
-      blindLookahead(alphabet.pieceKinds.length),
+      sureLookahead(alphabet.pieceKinds.length, new Set()),
       ancestors,
       new Uint8Array(ordered.states.length),
       job.meter

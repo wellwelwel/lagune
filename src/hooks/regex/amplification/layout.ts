@@ -135,6 +135,29 @@ export const layoutOf = (job: AutomatonJob): ScoreLayout => {
   };
 };
 
+export const remembered = <Value>(
+  cache: WeakMap<Lookahead, Map<number, Value>>,
+  lookahead: Lookahead,
+  klass: number,
+  build: () => Value
+): Value => {
+  let byClass = cache.get(lookahead);
+
+  if (byClass === undefined) {
+    byClass = new Map();
+    cache.set(lookahead, byClass);
+  }
+
+  const known = byClass.get(klass);
+
+  if (known !== undefined) return known;
+
+  const value = build();
+
+  byClass.set(klass, value);
+  return value;
+};
+
 export const consultedFor = (layout: ScoreLayout): ReadonlySet<number> =>
   (layout.consulted ??= consultedStates(layout.ordered, () => true));
 

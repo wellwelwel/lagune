@@ -82,6 +82,7 @@ const treeReason = (
   captures: ReadonlyMap<number, RegexNode>
 ): RankedReason | null => {
   const meter = createMeter(WORK_CAP);
+
   const job = (scope: MatchScope): AutomatonJob => ({
     root,
     captures,

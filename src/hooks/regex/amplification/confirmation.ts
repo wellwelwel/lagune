@@ -1,9 +1,5 @@
-import type {
-  Lookahead,
-  ScoreLayout,
-  WorkMeter,
-} from '../../../types/hooks/regex.js';
-import { acceptanceAlong, runsInOrder } from '../automaton/lookahead.js';
+import type { ScoreLayout, WorkMeter } from '../../../types/hooks/regex.js';
+import { lookaheadAlong, runsInOrder } from '../automaton/lookahead.js';
 import { spend } from '../budget.js';
 import { readerFor } from './layout.js';
 
@@ -15,16 +11,8 @@ const countAlong = (
   cap: number,
   meter: WorkMeter
 ): number => {
-  const { ordered, alphabet } = layout;
-  const members = acceptanceAlong(ordered, readerFor(layout), input, meter);
-  const lookahead: Lookahead = {
-    blind: false,
-    classCount: members.length,
-    pieces: alphabet.pieceKinds.length,
-    predecessors: [],
-    members,
-    back: new Int32Array(0),
-  };
+  const { ordered } = layout;
+  const lookahead = lookaheadAlong(ordered, readerFor(layout), input, meter);
   const blocked: number[] = [];
   let frontier = new Map(ordered.starts.map((state) => [state, 1]));
 
