@@ -62,15 +62,20 @@ await describe('add and remove record the categories a project uses', async () =
 
   await it('keeps the own index untouched', async () => {
     const workspace = await newWorkspace();
+    const $schema = 'https://lagune.ai/schemas/configs.json';
     const catalog = [{ name: 'graphql', tags: ['GraphQL'] }];
 
-    await seed(workspace, CONFIGS_FILE, JSON.stringify({ catalog }));
+    await seed(workspace, CONFIGS_FILE, JSON.stringify({ $schema, catalog }));
 
     const run = await runEngine(workspace, ['add', '--categories', 'go']);
     const configs = JSON.parse((await textOf(workspace, CONFIGS_FILE)) ?? '{}');
 
     strict.strictEqual(run.code, 0);
-    strict.deepStrictEqual(configs, { catalog, categories: ['owasp', 'go'] });
+    strict.deepStrictEqual(configs, {
+      $schema,
+      catalog,
+      categories: ['owasp', 'go'],
+    });
   });
 
   for (const args of [

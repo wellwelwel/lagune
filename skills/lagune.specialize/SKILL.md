@@ -67,7 +67,7 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 ### Step 7: Write the files
 
 - Ensure `.lagune/catalog/` exists, then write `.lagune/catalog/<name>.md` with the authored or reconciled content. An existing name is reconciled from its current content first, so this never discards a built-in or an earlier version unseen. On a refine of a built-in, this file becomes the project's own version and shadows the built-in from then on.
-- Update `.lagune/configs.json`. If the file or its `catalog` list is absent, create it. Add the `{ "name": "<name>", "tags": [...] }` entry to that list, or on a refine rewrite that one entry, preserving every other entry and every other field untouched.
+- Update `.lagune/configs.json`. If the file or its `catalog` list is absent, create it. If the file names no `$schema`, add `"$schema": "https://lagune.ai/schemas/configs.json"` as its first field. Add the `{ "name": "<name>", "tags": [...] }` entry to that list, or on a refine rewrite that one entry, preserving every other entry and every other field untouched.
 - Run the catalog again from the project root and confirm it lists the entry with the tags the user confirmed:
 
   ```bash

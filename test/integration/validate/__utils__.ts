@@ -23,6 +23,14 @@ export const seedMemory = async (
   await writeFile(path, content, 'utf8');
 };
 
+export const seedConfigs = async (
+  workspace: string,
+  content: string
+): Promise<void> => {
+  await mkdir(join(workspace, '.lagune'), { recursive: true });
+  await writeFile(join(workspace, '.lagune/configs.json'), content, 'utf8');
+};
+
 afterEach(async () => {
   await Promise.all(
     workspaces.map((workspace) =>

@@ -5,6 +5,7 @@ import { criticalCssPlugin } from './plugins/critical-css';
 import { docsContentPlugin } from './plugins/docs-content';
 import { substituteTokens } from './plugins/docs-content/tokens';
 import { dropWoff } from './plugins/drop-woff';
+import { schemasPlugin } from './plugins/schemas';
 import { laguneCode } from './src/prism/lagune';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
 import { sitemapPriority } from './src/seo/sitemap/priority';
@@ -120,6 +121,7 @@ const config: Config = {
   plugins: [
     docsContentPlugin,
     criticalCssPlugin,
+    schemasPlugin,
     function tailwindPlugin() {
       return {
         name: 'tailwind-plugin',

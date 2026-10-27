@@ -155,6 +155,7 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
     strict.strictEqual(crypto, '# Crypto, refined for this project\n');
     strict.strictEqual(graphql, '# GraphQL vulnerabilities\n');
     strict.deepStrictEqual(JSON.parse(configs ?? '{}'), {
+      $schema: 'https://lagune.ai/schemas/configs.json',
       categories: ['owasp', 'javascript'],
       catalog: [
         { name: 'graphql', tags: ['GraphQL'] },

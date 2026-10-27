@@ -2,6 +2,7 @@ import { describe, it, strict } from 'poku';
 import { validate } from '../../../src/hooks/validate/validate.js';
 import {
   newWorkspace,
+  seedConfigs,
   seedMemory,
   validCharter,
   validDetect,
@@ -119,6 +120,40 @@ await describe('the validate hook logic', async () => {
     );
     strict(result.output.includes('one markdown comment'));
   });
+
+  await it('warns about a configs file that names no schema without failing the run', async () => {
+    const workspace = await newWorkspace();
+    await seedMemory(workspace, 'charter.md', validCharter);
+    await seedConfigs(workspace, '{"categories":["owasp"]}');
+
+    const result = await validate(workspace, 'charter');
+
+    strict.strictEqual(result.hasFinding, false);
+    strict(result.output.startsWith(ALL_CLEAR));
+    strict(result.output.includes('.lagune/configs.json deserves attention:'));
+    strict(
+      result.output.includes(
+        '"$schema": "https://lagune.ai/schemas/configs.json"'
+      )
+    );
+  });
+
+  for (const [label, configs] of [
+    [
+      'a configs file pinned to a schema',
+      '{"$schema":"https://cdn.jsdelivr.net/npm/lagune@0.16.0/schemas/configs.json"}',
+    ],
+    ['an unreadable configs file', '{"categories": ['],
+  ])
+    await it(`stays quiet about ${label}`, async () => {
+      const workspace = await newWorkspace();
+      await seedMemory(workspace, 'charter.md', validCharter);
+      await seedConfigs(workspace, configs);
+
+      const result = await validate(workspace, 'charter');
+
+      strict.strictEqual(result.output, ALL_CLEAR);
+    });
 
   await it('warns about a Threat metric on the plan without failing the run', async () => {
     const workspace = await newWorkspace();

@@ -15,6 +15,10 @@ import {
 } from '../../../src/categories/project.js';
 
 const CONFIGS_FILE = '.lagune/configs.json';
+const SECRET = '{"secret":true}\n';
+const CURRENT_SCHEMA = 'https://lagune.ai/schemas/configs.json';
+const PINNED_SCHEMA =
+  'https://cdn.jsdelivr.net/npm/lagune@0.16.0/schemas/configs.json';
 const projects: string[] = [];
 
 const newProject = async (configs?: string): Promise<string> => {
@@ -32,8 +36,6 @@ const newProject = async (configs?: string): Promise<string> => {
 
 const contentsOf = (project: string): Promise<string> =>
   readFile(join(project, CONFIGS_FILE), 'utf8');
-
-const SECRET = '{"secret":true}\n';
 
 afterEach(async () => {
   await Promise.all(
@@ -75,19 +77,41 @@ await describe('the recorded categories', async () => {
 });
 
 await describe('recording categories', async () => {
-  await it('creates the file with the recorded categories', async () => {
-    const project = await newProject();
+  for (const [label, configs, schema] of [
+    [
+      'creates the file pointed at the current schema',
+      undefined,
+      CURRENT_SCHEMA,
+    ],
+    [
+      'points a file that names no schema at the current one',
+      '{"categories":["owasp"]}',
+      CURRENT_SCHEMA,
+    ],
+    [
+      'keeps the schema a project pinned',
+      JSON.stringify({ $schema: PINNED_SCHEMA }),
+      PINNED_SCHEMA,
+    ],
+  ] satisfies [string, string | undefined, string][])
+    await it(label, async () => {
+      const project = await newProject(configs);
 
-    await recordCategories(project, ['owasp', 'ai']);
+      await recordCategories(project, ['go']);
 
-    strict.deepStrictEqual(JSON.parse(await contentsOf(project)), {
-      categories: ['owasp', 'ai'],
+      const recorded = await contentsOf(project);
+
+      strict.deepStrictEqual(JSON.parse(recorded), {
+        $schema: schema,
+        categories: ['go'],
+      });
+      strict(recorded.startsWith(`{\n  "$schema": "${schema}",\n`));
     });
-  });
 
   await it('keeps any other field untouched', async () => {
     const project = await newProject(
       JSON.stringify({
+        $schema: PINNED_SCHEMA,
         categories: ['owasp'],
         catalog: [{ name: 'graphql', tags: ['GraphQL'] }],
       })
@@ -96,6 +120,7 @@ await describe('recording categories', async () => {
     await recordCategories(project, ['go']);
 
     strict.deepStrictEqual(JSON.parse(await contentsOf(project)), {
+      $schema: PINNED_SCHEMA,
       categories: ['go'],
       catalog: [{ name: 'graphql', tags: ['GraphQL'] }],
     });

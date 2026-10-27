@@ -22,7 +22,8 @@
   },
   "files": [
     "lib",
-    "catalog"
+    "catalog",
+    "schemas"
   ],
   "workspaces": [
     "website"

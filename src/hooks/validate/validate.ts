@@ -6,9 +6,11 @@ import type {
   ValidateTarget,
 } from '../../types/core.js';
 import { join } from 'node:path';
+import { CONFIGS_FILE } from '../../core/configs.js';
 import { commentSpans, stripComments } from '../../core/markdown/comments.js';
 import { readText } from '../../core/markdown/read.js';
 import { charterWarnings, validateCharter } from './charter.js';
+import { configsWarnings } from './configs.js';
 import { validateDetect } from './detect.js';
 import { validateHarden } from './harden.js';
 import { planWarnings, validatePlan } from './plan.js';
@@ -42,7 +44,7 @@ const WARNING_RULES: Record<ValidateTarget, (content: string) => string[]> = {
 const isTarget = (value: string): value is ValidateTarget =>
   TARGETS.some((target) => target === value);
 
-export const parseTargets = (raw: string): ValidateTarget[] => {
+const parseTargets = (raw: string): ValidateTarget[] => {
   const requested = raw.trim();
 
   if (requested === '') return [...TARGETS];
@@ -108,11 +110,11 @@ const validateOne = (
   };
 };
 
-export const validateArtifacts = (
+const validateArtifacts = (
   memory: MemoryContents,
   targets: ValidateTarget[],
   required: boolean
-): ValidateSummary => {
+): ArtifactValidation[] => {
   const stripped: MemoryContents = {
     charter: strippedOf(memory.charter),
     detect: strippedOf(memory.detect),
@@ -120,11 +122,9 @@ export const validateArtifacts = (
     harden: strippedOf(memory.harden),
   };
 
-  return {
-    results: targets.map((target) =>
-      validateOne(memory, stripped, target, required)
-    ),
-  };
+  return targets.map((target) =>
+    validateOne(memory, stripped, target, required)
+  );
 };
 
 const loadMemory = async (targetDir: string): Promise<MemoryContents> => {
@@ -141,6 +141,12 @@ const NOTHING_TO_VALIDATE =
 const INSTRUCTION =
   'Fix each problem above, then rerun this hook until it prints "no template drift found".';
 
+const problemsFound = (results: ArtifactValidation[]): boolean =>
+  results.some((result) => result.problems.length > 0);
+
+const allAbsent = (results: ArtifactValidation[]): boolean =>
+  results.every((result) => result.status === 'absent');
+
 const formatProblems = (result: ArtifactValidation): string | null => {
   if (result.problems.length === 0) return null;
 
@@ -152,37 +158,40 @@ const formatProblems = (result: ArtifactValidation): string | null => {
   ].join('\n');
 };
 
-const formatWarnings = (result: ArtifactValidation): string | null =>
-  result.warnings.length === 0
+const formatWarnings = (file: string, warnings: string[]): string | null =>
+  warnings.length === 0
     ? null
     : [
-        `${result.file} deserves attention:`,
-        ...result.warnings.map((warning) => `- ${warning}`),
+        `${file} deserves attention:`,
+        ...warnings.map((warning) => `- ${warning}`),
       ].join('\n');
 
-export const formatSummary = (summary: ValidateSummary): string => {
-  const sections = summary.results
-    .flatMap((result) => [formatProblems(result), formatWarnings(result)])
+const formatArtifacts = (results: ArtifactValidation[]): string => {
+  const sections = results
+    .flatMap((result) => [
+      formatProblems(result),
+      formatWarnings(result.file, result.warnings),
+    ])
     .filter((section): section is string => section !== null);
 
   if (sections.length === 0)
-    return summary.results.every((result) => result.status === 'absent')
-      ? NOTHING_TO_VALIDATE
-      : ALL_CLEAR;
+    return allAbsent(results) ? NOTHING_TO_VALIDATE : ALL_CLEAR;
 
-  const problemsFound = summary.results.some(
-    (result) => result.problems.length > 0
-  );
+  if (!problemsFound(results))
+    return `${ALL_CLEAR}\n${sections.join('\n\n')}\n`;
 
-  if (!problemsFound) return `${ALL_CLEAR}\n${sections.join('\n\n')}\n`;
-
-  const instruction = summary.results.some(
-    (result) => result.status === 'invalid'
-  )
+  const instruction = results.some((result) => result.status === 'invalid')
     ? [INSTRUCTION]
     : [];
 
   return `${[...sections, ...instruction].join('\n\n')}\n`;
+};
+
+const formatSummary = (summary: ValidateSummary): string => {
+  const artifacts = formatArtifacts(summary.results);
+  const configs = formatWarnings(CONFIGS_FILE, summary.configsWarnings);
+
+  return configs === null ? artifacts : `${artifacts}\n${configs}\n`;
 };
 
 export const validate = async (
@@ -190,18 +199,17 @@ export const validate = async (
   payload: string
 ): Promise<HookResult> => {
   const targets = parseTargets(payload);
-  const memory = await loadMemory(targetDir);
-  const summary = validateArtifacts(memory, targets, payload.trim() !== '');
-
-  const problemsFound = summary.results.some(
-    (result) => result.problems.length > 0
-  );
-  const nothingExists = summary.results.every(
-    (result) => result.status === 'absent'
-  );
+  const [memory, configs] = await Promise.all([
+    loadMemory(targetDir),
+    readText(join(targetDir, CONFIGS_FILE)),
+  ]);
+  const summary: ValidateSummary = {
+    results: validateArtifacts(memory, targets, payload.trim() !== ''),
+    configsWarnings: configsWarnings(configs),
+  };
 
   return {
     output: formatSummary(summary),
-    hasFinding: problemsFound || nothingExists,
+    hasFinding: problemsFound(summary.results) || allAbsent(summary.results),
   };
 };

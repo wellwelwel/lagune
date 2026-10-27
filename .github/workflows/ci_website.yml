@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'website/**'
+      - 'schemas/**'
       - 'src/dashboard/client/public/**'
       - 'src/dashboard/shared/**'
       - 'src/catalog/**'

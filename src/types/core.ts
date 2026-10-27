@@ -266,4 +266,5 @@ export type ArtifactValidation = {
 
 export type ValidateSummary = {
   results: ArtifactValidation[];
+  configsWarnings: string[];
 };

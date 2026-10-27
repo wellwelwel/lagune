@@ -9,6 +9,7 @@ on:
       - 'src/**'
       - 'skills/**'
       - 'catalog/**'
+      - 'schemas/**'
       - 'scripts/**'
       - 'test/**'
       - 'tools/**'

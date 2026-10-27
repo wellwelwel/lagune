@@ -46,3 +46,9 @@ export type SpecLimitViolation = {
   actual: number;
   max: number;
 };
+
+export type ConfigsSchema = {
+  properties: { categories: { items: { enum: string[] } } };
+};
+
+export type PackedPackage = { files: { path: string }[] };

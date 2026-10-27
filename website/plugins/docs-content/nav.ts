@@ -62,6 +62,7 @@ export const docsNav: DocsNavEntry[] = [
     items: [
       'references/paper',
       'references/glossary',
+      'references/configs-schema',
       'references/deepsec',
       'references/owasp-sources',
     ],
