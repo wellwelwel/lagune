@@ -94,3 +94,9 @@ These are binding instructions for any agent or contributor working here.
 - **Project name:** Lagune. Working command prefix: `lagune` / `/lagune.*`.
 
 The language conventions that governed the rest of this section (English-only content, no em dashes where not grammatically necessary, no semicolons) now live in the internal `/writer` skill, alongside the plain-language rule and the reconcile discipline for prose.
+
+---
+
+## Others
+
+- The README is intentionally outdated. Do not edit it.
