@@ -195,11 +195,5 @@ Really thanks to everyone who has supported and keeps supporting my work.
 
 ## License
 
-**Lagune** is under the [**MIT License**](https://github.com/wellwelwel/lagune/blob/main/LICENSE).<br />
+**Lagune** is under the [**Apache License 2.0**](https://github.com/wellwelwel/lagune/blob/main/LICENSE).<br />
 Copyright © 2026-present [**Weslley Araújo**](https://github.com/wellwelwel) and [**contributors**](https://github.com/wellwelwel/lagune/graphs/contributors).
-
-> [!IMPORTANT]
->
-> ### Disclaimer
->
-> All product names, trademarks, and registered trademarks mentioned are the property of their respective owners and are used for identification purposes only.
