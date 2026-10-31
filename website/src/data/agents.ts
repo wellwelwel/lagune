@@ -80,7 +80,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Qwen Code',
     description: "Qwen's terminal coding agent",
     icon: '/img/icons/qwen.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/qwen-code',
   },
   {
     name: 'Kimi Code',

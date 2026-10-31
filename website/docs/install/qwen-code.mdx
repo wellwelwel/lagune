@@ -1,0 +1,57 @@
+---
+id: qwen-code
+title: 'Install Lagune on Qwen Code as an Extension'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: Install Lagune's commands in Qwen Code through its own extension installer, keep them updated, and allow the engine up front.
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+Install the extension from your terminal:
+
+```bash
+qwen extensions install wellwelwel/lagune
+```
+
+When **Qwen Code** asks which plugin to install, pick `lagune`. It installs **Lagune**'s latest release, so each change reaches you with the next release.
+
+## Update
+
+**Qwen Code** leaves the extension at its installed release until you update it, or until you install it with `--auto-update`. To update **Lagune**, run:
+
+```bash
+qwen extensions update lagune
+```
+
+## Commands
+
+Type the commands under the extension's name: where these docs show `/lagune.charter`, type `/lagune:lagune.charter`.
+
+---
+
+:::info[Permissions]
+
+In Ask permissions mode, the first engine call asks for your permission. To allow it up front, add this rule to `.qwen/settings.json` for one project, or to `~/.qwen/settings.json` for all of them:
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(npx --yes lagune@*)"]
+  }
+}
+```
+
+In the default Auto mode, **Qwen Code** sets this rule aside and lets its classifier judge each engine call.
+
+:::
