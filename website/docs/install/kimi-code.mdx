@@ -1,0 +1,47 @@
+---
+id: kimi-code
+title: 'Install Lagune on Kimi Code as a Plugin'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: Install Lagune's commands in Kimi Code through its own plugin installer, and keep them updated.
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+Install the plugin from a **Kimi Code** session, choose **Trust and install** when asked, then start a new session to load it:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune/tree/main
+/new
+```
+
+## Update
+
+**Kimi Code** leaves the plugin at its installed version until you install it again, which replaces the installed copy. To update **Lagune**, run:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune/tree/main
+/new
+```
+
+## Commands
+
+Type the commands under the plugin's name: where these docs show `/lagune.charter`, type `/lagune:lagune.charter`. The `/` menu lists them as `/skill:lagune:lagune.charter`, and both forms run the same command.
+
+---
+
+:::info[Permissions]
+
+Each engine call asks for your permission, and "Approve for this session" allows only that same call again.
+
+:::

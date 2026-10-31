@@ -86,7 +86,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Kimi Code',
     description: "Moonshot AI's coding agent",
     icon: '/img/icons/kimi.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/kimi-code',
   },
   {
     name: 'Muse Code',
