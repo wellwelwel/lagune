@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.16.0](https://github.com/wellwelwel/lagune/compare/v0.15.0...v0.16.0) (2026-10-31)
+
+
+### Features
+
+* **configs:** publish JSON schema ([067c1e9](https://github.com/wellwelwel/lagune/commit/067c1e9e34270f923a9c7bf3b1e653473678a4fb))
+* distribute Lagune as a Claude Code plugin ([925b038](https://github.com/wellwelwel/lagune/commit/925b0384aaff5d5b3f7621d96ce739c64cf5f946))
+* distribute Lagune as a Codex plugin ([e770cb6](https://github.com/wellwelwel/lagune/commit/e770cb63936dd818ed73a6f460edfef867ca6ef8))
+* distribute Lagune as a Cursor plugin ([e3788df](https://github.com/wellwelwel/lagune/commit/e3788df3109fada6ef51f509da1f75f6f7647e56))
+* distribute Lagune as a Devin CLI plugin ([ff653ea](https://github.com/wellwelwel/lagune/commit/ff653ea51b3fad0d696ebbb86bfb7dba5cc8bc7f))
+* distribute Lagune as a Factory Droid plugin ([46d3ac1](https://github.com/wellwelwel/lagune/commit/46d3ac1753482b50baff6921958568f02cc705ee))
+* distribute Lagune as a Gemini CLI extension ([5058bea](https://github.com/wellwelwel/lagune/commit/5058bea75ac8600f71945d771678ebde3620886d))
+* distribute Lagune as a GitHub Copilot CLI plugin ([0ca1bda](https://github.com/wellwelwel/lagune/commit/0ca1bda453fb83f46ac3d8ab253117c057b18630))
+* distribute Lagune as a Grok Build plugin ([4530f6b](https://github.com/wellwelwel/lagune/commit/4530f6b2250ae5725557f1861d0e8f75dd75661a))
+* distribute Lagune as a Hermes Agent plugin ([9f9a302](https://github.com/wellwelwel/lagune/commit/9f9a30285a7d1206b4e504ecd83cb4a176d70a97))
+* distribute Lagune as a Kimi Code plugin ([a9af124](https://github.com/wellwelwel/lagune/commit/a9af124830beb0037d8bbaeacfedaef27cb24f9a))
+* distribute Lagune as a Muse Code plugin ([1c6a549](https://github.com/wellwelwel/lagune/commit/1c6a54994ad23f42fa49fb6640f688fc9e528520))
+* distribute Lagune as a Pi package ([2adac25](https://github.com/wellwelwel/lagune/commit/2adac25f665279d97c6307ec68b1fb9a9ce38a2b))
+* distribute Lagune as a Qwen Code extension ([66d1fb0](https://github.com/wellwelwel/lagune/commit/66d1fb0c47aca1ee94446753bdbd9a86c66515a1))
+* distribute Lagune as an Antigravity CLI plugin ([ad97efb](https://github.com/wellwelwel/lagune/commit/ad97efb261589a4fb2c32f62426c358b3c0bc92b))
+* distribute Lagune as an OpenCode plugin ([ec89815](https://github.com/wellwelwel/lagune/commit/ec89815ca7a56bdb2f14e4dcf6756443f2354ebd))
+* distribute Lagune through `skills.sh` ([#23](https://github.com/wellwelwel/lagune/issues/23)) ([262b355](https://github.com/wellwelwel/lagune/commit/262b3557e76c51d2ac5f23991f0244921ceb5691))
+* run engine as an MCP server ([35c92c8](https://github.com/wellwelwel/lagune/commit/35c92c8b60450aed2407b7cce1b2071d2888dce0))
+
+
+### Bug Fixes
+
+* use `-` instead of `.` in command names ([955e4ae](https://github.com/wellwelwel/lagune/commit/955e4ae89c49359e8bfe9389a73a102b29c43b80))
+
 ## [0.15.0](https://github.com/wellwelwel/lagune/compare/v0.14.0...v0.15.0) (2026-10-04)
 
 
