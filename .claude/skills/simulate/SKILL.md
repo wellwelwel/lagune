@@ -56,7 +56,7 @@ cp -R .claude/skills/simulate/fixtures/<name>/. ./temp/
 
 Then build the chain on top in `./temp` by running the upstream phases for real (per Rule 4), so the `.lagune/memory/*.md` artifact the command reads is produced by its own phase, not hand-written. Run the command's steps against `./temp`, following its spec to the letter (per Rule 3), and show every step's output per Rule 2.
 
-Where a step calls the engine (`lagune <subcommand>`), run this repository's build in its place, `node ../lib/bin/index.js <subcommand>` from `./temp` after `npm run build`, with the same arguments. The published engine would not exercise the code under test. Say so in the transcript, so the substitution is visible.
+Where a step calls the engine (a `lagune_read` or `lagune_write` call), run this repository's build in its place, `node ../lib/bin/index.js <command> <arguments>` from `./temp` after `npm run build`, with the same arguments. The published engine would not exercise the code under test. Say so in the transcript, so the substitution is visible.
 
 To add a fixture, create `.claude/skills/simulate/fixtures/<new-name>/` as a small, real project with its own `package.json`, keep robust and fragile code in neutral pairs, add no revealing comments or names, and list it above. Add one when a command needs material the current fixtures do not cover (a different language or stack, secrets handling, auth, a database, and so on).
 

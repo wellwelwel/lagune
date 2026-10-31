@@ -33,18 +33,14 @@ With minimal capability an injection does little. With broad capability the same
 
 The runaway-autonomy case (an agent runtime that loops with no turn, budget, or time cap) is decidable, so run the agent hook first. It is language-aware, covering the two agent-framework ecosystems, JavaScript (the Claude agent SDK `query` runtime) and Python (LangChain, LangGraph, CrewAI, OpenAI Agents). Its verdict is literal.
 
-```bash
-lagune agent               # scans the whole project
-lagune agent --dir <DIR>   # scans a directory
-lagune agent --file <FILE> # scans a single file
-```
+Call `lagune_read` with `command` set to `agent` to scan the whole project, or add `arguments` set to `["--dir", "<DIR>"]` for a directory or `["--file", "<FILE>"]` for a single file.
 
 Every line under **Uncapped agent loops found** is, in a file that imports an agent SDK, either the `query` runtime called with no turn/budget/time cap (JavaScript, unbounded by default) or an explicit removal of a framework's default cap such as `max_iterations=None` / `max_turns=None` (Python, capped by default): a confirmed DoS and cost-burn exposure that exits non-zero. The Vercel AI SDK `generateText`/`streamText` default to a single step (`stopWhen: stepCountIs(1)`), so a bare call there cannot loop and is not flagged. A clean run prints a single line. Score one call with `--pattern`, passing its language with `--lang`:
 
-```bash
-lagune agent --lang javascript --pattern 'query({ prompt })'                       # => uncapped
-lagune agent --lang python --pattern 'AgentExecutor(agent=a, max_iterations=None)' # => uncapped
-```
+| `arguments`                                                                        | Verdict    |
+| ---------------------------------------------------------------------------------- | ---------- |
+| `["--lang", "javascript", "--pattern", "query({ prompt })"]`                       | `uncapped` |
+| `["--lang", "python", "--pattern", "AgentExecutor(agent=a, max_iterations=None)"]` | `uncapped` |
 
 The hook decides only the cap. The capability, trust-mixing, and authorization checks in this block stay yours.
 

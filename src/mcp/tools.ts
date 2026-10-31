@@ -1,7 +1,7 @@
 import type { EngineTool } from '../types/mcp.js';
 
 const ARGUMENTS_GUIDE =
-  'Pass the subcommand as command and each word after it, without shell quotes, as one item of arguments, the way a `lagune <subcommand>` call in a Lagune skill spells them.';
+  'Pass the engine subcommand as command and each of its arguments, without shell quotes, as one item of arguments.';
 
 export const ENGINE_TOOLS: readonly EngineTool[] = [
   {

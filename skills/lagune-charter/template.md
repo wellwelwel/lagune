@@ -39,8 +39,9 @@ A control is held even when a reason to skip it feels reasonable:
 - "Unlikely to be hit": attackers target the path no one is watching.
 - "It works, ship it": working and safe are different claims, and the charter requires both.
 
-## Governance <!-- Example: This charter supersedes ad hoc decisions. Changes are reviewed and the version is updated. -->
+## Governance
 
-[GOVERNANCE_RULES]
+- This charter guides every security decision in each Lagune phase, and every change to it is reviewed and approved by the maintainer.
+- It holds only what a deterministic check cannot capture, so it never repeats a control that linters or automated tools already enforces.
 
 Version: [VERSION] | Ratified: [RATIFICATION_DATE] <!-- Example: Version: 1.0.0 | Ratified: 2026-06-11 -->

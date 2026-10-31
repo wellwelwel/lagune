@@ -13,10 +13,6 @@ $ARGUMENTS
 
 The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
-## Engine
-
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
-
 ## Outline
 
 You are reconciling Lagune's internal **tracking map** at `.lagune/tracking.json`: the side index that holds one entry per tracked item (a detect finding the later phases carry forward as the same item) so the item survives a rename or a moved file. Each item is one entry, identified by its name. The file paths live only in this map, never in the prose artifacts. So when a refactor renames or moves a file, the map is the one place that points at a path that no longer exists. Reconcile is the one act that corrects it.
@@ -39,10 +35,10 @@ Where you genuinely cannot tell whether an item was resolved or merely renamed, 
 
 ### Step 3: Rewrite the tracking map with the hook
 
-Hand the hook one item per finding the artifacts still name, using the corrected paths from Step 2. The payload is `{ entries: [...] }`, the same shape as `tracking.json`: each entry is `{ name, paths }`, where `name` is the finding's title and `paths` holds its current file paths. List each item once, no matter how many phases name it. Run the repair hook, passing the payload as the single argument (a name with quotes or backticks stays intact) and reading the JSON result it prints:
+Hand the hook one item per finding the artifacts still name, using the corrected paths from Step 2. The payload is `{ entries: [...] }`, the same shape as `tracking.json`: each entry is `{ name, paths }`, where `name` is the finding's title and `paths` holds its current file paths. List each item once, no matter how many phases name it. Call `lagune_write` with `command` set to `repair` and this payload as the single item of `arguments` (a name with quotes or backticks stays intact), then read the JSON result it prints:
 
-```bash
-lagune repair '{"entries":[{"name":"<NAME>","paths":["<PATH>"]}]}'
+```json
+{ "entries": [{ "name": "<NAME>", "paths": ["<PATH>"] }] }
 ```
 
 The hook compares every entry against the map and rewrites it: an item still named keeps its identity, an item whose paths moved gets the new paths, a name the map does not hold is registered, and an item you did not report is kept rather than deleted. It returns a classification per item and a list of `unresolved` items it could not decide alone. It never guesses the one call it cannot make: whether an item that disappeared was fixed or merely renamed.
@@ -56,7 +52,7 @@ The hook returns `unresolved` for each item that was in the map but not named in
 
 ### Step 5: Check the whole memory
 
-Run `lagune validate` with no argument, which checks every memory artifact present against its template. Fix nothing: each artifact's shape belongs to the phase that writes it, so carry what the hook reports into the summary, each drifted artifact pointed at its own command (`/lagune-charter`, `/lagune-detect`, `/lagune-plan`, or `/lagune-harden`).
+Call `lagune_read` with `command` set to `validate` and no `arguments`, which checks every memory artifact present against its template. Fix nothing: each artifact's shape belongs to the phase that writes it, so carry what the hook reports into the summary, each drifted artifact pointed at its own command (`/lagune-charter`, `/lagune-detect`, `/lagune-plan`, or `/lagune-harden`).
 
 ### Step 6: Summarize
 
@@ -69,3 +65,7 @@ Run `lagune validate` with no argument, which checks every memory artifact prese
   - **Next step:** if anything is still unresolved, name it so the user can settle it and rerun. Otherwise tell the user the tracking is coherent again. Say it as a suggestion, not a mandate.
 
 Keep the summary in plain language. The tracking map is invisible plumbing, so tell the user what changed for each item, not how the map stores it.
+
+## Engine
+
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 <subcommand>` as a fallback.

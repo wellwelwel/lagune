@@ -33,23 +33,19 @@ CORS relaxes the same-origin policy so a browser will _let one origin read anoth
 
 The first is **reflecting or over-allowing the `Origin`**. The `Origin` request header is attacker-controlled, so a server that **echoes** the incoming `Origin` back into `Access-Control-Allow-Origin`, especially with `Access-Control-Allow-Credentials: true`, has told the browser "every site may read this user's authenticated data". A wildcard `Access-Control-Allow-Origin: *` on a credentialed endpoint, or an allowlist matched by a loose substring/regex (so `your-site.com.attacker.com` or `attacker-your-site.com` passes), is the same failure. Never authorize a request _because of_ its `Origin` value.
 
-The wildcard and `null` cases are decidable value by value, so score each origin your config allows with the cors hook, one verdict per line.
+The wildcard and `null` cases are decidable value by value, so score each origin your config allows with the cors hook: call `lagune_read` with `command` set to `cors` and an `--origin` before each origin in `arguments`, one verdict per line.
 
-```bash
-lagune cors --origin '*'                       # => wildcard
-lagune cors --origin 'null'                    # => null
-lagune cors --origin 'https://app.example.com' # => safe
-```
+| `arguments`                               | Verdict    |
+| ----------------------------------------- | ---------- |
+| `["--origin", "*"]`                       | `wildcard` |
+| `["--origin", "null"]`                    | `null`     |
+| `["--origin", "https://app.example.com"]` | `safe`     |
 
 The `--origin` score exits non-zero on any `wildcard` or `null`. A `safe` verdict means only that the literal is not `*`/`null`, never that CORS is correctly configured.
 
 For the other shape it can catch, a bypassable-regex allowlist, the hook also scans source: a host validator whose `.+`/`.*` sits before the trusted suffix (`^https?://.+\.trusted\.com`), which an attacker host like `your-site.com.attacker.com` slips through.
 
-```bash
-lagune cors               # scans the whole project
-lagune cors --dir src     # scans a directory
-lagune cors --file api.js # scans a single file
-```
+Call `lagune_read` with `command` set to `cors` to scan the whole project, or add `arguments` set to `["--dir", "src"]` for a directory or `["--file", "api.js"]` for a single file.
 
 It lists each match under `Origin-allowlist patterns with a greedy wildcard (bypassable, review):` as a review lead, not a closed finding, so a scan never changes the exit code: read each and confirm the allowlist compares by full equality. Reflection of the request's `Origin`, and a permissive `endsWith`/substring allowlist, stay source patterns the hook cannot score: recognize them in the code and treat them as this block describes.
 

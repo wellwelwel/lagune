@@ -15,13 +15,7 @@ On a crafted input, the pattern takes an exploding amount of time to match, stal
 
 #### Start by mapping the workspace
 
-Begin every ReDoS pass with the deterministic scanner:
-
-```bash
-lagune regex               # scans the whole project
-lagune regex --dir <DIR>   # scans a directory
-lagune regex --file <FILE> # scans a single file
-```
+Begin every ReDoS pass with the deterministic scanner. Call `lagune_read` with `command` set to `regex` to scan the whole project, or add `arguments` set to `["--dir", "<DIR>"]` for a directory or `["--file", "<FILE>"]` for a single file.
 
 - `--dir` and `--file` repeat to scan several targets at once.
 - The header `Vulnerable regular expressions found:` **is the `unsafe` verdict for every pattern beneath it**, so each is a closed finding. Each pattern is followed, in parentheses, by why it is unsafe, the scope it shows in (`search` or `whole match`) when it has one, and the flags it runs with when it has any.
@@ -30,19 +24,12 @@ lagune regex --file <FILE> # scans a single file
 
 #### How to check a pattern the scan missed
 
-Use `--pattern` only for a pattern the scan could not reach. Quote each pattern so its slashes or backticks cannot break the command:
-
-```bash
-lagune regex --pattern '<PATTERN>'
-```
+Use `--pattern` only for a pattern the scan could not reach: call `lagune_read` with `command` set to `regex` and `arguments` set to `["--pattern", "<PATTERN>"]`.
 
 - `--pattern` cannot combine with `--file` or `--dir`.
 - Repeat `--pattern` to check several at once, one verdict printed per pattern, in order.
-- `--flags` gives every `--pattern` in the call the flags it runs with, such as `--flags 'im'`. Flags change which characters a pattern matches, so check a pattern with the flags it carries in the code.
-- `--limit` sets a custom repetition limit (a non-negative integer) for patterns with many small repeats. It applies to every `--pattern` in the call, and to a scan:
-  ```bash
-  lagune regex --pattern '<PATTERN>' --limit <LIMIT>
-  ```
+- `--flags` gives every `--pattern` in the call the flags it runs with, such as `["--flags", "im"]`. Flags change which characters a pattern matches, so check a pattern with the flags it carries in the code.
+- `--limit` sets a custom repetition limit (a non-negative integer) for patterns with many small repeats. It applies to every `--pattern` in the call, and to a scan, such as `["--pattern", "<PATTERN>", "--limit", "<LIMIT>"]`.
 
 #### How to read the verdict
 

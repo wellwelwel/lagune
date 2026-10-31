@@ -13,10 +13,6 @@ $ARGUMENTS
 
 The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
-## Engine
-
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
-
 ## Outline
 
 You are producing a **defense plan** at `.lagune/memory/plan.md`: a prioritized set of fixes for what detect found, each one pointing at a detect finding, rated with a category and a CVSS v4.0 score, paired with the charter principle it upholds, and the control to apply. This phase **continues from detect**. Detect already detected what the system does and recorded the risk each thing carries, so the plan does not restate the risk: it rates how serious it is and decides what to do about it. Every fix must point at something detect actually detected, never a generic checklist. The fixes are the WHAT to do. Applying them is the next phase, harden, not this one.
@@ -73,11 +69,7 @@ For each in-scope detect finding, read the risk detect already recorded for it (
 - Describe the control to apply: the WHAT to do, not the application. Applying is harden's job.
 - Add **references** when they ground the category, CWE or OWASP links written as `[label](url)` markdown (not bare URLs), comma-separated. Omit them when there is nothing to cite beyond the class named, and never invent one.
 
-Run the cvss hook, passing each vector as a flag value:
-
-```bash
-lagune cvss --vector '<VECTOR>' --vector '<VECTOR>'
-```
+Run the cvss hook: call `lagune_read` with `command` set to `cvss` and `arguments` set to `["--vector", "<VECTOR>", "--vector", "<VECTOR>"]`, a `--vector` before each vector.
 
 One finding is one item, with one rating. When a finding needs more than one fix, write them as more than one paragraph under the block's `Fix`, never a second block. Plan what the findings support, nothing speculative.
 
@@ -116,17 +108,17 @@ One finding is one item, with one rating. When a finding needs more than one fix
 ### Step 7: Write and track
 
 - Write the reconciled plan to `.lagune/memory/plan.md`.
-- Register the items you planned so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run planned, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name detect used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the fix touches. The path lives here, in tracking, never in the prose. Run it, passing the payload as the single argument:
+- Register the items you planned so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run planned, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name detect used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the fix touches. The path lives here, in tracking, never in the prose. Call `lagune_write` with `command` set to `track` and this payload as the single item of `arguments`:
 
-```bash
-lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+```json
+{ "entries": [{ "name": "<FINDING NAME>", "paths": ["<PATH>"] }] }
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase planned. Repairing the map across the conveyor stays with `/lagune-repair`.
 
 ### Step 8: Check the written plan
 
-Run `lagune validate plan`. If it reports problems, follow its output and rerun it until it passes.
+Call `lagune_read` with `command` set to `validate` and `arguments` set to `["plan"]`. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Summarize
 
@@ -140,3 +132,7 @@ Output a short summary to the user:
 - **Next step:** point the user to `/lagune-harden`, the phase that applies these fixes to the code, safely and one at a time, highest priority first. Frame it as the recommended next step. If anything is left under Open questions, point them instead to `/lagune-detect` on that uncovered scope first, so the plan can cover it before harden runs.
 
 Keep the plan in plain language throughout. A non-developer should understand what each fix does and why it is prioritized: the CVSS vector and category are the precise, reproducible anchor, and the `Priority` band with its `Why this priority` line is that rating in words anyone can follow. The finding name in each title stays precise enough for harden to act on.
+
+## Engine
+
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 <subcommand>` as a fallback.

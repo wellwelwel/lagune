@@ -52,11 +52,7 @@ A blocklist cannot win, there is always one more form. Allow only what is known-
 
 ##### How to check a destination
 
-Lagune ships a deterministic checker for the textual-form bypasses above. Pass each destination with `--url`, quoting it so quotes or backticks cannot break the command. Repeat `--url` to score in one call every host an allowlist or denylist names, and every literal the validation compares against, one verdict per line, in order:
-
-```bash
-lagune network --url '<URL-OR-HOST>' --url '<URL-OR-HOST>'
-```
+Lagune ships a deterministic checker for the textual-form bypasses above. Call `lagune_read` with `command` set to `network` and an `--url` before each destination in `arguments`, such as `["--url", "<URL-OR-HOST>", "--url", "<URL-OR-HOST>"]`. One call scores every host an allowlist or denylist names, and every literal the validation compares against, one verdict per line, in order.
 
 It resolves the host the way the network does (hex, octal, dotless, shorthand, IPv6, IPv4-mapped, trailing dots) with no DNS lookup, and prints one of four words:
 

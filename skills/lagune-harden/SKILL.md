@@ -13,10 +13,6 @@ $ARGUMENTS
 
 The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
-## Engine
-
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
-
 ## Outline
 
 You are applying the **defense plan** to the code and producing a **hardening record** at `.lagune/memory/harden.md`: a record of which plan fixes were applied, what changed in the code, and what is still left. This phase **continues from plan**. Plan already decided the fix for each finding and its priority, so this phase does not re-decide the fix: it applies it. Every change you make must come from a fix that is really in the defense plan, never a fix you invent here. This is the one phase that **changes the user's code**, so it is the one that must be the most careful.
@@ -45,7 +41,7 @@ If the input is ambiguous, prefer the most literal reading (an existing path is 
   - If it does not exist, initialize it from `template.md`, next to this file, first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
   - If it already exists, read what was applied before. You will reconcile it in Step 3 before applying anything new. Each applied block's identity is the plan fix it points at plus the change it records. A block may also carry a `Verdict` and `Reason` that verify wrote: a `❌ Reproved` or `❓ Inconclusive` verdict means verify judged the control did not close the risk, and its `Reason` is what you re-apply against.
 - Load the charter at `.lagune/memory/charter.md` for the governing principles, **if it exists**. The principles still bind here: never apply a fix in a way that breaks one. If the charter does not exist, apply the fixes from the plan alone.
-- Load the specializations that detect applied. The "Applied specializations" section of `.lagune/memory/detect.md` names them as the catalog lists them. Read each one with `lagune catalog <name>`, not just the list: each carries the defense knowledge for its class of finding (uploads, shell, network, and so on), which Step 4 uses to apply the matching fix. If a listed specialization no longer resolves, note it and apply the fix from the plan and charter alone.
+- Load the specializations that detect applied. The "Applied specializations" section of `.lagune/memory/detect.md` names them as the catalog lists them. Read each one by calling `lagune_read` with `command` set to `catalog` and `arguments` set to `["<name>"]`, not just the list: each carries the defense knowledge for its class of finding (uploads, shell, network, and so on), which Step 4 uses to apply the matching fix. If a listed specialization no longer resolves, note it and apply the fix from the plan and charter alone.
 
 ### Step 3: Reconcile the existing record
 
@@ -108,17 +104,17 @@ This is the one place Lagune changes the user's code. Do not ask for a confirmat
 ### Step 7: Write and track
 
 - Write the reconciled record to `.lagune/memory/harden.md`.
-- Register the items you hardened so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run hardened, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name the plan used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the change landed in. The path lives here, in tracking, never in the prose. Run it, passing the payload as the single argument:
+- Register the items you hardened so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run hardened, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name the plan used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the change landed in. The path lives here, in tracking, never in the prose. Call `lagune_write` with `command` set to `track` and this payload as the single item of `arguments`:
 
-```bash
-lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+```json
+{ "entries": [{ "name": "<FINDING NAME>", "paths": ["<PATH>"] }] }
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase hardened. Repairing the map across the conveyor stays with `/lagune-repair`.
 
 ### Step 8: Check the written record
 
-Run `lagune validate harden`. If it reports problems, follow its output and rerun it until it passes.
+Call `lagune_read` with `command` set to `validate` and `arguments` set to `["harden"]`. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Summarize
 
@@ -132,3 +128,7 @@ Output a short summary to the user:
 - **Next step:** point the user to `/lagune-verify`, the phase that proves each applied control actually holds. Make clear the applied controls are not yet proven until verify confirms them. Frame it as the recommended next step. If anything is left under Remaining (a Blocked fix, or a part the plan did not cover), name what is still open so the user can decide whether to revisit `/lagune-plan` or rerun `/lagune-harden` before verifying.
 
 Keep the record in plain language throughout. A non-developer should understand what was changed and what is still open, while the `Where` note stays precise enough that, with the path from the tracking map, `/lagune-verify` can act on it.
+
+## Engine
+
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 <subcommand>` as a fallback.

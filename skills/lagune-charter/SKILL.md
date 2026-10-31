@@ -13,10 +13,6 @@ $ARGUMENTS
 
 The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
-## Engine
-
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
-
 ## Outline
 
 You are creating or updating the project's **security charter** at `.lagune/memory/charter.md`: the set of safe-by-default principles that every later phase (detect, plan, harden, verify) must respect. This file is a TEMPLATE of placeholder tokens in square brackets (for example `[PROJECT_NAME]`, `[PRINCIPLE_1_NAME]`). Fill it with concrete values and write it back.
@@ -91,21 +87,13 @@ Then write the completed charter to `.lagune/memory/charter.md`.
 
 ### Step 8: Check the written charter
 
-Run `lagune validate charter`. If it reports problems, follow its output and rerun it until it passes.
+Call `lagune_read` with `command` set to `validate` and `arguments` set to `["charter"]`. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Record the specialization categories
 
-Specializations, the security knowledge the later phases load on demand, join the project's catalog by category. List every category, with whether the project uses it:
+Specializations, the security knowledge the later phases load on demand, join the project's catalog by category. List every category, with whether the project uses it: call `lagune_read` with `command` set to `list` and `arguments` set to `["--categories"]`.
 
-```bash
-lagune list --categories
-```
-
-- **No category is recorded yet** (the listing says so): record, in one call, each category the listing describes that your reading in Step 2 supports, such as the project's language, calls to an LLM, or containers. Record only what the reading supports, never a category for completeness:
-
-  ```bash
-  lagune add --categories <category> <category>
-  ```
+- **No category is recorded yet** (the listing says so): record, in one call, each category the listing describes that your reading in Step 2 supports, such as the project's language, calls to an LLM, or containers. Record only what the reading supports, never a category for completeness: call `lagune_write` with `command` set to `add` and `arguments` set to `["--categories", "<category>", "<category>"]`.
 
 - **Categories are already recorded:** leave them as they are, since they are the project's choice. Name in the summary each category your reading supports that the project does not use yet.
 
@@ -121,3 +109,7 @@ Output a short summary:
 - **Next step:** point the user to `/lagune-detect`, the phase that reads the code to map what the system actually does, so the later phases work from real context. Note they can rerun `/lagune-charter` any time the principles need to change.
 
 Keep the charter in plain language throughout. A non-developer should be able to read it and understand both the rule and the risk it prevents.
+
+## Engine
+
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 <subcommand>` as a fallback.

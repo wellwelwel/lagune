@@ -33,11 +33,10 @@ const PUBLISHED_FOLDERS = ['skills', 'catalog'];
 
 const ENGINE_COMMAND = `npx --yes lagune@${await loadVersion(packageRoot)} `;
 const ENGINE_CALL = /npx (?:-\S+ )*lagune(?:@\S*)? [^\n`]*/g;
-const TOOL_CALL = /(?<![\w@./-])lagune ([a-z][\w-]*)[^\n`]*/g;
+const SHELL_CALL = /(?<![\w@./-])lagune [a-z][\w-]*[^\n`]*/g;
+const TOOL_CALL = /`(lagune_\w+)` with `command` set to `([a-z]+)`/g;
 const SHORT_FLAG = /(?:^|\s)-[a-zA-Z](?=\s|$)/;
-const TOOL_COMMANDS = new Set<string>(
-  ENGINE_TOOLS.flatMap((tool) => tool.commands)
-);
+const SHORT_FLAG_ARGUMENT = /"-[a-zA-Z]"/g;
 
 const folders = (await readdir(new URL('skills/', packageRoot))).toSorted();
 
@@ -55,13 +54,20 @@ const readPublished = async (): Promise<PublishedText[]> => {
 const callsMatching = (
   published: PublishedText[],
   pattern: RegExp
-): { file: string; call: string; command: string }[] =>
+): { file: string; call: string; groups: string[] }[] =>
   published.flatMap(({ file, text }) =>
-    [...text.matchAll(pattern)].map(([call, command = '']) => ({
+    [...text.matchAll(pattern)].map(([call, ...groups]) => ({
       file,
       call,
-      command,
+      groups,
     }))
+  );
+
+const runsCommand = (tool: string | undefined, command: string | undefined) =>
+  ENGINE_TOOLS.some(
+    (candidate) =>
+      candidate.name === tool &&
+      candidate.commands.some((name) => name === command)
   );
 
 await describe('the published skills', async () => {
@@ -111,23 +117,37 @@ await describe('every engine call the skills and specializations write', async (
     );
   });
 
-  it('names only commands the Lagune tools run', () => {
+  it('writes every engine call as a Lagune tool call, never as a shell command', () => {
+    strict.deepStrictEqual(
+      callsMatching(published, SHELL_CALL).map(
+        ({ file, call }) => `${file}: ${call}`
+      ),
+      []
+    );
+  });
+
+  it('routes each command through the Lagune tool that runs it', () => {
     strict.deepStrictEqual(
       toolCalls
-        .filter(({ command }) => !TOOL_COMMANDS.has(command))
+        .filter(({ groups: [tool, command] }) => !runsCommand(tool, command))
         .map(({ file, call }) => `${file}: ${call}`),
       []
     );
   });
 
-  it('tells every skill that calls the engine to reach it through the Lagune tools or npx', () => {
-    strict(callingSkills.length > 0);
+  it('ends every skill that calls the engine with the pinned npx fallback, after the work', () => {
+    const lastSections = callingSkills.map(({ file, text }) => ({
+      file,
+      section: text.slice(text.lastIndexOf('\n## ') + 1),
+    }));
+
+    strict(lastSections.length > 0);
     strict.deepStrictEqual(
-      callingSkills
+      lastSections
         .filter(
-          ({ text }) =>
-            !text.includes(`${ENGINE_COMMAND}<subcommand>`) ||
-            !ENGINE_TOOLS.every((tool) => text.includes(`\`${tool.name}\``))
+          ({ section }) =>
+            !section.startsWith('## Engine\n') ||
+            !section.includes(`${ENGINE_COMMAND}<subcommand>`)
         )
         .map(({ file }) => file),
       []
@@ -136,9 +156,10 @@ await describe('every engine call the skills and specializations write', async (
 
   it('spells out every flag in full', () => {
     strict.deepStrictEqual(
-      [...npxCalls, ...toolCalls]
-        .filter(({ call }) => SHORT_FLAG.test(call))
-        .map(({ file, call }) => `${file}: ${call}`),
+      [
+        ...npxCalls.filter(({ call }) => SHORT_FLAG.test(call)),
+        ...callsMatching(published, SHORT_FLAG_ARGUMENT),
+      ].map(({ file, call }) => `${file}: ${call}`),
       []
     );
   });

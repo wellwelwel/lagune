@@ -28,7 +28,8 @@ Installing and updating the commands belongs to the **skills** CLI and to each a
 
 ## The engine
 
-- **Skills and built-in specializations call the engine as `lagune <subcommand>`, spelling every flag in full.** Each skill says once how that call runs from the project root: through the engine's own MCP tools when a plugin carries the engine, and otherwise as `npx --yes lagune@<version> <subcommand>`, pinned at the package version so each skill runs the engine it was written for and none fetches whatever is newest. What a person reads, from the docs to the engine's own messages, shows `npx lagune <subcommand>`.
+- **Skills and built-in specializations write every engine call as a call to the engine's own MCP tools, spelling every flag in full.** An agent follows the form a call is written in, so a call written as a shell command draws the shell even when the tools are there.
+- **Each skill ends with the npx fallback, after the work.** For an agent without the tools, its last section runs each call as `npx --yes lagune@<version> <subcommand>` from the project root, pinned at the package version so each skill runs the engine it was written for and none fetches whatever is newest. What a person reads, from the docs to the engine's own messages, shows `npx lagune <subcommand>`.
 - **The MCP server splits reading from writing.** One tool runs the commands that only read and the other the commands that write `.lagune/`, so a user can allow reading alone. Each call runs the engine in its own process with no shell, exactly as the CLI would.
 - **The checkers scan only inside the project.** A target above the project root, or a link that leaves it, fails, since the MCP server runs outside the agent's sandbox.
 - **The engine fails closed.** An unknown subcommand or a malformed payload fails instead of reading as clean.

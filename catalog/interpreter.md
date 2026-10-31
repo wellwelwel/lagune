@@ -14,18 +14,14 @@
 
 Before reading by hand, run the interpreter hook. It is deterministic (regex over source, no runtime) and language-aware, picking each file's rules from its extension across javascript, python, php, ruby, java, kotlin, go, rust, c, cpp, and csharp.
 
-```bash
-lagune interpreter               # scans the whole project
-lagune interpreter --dir <DIR>   # scans a directory
-lagune interpreter --file <FILE> # scans a single file
-```
+Call `lagune_read` with `command` set to `interpreter` to scan the whole project, or add `arguments` set to `["--dir", "<DIR>"]` for a directory or `["--file", "<FILE>"]` for a single file.
 
 Its verdict is **not** literal, unlike the finding hooks: every line it prints is a **caution to review**, never a confirmed finding, because these sinks (`eval`, `exec`, the `Function` constructor, string-body timers, `vm`, shell exec, dynamic `require`/`import`/`include`, native deserialization) are dangerous only when attacker-influenced input reaches them, which the scan cannot decide. So the hook prints one **review** section and always exits 0. Score one snippet with `--pattern` and its language `--lang`:
 
-```bash
-lagune interpreter --lang javascript --pattern 'eval(x)'   # => careful
-lagune interpreter --lang python --pattern 'json.loads(x)' # => safe
-```
+| `arguments`                                          | Verdict   |
+| ---------------------------------------------------- | --------- |
+| `["--lang", "javascript", "--pattern", "eval(x)"]`   | `careful` |
+| `["--lang", "python", "--pattern", "json.loads(x)"]` | `safe`    |
 
 **Read the flagged code, never run it, nor any remote or runtime-fetched code it pulls in.** Reason about each sink statically, tracing whether an untrusted value reaches it.
 

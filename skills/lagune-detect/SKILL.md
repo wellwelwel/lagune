@@ -13,10 +13,6 @@ $ARGUMENTS
 
 The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
-## Engine
-
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
-
 ## Outline
 
 You are producing a **detect map** at `.lagune/memory/detect.md`: a record of what the system actually does that carries security weight, based on reading the code. This is detection, not invention. Record only what the code supports, with the evidence (files, routes) that later phases need to act on. Each finding is also explained in plain language with its risk, so any reader understands it.
@@ -54,11 +50,7 @@ If reconciling reveals the chain is inconsistent (for example the tracking map p
 
 ### Step 4: List the catalog and widen the read
 
-Before you read the code, list the catalog once. This is the only read of the catalog in this phase:
-
-```bash
-lagune catalog
-```
+Before you read the code, list the catalog once. This is the only read of the catalog in this phase: call `lagune_read` with `command` set to `catalog`.
 
 It prints each specialization this project uses as `name: tags`. The list does two jobs. Its tags are search targets: each one sends you looking for that context in the code, widening the detection in Step 5. The list itself is the work list Step 6 carries forward to give every entry a verdict, so keep it whole and do not read the catalog again.
 
@@ -76,7 +68,7 @@ Work from the list Step 4 printed, the authoritative work list. The **tags are t
 
 **Reach a verdict on every entry on that list, one at a time, before you write any finding.** An entry marked `[required]` is always applied: when it ships a deterministic checker, you run that checker over the whole project and its output is the verdict, never a skip. For every other entry, the only question is whether the code you read in Step 5 contains the context its tags name, read off the code, not estimated from how relevant the entry feels:
 
-- **The context is present.** Apply the specialization. Read it with `lagune catalog <name>` and follow it, scoped to the paths in question: do what it says, do not improvise beyond it, and do not edit the user's code. The verdict is whatever its checker prints over each pattern, destination, or value the code contains, or where it ships no checker, what its reasoning concludes against the actual code. A guard the code already applies is judged here, never waved through for being present.
+- **The context is present.** Apply the specialization. Read it by calling `lagune_read` with `command` set to `catalog` and `arguments` set to `["<name>"]`, and follow it, scoped to the paths in question: do what it says, do not improvise beyond it, and do not edit the user's code. The verdict is whatever its checker prints over each pattern, destination, or value the code contains, or where it ships no checker, what its reasoning concludes against the actual code. A guard the code already applies is judged here, never waved through for being present.
 - **The context is absent.** The code contains nothing the tags name, so there is nothing to apply. Skip it. Finding that many entries do not apply is a normal outcome.
 
 Anything a specialization surfaces is recorded as a finding through the steps below, like any other. Hold each entry's verdict for the table Step 11 emits.
@@ -108,17 +100,17 @@ Anything a specialization surfaces is recorded as a finding through the steps be
 ### Step 9: Write and track
 
 - Write the reconciled map to `.lagune/memory/detect.md`.
-- Register the findings you wrote so the tracking map keeps each one's identity. This is registration, not reconciliation: hand the track hook only the findings this run wrote, as the `entries` list of `{name, paths}`, and it records the new ones and follows a renamed path for the rest. It never removes anything you did not report. `name` is the finding's name (this section's title), and `paths` holds the file paths the finding points at (one or more). The path lives here, in tracking, never in the prose. The tracking map holds no note: the prose carries the wording, the map carries only identity and paths. Run it, passing the payload as the single argument (a name with quotes or backticks stays intact) and reading the JSON result it prints:
+- Register the findings you wrote so the tracking map keeps each one's identity. This is registration, not reconciliation: hand the track hook only the findings this run wrote, as the `entries` list of `{name, paths}`, and it records the new ones and follows a renamed path for the rest. It never removes anything you did not report. `name` is the finding's name (this section's title), and `paths` holds the file paths the finding points at (one or more). The path lives here, in tracking, never in the prose. The tracking map holds no note: the prose carries the wording, the map carries only identity and paths. Call `lagune_write` with `command` set to `track` and this payload as the single item of `arguments` (a name with quotes or backticks stays intact), then read the JSON result it prints:
 
-```bash
-lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+```json
+{ "entries": [{ "name": "<FINDING NAME>", "paths": ["<PATH>"] }] }
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only registers what this phase wrote. Repairing the chain across phases stays with `/lagune-repair`.
 
 ### Step 10: Check the written map
 
-Run `lagune validate detect`. If it reports problems, follow its output and rerun it until it passes.
+Call `lagune_read` with `command` set to `validate` and `arguments` set to `["detect"]`. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 11: Summarize
 
@@ -140,3 +132,7 @@ Output a short summary to the user:
 - **Next step:** point the user to `/lagune-plan`, the phase that turns these findings into prioritized fixes, each tied to a charter principle. Frame it as the recommended next step, and note they can rerun `/lagune-detect` (on the whole project or a narrower scope) whenever the code changes.
 
 Keep the map in plain language throughout. A non-developer should understand what each finding is and the risk it carries, while the evidence stays precise enough for the next phases to use.
+
+## Engine
+
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 <subcommand>` as a fallback.

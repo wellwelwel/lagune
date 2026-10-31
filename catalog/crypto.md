@@ -16,19 +16,15 @@ This terrain is the **cryptography itself**: the algorithm that protects a secre
 
 Before reading by hand, run the crypto hook. It is deterministic (regex over source, no runtime), and its verdict is literal.
 
-```bash
-lagune crypto               # scans the whole project
-lagune crypto --dir <DIR>   # scans a directory
-lagune crypto --file <FILE> # scans a single file
-```
+Call `lagune_read` with `command` set to `crypto` to scan the whole project, or add `arguments` set to `["--dir", "<DIR>"]` for a directory or `["--file", "<FILE>"]` for a single file.
 
-It is language-aware, reading each file by its own cryptographic APIs (javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp), so a construct from one language is never flagged in another. It prints up to two sections. **Weak cryptography found** is the finding set (DES/3DES/RC4/Blowfish/RC2, ECB mode): each is a broken cipher primitive, so it exits non-zero. **Cryptography to review manually** is a lead set the scanner cannot judge alone: an MD5/SHA-1 digest (broken where collision or preimage resistance matters, but legitimate as a plain checksum, so intent decides), a non-cryptographic RNG in a security context, or a timing-unsafe comparison. Read each by hand. A clean run prints a single line. Score one construct with `--pattern`, passing its language with `--lang`:
+It is language-aware, reading each file by its own cryptographic APIs (javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp), so a construct from one language is never flagged in another. It prints up to two sections. **Weak cryptography found** is the finding set (DES/3DES/RC4/Blowfish/RC2, ECB mode): each is a broken cipher primitive, so it exits non-zero. **Cryptography to review manually** is a lead set the scanner cannot judge alone: an MD5/SHA-1 digest (broken where collision or preimage resistance matters, but legitimate as a plain checksum, so intent decides), a non-cryptographic RNG in a security context, or a timing-unsafe comparison. Read each by hand. A clean run prints a single line. Score one construct with `--pattern`, passing its language with `--lang`, in the `arguments` of the same call:
 
-```bash
-lagune crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
-lagune crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
-lagune crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
-```
+| `arguments`                                                                 | Verdict  |
+| --------------------------------------------------------------------------- | -------- |
+| `["--lang", "javascript", "--pattern", "createCipher(\"aes-256-cbc\", k)"]` | `weak`   |
+| `["--lang", "python", "--pattern", "hashlib.md5(data)"]`                    | `review` |
+| `["--lang", "go", "--pattern", "sha256.Sum256(data)"]`                      | `safe`   |
 
 The hook guarantees the floor (these constructs exist). The sections below carry what it cannot decide (key management, IV reuse, RSA padding).
 

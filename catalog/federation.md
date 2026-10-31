@@ -18,18 +18,14 @@ A JSON Web Token carries claims and a signature, trustworthy only when the signa
 
 The algorithm-confusion case (the verifier reads `alg` from the token, with no pin) is decidable, so run the jwt hook first. It is language-aware (javascript, python, go, java, kotlin, php, ruby, rust, csharp), reading each file by its own JWT library, and its verdict is literal.
 
-```bash
-lagune jwt               # scans the whole project
-lagune jwt --dir <DIR>   # scans a directory
-lagune jwt --file <FILE> # scans a single file
-```
+Call `lagune_read` with `command` set to `jwt` to scan the whole project, or add `arguments` set to `["--dir", "<DIR>"]` for a directory or `["--file", "<FILE>"]` for a single file.
 
-Every line under **Unpinned JWT verification found** is a verify call that trusts the token's own `alg` header: it sets no algorithm allowlist (where the library needs one), accepts an unsafe one (`none`, or an asymmetric algorithm mixed with HMAC), or disables signature checking. Each is a confirmed exposure that exits non-zero. A clean run prints a single line. Score one call with `--pattern`, passing its language with `--lang`:
+Every line under **Unpinned JWT verification found** is a verify call that trusts the token's own `alg` header: it sets no algorithm allowlist (where the library needs one), accepts an unsafe one (`none`, or an asymmetric algorithm mixed with HMAC), or disables signature checking. Each is a confirmed exposure that exits non-zero. A clean run prints a single line. Score one call with `--pattern`, passing its language with `--lang`, in the `arguments` of the same call:
 
-```bash
-lagune jwt --lang javascript --pattern 'jwt.verify(token, secret)'          # => unpinned
-lagune jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])' # => safe
-```
+| `arguments`                                                                     | Verdict    |
+| ------------------------------------------------------------------------------- | ---------- |
+| `["--lang", "javascript", "--pattern", "jwt.verify(token, secret)"]`            | `unpinned` |
+| `["--lang", "python", "--pattern", "jwt.decode(t, k, algorithms=[\"HS256\"])"]` | `safe`     |
 
 The hook decides only the pin. The claim, key, and flow checks below stay yours.
 

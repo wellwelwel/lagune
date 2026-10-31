@@ -16,11 +16,7 @@ This terrain is the **infrastructure defined as static config**: Terraform/HCL, 
 
 Run the infra hook first. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`) and its verdict is literal.
 
-```bash
-lagune infra                   # scans every IaC file in the project
-lagune infra --dir infra       # scans a directory
-lagune infra --file Dockerfile # scans a single file
-```
+Call `lagune_read` with `command` set to `infra` to scan every IaC file in the project, or add `arguments` set to `["--dir", "infra"]` for a directory or `["--file", "Dockerfile"]` for a single file.
 
 It prints up to two sections. **Infrastructure risks found** exits non-zero and holds the decidable defects:
 
@@ -28,12 +24,12 @@ It prints up to two sections. **Infrastructure risks found** exits non-zero and 
 - **Dockerfile:** a final image that runs as root by an explicit `USER root`/`0` (a missing `USER` is not flagged, since the effective user comes from the base image, which the file does not show), and a `RUN` that pipes a downloaded script into a shell with no checksum/signature check.
 - **GitHub Actions:** an untrusted `github.event.*` field interpolated into a `run:` block (script injection), and `permissions: write-all`.
 
-**Infrastructure hardening advisories** does not change the exit code: a final `FROM` not pinned to a `@sha256` digest, and an action pinned to a tag/branch rather than a full commit SHA. These are posture, not defects. A clean run prints a single line. Score one snippet with `--pattern` and its kind `--kind`:
+**Infrastructure hardening advisories** does not change the exit code: a final `FROM` not pinned to a `@sha256` digest, and an action pinned to a tag/branch rather than a full commit SHA. These are posture, not defects. A clean run prints a single line. Score one snippet with `--pattern` and its kind `--kind`, in the `arguments` of the same call:
 
-```bash
-lagune infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
-lagune infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
-```
+| `arguments`                                                 | Verdict        |
+| ----------------------------------------------------------- | -------------- |
+| `["--kind", "terraform", "--pattern", "actions = [\"*\"]"]` | `iam-wildcard` |
+| `["--kind", "dockerfile", "--pattern", "FROM node:20"]`     | `mutable-tag`  |
 
 ### Reading beyond the hook
 

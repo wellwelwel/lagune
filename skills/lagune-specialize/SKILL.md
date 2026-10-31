@@ -14,13 +14,9 @@ $ARGUMENTS
 
 The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
-## Engine
-
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
-
 ## Outline
 
-You are giving Lagune a new **specialty**: a focused, language-agnostic security specialization the detect and verify phases load on demand, listed by the catalog and loaded directly with `lagune catalog <name>`. You distill the user's source or topic into it. A specialization audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `template.md`, next to this file, and the built-in specializations `regex`, `javascript`, and `browser` are worked examples to mirror, each read with `lagune catalog <name>`.
+You are giving Lagune a new **specialty**: a focused, language-agnostic security specialization the detect and verify phases load on demand, listed by the catalog and loaded directly by calling `lagune_read` with `command` set to `catalog` and `arguments` set to `["<name>"]`. You distill the user's source or topic into it. A specialization audits and explains a risk area, it never rewrites the user's code, and it never produces an attack input. The shape lives in `template.md`, next to this file, and the built-in specializations `regex`, `javascript`, and `browser` are worked examples to mirror, each read the same way.
 
 The result is the specialization at `.lagune/catalog/<name>.md` and its one-line entry in the project's index, the `catalog` list in `.lagune/configs.json`, which the catalog merges with the built-ins. You write both, and both stay under version control with the rest of `.lagune/`. You never touch the user's source.
 
@@ -38,13 +34,7 @@ First settle the **terrain**: what the specialization covers, never the vulnerab
 
 The name is that terrain as a safe filename: lowercase, replace every run of characters outside `a-z 0-9 -` with a single `-`, trim leading and trailing `-`, and collapse repeats. Derive it from the terrain you settled, never from the raw topic, so an attack topic never becomes the name. If the terrain is unclear, ask the user for a short name for it. This name is also the identity of its entry in `.lagune/configs.json`.
 
-List what the project already uses by running the catalog:
-
-```bash
-lagune catalog
-```
-
-Then run `lagune catalog <name>`. It prints the specialization the project resolves under that name, its own first and then the built-in, or reports that no specialization has that name.
+List what the project already uses by calling `lagune_read` with `command` set to `catalog`. Then call it again with `arguments` set to `["<name>"]`. It prints the specialization the project resolves under that name, its own first and then the built-in, or reports that no specialization has that name.
 
 - **It exists** (a built-in like `regex`, or one you specialized before): this is a **refine**. Use what it printed as the base. Reconcile, never append: fold the new knowledge into the existing sections, keep what still holds, rewrite what changed, and preserve the file's shape. Never replace a built-in from scratch and never blindly clobber an earlier version.
 - **It is new:** author from the template in Step 5.
@@ -72,12 +62,12 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 
 - Ensure `.lagune/catalog/` exists, then write `.lagune/catalog/<name>.md` with the authored or reconciled content. An existing name is reconciled from its current content first, so this never discards a built-in or an earlier version unseen. On a refine of a built-in, this file becomes the project's own version and shadows the built-in from then on.
 - Update `.lagune/configs.json`. If the file or its `catalog` list is absent, create it. If the file names no `$schema`, add `"$schema": "https://lagune.ai/schemas/configs.json"` as its first field. Add the `{ "name": "<name>", "tags": [...] }` entry to that list, or on a refine rewrite that one entry, preserving every other entry and every other field untouched.
-- Run the catalog again and confirm it lists the entry with the tags the user confirmed:
-
-  ```bash
-  lagune catalog
-  ```
+- Call `lagune_read` with `command` set to `catalog` again and confirm it lists the entry with the tags the user confirmed.
 
 ### Step 8: Summarize
 
 In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune@0.15.0 catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
+
+## Engine
+
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 <subcommand>` as a fallback.
