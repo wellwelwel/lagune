@@ -64,7 +64,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Devin for Terminal',
     description: "Cognition's terminal agent",
     icon: '/img/icons/devin.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/devin-cli',
   },
   {
     name: 'Factory Droid',

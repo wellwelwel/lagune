@@ -1,0 +1,47 @@
+---
+id: devin-cli
+title: 'Install Lagune on Devin CLI as a Plugin'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: Install Lagune's commands in Devin CLI through its own plugin installer, and keep them updated.
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli plugin
+  - devin plugins install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+**Devin CLI** installs plugins into your **Devin** account, so sign in first, then install the plugin from your terminal:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## Update
+
+To update **Lagune**, run:
+
+```bash
+devin plugins update lagune
+```
+
+## Commands
+
+Type the commands under the plugin's name: where these docs show `/lagune.charter`, type `/lagune:lagune.charter`. The `/` menu also lists them.
+
+---
+
+:::info[Permissions]
+
+The first engine call asks for your permission.
+
+:::
