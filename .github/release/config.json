@@ -4,7 +4,14 @@
       "changelog-path": "CHANGELOG.md",
       "include-component-in-tag": false,
       "package-name": "lagune",
-      "release-type": "node"
+      "release-type": "node",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": ".claude-plugin/plugin.json",
+          "jsonpath": "$.version"
+        }
+      ]
     }
   }
 }

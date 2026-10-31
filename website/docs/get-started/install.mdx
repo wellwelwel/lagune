@@ -1,11 +1,12 @@
 ---
 id: install
-title: 'Install: Security Hardening in Any Project via npx'
+title: 'Install: Security Hardening for Any AI Agent'
 sidebar_label: Install
 slug: /
-description: Install Lagune's commands in any project, new or existing, with the skills CLI, and choose the security specializations that fit it.
+description: Install Lagune in any project, as a plugin where your agent supports one or with the skills CLI elsewhere, then choose the security specializations that fit it.
 keywords:
   - install lagune
+  - claude code plugin
   - npx skills add
   - skills CLI
   - setup
@@ -23,7 +24,10 @@ keywords:
   - AI agents
 ---
 
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
 import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
 import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
@@ -34,44 +38,26 @@ import Tabs from '@theme/Tabs';
 Love **Lagune**? <ArrowLink to="https://github.com/wellwelwel/lagune">Give us a ⭐ on **GitHub**</ArrowLink>
 :::
 
----
+## Pick your agent
 
-Install **Lagune**'s commands with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
-
-```bash
-npx skills add wellwelwel/lagune
-```
-
-Or paste this prompt into your agent:
-
-```md
-Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
-```
+<AgentPicker />
 
 :::info
 
-- 🃏 **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
-- After skills are added, to run completely offline, you can install the engine locally with `npm i -D lagune`.
+- **Lagune** runs on **Node.js** under the hood, you use whatever language you want.
+- To run completely offline, install **Lagune** in your project with `npm i -D lagune@{{version}}`.
 
 :::
 
-## Update
+## Categories
 
-To update **Lagune**'s commands to their latest version, run:
+**Lagune**'s security knowledge comes as [**specializations**](/docs/catalog), grouped into [**categories**](/docs/categories).
 
-```bash
-npx skills update
-```
-
-The engine needs no update of its own. One installed in the project updates with the same `npm install --save-dev lagune`.
+<CategoryPicker />
 
 :::tip
-Your charter, the artifacts each phase produces, the internal tracking, and every specialization you authored with [`/lagune.specialize`](/docs/commands/specialize) stay untouched.
+A project starts with `owasp` by default, and [`/lagune.charter`](/docs/commands/charter) adds the categories its reading of the project supports when analyzing the project.
 :::
-
-## Categories and catalog
-
-**Lagune**'s security knowledge comes as [**specializations**](/docs/catalog), grouped into [**categories**](/docs/categories). A project starts with `owasp`, and [`/lagune.charter`](/docs/commands/charter) adds the categories its reading of the project supports, such as its language, calls to an LLM, or containers. The built-ins of those categories, plus the specializations you write yourself, form the project's [**catalog**](/docs/catalog).
 
 ## Requirements
 
@@ -84,62 +70,44 @@ Using **Lagune**? Add one to your **README**:
 <Tabs>
   <TabItem value="two-tones" label="Two tones" default>
 
-<img
+<Badge
   src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
   alt='Secured By Lagune'
+  width={141}
 />
 
-```md
-[![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
-```
-
-<img
+<Badge
   src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
   alt='Security Powered By Lagune'
+  width={193}
 />
 
-```md
-[![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)](https://lagune.ai)
-```
-
-<img
+<Badge
   src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
   alt='Security-Driven Hardening with Lagune'
+  width={225}
 />
-
-```md
-[![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)](https://lagune.ai)
-```
 
   </TabItem>
   <TabItem value="solid" label="Solid">
 
-<img
+<Badge
   src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
   alt='Secured By Lagune'
+  width={135}
 />
 
-```md
-[![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
-<img
+<Badge
   src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
   alt='Security Powered By Lagune'
+  width={185}
 />
 
-```md
-[![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
-
-<img
+<Badge
   src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
   alt='Security-Driven Hardening'
+  width={175}
 />
-
-```md
-[![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
-```
 
   </TabItem>
 </Tabs>
@@ -158,7 +126,7 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
     {
       question: 'How do I install Lagune?',
       answer:
-        'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects.',
+        'Pick your agent: Claude Code installs Lagune as a plugin, and any other agent with npx skills add wellwelwel/lagune. It works in both new and existing projects.',
     },
     {
       question: 'Does Lagune need an API key?',
@@ -177,12 +145,12 @@ Once **Lagune**'s commands are installed, your agent unlocks a set of slash comm
     {
       question: 'What does Lagune add to my project?',
       answer:
-        "Its slash commands, installed by the skills CLI where your agent reads them, and a .lagune/ directory with your project's security state, created by the first command that writes.",
+        "A .lagune/ directory with your project's security state, created by the first command that writes. The skills CLI also installs the slash commands in the project, where your agent reads them, while a plugin keeps them inside the agent.",
     },
     {
       question: 'How do I update Lagune?',
       answer:
-        'Run npx skills update. Your charter, phase artifacts, and own specializations stay untouched.',
+        'Through the route that installed it: claude plugin update lagune@lagune for the Claude Code plugin, after claude plugin marketplace update lagune, or npx skills update for the skills CLI. Your charter, phase artifacts, and own specializations stay untouched.',
     },
     {
       question: 'Which specializations does a project use?',

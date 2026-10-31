@@ -25,7 +25,7 @@ const SITE_URL = 'https://lagune.ai';
 export default function DocPage({ content: Content }: DocPageProps): ReactNode {
   const { metadata, frontMatter } = Content;
   const { sidebar } = useDocsData();
-  const context = findDocContext(sidebar, metadata.docId);
+  const context = findDocContext(sidebar, metadata);
 
   const trail = [
     { name: 'Home', url: `${SITE_URL}/` },
@@ -73,7 +73,10 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
   };
 
   return (
-    <DocsShell rail={<DocsToc toc={Content.toc} />}>
+    <DocsShell
+      activeDocId={metadata.parent ?? metadata.docId}
+      rail={<DocsToc toc={Content.toc} />}
+    >
       <PageMetadata
         title={metadata.title}
         description={metadata.description}

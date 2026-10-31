@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Authoritative architecture reference for Lagune, covering repository layout, the three owners, the published skills, the catalog, the engine command and its fallback, and the tracking-map model. Use when a decision depends on repo shape.
+description: Authoritative architecture reference for Lagune, covering repository layout, the three owners, the published skills and their plugins, the catalog, the engine command and its fallback, and the tracking-map model. Use when a decision depends on repo shape.
 user-invocable: true
 metadata:
   internal: true
@@ -8,19 +8,19 @@ metadata:
 
 # Lagune architecture
 
-This skill is the specialized, authoritative description of **how Lagune is structured**: repository layout, the three owners, how the published skills and their templates are organized, the catalog of specializations, the engine command, and the tracking-map model. Consult it before changing source and whenever a decision depends on the shape of the codebase.
+This skill is the specialized, authoritative description of **how Lagune is structured**: repository layout, the three owners, how the published skills and their templates are organized and shipped as plugins, the catalog of specializations, the engine command, and the tracking-map model. Consult it before changing source and whenever a decision depends on the shape of the codebase.
 
 The product mission and workflow philosophy live in [CLAUDE.md](../../../CLAUDE.md). The toolchain, code conventions, build path, and how the tracking hooks are implemented live in the [engineering](../engineering/SKILL.md) skill. The language conventions and the boundaries on what prose carries and who may author it live in the [writer](../writer/SKILL.md) skill. This skill covers the _shape_, not the _build_.
 
 ## The three owners
 
-| Owner                     | What it holds                                                                          | Where it lives                                                      |
-| ------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| The project               | the charter, the phase artifacts, the tracking map, its categories and its own catalog | `.lagune/`, committed with the project                              |
-| **Lagune**'s instructions | the nine commands, each beside the template it fills                                   | the skill folders the **skills** CLI installs from `skills/`        |
-| **Lagune**'s engine       | the hooks, validation, the built-in specializations and their categories               | the `lagune` package on **npm**, reached through the engine command |
+| Owner                     | What it holds                                                                          | Where it lives                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| The project               | the charter, the phase artifacts, the tracking map, its categories and its own catalog | `.lagune/`, committed with the project                                                    |
+| **Lagune**'s instructions | the nine commands, each beside the template it fills                                   | the skill folders the **skills** CLI or an agent's plugin installer copies from `skills/` |
+| **Lagune**'s engine       | the hooks, validation, the built-in specializations and their categories               | the `lagune` package on **npm**, reached through the engine command                       |
 
-Everything about installing commands, updating them, and supporting agents belongs to the **skills** CLI. **Lagune** keeps no agent list and no per-agent format, and never inspects how its skills were installed: it applies wherever its artifacts exist.
+Installing and updating the commands belongs to the **skills** CLI, the route that works in any agent, and to each agent's own plugin installer. **Lagune** keeps no per-agent format inside the skills or the engine, and the engine never inspects how its skills were installed: it applies wherever its artifacts exist.
 
 ## Repository layout
 
@@ -28,6 +28,7 @@ Everything about installing commands, updating them, and supporting agents belon
 | ----------------- | ------------------------------------------------------------------------------------------------------------ |
 | `skills/`         | The nine published skills, authored here and installed as they stand.                                        |
 | `catalog/`        | The built-in specializations, published with the engine.                                                     |
+| `assets/`         | The logo and the mark for plugin listings, kept outside `website/`, which release archives leave out.        |
 | `src/bin/`        | The engine's entry: the hook routing, `catalog`, the categories, `migrate`, the dashboard, and the fallback. |
 | `src/cli/`        | Argument parsing, messages, pickers, and the hook runner.                                                    |
 | `src/catalog/`    | The built-in index, the name grammar, listing and merging, and the project's own index.                      |
@@ -36,7 +37,7 @@ Everything about installing commands, updating them, and supporting agents belon
 | `src/hooks/`      | The 14 hooks.                                                                                                |
 | `src/dashboard/`  | The live view of `.lagune/`.                                                                                 |
 | `src/types/`      | The single home for every type declaration. No type is declared elsewhere.                                   |
-| `lib/`            | Build output, ignored by git, published together with `catalog/`.                                            |
+| `lib/`            | Build output, ignored by git and published.                                                                  |
 | `test/`           | Poku test suites.                                                                                            |
 | `website/`        | The documentation site, an npm workspace of the root package.                                                |
 
@@ -44,16 +45,25 @@ Everything about installing commands, updating them, and supporting agents belon
 
 - **Build tool:** **esbuild** bundles the engine, hooks included, from `src/` into one self-contained JavaScript file in `lib/`, with the worker the regex scan spreads its analysis across bundled beside it, so the published package carries no runtime `node_modules` for the end user. **Vite** builds the dashboard client into `lib/dashboard`.
 - **Entry point:** the `package.json` `bin` field maps the `lagune` command to the engine entry in `lib/`, so the engine command runs the bundle directly.
-- **Published:** `lib/` and `catalog/`. The skills are not part of the package: the **skills** CLI installs them from the repository, so the default branch is what users get.
+- **Published:** `lib/`, `catalog/`, `schemas/`, and `skills/`. The **skills** CLI and most plugin installers take the skills from the repository's default branch, a few agents install its latest release, and the agents that install from **npm** take them from the package.
+- **Versioning:** one version across the package, every plugin manifest, and every engine call. The release pull request moves `package.json` and each manifest the release config lists, and a step in it pins the engine calls in `skills/` and `catalog/` at the new version. No release goes out while a pin on the default branch disagrees with the package version.
 
 ## The published skills
 
-Each command is a folder under `skills/` holding its `SKILL.md`, plus `template.md` when the command fills one (charter, detect, plan, harden, specialize, prove). The **skills** CLI copies the whole folder, so nothing else belongs in it.
+Each command is a folder under `skills/` holding its `SKILL.md`, plus `template.md` when the command fills one (charter, detect, plan, harden, specialize, prove). Every installer copies the whole folder, so nothing else belongs in it.
 
-- **A skill instructs.** It is the agent's reading: how to think about the phase, what to look for, what questions to resolve. Its frontmatter carries `name` (equal to its folder), the description, `argument-hint`, and `user-invocable`, plus `disable-model-invocation` on prove and specialize, and never `metadata.internal`, which would hide it from discovery.
+- **A skill instructs.** It is the agent's reading: how to think about the phase, what to look for, what questions to resolve. Its frontmatter carries `name` (equal to its folder), the description, `argument-hint`, and `user-invocable`, plus `disable-model-invocation` on prove and specialize, and never `metadata.internal`, which would hide it from discovery, or `allowed-tools`, which would approve the engine on the user's behalf. Its input section names every place an agent may deliver the input, since only some agents fill the placeholder.
 - **A template structures.** It is the mould for the phase's output, read from `template.md` next to the skill. The skill carries the reasoning, the template carries the shape of the result.
 
 Every deterministic step a skill or a built-in specialization writes uses the engine command with long flags only.
+
+## The plugins
+
+An agent with a plugin installer of its own gets one thin manifest, in the folder that installer reads (such as `.claude-plugin/`), beside a marketplace listing when the installer installs through one. A manifest is distribution metadata only: it names the plugin `lagune`, carries the package version, and reaches the skills in `skills/`, by the installer's convention or by pointing there, never through a copy of a skill. A marketplace listing names the repository root as the plugin and leaves the version to the manifest. The plugins test checks every manifest against the release config.
+
+- **The repository root is the plugin.** Every tracked file at the root ships in every user's plugin folder, so the root holds no symlink and none of the files an agent loads from a plugin root, a list the plugins test keeps. `CLAUDE.md` stays, since no agent loads it from a plugin, and contributors point their own agent at it and link the development skills locally. Release archives leave out `website/`, `test/`, `src/`, and `.claude/`.
+- **No session-start bootstrap.** The user invokes the commands, and `/lagune` is matched by its description, so no manifest injects context into a session.
+- **No root `plugin.json`.** The cross-agent format it would hold cuts the skill text Codex injects, installs the plugin disabled on Hermes Agent, and outranks the per-agent manifests.
 
 ## The catalog
 
@@ -63,7 +73,7 @@ The engine computes the catalog on demand: `catalog` prints it as `name: tags`, 
 
 ## The engine command
 
-Every skill calls the engine as `npx --yes lagune <subcommand>` from the project root, never at a pinned version, so nothing moves with a release. Everything a person reads, from the docs to the engine's own messages, shows it as `npx lagune <subcommand>`. A hook subcommand is routed ahead of the argument parser, so its arguments reach the hook untouched, and a subcommand the engine does not know fails instead of reading as clean. The engine's own subcommands are `catalog`, the category subcommands (`add`, `remove`, and `list` with `--categories`), `list --findings`, `migrate`, and the dashboard.
+Every skill and built-in specialization calls the engine as `npx --yes lagune@<version> <subcommand>` from the project root, pinned at the package version, so each runs the engine it was written for and none fetches whatever version is newest. A specialization a project writes keeps the version of the day it was written. No plugin grants a permission, so the first call stays the user's to allow. Everything a person reads, from the docs to the engine's own messages, shows it as `npx lagune <subcommand>`. A hook subcommand is routed ahead of the argument parser, so its arguments reach the hook untouched, and a subcommand the engine does not know fails instead of reading as clean. The engine's own subcommands are `catalog`, the category subcommands (`add`, `remove`, and `list` with `--categories`), `list --findings`, `migrate`, and the dashboard.
 
 A project the **Lagune** CLI installed carries `.lagune/manifest.json`, and that manifest alone decides who answers there: `migrate` runs this design, everything else the old CLI knows is handed to the frozen `lagune@0.15.0`, and what only this design has fails with a notice pointing to the migrate page. The hand-off runs the npm installed with the running **Node.js**, with no shell and never one a search path or the project could plant, and a runtime without one fails with the command to run instead. Without a manifest, `init`, `pull`, and `update` fail, pointing to the **skills** CLI.
 

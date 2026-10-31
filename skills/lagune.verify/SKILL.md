@@ -11,7 +11,7 @@ user-invocable: true
 $ARGUMENTS
 ```
 
-The User Input above decides how this command runs. Read it before proceeding.
+The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
 ## Outline
 
@@ -25,7 +25,7 @@ The hardening record is the **primary input**, and this phase is built entirely 
 
 ### Step 1: Decide the scope from the input
 
-This phase is built entirely on the hardening record. It proves controls that record says were applied. The User Input above selects one of three modes:
+This phase is built entirely on the hardening record. It proves controls that record says were applied. The User Input selects one of three modes:
 
 - **No input** (the User Input is empty): verify **every applied control** in the hardening record, highest priority first. This is the full verification pass across what was hardened.
 - **Controls, files, or directories given** (the input names one or more control names from the record, or paths in the project): verify only the matching controls. Match a name to the record's applied controls, and match a path to the controls through the tracking map (`.lagune/tracking.json`), which records the paths each control points at. Leave the rest untouched.
@@ -73,7 +73,7 @@ Each control lands in one of two outcomes, which drive the steps that follow:
 
 Your work list is the "Applied specializations" section of `.lagune/memory/detect.md`, which names each specialization as the catalog lists it. Detect already matched them, so do not read the catalog again.
 
-Read each listed specialization with `npx --yes lagune catalog <name>` from the project root, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a specialization ships a deterministic checker (a hook it tells you to run), running that checker is the application, and its printed verdict is the control's verdict that your own reading never overrides. Where it ships no checker, follow its guidance to inform the verdict. If a listed specialization no longer resolves, note it and judge that control from the code alone.
+Read each listed specialization with `npx --yes lagune@0.15.0 catalog <name>` from the project root, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a specialization ships a deterministic checker (a hook it tells you to run), running that checker is the application, and its printed verdict is the control's verdict that your own reading never overrides. Where it ships no checker, follow its guidance to inform the verdict. If a listed specialization no longer resolves, note it and judge that control from the code alone.
 
 Report the specializations you applied and the verdict each informed. If detect listed none, say so in one line.
 
@@ -82,7 +82,7 @@ Report the specializations you applied and the verdict each informed. If detect 
 Take the closed findings from Step 4. Standing each one down is **mandatory**, not a judgement call: a proven-closed risk leaves the chain. Hand every closed name to the untrack hook in one call for the batch:
 
 ```bash
-npx --yes lagune untrack '{"names":["<FINDING NAME>"]}'
+npx --yes lagune@0.15.0 untrack '{"names":["<FINDING NAME>"]}'
 ```
 
 In one deterministic pass the hook removes each closed finding from `detect.md`, `plan.md`, and `harden.md` and drops the same names from the tracking map, deleting an artifact whose last finding is gone. Do none of that by hand, and do not edit `.lagune/tracking.json` yourself. This is the only tracking this phase touches: it never moves code, so it has no path to register. If there are no closed findings, skip to the next step.
@@ -107,7 +107,7 @@ Write each open control's verdict onto its block in `.lagune/memory/harden.md`, 
 
 ### Step 9: Check the written verdicts
 
-If the untrack hook removed the record itself because every finding closed, skip this step, otherwise run `npx --yes lagune validate harden` from the project root, and if it reports problems, follow its output and rerun it until it passes.
+If the untrack hook removed the record itself because every finding closed, skip this step, otherwise run `npx --yes lagune@0.15.0 validate harden` from the project root, and if it reports problems, follow its output and rerun it until it passes.
 
 ### Step 10: Summarize
 

@@ -23,7 +23,8 @@
   "files": [
     "lib",
     "catalog",
-    "schemas"
+    "schemas",
+    "skills"
   ],
   "workspaces": [
     "website"
@@ -80,13 +81,10 @@
     "audit",
     "hardening",
     "plan",
-    "node",
-    "typescript",
-    "cli",
     "security-driven-hardening",
     "spec-driven-development",
     "agent-skills",
-    "ia-driven",
+    "ai-driven",
     "prompt-engineering",
     "llm",
     "prompt-toolkit",

@@ -17,18 +17,18 @@ A **secret compiled into the artifact** is a credential (an API key, a token, a 
 Run the secrets hook first. It is deterministic and its verdict is literal: it keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it does not depend on an exhaustive catalog of provider prefixes and produces almost no false positives.
 
 ```bash
-npx --yes lagune secrets               # scans the whole project
-npx --yes lagune secrets --dir <DIR>   # scans a directory
-npx --yes lagune secrets --file <FILE> # scans a single file
+npx --yes lagune@0.15.0 secrets               # scans the whole project
+npx --yes lagune@0.15.0 secrets --dir <DIR>   # scans a directory
+npx --yes lagune@0.15.0 secrets --file <FILE> # scans a single file
 ```
 
-It prints up to two sections. **Hardcoded secrets found** is the finding set and exits non-zero, holding the cases whose shape is decisive: a hardcoded fallback for an environment secret (`process.env.X ?? "…"`), a credential embedded in a connection string, or a value matching a curated provider format (AWS `AKIA…`, GitHub `ghp_…`, Stripe `sk_live_…`, a PEM private key). **Secret handling to review manually** is the lead set: a plain literal bound to a secret-named identifier, whose name and shape cannot prove it is a real credential rather than a hash, public key, or non-secret token, and a secret-named value flowing into a log or response sink. Read each by hand. A clean run prints a single line.
+It prints up to two sections. **Hardcoded secrets found** is the finding set and exits non-zero, holding the cases whose shape is decisive: a hardcoded fallback for an environment secret (`process.env.X ?? "..."`), a credential embedded in a connection string, or a value matching a curated provider format (AWS `AKIA...`, GitHub `ghp_...`, Stripe `sk_live_...`, a PEM private key). **Secret handling to review manually** is the lead set: a plain literal bound to a secret-named identifier, whose name and shape cannot prove it is a real credential rather than a hash, public key, or non-secret token, and a secret-named value flowing into a log or response sink. Read each by hand. A clean run prints a single line.
 
 Flagging a committed secret by its format is standard defensive tooling (gitleaks, trufflehog, and GitHub push-protection do the same), shipping detection signatures, never a live secret.
 
 ### Reading beyond the hook
 
-- **Split or obfuscated literals:** a token assembled from concatenated parts (`"ghp_" + "…"`) or base64-wrapped to dodge a scanner is the same defect. Treat the assembly as a lead and confirm by resolving it.
+- **Split or obfuscated literals:** a token assembled from concatenated parts (`"ghp_" + "..."`) or base64-wrapped to dodge a scanner is the same defect. Treat the assembly as a lead and confirm by resolving it.
 - **Secrets in the wrong file:** a `.env` committed to the repo, a credential in a checked-in config, or a key beside the data it protects. The hook skips `.env` and config formats by design (they are expected to be gitignored). Confirm they actually are.
 - **A secret that reached a client bundle:** a key inlined into front-end code is public the moment it ships. A `NEXT_PUBLIC_`/`VITE_`-prefixed secret is exposed on purpose and must never be a real credential.
 

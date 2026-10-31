@@ -24,7 +24,7 @@ export const CopyButton = ({
       type='button'
       aria-label={copied ? 'Copied' : label}
       onClick={onCopy}
-      className={`relative inline-flex items-center justify-center shrink-0 size-[26px] text-accent cursor-pointer transition-opacity duration-200 ease-out hover:opacity-80 after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 [&_svg]:size-4 ${className ?? ''}`}
+      className={`relative inline-flex items-center justify-center shrink-0 size-[26px] border-0 bg-transparent p-0 text-accent cursor-pointer transition-opacity duration-200 ease-out hover:opacity-80 after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 [&_svg]:size-4 ${className ?? ''}`}
     >
       <IconSwap on={copied} active={<LuCheck />} inactive={<LuCopy />} />
     </button>

@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+export const SWAP_TIMING = 'duration-300 ease-[cubic-bezier(0.2,0,0,1)]';
+
 export const IconSwap = ({
   on,
   active,
@@ -15,7 +17,7 @@ export const IconSwap = ({
     className={`relative inline-grid place-items-center ${className ?? ''}`}
   >
     <span
-      className={`col-start-1 row-start-1 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
+      className={`col-start-1 row-start-1 transition-[opacity,filter,scale] ${SWAP_TIMING} ${
         on
           ? 'scale-100 opacity-100 blur-0'
           : 'scale-[0.25] opacity-0 blur-[4px]'
@@ -25,7 +27,7 @@ export const IconSwap = ({
       {active}
     </span>
     <span
-      className={`col-start-1 row-start-1 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
+      className={`col-start-1 row-start-1 transition-[opacity,filter,scale] ${SWAP_TIMING} ${
         on
           ? 'scale-[0.25] opacity-0 blur-[4px]'
           : 'scale-100 opacity-100 blur-0'

@@ -3,3 +3,8 @@
 website/** linguist-documentation
 src/bin/** linguist-language=TypeScript
 .claude/skills/** linguist-vendored
+
+/website export-ignore
+/test export-ignore
+/src export-ignore
+/.claude export-ignore

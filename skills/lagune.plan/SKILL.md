@@ -11,7 +11,7 @@ user-invocable: true
 $ARGUMENTS
 ```
 
-The User Input above decides how this command runs. Read it before proceeding.
+The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
 ## Outline
 
@@ -21,7 +21,7 @@ The detect map is the primary input: the fixes follow from what detect found. Th
 
 ### Step 1: Decide the scope from the input
 
-This phase is built entirely on the detect map. It never reads the code directly: it only knows the system through what detect already detected. Every fix it plans must point at a finding that is really in the detect map. The User Input above selects one of three modes, and each one is answered from the detect map, never from the code:
+This phase is built entirely on the detect map. It never reads the code directly: it only knows the system through what detect already detected. Every fix it plans must point at a finding that is really in the detect map. The User Input selects one of three modes, and each one is answered from the detect map, never from the code:
 
 - **No input** (the User Input is empty): plan the fixes for **every finding** in the detect map. This is the full defense plan across the detected context.
 - **Files or directories given** (the input names one or more paths in the project): plan the fixes for the detect findings whose **evidence** points at those paths. Match paths to findings through the tracking map (`.lagune/tracking.json`), which records each finding's paths, do not open the files yourself. Leave the rest of the plan untouched.
@@ -72,7 +72,7 @@ For each in-scope detect finding, read the risk detect already recorded for it (
 Run the cvss hook from the project root, passing each vector as a flag value:
 
 ```bash
-npx --yes lagune cvss --vector '<VECTOR>' --vector '<VECTOR>'
+npx --yes lagune@0.15.0 cvss --vector '<VECTOR>' --vector '<VECTOR>'
 ```
 
 One finding is one item, with one rating. When a finding needs more than one fix, write them as more than one paragraph under the block's `Fix`, never a second block. Plan what the findings support, nothing speculative.
@@ -115,14 +115,14 @@ One finding is one item, with one rating. When a finding needs more than one fix
 - Register the items you planned so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run planned, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name detect used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the fix touches. The path lives here, in tracking, never in the prose. Run it from the project root, passing the payload as the single argument:
 
 ```bash
-npx --yes lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+npx --yes lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase planned. Repairing the map across the conveyor stays with `/lagune.repair`.
 
 ### Step 8: Check the written plan
 
-Run `npx --yes lagune validate plan` from the project root. If it reports problems, follow its output and rerun it until it passes.
+Run `npx --yes lagune@0.15.0 validate plan` from the project root. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Summarize
 

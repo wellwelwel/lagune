@@ -52,3 +52,16 @@ export type ConfigsSchema = {
 };
 
 export type PackedPackage = { files: { path: string }[] };
+
+export type TrackedFile = { mode: string; path: string };
+
+export type ExtraFile = { type: string; path: string; jsonpath?: string };
+
+export type ReleaseConfig = {
+  packages: Record<string, { 'extra-files'?: ExtraFile[] }>;
+};
+
+export type PluginManifest = {
+  path: string;
+  contents: Record<string, unknown> | undefined;
+};

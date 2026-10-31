@@ -7,4 +7,6 @@ node_modules
 .lagune/
 /PLAN.md
 /.plans
+/.agents/skills
+AGENTS.md
 .env

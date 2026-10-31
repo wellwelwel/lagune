@@ -13,11 +13,38 @@ permissions:
   issues: write
 
 jobs:
+  check-pin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event.repository.fork == false
+    name: Check the Engine Pin
+    permissions:
+      contents: read
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: 📌 Checking the Engine Pin
+        run: |
+          node tools/pin-engine.ts
+          git diff --exit-code -- skills catalog
+
   release-please:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    needs: check-pin
     if: github.event.repository.fork == false
     name: Release Please
+    outputs:
+      pr: ${{ steps.release.outputs.pr }}
     steps:
       - name: 🤝 Release Please
         uses: googleapis/release-please-action@v4
@@ -72,3 +99,37 @@ jobs:
           cname: lagune.ai
           publish_branch: 'website'
           allow_empty_commit: false
+
+  pin-engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: release-please
+    if: needs.release-please.outputs.pr != ''
+    name: Pin the Engine
+    permissions:
+      contents: write
+    env:
+      RELEASE_BRANCH: ${{ fromJSON(needs.release-please.outputs.pr).headBranchName }}
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ env.RELEASE_BRANCH }}
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: 📌 Pinning the Engine to the Release Version
+        run: node tools/pin-engine.ts
+
+      - name: 📤 Pushing the Pin to the Release Pull Request
+        run: |
+          git add skills catalog
+          git diff --cached --quiet && exit 0
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit --message 'chore: pin the engine to the release version'
+          git push origin "HEAD:$RELEASE_BRANCH"

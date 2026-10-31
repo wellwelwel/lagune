@@ -4,10 +4,8 @@ import {
   LuBookOpen,
   LuBrain,
   LuChrome,
-  LuGraduationCap,
   LuHouse,
   LuListChecks,
-  LuPackage,
   LuScanSearch,
   LuShieldCheck,
   LuShieldPlus,
@@ -35,7 +33,7 @@ const DocsRailIcon = (): ReactNode => (
   </>
 );
 
-export type WindowId = 'overview' | 'install' | 'usage';
+export type WindowId = 'overview' | 'usage';
 
 export type PromptMode = {
   label: string;
@@ -305,49 +303,34 @@ export type RailItem = {
   tip: string;
   active: boolean;
   Icon: ComponentType;
-  action?: 'categories';
   href?: string;
 };
 
-export const RAILS: Record<'overview' | 'install', RailItem[]> = {
-  overview: [
-    { label: 'Home', tip: 'Overview', active: true, Icon: LuHouse },
-    {
-      label: 'Docs',
-      tip: 'Docs',
-      active: false,
-      Icon: DocsRailIcon,
-      href: '/docs',
-    },
-    {
-      label: 'Star on GitHub',
-      tip: 'Star on GitHub',
-      active: false,
-      Icon: LuStar,
-      href: 'https://github.com/wellwelwel/lagune',
-    },
-  ],
-  install: [
-    { label: 'Install', tip: 'Install', active: true, Icon: LuPackage },
-    {
-      label: 'Categories',
-      tip: 'Categories',
-      active: false,
-      Icon: LuGraduationCap,
-      action: 'categories',
-    },
-  ],
-};
+export const OVERVIEW_RAIL: RailItem[] = [
+  { label: 'Home', tip: 'Overview', active: true, Icon: LuHouse },
+  {
+    label: 'Docs',
+    tip: 'Docs',
+    active: false,
+    Icon: DocsRailIcon,
+    href: '/docs',
+  },
+  {
+    label: 'Star on GitHub',
+    tip: 'Star on GitHub',
+    active: false,
+    Icon: LuStar,
+    href: 'https://github.com/wellwelwel/lagune',
+  },
+];
 
 export const TABS: { id: WindowId; label: string }[] = [
   { id: 'overview', label: 'Overview' },
-  { id: 'install', label: 'Install' },
   { id: 'usage', label: 'How to Use' },
 ];
 
 export const BACKGROUNDS: Record<WindowId, string> = {
   overview: '/img/bg-1.webp',
-  install: '/img/bg-2.webp',
   usage: '/img/bg-3.webp',
 };
 
@@ -356,7 +339,6 @@ const backgroundSrcSet = (name: string) =>
 
 export const BACKGROUND_SRCSETS: Record<WindowId, string> = {
   overview: backgroundSrcSet('bg-1'),
-  install: backgroundSrcSet('bg-2'),
   usage: backgroundSrcSet('bg-3'),
 };
 
@@ -381,18 +363,6 @@ export const FEATURE: Record<
         Defense
         <br />
         by design
-      </>
-    ),
-  },
-  install: {
-    kicker: 'Copy one command, and your agent is set.',
-    chip: 'Fits your existing flow',
-    eyebrow: 'Get started',
-    title: (
-      <>
-        Any Codebase
-        <br />
-        <span className='text-accent'>Your</span> Agent
       </>
     ),
   },

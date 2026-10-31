@@ -19,9 +19,8 @@
 @source '../components';
 
 /*
- * Tailwind's preflight reset, scoped to the Tailwind subtrees only. Imported
- * globally it would strip Infima's docs styling. `.lagune-canvas` is the landing
- * page; `.lagune-modal-backdrop` is its modals, portaled to <body>.
+ * Tailwind's preflight reset, scoped to the landing page (`.lagune-canvas`)
+ * only. Imported globally it would strip Infima's docs styling.
  */
 @layer base {
   .lagune-canvas,
@@ -29,68 +28,53 @@
   .lagune-canvas ::after,
   .lagune-canvas ::before,
   .lagune-canvas ::backdrop,
-  .lagune-canvas ::file-selector-button,
-  .lagune-modal-backdrop,
-  .lagune-modal-backdrop *,
-  .lagune-modal-backdrop ::after,
-  .lagune-modal-backdrop ::before,
-  .lagune-modal-backdrop ::backdrop,
-  .lagune-modal-backdrop ::file-selector-button {
+  .lagune-canvas ::file-selector-button {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     border: 0 solid;
   }
 
-  .lagune-canvas :is(h1, h2, h3, h4, h5, h6),
-  .lagune-modal-backdrop :is(h1, h2, h3, h4, h5, h6) {
+  .lagune-canvas :is(h1, h2, h3, h4, h5, h6) {
     font-size: inherit;
     font-weight: inherit;
   }
 
-  .lagune-canvas a,
-  .lagune-modal-backdrop a {
+  .lagune-canvas a {
     color: inherit;
     text-decoration: inherit;
   }
 
-  .lagune-canvas :is(button, input, select, textarea),
-  .lagune-modal-backdrop :is(button, input, select, textarea) {
+  .lagune-canvas :is(button, input, select, textarea) {
     font: inherit;
     color: inherit;
     letter-spacing: inherit;
     background: transparent;
   }
 
-  .lagune-canvas button,
-  .lagune-modal-backdrop button {
+  .lagune-canvas button {
     cursor: pointer;
   }
 
-  .lagune-canvas :is(ol, ul),
-  .lagune-modal-backdrop :is(ol, ul) {
+  .lagune-canvas :is(ol, ul) {
     list-style: none;
   }
 
-  .lagune-canvas :is(img, svg),
-  .lagune-modal-backdrop :is(img, svg) {
+  .lagune-canvas :is(img, svg) {
     display: block;
     vertical-align: middle;
   }
 
-  .lagune-canvas img,
-  .lagune-modal-backdrop img {
+  .lagune-canvas img {
     max-width: 100%;
     height: auto;
   }
 
-  .lagune-canvas :is(h1, h2, h3),
-  .lagune-modal-backdrop :is(h1, h2, h3) {
+  .lagune-canvas :is(h1, h2, h3) {
     text-wrap: balance;
   }
 
-  .lagune-canvas :is(p, li, figcaption, blockquote),
-  .lagune-modal-backdrop :is(p, li, figcaption, blockquote) {
+  .lagune-canvas :is(p, li, figcaption, blockquote) {
     text-wrap: pretty;
   }
 }
@@ -227,20 +211,6 @@ html.lagune-canvas-html body.lagune-canvas-body {
   border-radius: 6px;
 }
 
-.lagune-paper {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(233, 237, 247, 0.18) transparent;
-}
-
-.lagune-paper::-webkit-scrollbar {
-  width: 8px;
-}
-
-.lagune-paper::-webkit-scrollbar-thumb {
-  background: rgba(233, 237, 247, 0.18);
-  border-radius: 8px;
-}
-
 .lagune-rail__item--active {
   position: relative;
 }
@@ -322,34 +292,6 @@ html.lagune-canvas-html body.lagune-canvas-body {
   }
   to {
     opacity: 1;
-  }
-}
-
-.lagune-modal-backdrop {
-  animation: lagune-modal-backdrop 0.24s ease both;
-}
-
-.lagune-modal-panel {
-  animation: lagune-modal-panel 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes lagune-modal-backdrop {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes lagune-modal-panel {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.985);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 

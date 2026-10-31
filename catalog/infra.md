@@ -17,9 +17,9 @@ This terrain is the **infrastructure defined as static config**: Terraform/HCL, 
 Run the infra hook first. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`) and its verdict is literal.
 
 ```bash
-npx --yes lagune infra                   # scans every IaC file in the project
-npx --yes lagune infra --dir infra       # scans a directory
-npx --yes lagune infra --file Dockerfile # scans a single file
+npx --yes lagune@0.15.0 infra                   # scans every IaC file in the project
+npx --yes lagune@0.15.0 infra --dir infra       # scans a directory
+npx --yes lagune@0.15.0 infra --file Dockerfile # scans a single file
 ```
 
 It prints up to two sections. **Infrastructure risks found** exits non-zero and holds the decidable defects:
@@ -31,8 +31,8 @@ It prints up to two sections. **Infrastructure risks found** exits non-zero and 
 **Infrastructure hardening advisories** does not change the exit code: a final `FROM` not pinned to a `@sha256` digest, and an action pinned to a tag/branch rather than a full commit SHA. These are posture, not defects. A clean run prints a single line. Score one snippet with `--pattern` and its kind `--kind`:
 
 ```bash
-npx --yes lagune infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
-npx --yes lagune infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
+npx --yes lagune@0.15.0 infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
+npx --yes lagune@0.15.0 infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
 ```
 
 ### Reading beyond the hook

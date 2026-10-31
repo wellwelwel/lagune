@@ -17,17 +17,17 @@ This terrain is the **cryptography itself**: the algorithm that protects a secre
 Before reading by hand, run the crypto hook. It is deterministic (regex over source, no runtime), and its verdict is literal.
 
 ```bash
-npx --yes lagune crypto               # scans the whole project
-npx --yes lagune crypto --dir <DIR>   # scans a directory
-npx --yes lagune crypto --file <FILE> # scans a single file
+npx --yes lagune@0.15.0 crypto               # scans the whole project
+npx --yes lagune@0.15.0 crypto --dir <DIR>   # scans a directory
+npx --yes lagune@0.15.0 crypto --file <FILE> # scans a single file
 ```
 
 It is language-aware, reading each file by its own cryptographic APIs (javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp), so a construct from one language is never flagged in another. It prints up to two sections. **Weak cryptography found** is the finding set (DES/3DES/RC4/Blowfish/RC2, ECB mode): each is a broken cipher primitive, so it exits non-zero. **Cryptography to review manually** is a lead set the scanner cannot judge alone: an MD5/SHA-1 digest (broken where collision or preimage resistance matters, but legitimate as a plain checksum, so intent decides), a non-cryptographic RNG in a security context, or a timing-unsafe comparison. Read each by hand. A clean run prints a single line. Score one construct with `--pattern`, passing its language with `--lang`:
 
 ```bash
-npx --yes lagune crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
-npx --yes lagune crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
-npx --yes lagune crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+npx --yes lagune@0.15.0 crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx --yes lagune@0.15.0 crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx --yes lagune@0.15.0 crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
 ```
 
 The hook guarantees the floor (these constructs exist). The sections below carry what it cannot decide (key management, IV reuse, RSA padding).
@@ -36,7 +36,7 @@ The hook guarantees the floor (these constructs exist). The sections below carry
 
 The code protects data with a cipher an attacker can break. The clearest tell is a **custom or homegrown algorithm**: a scheme that never survived public cryptanalysis. Beyond that, named-but-broken primitives are the common finding:
 
-- **Broken or obsolete primitives:** DES/3DES, RC4, Blowfish for new work, or MD5/SHA-1 used where collision or preimage resistance matters. For symmetric encryption prefer **AES** (key ≥ 128-bit, ideally 256), for asymmetric prefer elliptic curve (**Curve25519**) or RSA with a key ≥ 2048-bit.
+- **Broken or obsolete primitives:** DES/3DES, RC4, Blowfish for new work, or MD5/SHA-1 used where collision or preimage resistance matters. For symmetric encryption prefer **AES** (a key of at least 128 bits, ideally 256), for asymmetric prefer elliptic curve (**Curve25519**) or RSA with a key of at least 2048 bits.
 - **Insecure cipher mode:** **ECB** leaks structure (identical plaintext blocks produce identical ciphertext). Prefer an **authenticated mode (GCM or CCM)**, which guarantees integrity and authenticity alongside confidentiality. An unauthenticated mode (CTR, CBC) must be paired with a separate MAC using Encrypt-then-MAC, never left to provide confidentiality alone.
 - **RSA without random padding:** RSA encryption must enable **OAEP** padding. Textbook (no-padding) RSA is deterministic and falls to known-plaintext attacks.
 - **Undersized keys** for the data's lifetime, or a key derived from a password without a proper key-derivation function.

@@ -1,7 +1,9 @@
+import lagunePackage from '../../../package.json';
 import { ALL_CATEGORIES } from '../../src/data/categories';
 
 const TOKENS: Record<string, string> = {
   categories: String(ALL_CATEGORIES.length),
+  version: lagunePackage.version,
 };
 
 const TOKEN = /\{\{\s*([a-z]+)\s*\}\}/g;

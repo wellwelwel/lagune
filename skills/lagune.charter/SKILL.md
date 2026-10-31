@@ -11,7 +11,7 @@ user-invocable: true
 $ARGUMENTS
 ```
 
-The User Input above decides how this command runs. Read it before proceeding.
+The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
 ## Outline
 
@@ -23,7 +23,7 @@ This phase reads the project to decide **which principles it needs**, never to m
 
 Load the charter at `.lagune/memory/charter.md`. If it does not exist, initialize it from `template.md`, next to this file, first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
 
-The User Input above selects one of two modes. The mode sets where the direction comes from, not how deep the reading goes (Step 2 governs that):
+The User Input selects one of two modes. The mode sets where the direction comes from, not how deep the reading goes (Step 2 governs that):
 
 - **Input given:** the user describes the project in plain words and may not know the technical terms. Treat the description as direction, which Step 2's reading then broadens beyond what they named.
 - **No input:** propose a charter yourself, working out the project from its own files in Step 2.
@@ -87,20 +87,20 @@ Then write the completed charter to `.lagune/memory/charter.md`.
 
 ### Step 8: Check the written charter
 
-Run `npx --yes lagune validate charter` from the project root. If it reports problems, follow its output and rerun it until it passes.
+Run `npx --yes lagune@0.15.0 validate charter` from the project root. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Record the specialization categories
 
 Specializations, the security knowledge the later phases load on demand, join the project's catalog by category. List every category, with whether the project uses it, from the project root:
 
 ```bash
-npx --yes lagune list --categories
+npx --yes lagune@0.15.0 list --categories
 ```
 
 - **No category is recorded yet** (the listing says so): record, in one call, each category the listing describes that your reading in Step 2 supports, such as the project's language, calls to an LLM, or containers. Record only what the reading supports, never a category for completeness:
 
   ```bash
-  npx --yes lagune add --categories <category> <category>
+  npx --yes lagune@0.15.0 add --categories <category> <category>
   ```
 
 - **Categories are already recorded:** leave them as they are, since they are the project's choice. Name in the summary each category your reading supports that the project does not use yet.

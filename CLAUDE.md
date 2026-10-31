@@ -22,7 +22,7 @@ Lagune's mission is to **put a defensive, security-first workflow within reach o
 
 Lagune is **a set of agent skills and templates backed by a small engine**, not a heavy framework. Its value is the **workflow the AI agent runs**: detecting what the system actually does (login, uploads, payments, and so on), mapping the vulnerabilities that matter for that context, then proposing, applying, and validating the right fixes. The context detection is what makes the rest specific instead of generic.
 
-Concretely, the user runs Lagune via the AI agent and the agent follows Lagune's templated, security-first process: slash commands, each beside the template it fills, that an AI agent consumes, oriented toward defense rather than feature delivery. Three owners keep it apart. The project owns its state in `.lagune/`, committed with its code. The **skills** CLI installs Lagune's instructions, the nine commands, into each agent. The engine, the `lagune` package on **npm**, runs every deterministic step.
+Concretely, the user runs Lagune via the AI agent and the agent follows Lagune's templated, security-first process: slash commands, each beside the template it fills, that an AI agent consumes, oriented toward defense rather than feature delivery. Three owners keep it apart. The project owns its state in `.lagune/`, committed with its code. Lagune's instructions, the nine commands, reach each agent through the **skills** CLI or through that agent's own plugin installer. The engine, the `lagune` package on **npm**, runs every deterministic step.
 
 ### Flexible by design
 
@@ -44,7 +44,7 @@ This is why developers and non-developers are served equally: the deep security 
 
 - **Development language: TypeScript.** All source is authored in strict TypeScript.
 - **Execution / distribution language: JavaScript.** End users never run TypeScript. The project is **built/compiled to JavaScript** and that build is what ships.
-- **Distribution: the skills CLI and npm.** The commands install with `npx skills add wellwelwel/lagune` and update with `npx skills update`. The engine ships on **npm**, and every command calls it through one engine command, `npx --yes lagune <subcommand>`, so nothing is generated in the project. This is the friendliest path for the AI / vibe-coder audience and the native idiom of the JS/TS ecosystem.
+- **Distribution: the skills CLI, native plugins, and npm.** The commands install with `npx skills add wellwelwel/lagune`, the route that works in any agent, and update with `npx skills update`. An agent with a plugin installer of its own installs the same `skills/` through it, from one thin manifest per agent. The engine ships on **npm**, carrying `skills/` for the agents that install from there, and every command calls it through one engine command pinned at the package version, `npx --yes lagune@<version> <subcommand>`, so nothing is generated in the project. This is the friendliest path for the AI / vibe-coder audience and the native idiom of the JS/TS ecosystem.
 
 ---
 
@@ -85,15 +85,13 @@ These are binding instructions for any agent or contributor working here.
 7. **Spec-first, agent-driven, framed for security.** Build the workflow from a proven structure: templates, commands, a governing charter, and an agent that runs the phases. Reimplement that structure in our stack with a defensive purpose.
 8. **Structure, engineering, and writing live elsewhere.** Concrete repo structure and file layout belong in the internal `/architecture` skill, the toolchain, code conventions, type rules, and build path belong in the `/engineering` skill, and the language conventions, the plain-language rule, and the reconcile discipline for prose belong in the `/writer` skill. They load when an agent touches the relevant work. Keep this file focused on the _what_ and _why_, and keep those decisions in those skills.
 9. **Never kill processes you did not start.** Only stop the processes you launched yourself (for example a headless browser you spawned for verification). Before starting a server, check whether the port is already serving what you need (for example the dashboard on its dev port) and reuse it instead of launching another.
-10. **Use `/lagune` skill from source.** This workspace authors the published skills instead of installing them. Wherever the `/engineering` skill or the user calls for the `/lagune` skill, read the matching skill under `skills/` and follow it as if it were installed, instead of pulling or initializing anything. Specializations are in ./catalog and there is no charter neither ./.lagune directory.
+10. **Use the `/lagune` skill from source.** This workspace authors the published skills instead of installing them. Wherever the `/engineering` skill or the user calls for the `/lagune` skill, read the matching skill under `skills/` and follow it as if it were installed, instead of pulling or initializing anything. Specializations are in `catalog/`, and there is neither a charter nor a `.lagune/` directory.
 
 ---
 
 ## 6. Naming
 
 - **Project name:** Lagune. Working command prefix: `lagune` / `/lagune.*`.
-
-The language conventions that governed the rest of this section (English-only content, no em dashes where not grammatically necessary, no semicolons) now live in the internal `/writer` skill, alongside the plain-language rule and the reconcile discipline for prose.
 
 ---
 

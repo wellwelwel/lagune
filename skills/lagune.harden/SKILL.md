@@ -11,7 +11,7 @@ user-invocable: true
 $ARGUMENTS
 ```
 
-The User Input above decides how this command runs. Read it before proceeding.
+The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
 ## Outline
 
@@ -21,7 +21,7 @@ The defense plan is the primary input: the changes follow from the fixes it list
 
 ### Step 1: Decide the scope from the input
 
-This phase is built entirely on the defense plan. It applies fixes the plan already decided. The User Input above selects one of three modes:
+This phase is built entirely on the defense plan. It applies fixes the plan already decided. The User Input selects one of three modes:
 
 - **No input** (the User Input is empty): apply **every fix** in the defense plan, highest priority first. This is the full hardening pass across the planned context.
 - **Fixes, files, or directories given** (the input names one or more fix names from the plan, or paths in the project): apply only the matching fixes. Match a name to the plan's fix names, and match a path to the fixes through the tracking map (`.lagune/tracking.json`), which records the paths each fix points at. Leave the rest of the plan untouched.
@@ -41,7 +41,7 @@ If the input is ambiguous, prefer the most literal reading (an existing path is 
   - If it does not exist, initialize it from `template.md`, next to this file, first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
   - If it already exists, read what was applied before. You will reconcile it in Step 3 before applying anything new. Each applied block's identity is the plan fix it points at plus the change it records. A block may also carry a `Verdict` and `Reason` that verify wrote: a `❌ Reproved` or `❓ Inconclusive` verdict means verify judged the control did not close the risk, and its `Reason` is what you re-apply against.
 - Load the charter at `.lagune/memory/charter.md` for the governing principles, **if it exists**. The principles still bind here: never apply a fix in a way that breaks one. If the charter does not exist, apply the fixes from the plan alone.
-- Load the specializations that detect applied. The "Applied specializations" section of `.lagune/memory/detect.md` names them as the catalog lists them. Read each one with `npx --yes lagune catalog <name>` from the project root, not just the list: each carries the defense knowledge for its class of finding (uploads, shell, network, and so on), which Step 4 uses to apply the matching fix. If a listed specialization no longer resolves, note it and apply the fix from the plan and charter alone.
+- Load the specializations that detect applied. The "Applied specializations" section of `.lagune/memory/detect.md` names them as the catalog lists them. Read each one with `npx --yes lagune@0.15.0 catalog <name>` from the project root, not just the list: each carries the defense knowledge for its class of finding (uploads, shell, network, and so on), which Step 4 uses to apply the matching fix. If a listed specialization no longer resolves, note it and apply the fix from the plan and charter alone.
 
 ### Step 3: Reconcile the existing record
 
@@ -107,14 +107,14 @@ This is the one place Lagune changes the user's code. Do not ask for a confirmat
 - Register the items you hardened so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run hardened, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name the plan used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the change landed in. The path lives here, in tracking, never in the prose. Run it from the project root, passing the payload as the single argument:
 
 ```bash
-npx --yes lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+npx --yes lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase hardened. Repairing the map across the conveyor stays with `/lagune.repair`.
 
 ### Step 8: Check the written record
 
-Run `npx --yes lagune validate harden` from the project root. If it reports problems, follow its output and rerun it until it passes.
+Run `npx --yes lagune@0.15.0 validate harden` from the project root. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Summarize
 

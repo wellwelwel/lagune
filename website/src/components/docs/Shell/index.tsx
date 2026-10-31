@@ -39,10 +39,6 @@ const GROUP_ICONS: Partial<Record<string, DocsIconName>> = {
   Maintenance: 'refresh',
 };
 
-const isActive = (pathname: string, permalink: string): boolean =>
-  pathname.replace(/\/+$/, '') === permalink.replace(/\/+$/, '') ||
-  (pathname === '/docs/' && permalink === '/docs');
-
 /* Docusaurus remounts the route tree on every navigation, which would reset
    each category's local state. Manual toggles live here so the sidebar
    survives navigation. The drawer never reads it: it always opens collapsed. */
@@ -50,15 +46,15 @@ const persistedOpenGroups = new Map<string, boolean>();
 
 const SidebarItem = ({
   item,
-  pathname,
+  activeDocId,
 }: {
   item: DocsSidebarLink;
-  pathname: string;
+  activeDocId: string;
 }): ReactNode => (
   <Link
     className={clsx(
       NAV_LINK,
-      isActive(pathname, item.permalink)
+      item.docId === activeDocId
         ? 'bg-accent-soft text-accent hover:no-underline'
         : 'text-muted hover:bg-canvas hover:text-ink-2 hover:no-underline'
     )}
@@ -70,15 +66,15 @@ const SidebarItem = ({
 
 const SidebarCategory = ({
   category,
-  pathname,
+  activeDocId,
   startCollapsed,
 }: {
   category: DocsSidebarCategory;
-  pathname: string;
+  activeDocId: string;
   startCollapsed: boolean;
 }): ReactNode => {
-  const containsActive = category.items.some((item) =>
-    isActive(pathname, item.permalink)
+  const containsActive = category.items.some(
+    (item) => item.docId === activeDocId
   );
   const [open, setOpen] = useState(
     startCollapsed
@@ -136,7 +132,11 @@ const SidebarCategory = ({
       >
         <div className='ml-[calc(1.075rem-1px)] flex min-h-0 flex-col gap-0.75 overflow-hidden border-l border-line pl-2'>
           {category.items.map((item) => (
-            <SidebarItem key={item.docId} item={item} pathname={pathname} />
+            <SidebarItem
+              key={item.docId}
+              item={item}
+              activeDocId={activeDocId}
+            />
           ))}
         </div>
       </div>
@@ -146,11 +146,11 @@ const SidebarCategory = ({
 
 const SidebarNav = ({
   sidebar,
-  pathname,
+  activeDocId,
   startCollapsed = false,
 }: {
   sidebar: DocsSidebarEntry[];
-  pathname: string;
+  activeDocId: string;
   startCollapsed?: boolean;
 }): ReactNode => (
   <>
@@ -190,11 +190,15 @@ const SidebarNav = ({
           <SidebarCategory
             key={entry.label}
             category={entry}
-            pathname={pathname}
+            activeDocId={activeDocId}
             startCollapsed={startCollapsed}
           />
         ) : (
-          <SidebarItem key={entry.docId} item={entry} pathname={pathname} />
+          <SidebarItem
+            key={entry.docId}
+            item={entry}
+            activeDocId={activeDocId}
+          />
         )
       )}
     </nav>
@@ -278,9 +282,11 @@ const SidebarNav = ({
 export const DocsShell = ({
   children,
   rail,
+  activeDocId,
 }: {
   children: ReactNode;
   rail?: ReactNode;
+  activeDocId: string;
 }): ReactNode => {
   const { sidebar } = useDocsData();
   const { pathname } = useLocation();
@@ -317,7 +323,7 @@ export const DocsShell = ({
               </button>
               <SidebarNav
                 sidebar={sidebar}
-                pathname={pathname}
+                activeDocId={activeDocId}
                 startCollapsed
               />
             </aside>
@@ -325,7 +331,7 @@ export const DocsShell = ({
         )}
         <div className='min-[1024px]:grid min-[1024px]:grid-cols-[250px_minmax(0,1fr)] min-[1440px]:grid-cols-[270px_minmax(0,1fr)]'>
           <aside className='lagune-scroll sticky top-0 hidden h-screen flex-col overflow-y-auto bg-surface px-4 py-6 min-[1024px]:flex'>
-            <SidebarNav sidebar={sidebar} pathname={pathname} />
+            <SidebarNav sidebar={sidebar} activeDocId={activeDocId} />
           </aside>
           <div className='flex min-w-0 flex-col'>
             <header className='sticky top-0 z-30 flex items-center gap-3 bg-canvas/85 px-4 pt-4 pb-3 backdrop-blur-md sm:gap-4.5 sm:px-7 sm:pt-5.5 sm:pb-4'>

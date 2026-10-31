@@ -59,7 +59,7 @@ npm ci
 
 **Lagune** is two layers, and knowing which one you are in saves most of the guesswork.
 
-- **`skills/`** and **`catalog/`** carry the security value: the nine commands the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs, each beside the template it fills, and the built-in specializations they load on demand. They are agent-agnostic and written once.
+- **`skills/`** and **`catalog/`** carry the security value: the nine commands the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) or an agent's own plugin installer installs, each beside the template it fills, and the built-in specializations they load on demand. They are agent-agnostic and written once.
 - **`src/`** carries the engine the commands call: the deterministic hooks, the catalog, validation, the move from a **Lagune** CLI install, and the dashboard.
 
 ---
@@ -92,7 +92,7 @@ It's better to discuss a feature before actually starting to implement it. You c
 - **Named exports only**, arrow functions declared with `const`, early returns over nesting, and no abbreviated names.
 - **Prefer native capabilities over external dependencies.** The published bundle is self-contained, so the engine command needs no install on the user's machine.
 - **Adding a built-in specialization is one file in `catalog/` plus one row in the built-in index**, never a new command.
-- **A command only calls what the published engine supports.** The **skills** CLI installs `skills/` from the default branch as it stands, so a change that needs new engine behavior lands together with the release that publishes it.
+- **A command only calls what the published engine supports.** Every engine call carries the package version, which the release pull request moves, and most agents install `skills/` from the default branch as it stands, so a change that needs new engine behavior lands together with the release that publishes it.
 - **Prefer the async Node.js APIs**, and always prefix native imports with `node:`.
 
 > [!NOTE]
@@ -117,7 +117,7 @@ Feel free to open _PRs_ fixing typos or improving the docs 🤝
 
 <blockquote>
 
-The website keeps its own dependencies. Before commiting, consider to run:
+The website keeps its own dependencies. Before committing, consider running:
 
 ```sh
 npm --prefix website ci   # Installing dependencies

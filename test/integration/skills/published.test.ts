@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
+import { loadVersion } from '../../../src/core/version.js';
 import { packageRoot } from './__utils__.js';
 
 const COMMANDS = [
@@ -23,7 +24,7 @@ const FILLS_A_TEMPLATE = [
   'lagune.specialize',
 ];
 
-const ENGINE_COMMAND = 'npx --yes lagune ';
+const ENGINE_COMMAND = `npx --yes lagune@${await loadVersion(packageRoot)} `;
 const ENGINE_CALL = /npx (?:-\S+ )*lagune(?:@\S*)? [^\n`]*/g;
 const SHORT_FLAG = /(?:^|\s)-[a-zA-Z](?=\s|$)/;
 
@@ -82,7 +83,7 @@ await describe('every engine call the skills and specializations write', async (
     strict(calls.length > 0);
   });
 
-  it('runs the engine unattended, never at a pinned version', () => {
+  it('runs the engine unattended, at the package version', () => {
     strict.deepStrictEqual(
       calls
         .filter(({ call }) => !call.startsWith(ENGINE_COMMAND))

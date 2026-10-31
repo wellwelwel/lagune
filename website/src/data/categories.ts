@@ -7,6 +7,8 @@ export type Category = {
   icon: string;
 };
 
+export const CATEGORIES_ADD = 'npx lagune add';
+
 export const ALL_CATEGORIES: Category[] = CATEGORIES.map((category) => ({
   key: category.key,
   name: category.label,

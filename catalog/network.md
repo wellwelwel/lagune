@@ -55,7 +55,7 @@ A blocklist cannot win, there is always one more form. Allow only what is known-
 Lagune ships a deterministic checker for the textual-form bypasses above. Pass each destination with `--url`, quoting it so quotes or backticks cannot break the command. Repeat `--url` to score in one call every host an allowlist or denylist names, and every literal the validation compares against, one verdict per line, in order:
 
 ```bash
-npx --yes lagune network --url '<URL-OR-HOST>' --url '<URL-OR-HOST>'
+npx --yes lagune@0.15.0 network --url '<URL-OR-HOST>' --url '<URL-OR-HOST>'
 ```
 
 It resolves the host the way the network does (hex, octal, dotless, shorthand, IPv6, IPv4-mapped, trailing dots) with no DNS lookup, and prints one of four words:

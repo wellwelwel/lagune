@@ -1,0 +1,65 @@
+---
+id: claude-code
+title: 'Install Lagune on Claude Code as a Plugin'
+sidebar_label: Claude Code
+parent: get-started/install
+description: Install Lagune's commands in Claude Code through its own plugin installer, keep them updated, and allow the engine up front.
+keywords:
+  - claude code
+  - claude code plugin
+  - plugin marketplace
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Claude Code' />
+
+Install the plugin from your terminal:
+
+```bash
+claude plugin install lagune --marketplace wellwelwel/lagune
+```
+
+Or from a **Claude Code** session:
+
+```text
+/plugin marketplace add wellwelwel/lagune
+/plugin install lagune@lagune
+```
+
+In the **VS Code** extension, type `/plugins` to open **Manage plugins**, add `wellwelwel/lagune` on the **Marketplaces** tab, then install `lagune` on the **Plugins** tab.
+
+## Update
+
+**Claude Code** leaves a third-party plugin at its installed version until you update it, or until you select **Enable auto-update** for the `lagune` marketplace under `/plugin`. To update **Lagune**, run:
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+## Commands
+
+Type the commands by their names, such as `/lagune.charter`. **Claude Code** also lists them under the plugin's name, such as `/lagune:lagune.charter`, and both forms run the same command.
+
+---
+
+:::info[Permissions]
+
+The first engine call asks for your permission, and "Don't ask again" keeps it allowed in that project. To allow it up front, add this rule to `.claude/settings.json` for one project, or to `~/.claude/settings.json` for all of them:
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(npx --yes lagune@*)"]
+  }
+}
+```
+
+With the sandbox on, also add `registry.npmjs.org` to `sandbox.network.allowedDomains`, so the engine can be downloaded.
+
+:::

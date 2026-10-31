@@ -1,4 +1,5 @@
 import type {
+  DocEntry,
   DocsGlobalData,
   DocsSidebarCategory,
   DocsSidebarEntry,
@@ -30,8 +31,9 @@ const banners = [2, 3, 4, 5, 0];
 
 export const findDocContext = (
   sidebar: DocsSidebarEntry[],
-  docId: string
+  doc: Pick<DocEntry, 'docId' | 'parent'>
 ): DocContext => {
+  const docId = doc.parent ?? doc.docId;
   const links = flattenSidebar(sidebar);
   const position = links.findIndex((link) => link.docId === docId);
 
@@ -45,7 +47,7 @@ export const findDocContext = (
   return {
     eyebrow: entry && isCategory(entry) ? entry.label : 'Documentation',
     banner: `/img/docs/banner-${banners[Math.max(owner, 0) % banners.length]}.webp`,
-    previous: position > 0 ? links[position - 1] : undefined,
+    previous: links[doc.parent ? position : position - 1],
     next:
       position !== -1 && position < links.length - 1
         ? links[position + 1]

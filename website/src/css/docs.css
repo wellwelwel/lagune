@@ -70,7 +70,8 @@
   text-rendering: optimizeLegibility;
 }
 
-html[data-lagune-docs-theme='dark'] .lagune-docs {
+html[data-lagune-docs-theme='dark'] .lagune-docs,
+.lagune-docs .lagune-terminal {
   --canvas: #0b0e17;
   --surface: #151a26;
   --surface-2: #1d2432;
@@ -303,6 +304,20 @@ html[data-lagune-docs-theme='dark'] .lagune-docs {
   overflow-wrap: anywhere;
   font-weight: 600;
   line-height: 1.55;
+}
+
+/* The categories terminal keeps the landing page's look in both docs themes,
+   so its command reads as plain terminal text instead of inline code. */
+.lagune-docs .markdown .lagune-terminal code {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+  vertical-align: baseline;
+  white-space: nowrap;
 }
 
 /* Code blocks live on a dark surface regardless of the docs theme, so their

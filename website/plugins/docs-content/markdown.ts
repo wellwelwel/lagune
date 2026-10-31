@@ -1,3 +1,12 @@
+import {
+  FEATURED_AGENTS,
+  UNIVERSAL_AGENTS,
+  UNIVERSAL_INSTALL,
+  UNIVERSAL_SUMMARY,
+} from '../../src/data/agents';
+import { badgeMarkdown } from '../../src/data/badges';
+import { ALL_CATEGORIES, CATEGORIES_ADD } from '../../src/data/categories';
+
 export type MarkdownDocInput = {
   title: string;
   description: string | undefined;
@@ -7,6 +16,8 @@ export type MarkdownDocInput = {
 };
 
 type FaqPair = { question: string; answer: string };
+
+type ImageAttributes = { src: string; alt: string };
 
 const frontmatterBlock = /^---\n[\s\S]*?\n---\n/;
 const fenceLine = /^`{3,}/;
@@ -63,14 +74,50 @@ const renderFaq = (pairs: FaqPair[]): string[] =>
         ]),
       ];
 
-const renderImage = (block: string): string[] => {
+const readImage = (block: string): ImageAttributes | undefined => {
   const src = block.match(/src=["']([^"']+)["']/)?.[1];
-  if (src === undefined) return [];
+  if (src === undefined) return undefined;
 
-  const alt = block.match(/alt=["']([^"']*)["']/)?.[1] ?? '';
-
-  return [`![${alt}](${src})`, ''];
+  return { src, alt: block.match(/alt=["']([^"']*)["']/)?.[1] ?? '' };
 };
+
+const renderImage = (block: string): string[] => {
+  const image = readImage(block);
+  if (image === undefined) return [];
+
+  return [`![${image.alt}](${image.src})`, ''];
+};
+
+const renderBadge = (block: string): string[] => {
+  const image = readImage(block);
+  if (image === undefined) return [];
+
+  return [
+    `![${image.alt}](${image.src})`,
+    '',
+    '```md',
+    badgeMarkdown(image.alt, image.src),
+    '```',
+    '',
+  ];
+};
+
+const renderAgentPicker = (): string[] => [
+  ...FEATURED_AGENTS.map(
+    (agent) => `- [${agent.name}](${agent.install}): ${agent.description}`
+  ),
+  `- [Universal](${UNIVERSAL_INSTALL}): ${UNIVERSAL_SUMMARY}`,
+  '',
+];
+
+const renderCategoryPicker = (): string[] => [
+  ...ALL_CATEGORIES.map(
+    (category) =>
+      `- **${category.name}** (\`${category.key}\`): ${category.description}`
+  ),
+  '',
+  `Run \`${CATEGORIES_ADD} --categories\` with the keys of the categories you choose.`,
+];
 
 const readJsxBlock = (
   lines: string[],
@@ -195,10 +242,36 @@ export const cleanMdxBody = (source: string, siteUrl: string): string => {
       continue;
     }
 
+    if (trimmed.startsWith('<Badge')) {
+      const { block, nextIndex } = readJsxBlock(lines, index);
+      for (const badgeLine of renderBadge(block)) emit(badgeLine);
+      index = nextIndex;
+      continue;
+    }
+
     if (trimmed.startsWith('<CatalogOverview')) {
       emit(
         '*The interactive catalog overview lives on the web page. Every built-in specialization is in the table below.*'
       );
+      index += 1;
+      continue;
+    }
+
+    if (trimmed.startsWith('<AgentPicker')) {
+      for (const agentLine of renderAgentPicker())
+        emit(transformInline(agentLine, siteUrl));
+      index += 1;
+      continue;
+    }
+
+    if (trimmed.startsWith('<CategoryPicker')) {
+      for (const categoryLine of renderCategoryPicker()) emit(categoryLine);
+      index += 1;
+      continue;
+    }
+
+    if (trimmed.startsWith('<UniversalAgents')) {
+      emit(`${UNIVERSAL_AGENTS.map((agent) => agent.name).join(', ')}.`);
       index += 1;
       continue;
     }

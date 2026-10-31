@@ -25,6 +25,7 @@ export type DocEntry = {
   title: string;
   sidebarLabel: string;
   description: string | undefined;
+  parent: string | undefined;
   datePublished: string | undefined;
   dateModified: string | undefined;
 };
@@ -52,6 +53,10 @@ export type DocsGlobalData = {
 
 const pluginName = 'lagune-docs-content';
 const docPageComponent = '@site/src/components/docs/DocPage/index.tsx';
+
+const navDocIds = docsNav.flatMap((entry) =>
+  typeof entry === 'string' ? [entry] : entry.items
+);
 
 const asString = (value: unknown): string | undefined =>
   typeof value === 'string' ? value : undefined;
@@ -113,14 +118,26 @@ const buildSidebar = (docs: DocEntry[]): DocsSidebarEntry[] => {
   return docsNav.map(toEntry);
 };
 
+const assertParentsInNav = (docs: DocEntry[]): void => {
+  const orphan = docs.find(
+    (doc) => doc.parent !== undefined && !navDocIds.includes(doc.parent)
+  );
+
+  if (orphan)
+    throw new Error(
+      `[${pluginName}] The doc "${orphan.docId}" names the parent "${orphan.parent}", but the sidebar has no such doc.`
+    );
+};
+
 const orderDocsByNav = (docs: DocEntry[]): DocEntry[] => {
   const docsById = new Map(docs.map((doc) => [doc.docId, doc]));
-  const navIds = docsNav.flatMap((entry) =>
-    typeof entry === 'string' ? [entry] : entry.items
-  );
-  const inNav = navIds.flatMap((docId) => {
+  const childrenOf = (docId: string): DocEntry[] =>
+    docs
+      .filter((doc) => doc.parent === docId)
+      .sort((a, b) => a.permalink.localeCompare(b.permalink));
+  const inNav = navDocIds.flatMap((docId) => {
     const doc = docsById.get(docId);
-    return doc ? [doc] : [];
+    return doc ? [doc, ...childrenOf(docId)] : [];
   });
   const seen = new Set(inNav.map((doc) => doc.docId));
   const rest = docs
@@ -180,6 +197,7 @@ export const docsContentPlugin: PluginModule = async (context) => {
       title,
       sidebarLabel: asString(frontMatter.sidebar_label) ?? title,
       description: asString(frontMatter.description),
+      parent: asString(frontMatter.parent),
       datePublished,
       dateModified,
     };
@@ -221,6 +239,8 @@ export const docsContentPlugin: PluginModule = async (context) => {
         .sort();
 
       loadedDocs = await Promise.all(visibleFiles.map(readDoc));
+
+      assertParentsInNav(loadedDocs);
 
       return { docs: loadedDocs };
     },

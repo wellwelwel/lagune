@@ -1,0 +1,53 @@
+---
+id: universal
+title: 'Install Lagune in Any Agent with skills.sh'
+sidebar_label: Universal
+parent: get-started/install
+description: Install Lagune's commands in any AI agent with the skills CLI, and keep them updated.
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - install lagune
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - setup
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import { UniversalAgents } from '@site/src/components/docs/UniversalAgents';
+
+<InstallHeader name='skills.sh' />
+
+:::warning[One route per agent]
+Install **Lagune** in an agent through the **skills.sh** or through its plugin, never both: the agent then lists every command twice, or uses one copy and hides the other.
+:::
+
+The [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs **Lagune**'s commands in any agent:
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+Or paste this prompt into your agent:
+
+```md
+Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
+```
+
+## Update
+
+To update **Lagune**'s commands to their latest version, run:
+
+```bash
+npx skills update
+```
+
+## Supported agents
+
+Besides the agents on the [Install](/docs) page, these agents read the commands the **skills.sh** installs:
+
+<UniversalAgents />

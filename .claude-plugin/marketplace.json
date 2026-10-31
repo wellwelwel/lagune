@@ -1,0 +1,28 @@
+{
+  "name": "lagune",
+  "description": "Lagune's Security-Driven Hardening commands, from the repository that authors them.",
+  "owner": {
+    "name": "Weslley Araújo"
+  },
+  "plugins": [
+    {
+      "name": "lagune",
+      "source": "./",
+      "description": "🌊 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
+      "category": "security",
+      "tags": [
+        "security",
+        "blue-team",
+        "sdh",
+        "sdd",
+        "security-driven-hardening",
+        "spec-driven-development",
+        "audit",
+        "hardening",
+        "coding",
+        "best-practices",
+        "agent-skills"
+      ]
+    }
+  ]
+}

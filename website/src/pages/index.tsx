@@ -6,19 +6,17 @@ import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
 import { frameResizeObserver } from '@site/src/components/frameResizeObserver';
 import { Brand } from '@site/src/components/home/Brand';
-import { InstallPanel } from '@site/src/components/home/InstallPanel';
 import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
 import { RailTip } from '@site/src/components/home/RailTip';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { MaskIcon } from '@site/src/components/MaskIcon';
-import { ALL_CATEGORIES } from '@site/src/data/categories';
 import {
   BACKGROUND_SIZES,
   BACKGROUND_SRCSETS,
   BACKGROUNDS,
   FEATURE,
+  OVERVIEW_RAIL,
   PHASE_STEPS,
-  RAILS,
   STEP_ICONS,
   TABS,
 } from '@site/src/data/home';
@@ -38,12 +36,6 @@ import { LuMenu, LuX } from 'react-icons/lu';
 const WaterField = lazy(() =>
   import('@site/src/components/WaterField').then((module) => ({
     default: module.WaterField,
-  }))
-);
-
-const CategoriesModal = lazy(() =>
-  import('@site/src/components/CategoriesModal').then((module) => ({
-    default: module.CategoriesModal,
   }))
 );
 
@@ -116,11 +108,9 @@ const glideToTop = () => {
 
 const Home = (): ReactNode => {
   const [active, setActive] = useState<WindowId>('overview');
-  const [categories, setCategories] = useState<string[]>([]);
   const [usageStep, setUsageStep] = useState(0);
   const [modeIndex, setModeIndex] = useState(0);
   const [typedDone, setTypedDone] = useState(false);
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<WindowId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -210,16 +200,6 @@ const Home = (): ReactNode => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const toggleCategory = useCallback((key: string) => {
-    setCategories((current) =>
-      current.includes(key)
-        ? current.filter((category) => category !== key)
-        : [...current, key]
-    );
-  }, []);
-
-  const openInstall = useCallback(() => goToTab('install'), []);
-  const openCategories = useCallback(() => setCategoriesOpen(true), []);
   const markTyped = useCallback(() => setTypedDone(true), []);
 
   const feature = FEATURE[active];
@@ -571,7 +551,7 @@ const Home = (): ReactNode => {
                         </RailTip>
                       );
                     })
-                  : RAILS[active].map((item) => {
+                  : OVERVIEW_RAIL.map((item) => {
                       const railItemClass = `relative flex items-center justify-center size-[22px] border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-[19px] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
                         item.active
                           ? 'lagune-rail__item--active text-ink'
@@ -595,11 +575,6 @@ const Home = (): ReactNode => {
                         <RailTip key={item.label} tip={item.tip}>
                           <button
                             type='button'
-                            onClick={
-                              item.action === 'categories'
-                                ? openCategories
-                                : undefined
-                            }
                             className={railItemClass}
                             aria-label={item.label}
                             aria-current={item.active ? 'page' : undefined}
@@ -621,17 +596,7 @@ const Home = (): ReactNode => {
                   key={active}
                   className='lagune-fade-in-soft flex flex-col min-w-0 h-full max-[920px]:h-auto'
                 >
-                  {active === 'overview' && (
-                    <OverviewPanel onInstall={openInstall} />
-                  )}
-
-                  {active === 'install' && (
-                    <InstallPanel
-                      onOpenCategories={openCategories}
-                      onToggleCategory={toggleCategory}
-                      chosen={categories}
-                    />
-                  )}
+                  {active === 'overview' && <OverviewPanel />}
 
                   {active === 'usage' && (
                     <Suspense fallback={null}>
@@ -700,18 +665,6 @@ const Home = (): ReactNode => {
           </div>
         </section>
       </main>
-
-      {categoriesOpen && (
-        <Suspense fallback={null}>
-          <CategoriesModal
-            open={categoriesOpen}
-            categories={ALL_CATEGORIES}
-            chosen={categories}
-            onToggle={toggleCategory}
-            onClose={() => setCategoriesOpen(false)}
-          />
-        </Suspense>
-      )}
     </div>
   );
 };
