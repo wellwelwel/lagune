@@ -1,0 +1,50 @@
+---
+id: grok-build
+title: 'Install Lagune on Grok Build as a Plugin'
+sidebar_label: Grok Build
+parent: get-started/install
+description: Install Lagune's commands in Grok Build through its own plugin installer, keep them updated, and allow the engine up front.
+keywords:
+  - grok build
+  - grok build plugin
+  - grok plugin install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Grok Build' />
+
+Install the plugin from your terminal:
+
+```bash
+grok plugin install wellwelwel/lagune --trust
+```
+
+## Update
+
+To update **Lagune**, run:
+
+```bash
+grok plugin update lagune
+```
+
+## Commands
+
+Type the commands with a hyphen in place of the dot, as the `/` menu lists them: where these docs show `/lagune.charter`, type `/lagune-charter`. **Grok Build** also takes them under the plugin's name, such as `/lagune:lagune-charter`, and both forms run the same command.
+
+---
+
+:::info[Permissions]
+
+The first engine call asks for your permission. To allow it up front, add this rule to `~/.grok/config.toml`:
+
+```toml
+[permission]
+allow = ["Bash(npx --yes lagune@*)"]
+```
+
+:::

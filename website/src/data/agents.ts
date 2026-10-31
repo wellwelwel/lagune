@@ -74,7 +74,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Grok Build',
     description: "xAI's coding agent",
     icon: '/img/icons/grok.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/grok-build',
   },
   {
     name: 'Qwen Code',
