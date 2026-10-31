@@ -73,3 +73,9 @@ export type ReportedRun<Result> = {
 };
 
 export type ImageSize = { width: number; height: number };
+
+export type SkillRegistration = {
+  name: string;
+  description: string;
+  path: string;
+};

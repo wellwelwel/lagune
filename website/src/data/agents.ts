@@ -106,7 +106,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Hermes Agent',
     description: "Nous Research's open-source agent",
     icon: '/img/icons/hermes.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/hermes-agent',
   },
 ];
 

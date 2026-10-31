@@ -1,0 +1,48 @@
+---
+id: hermes-agent
+title: 'Install Lagune on Hermes Agent as a Plugin'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Install Lagune's commands in Hermes Agent through its own plugin installer, and keep them updated.
+keywords:
+  - hermes agent
+  - hermes agent plugin
+  - hermes plugins install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+Install the plugin from your terminal, then enable it:
+
+```bash
+hermes plugins install wellwelwel/lagune
+hermes plugins enable lagune/.hermes-plugin
+```
+
+When **Hermes Agent** asks you to confirm a plugin from outside its catalog, confirm it. When it offers to install the repository's **Node.js** dependencies, decline, the default answer: **Lagune**'s commands do not need them.
+
+## Update
+
+To update **Lagune**, run:
+
+```bash
+hermes plugins update lagune
+```
+
+## Commands
+
+Type the commands under the plugin's name, with a hyphen in place of the dot, as **Hermes Agent** shows them: where these docs show `/lagune.charter`, type `/lagune:lagune-charter`, and `/lagune` is `/lagune:lagune`.
+
+---
+
+:::info[Permissions]
+
+**Hermes Agent** asks only before the commands it counts as dangerous, and the engine is not one of them, so it runs from its first call, with no rule to add.
+
+:::

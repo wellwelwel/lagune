@@ -40,6 +40,11 @@
           "type": "json",
           "path": ".devin-plugin/plugin.json",
           "jsonpath": "$.version"
+        },
+        {
+          "type": "yaml",
+          "path": ".hermes-plugin/plugin.yaml",
+          "jsonpath": "$.version"
         }
       ]
     }
