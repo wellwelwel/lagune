@@ -22,6 +22,8 @@ type DocPageProps = {
 
 const SITE_URL = 'https://lagune.ai';
 
+const INSTALL_DOC_ID = 'get-started/install';
+
 export default function DocPage({ content: Content }: DocPageProps): ReactNode {
   const { metadata, frontMatter } = Content;
   const { sidebar } = useDocsData();
@@ -51,6 +53,8 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
 
   const imageAlt = `Lagune ${context.eyebrow}: ${metadata.title}`;
   const isPaper = metadata.docId === 'references/paper';
+  const activeDocId = metadata.parent ?? metadata.docId;
+  const mentionsTrademarks = activeDocId === INSTALL_DOC_ID;
 
   const article = {
     '@context': 'https://schema.org',
@@ -73,10 +77,7 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
   };
 
   return (
-    <DocsShell
-      activeDocId={metadata.parent ?? metadata.docId}
-      rail={<DocsToc toc={Content.toc} />}
-    >
+    <DocsShell activeDocId={activeDocId} rail={<DocsToc toc={Content.toc} />}>
       <PageMetadata
         title={metadata.title}
         description={metadata.description}
@@ -121,7 +122,10 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
         </MDXContent>
       </article>
       <DocsPagination previous={context.previous} next={context.next} />
-      <DocsSmallPrint dateModified={metadata.dateModified} />
+      <DocsSmallPrint
+        dateModified={metadata.dateModified}
+        mentionsTrademarks={mentionsTrademarks}
+      />
     </DocsShell>
   );
 }

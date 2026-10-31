@@ -31,7 +31,7 @@ import {
   FiUploadCloud,
   FiX,
 } from 'react-icons/fi';
-import { LuBrain } from 'react-icons/lu';
+import { LuBrain, LuUndo2 } from 'react-icons/lu';
 import { RiMessageAi3Line } from 'react-icons/ri';
 
 const registry = {
@@ -63,6 +63,7 @@ const registry = {
   terminal: FiTerminal,
   thumbsDown: FiThumbsDown,
   thumbsUp: FiThumbsUp,
+  undo: LuUndo2,
   upload: FiUploadCloud,
   x: FiX,
 } satisfies Record<string, IconType> & Record<SpecializationIconName, IconType>;

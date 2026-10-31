@@ -1,6 +1,5 @@
 import {
   FEATURED_AGENTS,
-  UNIVERSAL_AGENTS,
   UNIVERSAL_INSTALL,
   UNIVERSAL_SUMMARY,
 } from '../../src/data/agents';
@@ -266,12 +265,6 @@ export const cleanMdxBody = (source: string, siteUrl: string): string => {
 
     if (trimmed.startsWith('<CategoryPicker')) {
       for (const categoryLine of renderCategoryPicker()) emit(categoryLine);
-      index += 1;
-      continue;
-    }
-
-    if (trimmed.startsWith('<UniversalAgents')) {
-      emit(`${UNIVERSAL_AGENTS.map((agent) => agent.name).join(', ')}.`);
       index += 1;
       continue;
     }

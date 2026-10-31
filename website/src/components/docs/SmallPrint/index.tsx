@@ -4,8 +4,10 @@ const SMALL_PRINT_LINK = 'font-semibold text-ink-2 hover:text-accent';
 
 export const DocsSmallPrint = ({
   dateModified,
+  mentionsTrademarks,
 }: {
   dateModified?: string;
+  mentionsTrademarks: boolean;
 }): ReactNode => (
   <footer className='mt-10 flex flex-col gap-1.5 px-1 text-[0.75rem] leading-relaxed text-[color-mix(in_srgb,var(--muted),var(--ink-2))]'>
     {dateModified && (
@@ -58,5 +60,12 @@ export const DocsSmallPrint = ({
       </a>
       .
     </p>
+    {mentionsTrademarks && (
+      <p className='m-0'>
+        All product names, trademarks, and registered trademarks mentioned are
+        the property of their respective owners and are used for identification
+        purposes only.
+      </p>
+    )}
   </footer>
 );

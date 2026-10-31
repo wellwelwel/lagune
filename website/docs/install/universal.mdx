@@ -18,13 +18,8 @@ keywords:
 ---
 
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
-import { UniversalAgents } from '@site/src/components/docs/UniversalAgents';
 
 <InstallHeader name='skills.sh' />
-
-:::warning[One route per agent]
-Install **Lagune** in an agent through the **skills.sh** or through its plugin, never both: the agent then lists every command twice, or uses one copy and hides the other.
-:::
 
 The [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs **Lagune**'s commands in any agent:
 
@@ -46,8 +41,8 @@ To update **Lagune**'s commands to their latest version, run:
 npx skills update
 ```
 
-## Supported agents
+---
 
-Besides the agents on the [Install](/docs) page, these agents read the commands the **skills.sh** installs:
-
-<UniversalAgents />
+:::warning[One route per agent]
+Install **Lagune** in an agent through the **skills.sh** or through its **plugin**, never both: the agent then lists every command twice, or uses one copy and hides the other.
+:::

@@ -3,18 +3,25 @@ export type Agent = {
   icon: string;
 };
 
-export type FeaturedAgent = Agent & {
+export type LinkedAgent = Agent & {
+  homepage: string;
+};
+
+export type FeaturedAgent = LinkedAgent & {
   description: string;
   install: string;
 };
+
+export const INSTALL_INDEX = '/docs';
 
 export const UNIVERSAL_INSTALL = '/docs/install/universal';
 
 export const UNIVERSAL_BACKGROUND = '/img/icons/vercel.svg';
 
-export const SKILLS_SH: Agent = {
+export const SKILLS_SH: LinkedAgent = {
   name: 'skills.sh',
   icon: '/img/icons/skills.svg',
+  homepage: 'https://www.skills.sh/',
 };
 
 export const FEATURED_AGENTS: FeaturedAgent[] = [
@@ -23,90 +30,105 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     description: "Anthropic's agentic coding tool",
     icon: '/img/icons/claude.svg',
     install: '/docs/install/claude-code',
+    homepage: 'https://claude.com/product/claude-code',
   },
   {
     name: 'Codex',
     description: "OpenAI's coding agent",
     icon: '/img/icons/codex.svg',
     install: '/docs/install/codex',
+    homepage: 'https://openai.com/codex/',
   },
   {
     name: 'Cursor',
     description: 'The AI code editor',
     icon: '/img/icons/cursor.svg',
     install: '/docs/install/cursor',
+    homepage: 'https://cursor.com/',
   },
   {
     name: 'GitHub Copilot',
     description: "GitHub's AI pair programmer",
     icon: '/img/icons/copilot.svg',
     install: '/docs/install/github-copilot-cli',
+    homepage: 'https://github.com/features/copilot',
   },
   {
     name: 'Gemini CLI',
     description: "Google's open-source terminal agent",
     icon: '/img/icons/gemini.svg',
     install: '/docs/install/gemini-cli',
+    homepage: 'https://geminicli.com/',
   },
   {
     name: 'Antigravity',
     description: "Google's agentic development platform",
     icon: '/img/icons/antigravity.svg',
     install: '/docs/install/antigravity-cli',
+    homepage: 'https://antigravity.google/',
   },
   {
     name: 'OpenCode',
     description: 'The open-source coding agent',
     icon: '/img/icons/opencode.svg',
     install: '/docs/install/opencode',
+    homepage: 'https://opencode.ai/',
   },
   {
     name: 'Devin for Terminal',
     description: "Cognition's terminal agent",
     icon: '/img/icons/devin.svg',
     install: '/docs/install/devin-cli',
+    homepage: 'https://devin.ai/cli',
   },
   {
     name: 'Factory Droid',
     description: "Factory's software development agent",
     icon: '/img/icons/droid.svg',
     install: '/docs/install/factory-droid',
+    homepage: 'https://factory.com/product/cli',
   },
   {
     name: 'Grok Build',
     description: "xAI's coding agent",
     icon: '/img/icons/grok.svg',
     install: '/docs/install/grok-build',
+    homepage: 'https://x.ai/build',
   },
   {
     name: 'Qwen Code',
     description: "Qwen's terminal coding agent",
     icon: '/img/icons/qwen.svg',
     install: '/docs/install/qwen-code',
+    homepage: 'https://qwenlm.github.io/qwen-code-docs/',
   },
   {
     name: 'Kimi Code',
     description: "Moonshot AI's coding agent",
     icon: '/img/icons/kimi.svg',
     install: '/docs/install/kimi-code',
+    homepage: 'https://www.kimi.com/code',
   },
   {
     name: 'Muse Code',
     description: "Meta's coding agent",
     icon: '/img/icons/muse.svg',
     install: '/docs/install/muse-code',
+    homepage: 'https://dev.meta.ai/products/muse-code',
   },
   {
     name: 'Pi',
     description: 'A minimal terminal coding agent',
     icon: '/img/icons/pi.svg',
     install: '/docs/install/pi',
+    homepage: 'https://pi.dev/',
   },
   {
     name: 'Hermes Agent',
     description: "Nous Research's open-source agent",
     icon: '/img/icons/hermes.svg',
     install: '/docs/install/hermes-agent',
+    homepage: 'https://hermes-agent.nousresearch.com/',
   },
 ];
 
