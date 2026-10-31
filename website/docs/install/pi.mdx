@@ -15,6 +15,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Pi' />
@@ -45,3 +46,23 @@ pi update git:github.com/wellwelwel/lagune
 ## Commands
 
 Type the commands with the `skill:` prefix: where these docs write `/lagune.charter`, type `/skill:lagune.charter`. **Pi** warns at startup about each name that holds a dot, and the commands run as usual.
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Pi?',
+      answer:
+        "Run pi install npm:lagune for Lagune's latest release, or pi install git:github.com/wellwelwel/lagune for the latest commit from GitHub.",
+    },
+    {
+      question: 'How do I update Lagune on Pi?',
+      answer:
+        'Run pi update npm:lagune, or pi update git:github.com/wellwelwel/lagune if you installed it from GitHub. To update every package you installed, run pi update --extensions.',
+    },
+    {
+      question: "How do I run Lagune's commands on Pi?",
+      answer:
+        'Type them with the skill: prefix: /skill:lagune.charter instead of /lagune.charter. Pi warns at startup about each name that holds a dot, and the commands run as usual.',
+    },
+  ]}
+/>

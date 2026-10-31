@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Antigravity' />
@@ -59,3 +60,27 @@ npm i -D lagune@{{version}}
 The engine then runs inside the sandbox, with no download and no network access.
 
 :::
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Antigravity CLI?',
+      answer: 'Run agy plugin install https://github.com/wellwelwel/lagune.',
+    },
+    {
+      question: 'How do I update Lagune on Antigravity CLI?',
+      answer:
+        'Run agy plugin install https://github.com/wellwelwel/lagune again, which replaces the installed copy.',
+    },
+    {
+      question: "How do I run Lagune's commands on Antigravity CLI?",
+      answer:
+        "Type them under the plugin's name: /lagune:lagune.charter instead of /lagune.charter.",
+    },
+    {
+      question: 'Can Antigravity CLI run Lagune without asking for permission?',
+      answer:
+        "Yes. Add command(regex:npx --yes lagune@[0-9.]+) to the permissions allow list in Antigravity CLI's settings. With the sandbox on, the engine cannot be downloaded, so also run npm i -D lagune@{{version}} in your project from your own terminal, once and again after each update.",
+    },
+  ]}
+/>

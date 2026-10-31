@@ -3,7 +3,7 @@ id: github-copilot-cli
 title: 'Install Lagune on GitHub Copilot CLI as a Plugin'
 sidebar_label: GitHub Copilot CLI
 parent: get-started/install
-description: Install Lagune's commands in GitHub Copilot CLI through its own plugin installer, keep them updated, and allow the engine up front.
+description: Install Lagune's commands in GitHub Copilot CLI through its own plugin installer, and keep them updated.
 keywords:
   - github copilot cli
   - copilot cli plugin
@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='GitHub Copilot' />
@@ -39,3 +40,27 @@ copilot plugin update lagune@lagune
 ## Commands
 
 Type the commands by their names, such as `/lagune.charter`.
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on GitHub Copilot CLI?',
+      answer:
+        'Add the marketplace with copilot plugin marketplace add wellwelwel/lagune, then install the plugin with copilot plugin install lagune@lagune.',
+    },
+    {
+      question: 'How do I update Lagune on GitHub Copilot CLI?',
+      answer:
+        'Run copilot plugin marketplace update lagune, then copilot plugin update lagune@lagune.',
+    },
+    {
+      question: "How do I run Lagune's commands on GitHub Copilot CLI?",
+      answer: 'Type them by name, such as /lagune.charter.',
+    },
+    {
+      question: 'Can I use Lagune with GitHub Copilot in VS Code?',
+      answer:
+        'Yes. For GitHub Copilot in VS Code or another editor, install Lagune with the skills CLI by running npx skills add wellwelwel/lagune in your project.',
+    },
+  ]}
+/>

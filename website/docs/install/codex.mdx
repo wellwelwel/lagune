@@ -15,6 +15,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Codex' />
@@ -51,3 +52,28 @@ npm i -D lagune@{{version}}
 Every engine call, the first included, then runs inside the sandbox, with no download and no network access.
 
 :::
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Codex CLI?',
+      answer:
+        'Add the marketplace with codex plugin marketplace add wellwelwel/lagune, then install the plugin with codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'How do I update Lagune on Codex CLI?',
+      answer:
+        'Run codex plugin marketplace upgrade lagune, which reinstalls the plugin from the latest commit.',
+    },
+    {
+      question: "How do I run Lagune's commands on Codex CLI?",
+      answer:
+        "Type $ and the command under the plugin's name, followed by your input, such as $lagune:lagune.charter. Typing $ lists every command, and picking one inserts its full name.",
+    },
+    {
+      question: "Does Lagune work inside Codex's sandbox?",
+      answer:
+        'Yes, once its engine is installed in your project. The sandbox has no network access by default, so run npm i -D lagune@{{version}} from your own terminal, once and again after each update.',
+    },
+  ]}
+/>

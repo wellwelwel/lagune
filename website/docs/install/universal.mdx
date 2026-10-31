@@ -17,6 +17,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='skills.sh' />
@@ -44,5 +45,24 @@ npx skills update
 ---
 
 :::warning[One route per agent]
-Install **Lagune** in an agent through the **skills.sh** or through its **plugin**, never both: the agent then lists every command twice, or uses one copy and hides the other.
+Install **Lagune** through the **skills.sh** or through its **plugin**, never both.
 :::
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune in any AI agent?',
+      answer:
+        "Run npx skills add wellwelwel/lagune in your project. The skills CLI installs Lagune's commands in any agent.",
+    },
+    {
+      question: 'How do I update Lagune installed with the skills CLI?',
+      answer: 'Run npx skills update.',
+    },
+    {
+      question: 'Can I install Lagune with both the skills CLI and a plugin?',
+      answer:
+        'No. Pick one route per agent. With both, the agent lists every command twice, or uses one copy and hides the other.',
+    },
+  ]}
+/>

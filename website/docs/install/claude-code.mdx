@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Claude Code' />
@@ -63,3 +64,28 @@ The first engine call asks for your permission, and "Don't ask again" keeps it a
 With the sandbox on, also add `registry.npmjs.org` to `sandbox.network.allowedDomains`, so the engine can be downloaded.
 
 :::
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Claude Code?',
+      answer:
+        'Run claude plugin install lagune --marketplace wellwelwel/lagune in your terminal. In a Claude Code session or the VS Code extension, add the wellwelwel/lagune marketplace from the plugin manager, then install lagune from it.',
+    },
+    {
+      question: 'How do I update Lagune on Claude Code?',
+      answer:
+        'Run claude plugin marketplace update lagune, then claude plugin update lagune@lagune. To keep it updated on its own, select Enable auto-update for the lagune marketplace under /plugin.',
+    },
+    {
+      question: "How do I run Lagune's commands on Claude Code?",
+      answer:
+        "Type them by name, such as /lagune.charter. The form under the plugin's name, such as /lagune:lagune.charter, runs the same command.",
+    },
+    {
+      question: 'Can Claude Code run Lagune without asking for permission?',
+      answer:
+        'Yes. Choose "Don\'t ask again" the first time Lagune\'s engine runs to keep it allowed in that project, or add Bash(npx --yes lagune@*) to the permissions allow list in your Claude Code settings to allow it up front. With the sandbox on, also allow registry.npmjs.org, so the engine can be downloaded.',
+    },
+  ]}
+/>

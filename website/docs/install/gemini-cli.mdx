@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Gemini CLI' />
@@ -55,3 +56,28 @@ priority = 100
 **Gemini CLI** still asks before a call that repeats an option an earlier command printed, a check no rule overrides.
 
 :::
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Gemini CLI?',
+      answer:
+        'Run gemini extensions install https://github.com/wellwelwel/lagune.',
+    },
+    {
+      question: 'How do I update Lagune on Gemini CLI?',
+      answer:
+        'Run gemini extensions update lagune. To keep it updated on its own, install the extension with --auto-update.',
+    },
+    {
+      question: "How do I run Lagune's commands on Gemini CLI?",
+      answer:
+        "Type them under the extension's name: /lagune:lagune.charter instead of /lagune.charter.",
+    },
+    {
+      question: 'Can Gemini CLI run Lagune without asking for permission?',
+      answer:
+        'Yes. Add a Gemini CLI policy rule that allows run_shell_command for npx --yes lagune@ followed by a version. Gemini CLI still asks before a call that repeats an option an earlier command printed, a check no rule overrides.',
+    },
+  ]}
+/>

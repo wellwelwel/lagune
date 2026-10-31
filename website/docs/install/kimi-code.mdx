@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Kimi Code' />
@@ -37,3 +38,23 @@ Install the plugin from a **Kimi Code** session, choose **Trust and install** wh
 ## Commands
 
 Type the commands under the plugin's name: where these docs show `/lagune.charter`, type `/lagune:lagune.charter`. The `/` menu lists them as `/skill:lagune:lagune.charter`, and both forms run the same command.
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Kimi Code?',
+      answer:
+        'In a Kimi Code session, run /plugins install https://github.com/wellwelwel/lagune/tree/main, choose Trust and install, then start a new session with /new to load it.',
+    },
+    {
+      question: 'How do I update Lagune on Kimi Code?',
+      answer:
+        'Run /plugins install https://github.com/wellwelwel/lagune/tree/main again, which replaces the installed copy, then start a new session with /new.',
+    },
+    {
+      question: "How do I run Lagune's commands on Kimi Code?",
+      answer:
+        "Type them under the plugin's name: /lagune:lagune.charter instead of /lagune.charter. The / menu lists them as /skill:lagune:lagune.charter, and both forms run the same command.",
+    },
+  ]}
+/>

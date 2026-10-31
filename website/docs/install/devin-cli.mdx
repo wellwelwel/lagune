@@ -15,6 +15,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Devin for Terminal' />
@@ -37,3 +38,22 @@ devin plugins update lagune
 ## Commands
 
 Type the commands under the plugin's name: where these docs show `/lagune.charter`, type `/lagune:lagune.charter`. The `/` menu also lists them.
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Devin CLI?',
+      answer:
+        'Sign in with devin auth login, since Devin CLI installs plugins into your Devin account, then run devin plugins install wellwelwel/lagune.',
+    },
+    {
+      question: 'How do I update Lagune on Devin CLI?',
+      answer: 'Run devin plugins update lagune.',
+    },
+    {
+      question: "How do I run Lagune's commands on Devin CLI?",
+      answer:
+        "Type them under the plugin's name: /lagune:lagune.charter instead of /lagune.charter. The / menu also lists them.",
+    },
+  ]}
+/>

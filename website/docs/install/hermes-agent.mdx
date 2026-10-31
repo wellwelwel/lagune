@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Hermes Agent' />
@@ -39,3 +40,22 @@ hermes plugins update lagune
 ## Commands
 
 Type the commands under the plugin's name, with a hyphen in place of the dot, as **Hermes Agent** shows them: where these docs show `/lagune.charter`, type `/lagune:lagune-charter`, and `/lagune` is `/lagune:lagune`.
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Hermes Agent?',
+      answer:
+        "Run hermes plugins install wellwelwel/lagune, then hermes plugins enable lagune/.hermes-plugin. Confirm the plugin when Hermes Agent asks, and decline its offer to install the repository's Node.js dependencies.",
+    },
+    {
+      question: 'How do I update Lagune on Hermes Agent?',
+      answer: 'Run hermes plugins update lagune.',
+    },
+    {
+      question: "How do I run Lagune's commands on Hermes Agent?",
+      answer:
+        "Type them under the plugin's name, with a hyphen in place of the dot: /lagune:lagune-charter instead of /lagune.charter, and /lagune:lagune instead of /lagune.",
+    },
+  ]}
+/>

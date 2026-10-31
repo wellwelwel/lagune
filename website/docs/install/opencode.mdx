@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
@@ -97,3 +98,23 @@ Type the commands by their names, such as `/lagune.charter`. **OpenCode** leaves
 
   </TabItem>
 </Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on OpenCode?',
+      answer:
+        'On OpenCode 2.x, run opencode plugin add lagune. On OpenCode 1.x, run opencode plugin lagune, adding -g to install it for all your projects.',
+    },
+    {
+      question: 'How do I update Lagune on OpenCode?',
+      answer:
+        'On OpenCode 2.x, run opencode plugin update lagune, then opencode reload. On OpenCode 1.x, install the new release over the old one with opencode plugin lagune@{{version}} --force.',
+    },
+    {
+      question: "How do I run Lagune's commands on OpenCode?",
+      answer:
+        'On OpenCode 2.x, type @ and pick the command, such as @lagune.charter, then write your input in the same message. On OpenCode 1.x, type them by name, such as /lagune.charter, and find them under /skills.',
+    },
+  ]}
+/>

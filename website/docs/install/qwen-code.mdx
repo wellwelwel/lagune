@@ -14,6 +14,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Qwen Code' />
@@ -55,3 +56,28 @@ In Ask permissions mode, the first engine call asks for your permission. To allo
 In the default Auto mode, **Qwen Code** sets this rule aside and lets its classifier judge each engine call.
 
 :::
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Qwen Code?',
+      answer:
+        'Run qwen extensions install wellwelwel/lagune, then pick lagune when Qwen Code asks which plugin to install.',
+    },
+    {
+      question: 'How do I update Lagune on Qwen Code?',
+      answer:
+        'Run qwen extensions update lagune. To keep it updated on its own, install the extension with --auto-update.',
+    },
+    {
+      question: "How do I run Lagune's commands on Qwen Code?",
+      answer:
+        "Type them under the extension's name: /lagune:lagune.charter instead of /lagune.charter.",
+    },
+    {
+      question: 'Can Qwen Code run Lagune without asking for permission?',
+      answer:
+        "In Ask permissions mode, yes: add Bash(npx --yes lagune@*) to the permissions allow list in Qwen Code's settings. In the default Auto mode, Qwen Code sets that rule aside and lets its classifier judge each engine call.",
+    },
+  ]}
+/>

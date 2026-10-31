@@ -15,6 +15,7 @@ keywords:
   - AI agents
 ---
 
+import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Cursor' />
@@ -64,3 +65,28 @@ In **Cursor**'s default Auto-review mode, the sandbox cannot write **npm**'s cac
 ```
 
 :::
+
+<Faq
+  items={[
+    {
+      question: 'How do I install Lagune on Cursor?',
+      answer:
+        'In Cursor, open Customize, select From GitHub Repository, enter https://github.com/wellwelwel/lagune, then install Lagune. In the Cursor CLI, run agent plugin marketplace add https://github.com/wellwelwel/lagune, then install Lagune from /plugins in an agent session.',
+    },
+    {
+      question: 'How do I update Lagune on Cursor?',
+      answer:
+        'Select Refresh on the lagune marketplace in Customize, or run agent plugin marketplace update lagune.',
+    },
+    {
+      question: "How do I run Lagune's commands on Cursor?",
+      answer:
+        "Type them by name, such as /lagune.charter. Cursor's skills list shows a naming warning on each name that holds a dot, and the commands run as usual.",
+    },
+    {
+      question: 'Can Cursor run Lagune without asking for permission?',
+      answer:
+        "Yes. In the Cursor CLI, add Shell(npx:--yes lagune@*) to the permissions allow list in its config. In Cursor's default Auto-review mode, set enableSharedBuildCache to true in its sandbox settings, so the engine runs inside the sandbox instead of being reviewed by the classifier.",
+    },
+  ]}
+/>
