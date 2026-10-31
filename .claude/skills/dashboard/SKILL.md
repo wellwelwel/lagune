@@ -12,13 +12,11 @@ A live view of a project's `.lagune/` chain: charter, findings, hardening, verif
 
 Authored in strict TypeScript with Node APIs. It ships as a self-contained static client plus a zero-dependency server, both bundled into `lib/` at build time. `src/` is never published.
 
-The product mission and workflow philosophy live in [CLAUDE.md](../../../CLAUDE.md). The toolchain, code conventions, and build path live in the [engineering](../engineering/SKILL.md) skill, the repository layout in the [architecture](../architecture/SKILL.md) skill, and design-engineering principles, including how to verify rendered output, in the [/interface](../interface/SKILL.md) skill.
+The product mission and workflow philosophy live in [CLAUDE.md](../../../CLAUDE.md). The code conventions live in the [engineering](../engineering/SKILL.md) skill, the architecture decisions in the [architecture](../architecture/SKILL.md) skill, the design-engineering principles in the [ui](../ui/SKILL.md) skill, and how to verify rendered output in the [cdp](../cdp/SKILL.md) skill.
 
 ## Consistency
 
 The client follows one visual system. Same-styled elements never carry their own local variants, and when two of them disagree on a value, standardize on the smallest one already in use. New kinds of visual consistency belong here as subsections, never as new top-level sections.
-
-For general guidelines on the user interface, CDP, screenshots, etc., see: [/interface](../interface/SKILL.md)
 
 ### Spacing
 
