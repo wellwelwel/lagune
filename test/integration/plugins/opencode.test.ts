@@ -16,17 +16,17 @@ import { packageRoot, readManifest, repositoryRoot } from './__utils__.js';
 
 const SKILLS = [
   'lagune',
-  'lagune.charter',
-  'lagune.detect',
-  'lagune.harden',
-  'lagune.plan',
-  'lagune.prove',
-  'lagune.repair',
-  'lagune.specialize',
-  'lagune.verify',
+  'lagune-charter',
+  'lagune-detect',
+  'lagune-harden',
+  'lagune-plan',
+  'lagune-prove',
+  'lagune-repair',
+  'lagune-specialize',
+  'lagune-verify',
 ];
-const USER_ONLY = ['lagune.prove', 'lagune.specialize'];
-const REJECTED = 'lagune.detect';
+const USER_ONLY = ['lagune-prove', 'lagune-specialize'];
+const REJECTED = 'lagune-detect';
 const OTHER_FOLDER = '/elsewhere/skills';
 
 const skillsFolder = join(repositoryRoot, 'skills');

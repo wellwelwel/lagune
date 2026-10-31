@@ -1,5 +1,5 @@
 ---
-name: lagune.detect
+name: lagune-detect
 description: Detect what the system actually does by reading the code, and map the security-relevant findings (login, uploads, payments, data exposure, and so on) with the evidence later phases need. Scans the whole project, named files, or a focused scope.
 argument-hint: Optionally name files/dirs or a focus, or leave empty for a full scan
 user-invocable: true
@@ -46,7 +46,7 @@ This map is reconciled, never append-only. If the map was empty or freshly initi
 
 A finding that `verify` already proved closed was stood down out of the whole chain, so it is simply absent here. That absence is expected, not a broken chain, and is no reason to run repair.
 
-If reconciling reveals the chain is inconsistent (for example the tracking map points a finding at a file that was renamed or moved, so the path on record no longer exists), run `/lagune.repair` and then continue. Repair fixes Lagune's internal tracking across every phase at once, so the chain stays coherent. Do not try to repair the tracking yourself: this phase reconciles its own map in prose, repair owns the tracking.
+If reconciling reveals the chain is inconsistent (for example the tracking map points a finding at a file that was renamed or moved, so the path on record no longer exists), run `/lagune-repair` and then continue. Repair fixes Lagune's internal tracking across every phase at once, so the chain stays coherent. Do not try to repair the tracking yourself: this phase reconciles its own map in prose, repair owns the tracking.
 
 ### Step 4: List the catalog and widen the read
 
@@ -110,7 +110,7 @@ Anything a specialization surfaces is recorded as a finding through the steps be
 npx --yes lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
-Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only registers what this phase wrote. Repairing the chain across phases stays with `/lagune.repair`.
+Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only registers what this phase wrote. Repairing the chain across phases stays with `/lagune-repair`.
 
 ### Step 10: Check the written map
 
@@ -133,6 +133,6 @@ Output a short summary to the user:
 - What changed since the last run: findings added, findings removed because they are now resolved, and findings updated.
 - Anything left under Not determined.
 - A suggested commit message, for example `docs: update detect map`.
-- **Next step:** point the user to `/lagune.plan`, the phase that turns these findings into prioritized fixes, each tied to a charter principle. Frame it as the recommended next step, and note they can rerun `/lagune.detect` (on the whole project or a narrower scope) whenever the code changes.
+- **Next step:** point the user to `/lagune-plan`, the phase that turns these findings into prioritized fixes, each tied to a charter principle. Frame it as the recommended next step, and note they can rerun `/lagune-detect` (on the whole project or a narrower scope) whenever the code changes.
 
 Keep the map in plain language throughout. A non-developer should understand what each finding is and the risk it carries, while the evidence stays precise enough for the next phases to use.

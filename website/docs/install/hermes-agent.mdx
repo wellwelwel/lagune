@@ -19,11 +19,10 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Hermes Agent' />
 
-Install the plugin from your terminal, then enable it:
+Install the plugin from your terminal:
 
 ```bash
-hermes plugins install wellwelwel/lagune
-hermes plugins enable lagune/.hermes-plugin
+hermes plugins install wellwelwel/lagune --enable
 ```
 
 - When **Hermes Agent** asks you to confirm a plugin from outside its catalog, **confirm it**.
@@ -39,7 +38,7 @@ hermes plugins update lagune
 
 ## Commands
 
-Type the commands under the plugin's name, with a hyphen in place of the dot, as **Hermes Agent** shows them: where these docs show `/lagune.charter`, type `/lagune:lagune-charter`, and `/lagune` is `/lagune:lagune`.
+Type the commands under the plugin's name: where these docs show `/lagune-charter`, type `/lagune:lagune-charter`, and `/lagune` is `/lagune:lagune`.
 
 <Faq
   items={[
@@ -55,7 +54,7 @@ Type the commands under the plugin's name, with a hyphen in place of the dot, as
     {
       question: "How do I run Lagune's commands on Hermes Agent?",
       answer:
-        "Type them under the plugin's name, with a hyphen in place of the dot: /lagune:lagune-charter instead of /lagune.charter, and /lagune:lagune instead of /lagune.",
+        "Type them under the plugin's name: /lagune:lagune-charter instead of /lagune-charter, and /lagune:lagune instead of /lagune.",
     },
   ]}
 />

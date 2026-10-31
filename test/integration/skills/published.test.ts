@@ -7,26 +7,26 @@ import { packageRoot } from './__utils__.js';
 
 const COMMANDS = [
   'lagune',
-  'lagune.charter',
-  'lagune.detect',
-  'lagune.harden',
-  'lagune.plan',
-  'lagune.prove',
-  'lagune.repair',
-  'lagune.specialize',
-  'lagune.verify',
+  'lagune-charter',
+  'lagune-detect',
+  'lagune-harden',
+  'lagune-plan',
+  'lagune-prove',
+  'lagune-repair',
+  'lagune-specialize',
+  'lagune-verify',
 ];
 
 const FILLS_A_TEMPLATE = [
-  'lagune.charter',
-  'lagune.detect',
-  'lagune.harden',
-  'lagune.plan',
-  'lagune.prove',
-  'lagune.specialize',
+  'lagune-charter',
+  'lagune-detect',
+  'lagune-harden',
+  'lagune-plan',
+  'lagune-prove',
+  'lagune-specialize',
 ];
 
-const KEPT_FROM_THE_MODEL = ['lagune.prove', 'lagune.specialize'];
+const KEPT_FROM_THE_MODEL = ['lagune-prove', 'lagune-specialize'];
 
 const ENGINE_COMMAND = `npx --yes lagune@${await loadVersion(packageRoot)} `;
 const ENGINE_CALL = /npx (?:-\S+ )*lagune(?:@\S*)? [^\n`]*/g;

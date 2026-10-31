@@ -35,8 +35,8 @@ const GENERATED = [
   '.lagune/hooks/',
   '.lagune/specializations.md',
 ];
-const SKILL_FOLDER = /^lagune(\.[a-z]+)?$/;
-const COMMAND_FILE = /^lagune(\.[a-z]+)?\.(md|mdc|toml|yaml)$/;
+const LEGACY_SKILL_FOLDER = /^lagune(\.[a-z]+)?$/;
+const LEGACY_COMMAND_FILE = /^lagune(\.[a-z]+)?\.(md|mdc|toml|yaml)$/;
 
 export const hasManifest = (cwd: string): Promise<boolean> =>
   pathExists(join(cwd, MANIFEST_FILE));
@@ -72,10 +72,10 @@ const commandEntry = (path: string): string | undefined => {
   const file = segments[segments.length - 1] ?? '';
   const folder = segments[segments.length - 2] ?? '';
 
-  if (file === 'SKILL.md' && SKILL_FOLDER.test(folder))
+  if (file === 'SKILL.md' && LEGACY_SKILL_FOLDER.test(folder))
     return `${segments.slice(0, -1).join('/')}/`;
 
-  return COMMAND_FILE.test(file) ? path : undefined;
+  return LEGACY_COMMAND_FILE.test(file) ? path : undefined;
 };
 
 const agentCommands = (files: string[]): string[] => [

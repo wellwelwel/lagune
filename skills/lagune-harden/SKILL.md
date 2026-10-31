@@ -1,5 +1,5 @@
 ---
-name: lagune.harden
+name: lagune-harden
 description: Apply the defense plan's fixes to the code, safely and one at a time, then record what was applied and what is left. Reads the plan and the charter, then hardens every fix, the fixes, files, or directories you name, or a priority you choose.
 argument-hint: Optionally name fixes, files/dirs, or priorities, or leave empty to apply every fix
 user-invocable: true
@@ -32,10 +32,10 @@ If the input is ambiguous, prefer the most literal reading (an existing path is 
 ### Step 2: Load context
 
 - Load the defense plan at `.lagune/memory/plan.md`. This is the **required primary input**.
-  - If it does not exist, **stop and tell the user to run `/lagune.plan` first**. There is nothing to apply without it. Do not invent fixes to work around a missing plan.
+  - If it does not exist, **stop and tell the user to run `/lagune-plan` first**. There is nothing to apply without it. Do not invent fixes to work around a missing plan.
   - If it exists, read its fixes. Each fix's name, priority, the principle it upholds, any `Depends on` it carries, and the finding it points at is what you apply. Apply only fixes that are really in the plan.
   - **Check that the scope is covered by the plan** before applying:
-    - If **nothing** in the scope you chose is in the plan (the named fixes match no fix, the named paths match no fix's finding evidence, or no fix carries any of the named priorities), **stop and tell the user** to run `/lagune.plan` on that scope first, then run the harden phase again. Do not apply a change the plan did not call for.
+    - If **nothing** in the scope you chose is in the plan (the named fixes match no fix, the named paths match no fix's finding evidence, or no fix carries any of the named priorities), **stop and tell the user** to run `/lagune-plan` on that scope first, then run the harden phase again. Do not apply a change the plan did not call for.
     - If the scope is **partly** covered, apply the fixes that are in the plan, and record each uncovered part under **Remaining**. Do not stop, and do not invent a fix for the uncovered part.
 - Load the hardening record at `.lagune/memory/harden.md`.
   - If it does not exist, initialize it from `template.md`, next to this file, first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
@@ -54,7 +54,7 @@ This record is reconciled, never append-only. If the record was empty or freshly
 
 A finding the plan carries but no block here names was stood down out of the chain: expected, and no reason to run repair.
 
-If reconciling reveals the chain is inconsistent (for example the tracking map points a control at a file that was renamed or moved, so the path on record no longer exists), run `/lagune.repair` and then continue. Repair fixes Lagune's internal tracking across every phase at once, so the chain stays coherent. Do not try to repair the tracking yourself: this phase reconciles its own record in prose, repair owns the tracking.
+If reconciling reveals the chain is inconsistent (for example the tracking map points a control at a file that was renamed or moved, so the path on record no longer exists), run `/lagune-repair` and then continue. Repair fixes Lagune's internal tracking across every phase at once, so the chain stays coherent. Do not try to repair the tracking yourself: this phase reconciles its own record in prose, repair owns the tracking.
 
 ### Step 4: Apply the fixes, safely and one at a time
 
@@ -110,7 +110,7 @@ This is the one place Lagune changes the user's code. Do not ask for a confirmat
 npx --yes lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
-Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase hardened. Repairing the map across the conveyor stays with `/lagune.repair`.
+Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase hardened. Repairing the map across the conveyor stays with `/lagune-repair`.
 
 ### Step 8: Check the written record
 
@@ -125,6 +125,6 @@ Output a short summary to the user:
 - What changed since the last run: blocks added, blocks removed because the fix is gone or the change was reverted, and blocks updated.
 - Anything left under Remaining, including any part of the scope the plan did not cover, and any Blocked fix.
 - A suggested commit message, for example `fix: apply security hardening from the defense plan`.
-- **Next step:** point the user to `/lagune.verify`, the phase that proves each applied control actually holds. Make clear the applied controls are not yet proven until verify confirms them. Frame it as the recommended next step. If anything is left under Remaining (a Blocked fix, or a part the plan did not cover), name what is still open so the user can decide whether to revisit `/lagune.plan` or rerun `/lagune.harden` before verifying.
+- **Next step:** point the user to `/lagune-verify`, the phase that proves each applied control actually holds. Make clear the applied controls are not yet proven until verify confirms them. Frame it as the recommended next step. If anything is left under Remaining (a Blocked fix, or a part the plan did not cover), name what is still open so the user can decide whether to revisit `/lagune-plan` or rerun `/lagune-harden` before verifying.
 
-Keep the record in plain language throughout. A non-developer should understand what was changed and what is still open, while the `Where` note stays precise enough that, with the path from the tracking map, `/lagune.verify` can act on it.
+Keep the record in plain language throughout. A non-developer should understand what was changed and what is still open, while the `Where` note stays precise enough that, with the path from the tracking map, `/lagune-verify` can act on it.

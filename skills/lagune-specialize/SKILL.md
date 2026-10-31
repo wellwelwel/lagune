@@ -1,5 +1,5 @@
 ---
-name: lagune.specialize
+name: lagune-specialize
 description: Specialize Lagune from a source or topic you give it, distilling it into a new on-demand specialization the detect and verify phases load later. It writes a focused, language-agnostic, defense-only knowledge module, never an exploit.
 disable-model-invocation: true
 argument-hint: Describe the security topic the specialization should cover, or name an existing specialization to refine

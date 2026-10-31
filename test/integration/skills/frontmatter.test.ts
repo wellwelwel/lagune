@@ -19,7 +19,9 @@ const SKILL_KEYS: Record<keyof Required<Frontmatter>, true> = {
 
 const { metadata, ...PUBLISHED_KEYS } = SKILL_KEYS;
 
-const ON_REQUEST_ONLY = ['lagune.prove', 'lagune.specialize'];
+const ON_REQUEST_ONLY = ['lagune-prove', 'lagune-specialize'];
+
+const AGENT_SKILLS_NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const isSkill = (relativePath: string): boolean =>
   relativePath.endsWith('SKILL.md');
@@ -111,11 +113,16 @@ const assertValid = (
 
 describe('every published skill is discoverable and well-formed', () => {
   for (const { relativePath, frontmatter } of published)
-    it(`skills/${relativePath} names its folder and stays visible`, () => {
+    it(`skills/${relativePath} names its folder in the Agent Skills form and stays visible`, () => {
       const parsed = assertValid(frontmatter, PUBLISHED_KEYS);
       const folder = folderOf(relativePath);
 
       strict.strictEqual(parsed.name, folder);
+      strict.match(
+        folder,
+        AGENT_SKILLS_NAME,
+        'a name holds only lowercase letters and digits, joined by single hyphens'
+      );
       strict.strictEqual(typeof parsed['argument-hint'], 'string');
       strict.strictEqual(parsed['user-invocable'], true);
       strict.strictEqual(

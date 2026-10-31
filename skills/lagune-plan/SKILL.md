@@ -1,5 +1,5 @@
 ---
-name: lagune.plan
+name: lagune-plan
 description: Turn what detect found into the defense plan, one fix per finding, each rated by CVSS v4.0 (category, CVSS, priority) and tied to a charter principle. Reads the detect map and the charter, then plans every finding, named paths, or a concern you describe.
 argument-hint: Optionally name files/dirs or a concern, or leave empty to plan every finding
 user-invocable: true
@@ -34,10 +34,10 @@ When the scope points somewhere detect has not mapped, follow the coverage rules
 ### Step 2: Load context
 
 - Load the detect map at `.lagune/memory/detect.md`. This is the **required primary input**.
-  - If it does not exist, **stop and tell the user to run `/lagune.detect` first**. The defense plan is built from detected findings, so there is nothing to plan without it. Do not invent findings to work around a missing detect map.
+  - If it does not exist, **stop and tell the user to run `/lagune-detect` first**. The defense plan is built from detected findings, so there is nothing to plan without it. Do not invent findings to work around a missing detect map.
   - If it exists, read its findings. Each finding's name and recorded risk is what a fix points at, and the tracking map holds the paths that finding lives at. Fixes only ever point at findings that are really in the map.
   - **Check that the scope is covered by detect** before planning:
-    - If **nothing** in the scope you chose is in the detect map (the named paths match no finding's tracked paths, or no finding relates to the described concern), **stop and tell the user to run `/lagune.detect` on that scope first**, then run the plan phase again. Do not read the code to fill the gap.
+    - If **nothing** in the scope you chose is in the detect map (the named paths match no finding's tracked paths, or no finding relates to the described concern), **stop and tell the user to run `/lagune-detect` on that scope first**, then run the plan phase again. Do not read the code to fill the gap.
     - If the scope is **partly** covered (some findings are in the map, but the paths or concern also reach things detect has not mapped), plan the fixes for what is covered, and record each uncovered part under **Open questions** (naming the uncovered path and noting the detect map does not cover it yet). Do not stop, and do not read the code for the uncovered part.
 - Load the defense plan at `.lagune/memory/plan.md`.
   - If it does not exist, initialize it from `template.md`, next to this file, first, and identify every placeholder token of the form `[ALL_CAPS_IDENTIFIER]`.
@@ -54,7 +54,7 @@ This plan is reconciled, never append-only. If the plan was empty or freshly ini
 
 A fix whose finding `verify` already proved closed was stood down out of the whole chain, so it is simply absent here. That absence is expected, not a broken chain, and is no reason to run repair.
 
-If reconciling reveals the chain is inconsistent (for example the tracking map points a finding at a file that was renamed or moved, so the path on record no longer exists), run `/lagune.repair` and then continue. Repair fixes Lagune's internal tracking across every phase at once, so the chain stays coherent. Do not try to repair the tracking yourself: this phase reconciles its own plan in prose, repair owns the tracking.
+If reconciling reveals the chain is inconsistent (for example the tracking map points a finding at a file that was renamed or moved, so the path on record no longer exists), run `/lagune-repair` and then continue. Repair fixes Lagune's internal tracking across every phase at once, so the chain stays coherent. Do not try to repair the tracking yourself: this phase reconciles its own plan in prose, repair owns the tracking.
 
 ### Step 4: Plan the fixes
 
@@ -118,7 +118,7 @@ One finding is one item, with one rating. When a finding needs more than one fix
 npx --yes lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
-Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase planned. Repairing the map across the conveyor stays with `/lagune.repair`.
+Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase planned. Repairing the map across the conveyor stays with `/lagune-repair`.
 
 ### Step 8: Check the written plan
 
@@ -133,6 +133,6 @@ Output a short summary to the user:
 - What changed since the last run: fixes added, fixes removed because they are now done, and fixes updated (including a rating that moved band).
 - Anything left under Open questions, including any part of the scope the detect map did not cover.
 - A suggested commit message, for example `docs: update defense plan`.
-- **Next step:** point the user to `/lagune.harden`, the phase that applies these fixes to the code, safely and one at a time, highest priority first. Frame it as the recommended next step. If anything is left under Open questions, point them instead to `/lagune.detect` on that uncovered scope first, so the plan can cover it before harden runs.
+- **Next step:** point the user to `/lagune-harden`, the phase that applies these fixes to the code, safely and one at a time, highest priority first. Frame it as the recommended next step. If anything is left under Open questions, point them instead to `/lagune-detect` on that uncovered scope first, so the plan can cover it before harden runs.
 
 Keep the plan in plain language throughout. A non-developer should understand what each fix does and why it is prioritized: the CVSS vector and category are the precise, reproducible anchor, and the `Priority` band with its `Why this priority` line is that rating in words anyone can follow. The finding name in each title stays precise enough for harden to act on.

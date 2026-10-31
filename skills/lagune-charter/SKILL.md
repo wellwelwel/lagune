@@ -1,5 +1,5 @@
 ---
-name: lagune.charter
+name: lagune-charter
 description: Establish or update the project's security charter, the safe-by-default principles every later phase must respect. Reads the project's files to learn what it is and uses, weighs any description you give against them, and asks when something is unclear.
 argument-hint: Optionally describe your project, or leave empty to let Lagune propose
 user-invocable: true
@@ -114,6 +114,6 @@ Output a short summary:
 - The categories this run recorded, or each category the reading supports that the project does not use yet.
 - Anything you had to assume, or any question still open.
 - A suggested commit message, for example `docs: establish security charter v1.0.0`.
-- **Next step:** point the user to `/lagune.detect`, the phase that reads the code to map what the system actually does, so the later phases work from real context. Note they can rerun `/lagune.charter` any time the principles need to change.
+- **Next step:** point the user to `/lagune-detect`, the phase that reads the code to map what the system actually does, so the later phases work from real context. Note they can rerun `/lagune-charter` any time the principles need to change.
 
 Keep the charter in plain language throughout. A non-developer should be able to read it and understand both the rule and the risk it prevents.

@@ -56,10 +56,10 @@ await describe('a source walk lists the files a hook reads', async () => {
     ]);
   });
 
-  await it('ignores the root .lagune dir and any lagune.* dir', async () => {
+  await it('ignores the root .lagune dir and any lagune-* dir', async () => {
     const files = await walkSources([
       'kept.js',
-      ...['.lagune', 'lagune.detect', 'src/lagune.cache'].map((dir) =>
+      ...['.lagune', 'lagune-detect', 'src/lagune-cache'].map((dir) =>
         join(dir, 'noise.js')
       ),
     ]);

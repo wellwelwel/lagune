@@ -91,7 +91,7 @@ export const PHASE_GROUPS: Group[] = [
       {
         no: 'PHASE 1',
         title: 'Charter',
-        command: '/lagune.charter',
+        command: '/lagune-charter',
         desc: "Sets your project's security rules, proposed for you or shaped by what you say.",
         banner: '/img/docs/banner-1.webp',
         modes: [
@@ -114,7 +114,7 @@ export const PHASE_GROUPS: Group[] = [
       {
         no: 'PHASE 2',
         title: 'Detect',
-        command: '/lagune.detect',
+        command: '/lagune-detect',
         desc: 'Reads your code and maps what your system does and where the risks are.',
         banner: '/img/docs/banner-5.webp',
         modes: [
@@ -135,7 +135,7 @@ export const PHASE_GROUPS: Group[] = [
       {
         no: 'PHASE 3',
         title: 'Plan',
-        command: '/lagune.plan',
+        command: '/lagune-plan',
         desc: 'Turns what detect found into a defense plan, with a fix for each finding.',
         banner: '/img/docs/banner-3.webp',
         modes: [
@@ -157,7 +157,7 @@ export const PHASE_GROUPS: Group[] = [
       {
         no: 'PHASE 4',
         title: 'Harden',
-        command: '/lagune.harden',
+        command: '/lagune-harden',
         desc: "Applies the plan's fixes to your code, safely and one at a time.",
         banner: '/img/docs/banner-2.webp',
         modes: [
@@ -174,7 +174,7 @@ export const PHASE_GROUPS: Group[] = [
       {
         no: 'PHASE 5',
         title: 'Verify',
-        command: '/lagune.verify',
+        command: '/lagune-verify',
         desc: 'Proves each applied fix holds and closes out the ones that do.',
         banner: '/img/docs/banner-4.webp',
         modes: [

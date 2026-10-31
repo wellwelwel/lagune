@@ -1,6 +1,6 @@
 ---
 id: verify
-title: '/lagune.verify: Prove Security Controls Hold'
+title: '/lagune-verify: Prove Security Controls Hold'
 sidebar_label: 5. Verify
 description: Prove each applied fix holds, then close out the ones that do.
 ---
@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-# /lagune.verify
+# /lagune-verify
 
 ⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
 
@@ -19,21 +19,21 @@ import Tabs from '@theme/Tabs';
   <TabItem value="full" label="Verify everything" default>
 
 ```prompt
-/lagune.verify
+/lagune-verify
 ```
 
   </TabItem>
   <TabItem value="paths" label="Point at paths">
 
 ```prompt
-/lagune.verify src/routes/upload.ts
+/lagune-verify src/routes/upload.ts
 ```
 
   </TabItem>
   <TabItem value="priority" label="By priority">
 
 ```prompt
-/lagune.verify Critical and High
+/lagune-verify Critical and High
 ```
 
   </TabItem>
@@ -55,7 +55,7 @@ A risk proven closed is then stood down out of the chain, with your confirmation
   - _How proven:_ read the upload handler and saw it detects the file's real type from its content, enforces a size limit, and refuses anything else, exactly as the record claims.
   - _Evidence:_ the `handleUpload` function, which detects the real file type from content.
 
-If the risk is not closed, verify says so plainly and sends you back to [`/lagune.harden`](/docs/commands/harden), since the fix is still open.
+If the risk is not closed, verify says so plainly and sends you back to [`/lagune-harden`](/docs/commands/harden), since the fix is still open.
 
 :::tip
 
@@ -68,7 +68,7 @@ If the risk is not closed, verify says so plainly and sends you back to [`/lagun
 :::
 
 :::warning[Depends on harden]
-Verify builds on [`/lagune.harden`](/docs/commands/harden).
+Verify builds on [`/lagune-harden`](/docs/commands/harden).
 :::
 
 ## The cycle closes
@@ -80,7 +80,7 @@ When everything in scope is stood down, the cycle is at rest. It reopens only wh
     {
       question: 'How does Lagune verify a fix?',
       answer:
-        '/lagune.verify reads the code and confronts it with what harden recorded, returning one of three verdicts: Risk closed, Risk not closed, or Cannot tell from the code.',
+        '/lagune-verify reads the code and confronts it with what harden recorded, returning one of three verdicts: Risk closed, Risk not closed, or Cannot tell from the code.',
     },
     {
       question: 'What is a stand down?',

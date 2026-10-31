@@ -1,6 +1,6 @@
 ---
 id: charter
-title: '/lagune.charter: Set Your Security Principles'
+title: '/lagune-charter: Set Your Security Principles'
 sidebar_label: 1. Charter
 description: Establish your project's security principles, the rules every later phase respects, and record the specialization categories its reading supports.
 ---
@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-# /lagune.charter
+# /lagune-charter
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -21,14 +21,14 @@ The charter is the governing layer: a set of security-first principles every lat
   <TabItem value="describe" label="Describe it" default>
 
 ```prompt
-/lagune.charter My project is an online store that sells video games. Customers add products to a cart and pay by credit card or bank slip. They can see their orders and the status of each one.
+/lagune-charter My project is an online store that sells video games. Customers add products to a cart and pay by credit card or bank slip. They can see their orders and the status of each one.
 ```
 
   </TabItem>
   <TabItem value="propose" label="Let Lagune propose">
 
 ```prompt
-/lagune.charter
+/lagune-charter
 ```
 
 > _I see a payment library, a login setup, and an order model tied to a customer. This looks like an online store that sells something. Customers pay and track their own orders..._ ☁️
@@ -75,7 +75,7 @@ npx lagune remove --categories python
 
 ## Next
 
-With the rules set, map what your system actually does: [`/lagune.detect`](/docs/commands/detect).
+With the rules set, map what your system actually does: [`/lagune-detect`](/docs/commands/detect).
 
 <Faq
   items={[

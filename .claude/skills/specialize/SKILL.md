@@ -9,18 +9,18 @@ metadata:
 
 # Authoring a built-in Lagune specialization (development workspace)
 
-The published skill `skills/lagune.specialize/SKILL.md` writes into a **project's own catalog**: `.lagune/catalog/<name>.md` plus its entry in `.lagune/configs.json`. This repo is the **Lagune source**, where built-in specializations live in `catalog/<name>.md` and their index is a TypeScript array, not a runtime JSON file. A built-in is registered in code, published with the engine, and tested.
+The published skill `skills/lagune-specialize/SKILL.md` writes into a **project's own catalog**: `.lagune/catalog/<name>.md` plus its entry in `.lagune/configs.json`. This repo is the **Lagune source**, where built-in specializations live in `catalog/<name>.md` and their index is a TypeScript array, not a runtime JSON file. A built-in is registered in code, published with the engine, and tested.
 
 So you reuse the skill's **authoring discipline** (terrain, defense-only gate, template, tags, reconcile-never-append) but **override every output path** to the native layout, and you update the registration points the published skill never has to.
 
 ## Step 1: Run the skill's authoring steps, with redirected paths
 
-Read and follow `skills/lagune.specialize/SKILL.md` in full. Its authoring steps hold unchanged. The one thing that does not is where files are read and written, since the skill targets a project and you are in the source. Remap every path it names:
+Read and follow `skills/lagune-specialize/SKILL.md` in full. Its authoring steps hold unchanged. The one thing that does not is where files are read and written, since the skill targets a project and you are in the source. Remap every path it names:
 
 | Skill path (a project's own catalog)                  | Native path (use this instead)                                                  |
 | ----------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `catalog <name>` for `regex`, `javascript`, `browser` | every `*.md` already in `catalog/` (list the directory, mirror the closest one) |
-| `template.md`, next to the skill                      | `skills/lagune.specialize/template.md`                                          |
+| `template.md`, next to the skill                      | `skills/lagune-specialize/template.md`                                          |
 | `catalog` (list what exists)                          | read `catalog/` and `BUILTIN_SPECIALIZATIONS` in `src/catalog/builtin.ts`       |
 | `.lagune/catalog/<name>.md` (the specialization file) | `catalog/<name>.md`                                                             |
 | `.lagune/configs.json` (index entry)                  | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
@@ -65,7 +65,7 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 ## Quick checklist
 
 ```
-[ ] catalog/<name>.md                        authored from skills/lagune.specialize/template.md (reconciled on a refine)
+[ ] catalog/<name>.md                        authored from skills/lagune-specialize/template.md (reconciled on a refine)
 [ ] src/catalog/builtin.ts                   BuiltinSpecialization added { name, tags, categories }
 [ ] src/categories/categories.ts             only if a new category was introduced
 [ ] src/dashboard/shared/specialization-meta.ts  label, description, icon, prompt task

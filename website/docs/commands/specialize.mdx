@@ -1,6 +1,6 @@
 ---
 id: specialize
-title: '/lagune.specialize: Train a Security Specialization with Plain Text'
+title: '/lagune-specialize: Train a Security Specialization with Plain Text'
 sidebar_label: Specialize
 description: Distill a security source or topic you give it into a new on-demand specialization.
 ---
@@ -9,7 +9,7 @@ import { Faq } from '@site/src/components/docs/Faq';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-# /lagune.specialize
+# /lagune-specialize
 
 🎓 Teach **Lagune** a new specialization, from a source or topic you give it.
 
@@ -20,7 +20,7 @@ It reads the material and distills it into a focused, defense-only specializatio
 
 ```prompt
 # A link or reference: Lagune distills it into the defense
-/lagune.specialize https://owasp.org/www-community/attacks/SQL_Injection
+/lagune-specialize https://owasp.org/www-community/attacks/SQL_Injection
 ```
 
   </TabItem>
@@ -28,7 +28,7 @@ It reads the material and distills it into a focused, defense-only specializatio
 
 ```prompt
 # An attack as the source: the specialization is still the defense
-/lagune.specialize "' OR 1=1 -- splices SQL into the query text"
+/lagune-specialize "' OR 1=1 -- splices SQL into the query text"
 ```
 
   </TabItem>
@@ -36,7 +36,7 @@ It reads the material and distills it into a focused, defense-only specializatio
 
 ```prompt
 # Or just name what to cover
-/lagune.specialize SQL injection
+/lagune-specialize SQL injection
 ```
 
   </TabItem>
@@ -77,7 +77,7 @@ Specializing a name that already exists, whether a built-in like `regex` or one 
     {
       question: 'How do I add a custom security specialization?',
       answer:
-        'Run /lagune.specialize with a source or topic. It distills it into a defense-only specialization, written to .lagune/catalog/<name>.md plus its entry in .lagune/configs.json.',
+        'Run /lagune-specialize with a source or topic. It distills it into a defense-only specialization, written to .lagune/catalog/<name>.md plus its entry in .lagune/configs.json.',
     },
     {
       question: 'Can Lagune learn from an exploit write-up?',

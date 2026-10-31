@@ -26,16 +26,12 @@ def list_skill_files():
     return skill_files
 
 
-def command_name(frontmatter, skill_file):
-    return frontmatter.get("name", skill_file.parent.name).replace(".", "-")
-
-
 def register(ctx):
     for skill_file in list_skill_files():
         frontmatter = read_frontmatter(skill_file)
 
         ctx.register_skill(
-            command_name(frontmatter, skill_file),
+            frontmatter.get("name", skill_file.parent.name),
             skill_file,
             description=frontmatter.get("description", ""),
         )

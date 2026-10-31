@@ -14,7 +14,7 @@ export const EmptyState = (): VNode => (
       <p class='min-w-0 flex-1 text-[0.8rem] text-muted text-pretty'>
         Install Lagune with{' '}
         <code class='whitespace-nowrap'>npx skills add wellwelwel/lagune</code>{' '}
-        or run <code>/lagune.charter</code> in your agent to set your project's
+        or run <code>/lagune-charter</code> in your agent to set your project's
         security principles.
       </p>
       <DocsLink href={INSTALL_DOC_HREF} />

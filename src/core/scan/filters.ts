@@ -37,7 +37,7 @@ export const BASE_IGNORED_DIRS: ReadonlySet<string> = new Set([
 ]);
 
 export const BASE_IGNORED_DIR_PATTERNS: readonly RegExp[] = [
-  /^lagune\./,
+  /^lagune-/,
   /\.egg-info$/,
 ];
 

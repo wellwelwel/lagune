@@ -44,7 +44,7 @@ A project with a manifest keeps working as it is. `npx lagune` hands `init`, `pu
    Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
    ```
 
-4. Rerun [`/lagune.detect`](/docs/commands/detect) before resuming harden or verify on findings detected before the move, so their applied specializations are named the new way.
+4. Rerun [`/lagune-detect`](/docs/commands/detect) before resuming harden or verify on findings detected before the move, so their applied specializations are named the new way.
 5. If one of your own specializations calls a hook, rewrite the call with the engine command, since `.lagune/hooks/` is gone:
 
    ```bash
@@ -56,22 +56,22 @@ A project with a manifest keeps working as it is. `npx lagune` hands `init`, `pu
    ```
 
 :::tip[Migrate first, install second]
-Migrate removes the agent commands the manifest lists, which sit where the **skills.sh** installs the new ones. Installing first means installing twice.
+Migrate removes the agent commands the manifest lists, and the old `/lagune` sits where the **skills.sh** installs the new one. Installing first means installing twice.
 :::
 
 ## What changes
 
-| Before                                                                   | After                                                                                       |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `.lagune/templates/`, `.lagune/hooks/`, and `.lagune/specializations.md` | Removed: each skill carries its template, and the engine runs the hooks                     |
-| The copies of built-in specializations in `.lagune/skills/`              | Removed: the engine serves the built-ins                                                    |
-| Your own specializations in `.lagune/skills/`                            | Moved to `.lagune/catalog/`                                                                 |
-| `.lagune/skills.json`, the index of your own specializations             | Merged into `.lagune/configs.json`                                                          |
-| The manifest's categories                                                | Recorded in `.lagune/configs.json`                                                          |
-| The agent commands the manifest lists                                    | Removed: the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs the new ones |
-| The **Lagune** block in `.gitignore`                                     | Removed, with the file when it held nothing else                                            |
-| `.lagune/proofs/`, ignored by that block                                 | Kept out of commits by its own `.gitignore`                                                 |
-| `.lagune/manifest.json`                                                  | Deleted, last                                                                               |
+| Before                                                                   | After                                                                                                                 |
+| ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `.lagune/templates/`, `.lagune/hooks/`, and `.lagune/specializations.md` | Removed: each skill carries its template, and the engine runs the hooks                                               |
+| The copies of built-in specializations in `.lagune/skills/`              | Removed: the engine serves the built-ins                                                                              |
+| Your own specializations in `.lagune/skills/`                            | Moved to `.lagune/catalog/`                                                                                           |
+| `.lagune/skills.json`, the index of your own specializations             | Merged into `.lagune/configs.json`                                                                                    |
+| The manifest's categories                                                | Recorded in `.lagune/configs.json`                                                                                    |
+| The agent commands the manifest lists, such as `/lagune.detect`          | Removed: the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs the new ones, such as `/lagune-detect` |
+| The **Lagune** block in `.gitignore`                                     | Removed, with the file when it held nothing else                                                                      |
+| `.lagune/proofs/`, ignored by that block                                 | Kept out of commits by its own `.gitignore`                                                                           |
+| `.lagune/manifest.json`                                                  | Deleted, last                                                                                                         |
 
 Your security work stays as it is: the charter, the artifact each phase produced, and the tracking map with the paths each finding points at.
 
@@ -100,7 +100,7 @@ Your security work stays as it is: the charter, the artifact each phase produced
     {
       question: 'When do I install the new commands?',
       answer:
-        'After migrate, with npx skills add wellwelwel/lagune. Migrate removes the old agent commands from where the skills CLI installs the new ones.',
+        'After migrate, with npx skills add wellwelwel/lagune. Migrate removes the old /lagune, which sits where the skills CLI installs the new one.',
     },
   ]}
 />

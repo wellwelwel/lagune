@@ -35,7 +35,7 @@ const chainView = (finding: Finding): ChainView => {
     return {
       kind: 'danger',
       title: 'Fix reproved',
-      body: 'Verify could not prove this fix holds. Run `/lagune.harden` to rework it, then verify again.',
+      body: 'Verify could not prove this fix holds. Run `/lagune-harden` to rework it, then verify again.',
       reason: finding.reason,
     };
 
@@ -43,7 +43,7 @@ const chainView = (finding: Finding): ChainView => {
     return {
       kind: 'warning',
       title: 'Fix inconclusive',
-      body: 'Verify could not settle this fix from the code alone. Run `/lagune.verify` again once what it needs is within reach.',
+      body: 'Verify could not settle this fix from the code alone. Run `/lagune-verify` again once what it needs is within reach.',
       reason: finding.reason,
     };
 
@@ -53,7 +53,7 @@ const chainView = (finding: Finding): ChainView => {
     return {
       kind: 'tip',
       title: 'Applied, not yet proven',
-      body: 'Harden applied this fix, but nothing has proven it holds yet. Run `/lagune.verify` to prove it and close this finding.',
+      body: 'Harden applied this fix, but nothing has proven it holds yet. Run `/lagune-verify` to prove it and close this finding.',
       reason: '',
     };
 
@@ -61,7 +61,7 @@ const chainView = (finding: Finding): ChainView => {
     return {
       kind: 'info',
       title: 'Fix in progress',
-      body: 'Harden started this fix but has not finished it. Run `/lagune.harden` to complete it.',
+      body: 'Harden started this fix but has not finished it. Run `/lagune-harden` to complete it.',
       reason: '',
     };
 
@@ -69,14 +69,14 @@ const chainView = (finding: Finding): ChainView => {
     return {
       kind: 'info',
       title: 'Planned, not yet applied',
-      body: 'Plan prioritized this finding, but the fix is not applied yet. Run `/lagune.harden` to apply it.',
+      body: 'Plan prioritized this finding, but the fix is not applied yet. Run `/lagune-harden` to apply it.',
       reason: '',
     };
 
   return {
     kind: 'info',
     title: 'Mapped, not yet planned',
-    body: 'Detect mapped this finding, but it has no priority or shaped fix yet. Run `/lagune.plan` to prioritize it and shape the fix.',
+    body: 'Detect mapped this finding, but it has no priority or shaped fix yet. Run `/lagune-plan` to prioritize it and shape the fix.',
     reason: '',
   };
 };
@@ -86,14 +86,14 @@ const fixTitle = (finding: Finding): string =>
 
 const STEP_HINT: Partial<Record<PhaseName, StepHint>> = {
   Plan: {
-    command: '/lagune.harden',
+    command: '/lagune-harden',
     verb: 'fix',
     eyebrow: 'Harden this finding',
     eyebrowIcon: 'shield',
     title: 'Fix only this finding',
   },
   Harden: {
-    command: '/lagune.verify',
+    command: '/lagune-verify',
     verb: 'verify',
     eyebrow: 'Verify this finding',
     eyebrowIcon: 'shieldCheck',

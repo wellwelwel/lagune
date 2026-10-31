@@ -84,7 +84,7 @@ const expectedRegistrations = async (): Promise<SkillRegistration[]> => {
     const { name = '', description } = parse<Frontmatter>(frontmatter);
 
     return {
-      name: name.replaceAll('.', '-'),
+      name,
       description,
       path: join(root, 'skills', relativePath),
     };
@@ -124,7 +124,7 @@ describe('the Hermes Agent plugin manifest', () => {
 
 await describe('the Hermes Agent plugin registration', async () => {
   await itWithPython(
-    'registers every published skill under its name with a hyphen in place of the dot, with its description and its file',
+    'registers every published skill under its name, with its description and its file',
     async () => {
       const registered = await registerFrom(join(root, PLUGIN_FOLDER));
       const expected = await expectedRegistrations();

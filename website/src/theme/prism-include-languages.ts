@@ -26,7 +26,7 @@ export default function prismIncludeLanguages(
       greedy: true,
     },
     command: {
-      pattern: /(^|\s)\/[a-z][\w.-]*/im,
+      pattern: /(^|\s)\/[a-z][\w-]*/im,
       lookbehind: true,
       greedy: true,
     },

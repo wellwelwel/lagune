@@ -53,8 +53,8 @@ await describe('the dashboard shows whatever .lagune/ holds', async () => {
       dataOf({}),
       dataOf({
         'skills-lock.json': '{"version":1,"skills":{}}',
-        '.claude/skills/lagune.detect/SKILL.md':
-          '---\nname: lagune.detect\n---\n',
+        '.claude/skills/lagune-detect/SKILL.md':
+          '---\nname: lagune-detect\n---\n',
       }),
     ]);
 

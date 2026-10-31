@@ -29,22 +29,24 @@ const GITIGNORE = [
   '',
 ].join('\n');
 
+const MANIFEST = {
+  name: 'lagune',
+  version: '0.15.0',
+  agent: ['claude', 'opencode'],
+  categories: ['owasp', 'javascript'],
+  files: [
+    '.lagune/templates/charter-template.md',
+    '.lagune/hooks/regex.mjs',
+    '.claude/skills/lagune.detect/SKILL.md',
+    '.opencode/commands/lagune.detect.md',
+    'src/lagune.ts',
+    'src/index.ts',
+    '../outside/lagune.md',
+  ],
+};
+
 const INSTALL: Record<string, string> = {
-  '.lagune/manifest.json': JSON.stringify({
-    name: 'lagune',
-    version: '0.15.0',
-    agent: ['claude', 'opencode'],
-    categories: ['owasp', 'javascript'],
-    files: [
-      '.lagune/templates/charter-template.md',
-      '.lagune/hooks/regex.mjs',
-      '.claude/skills/lagune.detect/SKILL.md',
-      '.opencode/commands/lagune.detect.md',
-      'src/lagune.ts',
-      'src/index.ts',
-      '../outside/lagune.md',
-    ],
-  }),
+  '.lagune/manifest.json': JSON.stringify(MANIFEST),
   '.lagune/templates/charter-template.md': '# template\n',
   '.lagune/hooks/regex.mjs': 'export {};\n',
   '.lagune/specializations.md': 'regex: Regular Expression [required]\n',
@@ -196,6 +198,24 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
     strict.strictEqual(config, INSTALL['src/lagune.ts']);
     strict.strictEqual(index, INSTALL['src/index.ts']);
     strict.strictEqual(outside, 'outside\n');
+  });
+
+  await it('keeps the commands the skills CLI installs, even beside the old ones or listed in the manifest', async () => {
+    const installed = '.claude/skills/lagune-detect/SKILL.md';
+    const project = await newProject({
+      ...INSTALL,
+      '.lagune/manifest.json': JSON.stringify({
+        ...MANIFEST,
+        files: [...MANIFEST.files, installed],
+      }),
+      [installed]: '---\nname: lagune-detect\n---\n',
+    });
+
+    await performMigrate(project);
+
+    const claude = await listing(project, '.claude/skills');
+
+    strict.deepStrictEqual(claude, ['lagune-detect']);
   });
 
   await it('removes the Lagune block from .gitignore and keeps the proofs ignored', async () => {

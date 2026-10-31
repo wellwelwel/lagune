@@ -1,5 +1,5 @@
 ---
-name: lagune.repair
+name: lagune-repair
 description: Repair Lagune's internal tracking so each item stays whole when files are renamed or moved, and check every memory artifact against its template. A maintenance pass, not a security phase, rewriting the tracking map across all phases in one pass.
 argument-hint: Optionally name a phase or scope, or leave empty to repair the whole tracking map
 user-invocable: true
@@ -52,7 +52,7 @@ The hook returns `unresolved` for each item that was in the map but not named in
 
 ### Step 5: Check the whole memory
 
-Run `npx --yes lagune@0.15.0 validate` from the project root with no argument, which checks every memory artifact present against its template. Fix nothing: each artifact's shape belongs to the phase that writes it, so carry what the hook reports into the summary, each drifted artifact pointed at its own command (`/lagune.charter`, `/lagune.detect`, `/lagune.plan`, or `/lagune.harden`).
+Run `npx --yes lagune@0.15.0 validate` from the project root with no argument, which checks every memory artifact present against its template. Fix nothing: each artifact's shape belongs to the phase that writes it, so carry what the hook reports into the summary, each drifted artifact pointed at its own command (`/lagune-charter`, `/lagune-detect`, `/lagune-plan`, or `/lagune-harden`).
 
 ### Step 6: Summarize
 
