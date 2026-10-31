@@ -38,7 +38,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'GitHub Copilot',
     description: "GitHub's AI pair programmer",
     icon: '/img/icons/copilot.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/github-copilot-cli',
   },
   {
     name: 'Gemini CLI',

@@ -1,0 +1,49 @@
+---
+id: github-copilot-cli
+title: 'Install Lagune on GitHub Copilot CLI as a Plugin'
+sidebar_label: GitHub Copilot CLI
+parent: get-started/install
+description: Install Lagune's commands in GitHub Copilot CLI through its own plugin installer, keep them updated, and allow the engine up front.
+keywords:
+  - github copilot cli
+  - copilot cli plugin
+  - plugin marketplace
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='GitHub Copilot' />
+
+Install the plugin from your terminal:
+
+```bash
+copilot plugin marketplace add wellwelwel/lagune
+copilot plugin install lagune@lagune
+```
+
+For **GitHub Copilot** in an editor, install **Lagune** with the [**skills.sh**](/docs/install/universal).
+
+## Update
+
+**GitHub Copilot CLI** leaves the plugin at its installed version until you update it. To update **Lagune**, run:
+
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
+
+## Commands
+
+Type the commands by their names, such as `/lagune.charter`.
+
+---
+
+:::info[Permissions]
+
+The first engine call asks for your permission.
+
+:::
