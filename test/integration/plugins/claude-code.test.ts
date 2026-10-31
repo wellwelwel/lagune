@@ -119,6 +119,13 @@ describe('the Claude plugin branch, which the Anthropic directory reviews', () =
     strict.deepStrictEqual(rest, ['mcp', '${CLAUDE_PROJECT_DIR}']);
   });
 
+  it('shows the engine tools from the first turn instead of deferring them', () => {
+    strict(
+      isRecord(engineServer) && engineServer.alwaysLoad === true,
+      'the server opts out of tool search'
+    );
+  });
+
   it('carries the icon the manifest names, which the directory takes only at the first submission', () => {
     const icon = manifest.contents?.icon;
 
