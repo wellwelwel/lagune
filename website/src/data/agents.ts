@@ -10,6 +10,8 @@ export type FeaturedAgent = Agent & {
 
 export const UNIVERSAL_INSTALL = '/docs/install/universal';
 
+export const UNIVERSAL_BACKGROUND = '/img/icons/vercel.svg';
+
 export const SKILLS_SH: Agent = {
   name: 'skills.sh',
   icon: '/img/icons/skills.svg',

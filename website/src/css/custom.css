@@ -18,6 +18,9 @@
 @source '../../../src/dashboard/shared/*.ts';
 @source '../components';
 
+/* Prism's TOML and Markdown tokens carry a `table` class. */
+@source not inline('table');
+
 /*
  * Tailwind's preflight reset, scoped to the landing page (`.lagune-canvas`)
  * only. Imported globally it would strip Infima's docs styling.
