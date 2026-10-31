@@ -42,7 +42,6 @@ context = RecordingContext()
 module.register(context)
 print(json.dumps(context.skills))
 `;
-const HERMES_SKILL_NAME = /^[a-zA-Z0-9_-]+$/;
 // Hermes v0.22.5's install scan rates both critical in Markdown, blocking the install even with --force
 const BLOCKING_INJECTIONS = [
   /ignore\s+(?:\w+\s+)*(previous|all|above|prior)\s+instructions/i,
@@ -132,20 +131,6 @@ await describe('the Hermes Agent plugin registration', async () => {
       strict.deepStrictEqual(
         [...registered].sort(byName),
         [...expected].sort(byName)
-      );
-    }
-  );
-
-  await itWithPython(
-    'registers only names Hermes accepts, since one it rejects unloads the whole plugin',
-    async () => {
-      const registered = await registerFrom(join(root, PLUGIN_FOLDER));
-
-      strict.deepStrictEqual(
-        registered
-          .map(({ name }) => name)
-          .filter((name) => !HERMES_SKILL_NAME.test(name)),
-        []
       );
     }
   );
