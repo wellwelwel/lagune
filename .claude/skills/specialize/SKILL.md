@@ -25,7 +25,7 @@ Read and follow `skills/lagune-specialize/SKILL.md` in full. Its authoring steps
 | `.lagune/catalog/<name>.md` (the specialization file) | `catalog/<name>.md`                                                             |
 | `.lagune/configs.json` (index entry)                  | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
 
-A hook reference inside the `.md` body uses the engine command, `npx --yes lagune <hook>`, with long flags only, because that body ships verbatim to the end user.
+A hook reference inside the `.md` body calls the engine as `lagune <hook>`, with long flags only, because that body ships verbatim to the end user and the skill that loads it says how the call runs.
 
 ## Step 2: Decide the category
 

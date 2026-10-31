@@ -4,7 +4,9 @@ import type {
   TrackedFile,
 } from '../../../src/types/test.js';
 import { execFile } from 'node:child_process';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { parse } from 'yaml.min';
@@ -48,6 +50,48 @@ export const listPackedPaths = async (): Promise<Set<string>> => {
   const [packed]: PackedPackage[] = Object.values(JSON.parse(stdout));
 
   return new Set(packed.files.map(({ path }) => path));
+};
+
+const listFiles = async (directory: string): Promise<string[]> => {
+  const entries = await readdir(directory, {
+    recursive: true,
+    withFileTypes: true,
+  });
+
+  return entries
+    .filter((entry) => entry.isFile())
+    .map((entry) =>
+      relative(directory, join(entry.parentPath, entry.name))
+        .split(sep)
+        .join('/')
+    );
+};
+
+/** Every file a repository folder holds, as a path from the repository root */
+export const listFolderFiles = async (folder: string): Promise<string[]> =>
+  (await listFiles(join(repositoryRoot, folder))).map(
+    (path) => `${folder}/${path}`
+  );
+
+export const listSkillFiles = (): Promise<string[]> =>
+  listFolderFiles('skills');
+
+/** Every file a plugin's branch carries, the tree the listing that follows it reviews */
+export const listBundledPaths = async (
+  plugin: string
+): Promise<Set<string>> => {
+  const scratch = await mkdtemp(join(tmpdir(), `lagune-plugin-${plugin}-`));
+  const bundle = join(scratch, 'bundle');
+
+  await run('bash', ['scripts/plugins/bundle.sh', plugin, bundle], {
+    cwd: repositoryRoot,
+  });
+
+  const bundled = await listFiles(bundle);
+
+  await rm(scratch, { recursive: true, force: true });
+
+  return new Set(bundled);
 };
 
 /** Whether release archives, which some harnesses install, leave the path out */

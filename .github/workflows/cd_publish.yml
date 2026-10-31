@@ -45,6 +45,8 @@ jobs:
     name: Release Please
     outputs:
       pr: ${{ steps.release.outputs.pr }}
+      release_created: ${{ steps.release.outputs.release_created }}
+      version: ${{ steps.release.outputs.version }}
     steps:
       - name: 🤝 Release Please
         uses: googleapis/release-please-action@v4
@@ -86,6 +88,15 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: npm publish --provenance
 
+      - name: 📦 Keeping the Engine Build for the Plugin Branches
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: engine
+          path: lib
+          if-no-files-found: error
+          retention-days: 1
+
       - name: 🚀 Building Site
         if: ${{ steps.release.outputs.release_created }}
         run: npm run website:build
@@ -99,6 +110,47 @@ jobs:
           cname: lagune.ai
           publish_branch: 'website'
           allow_empty_commit: false
+
+  plugin-branches:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    name: Publish the Plugin Branches
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        plugin: ['claude']
+    env:
+      PLUGIN: ${{ matrix.plugin }}
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: ➕ Actions - Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          check-latest: true
+          node-version: lts/*
+
+      - name: 📥 Restoring the Engine Build
+        uses: actions/download-artifact@v8
+        with:
+          name: engine
+          path: lib
+
+      - name: 🧩 Assembling the Plugin Bundle
+        run: bash scripts/plugins/bundle.sh "$PLUGIN" "$RUNNER_TEMP/plugin-$PLUGIN"
+
+      - name: 📤 Publishing the Plugin Branch
+        run: node tools/publish-branch.ts "plugin-$PLUGIN" "$RUNNER_TEMP/plugin-$PLUGIN" "$VERSION ($GITHUB_SHA)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.release-please.outputs.version }}
 
   pin-engine:
     runs-on: ubuntu-latest

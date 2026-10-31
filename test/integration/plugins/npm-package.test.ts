@@ -1,22 +1,11 @@
-import { readdir } from 'node:fs/promises';
-import { join, posix, relative, sep } from 'node:path';
+import { posix } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { isRecord } from '../../../src/core/collections.js';
-import { listPackedPaths, readManifest, repositoryRoot } from './__utils__.js';
+import { listPackedPaths, listSkillFiles, readManifest } from './__utils__.js';
 
 const packed = await listPackedPaths();
 const { contents = {} } = await readManifest('package.json');
-const skillEntries = await readdir(join(repositoryRoot, 'skills'), {
-  recursive: true,
-  withFileTypes: true,
-});
-const skillFiles = skillEntries
-  .filter((entry) => entry.isFile())
-  .map((entry) =>
-    relative(repositoryRoot, join(entry.parentPath, entry.name))
-      .split(sep)
-      .join('/')
-  );
+const skillFiles = await listSkillFiles();
 const entryPoints = [
   contents.main,
   ...(isRecord(contents.bin) ? Object.values(contents.bin) : []),

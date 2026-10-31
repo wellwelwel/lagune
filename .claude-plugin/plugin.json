@@ -7,6 +7,7 @@
     "url": "https://github.com/wellwelwel"
   },
   "homepage": "https://lagune.ai",
+  "icon": "./assets/logo.png",
   "repository": "https://github.com/wellwelwel/lagune",
   "license": "Apache-2.0",
   "keywords": [

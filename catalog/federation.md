@@ -19,16 +19,16 @@ A JSON Web Token carries claims and a signature, trustworthy only when the signa
 The algorithm-confusion case (the verifier reads `alg` from the token, with no pin) is decidable, so run the jwt hook first. It is language-aware (javascript, python, go, java, kotlin, php, ruby, rust, csharp), reading each file by its own JWT library, and its verdict is literal.
 
 ```bash
-npx --yes lagune@0.15.0 jwt               # scans the whole project
-npx --yes lagune@0.15.0 jwt --dir <DIR>   # scans a directory
-npx --yes lagune@0.15.0 jwt --file <FILE> # scans a single file
+lagune jwt               # scans the whole project
+lagune jwt --dir <DIR>   # scans a directory
+lagune jwt --file <FILE> # scans a single file
 ```
 
 Every line under **Unpinned JWT verification found** is a verify call that trusts the token's own `alg` header: it sets no algorithm allowlist (where the library needs one), accepts an unsafe one (`none`, or an asymmetric algorithm mixed with HMAC), or disables signature checking. Each is a confirmed exposure that exits non-zero. A clean run prints a single line. Score one call with `--pattern`, passing its language with `--lang`:
 
 ```bash
-npx --yes lagune@0.15.0 jwt --lang javascript --pattern 'jwt.verify(token, secret)'          # => unpinned
-npx --yes lagune@0.15.0 jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])' # => safe
+lagune jwt --lang javascript --pattern 'jwt.verify(token, secret)'          # => unpinned
+lagune jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])' # => safe
 ```
 
 The hook decides only the pin. The claim, key, and flow checks below stay yours.

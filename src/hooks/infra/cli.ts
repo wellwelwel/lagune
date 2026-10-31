@@ -1,10 +1,10 @@
 import type { HookResult } from '../../types/core.js';
 import type { ReportHeadings } from '../../types/scan.js';
-import { resolve } from 'node:path';
 import { cwd } from 'node:process';
 import { parseArgs as parseNodeArgs } from 'node:util';
 import { scanReport } from '../../core/scan/driver.js';
 import { formatReport } from '../../core/scan/report.js';
+import { resolveTargets } from '../../core/scan/targets.js';
 import { analyzeInfra, classify } from './analyze.js';
 import { INFRA_FILTER } from './filter.js';
 import { isInfraKind } from './kind.js';
@@ -42,9 +42,7 @@ const runCheck = (snippets: string[], kind: string | undefined): HookResult => {
 
 const runScan = async (targets: string[]): Promise<HookResult> => {
   const root = cwd();
-  const paths = (targets.length > 0 ? targets : ['.']).map((target) =>
-    resolve(root, target)
-  );
+  const paths = await resolveTargets(root, targets);
   const report = await scanReport(root, paths, INFRA_FILTER, analyzeInfra);
 
   return {

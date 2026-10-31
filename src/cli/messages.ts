@@ -41,6 +41,7 @@ const HELP_USAGE: string[] = [
   `${ENGINE_COMMAND} list [--findings] [--categories]`,
   `${ENGINE_COMMAND} dashboard [--port <number>]`,
   `${ENGINE_COMMAND} migrate`,
+  `${ENGINE_COMMAND} mcp [<project>]`,
   `${ENGINE_COMMAND} <hook> [<arguments...>]`,
 ];
 
@@ -54,6 +55,7 @@ const HELP_COMMANDS: [string, string][] = [
     'migrate',
     'Move a project the Lagune CLI installed to the skills-based layout',
   ],
+  ['mcp', "Serve the engine's commands to an agent over MCP, from the project"],
 ];
 
 const HELP_OPTIONS: [string, string][] = [

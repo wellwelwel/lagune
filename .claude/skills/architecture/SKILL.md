@@ -16,7 +16,7 @@ This skill records **Lagune**'s architecture decisions: each states a structural
 | ------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | The project               | the charter, the phase artifacts, the tracking map, its categories and its own catalog | `.lagune/`, committed with the project                                                    |
 | **Lagune**'s instructions | the nine commands, each beside the template it fills                                   | the skill folders the **skills** CLI or an agent's plugin installer copies from `skills/` |
-| **Lagune**'s engine       | the hooks, validation, the built-in specializations and their categories               | the `lagune` package on **npm**, reached through the engine command                       |
+| **Lagune**'s engine       | the hooks, validation, the built-in specializations and their categories               | the `lagune` package on **npm** and the plugin branches that carry its build              |
 
 Installing and updating the commands belongs to the **skills** CLI and to each agent's own plugin installer. The engine never inspects how its skills were installed: it applies wherever its artifacts exist.
 
@@ -28,7 +28,9 @@ Installing and updating the commands belongs to the **skills** CLI and to each a
 
 ## The engine
 
-- **Every call is pinned at the package version.** Skills and built-in specializations call `npx --yes lagune@<version> <subcommand>` from the project root, so each runs the engine it was written for and none fetches whatever is newest. Those calls spell every flag in full. A specialization a project writes keeps the version of the day it was written. What a person reads, from the docs to the engine's own messages, shows `npx lagune <subcommand>`.
+- **Skills and built-in specializations call the engine as `lagune <subcommand>`, spelling every flag in full.** Each skill says once how that call runs from the project root: through the engine's own MCP tools when a plugin carries the engine, and otherwise as `npx --yes lagune@<version> <subcommand>`, pinned at the package version so each skill runs the engine it was written for and none fetches whatever is newest. What a person reads, from the docs to the engine's own messages, shows `npx lagune <subcommand>`.
+- **The MCP server splits reading from writing.** One tool runs the commands that only read and the other the commands that write `.lagune/`, so a user can allow reading alone. Each call runs the engine in its own process with no shell, exactly as the CLI would.
+- **The checkers scan only inside the project.** A target above the project root, or a link that leaves it, fails, since the MCP server runs outside the agent's sandbox.
 - **The engine fails closed.** An unknown subcommand or a malformed payload fails instead of reading as clean.
 - **A project the old Lagune CLI installed answers to its manifest.** That `.lagune/manifest.json` alone decides: `migrate` runs this design, everything else the old CLI knows is handed to the frozen `lagune@0.15.0`, and what only this design has fails, pointing to the migration. Migrate removes only what the manifest lists. The hand-off runs the **npm** installed with the running **Node.js**, with no shell and never one a search path or the project could plant. Without a manifest, `init`, `pull`, and `update` fail, pointing to the **skills** CLI.
 - **`src/types/` is the single home of every type declaration.**
@@ -49,6 +51,7 @@ Installing and updating the commands belongs to the **skills** CLI and to each a
 - **The repository root is the plugin.** Every tracked file at the root ships in every user's plugin folder, so the root holds no symlink and nothing an agent would load beside the skills, and no folder holds an instruction file an agent could surface into the user's session. `CLAUDE.md` alone stays, for contributors.
 - **Release archives leave out `CLAUDE.md` and the contributor folders.** An agent that installs a release can read `CLAUDE.md` as context when the user's settings name it, and since the website is among the folders left out, the art that plugin listings show lives in `assets/`.
 - **A listing that refuses the repository root gets a bundle on a branch of its own.** Such a listing weighs every file it receives and rejects archives that leave files out, so each release publishes only what that plugin needs to its branch.
+- **A plugin branch carries the engine.** Its bundle holds the build and the built-in specializations, plus the server declaration its agent reads, which only the branch holds, since the repository root carries no build to start. Each release builds once, and the **npm** package and every branch take that same build.
 - **An agent that loads code gets the smallest entry that hands it the skills.** A TypeScript entry is bundled into the **npm** package with the engine. Where an agent accepts only another language, the entry uses that language's standard library alone, the one exception to TypeScript in, JavaScript out.
 - **No session-start bootstrap.** The user invokes the commands and `/lagune` is matched by its description, so no plugin injects context into a session.
 

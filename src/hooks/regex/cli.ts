@@ -1,8 +1,8 @@
 import type { HookResult } from '../../types/core.js';
 import type { RegexRequest } from '../../types/hooks/regex.js';
-import { resolve } from 'node:path';
 import { cwd } from 'node:process';
 import { parseArgs as parseNodeArgs } from 'node:util';
+import { resolveTargets } from '../../core/scan/targets.js';
 import { format } from './format.js';
 import { check } from './regex.js';
 import { scan } from './scan.js';
@@ -75,9 +75,7 @@ const runScan = async (
   repetitionLimit: number | undefined
 ): Promise<HookResult> => {
   const root = cwd();
-  const paths = (targets.length > 0 ? targets : ['.']).map((target) =>
-    resolve(root, target)
-  );
+  const paths = await resolveTargets(root, targets);
   const result = await scan(root, paths, repetitionLimit);
 
   return { output: format(result), hasFinding: result.unsafe.length > 0 };

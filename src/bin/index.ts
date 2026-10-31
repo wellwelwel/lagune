@@ -1,4 +1,5 @@
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import { frozenHandoff, frozenRefusal } from '../cli/messages.js';
 import { parseCliArgs } from '../cli/parse-args.js';
 import { executeHook } from '../cli/run-hook.js';
@@ -10,8 +11,10 @@ import {
   installedRoute,
 } from './fallback.js';
 import { HOOKS, isHookName } from './hooks.js';
+import { runMcp } from './mcp.js';
 import { run } from './run.js';
 
+const entry = fileURLToPath(import.meta.url);
 const packageRoot = new URL('../../', import.meta.url);
 const cwd = process.cwd();
 const args = process.argv.slice(2);
@@ -23,6 +26,8 @@ const refuse = (command: string): void => {
 };
 
 const answer = async (): Promise<void> => {
+  if (subcommand === 'mcp') return runMcp(hookArgs[0], cwd, packageRoot, entry);
+
   const installed = await hasManifest(cwd);
 
   if (isHookName(subcommand)) {

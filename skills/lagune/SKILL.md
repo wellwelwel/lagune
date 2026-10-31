@@ -13,6 +13,10 @@ $ARGUMENTS
 
 The User Input is the work to do, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
+## Engine
+
+Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
+
 ## Outline
 
 You are doing the work the prompt asks for (a login page, an upload, an endpoint, whatever it is), and **making it secure as you build it**: the same work you would do anyway, built so the code is safe-by-default the moment it lands. This bends to any prompt at any stage, from a first scaffold to a change on a mature codebase.
@@ -31,10 +35,10 @@ A prompt may also mention a side quest, the dashboard's name for anything a phas
 
 ### Step 3: Match the specializations to the work
 
-Specializations are focused, language-agnostic security knowledge modules that load only on demand. List the catalog once from the project root:
+Specializations are focused, language-agnostic security knowledge modules that load only on demand. List the catalog once:
 
 ```bash
-npx --yes lagune@0.15.0 catalog
+lagune catalog
 ```
 
 It prints each specialization this project uses as `name: tags`, suffixing ` [required]` on any the catalog flags. The tags say what each one covers. Reach a verdict on every entry, one at a time:
@@ -43,7 +47,7 @@ It prints each specialization this project uses as `name: tags`, suffixing ` [re
 - **Its context is in the work:** the thing its tags name is part of what you are about to build (its tags say uploads and you are building an upload). It applies.
 - **Its context is not in the work:** nothing you are building touches what its tags name. Skip it. Most entries will not apply to a given piece of work, and that is normal.
 
-Judge from your Step 2 reasoning, not from how relevant an entry feels. Read every entry that applies with `npx --yes lagune@0.15.0 catalog <name>`, one at a time: each carries the defense knowledge for its class of work (uploads, shell, sessions, and so on). Keep the list of specializations you applied for Steps 5 and 6.
+Judge from your Step 2 reasoning, not from how relevant an entry feels. Read every entry that applies with `lagune catalog <name>`, one at a time: each carries the defense knowledge for its class of work (uploads, shell, sessions, and so on). Keep the list of specializations you applied for Steps 5 and 6.
 
 ### Step 4: Build it, safe-by-default
 

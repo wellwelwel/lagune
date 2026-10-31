@@ -1,12 +1,12 @@
 import type { HookResult } from '../../types/core.js';
 import type { CorsVerdict } from '../../types/hooks/cors.js';
 import type { ReportHeadings } from '../../types/scan.js';
-import { resolve } from 'node:path';
 import { cwd } from 'node:process';
 import { parseArgs as parseNodeArgs } from 'node:util';
 import { scanReport } from '../../core/scan/driver.js';
 import { SOURCE_FILTER } from '../../core/scan/filters.js';
 import { formatReport } from '../../core/scan/report.js';
+import { resolveTargets } from '../../core/scan/targets.js';
 import { check } from './cors.js';
 import { analyze } from './scan.js';
 
@@ -36,9 +36,7 @@ const scoreOrigins = (origins: string[]): HookResult => {
 
 const scanSources = async (targets: string[]): Promise<HookResult> => {
   const root = cwd();
-  const paths = (targets.length > 0 ? targets : ['.']).map((target) =>
-    resolve(root, target)
-  );
+  const paths = await resolveTargets(root, targets);
   const report = await scanReport(root, paths, SOURCE_FILTER, analyze);
 
   return { output: formatReport(report, HEADINGS), hasFinding: false };

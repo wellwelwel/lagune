@@ -17,9 +17,9 @@ A **secret compiled into the artifact** is a credential (an API key, a token, a 
 Run the secrets hook first. It is deterministic and its verdict is literal: it keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it does not depend on an exhaustive catalog of provider prefixes and produces almost no false positives.
 
 ```bash
-npx --yes lagune@0.15.0 secrets               # scans the whole project
-npx --yes lagune@0.15.0 secrets --dir <DIR>   # scans a directory
-npx --yes lagune@0.15.0 secrets --file <FILE> # scans a single file
+lagune secrets               # scans the whole project
+lagune secrets --dir <DIR>   # scans a directory
+lagune secrets --file <FILE> # scans a single file
 ```
 
 It prints up to two sections. **Hardcoded secrets found** is the finding set and exits non-zero, holding the cases whose shape is decisive: a hardcoded fallback for an environment secret (`process.env.X ?? "..."`), a credential embedded in a connection string, or a value matching a curated provider format (AWS `AKIA...`, GitHub `ghp_...`, Stripe `sk_live_...`, a PEM private key). **Secret handling to review manually** is the lead set: a plain literal bound to a secret-named identifier, whose name and shape cannot prove it is a real credential rather than a hash, public key, or non-secret token, and a secret-named value flowing into a log or response sink. Read each by hand. A clean run prints a single line.

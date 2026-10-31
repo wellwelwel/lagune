@@ -13,6 +13,10 @@ $ARGUMENTS
 
 The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
 
+## Engine
+
+Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
+
 ## Outline
 
 You are producing a **defense plan** at `.lagune/memory/plan.md`: a prioritized set of fixes for what detect found, each one pointing at a detect finding, rated with a category and a CVSS v4.0 score, paired with the charter principle it upholds, and the control to apply. This phase **continues from detect**. Detect already detected what the system does and recorded the risk each thing carries, so the plan does not restate the risk: it rates how serious it is and decides what to do about it. Every fix must point at something detect actually detected, never a generic checklist. The fixes are the WHAT to do. Applying them is the next phase, harden, not this one.
@@ -69,10 +73,10 @@ For each in-scope detect finding, read the risk detect already recorded for it (
 - Describe the control to apply: the WHAT to do, not the application. Applying is harden's job.
 - Add **references** when they ground the category, CWE or OWASP links written as `[label](url)` markdown (not bare URLs), comma-separated. Omit them when there is nothing to cite beyond the class named, and never invent one.
 
-Run the cvss hook from the project root, passing each vector as a flag value:
+Run the cvss hook, passing each vector as a flag value:
 
 ```bash
-npx --yes lagune@0.15.0 cvss --vector '<VECTOR>' --vector '<VECTOR>'
+lagune cvss --vector '<VECTOR>' --vector '<VECTOR>'
 ```
 
 One finding is one item, with one rating. When a finding needs more than one fix, write them as more than one paragraph under the block's `Fix`, never a second block. Plan what the findings support, nothing speculative.
@@ -112,17 +116,17 @@ One finding is one item, with one rating. When a finding needs more than one fix
 ### Step 7: Write and track
 
 - Write the reconciled plan to `.lagune/memory/plan.md`.
-- Register the items you planned so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run planned, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name detect used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the fix touches. The path lives here, in tracking, never in the prose. Run it from the project root, passing the payload as the single argument:
+- Register the items you planned so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run planned, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name detect used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the fix touches. The path lives here, in tracking, never in the prose. Run it, passing the payload as the single argument:
 
 ```bash
-npx --yes lagune@0.15.0 track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
+lagune track '{"entries":[{"name":"<FINDING NAME>","paths":["<PATH>"]}]}'
 ```
 
 Do not edit `.lagune/tracking.json` yourself, and do not reconcile here. Track only advances what this phase planned. Repairing the map across the conveyor stays with `/lagune-repair`.
 
 ### Step 8: Check the written plan
 
-Run `npx --yes lagune@0.15.0 validate plan` from the project root. If it reports problems, follow its output and rerun it until it passes.
+Run `lagune validate plan`. If it reports problems, follow its output and rerun it until it passes.
 
 ### Step 9: Summarize
 
