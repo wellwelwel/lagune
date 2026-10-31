@@ -26,7 +26,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Codex',
     description: "OpenAI's coding agent",
     icon: '/img/icons/codex.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/codex',
   },
   {
     name: 'Cursor',

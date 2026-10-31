@@ -1,0 +1,53 @@
+---
+id: codex
+title: 'Install Lagune on Codex CLI as a Plugin'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Install Lagune's commands in Codex CLI through its own plugin installer, keep them updated, and run the engine inside its sandbox.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Install the plugin from your terminal:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Update
+
+To update **Lagune**, upgrade its marketplace, which reinstalls the plugin from the latest commit:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Commands
+
+Type the commands with `$` under the plugin's name, followed by your input: where these docs show `/lagune.charter`, type `$lagune:lagune.charter`. Typing `$` lists them, such as `lagune.charter (lagune)`, and picking one inserts its full name.
+
+---
+
+:::info[Permissions]
+
+**Codex**'s sandbox has no network access by default. To run the engine inside it, install the engine in your project from your own terminal, once and again after each update:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+Every engine call, the first included, then runs inside the sandbox, with no download and no network access.
+
+:::

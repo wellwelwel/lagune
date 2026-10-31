@@ -1,4 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
+import { join, relative, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, it, strict } from 'poku';
 import { loadVersion } from '../../../src/core/version.js';
 import { packageRoot } from './__utils__.js';
@@ -24,18 +26,30 @@ const FILLS_A_TEMPLATE = [
   'lagune.specialize',
 ];
 
+const KEPT_FROM_THE_MODEL = ['lagune.prove', 'lagune.specialize'];
+
 const ENGINE_COMMAND = `npx --yes lagune@${await loadVersion(packageRoot)} `;
 const ENGINE_CALL = /npx (?:-\S+ )*lagune(?:@\S*)? [^\n`]*/g;
 const SHORT_FLAG = /(?:^|\s)-[a-zA-Z](?=\s|$)/;
 
+const repositoryRoot = fileURLToPath(packageRoot);
 const folders = (await readdir(new URL('skills/', packageRoot))).toSorted();
 
 const publishedFiles = async (): Promise<string[]> => {
   const skills = await Promise.all(
     folders.map(async (folder) =>
-      (await readdir(new URL(`skills/${folder}/`, packageRoot))).map(
-        (file) => `skills/${folder}/${file}`
+      (
+        await readdir(new URL(`skills/${folder}/`, packageRoot), {
+          recursive: true,
+          withFileTypes: true,
+        })
       )
+        .filter((entry) => entry.isFile())
+        .map((entry) =>
+          relative(repositoryRoot, join(entry.parentPath, entry.name))
+            .split(sep)
+            .join('/')
+        )
     )
   );
   const catalog = (await readdir(new URL('catalog/', packageRoot))).map(
@@ -64,15 +78,19 @@ await describe('the published skills', async () => {
   for (const folder of COMMANDS)
     await it(`ship ${folder} with only its own files`, async () => {
       const files = (
-        await readdir(new URL(`skills/${folder}/`, packageRoot))
+        await readdir(new URL(`skills/${folder}/`, packageRoot), {
+          recursive: true,
+        })
       ).toSorted();
+      const expected = [
+        'SKILL.md',
+        ...(KEPT_FROM_THE_MODEL.includes(folder)
+          ? ['agents', 'agents/openai.yaml']
+          : []),
+        ...(FILLS_A_TEMPLATE.includes(folder) ? ['template.md'] : []),
+      ].toSorted();
 
-      strict.deepStrictEqual(
-        files,
-        FILLS_A_TEMPLATE.includes(folder)
-          ? ['SKILL.md', 'template.md']
-          : ['SKILL.md']
-      );
+      strict.deepStrictEqual(files, expected);
     });
 });
 

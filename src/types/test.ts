@@ -71,3 +71,5 @@ export type ReportedRun<Result> = {
   result: Result;
   reports: unknown[][];
 };
+
+export type ImageSize = { width: number; height: number };

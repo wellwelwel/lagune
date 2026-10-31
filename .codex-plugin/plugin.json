@@ -1,0 +1,45 @@
+{
+  "name": "lagune",
+  "version": "0.15.0",
+  "description": "🌊 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
+  "author": {
+    "name": "Weslley Araújo",
+    "url": "https://github.com/wellwelwel"
+  },
+  "homepage": "https://lagune.ai",
+  "repository": "https://github.com/wellwelwel/lagune",
+  "license": "Apache-2.0",
+  "keywords": [
+    "security",
+    "blue-team",
+    "sdh",
+    "sdd",
+    "security-driven-hardening",
+    "spec-driven-development",
+    "audit",
+    "hardening",
+    "coding",
+    "best-practices",
+    "agent-skills"
+  ],
+  "skills": "./skills/",
+  "hooks": {},
+  "interface": {
+    "displayName": "Lagune",
+    "shortDescription": "Security-Driven Hardening",
+    "longDescription": "Lagune turns a codebase into a more secure one through Security-Driven Hardening, a defensive workflow your agent runs from a spec instead of ad-hoc fixes. It sets the project's security principles, detects what the system actually does (login, file uploads, payments, and so on), plans the fixes that matter for that context, applies them, and verifies that each control holds. Every finding comes in plain language, so developers and non-developers are served alike. Lagune only defends: it audits, hardens, and verifies, and never writes exploits. Its state lives in your project, committed with your code, and its deterministic steps run through the lagune package on npm, which your project can install to run them offline.",
+    "developerName": "Weslley Araújo",
+    "category": "Security",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": [
+      "Set this project's security principles.",
+      "Detect what this project does and the risks it carries.",
+      "Plan the fixes for the risks found in this project."
+    ],
+    "websiteURL": "https://lagune.ai",
+    "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "composerIcon": "./assets/wave.svg",
+    "logo": "./assets/logo.png"
+  }
+}

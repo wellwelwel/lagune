@@ -51,7 +51,7 @@ Installing and updating the commands belongs to the **skills** CLI, the route th
 
 ## The published skills
 
-Each command is a folder under `skills/` holding its `SKILL.md`, plus `template.md` when the command fills one (charter, detect, plan, harden, specialize, prove). Every installer copies the whole folder, so nothing else belongs in it.
+Each command is a folder under `skills/` holding its `SKILL.md`, plus `template.md` when the command fills one (charter, detect, plan, harden, specialize, prove). Prove and specialize also hold `agents/openai.yaml`, the only way **Codex** keeps a skill out of the model's reach, and a file every other agent leaves inert. Every installer copies the whole folder, so nothing else belongs in it.
 
 - **A skill instructs.** It is the agent's reading: how to think about the phase, what to look for, what questions to resolve. Its frontmatter carries `name` (equal to its folder), the description, `argument-hint`, and `user-invocable`, plus `disable-model-invocation` on prove and specialize, and never `metadata.internal`, which would hide it from discovery, or `allowed-tools`, which would approve the engine on the user's behalf. Its input section names every place an agent may deliver the input, since only some agents fill the placeholder.
 - **A template structures.** It is the mould for the phase's output, read from `template.md` next to the skill. The skill carries the reasoning, the template carries the shape of the result.
