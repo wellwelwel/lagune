@@ -10,7 +10,7 @@ packingOptions=(-cf -)
 
 case "$plugin" in
   claude)
-    pluginPaths=(.claude-plugin/plugin.json assets/logo.png "${enginePaths[@]}")
+    pluginPaths=(.claude-plugin/plugin.json assets/logo.png)
     packingOptions+=(--exclude='skills/*/agents')
     ;;
   *)
@@ -25,7 +25,7 @@ if [[ -e "$bundle" ]]; then
 fi
 
 mkdir -p "$bundle"
-tar "${packingOptions[@]}" "${sharedPaths[@]}" "${pluginPaths[@]}" | tar -xf - -C "$bundle"
+tar "${packingOptions[@]}" "${sharedPaths[@]}" "${enginePaths[@]}" "${pluginPaths[@]}" | tar -xf - -C "$bundle"
 
 if [[ -d "$overlay" ]]; then
   tar -cf - -C "$overlay" . | tar -xf - -C "$bundle"

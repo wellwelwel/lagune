@@ -9,11 +9,10 @@ import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { describe, it, strict } from 'poku';
 import { parse } from 'yaml.min';
-import { listFrontmatterSources } from '../skills/__utils__.js';
+import { listSkillFrontmatters } from '../skills/__utils__.js';
 import {
   firstFound,
   listTrackedPaths,
-  packageRoot,
   readManifest,
   repositoryRoot,
 } from './__utils__.js';
@@ -74,10 +73,7 @@ const registerFrom = async (
 };
 
 const expectedRegistrations = async (): Promise<SkillRegistration[]> => {
-  const sources = await listFrontmatterSources(
-    new URL('skills/', packageRoot),
-    (relativePath) => relativePath.endsWith('/SKILL.md')
-  );
+  const sources = await listSkillFrontmatters();
 
   return sources.map(({ relativePath, frontmatter }) => {
     const { name = '', description } = parse<Frontmatter>(frontmatter);

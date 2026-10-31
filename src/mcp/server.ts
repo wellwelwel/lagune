@@ -94,9 +94,9 @@ const METHODS: Record<string, McpMethod> = {
 const envelope = (id: JsonRpcId | null, answer: McpAnswer): string =>
   JSON.stringify({ jsonrpc: '2.0', id, ...answer });
 
-const parse = (line: string): { message: unknown } | undefined => {
+const parse = (line: string): unknown => {
   try {
-    return { message: JSON.parse(line) };
+    return JSON.parse(line);
   } catch {
     return undefined;
   }
@@ -121,18 +121,18 @@ const dispatch = async (
 };
 
 /** The reply to one line the client sent, or nothing for a notification or a response */
-export const respond = async (
+const respond = async (
   line: string,
   server: McpServer
 ): Promise<string | undefined> => {
-  const parsed = parse(line);
+  const message = parse(line);
 
-  if (parsed === undefined)
+  if (message === undefined)
     return envelope(null, failure(PARSE_ERROR, 'Parse error'));
-  if (!isRecord(parsed.message))
+  if (!isRecord(message))
     return envelope(null, failure(INVALID_REQUEST, 'Invalid Request'));
 
-  const { id, method, params } = parsed.message;
+  const { id, method, params } = message;
 
   if (method === undefined || id === undefined) return undefined;
   if (!isRequestId(id) || typeof method !== 'string')

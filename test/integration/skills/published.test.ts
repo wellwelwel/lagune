@@ -1,9 +1,9 @@
+import type { PublishedText } from '../../../src/types/test.js';
 import { readdir, readFile } from 'node:fs/promises';
-import { join, relative, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { describe, it, strict } from 'poku';
 import { loadVersion } from '../../../src/core/version.js';
 import { ENGINE_TOOLS } from '../../../src/mcp/tools.js';
+import { listFolderFiles } from '../plugins/__utils__.js';
 import { packageRoot } from './__utils__.js';
 
 const COMMANDS = [
@@ -29,6 +29,8 @@ const FILLS_A_TEMPLATE = [
 
 const KEPT_FROM_THE_MODEL = ['lagune-prove', 'lagune-specialize'];
 
+const PUBLISHED_FOLDERS = ['skills', 'catalog'];
+
 const ENGINE_COMMAND = `npx --yes lagune@${await loadVersion(packageRoot)} `;
 const ENGINE_CALL = /npx (?:-\S+ )*lagune(?:@\S*)? [^\n`]*/g;
 const TOOL_CALL = /(?<![\w@./-])lagune ([a-z][\w-]*)[^\n`]*/g;
@@ -37,38 +39,13 @@ const TOOL_COMMANDS = new Set<string>(
   ENGINE_TOOLS.flatMap((tool) => tool.commands)
 );
 
-const repositoryRoot = fileURLToPath(packageRoot);
 const folders = (await readdir(new URL('skills/', packageRoot))).toSorted();
 
-const publishedFiles = async (): Promise<string[]> => {
-  const skills = await Promise.all(
-    folders.map(async (folder) =>
-      (
-        await readdir(new URL(`skills/${folder}/`, packageRoot), {
-          recursive: true,
-          withFileTypes: true,
-        })
-      )
-        .filter((entry) => entry.isFile())
-        .map((entry) =>
-          relative(repositoryRoot, join(entry.parentPath, entry.name))
-            .split(sep)
-            .join('/')
-        )
-    )
-  );
-  const catalog = (await readdir(new URL('catalog/', packageRoot))).map(
-    (file) => `catalog/${file}`
-  );
-
-  return [...skills.flat(), ...catalog];
-};
-
-const readPublished = async (): Promise<{ file: string; text: string }[]> => {
-  const files = await publishedFiles();
+const readPublished = async (): Promise<PublishedText[]> => {
+  const files = await Promise.all(PUBLISHED_FOLDERS.map(listFolderFiles));
 
   return Promise.all(
-    files.map(async (file) => ({
+    files.flat().map(async (file) => ({
       file,
       text: await readFile(new URL(file, packageRoot), 'utf8'),
     }))
@@ -76,7 +53,7 @@ const readPublished = async (): Promise<{ file: string; text: string }[]> => {
 };
 
 const callsMatching = (
-  published: { file: string; text: string }[],
+  published: PublishedText[],
   pattern: RegExp
 ): { file: string; call: string; command: string }[] =>
   published.flatMap(({ file, text }) =>

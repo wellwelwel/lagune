@@ -4,15 +4,15 @@ import type {
   SetupContext,
   SkillInfo,
 } from '../../../src/types/opencode.js';
-import type { ReportedRun } from '../../../src/types/test.js';
+import type { Frontmatter, ReportedRun } from '../../../src/types/test.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { describe, it, strict } from 'poku';
 import { parse } from 'yaml.min';
 import { isRecord } from '../../../src/core/collections.js';
-import { listFrontmatterSources } from '../skills/__utils__.js';
-import { packageRoot, readManifest, repositoryRoot } from './__utils__.js';
+import { folderOf, listSkillFrontmatters } from '../skills/__utils__.js';
+import { readManifest, repositoryRoot } from './__utils__.js';
 
 const SKILLS = [
   'lagune',
@@ -31,13 +31,10 @@ const OTHER_FOLDER = '/elsewhere/skills';
 
 const skillsFolder = join(repositoryRoot, 'skills');
 const { contents = {} } = await readManifest('package.json');
-const sources = await listFrontmatterSources(
-  new URL('skills/', packageRoot),
-  (path) => path.endsWith('/SKILL.md')
-);
+const sources = await listSkillFrontmatters();
 const frontmatters = new Map(
   sources.map(({ relativePath, frontmatter }) => [
-    relativePath.split('/')[0],
+    folderOf(relativePath),
     frontmatter,
   ])
 );
@@ -140,19 +137,18 @@ await describe('the OpenCode 2.x plugin', async () => {
   });
 
   it('registers each skill with its own file, its description, and its body without the frontmatter', () => {
-    registered.forEach((skill, index) => {
-      const frontmatter = frontmatters.get(skill.id) ?? '';
+    const rebuilt = registered.map(({ id, path, description, content }) => ({
+      path,
+      description,
+      text: `---\n${frontmatters.get(id) ?? ''}\n---\n${content}`,
+    }));
+    const expected = registered.map(({ id }, index) => ({
+      path: join(skillsFolder, id, 'SKILL.md'),
+      description: parse<Frontmatter>(frontmatters.get(id) ?? '').description,
+      text: texts[index],
+    }));
 
-      strict.strictEqual(skill.path, join(skillsFolder, skill.id, 'SKILL.md'));
-      strict.strictEqual(
-        skill.description,
-        parse<{ description: string }>(frontmatter).description
-      );
-      strict.strictEqual(
-        texts[index],
-        `---\n${frontmatter}\n---\n${skill.content}`
-      );
-    });
+    strict.deepStrictEqual(rebuilt, expected);
   });
 
   it('keeps prove and specialize, and only them, out of the model reach', () => {

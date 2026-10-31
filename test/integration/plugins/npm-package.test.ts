@@ -11,7 +11,7 @@ const entryPoints = [
   ...(isRecord(contents.bin) ? Object.values(contents.bin) : []),
 ];
 
-describe('the npm package, which the harnesses that install from npm receive', () => {
+describe('the npm package, which the agents that install from npm receive', () => {
   it('carries every published skill file', () => {
     strict(skillFiles.length > 0, 'the published skills hold files');
     strict.deepStrictEqual(

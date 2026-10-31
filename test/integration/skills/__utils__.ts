@@ -97,6 +97,11 @@ export const listFrontmatterSources = async (
   return sources;
 };
 
+export const listSkillFrontmatters = (): Promise<FrontmatterSource[]> =>
+  listFrontmatterSources(new URL('skills/', packageRoot), (relativePath) =>
+    relativePath.endsWith('/SKILL.md')
+  );
+
 export const measurePublished = async (): Promise<SpecMeasurement[]> => [
   ...(await measureMarkdown(new URL('skills/', packageRoot), () => true)),
   ...(await measureMarkdown(new URL('catalog/', packageRoot), () => true)),

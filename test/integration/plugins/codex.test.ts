@@ -3,12 +3,13 @@ import { readFile } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
 import { parse } from 'yaml.min';
 import { isRecord } from '../../../src/core/collections.js';
-import { folderOf, listFrontmatterSources } from '../skills/__utils__.js';
+import { folderOf, listSkillFrontmatters } from '../skills/__utils__.js';
 import {
   firstFound,
   listedEntries,
   listTrackedPaths,
   packageRoot,
+  pngSize,
   readManifest,
 } from './__utils__.js';
 
@@ -63,10 +64,7 @@ const listing = isRecord(manifest.contents?.interface)
   ? manifest.contents.interface
   : {};
 const entries = listedEntries(marketplace.contents?.plugins);
-const skills = await listFrontmatterSources(
-  new URL('skills/', packageRoot),
-  (relativePath) => relativePath.endsWith('SKILL.md')
-);
+const skills = await listSkillFrontmatters();
 
 const stringsOf = (value: unknown): string[] =>
   Array.isArray(value)
@@ -76,8 +74,7 @@ const stringsOf = (value: unknown): string[] =>
 const measureImage = async (path: string): Promise<ImageSize> => {
   const image = await readFile(new URL(path, packageRoot));
 
-  if (path.endsWith('.png'))
-    return { width: image.readUInt32BE(16), height: image.readUInt32BE(20) };
+  if (path.endsWith('.png')) return pngSize(image);
 
   const [, , width, height] = (
     image.toString('utf8').match(VIEW_BOX)?.[1] ?? ''

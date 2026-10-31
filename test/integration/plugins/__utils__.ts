@@ -1,4 +1,5 @@
 import type {
+  ImageSize,
   PackedPackage,
   PluginManifest,
   TrackedFile,
@@ -21,7 +22,7 @@ const MANIFEST_FILE =
 
 const run = promisify(execFile);
 
-/** Every file git tracks, the tree a harness installs, with its mode */
+/** Every file git tracks, the tree an agent installs, with its mode */
 export const listTracked = async (): Promise<TrackedFile[]> => {
   const { stdout } = await run('git', ['ls-files', '-z', '--stage'], {
     cwd: repositoryRoot,
@@ -39,7 +40,7 @@ export const listTracked = async (): Promise<TrackedFile[]> => {
 export const listTrackedPaths = async (): Promise<Set<string>> =>
   new Set((await listTracked()).map(({ path }) => path));
 
-/** Every file the npm package carries, the tree the harnesses that install from npm receive */
+/** Every file the npm package carries, the tree the agents that install from npm receive */
 export const listPackedPaths = async (): Promise<Set<string>> => {
   const { stdout } = await run(
     'npm',
@@ -94,7 +95,7 @@ export const listBundledPaths = async (
   return new Set(bundled);
 };
 
-/** Whether release archives, which some harnesses install, leave the path out */
+/** Whether release archives, which some agents install, leave the path out */
 export const isLeftOutOfArchives = async (path: string): Promise<boolean> => {
   const { stdout } = await run(
     'git',
@@ -105,7 +106,7 @@ export const isLeftOutOfArchives = async (path: string): Promise<boolean> => {
   return stdout.trim().endsWith(': set');
 };
 
-/** The file a harness reads: the first of its lookup order the tree carries */
+/** The file an agent reads: the first of its lookup order the tree carries */
 export const firstFound = (
   lookup: string[],
   tracked: Set<string>
@@ -117,6 +118,11 @@ export const listedEntries = (plugins: unknown): Record<string, unknown>[] =>
 
 export const occupies = (path: string, entry: string): boolean =>
   path === entry || path.startsWith(`${entry}/`);
+
+export const pngSize = (image: Buffer): ImageSize => ({
+  width: image.readUInt32BE(16),
+  height: image.readUInt32BE(20),
+});
 
 const parseManifest = (path: string, text: string): unknown => {
   try {

@@ -18,7 +18,7 @@ const entry = fileURLToPath(import.meta.url);
 const packageRoot = new URL('../../', import.meta.url);
 const cwd = process.cwd();
 const args = process.argv.slice(2);
-const [subcommand, ...hookArgs] = args;
+const [subcommand, ...subcommandArgs] = args;
 
 const refuse = (command: string): void => {
   process.stderr.write(`${frozenRefusal(command)}\n`);
@@ -26,14 +26,15 @@ const refuse = (command: string): void => {
 };
 
 const answer = async (): Promise<void> => {
-  if (subcommand === 'mcp') return runMcp(hookArgs[0], cwd, packageRoot, entry);
+  if (subcommand === 'mcp')
+    return runMcp(subcommandArgs[0], cwd, packageRoot, entry);
 
   const installed = await hasManifest(cwd);
 
   if (isHookName(subcommand)) {
     if (installed) return refuse(subcommand);
 
-    return executeHook(HOOKS[subcommand], hookArgs);
+    return executeHook(HOOKS[subcommand], subcommandArgs);
   }
 
   const parsed = parseCliArgs(args);

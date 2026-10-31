@@ -1,5 +1,5 @@
 /** The skill sources OpenCode 1.x reads from its configuration */
-export type SkillSources = { paths?: string[]; urls?: string[] };
+export type SkillSources = { paths?: string[] };
 
 export type ServerConfig = { skills?: SkillSources };
 

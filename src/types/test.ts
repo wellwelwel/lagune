@@ -79,3 +79,5 @@ export type SkillRegistration = {
   description: string;
   path: string;
 };
+
+export type PublishedText = { file: string; text: string };

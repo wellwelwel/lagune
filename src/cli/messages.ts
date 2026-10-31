@@ -128,6 +128,9 @@ export const invalidSpecializationName = (name: string): string =>
 export const noSpecialization = (name: string): string =>
   `No specialization is named "${name}". Run ${ENGINE_COMMAND} catalog to list the ones this project uses.`;
 
+export const noProjectFolder = (project: string): string =>
+  `The MCP server runs from the project folder, and ${project} is not a folder.`;
+
 export const frozenHandoff = (version: string): string =>
   `This project was installed by the Lagune CLI and keeps working with it: lagune@${version} answers here. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
 

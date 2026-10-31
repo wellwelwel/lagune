@@ -1,6 +1,7 @@
 import { stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { stdin, stdout } from 'node:process';
+import { noProjectFolder } from '../cli/messages.js';
 import { loadVersion } from '../core/version.js';
 import { serveMcp } from '../mcp/server.js';
 
@@ -20,10 +21,7 @@ export const runMcp = async (
 ): Promise<void> => {
   const project = resolve(cwd, requested ?? '.');
 
-  if (!(await isFolder(project)))
-    throw new Error(
-      `The MCP server runs from the project folder, and ${project} is not a folder.`
-    );
+  if (!(await isFolder(project))) throw new Error(noProjectFolder(project));
 
   await serveMcp(
     { entry, project, version: await loadVersion(packageRoot) },

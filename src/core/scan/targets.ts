@@ -1,13 +1,8 @@
-import { realpath } from 'node:fs/promises';
 import { isAbsolute, relative, resolve, sep } from 'node:path';
+import { realPathOf } from '../fs-actions.js';
 
-const realOrSelf = async (path: string): Promise<string> => {
-  try {
-    return await realpath(path);
-  } catch {
-    return path;
-  }
-};
+const realOrSelf = async (path: string): Promise<string> =>
+  (await realPathOf(path)) ?? path;
 
 const isWithin = (root: string, path: string): boolean => {
   const fromRoot = relative(root, path);

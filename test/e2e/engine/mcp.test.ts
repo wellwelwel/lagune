@@ -46,6 +46,16 @@ const field = (payload: unknown, ...path: string[]): unknown =>
     payload
   );
 
+const toolAnswer = (replies: unknown[], id: number) => {
+  const result = field(replyTo(replies, id), 'result');
+  const content = field(result, 'content');
+
+  return {
+    text: Array.isArray(content) ? field(content[0], 'text') : undefined,
+    isError: field(result, 'isError'),
+  };
+};
+
 const callTool = (
   id: number,
   name: string,
@@ -140,17 +150,12 @@ await describe('the engine served over MCP', async () => {
       ]),
       runEngine(workspace, ['secrets', '--file', 'config.ts']),
     ]);
-    const result = field(replyTo(replies, 1), 'result');
-    const content = field(result, 'content');
 
     strict.strictEqual(cli.code, 1);
-    strict.deepStrictEqual(
-      {
-        text: Array.isArray(content) ? field(content[0], 'text') : undefined,
-        isError: field(result, 'isError'),
-      },
-      { text: cli.stdout.trimEnd(), isError: true }
-    );
+    strict.deepStrictEqual(toolAnswer(replies, 1), {
+      text: cli.stdout.trimEnd(),
+      isError: true,
+    });
   });
 
   await it('refuses a writing command through the read-only tool, leaving .lagune/ untouched', async () => {
@@ -171,8 +176,13 @@ await describe('the engine served over MCP', async () => {
     const replies = await exchange(workspace, [
       callTool(1, 'lagune_read', 'secrets', ['--dir', '..']),
     ]);
+    const { text, isError } = toolAnswer(replies, 1);
 
-    strict.strictEqual(field(replyTo(replies, 1), 'result', 'isError'), true);
+    strict.strictEqual(isError, true);
+    strict(
+      String(text).includes('outside'),
+      'it refuses the folder above the project'
+    );
   });
 
   await it('answers an unknown tool and an unknown method with protocol errors', async () => {

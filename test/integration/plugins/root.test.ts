@@ -37,7 +37,7 @@ describe('the repository root, which ships inside every plugin', () => {
     );
   });
 
-  it('holds nothing a harness would load beside the skills', () => {
+  it('holds nothing an agent would load beside the skills', () => {
     strict.deepStrictEqual(
       LOADED_FROM_A_PLUGIN_ROOT.filter((entry) =>
         tracked.some(({ path }) => occupies(path, entry))
