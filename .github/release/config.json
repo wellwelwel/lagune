@@ -15,6 +15,11 @@
           "type": "json",
           "path": "gemini-extension.json",
           "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": ".antigravity-plugin/plugin.json",
+          "jsonpath": "$.version"
         }
       ]
     }

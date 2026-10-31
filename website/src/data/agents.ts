@@ -50,7 +50,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Antigravity',
     description: "Google's agentic development platform",
     icon: '/img/icons/antigravity.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/antigravity-cli',
   },
   {
     name: 'OpenCode',

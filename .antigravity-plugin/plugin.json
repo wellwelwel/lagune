@@ -1,0 +1,32 @@
+{
+  "name": "lagune",
+  "displayName": "Lagune",
+  "version": "0.15.0",
+  "description": "🌊 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
+  "logo": "assets/logo.png",
+  "suggestedPrompts": [
+    "Set the security principles for this project",
+    "Map what this project does and where it is exposed",
+    "Plan the fixes that matter for this project"
+  ],
+  "author": {
+    "name": "Weslley Araújo",
+    "url": "https://github.com/wellwelwel"
+  },
+  "homepage": "https://lagune.ai",
+  "repository": "https://github.com/wellwelwel/lagune",
+  "license": "Apache-2.0",
+  "keywords": [
+    "security",
+    "blue-team",
+    "sdh",
+    "sdd",
+    "security-driven-hardening",
+    "spec-driven-development",
+    "audit",
+    "hardening",
+    "coding",
+    "best-practices",
+    "agent-skills"
+  ]
+}

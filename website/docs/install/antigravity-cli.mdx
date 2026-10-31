@@ -1,0 +1,61 @@
+---
+id: antigravity-cli
+title: 'Install Lagune on Antigravity CLI as a Plugin'
+sidebar_label: Antigravity CLI
+parent: get-started/install
+description: Install Lagune's commands in Antigravity CLI through its own plugin installer, keep them updated, and allow the engine up front.
+keywords:
+  - antigravity cli
+  - antigravity plugin
+  - agy plugin install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Antigravity' />
+
+Install the plugin from your terminal:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune
+```
+
+## Update
+
+**Antigravity CLI** leaves the plugin at its installed version until you install it again, which replaces the installed copy. To update **Lagune**, run:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune
+```
+
+## Commands
+
+Type the commands under the plugin's name, such as `/lagune:lagune.charter` wherever these docs write `/lagune.charter`.
+
+---
+
+:::info[Permissions]
+
+The first engine call asks for your permission. To allow it up front, add this rule to `~/.gemini/antigravity-cli/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": ["command(regex:npx --yes lagune@[0-9.]+)"]
+  }
+}
+```
+
+With the sandbox on, the engine cannot be downloaded, even with the **npm** registry allowed, since the sandbox keeps **npm**'s cache read-only. Install the engine in your project from your own terminal, once and again after each update:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+The engine then runs inside the sandbox, with no download and no network access.
+
+:::
