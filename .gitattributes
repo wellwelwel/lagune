@@ -8,3 +8,4 @@ src/bin/** linguist-language=TypeScript
 /test export-ignore
 /src export-ignore
 /.claude export-ignore
+/CLAUDE.md export-ignore

@@ -282,6 +282,7 @@ const config: Config = {
         'python',
         'typescript',
         'markdown',
+        'toml',
       ],
     },
   } satisfies Preset.ThemeConfig,

@@ -33,6 +33,17 @@ export const listTracked = async (): Promise<TrackedFile[]> => {
 export const listTrackedPaths = async (): Promise<Set<string>> =>
   new Set((await listTracked()).map(({ path }) => path));
 
+/** Whether release archives, which some harnesses install, leave the path out */
+export const isLeftOutOfArchives = async (path: string): Promise<boolean> => {
+  const { stdout } = await run(
+    'git',
+    ['check-attr', 'export-ignore', '--', path],
+    { cwd: repositoryRoot }
+  );
+
+  return stdout.trim().endsWith(': set');
+};
+
 /** The file a harness reads: the first of its lookup order the tree carries */
 export const firstFound = (
   lookup: string[],

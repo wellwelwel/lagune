@@ -44,7 +44,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Gemini CLI',
     description: "Google's open-source terminal agent",
     icon: '/img/icons/gemini.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/gemini-cli',
   },
   {
     name: 'Antigravity',

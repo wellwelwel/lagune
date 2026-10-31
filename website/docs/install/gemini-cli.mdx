@@ -1,0 +1,57 @@
+---
+id: gemini-cli
+title: 'Install Lagune on Gemini CLI as an Extension'
+sidebar_label: Gemini CLI
+parent: get-started/install
+description: Install Lagune's commands in Gemini CLI through its own extension installer, keep them updated, and allow the engine up front.
+keywords:
+  - gemini cli
+  - gemini cli extension
+  - gemini extensions install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Gemini CLI' />
+
+Install the extension from your terminal:
+
+```bash
+gemini extensions install https://github.com/wellwelwel/lagune
+```
+
+**Gemini CLI** installs **Lagune**'s latest release, so each change reaches you with the next release.
+
+## Update
+
+**Gemini CLI** leaves the extension at its installed release until you update it, or until you install it with `--auto-update`. To update **Lagune**, run:
+
+```bash
+gemini extensions update lagune
+```
+
+## Commands
+
+Type the commands under the extension's name: where these docs show `/lagune.charter`, type `/lagune:lagune.charter`.
+
+---
+
+:::info[Permissions]
+
+The first engine call asks for your permission. To allow it up front, save this rule as `~/.gemini/policies/lagune.toml`:
+
+```toml
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = 'npx --yes lagune@\d+\.\d+\.\d+\s'
+decision = "allow"
+priority = 100
+```
+
+**Gemini CLI** still asks before a call that repeats an option an earlier command printed, a check no rule overrides.
+
+:::
