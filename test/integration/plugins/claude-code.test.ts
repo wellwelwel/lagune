@@ -1,15 +1,10 @@
 import { describe, it, strict } from 'poku';
-import { isRecord } from '../../../src/core/collections.js';
-import { readManifest } from './__utils__.js';
+import { listedEntries, readManifest } from './__utils__.js';
 
 const REPOSITORY_ROOT = './';
 
 const manifest = await readManifest('.claude-plugin/plugin.json');
 const marketplace = await readManifest('.claude-plugin/marketplace.json');
-
-const listedEntries = (plugins: unknown): Record<string, unknown>[] =>
-  Array.isArray(plugins) ? plugins.filter(isRecord) : [];
-
 const entries = listedEntries(marketplace.contents?.plugins);
 
 describe('the Claude Code marketplace', () => {

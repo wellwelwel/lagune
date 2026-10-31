@@ -32,7 +32,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Cursor',
     description: 'The AI code editor',
     icon: '/img/icons/cursor.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/cursor',
   },
   {
     name: 'GitHub Copilot',

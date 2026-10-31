@@ -1,0 +1,66 @@
+---
+id: cursor
+title: 'Install Lagune on Cursor as a Plugin'
+sidebar_label: Cursor
+parent: get-started/install
+description: Install Lagune's commands in Cursor and the Cursor CLI through Cursor's own plugin installer, keep them updated, and allow the engine up front.
+keywords:
+  - cursor
+  - cursor plugin
+  - cursor cli
+  - plugin marketplace
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Cursor' />
+
+In **Cursor**, open **Customize**, select **From GitHub Repository**, and enter `https://github.com/wellwelwel/lagune`. Then select **Install** on **Lagune** and choose a project or user scope.
+
+In the **Cursor CLI**, add the marketplace from your terminal:
+
+```bash
+agent plugin marketplace add https://github.com/wellwelwel/lagune
+```
+
+Then type `/plugins` in an `agent` session and install **Lagune**.
+
+## Update
+
+**Cursor** keeps **Lagune** at the commit it indexed until you refresh the marketplace. To update **Lagune**, select **Refresh** on the `lagune` marketplace in **Customize**, or run:
+
+```bash
+agent plugin marketplace update lagune
+```
+
+## Commands
+
+Type the commands by their names, such as `/lagune.charter`. **Cursor**'s skills list shows a naming warning on each name that holds a dot, and the commands run as usual.
+
+---
+
+:::info[Permissions]
+
+In the **Cursor CLI**, the first engine call asks for your permission. To allow it up front, add this rule to `.cursor/cli.json` for one project, or to `~/.cursor/cli-config.json` for all of them:
+
+```json
+{
+  "permissions": {
+    "allow": ["Shell(npx:--yes lagune@*)"]
+  }
+}
+```
+
+In **Cursor**'s default Auto-review mode, the sandbox cannot write **npm**'s cache, which lies outside your project, so **Cursor**'s classifier reviews each engine call and may ask for your permission. To run the engine inside the sandbox, turn on the shared build cache in `~/.cursor/sandbox.json`:
+
+```json
+{
+  "enableSharedBuildCache": true
+}
+```
+
+:::

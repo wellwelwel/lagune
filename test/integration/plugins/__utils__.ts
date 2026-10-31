@@ -50,6 +50,10 @@ export const firstFound = (
   tracked: Set<string>
 ): string | undefined => lookup.find((path) => tracked.has(path));
 
+/** The plugin entries a marketplace lists */
+export const listedEntries = (plugins: unknown): Record<string, unknown>[] =>
+  Array.isArray(plugins) ? plugins.filter(isRecord) : [];
+
 const parseManifest = (path: string, text: string): unknown => {
   try {
     return YAML_FILE.test(path) ? parse<unknown>(text) : JSON.parse(text);

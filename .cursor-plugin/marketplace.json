@@ -1,0 +1,16 @@
+{
+  "name": "lagune",
+  "owner": {
+    "name": "Weslley Araújo"
+  },
+  "metadata": {
+    "description": "Lagune's Security-Driven Hardening commands, from the repository that authors them."
+  },
+  "plugins": [
+    {
+      "name": "lagune",
+      "source": "./",
+      "description": "🌊 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not."
+    }
+  ]
+}
