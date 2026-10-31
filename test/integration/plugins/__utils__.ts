@@ -71,6 +71,9 @@ export const firstFound = (
 export const listedEntries = (plugins: unknown): Record<string, unknown>[] =>
   Array.isArray(plugins) ? plugins.filter(isRecord) : [];
 
+export const occupies = (path: string, entry: string): boolean =>
+  path === entry || path.startsWith(`${entry}/`);
+
 const parseManifest = (path: string, text: string): unknown => {
   try {
     return YAML_FILE.test(path) ? parse<unknown>(text) : JSON.parse(text);

@@ -1,0 +1,47 @@
+---
+id: factory-droid
+title: 'Install Lagune on Factory Droid as a Plugin'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Install Lagune's commands in Factory Droid through its own plugin installer, and keep them updated.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Install the plugin from your terminal:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Update
+
+To update **Lagune**, run:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Commands
+
+Type the commands by their names, such as `/lagune.charter`. `droid doctor` warns about each name that holds a dot.
+
+---
+
+:::info[Permissions]
+
+The first engine call asks for your permission.
+
+:::

@@ -1,5 +1,5 @@
 import { describe, it, strict } from 'poku';
-import { listTracked } from './__utils__.js';
+import { listTracked, occupies } from './__utils__.js';
 
 const SYMLINK_MODE = '120000';
 
@@ -26,9 +26,6 @@ const LOADED_FROM_A_PLUGIN_ROOT = [
 ];
 
 const tracked = await listTracked();
-
-const occupies = (path: string, entry: string): boolean =>
-  path === entry || path.startsWith(`${entry}/`);
 
 describe('the repository root, which ships inside every plugin', () => {
   it('tracks no symlink', () => {

@@ -68,7 +68,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Factory Droid',
     description: "Factory's software development agent",
     icon: '/img/icons/droid.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/factory-droid',
   },
   {
     name: 'Grok Build',
