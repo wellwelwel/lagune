@@ -92,7 +92,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Muse Code',
     description: "Meta's coding agent",
     icon: '/img/icons/muse.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/muse-code',
   },
   {
     name: 'Pi',

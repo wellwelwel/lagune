@@ -30,6 +30,15 @@ export const listTracked = async (): Promise<TrackedFile[]> => {
     }));
 };
 
+export const listTrackedPaths = async (): Promise<Set<string>> =>
+  new Set((await listTracked()).map(({ path }) => path));
+
+/** The file a harness reads: the first of its lookup order the tree carries */
+export const firstFound = (
+  lookup: string[],
+  tracked: Set<string>
+): string | undefined => lookup.find((path) => tracked.has(path));
+
 const parseManifest = (path: string, text: string): unknown => {
   try {
     return YAML_FILE.test(path) ? parse<unknown>(text) : JSON.parse(text);

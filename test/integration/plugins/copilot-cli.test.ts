@@ -1,5 +1,5 @@
 import { describe, it, strict } from 'poku';
-import { listTracked } from './__utils__.js';
+import { firstFound, listTrackedPaths } from './__utils__.js';
 
 const MANIFEST_LOOKUP = [
   '.plugin/plugin.json',
@@ -23,22 +23,19 @@ const SERVER_CONFIGS = [
   '.github/lsp.json',
 ];
 
-const tracked = new Set((await listTracked()).map(({ path }) => path));
-
-const firstFound = (lookup: string[]): string | undefined =>
-  lookup.find((path) => tracked.has(path));
+const tracked = await listTrackedPaths();
 
 describe('the Copilot CLI plugin', () => {
   it('reads the Claude Code manifest, the first its lookup reaches', () => {
     strict.strictEqual(
-      firstFound(MANIFEST_LOOKUP),
+      firstFound(MANIFEST_LOOKUP, tracked),
       '.claude-plugin/plugin.json'
     );
   });
 
   it('installs through the Claude Code marketplace, the first its lookup reaches', () => {
     strict.strictEqual(
-      firstFound(MARKETPLACE_LOOKUP),
+      firstFound(MARKETPLACE_LOOKUP, tracked),
       '.claude-plugin/marketplace.json'
     );
   });

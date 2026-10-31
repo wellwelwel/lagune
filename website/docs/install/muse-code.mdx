@@ -1,0 +1,54 @@
+---
+id: muse-code
+title: 'Install Lagune on Muse Code as a Plugin'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Install Lagune's commands in Muse Code through its own plugin installer, keep them updated, and run the engine inside its sandbox.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Install the plugin from your terminal:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Update
+
+**Muse Code** leaves the plugin at its installed version until you update it. To update **Lagune**, refresh the marketplace, then install the plugin again:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Commands
+
+Type the commands by their names, such as `/lagune.charter`. **Muse Code** also lists them under the plugin's name, such as `/lagune:lagune.charter`, and both forms run the same command.
+
+---
+
+:::info[Permissions]
+
+**Muse Code**'s sandbox keeps **npm**'s cache read-only, so the engine cannot be downloaded inside it: the first engine call asks to reach `registry.npmjs.org`, then fails. Install the engine in your project from your own terminal, once and again after each update:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+The engine then runs inside the sandbox, with no download and no network access.
+
+:::
