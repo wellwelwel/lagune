@@ -1,6 +1,6 @@
 {
   "name": "lagune",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "🌊 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
   "author": {
     "name": "Weslley Araújo",
@@ -30,7 +30,11 @@
     "longDescription": "Lagune turns a codebase into a more secure one through Security-Driven Hardening, a defensive workflow your agent runs from a spec instead of ad-hoc fixes. It sets the project's security principles, detects what the system actually does (login, file uploads, payments, and so on), plans the fixes that matter for that context, applies them, and verifies that each control holds. Every finding comes in plain language, so developers and non-developers are served alike. Lagune only defends: it audits, hardens, and verifies, and never writes exploits. Its state lives in your project, committed with your code, and its deterministic steps run through the lagune package on npm, which your project can install to run them offline.",
     "developerName": "Weslley Araújo",
     "category": "Security",
-    "capabilities": ["Interactive", "Read", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
     "defaultPrompt": [
       "Set this project's security principles.",
       "Detect what this project does and the risks it carries.",

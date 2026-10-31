@@ -16,7 +16,7 @@ The User Input decides how this command runs, so read it before proceeding. It m
 
 ## Engine
 
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
+Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.16.0 <subcommand>`.
 
 ## Outline
 

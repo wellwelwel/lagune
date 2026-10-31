@@ -16,7 +16,7 @@ The User Input decides how this command runs, so read it before proceeding. It m
 
 ## Engine
 
-Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.15.0 <subcommand>`.
+Every `lagune <subcommand>` call you make, from this command or from a specialization, runs Lagune's engine from the project root. Make the call through the `lagune_read` or `lagune_write` tool when your tools include them, and otherwise run it in the shell as `npx --yes lagune@0.16.0 <subcommand>`.
 
 ## Outline
 
@@ -80,4 +80,4 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 
 ### Step 8: Summarize
 
-In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune@0.15.0 catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
+In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune@0.16.0 catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
