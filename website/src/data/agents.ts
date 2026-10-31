@@ -98,7 +98,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'Pi',
     description: 'A minimal terminal coding agent',
     icon: '/img/icons/pi.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/pi',
   },
   {
     name: 'Hermes Agent',

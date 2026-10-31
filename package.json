@@ -26,6 +26,11 @@
     "schemas",
     "skills"
   ],
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  },
   "workspaces": [
     "website"
   ],
@@ -120,6 +125,7 @@
     "mistral-vibe",
     "opencode",
     "pi",
+    "pi-package",
     "qoder",
     "qwen-code",
     "roo-code",

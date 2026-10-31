@@ -1,0 +1,55 @@
+---
+id: pi
+title: 'Install Lagune on Pi as a Package'
+sidebar_label: Pi
+parent: get-started/install
+description: Install Lagune's commands in Pi as a package, from npm or from GitHub, and keep them updated.
+keywords:
+  - pi
+  - pi coding agent
+  - pi package
+  - pi install
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Pi' />
+
+Install the package from your terminal:
+
+```bash
+pi install npm:lagune
+```
+
+**Pi** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release. To install the latest commit from **GitHub** instead, run:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+## Update
+
+**Pi** keeps **Lagune** at its installed version until you update it. To update **Lagune**, run the command that matches your install:
+
+```bash
+pi update npm:lagune
+pi update git:github.com/wellwelwel/lagune
+```
+
+`pi update` alone updates **Pi** itself, and `pi update --extensions` updates every package you installed.
+
+## Commands
+
+Type the commands with the `skill:` prefix: where these docs write `/lagune.charter`, type `/skill:lagune.charter`. **Pi** warns at startup about each name that holds a dot, and the commands run as usual.
+
+---
+
+:::info[Permissions]
+
+**Pi** runs commands without asking for permission, so the engine runs from its first call, with no rule to add.
+
+:::
