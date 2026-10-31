@@ -56,7 +56,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
     name: 'OpenCode',
     description: 'The open-source coding agent',
     icon: '/img/icons/opencode.svg',
-    install: UNIVERSAL_INSTALL,
+    install: '/docs/install/opencode',
   },
   {
     name: 'Devin for Terminal',

@@ -200,6 +200,12 @@ export type MarkdownLine = {
   code: boolean;
 };
 
+/** A markdown file's frontmatter, one `key: value` line per field, apart from its body */
+export type Frontmatter = {
+  fields: Map<string, string>;
+  body: string;
+};
+
 export type TextSpan = {
   from: number;
   to: number;

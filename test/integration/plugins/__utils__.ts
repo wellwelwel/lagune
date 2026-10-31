@@ -1,4 +1,8 @@
-import type { PluginManifest, TrackedFile } from '../../../src/types/test.js';
+import type {
+  PackedPackage,
+  PluginManifest,
+  TrackedFile,
+} from '../../../src/types/test.js';
 import { execFile } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -32,6 +36,19 @@ export const listTracked = async (): Promise<TrackedFile[]> => {
 
 export const listTrackedPaths = async (): Promise<Set<string>> =>
   new Set((await listTracked()).map(({ path }) => path));
+
+/** Every file the npm package carries, the tree the harnesses that install from npm receive */
+export const listPackedPaths = async (): Promise<Set<string>> => {
+  const { stdout } = await run(
+    'npm',
+    ['pack', '--dry-run', '--json', '--ignore-scripts'],
+    { cwd: repositoryRoot }
+  );
+  // npm 12 keys the report by package name, earlier versions list it
+  const [packed]: PackedPackage[] = Object.values(JSON.parse(stdout));
+
+  return new Set(packed.files.map(({ path }) => path));
+};
 
 /** Whether release archives, which some harnesses install, leave the path out */
 export const isLeftOutOfArchives = async (path: string): Promise<boolean> => {

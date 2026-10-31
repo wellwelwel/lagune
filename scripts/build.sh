@@ -30,6 +30,10 @@ esbuild src/hooks/regex/worker.ts "${bundle[@]}" \
   --outfile=lib/bin/worker.js \
   --metafile="$metafiles/worker.json"
 
+esbuild src/plugins/opencode.ts "${bundle[@]}" \
+  --outfile=lib/plugins/opencode.js \
+  --metafile="$metafiles/opencode.json"
+
 chmod +x lib/bin/index.js
 
 DASHBOARD_METAFILE="$metafiles/dashboard.json" bash scripts/dashboard/build.sh

@@ -36,6 +36,7 @@ Installing and updating the commands belongs to the **skills** CLI, the route th
 | `src/core/`       | Tracking, the project's configs, markdown, CVSS, scanning, and the migration.                                |
 | `src/hooks/`      | The 14 hooks.                                                                                                |
 | `src/dashboard/`  | The live view of `.lagune/`.                                                                                 |
+| `src/plugins/`    | The plugin entries an agent loads as code from the npm package, such as **OpenCode**'s.                      |
 | `src/types/`      | The single home for every type declaration. No type is declared elsewhere.                                   |
 | `lib/`            | Build output, ignored by git and published.                                                                  |
 | `test/`           | Poku test suites.                                                                                            |
@@ -43,8 +44,8 @@ Installing and updating the commands belongs to the **skills** CLI, the route th
 
 ## Build & ship
 
-- **Build tool:** **esbuild** bundles the engine, hooks included, from `src/` into one self-contained JavaScript file in `lib/`, with the worker the regex scan spreads its analysis across bundled beside it, so the published package carries no runtime `node_modules` for the end user. **Vite** builds the dashboard client into `lib/dashboard`.
-- **Entry point:** the `package.json` `bin` field maps the `lagune` command to the engine entry in `lib/`, so the engine command runs the bundle directly.
+- **Build tool:** **esbuild** bundles the engine, hooks included, from `src/` into one self-contained JavaScript file in `lib/`, with the worker the regex scan spreads its analysis across and each plugin entry bundled beside it, so the published package carries no runtime `node_modules` for the end user. **Vite** builds the dashboard client into `lib/dashboard`.
+- **Entry points:** the `package.json` `bin` field maps the `lagune` command to the engine entry in `lib/`, so the engine command runs the bundle directly, and `main` names the **OpenCode** plugin entry.
 - **Published:** `lib/`, `catalog/`, `schemas/`, and `skills/`. The **skills** CLI and most plugin installers take the skills from the repository's default branch, a few agents install its latest release, and the agents that install from **npm** take them from the package.
 - **Versioning:** one version across the package, every plugin manifest, and every engine call. The release pull request moves `package.json` and each manifest the release config lists, and a step in it pins the engine calls in `skills/` and `catalog/` at the new version. No release goes out while a pin on the default branch disagrees with the package version.
 
@@ -62,6 +63,7 @@ Every deterministic step a skill or a built-in specialization writes uses the en
 An agent with a plugin installer of its own gets one thin manifest, in the folder that installer reads (such as `.claude-plugin/`), beside a marketplace listing when the installer installs through one. A manifest is distribution metadata only: it names the plugin `lagune`, carries the package version, and reaches the skills in `skills/`, by the installer's convention or by pointing there, never through a copy of a skill. A marketplace listing names the repository root as the plugin and leaves the version to the manifest. The plugins test checks every manifest against the release config.
 
 - **The repository root is the plugin.** Every tracked file at the root ships in every user's plugin folder, so the root holds no symlink and none of the files an agent loads from a plugin root, a list the plugins test keeps. No folder holds an `AGENTS.md` either, since Kimi Code surfaces one once a file below it is read. `CLAUDE.md` stays for contributors, who point their own agent at it and link the development skills locally. Release archives leave it out, along with `website/`, `test/`, `src/`, and `.claude/`, since Gemini CLI can read it as context from an installed release when a user's own settings name it.
+- **OpenCode loads code, not a manifest.** It installs the npm package and runs the entry `main` names, which hands it the package's `skills/` and, where the host can, leaves prove and specialize out of the skills the model is offered. A skill the host rejects is skipped, never the whole plugin.
 - **No session-start bootstrap.** The user invokes the commands, and `/lagune` is matched by its description, so no manifest injects context into a session.
 - **No root `plugin.json`.** The cross-agent format it would hold cuts the skill text Codex injects, installs the plugin disabled on Hermes Agent, and outranks the per-agent manifests.
 

@@ -1,0 +1,107 @@
+---
+id: opencode
+title: 'Install Lagune on OpenCode as a Plugin'
+sidebar_label: OpenCode
+parent: get-started/install
+description: Install Lagune's commands in OpenCode 1.x and 2.x through OpenCode's own plugin installer, and keep them updated.
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - install lagune
+  - setup
+  - AI security
+  - AI agents
+---
+
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Install the plugin from your terminal:
+
+```bash
+opencode plugin add lagune
+```
+
+Or add it to the `plugins` list of `opencode.json`:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Install the plugin in your project from your terminal, or add `-g` to install it for all your projects:
+
+```bash
+opencode plugin lagune
+```
+
+Or add it to the `plugin` list of `opencode.json`:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+**OpenCode** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release.
+
+## Update
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+`opencode plugin check` reports a new release without installing it. To update **Lagune**, run:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+**OpenCode** keeps the release it installed first, even after a restart. To update **Lagune**, install the new release over it, adding `-g` if you installed it for all your projects:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## Commands
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Type `@` and pick the command, such as `@lagune.charter`, then write your input after it in the same message.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Type the commands by their names, such as `/lagune.charter`. **OpenCode** leaves them out of the `/` menu and lists them under `/skills` instead.
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[Permissions]
+
+**OpenCode** runs commands without asking for permission by default, so the engine runs from its first call, with no rule to add.
+
+:::

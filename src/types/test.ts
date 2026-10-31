@@ -65,3 +65,9 @@ export type PluginManifest = {
   path: string;
   contents: Record<string, unknown> | undefined;
 };
+
+/** What a run returned, beside what it reported through `console.error` */
+export type ReportedRun<Result> = {
+  result: Result;
+  reports: unknown[][];
+};
