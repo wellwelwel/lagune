@@ -22,10 +22,10 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 Install the extension from your terminal:
 
 ```bash
-qwen extensions install wellwelwel/lagune
+qwen extensions install lagune
 ```
 
-When **Qwen Code** asks which plugin to install, pick `lagune`. It installs **Lagune**'s latest release, so each change reaches you with the next release.
+**Qwen Code** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release.
 
 ## Update
 
@@ -43,17 +43,17 @@ Type the commands under the extension's name: where these docs show `/lagune-cha
 
 :::info[Permissions]
 
-In Ask permissions mode, the first engine call asks for your permission. To allow it up front, add this rule to `.qwen/settings.json` for one project, or to `~/.qwen/settings.json` for all of them:
+The extension carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. In Ask permissions mode, the first call to each asks for your permission, and in the default Auto mode, **Qwen Code**'s classifier judges each call. To allow them up front in either mode, add these rules to `.qwen/settings.json` for one project, or to `~/.qwen/settings.json` for all of them:
 
 ```json
 {
   "permissions": {
-    "allow": ["Bash(npx --yes lagune@*)"]
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
   }
 }
 ```
 
-In the default Auto mode, **Qwen Code** sets this rule aside and lets its classifier judge each engine call.
+Where the engine runs through **npx** instead, as it does for the **skills.sh**, allow `Shell(npx --yes lagune@*)` for Ask permissions mode and headless sessions. Auto mode sets that rule aside and lets its classifier judge each engine call.
 
 :::
 
@@ -62,7 +62,7 @@ In the default Auto mode, **Qwen Code** sets this rule aside and lets its classi
     {
       question: 'How do I install Lagune on Qwen Code?',
       answer:
-        'Run qwen extensions install wellwelwel/lagune, then pick lagune when Qwen Code asks which plugin to install.',
+        "Run qwen extensions install lagune, which installs Lagune's latest release from npm.",
     },
     {
       question: 'How do I update Lagune on Qwen Code?',
@@ -77,7 +77,7 @@ In the default Auto mode, **Qwen Code** sets this rule aside and lets its classi
     {
       question: 'Can Qwen Code run Lagune without asking for permission?',
       answer:
-        "In Ask permissions mode, yes: add Bash(npx --yes lagune@*) to the permissions allow list in Qwen Code's settings. In the default Auto mode, Qwen Code sets that rule aside and lets its classifier judge each engine call.",
+        "Yes. Add mcp__lagune__lagune_read and mcp__lagune__lagune_write to the permissions allow list in Qwen Code's settings, which holds in both Ask permissions and Auto mode. Where the engine runs through npx instead, as it does for the skills.sh, Shell(npx --yes lagune@*) allows it in Ask permissions mode and headless sessions, while Auto mode sets that rule aside and lets its classifier judge each engine call.",
     },
   ]}
 />

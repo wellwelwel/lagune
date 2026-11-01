@@ -131,6 +131,12 @@ export const noSpecialization = (name: string): string =>
 export const noProjectFolder = (project: string): string =>
   `The MCP server runs from the project folder, and ${project} is not a folder.`;
 
+export const notAProjectFolder = (project: string): string =>
+  `The MCP server runs from the project folder, and ${project} is Lagune's own folder or the root of the file system, never a project. The agent started the server outside the project, so the commands run the engine through npx instead.`;
+
+export const noNodeForEngine = (): string =>
+  "Lagune's engine runs on Node.js, and none was found on this computer's search path. Install Node.js (LTS), then restart your agent.";
+
 export const frozenHandoff = (version: string): string =>
   `This project was installed by the Lagune CLI and keeps working with it: lagune@${version} answers here. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
 

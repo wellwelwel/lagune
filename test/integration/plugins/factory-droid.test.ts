@@ -11,10 +11,10 @@ const LOADED_ONLY_BY_DROID = ['droids', 'output-styles', 'mcp.json'];
 const tracked = await listTrackedPaths();
 
 describe('the Factory Droid plugin', () => {
-  it('installs through the Claude Code marketplace, the first its lookup reaches', () => {
+  it('installs through a marketplace of its own, which its lookup reaches before the Claude Code one', () => {
     strict.strictEqual(
       firstFound(MARKETPLACE_LOOKUP, tracked),
-      '.claude-plugin/marketplace.json'
+      '.factory-plugin/marketplace.json'
     );
   });
 

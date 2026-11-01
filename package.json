@@ -25,11 +25,15 @@
     "lib",
     "catalog",
     "schemas",
-    "skills"
+    "skills",
+    "qwen-extension.json"
   ],
   "pi": {
     "skills": [
       "./skills"
+    ],
+    "extensions": [
+      "./lib/plugins/pi.js"
     ]
   },
   "workspaces": [

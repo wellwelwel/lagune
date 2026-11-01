@@ -10,6 +10,7 @@ export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-track-'));
 
   workspaces.push(workspace);
+
   return workspace;
 };
 

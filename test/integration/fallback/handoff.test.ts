@@ -17,6 +17,7 @@ const newRoot = async (): Promise<string> => {
   const root = await realpath(await mkdtemp(join(tmpdir(), 'lagune-handoff-')));
 
   roots.push(root);
+
   return root;
 };
 

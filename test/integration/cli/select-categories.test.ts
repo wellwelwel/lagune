@@ -19,6 +19,7 @@ const terminal = (
       isInteractive: () => interactive,
       promptForCategories: () => {
         prompted = true;
+
         return Promise.resolve(picked);
       },
     },

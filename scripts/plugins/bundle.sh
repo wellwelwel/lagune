@@ -6,13 +6,17 @@ bundle="${2:?Name the directory to assemble the bundle into.}"
 overlay="scripts/plugins/$plugin"
 sharedPaths=(skills README.md LICENSE)
 enginePaths=(package.json catalog lib/bin lib/THIRD_PARTY_LICENSES.txt)
-packingOptions=(-cf -)
+paths=("${sharedPaths[@]}" "${enginePaths[@]}")
+packingOptions=(-cf - --exclude='skills/*/agents')
 
 case "$plugin" in
-  claude)
-    pluginPaths=(.claude-plugin/plugin.json assets/logo.png)
-    packingOptions+=(--exclude='skills/*/agents')
+  claude | grok | muse)
+    paths+=(.claude-plugin/plugin.json assets/logo.png)
     ;;
+  cursor)
+    paths+=(.cursor-plugin/plugin.json .cursor-plugin/marketplace.json assets/logo.png)
+    ;;
+  droid | gemini) ;;
   *)
     echo "No bundle is declared for the \"$plugin\" plugin." >&2
     exit 1
@@ -25,7 +29,7 @@ if [[ -e "$bundle" ]]; then
 fi
 
 mkdir -p "$bundle"
-tar "${packingOptions[@]}" "${sharedPaths[@]}" "${enginePaths[@]}" "${pluginPaths[@]}" | tar -xf - -C "$bundle"
+tar "${packingOptions[@]}" "${paths[@]}" | tar -xf - -C "$bundle"
 
 if [[ -d "$overlay" ]]; then
   tar -cf - -C "$overlay" . | tar -xf - -C "$bundle"

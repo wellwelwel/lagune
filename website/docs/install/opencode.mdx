@@ -99,6 +99,14 @@ Type the commands by their names, such as `/lagune-charter`. **OpenCode** leaves
   </TabItem>
 </Tabs>
 
+---
+
+:::info[Permissions]
+
+The plugin carries **Lagune**'s engine and adds two tools for it: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. **OpenCode** runs them without asking, as it runs its own tools.
+
+:::
+
 <Faq
   items={[
     {
@@ -115,6 +123,11 @@ Type the commands by their names, such as `/lagune-charter`. **OpenCode** leaves
       question: "How do I run Lagune's commands on OpenCode?",
       answer:
         'On OpenCode 2.x, type @ and pick the command, such as @lagune-charter, then write your input in the same message. On OpenCode 1.x, type them by name, such as /lagune-charter, and find them under /skills.',
+    },
+    {
+      question: 'Does OpenCode ask for permission before Lagune runs?',
+      answer:
+        "No. The plugin adds Lagune's engine as two tools, lagune_read and lagune_write, which OpenCode runs without asking, as it runs its own tools.",
     },
   ]}
 />

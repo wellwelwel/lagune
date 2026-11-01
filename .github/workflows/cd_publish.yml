@@ -46,6 +46,7 @@ jobs:
     outputs:
       pr: ${{ steps.release.outputs.pr }}
       release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
       version: ${{ steps.release.outputs.version }}
     steps:
       - name: 🤝 Release Please
@@ -122,7 +123,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        plugin: ['claude']
+        plugin: ['claude', 'cursor', 'droid', 'grok', 'muse']
     env:
       PLUGIN: ${{ matrix.plugin }}
     steps:
@@ -151,6 +152,46 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ needs.release-please.outputs.version }}
+
+  plugin-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    name: Attach the Plugin Archives to the Release
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        plugin: ['gemini']
+    env:
+      PLUGIN: ${{ matrix.plugin }}
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: 📥 Restoring the Engine Build
+        uses: actions/download-artifact@v8
+        with:
+          name: engine
+          path: lib
+
+      - name: 🧩 Assembling the Plugin Bundle
+        run: bash scripts/plugins/bundle.sh "$PLUGIN" "$RUNNER_TEMP/plugin-$PLUGIN"
+
+      # Gemini CLI installs the release asset named after the user's platform before the source archive
+      - name: 📤 Attaching the Plugin Archives
+        run: |
+          for platform in darwin linux win32; do
+            tar -czf "$RUNNER_TEMP/$platform.lagune.tar.gz" -C "$RUNNER_TEMP/plugin-$PLUGIN" .
+          done
+          gh release upload "$TAG" "$RUNNER_TEMP"/*.lagune.tar.gz --clobber --repo "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.release-please.outputs.tag_name }}
 
   pin-engine:
     runs-on: ubuntu-latest

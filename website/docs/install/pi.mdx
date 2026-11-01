@@ -26,7 +26,9 @@ Install the package from your terminal:
 pi install npm:lagune
 ```
 
-**Pi** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release. To install the latest commit from **GitHub** instead, run:
+**Pi** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release. The package carries **Lagune**'s engine as two tools **Pi** runs without asking: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder.
+
+To install the latest commit from **GitHub** instead, run the command below. That commit carries no engine build, so the commands run the engine through **npx**:
 
 ```bash
 pi install git:github.com/wellwelwel/lagune

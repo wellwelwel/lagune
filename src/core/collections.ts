@@ -4,6 +4,9 @@ export const isStringArray = (value: unknown): value is string[] =>
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
 
+export const readField = (payload: unknown, field: string): unknown =>
+  isRecord(payload) ? payload[field] : undefined;
+
 export const appendUnique = (
   current: string[],
   incoming: string[]

@@ -8,6 +8,7 @@ const LOADED_FROM_A_PLUGIN_ROOT = [
   'AGENT.md',
   'GEMINI.md',
   'QWEN.md',
+  'qwen-extension.json',
   '.windsurfrules',
   'plugin.json',
   'marketplace.json',

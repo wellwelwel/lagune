@@ -1,9 +1,10 @@
 import type { InstalledRoute, ParsedCliArgs } from '../types/core.js';
 import { spawn } from 'node:child_process';
-import { basename, delimiter, dirname, isAbsolute, join } from 'node:path';
+import { basename, delimiter, dirname, join } from 'node:path';
 import { env, execPath } from 'node:process';
 import { handoffUnavailable } from '../cli/messages.js';
 import { realPathOf } from '../core/fs-actions.js';
+import { pathKey, trustedFolders } from '../core/search-path.js';
 
 export const FROZEN_VERSION = '0.15.0';
 
@@ -50,23 +51,11 @@ export const npxBeside = async (
   );
 };
 
-const isPackageBinFolder = (entry: string): boolean =>
-  basename(entry) === '.bin' && basename(dirname(entry)) === 'node_modules';
-
 /** The search path the frozen version runs with, led by the runtime and free of relative or package folders */
 export const pinnedPath = (
   runtime: string,
   inherited: string | undefined
-): string =>
-  [
-    dirname(runtime),
-    ...(inherited ?? '')
-      .split(delimiter)
-      .filter((entry) => isAbsolute(entry) && !isPackageBinFolder(entry)),
-  ].join(delimiter);
-
-const pathKey = (): string =>
-  Object.keys(env).find((key) => key.toUpperCase() === 'PATH') ?? 'PATH';
+): string => [dirname(runtime), ...trustedFolders(inherited)].join(delimiter);
 
 const pinnedEnv = (): NodeJS.ProcessEnv => {
   const key = pathKey();

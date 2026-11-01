@@ -1,5 +1,7 @@
 export type HookRun = { stdout: string; stderr: string; code: number | null };
 
+export type EngineRunOptions = { env?: NodeJS.ProcessEnv; input?: string };
+
 export type FrontmatterSource = {
   relativePath: string;
   frontmatter: string;
@@ -64,6 +66,19 @@ export type ReleaseConfig = {
 export type PluginManifest = {
   path: string;
   contents: Record<string, unknown> | undefined;
+};
+
+/** How an agent starts the engine: the command, its arguments, and the folder it starts from */
+export type EngineServer = { command: unknown; args: string[]; cwd?: unknown };
+
+/** The bundle a release publishes for one agent, and the server its agent starts from it */
+export type PluginBundle = {
+  plugin: string;
+  agent: string;
+  route: 'branch' | 'release archive';
+  metadata: string[];
+  declaration: string;
+  server: EngineServer;
 };
 
 /** What a run returned, beside what it reported through `console.error` */

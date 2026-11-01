@@ -22,20 +22,21 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 In **Cursor**, open **Customize**, select **From GitHub Repository**, and enter `https://github.com/wellwelwel/lagune`. Then select **Install** on **Lagune** and choose a project or user scope.
 
-In the **Cursor CLI**, add the marketplace from your terminal:
+In the **Cursor CLI**, add the marketplace from your terminal, from the branch whose plugin carries **Lagune**'s engine:
 
 ```bash
-agent plugin marketplace add https://github.com/wellwelwel/lagune
+agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
 ```
 
 Then type `/plugins` in an `agent` session and install **Lagune**.
 
 ## Update
 
-**Cursor** keeps **Lagune** at the commit it indexed until you refresh the marketplace. To update **Lagune**, select **Refresh** on the `lagune` marketplace in **Customize**, or run:
+**Cursor** keeps **Lagune** at the commit it indexed until you refresh the marketplace. To update **Lagune**, select **Refresh** on the `lagune` marketplace in **Customize**. The **Cursor CLI** keeps the commit it added, so add the marketplace again:
 
 ```bash
-agent plugin marketplace update lagune
+agent plugin marketplace remove lagune
+agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
 ```
 
 ## Commands
@@ -46,17 +47,22 @@ Type the commands by their names, such as `/lagune-charter`.
 
 :::info[Permissions]
 
-In the **Cursor CLI**, the first engine call asks for your permission. To allow it up front, add this rule to `.cursor/cli.json` for one project, or to `~/.cursor/cli-config.json` for all of them:
+In the **Cursor CLI**, the plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. The first call to each asks for your permission. To allow them up front, add these rules to `.cursor/cli.json` for one project, or to `~/.cursor/cli-config.json` for all of them:
 
 ```json
 {
   "permissions": {
-    "allow": ["Shell(npx:--yes lagune@*)"]
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
   }
 }
 ```
 
-In **Cursor**'s default Auto-review mode, the sandbox cannot write **npm**'s cache, which lies outside your project, so **Cursor**'s classifier reviews each engine call and may ask for your permission. To run the engine inside the sandbox, turn on the shared build cache in `~/.cursor/sandbox.json`:
+Where the engine runs through **npx** instead, as it does for the **skills.sh**, also allow `Shell(npx:--yes lagune@*)`.
+
+**Cursor** itself installs the plugin without the engine, so its commands run the engine through **npx**. In its default Auto-review mode, the sandbox cannot write **npm**'s cache, which lies outside your project, so **Cursor**'s classifier reviews each engine call and may ask for your permission. To run the engine inside the sandbox, turn on the shared build cache in `~/.cursor/sandbox.json`:
 
 ```json
 {
@@ -71,12 +77,12 @@ In **Cursor**'s default Auto-review mode, the sandbox cannot write **npm**'s cac
     {
       question: 'How do I install Lagune on Cursor?',
       answer:
-        'In Cursor, open Customize, select From GitHub Repository, enter https://github.com/wellwelwel/lagune, then install Lagune. In the Cursor CLI, run agent plugin marketplace add https://github.com/wellwelwel/lagune, then install Lagune from /plugins in an agent session.',
+        'In Cursor, open Customize, select From GitHub Repository, enter https://github.com/wellwelwel/lagune, then install Lagune. In the Cursor CLI, run agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor, then install Lagune from /plugins in an agent session.',
     },
     {
       question: 'How do I update Lagune on Cursor?',
       answer:
-        'Select Refresh on the lagune marketplace in Customize, or run agent plugin marketplace update lagune.',
+        'In Cursor, select Refresh on the lagune marketplace in Customize. In the Cursor CLI, run agent plugin marketplace remove lagune, then add the marketplace again with agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor.',
     },
     {
       question: "How do I run Lagune's commands on Cursor?",
@@ -85,7 +91,7 @@ In **Cursor**'s default Auto-review mode, the sandbox cannot write **npm**'s cac
     {
       question: 'Can Cursor run Lagune without asking for permission?',
       answer:
-        "Yes. In the Cursor CLI, add Shell(npx:--yes lagune@*) to the permissions allow list in its config. In Cursor's default Auto-review mode, set enableSharedBuildCache to true in its sandbox settings, so the engine runs inside the sandbox instead of being reviewed by the classifier.",
+        "Yes. In the Cursor CLI, add Mcp(plugin-lagune-lagune:lagune_read) and Mcp(plugin-lagune-lagune:lagune_write) to the permissions allow list in its config, and Shell(npx:--yes lagune@*) where the engine runs through npx instead. In Cursor's default Auto-review mode, set enableSharedBuildCache to true in its sandbox settings, so the engine runs inside the sandbox instead of being reviewed by the classifier.",
     },
   ]}
 />

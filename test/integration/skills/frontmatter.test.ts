@@ -49,6 +49,7 @@ const assertMetadata = (metadata: unknown, installed: boolean): void => {
       isStringMap(metadata),
       'an installed skill carries its provenance as strings'
     );
+
     return;
   }
 

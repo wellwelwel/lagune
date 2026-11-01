@@ -9,6 +9,7 @@ export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-validate-'));
 
   workspaces.push(workspace);
+
   return workspace;
 };
 

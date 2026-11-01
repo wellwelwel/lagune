@@ -15,11 +15,19 @@ export type EngineRun = {
   failed: boolean;
 };
 
-export type McpServer = {
+/** The Node.js that runs the engine, the engine's entry, and the project each call runs from */
+export type EngineProcess = {
+  runtime: string;
   entry: string;
   project: string;
-  version: string;
 };
+
+export type EngineRunner = (
+  command: string,
+  values: string[]
+) => Promise<EngineRun>;
+
+export type McpServer = EngineProcess & { version: string };
 
 export type JsonRpcId = string | number;
 

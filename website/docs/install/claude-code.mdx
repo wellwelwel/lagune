@@ -51,17 +51,20 @@ Type the commands by their names, such as `/lagune-charter`. **Claude Code** als
 
 :::info[Permissions]
 
-The first engine call asks for your permission, and "Don't ask again" keeps it allowed in that project. To allow it up front, add this rule to `.claude/settings.json` for one project, or to `~/.claude/settings.json` for all of them:
+The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. The first call to each asks for your permission, and "Don't ask again" keeps it allowed in that project. To allow them up front, add these rules to `.claude/settings.json` for one project, or to `~/.claude/settings.json` for all of them:
 
 ```json
 {
   "permissions": {
-    "allow": ["Bash(npx --yes lagune@*)"]
+    "allow": [
+      "mcp__plugin_lagune_lagune__lagune_read",
+      "mcp__plugin_lagune_lagune__lagune_write"
+    ]
   }
 }
 ```
 
-With the sandbox on, also add `registry.npmjs.org` to `sandbox.network.allowedDomains`, so the engine can be downloaded.
+Where the engine runs through **npx** instead, as it does for the **skills.sh**, allow `Bash(npx --yes lagune@*)`, and with the sandbox on, add `registry.npmjs.org` to `sandbox.network.allowedDomains`, so the engine can be downloaded.
 
 :::
 
@@ -85,7 +88,7 @@ With the sandbox on, also add `registry.npmjs.org` to `sandbox.network.allowedDo
     {
       question: 'Can Claude Code run Lagune without asking for permission?',
       answer:
-        'Yes. Choose "Don\'t ask again" the first time Lagune\'s engine runs to keep it allowed in that project, or add Bash(npx --yes lagune@*) to the permissions allow list in your Claude Code settings to allow it up front. With the sandbox on, also allow registry.npmjs.org, so the engine can be downloaded.',
+        'Yes. Choose "Don\'t ask again" the first time each of Lagune\'s engine tools runs to keep it allowed in that project, or add mcp__plugin_lagune_lagune__lagune_read and mcp__plugin_lagune_lagune__lagune_write to the permissions allow list in your Claude Code settings to allow them up front. Where the engine runs through npx instead, as it does for the skills.sh, allow Bash(npx --yes lagune@*).',
     },
   ]}
 />

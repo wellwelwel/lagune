@@ -1,4 +1,5 @@
-import type { EngineTool } from '../types/mcp.js';
+import type { EngineRun, EngineRunner, EngineTool } from '../types/mcp.js';
+import { isStringArray, readField } from '../core/collections.js';
 
 const ARGUMENTS_GUIDE =
   'Pass the engine subcommand as command and each of its arguments, without shell quotes, as one item of arguments.';
@@ -39,10 +40,36 @@ export const ENGINE_TOOLS: readonly EngineTool[] = [
 export const findTool = (name: unknown): EngineTool | undefined =>
   ENGINE_TOOLS.find((tool) => tool.name === name);
 
-export const toolFor = (command: unknown): EngineTool | undefined =>
+const toolFor = (command: unknown): EngineTool | undefined =>
   ENGINE_TOOLS.find((tool) =>
     tool.commands.some((candidate) => candidate === command)
   );
+
+const refusal = (tool: EngineTool, command: unknown): string => {
+  const owner = toolFor(command);
+
+  if (owner === undefined)
+    return `${tool.name} runs one of: ${tool.commands.join(', ')}.`;
+
+  return `${String(command)} runs through ${owner.name}, not ${tool.name}.`;
+};
+
+/** Runs one call of a tool, refusing a command the tool does not run or arguments that are not strings */
+export const runTool = async (
+  tool: EngineTool,
+  input: unknown,
+  run: EngineRunner
+): Promise<EngineRun> => {
+  const command = readField(input, 'command');
+  const values = readField(input, 'arguments') ?? [];
+
+  if (typeof command !== 'string' || toolFor(command) !== tool)
+    return { output: refusal(tool, command), failed: true };
+  if (!isStringArray(values))
+    return { output: 'arguments must be a list of strings.', failed: true };
+
+  return run(command, values);
+};
 
 export const describeTool = (tool: EngineTool) => ({
   name: tool.name,

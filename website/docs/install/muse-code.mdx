@@ -3,7 +3,7 @@ id: muse-code
 title: 'Install Lagune on Muse Code as a Plugin'
 sidebar_label: Muse Code
 parent: get-started/install
-description: Install Lagune's commands in Muse Code through its own plugin installer, keep them updated, and run the engine inside its sandbox.
+description: Install Lagune's commands in Muse Code through its own plugin installer, keep them updated, and allow the engine's tools.
 keywords:
   - muse code
   - muse code plugin
@@ -19,21 +19,25 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Muse Code' />
 
-Install the plugin from your terminal:
+Install the plugin from your terminal, then approve it, since **Muse Code** starts the plugin's engine only once you do:
 
 ```bash
-muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins marketplace add lagune wellwelwel/lagune#plugin-muse
 muse plugins install lagune@lagune
+muse plugins approve lagune
 ```
+
+Start a new session to load it, from your project's folder: the plugin's engine serves the folder **Muse Code** starts in, even when `--workspace` names another.
 
 ## Update
 
-**Muse Code** leaves the plugin at its installed version until you update it. To update **Lagune**, refresh the marketplace, then install the plugin again:
+**Muse Code** leaves the plugin at its installed version until you update it. To update **Lagune**, refresh the marketplace, then install and approve the plugin again:
 
 ```bash
 muse plugins marketplace update lagune
 muse plugins remove lagune
 muse plugins install lagune@lagune
+muse plugins approve lagune
 ```
 
 ## Commands
@@ -44,13 +48,13 @@ Type the commands by their names, such as `/lagune-charter`. **Muse Code** also 
 
 :::info[Permissions]
 
-**Muse Code**'s sandbox keeps **npm**'s cache read-only, so the engine cannot be downloaded inside it: the first engine call asks to reach `registry.npmjs.org`, then fails. Install the engine in your project from your own terminal, once and again after each update:
+The plugin carries **Lagune**'s engine and runs it outside **Muse Code**'s sandbox, through two tools: `lagune_read`, which only reads your project and runs without asking, and `lagune_write`, which changes only its `.lagune/` folder. **Muse Code** reviews each `lagune_write` call, or asks you under "Ask me", and "Always allow" keeps it allowed.
+
+Where the engine runs through **npx** instead, the sandbox keeps **npm**'s cache read-only, so the engine cannot be downloaded inside it. Install the engine in your project from your own terminal, once and again after each update:
 
 ```bash
 npm i -D lagune@{{version}}
 ```
-
-The engine then runs inside the sandbox, with no download and no network access.
 
 :::
 
@@ -59,12 +63,12 @@ The engine then runs inside the sandbox, with no download and no network access.
     {
       question: 'How do I install Lagune on Muse Code?',
       answer:
-        'Add the marketplace with muse plugins marketplace add lagune wellwelwel/lagune, then install the plugin with muse plugins install lagune@lagune.',
+        'Add the marketplace with muse plugins marketplace add lagune wellwelwel/lagune#plugin-muse, install the plugin with muse plugins install lagune@lagune, approve it with muse plugins approve lagune, then start a new session.',
     },
     {
       question: 'How do I update Lagune on Muse Code?',
       answer:
-        'Refresh the marketplace with muse plugins marketplace update lagune, then reinstall the plugin with muse plugins remove lagune and muse plugins install lagune@lagune.',
+        'Refresh the marketplace with muse plugins marketplace update lagune, then reinstall the plugin with muse plugins remove lagune and muse plugins install lagune@lagune, and approve it again with muse plugins approve lagune.',
     },
     {
       question: "How do I run Lagune's commands on Muse Code?",
@@ -74,7 +78,7 @@ The engine then runs inside the sandbox, with no download and no network access.
     {
       question: "Does Lagune work inside Muse Code's sandbox?",
       answer:
-        "Yes, once its engine is installed in your project. The sandbox keeps npm's cache read-only, so the engine cannot be downloaded inside it. Run npm i -D lagune@{{version}} from your own terminal, once and again after each update.",
+        "Yes. The plugin runs Lagune's engine outside the sandbox, with no download. Where the engine runs through npx instead, the sandbox keeps npm's cache read-only, so run npm i -D lagune@{{version}} in your project from your own terminal, once and again after each update.",
     },
   ]}
 />

@@ -34,8 +34,15 @@ esbuild src/plugins/opencode.ts "${bundle[@]}" \
   --outfile=lib/plugins/opencode.js \
   --metafile="$metafiles/opencode.json"
 
+esbuild src/plugins/pi.ts "${bundle[@]}" \
+  --outfile=lib/plugins/pi.js \
+  --metafile="$metafiles/pi.json"
+
 chmod +x lib/bin/index.js
 
 DASHBOARD_METAFILE="$metafiles/dashboard.json" bash scripts/dashboard/build.sh
 
 tsx tools/third-party-licenses.ts lib/THIRD_PARTY_LICENSES.txt "$metafiles"/*.json
+
+# Qwen Code reads its manifest from the package root, which the repository root must never carry
+cp scripts/plugins/qwen/qwen-extension.json qwen-extension.json

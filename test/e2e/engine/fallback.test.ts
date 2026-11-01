@@ -94,7 +94,7 @@ await describe('the hand-off never runs an npx the project plants', async () => 
   await it('ignores one ahead on the search path, where npx puts the project bin folder', async () => {
     const workspace = await installedProject();
     const planted = await plantNpx(workspace);
-    const run = await runEngine(workspace, ['pull'], planted);
+    const run = await runEngine(workspace, ['pull'], { env: planted });
 
     strict.strictEqual(run.stdout.includes('planted'), false);
   });

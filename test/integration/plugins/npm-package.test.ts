@@ -6,9 +6,11 @@ import { listPackedPaths, listSkillFiles, readManifest } from './__utils__.js';
 const packed = await listPackedPaths();
 const { contents = {} } = await readManifest('package.json');
 const skillFiles = await listSkillFiles();
+const piManifest = isRecord(contents.pi) ? contents.pi : {};
 const entryPoints = [
   contents.main,
   ...(isRecord(contents.bin) ? Object.values(contents.bin) : []),
+  ...(Array.isArray(piManifest.extensions) ? piManifest.extensions : []),
 ];
 
 describe('the npm package, which the agents that install from npm receive', () => {
@@ -20,7 +22,7 @@ describe('the npm package, which the agents that install from npm receive', () =
     );
   });
 
-  it('carries the OpenCode entry and the engine that package.json names', () => {
+  it('carries the OpenCode entry, the Pi extension, and the engine that package.json names', () => {
     strict.deepStrictEqual(
       entryPoints.filter(
         (path) => typeof path !== 'string' || !packed.has(posix.normalize(path))

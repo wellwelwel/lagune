@@ -22,7 +22,7 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 Install the plugin from your terminal:
 
 ```bash
-grok plugin install wellwelwel/lagune --trust
+grok plugin install wellwelwel/lagune@plugin-grok --trust
 ```
 
 ## Update
@@ -41,12 +41,14 @@ Type the commands by their names, such as `/lagune-charter`. **Grok Build** also
 
 :::info[Permissions]
 
-The first engine call asks for your permission. To allow it up front, add this rule to `~/.grok/config.toml`:
+The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. The first call to each asks for your permission. To allow them up front, add these rules to `~/.grok/config.toml`:
 
 ```toml
 [permission]
-allow = ["Bash(npx --yes lagune@*)"]
+allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
 ```
+
+Where the engine runs through **npx** instead, as it does for the **skills.sh**, also allow `Bash(npx --yes lagune@*)`.
 
 :::
 
@@ -54,7 +56,7 @@ allow = ["Bash(npx --yes lagune@*)"]
   items={[
     {
       question: 'How do I install Lagune on Grok Build?',
-      answer: 'Run grok plugin install wellwelwel/lagune --trust.',
+      answer: 'Run grok plugin install wellwelwel/lagune@plugin-grok --trust.',
     },
     {
       question: 'How do I update Lagune on Grok Build?',
@@ -68,7 +70,7 @@ allow = ["Bash(npx --yes lagune@*)"]
     {
       question: 'Can Grok Build run Lagune without asking for permission?',
       answer:
-        "Yes. Add Bash(npx --yes lagune@*) to the permission allow list in Grok Build's config.",
+        "Yes. Add MCPTool(lagune__lagune_read) and MCPTool(lagune__lagune_write) to the permission allow list in Grok Build's config. Where the engine runs through npx instead, as it does for the skills.sh, also allow Bash(npx --yes lagune@*).",
     },
   ]}
 />

@@ -1,4 +1,4 @@
-import type { HookRun } from '../../../src/types/test.js';
+import type { EngineRunOptions, HookRun } from '../../../src/types/test.js';
 import { spawn } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -16,13 +16,14 @@ export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-engine-'));
 
   workspaces.push(workspace);
+
   return workspace;
 };
 
 export const runEngine = (
   cwd: string,
   args: string[],
-  env?: NodeJS.ProcessEnv
+  { env, input }: EngineRunOptions = {}
 ): Promise<HookRun> =>
   new Promise((resolve, reject) => {
     const child = spawn(execPath, [ENGINE, ...args], { cwd, env });
@@ -37,6 +38,8 @@ export const runEngine = (
     child.on('close', (code) =>
       resolve({ stdout: out.join(''), stderr: err.join(''), code })
     );
+
+    if (input !== undefined) child.stdin.end(input);
   });
 
 afterEach(async () => {

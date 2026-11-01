@@ -1,6 +1,10 @@
 import { describe, it, strict } from 'poku';
-import { trackEntries } from '../../../src/hooks/track/track.js';
-import { mapOf } from './__utils__.js';
+import {
+  loadTrackingMap,
+  writeTrackingMap,
+} from '../../../src/core/tracking.js';
+import { track, trackEntries } from '../../../src/hooks/track/track.js';
+import { mapOf, newWorkspace } from './__utils__.js';
 
 describe('trackEntries registers and re-reports one item per finding', () => {
   it('registers a reported finding as new', () => {
@@ -144,5 +148,32 @@ describe('trackEntries registers and re-reports one item per finding', () => {
       'the unreported item stays in the map, track never removes'
     );
     strict.strictEqual(result.updatedMap.entries.length, 2);
+  });
+});
+
+await describe('the track hook logic', async () => {
+  await it('registers the reported finding in the stored map, keeping every entry the payload did not report', async () => {
+    const workspace = await newWorkspace();
+
+    await writeTrackingMap(
+      workspace,
+      mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }])
+    );
+    await track(
+      workspace,
+      JSON.stringify({
+        entries: [{ name: 'Open redirect', paths: ['src/routes.ts'] }],
+      })
+    );
+
+    const map = await loadTrackingMap(workspace);
+
+    strict.deepStrictEqual(
+      map,
+      mapOf([
+        { name: 'Leaked secret', paths: ['src/config.ts'] },
+        { name: 'Open redirect', paths: ['src/routes.ts'] },
+      ])
+    );
   });
 });

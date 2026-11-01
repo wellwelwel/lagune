@@ -1,26 +1,37 @@
 import type {
+  EngineServer,
   ImageSize,
   PackedPackage,
   PluginManifest,
   TrackedFile,
 } from '../../../src/types/test.js';
 import { execFile } from 'node:child_process';
-import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises';
+import {
+  mkdir,
+  mkdtemp,
+  readdir,
+  readFile,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
+import { afterEach } from 'poku';
 import { parse } from 'yaml.min';
-import { isRecord } from '../../../src/core/collections.js';
+import { isRecord, isStringArray } from '../../../src/core/collections.js';
 
 export const packageRoot = new URL('../../../', import.meta.url);
 export const repositoryRoot = fileURLToPath(packageRoot);
 export const YAML_FILE = /\.ya?ml$/;
 
 const MANIFEST_FILE =
-  /^(?:\.[a-z]+-plugin\/[^/]+\.(?:json|ya?ml)|[a-z]+-extension\.json|\.agents\/plugins\/marketplace\.json)$/;
+  /^(?:scripts\/plugins\/[a-z]+\/)?(?:\.(?:[a-z]+-)?plugin\/[^/]+\.(?:json|ya?ml)|[a-z]+-extension\.json|\.agents\/plugins\/marketplace\.json)$/;
+const OVERLAYS_FOLDER = 'scripts/plugins/';
 
 const run = promisify(execFile);
+const projects: string[] = [];
 
 /** Every file git tracks, the tree an agent installs, with its mode */
 export const listTracked = async (): Promise<TrackedFile[]> => {
@@ -95,6 +106,28 @@ export const listBundledPaths = async (
   return new Set(bundled);
 };
 
+/** A project an agent opened, using the categories it names */
+export const newProject = async (categories: string[]): Promise<string> => {
+  const project = await mkdtemp(join(tmpdir(), 'lagune-project-'));
+
+  projects.push(project);
+  await mkdir(join(project, '.lagune'));
+  await writeFile(
+    join(project, '.lagune', 'configs.json'),
+    `${JSON.stringify({ categories }, null, 2)}\n`
+  );
+
+  return project;
+};
+
+export const readCategories = async (project: string): Promise<unknown> => {
+  const configs: unknown = JSON.parse(
+    await readFile(join(project, '.lagune', 'configs.json'), 'utf8')
+  );
+
+  return isRecord(configs) ? configs.categories : undefined;
+};
+
 /** Whether release archives, which some agents install, leave the path out */
 export const isLeftOutOfArchives = async (path: string): Promise<boolean> => {
   const { stdout } = await run(
@@ -148,3 +181,37 @@ export const readManifests = async (): Promise<PluginManifest[]> =>
       .filter((path) => MANIFEST_FILE.test(path))
       .map(readManifest)
   );
+
+/** Whether a tracked file is an overlay, which only its plugin's bundle carries */
+export const isOverlay = (path: string): boolean =>
+  path.startsWith(OVERLAYS_FOLDER);
+
+/** Every field of the engine server a declaration names, as its agent reads it */
+export const readDeclaredServer = async (
+  path: string
+): Promise<Record<string, unknown>> => {
+  const { contents } = await readManifest(path);
+  const servers = contents?.mcpServers;
+  const server = isRecord(servers) ? servers.lagune : undefined;
+
+  return isRecord(server) ? server : {};
+};
+
+/** How a declaration starts the engine, as its agent reads it */
+export const readEngineServer = async (path: string): Promise<EngineServer> => {
+  const server = await readDeclaredServer(path);
+
+  return {
+    command: server.command,
+    args: isStringArray(server.args) ? server.args : [],
+    ...('cwd' in server ? { cwd: server.cwd } : {}),
+  };
+};
+
+afterEach(async () => {
+  await Promise.all(
+    projects.map((project) => rm(project, { recursive: true, force: true }))
+  );
+
+  projects.length = 0;
+});

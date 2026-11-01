@@ -45,6 +45,16 @@
           "type": "yaml",
           "path": ".hermes-plugin/plugin.yaml",
           "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "scripts/plugins/gemini/gemini-extension.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "scripts/plugins/qwen/qwen-extension.json",
+          "jsonpath": "$.version"
         }
       ]
     }

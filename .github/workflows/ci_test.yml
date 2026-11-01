@@ -16,6 +16,7 @@ on:
       - 'website/docs/**'
       - 'assets/**'
       - '.*-plugin/**'
+      - '.plugin/**'
       - '.agents/**'
       - '*-extension.json'
       - '.github/release/**'

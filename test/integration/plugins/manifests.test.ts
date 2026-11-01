@@ -5,6 +5,7 @@ import { describe, it, strict } from 'poku';
 import { isRecord } from '../../../src/core/collections.js';
 import { loadVersion } from '../../../src/core/version.js';
 import {
+  isOverlay,
   packageRoot,
   readManifests,
   repositoryRoot,
@@ -102,6 +103,20 @@ await describe('every plugin manifest', async () => {
         );
       });
   }
+});
+
+describe('the manifests the default branch carries', () => {
+  it('start no server, since the default branch carries no engine build', () => {
+    strict.deepStrictEqual(
+      manifests
+        .filter(({ path }) => !isOverlay(path))
+        .filter(
+          ({ contents }) => contents !== undefined && 'mcpServers' in contents
+        )
+        .map(({ path }) => path),
+      []
+    );
+  });
 });
 
 describe('the release config', () => {

@@ -3,7 +3,7 @@ id: factory-droid
 title: 'Install Lagune on Factory Droid as a Plugin'
 sidebar_label: Factory Droid
 parent: get-started/install
-description: Install Lagune's commands in Factory Droid through its own plugin installer, and keep them updated.
+description: Install Lagune's commands in Factory Droid through its own plugin installer, keep them updated, and allow the engine's tools.
 keywords:
   - factory droid
   - droid plugin
@@ -39,6 +39,14 @@ droid plugin update lagune@lagune
 
 Type the commands by their names, such as `/lagune-charter`.
 
+---
+
+:::info[Permissions]
+
+The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. The first call to each asks for your permission, and choosing to always allow it keeps it allowed until **Factory Droid** refreshes the plugin.
+
+:::
+
 <Faq
   items={[
     {
@@ -54,6 +62,11 @@ Type the commands by their names, such as `/lagune-charter`.
     {
       question: "How do I run Lagune's commands on Factory Droid?",
       answer: 'Type them by name, such as /lagune-charter.',
+    },
+    {
+      question: 'Can Factory Droid run Lagune without asking for permission?',
+      answer:
+        "Yes, after the first call to each of Lagune's engine tools, lagune_read and lagune_write: choose to always allow it when Factory Droid asks. Factory Droid asks again once it refreshes the plugin.",
     },
   ]}
 />

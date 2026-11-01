@@ -1,15 +1,14 @@
 import type { Readable, Writable } from 'node:stream';
 import type {
-  EngineTool,
   JsonRpcId,
   McpAnswer,
   McpMethod,
   McpServer,
 } from '../types/mcp.js';
 import { createInterface } from 'node:readline';
-import { isRecord, isStringArray } from '../core/collections.js';
+import { isRecord, readField } from '../core/collections.js';
 import { runEngine } from './engine.js';
-import { describeTool, ENGINE_TOOLS, findTool, toolFor } from './tools.js';
+import { describeTool, ENGINE_TOOLS, findTool, runTool } from './tools.js';
 
 const LATEST_PROTOCOL = '2025-11-25';
 const PROTOCOLS = new Set([
@@ -25,9 +24,6 @@ const METHOD_NOT_FOUND = -32601;
 const INVALID_PARAMS = -32602;
 const INTERNAL_ERROR = -32603;
 
-const readField = (payload: unknown, field: string): unknown =>
-  isRecord(payload) ? payload[field] : undefined;
-
 const isRequestId = (value: unknown): value is JsonRpcId =>
   typeof value === 'string' || typeof value === 'number';
 
@@ -38,15 +34,6 @@ const failure = (code: number, message: string): McpAnswer => ({
 const toolResult = (text: string, isError: boolean): McpAnswer => ({
   result: { content: [{ type: 'text', text }], isError },
 });
-
-const refusal = (tool: EngineTool, command: unknown): string => {
-  const owner = toolFor(command);
-
-  if (owner === undefined)
-    return `${tool.name} runs one of: ${tool.commands.join(', ')}.`;
-
-  return `${String(command)} runs through ${owner.name}, not ${tool.name}.`;
-};
 
 const initialize: McpMethod = (params, server) => {
   const requested = readField(params, 'protocolVersion');
@@ -70,16 +57,11 @@ const callTool: McpMethod = async (params, server) => {
   if (tool === undefined)
     return failure(INVALID_PARAMS, `Unknown tool: ${String(name)}`);
 
-  const input = readField(params, 'arguments');
-  const command = readField(input, 'command');
-  const values = readField(input, 'arguments') ?? [];
-
-  if (typeof command !== 'string' || toolFor(command) !== tool)
-    return toolResult(refusal(tool, command), true);
-  if (!isStringArray(values))
-    return toolResult('arguments must be a list of strings.', true);
-
-  const run = await runEngine(server.entry, server.project, command, values);
+  const run = await runTool(
+    tool,
+    readField(params, 'arguments'),
+    (command, values) => runEngine(server, command, values)
+  );
 
   return toolResult(run.output, run.failed);
 };

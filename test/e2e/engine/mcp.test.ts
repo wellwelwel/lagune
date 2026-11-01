@@ -1,36 +1,37 @@
-import { spawn } from 'node:child_process';
-import { readdir, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { execPath } from 'node:process';
+import type { HookRun } from '../../../src/types/test.js';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname, join, parse } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { isRecord } from '../../../src/core/collections.js';
 import { ENGINE, newWorkspace, runEngine } from './__utils__.js';
 
 const LEAKED_KEY = 'export const key = "AKIAIOSFODNN7EXAMPLE";\n';
+const ENGINE_FOLDER = dirname(dirname(dirname(ENGINE)));
 
-const exchange = (project: string, requests: object[]): Promise<unknown[]> =>
-  new Promise((resolve, reject) => {
-    const child = spawn(execPath, [ENGINE, 'mcp', project]);
-    const out: string[] = [];
-
-    child.stdout.setEncoding('utf8');
-    child.stdout.on('data', (chunk: string) => out.push(chunk));
-    child.on('error', reject);
-    child.on('close', () =>
-      resolve(
-        out
-          .join('')
-          .split('\n')
-          .filter((line) => line.length > 0)
-          .map((line): unknown => JSON.parse(line))
-      )
-    );
-    child.stdin.end(
+/** Starts the server as an agent would, from a working folder, and sends it every request */
+const serve = (
+  args: string[],
+  cwd: string,
+  requests: object[]
+): Promise<HookRun> =>
+  runEngine(cwd, ['mcp', ...args], {
+    input:
       requests
         .map((request) => JSON.stringify({ jsonrpc: '2.0', ...request }))
-        .join('\n') + '\n'
-    );
+        .join('\n') + '\n',
   });
+
+const exchange = async (
+  project: string,
+  requests: object[]
+): Promise<unknown[]> => {
+  const { stdout } = await serve([project], project, requests);
+
+  return stdout
+    .split('\n')
+    .filter((line) => line.length > 0)
+    .map((line): unknown => JSON.parse(line));
+};
 
 const replyTo = (replies: unknown[], id: number): Record<string, unknown> => {
   const reply = replies.find(
@@ -183,6 +184,44 @@ await describe('the engine served over MCP', async () => {
       String(text).includes('outside'),
       'it refuses the folder above the project'
     );
+  });
+
+  await it('serves the folder the agent started it in when the agent passes its project variable unexpanded', async () => {
+    const workspace = await newWorkspace();
+    const { code } = await serve(['${CLAUDE_PROJECT_DIR}'], workspace, [
+      callTool(1, 'lagune_write', 'add', ['--categories', 'python']),
+    ]);
+    const configs = await readFile(
+      join(workspace, '.lagune', 'configs.json'),
+      'utf8'
+    );
+
+    strict.strictEqual(code, 0);
+    strict(configs.includes('python'), 'the project records the category');
+  });
+
+  await it('refuses to serve its own folder, where an agent outside the project would start it', async () => {
+    const { code, stdout, stderr } = await serve([], ENGINE_FOLDER, [
+      callTool(1, 'lagune_write', 'add', ['--categories', 'python']),
+    ]);
+    const entries = await readdir(ENGINE_FOLDER);
+
+    strict.strictEqual(code, 1);
+    strict.strictEqual(stdout, '');
+    strict(stderr.includes('npx'), 'it points the agent to the npx fallback');
+    strict(!entries.includes('.lagune'), 'it writes nothing there');
+  });
+
+  await it('refuses to serve the root of the file system', async () => {
+    const { code, stdout, stderr } = await serve(
+      [],
+      parse(ENGINE_FOLDER).root,
+      [{ id: 1, method: 'tools/list' }]
+    );
+
+    strict.strictEqual(code, 1);
+    strict.strictEqual(stdout, '');
+    strict(stderr.includes('npx'), 'it points the agent to the npx fallback');
   });
 
   await it('answers an unknown tool and an unknown method with protocol errors', async () => {

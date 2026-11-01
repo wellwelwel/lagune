@@ -11,6 +11,7 @@ export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-core-'));
 
   workspaces.push(workspace);
+
   return workspace;
 };
 

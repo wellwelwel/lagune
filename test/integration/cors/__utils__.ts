@@ -9,6 +9,7 @@ export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-cors-'));
 
   workspaces.push(workspace);
+
   return workspace;
 };
 

@@ -1,8 +1,11 @@
 import type {
   OpenCodePlugin,
+  PermissionAsk,
+  PermissionAssert,
   ServerConfig,
   SetupContext,
   SkillInfo,
+  ToolInfo,
 } from '../../../src/types/opencode.js';
 import type { Frontmatter, ReportedRun } from '../../../src/types/test.js';
 import { readFile } from 'node:fs/promises';
@@ -12,7 +15,12 @@ import { describe, it, strict } from 'poku';
 import { parse } from 'yaml.min';
 import { isRecord } from '../../../src/core/collections.js';
 import { folderOf, listSkillFrontmatters } from '../skills/__utils__.js';
-import { readManifest, repositoryRoot } from './__utils__.js';
+import {
+  newProject,
+  readCategories,
+  readManifest,
+  repositoryRoot,
+} from './__utils__.js';
 
 const SKILLS = [
   'lagune',
@@ -28,6 +36,16 @@ const SKILLS = [
 const USER_ONLY = ['lagune-prove', 'lagune-specialize'];
 const REJECTED = 'lagune-detect';
 const OTHER_FOLDER = '/elsewhere/skills';
+const ENGINE_TOOLS = ['lagune_read', 'lagune_write'];
+const ADD_PYTHON = { command: 'add', arguments: ['--categories', 'python'] };
+const EVERY_PATTERN = ['*'];
+const CALL = {
+  sessionID: 'session',
+  agent: 'build',
+  messageID: 'message',
+  id: 'call',
+};
+const DENIAL = new Error('The user denied the call.');
 
 const skillsFolder = join(repositoryRoot, 'skills');
 const { contents = {} } = await readManifest('package.json');
@@ -100,6 +118,30 @@ const register = async (
 
 const idsOf = (skills: SkillInfo[]): string[] =>
   skills.map(({ id }) => id).toSorted();
+
+/** Runs setup against a fake 2.x host whose plugin instance belongs to the project */
+const registerTools = async (
+  project: string,
+  assert: (request: PermissionAssert) => Promise<void>
+): Promise<ToolInfo[]> => {
+  const tools: ToolInfo[] = [];
+
+  await plugin.setup({
+    tool: {
+      transform: async (edit) => edit({ add: (tool) => tools.push(tool) }),
+    },
+    permission: { assert },
+    location: { directory: project },
+  });
+
+  return tools;
+};
+
+const failureOf = (call: Promise<unknown>): Promise<unknown> =>
+  call.then(
+    () => undefined,
+    (error: unknown) => error
+  );
 
 await describe('the OpenCode 1.x plugin', async () => {
   const hooks = await plugin.server();
@@ -174,6 +216,123 @@ await describe('the OpenCode 2.x plugin', async () => {
     );
     strict.strictEqual(reports.length, 1);
     strict(String(reports[0]?.[0]).includes(REJECTED), 'it names the skill');
+  });
+});
+
+await describe('the engine tools on OpenCode 1.x', async () => {
+  const { tool: tools } = await plugin.server();
+
+  it('registers the two engine tools under the names the skills call', () => {
+    strict.deepStrictEqual(Object.keys(tools).toSorted(), ENGINE_TOOLS);
+  });
+
+  await it('raises the permission named after the tool, then runs the call from the project OpenCode opened', async () => {
+    const project = await newProject(['javascript']);
+    const asked: PermissionAsk[] = [];
+
+    await tools.lagune_write.execute(ADD_PYTHON, {
+      directory: project,
+      ask: async (request) => {
+        asked.push(request);
+      },
+    });
+
+    const categories = await readCategories(project);
+
+    strict.deepStrictEqual(asked, [
+      {
+        permission: 'lagune_write',
+        patterns: EVERY_PATTERN,
+        always: EVERY_PATTERN,
+        metadata: {},
+      },
+    ]);
+    strict.deepStrictEqual(categories, ['javascript', 'python']);
+  });
+
+  await it('runs nothing when OpenCode denies the permission', async () => {
+    const project = await newProject(['javascript']);
+    const failure = await failureOf(
+      tools.lagune_write.execute(ADD_PYTHON, {
+        directory: project,
+        ask: async () => {
+          throw DENIAL;
+        },
+      })
+    );
+    const categories = await readCategories(project);
+
+    strict.strictEqual(failure, DENIAL);
+    strict.deepStrictEqual(categories, ['javascript']);
+  });
+
+  await it('fails the call, which the model reads, instead of running a command the other tool runs', async () => {
+    const project = await newProject(['javascript']);
+    const failure = await failureOf(
+      tools.lagune_read.execute(ADD_PYTHON, {
+        directory: project,
+        ask: async () => {},
+      })
+    );
+    const categories = await readCategories(project);
+
+    strict(failure instanceof Error, 'the call fails with an error');
+    strict.deepStrictEqual(categories, ['javascript']);
+  });
+});
+
+await describe('the engine tools on OpenCode 2.x', async () => {
+  await it('registers the two engine tools under the names the skills call, outside Code Mode, which would hide them', async () => {
+    const tools = await registerTools(OTHER_FOLDER, async () => {});
+
+    strict.deepStrictEqual(
+      tools.map(({ name }) => name).toSorted(),
+      ENGINE_TOOLS
+    );
+    strict.deepStrictEqual(
+      tools.filter(({ options }) => options.codemode !== false),
+      []
+    );
+  });
+
+  await it('clears the action named after the tool, then runs the call from the project the plugin belongs to', async () => {
+    const project = await newProject(['javascript']);
+    const asserted: PermissionAssert[] = [];
+    const tools = await registerTools(project, async (request) => {
+      asserted.push(request);
+    });
+    const write = tools.find(({ name }) => name === 'lagune_write');
+
+    await write?.execute(ADD_PYTHON, CALL);
+
+    const categories = await readCategories(project);
+
+    strict.deepStrictEqual(asserted, [
+      {
+        sessionID: CALL.sessionID,
+        agent: CALL.agent,
+        action: 'lagune_write',
+        resources: EVERY_PATTERN,
+        save: EVERY_PATTERN,
+        source: { type: 'tool', messageID: CALL.messageID, id: CALL.id },
+      },
+    ]);
+    strict.deepStrictEqual(categories, ['javascript', 'python']);
+  });
+
+  await it('runs nothing when OpenCode denies the action', async () => {
+    const project = await newProject(['javascript']);
+    const tools = await registerTools(project, async () => {
+      throw DENIAL;
+    });
+    const write = tools.find(({ name }) => name === 'lagune_write');
+    const failure = await failureOf(
+      write?.execute(ADD_PYTHON, CALL) ?? Promise.resolve()
+    );
+    const categories = await readCategories(project);
+
+    strict.strictEqual(failure, DENIAL);
+    strict.deepStrictEqual(categories, ['javascript']);
   });
 });
 

@@ -1,11 +1,13 @@
 import type { HookCase } from '../../../src/types/test.js';
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { newWorkspace, runEngine } from './__utils__.js';
 
 const VECTOR =
   'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N';
+const LEAKED_SECRET = { name: 'Leaked secret', paths: ['src/config.ts'] };
+const OPEN_REDIRECT = { name: 'Open redirect', paths: ['src/routes.ts'] };
 
 const CASES: HookCase[] = [
   {
@@ -45,6 +47,9 @@ const CASES: HookCase[] = [
   },
 ];
 
+const readTracking = async (workspace: string): Promise<unknown> =>
+  JSON.parse(await readFile(join(workspace, '.lagune/tracking.json'), 'utf8'));
+
 await describe('a hook subcommand answers as its hook does', async () => {
   for (const { label, hook, args, verdict, code } of CASES)
     await it(label, async () => {
@@ -76,14 +81,43 @@ await describe('a hook subcommand answers as its hook does', async () => {
         entries: [{ name: 'A `quoted` "name" $(x)', paths: ['src/a.ts'] }],
       }),
     ]);
-    const tracking: unknown = JSON.parse(
-      await readFile(join(workspace, '.lagune/tracking.json'), 'utf8')
-    );
+    const tracking = await readTracking(workspace);
 
     strict.strictEqual(run.code, 0);
     strict.deepStrictEqual(tracking, {
       entries: [{ name: 'A `quoted` "name" $(x)', paths: ['src/a.ts'] }],
     });
+  });
+
+  await it('repair realigns the tracking map of the project it runs in with its payload', async () => {
+    const workspace = await newWorkspace();
+    const run = await runEngine(workspace, [
+      'repair',
+      JSON.stringify({ entries: [LEAKED_SECRET] }),
+    ]);
+    const tracking = await readTracking(workspace);
+
+    strict.strictEqual(run.code, 0);
+    strict.deepStrictEqual(tracking, { entries: [LEAKED_SECRET] });
+  });
+
+  await it('untrack drops a named finding from the tracking map of the project it runs in, leaving the rest', async () => {
+    const workspace = await newWorkspace();
+
+    await mkdir(join(workspace, '.lagune'));
+    await writeFile(
+      join(workspace, '.lagune/tracking.json'),
+      JSON.stringify({ entries: [LEAKED_SECRET, OPEN_REDIRECT] })
+    );
+
+    const run = await runEngine(workspace, [
+      'untrack',
+      JSON.stringify({ names: [LEAKED_SECRET.name] }),
+    ]);
+    const tracking = await readTracking(workspace);
+
+    strict.strictEqual(run.code, 0);
+    strict.deepStrictEqual(tracking, { entries: [OPEN_REDIRECT] });
   });
 });
 

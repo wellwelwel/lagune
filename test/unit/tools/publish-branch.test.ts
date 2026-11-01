@@ -17,6 +17,7 @@ const newBundle = async (): Promise<string> => {
   const bundle = await mkdtemp(join(tmpdir(), 'lagune-bundle-'));
 
   bundles.push(bundle);
+
   return bundle;
 };
 

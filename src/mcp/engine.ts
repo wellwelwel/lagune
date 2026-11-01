@@ -1,19 +1,17 @@
-import type { EngineRun } from '../types/mcp.js';
+import type { EngineProcess, EngineRun } from '../types/mcp.js';
 import { execFile } from 'node:child_process';
-import { execPath } from 'node:process';
 
 const MAX_OUTPUT_BYTES = 64 * 1024 * 1024;
 
 /** Runs one engine command in its own process from the project root, with no shell, as the CLI would */
 export const runEngine = (
-  entry: string,
-  project: string,
+  { runtime, entry, project }: EngineProcess,
   command: string,
   values: string[]
 ): Promise<EngineRun> =>
   new Promise((resolve) => {
     execFile(
-      execPath,
+      runtime,
       [entry, command, ...values],
       {
         cwd: project,
