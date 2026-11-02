@@ -80,7 +80,7 @@ The `copilot` and `kimi` playgrounds install a stub server instead of the plugin
 | **GitHub Copilot CLI** | `copilot`     | Probe      | `copilot`, from `npm install --global @github/copilot`                     | The owner's account, through `/login`                                   |
 | **Kimi Code**          | `kimi`        | Probe      | `kimi`, from `npm install --global @moonshot-ai/kimi-code`                 | The owner's account, through `/login`                                   |
 
-For manual tests and debugging, prefer **OpenCode** with BYOK, and without it, **Gemini CLI**, then **Grok Build**. **Antigravity CLI** loads the plugin's tools only once a session's first message runs, so send its command after any other message.
+For manual tests and debugging, prefer **OpenCode** with BYOK, and without it, **Grok Build**, then **Antigravity CLI**, then **Cursor CLI**. **Antigravity CLI** loads the plugin's tools only once a session's first message runs, so send its command after any other message.
 
 ---
 
