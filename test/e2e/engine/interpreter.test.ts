@@ -8,6 +8,7 @@ await describe('the interpreter hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const careful = await runEngine(workspace, [
+      'read',
       'interpreter',
       '-l',
       'javascript',
@@ -18,6 +19,7 @@ await describe('the interpreter hook runs through the engine', async () => {
     strict.strictEqual(careful.code, 0);
 
     const safe = await runEngine(workspace, [
+      'read',
       'interpreter',
       '-l',
       'javascript',
@@ -32,7 +34,12 @@ await describe('the interpreter hook runs through the engine', async () => {
       'def run(user_input):\n    return eval(user_input)\n',
       'utf8'
     );
-    const scan = await runEngine(workspace, ['interpreter', '-f', 'app.py']);
+    const scan = await runEngine(workspace, [
+      'read',
+      'interpreter',
+      '-f',
+      'app.py',
+    ]);
     strict.ok(scan.stdout.includes('Dynamic-execution sinks to review'));
     strict.strictEqual(scan.code, 0);
   });

@@ -78,6 +78,22 @@ const replyTo = (replies: unknown[], id: number): Record<string, unknown> => {
 const field = (payload: unknown, ...path: string[]): unknown =>
   path.reduce<unknown>(readField, payload);
 
+const listedTools = (reply: unknown): unknown[] => {
+  const tools = field(reply, 'result', 'tools');
+
+  return Array.isArray(tools) ? tools : [];
+};
+
+/** The commands the schema of a tool lists, as the server answers tools/list */
+const schemaCommands = (reply: unknown, name: string): unknown[] => {
+  const tool = listedTools(reply).find(
+    (candidate) => field(candidate, 'name') === name
+  );
+  const commands = field(tool, 'inputSchema', 'properties', 'command', 'enum');
+
+  return Array.isArray(commands) ? commands : [];
+};
+
 const toolAnswer = (reply: unknown) => {
   const content = field(reply, 'result', 'content');
 
@@ -190,27 +206,11 @@ await describe('the engine served over MCP', async () => {
     const [reply] = await exchange(workspace, [
       { id: 1, method: 'tools/list' },
     ]);
-    const tools = field(reply, 'result', 'tools');
-    const listed = Array.isArray(tools) ? tools : [];
-    const commandsOf = (name: string): unknown[] => {
-      const tool = listed.find(
-        (candidate) => field(candidate, 'name') === name
-      );
-      const commands = field(
-        tool,
-        'inputSchema',
-        'properties',
-        'command',
-        'enum'
-      );
-
-      return Array.isArray(commands) ? commands : [];
-    };
-    const readOnly = commandsOf('lagune_read');
-    const writing = commandsOf('lagune_write');
+    const readOnly = schemaCommands(reply, 'lagune_read');
+    const writing = schemaCommands(reply, 'lagune_write');
 
     strict.deepStrictEqual(
-      listed.map((tool) => [
+      listedTools(reply).map((tool) => [
         field(tool, 'name'),
         field(tool, 'annotations', 'readOnlyHint'),
       ]),
@@ -226,7 +226,7 @@ await describe('the engine served over MCP', async () => {
     strict(readOnly.includes('secrets') && writing.includes('track'));
   });
 
-  await it('answers a checker with what the CLI prints, failing it the same way', async () => {
+  await it('runs a call as its command line behind the tool prefix, answering with what it prints and failing the same way', async () => {
     const workspace = await newWorkspace();
 
     await writeFile(join(workspace, 'config.ts'), LEAKED_KEY);
@@ -235,7 +235,7 @@ await describe('the engine served over MCP', async () => {
       exchange(workspace, [
         callTool(1, 'lagune_read', 'secrets', ['--file', 'config.ts']),
       ]),
-      runEngine(workspace, ['secrets', '--file', 'config.ts']),
+      runEngine(workspace, ['read', 'secrets', '--file', 'config.ts']),
     ]);
 
     strict.strictEqual(cli.code, 1);
@@ -245,17 +245,36 @@ await describe('the engine served over MCP', async () => {
     });
   });
 
-  await it('refuses a writing command through the read-only tool, leaving .lagune/ untouched', async () => {
+  await it('refuses a writing command through the read-only tool, naming the tool that runs it and leaving .lagune/ untouched', async () => {
     const workspace = await newWorkspace();
     const replies = await exchange(workspace, [
       callTool(1, 'lagune_read', 'track', [
         '{"entries":[{"name":"Leaked key","paths":["config.ts"]}]}',
       ]),
     ]);
+    const { text, isError } = toolAnswer(replyTo(replies, 1));
     const entries = await readdir(workspace);
 
-    strict.strictEqual(field(replyTo(replies, 1), 'result', 'isError'), true);
+    strict.strictEqual(isError, true);
+    strict(String(text).includes('lagune_write'), 'it names the writing tool');
     strict.deepStrictEqual(entries, []);
+  });
+
+  await it('refuses a command no tool runs, naming every command the schema of the tool lists', async () => {
+    const workspace = await newWorkspace();
+    const replies = await exchange(workspace, [
+      { id: 1, method: 'tools/list' },
+      callTool(2, 'lagune_read', 'frobnicate', []),
+    ]);
+    const commands = schemaCommands(replyTo(replies, 1), 'lagune_read');
+    const { text, isError } = toolAnswer(replyTo(replies, 2));
+
+    strict.strictEqual(isError, true);
+    strict(commands.length > 0);
+    strict.deepStrictEqual(
+      commands.filter((command) => !String(text).includes(String(command))),
+      []
+    );
   });
 
   await it('keeps the checkers it runs inside the project it serves', async () => {

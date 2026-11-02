@@ -219,10 +219,12 @@ const specializationPromptTask = (name: string): string =>
 
 export const ENGINE_COMMAND = 'npx lagune';
 
+export const CATALOG_COMMAND = 'read catalog';
+
 export const LOAD_VERB = 'Load';
 
 const specializationCommand = (name: string): string =>
-  `${ENGINE_COMMAND} catalog ${name}`;
+  `${ENGINE_COMMAND} ${CATALOG_COMMAND} ${name}`;
 
 export const specializationLoadPrompt = (name: string): string =>
   `${LOAD_VERB} \`${specializationCommand(name)}\``;

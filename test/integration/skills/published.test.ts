@@ -2,7 +2,11 @@ import type { PublishedText } from '../../../src/types/test.js';
 import { readdir, readFile } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
 import { loadVersion } from '../../../src/core/version.js';
-import { ENGINE_TOOLS } from '../../../src/mcp/tools.js';
+import {
+  ENGINE_TOOLS,
+  runsCommand,
+  toolBehind,
+} from '../../../src/mcp/tools.js';
 import { listFolderFiles } from '../plugins/__utils__.js';
 import { packageRoot } from './__utils__.js';
 
@@ -37,6 +41,7 @@ const SHELL_CALL = /(?<![\w@./-])lagune [a-z][\w-]*[^\n`]*/g;
 const TOOL_CALL = /`(lagune_\w+)` with `command` set to `([a-z]+)`/g;
 const SHORT_FLAG = /(?:^|\s)-[a-zA-Z](?=\s|$)/;
 const SHORT_FLAG_ARGUMENT = /"-[a-zA-Z]"/g;
+const PLACEHOLDER = /^<[a-z]+>$/;
 
 const folders = (await readdir(new URL('skills/', packageRoot))).toSorted();
 
@@ -63,12 +68,21 @@ const callsMatching = (
     }))
   );
 
-const runsCommand = (tool: string | undefined, command: string | undefined) =>
+const routesCommand = (tool: string | undefined, command: string | undefined) =>
   ENGINE_TOOLS.some(
-    (candidate) =>
-      candidate.name === tool &&
-      candidate.commands.some((name) => name === command)
+    (candidate) => candidate.name === tool && runsCommand(candidate, command)
   );
+
+/** Whether an npx call runs a command behind the prefix of the tool that runs it, or a placeholder behind a prefix */
+const isPrefixed = (call: string): boolean => {
+  const [prefix, command = ''] = call.slice(ENGINE_COMMAND.length).split(' ');
+  const tool = toolBehind(prefix);
+
+  return (
+    tool !== undefined &&
+    (PLACEHOLDER.test(command) || runsCommand(tool, command))
+  );
+};
 
 await describe('the published skills', async () => {
   it('are the nine commands', () => {
@@ -129,13 +143,22 @@ await describe('every engine call the skills and specializations write', async (
   it('routes each command through the Lagune tool that runs it', () => {
     strict.deepStrictEqual(
       toolCalls
-        .filter(({ groups: [tool, command] }) => !runsCommand(tool, command))
+        .filter(({ groups: [tool, command] }) => !routesCommand(tool, command))
         .map(({ file, call }) => `${file}: ${call}`),
       []
     );
   });
 
-  it('ends every skill that calls the engine with the pinned npx fallback, after the work', () => {
+  it('names the prefix of the tool that runs each command when it falls back to npx', () => {
+    strict.deepStrictEqual(
+      npxCalls
+        .filter(({ call }) => !isPrefixed(call))
+        .map(({ file, call }) => `${file}: ${call}`),
+      []
+    );
+  });
+
+  it('ends every skill that calls the engine with the pinned npx fallback of each tool, after the work', () => {
     const lastSections = callingSkills.map(({ file, text }) => ({
       file,
       section: text.slice(text.lastIndexOf('\n## ') + 1),
@@ -147,7 +170,10 @@ await describe('every engine call the skills and specializations write', async (
         .filter(
           ({ section }) =>
             !section.startsWith('## Engine\n') ||
-            !section.includes(`${ENGINE_COMMAND}<subcommand>`)
+            ENGINE_TOOLS.some(
+              (tool) =>
+                !section.includes(`${ENGINE_COMMAND}${tool.prefix} <command>`)
+            )
         )
         .map(({ file }) => file),
       []

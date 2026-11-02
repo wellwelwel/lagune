@@ -17,19 +17,19 @@ So you reuse the skill's **authoring discipline** (terrain, defense-only gate, t
 
 Read and follow `skills/lagune-specialize/SKILL.md` in full. Its authoring steps hold unchanged. The one thing that does not is where files are read and written, since the skill targets a project and you are in the source. Remap every path it names:
 
-| Skill path (a project's own catalog)                  | Native path (use this instead)                                                  |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `catalog <name>` for `regex`, `javascript`, `browser` | every `*.md` already in `catalog/` (list the directory, mirror the closest one) |
-| `template.md`, next to the skill                      | `skills/lagune-specialize/template.md`                                          |
-| `catalog` (list what exists)                          | read `catalog/` and `BUILTIN_SPECIALIZATIONS` in `src/catalog/builtin.ts`       |
-| `.lagune/catalog/<name>.md` (the specialization file) | `catalog/<name>.md`                                                             |
-| `.lagune/configs.json` (index entry)                  | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
+| Skill path (a project's own catalog)                       | Native path (use this instead)                                                  |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `read catalog <name>` for `regex`, `javascript`, `browser` | every `*.md` already in `catalog/` (list the directory, mirror the closest one) |
+| `template.md`, next to the skill                           | `skills/lagune-specialize/template.md`                                          |
+| `read catalog` (list what exists)                          | read `catalog/` and `BUILTIN_SPECIALIZATIONS` in `src/catalog/builtin.ts`       |
+| `.lagune/catalog/<name>.md` (the specialization file)      | `catalog/<name>.md`                                                             |
+| `.lagune/configs.json` (index entry)                       | a `BuiltinSpecialization` in `src/catalog/builtin.ts`                           |
 
 A hook reference inside the `.md` body is a call to the `lagune_read` tool, with `command` set to the hook and long flags only in `arguments`, because that body ships verbatim to the end user and the skill that loads it carries the npx fallback.
 
 ## Step 2: Decide the category
 
-Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx lagune add --categories <category>`. Categories live in `CATEGORIES` in `src/categories/categories.ts`.
+Every built-in belongs to at least one **category**, which is how a project brings it into its catalog with `npx lagune write add --categories <category>`. Categories live in `CATEGORIES` in `src/categories/categories.ts`.
 
 - A language specialization goes under its language key (`python` under `python`, and so on).
 - A specialization about an application-security risk OWASP tracks goes under `owasp`.
@@ -44,7 +44,7 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 ### Required (a specialization is broken without these)
 
 1. Write the authored module to **`catalog/<name>.md`** (Step 1). The engine reads `catalog/<name>.md` by name, so the file resolves once it is on disk and indexed.
-2. Add the `BuiltinSpecialization` `{ name, tags, categories }` to **`src/catalog/builtin.ts`**. Without this row, `catalog` never lists it and `catalog <name>` cannot resolve it.
+2. Add the `BuiltinSpecialization` `{ name, tags, categories }` to **`src/catalog/builtin.ts`**. Without this row, `read catalog` never lists it and `read catalog <name>` cannot resolve it.
 3. Add a `Category` to **`src/categories/categories.ts`**, but only when you introduced a new category.
 4. Add its label, description, icon, and prompt task to **`src/dashboard/shared/specialization-meta.ts`**, which the dashboard and the website share.
 
@@ -75,4 +75,4 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 
 ## Summary to the user
 
-As Step 8 of the skill: state the name, tags, categories, what it covers, and that the phases load it on demand once shipped (a prompt loads it directly with the engine's `catalog <name>`). Note that a project's own specialization of the same name shadows it. Suggest a commit such as ``feat: add specialization in `<name>` defense``, matching the wording the existing built-ins use, as a suggestion, not a mandate.
+As Step 8 of the skill: state the name, tags, categories, what it covers, and that the phases load it on demand once shipped (a prompt loads it directly with the engine's `read catalog <name>`). Note that a project's own specialization of the same name shadows it. Suggest a commit such as ``feat: add specialization in `<name>` defense``, matching the wording the existing built-ins use, as a suggestion, not a mandate.

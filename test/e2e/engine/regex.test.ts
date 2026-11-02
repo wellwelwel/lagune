@@ -12,6 +12,7 @@ const runRegex = async (
   ...args: string[]
 ): Promise<string> => {
   const { stdout, stderr, code } = await runEngine(workspace, [
+    'read',
     'regex',
     ...args,
   ]);
@@ -159,6 +160,7 @@ await describe('the regex hook runs through the engine', async () => {
   await it('rejects mixing a check with a scan scope', async () => {
     const workspace = await newWorkspace();
     const { code, stderr } = await runEngine(workspace, [
+      'read',
       'regex',
       '-p',
       '(a+)+',
@@ -183,24 +185,25 @@ await describe('the regex hook runs through the engine', async () => {
     );
 
     strict.strictEqual(
-      (await runEngine(workspace, ['regex', '-p', '(a+)+$'])).code,
+      (await runEngine(workspace, ['read', 'regex', '-p', '(a+)+$'])).code,
       1
     );
     strict.strictEqual(
-      (await runEngine(workspace, ['regex', '-f', 'app.js'])).code,
+      (await runEngine(workspace, ['read', 'regex', '-f', 'app.js'])).code,
       1
     );
     strict.strictEqual(
-      (await runEngine(workspace, ['regex', '-p', '^abc$'])).code,
+      (await runEngine(workspace, ['read', 'regex', '-p', '^abc$'])).code,
       0
     );
     strict.strictEqual(
-      (await runEngine(workspace, ['regex', '-p', '('])).code,
+      (await runEngine(workspace, ['read', 'regex', '-p', '('])).code,
       0
     );
     strict.strictEqual(
       (
         await runEngine(workspace, [
+          'read',
           'regex',
           '-p',
           `${'('.repeat(600)}a+${')'.repeat(600)}`,
@@ -209,7 +212,7 @@ await describe('the regex hook runs through the engine', async () => {
       0
     );
     strict.strictEqual(
-      (await runEngine(workspace, ['regex', '-d', 'src'])).code,
+      (await runEngine(workspace, ['read', 'regex', '-d', 'src'])).code,
       0
     );
   });

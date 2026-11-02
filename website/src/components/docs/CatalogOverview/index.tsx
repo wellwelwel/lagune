@@ -8,6 +8,7 @@ import type { CatalogSpecialization } from './data';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
   agentThemeAt,
+  CATALOG_COMMAND,
   ENGINE_COMMAND,
   LOAD_VERB,
   specializationLoadPrompt,
@@ -494,7 +495,7 @@ const SpecializationCard = ({
           <span className='min-w-0 truncate'>{ENGINE_COMMAND}</span>
           <span className='flex-none whitespace-pre'>
             {' '}
-            catalog {specialization.name}
+            {CATALOG_COMMAND} {specialization.name}
           </span>
         </code>
       </span>

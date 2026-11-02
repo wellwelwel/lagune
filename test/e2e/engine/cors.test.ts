@@ -7,11 +7,12 @@ await describe('the cors hook runs through the engine', async () => {
   await it('scores origins with -o, flagging wildcard and null', async () => {
     const workspace = await newWorkspace();
 
-    const wildcard = await runEngine(workspace, ['cors', '-o', '*']);
+    const wildcard = await runEngine(workspace, ['read', 'cors', '-o', '*']);
     strict.strictEqual(wildcard.stdout.trim(), 'wildcard');
     strict.strictEqual(wildcard.code, 1);
 
     const many = await runEngine(workspace, [
+      'read',
       'cors',
       '-o',
       'null',
@@ -30,7 +31,7 @@ await describe('the cors hook runs through the engine', async () => {
       'utf8'
     );
 
-    const scan = await runEngine(workspace, ['cors', '-f', 'cors.js']);
+    const scan = await runEngine(workspace, ['read', 'cors', '-f', 'cors.js']);
     strict.ok(
       scan.stdout.includes(
         'Origin-allowlist patterns with a greedy wildcard (bypassable, review):'
@@ -39,7 +40,7 @@ await describe('the cors hook runs through the engine', async () => {
     strict.ok(scan.stdout.includes('cors.js'));
     strict.strictEqual(scan.code, 0);
 
-    const bare = await runEngine(workspace, ['cors']);
+    const bare = await runEngine(workspace, ['read', 'cors']);
     strict.strictEqual(bare.code, 0);
   });
 
@@ -47,6 +48,7 @@ await describe('the cors hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const mixed = await runEngine(workspace, [
+      'read',
       'cors',
       '-o',
       '*',

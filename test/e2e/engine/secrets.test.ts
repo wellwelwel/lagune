@@ -12,7 +12,12 @@ await describe('the secrets hook runs through the engine', async () => {
       'export const db = "postgres://admin:S3cr3tP4ss99@db.prod:5432/app";\n',
       'utf8'
     );
-    const scan = await runEngine(workspace, ['secrets', '-f', 'config.ts']);
+    const scan = await runEngine(workspace, [
+      'read',
+      'secrets',
+      '-f',
+      'config.ts',
+    ]);
 
     strict.ok(scan.stdout.includes('Hardcoded secrets found:'));
     strict.strictEqual(scan.code, 1);
@@ -23,7 +28,12 @@ await describe('the secrets hook runs through the engine', async () => {
       'utf8'
     );
 
-    const python = await runEngine(workspace, ['secrets', '-f', 'config.py']);
+    const python = await runEngine(workspace, [
+      'read',
+      'secrets',
+      '-f',
+      'config.py',
+    ]);
 
     strict.ok(python.stdout.includes('Hardcoded secrets found:'));
     strict.strictEqual(python.code, 1);

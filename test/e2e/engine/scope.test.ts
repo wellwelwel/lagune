@@ -26,9 +26,14 @@ await describe('the checkers stay inside the project they run from', async () =>
       await symlink(outside, join(workspace, 'elsewhere'));
 
       const runs = await Promise.all([
-        runEngine(workspace, [checker, '--dir', '..']),
-        runEngine(workspace, [checker, '--dir', 'elsewhere']),
-        runEngine(workspace, [checker, '--file', 'elsewhere/config.ts']),
+        runEngine(workspace, ['read', checker, '--dir', '..']),
+        runEngine(workspace, ['read', checker, '--dir', 'elsewhere']),
+        runEngine(workspace, [
+          'read',
+          checker,
+          '--file',
+          'elsewhere/config.ts',
+        ]),
       ]);
 
       strict.deepStrictEqual(

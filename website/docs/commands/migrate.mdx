@@ -21,7 +21,7 @@ Earlier versions installed **Lagune** with `npx lagune init`, which wrote the co
 
 ## Nothing forces the move
 
-A project with a manifest keeps working as it is. `npx lagune` hands `init`, `pull`, `update`, `add`, `remove`, `list`, and the dashboard to `lagune@0.15.0`, the last version of the **Lagune** CLI, and prints a notice pointing here. What only the skills-based **Lagune** has (the hook subcommands, `catalog`, and the `--categories` flag) fails in such a project instead of reaching that version.
+A project with a manifest keeps working as it is. `npx lagune` hands `init`, `pull`, `update`, `add`, `remove`, `list`, and the dashboard to `lagune@0.15.0`, the last version of the **Lagune** CLI, and prints a notice pointing here. What only the skills-based **Lagune** has (the `read` and `write` commands, the hook subcommands, `catalog`, and the `--categories` flag) fails in such a project instead of reaching that version.
 
 ## Move it
 
@@ -52,7 +52,7 @@ A project with a manifest keeps working as it is. `npx lagune` hands `init`, `pu
    node ./.lagune/hooks/regex.mjs --dir src
 
    # After
-   npx --yes lagune regex --dir src
+   npx --yes lagune read regex --dir src
    ```
 
 :::tip[Migrate first, install second]

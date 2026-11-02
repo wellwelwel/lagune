@@ -4,6 +4,7 @@ export type EngineCommand = CliCommand | HookName;
 
 export type EngineTool = {
   name: string;
+  prefix: string;
   title: string;
   summary: string;
   readOnly: boolean;
@@ -22,10 +23,8 @@ export type EngineProcess = {
   project: string;
 };
 
-export type EngineRunner = (
-  command: string,
-  values: string[]
-) => Promise<EngineRun>;
+/** Runs the engine with the arguments of one command line */
+export type EngineRunner = (args: string[]) => Promise<EngineRun>;
 
 /** The engine a server runs, and the project it serves when the agent named one or started it there */
 export type McpServer = Omit<EngineProcess, 'project'> & {

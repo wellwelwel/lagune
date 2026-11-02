@@ -28,12 +28,12 @@ import Tabs from '@theme/Tabs';
 
 ## Run yourself
 
-To use a specialization directly, ask your agent to load it with `catalog <name>` and write the task in the same prompt. The knowledge then acts on what you asked for. This works in any prompt, even one unrelated to the **Lagune** flow.
+To use a specialization directly, ask your agent to load it with `read catalog <name>` and write the task in the same prompt. The knowledge then acts on what you asked for. This works in any prompt, even one unrelated to the **Lagune** flow.
 
 For example, a direct free-form prompt to generate a safe **RegExp** collection with **Python**:
 
 ```prompt
-Load the regex specialization with `npx lagune catalog regex`, then create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
+Load the regex specialization with `npx lagune read catalog regex`, then create a collection of regular expressions in @src/utils/regex.py to validate emails and usernames.
 ```
 
 This uses a deterministic hook to test each **RegExp** against **ReDoS**, keeps the safe ones, and produces something like:
@@ -102,7 +102,7 @@ The built-ins grow by adding one knowledge file plus one index row, never a new 
 
 :::note[Internally, Lagune loads specializations automatically, on demand]
 
-When the detect or verify phase hits a context a specialization covers, it loads that specialization with `catalog <name>` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
+When the detect or verify phase hits a context a specialization covers, it loads that specialization with `read catalog <name>` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
 
 :::
 
@@ -111,7 +111,7 @@ When the detect or verify phase hits a context a specialization covers, it loads
 To list your project's catalog from the terminal, one specialization per line with its tags:
 
 ```bash
-npx lagune catalog
+npx lagune read catalog
 # regex: Regular Expression [required]
 # network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
 # interpreter: Evaluator, Sink, Shell, Dynamic Execution
@@ -146,7 +146,7 @@ The relevant knowledge is pulled in for what the project actually is, instead of
     {
       question: 'How do I load a specialization directly?',
       answer:
-        'In the same prompt as the task, ask your agent to run npx lagune catalog <name>.',
+        'In the same prompt as the task, ask your agent to run npx lagune read catalog <name>.',
     },
   ]}
 />

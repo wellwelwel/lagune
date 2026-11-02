@@ -7,6 +7,7 @@ export type {
 } from '../../../src/types/dashboard/client';
 export { agentThemeAt } from '../../../src/dashboard/shared/agent-themes';
 export {
+  CATALOG_COMMAND,
   categoryIcon,
   ENGINE_COMMAND,
   LOAD_VERB,

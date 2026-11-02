@@ -17,18 +17,18 @@ The `agent` hook flags **agent runtimes that loop with no turn, budget, or time 
   <TabItem value="scan" label="Scan the codebase" default>
 
 ```bash
-npx lagune agent                # scans the whole project
-npx lagune agent --dir src/ai   # scans a directory
-npx lagune agent --file chat.ts # scans a single file
+npx lagune read agent                # scans the whole project
+npx lagune read agent --dir src/ai   # scans a directory
+npx lagune read agent --file chat.ts # scans a single file
 ```
 
   </TabItem>
   <TabItem value="check" label="Check a call">
 
 ```bash
-npx lagune agent --lang javascript --pattern 'query({ prompt })'                           # => uncapped
-npx lagune agent --lang javascript --pattern 'query({ prompt, options: { maxTurns: 5 } })' # => safe
-npx lagune agent --lang python --pattern 'AgentExecutor(agent=a, max_iterations=None)'     # => uncapped
+npx lagune read agent --lang javascript --pattern 'query({ prompt })'                           # => uncapped
+npx lagune read agent --lang javascript --pattern 'query({ prompt, options: { maxTurns: 5 } })' # => safe
+npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterations=None)'     # => uncapped
 ```
 
   </TabItem>

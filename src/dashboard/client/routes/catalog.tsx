@@ -2,6 +2,7 @@ import type { CatalogItem } from '@/types/dashboard/dashboard';
 import type { VNode } from 'preact';
 import {
   builtinNames,
+  CATALOG_COMMAND,
   ENGINE_COMMAND,
   LOAD_VERB,
   specializationCategories,
@@ -102,7 +103,10 @@ const SpecializationCard = ({
             <span class='flex-none'>{LOAD_VERB}</span>
             <code class='flex min-w-0 rounded-[5px] border-0 bg-surface px-1.5 py-px font-mono text-[0.72rem] leading-4 text-inherit dark:bg-surface-3'>
               <span class='min-w-0 truncate'>{ENGINE_COMMAND}</span>
-              <span class='flex-none whitespace-pre'> catalog {item.name}</span>
+              <span class='flex-none whitespace-pre'>
+                {' '}
+                {CATALOG_COMMAND} {item.name}
+              </span>
             </code>
           </span>
           <CopyButton

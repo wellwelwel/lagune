@@ -133,6 +133,26 @@ await describe('what only the skills-based Lagune has never reaches the frozen v
   });
 });
 
+await describe('every prefixed command is the skills-based Lagune alone in an installed project', async () => {
+  for (const args of [
+    ['read', 'list', '--findings'],
+    ['read', 'catalog'],
+    ['read', 'validate'],
+    ['write', 'add', '--categories', 'ai'],
+    ['write', 'track', '{"entries":[]}'],
+    ['read', 'track'],
+    ['write'],
+  ])
+    await it(`fails on ${args.join(' ')}, pointing to the migration`, async () => {
+      const workspace = await installedProject();
+      const run = await runEngine(workspace, args);
+
+      strict.strictEqual(run.code, 1);
+      strict.strictEqual(run.stdout.includes('frozen'), false);
+      strict(run.stderr.includes('https://lagune.ai/docs/commands/migrate'));
+    });
+});
+
 await describe('a project without a manifest never reaches the frozen version', async () => {
   for (const command of ['init', 'pull', 'update'])
     await it(`fails on ${command}, pointing to the skills CLI`, async () => {

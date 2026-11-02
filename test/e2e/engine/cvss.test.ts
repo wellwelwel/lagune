@@ -9,6 +9,7 @@ await describe('the cvss hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const { stdout, code } = await runEngine(workspace, [
+      'read',
       'cvss',
       '-v',
       BASE_VECTOR,
@@ -24,6 +25,7 @@ await describe('the cvss hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const { stdout, code } = await runEngine(workspace, [
+      'read',
       'cvss',
       '-e',
       '-v',
@@ -39,6 +41,7 @@ await describe('the cvss hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const { stdout, code } = await runEngine(workspace, [
+      'read',
       'cvss',
       '-v',
       BASE_VECTOR.replace('AV:N', 'AV:X'),
@@ -53,7 +56,7 @@ await describe('the cvss hook runs through the engine', async () => {
   await it('exits 1 with no vector at all', async () => {
     const workspace = await newWorkspace();
 
-    const { stderr, code } = await runEngine(workspace, ['cvss']);
+    const { stderr, code } = await runEngine(workspace, ['read', 'cvss']);
 
     strict.strictEqual(code, 1);
     strict(stderr.includes('the cvss hook needs at least one -v <vector>'));

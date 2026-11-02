@@ -8,6 +8,7 @@ await describe('the crypto hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const weak = await runEngine(workspace, [
+      'read',
       'crypto',
       '-l',
       'javascript',
@@ -18,6 +19,7 @@ await describe('the crypto hook runs through the engine', async () => {
     strict.strictEqual(weak.code, 1);
 
     const review = await runEngine(workspace, [
+      'read',
       'crypto',
       '-l',
       'python',
@@ -28,6 +30,7 @@ await describe('the crypto hook runs through the engine', async () => {
     strict.strictEqual(review.code, 0);
 
     const safe = await runEngine(workspace, [
+      'read',
       'crypto',
       '-l',
       'javascript',
@@ -42,7 +45,12 @@ await describe('the crypto hook runs through the engine', async () => {
       'import c from "node:crypto";\nexport const d = () => c.createCipher("aes-256-cbc", key);\n',
       'utf8'
     );
-    const scan = await runEngine(workspace, ['crypto', '-f', 'cipher.ts']);
+    const scan = await runEngine(workspace, [
+      'read',
+      'crypto',
+      '-f',
+      'cipher.ts',
+    ]);
     strict.ok(scan.stdout.includes('Weak cryptography found:'));
     strict.strictEqual(scan.code, 1);
 
@@ -51,7 +59,12 @@ await describe('the crypto hook runs through the engine', async () => {
       'package main\n\nimport "crypto/des"\n\nfunc newCipher(key []byte) { des.NewCipher(key) }\n',
       'utf8'
     );
-    const go = await runEngine(workspace, ['crypto', '-f', 'cipher.go']);
+    const go = await runEngine(workspace, [
+      'read',
+      'crypto',
+      '-f',
+      'cipher.go',
+    ]);
     strict.ok(go.stdout.includes('Weak cryptography found:'));
     strict.strictEqual(go.code, 1);
   });

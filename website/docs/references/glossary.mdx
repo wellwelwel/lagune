@@ -74,7 +74,7 @@ The `lagune` package on **npm**, which the commands run through `npx` for every 
 
 ### Specialization
 
-A focused, language-agnostic security knowledge module that loads only on demand, never by default. A specialization is not a command. Load one into any prompt with the engine's `catalog <name>`, for example `npx lagune catalog regex`.
+A focused, language-agnostic security knowledge module that loads only on demand, never by default. A specialization is not a command. Load one into any prompt with the engine's `read catalog <name>`, for example `npx lagune read catalog regex`.
 
 ### Category
 
@@ -82,7 +82,7 @@ A named group of built-in specializations, from `owasp` to per-language ones lik
 
 ### Catalog
 
-The set of specializations a project uses: the built-ins of its categories plus its own, written with `/lagune-specialize`. The engine's `catalog` lists it, and the phases match it against the code.
+The set of specializations a project uses: the built-ins of its categories plus its own, written with `/lagune-specialize`. The engine's `read catalog` lists it, and the phases match it against the code.
 
 ### Prompt-on-demand
 

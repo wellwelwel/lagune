@@ -70,10 +70,8 @@ const callTool: McpMethod = async (params, session) => {
   if (project === undefined) return toolResult(noServedProject(), true);
 
   const { runtime, entry } = session.server;
-  const run = await runTool(
-    tool,
-    readField(params, 'arguments'),
-    (command, values) => runEngine({ runtime, entry, project }, command, values)
+  const run = await runTool(tool, readField(params, 'arguments'), (args) =>
+    runEngine({ runtime, entry, project }, args)
   );
 
   return toolResult(run.output, run.failed);

@@ -8,6 +8,7 @@ await describe('the infra hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const iam = await runEngine(workspace, [
+      'read',
       'infra',
       '-k',
       'terraform',
@@ -23,7 +24,12 @@ await describe('the infra hook runs through the engine', async () => {
       'FROM node:20\nUSER root\nRUN echo build\n',
       'utf8'
     );
-    const scan = await runEngine(workspace, ['infra', '-f', 'Dockerfile']);
+    const scan = await runEngine(workspace, [
+      'read',
+      'infra',
+      '-f',
+      'Dockerfile',
+    ]);
     strict.ok(scan.stdout.includes('Infrastructure risks found:'));
     strict.strictEqual(scan.code, 1);
   });

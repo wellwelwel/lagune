@@ -68,4 +68,4 @@ Keep the summary in plain language. The tracking map is invisible plumbing, so t
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 <subcommand>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.15.0 read <command> <arguments>` and `npx --yes lagune@0.15.0 write <command> <arguments>` as a fallback.

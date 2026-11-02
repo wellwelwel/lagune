@@ -54,7 +54,7 @@ await describe('a hook subcommand answers as its hook does', async () => {
   for (const { label, hook, args, verdict, code } of CASES)
     await it(label, async () => {
       const workspace = await newWorkspace();
-      const run = await runEngine(workspace, [hook, ...args]);
+      const run = await runEngine(workspace, ['read', hook, ...args]);
 
       strict.strictEqual(run.code, code);
       strict(
@@ -66,7 +66,7 @@ await describe('a hook subcommand answers as its hook does', async () => {
 
   await it('network reports an unknown flag on standard error', async () => {
     const workspace = await newWorkspace();
-    const run = await runEngine(workspace, ['network', '--nope']);
+    const run = await runEngine(workspace, ['read', 'network', '--nope']);
 
     strict.strictEqual(run.code, 1);
     strict.strictEqual(run.stdout, '');
@@ -76,6 +76,7 @@ await describe('a hook subcommand answers as its hook does', async () => {
   await it('track keeps a payload with quotes and backticks intact', async () => {
     const workspace = await newWorkspace();
     const run = await runEngine(workspace, [
+      'write',
       'track',
       JSON.stringify({
         entries: [{ name: 'A `quoted` "name" $(x)', paths: ['src/a.ts'] }],
@@ -92,6 +93,7 @@ await describe('a hook subcommand answers as its hook does', async () => {
   await it('repair realigns the tracking map of the project it runs in with its payload', async () => {
     const workspace = await newWorkspace();
     const run = await runEngine(workspace, [
+      'write',
       'repair',
       JSON.stringify({ entries: [LEAKED_SECRET] }),
     ]);
@@ -111,6 +113,7 @@ await describe('a hook subcommand answers as its hook does', async () => {
     );
 
     const run = await runEngine(workspace, [
+      'write',
       'untrack',
       JSON.stringify({ names: [LEAKED_SECRET.name] }),
     ]);
@@ -118,6 +121,25 @@ await describe('a hook subcommand answers as its hook does', async () => {
 
     strict.strictEqual(run.code, 0);
     strict.deepStrictEqual(tracking, { entries: [OPEN_REDIRECT] });
+  });
+});
+
+await describe('list --findings names what the tracking map holds', async () => {
+  await it('lists every tracked finding by name', async () => {
+    const workspace = await newWorkspace();
+
+    await mkdir(join(workspace, '.lagune'));
+    await writeFile(
+      join(workspace, '.lagune/tracking.json'),
+      JSON.stringify({ entries: [LEAKED_SECRET, OPEN_REDIRECT] })
+    );
+
+    const run = await runEngine(workspace, ['read', 'list', '--findings']);
+
+    strict.strictEqual(run.code, 0);
+    strict(
+      run.stdout.endsWith('Findings\n  • Leaked secret\n  • Open redirect\n')
+    );
   });
 });
 

@@ -121,3 +121,10 @@ export type HermesLoad = {
 };
 
 export type PublishedText = { file: string; text: string };
+
+/** A command an engine tool runs, the prefix it answers behind, and arguments it runs with */
+export type PrefixedCommand = {
+  prefix: string;
+  command: string;
+  args: string[];
+};

@@ -28,7 +28,7 @@ await describe('catalog lists the specializations a project uses', async () => {
       '.lagune/configs.json': '{"categories":["python","ai"]}',
     });
 
-    const run = await runEngine(workspace, ['catalog']);
+    const run = await runEngine(workspace, ['read', 'catalog']);
 
     strict.deepStrictEqual(run, {
       stdout: 'llm: AI API, RAG, MCP, Agent\npython: CPython, pickle, Django\n',
@@ -47,7 +47,7 @@ await describe('catalog lists the specializations a project uses', async () => {
       '.lagune/catalog/graphql.md': '# GraphQL vulnerabilities\n',
     });
 
-    const run = await runEngine(workspace, ['catalog']);
+    const run = await runEngine(workspace, ['read', 'catalog']);
     const lines = run.stdout.trimEnd().split('\n');
 
     strict.strictEqual(run.code, 0);
@@ -60,7 +60,7 @@ await describe('catalog lists the specializations a project uses', async () => {
 
     await seed(workspace, { '.lagune/configs.json': '{"categories":[]}' });
 
-    const run = await runEngine(workspace, ['catalog']);
+    const run = await runEngine(workspace, ['read', 'catalog']);
 
     strict.deepStrictEqual(run, {
       stdout: "No specialization is in this project's catalog.\n",
@@ -74,7 +74,7 @@ await describe('catalog lists the specializations a project uses', async () => {
 
     await seed(workspace, { '.lagune/configs.json': '{"categories": ' });
 
-    const run = await runEngine(workspace, ['catalog']);
+    const run = await runEngine(workspace, ['read', 'catalog']);
 
     strict.strictEqual(run.code, 1);
     strict.strictEqual(run.stdout, '');
@@ -89,7 +89,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
     await seed(workspace, { '.lagune/configs.json': '{"categories":[]}' });
 
     const [run, expected] = await Promise.all([
-      runEngine(workspace, ['catalog', 'regex']),
+      runEngine(workspace, ['read', 'catalog', 'regex']),
       builtin('regex'),
     ]);
 
@@ -103,7 +103,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
       '.lagune/catalog/regex.md': '# Regex, refined for this project\n',
     });
 
-    const run = await runEngine(workspace, ['catalog', 'regex']);
+    const run = await runEngine(workspace, ['read', 'catalog', 'regex']);
 
     strict.deepStrictEqual(run, {
       stdout: '# Regex, refined for this project\n',
@@ -114,7 +114,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
 
   await it('fails on a name no specialization carries', async () => {
     const workspace = await newWorkspace();
-    const run = await runEngine(workspace, ['catalog', 'nope']);
+    const run = await runEngine(workspace, ['read', 'catalog', 'nope']);
 
     strict.strictEqual(run.code, 1);
     strict.strictEqual(run.stdout, '');
@@ -133,7 +133,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
 
       await seed(workspace, { '.lagune/configs.json': '{"secret":true}' });
 
-      const run = await runEngine(workspace, ['catalog', name]);
+      const run = await runEngine(workspace, ['read', 'catalog', name]);
 
       strict.strictEqual(run.code, 1);
       strict.strictEqual(run.stdout, '');
@@ -142,7 +142,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
 
   await it('takes a single name', async () => {
     const workspace = await newWorkspace();
-    const run = await runEngine(workspace, ['catalog', 'regex', 'sql']);
+    const run = await runEngine(workspace, ['read', 'catalog', 'regex', 'sql']);
 
     strict.strictEqual(run.code, 1);
     strict.strictEqual(run.stdout, '');

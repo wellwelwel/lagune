@@ -79,7 +79,7 @@ The server prints its URL. By default it binds port `0`, so the OS hands back a 
 
 ## Security context
 
-Read all, one at a time, with `node lib/bin/index.js catalog <name>` from the repository root after a build: `javascript`, `network`, `http-request`, `access-control`, `crypto`, `interpreter`, `path`, `browser`, and `regex`.
+Read all, one at a time, with `node lib/bin/index.js read catalog <name>` from the repository root after a build: `javascript`, `network`, `http-request`, `access-control`, `crypto`, `interpreter`, `path`, `browser`, and `regex`.
 
 ## Routes
 

@@ -24,6 +24,7 @@ type NpxLaunch = { spec: string; yes: boolean; text: string };
 
 const UNEXPANDED = /\$\{[^{}]*\}/;
 const SHELL = /^(?:.*\/)?-?(?:ba|z|da|fi)?sh$/;
+const TOOL_PREFIXES = new Set(['read', 'write']);
 
 const [kind, logFile = '', project = '', ...rest] = process.argv.slice(2);
 
@@ -172,6 +173,7 @@ const judgeFallback = (first: Call, version: string): string => {
       ? []
       : [`the pin lagune@${version}`]),
     ...(launch.yes ? [] : ['--yes']),
+    ...(TOOL_PREFIXES.has(first.args[0] ?? '') ? [] : ["its tool's prefix"]),
   ];
 
   return missing.length === 0
@@ -220,7 +222,7 @@ const reportCalls = (
 
   console.log(
     mode === 'off'
-      ? `Server off: the first engine call should be npx --yes lagune@${version}.\n`
+      ? `Server off: the first engine call should be npx --yes lagune@${version}, followed by its tool's prefix.\n`
       : "Server on: the first engine call should go through the plugin's tools.\n"
   );
   console.log(

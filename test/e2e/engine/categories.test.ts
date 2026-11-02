@@ -24,6 +24,7 @@ await describe('add and remove record the categories a project uses', async () =
   await it('starts the first add from the default', async () => {
     const workspace = await newWorkspace();
     const run = await runEngine(workspace, [
+      'write',
       'add',
       '--categories',
       'javascript',
@@ -37,10 +38,15 @@ await describe('add and remove record the categories a project uses', async () =
 
   await it('starts the first remove from the default, leaving an empty list', async () => {
     const workspace = await newWorkspace();
-    const run = await runEngine(workspace, ['remove', '--categories', 'owasp']);
+    const run = await runEngine(workspace, [
+      'write',
+      'remove',
+      '--categories',
+      'owasp',
+    ]);
     const [categories, catalog] = await Promise.all([
       recorded(workspace),
-      runEngine(workspace, ['catalog']),
+      runEngine(workspace, ['read', 'catalog']),
     ]);
 
     strict.strictEqual(run.code, 0);
@@ -53,7 +59,12 @@ await describe('add and remove record the categories a project uses', async () =
 
   await it('records the default itself when the add changes nothing', async () => {
     const workspace = await newWorkspace();
-    const run = await runEngine(workspace, ['add', '--categories', 'owasp']);
+    const run = await runEngine(workspace, [
+      'write',
+      'add',
+      '--categories',
+      'owasp',
+    ]);
     const categories = await recorded(workspace);
 
     strict.strictEqual(run.code, 0);
@@ -67,7 +78,12 @@ await describe('add and remove record the categories a project uses', async () =
 
     await seed(workspace, CONFIGS_FILE, JSON.stringify({ $schema, catalog }));
 
-    const run = await runEngine(workspace, ['add', '--categories', 'go']);
+    const run = await runEngine(workspace, [
+      'write',
+      'add',
+      '--categories',
+      'go',
+    ]);
     const configs = JSON.parse((await textOf(workspace, CONFIGS_FILE)) ?? '{}');
 
     strict.strictEqual(run.code, 0);
@@ -79,10 +95,10 @@ await describe('add and remove record the categories a project uses', async () =
   });
 
   for (const args of [
-    ['add', '--categories', 'bogus'],
-    ['add', '--categories'],
-    ['remove', '--categories'],
-    ['add', 'javascript'],
+    ['write', 'add', '--categories', 'bogus'],
+    ['write', 'add', '--categories'],
+    ['write', 'remove', '--categories'],
+    ['write', 'add', 'javascript'],
   ])
     await it(`fails on ${args.join(' ')} without writing anything`, async () => {
       const workspace = await newWorkspace();
@@ -98,7 +114,12 @@ await describe('add and remove record the categories a project uses', async () =
 
     await seed(workspace, CONFIGS_FILE, '{"categories": [');
 
-    const run = await runEngine(workspace, ['add', '--categories', 'go']);
+    const run = await runEngine(workspace, [
+      'write',
+      'add',
+      '--categories',
+      'go',
+    ]);
     const configs = await textOf(workspace, CONFIGS_FILE);
 
     strict.strictEqual(run.code, 1);
@@ -109,7 +130,7 @@ await describe('add and remove record the categories a project uses', async () =
 await describe('list --categories shows every category and the ones in use', async () => {
   await it('marks the default as used while none is recorded', async () => {
     const workspace = await newWorkspace();
-    const run = await runEngine(workspace, ['list', '--categories']);
+    const run = await runEngine(workspace, ['read', 'list', '--categories']);
 
     strict.strictEqual(run.code, 0);
     strict.match(run.stdout, /owasp +\[used\] /);
@@ -122,7 +143,7 @@ await describe('list --categories shows every category and the ones in use', asy
 
     await seed(workspace, CONFIGS_FILE, '{"categories":["go"]}');
 
-    const run = await runEngine(workspace, ['list', '--categories']);
+    const run = await runEngine(workspace, ['read', 'list', '--categories']);
 
     strict.match(run.stdout, /owasp +\[available\] /);
     strict.match(run.stdout, /go +\[used\] /);
@@ -131,7 +152,7 @@ await describe('list --categories shows every category and the ones in use', asy
 
   await it('needs a target outside a terminal', async () => {
     const workspace = await newWorkspace();
-    const run = await runEngine(workspace, ['list']);
+    const run = await runEngine(workspace, ['read', 'list']);
 
     strict.strictEqual(run.code, 1);
     strict.strictEqual(run.stdout, '');

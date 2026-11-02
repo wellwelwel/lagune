@@ -226,7 +226,7 @@ await describe('the engine tools on OpenCode 1.x', async () => {
     strict.deepStrictEqual(Object.keys(tools).toSorted(), ENGINE_TOOLS);
   });
 
-  await it('raises the permission named after the tool, then runs the call from the project OpenCode opened', async () => {
+  await it('raises the permission named after the tool, then runs the call behind its tool prefix from the project OpenCode opened', async () => {
     const project = await newProject(['javascript']);
     const asked: PermissionAsk[] = [];
 
@@ -295,7 +295,7 @@ await describe('the engine tools on OpenCode 2.x', async () => {
     );
   });
 
-  await it('clears the action named after the tool, then runs the call from the project the plugin belongs to', async () => {
+  await it('clears the action named after the tool, then runs the call behind its tool prefix from the project the plugin belongs to', async () => {
     const project = await newProject(['javascript']);
     const asserted: PermissionAssert[] = [];
     const tools = await registerTools(project, async (request) => {

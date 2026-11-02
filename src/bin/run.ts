@@ -9,10 +9,10 @@ import {
 } from '../cli/messages.js';
 import { isInteractive } from '../cli/prompt.js';
 import { loadVersion } from '../core/version.js';
+import { ENGINE_TOOLS } from '../mcp/tools.js';
 import { runCatalog } from './catalog.js';
 import { runCategoryChange } from './categories.js';
 import { runDashboard } from './dashboard.js';
-import { HOOKS } from './hooks.js';
 import { runList } from './list.js';
 import { runMigrate } from './migrate.js';
 
@@ -20,7 +20,7 @@ const print = (line: string): void => {
   stdout.write(`${line}\n`);
 };
 
-const printHelp = (): void => print(helpText(Object.keys(HOOKS)));
+const printHelp = (): void => print(helpText(ENGINE_TOOLS));
 
 const changeCategories =
   (action: CategoryAction) =>

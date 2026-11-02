@@ -3,16 +3,15 @@ import { execFile } from 'node:child_process';
 
 const MAX_OUTPUT_BYTES = 64 * 1024 * 1024;
 
-/** Runs one engine command in its own process from the project root, with no shell, as the CLI would */
+/** Runs one engine command line in its own process from the project root, with no shell */
 export const runEngine = (
   { runtime, entry, project }: EngineProcess,
-  command: string,
-  values: string[]
+  args: string[]
 ): Promise<EngineRun> =>
   new Promise((resolve) => {
     execFile(
       runtime,
-      [entry, command, ...values],
+      [entry, ...args],
       {
         cwd: project,
         encoding: 'utf8',

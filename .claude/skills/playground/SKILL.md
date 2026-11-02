@@ -50,16 +50,16 @@ Everything lives in `~/.lagune-playground`, or wherever `LAGUNE_PLAYGROUND` poin
 3. **Report:** `bash scripts/playground/agents.sh <agent> report` prints each engine call's route, the exact command for **npx**, and the verdict.
 4. **Server off:** `bash scripts/playground/agents.sh <agent> server off` takes the plugin's server out and starts a new measurement, which `run` and `report` repeat. `server on` puts it back. `report` keeps every measurement until the next mount.
 
-| Server | Expected first engine call                                                                            |
-| ------ | ----------------------------------------------------------------------------------------------------- |
-| On     | A call to a tool whose name ends in `lagune_read` or `lagune_write`, or a tool search followed by one |
-| Off    | The pinned `npx --yes lagune@<version> <subcommand>`                                                  |
+| Server | Expected first engine call                                                                             |
+| ------ | ------------------------------------------------------------------------------------------------------ |
+| On     | A call to a tool whose name ends in `lagune_read` or `lagune_write`, or a tool search followed by one  |
+| Off    | The pinned `npx --yes lagune@<version>` followed by the tool's prefix, such as `read validate charter` |
 
 The pinned **npx** call reaches this tree's build through a local registry the playground serves at that version, never the release **npm** still serves under it.
 
 ### Claude Code
 
-`bash scripts/playground/mount.sh [fixture]` installs the plugin from a local marketplace into the project under the repository's ignored `playground` folder, with a unique version on every mount and this repository's `CLAUDE.md` excluded. Start **Claude Code** there with the owner's account. The fixture is `image-upload-service` by default, or `template-toolkit`.
+`bash scripts/playground/mount.sh [fixture]` installs the plugin from a local marketplace into the project under the repository's ignored `playground` folder, with a unique version on every mount and this repository's `CLAUDE.md` excluded. It then serves the pinned build from a local registry outside the project, which the project's settings point **npx** at, until Ctrl+C, so start **Claude Code** there from another terminal, with the owner's account. The fixture is `image-upload-service` by default, or `template-toolkit`.
 
 ### Headless checks
 

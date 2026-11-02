@@ -80,7 +80,7 @@ await describe('the engine tools on Pi', async () => {
     );
   });
 
-  await it('runs a call from the folder of the session that made it', async () => {
+  await it('runs a call behind its tool prefix, from the folder of the session that made it', async () => {
     const project = await newProject(['javascript']);
     const result = await toolNamed('lagune_write')?.execute(
       'call',

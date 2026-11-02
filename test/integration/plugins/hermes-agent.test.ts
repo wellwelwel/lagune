@@ -266,7 +266,7 @@ await describe('the Hermes Agent plugin branch', async () => {
   );
 
   await itWithPython(
-    'runs a call from the folder of the session that made it',
+    'runs a call behind its tool prefix, from the folder of the session that made it',
     async () => {
       const project = await newProject(['javascript']);
       const { answers } = await loadPlugin(bundle, project, [

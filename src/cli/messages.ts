@@ -1,7 +1,9 @@
 import type { Category, CategoryChange } from '../types/categories.js';
 import type { MigrateSummary } from '../types/core.js';
+import type { EngineCommand, EngineTool } from '../types/mcp.js';
 import { allOf } from '../core/collections.js';
 import { CONFIGS_FILE } from '../core/configs.js';
+import { toolFor } from '../mcp/tools.js';
 import { color } from './colors.js';
 
 const ENGINE_COMMAND = 'npx lagune';
@@ -33,23 +35,50 @@ const definitions = (rows: [string, string][]): string[] => {
   );
 };
 
-const HELP_USAGE: string[] = [
+const capitalized = (word: string): string =>
+  `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+
+/** How a person reaches a tool's commands: the engine command, then the tool's prefix */
+export const toolCommandLine = (tool: EngineTool): string =>
+  `${ENGINE_COMMAND} ${tool.prefix}`;
+
+/** A command as a person types it, behind the prefix of the tool that runs it */
+const commandLine = (command: string): string => {
+  const tool = toolFor(command);
+
+  return tool === undefined
+    ? `${ENGINE_COMMAND} ${command}`
+    : `${toolCommandLine(tool)} ${command}`;
+};
+
+const helpUsage = (tools: readonly EngineTool[]): string[] => [
   `${ENGINE_COMMAND} [--port <number>]`,
-  `${ENGINE_COMMAND} catalog [<name>]`,
-  `${ENGINE_COMMAND} add --categories [<category...>]`,
-  `${ENGINE_COMMAND} remove --categories [<category...>]`,
-  `${ENGINE_COMMAND} list [--findings] [--categories]`,
+  ...tools.map((tool) => `${toolCommandLine(tool)} <command> [<arguments...>]`),
   `${ENGINE_COMMAND} dashboard [--port <number>]`,
   `${ENGINE_COMMAND} migrate`,
   `${ENGINE_COMMAND} mcp [<project>]`,
-  `${ENGINE_COMMAND} <hook> [<arguments...>]`,
 ];
 
+const HELP_TOOL_COMMANDS: Partial<Record<EngineCommand, [string, string]>> = {
+  catalog: [
+    'catalog [<name>]',
+    "List this project's specializations, or print one by name",
+  ],
+  list: [
+    'list [--findings] [--categories]',
+    'List tracked findings or specialization categories (asks which)',
+  ],
+  add: [
+    'add --categories [<category...>]',
+    'Record specialization categories for this project',
+  ],
+  remove: [
+    'remove --categories [<category...>]',
+    'Drop specialization categories from this project',
+  ],
+};
+
 const HELP_COMMANDS: [string, string][] = [
-  ['catalog', "List this project's specializations, or print one by name"],
-  ['add', 'Record specialization categories for this project'],
-  ['remove', 'Drop specialization categories from this project'],
-  ['list', 'List tracked findings or specialization categories (asks which)'],
   ['dashboard', 'Serve a live view of .lagune/ and open it in the browser'],
   [
     'migrate',
@@ -72,19 +101,33 @@ const HELP_OPTIONS: [string, string][] = [
   ['--version', 'Show the version'],
 ];
 
-export const helpText = (hooks: string[]): string =>
+const toolCommands = (tool: EngineTool): string[] => {
+  const described = tool.commands
+    .map((command) => HELP_TOOL_COMMANDS[command])
+    .filter((row) => row !== undefined);
+  const listed = tool.commands.filter(
+    (command) => HELP_TOOL_COMMANDS[command] === undefined
+  );
+
+  return [
+    heading(`${capitalized(tool.prefix)} commands`),
+    ...definitions(described),
+    ...(listed.length === 0 ? [] : [bullet(listed.join(color.dim(', ')))]),
+    '',
+  ];
+};
+
+export const helpText = (tools: readonly EngineTool[]): string =>
   [
     banner(),
     color.dim('A defensive, security-first workflow for your project.'),
     '',
     heading('Usage'),
-    ...HELP_USAGE.map(bullet),
+    ...helpUsage(tools).map(bullet),
     '',
-    heading('Commands'),
+    ...tools.flatMap(toolCommands),
+    heading('Other commands'),
     ...definitions(HELP_COMMANDS),
-    '',
-    heading('Hooks'),
-    bullet(hooks.join(color.dim(', '))),
     '',
     heading('Options'),
     ...definitions(HELP_OPTIONS),
@@ -100,6 +143,9 @@ export const unknownCommand = (command: string): string =>
     `Run ${ENGINE_COMMAND} --help to see the commands.`,
   ].join('\n');
 
+export const unprefixedCommand = (command: string): string =>
+  `${command} runs only as ${commandLine(command)}.`;
+
 export const movedToSkills = (command: string): string =>
   [
     `${command} moved to the skills CLI, which installs and updates Lagune's commands:`,
@@ -109,24 +155,24 @@ export const movedToSkills = (command: string): string =>
 
 export const categoriesUsage = (command: string): string =>
   [
-    `usage: ${ENGINE_COMMAND} ${command} --categories <category...>`,
-    `Run ${ENGINE_COMMAND} list --categories to see every category.`,
+    `usage: ${commandLine(command)} --categories <category...>`,
+    `Run ${commandLine('list')} --categories to see every category.`,
   ].join('\n');
 
 export const listUsage = (): string =>
   [
-    `usage: ${ENGINE_COMMAND} list --findings`,
-    `       ${ENGINE_COMMAND} list --categories`,
+    `usage: ${commandLine('list')} --findings`,
+    `       ${commandLine('list')} --categories`,
   ].join('\n');
 
 export const catalogUsage = (): string =>
-  `usage: ${ENGINE_COMMAND} catalog [<name>]`;
+  `usage: ${commandLine('catalog')} [<name>]`;
 
 export const invalidSpecializationName = (name: string): string =>
   `"${name}" is not a specialization name: a name uses only lowercase letters, digits, and hyphens.`;
 
 export const noSpecialization = (name: string): string =>
-  `No specialization is named "${name}". Run ${ENGINE_COMMAND} catalog to list the ones this project uses.`;
+  `No specialization is named "${name}". Run ${commandLine('catalog')} to list the ones this project uses.`;
 
 export const noProjectFolder = (project: string): string =>
   `The MCP server runs from the project folder, and ${project} is not a folder.`;

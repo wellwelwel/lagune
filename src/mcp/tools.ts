@@ -1,4 +1,9 @@
-import type { EngineRun, EngineRunner, EngineTool } from '../types/mcp.js';
+import type {
+  EngineCommand,
+  EngineRun,
+  EngineRunner,
+  EngineTool,
+} from '../types/mcp.js';
 import { isStringArray, readField } from '../core/collections.js';
 
 const ARGUMENTS_GUIDE =
@@ -7,6 +12,7 @@ const ARGUMENTS_GUIDE =
 export const ENGINE_TOOLS: readonly EngineTool[] = [
   {
     name: 'lagune_read',
+    prefix: 'read',
     title: 'Lagune engine (read)',
     summary:
       'Runs a Lagune engine command that only reads the project: the catalog, the tracked findings and categories, the memory validation, the CVSS scoring, and the checkers.',
@@ -29,6 +35,7 @@ export const ENGINE_TOOLS: readonly EngineTool[] = [
   },
   {
     name: 'lagune_write',
+    prefix: 'write',
     title: 'Lagune engine (write)',
     summary:
       "Runs a Lagune engine command that changes the project's .lagune/ state: tracking findings, standing them down, repairing the tracking map, and recording categories.",
@@ -40,21 +47,36 @@ export const ENGINE_TOOLS: readonly EngineTool[] = [
 export const findTool = (name: unknown): EngineTool | undefined =>
   ENGINE_TOOLS.find((tool) => tool.name === name);
 
-const toolFor = (command: unknown): EngineTool | undefined =>
-  ENGINE_TOOLS.find((tool) =>
-    tool.commands.some((candidate) => candidate === command)
-  );
+/** The tool whose commands run behind a prefix on the command line */
+export const toolBehind = (prefix: unknown): EngineTool | undefined =>
+  ENGINE_TOOLS.find((tool) => tool.prefix === prefix);
 
-const refusal = (tool: EngineTool, command: unknown): string => {
+export const runsCommand = (
+  tool: EngineTool,
+  command: unknown
+): command is EngineCommand =>
+  tool.commands.some((candidate) => candidate === command);
+
+export const toolFor = (command: unknown): EngineTool | undefined =>
+  ENGINE_TOOLS.find((tool) => runsCommand(tool, command));
+
+/** Why a tool refuses a command it does not run, naming each tool the way its caller reaches it */
+export const commandRefusal = (
+  tool: EngineTool,
+  command: unknown,
+  named: (tool: EngineTool) => string
+): string => {
   const owner = toolFor(command);
 
   if (owner === undefined)
-    return `${tool.name} runs one of: ${tool.commands.join(', ')}.`;
+    return `${named(tool)} runs one of: ${tool.commands.join(', ')}.`;
 
-  return `${String(command)} runs through ${owner.name}, not ${tool.name}.`;
+  return `${String(command)} runs through ${named(owner)}, not ${named(tool)}.`;
 };
 
-/** Runs one call of a tool, refusing a command the tool does not run or arguments that are not strings */
+const toolName = (tool: EngineTool): string => tool.name;
+
+/** Runs one call of a tool as its command line, behind the tool's prefix, refusing a command the tool does not run or arguments that are not strings */
 export const runTool = async (
   tool: EngineTool,
   input: unknown,
@@ -63,12 +85,12 @@ export const runTool = async (
   const command = readField(input, 'command');
   const values = readField(input, 'arguments') ?? [];
 
-  if (typeof command !== 'string' || toolFor(command) !== tool)
-    return { output: refusal(tool, command), failed: true };
+  if (!runsCommand(tool, command))
+    return { output: commandRefusal(tool, command, toolName), failed: true };
   if (!isStringArray(values))
     return { output: 'arguments must be a list of strings.', failed: true };
 
-  return run(command, values);
+  return run([tool.prefix, command, ...values]);
 };
 
 export const describeTool = (tool: EngineTool) => ({

@@ -6,6 +6,7 @@ await describe('the jwt hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const unpinned = await runEngine(workspace, [
+      'read',
       'jwt',
       '-l',
       'javascript',
@@ -16,6 +17,7 @@ await describe('the jwt hook runs through the engine', async () => {
     strict.strictEqual(unpinned.code, 1);
 
     const safe = await runEngine(workspace, [
+      'read',
       'jwt',
       '-l',
       'javascript',
@@ -26,6 +28,7 @@ await describe('the jwt hook runs through the engine', async () => {
     strict.strictEqual(safe.code, 0);
 
     const python = await runEngine(workspace, [
+      'read',
       'jwt',
       '-l',
       'python',

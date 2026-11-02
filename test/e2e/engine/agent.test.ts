@@ -6,6 +6,7 @@ await describe('the agent hook runs through the engine', async () => {
     const workspace = await newWorkspace();
 
     const uncapped = await runEngine(workspace, [
+      'read',
       'agent',
       '-l',
       'javascript',
@@ -16,6 +17,7 @@ await describe('the agent hook runs through the engine', async () => {
     strict.strictEqual(uncapped.code, 1);
 
     const safe = await runEngine(workspace, [
+      'read',
       'agent',
       '-l',
       'javascript',
@@ -26,6 +28,7 @@ await describe('the agent hook runs through the engine', async () => {
     strict.strictEqual(safe.code, 0);
 
     const python = await runEngine(workspace, [
+      'read',
       'agent',
       '-l',
       'python',

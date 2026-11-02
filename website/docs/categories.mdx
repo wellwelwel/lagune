@@ -48,37 +48,37 @@ While no category is recorded, a project uses `owasp` alone. [`/lagune-charter`]
 
 ## Add and remove anytime
 
-A category is a starting point, not a commitment. Use what fits the project now and change it any time by key, with `add` and `remove`. `--categories` with no value opens an interactive picker in a terminal (space to toggle, enter to confirm, empty to skip). Outside a terminal, pass the categories after it.
+A category is a starting point, not a commitment. Use what fits the project now and change it any time by key, with `write add` and `write remove`. `--categories` with no value opens an interactive picker in a terminal (space to toggle, enter to confirm, empty to skip). Outside a terminal, pass the categories after it.
 
 <Tabs>
   <TabItem value="add" label="Add" default>
 
 ```bash
-npx lagune add --categories # interactive
-npx lagune add --categories owasp
-npx lagune add --categories owasp rust
+npx lagune write add --categories # interactive
+npx lagune write add --categories owasp
+npx lagune write add --categories owasp rust
 ```
 
   </TabItem>
   <TabItem value="remove" label="Remove">
 
 ```bash
-npx lagune remove --categories # interactive
-npx lagune remove --categories owasp
-npx lagune remove --categories owasp rust
+npx lagune write remove --categories # interactive
+npx lagune write remove --categories owasp
+npx lagune write remove --categories owasp rust
 ```
 
   </TabItem>
 </Tabs>
 
-The first `add` or `remove` starts from `owasp`, so removing every category leaves an empty list, never the default. Every change lands in `.lagune/configs.json`, so the whole team works with the same set.
+The first `write add` or `write remove` starts from `owasp`, so removing every category leaves an empty list, never the default. Every change lands in `.lagune/configs.json`, so the whole team works with the same set.
 
 ## See what a project uses
 
-`list --categories` shows every category and whether the project uses it:
+`read list --categories` shows every category and whether the project uses it:
 
 ```bash
-npx lagune list --categories
+npx lagune read list --categories
 # Categories
 #   • owasp       [used]       Harden against the application security risks OWASP tracks
 #   • javascript  [available]  Harden JavaScript and its runtimes
@@ -96,7 +96,7 @@ See [**Catalog**](/docs/catalog) for which specializations each category carries
     {
       question: 'How do I add a category?',
       answer:
-        "Pass the category's key to --categories, for example npx lagune add --categories javascript. The charter also records the categories its reading of the project supports while none is recorded.",
+        "Pass the category's key to --categories, for example npx lagune write add --categories javascript. The charter also records the categories its reading of the project supports while none is recorded.",
     },
     {
       question: 'Can I use more than one category?',
