@@ -8,11 +8,11 @@ user-invocable: true
 
 ## User Input
 
-```text
-$ARGUMENTS
-```
+<user-input>
+  $ARGUMENTS
+</user-input>
 
-The User Input decides how this command runs, so read it before proceeding. It may fill the block above, come after this command's text, arrive as the user's next message, or sit around the command's name in the message that called it. A placeholder left in the block is never the input, and when none of these places holds any, the User Input is empty.
+The User Input above decides how this command runs. Read it before proceeding. A placeholder left unfilled above is not the input: the User Input is then the words that came with this command, or empty when there are none.
 
 ## Outline
 
