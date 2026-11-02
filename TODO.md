@@ -6,7 +6,7 @@ Nothing here waits for a release. The CI publishes the package, the plugin branc
 
 ## 1. Watch **Copilot CLI** and **Kimi Code** upstream
 
-**Problem.** Both start a plugin's server in the plugin's own folder with no way to name the project, so both keep the **npx** fallback. The playgrounds' `copilot` and `kimi` probes recheck each new version.
+**Problem.** Both start a plugin's server in the plugin's own folder with no way to name the project, so both keep the **npx** fallback. The `/playground` skill's `copilot` and `kimi` probes recheck each new version.
 
 - **Copilot CLI**: github/copilot-cli#4234 asks for a project variable or roots for plugin servers.
 - **Kimi Code**: no placeholder expands and no roots are advertised. Its native build also runs a `node` command as **Kimi Code** itself, so the engine's MCP server, which starts each call with its own runtime, would start **Kimi Code** instead of **Node.js**.

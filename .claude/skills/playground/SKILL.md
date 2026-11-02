@@ -1,6 +1,24 @@
+---
+name: playground
+description: Mounts an agent against this tree's build in an isolated home and a fresh fixture, then measures it, probes it, or adds it, before any release publishes that build.
+argument-hint: the agent to measure or probe (such as cursor, antigravity, or claude), or one to add. Empty lists the supported agents
+user-invocable: true
+disable-model-invocation: true
+metadata:
+  internal: true
+---
+
 # Playgrounds
 
 A playground runs one agent against this tree's build, in an isolated home and a fresh copy of a fixture, so a session measures exactly what a release would publish for that agent, before the release exists. Two scripts drive it: `scripts/playground/agents.sh` for every agent but Claude Code, and `scripts/playground/mount.sh` for Claude Code. Their helpers live in `tools/playground/`.
+
+## When invoked
+
+1. **Pick the agent** from the arguments. Without one, list the supported agents as a numbered list and ask which to measure, probe, or add.
+2. **Mount it.** When its CLI is missing, give the user its install command from "Supported agents", step by step, and wait.
+3. **Run what needs no session yourself:** the mount, the report, the server switch, and headless checks. For everything that needs the user's session, hand over the exact steps: the command to start it, what to type, what to approve, and when to stop.
+4. **Read the verdict** from the report, and the agent's transcript in the isolated home when the report alone does not explain it.
+5. **Report back** each measurement's verdict, with its evidence.
 
 ---
 
