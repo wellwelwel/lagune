@@ -134,6 +134,9 @@ export const noProjectFolder = (project: string): string =>
 export const notAProjectFolder = (project: string): string =>
   `The MCP server runs from the project folder, and ${project} is Lagune's own folder or the root of the file system, never a project. The agent started the server outside the project, so the commands run the engine through npx instead.`;
 
+export const noServedProject = (): string =>
+  'The MCP server runs from the project folder, and the agent named none: it started the server outside the project and listed no single project folder as its root. The commands run the engine through npx instead.';
+
 export const noNodeForEngine = (): string =>
   "Lagune's engine runs on Node.js, and none was found on this computer's search path. Install Node.js (LTS), then restart your agent.";
 

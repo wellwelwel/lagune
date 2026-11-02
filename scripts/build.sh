@@ -40,6 +40,9 @@ esbuild src/plugins/pi.ts "${bundle[@]}" \
 
 chmod +x lib/bin/index.js
 
+# Hermes Agent's plugin, written in Python, registers the engine tools from these definitions
+tsx tools/engine-tools.ts lib/mcp/tools.json
+
 DASHBOARD_METAFILE="$metafiles/dashboard.json" bash scripts/dashboard/build.sh
 
 tsx tools/third-party-licenses.ts lib/THIRD_PARTY_LICENSES.txt "$metafiles"/*.json

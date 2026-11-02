@@ -43,7 +43,7 @@ Type the commands by their names, such as `/lagune-charter`.
 
 :::info[Permissions]
 
-The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. The first call to each asks for your permission, and choosing to always allow it keeps it allowed until **Factory Droid** refreshes the plugin.
+The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. Choosing to always allow each one when **Factory Droid** asks keeps it allowed until **Factory Droid** syncs a new commit of **Lagune**'s marketplace, which it can do when it starts.
 
 :::
 
@@ -66,7 +66,7 @@ The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_re
     {
       question: 'Can Factory Droid run Lagune without asking for permission?',
       answer:
-        "Yes, after the first call to each of Lagune's engine tools, lagune_read and lagune_write: choose to always allow it when Factory Droid asks. Factory Droid asks again once it refreshes the plugin.",
+        "Yes. Choose to always allow each of Lagune's engine tools, lagune_read and lagune_write, when Factory Droid asks. It asks again after it syncs a new commit of Lagune's marketplace, which it can do when it starts.",
     },
   ]}
 />

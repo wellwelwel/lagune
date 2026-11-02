@@ -1,6 +1,14 @@
 import { describe, it, strict } from 'poku';
-import { isStringArray } from '../../../src/core/collections.js';
-import { firstFound, listTrackedPaths, readManifest } from './__utils__.js';
+import { isRecord, isStringArray } from '../../../src/core/collections.js';
+import { ENGINE_TOOLS } from '../../../src/mcp/tools.js';
+import {
+  firstFound,
+  listBundledPaths,
+  readDeclaredServer,
+  readManifest,
+} from './__utils__.js';
+
+const OVERLAY = 'scripts/plugins/antigravity';
 
 const MANIFEST_LOOKUP = [
   '.antigravity-plugin/plugin.json',
@@ -34,15 +42,11 @@ const RECOGNIZED_KEYS = [
   'extensions',
 ];
 
-const LOADED_FROM_AN_ANTIGRAVITY_ROOT = [
-  'rules.json',
-  'agents.json',
-  'mcp.json',
-  'mcp_config.json',
-];
-
-const { contents = {} } = await readManifest('.antigravity-plugin/plugin.json');
-const tracked = await listTrackedPaths();
+const { contents = {} } = await readManifest(
+  `${OVERLAY}/.antigravity-plugin/plugin.json`
+);
+const server = await readDeclaredServer(`${OVERLAY}/mcp_config.json`);
+const bundled = await listBundledPaths('antigravity');
 const prompts = isStringArray(contents.suggestedPrompts)
   ? contents.suggestedPrompts
   : [];
@@ -70,8 +74,8 @@ describe('the Antigravity plugin manifest', () => {
 
   it('shows a logo the plugin ships', () => {
     strict(
-      typeof contents.logo === 'string' && tracked.has(contents.logo),
-      'its logo is a tracked file'
+      typeof contents.logo === 'string' && bundled.has(contents.logo),
+      'its branch carries the logo'
     );
   });
 
@@ -83,17 +87,21 @@ describe('the Antigravity plugin manifest', () => {
   });
 });
 
-describe('the Antigravity plugin', () => {
-  it('reads its own manifest, ahead of the Gemini CLI one it fails to import', () => {
+describe('the Antigravity plugin branch', () => {
+  it('carries its own manifest, the first one Antigravity looks up', () => {
     strict.strictEqual(
-      firstFound(MANIFEST_LOOKUP, tracked),
+      firstFound(MANIFEST_LOOKUP, bundled),
       '.antigravity-plugin/plugin.json'
     );
   });
 
-  it('loads nothing from the repository root beside the skills', () => {
+  it('loads both engine tools up front, instead of behind a tool search', () => {
+    const declared = isRecord(server.tools) ? server.tools : {};
+
     strict.deepStrictEqual(
-      LOADED_FROM_AN_ANTIGRAVITY_ROOT.filter((path) => tracked.has(path)),
+      ENGINE_TOOLS.map(({ name }) => name).filter(
+        (name) => !isRecord(declared[name]) || declared[name].eager !== true
+      ),
       []
     );
   });

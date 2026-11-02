@@ -10,13 +10,19 @@ paths=("${sharedPaths[@]}" "${enginePaths[@]}")
 packingOptions=(-cf - --exclude='skills/*/agents')
 
 case "$plugin" in
-  claude | grok | muse)
+  antigravity)
+    paths+=(assets/logo.png)
+    ;;
+  claude | grok)
     paths+=(.claude-plugin/plugin.json assets/logo.png)
     ;;
   cursor)
     paths+=(.cursor-plugin/plugin.json .cursor-plugin/marketplace.json assets/logo.png)
     ;;
   droid | gemini) ;;
+  hermes)
+    paths+=(lib/mcp/tools.json)
+    ;;
   *)
     echo "No bundle is declared for the \"$plugin\" plugin." >&2
     exit 1
@@ -33,4 +39,9 @@ tar "${packingOptions[@]}" "${paths[@]}" | tar -xf - -C "$bundle"
 
 if [[ -d "$overlay" ]]; then
   tar -cf - -C "$overlay" . | tar -xf - -C "$bundle"
+fi
+
+# Hermes Agent's catalog installs a plugin from its root, while the default branch keeps it one level down
+if [[ "$plugin" == hermes ]]; then
+  cp .hermes-plugin/__init__.py "$bundle/__init__.py"
 fi

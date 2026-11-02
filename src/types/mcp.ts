@@ -27,14 +27,31 @@ export type EngineRunner = (
   values: string[]
 ) => Promise<EngineRun>;
 
-export type McpServer = EngineProcess & { version: string };
+/** The engine a server runs, and the project it serves when the agent named one or started it there */
+export type McpServer = Omit<EngineProcess, 'project'> & {
+  project: string | undefined;
+  packageRoot: URL;
+  version: string;
+};
 
 export type JsonRpcId = string | number;
+
+/** One client's connection: whether it offered roots, the project its calls run from, and the server's requests awaiting its answer */
+export type McpSession = {
+  server: McpServer;
+  send: (message: Record<string, unknown>) => void;
+  rootsOffered: boolean;
+  project: Promise<string | undefined>;
+  requestsSent: number;
+  awaiting: Map<JsonRpcId, (answer: unknown) => void>;
+};
 
 export type McpAnswer =
   { result: unknown } | { error: { code: number; message: string } };
 
 export type McpMethod = (
   params: unknown,
-  server: McpServer
+  session: McpSession
 ) => McpAnswer | Promise<McpAnswer>;
+
+export type McpNotification = (session: McpSession) => void;

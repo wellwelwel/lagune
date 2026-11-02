@@ -289,7 +289,7 @@ const Home = (): ReactNode => {
                   'Five-phase Blue Team flow: charter, detect, plan, harden, verify',
                   'CVSS v4.0 scoring for each finding',
                   'On-demand, language-agnostic security specializations, grouped in categories',
-                  'Installs into your agent with the skills CLI, no API key required',
+                  'Installs into your agent as a plugin, or with the skills CLI in any other agent, no API key required',
                   'Defense-only: never generates exploits or attack tooling',
                   'Local, private dashboard to follow findings, fixes, and proofs',
                 ],
@@ -375,7 +375,7 @@ const Home = (): ReactNode => {
                     name: 'How do I install Lagune?',
                     acceptedAnswer: {
                       '@type': 'Answer',
-                      text: 'Run npx skills add wellwelwel/lagune in your project. It works in both new and existing projects and needs no API key.',
+                      text: 'Most agents install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. The install page shows the command for each agent. It works in both new and existing projects and needs no API key.',
                     },
                   },
                 ],

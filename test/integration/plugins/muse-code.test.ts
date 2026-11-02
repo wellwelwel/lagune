@@ -2,7 +2,6 @@ import { describe, it, strict } from 'poku';
 import { isRecord } from '../../../src/core/collections.js';
 import {
   firstFound,
-  listBundledPaths,
   listedEntries,
   listTrackedPaths,
   readManifest,
@@ -24,11 +23,6 @@ const tracked = await listTrackedPaths();
 const marketplacePath = firstFound(MARKETPLACE_LOOKUP, tracked) ?? '';
 const marketplace = await readManifest(marketplacePath);
 const entries = listedEntries(marketplace.contents?.plugins);
-const bundled = await listBundledPaths('muse');
-const branchMarketplace = await readManifest(
-  'scripts/plugins/muse/.claude-plugin/marketplace.json'
-);
-const branchEntries = listedEntries(branchMarketplace.contents?.plugins);
 
 describe('the Muse Code plugin', () => {
   it('reads the Claude Code manifest, the first its lookup reaches', () => {
@@ -46,22 +40,6 @@ describe('the Muse Code plugin', () => {
     strict.deepStrictEqual(
       entries.map(({ source }) => isRecord(source) && source.source),
       ['local']
-    );
-  });
-});
-
-describe('the Muse Code plugin branch, which carries the engine', () => {
-  it('installs through the Claude Code marketplace it carries, the first its lookup reaches there', () => {
-    strict.strictEqual(
-      firstFound(MARKETPLACE_LOOKUP, bundled),
-      '.claude-plugin/marketplace.json'
-    );
-  });
-
-  it('lists the branch itself as the plugin', () => {
-    strict.deepStrictEqual(
-      branchEntries.map(({ source }) => source),
-      ['./']
     );
   });
 });

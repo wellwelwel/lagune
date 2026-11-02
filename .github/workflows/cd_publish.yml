@@ -123,7 +123,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        plugin: ['claude', 'cursor', 'droid', 'grok', 'muse']
+        plugin: ['antigravity', 'claude', 'cursor', 'droid', 'grok', 'hermes']
     env:
       PLUGIN: ${{ matrix.plugin }}
     steps:

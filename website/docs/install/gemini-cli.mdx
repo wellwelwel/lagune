@@ -43,7 +43,7 @@ Type the commands under the extension's name: where these docs show `/lagune-cha
 
 :::info[Permissions]
 
-**Lagune**'s release carries its engine, which the extension runs through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. **Gemini CLI** starts them only in a folder you trust, and the first call to each asks for your permission. To allow them up front, save this rule as `~/.gemini/policies/lagune.toml`, which headless sessions (`gemini -p`) need, since they leave out any tool that would ask:
+**Lagune**'s release carries its engine, which the extension runs through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. **Gemini CLI** starts them only in a folder you trust. To allow them up front, save this rule as `~/.gemini/policies/lagune.toml`:
 
 ```toml
 [[rule]]
@@ -62,8 +62,6 @@ commandRegex = 'npx --yes lagune@\d+\.\d+\.\d+\s'
 decision = "allow"
 priority = 100
 ```
-
-**Gemini CLI** still asks before such a call when it repeats an option an earlier command printed, a check no rule overrides.
 
 :::
 
@@ -87,7 +85,7 @@ priority = 100
     {
       question: 'Can Gemini CLI run Lagune without asking for permission?',
       answer:
-        "Yes. Add a Gemini CLI policy rule that allows the lagune MCP server's lagune_read and lagune_write tools. Where the engine runs through npx instead, as it does for the skills.sh, also allow run_shell_command for npx --yes lagune@ followed by a version, which Gemini CLI still asks about when a call repeats an option an earlier command printed.",
+        "Yes. Add a Gemini CLI policy rule that allows the lagune MCP server's lagune_read and lagune_write tools. Where the engine runs through npx instead, as it does for the skills.sh, also allow run_shell_command for npx --yes lagune@ followed by a version.",
     },
   ]}
 />

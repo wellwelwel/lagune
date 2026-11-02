@@ -15,7 +15,7 @@ import {
   writeFile,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, relative, sep } from 'node:path';
+import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { afterEach } from 'poku';
@@ -27,7 +27,7 @@ export const repositoryRoot = fileURLToPath(packageRoot);
 export const YAML_FILE = /\.ya?ml$/;
 
 const MANIFEST_FILE =
-  /^(?:scripts\/plugins\/[a-z]+\/)?(?:\.(?:[a-z]+-)?plugin\/[^/]+\.(?:json|ya?ml)|[a-z]+-extension\.json|\.agents\/plugins\/marketplace\.json)$/;
+  /^(?:scripts\/plugins\/[a-z]+\/)?(?:\.(?:[a-z]+-)?plugin\/[^/]+\.(?:json|ya?ml)|[a-z]+-extension\.json|plugin\.ya?ml|\.agents\/plugins\/marketplace\.json)$/;
 const OVERLAYS_FOLDER = 'scripts/plugins/';
 
 const run = promisify(execFile);
@@ -88,10 +88,8 @@ export const listFolderFiles = async (folder: string): Promise<string[]> =>
 export const listSkillFiles = (): Promise<string[]> =>
   listFolderFiles('skills');
 
-/** Every file a plugin's branch carries, the tree the listing that follows it reviews */
-export const listBundledPaths = async (
-  plugin: string
-): Promise<Set<string>> => {
+/** A plugin's branch as the release publishes it, assembled into a folder of its own */
+export const assembleBundle = async (plugin: string): Promise<string> => {
   const scratch = await mkdtemp(join(tmpdir(), `lagune-plugin-${plugin}-`));
   const bundle = join(scratch, 'bundle');
 
@@ -99,9 +97,17 @@ export const listBundledPaths = async (
     cwd: repositoryRoot,
   });
 
+  return bundle;
+};
+
+/** Every file a plugin's branch carries, the tree the listing that follows it reviews */
+export const listBundledPaths = async (
+  plugin: string
+): Promise<Set<string>> => {
+  const bundle = await assembleBundle(plugin);
   const bundled = await listFiles(bundle);
 
-  await rm(scratch, { recursive: true, force: true });
+  await rm(dirname(bundle), { recursive: true, force: true });
 
   return new Set(bundled);
 };

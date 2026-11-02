@@ -71,14 +71,13 @@ export type PluginManifest = {
 /** How an agent starts the engine: the command, its arguments, and the folder it starts from */
 export type EngineServer = { command: unknown; args: string[]; cwd?: unknown };
 
-/** The bundle a release publishes for one agent, and the server its agent starts from it */
+/** The bundle a release publishes for one agent, and the server its agent starts from it, unless the plugin registers the tools itself */
 export type PluginBundle = {
   plugin: string;
   agent: string;
   route: 'branch' | 'release archive';
   metadata: string[];
-  declaration: string;
-  server: EngineServer;
+  mcp?: { declaration: string; server: EngineServer };
 };
 
 /** What a run returned, beside what it reported through `console.error` */
@@ -93,6 +92,32 @@ export type SkillRegistration = {
   name: string;
   description: string;
   path: string;
+};
+
+/** An MCP client that offers roots, as an agent that lists its workspace does */
+export type RootsClient = {
+  request: (message: { id: number }) => Promise<unknown>;
+  notify: (method: string) => void;
+  rootsAsked: () => number;
+  close: () => Promise<void>;
+};
+
+/** A list of roots a client hands the server, built from the folders a test prepared */
+export type RootsCase = {
+  label: string;
+  roots: (project: string, sibling: string) => string[];
+};
+
+export type HermesTool = { name: string; schema: unknown };
+
+/** A call handed to one of the tools a Hermes Agent plugin registered */
+export type HermesCall = { tool: string; arguments: Record<string, unknown> };
+
+/** What a Hermes Agent plugin registered, and the answer to each call it was handed */
+export type HermesLoad = {
+  skills: SkillRegistration[];
+  tools: HermesTool[];
+  answers: string[];
 };
 
 export type PublishedText = { file: string; text: string };

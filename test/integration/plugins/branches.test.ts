@@ -32,18 +32,37 @@ const PUBLISHING_JOBS = {
 
 const BUNDLES: PluginBundle[] = [
   {
+    plugin: 'antigravity',
+    agent: 'Antigravity CLI',
+    route: 'branch',
+    metadata: [
+      '.antigravity-plugin/plugin.json',
+      'assets/logo.png',
+      'mcp_config.json',
+    ],
+    mcp: {
+      declaration: 'mcp_config.json',
+      server: {
+        command: 'node',
+        args: ['${PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
+      },
+    },
+  },
+  {
     plugin: 'claude',
     agent: 'Claude Code',
     route: 'branch',
     metadata: ['.claude-plugin/plugin.json', '.mcp.json', 'assets/logo.png'],
-    declaration: '.mcp.json',
-    server: {
-      command: 'node',
-      args: [
-        '${CLAUDE_PLUGIN_ROOT}/lib/bin/index.js',
-        'mcp',
-        '${CLAUDE_PROJECT_DIR}',
-      ],
+    mcp: {
+      declaration: '.mcp.json',
+      server: {
+        command: 'node',
+        args: [
+          '${CLAUDE_PLUGIN_ROOT}/lib/bin/index.js',
+          'mcp',
+          '${CLAUDE_PROJECT_DIR}',
+        ],
+      },
     },
   },
   {
@@ -56,10 +75,12 @@ const BUNDLES: PluginBundle[] = [
       'assets/logo.png',
       'mcp.json',
     ],
-    declaration: 'mcp.json',
-    server: {
-      command: 'node',
-      args: ['${CURSOR_PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
+    mcp: {
+      declaration: 'mcp.json',
+      server: {
+        command: 'node',
+        args: ['${CURSOR_PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
+      },
     },
   },
   {
@@ -67,10 +88,12 @@ const BUNDLES: PluginBundle[] = [
     agent: 'Factory Droid',
     route: 'branch',
     metadata: ['.factory-plugin/plugin.json', 'mcp.json'],
-    declaration: 'mcp.json',
-    server: {
-      command: 'node',
-      args: ['${DROID_PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
+    mcp: {
+      declaration: 'mcp.json',
+      server: {
+        command: 'node',
+        args: ['${DROID_PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
+      },
     },
   },
   {
@@ -78,11 +101,13 @@ const BUNDLES: PluginBundle[] = [
     agent: 'Gemini CLI',
     route: 'release archive',
     metadata: ['gemini-extension.json'],
-    declaration: 'gemini-extension.json',
-    server: {
-      command: 'node',
-      args: [ENGINE_ENTRY, 'mcp', '${workspacePath}'],
-      cwd: '${extensionPath}',
+    mcp: {
+      declaration: 'gemini-extension.json',
+      server: {
+        command: 'node',
+        args: [ENGINE_ENTRY, 'mcp', '${workspacePath}'],
+        cwd: '${extensionPath}',
+      },
     },
   },
   {
@@ -90,27 +115,19 @@ const BUNDLES: PluginBundle[] = [
     agent: 'Grok Build',
     route: 'branch',
     metadata: ['.claude-plugin/plugin.json', '.mcp.json', 'assets/logo.png'],
-    declaration: '.mcp.json',
-    server: {
-      command: 'node',
-      args: ['${GROK_PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
+    mcp: {
+      declaration: '.mcp.json',
+      server: {
+        command: 'node',
+        args: ['${GROK_PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
+      },
     },
   },
   {
-    plugin: 'muse',
-    agent: 'Muse Code',
+    plugin: 'hermes',
+    agent: 'Hermes Agent',
     route: 'branch',
-    metadata: [
-      '.claude-plugin/marketplace.json',
-      '.claude-plugin/plugin.json',
-      '.mcp.json',
-      'assets/logo.png',
-    ],
-    declaration: '.mcp.json',
-    server: {
-      command: 'node',
-      args: ['${PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
-    },
+    metadata: ['__init__.py', 'lib/mcp/tools.json', 'plugin.yaml'],
   },
 ];
 
@@ -178,10 +195,13 @@ describe('the plugin bundles', () => {
 });
 
 for (const bundle of BUNDLES) {
+  const { mcp } = bundle;
   const bundled = await listBundledPaths(bundle.plugin);
-  const server = await readEngineServer(
-    `scripts/plugins/${bundle.plugin}/${bundle.declaration}`
-  );
+  const server =
+    mcp &&
+    (await readEngineServer(
+      `scripts/plugins/${bundle.plugin}/${mcp.declaration}`
+    ));
 
   describe(`the ${bundle.agent} plugin ${bundle.route}`, () => {
     it(`carries every published skill file ${bundle.agent} loads`, () => {
@@ -220,9 +240,13 @@ for (const bundle of BUNDLES) {
       );
     });
 
-    it('starts the engine it carries, for the project the user opened', () => {
-      strict(bundled.has(ENGINE_ENTRY), 'it carries the engine entry');
-      strict.deepStrictEqual(server, bundle.server);
+    it('carries the engine entry', () => {
+      strict(bundled.has(ENGINE_ENTRY));
     });
+
+    if (mcp)
+      it('starts the engine it carries, for the project the user opened', () => {
+        strict.deepStrictEqual(server, mcp.server);
+      });
   });
 }

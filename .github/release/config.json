@@ -18,7 +18,7 @@
         },
         {
           "type": "json",
-          "path": ".antigravity-plugin/plugin.json",
+          "path": "scripts/plugins/antigravity/.antigravity-plugin/plugin.json",
           "jsonpath": "$.version"
         },
         {
@@ -54,6 +54,11 @@
         {
           "type": "json",
           "path": "scripts/plugins/qwen/qwen-extension.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "yaml",
+          "path": "scripts/plugins/hermes/plugin.yaml",
           "jsonpath": "$.version"
         }
       ]

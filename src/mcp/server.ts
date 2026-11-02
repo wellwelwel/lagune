@@ -3,11 +3,15 @@ import type {
   JsonRpcId,
   McpAnswer,
   McpMethod,
+  McpNotification,
   McpServer,
+  McpSession,
 } from '../types/mcp.js';
 import { createInterface } from 'node:readline';
+import { noServedProject } from '../cli/messages.js';
 import { isRecord, readField } from '../core/collections.js';
 import { runEngine } from './engine.js';
+import { projectFromRoots } from './project.js';
 import { describeTool, ENGINE_TOOLS, findTool, runTool } from './tools.js';
 
 const LATEST_PROTOCOL = '2025-11-25';
@@ -35,8 +39,12 @@ const toolResult = (text: string, isError: boolean): McpAnswer => ({
   result: { content: [{ type: 'text', text }], isError },
 });
 
-const initialize: McpMethod = (params, server) => {
+const initialize: McpMethod = (params, session) => {
   const requested = readField(params, 'protocolVersion');
+
+  session.rootsOffered = isRecord(
+    readField(readField(params, 'capabilities'), 'roots')
+  );
 
   return {
     result: {
@@ -45,25 +53,46 @@ const initialize: McpMethod = (params, server) => {
           ? requested
           : LATEST_PROTOCOL,
       capabilities: { tools: {} },
-      serverInfo: { name: 'lagune', version: server.version },
+      serverInfo: { name: 'lagune', version: session.server.version },
     },
   };
 };
 
-const callTool: McpMethod = async (params, server) => {
+const callTool: McpMethod = async (params, session) => {
   const name = readField(params, 'name');
   const tool = findTool(name);
 
   if (tool === undefined)
     return failure(INVALID_PARAMS, `Unknown tool: ${String(name)}`);
 
+  const project = await session.project;
+
+  if (project === undefined) return toolResult(noServedProject(), true);
+
+  const { runtime, entry } = session.server;
   const run = await runTool(
     tool,
     readField(params, 'arguments'),
-    (command, values) => runEngine(server, command, values)
+    (command, values) => runEngine({ runtime, entry, project }, command, values)
   );
 
   return toolResult(run.output, run.failed);
+};
+
+/** Asks the client for its roots whenever only they can name the project and the client offered them */
+const askRoots: McpNotification = (session) => {
+  if (session.server.project !== undefined || !session.rootsOffered) return;
+
+  session.requestsSent += 1;
+
+  const id = `roots-${session.requestsSent}`;
+
+  session.project = new Promise((resolve) => {
+    session.awaiting.set(id, (answer) =>
+      resolve(projectFromRoots(answer, session.server.packageRoot))
+    );
+  });
+  session.send({ id, method: 'roots/list' });
 };
 
 const METHODS: Record<string, McpMethod> = {
@@ -71,6 +100,11 @@ const METHODS: Record<string, McpMethod> = {
   ping: () => ({ result: {} }),
   'tools/list': () => ({ result: { tools: ENGINE_TOOLS.map(describeTool) } }),
   'tools/call': callTool,
+};
+
+const NOTIFICATIONS: Record<string, McpNotification> = {
+  'notifications/initialized': askRoots,
+  'notifications/roots/list_changed': askRoots,
 };
 
 const envelope = (id: JsonRpcId | null, answer: McpAnswer): string =>
@@ -87,13 +121,13 @@ const parse = (line: string): unknown => {
 const dispatch = async (
   method: string,
   params: unknown,
-  server: McpServer
+  session: McpSession
 ): Promise<McpAnswer> => {
   if (!Object.hasOwn(METHODS, method))
     return failure(METHOD_NOT_FOUND, `Method not found: ${method}`);
 
   try {
-    return await METHODS[method](params, server);
+    return await METHODS[method](params, session);
   } catch (error) {
     return failure(
       INTERNAL_ERROR,
@@ -102,10 +136,27 @@ const dispatch = async (
   }
 };
 
+const notify = (method: unknown, session: McpSession): void => {
+  if (typeof method === 'string' && Object.hasOwn(NOTIFICATIONS, method))
+    NOTIFICATIONS[method](session);
+};
+
+/** Hands the client's answer to the request of the server's that awaits it */
+const settle = (id: unknown, answer: unknown, session: McpSession): void => {
+  if (!isRequestId(id)) return;
+
+  const resolve = session.awaiting.get(id);
+
+  if (resolve === undefined) return;
+
+  session.awaiting.delete(id);
+  resolve(answer);
+};
+
 /** The reply to one line the client sent, or nothing for a notification or a response */
 const respond = async (
   line: string,
-  server: McpServer
+  session: McpSession
 ): Promise<string | undefined> => {
   const message = parse(line);
 
@@ -114,16 +165,27 @@ const respond = async (
   if (!isRecord(message))
     return envelope(null, failure(INVALID_REQUEST, 'Invalid Request'));
 
-  const { id, method, params } = message;
+  const { id, method, params, result } = message;
 
-  if (method === undefined || id === undefined) return undefined;
+  if (method === undefined) {
+    settle(id, result, session);
+
+    return undefined;
+  }
+
+  if (id === undefined) {
+    notify(method, session);
+
+    return undefined;
+  }
+
   if (!isRequestId(id) || typeof method !== 'string')
     return envelope(
       isRequestId(id) ? id : null,
       failure(INVALID_REQUEST, 'Invalid Request')
     );
 
-  return envelope(id, await dispatch(method, params, server));
+  return envelope(id, await dispatch(method, params, session));
 };
 
 /** Serves the engine over stdio MCP until the client closes the input */
@@ -134,11 +196,20 @@ export const serveMcp = (
 ): Promise<void> =>
   new Promise((resolve) => {
     const lines = createInterface({ input, crlfDelay: Infinity });
+    const session: McpSession = {
+      server,
+      send: (message) =>
+        output.write(`${JSON.stringify({ jsonrpc: '2.0', ...message })}\n`),
+      rootsOffered: false,
+      project: Promise.resolve(server.project),
+      requestsSent: 0,
+      awaiting: new Map(),
+    };
 
     lines.on('line', (line) => {
       if (line.trim().length === 0) return;
 
-      respond(line, server).then((reply) => {
+      respond(line, session).then((reply) => {
         if (reply !== undefined) output.write(`${reply}\n`);
       });
     });

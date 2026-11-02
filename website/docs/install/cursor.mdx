@@ -30,14 +30,18 @@ agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plug
 
 Then type `/plugins` in an `agent` session and install **Lagune**.
 
+The **Cursor CLI** also loads the plugins **Claude Code** installs, so if **Lagune** is already installed in **Claude Code**, the **Cursor CLI** runs it from there with no install of its own.
+
 ## Update
 
-**Cursor** keeps **Lagune** at the commit it indexed until you refresh the marketplace. To update **Lagune**, select **Refresh** on the `lagune` marketplace in **Customize**. The **Cursor CLI** keeps the commit it added, so add the marketplace again:
+**Cursor** keeps **Lagune** at the commit it indexed until you refresh the marketplace. To update **Lagune**, select **Refresh** on the `lagune` marketplace in **Customize**. The **Cursor CLI** keeps the commit the branch pointed at when you added the marketplace, and refreshing it rebuilds that same commit. Removing the marketplace also uninstalls **Lagune**, so add it again:
 
 ```bash
 agent plugin marketplace remove lagune
 agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
 ```
+
+Then type `/plugins` in an `agent` session and install **Lagune** again.
 
 ## Commands
 
@@ -47,7 +51,7 @@ Type the commands by their names, such as `/lagune-charter`.
 
 :::info[Permissions]
 
-In the **Cursor CLI**, the plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. The first call to each asks for your permission. To allow them up front, add these rules to `.cursor/cli.json` for one project, or to `~/.cursor/cli-config.json` for all of them:
+In the **Cursor CLI**, the plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. To allow them up front, add these rules to `.cursor/cli.json` for one project, or to `~/.cursor/cli-config.json` for all of them:
 
 ```json
 {
@@ -62,13 +66,7 @@ In the **Cursor CLI**, the plugin carries **Lagune**'s engine and runs it throug
 
 Where the engine runs through **npx** instead, as it does for the **skills.sh**, also allow `Shell(npx:--yes lagune@*)`.
 
-**Cursor** itself installs the plugin without the engine, so its commands run the engine through **npx**. In its default Auto-review mode, the sandbox cannot write **npm**'s cache, which lies outside your project, so **Cursor**'s classifier reviews each engine call and may ask for your permission. To run the engine inside the sandbox, turn on the shared build cache in `~/.cursor/sandbox.json`:
-
-```json
-{
-  "enableSharedBuildCache": true
-}
-```
+**Cursor** itself installs the plugin without the engine, so its commands run the engine through **npx**, which its default Auto-review mode runs without asking.
 
 :::
 
@@ -82,7 +80,7 @@ Where the engine runs through **npx** instead, as it does for the **skills.sh**,
     {
       question: 'How do I update Lagune on Cursor?',
       answer:
-        'In Cursor, select Refresh on the lagune marketplace in Customize. In the Cursor CLI, run agent plugin marketplace remove lagune, then add the marketplace again with agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor.',
+        'In Cursor, select Refresh on the lagune marketplace in Customize. In the Cursor CLI, run agent plugin marketplace remove lagune, add the marketplace again with agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor, then install Lagune again from /plugins, since removing the marketplace uninstalls it.',
     },
     {
       question: "How do I run Lagune's commands on Cursor?",
@@ -91,7 +89,7 @@ Where the engine runs through **npx** instead, as it does for the **skills.sh**,
     {
       question: 'Can Cursor run Lagune without asking for permission?',
       answer:
-        "Yes. In the Cursor CLI, add Mcp(plugin-lagune-lagune:lagune_read) and Mcp(plugin-lagune-lagune:lagune_write) to the permissions allow list in its config, and Shell(npx:--yes lagune@*) where the engine runs through npx instead. In Cursor's default Auto-review mode, set enableSharedBuildCache to true in its sandbox settings, so the engine runs inside the sandbox instead of being reviewed by the classifier.",
+        'Yes. In the Cursor CLI, add Mcp(plugin-lagune-lagune:lagune_read) and Mcp(plugin-lagune-lagune:lagune_write) to the permissions allow list in its config, and Shell(npx:--yes lagune@*) where the engine runs through npx instead. In Cursor, the default Auto-review mode already runs the engine without asking.',
     },
   ]}
 />

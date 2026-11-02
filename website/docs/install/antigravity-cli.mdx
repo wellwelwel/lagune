@@ -22,7 +22,7 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 Install the plugin from your terminal:
 
 ```bash
-agy plugin install https://github.com/wellwelwel/lagune
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 ```
 
 ## Update
@@ -30,7 +30,7 @@ agy plugin install https://github.com/wellwelwel/lagune
 **Antigravity CLI** leaves the plugin at its installed version until you install it again, which replaces the installed copy. To update **Lagune**, run:
 
 ```bash
-agy plugin install https://github.com/wellwelwel/lagune
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 ```
 
 ## Commands
@@ -41,23 +41,19 @@ Type the commands under the plugin's name, such as `/lagune:lagune-charter` wher
 
 :::info[Permissions]
 
-The first engine call asks for your permission. To allow it up front, add this rule to `~/.gemini/antigravity-cli/settings.json`:
+The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. **Antigravity CLI** loads them while a session's first message runs, so a command sent as that first message runs the engine through **npx** instead, and every later message uses the tools. To allow both routes up front, add these rules to `~/.gemini/antigravity-cli/settings.json`:
 
 ```json
 {
   "permissions": {
-    "allow": ["command(regex:npx --yes lagune@[0-9.]+)"]
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
   }
 }
 ```
-
-With the sandbox on, the engine cannot be downloaded, even with the **npm** registry allowed, since the sandbox keeps **npm**'s cache read-only. Install the engine in your project from your own terminal, once and again after each update:
-
-```bash
-npm i -D lagune@{{version}}
-```
-
-The engine then runs inside the sandbox, with no download and no network access.
 
 :::
 
@@ -65,12 +61,13 @@ The engine then runs inside the sandbox, with no download and no network access.
   items={[
     {
       question: 'How do I install Lagune on Antigravity CLI?',
-      answer: 'Run agy plugin install https://github.com/wellwelwel/lagune.',
+      answer:
+        'Run agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity.',
     },
     {
       question: 'How do I update Lagune on Antigravity CLI?',
       answer:
-        'Run agy plugin install https://github.com/wellwelwel/lagune again, which replaces the installed copy.',
+        'Run agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity again, which replaces the installed copy.',
     },
     {
       question: "How do I run Lagune's commands on Antigravity CLI?",
@@ -80,7 +77,7 @@ The engine then runs inside the sandbox, with no download and no network access.
     {
       question: 'Can Antigravity CLI run Lagune without asking for permission?',
       answer:
-        "Yes. Add command(regex:npx --yes lagune@[0-9.]+) to the permissions allow list in Antigravity CLI's settings. With the sandbox on, the engine cannot be downloaded, so also run npm i -D lagune@{{version}} in your project from your own terminal, once and again after each update.",
+        "Yes. Add mcp(lagune_lagune/lagune_read) and mcp(lagune_lagune/lagune_write) to the permissions allow list in Antigravity CLI's settings, which allow Lagune's two engine tools, and command(regex:npx --yes lagune@[0-9.]+) for a command sent as a session's first message, which runs the engine through npx before the tools load.",
     },
   ]}
 />
