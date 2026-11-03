@@ -19,22 +19,36 @@ keywords:
 
 import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-The [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs **Lagune**'s commands in any agent:
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Terminal" default>
+
+Install **Lagune**'s commands from your terminal with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
 npx skills add wellwelwel/lagune
 ```
 
-Or paste this prompt into your agent:
+  </TabItem>
+  <TabItem value="prompt" label="Prompt">
+
+Paste this prompt into your agent:
 
 ```md
 Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
 ```
 
+  </TabItem>
+</Tabs>
+
 ## Update
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Terminal" default>
 
 To update **Lagune**, run:
 
@@ -42,12 +56,17 @@ To update **Lagune**, run:
 npx skills update
 ```
 
-If your agent lists the commands with a dot, such as `/lagune.charter`, remove **Lagune** and add it again:
+  </TabItem>
+  <TabItem value="prompt" label="Prompt">
 
-```bash
-npx skills remove wellwelwel/lagune
-npx skills add wellwelwel/lagune
+To update **Lagune**, paste this prompt into your agent:
+
+```md
+Run `npx --yes skills update -y` and read its complete output, redirecting it to a temporary file first if necessary.
 ```
+
+  </TabItem>
+</Tabs>
 
 ---
 
@@ -69,11 +88,13 @@ npm i -D lagune@{{version}}
   items={[
     {
       question: 'How do I install Lagune in any AI agent?',
-      answer: 'Run npx skills add wellwelwel/lagune in your project.',
+      answer:
+        'Run npx skills add wellwelwel/lagune in your project, or paste the install prompt into your agent.',
     },
     {
       question: 'How do I update Lagune installed with the skills CLI?',
-      answer: 'Run npx skills update.',
+      answer:
+        'Run npx skills update, or paste the update prompt into your agent.',
     },
     {
       question: 'Can I install Lagune with both the skills CLI and a plugin?',

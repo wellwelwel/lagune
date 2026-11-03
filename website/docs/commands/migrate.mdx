@@ -29,10 +29,10 @@ A project with a manifest keeps working as it is until `v1.x`: `npx lagune` hand
 
 2. Commit what it changed on its own, so the move stays one reviewable change.
 3. Install the commands for your agent, as the [install page](/docs) shows.
-4. Ask [`/lagune-repair`](/docs/commands/repair) to reconcile the old references in the artifacts and in your own specializations:
+4. If the project already has a detect, plan, or harden artifact, ask [`/lagune-repair`](/docs/commands/repair) to reconcile the old references in them and in your own specializations:
 
    ```prompt
-   /lagune-repair If they exist, reconcile the applied specializations (formerly sub-skills) in the artifacts under `.lagune/memory/` (`detect.md`, `plan.md`, and `harden.md`) with the names the new catalog lists, and rewrite every call my own specializations in `.lagune/catalog/` make to the old hooks in `.lagune/hooks/` as a call to the `lagune_read` or `lagune_write` tool.
+   /lagune-repair Reconcile the applied specializations (formerly sub-skills) in the artifacts under `.lagune/memory/` (`detect.md`, `plan.md`, and `harden.md`) with the names the new catalog lists, and rewrite every call my own specializations in `.lagune/catalog/` make to the old hooks in `.lagune/hooks/` as a call to the `lagune_read` or `lagune_write` tool.
    ```
 
 ## What changes
