@@ -61,3 +61,4 @@ Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工�
 - [English](https://lagune.ai/llms.txt)
 - [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
 - [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)

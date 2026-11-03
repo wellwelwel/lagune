@@ -1,0 +1,63 @@
+# Hook agent: detecta bucles de agente sin límite
+
+> Analiza un proyecto en busca de llamadas a agentes y LLM sin límite de pasos ni de tiempo, o evalúa una sola llamada, desde la línea de comandos.
+
+URL canónica: https://lagune.ai/es-ES/docs/hooks/agent
+Idioma: es-ES
+Original: https://lagune.ai/docs/hooks/agent
+Última actualización: 2026-11-03
+
+El hook `agent` señala **runtimes de agente que iteran en bucle sin límite de turnos, de presupuesto ni de tiempo**, el agujero de autonomía descontrolada que convierte una entrada manipulada en un coste ilimitado o en una escalada por inyección de prompts. **Tiene en cuenta el lenguaje** y cubre los dos ecosistemas de frameworks de agentes: **JavaScript** (el runtime `query` del SDK de agentes de **Claude**) y **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). Es el motor determinista en el que se apoya la [especialización `llm`](https://lagune.ai/es-ES/docs/catalog), y puedes ejecutarlo tú mismo en modo **scan** o **check**.
+
+## Cómo ejecutarlo
+
+**Analizar el proyecto**
+
+```bash
+npx lagune read agent                # scans the whole project
+npx lagune read agent --dir src/ai   # scans a directory
+npx lagune read agent --file chat.ts # scans a single file
+```
+
+**Comprobar una llamada**
+
+```bash
+npx lagune read agent --lang javascript --pattern 'query({ prompt })'                           # => uncapped
+npx lagune read agent --lang javascript --pattern 'query({ prompt, options: { maxTurns: 5 } })' # => safe
+npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterations=None)'     # => uncapped
+```
+
+Cada línea bajo **Uncapped agent loops found** es, en un archivo que importa un SDK de agentes, o bien una llamada al runtime `query` del SDK de agentes de Claude sin límite de turnos, de presupuesto ni de tiempo (JavaScript, sin límite por defecto), o bien la eliminación explícita del límite por defecto de un framework, como `max_iterations=None` / `max_turns=None` (Python, con límite por defecto). En ambos casos, el hook termina con un código de salida distinto de cero. En el Vercel AI SDK, `generateText`/`streamText` usan por defecto un solo paso (`stopWhen: stepCountIs(1)`), así que una llamada sin opciones no puede entrar en bucle y no se señala, y un `db.query(...)` corriente nunca se confunde con una llamada a un agente. Si no encuentra nada, muestra `no uncapped agent loops found`.
+
+## Cómo interpretar el veredicto
+
+| Veredicto  | Significado                                                                                                                  |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `uncapped` | Una llamada al runtime `query` sin límite (JS), o la eliminación explícita de un límite (`=None`, Py).                       |
+| `safe`     | Una llamada a `query` que fija un límite, una generación de un solo paso o la llamada a un framework con límite por defecto. |
+| `invalid`  | El fragmento de código no contiene ninguna llamada a un agente reconocible que evaluar.                                      |
+
+### Opciones de la CLI
+
+| Opción      | Valor                  | Descripción                                                                        |
+| ----------- | ---------------------- | ---------------------------------------------------------------------------------- |
+| `--pattern` | un fragmento de código | Comprueba una llamada. Repítela para comprobar varias, con un veredicto por línea. |
+| `--lang`    | un lenguaje            | Obligatoria con `--pattern`: `javascript` o `python`.                              |
+| `--dir`     | un directorio          | Limita el análisis a un directorio. Se puede repetir y combinar con `--file`.      |
+| `--file`    | un archivo             | Limita el análisis a un solo archivo. Se puede repetir y combinar con `--dir`.     |
+
+Sin ninguna opción, analiza todo el proyecto. `--pattern` necesita `--lang` y no se puede combinar con `--dir` ni con `--file`.
+
+**Orientativo, no exhaustivo**
+
+Un bucle de agente escrito a mano, en cualquier lenguaje, queda fuera del alcance de un análisis estático. Tómalo como una base sólida, no como un inventario completo.
+
+**Consejo**
+
+El hook solo decide el límite: el alcance de las capacidades, la mezcla de niveles de confianza y la autorización son cuestiones de criterio que sigue cubriendo la [especialización `llm`](https://lagune.ai/es-ES/docs/catalog).
+
+## Preguntas frecuentes
+
+### ¿Por qué limitar el bucle de un agente?
+
+Un agente sin límite puede acabar en una recursión, un coste o una escalada por inyección de prompts sin fin. Fijar maxTurns/maxBudgetUsd/stopWhen/signal lo acota, y el hook agent señala cualquier llamada al runtime query que no fije ninguno.

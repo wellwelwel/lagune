@@ -1,0 +1,56 @@
+# Hook infra: detecta errores de configuración en IaC
+
+> Analiza Terraform, Dockerfiles y GitHub Actions en busca de errores de configuración, o evalúa un único fragmento de código, desde la línea de comandos.
+
+URL canónica: https://lagune.ai/es-ES/docs/hooks/infra
+Idioma: es-ES
+Original: https://lagune.ai/docs/hooks/infra
+Última actualización: 2026-11-03
+
+El hook `infra` señala **errores de configuración en la infraestructura como código** que se pueden determinar a partir del propio archivo: una red abierta a todo el mundo, un permiso con comodín, un secreto en un manifiesto, un contenedor que se ejecuta como root, un valor no fiable en una shell de CI. Solo lee archivos de IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). Es el motor determinista en el que se apoya la [especialización `infra`](https://lagune.ai/es-ES/docs/catalog), en modo **scan** o **check**.
+
+## Cómo ejecutarlo
+
+**Analizar el proyecto**
+
+```bash
+npx lagune read infra                   # scans every IaC file
+npx lagune read infra --dir infra       # scans a directory
+npx lagune read infra --file Dockerfile # scans a single file
+```
+
+**Comprobar un fragmento**
+
+Pasa el fragmento con `--pattern` y su tipo con `--kind` (`terraform`, `dockerfile` o `github-actions`).
+
+```bash
+npx lagune read infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
+npx lagune read infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
+```
+
+El análisis muestra hasta dos secciones. **Infrastructure risks found** hace que el hook termine con un código de salida distinto de cero y reúne los defectos que se pueden determinar (una regla de entrada desde `0.0.0.0/0` en un puerto sensible, una instrucción IAM con comodín, un secreto en un manifiesto, `encrypted = false`, un módulo git sin versión fijada, una imagen que se ejecuta explícitamente como root, un `curl | sh`, una inyección de scripts en CI, `permissions: write-all`). **Infrastructure hardening advisories** no cambia el código de salida (una etiqueta de imagen base mutable, una acción fijada por etiqueta). Si no encuentra nada, muestra `no infrastructure risks found`.
+
+## Cómo interpretar el veredicto
+
+El modo check muestra la etiqueta de mayor gravedad que ha detectado (por ejemplo `public-ingress`, `iam-wildcard`, `root-user`, `curl-pipe`, `script-injection`, `write-all`), una etiqueta de aviso (`mutable-tag`, `unpinned-action`) o `safe`. Solo una etiqueta con gravedad de hallazgo hace que termine con un código de salida distinto de cero.
+
+### Opciones de la CLI
+
+| Opción      | Valor                                           | Descripción                                                                    |
+| ----------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| `--pattern` | un fragmento de código                          | Comprueba un fragmento. Requiere `--kind`. Repítela para comprobar varios.     |
+| `--kind`    | `terraform` \| `dockerfile` \| `github-actions` | El tipo con el que se evalúa el fragmento.                                     |
+| `--dir`     | un directorio                                   | Limita el análisis a un directorio. Se puede repetir y combinar con `--file`.  |
+| `--file`    | un archivo                                      | Limita el análisis a un solo archivo. Se puede repetir y combinar con `--dir`. |
+
+Sin ninguna opción, analiza todos los archivos de IaC del proyecto. `--pattern` no se puede combinar con `--dir` ni con `--file`.
+
+**Consejo**
+
+El hook detecta los casos evidentes y decidibles: la ausencia de cifrado, la exposición de `pull_request_target` y el alcance IAM adecuado son cuestiones de criterio que sigue cubriendo la [especialización `infra`](https://lagune.ai/es-ES/docs/catalog).
+
+## Preguntas frecuentes
+
+### ¿Qué archivos de infraestructura lee el hook infra?
+
+Los de Terraform/HCL (.tf, .tf.json, .hcl), los Dockerfiles y los YAML de flujos de trabajo y de acciones de GitHub Actions dentro de .github/. Llega a esos archivos aunque los analizadores de código fuente se los salten.

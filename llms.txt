@@ -61,3 +61,4 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 - [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
 - [简体中文](https://lagune.ai/zh-CN/llms.txt)
 - [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)

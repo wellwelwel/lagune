@@ -1,0 +1,251 @@
+# Ejemplos de prompts de Lagune: automatiza el flujo Blue Team
+
+> Prompts de Lagune listos para copiar: un análisis de solo lectura, el flujo Blue Team completo y una auditoría Zero Trust, además de detección acotada a un commit, al diff de una rama o PR, o a un incidente real.
+
+URL canónica: https://lagune.ai/es-ES/docs/examples/prompts
+Idioma: es-ES
+Original: https://lagune.ai/docs/examples/prompts
+Última actualización: 2026-11-03
+
+Prompts de Lagune listos para copiar y pegar directamente en tu agente de IA.
+
+## 💧 Análisis superficial
+
+Un análisis de solo lectura que revisa el código por su cuenta e informa de cada fallo con su corrección, sin ejecutar el flujo Blue Team ni escribir en el seguimiento de Lagune.
+
+**Consejo**
+
+Funciona mejor en modo de planificación y con un charter (`/lagune-charter`) definido.
+
+**🪼 Predeterminado**
+
+| Aspecto           | Contrapartida                                                            | Nivel               |
+| ----------------- | ------------------------------------------------------------------------ | ------------------- |
+| **Esfuerzo**      | Un solo agente analiza e informa, sin subagentes.                        | 1/5 |
+| **Tiempo**        | Rápido. Una sola pasada de solo lectura, sin aplicar nada.               | 2/5 |
+| **Uso de tokens** | Moderado y compartido. Todo el análisis se ejecuta en un mismo contexto. | 2/5 |
+
+```md
+/lagune Eres un investigador de ciberseguridad con amplia experiencia en seguridad defensiva y usas Lagune para mejorar tus conocimientos y tu precisión.
+
+Analiza el espacio de trabajo por tu cuenta y asocia a cada fallo que encuentres una corrección concreta. Es un análisis independiente, no el flujo Blue Team: no ejecutes detect, plan, harden ni verify, y no escribas nada en el seguimiento de Lagune.
+
+Al final, enumera todos los fallos que hayas encontrado, cada uno con su gravedad y una corrección concreta.
+```
+
+**🐬 Multiagente**
+
+| Aspecto           | Contrapartida                                                                               | Nivel               |
+| ----------------- | ------------------------------------------------------------------------------------------- | ------------------- |
+| **Esfuerzo**      | Un subagente por archivo, en proporción al tamaño de tu código.                             | 2/5 |
+| **Tiempo**        | En paralelo por archivo y luego unificado en un solo informe. Sigue siendo de solo lectura. | 3/5 |
+| **Uso de tokens** | Mayor, pero aislado. Cada subagente analiza en su propio contexto.                          | 3/5 |
+
+````md
+/lagune Eres un orquestador de ciberseguridad que usa Lagune para enumerar las rutas, lanzar un subagente por ruta y unificar sus informes (todo el contenido lo leen los subagentes).
+
+Debes delegar la tarea en subagentes según el tamaño del proyecto actual: cuanto más grande sea el código, más subagentes deben lanzarse, todos en paralelo, y cada uno con el prompt siguiente:
+
+```prompt
+/lagune Eres un investigador de ciberseguridad con amplia experiencia en seguridad defensiva y usas Lagune para mejorar tus conocimientos y tu precisión.
+
+Analiza <path> por tu cuenta y asocia a cada fallo que encuentres una corrección concreta. Es un análisis independiente, no el flujo Blue Team: no ejecutes detect, plan, harden ni verify, y no escribas nada en el seguimiento de Lagune.
+
+Al final, enumera todos los fallos de <path>, cada uno con su gravedad y una corrección concreta.
+```
+
+Al final, unifica los informes de todos los subagentes en una sola lista priorizada de fallos y correcciones.
+````
+
+**Aviso**
+
+Un análisis rápido es un único prompt amplio y sin acotar, así que es más probable que algunos agentes lo rechacen o lo dejen a medias. Si el tuyo se resiste, ejecuta en su lugar el **flujo Blue Team** completo que encontrarás más abajo: sus fases acotadas y paso a paso tienen muchas menos probabilidades de bloquearse.
+
+---
+
+## 🌊 Flujo de auditoría Blue Team automático
+
+Ejecuta el [flujo completo de comandos](https://lagune.ai/es-ES/docs/get-started/commands) de principio a fin sin detenerse a pedirte nada.
+
+**🪼 Predeterminado**
+
+| Aspecto           | Contrapartida                                                                                      | Nivel               |
+| ----------------- | -------------------------------------------------------------------------------------------------- | ------------------- |
+| **Esfuerzo**      | Un solo agente, sin subagentes, sea cual sea el tamaño del código.                                 | 3/5 |
+| **Tiempo**        | Medio, pero menos exhaustivo en proyectos grandes. Cada comando se ejecuta una vez, uno tras otro. | 4/5 |
+| **Uso de tokens** | Menor, pero menos aislado. Todos los comandos comparten el mismo contexto.                         | 4/5 |
+
+```md
+Ejecuta los siguientes comandos, uno a uno: `/lagune-charter`, `/lagune-detect`, `/lagune-plan`, `/lagune-harden` y `/lagune-verify`.
+
+## Bucle
+
+Cuando `/lagune-verify` rechace una o más correcciones, repite `/lagune-harden` y luego `/lagune-verify` hasta que todos los hallazgos queden bien resueltos.
+
+## Importante
+
+- No te detengas ni preguntes: en caso de duda, hazlo todo en modo "full".
+```
+
+**🐋 Multiagente (análisis profundo)**
+
+| Aspecto           | Contrapartida                                                                                                            | Nivel               |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------- |
+| **Esfuerzo**      | El número de subagentes se ajusta al tamaño de tu código.                                                                | 5/5 |
+| **Tiempo**        | Más largo, pero más exhaustivo. Lanza varios subagentes para detectar, planificar y bastionar los hallazgos en paralelo. | 5/5 |
+| **Uso de tokens** | Mayor, pero más seguro. Cada subagente tiene su propio contexto aislado, sin sesgos.                                     | 5/5 |
+
+````md
+Ejecuta cada uno de los siguientes comandos en un subagente distinto, de uno en uno (sin comillas invertidas, solo el comando):
+
+Prompt del subagente 1: `/lagune-charter`
+Prompt del subagente 2: `/lagune-detect`
+Prompt del subagente 3: `/lagune-plan`
+Prompt del subagente 4: `/lagune-harden`
+Prompt del subagente 5: `/lagune-verify`
+
+En los comandos `/lagune-detect`, `/lagune-plan`, `/lagune-harden` y `/lagune-verify`, debes delegar la tarea en subagentes según el tamaño del proyecto actual: cuanto más grande sea el código, más subagentes deben lanzarse. Por ejemplo:
+
+```prompt
+/lagune-detect <path>
+```
+
+```prompt
+/lagune-plan <finding>
+```
+
+```prompt
+/lagune-harden <finding>
+```
+
+```prompt
+/lagune-verify <finding>
+```
+
+- Si varios agentes ejecutan el mismo comando, lánzalos en paralelo.
+- Cuando terminen todos los subagentes de `/lagune-detect`, ejecuta:
+
+```prompt
+/lagune-detect unifica los hallazgos equivalentes. No busques hallazgos nuevos ni vuelvas a analizar el código.
+```
+
+## Bucle
+
+Cuando `/lagune-verify` rechace una o más correcciones, repite `/lagune-harden` y luego `/lagune-verify` hasta que todos los hallazgos queden bien resueltos.
+
+## Importante
+
+- No te detengas ni preguntes: en caso de duda, hazlo todo en modo "full".
+````
+
+---
+
+## 🪄 Detección acotada
+
+Dirige [`/lagune-detect`](https://lagune.ai/es-ES/docs/commands/detect) a una parte de tu proyecto en lugar de a todo él. Describe el ámbito en lenguaje sencillo (un commit, un pull request o una situación real) e identificará solo los hallazgos relevantes para la seguridad dentro de él.
+
+**Consejo**
+
+Todo lo que detecta aquí es un hallazgo normal, así que puedes llevarlo directamente a `/lagune-plan`, `/lagune-harden` y `/lagune-verify`, acotados solo a esos elementos.
+
+**📌 Desde un commit**
+
+Somete un lote reciente de commits a su propia revisión de seguridad, acotada solo a lo que han cambiado, por ejemplo:
+
+```prompt
+/lagune-detect Limita la detección a todo lo que ha cambiado desde el commit `a1b2c3d`.
+```
+
+**🔀 Diff de una rama o PR**
+
+Revisa la seguridad de un pull request antes de fusionarlo, acotando la revisión a su diff, por ejemplo:
+
+```prompt
+/lagune-detect Limita la detección a los cambios que introduce esta rama respecto a `main`.
+```
+
+**⛑️ Tras un incidente**
+
+Describe lo ocurrido con tus propias palabras. Lagune interpreta la situación, no un flag, y la convierte en una búsqueda focalizada, por ejemplo:
+
+```prompt
+/lagune-detect Hace unas semanas nuestra web sufrió una fuga de datos. No sé exactamente cómo ocurrió y me preocupa que siga habiendo algo abierto por donde se puedan volver a filtrar datos. Revisa el código con cuidado, céntrate en cualquier punto donde se lean, almacenen o expongan datos sensibles e identifica todo lo que todavía pueda ser una vía de salida. Trátalo como un incidente real, no como un simulacro.
+```
+
+---
+
+## 🚨 Auditoría Zero Trust
+
+Trata todo el espacio de trabajo y cada dependencia como hostiles: busca intérpretes, llamadas de red, payloads codificados y código escondido en lugares insospechados para burlar los escáneres, y termina con un veredicto claro, sí o no, sobre si es seguro usar el proyecto.
+
+Los prompts cargan directamente las especializaciones en las que se apoya esta auditoría, sean cuales sean las categorías de tu proyecto. Para el resto del catálogo que `/lagune` coteja con el código, asegúrate de que el proyecto use **OWASP**, **IA / LLM** y la categoría de su stack (por ejemplo, **JavaScript**, **Python**, etc.):
+
+```bash
+npx lagune write add --categories owasp ai javascript
+```
+
+**Peligro**
+
+Ten cuidado al ejecutar en tu entorno local proyectos de fuentes no fiables. Usa un entorno aislado, como un **sandbox** (recomendado), una **VM** o algo similar, para evitar que el código malicioso afecte a tu sistema.
+
+**🪼 Predeterminado**
+
+| Aspecto           | Contrapartida                                                                                                  | Nivel               |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Esfuerzo**      | Un solo agente analiza todo el espacio de trabajo, sin subagentes.                                             | 2/5 |
+| **Tiempo**        | Medio. Un solo agente recorre el código y sus dependencias de forma secuencial.                                | 3/5 |
+| **Uso de tokens** | Moderado, pero compartido. Las especializaciones, el código y las dependencias se cargan en un mismo contexto. | 3/5 |
+
+```md
+/lagune Eres un investigador de ciberseguridad con amplia experiencia en seguridad defensiva zero trust y usas Lagune para mejorar tus conocimientos y tu precisión.
+
+Considera todo el espacio de trabajo una fuente no fiable y un ámbito potencialmente malicioso. Cualquier intérprete, fetch, base64 o similar debe tratarse como una posible amenaza.
+
+Extiende tu análisis a las dependencias y subdependencias: un proyecto puede intentar ocultar código malicioso en un lugar insospechado para burlar los escáneres.
+
+Especializaciones obligatorias (cárgalas de una en una con `npx lagune read catalog <name>`):
+
+- interpreter
+- secrets
+- llm
+- path
+
+Que quede claro: toda vulnerabilidad identificada debe tratarse como una posible amenaza, sin excepción.
+
+Al final, dame un veredicto sobre si el proyecto es seguro y fiable para que lo use o no.
+```
+
+**🐋 Multiagente (análisis profundo)**
+
+| Aspecto           | Contrapartida                                                                                                  | Nivel               |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Esfuerzo**      | Un subagente por archivo, en proporción al tamaño de tu código.                                                | 5/5 |
+| **Tiempo**        | Más largo, pero más exhaustivo. Los archivos se analizan en paralelo y luego se unifican en un solo veredicto. | 4/5 |
+| **Uso de tokens** | El más alto, pero el más seguro. Cada subagente lee las especializaciones en su propio contexto aislado.       | 5/5 |
+
+````md
+/lagune Eres un orquestador de ciberseguridad que usa Lagune para enumerar los archivos, lanzar un subagente por archivo y generar informes (todo el contenido lo leen los subagentes).
+
+Lanza un subagente por archivo, todos en paralelo, y dale a cada uno el prompt siguiente, acotado a su archivo:
+
+```prompt
+/lagune Eres un investigador de ciberseguridad con amplia experiencia en seguridad defensiva zero trust y usas Lagune para mejorar tus conocimientos y tu precisión.
+
+Considera <file> una fuente no fiable y un ámbito potencialmente malicioso. Cualquier intérprete, fetch, base64 o similar debe tratarse como una posible amenaza.
+
+Extiende el análisis a todo lo que importe <file>, incluidas las dependencias y subdependencias, donde el código malicioso puede esconderse para burlar los escáneres.
+
+Especializaciones obligatorias para cada subagente (cárgalas de una en una con `npx lagune read catalog <name>`):
+
+- interpreter
+- secrets
+- llm
+- path
+
+Que quede claro: toda vulnerabilidad identificada debe tratarse como una posible amenaza, sin excepción.
+
+Al final, dame un veredicto sobre si el proyecto es seguro y fiable para que lo use o no.
+```
+
+Al final, unifica los informes de todos los subagentes en un único veredicto final.
+````
