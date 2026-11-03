@@ -69,23 +69,6 @@ claude plugin update lagune@lagune
 </td>
 </tr>
 <tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Desktop</b></a></td>
-</tr>
-<tr>
-<td>
-
-- Install **Lagune** for yourself in **Claude Code** or its extension.
-- Start a new session in the desktop app.
-
-</td>
-<td>
-
-- Update **Lagune** in **Claude Code** or its extension.
-- Start a new session in the desktop app.
-
-</td>
-</tr>
-<tr>
 <td colspan="2"><picture><img src="./.github/readme/assets/agents/codex.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/codex"><b>Codex</b></a></td>
 </tr>
 <tr>
