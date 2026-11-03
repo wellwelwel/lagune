@@ -145,7 +145,7 @@ npm -w website run i18n -- check
 1. `npm -w website run i18n -- copy <code> <doc id>` copies the English page into the language folder and records which English version it came from.
 2. Translate the copy, keeping its structure, then run `check <code>` until it reports no errors for that page.
 
-To preview a language, run `npm -w website run start -- --locale <code>`.
+To preview a language, run `npm run website:dev -- <code>`.
 
 #### Keeping a translation in sync
 

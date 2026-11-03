@@ -1,4 +1,5 @@
 import type { PluginModule } from '@docusaurus/types';
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -26,7 +27,7 @@ const filesUnder = async (folder: string): Promise<string[]> => {
   }
 };
 
-/** A translated locale is served under its own prefix, so it keeps only the static files its own pages load: the root-only files and every asset its pages take from the root are removed from its copy */
+/** A translated locale takes its static files from the root: its build drops every copy its own pages never load, and its dev server also serves them at the root */
 export const localeOutputPlugin: PluginModule = ({
   siteDir,
   siteConfig,
@@ -34,6 +35,19 @@ export const localeOutputPlugin: PluginModule = ({
   baseUrl,
 }) => ({
   name: pluginName,
+  configureWebpack: (config) => {
+    if (config.mode !== 'development') return {};
+    if (i18n.currentLocale === i18n.defaultLocale) return {};
+
+    return {
+      devServer: {
+        static: siteConfig.staticDirectories.map((directory) => ({
+          publicPath: '/',
+          directory: path.resolve(siteDir, directory),
+        })),
+      } satisfies DevServerConfiguration,
+    };
+  },
   postBuild: async ({ outDir }) => {
     if (i18n.currentLocale === i18n.defaultLocale) return;
 
