@@ -1,0 +1,63 @@
+# Lagune
+
+> あらゆるコードベースのための Security-Driven Hardening
+
+Lagune は、オープンソースで防御専用の Security-Driven Hardening（SDH）ワークフローです。あらゆる言語のあらゆるコードベースを、どの段階でも AI エージェントが堅牢化できるよう支援します。charter は開発前にセキュリティのルールを定め、汎用の /lagune コマンドは書いているそばからコードを堅牢化し、5 フェーズの Blue Team フローはシステムが実際に何をしているかを検出して、そのコンテキストで重要な修正を進めます。コマンドは skills CLI でエージェントにインストールでき、API キーは不要です。
+
+"ドキュメント"にある各リンクは、そのページのプレーンな Markdown 版を指しています。Web ページを開くには、末尾の .md を外してください。コーパス全体を 1 ファイルにまとめたもの：https://lagune.ai/ja-JP/llms-full.txt
+
+## ドキュメント
+
+- [インストール：どの AI エージェントでも使えるセキュリティ強化](https://lagune.ai/ja-JP/docs.md): Lagune はどのプロジェクトにもインストールできます。エージェントが対応していればプラグインとして、それ以外では skills CLI で導入し、プロジェクトに合ったセキュリティの専門知識を選びます。
+- [Antigravity CLI に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/antigravity-cli.md): Antigravity CLI に Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+- [Claude Code に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/claude-code.md): Claude Code のターミナル、拡張機能、デスクトップアプリに Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+- [Codex CLI に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/codex.md): Codex CLI に Lagune をプラグインとしてインストールし、最新の状態に保ち、サンドボックス内でエンジンを実行します。
+- [Cursor に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/cursor.md): Cursor と Cursor CLI に Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+- [Devin CLI に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/devin-cli.md): Devin CLI に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+- [Factory Droid に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/factory-droid.md): Factory Droid に Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンのツールを許可します。
+- [Gemini CLI に Lagune を拡張機能としてインストール](https://lagune.ai/ja-JP/docs/install/gemini-cli.md): Gemini CLI に Lagune を拡張機能としてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+- [GitHub Copilot CLI に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/github-copilot-cli.md): GitHub Copilot CLI に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+- [Grok Build に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/grok-build.md): Grok Build に Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+- [Hermes Agent に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/hermes-agent.md): Hermes Agent に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+- [Kimi Code に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/kimi-code.md): Kimi Code に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+- [Muse Code に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/muse-code.md): Muse Code に Lagune をプラグインとしてインストールし、最新の状態に保ち、サンドボックス内でエンジンを実行します。
+- [OpenCode に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/opencode.md): OpenCode 1.x と 2.x に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+- [Pi に Lagune をパッケージとしてインストール](https://lagune.ai/ja-JP/docs/install/pi.md): npm または GitHub から、Pi に Lagune をパッケージとしてインストールし、最新の状態に保ちます。
+- [Qwen Code に Lagune を拡張機能としてインストール](https://lagune.ai/ja-JP/docs/install/qwen-code.md): Qwen Code に Lagune を拡張機能としてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+- [skills.sh であらゆるエージェントに Lagune をインストール](https://lagune.ai/ja-JP/docs/install/universal.md): skills CLI で、あらゆる AI エージェントに Lagune をインストールし、最新の状態に保ちます。
+- [AI エージェントのためのセキュリティスキル](https://lagune.ai/ja-JP/docs/get-started/commands.md): Lagune で AI エージェントが使えるようになるスキル：既存のプロジェクトを監査することも、開発しながら新しいコードを安全にすることもでき、どちらもセキュリティ原則に従います。
+- [ダッシュボード](https://lagune.ai/ja-JP/docs/get-started/dashboard.md): コマンド 1 つで開くローカルのライブビューで、プロジェクトのセキュリティ原則、検出事項、カタログを確認できます。
+- [/lagune: AI が書くそばからコードを安全に](https://lagune.ai/ja-JP/docs/commands/lagune.md): 依頼したものを構築し、セキュリティ原則に沿って書きながら堅牢化します。決まったフローに従う必要はありません。
+- [/lagune-charter: セキュリティ原則を定める](https://lagune.ai/ja-JP/docs/commands/charter.md): 後続のすべてのフェーズが守るルールとして、プロジェクトのセキュリティ原則を定め、プロジェクトを読み取って裏付けが得られた専門知識のカテゴリを記録します。
+- [/lagune-detect: システムとそのリスクを洗い出す](https://lagune.ai/ja-JP/docs/commands/detect.md): コードを読み取り、システムが何をしているのか、どこにリスクがあるのかを洗い出します。
+- [/lagune-plan: 検出事項をスコアリングして修正を計画する](https://lagune.ai/ja-JP/docs/commands/plan.md): detect が見つけたものを防御計画に変え、各検出事項をカテゴリと CVSS v4.0 スコアで評価して、それぞれに修正を割り当てます。
+- [/lagune-harden: コードにセキュリティ修正を適用する](https://lagune.ai/ja-JP/docs/commands/harden.md): 計画の修正を、安全に 1 つずつコードへ適用します。
+- [/lagune-verify: セキュリティ対策の有効性を証明する](https://lagune.ai/ja-JP/docs/commands/verify.md): 適用した修正が実際に有効かを証明し、有効だった検出事項をクローズします。
+- [カテゴリ](https://lagune.ai/ja-JP/docs/categories.md): Lagune プロジェクトで使える専門知識のカテゴリと、その変更方法を解説します。OWASP から、JavaScript、Python、Go、Rust の言語別の堅牢化までを扱います。
+- [カタログ：必要なときに読み込むセキュリティの専門知識](https://lagune.ai/ja-JP/docs/catalog.md): プロジェクトのカタログにある専門知識がどう読み込まれるかを解説します。フェーズが必要なときに読み込むほか、自分で直接読み込むこともできます。
+- [/lagune-specialize: プレーンテキストでセキュリティの専門知識を学習させる](https://lagune.ai/ja-JP/docs/commands/specialize.md): 渡したセキュリティの資料やトピックを、必要なときに読み込まれる新しい専門知識にまとめます。
+- [/lagune-prove: 防御専用の概念実証（PoC）](https://lagune.ai/ja-JP/docs/commands/prove.md): 検出事項を 1 件ずつ、実行できる防御専用の概念実証（PoC）と、責任ある開示のためのセキュリティアドバイザリに変えます。
+- [agent フック：上限のないエージェントループを検出する](https://lagune.ai/ja-JP/docs/hooks/agent.md): コマンドラインから、ステップ数や時間に上限のないエージェントや LLM の呼び出しをコードベース全体でスキャンしたり、1 つの呼び出しを判定したりできます。
+- [cors フック：CORS オリジンを監査する](https://lagune.ai/ja-JP/docs/hooks/cors.md): コマンドラインから、ソースコードをスキャンして回避可能な CORS オリジン許可リストを探したり、1 つのオリジン値の許可範囲が広すぎないかを判定したりできます。
+- [crypto フック：脆弱な暗号を検出する](https://lagune.ai/ja-JP/docs/hooks/crypto.md): コマンドラインから、脆弱な暗号プリミティブをコードベース全体でスキャンしたり、1 つのコードスニペットを判定したりできます。
+- [cvss フック：CVSS v4.0 ベクトルのスコアを算出する](https://lagune.ai/ja-JP/docs/hooks/cvss.md): コマンドラインから 1 つまたは複数の CVSS v4.0 ベクトルのスコアを FIRST の計算ツールと同じ計算方法で算出し、それぞれをわかりやすい言葉で読み解けます。
+- [infra フック：IaC の設定ミスを検出する](https://lagune.ai/ja-JP/docs/hooks/infra.md): コマンドラインから、Terraform、Dockerfile、GitHub Actions の設定ミスをスキャンしたり、1 つのコードスニペットを判定したりできます。
+- [interpreter フック：動的コード実行のシンクを指摘する](https://lagune.ai/ja-JP/docs/hooks/interpreter.md): コマンドラインから、さまざまな言語の動的コード実行のシンクをコードベース全体でスキャンしたり、1 つのコードスニペットを判定したりできます。
+- [jwt フック：アルゴリズムを固定していない JWT 検証を検出する](https://lagune.ai/ja-JP/docs/hooks/jwt.md): コマンドラインから、アルゴリズムを固定していない JWT 検証をコードベース全体でスキャンしたり、1 つの呼び出しを判定したりできます。
+- [network フック：URL の SSRF リスクを判定する](https://lagune.ai/ja-JP/docs/hooks/network.md): コマンドラインから直接、1 つまたは複数のリクエスト先の SSRF リスクを判定できます。
+- [regex フック：ReDoS パターンを検出する](https://lagune.ai/ja-JP/docs/hooks/regex.md): コマンドラインから、ReDoS を起こしやすい正規表現をコードベース全体でスキャンしたり、1 つのパターンを判定したりできます。
+- [secrets フック：ハードコードされたシークレットを検出する](https://lagune.ai/ja-JP/docs/hooks/secrets.md): コマンドラインから、ハードコードされた認証情報をコードベース全体でスキャンできます。
+- [Lagune のプロンプト例：Blue Team フローを自動化する](https://lagune.ai/ja-JP/docs/examples/prompts.md): コピーしてすぐ使える Lagune のプロンプト集です。読み取り専用のスキャン、Blue Team フロー全体の実行、ゼロトラスト監査に加え、特定のコミット、ブランチや PR の差分、実際のインシデントに範囲を絞った検出も紹介します。
+- [Security-Driven Hardening：AI 支援開発時代のための規約](https://lagune.ai/ja-JP/docs/references/paper.md): Security-Driven Hardening（SDH）の方法論：AI 支援開発やバイブコーディングで作られたソフトウェアを監査し、堅牢化するための、コンテキストを踏まえた Blue Team の規約。
+- [Lagune 用語集：SDH、charter、検出事項、対策](https://lagune.ai/ja-JP/docs/references/glossary.md): Lagune と Security-Driven Hardening のすべての用語を、わかりやすい言葉で定義します。SDH、charter、detect、検出事項、対策、harden、verify、クローズ、クローズ可能性、専門知識、カテゴリ、カタログを収録しています。
+- [設定スキーマ](https://lagune.ai/ja-JP/docs/references/configs-schema.md): Lagune プロジェクトの設定ファイルに使う JSON Schema です。エディターでの自動補完と検証に使え、最新の Lagune に追従させることも、特定のバージョンに固定することもできます。
+- [Lagune vs. Deepsec：AI 駆動の 2 つのセキュリティアプローチを比較](https://lagune.ai/ja-JP/docs/references/deepsec.md): Lagune と Vercel の Deepsec を、仕組み、ライフサイクル、検出、コスト、検出事項、クローズの観点から比較したリファレンスです。
+- [OWASP の出典](https://lagune.ai/ja-JP/docs/references/owasp-sources.md): 組み込みの OWASP 専門知識が拠りどころとする出典を、OWASP 公式の攻撃ページと Cheat Sheet ページに対応づけて示します。
+- [/lagune-repair: 検出事項の壊れた追跡を修復する](https://lagune.ai/ja-JP/docs/commands/repair.md): ファイル名の変更や移動で Lagune の追跡が混乱したときに、チェーンを修復します。
+- [Migrate：マニフェスト方式の Lagune プロジェクトをスキルとプラグインに移行する](https://lagune.ai/ja-JP/docs/commands/migrate.md): マニフェスト方式の Lagune プロジェクトを、セキュリティ原則、成果物、追跡、独自の専門知識を保ったまま、スキル方式の Lagune に移行します。
+
+## その他の言語
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
