@@ -1,0 +1,61 @@
+# Lagune
+
+> Security-Driven Hardening para qualquer código
+
+O Lagune é um fluxo de Security-Driven Hardening (SDH) open source e exclusivamente defensivo. Ele ajuda seu agente de IA a fortalecer a segurança de qualquer código, em qualquer linguagem e em qualquer momento: o charter define as regras de segurança antes de você construir, o comando universal /lagune aplica hardening ao trabalho enquanto ele é escrito, e o fluxo Blue Team de cinco fases detecta o que o seu sistema realmente faz e conduz as correções que importam para esse contexto. Seus comandos são instalados no seu agente com o skills CLI, e ele não precisa de chave de API.
+
+Cada link em Docs aponta para a versão em Markdown simples da página. Remova o sufixo .md para abrir a página web. O corpus completo em um único arquivo: https://lagune.ai/pt-BR/llms-full.txt
+
+## Docs
+
+- [Instalação: hardening de segurança para qualquer agente de IA](https://lagune.ai/pt-BR/docs.md): Instale o Lagune em qualquer projeto, como plugin quando o seu agente oferece suporte ou com o skills CLI nos demais, e escolha as especializações de segurança que combinam com ele.
+- [Como instalar o Lagune no Antigravity CLI como plugin](https://lagune.ai/pt-BR/docs/install/antigravity-cli.md): Instale o Lagune no Antigravity CLI como plugin, mantenha-o atualizado e libere o engine dele de antemão.
+- [Como instalar o Lagune no Claude Code como plugin](https://lagune.ai/pt-BR/docs/install/claude-code.md): Instale o Lagune no Claude Code como plugin, no terminal, na extensão ou no app desktop, mantenha-o atualizado e libere o engine dele de antemão.
+- [Como instalar o Lagune no Codex CLI como plugin](https://lagune.ai/pt-BR/docs/install/codex.md): Instale o Lagune no Codex CLI como plugin, mantenha-o atualizado e rode o engine dele dentro do sandbox.
+- [Como instalar o Lagune no Cursor como plugin](https://lagune.ai/pt-BR/docs/install/cursor.md): Instale o Lagune no Cursor e no Cursor CLI como plugin, mantenha-o atualizado e libere o engine dele de antemão.
+- [Como instalar o Lagune no Devin CLI como plugin](https://lagune.ai/pt-BR/docs/install/devin-cli.md): Instale o Lagune no Devin CLI como plugin e mantenha-o atualizado.
+- [Como instalar o Lagune no Factory Droid como plugin](https://lagune.ai/pt-BR/docs/install/factory-droid.md): Instale o Lagune no Factory Droid como plugin, mantenha-o atualizado e libere as ferramentas do engine dele.
+- [Como instalar o Lagune no Gemini CLI como extensão](https://lagune.ai/pt-BR/docs/install/gemini-cli.md): Instale o Lagune no Gemini CLI como extensão, mantenha-o atualizado e libere o engine dele de antemão.
+- [Como instalar o Lagune no GitHub Copilot CLI como plugin](https://lagune.ai/pt-BR/docs/install/github-copilot-cli.md): Instale o Lagune no GitHub Copilot CLI como plugin e mantenha-o atualizado.
+- [Como instalar o Lagune no Grok Build como plugin](https://lagune.ai/pt-BR/docs/install/grok-build.md): Instale o Lagune no Grok Build como plugin, mantenha-o atualizado e libere o engine dele de antemão.
+- [Como instalar o Lagune no Hermes Agent como plugin](https://lagune.ai/pt-BR/docs/install/hermes-agent.md): Instale o Lagune no Hermes Agent como plugin e mantenha-o atualizado.
+- [Como instalar o Lagune no Kimi Code como plugin](https://lagune.ai/pt-BR/docs/install/kimi-code.md): Instale o Lagune no Kimi Code como plugin e mantenha-o atualizado.
+- [Como instalar o Lagune no Muse Code como plugin](https://lagune.ai/pt-BR/docs/install/muse-code.md): Instale o Lagune no Muse Code como plugin, mantenha-o atualizado e rode o engine dele dentro do sandbox.
+- [Como instalar o Lagune no OpenCode como plugin](https://lagune.ai/pt-BR/docs/install/opencode.md): Instale o Lagune no OpenCode 1.x e 2.x como plugin e mantenha-o atualizado.
+- [Como instalar o Lagune no Pi como pacote](https://lagune.ai/pt-BR/docs/install/pi.md): Instale o Lagune no Pi como pacote, pelo npm ou pelo GitHub, e mantenha-o atualizado.
+- [Como instalar o Lagune no Qwen Code como extensão](https://lagune.ai/pt-BR/docs/install/qwen-code.md): Instale o Lagune no Qwen Code como extensão, mantenha-o atualizado e libere o engine dele de antemão.
+- [Como instalar o Lagune em qualquer agente com o skills.sh](https://lagune.ai/pt-BR/docs/install/universal.md): Instale o Lagune em qualquer agente de IA com o skills CLI e mantenha-o atualizado.
+- [Skills de segurança para agentes de IA](https://lagune.ai/pt-BR/docs/get-started/commands.md): As skills que o seu agente de IA ganha com o Lagune: audite um projeto existente ou proteja o trabalho novo enquanto desenvolve, tudo regido pelo charter.
+- [Dashboard](https://lagune.ai/pt-BR/docs/get-started/dashboard.md): Veja o charter, os achados e o catálogo do seu projeto em uma visão local e ao vivo que abre com um único comando.
+- [/lagune: código seguro enquanto a sua IA escreve](https://lagune.ai/pt-BR/docs/commands/lagune.md): Construa o que você pede com hardening aplicado enquanto o código é escrito, guiado pelo charter e sem nenhum fluxo para seguir.
+- [/lagune-charter: defina os seus princípios de segurança](https://lagune.ai/pt-BR/docs/commands/charter.md): Estabeleça os princípios de segurança do seu projeto, as regras que todas as fases seguintes respeitam, e registre as categorias de especialização que a leitura do projeto justifica.
+- [/lagune-detect: mapeie o seu sistema e os riscos dele](https://lagune.ai/pt-BR/docs/commands/detect.md): Leia o seu código e mapeie o que o seu sistema faz e onde estão os riscos.
+- [/lagune-plan: classifique os achados e planeje as correções](https://lagune.ai/pt-BR/docs/commands/plan.md): Transforme o que o detect encontrou em um plano de defesa, classificando cada achado com uma categoria e uma nota CVSS v4.0 e associando a ele uma correção.
+- [/lagune-harden: aplique correções de segurança ao seu código](https://lagune.ai/pt-BR/docs/commands/harden.md): Aplique ao seu código as correções do plano, com segurança e uma de cada vez.
+- [/lagune-verify: comprove que os controles de segurança se sustentam](https://lagune.ai/pt-BR/docs/commands/verify.md): Comprove que cada correção aplicada se sustenta e encerre as que passarem.
+- [Categorias](https://lagune.ai/pt-BR/docs/categories.md): As categorias de especializações que um projeto Lagune pode usar, do OWASP ao hardening por linguagem para JavaScript, Python, Go e Rust, e como alterá-las.
+- [Catálogo: especializações de segurança sob demanda](https://lagune.ai/pt-BR/docs/catalog.md): Como as especializações do catálogo do seu projeto são carregadas, sob demanda por uma fase ou diretamente por você.
+- [/lagune-specialize: treine uma especialização de segurança com texto simples](https://lagune.ai/pt-BR/docs/commands/specialize.md): Transforme uma fonte ou um tema de segurança que você fornecer em uma nova especialização sob demanda.
+- [/lagune-prove: prova de conceito exclusivamente defensiva](https://lagune.ai/pt-BR/docs/commands/prove.md): Transforme cada achado detectado em uma prova de conceito (PoC) executável e exclusivamente defensiva, com um advisory para divulgação responsável.
+- [Hook agent: detecte loops de agente sem limite](https://lagune.ai/pt-BR/docs/hooks/agent.md): Varra um código em busca de chamadas a agentes e LLMs sem limite de passos ou de tempo, ou avalie uma única chamada, direto da linha de comando.
+- [Hook cors: audite as origens de CORS](https://lagune.ai/pt-BR/docs/hooks/cors.md): Varra o código-fonte em busca de uma allowlist de origens CORS contornável, ou avalie se um único valor de origem dá acesso permissivo demais, direto da linha de comando.
+- [Hook crypto: detecte criptografia fraca](https://lagune.ai/pt-BR/docs/hooks/crypto.md): Varra um código em busca de primitivas criptográficas fracas, ou avalie um único trecho, direto da linha de comando.
+- [Hook cvss: calcule a nota de um vetor CVSS v4.0](https://lagune.ai/pt-BR/docs/hooks/cvss.md): Calcule a nota de um ou de vários vetores CVSS v4.0 pela linha de comando, com a mesma aritmética da calculadora da FIRST, e leia cada um em palavras simples.
+- [Hook infra: detecte erros de configuração em IaC](https://lagune.ai/pt-BR/docs/hooks/infra.md): Varra arquivos Terraform, Dockerfiles e GitHub Actions em busca de erros de configuração, ou avalie um único trecho, direto da linha de comando.
+- [Hook interpreter: sinalize pontos de execução dinâmica de código](https://lagune.ai/pt-BR/docs/hooks/interpreter.md): Varra um código em busca de pontos de execução dinâmica de código em várias linguagens, ou avalie um único trecho, direto da linha de comando.
+- [Hook jwt: detecte verificação de JWT sem algoritmo fixado](https://lagune.ai/pt-BR/docs/hooks/jwt.md): Varra um código em busca de verificações de JWT sem algoritmo fixado, ou avalie uma única chamada, direto da linha de comando.
+- [Hook network: avalie URLs contra SSRF](https://lagune.ai/pt-BR/docs/hooks/network.md): Avalie um ou vários destinos de requisição contra SSRF, direto da linha de comando.
+- [Hook regex: detecte padrões vulneráveis a ReDoS](https://lagune.ai/pt-BR/docs/hooks/regex.md): Varra um código em busca de regex vulneráveis a ReDoS, ou avalie um único padrão, direto da linha de comando.
+- [Hook secrets: detecte segredos hardcoded](https://lagune.ai/pt-BR/docs/hooks/secrets.md): Varra um código em busca de credenciais hardcoded, direto da linha de comando.
+- [Exemplos de prompts do Lagune: automatize o fluxo Blue Team](https://lagune.ai/pt-BR/docs/examples/prompts.md): Prompts do Lagune prontos para copiar: uma varredura somente leitura, o fluxo Blue Team completo e uma auditoria Zero Trust, além de detecção com escopo em um commit, no diff de uma branch ou PR ou em um incidente real.
+- [Security-Driven Hardening: uma convenção para a era do desenvolvimento assistido por IA](https://lagune.ai/pt-BR/docs/references/paper.md): A metodologia Security-Driven Hardening (SDH): uma convenção Blue Team, sensível ao contexto, para auditar e fortalecer a segurança de software feito com IA e com vibe coding.
+- [Glossário do Lagune: SDH, charter, achados e controles](https://lagune.ai/pt-BR/docs/references/glossary.md): Definições em linguagem simples de cada termo do Lagune e do Security-Driven Hardening: SDH, charter, detect, achado, controle, harden, verify, encerramento, closability, especializações, categorias e o catálogo.
+- [Schema de configuração](https://lagune.ai/pt-BR/docs/references/configs-schema.md): O JSON Schema das configurações de um projeto Lagune, para autocompletar e validar no seu editor, acompanhando a versão atual do Lagune ou fixado em uma versão.
+- [Lagune vs. Deepsec: duas abordagens de segurança com IA lado a lado](https://lagune.ai/pt-BR/docs/references/deepsec.md): Uma referência que compara o Lagune e o Deepsec, da Vercel, em funcionamento, ciclo de vida, detecção, custo, achados e encerramento.
+- [Fontes da OWASP](https://lagune.ai/pt-BR/docs/references/owasp-sources.md): De onde vem o conhecimento das especializações nativas da categoria OWASP, mapeado para as páginas canônicas de ataques e Cheat Sheets da OWASP.
+- [/lagune-repair: corrija o rastreamento quebrado dos achados](https://lagune.ai/pt-BR/docs/commands/repair.md): Repare a cadeia quando uma renomeação ou um arquivo movido confunde o rastreamento do Lagune.
+- [Migrate: leve um projeto Lagune baseado em manifest para as skills e os plugins](https://lagune.ai/pt-BR/docs/commands/migrate.md): Leve um projeto Lagune baseado em manifest para o Lagune baseado em skills, mantendo o seu charter, os artefatos, o rastreamento e as suas próprias especializações.
+
+## Outros idiomas
+
+- [English](https://lagune.ai/llms.txt)

@@ -36,3 +36,4 @@ User-agent: cohere-ai
 Allow: /
 
 Sitemap: https://lagune.ai/sitemap.xml
+Sitemap: https://lagune.ai/pt-BR/sitemap.xml

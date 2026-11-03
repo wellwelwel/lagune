@@ -55,3 +55,7 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 - [OWASP Sources](https://lagune.ai/docs/references/owasp-sources.md): Where the knowledge of the built-in OWASP specializations comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 - [/lagune-repair: Fix Broken Finding Tracking](https://lagune.ai/docs/commands/repair.md): Repair the chain when a rename or a moved file confuses Lagune's tracking.
 - [Migrate: Move a Manifest-Based Lagune Project to the Skills and Plugins](https://lagune.ai/docs/commands/migrate.md): Move a manifest-based Lagune project to the skills-based Lagune, keeping your charter, artifacts, tracking, and own specializations.
+
+## Other languages
+
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)

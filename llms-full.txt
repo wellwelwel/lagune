@@ -1433,7 +1433,7 @@ Add an instruction to your agent's instruction file (AGENTS.md, CLAUDE.md, .curs
 > Establish your project's security principles, the rules every later phase respects, and record the specialization categories its reading supports.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-11-02
+Last updated: 2026-11-03
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -1460,7 +1460,7 @@ The charter is the governing layer: a set of security-first principles every lat
 **Lagune** takes your description or **PRD** as the direction and works out what it implies for security, then reads the project to go further than you named. For example:
 
 - A cart that holds orders means there is a **database**:
-  - e.g., `"Where does the data live?"`, `"Who can reach it?"`, `"Whether it leaks?"`.
+  - e.g., `"Where does the data live?"`, `"Who can reach it?"`, `"Does it leak?"`.
 - Customers who can see their own orders means there is some kind of **login or access control**:
   - e.g., `"Can one customer reach another's orders?"`, `"Are sessions protected?"`.
 - Taking card and bank slip payments means **money and sensitive data are involved**:
@@ -2383,7 +2383,7 @@ Run npx lagune read cors over the codebase. It flags a host-validation regex who
 > Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/crypto
-Last updated: 2026-11-02
+Last updated: 2026-11-03
 
 The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -2437,7 +2437,7 @@ The scan reads these languages, keyed by file extension, each checked against it
 | **Python**                  | pycryptodome `DES/ARC4/Blowfish.new`, `algorithms.TripleDES`, `MODE_ECB`; `hashlib.md5/sha1`; `random.*`    |
 | **Go**                      | `des.NewCipher`, `rc4.NewCipher`, `blowfish.NewCipher`, `NewECBEncrypter`; `md5/sha1.Sum`; `math/rand`      |
 | **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`; `MessageDigest.getInstance("MD5")`, `HmacMD5`; `java.util.Random`       |
-| **PHP**                     | `openssl_encrypt("des-…"/`…`-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`   |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`    |
 | **Ruby**                    | `OpenSSL::Cipher.new("des-…")`, `:ECB`; `Digest::MD5/SHA1`; `rand()`/`Random`                               |
 | **Rust**                    | `Rc4::`, `Blowfish::`, `des::`, `ecb::`; `Md5::`, `Sha1::`, `Hmac<Md5>`; `SmallRng`/`XorShiftRng`           |
 | **C#**                      | `DES/TripleDES/RC2.Create`, `CipherMode.ECB`; `MD5/SHA1.Create`, `HMACMD5`; `new Random()`                  |
@@ -3362,7 +3362,7 @@ At the end, merge all sub-agent reports into one final verdict.
 > The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
 
 Canonical: https://lagune.ai/docs/references/paper
-Last updated: 2026-07-13
+Last updated: 2026-11-03
 
 - **Weslley Araújo**
 - **Methodology Paper, 2026.**
@@ -4248,7 +4248,7 @@ Lagune does: harden applies fixes to your code. Deepsec does not: it is static a
 > Where the knowledge of the built-in OWASP specializations comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/owasp-sources
-Last updated: 2026-10-25
+Last updated: 2026-11-03
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -4522,7 +4522,7 @@ Business logic and abuse of functionality have no single code surface a per-surf
 Container and workload config is config-as-code the developer ships with the app (`Dockerfile`, Compose, Pod `securityContext`), a real surface `harden` fixes and `verify` proves, so it is in scope. Cluster administration (RBAC, etcd, API server, admission, network segmentation) is the operator's domain and stays out of scope.
 
 - [x] [Docker Security](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html), [Node.js Docker](https://cheatsheetseries.owasp.org/cheatsheets/NodeJS_Docker_Cheat_Sheet.html) (container)
-- [x] [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) (container — the workload/Pod portion; cluster administration stays out of scope)
+- [x] [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) (container: the workload/Pod portion. Cluster administration stays out of scope)
 - [x] [Serverless / FaaS Security](https://cheatsheetseries.owasp.org/cheatsheets/Serverless_FaaS_Security_Cheat_Sheet.html) (serverless)
 
 ---
@@ -4567,27 +4567,27 @@ These are not specialization terrains and carry no checkbox: they are governance
 - [Denial of Service](https://owasp.org/www-community/attacks/Denial_of_Service), [Denial of Service](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)
 - [HTTP/2 Reset Attack](https://owasp.org/www-community/attacks/HTTP2_Reset_Attack)
 - [Traffic flood](https://owasp.org/www-community/attacks/Traffic_flood)
-- [Web Service Amplification Attack](https://owasp.org/www-community/attacks/web_service_amplificaiton) (SOAP/WS-Addressing amplification, a DoS variant; operational, no code surface)
+- [Web Service Amplification Attack](https://owasp.org/www-community/attacks/web_service_amplificaiton) (SOAP/WS-Addressing amplification, an operational DoS variant with no code surface)
 - [Cash Overflow](https://owasp.org/www-community/attacks/Cash_Overflow)
-- [Spyware](https://owasp.org/www-community/attacks/Spyware), [Trojan Horse](https://owasp.org/www-community/attacks/Trojan_Horse) (end-user malware, not a code surface in the audited project; the in-browser delivery facet lives in `browser`)
+- [Spyware](https://owasp.org/www-community/attacks/Spyware), [Trojan Horse](https://owasp.org/www-community/attacks/Trojan_Horse) (end-user malware, not a code surface in the audited project. The in-browser delivery facet lives in `browser`)
 - [REST Security](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html), [REST Assessment](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
 - [Web Service Security](https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html)
-- [Cloud Architecture Security](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Cloud_Architecture_Cheat_Sheet.html) (design and trade-offs: IAM vs signed URLs, public/private VPCs, trust boundaries, shared-responsibility; no concrete config a specialization checks, unlike `container`)
-- [Infrastructure as Code Security](https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html) (despite the name, it is SDLC process and tooling for _managing_ IaC: IDE plugins, static analysis, image scanning, CI/CD, signing; no insecure-pattern-to-safe-shape in a Terraform/CloudFormation file)
-- [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) — _cluster-administration portion only_ (RBAC, etcd, API server, admission); the workload/Pod portion is in scope under `container`
+- [Cloud Architecture Security](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Cloud_Architecture_Cheat_Sheet.html) (design and trade-offs: IAM vs signed URLs, public/private VPCs, trust boundaries, shared-responsibility. Unlike `container`, it has no concrete config a specialization checks)
+- [Infrastructure as Code Security](https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html) (despite the name, it is SDLC process and tooling for _managing_ IaC: IDE plugins, static analysis, image scanning, CI/CD, signing. It offers no insecure-pattern-to-safe-shape in a Terraform/CloudFormation file)
+- [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) (_cluster-administration portion only_: RBAC, etcd, API server, admission. The workload/Pod portion is in scope under `container`)
 - [Network Segmentation](https://cheatsheetseries.owasp.org/cheatsheets/Network_Segmentation_Cheat_Sheet.html) (network architecture and firewall policy)
 - [Subdomain Takeover Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Subdomain_Takeover_Prevention_Cheat_Sheet.html) (DNS lifecycle and monitoring, not code)
-- [Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) (vaults, CI/CD, rotation; the hardcoded-secret facet is a deterministic scan, not a risk specialization)
-- [C-Based Toolchain Hardening](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html) (compiler, linker, and build flags; no source sink)
+- [Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) (vaults, CI/CD, rotation. The hardcoded-secret facet is a deterministic scan, not a risk specialization)
+- [C-Based Toolchain Hardening](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html) (compiler, linker, and build flags, with no source sink)
 - [Microservices Security](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_Security_Cheat_Sheet.html), [Microservices based Security Arch Doc](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_based_Security_Arch_Doc_Cheat_Sheet.html)
 - [Zero Trust Architecture](https://cheatsheetseries.owasp.org/cheatsheets/Zero_Trust_Architecture_Cheat_Sheet.html)
 - [CI/CD Security](https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html), [GitHub Actions Security](https://cheatsheetseries.owasp.org/cheatsheets/GitHub_Actions_Security_Cheat_Sheet.html)
 - [Software Supply Chain Security](https://cheatsheetseries.owasp.org/cheatsheets/Software_Supply_Chain_Security_Cheat_Sheet.html)
-- [Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html), [Full Path Disclosure](https://owasp.org/www-community/attacks/Full_Path_Disclosure) (global error-handler configuration per stack; the leak is the same disclosure error handling already governs)
+- [Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html), [Full Path Disclosure](https://owasp.org/www-community/attacks/Full_Path_Disclosure) (global error-handler configuration per stack. The leak is the same disclosure error handling already governs)
 - [Abuse of Functionality](https://owasp.org/www-community/attacks/Abuse_of_Functionality), [Business Logic Security](https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html), [Abuse Case _(historical)_](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html) (application-specific design, no single code sink)
 - [User Privacy Protection](https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html) (data minimization, transparency, retention policy)
 - [Top 10 Automotive Security Vulnerabilities](https://cheatsheetseries.owasp.org/cheatsheets/Automotive_Security_Cheat_Sheet.html), [Drone Security](https://cheatsheetseries.owasp.org/cheatsheets/Drone_Security_Cheat_Sheet.html) (embedded-system domains: CAN bus, OTA firmware, sensor/radio integrity, not web/API source)
-- [Mobile Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Mobile_Application_Security_Cheat_Sheet.html) (Android/iOS platform hardening: storage, biometrics, pinning, PII; no single code surface. The untrusted-code-loading facet went to `interpreter`)
+- [Mobile Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Mobile_Application_Security_Cheat_Sheet.html) (Android/iOS platform hardening: storage, biometrics, pinning, PII. It has no single code surface, and the untrusted-code-loading facet went to `interpreter`)
 - [Threat Modeling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html), [Threat Modeling _(community page)_](https://owasp.org/www-community/Threat_Modeling)
 - [Attack Surface Analysis](https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html)
 - [Secure Product Design](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Product_Design_Cheat_Sheet.html)

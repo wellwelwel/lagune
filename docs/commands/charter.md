@@ -3,7 +3,7 @@
 > Establish your project's security principles, the rules every later phase respects, and record the specialization categories its reading supports.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-11-02
+Last updated: 2026-11-03
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -30,7 +30,7 @@ The charter is the governing layer: a set of security-first principles every lat
 **Lagune** takes your description or **PRD** as the direction and works out what it implies for security, then reads the project to go further than you named. For example:
 
 - A cart that holds orders means there is a **database**:
-  - e.g., `"Where does the data live?"`, `"Who can reach it?"`, `"Whether it leaks?"`.
+  - e.g., `"Where does the data live?"`, `"Who can reach it?"`, `"Does it leak?"`.
 - Customers who can see their own orders means there is some kind of **login or access control**:
   - e.g., `"Can one customer reach another's orders?"`, `"Are sessions protected?"`.
 - Taking card and bank slip payments means **money and sensitive data are involved**:
