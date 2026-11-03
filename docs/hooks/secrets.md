@@ -3,28 +3,28 @@
 > Sweep a codebase for hardcoded credentials from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/secrets
-Last updated: 2026-07-24
+Last updated: 2026-11-03
 
-The `secrets` hook flags **credentials compiled into the source** instead of read from the environment. It keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` sub-skill](https://lagune.ai/docs/commands/skills).
+The `secrets` hook flags **credentials compiled into the source** instead of read from the environment. It keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` specialization](https://lagune.ai/docs/catalog).
 
 Provider-format signatures, connection-string credentials, and a literal bound to a secret-named identifier are **language-agnostic**: the same string reads the same in any file. The two heuristics that depend on syntax, an environment lookup with a hardcoded default and a secret flowing into a log sink, are **language-aware**, so a JavaScript `console.log` is never read on a Rust file and Python's `os.getenv("X", "default")` is seen on its own.
 
 ## Run it
 
 ```bash
-node ./.lagune/hooks/secrets.mjs           # scans the whole project
-node ./.lagune/hooks/secrets.mjs -d src    # scans a directory
-node ./.lagune/hooks/secrets.mjs -f config.ts # scans a single file
+npx lagune read secrets                  # scans the whole project
+npx lagune read secrets --dir src        # scans a directory
+npx lagune read secrets --file config.ts # scans a single file
 ```
 
 The scan prints up to two sections. **Hardcoded secrets found** is the finding set (a hardcoded default for a secret-named environment variable, a credential embedded in a connection string, or a value matching a curated provider format), so the hook exits non-zero. **Secret handling to review manually** is a lead set: a plain literal bound to a secret-named identifier (its provenance is decidable, but whether the value is a real secret is not), and a secret-named value flowing into a log or response sink. A clean run prints `no hardcoded secrets found`.
 
 ### CLI options
 
-| Option   | Alias | Value       | Description                                                    |
-| -------- | ----- | ----------- | -------------------------------------------------------------- |
-| `--dir`  | `-d`  | a directory | Scope a scan to a directory. Repeats and combines with `-f`.   |
-| `--file` | `-f`  | a file      | Scope a scan to a single file. Repeats and combines with `-d`. |
+| Option   | Value       | Description                                                       |
+| -------- | ----------- | ----------------------------------------------------------------- |
+| `--dir`  | a directory | Scope a scan to a directory. Repeats and combines with `--file`.  |
+| `--file` | a file      | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
 With no option it scans the whole project.
 

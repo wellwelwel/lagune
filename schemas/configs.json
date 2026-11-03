@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lagune configs",
+  "description": "A Lagune project's configs: the categories it uses and the index of its own specializations.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "The address of the schema this file follows.",
+      "type": "string"
+    },
+    "categories": {
+      "description": "The categories whose built-in specializations join the project's catalog. While absent, the project uses owasp alone.",
+      "type": "array",
+      "items": {
+        "enum": [
+          "owasp",
+          "infra",
+          "ai",
+          "lovable",
+          "javascript",
+          "python",
+          "rust",
+          "java",
+          "ruby",
+          "php",
+          "go",
+          "c-cpp",
+          "dotnet"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "catalog": {
+      "description": "The index of the project's own specializations, each one winning over a built-in of the same name.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The specialization's name, also the name of its file in .lagune/catalog/.",
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "tags": {
+            "description": "What the specialization covers, matched against the project's code.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["name", "tags"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

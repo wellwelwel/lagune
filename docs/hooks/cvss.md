@@ -3,39 +3,39 @@
 > Score one or many CVSS v4.0 vectors from the command line, with the same arithmetic as the FIRST calculator, and read each one back in plain words.
 
 Canonical: https://lagune.ai/docs/hooks/cvss
-Last updated: 2026-10-03
+Last updated: 2026-11-03
 
-The `cvss` hook scores a **CVSS v4.0 vector** and prints its score and severity band, the rating [`/lagune.plan`](https://lagune.ai/docs/commands/plan) writes on each fix and [`/lagune.prove`](https://lagune.ai/docs/commands/prove) on each advisory. It is the deterministic engine behind those ratings, with the same arithmetic as the [FIRST calculator](https://www.first.org/cvss/calculator/4.0), and you can run it yourself.
+The `cvss` hook scores a **CVSS v4.0 vector** and prints its score and severity band, the rating [`/lagune-plan`](https://lagune.ai/docs/commands/plan) writes on each fix and [`/lagune-prove`](https://lagune.ai/docs/commands/prove) on each advisory. It is the deterministic engine behind those ratings, with the same arithmetic as the [FIRST calculator](https://www.first.org/cvss/calculator/4.0), and you can run it yourself.
 
 ## Run it
 
-Pass each vector with `-v`. The hook prints one line per vector: its score and band.
+Pass each vector with `--vector`. The hook prints one line per vector: its score and band.
 
 **One vector**
 
 ```bash
-node ./.lagune/hooks/cvss.mjs -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
 # => 9.3, Critical
 ```
 
 **Several vectors**
 
-Repeat `-v` to score several at once, one line each, in order.
+Repeat `--vector` to score several at once, one line each, in order.
 
 ```bash
-node ./.lagune/hooks/cvss.mjs \
-  -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
-  -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
 # => 9.3, Critical
 # => 8.7, High
 ```
 
 **In plain words**
 
-Add `-e` to read each metric back in plain words. When Threat or Environmental metrics move the score, the Base score alone comes first.
+Add `--explain` to read each metric back in plain words. When Threat or Environmental metrics move the score, the Base score alone comes first.
 
 ```bash
-node ./.lagune/hooks/cvss.mjs -e -v 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
 # => 8.7, High
 # =>   Base metrics alone: 9.3, Critical
 # =>   Attack Vector: Network, modified to Adjacent
@@ -59,12 +59,12 @@ An invalid vector prints `invalid vector:` and what is wrong, and the hook exits
 
 ### CLI options
 
-| Option      | Alias | Value               | Description                                                               |
-| ----------- | ----- | ------------------- | ------------------------------------------------------------------------- |
-| `--vector`  | `-v`  | a `CVSS:4.0` vector | Score one vector. Repeat to score several, one line per vector, in order. |
-| `--explain` | `-e`  |                     | Add each metric in plain words under every rating line.                   |
+| Option      | Value               | Description                                                               |
+| ----------- | ------------------- | ------------------------------------------------------------------------- |
+| `--vector`  | a `CVSS:4.0` vector | Score one vector. Repeat to score several, one line per vector, in order. |
+| `--explain` |                     | Add each metric in plain words under every rating line.                   |
 
-At least one `-v` is required. The vector is never a bare positional, so it cannot be mistaken for a flag.
+At least one `--vector` is required. The vector is never a bare positional, so it cannot be mistaken for a flag.
 
 **Why a flag value**
 
@@ -88,6 +88,6 @@ The cvss hook follows the FIRST reference calculator for CVSS v4.0, so a vector 
 
 No. Lagune rates every finding in CVSS v4.0, and the hook rejects any other version rather than scoring it.
 
-### What does the -e flag do?
+### What does the --explain flag do?
 
 It reads each metric back in plain words and shows the Base score beside the overall one, so anyone can see what the vector says and how the project context moved it.

@@ -1,9 +1,9 @@
-# /lagune.verify: Prove Security Controls Hold
+# /lagune-verify: Prove Security Controls Hold
 
 > Prove each applied fix holds, then close out the ones that do.
 
 Canonical: https://lagune.ai/docs/commands/verify
-Last updated: 2026-07-14
+Last updated: 2026-11-03
 
 ⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
 
@@ -12,19 +12,19 @@ Last updated: 2026-07-14
 **Verify everything**
 
 ```prompt
-/lagune.verify
+/lagune-verify
 ```
 
 **Point at paths**
 
 ```prompt
-/lagune.verify src/routes/upload.ts
+/lagune-verify src/routes/upload.ts
 ```
 
 **By priority**
 
 ```prompt
-/lagune.verify Critical and High
+/lagune-verify Critical and High
 ```
 
 ## How it works
@@ -43,19 +43,19 @@ A risk proven closed is then stood down out of the chain, with your confirmation
   - _How proven:_ read the upload handler and saw it detects the file's real type from its content, enforces a size limit, and refuses anything else, exactly as the record claims.
   - _Evidence:_ the `handleUpload` function, which detects the real file type from content.
 
-If the risk is not closed, verify says so plainly and sends you back to [`/lagune.harden`](https://lagune.ai/docs/commands/harden), since the fix is still open.
+If the risk is not closed, verify says so plainly and sends you back to [`/lagune-harden`](https://lagune.ai/docs/commands/harden), since the fix is still open.
 
 **Tip**
 
 - It builds entirely on the hardening record.
 - It only reads your code to judge it, and never weakens a control or rewrites the code to make a verdict pass.
-- Running it again reconciles the report: stale verdicts drop off, and a risk that is no longer closed is flagged again.
-- When a risk is proven closed, it asks once, then clears that finding from the whole chain (detect, plan, harden, verify, and tracking).
-- The verification report lives in `.lagune/memory/verify.md`.
+- Running it again reconciles the verdicts: stale ones drop off, and a risk that is no longer closed is flagged again.
+- When a risk is proven closed, it asks once, then clears that finding from the whole chain (detect, plan, harden, and tracking).
+- It writes no report of its own: each verdict lives on its control's block in `.lagune/memory/harden.md`, where harden reads it next run.
 
 **Depends on harden**
 
-Verify builds on [`/lagune.harden`](https://lagune.ai/docs/commands/harden).
+Verify builds on [`/lagune-harden`](https://lagune.ai/docs/commands/harden).
 
 ## The cycle closes
 
@@ -65,7 +65,7 @@ When everything in scope is stood down, the cycle is at rest. It reopens only wh
 
 ### How does Lagune verify a fix?
 
-/lagune.verify reads the code and confronts it with what harden recorded, returning one of three verdicts: Risk closed, Risk not closed, or Cannot tell from the code.
+/lagune-verify reads the code and confronts it with what harden recorded, returning one of three verdicts: Risk closed, Risk not closed, or Cannot tell from the code.
 
 ### What is a stand down?
 

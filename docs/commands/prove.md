@@ -1,9 +1,9 @@
-# /lagune.prove: Defense-Only Proof of Concept
+# /lagune-prove: Defense-Only Proof of Concept
 
 > Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
 
 Canonical: https://lagune.ai/docs/commands/prove
-Last updated: 2026-07-14
+Last updated: 2026-11-03
 
 🧪 Turn each detected finding into runnable, defense-only evidence for responsible disclosure.
 
@@ -18,7 +18,7 @@ For every finding the detect map carries, it writes a self-contained advisory an
 **Every finding**
 
 ```prompt
-/lagune.prove
+/lagune-prove
 ```
 
 **A named finding**
@@ -26,7 +26,7 @@ For every finding the detect map carries, it writes a self-contained advisory an
 See the findings already tracked by name:
 
 ```prompt
-npx -y lagune@latest list --findings
+npx lagune read list --findings
 
 # Findings
 #   ...
@@ -36,7 +36,7 @@ npx -y lagune@latest list --findings
 
 ```prompt
 # Then prove one of them
-/lagune.prove SQL injection in user lookup
+/lagune-prove SQL injection in user lookup
 ```
 
 ## How it works
@@ -54,12 +54,16 @@ The proofs are always JavaScript, so they stay portable whatever language your p
 
 - It is **optional and autonomous**: not one of the five phases, and not part of the tracking chain.
 - It writes only into `.lagune/proofs/` and never touches the phase artifacts or your code, which it only reads.
-- A finding whose test does not reproduce the issue gets no proof, and it tells you to run [`/lagune.detect`](https://lagune.ai/docs/commands/detect) on that spot to reconcile.
+- A finding whose test does not reproduce the issue gets no proof, and it tells you to run [`/lagune-detect`](https://lagune.ai/docs/commands/detect) on that spot to reconcile.
 - Running it again reconciles the proofs: a finding that is gone or no longer reproduces has its directory removed.
+
+**Note**
+
+**It runs only when you call it:** the agent never starts it on its own.
 
 **Builds on detect**
 
-Prove reads the detect map from [`/lagune.detect`](https://lagune.ai/docs/commands/detect), so run detect first.
+Prove reads the detect map from [`/lagune-detect`](https://lagune.ai/docs/commands/detect), so run detect first.
 
 ## Defense only, and authorized
 
@@ -67,15 +71,15 @@ Before generating anything, it confirms you are authorized to test the target, a
 
 ## From proof to disclosure
 
-Each proven finding's two files belong together in a **private GitHub Gist** to report the vulnerability. They are evidence of a live, undisclosed issue, so keep them out of commits and share them only through that Gist until the maintainers have resolved it.
+Each proven finding's two files belong together in a **private GitHub Gist** to report the vulnerability. They are evidence of a live, undisclosed issue, so a `.gitignore` inside `.lagune/proofs/` keeps them out of every commit: share them only through that Gist until the maintainers have resolved it.
 
-Closing a finding in the **Lagune** chain is still the job of [`/lagune.harden`](https://lagune.ai/docs/commands/harden) and [`/lagune.verify`](https://lagune.ai/docs/commands/verify): prove produces evidence, it does not close anything.
+Closing a finding in the **Lagune** chain is still the job of [`/lagune-harden`](https://lagune.ai/docs/commands/harden) and [`/lagune-verify`](https://lagune.ai/docs/commands/verify): prove produces evidence, it does not close anything.
 
 ## Frequently Asked Questions
 
 ### Does Lagune generate exploits?
 
-No. /lagune.prove writes defense-only evidence: a test that asserts the safe path, so it fails while the issue is live and passes once the code is fixed, plus an advisory for responsible disclosure.
+No. /lagune-prove writes defense-only evidence: a test that asserts the safe path, so it fails while the issue is live and passes once the code is fixed, plus an advisory for responsible disclosure.
 
 ### What does prove output?
 

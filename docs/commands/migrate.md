@@ -1,134 +1,62 @@
-# Migrate
+# Migrate: Move a Manifest-Based Lagune Project to the Skills and Plugins
 
-> Move a legacy .bluespec/ install to Lagune with a single command, keeping your charter, artifacts, tracking, and own sub-skills.
+> Move a manifest-based Lagune project to the skills-based Lagune, keeping your charter, artifacts, tracking, and own specializations.
 
 Canonical: https://lagune.ai/docs/commands/migrate
-Last updated: 2026-10-04
+Last updated: 2026-11-03
 
-🔀 Move a legacy `.bluespec/` install to **Lagune**, keeping everything you wrote.
+🔀 Move a manifest-based **Lagune** project to the skills-based **Lagune**, keeping everything you wrote.
 
-**For projects installed under the legacy name**
+**Deprecation Notice**
 
-If your project was set up by the legacy `blue-spec` package, its state lives in `.bluespec/` and its agent commands answer to `/bluespec.*`. Migrate brings all of it to Lagune in one run.
+A project with a manifest keeps working as it is until `v1.x`: `npx lagune` hands `init`, `pull`, `update`, `add`, `remove`, `list`, and the dashboard to `lagune@0.15.0`, the last manifest-based version.
 
-Run it once, from the project root:
+## Move it
 
-```bash
-npx -y lagune@latest migrate
-```
+1. Make sure your current work is committed, then run migrate from the project root:
 
-**Your memories and specializations are never lost**
+   ```bash
+   npx lagune migrate
+   ```
 
-Only the old name inside them changes, never the content. The one exception, as in [`update`](https://lagune.ai/docs/get-started/install#update): a built-in you refined is reset to the shipped version, still recoverable from your git history.
+2. Commit what it changed on its own, so the move stays one reviewable change.
+3. Install the commands for your agent, as the [install page](https://lagune.ai/docs) shows.
+4. Ask [`/lagune-repair`](https://lagune.ai/docs/commands/repair) to reconcile the old references in the artifacts and in your own specializations:
 
-**Tip**
-
-In doubt? Make sure your project's current state is committed before running the migration.
+   ```prompt
+   /lagune-repair If they exist, reconcile the applied specializations (formerly sub-skills) in the artifacts under `.lagune/memory/` (`detect.md`, `plan.md`, and `harden.md`) with the names the new catalog lists, and rewrite every call my own specializations in `.lagune/catalog/` make to the old hooks in `.lagune/hooks/` as a call to the `lagune_read` or `lagune_write` tool.
+   ```
 
 ## What changes
 
-Once migrated, your project will answer to the new commands and paths:
+| Before                                                                   | After                                                                                 |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| `.lagune/templates/`, `.lagune/hooks/`, and `.lagune/specializations.md` | Removed: each skill carries its template, and the engine runs the hooks               |
+| The copies of built-in specializations in `.lagune/skills/`              | Removed: the engine serves the built-ins                                              |
+| Your own specializations in `.lagune/skills/`                            | Moved to `.lagune/catalog/`                                                           |
+| `.lagune/skills.json`, the index of your own specializations             | Merged into `.lagune/configs.json`                                                    |
+| The manifest's categories                                                | Recorded in `.lagune/configs.json`                                                    |
+| The old agent commands, such as `/lagune.detect`                         | Removed: [installing **Lagune**](https://lagune.ai/docs) brings the new ones, such as `/lagune-detect` |
+| The **Lagune** block in `.gitignore`                                     | Removed, with the file when it held nothing else                                      |
+| `.lagune/proofs/`, ignored by that block                                 | Kept out of commits by its own `.gitignore`                                           |
+| `.lagune/manifest.json`                                                  | Deleted, last                                                                         |
 
-**Commands**
+Your security work stays as it is: the charter, the artifact each phase produced, and the tracking map with the paths each finding points at.
 
-| Before                 | After                |
-| ---------------------- | -------------------- |
-| `/bluespec`            | `/lagune`            |
-| `/bluespec.charter`    | `/lagune.charter`    |
-| `/bluespec.detect`     | `/lagune.detect`     |
-| `/bluespec.plan`       | `/lagune.plan`       |
-| `/bluespec.harden`     | `/lagune.harden`     |
-| `/bluespec.verify`     | `/lagune.verify`     |
-| `/bluespec.repair`     | `/lagune.repair`     |
-| `/bluespec.specialize` | `/lagune.specialize` |
-| `/bluespec.prove`      | `/lagune.prove`      |
+## Frequently Asked Questions
 
-**Files**
+### Do I have to migrate?
 
-In your `.gitignore`, every line of the legacy block is rewritten in place (an entry missing from an older block is backfilled):
+Yes. Manifest-based projects are deprecated and only keep working until v1.x, so run npx lagune migrate to move yours.
 
-| Before                                   | After                                  |
-| ---------------------------------------- | -------------------------------------- |
-| `# Blue Spec`                            | `# Lagune`                             |
-| `/.bluespec/templates/`                  | `/.lagune/templates/`                  |
-| `/.bluespec/hooks/`                      | `/.lagune/hooks/`                      |
-| `/.bluespec/proofs/`                     | `/.lagune/proofs/`                     |
-| `/.bluespec/specializations.md`          | `/.lagune/specializations.md`          |
-| `/.bluespec/skills/*`                    | `/.lagune/skills/*`                    |
-| `!/.bluespec/skills/<your-sub-skill>.md` | `!/.lagune/skills/<your-sub-skill>.md` |
-| `/**/bluespec.*`                         | `/**/lagune.*`                         |
-| `/**/bluespec/`                          | `/**/lagune/`                          |
+### What does migrate keep?
 
-In `.lagune/manifest.json` and `.lagune/tracking.json`, the identity field is renamed and everything else is kept:
+Your charter, every phase artifact, the tracking map, your categories, and your own specializations. The specializations move to .lagune/catalog/, and their index joins your categories in .lagune/configs.json.
 
-| Before                | After              |
-| --------------------- | ------------------ |
-| `"name": "blue-spec"` | `"name": "lagune"` |
+### When do I install the new commands?
 
-**Paths**
+After migrate, as the install page shows for your agent. Installing first works too, since migrate keeps the new /lagune.
 
-Lagune's own state moves as one directory:
+### A teammate already migrated. What do I run?
 
-| Before       | After      |
-| ------------ | ---------- |
-| `.bluespec/` | `.lagune/` |
-
-In your agent's own location, the command artifacts are renamed, one line per supported agent:
-
-| Before                                   | After                                  |
-| ---------------------------------------- | -------------------------------------- |
-| `.agent/skills/bluespec*`                | `.agents/skills/lagune*`               |
-| `.agents/commands/bluespec*.md`          | `.agents/skills/lagune*`               |
-| `.amazonq/prompts/bluespec*.md`          | `.amazonq/prompts/lagune*.md`          |
-| `.augment/commands/bluespec*.md`         | `.augment/commands/lagune*.md`         |
-| `.bob/commands/bluespec*.md`             | `.bob/commands/lagune*.md`             |
-| `.claude/skills/bluespec*`               | `.claude/skills/lagune*`               |
-| `.clinerules/workflows/bluespec*.md`     | `.cline/skills/lagune*`                |
-| `.codebuddy/commands/bluespec*.md`       | `.codebuddy/commands/lagune*.md`       |
-| `.codex/skills/bluespec*`                | `.agents/skills/lagune*`               |
-| `.continue/prompts/bluespec*.prompt`     | `.continue/prompts/lagune*.md`         |
-| `.cospec/commands/bluespec*.md`          | `.roo/commands/lagune*.md`             |
-| `.crush/commands/bluespec*.md`           | `.crush/skills/lagune*`                |
-| `.cursor/skills/bluespec*`               | `.cursor/skills/lagune*`               |
-| `.devin/skills/bluespec*`                | `.devin/skills/lagune*`                |
-| `.factory/commands/bluespec*.md`         | `.factory/skills/lagune*`              |
-| `.forge/commands/bluespec*.md`           | `.forge/commands/lagune*.md`           |
-| `.gemini/commands/bluespec*.toml`        | `.gemini/commands/lagune*.toml`        |
-| `.github/prompts/bluespec*.prompt.md`    | `.github/skills/lagune*`               |
-| `.goose/recipes/bluespec*.yaml`          | `.goose/recipes/lagune*.yaml`          |
-| `.hermes/skills/bluespec*`               | `.hermes/skills/lagune*`               |
-| `.iflow/commands/bluespec*.md`           | `.iflow/commands/lagune*.md`           |
-| `.junie/commands/bluespec*.md`           | `.junie/commands/lagune*.md`           |
-| `.kilocode/workflows/bluespec*.md`       | `.kilo/skills/lagune*`                 |
-| `.kimi/skills/bluespec*`                 | `.kimi/skills/lagune*`                 |
-| `.kiro/prompts/bluespec*.md`             | `.kiro/prompts/lagune*.md`             |
-| `.lingma/skills/bluespec*`               | `.lingma/skills/lagune*`               |
-| `.opencode/commands/bluespec*.md`        | `.opencode/commands/lagune*.md`        |
-| `.pi/prompts/bluespec*.md`               | `.pi/prompts/lagune*.md`               |
-| `.qoder/commands/bluespec*.md`           | `.qoder/commands/lagune*.md`           |
-| `.qwen/commands/bluespec*.md`            | `.qwen/commands/lagune*.md`            |
-| `.roo/commands/bluespec*.md`             | `.roo/commands/lagune*.md`             |
-| `.rovodev/skills/bluespec*`              | `.rovodev/skills/lagune*`              |
-| `.shai/commands/bluespec*.md`            | `.shai/skills/lagune*`                 |
-| `.tabnine/agent/commands/bluespec*.toml` | `.tabnine/agent/commands/lagune*.toml` |
-| `.trae/skills/bluespec*`                 | `.trae/skills/lagune*`                 |
-| `.vibe/skills/bluespec*`                 | `.vibe/skills/lagune*`                 |
-| `.windsurf/workflows/bluespec*.md`       | `.windsurf/workflows/lagune*.md`       |
-
-## How it works
-
-Migrate reads your legacy manifest and carries the whole install over:
-
-1. Renames `.bluespec/` to `.lagune/`.
-2. Removes the legacy `/bluespec.*` agent commands and writes the `/lagune.*` ones in their place, in your agent's own format.
-3. Rewrites the old name inside the manifest, the tracking, the phase artifacts, and any sub-skill you authored, keeping their content otherwise intact.
-4. Migrates the Lagune block in your `.gitignore`, preserving your own entries and any sub-skill re-include.
-5. Refreshes the templates, hooks, and built-in sub-skills to the installed version, the same way [`update`](https://lagune.ai/docs/get-started/install#update) does.
-
-Your security work survives as it is: the charter, the artifacts each phase produced, the tracked findings and the paths they point at, and every sub-skill of your own.
-
-**Tip**
-
-- It touches only Lagune's own files, never your code.
-- Running it again is a no-op: once the project runs on Lagune, there is nothing left to migrate.
-- If both `.bluespec/` and `.lagune/` exist, it stops and asks you to keep the one holding your state before running again.
+Pull the move, then run npx lagune migrate once. It removes what the manifest-based Lagune left on your clone, which version control never carried, and keeps your proofs out of commits.

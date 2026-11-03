@@ -3,33 +3,33 @@
 > Score one or many fetch destinations for SSRF, straight from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/network
-Last updated: 2026-07-14
+Last updated: 2026-11-03
 
-The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` sub-skill](https://lagune.ai/docs/commands/skills), and you can run it yourself.
+The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` specialization](https://lagune.ai/docs/catalog), and you can run it yourself.
 
 ## Run it
 
-Pass each destination with `-u`. The hook prints one word per destination, read in the table below.
+Pass each destination with `--url`. The hook prints one word per destination, read in the table below.
 
 **One destination**
 
 ```bash
-node ./.lagune/hooks/network.mjs -u 'http://example.com/'
+npx lagune read network --url 'http://example.com/'
 # => safe
 
-node ./.lagune/hooks/network.mjs -u 'http://0x7f000001/'
+npx lagune read network --url 'http://0x7f000001/'
 # => private-target
 ```
 
 **Several destinations**
 
-Repeat `-u` to score a whole allowlist or denylist in one call, one verdict per line, in order.
+Repeat `--url` to score a whole allowlist or denylist in one call, one verdict per line, in order.
 
 ```bash
-node ./.lagune/hooks/network.mjs \
-  -u 'http://example.com/' \
-  -u 'http://[::1]/' \
-  -u 'http://allowed.com@evil.example/'
+npx lagune read network \
+  --url 'http://example.com/' \
+  --url 'http://[::1]/' \
+  --url 'http://allowed.com@evil.example/'
 # => safe
 # => private-target
 # => parser-divergent
@@ -50,11 +50,11 @@ Only `safe` is an allow. Treat `private-target`, `parser-divergent`, and `invali
 
 ### CLI options
 
-| Option  | Alias | Value         | Description                                                           |
-| ------- | ----- | ------------- | --------------------------------------------------------------------- |
-| `--url` | `-u`  | a URL or host | Check one destination. Repeat to check several, one verdict per line. |
+| Option  | Value         | Description                                                           |
+| ------- | ------------- | --------------------------------------------------------------------- |
+| `--url` | a URL or host | Check one destination. Repeat to check several, one verdict per line. |
 
-At least one `-u` is required. The destination is never a bare positional, so it cannot be mistaken for a flag.
+At least one `--url` is required. The destination is never a bare positional, so it cannot be mistaken for a flag.
 
 **Why a flag value**
 
@@ -66,7 +66,7 @@ The hook is pure and never resolves DNS, so two runtime gaps are out of scope: *
 
 **Tip**
 
-This is the same check the [`network` sub-skill](https://lagune.ai/docs/commands/skills) runs to prove a destination filter holds.
+This is the same check the [`network` specialization](https://lagune.ai/docs/catalog) runs to prove a destination filter holds.
 
 ## Frequently Asked Questions
 

@@ -3,26 +3,26 @@
 > Sweep a codebase for JWT verification without an algorithm pin, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/jwt
-Last updated: 2026-07-24
+Last updated: 2026-11-03
 
-The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
+The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
 **Scan the codebase**
 
 ```bash
-node ./.lagune/hooks/jwt.mjs           # scans the whole project
-node ./.lagune/hooks/jwt.mjs -d src    # scans a directory
-node ./.lagune/hooks/jwt.mjs -f auth.ts # scans a single file
+npx lagune read jwt                # scans the whole project
+npx lagune read jwt --dir src      # scans a directory
+npx lagune read jwt --file auth.ts # scans a single file
 ```
 
 **Check a call**
 
 ```bash
-node ./.lagune/hooks/jwt.mjs -l javascript -p 'jwt.verify(token, secret)'                    # => unpinned
-node ./.lagune/hooks/jwt.mjs -l python -p 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
-node ./.lagune/hooks/jwt.mjs -l python -p 'jwt.decode(t, k, algorithms=["HS256"])'           # => safe
+npx lagune read jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
 ```
 
 Every line under **Unpinned JWT verification found** is a verify call that sets no `algorithms` allowlist (where the library needs one), accepts an unsafe one (`none`, or an asymmetric algorithm mixed with HMAC), or disables signature checking outright, so it trusts the token's own `alg`. A confirmed exposure, so the hook exits non-zero. A clean run prints `no unpinned JWT verification found`.
@@ -37,14 +37,14 @@ Every line under **Unpinned JWT verification found** is a verify call that sets 
 
 ### CLI options
 
-| Option      | Alias | Value          | Description                                                                               |
-| ----------- | ----- | -------------- | ----------------------------------------------------------------------------------------- |
-| `--pattern` | `-p`  | a code snippet | Check one call. Repeat to check several, one verdict per line.                            |
-| `--lang`    | `-l`  | a language     | Required with `-p`: one of javascript, python, go, java, kotlin, php, ruby, rust, csharp. |
-| `--dir`     | `-d`  | a directory    | Scope a scan to a directory. Repeats and combines with `-f`.                              |
-| `--file`    | `-f`  | a file         | Scope a scan to a single file. Repeats and combines with `-d`.                            |
+| Option      | Value          | Description                                                                                      |
+| ----------- | -------------- | ------------------------------------------------------------------------------------------------ |
+| `--pattern` | a code snippet | Check one call. Repeat to check several, one verdict per line.                                   |
+| `--lang`    | a language     | Required with `--pattern`: one of javascript, python, go, java, kotlin, php, ruby, rust, csharp. |
+| `--dir`     | a directory    | Scope a scan to a directory. Repeats and combines with `--file`.                                 |
+| `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`.                                |
 
-With no option it scans the whole project. `-p` needs `-l` and cannot be combined with `-d` or `-f`.
+With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
 
 ### Supported languages
 
@@ -63,7 +63,7 @@ The scan reads these libraries, keyed by file extension. Because some pin the al
 
 **Tip**
 
-The hook decides only the algorithm pin: the claim, key, and flow checks are judgment the [`federation` sub-skill](https://lagune.ai/docs/commands/skills) still covers.
+The hook decides only the algorithm pin: the claim, key, and flow checks are judgment the [`federation` specialization](https://lagune.ai/docs/catalog) still covers.
 
 ## Frequently Asked Questions
 

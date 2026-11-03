@@ -3,25 +3,25 @@
 > Sweep a codebase for dynamic-code-execution sinks across languages, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/interpreter
-Last updated: 2026-07-24
+Last updated: 2026-11-03
 
-The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
+The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
 **Scan the codebase**
 
 ```bash
-node ./.lagune/hooks/interpreter.mjs           # scans the whole project
-node ./.lagune/hooks/interpreter.mjs -d src    # scans a directory
-node ./.lagune/hooks/interpreter.mjs -f app.py # scans a single file
+npx lagune read interpreter               # scans the whole project
+npx lagune read interpreter --dir src     # scans a directory
+npx lagune read interpreter --file app.py # scans a single file
 ```
 
 **Check a snippet**
 
 ```bash
-node ./.lagune/hooks/interpreter.mjs -l javascript -p 'eval(x)'    # => careful
-node ./.lagune/hooks/interpreter.mjs -l python -p 'json.loads(x)'  # => safe
+npx lagune read interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 ```
 
 These sinks are dual-use: whether attacker-influenced input reaches one is undecidable by a static scan, so every match is a **caution to review**, never a confirmed finding. The scan prints a single **Dynamic-execution sinks to review** section, grouped by file. A clean run prints `no dynamic-execution sinks found`.
@@ -39,14 +39,14 @@ Reason about each sink **statically**, tracing whether untrusted input reaches i
 
 ### CLI options
 
-| Option      | Alias | Value          | Description                                                                                       |
-| ----------- | ----- | -------------- | ------------------------------------------------------------------------------------------------- |
-| `--pattern` | `-p`  | a code snippet | Check one snippet. Repeat to check several, one verdict per line.                                 |
-| `--lang`    | `-l`  | a language     | Required with `-p`: one of javascript, python, php, ruby, java, kotlin, go, rust, c, cpp, csharp. |
-| `--dir`     | `-d`  | a directory    | Scope a scan to a directory. Repeats and combines with `-f`.                                      |
-| `--file`    | `-f`  | a file         | Scope a scan to a single file. Repeats and combines with `-d`.                                    |
+| Option      | Value          | Description                                                                                              |
+| ----------- | -------------- | -------------------------------------------------------------------------------------------------------- |
+| `--pattern` | a code snippet | Check one snippet. Repeat to check several, one verdict per line.                                        |
+| `--lang`    | a language     | Required with `--pattern`: one of javascript, python, php, ruby, java, kotlin, go, rust, c, cpp, csharp. |
+| `--dir`     | a directory    | Scope a scan to a directory. Repeats and combines with `--file`.                                         |
+| `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`.                                        |
 
-With no option it scans the whole project. `-p` needs `-l` and cannot be combined with `-d` or `-f`.
+With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
 
 ### Supported languages
 
@@ -72,7 +72,7 @@ It reads source as text, so a sink assembled at runtime, hidden behind an alias,
 
 **Tip**
 
-The hook guarantees the floor (these sinks exist and where): whether an untrusted value actually reaches one is the judgment the [`interpreter` sub-skill](https://lagune.ai/docs/commands/skills) covers.
+The hook guarantees the floor (these sinks exist and where): whether an untrusted value actually reaches one is the judgment the [`interpreter` specialization](https://lagune.ai/docs/catalog) covers.
 
 ## Frequently Asked Questions
 

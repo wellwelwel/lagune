@@ -1,9 +1,9 @@
-# /lagune.harden: Apply Security Fixes to Your Code
+# /lagune-harden: Apply Security Fixes to Your Code
 
 > Apply the plan's fixes to your code, safely and one at a time.
 
 Canonical: https://lagune.ai/docs/commands/harden
-Last updated: 2026-10-03
+Last updated: 2026-11-03
 
 🔧 Apply the plan's fixes to your code, safely and one at a time.
 
@@ -12,19 +12,19 @@ Last updated: 2026-10-03
 **Apply everything**
 
 ```prompt
-/lagune.harden
+/lagune-harden
 ```
 
 **Point at paths**
 
 ```prompt
-/lagune.harden src/routes/upload.ts
+/lagune-harden src/routes/upload.ts
 ```
 
 **By priority**
 
 ```prompt
-/lagune.harden Critical and High
+/lagune-harden Critical and High
 ```
 
 ## How it works
@@ -43,21 +43,21 @@ Applied does not mean proven yet. That is what [verify](https://lagune.ai/docs/c
 
 **Tip**
 
-- It builds entirely on the plan. If a fix or file was never planned, it tells you to run `/lagune.plan` on it first.
+- It builds entirely on the plan. If a fix or file was never planned, it tells you to run `/lagune-plan` on it first.
 - Running it again reconciles the record: reverted changes drop off, newly applied fixes come in.
 - The hardening record lives in `.lagune/memory/harden.md`.
 
 **Depends on plan, and changes your code**
 
-Harden builds on [`/lagune.plan`](https://lagune.ai/docs/commands/plan). It is the one phase that changes your code.
+Harden builds on [`/lagune-plan`](https://lagune.ai/docs/commands/plan). It is the one phase that changes your code.
 
 ## Next
 
-Prove each fix holds: [`/lagune.verify`](https://lagune.ai/docs/commands/verify).
+Prove each fix holds: [`/lagune-verify`](https://lagune.ai/docs/commands/verify).
 
 ## Frequently Asked Questions
 
-### Does /lagune.harden change my code?
+### Does /lagune-harden change my code?
 
 Yes. It is the one phase that touches your code, applying the plan's fixes one at a time.
 

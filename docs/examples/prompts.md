@@ -3,7 +3,7 @@
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-10-03
+Last updated: 2026-11-03
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -13,7 +13,7 @@ A read-only sweep that reads the code on its own and reports every flaw with a f
 
 **Tip**
 
-Works better in planning mode and with a charter (`/lagune.charter`) defined.
+Works better in planning mode and with a charter (`/lagune-charter`) defined.
 
 **🪼 Default**
 
@@ -74,11 +74,11 @@ Runs the [full command flow](https://lagune.ai/docs/get-started/commands) end to
 | **Token Usage** | Lower, but less isolated. Every command shares the same context.                         | 4/5 |
 
 ```md
-Execute the following commands, one by one: `/lagune.charter`, `/lagune.detect`, `/lagune.plan`, `/lagune.harden`, and `/lagune.verify`.
+Execute the following commands, one by one: `/lagune-charter`, `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, and `/lagune-verify`.
 
 ## Loop
 
-When `/lagune.verify` reproves one or more fixes, repeat `/lagune.harden` and then `/lagune.verify` until all findings are properly resolved.
+When `/lagune-verify` reproves one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
 
 ## Important
 
@@ -96,40 +96,40 @@ When `/lagune.verify` reproves one or more fixes, repeat `/lagune.harden` and th
 ````md
 Execute the following commands each to one sub-agent, one at a time (without backticks, just the command):
 
-Sub-agent 1 prompt: `/lagune.charter`
-Sub-agent 2 prompt: `/lagune.detect`
-Sub-agent 3 prompt: `/lagune.plan`
-Sub-agent 4 prompt: `/lagune.harden`
-Sub-agent 5 prompt: `/lagune.verify`
+Sub-agent 1 prompt: `/lagune-charter`
+Sub-agent 2 prompt: `/lagune-detect`
+Sub-agent 3 prompt: `/lagune-plan`
+Sub-agent 4 prompt: `/lagune-harden`
+Sub-agent 5 prompt: `/lagune-verify`
 
-In the `/lagune.detect`, `/lagune.plan`, `/lagune.harden`, and `/lagune.verify` commands, you must delegate the task to sub-agents based on the current project's size: the larger the codebase, the more sub-agents should be dispatched. For example:
+In the `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, and `/lagune-verify` commands, you must delegate the task to sub-agents based on the current project's size: the larger the codebase, the more sub-agents should be dispatched. For example:
 
 ```prompt
-/lagune.detect <path>
+/lagune-detect <path>
 ```
 
 ```prompt
-/lagune.plan <finding>
+/lagune-plan <finding>
 ```
 
 ```prompt
-/lagune.harden <finding>
+/lagune-harden <finding>
 ```
 
 ```prompt
-/lagune.verify <finding>
+/lagune-verify <finding>
 ```
 
 - Multiple agents on the same command should be dispatched in parallel.
-- At the end of all `/lagune.detect` sub-agents, perform:
+- At the end of all `/lagune-detect` sub-agents, perform:
 
 ```prompt
-/lagune.detect merge equivalent findings. Don't detect for new findings nor scan the codebase again.
+/lagune-detect merge equivalent findings. Don't detect for new findings nor scan the codebase again.
 ```
 
 ## Loop
 
-When `/lagune.verify` reproves one or more fixes, repeat `/lagune.harden` and then `/lagune.verify` until all findings are properly resolved.
+When `/lagune-verify` reproves one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
 
 ## Important
 
@@ -140,18 +140,18 @@ When `/lagune.verify` reproves one or more fixes, repeat `/lagune.harden` and th
 
 ## 🪄 Scoped Detection
 
-Point [`/lagune.detect`](https://lagune.ai/docs/commands/detect) at a slice of your project instead of the whole thing. Describe the scope in plain language (a commit, a pull request, or a real situation) and it maps only the security-relevant findings there.
+Point [`/lagune-detect`](https://lagune.ai/docs/commands/detect) at a slice of your project instead of the whole thing. Describe the scope in plain language (a commit, a pull request, or a real situation) and it maps only the security-relevant findings there.
 
 **Tip**
 
-Everything it detects here is a normal finding, so you can carry it straight into `/lagune.plan`, `/lagune.harden`, and `/lagune.verify`, scoped to just those items.
+Everything it detects here is a normal finding, so you can carry it straight into `/lagune-plan`, `/lagune-harden`, and `/lagune-verify`, scoped to just those items.
 
 **📌 Since a commit**
 
 Give a fresh batch of commits its own security pass, scoped to just what they changed, for example:
 
 ```prompt
-/lagune.detect Scope the detection to everything that changed since commit `a1b2c3d`.
+/lagune-detect Scope the detection to everything that changed since commit `a1b2c3d`.
 ```
 
 **🔀 Branch or PR diff**
@@ -159,7 +159,7 @@ Give a fresh batch of commits its own security pass, scoped to just what they ch
 Review a pull request for security before it merges, scoped to just its diff, for example:
 
 ```prompt
-/lagune.detect Scope the detection to the changes this branch introduces against `main`.
+/lagune-detect Scope the detection to the changes this branch introduces against `main`.
 ```
 
 **⛑️ After an incident**
@@ -167,7 +167,7 @@ Review a pull request for security before it merges, scoped to just its diff, fo
 Describe what happened in your own words. Lagune reads the situation, not a flag, and turns it into a focused hunt, for example:
 
 ```prompt
-/lagune.detect Our site had a data leak a few weeks ago. I don't know exactly how it happened, and I'm worried something is still open that could leak data again. Go through the code carefully, focus on anywhere sensitive data is read, stored, or exposed, and map anything that could still be a way out. Treat this as a real incident, not a drill.
+/lagune-detect Our site had a data leak a few weeks ago. I don't know exactly how it happened, and I'm worried something is still open that could leak data again. Go through the code carefully, focus on anywhere sensitive data is read, stored, or exposed, and map anything that could still be a way out. Treat this as a real incident, not a drill.
 ```
 
 ---
@@ -176,9 +176,11 @@ Describe what happened in your own words. Lagune reads the situation, not a flag
 
 Treats the whole workspace and every dependency as hostile: it hunts for interpreters, network calls, encoded payloads, and code hidden in unlikely places to slip past scanners, then ends with a go/no-go verdict on whether the project is safe to use.
 
-We recommend installing with the specializations this audit leans on:
+The prompts load the specializations this audit relies on directly, whatever your project's categories. For the rest of the catalog `/lagune` matches, make sure the project uses **OWASP**, **AI/LLM**, and the category of its stack (e.g., **JavaScript**, **Python**, etc.):
 
-- **OWASP**, **AI/LLM**, and the project's stack (e.g., **JavaScript**, **Python**, etc.).
+```bash
+npx lagune write add --categories owasp ai javascript
+```
 
 **Danger**
 
@@ -186,11 +188,11 @@ Be careful when running projects from untrusted sources in your local environmen
 
 **🪼 Default**
 
-| Aspect          | Trade-off                                                                                       | Level               |
-| --------------- | ----------------------------------------------------------------------------------------------- | ------------------- |
-| **Effort**      | One agent sweeps the whole workspace, no sub-agents.                                            | 2/5 |
-| **Time**        | Medium. One agent works through the code and its dependencies in sequence.                      | 3/5 |
-| **Token Usage** | Moderate, but shared. The sub-skills, the code, and the dependencies all load into one context. | 3/5 |
+| Aspect          | Trade-off                                                                                            | Level               |
+| --------------- | ---------------------------------------------------------------------------------------------------- | ------------------- |
+| **Effort**      | One agent sweeps the whole workspace, no sub-agents.                                                 | 2/5 |
+| **Time**        | Medium. One agent works through the code and its dependencies in sequence.                           | 3/5 |
+| **Token Usage** | Moderate, but shared. The specializations, the code, and the dependencies all load into one context. | 3/5 |
 
 ```md
 /lagune You are a cybersecurity researcher with deep expertise in zero trust defensive security, using Lagune to improve your knowledge and precision.
@@ -199,12 +201,12 @@ Map the entire workspace as an untrusted source and a potential malicious scope.
 
 Extend your analysis to the dependencies and sub-dependencies: a project may try to hide malicious code in an unlikely place to slip past scanners.
 
-Mandatory sub-skills (read them one at a time):
+Mandatory specializations (load them one at a time with `npx lagune read catalog <name>`):
 
-- @.lagune/skills/interpreter.md
-- @.lagune/skills/secrets.md
-- @.lagune/skills/llm.md
-- @.lagune/skills/path.md
+- interpreter
+- secrets
+- llm
+- path
 
 To be clear: every mapped vulnerability must be treated as a potential threat, without exception.
 
@@ -213,11 +215,11 @@ At the end, give a verdict on whether the project is safe and trustworthy for me
 
 **🐋 Multi Agents (Deep Scan)**
 
-| Aspect          | Trade-off                                                                             | Level               |
-| --------------- | ------------------------------------------------------------------------------------- | ------------------- |
-| **Effort**      | One sub-agent per file, scaled to the size of your codebase.                          | 5/5 |
-| **Time**        | Longer, but more thorough. Files are swept in parallel, then merged into one verdict. | 4/5 |
-| **Token Usage** | Highest, but safest. Each sub-agent reads the sub-skills in its own isolated context. | 5/5 |
+| Aspect          | Trade-off                                                                                  | Level               |
+| --------------- | ------------------------------------------------------------------------------------------ | ------------------- |
+| **Effort**      | One sub-agent per file, scaled to the size of your codebase.                               | 5/5 |
+| **Time**        | Longer, but more thorough. Files are swept in parallel, then merged into one verdict.      | 4/5 |
+| **Token Usage** | Highest, but safest. Each sub-agent reads the specializations in its own isolated context. | 5/5 |
 
 ````md
 /lagune You are a cybersecurity orchestrator using Lagune to enumerate, dispatch a subagent per file, and generate reports (all content is read by the subagents).
@@ -231,12 +233,12 @@ Treat <file> as an untrusted source and a potential malicious scope. Every inter
 
 Extend the analysis to whatever <file> imports, including dependencies and sub-dependencies, where malicious code may hide to slip past scanners.
 
-Mandatory sub-skills for every sub-agent (read them one at a time):
+Mandatory specializations for every sub-agent (load them one at a time with `npx lagune read catalog <name>`):
 
-- @.lagune/skills/interpreter.md
-- @.lagune/skills/secrets.md
-- @.lagune/skills/llm.md
-- @.lagune/skills/path.md
+- interpreter
+- secrets
+- llm
+- path
 
 To be clear: every mapped vulnerability must be treated as a potential threat, without exception.
 

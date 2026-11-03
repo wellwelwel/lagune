@@ -3,7 +3,7 @@
 > Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 
 Canonical: https://lagune.ai/docs/commands/lagune
-Last updated: 2026-07-14
+Last updated: 2026-11-03
 
 ⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
 
@@ -45,14 +45,14 @@ Mark **`/lagune`** on any prompt, and describe the work as you always would.
 
 **Charter optional, but better with it**
 
-**`/lagune`** runs with or without a charter. With one, your project's own rules shape every build. Set them once with [`/lagune.charter`](https://lagune.ai/docs/commands/charter).
+**`/lagune`** runs with or without a charter. With one, your project's own rules shape every build. Set them once with [`/lagune-charter`](https://lagune.ai/docs/commands/charter).
 
 ## How it works
 
 It wraps the work in three movements, without writing anything to Lagune:
 
 1. It loads your charter, if it exists, and its principles govern the whole build, falling back to a safe-by-default baseline when you have none yet.
-2. It reads what you asked and matches the [sub-skills](https://lagune.ai/docs/commands/skills) your work touches, the same on-demand knowledge the audit flow uses.
+2. It lists your project's [catalog](https://lagune.ai/docs/catalog) and loads only the specializations your work touches, the same on-demand knowledge the audit flow uses.
 3. It applies the defense as the code is written, then re-reads its own result to confirm the controls actually hold before handing the work back.
 
 The result is working code in your project, safe from the first line.

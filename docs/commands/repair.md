@@ -1,9 +1,9 @@
-# /lagune.repair: Fix Broken Finding Tracking
+# /lagune-repair: Fix Broken Finding Tracking
 
 > Repair the chain when a rename or a moved file confuses Lagune's tracking.
 
 Canonical: https://lagune.ai/docs/commands/repair
-Last updated: 2026-07-13
+Last updated: 2026-11-03
 
 🧰 Repair the chain when a rename or a moved file confuses it.
 
@@ -13,7 +13,7 @@ Repair is not a sixth phase in the linear flow. Its job is to keep the tracking 
 
 ```prompt
 # It takes no input: it always repairs the whole chain
-/lagune.repair
+/lagune-repair
 ```
 
 ## How it works
@@ -21,6 +21,8 @@ Repair is not a sixth phase in the linear flow. Its job is to keep the tracking 
 Each detect finding is one tracked item that plan, harden, and verify carry forward, each acting on it and re-reporting it by name. That name, written identically as the section title in every artifact, is its identity throughout.
 
 The one volatile thing the tracking stores is the file paths the item points at. Those paths live nowhere else, so a rename or a moved file can break the link only there, never in two diverging copies. When that happens, repair corrects the map (`.lagune/tracking.json`) so identity survives the rename. It reads the artifacts and the tracking map, reads your source only to learn a renamed file's new path, and never authors security content.
+
+In the same pass, it checks every memory artifact against its template and reports what drifted, pointing each one at the phase that fixes it.
 
 **Tip**
 

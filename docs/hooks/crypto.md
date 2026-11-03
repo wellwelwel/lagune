@@ -3,26 +3,26 @@
 > Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/crypto
-Last updated: 2026-07-24
+Last updated: 2026-11-03
 
-The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` sub-skill](https://lagune.ai/docs/commands/skills), which you can run yourself in **scan** or **check** mode.
+The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
 ## Run it
 
 **Scan the codebase**
 
 ```bash
-node ./.lagune/hooks/crypto.mjs           # scans the whole project
-node ./.lagune/hooks/crypto.mjs -d src    # scans a directory
-node ./.lagune/hooks/crypto.mjs -f hash.ts # scans a single file
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
 ```
 
 **Check a snippet**
 
 ```bash
-node ./.lagune/hooks/crypto.mjs -l javascript -p 'createCipher("aes-256-cbc", k)' # => weak
-node ./.lagune/hooks/crypto.mjs -l python -p 'hashlib.md5(data)'                   # => review
-node ./.lagune/hooks/crypto.mjs -l go -p 'sha256.Sum256(data)'                     # => safe
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
 ```
 
 The scan prints up to two sections. **Weak cryptography found** is the finding set (DES/3DES/RC4/Blowfish/RC2, ECB mode): each is a broken cipher primitive, so the hook exits non-zero. **Cryptography to review manually** is a lead set it cannot judge alone: an MD5/SHA-1 digest (broken for security use, but legitimate as a plain checksum, so intent decides), a non-cryptographic RNG in a security context, or a timing-unsafe comparison. A clean run prints `no weak cryptography found`.
@@ -38,14 +38,14 @@ The scan prints up to two sections. **Weak cryptography found** is the finding s
 
 ### CLI options
 
-| Option      | Alias | Value          | Description                                                                                       |
-| ----------- | ----- | -------------- | ------------------------------------------------------------------------------------------------- |
-| `--pattern` | `-p`  | a code snippet | Check one snippet. Repeat to check several, one verdict per line.                                 |
-| `--lang`    | `-l`  | a language     | Required with `-p`: one of javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp. |
-| `--dir`     | `-d`  | a directory    | Scope a scan to a directory. Repeats and combines with `-f`.                                      |
-| `--file`    | `-f`  | a file         | Scope a scan to a single file. Repeats and combines with `-d`.                                    |
+| Option      | Value          | Description                                                                                              |
+| ----------- | -------------- | -------------------------------------------------------------------------------------------------------- |
+| `--pattern` | a code snippet | Check one snippet. Repeat to check several, one verdict per line.                                        |
+| `--lang`    | a language     | Required with `--pattern`: one of javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp. |
+| `--dir`     | a directory    | Scope a scan to a directory. Repeats and combines with `--file`.                                         |
+| `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`.                                        |
 
-With no option it scans the whole project. `-p` needs `-l` and cannot be combined with `-d` or `-f`.
+With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
 
 ### Supported languages
 
@@ -69,7 +69,7 @@ It reads source as text, so a primitive assembled at runtime, hidden behind an a
 
 **Tip**
 
-The hook guarantees the floor (these constructs exist): key management, IV reuse, and RSA padding are judgment the [`crypto` sub-skill](https://lagune.ai/docs/commands/skills) still covers.
+The hook guarantees the floor (these constructs exist): key management, IV reuse, and RSA padding are judgment the [`crypto` specialization](https://lagune.ai/docs/catalog) still covers.
 
 ## Frequently Asked Questions
 

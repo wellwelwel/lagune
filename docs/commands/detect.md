@@ -1,9 +1,9 @@
-# /lagune.detect: Map Your System and Its Risks
+# /lagune-detect: Map Your System and Its Risks
 
 > Read your code and map what your system does and where the risks are.
 
 Canonical: https://lagune.ai/docs/commands/detect
-Last updated: 2026-07-14
+Last updated: 2026-11-03
 
 🔬 Find out what your system really does and where the risks are.
 
@@ -14,19 +14,19 @@ Detect reads the code and records only what it actually finds, with the evidence
 **Full scan**
 
 ```prompt
-/lagune.detect
+/lagune-detect
 ```
 
 **Point at paths**
 
 ```prompt
-/lagune.detect src/routes/ src/auth.ts
+/lagune-detect src/routes/ src/auth.ts
 ```
 
 **Describe a concern**
 
 ```prompt
-/lagune.detect make sure customer data is never exposed
+/lagune-detect make sure customer data is never exposed
 ```
 
 ## What it maps
@@ -40,6 +40,8 @@ Detect reads the code and records only what it actually finds, with the evidence
   - _Why it matters:_ weak session handling lets one account be taken over by another.
   - _Evidence:_ the session issuance logic, where sessions are issued with no expiry set.
 
+Along the way, detect gives every specialization in your project's [catalog](https://lagune.ai/docs/catalog) a verdict against the code, applies the ones whose context is present, and records them under **Applied specializations**, the list harden and verify reuse.
+
 From there, you have a clear map of what your system does and where the risks live, ready for the next steps to act on.
 
 **Tip**
@@ -49,11 +51,11 @@ From there, you have a clear map of what your system does and where the risks li
 
 ## Next
 
-Turn the map into a plan: [`/lagune.plan`](https://lagune.ai/docs/commands/plan).
+Turn the map into a plan: [`/lagune-plan`](https://lagune.ai/docs/commands/plan).
 
 ## Frequently Asked Questions
 
-### What does /lagune.detect do?
+### What does /lagune-detect do?
 
 It reads your code and maps what your system does and where the risks are, recording only what it actually finds. Its rule is detection, not invention.
 
@@ -64,3 +66,7 @@ A finding is one detected risk, carrying what it is, why it matters, and the evi
 ### Where is the detect map stored?
 
 At .lagune/memory/detect.md.
+
+### Which specializations does detect use?
+
+Every one in your project's catalog gets a verdict against the code. Detect applies the ones whose context is present and records them under Applied specializations.

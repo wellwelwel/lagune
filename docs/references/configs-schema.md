@@ -1,0 +1,54 @@
+# Configs Schema
+
+> The JSON Schema for a Lagune project's configs, for autocompletion and validation in your editor, following the current Lagune or pinned to a version.
+
+Canonical: https://lagune.ai/docs/references/configs-schema
+Last updated: 2026-11-03
+
+`.lagune/configs.json` records the [**categories**](https://lagune.ai/docs/categories) a project uses and indexes its own [**specializations**](https://lagune.ai/docs/catalog). Its JSON Schema lets your editor autocomplete each field and flag a typo or an unknown category as you edit the file.
+
+## The current schema
+
+Whenever **Lagune** writes the file and finds no `$schema` in it, it points the file at the current schema:
+
+```json
+{
+  "$schema": "https://lagune.ai/schemas/configs.json",
+  "categories": ["owasp", "javascript"]
+}
+```
+
+This address always follows the current **Lagune**. A file written before **Lagune** 0.16.0 gets it on its next change, and every phase points it out until then.
+
+## Pin a version
+
+Every **Lagune** release from 0.16.0 onward carries the schema as it was in that version, published on **npm** and served by **jsDelivr**. To pin one, replace `$schema` with the version after `lagune@`:
+
+```json
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/lagune@0.16.0/schemas/configs.json"
+}
+```
+
+The version accepts any semver range:
+
+| Version            | Schema                               |
+| ------------------ | ------------------------------------ |
+| `0.16.0`           | The one from 0.16.0                  |
+| `0.16.x` or `0.16` | The one from the latest 0.16 release |
+| `0.x` or `0`       | The one from the latest 0.x release  |
+| `latest`           | The one from the latest release      |
+
+## Frequently Asked Questions
+
+### Does Lagune need the schema?
+
+No. The schema only helps your editor, and Lagune reads the file the same way with or without $schema.
+
+### Will Lagune overwrite a pinned schema?
+
+No. Lagune writes $schema only when the file has none, and keeps any address you set.
+
+### When should I pin a version?
+
+When the project runs a specific Lagune version, so your editor validates the file against what that version accepts.

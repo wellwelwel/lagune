@@ -1,9 +1,9 @@
-# /lagune.plan: Score Findings and Plan Fixes
+# /lagune-plan: Score Findings and Plan Fixes
 
 > Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
 
 Canonical: https://lagune.ai/docs/commands/plan
-Last updated: 2026-10-03
+Last updated: 2026-11-03
 
 🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
 
@@ -12,19 +12,19 @@ Last updated: 2026-10-03
 **Plan everything**
 
 ```prompt
-/lagune.plan
+/lagune-plan
 ```
 
 **Point at paths**
 
 ```prompt
-/lagune.plan src/routes/upload.ts
+/lagune-plan src/routes/upload.ts
 ```
 
 **Focus a worry**
 
 ```prompt
-/lagune.plan where sensitive data could leak
+/lagune-plan where sensitive data could leak
 ```
 
 ## How it works
@@ -44,23 +44,23 @@ From there, you have a rated, prioritized list of fixes, each tied to a finding 
 
 **Tip**
 
-- It builds entirely on detect. If a file or worry was never mapped, it tells you to run `/lagune.detect` on it first.
+- It builds entirely on detect. If a file or worry was never mapped, it tells you to run `/lagune-detect` on it first.
 - Running it again updates the plan: done fixes drop off, new ones come in.
 - The defense plan lives in `.lagune/memory/plan.md`.
 
 **Depends on detect**
 
-Plan works only from what [`/lagune.detect`](https://lagune.ai/docs/commands/detect) already mapped, so run detect first.
+Plan works only from what [`/lagune-detect`](https://lagune.ai/docs/commands/detect) already mapped, so run detect first.
 
 ## Next
 
-Apply the plan: [`/lagune.harden`](https://lagune.ai/docs/commands/harden).
+Apply the plan: [`/lagune-harden`](https://lagune.ai/docs/commands/harden).
 
 ## Frequently Asked Questions
 
 ### How does Lagune prioritize vulnerabilities?
 
-/lagune.plan rates each finding with a category and a CVSS v4.0 score computed by the cvss hook, then pairs it with the fix to apply.
+/lagune-plan rates each finding with a category and a CVSS v4.0 score computed by the cvss hook, then pairs it with the fix to apply.
 
 ### Does Lagune use CVSS v4.0?
 
