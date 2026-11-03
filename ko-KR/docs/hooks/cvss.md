@@ -1,0 +1,95 @@
+# cvss 훅: CVSS v4.0 벡터 점수 매기기
+
+> 명령줄에서 CVSS v4.0 벡터 하나 또는 여러 개에 FIRST 계산기와 같은 계산 방식으로 점수를 매기고, 각 벡터를 쉬운 말로 풀어 볼 수 있습니다.
+
+표준 URL: https://lagune.ai/ko-KR/docs/hooks/cvss
+언어: ko-KR
+원문: https://lagune.ai/docs/hooks/cvss
+마지막 업데이트: 2026-11-03
+
+`cvss` 훅은 **CVSS v4.0 벡터**에 점수를 매기고 점수와 심각도 등급을 출력합니다. [`/lagune-plan`](https://lagune.ai/ko-KR/docs/commands/plan) 명령어가 각 수정에, [`/lagune-prove`](https://lagune.ai/ko-KR/docs/commands/prove) 명령어가 각 보안 권고에 기록하는 평가가 바로 이것입니다. 훅은 이 평가를 뒷받침하는 결정론적 엔진으로 [FIRST 계산기](https://www.first.org/cvss/calculator/4.0)와 같은 계산 방식을 사용하며, 직접 실행할 수도 있습니다.
+
+## 실행하기
+
+각 벡터를 `--vector` 옵션으로 전달하세요. 훅은 벡터마다 점수와 등급을 한 줄로 출력합니다.
+
+**벡터 하나**
+
+```bash
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+# => 9.3, Critical
+```
+
+**여러 벡터**
+
+`--vector` 옵션을 반복해 지정하면 여러 벡터에 한 번에 점수를 매기며, 입력 순서대로 한 줄씩 출력합니다.
+
+```bash
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 9.3, Critical
+# => 8.7, High
+```
+
+**쉬운 말로**
+
+`--explain` 옵션을 추가하면 각 지표를 쉬운 말로 풀어 보여 줍니다. Threat 지표나 Environmental 지표가 점수를 바꾸면, Base 지표만으로 매긴 점수가 먼저 나옵니다.
+
+```bash
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 8.7, High
+# =>   Base metrics alone: 9.3, Critical
+# =>   Attack Vector: Network, modified to Adjacent
+# =>   Attack Complexity: Low
+# =>   ...
+```
+
+## 결과 해석하기
+
+| 등급       | 점수     |
+| ---------- | -------- |
+| `None`     | 0.0      |
+| `Low`      | 0.1~3.9  |
+| `Medium`   | 4.0~6.9  |
+| `High`     | 7.0~8.9  |
+| `Critical` | 9.0~10.0 |
+
+Base 지표만 있는 벡터는 최악의 상황, 즉 모든 보안 요구 사항이 High이고 결함이 실제로 공격에 악용되고 있는 상황을 가정해 결함 자체에 점수를 매깁니다. Environmental 지표(`MAV` 등의 수정 지표와 `CR`, `IR`, `AR` 지표)는 특정 배포 환경에 맞춰, Threat 지표(`E`)는 악용에 관해 알려진 정보에 맞춰 점수를 확정합니다.
+
+잘못된 벡터를 넣으면 `invalid vector:` 메시지와 함께 무엇이 잘못됐는지 출력하고, 훅은 0이 아닌 종료 코드를 반환합니다.
+
+### CLI 옵션
+
+| 옵션        | 값              | 설명                                                                                               |
+| ----------- | --------------- | -------------------------------------------------------------------------------------------------- |
+| `--vector`  | `CVSS:4.0` 벡터 | 벡터 하나에 점수 매기기. 반복해 지정하면 여러 벡터에 점수를 매겨 입력 순서대로 벡터당 한 줄씩 출력 |
+| `--explain` |                 | 모든 평가 줄 아래에 각 지표를 쉬운 말로 덧붙여 출력                                                |
+
+`--vector` 옵션은 하나 이상 필요합니다. 벡터는 절대 단독 위치 인수로 받지 않으므로 플래그로 오인될 일이 없습니다.
+
+**플래그 값으로 전달하는 이유**
+
+각 벡터는 명령어에 끼워 넣지 않고 항상 플래그 값으로 전달합니다. 따옴표나 백틱이 든 값도 아무 효과 없이 그대로 남아 셸에 인젝션될 수 없습니다. 셸이 먼저 값을 확장하지 않도록 항상 작은따옴표로 감싸세요.
+
+**다루지 않는 범위**
+
+CVSS v4.0만 지원합니다: **Lagune**은 모든 발견 사항을 v4.0으로 평가하므로, v2.0, v3.0, v3.1 벡터는 점수를 매기지 않고 거부합니다.
+
+**팁**
+
+plan 단계의 검증은 모든 CVSS 줄에 이와 같은 계산을 다시 실행하므로, 벡터와 어긋난 점수는 계획이 승인되기 전에 잡힙니다.
+
+## 자주 묻는 질문
+
+### Lagune은 CVSS 점수를 어떻게 계산하나요?
+
+cvss 훅은 FIRST의 CVSS v4.0 참조 계산기를 그대로 따르므로, 벡터 점수는 FIRST 사이트에서 계산한 결과와 정확히 같습니다.
+
+### 이 훅으로 CVSS v3.1 벡터에도 점수를 매길 수 있나요?
+
+아니요. Lagune은 모든 발견 사항을 CVSS v4.0으로 평가하며, 훅은 다른 버전의 벡터에는 점수를 매기지 않고 거부합니다.
+
+### --explain 플래그는 어떤 역할을 하나요?
+
+각 지표를 쉬운 말로 풀어 주고, 전체 점수 옆에 Base 점수를 함께 보여 줍니다. 그래서 누구나 벡터가 무엇을 뜻하는지, 프로젝트 컨텍스트가 점수를 어떻게 바꿨는지 확인할 수 있습니다.

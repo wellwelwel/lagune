@@ -59,8 +59,6 @@ Cada link em Docs aponta para a versão em Markdown simples da página. Remova o
 ## Outros idiomas
 
 - [English](https://lagune.ai/llms.txt)
-- [简体中文](https://lagune.ai/zh-CN/llms.txt)
-- [日本語](https://lagune.ai/ja-JP/llms.txt)
 - [Español (España)](https://lagune.ai/es-ES/llms.txt)
 - [Deutsch](https://lagune.ai/de-DE/llms.txt)
 - [Français](https://lagune.ai/fr-FR/llms.txt)
@@ -68,3 +66,6 @@ Cada link em Docs aponta para a versão em Markdown simples da página. Remova o
 - [Türkçe](https://lagune.ai/tr-TR/llms.txt)
 - [Українська](https://lagune.ai/uk-UA/llms.txt)
 - [Русский](https://lagune.ai/ru-RU/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [한국어](https://lagune.ai/ko-KR/llms.txt)

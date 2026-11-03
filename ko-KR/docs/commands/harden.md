@@ -1,0 +1,72 @@
+# /lagune-harden: 코드에 보안 수정 적용하기
+
+> 방어 계획의 수정을 하나씩 안전하게 코드에 적용합니다.
+
+표준 URL: https://lagune.ai/ko-KR/docs/commands/harden
+언어: ko-KR
+원문: https://lagune.ai/docs/commands/harden
+마지막 업데이트: 2026-11-03
+
+🔧 방어 계획의 수정을 하나씩 안전하게 코드에 적용합니다.
+
+## 사용법
+
+**전체 적용하기**
+
+```prompt
+/lagune-harden
+```
+
+**경로 지정하기**
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+**우선순위 지정하기**
+
+```prompt
+/lagune-harden Critical과 High 우선순위
+```
+
+## 작동 방식
+
+각 수정은 plan 단계에서 이미 정해졌으므로, harden 단계는 그대로 적용하기만 합니다. 코드를 건드리는 유일한 단계이기 때문에 신중하게 진행합니다. 모든 변경을 검토하기 쉽도록 수정을 하나씩 적용하고, 수정을 끼워 맞추려고 보안 통제를 약화하는 일은 절대 없습니다. 업로드 수정을 예로 들면 다음과 같습니다.
+
+- **파일 업로드** (상태: **Applied**)
+  - _바뀐 내용_: 파일의 실제 형식과 크기를 확인하고, 예상하지 못한 파일은 거부하고, 저장할 때 이름을 바꾸고, 코드로 실행될 수 없는 곳에 저장합니다.
+  - _위치_: `handleUpload` 함수와 이 함수가 호출하는 스토리지 헬퍼입니다.
+
+수정을 완전히 적용할 수 없으면 harden 단계는 안전하게 할 수 있는 만큼만 적용하고, 나머지는 **Partial** 또는 **Blocked**로 표시해 열린 상태로 둡니다.
+
+**Applied는 검증 완료가 아님**
+
+Applied는 아직 증명되었다는 뜻이 아닙니다. 증명은 [verify](https://lagune.ai/ko-KR/docs/commands/verify) 단계가 맡습니다.
+
+**팁**
+
+- 전적으로 방어 계획을 바탕으로 합니다. 계획에 없는 수정이나 파일이 있으면, 먼저 그 대상에 `/lagune-plan` 명령어를 실행하라고 안내합니다.
+- 다시 실행하면 기록을 현재 상태와 대조해 갱신합니다. 되돌린 변경은 빠지고, 새로 적용한 수정이 추가됩니다.
+- 강화 기록은 `.lagune/memory/harden.md` 파일에 있습니다.
+
+**plan 단계에 의존하며 코드를 변경함**
+
+harden 단계는 [`/lagune-plan`](https://lagune.ai/ko-KR/docs/commands/plan) 명령어의 결과를 바탕으로 합니다. 코드를 변경하는 유일한 단계입니다.
+
+## 다음 단계
+
+[`/lagune-verify`](https://lagune.ai/ko-KR/docs/commands/verify) 명령어로 각 수정이 실제로 효과가 있는지 증명하세요.
+
+## 자주 묻는 질문
+
+### /lagune-harden 명령어가 코드를 변경하나요?
+
+네. 코드를 건드리는 유일한 단계로, 방어 계획의 수정을 하나씩 적용합니다.
+
+### Applied, Partial, Blocked는 무슨 뜻인가요?
+
+Lagune이 각 수정에 기록하는 상태입니다. Applied는 수정을 적용했다는 뜻이고, Partial은 일부만 적용했다는 뜻이며, Blocked는 적용할 수 없었다는 뜻입니다. Applied는 아직 증명되었다는 뜻이 아닙니다.
+
+### Lagune은 묻지 않고 수정을 적용하나요?
+
+편집에 승인이 필요한지는 Lagune이 아니라 사용하는 에이전트와 그 에이전트를 실행하는 권한 모드가 정하며, Lagune은 자체 확인 절차를 추가하지 않습니다. 그래도 수정을 맞추려고 보안 통제를 약화하는 일은 절대 없으며, 수정이 charter 규칙과 충돌하면 작업을 멈추고 먼저 알려 줍니다.

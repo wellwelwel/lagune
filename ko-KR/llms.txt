@@ -1,0 +1,71 @@
+# Lagune
+
+> 모든 코드베이스를 위한 Security-Driven Hardening
+
+Lagune은 오픈 소스이자 방어 전용인 Security-Driven Hardening(SDH) 워크플로입니다. 어떤 언어로 작성된 코드베이스든 모든 순간에 AI 에이전트가 보안을 강화하도록 돕습니다. 개발 전에는 charter가 보안 규칙을 정하고, 코드를 작성하는 동안에는 범용 /lagune 명령어가 보안을 강화하며, 5단계 Blue Team 흐름은 시스템이 실제로 무엇을 하는지 탐지해 그 컨텍스트에서 중요한 수정을 이끌어 갑니다. 명령어는 skills CLI로 에이전트에 설치하며, API 키가 필요 없습니다.
+
+문서 섹션의 모든 링크는 해당 페이지의 순수 Markdown 버전으로 연결됩니다. 웹 페이지를 열려면 .md 접미사를 빼세요. 코퍼스 전체를 담은 단일 파일: https://lagune.ai/ko-KR/llms-full.txt
+
+## 문서
+
+- [설치: 모든 AI 에이전트를 위한 보안 강화](https://lagune.ai/ko-KR/docs.md): 에이전트가 지원하면 플러그인으로, 그 밖의 경우에는 skills CLI로 어떤 프로젝트에든 Lagune을 설치한 뒤, 프로젝트에 맞는 보안 전문 지식을 고르세요.
+- [Antigravity CLI에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/antigravity-cli.md): Antigravity CLI에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
+- [Claude Code에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/claude-code.md): 터미널, 확장 프로그램 또는 데스크톱 앱의 Claude Code에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
+- [Codex CLI에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/codex.md): Codex CLI에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 샌드박스 안에서 엔진을 실행하세요.
+- [Cursor에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/cursor.md): Cursor와 Cursor CLI에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
+- [Devin CLI에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/devin-cli.md): Devin CLI에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+- [Factory Droid에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/factory-droid.md): Factory Droid에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 엔진 도구를 허용하세요.
+- [Gemini CLI에 Lagune 확장 프로그램 설치하기](https://lagune.ai/ko-KR/docs/install/gemini-cli.md): Gemini CLI에 Lagune을 확장 프로그램으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
+- [GitHub Copilot CLI에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/github-copilot-cli.md): GitHub Copilot CLI에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+- [Grok Build에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/grok-build.md): Grok Build에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
+- [Hermes Agent에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/hermes-agent.md): Hermes Agent에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+- [Kimi Code에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/kimi-code.md): Kimi Code에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+- [Muse Code에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/muse-code.md): Muse Code에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 샌드박스 안에서 엔진을 실행하세요.
+- [OpenCode에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/opencode.md): OpenCode 1.x와 2.x에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+- [Pi에 Lagune 패키지 설치하기](https://lagune.ai/ko-KR/docs/install/pi.md): Pi에 Lagune을 npm 또는 GitHub에서 패키지로 설치하고 최신 상태로 유지하세요.
+- [Qwen Code에 Lagune 확장 프로그램 설치하기](https://lagune.ai/ko-KR/docs/install/qwen-code.md): Qwen Code에 Lagune을 확장 프로그램으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
+- [skills.sh로 어떤 에이전트에든 Lagune 설치하기](https://lagune.ai/ko-KR/docs/install/universal.md): skills CLI로 어떤 AI 에이전트에든 Lagune을 설치하고 최신 상태로 유지하세요.
+- [AI 에이전트를 위한 보안 스킬](https://lagune.ai/ko-KR/docs/get-started/commands.md): Lagune으로 AI 에이전트가 얻는 스킬: 기존 프로젝트를 점검하거나, 개발하는 동안 새 작업을 안전하게 만들 수 있으며, 모두 보안 원칙을 따릅니다.
+- [대시보드](https://lagune.ai/ko-KR/docs/get-started/dashboard.md): 명령어 하나로 열리는 로컬 실시간 뷰에서 프로젝트의 보안 원칙, 발견 사항, 카탈로그를 확인하세요.
+- [/lagune: AI가 작성하는 동안 코드 보안 강화](https://lagune.ai/ko-KR/docs/commands/lagune.md): 요청한 작업을 만들고, 보안 원칙에 따라 작성하는 즉시 보안을 강화합니다. 따로 따라야 할 흐름은 없습니다.
+- [/lagune-charter: 보안 원칙 정하기](https://lagune.ai/ko-KR/docs/commands/charter.md): 이후 모든 단계가 지키는 규칙인 프로젝트의 보안 원칙을 정하고, 프로젝트를 읽어 근거가 확인된 전문 지식 카테고리를 기록합니다.
+- [/lagune-detect: 시스템과 위험 파악하기](https://lagune.ai/ko-KR/docs/commands/detect.md): 코드를 읽고 시스템이 무엇을 하는지, 위험이 어디에 있는지 파악합니다.
+- [/lagune-plan: 발견 사항에 점수를 매기고 수정 계획 세우기](https://lagune.ai/ko-KR/docs/commands/plan.md): detect 단계가 찾은 내용을 방어 계획으로 바꾸고, 각 발견 사항에 카테고리와 CVSS v4.0 점수를 매긴 뒤 수정을 짝지어 줍니다.
+- [/lagune-harden: 코드에 보안 수정 적용하기](https://lagune.ai/ko-KR/docs/commands/harden.md): 방어 계획의 수정을 하나씩 안전하게 코드에 적용합니다.
+- [/lagune-verify: 보안 통제가 유효한지 증명하기](https://lagune.ai/ko-KR/docs/commands/verify.md): 적용한 각 수정이 실제로 효과가 있는지 증명하고, 효과가 증명된 항목을 마무리합니다.
+- [카테고리](https://lagune.ai/ko-KR/docs/categories.md): Lagune 프로젝트에서 사용할 수 있는 전문 지식 카테고리와 변경 방법을 소개합니다. OWASP부터 JavaScript, Python, Go, Rust의 언어별 보안 강화까지 다룹니다.
+- [카탈로그: 필요할 때만 불러오는 보안 전문 지식](https://lagune.ai/ko-KR/docs/catalog.md): 프로젝트 카탈로그의 전문 지식을 불러오는 방식을 설명합니다. 각 단계가 필요할 때만 불러오며, 직접 불러올 수도 있습니다.
+- [/lagune-specialize: 일반 텍스트로 보안 전문 지식 학습시키기](https://lagune.ai/ko-KR/docs/commands/specialize.md): 제공한 보안 자료나 주제의 핵심을 정리해, 필요할 때만 불러오는 새 전문 지식으로 만듭니다.
+- [/lagune-prove: 방어 전용 개념 증명(PoC)](https://lagune.ai/ko-KR/docs/commands/prove.md): 탐지한 발견 사항마다 실행할 수 있는 방어 전용 개념 증명(PoC)과 책임 있는 공개를 위한 보안 권고를 만듭니다.
+- [agent 훅: 상한 없는 에이전트 루프 탐지하기](https://lagune.ai/ko-KR/docs/hooks/agent.md): 명령줄에서 코드베이스를 스캔해 스텝 수나 시간에 상한이 없는 에이전트나 LLM 호출을 찾거나, 호출 하나에 점수를 매길 수 있습니다.
+- [cors 훅: CORS 오리진 점검하기](https://lagune.ai/ko-KR/docs/hooks/cors.md): 명령줄에서 소스 코드를 스캔해 우회할 수 있는 CORS 오리진 허용 목록을 찾거나, 오리진 값 하나가 지나치게 넓은 접근을 허용하는지 점수를 매길 수 있습니다.
+- [crypto 훅: 취약한 암호화 탐지하기](https://lagune.ai/ko-KR/docs/hooks/crypto.md): 명령줄에서 코드베이스를 스캔해 취약한 암호 알고리즘을 찾거나, 코드 조각 하나에 점수를 매길 수 있습니다.
+- [cvss 훅: CVSS v4.0 벡터 점수 매기기](https://lagune.ai/ko-KR/docs/hooks/cvss.md): 명령줄에서 CVSS v4.0 벡터 하나 또는 여러 개에 FIRST 계산기와 같은 계산 방식으로 점수를 매기고, 각 벡터를 쉬운 말로 풀어 볼 수 있습니다.
+- [infra 훅: IaC 설정 오류 탐지하기](https://lagune.ai/ko-KR/docs/hooks/infra.md): 명령줄에서 Terraform, Dockerfile, GitHub Actions를 스캔해 설정 오류를 찾거나, 코드 조각 하나에 점수를 매길 수 있습니다.
+- [interpreter 훅: 동적 코드 실행 싱크 잡아내기](https://lagune.ai/ko-KR/docs/hooks/interpreter.md): 명령줄에서 코드베이스를 스캔해 여러 언어의 동적 코드 실행 싱크를 찾거나, 코드 조각 하나에 점수를 매길 수 있습니다.
+- [jwt 훅: 알고리즘을 고정하지 않은 JWT 검증 탐지하기](https://lagune.ai/ko-KR/docs/hooks/jwt.md): 명령줄에서 코드베이스를 스캔해 알고리즘을 고정하지 않은 JWT 검증을 찾거나, 호출 하나에 점수를 매길 수 있습니다.
+- [network 훅: SSRF 관점에서 URL 점수 매기기](https://lagune.ai/ko-KR/docs/hooks/network.md): 명령줄에서 바로 요청 대상 하나 또는 여러 개에 SSRF 관점의 점수를 매길 수 있습니다.
+- [regex 훅: ReDoS 패턴 탐지하기](https://lagune.ai/ko-KR/docs/hooks/regex.md): 명령줄에서 코드베이스를 스캔해 ReDoS에 취약한 정규식을 찾거나, 패턴 하나에 점수를 매길 수 있습니다.
+- [secrets 훅: 하드코딩된 시크릿 탐지하기](https://lagune.ai/ko-KR/docs/hooks/secrets.md): 명령줄에서 코드베이스를 스캔해 하드코딩된 자격 증명을 찾을 수 있습니다.
+- [Lagune 프롬프트 예시: Blue Team 흐름 자동화](https://lagune.ai/ko-KR/docs/examples/prompts.md): 바로 복사해 쓸 수 있는 Lagune 프롬프트 모음입니다. 읽기 전용 스캔, 전체 Blue Team 흐름, 제로 트러스트 감사는 물론, 커밋, 브랜치나 PR의 diff, 실제 보안 사고로 범위를 좁힌 탐지까지 담았습니다.
+- [Security-Driven Hardening: AI 지원 개발 시대를 위한 컨벤션](https://lagune.ai/ko-KR/docs/references/paper.md): Security-Driven Hardening(SDH) 방법론: AI 지원 개발과 바이브 코딩으로 만든 소프트웨어를 점검하고 보안을 강화하는, 컨텍스트를 인식하는 Blue Team 컨벤션입니다.
+- [Lagune 용어집: SDH, Charter, 발견 사항, 보안 통제](https://lagune.ai/ko-KR/docs/references/glossary.md): Lagune과 Security-Driven Hardening의 모든 용어를 쉬운 말로 정의합니다. SDH, charter, detect, 발견 사항, 보안 통제, harden, verify, 종결, 종결 가능성, 전문 지식, 카테고리, 카탈로그를 다룹니다.
+- [설정 스키마](https://lagune.ai/ko-KR/docs/references/configs-schema.md): Lagune 프로젝트 설정 파일의 JSON Schema입니다. 에디터에서 자동 완성과 유효성 검사를 제공하며, 최신 Lagune을 따르게 하거나 특정 버전에 고정할 수 있습니다.
+- [Lagune vs. Deepsec: AI 기반 보안 접근 방식 두 가지 비교](https://lagune.ai/ko-KR/docs/references/deepsec.md): Lagune과 Vercel의 Deepsec을 작동 방식, 수명 주기, 탐지, 비용, 발견 사항, 종결 관점에서 비교한 참고 문서입니다.
+- [OWASP 출처](https://lagune.ai/ko-KR/docs/references/owasp-sources.md): 내장 OWASP 전문 지식의 출처를 OWASP 공식 공격 페이지와 Cheat Sheet 페이지에 대응시켜 정리했습니다.
+- [/lagune-repair: 깨진 발견 사항 추적 복구하기](https://lagune.ai/ko-KR/docs/commands/repair.md): 파일 이름이 바뀌거나 파일이 이동해 Lagune의 추적이 꼬였을 때 체인을 복구합니다.
+- [Migrate: 매니페스트 기반 Lagune 프로젝트를 스킬과 플러그인으로 옮기기](https://lagune.ai/ko-KR/docs/commands/migrate.md): 매니페스트 기반 Lagune 프로젝트를 보안 원칙, 산출물, 추적, 직접 만든 전문 지식을 그대로 유지한 채 스킬 기반 Lagune으로 옮깁니다.
+
+## 다른 언어
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)

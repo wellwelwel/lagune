@@ -1,0 +1,106 @@
+# cors 훅: CORS 오리진 점검하기
+
+> 명령줄에서 소스 코드를 스캔해 우회할 수 있는 CORS 오리진 허용 목록을 찾거나, 오리진 값 하나가 지나치게 넓은 접근을 허용하는지 점수를 매길 수 있습니다.
+
+표준 URL: https://lagune.ai/ko-KR/docs/hooks/cors
+언어: ko-KR
+원문: https://lagune.ai/docs/hooks/cors
+마지막 업데이트: 2026-11-03
+
+`cors` 훅은 [`http-request` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, 직접 실행할 수도 있습니다. 명령어 하나로 두 가지 모드를 쓸 수 있습니다: **scan** 모드는 소스 코드를 스캔해 **우회할 수 있는 오리진 허용 목록**(공격자 호스트가 빠져나갈 수 있는 호스트 검증 정규식)을 찾고, **score** 모드는 **CORS 오리진** 값 하나에 점수를 매겨 `wildcard`, `null`, `safe` 중 하나로 판정합니다.
+
+## 코드베이스 스캔
+
+플래그를 지정하지 않으면 프로젝트 전체를 스캔합니다.
+
+**프로젝트 전체**
+
+```bash
+npx lagune read cors
+```
+
+**특정 디렉터리**
+
+```bash
+npx lagune read cors --dir src/server
+```
+
+**단일 파일**
+
+```bash
+npx lagune read cors --file internal/auth/origin.go
+```
+
+우회할 수 있는 허용 목록을 파일별로 묶어 헤더 하나 아래에 나열합니다. 신뢰하는 호스트 접미사 앞의 authority 부분에 `.+`/`.*` 패턴이 있는 호스트 검증(`^https?://.+\.trusted\.com`)은 `your-site.com.attacker.com` 같은 공격자 호스트를 그대로 통과시킵니다.
+
+```text
+Origin-allowlist patterns with a greedy wildcard (bypassable, review):
+
+internal/auth/origin.go
+  ^https?://.+\.trusted\.com
+```
+
+이는 확정된 발견 사항이 아니라 검토할 단서입니다: 정규식이 실제 신뢰 판단을 좌우하는지는 텍스트만으로 판단할 수 없으므로, 스캔 결과는 종료 코드를 바꾸지 않습니다. 항목마다 직접 읽고 허용 목록이 완전 일치로 비교하는지 확인하세요. 아무것도 발견되지 않으면 한 줄만 출력합니다.
+
+```bash
+npx lagune read cors --dir src/clean
+# => no bypassable origin allowlist found
+```
+
+## 오리진 점수 매기기
+
+각 오리진을 `--origin` 옵션으로 전달하세요. 훅은 오리진마다 단어 하나를 출력하며, `wildcard` 또는 `null` 판정이 하나라도 있으면 0이 아닌 종료 코드를 반환합니다.
+
+**오리진 하나**
+
+```bash
+npx lagune read cors --origin '*'                       # => wildcard
+npx lagune read cors --origin 'null'                    # => null
+npx lagune read cors --origin 'https://app.example.com' # => safe
+```
+
+**여러 오리진**
+
+`--origin` 옵션을 반복해 지정하면 허용 목록 전체에 한 번에 점수를 매길 수 있으며, 판정은 입력 순서대로 한 줄에 하나씩 출력됩니다.
+
+```bash
+npx lagune read cors \
+  --origin 'https://app.example.com' \
+  --origin '*' \
+  --origin 'null'
+# => safe
+# => wildcard
+# => null
+```
+
+| 판정       | 의미                                                                                                |
+| ---------- | --------------------------------------------------------------------------------------------------- |
+| `safe`     | `*`, `null`, `*` 글롭 중 어느 것도 아닌 값. 다만 오리진 형식이 올바르다는 보장은 아님               |
+| `wildcard` | `*`, 또는 서브도메인, 호스트, 포트 글롭: 모든 사이트(또는 넓은 범위의 사이트)가 응답을 읽을 수 있음 |
+| `null`     | 샌드박스 처리된 iframe이나 리디렉션이 위조할 수 있는 `null` 오리진                                  |
+
+허용으로 볼 수 있는 판정은 `safe` 판정뿐이며, `--origin` 옵션은 값을 판정하는 오라클입니다: 핸들러가 아니라 값만 판정하므로, 핸들러는 `http-request` 전문 지식으로 확인하세요.
+
+### CLI 옵션
+
+| 옵션       | 값       | 설명                                                                                    |
+| ---------- | -------- | --------------------------------------------------------------------------------------- |
+| `--origin` | 오리진   | 오리진 값 하나에 점수 매기기. 반복해 지정하면 여러 값에 점수를 매겨 한 줄에 하나씩 출력 |
+| `--dir`    | 디렉터리 | 스캔 범위를 디렉터리로 한정. 반복 지정 가능, `--file` 옵션과 함께 사용 가능             |
+| `--file`   | 파일     | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능             |
+
+옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--origin` 옵션은 score 모드이며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+**다루지 않는 범위**
+
+스캔이 읽는 것은 **우회할 수 있는 정규식** 형태이고, `--origin` 옵션이 점수를 매기는 것은 오리진 **값**입니다. 소스 코드 수준의 두 가지 패턴은 다루지 못합니다: 요청의 `Origin` 헤더 반사(서버가 받은 `Origin` 헤더를 그대로 돌려주거나, 자격 증명 허용과 함께 돌려주는 경우)와, `endsWith` 또는 부분 문자열로 비교하는 느슨한 허용 목록입니다. 이런 패턴은 코드에서 직접 알아보고, [`http-request` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)에 설명된 대로 처리하세요.
+
+## 자주 묻는 질문
+
+### CORS의 null 오리진은 왜 위험한가요?
+
+샌드박스 처리된 iframe과 일부 리디렉션은 Origin: null을 보내므로, null을 신뢰하는 허용 목록은 그런 컨텍스트에 읽기 권한을 주게 됩니다. cors 훅은 와일드카드와 함께 이것도 잡아냅니다.
+
+### 우회할 수 있는 CORS 오리진 허용 목록은 어떻게 찾아내나요?
+
+코드베이스를 대상으로 npx lagune read cors 명령어를 실행하세요. 신뢰하는 접미사 앞에 탐욕적 와일드카드가 있는 호스트 검증 정규식을 잡아내며, 이런 정규식은 your-site.com.attacker.com 같은 공격자 호스트를 그대로 통과시킵니다.

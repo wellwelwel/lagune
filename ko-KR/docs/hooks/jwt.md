@@ -1,0 +1,74 @@
+# jwt 훅: 알고리즘을 고정하지 않은 JWT 검증 탐지하기
+
+> 명령줄에서 코드베이스를 스캔해 알고리즘을 고정하지 않은 JWT 검증을 찾거나, 호출 하나에 점수를 매길 수 있습니다.
+
+표준 URL: https://lagune.ai/ko-KR/docs/hooks/jwt
+언어: ko-KR
+원문: https://lagune.ai/docs/hooks/jwt
+마지막 업데이트: 2026-11-03
+
+`jwt` 훅은 **알고리즘을 고정하지 않은 JWT 검증**과 **아예 꺼 버린 검증**을 잡아냅니다. 알고리즘을 고정하지 않은 검증은 검증하는 쪽이 토큰에 적힌 `alg` 헤더를 그대로 믿게 되는 알고리즘 혼동 허점입니다. **언어를 인식해** 파일마다 그 파일이 쓰는 JWT 라이브러리에 맞춰 읽습니다. 또한 [`federation` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
+
+## 실행하기
+
+**코드베이스 스캔**
+
+```bash
+npx lagune read jwt                # scans the whole project
+npx lagune read jwt --dir src      # scans a directory
+npx lagune read jwt --file auth.ts # scans a single file
+```
+
+**호출 검사**
+
+```bash
+npx lagune read jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
+```
+
+**Unpinned JWT verification found** 섹션 아래의 각 줄은 `algorithms` 허용 목록을 지정하지 않았거나(라이브러리가 요구하는 경우), 안전하지 않은 허용 목록(`none`, 또는 비대칭 알고리즘과 HMAC의 혼용)을 받아들이거나, 서명 검사를 아예 꺼 버려서 토큰에 적힌 `alg` 값을 믿게 되는 검증 호출입니다. 확정된 노출이므로 훅은 0이 아닌 종료 코드를 반환합니다. 아무것도 발견되지 않으면 `no unpinned JWT verification found` 메시지를 출력합니다.
+
+## 판정 해석하기
+
+| 판정       | 의미                                                                                         |
+| ---------- | -------------------------------------------------------------------------------------------- |
+| `unpinned` | 알고리즘 허용 목록이 없거나(필요한 경우), 허용 목록이 안전하지 않거나, 검증이 꺼진 검증 호출 |
+| `safe`     | 안전한 알고리즘 허용 목록을 고정했거나, 라이브러리가 암묵적으로 고정하는 검증 호출           |
+| `invalid`  | 판정할 수 있는 검증 호출이 없는 코드 조각                                                    |
+
+### CLI 옵션
+
+| 옵션        | 값        | 설명                                                                                                 |
+| ----------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| `--pattern` | 코드 조각 | 호출 하나 검사. 반복해 지정하면 여러 호출을 검사해 한 줄에 판정 하나씩 출력                          |
+| `--lang`    | 언어      | `--pattern` 옵션 사용 시 필수: javascript, python, go, java, kotlin, php, ruby, rust, csharp 중 하나 |
+| `--dir`     | 디렉터리  | 스캔 범위를 디렉터리로 한정. 반복 지정 가능, `--file` 옵션과 함께 사용 가능                          |
+| `--file`    | 파일      | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능                          |
+
+옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션에는 `--lang` 옵션이 필요하며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 지원 언어
+
+스캔은 파일 확장자로 다음 라이브러리를 구분해 읽습니다. 일부 라이브러리는 알고리즘을 암묵적으로 고정해 명시적인 목록이 없어도 안전하므로, "허용 목록 없음 ⇒ unpinned" 규칙은 라이브러리가 명시적인 목록을 기대하는 경우에만 적용됩니다. 그래서 올바르게 설정된 호출을 잡아내는 일은 없습니다.
+
+| 언어                        | 라이브러리              | 허용 목록이 없을 때 unpinned 판정 여부                     | 항상 잡아내는 것                                |
+| --------------------------- | ----------------------- | ---------------------------------------------------------- | ----------------------------------------------- |
+| **JavaScript / TypeScript** | jsonwebtoken, jose      | 예                                                         | `none`, 비대칭 알고리즘과 HMAC의 혼용           |
+| **Python**                  | PyJWT, python-jose      | 예(PyJWT는 필수, python-jose는 기본값이 `algorithms=None`) | `none`, `verify_signature: False`               |
+| **Go**                      | golang-jwt              | 예(`WithValidMethods` 옵션이 없는 경우)                    | `none`, `ParseUnverified`                       |
+| **Ruby**                    | ruby-jwt                | 예                                                         | `none`, `verify = false`                        |
+| **Java / Kotlin**           | jjwt, nimbus            | 아니요(키에서 도출)                                        | `none`, 서명 없는/`unsecured` 파서              |
+| **PHP**                     | firebase/php-jwt        | 아니요(`Key` 객체가 알고리즘을 담음)                       | `none`                                          |
+| **Rust**                    | jsonwebtoken            | 아니요(`Validation` 구조체가 알고리즘 지정을 요구)         | `none`, `insecure_disable_signature_validation` |
+| **C#**                      | Microsoft.IdentityModel | 아니요(매개변수가 여러 줄에 걸침)                          | `none`, `RequireSignedTokens = false`           |
+
+**팁**
+
+훅이 판단하는 것은 알고리즘 고정뿐입니다. 클레임, 키, 흐름 검사처럼 판단이 필요한 부분은 여전히 [`federation` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)이 다룹니다.
+
+## 자주 묻는 질문
+
+### JWT 알고리즘 혼동이란 무엇인가요?
+
+검증 코드가 토큰 헤더에서 알고리즘을 읽으면, 공격자가 RS256을 HS256으로 바꿔치기하고 공개 키로 서명할 수 있습니다. 안전한 알고리즘 허용 목록을 코드에 고정하면 이를 막을 수 있으며, jwt 훅은 허용 목록을 지정하지 않았거나 안전하지 않은 허용 목록을 쓰는 검증 호출을 잡아냅니다.
