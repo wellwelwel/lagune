@@ -135,4 +135,4 @@ Keep the plan in plain language throughout. A non-developer should understand wh
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.16.0 read <command> <arguments>` and `npx --yes lagune@0.16.0 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.16.1 read <command> <arguments>` and `npx --yes lagune@0.16.1 write <command> <arguments>` as a fallback.
