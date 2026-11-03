@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: 'Hermes Agent에 Lagune 플러그인 설치하기'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Hermes Agent에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+keywords:
+  - hermes agent
+  - hermes agent 플러그인
+  - hermes plugins install
+  - lagune 설치
+  - 설정
+  - AI 보안
+  - AI 에이전트
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+터미널에서 플러그인을 설치하세요:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- **Hermes Agent**가 자체 카탈로그에 없는 플러그인을 확인해 달라고 하면 **승인하세요**.
+- 저장소의 **Node.js** 의존성 설치를 제안하면 **거절하세요**.
+
+## 업데이트
+
+**Lagune**을 업데이트하려면 다음 명령어를 실행하세요:
+
+```bash
+hermes plugins update lagune
+```
+
+## 명령어
+
+명령어는 플러그인 이름을 붙여 입력하세요. 예를 들어 `/lagune:lagune-charter` 명령어를 입력하면 `/lagune-charter` 명령어가, `/lagune:lagune` 명령어를 입력하면 `/lagune` 명령어가 실행됩니다.
+
+<Faq
+  items={[
+    {
+      question: 'Hermes Agent에 Lagune을 설치하려면 어떻게 하나요?',
+      answer:
+        'hermes plugins install wellwelwel/lagune --enable 명령어를 실행하세요. 확인을 요청하면 플러그인을 승인하고, 저장소의 Node.js 의존성 설치는 거절하세요.',
+    },
+    {
+      question: 'Hermes Agent에서 Lagune을 업데이트하려면 어떻게 하나요?',
+      answer: 'hermes plugins update lagune 명령어를 실행하세요.',
+    },
+    {
+      question: 'Hermes Agent에서 Lagune 명령어를 실행하려면 어떻게 하나요?',
+      answer:
+        '/lagune:lagune-charter 명령어와 /lagune:lagune 명령어처럼 플러그인 이름을 붙여 입력하세요.',
+    },
+  ]}
+/>

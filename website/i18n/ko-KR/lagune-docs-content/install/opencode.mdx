@@ -1,0 +1,132 @@
+---
+id: opencode
+title: 'OpenCode에 Lagune 플러그인 설치하기'
+sidebar_label: OpenCode
+parent: get-started/install
+description: OpenCode 1.x와 2.x에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+keywords:
+  - opencode
+  - opencode 플러그인
+  - opencode plugin add
+  - lagune 설치
+  - 설정
+  - AI 보안
+  - AI 에이전트
+source_hash: 'f79638c10be0e2425d9690e2d98375d7739ebc1ae43d8a729cb033f5b0ca3f09'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+터미널에서 플러그인을 설치하세요:
+
+```bash
+opencode plugin add lagune
+```
+
+또는 `plugins` 목록(`opencode.json` 파일)에 추가하세요:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+터미널에서 프로젝트에 플러그인을 설치하거나, `-g` 옵션을 붙여 모든 프로젝트에 설치하세요:
+
+```bash
+opencode plugin lagune
+```
+
+또는 `plugin` 목록(`opencode.json` 파일)에 추가하세요:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 업데이트
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+**Lagune**을 업데이트하려면 다음 명령어를 실행하세요:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+**Lagune**을 업데이트하려면 기존 릴리스 위에 새 릴리스를 덮어 설치하되, 모든 프로젝트에 설치했다면 `-g` 옵션을 붙이세요:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## 명령어
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+`@` 기호를 입력하고 `@lagune-charter` 명령어처럼 실행할 명령어를 고른 다음, 같은 메시지에 입력 내용을 이어서 작성하세요.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+명령어는 `/lagune-charter` 명령어처럼 이름 그대로 입력하세요. 명령어는 `/skills` 목록에 표시되며, `/` 메뉴에는 표시되지 않습니다.
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[권한]
+
+엔진은 두 도구를 통해 실행됩니다: `lagune_read` 도구는 프로젝트를 읽기만 하고, `lagune_write` 도구는 `.lagune/` 폴더에만 씁니다. **OpenCode**는 두 도구를 권한 요청 없이 실행합니다.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'OpenCode에 Lagune을 설치하려면 어떻게 하나요?',
+      answer:
+        'OpenCode 2.x에서는 opencode plugin add lagune 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune 명령어를 실행하고, 모든 프로젝트에 설치하려면 -g 옵션을 붙이세요.',
+    },
+    {
+      question: 'OpenCode에서 Lagune을 업데이트하려면 어떻게 하나요?',
+      answer:
+        'OpenCode 2.x에서는 opencode plugin update lagune 명령어에 이어 opencode reload 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune@{{version}} --force 명령어를 실행하세요.',
+    },
+    {
+      question: 'OpenCode에서 Lagune 명령어를 실행하려면 어떻게 하나요?',
+      answer:
+        'OpenCode 2.x에서는 @ 기호를 입력하고 @lagune-charter 명령어처럼 실행할 명령어를 고른 다음, 같은 메시지에 입력 내용을 이어서 작성하세요. OpenCode 1.x에서는 /lagune-charter 명령어처럼 이름 그대로 입력하거나, /skills 목록에서 찾으세요.',
+    },
+    {
+      question: 'OpenCode는 Lagune이 실행되기 전에 권한을 요청하나요?',
+      answer:
+        '아니요. OpenCode는 엔진의 두 도구인 lagune_read 도구와 lagune_write 도구를 권한 요청 없이 실행합니다.',
+    },
+  ]}
+/>

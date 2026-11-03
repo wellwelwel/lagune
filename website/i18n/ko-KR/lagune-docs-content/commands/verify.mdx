@@ -1,0 +1,97 @@
+---
+id: verify
+title: '/lagune-verify: 보안 통제가 유효한지 증명하기'
+sidebar_label: 5. Verify
+description: 적용한 각 수정이 실제로 효과가 있는지 증명하고, 효과가 증명된 항목을 마무리합니다.
+source_hash: 'c2d4c971bb4980379ab9995ccaddd67b95a81220fdb062f2bb4378e8732bc9e7'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-verify
+
+⚖️ 코드를 읽고 harden 단계가 기록한 내용과 대조해 적용한 각 수정이 실제로 효과가 있는지 증명한 뒤, 효과가 증명된 항목을 마무리합니다.
+
+## 사용법
+
+<Tabs>
+  <TabItem value="full" label="전체 검증하기" default>
+
+```prompt
+/lagune-verify
+```
+
+  </TabItem>
+  <TabItem value="paths" label="경로 지정하기">
+
+```prompt
+/lagune-verify src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="우선순위 지정하기">
+
+```prompt
+/lagune-verify Critical과 High 우선순위
+```
+
+  </TabItem>
+</Tabs>
+
+## 작동 방식
+
+harden 단계가 기록한 각 위치의 코드를 읽고, 기록된 내용과 실제로 일치하는지 확인합니다. 증명이란 바로 이 대조, 즉 코드와 기록을 맞대어 보는 일입니다. 각 보안 통제는 다음 세 가지 판정 중 하나를 받습니다.
+
+| 판정                         | 의미                                                                |
+| ---------------------------- | ------------------------------------------------------------------- |
+| ✅ Risk closed               | 코드가 기록된 내용을 정확히 그대로 수행함                           |
+| ❌ Risk not closed           | 보안 통제가 아직 열려 있으므로 verify 단계가 harden 단계로 돌려보냄 |
+| ❓ Cannot tell from the code | 코드만으로는 근거를 확인할 수 없음                                  |
+
+해소되었음이 증명된 위험은 사용자의 확인을 받아 체인 전체에서 종결합니다. 예를 들면 다음과 같습니다.
+
+- **파일 업로드** (판정: **✅ Risk closed**)
+  - _증명 방법_: 업로드 핸들러를 읽어, 기록된 내용 그대로 파일 내용으로 실제 형식을 판별하고, 크기 제한을 적용하며, 그 밖의 파일은 모두 거부하는 것을 확인했습니다.
+  - _근거_: 파일 내용으로 실제 형식을 판별하는 `handleUpload` 함수입니다.
+
+위험이 해소되지 않았다면 verify 단계는 그 사실을 분명히 알리고, 수정이 아직 열려 있으므로 [`/lagune-harden`](/docs/commands/harden) 명령어로 돌아가도록 안내합니다.
+
+:::tip
+
+- 전적으로 강화 기록을 바탕으로 합니다.
+- 판정을 위해 코드를 읽기만 하며, 판정을 통과시키려고 보안 통제를 약화하거나 코드를 고쳐 쓰는 일은 절대 없습니다.
+- 다시 실행하면 판정을 현재 상태와 대조해 갱신합니다. 오래된 판정은 빠지고, 더는 해소된 상태가 아닌 위험은 다시 잡아냅니다.
+- 위험이 해소된 것으로 증명되면 한 번 확인을 요청한 뒤, 해당 발견 사항을 체인 전체(detect, plan, harden, 추적)에서 지웁니다.
+- 별도의 보고서는 작성하지 않습니다. 각 판정은 `.lagune/memory/harden.md` 파일 안의 해당 보안 통제 블록에 기록되며, harden 단계가 다음 실행 때 이를 읽습니다.
+
+:::
+
+:::warning[harden 단계에 의존]
+verify 단계는 [`/lagune-harden`](/docs/commands/harden) 명령어의 결과를 바탕으로 합니다.
+:::
+
+## 사이클의 마무리
+
+범위 안의 모든 항목이 종결되면 사이클이 안정 상태가 됩니다. 사이클은 코드가 바뀔 때만 다시 열립니다. 보안은 종결할 수 있으므로, 이 흐름에는 끝없는 루프가 아니라 도달할 끝이 있습니다.
+
+<Faq
+  items={[
+    {
+      question: 'Lagune은 수정을 어떻게 검증하나요?',
+      answer:
+        '/lagune-verify 명령어가 코드를 읽고 harden 단계가 기록한 내용과 대조해, Risk closed(위험 해소), Risk not closed(위험 미해소), Cannot tell from the code(코드만으로는 판단 불가) 세 가지 판정 중 하나를 내립니다.',
+    },
+    {
+      question: '종결이란 무엇인가요?',
+      answer:
+        'verify 단계에서 위험이 해소된 것으로 증명되면 해당 발견 사항을 종결합니다. 즉 사용자의 확인을 받아 체인 전체에서 제거하므로, 더 이상 다시 처리되지 않습니다.',
+    },
+    {
+      question: '보안 작업에도 끝이 있나요?',
+      answer:
+        '네. SDH에서 보안은 종결할 수 있습니다. 해소가 증명된 발견 사항은 종결되므로, 이 흐름에는 끝없는 루프가 아니라 도달할 끝이 있습니다.',
+    },
+  ]}
+/>

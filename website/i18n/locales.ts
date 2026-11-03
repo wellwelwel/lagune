@@ -41,6 +41,12 @@ export const LOCALES: SiteLocale[] = [
     status: 'published',
   },
   {
+    code: 'ko-KR',
+    label: '한국어',
+    flag: '/img/flags/kr.svg',
+    status: 'published',
+  },
+  {
     code: 'es-ES',
     label: 'Español (España)',
     flag: '/img/flags/es.svg',

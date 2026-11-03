@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Muse Code에 Lagune 플러그인 설치하기'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Muse Code에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 샌드박스 안에서 엔진을 실행하세요.
+keywords:
+  - muse code
+  - muse code 플러그인
+  - 플러그인 마켓플레이스
+  - lagune 설치
+  - 설정
+  - AI 보안
+  - AI 에이전트
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+터미널에서 플러그인을 설치하세요:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## 업데이트
+
+**Lagune**을 업데이트하려면 마켓플레이스를 새로 고친 다음 플러그인을 다시 설치하세요:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## 명령어
+
+명령어는 `/lagune-charter` 명령어처럼 이름 그대로 입력하거나, `/lagune:lagune-charter` 명령어처럼 플러그인 이름을 붙여 입력하세요.
+
+---
+
+:::info[권한]
+
+**Muse Code**의 샌드박스는 엔진을 다운로드할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Muse Code에 Lagune을 설치하려면 어떻게 하나요?',
+      answer:
+        'muse plugins marketplace add lagune wellwelwel/lagune 명령어에 이어 muse plugins install lagune@lagune 명령어를 실행하세요.',
+    },
+    {
+      question: 'Muse Code에서 Lagune을 업데이트하려면 어떻게 하나요?',
+      answer:
+        'muse plugins marketplace update lagune 명령어를 실행한 다음 muse plugins remove lagune 명령어와 muse plugins install lagune@lagune 명령어로 다시 설치하세요.',
+    },
+    {
+      question: 'Muse Code에서 Lagune 명령어를 실행하려면 어떻게 하나요?',
+      answer:
+        '/lagune-charter 명령어처럼 이름 그대로 입력하거나, /lagune:lagune-charter 명령어처럼 플러그인 이름을 붙여 입력하세요.',
+    },
+    {
+      question: 'Muse Code 샌드박스 안에서도 Lagune이 작동하나요?',
+      answer:
+        '네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@{{version}} 명령어로 프로젝트에 엔진을 설치하면 작동합니다.',
+    },
+  ]}
+/>

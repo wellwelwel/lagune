@@ -1,0 +1,60 @@
+---
+id: devin-cli
+title: 'Devin CLI에 Lagune 플러그인 설치하기'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: Devin CLI에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli 플러그인
+  - devin plugins install
+  - lagune 설치
+  - 설정
+  - AI 보안
+  - AI 에이전트
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+**Devin**에 로그인한 다음 터미널에서 플러그인을 설치하세요:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## 업데이트
+
+**Lagune**을 업데이트하려면 다음 명령어를 실행하세요:
+
+```bash
+devin plugins update lagune
+```
+
+## 명령어
+
+명령어는 플러그인 이름을 붙여 입력하세요. 예를 들어 `/lagune:lagune-charter` 명령어를 입력하면 `/lagune-charter` 명령어가 실행됩니다. `/` 메뉴에서도 명령어 목록을 볼 수 있습니다.
+
+<Faq
+  items={[
+    {
+      question: 'Devin CLI에 Lagune을 설치하려면 어떻게 하나요?',
+      answer:
+        'devin auth login 명령어로 로그인한 다음 devin plugins install wellwelwel/lagune 명령어를 실행하세요.',
+    },
+    {
+      question: 'Devin CLI에서 Lagune을 업데이트하려면 어떻게 하나요?',
+      answer: 'devin plugins update lagune 명령어를 실행하세요.',
+    },
+    {
+      question: 'Devin CLI에서 Lagune 명령어를 실행하려면 어떻게 하나요?',
+      answer:
+        '/lagune:lagune-charter 명령어처럼 플러그인 이름을 붙여 입력하세요. / 메뉴에서도 명령어 목록을 볼 수 있습니다.',
+    },
+  ]}
+/>

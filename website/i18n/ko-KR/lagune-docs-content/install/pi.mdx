@@ -1,0 +1,94 @@
+---
+id: pi
+title: 'Pi에 Lagune 패키지 설치하기'
+sidebar_label: Pi
+parent: get-started/install
+description: Pi에 Lagune을 npm 또는 GitHub에서 패키지로 설치하고 최신 상태로 유지하세요.
+keywords:
+  - pi
+  - pi 코딩 에이전트
+  - pi 패키지
+  - pi install
+  - lagune 설치
+  - 설정
+  - AI 보안
+  - AI 에이전트
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+터미널에서 패키지를 설치하세요:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+**GitHub**에서 최신 커밋을 설치하세요. 이렇게 설치하면 엔진이 **npx**를 통해 실행됩니다:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## 업데이트
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+**Lagune**을 업데이트하려면 다음 명령어를 실행하세요:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+**Lagune**을 업데이트하려면 다음 명령어를 실행하세요:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` 명령어는 설치한 모든 패키지를 업데이트하고, `pi update` 명령어만 실행하면 **Pi**만 업데이트됩니다.
+
+## 명령어
+
+명령어는 `skill:` 접두사를 붙여 입력하세요. 예를 들어 `/skill:lagune-charter` 명령어를 입력하면 `/lagune-charter` 명령어가 실행됩니다.
+
+<Faq
+  items={[
+    {
+      question: 'Pi에 Lagune을 설치하려면 어떻게 하나요?',
+      answer:
+        'pi install npm:lagune 명령어를 실행하거나, GitHub의 최신 커밋을 설치하려면 pi install git:github.com/wellwelwel/lagune 명령어를 실행하세요.',
+    },
+    {
+      question: 'Pi에서 Lagune을 업데이트하려면 어떻게 하나요?',
+      answer:
+        'pi update npm:lagune 명령어를 실행하거나, GitHub에서 설치했다면 pi update git:github.com/wellwelwel/lagune 명령어를 실행하세요. pi update --extensions 명령어는 설치한 모든 패키지를 업데이트합니다.',
+    },
+    {
+      question: 'Pi에서 Lagune 명령어를 실행하려면 어떻게 하나요?',
+      answer:
+        '/skill:lagune-charter 명령어처럼 skill: 접두사를 붙여 입력하세요.',
+    },
+  ]}
+/>

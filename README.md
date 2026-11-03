@@ -27,7 +27,8 @@
 <a href="https://lagune.ai/uk-UA/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/ua.svg" alt="Українська" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
 <a href="https://lagune.ai/ru-RU/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/ru.svg" alt="Русский" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
 <a href="https://lagune.ai/zh-CN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/cn.svg" alt="简体中文" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/ja-JP/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/jp.svg" alt="日本語" width="24" align="absmiddle" /></a>
+<a href="https://lagune.ai/ja-JP/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/jp.svg" alt="日本語" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
+<a href="https://lagune.ai/ko-KR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/kr.svg" alt="한국어" width="24" align="absmiddle" /></a>
 
 ---
 

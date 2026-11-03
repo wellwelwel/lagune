@@ -1,0 +1,97 @@
+---
+id: network
+title: 'network 훅: SSRF 관점에서 URL 점수 매기기'
+sidebar_label: network
+description: 명령줄에서 바로 요청 대상 하나 또는 여러 개에 SSRF 관점의 점수를 매길 수 있습니다.
+source_hash: '559d0b0d72036147e5c90047b87375737c2aa86e480db72401d6b446e59444cb'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+`network` 훅은 서버 측 요청 대상이 **SSRF**(내부 서비스나 클라우드 메타데이터, 사설 호스트를 겨냥할 수 있는 요청)로부터 안전한지 판단합니다. [`network` 전문 지식](/docs/catalog)을 뒷받침하는 결정론적 엔진이며, 직접 실행할 수도 있습니다.
+
+## 실행하기
+
+각 요청 대상을 `--url` 옵션으로 전달하세요. 훅은 요청 대상마다 단어 하나를 출력하며, 그 의미는 아래 표에서 확인할 수 있습니다.
+
+<Tabs>
+  <TabItem value="one" label="요청 대상 하나" default>
+
+```bash
+npx lagune read network --url 'http://example.com/'
+# => safe
+
+npx lagune read network --url 'http://0x7f000001/'
+# => private-target
+```
+
+  </TabItem>
+  <TabItem value="many" label="여러 요청 대상">
+
+`--url` 옵션을 반복해 지정하면 허용 목록이나 차단 목록 전체에 한 번에 점수를 매길 수 있으며, 판정은 입력 순서대로 한 줄에 하나씩 출력됩니다.
+
+```bash
+npx lagune read network \
+  --url 'http://example.com/' \
+  --url 'http://[::1]/' \
+  --url 'http://allowed.com@evil.example/'
+# => safe
+# => private-target
+# => parser-divergent
+```
+
+  </TabItem>
+</Tabs>
+
+호스트를 네트워크가 해석하는 방식 그대로 해석하므로, 내부 주소를 인코딩한 형태도 빠져나가지 못합니다. 16진수, 8진수, 점 없는 10진수, 축약형, IPv6, IPv4 매핑 주소는 모두 `private-target` 판정이 나옵니다. 그리고 허술한 검증기와 실제로 요청을 보내는 쪽이 서로 다른 호스트를 읽게 되는 경우에는 `parser-divergent` 판정이 나옵니다.
+
+## 판정 해석하기
+
+| 판정               | 의미                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `safe`             | 공개 호스트에 연결되며, 허술한 검증기도 같은 호스트로 읽는 요청 대상                     |
+| `private-target`   | 사설, 루프백, 링크 로컬, 미지정, 클라우드 메타데이터 주소로 해석되는 호스트              |
+| `parser-divergent` | 허술한 텍스트 검증기가 읽는 실제 호스트가 요청을 보내는 쪽이 연결하는 호스트와 다른 경우 |
+| `invalid url`      | URL로 파싱되지 않아 요청할 대상이 없는 문자열                                            |
+
+허용으로 볼 수 있는 판정은 `safe` 판정뿐입니다. `private-target`, `parser-divergent`, `invalid url` 판정은 모두 차단으로 처리하세요.
+
+### CLI 옵션
+
+| 옵션    | 값              | 설명                                                                                  |
+| ------- | --------------- | ------------------------------------------------------------------------------------- |
+| `--url` | URL 또는 호스트 | 요청 대상 하나 검사. 반복해 지정하면 여러 요청 대상을 검사해 한 줄에 판정 하나씩 출력 |
+
+`--url` 옵션은 하나 이상 필요합니다. 요청 대상은 절대 단독 위치 인수로 받지 않으므로 플래그로 오인될 일이 없습니다.
+
+:::note[플래그 값으로 전달하는 이유]
+
+각 요청 대상은 명령어에 끼워 넣지 않고 항상 플래그 값으로 전달합니다. 따옴표나 백틱이 든 값도 아무 효과 없이 그대로 남아 셸에 인젝션될 수 없습니다. 셸이 먼저 값을 확장하지 않도록 항상 작은따옴표로 감싸세요.
+:::
+
+:::note[다루지 않는 범위]
+
+훅은 순수 함수처럼 동작하며 DNS를 조회하지 않으므로, 런타임에 생기는 두 가지 허점은 범위 밖입니다. 바로 **DNS 리바인딩**(검사할 때는 공개 주소로, 요청할 때는 내부 주소로 해석되는 이름)과 **리디렉션 체인**(첫 요청은 통과한 뒤 내부로 리디렉션하는 경우)입니다. 이 허점은 이름을 한 번만 해석해 검증된 주소로 연결하고, 리디렉션을 거부해서 막으세요. 예약된 루프백 이름(`localhost` 및 `.localhost` 계열)은 조회 없이 내부 주소로 간주하지만, 그 밖의 DNS 이름은 모두 `safe` 판정이 나옵니다. 내부로 해석된다고 단정하려면 실제로 이름을 해석해야 하기 때문입니다. 이런 이름은 허용 목록이 막아 주며, 이 검사기가 검증하는 대상도 바로 그 허용 목록입니다.
+:::
+
+:::tip
+
+[`network` 전문 지식](/docs/catalog)이 요청 대상 필터가 실제로 효과가 있는지 증명할 때 실행하는 것과 같은 검사입니다.
+:::
+
+<Faq
+  items={[
+    {
+      question: 'URL에 SSRF 위험이 있는지 어떻게 테스트하나요?',
+      answer:
+        'network 훅을 실행하세요. 요청 대상에 점수를 매겨 safe, private-target, parser-divergent, invalid url 중 하나를 반환합니다. 허용으로 볼 수 있는 판정은 safe 판정뿐입니다.',
+    },
+    {
+      question: 'parser-divergent URL이란 무엇인가요?',
+      answer:
+        '파서마다 다르게 읽는 URL로, 대표적인 SSRF 우회 수법입니다. network 훅은 이런 URL을 허용하지 않고 잡아냅니다.',
+    },
+  ]}
+/>
