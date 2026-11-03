@@ -1,0 +1,36 @@
+---
+id: repair
+title: '/lagune-repair: corrija o rastreamento quebrado dos achados'
+sidebar_label: Repair
+description: Repare a cadeia quando uma renomeação ou um arquivo movido confunde o rastreamento do Lagune.
+source_hash: '1e15d49a03f4e0669e1d10afdfd633b62de9e2d13d28a90149b9a249753ed03c'
+---
+
+# /lagune-repair
+
+🧰 Repare a cadeia quando uma renomeação ou um arquivo movido a confunde.
+
+:::note[Manutenção interna, não uma fase de segurança]
+O repair não é uma sexta fase do fluxo linear. A função dele é manter o rastreamento coerente.
+:::
+
+```prompt
+# Não recebe nenhuma entrada: sempre repara a cadeia inteira
+/lagune-repair
+```
+
+## Como funciona
+
+Cada achado do detect é um item rastreado que o plan, o harden e o verify levam adiante, cada um agindo sobre ele e voltando a relatá-lo pelo nome. Esse nome, escrito de forma idêntica como título da seção em todos os artefatos, é a identidade dele do começo ao fim.
+
+A única coisa volátil que o rastreamento guarda são os caminhos dos arquivos para os quais o item aponta. Esses caminhos não ficam em nenhum outro lugar, então uma renomeação ou um arquivo movido só pode quebrar o vínculo ali, nunca em duas cópias divergentes. Quando isso acontece, o repair corrige o mapa (`.lagune/tracking.json`) para que a identidade sobreviva à renomeação. Ele lê os artefatos e o mapa de rastreamento, lê o seu código-fonte só para descobrir o novo caminho de um arquivo renomeado e nunca escreve conteúdo de segurança.
+
+Na mesma passada, ele confere cada artefato de memória com o template correspondente e relata o que se desviou, indicando para cada desvio a fase que o corrige.
+
+:::tip
+
+- Ele não mexe no seu código nem nos artefatos em prosa, só no rastreamento.
+- Raramente você o roda manualmente. Quando uma fase percebe que a cadeia está inconsistente, ela roda o repair para você e segue em frente.
+- O rastreamento que ele mantém fica em `.lagune/tracking.json`, um estado interno que você nunca edita manualmente.
+
+:::

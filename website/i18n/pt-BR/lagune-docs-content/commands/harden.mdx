@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: aplique correções de segurança ao seu código'
+sidebar_label: 4. Harden
+description: Aplique ao seu código as correções do plano, com segurança e uma de cada vez.
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 Aplique ao seu código as correções do plano, com segurança e uma de cada vez.
+
+## Como usar
+
+<Tabs>
+  <TabItem value="full" label="Aplique tudo" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Aponte caminhos">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Por prioridade">
+
+```prompt
+/lagune-harden só as de prioridade crítica e alta
+```
+
+  </TabItem>
+</Tabs>
+
+## Como funciona
+
+O plano já definiu cada correção, então o harden apenas a aplica. Como esta é a única fase que mexe no seu código, ela age com cuidado: aplica uma correção de cada vez, para que cada mudança continue fácil de revisar, e nunca afrouxa um controle para encaixar uma correção. Por exemplo, a correção do upload:
+
+- **Upload de arquivos** (Status: **Applied**)
+  - _O que mudou:_ verifica o tipo real e o tamanho do arquivo, rejeita qualquer coisa inesperada, renomeia o arquivo ao salvar e o guarda onde ele não pode ser executado como código.
+  - _Onde:_ a função `handleUpload`, além do helper de armazenamento que ela chama.
+
+Se uma correção não puder ser aplicada por completo, o harden faz o que dá para fazer com segurança e marca o resto como **Partial** ou **Blocked**, deixando-o em aberto.
+
+:::info[Aplicado não é verificado]
+Applied ainda não significa comprovado. É para isso que serve o [verify](/docs/commands/verify).
+:::
+
+:::tip
+
+- Ele se apoia inteiramente no plano. Se uma correção ou um arquivo nunca foi planejado, ele pede que você rode o `/lagune-plan` sobre isso primeiro.
+- Rodar de novo reconcilia o registro: as mudanças revertidas saem e as correções recém-aplicadas entram.
+- O registro do hardening fica em `.lagune/memory/harden.md`.
+
+:::
+
+:::warning[Depende do plan e altera o seu código]
+O harden se apoia no [`/lagune-plan`](/docs/commands/plan). É a única fase que altera o seu código.
+:::
+
+## Próximo passo
+
+Comprove que cada correção se sustenta: [`/lagune-verify`](/docs/commands/verify).
+
+<Faq
+  items={[
+    {
+      question: 'O /lagune-harden altera o meu código?',
+      answer:
+        'Sim. É a única fase que mexe no seu código, aplicando as correções do plano uma de cada vez.',
+    },
+    {
+      question: 'O que significam Applied, Partial e Blocked?',
+      answer:
+        'São os status que o Lagune registra para cada correção. Applied significa que a correção foi feita, Partial significa que só uma parte dela foi feita e Blocked significa que não foi possível aplicá-la. Applied ainda não significa comprovado.',
+    },
+    {
+      question: 'O Lagune aplica correções sem pedir permissão?',
+      answer:
+        'Quem decide se uma edição precisa da sua aprovação é o seu agente e o modo de permissão em que você o executa, não o Lagune, que não acrescenta nenhuma etapa de confirmação própria. Mesmo assim, ele nunca afrouxa um controle para encaixar uma correção e, se uma correção entrar em conflito com uma regra do charter, ele para e avisa você antes.',
+    },
+  ]}
+/>

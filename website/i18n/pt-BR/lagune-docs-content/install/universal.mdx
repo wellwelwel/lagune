@@ -1,0 +1,107 @@
+---
+id: universal
+title: 'Como instalar o Lagune em qualquer agente com o skills.sh'
+sidebar_label: Universal
+parent: get-started/install
+description: Instale o Lagune em qualquer agente de IA com o skills CLI e mantenha-o atualizado.
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - instalar lagune
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - configuração
+  - agentes de IA
+source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='skills.sh' />
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Terminal" default>
+
+Instale os comandos do **Lagune** pelo terminal com o [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Prompt">
+
+Cole este prompt no seu agente:
+
+```md
+Execute `npx --yes skills add wellwelwel/lagune` e siga agora as instruções da skill geradas. Leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso. Resolva os caminhos relativos a partir do diretório de arquivos de apoio que ele indicar.
+```
+
+  </TabItem>
+</Tabs>
+
+## Atualização
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Terminal" default>
+
+Para atualizar o **Lagune**, execute:
+
+```bash
+npx skills update
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Prompt">
+
+Para atualizar o **Lagune**, cole este prompt no seu agente:
+
+```md
+Execute `npx --yes skills update -y` e leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso.
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::warning[Uma forma de instalação por agente]
+Instale o **Lagune** pelo **skills.sh** ou pelo **plugin** dele, nunca pelos dois.
+:::
+
+:::info[Permissões]
+
+Os comandos rodam o engine como `npx --yes lagune@{{version}}`, e a [página de instalação de cada agente](/docs) mostra a regra que o libera de antemão. Em um sandbox sem acesso à rede, instale o engine no seu projeto pelo seu próprio terminal, uma vez e de novo após cada atualização:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Como instalar o Lagune em qualquer agente de IA?',
+      answer:
+        'Execute npx skills add wellwelwel/lagune no seu projeto, ou cole o prompt de instalação no seu agente.',
+    },
+    {
+      question: 'Como atualizar o Lagune instalado com o skills CLI?',
+      answer:
+        'Execute npx skills update, ou cole o prompt de atualização no seu agente.',
+    },
+    {
+      question:
+        'Posso instalar o Lagune com o skills CLI e com um plugin ao mesmo tempo?',
+      answer:
+        'Não. Com os dois, o agente lista cada comando duas vezes, ou usa uma cópia e esconde a outra.',
+    },
+  ]}
+/>

@@ -1,0 +1,115 @@
+---
+id: glossary
+title: 'Glossário do Lagune: SDH, charter, achados e controles'
+sidebar_label: Glossário
+description: 'Definições em linguagem simples de cada termo do Lagune e do Security-Driven Hardening: SDH, charter, detect, achado, controle, harden, verify, encerramento, closability, especializações, categorias e o catálogo.'
+keywords:
+  - Security-Driven Hardening
+  - SDH
+  - charter
+  - achado
+  - finding
+  - controle de segurança
+  - stand down
+  - closability
+  - especialização
+  - categoria
+  - catálogo
+source_hash: '25751c63b8b74c968aef1a0170427a37921d63a1f742c2797cfb7f154e2e2bfa'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Cada termo essencial do Lagune e da metodologia Security-Driven Hardening, definido uma única vez e em linguagem simples.
+
+### Security-Driven Hardening (SDH)
+
+A metodologia que o Lagune implementa: uma convenção Blue Team e sensível ao contexto que detecta o contexto de um sistema, faz a triagem dos riscos que esse contexto traz e orienta as correções. O conhecimento de segurança fica na spec e nas especializações sob demanda dela, então quem desenvolve e quem não desenvolve são atendidos pelo mesmo fluxo.
+
+### Lagune
+
+A implementação de referência do SDH: nove comandos de agente, cada um com o template que preenche, que um agente de IA executa para fortalecer a segurança de um código. Cada agente os instala pelo próprio instalador de plugins ou pelo [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), como mostra a [página de instalação](/docs), e eles rodam o engine do Lagune em cada etapa determinística.
+
+### Charter
+
+A camada que rege o Lagune: um conjunto de princípios de segurança, com a segurança em primeiro lugar, que todas as fases seguintes precisam respeitar. Pense nele como a verificação em tempo de compilação da postura de segurança de um projeto. Ele fica em `.lagune/memory/charter.md`.
+
+### Fluxo de desenvolvimento
+
+O comando universal `/lagune`, que aplica hardening ao trabalho enquanto ele é escrito. Ele aceita qualquer prompt em qualquer etapa, constrói o que você pediu e o protege com padrões seguros antes de devolvê-lo, guiado pelo charter quando existe um. Ele não grava nada no rastreamento do Lagune, então o único produto dele é o código fortalecido. Junto com o charter (antes) e o fluxo Blue Team (depois), é assim que o Lagune protege durante o desenvolvimento.
+
+### Fluxo Blue Team
+
+A auditoria de cinco fases no centro do Lagune: charter, detect, plan, harden e verify. Cada fase se apoia na anterior. "Blue Team" é a tradição de segurança dos defensores, em oposição ao Red Team, que é ofensivo.
+
+### Achado
+
+Um risco detectado. Cada achado traz o que ele é, por que importa e a evidência no código. Um achado é a unidade rastreada que o plan, o harden e o verify levam adiante, identificada pelo nome em todos os artefatos.
+
+### Controle
+
+Uma medida de segurança aplicada para eliminar um risco. O harden aplica controles, e o verify comprova que eles se sustentam. O Lagune nunca enfraquece um controle para atender a um prompt.
+
+### Detect
+
+A fase que lê o código e mapeia o que o sistema faz e onde estão os riscos. A regra que a rege é detectar, não inventar: ela registra apenas o que o código sustenta.
+
+### Harden
+
+A única fase que mexe no seu código. Ela aplica as correções do plano uma de cada vez e registra cada uma como Applied, Partial ou Blocked. Applied ainda não significa comprovada.
+
+### Verify
+
+A fase que comprova que cada correção aplicada se sustenta, lendo o código e confrontando-o com o que o harden registrou. Ela devolve um de três vereditos: Risk closed, Risk not closed ou Cannot tell from the code.
+
+### Encerramento (stand down)
+
+Quando o verify comprova que um risco foi eliminado, o achado é encerrado: removido da cadeia inteira, com a sua confirmação, para que deixe de ser reprocessado.
+
+### Closability
+
+A propriedade de o trabalho de segurança ter um estado final. Como um achado comprovadamente resolvido é encerrado, o fluxo pode entrar em repouso e só é reaberto quando o código muda. O SDH é encerrável, e não um ciclo sem fim.
+
+### Engine
+
+O pacote `lagune` no **npm**, que os comandos executam via `npx` em cada etapa determinística: os hooks, o catálogo e as categorias.
+
+### Especialização
+
+Um módulo focado de conhecimento de segurança, independente de linguagem, que carrega apenas sob demanda, nunca por padrão. Uma especialização não é um comando. Carregue uma em qualquer prompt com o `read catalog <name>` do engine, por exemplo `npx lagune read catalog regex`.
+
+### Categoria
+
+Um grupo nomeado de especializações nativas, do `owasp` às de cada linguagem, como `javascript`, `python`, `go` e `rust`. As categorias que um projeto usa, registradas em `.lagune/configs.json`, decidem quais especializações nativas entram no catálogo dele. Enquanto nenhuma estiver registrada, o projeto usa apenas o `owasp`.
+
+### Catálogo
+
+O conjunto de especializações que um projeto usa: as nativas das categorias dele mais as próprias, escritas com o `/lagune-specialize`. O `read catalog` do engine lista o catálogo, e as fases o comparam com o código.
+
+### Prompt-on-demand
+
+O princípio de que o conhecimento de segurança relevante é carregado para o que o projeto realmente é, em vez de todas as verificações rodarem por padrão.
+
+### Identity-by-name
+
+O modelo de rastreamento do Lagune: o nome de cada achado, escrito de forma idêntica como título de seção em todos os artefatos, é a identidade dele em toda a cadeia. O mapa de rastreamento (`.lagune/tracking.json`) guarda apenas rastreamento, nunca texto.
+
+<Faq
+  items={[
+    {
+      question: 'O que é Security-Driven Hardening (SDH)?',
+      answer:
+        'O SDH é uma metodologia de segurança Blue Team e sensível ao contexto. Ela detecta o contexto de um sistema, faz a triagem dos riscos que esse contexto traz e orienta as correções, mantendo cada achado em linguagem simples. O Lagune é a implementação de referência dela.',
+    },
+    {
+      question: 'O que é o charter no Lagune?',
+      answer:
+        'O charter é a camada que rege o Lagune, um conjunto de princípios de segurança que todas as fases seguintes precisam respeitar. Ele fica em .lagune/memory/charter.md.',
+    },
+    {
+      question: 'O que significa encerrar um achado?',
+      answer:
+        'Quando o verify comprova que um risco foi eliminado, o achado é encerrado: removido da cadeia inteira com a sua confirmação, para que deixe de ser reprocessado.',
+    },
+  ]}
+/>

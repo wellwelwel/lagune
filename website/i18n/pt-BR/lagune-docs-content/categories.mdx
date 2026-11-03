@@ -1,0 +1,112 @@
+---
+id: categories
+title: Categorias
+sidebar_label: Categorias
+description: As categorias de especializações que um projeto Lagune pode usar, do OWASP ao hardening por linguagem para JavaScript, Python, Go e Rust, e como alterá-las.
+keywords:
+  - especializações
+  - categorias
+  - catálogo
+  - OWASP
+  - adicionar categorias
+source_hash: '45ca55640efc44df039be3251844a3ecb80275cf2a7359d6a0862674eb1a842e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+O **Lagune** agrupa as suas [**especializações**](/docs/catalog) nativas em **{{categories}} categorias**. As categorias que um projeto usa decidem quais especializações nativas entram no [**catálogo**](/docs/catalog) dele, e elas se dividem em dois grupos: o que o sistema faz e em que ele é escrito.
+
+Enquanto nenhuma categoria está registrada, o projeto usa apenas `owasp`. O [`/lagune-charter`](/docs/commands/charter) registra cada categoria que a leitura dele sobre o projeto justifica, e você mesmo pode alterá-las a qualquer momento.
+
+## O que o sistema faz
+
+| Categoria      | Chave     | O que ela protege                                                                                                                            |
+| -------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| OWASP          | `owasp`   | Os riscos de segurança de aplicações que a OWASP acompanha: injection, controle de acesso quebrado, falhas de autenticação e de criptografia |
+| Infraestrutura | `infra`   | Configuração de contêineres, workloads e serverless: Dockerfile, Compose, segurança de Pods, IAM e triggers de FaaS                          |
+| IA / LLM       | `ai`      | Integrações de IA e LLM, contra prompt injection e conexões inseguras de ferramentas, agentes, retrieval e MCP                               |
+| Lovable        | `lovable` | Apps Supabase gerados por IA (Lovable e similares): falhas de RLS, chaves `service_role` vazadas e padrões inseguros                         |
+
+## Em que ele é escrito
+
+| Categoria  | Chave        | O que ela protege                                                                                                 |
+| ---------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| JavaScript | `javascript` | RCE por `eval` e `child_process`, path traversal e prototype pollution, em todos os seus runtimes                 |
+| Python     | `python`     | RCE por desserialização de `pickle` e YAML, travessia de strings com `str.format` e class pollution               |
+| Rust       | `rust`       | APIs `unsafe` incorretas, mau uso de `transmute`, integer overflow e comportamento indefinido na fronteira de FFI |
+| C / C++    | `c-cpp`      | Bugs de format string, buffer overflows e escritas fora dos limites que permitem execução de código               |
+| PHP        | `php`        | Bypass de autenticação por type juggling, gadget chains de object injection e padrões de configuração inseguros   |
+| Go         | `go`         | Bugs de interface com nil tipado, data races entre goroutines e concorrência insegura em caminhos de segurança    |
+| Java       | `java`       | Gadget chains de desserialização com `ObjectInputStream` que culminam em execução remota de código                |
+| Ruby       | `ruby`       | Gadget chains de desserialização com `Marshal.load` e YAML que chegam à execução remota de código                 |
+| .NET / C#  | `dotnet`     | RCE por desserialização com `BinaryFormatter` e os bypasses de encoder que levam a XSS                            |
+
+:::tip
+O **Lagune** é independente de linguagem: o fluxo inteiro lê o seu projeto, seja qual for a linguagem dele, e essas categorias só acrescentam profundidade nas armadilhas específicas de uma linguagem.
+:::
+
+## Adicione e remova quando quiser
+
+Uma categoria é um ponto de partida, não um compromisso. Use o que serve ao projeto agora e altere quando quiser, pela chave, com `write add` e `write remove`. Em um terminal, `--categories` sem valor abre um seletor interativo (espaço para marcar ou desmarcar, enter para confirmar, nenhuma seleção para pular). Fora de um terminal, passe as categorias depois dele.
+
+<Tabs>
+  <TabItem value="add" label="Adicionar" default>
+
+```bash
+npx lagune write add --categories # interactive
+npx lagune write add --categories owasp
+npx lagune write add --categories owasp rust
+```
+
+  </TabItem>
+  <TabItem value="remove" label="Remover">
+
+```bash
+npx lagune write remove --categories # interactive
+npx lagune write remove --categories owasp
+npx lagune write remove --categories owasp rust
+```
+
+  </TabItem>
+</Tabs>
+
+O primeiro `write add` ou `write remove` parte de `owasp`, então remover todas as categorias deixa uma lista vazia, nunca o padrão. Toda alteração vai para `.lagune/configs.json`, para que o time inteiro trabalhe com o mesmo conjunto.
+
+## Veja o que um projeto usa
+
+O `read list --categories` mostra todas as categorias e se o projeto usa cada uma delas:
+
+```bash
+npx lagune read list --categories
+# Categories
+#   • owasp       [used]       Harden against the application security risks OWASP tracks
+#   • javascript  [available]  Harden JavaScript and its runtimes
+#   • php         [available]  Harden PHP against type-juggling auth bypass
+#   • go          [available]  Harden Go against typed-nil interface bugs
+#   ...
+#
+# No category is recorded yet, so this project uses the default: owasp.
+```
+
+Veja o [**Catálogo**](/docs/catalog) para saber quais especializações cada categoria traz. As suas próprias especializações, escritas com o [`/lagune-specialize`](/docs/commands/specialize), entram no catálogo independentemente das categorias.
+
+<Faq
+  items={[
+    {
+      question: 'Como adicionar uma categoria?',
+      answer:
+        'Passe a chave da categoria para --categories, por exemplo npx lagune write add --categories javascript. Enquanto nenhuma está registrada, o charter também registra as categorias que a leitura dele sobre o projeto justifica.',
+    },
+    {
+      question: 'Posso usar mais de uma categoria?',
+      answer: 'Sim. Liste todas na mesma linha, uma depois da outra.',
+    },
+    {
+      question: 'Qual categoria um projeto deve usar?',
+      answer:
+        'Comece com owasp, o padrão, e depois adicione a da sua linguagem ou stack. As especializações carregam apenas sob demanda, então uma categoria não custa nada até que uma fase precise de uma das especializações dela.',
+    },
+  ]}
+/>

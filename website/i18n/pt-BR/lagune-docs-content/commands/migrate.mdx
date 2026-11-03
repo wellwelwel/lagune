@@ -1,0 +1,79 @@
+---
+id: migrate
+title: 'Migrate: leve um projeto Lagune baseado em manifest para as skills e os plugins'
+sidebar_label: Migrate
+description: Leve um projeto Lagune baseado em manifest para o Lagune baseado em skills, mantendo o seu charter, os artefatos, o rastreamento e as suas próprias especializações.
+keywords:
+  - migrar
+  - migrate
+  - lagune migrate
+  - Lagune manifest
+source_hash: '2af2ed65a7adcac4b994aa5316b355ec012f7d57128c19623f6ab6436ea311e4'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+🔀 Leve um projeto **Lagune** baseado em manifest para o **Lagune** baseado em skills, mantendo tudo o que você escreveu.
+
+:::danger[Aviso de descontinuação]
+
+Um projeto com manifest continua funcionando como está até a `v1.x`: o `npx lagune` repassa `init`, `pull`, `update`, `add`, `remove`, `list` e o dashboard para o `lagune@0.15.0`, a última versão baseada em manifest.
+
+:::
+
+## Como migrar
+
+1. Confirme que o seu trabalho atual está commitado e então rode o migrate a partir da raiz do projeto:
+
+   ```bash
+   npx lagune migrate
+   ```
+
+2. Faça um commit só com o que ele alterou, para que a migração continue sendo uma única mudança revisável.
+3. Instale os comandos do seu agente, como mostra a [página de instalação](/docs).
+4. Se o projeto já tiver um artefato de detect, plan ou harden, peça ao [`/lagune-repair`](/docs/commands/repair) para reconciliar as referências antigas neles e nas suas próprias especializações:
+
+   ```prompt
+   /lagune-repair Reconcilie as especializações aplicadas (antes chamadas de sub-skills) nos artefatos em `.lagune/memory/` (`detect.md`, `plan.md` e `harden.md`) com os nomes que o novo catálogo lista, e reescreva cada chamada que as minhas próprias especializações em `.lagune/catalog/` fazem aos hooks antigos em `.lagune/hooks/` como uma chamada à ferramenta `lagune_read` ou `lagune_write`.
+   ```
+
+## O que muda
+
+| Antes                                                                 | Depois                                                                         |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `.lagune/templates/`, `.lagune/hooks/` e `.lagune/specializations.md` | Removidos: cada skill traz o próprio template, e o engine executa os hooks     |
+| As cópias das especializações nativas em `.lagune/skills/`            | Removidas: o engine serve as nativas                                           |
+| As suas próprias especializações em `.lagune/skills/`                 | Movidas para `.lagune/catalog/`                                                |
+| `.lagune/skills.json`, o índice das suas próprias especializações     | Incorporado ao `.lagune/configs.json`                                          |
+| As categorias do manifest                                             | Registradas em `.lagune/configs.json`                                          |
+| Os comandos antigos do agente, como `/lagune.detect`                  | Removidos: [instalar o **Lagune**](/docs) traz os novos, como `/lagune-detect` |
+| O bloco do **Lagune** no `.gitignore`                                 | Removido, junto com o arquivo quando ele não tinha mais nada                   |
+| `.lagune/proofs/`, ignorado por aquele bloco                          | Mantido fora dos commits pelo próprio `.gitignore`                             |
+| `.lagune/manifest.json`                                               | Apagado, por último                                                            |
+
+O seu trabalho de segurança continua como está: o charter, o artefato que cada fase produziu e o mapa de rastreamento com os caminhos para os quais cada achado aponta.
+
+<Faq
+  items={[
+    {
+      question: 'Sou obrigado a migrar?',
+      answer:
+        'Sim. Os projetos baseados em manifest estão descontinuados e só continuam funcionando até a v1.x, então execute npx lagune migrate para migrar o seu.',
+    },
+    {
+      question: 'O que o migrate mantém?',
+      answer:
+        'O seu charter, todos os artefatos das fases, o mapa de rastreamento, as suas categorias e as suas próprias especializações. As especializações vão para .lagune/catalog/, e o índice delas se junta às suas categorias em .lagune/configs.json.',
+    },
+    {
+      question: 'Quando devo instalar os novos comandos?',
+      answer:
+        'Depois do migrate, como a página de instalação mostra para o seu agente. Instalar antes também funciona, já que o migrate mantém o novo /lagune.',
+    },
+    {
+      question: 'Alguém do time já migrou. O que eu rodo?',
+      answer:
+        'Faça o pull da migração e então execute npx lagune migrate uma vez. Ele remove o que o Lagune baseado em manifest deixou no seu clone, que o controle de versão nunca carregou, e mantém as suas provas fora dos commits.',
+    },
+  ]}
+/>

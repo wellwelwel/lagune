@@ -1,0 +1,84 @@
+---
+id: antigravity-cli
+title: 'Como instalar o Lagune no Antigravity CLI como plugin'
+sidebar_label: Antigravity CLI
+parent: get-started/install
+description: Instale o Lagune no Antigravity CLI como plugin, mantenha-o atualizado e libere o engine dele de antemão.
+keywords:
+  - antigravity cli
+  - antigravity plugin
+  - agy plugin install
+  - instalar lagune
+  - configuração
+  - segurança com IA
+  - agentes de IA
+source_hash: 'b014e73bcbefbcecaf2c0c58c1764387c55ba91e17ba5a964b3f1105a4d4961a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Antigravity' />
+
+Instale o plugin pelo terminal:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Atualização
+
+Para atualizar o **Lagune**, instale-o de novo:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Comandos
+
+Digite os comandos com o nome do plugin na frente, como `/lagune:lagune-charter` para `/lagune-charter`.
+
+---
+
+:::info[Permissões]
+
+O engine roda por meio de duas ferramentas: `lagune_read` só lê o seu projeto, e `lagune_write` só grava em `.lagune/`. Um comando enviado como primeira mensagem de uma sessão roda antes de elas carregarem, então usa o **npx** no lugar delas. Para liberar as ferramentas e o **npx** de antemão, adicione estas regras a `~/.gemini/antigravity-cli/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
+  }
+}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Como instalar o Lagune no Antigravity CLI?',
+      answer:
+        'Execute agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity.',
+    },
+    {
+      question: 'Como atualizar o Lagune no Antigravity CLI?',
+      answer:
+        'Execute agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity de novo.',
+    },
+    {
+      question: 'Como executar os comandos do Lagune no Antigravity CLI?',
+      answer:
+        'Digite-os com o nome do plugin na frente, como /lagune:lagune-charter.',
+    },
+    {
+      question: 'O Antigravity CLI pode rodar o Lagune sem pedir permissão?',
+      answer:
+        'Sim. Libere mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write) e command(regex:npx --yes lagune@[0-9.]+) nas configurações do Antigravity CLI. A regra do npx cobre um comando enviado como primeira mensagem de uma sessão.',
+    },
+  ]}
+/>

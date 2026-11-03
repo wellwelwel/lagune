@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: 'Como instalar o Lagune no Hermes Agent como plugin'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Instale o Lagune no Hermes Agent como plugin e mantenha-o atualizado.
+keywords:
+  - hermes agent
+  - hermes agent plugin
+  - hermes plugins install
+  - instalar lagune
+  - configuração
+  - segurança com IA
+  - agentes de IA
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+Instale o plugin pelo terminal:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- Quando o **Hermes Agent** pedir para você confirmar um plugin de fora do catálogo dele, **confirme**.
+- Quando ele oferecer instalar as dependências de **Node.js** do repositório, **recuse**.
+
+## Atualização
+
+Para atualizar o **Lagune**, execute:
+
+```bash
+hermes plugins update lagune
+```
+
+## Comandos
+
+Digite os comandos com o nome do plugin na frente, como `/lagune:lagune-charter` para `/lagune-charter` e `/lagune:lagune` para `/lagune`.
+
+<Faq
+  items={[
+    {
+      question: 'Como instalar o Lagune no Hermes Agent?',
+      answer:
+        'Execute hermes plugins install wellwelwel/lagune --enable. Confirme o plugin quando for solicitado e recuse a instalação das dependências de Node.js do repositório.',
+    },
+    {
+      question: 'Como atualizar o Lagune no Hermes Agent?',
+      answer: 'Execute hermes plugins update lagune.',
+    },
+    {
+      question: 'Como executar os comandos do Lagune no Hermes Agent?',
+      answer:
+        'Digite-os com o nome do plugin na frente, como /lagune:lagune-charter e /lagune:lagune.',
+    },
+  ]}
+/>

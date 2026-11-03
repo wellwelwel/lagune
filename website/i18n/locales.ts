@@ -16,7 +16,7 @@ export const DEFAULT_LOCALE = 'en';
 
 export const LOCALES: SiteLocale[] = [
   { code: 'en', label: 'English', status: 'published' },
-  { code: 'pt-BR', label: 'Português (Brasil)', status: 'draft' },
+  { code: 'pt-BR', label: 'Português (Brasil)', status: 'published' },
 ];
 
 export const isPublished = (code: string): boolean =>

@@ -1,0 +1,67 @@
+---
+id: github-copilot-cli
+title: 'Como instalar o Lagune no GitHub Copilot CLI como plugin'
+sidebar_label: GitHub Copilot CLI
+parent: get-started/install
+description: Instale o Lagune no GitHub Copilot CLI como plugin e mantenha-o atualizado.
+keywords:
+  - github copilot cli
+  - copilot cli plugin
+  - plugin marketplace
+  - instalar lagune
+  - configuração
+  - segurança com IA
+  - agentes de IA
+source_hash: '1d93bbd6206e56617cb2dbc1a4c3edcc536fe20e05b3f1984ae995c3d6b58974'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='GitHub Copilot' />
+
+Instale o plugin pelo terminal:
+
+```bash
+copilot plugin marketplace add wellwelwel/lagune
+copilot plugin install lagune@lagune
+```
+
+Em um editor, instale o **Lagune** para o **GitHub Copilot** com o [**skills.sh**](/docs/install/universal).
+
+## Atualização
+
+Para atualizar o **Lagune**, execute:
+
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
+
+## Comandos
+
+Digite os comandos pelo nome, como `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'Como instalar o Lagune no GitHub Copilot CLI?',
+      answer:
+        'Execute copilot plugin marketplace add wellwelwel/lagune e depois copilot plugin install lagune@lagune.',
+    },
+    {
+      question: 'Como atualizar o Lagune no GitHub Copilot CLI?',
+      answer:
+        'Execute copilot plugin marketplace update lagune e depois copilot plugin update lagune@lagune.',
+    },
+    {
+      question: 'Como executar os comandos do Lagune no GitHub Copilot CLI?',
+      answer: 'Digite-os pelo nome, como /lagune-charter.',
+    },
+    {
+      question: 'Dá para usar o Lagune com o GitHub Copilot no VS Code?',
+      answer:
+        'Sim. No VS Code ou em outro editor, instale o Lagune com o skills.sh em vez do plugin.',
+    },
+  ]}
+/>
