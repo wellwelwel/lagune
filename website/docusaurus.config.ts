@@ -235,7 +235,7 @@ const config: Config = {
           title: 'Docs',
           items: [
             { label: 'Get Started', to: '/docs' },
-            { label: 'Commands', to: '/docs/commands/charter' },
+            { label: 'Skills', to: '/docs/commands/charter' },
             { label: 'Catalog', to: '/docs/catalog' },
           ],
         },
