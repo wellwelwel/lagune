@@ -21,6 +21,26 @@
 
 ## Get Started
 
+### Documentation
+
+<a href="https://lagune.ai/docs">
+  <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/us.svg" width="16" align="absmiddle" />&nbsp;&nbsp;English
+</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<a href="https://lagune.ai/pt-BR/docs">
+  <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/br.svg" width="16" align="absmiddle" />&nbsp;&nbsp;Português (Brasil)
+</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<a href="https://lagune.ai/es-ES/docs">
+  <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/es.svg" width="16" align="absmiddle" />&nbsp;&nbsp;Español (España)
+</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<a href="https://lagune.ai/zh-CN/docs">
+  <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/cn.svg" width="16" align="absmiddle" />&nbsp;&nbsp;简体中文
+</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<a href="https://lagune.ai/ja-JP/docs">
+  <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/jp.svg" width="16" align="absmiddle" />&nbsp;&nbsp;日本語
+</a>
+
+---
+
 ### Install and Update
 
 Pick your agent:
