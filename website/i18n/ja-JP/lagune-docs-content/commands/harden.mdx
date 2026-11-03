@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: コードにセキュリティ修正を適用する'
+sidebar_label: 4. Harden
+description: 計画の修正を、安全に 1 つずつコードへ適用します。
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 計画の修正を、安全に 1 つずつコードへ適用します。
+
+## 実行方法
+
+<Tabs>
+  <TabItem value="full" label="すべて適用" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="パスを指定">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="優先度で指定">
+
+```prompt
+/lagune-harden 緊急と重要
+```
+
+  </TabItem>
+</Tabs>
+
+## 仕組み
+
+各修正は計画の段階ですでに決まっているので、harden はそれを適用するだけです。コードに手を加える唯一のフェーズなので、慎重に進めます：すべての変更をレビューしやすく保つために修正は 1 つずつ適用し、修正を当てはめるために対策を弱めることも決してありません。たとえば、アップロードの修正は次のようになります：
+
+- **ファイルのアップロード**（ステータス：**Applied**）
+  - _変更内容_：ファイルの実際の種類とサイズを確認し、想定外のものはすべて拒否し、保存時に名前を変更し、コードとして実行できない場所に保存します。
+  - _変更箇所_：`handleUpload` 関数と、そこから呼び出しているストレージのヘルパーです。
+
+修正を完全に適用できない場合、harden は安全にできる範囲だけを実施し、残りを **Partial** または **Blocked** としてマークして、未解決のまま残します。
+
+:::info[Applied は検証済みではない]
+Applied は、まだ証明されたという意味ではありません。それを証明するのが [verify](/docs/commands/verify) の役割です。
+:::
+
+:::tip
+
+- 計画の結果だけを土台にしています。計画にない修正やファイルがある場合は、先にそれを対象に `/lagune-plan` を実行するよう案内します。
+- 再実行すると記録を現状と照合して更新し、元に戻された変更は外れ、新たに適用した修正が加わります。
+- 堅牢化の記録は `.lagune/memory/harden.md` にあります。
+
+:::
+
+:::warning[plan に依存し、コードを変更する]
+harden は [`/lagune-plan`](/docs/commands/plan) を土台にしています。コードを変更する唯一のフェーズです。
+:::
+
+## 次のステップ
+
+各修正が有効であることを証明しましょう：[`/lagune-verify`](/docs/commands/verify)。
+
+<Faq
+  items={[
+    {
+      question: '/lagune-harden はコードを変更しますか？',
+      answer:
+        'はい。コードに手を加える唯一のフェーズで、計画の修正を 1 つずつ適用します。',
+    },
+    {
+      question: 'Applied、Partial、Blocked はどういう意味ですか？',
+      answer:
+        'Lagune が各修正について記録するステータスです。Applied は修正が完了したこと、Partial は一部だけ完了したこと、Blocked は適用できなかったことを意味します。Applied は、まだ証明されたという意味ではありません。',
+    },
+    {
+      question: 'Lagune は確認なしで修正を適用しますか？',
+      answer:
+        '編集に承認が必要かどうかを決めるのは Lagune ではなく、使っているエージェントと、それを実行する権限モードです。Lagune 自体は独自の確認ステップを追加しません。それでも、修正を通すために対策を弱めることは決してなく、修正が charter のルールと衝突する場合は、作業を止めて先に知らせます。',
+    },
+  ]}
+/>

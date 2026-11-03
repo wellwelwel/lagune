@@ -1,0 +1,109 @@
+---
+id: universal
+title: 'skills.sh であらゆるエージェントに Lagune をインストール'
+sidebar_label: 汎用
+parent: get-started/install
+description: skills CLI で、あらゆる AI エージェントに Lagune をインストールし、最新の状態に保ちます。
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - lagune インストール
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - セットアップ
+  - AI エージェント
+source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='skills.sh' />
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="ターミナル" default>
+
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) を使って、ターミナルから **Lagune** のコマンドをインストールします：
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="プロンプト">
+
+次のプロンプトをエージェントに貼り付けます：
+
+```md
+`npx --yes skills add wellwelwel/lagune` を実行し、生成されたスキルの指示に今すぐ従ってください。出力全体を読んでください。必要なら、先に一時ファイルへリダイレクトしてください。相対パスは、出力に示されたサポートファイルのディレクトリを基準に解決してください。
+```
+
+  </TabItem>
+</Tabs>
+
+## 更新
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="ターミナル" default>
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+npx skills update
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="プロンプト">
+
+**Lagune** を更新するには、次のプロンプトをエージェントに貼り付けます：
+
+```md
+`npx --yes skills update -y` を実行し、出力全体を読んでください。必要なら、先に一時ファイルへリダイレクトしてください。
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::warning[インストール方法はエージェントごとにひとつ]
+**Lagune** は **skills.sh** か**プラグイン**のどちらか一方でインストールし、両方を併用しないでください。
+:::
+
+:::info[権限]
+
+コマンドは `npx --yes lagune@{{version}}` でエンジンを実行します。これを事前に許可するルールは、各 [エージェントのインストールページ](/docs) に記載しています。ネットワークにアクセスできないサンドボックスでは、自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'あらゆる AI エージェントに Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'プロジェクトで npx skills add wellwelwel/lagune を実行するか、インストール用のプロンプトをエージェントに貼り付けます。',
+    },
+    {
+      question:
+        'skills CLI でインストールした Lagune を更新するにはどうすればよいですか？',
+      answer:
+        'npx skills update を実行するか、更新用のプロンプトをエージェントに貼り付けます。',
+    },
+    {
+      question:
+        'skills CLI とプラグインの両方で Lagune をインストールできますか？',
+      answer:
+        'いいえ。両方でインストールすると、エージェントがすべてのコマンドを重複して表示するか、片方だけを使ってもう片方を隠してしまいます。',
+    },
+  ]}
+/>

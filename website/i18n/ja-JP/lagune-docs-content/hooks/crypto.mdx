@@ -1,0 +1,98 @@
+---
+id: crypto
+title: 'crypto フック：脆弱な暗号を検出する'
+sidebar_label: crypto
+description: コマンドラインから、脆弱な暗号プリミティブをコードベース全体でスキャンしたり、1 つのコードスニペットを判定したりできます。
+source_hash: 'd3c688c47e39ee54573cceb66668f98098f3e51207d795ca3ae7e3f6b3f527d0'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+`crypto` フックは、非推奨の暗号方式、安全でないモード、破られたダイジェストといった**脆弱な暗号プリミティブ**を、呼び出し箇所で指摘します。**言語を識別**して動作し、各ファイルをその言語のルールで読み取るため、Python の構文が Rust のファイルで指摘されることはありません。また、[`crypto` 専門知識](/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
+
+## 実行方法
+
+<Tabs>
+  <TabItem value="scan" label="コードベースをスキャン" default>
+
+```bash
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="コードスニペットをチェック">
+
+```bash
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+スキャンは最大 2 つのセクションを出力します。**Weak cryptography found** は検出事項の一覧（DES/3DES/RC4/Blowfish/RC2、ECB モード）で、いずれも破られた暗号プリミティブのため、フックは 0 以外の終了コードで終了します。**Cryptography to review manually** は、フックだけでは判断できない手がかりの一覧です：MD5/SHA-1 のダイジェスト（セキュリティ用途では破られているものの、単なるチェックサムとしては正当なので、用途次第）、セキュリティ上重要な箇所での暗号論的に安全でない乱数生成器、またはタイミング攻撃に弱い比較です。何も見つからなければ `no weak cryptography found` と出力します。
+
+## 判定の読み方
+
+| 判定      | 意味                                                                                                                                 |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `weak`    | コードスニペットが、破られた暗号プリミティブ（DES/3DES、RC4、Blowfish、RC2、または ECB モード）を使っている。                        |
+| `review`  | 用途によって判断が分かれるプリミティブ：MD5/SHA-1 のダイジェスト、またはセキュリティ上重要な箇所での暗号論的に安全でない乱数生成器。 |
+| `safe`    | コードスニペットは暗号を使っているが、脆弱なプリミティブは見つからなかった。                                                         |
+| `invalid` | 判定できる暗号の構文がコードスニペットに見当たらない。                                                                               |
+
+### CLI オプション
+
+| オプション  | 値               | 説明                                                                                                             |
+| ----------- | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `--pattern` | コードスニペット | 1 つのコードスニペットをチェックする。繰り返し指定すると複数をチェックし、1 行に 1 つずつ判定を出力する。        |
+| `--lang`    | 言語             | `--pattern` を使うときは必須：javascript、python、go、java、kotlin、php、ruby、rust、csharp、c、cpp のいずれか。 |
+| `--dir`     | ディレクトリ     | スキャン対象をディレクトリに絞る。繰り返し指定でき、`--file` と併用できる。                                      |
+| `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                                    |
+
+オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
+
+### 対応言語
+
+スキャンはファイル拡張子をもとに次の言語を読み取り、それぞれの言語の暗号 API と照らし合わせてチェックします。
+
+| 言語                        | 脆弱な暗号方式（検出事項）、ダイジェストと乱数生成器（要確認）                                                       |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **JavaScript / TypeScript** | `createCipher`、`CryptoJS.DES/RC4`、引用符付きの `*-ecb`／MD5/SHA-1 の `createHash`/`subtle.digest`／`Math.random()` |
+| **Python**                  | pycryptodome の `DES/ARC4/Blowfish.new`、`algorithms.TripleDES`、`MODE_ECB`／`hashlib.md5/sha1`／`random.*`          |
+| **Go**                      | `des.NewCipher`、`rc4.NewCipher`、`blowfish.NewCipher`、`NewECBEncrypter`／`md5/sha1.Sum`／`math/rand`               |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`／`MessageDigest.getInstance("MD5")`、`HmacMD5`／`java.util.Random`                |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`、`mcrypt_*`／`md5()`/`sha1()`、`hash("md5", …)`／`rand()`/`mt_rand()`             |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`、`:ECB`／`Digest::MD5/SHA1`／`rand()`/`Random`                                        |
+| **Rust**                    | `Rc4::`、`Blowfish::`、`des::`、`ecb::`／`Md5::`、`Sha1::`、`Hmac<Md5>`／`SmallRng`/`XorShiftRng`                    |
+| **C#**                      | `DES/TripleDES/RC2.Create`、`CipherMode.ECB`／`MD5/SHA1.Create`、`HMACMD5`／`new Random()`                           |
+| **C / C++**                 | OpenSSL の `DES_*`/`RC4`/`EVP_des_*`、`EVP_*_ecb`／`MD5()`/`SHA1()`、`EVP_md5`／`rand()`/`random()`                  |
+
+:::note[ベストエフォートであり、網羅的ではない]
+ソースコードをテキストとして読み取るため、実行時に組み立てられたプリミティブや、エイリアスの陰に隠れたもの、認識できない書き方のものは見逃すことがあります。この表は完全な一覧ではなく、確かな出発点として扱ってください。
+:::
+
+:::tip
+フックが保証するのは最低ライン（こうした構文が存在すること）で、鍵管理、IV の再利用、RSA のパディングといった判断は、引き続き [`crypto` 専門知識](/docs/catalog) が担います。
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'コードベースの脆弱な暗号をスキャンするにはどうすればよいですか？',
+      answer:
+        'フラグを付けずに crypto フックを実行します。破られた暗号方式と ECB モードは検出事項となり、0 以外の終了コードで終了します。MD5/SHA-1 のダイジェストは、セキュリティ用途では破られているものの単なるチェックサムとしては正当なため、要確認の手がかりとして扱います。',
+    },
+    {
+      question: 'crypto フックは Math.random() を指摘しますか？',
+      answer:
+        'セキュリティ上重要な箇所で要確認の手がかりとして挙げるだけで、自動的に検出事項にすることはありません。ジッターや UI の並び順に乱数を使うのは正当だからです。',
+    },
+  ]}
+/>

@@ -1,0 +1,94 @@
+---
+id: pi
+title: 'Pi に Lagune をパッケージとしてインストール'
+sidebar_label: Pi
+parent: get-started/install
+description: npm または GitHub から、Pi に Lagune をパッケージとしてインストールし、最新の状態に保ちます。
+keywords:
+  - pi
+  - pi coding agent
+  - pi パッケージ
+  - pi install
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+ターミナルからパッケージをインストールします：
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+**GitHub** から最新のコミットをインストールします。この場合、エンジンは **npx** 経由で動作します：
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## 更新
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` はインストールしたすべてのパッケージを更新します。`pi update` だけでは **Pi** しか更新されません。
+
+## コマンド
+
+コマンドは `skill:` プレフィックスを付けて入力します。たとえば `/skill:lagune-charter` で `/lagune-charter` を実行します。
+
+<Faq
+  items={[
+    {
+      question: 'Pi に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'pi install npm:lagune を実行します。GitHub の最新コミットをインストールするなら、pi install git:github.com/wellwelwel/lagune を実行します。',
+    },
+    {
+      question: 'Pi で Lagune を更新するにはどうすればよいですか？',
+      answer:
+        'pi update npm:lagune を実行します。GitHub からインストールした場合は、pi update git:github.com/wellwelwel/lagune を実行します。pi update --extensions は、インストールしたすべてのパッケージを更新します。',
+    },
+    {
+      question: 'Pi で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer:
+        '/skill:lagune-charter のように、skill: プレフィックスを付けて入力します。',
+    },
+  ]}
+/>

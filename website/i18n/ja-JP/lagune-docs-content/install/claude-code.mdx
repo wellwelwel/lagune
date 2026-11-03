@@ -1,0 +1,139 @@
+---
+id: claude-code
+title: 'Claude Code に Lagune をプラグインとしてインストール'
+sidebar_label: Claude Code
+parent: get-started/install
+description: Claude Code のターミナル、拡張機能、デスクトップアプリに Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+keywords:
+  - claude code
+  - claude code プラグイン
+  - claude code vs code
+  - claude desktop
+  - プラグインマーケットプレイス
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: '14579b30d4f66f17f3f80f8be28ba0a6d3ca7e6dd2474fcaf8966badf4628d4a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Claude Code' />
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="ターミナル" default>
+
+ターミナルからプラグインをインストールします：
+
+```bash
+claude plugin install lagune --marketplace wellwelwel/lagune
+```
+
+**Claude Code** のセッションからもインストールできます：
+
+```text
+/plugin marketplace add wellwelwel/lagune
+/plugin install lagune@lagune
+```
+
+</TabItem>
+<TabItem value="extension" label="拡張機能">
+
+- `/plugin` と入力し、**Manage plugins** を選択します。
+- **Marketplaces** タブで `wellwelwel/lagune` を追加します。
+- **Plugins** タブで `lagune` をインストールします。
+
+</TabItem>
+<TabItem value="desktop" label="デスクトップ">
+
+- ターミナルか拡張機能から **Lagune** をインストールします。拡張機能では **Install for you** を選びます。
+- デスクトップアプリで新しいセッションを開始すると、自分用にインストールしたプラグインが読み込まれます。
+
+</TabItem>
+</Tabs>
+
+## 更新
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="ターミナル" default>
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+常に最新の状態に保つには、`lagune` マーケットプレイスの **Enable auto-update** を `/plugin` から選択します。
+
+</TabItem>
+<TabItem value="extension" label="拡張機能">
+
+- `/plugin` と入力し、**Manage plugins** を選択します。
+- **Marketplaces** タブを開きます。
+- `lagune` の更新アイコンを選択します。
+
+</TabItem>
+<TabItem value="desktop" label="デスクトップ">
+
+- ターミナルか拡張機能から **Lagune** を更新します。
+- デスクトップアプリで新しいセッションを開始します。
+
+</TabItem>
+</Tabs>
+
+## コマンド
+
+`/lagune-charter` のようにコマンド名をそのまま入力するか、`/lagune:lagune-charter` のようにプラグイン名を付けて入力します。
+
+---
+
+:::info[権限]
+
+エンジンは 2 つのツールで動作します。`lagune_read` はプロジェクトを読み取るだけで、`lagune_write` は `.lagune/` に書き込むだけです。これらを事前に許可するには、次のルールを、1 つのプロジェクトなら `.claude/settings.json` に、すべてのプロジェクトなら `~/.claude/settings.json` に追加します：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_lagune_lagune__lagune_read",
+      "mcp__plugin_lagune_lagune__lagune_write"
+    ]
+  }
+}
+```
+
+**skills.sh** でインストールした場合など、エンジンが **npx** 経由で動作するときは、`Bash(npx --yes lagune@*)` を許可します。サンドボックスを有効にしている場合は、`registry.npmjs.org` も `sandbox.network.allowedDomains` に追加します。
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'Claude Code に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'claude plugin install lagune --marketplace wellwelwel/lagune を実行します。セッションや拡張機能では、プラグインマネージャーから wellwelwel/lagune マーケットプレイスを追加し、lagune をインストールします。ターミナルか拡張機能で自分用にインストールすれば、デスクトップアプリでも読み込まれます。',
+    },
+    {
+      question: 'Claude Code で Lagune を更新するにはどうすればよいですか？',
+      answer:
+        'claude plugin marketplace update lagune を実行してから claude plugin update lagune@lagune を実行するか、lagune マーケットプレイスの Enable auto-update を /plugin から選択します。拡張機能では、/plugin から Manage plugins を開き、lagune マーケットプレイスの更新アイコンを選択します。デスクトップアプリは、次のセッションで更新を読み込みます。',
+    },
+    {
+      question:
+        'Claude Code で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer:
+        '/lagune-charter のようにコマンド名をそのまま入力するか、/lagune:lagune-charter のようにプラグイン名を付けて入力します。',
+    },
+    {
+      question: 'Claude Code で、許可を求められずに Lagune を実行できますか？',
+      answer:
+        'はい。Claude Code の設定で mcp__plugin_lagune_lagune__lagune_read と mcp__plugin_lagune_lagune__lagune_write を許可します。エンジンが npx 経由で動作する場合は、Bash(npx --yes lagune@*) も許可します。',
+    },
+  ]}
+/>

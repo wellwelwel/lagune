@@ -1,0 +1,223 @@
+---
+id: install
+title: 'インストール：どの AI エージェントでも使えるセキュリティ強化'
+sidebar_label: インストール
+slug: /
+description: Lagune はどのプロジェクトにもインストールできます。エージェントが対応していればプラグインとして、それ以外では skills CLI で導入し、プロジェクトに合ったセキュリティの専門知識を選びます。
+keywords:
+  - lagune インストール
+  - claude code plugin
+  - claude code プラグイン
+  - copilot cli plugin
+  - muse code plugin
+  - gemini cli extension
+  - qwen code extension
+  - antigravity cli plugin
+  - kimi code plugin
+  - cursor plugin
+  - hermes agent plugin
+  - devin cli plugin
+  - grok build plugin
+  - factory droid plugin
+  - codex plugin
+  - opencode plugin
+  - pi package
+  - npx skills add
+  - skills CLI
+  - セットアップ
+  - はじめに
+  - 専門知識
+  - カテゴリ
+  - 動作要件
+  - バッジ
+  - security-driven hardening
+  - AI セキュリティ
+  - アプリケーションセキュリティ
+  - 防御的セキュリティ
+  - blue team
+  - セキュアコーディング
+  - AI エージェント
+source_hash: 'a560b2dd65be3ed3daa59b91f2b3bbbf6b1e516bf70479e928679887c1c76c7a'
+---
+
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** は、AI エージェントがプロジェクトをより安全にするのを手伝います。コードに対して実行すると、エージェントはシステムが実際に何をしているかを把握したうえで、そのシステムにとって重要なセキュリティ作業を順に案内します。**Lagune** は、[Security-Driven Hardening (SDH)](/docs/references/paper) という方法論の最初のプロジェクトです。
+
+:::tip[OSS を応援]
+**Lagune** が気に入りましたか？<ArrowLink to="https://github.com/wellwelwel/lagune">**GitHub** で ⭐ をお願いします</ArrowLink>
+:::
+
+## エージェントを選ぶ
+
+<AgentPicker />
+
+:::info
+
+- **Lagune** は内部で **Node.js** を使って動作しますが、開発に使う言語は自由です。
+- 完全にオフラインで実行するには、`npm i -D lagune@{{version}}` で **Lagune** をプロジェクトにインストールします。
+
+:::
+
+## カテゴリ
+
+**Lagune** のセキュリティに関する知見は [**専門知識**](/docs/catalog) という単位で提供され、[**カテゴリ**](/docs/categories) ごとにまとめられています。
+
+<CategoryPicker />
+
+:::tip
+プロジェクトは `owasp` から始まり、[`/lagune-charter`](/docs/commands/charter) がプロジェクトを読み解いたうえで、その内容に裏付けられたカテゴリを追加します。
+:::
+
+## 動作要件
+
+システムに [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) がインストールされている必要があります。
+
+## バッジを使う ✨
+
+**Lagune** をお使いですか？**README** にバッジを追加しましょう：
+
+<Tabs>
+  <TabItem value="two-tones" label="2 色" default>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
+  alt='Secured By Lagune'
+  width={141}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
+  alt='Security Powered By Lagune'
+  width={193}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
+  alt='Security-Driven Hardening with Lagune'
+  width={225}
+/>
+
+  </TabItem>
+  <TabItem value="solid" label="単色">
+
+<Badge
+  src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Secured By Lagune'
+  width={135}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security Powered By Lagune'
+  width={185}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security-Driven Hardening'
+  width={175}
+/>
+
+  </TabItem>
+</Tabs>
+
+## 次のステップ
+
+**Lagune** の各 [**スキル**](/docs/get-started/commands) の役割を確認しましょう。
+
+<Faq
+  items={[
+    {
+      question: 'Lagune とは何ですか？',
+      answer:
+        'Lagune は、AI エージェントがあらゆるコードベースを堅牢化するのを支援する、オープンソースで防御専用のセキュリティワークフローです。コードに対して実行すると、システムが実際に何をしているかを検出し、その状況にとって重要なセキュリティ修正を案内します。',
+    },
+    {
+      question: 'Lagune はどうやってインストールしますか？',
+      answer:
+        'エージェントを選んでください：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI、Hermes Agent ではプラグインとして、Gemini CLI と Qwen Code では拡張機能として、Pi ではパッケージとして Lagune をインストールし、それ以外のエージェントでは npx skills add wellwelwel/lagune でインストールします。新規プロジェクトでも既存のプロジェクトでも使えます。',
+    },
+    {
+      question: 'Lagune に API キーは必要ですか？',
+      answer:
+        'いいえ。ご自身の AI エージェントを通じて動作するため、API キーは不要です。',
+    },
+    {
+      question: '動作要件は何ですか？',
+      answer:
+        'システムに Node.js (LTS) がインストールされている必要があります。',
+    },
+    {
+      question: 'Lagune はどのプログラミング言語に対応していますか？',
+      answer:
+        'どの言語にも対応しています。Lagune 自体は内部で Node.js を使って動作しますが、どのプログラミング言語で書かれたプロジェクトでも監査し、堅牢化できます。',
+    },
+    {
+      question: 'Lagune はプロジェクトに何を追加しますか？',
+      answer:
+        'プロジェクトのセキュリティ状態を保存する .lagune/ ディレクトリです。最初に書き込みを行うコマンドが作成します。さらに skills CLI はスラッシュコマンドをプロジェクト内にインストールし、エージェントはそこから読み込みますが、プラグインの場合はコマンドをエージェントの内部に保持します。',
+    },
+    {
+      question: 'Lagune はどうやって更新しますか？',
+      answer:
+        'インストールしたときと同じ方法で更新します。各エージェントのインストールページに、そのエージェントでの Lagune の更新方法が載っており、skills CLI の場合は npx skills update で更新します。セキュリティ原則、各フェーズの成果物、独自に追加した専門知識はそのまま残ります。',
+    },
+    {
+      question: 'プロジェクトではどの専門知識が使われますか？',
+      answer:
+        'プロジェクトのカテゴリに含まれる組み込みの専門知識と、プロジェクト独自の専門知識です。charter はプロジェクトを読み解いた結果に裏付けられたカテゴリを記録し、npx lagune write add --categories でそれらを変更できます。',
+    },
+    {
+      question:
+        'プロジェクトのセキュリティ対策は、開発が終わってからでないとできませんか？',
+      answer:
+        'いいえ。/lagune コマンドは、書いているそばから作業を堅牢化します。どんなプロンプトでも受け付けて、依頼されたものを構築し、セキュリティ原則に沿って安全なデフォルト設定で堅牢化します。既存のコードを監査するのは、5 フェーズの Blue Team フローです。',
+    },
+    {
+      question: 'Lagune で既存のプロジェクトを監査できますか？',
+      answer:
+        'はい。5 フェーズの Blue Team フローが既存のコードを監査します：charter がセキュリティルールを定め、detect がシステムの動作とリスクの所在を洗い出し、plan が各検出事項を評価して修正を対応づけ、harden が修正を適用し、verify が修正の有効性を証明してクローズします。',
+    },
+    {
+      question:
+        'Lagune を使うのと、エージェントに脆弱性やセキュリティ上の欠陥を洗い出すよう頼むだけなのとでは、何が違いますか？',
+      answer:
+        'エージェントが単独でコードを読むと、脆弱性らしく見えるものは見つけますが、対策らしく見えるものは素通りします。ブロック対象のアドレス一覧があると、すでに誰かがリスクに対処したように見えるため、その一覧が大半のアドレスを取りこぼしていることを誰も確かめないまま、コードがリリースされます。Lagune はこの前提をひっくり返します：コードにすでにある防御処理は確認するまで未証明とみなし、カタログ内のすべての専門知識に明確な判定を下し、verify は対策があるかどうかではなく、リスクがなくなったかどうかを問います。また、各検出事項は実行をまたいでも 1 つの追跡項目のままなので、リスクが解消されたことを証明してクローズできます。一方、ただ頼むだけでは毎回違うレポートが返ってくるため、比べようがありません。',
+    },
+    {
+      question:
+        'Lagune を使って開発するのと、エージェントに安全なコードを書くよう頼むだけなのとでは、何が違いますか？',
+      answer:
+        '安全なコードを頼むだけでは、何をもって安全とするかをエージェントに委ねることになり、しかも何を頼めばよいかを分かっていることが前提になります。必要な要件は、たいてい依頼した本人もエージェントも気づかないまま、すでに依頼の中に含まれています：ユーザーがアクセスできる講座を表示するページを頼めば、それだけで認可のルールを示していることになり、書かれなかったチェックは、コード上に気づく手がかりを何も残しません。/lagune コマンドは、最初の 1 行を書く前に、セキュリティ原則と、これから構築するものに合う専門知識を読み込み、そのうえで、使った防御に照らして結果を読み直します。安全な書き方が安全でない書き方よりコストがかかることはめったにないので、結果を左右するのはどちらを選ぶべきかを知っているかどうかであり、それこそが最初の段階で手に入るものです。',
+    },
+    {
+      question:
+        'Lagune は DAST（動的アプリケーションセキュリティテスト）を実行したり、稼働中のアプリケーションをテストしたりしますか？',
+      answer:
+        'いいえ。Lagune はコードを読むだけで、システムを実行したり、細工したリクエストを送ったりすることはありません。verify が確認するのは、対策がソースコードに存在し、正しく実装されているかどうかです。これは稼働中の環境で攻撃を受けても対策が持ちこたえるかどうかとは別の問いなので、"cannot tell from the code"（コードからは判断できない）は、黙って合格扱いにするのではなく、正当な判定のひとつです。DAST は実行時の問いに、Lagune はソースコードの問いに答えるため、どちらかがもう一方の代わりになることはありません。オプションの prove コマンドでさえこの一線を守っています：そのテストが検証するのは安全な振る舞いであり、攻撃ペイロードではありません。',
+    },
+    {
+      question:
+        'Lagune はペネトレーションテスト（ペンテスト）の代わりになりますか？',
+      answer:
+        'いいえ、決して代わりにはなりません！ペネトレーションテストは、正式な承認のもとで専門家が稼働中のシステムに対して自らの判断で進める作業で、複数の検出事項を連鎖させたり、攻撃対象領域ごとのルールでは表しきれないビジネスロジックを探ったりします。ペネトレーションテストの検出事項は、detect で懸念事項として扱うことで Lagune の Blue Team フローに取り込めるので、専門家が報告した内容も計画、堅牢化、検証まで進められます。',
+    },
+  ]}
+/>
+
+## セキュリティポリシー
+
+[SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md) をご確認ください。
+
+## ライセンス
+
+**Lagune** は [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE) のもとで提供されています。
+
+Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) および [コントリビューター](https://github.com/wellwelwel/lagune/graphs/contributors)。

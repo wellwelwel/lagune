@@ -1,0 +1,218 @@
+---
+id: regex
+title: 'regex フック：ReDoS パターンを検出する'
+sidebar_label: regex
+description: コマンドラインから、ReDoS を起こしやすい正規表現をコードベース全体でスキャンしたり、1 つのパターンを判定したりできます。
+source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+`regex` フックは、[`regex` 専門知識](/docs/catalog) が実行する、正規表現の安全性を判定する決定論的なエンジンで、自分で実行することもできます。1 つのコマンドで 2 つのモードが使えます：**scan** モードはコードベースをスキャンして、**ReDoS** を起こしやすいパターンや実行時に組み立てられるパターンを探し、**check** モードは渡された 1 つのパターンを判定します。
+
+## コードベースをスキャンする
+
+フラグを付けなければ、プロジェクト全体をスキャンします。`--dir` はスキャン対象をディレクトリに、`--file` は 1 つのファイルに絞ります。どちらも繰り返し指定でき、組み合わせると 1 つのレポートにまとまります。複数の対象に含まれるファイルも、表示されるのは 1 回だけです。
+
+<Tabs>
+  <TabItem value="all" label="プロジェクト全体" default>
+
+```bash
+npx lagune read regex
+```
+
+  </TabItem>
+  <TabItem value="dir" label="ディレクトリ">
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+  </TabItem>
+  <TabItem value="file" label="1 つのファイル">
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+  </TabItem>
+  <TabItem value="many" label="複数の対象">
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+  </TabItem>
+  <TabItem value="limit" label="上限を指定">
+
+`--limit` はスキャンでの ReDoS のしきい値（デフォルトは 25）を設定します。check モードで使うのと同じ上限です。値が低いほど厳しく判定します。
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+  </TabItem>
+</Tabs>
+
+出力はプレーンテキストで、各セクションの見出しがそのセクションの読み方を示しています。セクションは、検出結果があるときだけ表示されます。
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+何も見つからなければ、1 行だけ出力します。
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### セクションの読み方
+
+| セクション                                                                                  | 意味                                                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Vulnerable regular expressions found`                                                      | ReDoS を起こしやすいパターン。ファイルごとにまとめて各パターンをその下にインデントして示し、続く括弧内に安全でない理由と、ある場合はスコープとフラグを記載する。どの行も安全でないため、判定は繰り返さない。 |
+| `Regular expressions the analysis could not settle (review manually)`                       | 解析が作業量の上限内で結論を出せなかったパターン。表示形式は同じ。                                                                                                                                           |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | 変数、連結、文字列補間から正規表現を組み立てているファイル。                                                                                                                                                 |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | 正規表現リテラルのほうがシンプルで実行時のコンパイルも省けるのに、正規表現のコンストラクターにただの文字列リテラルを渡しているファイル。                                                                     |
+
+1 つ目のセクションは、セキュリティ上の検出事項です。2 つ目と 3 つ目はそれ自体では検出事項ではなく、静的なチェックでは結論を出せないコードを示しているため、人が読んで確認する必要があります。4 つ目はコードをわかりやすくするためのヒントで、セキュリティ上の検出事項ではありません。
+
+### CLI オプション
+
+| オプション  | 値               | 説明                                                                                                                     |
+| ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `--pattern` | 正規表現のソース | 1 つのパターンをチェックする。繰り返し指定すると複数をチェックし、指定した順に 1 パターンにつき 1 つずつ判定を出力する。 |
+| `--flags`   | 正規表現のフラグ | すべての `--pattern` をこのフラグ（`im` など）付きでチェックする。check モードにのみ適用。                               |
+| `--dir`     | ディレクトリ     | スキャン対象をディレクトリに絞る。繰り返し指定でき、`--file` と併用できる。                                              |
+| `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                                            |
+| `--limit`   | 0 以上の整数     | ReDoS の繰り返し回数の上限（デフォルトは 25）を設定する。両方のモードに適用。値が低いほど厳しい。                        |
+
+オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` は check モードで、`--dir` や `--file` とは併用できません。
+
+### 対応言語
+
+スキャンはファイル拡張子をもとに次の言語を読み取り、それぞれの言語のルールで扱うため、ある言語のパターンが別の言語のルールでテストされることはありません。それ以外のファイルは、誤ったルールでスキャンせずにスキップします。
+
+| #   | 言語                        | 拡張子                                                                                                       |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`、`.jsx`、`.mjs`、`.cjs`、`.ts`、`.tsx`、`.mts`、`.cts`、`.astro`、`.vue`、`.svelte`、`.marko`、`.riot` |
+| 2   | **Python**                  | `.py`、`.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`、`.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`、`.cpp`、`.cxx`、`.hpp`、`.hh`、`.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`、`.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`、`.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`、`.psm1`、`.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`、`.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`、`.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`、`.cljs`、`.cljc`、`.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`、`.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`、`.pm`                                                                                                 |
+
+:::note[ベストエフォートであり、網羅的ではない]
+ソースコードをテキストとして読み取るため、実行時に組み立てられるパターンは判定できず、複数行にまたがるパターンや、エイリアスの陰に隠れたもの、認識できない書き方のものは見逃すことがあります。各セクションは完全な一覧ではなく確かな出発点として扱い、セクションで拾えない部分はコードを読んで確認し続けてください。
+:::
+
+## 1 つのパターンをチェックする
+
+パターンのソースを `--pattern` で渡すと判定できます。フックが出力するのは、`safe`、`unsafe`、`undetermined`（解析が結論を出す前に作業量の上限に達した場合）、`invalid regex` のいずれか 1 語です。`--pattern` を繰り返し指定すると、複数を一度に判定し、指定した順に 1 パターンにつき 1 つずつ判定を出力します。
+
+<Tabs>
+  <TabItem value="one" label="1 つのパターン" default>
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="many" label="複数のパターン">
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="flags" label="フラグを指定">
+
+`--flags` を付けると、その呼び出しに含まれるすべての `--pattern` を、実際に使うフラグ付きでチェックします。フラグによって、パターンが一致する文字が変わるためです。
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+  </TabItem>
+  <TabItem value="limit" label="上限を指定">
+
+`--limit` は繰り返し回数の上限（デフォルトは 25）を設定し、その呼び出しに含まれるすべての `--pattern` に適用されます。値が低いほど厳しく判定します。
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[引数を引用符で囲む理由]
+
+各パターンはフラグの値として渡され、コマンドに埋め込まれることはありません。引用符やバッククォートを含む値も無害なままで、シェルへのインジェクションは起こりません。シェルが先に展開してしまわないよう、パターンは必ずシングルクォートで囲んでください。
+:::
+
+:::tip
+これは [`regex` 専門知識](/docs/catalog) が実行するのと同じエンジンで、scan モードで ReDoS の確認を始め、見つかったパターンを check モードで確かめます。
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'CLI で正規表現の ReDoS をチェックするにはどうすればよいですか？',
+      answer:
+        "npx lagune read regex --pattern '<pattern>' を実行します。safe、unsafe、undetermined、invalid regex のいずれかが返ります。",
+    },
+    {
+      question:
+        'プロジェクト全体で安全でない正規表現をスキャンするにはどうすればよいですか？',
+      answer:
+        'コードベースに対して regex フックを scan モードで実行します。対応している 25 の言語にわたって、ReDoS を起こしやすいパターンを報告します。',
+    },
+  ]}
+/>

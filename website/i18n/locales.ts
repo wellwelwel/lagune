@@ -34,6 +34,12 @@ export const LOCALES: SiteLocale[] = [
     flag: '/img/flags/cn.svg',
     status: 'published',
   },
+  {
+    code: 'ja-JP',
+    label: '日本語',
+    flag: '/img/flags/jp.svg',
+    status: 'published',
+  },
 ];
 
 export const isPublished = (code: string): boolean =>

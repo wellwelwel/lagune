@@ -1,0 +1,81 @@
+---
+id: muse-code
+title: 'Muse Code に Lagune をプラグインとしてインストール'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Muse Code に Lagune をプラグインとしてインストールし、最新の状態に保ち、サンドボックス内でエンジンを実行します。
+keywords:
+  - muse code
+  - muse code プラグイン
+  - プラグインマーケットプレイス
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+ターミナルからプラグインをインストールします：
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## 更新
+
+**Lagune** を更新するには、マーケットプレイスを更新してからプラグインを再インストールします：
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## コマンド
+
+`/lagune-charter` のようにコマンド名をそのまま入力するか、`/lagune:lagune-charter` のようにプラグイン名を付けて入力します。
+
+---
+
+:::info[権限]
+
+**Muse Code** のサンドボックスはエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'Muse Code に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'muse plugins marketplace add lagune wellwelwel/lagune を実行してから、muse plugins install lagune@lagune を実行します。',
+    },
+    {
+      question: 'Muse Code で Lagune を更新するにはどうすればよいですか？',
+      answer:
+        'muse plugins marketplace update lagune を実行してから、muse plugins remove lagune と muse plugins install lagune@lagune で再インストールします。',
+    },
+    {
+      question:
+        'Muse Code で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer:
+        '/lagune-charter のようにコマンド名をそのまま入力するか、/lagune:lagune-charter のようにプラグイン名を付けて入力します。',
+    },
+    {
+      question: 'Muse Code のサンドボックス内で Lagune は動作しますか？',
+      answer:
+        'はい。自分のターミナルから npm i -D lagune@{{version}} を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。',
+    },
+  ]}
+/>

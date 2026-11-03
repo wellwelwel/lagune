@@ -1,0 +1,79 @@
+---
+id: codex
+title: 'Codex CLI に Lagune をプラグインとしてインストール'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Codex CLI に Lagune をプラグインとしてインストールし、最新の状態に保ち、サンドボックス内でエンジンを実行します。
+keywords:
+  - codex
+  - codex cli
+  - codex プラグイン
+  - プラグインマーケットプレイス
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+ターミナルからプラグインをインストールします：
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## 更新
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## コマンド
+
+`$` に続けてプラグイン名付きのコマンドを入力し、そのあとに入力内容を書きます。たとえば `$lagune:lagune-charter` で `/lagune-charter` を実行します。`$` と入力するとコマンドの一覧が表示され、選ぶと完全な名前が挿入されます。
+
+---
+
+:::info[権限]
+
+**Codex** のサンドボックスはネットワークにアクセスできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'Codex CLI に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'codex plugin marketplace add wellwelwel/lagune を実行してから、codex plugin add lagune@lagune を実行します。',
+    },
+    {
+      question: 'Codex CLI で Lagune を更新するにはどうすればよいですか？',
+      answer: 'codex plugin marketplace upgrade lagune を実行します。',
+    },
+    {
+      question:
+        'Codex CLI で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer:
+        '$lagune:lagune-charter のように、$ に続けてプラグイン名付きのコマンドを入力し、そのあとに入力内容を書きます。',
+    },
+    {
+      question: 'Codex のサンドボックス内で Lagune は動作しますか？',
+      answer:
+        'はい。自分のターミナルから npm i -D lagune@{{version}} を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。',
+    },
+  ]}
+/>

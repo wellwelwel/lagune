@@ -1,0 +1,70 @@
+---
+id: github-copilot-cli
+title: 'GitHub Copilot CLI に Lagune をプラグインとしてインストール'
+sidebar_label: GitHub Copilot CLI
+parent: get-started/install
+description: GitHub Copilot CLI に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+keywords:
+  - github copilot cli
+  - copilot cli プラグイン
+  - プラグインマーケットプレイス
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: '1d93bbd6206e56617cb2dbc1a4c3edcc536fe20e05b3f1984ae995c3d6b58974'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='GitHub Copilot' />
+
+ターミナルからプラグインをインストールします：
+
+```bash
+copilot plugin marketplace add wellwelwel/lagune
+copilot plugin install lagune@lagune
+```
+
+エディターでは、[**skills.sh**](/docs/install/universal) を使って **GitHub Copilot** 用に **Lagune** をインストールします。
+
+## 更新
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
+
+## コマンド
+
+`/lagune-charter` のように、コマンド名をそのまま入力します。
+
+<Faq
+  items={[
+    {
+      question:
+        'GitHub Copilot CLI に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'copilot plugin marketplace add wellwelwel/lagune を実行してから、copilot plugin install lagune@lagune を実行します。',
+    },
+    {
+      question:
+        'GitHub Copilot CLI で Lagune を更新するにはどうすればよいですか？',
+      answer:
+        'copilot plugin marketplace update lagune を実行してから、copilot plugin update lagune@lagune を実行します。',
+    },
+    {
+      question:
+        'GitHub Copilot CLI で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer: '/lagune-charter のように、コマンド名をそのまま入力します。',
+    },
+    {
+      question: 'VS Code の GitHub Copilot で Lagune を使えますか？',
+      answer:
+        'はい。VS Code などのエディターでは、プラグインではなく skills.sh で Lagune をインストールします。',
+    },
+  ]}
+/>

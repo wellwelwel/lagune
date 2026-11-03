@@ -1,0 +1,63 @@
+---
+id: hermes-agent
+title: 'Hermes Agent に Lagune をプラグインとしてインストール'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Hermes Agent に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+keywords:
+  - hermes agent
+  - hermes agent プラグイン
+  - hermes plugins install
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+ターミナルからプラグインをインストールします：
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- **Hermes Agent** がカタログ外のプラグインについて確認を求めてきたら、**承認します**。
+- リポジトリの **Node.js** 依存関係をインストールするか尋ねてきたら、**拒否します**。
+
+## 更新
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+hermes plugins update lagune
+```
+
+## コマンド
+
+コマンドはプラグイン名を付けて入力します。たとえば `/lagune:lagune-charter` で `/lagune-charter` を、`/lagune:lagune` で `/lagune` を実行します。
+
+<Faq
+  items={[
+    {
+      question:
+        'Hermes Agent に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'hermes plugins install wellwelwel/lagune --enable を実行します。確認を求められたらプラグインを承認し、リポジトリの Node.js 依存関係のインストールは拒否します。',
+    },
+    {
+      question: 'Hermes Agent で Lagune を更新するにはどうすればよいですか？',
+      answer: 'hermes plugins update lagune を実行します。',
+    },
+    {
+      question:
+        'Hermes Agent で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer:
+        '/lagune:lagune-charter や /lagune:lagune のように、プラグイン名を付けて入力します。',
+    },
+  ]}
+/>

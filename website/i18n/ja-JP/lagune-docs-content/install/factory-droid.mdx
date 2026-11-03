@@ -1,0 +1,76 @@
+---
+id: factory-droid
+title: 'Factory Droid に Lagune をプラグインとしてインストール'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Factory Droid に Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンのツールを許可します。
+keywords:
+  - factory droid
+  - droid プラグイン
+  - プラグインマーケットプレイス
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+ターミナルからプラグインをインストールします：
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## 更新
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## コマンド
+
+`/lagune-charter` のように、コマンド名をそのまま入力します。
+
+---
+
+:::info[権限]
+
+エンジンは 2 つのツールで動作します。`lagune_read` はプロジェクトを読み取るだけで、`lagune_write` は `.lagune/` に書き込むだけです。**Factory Droid** が確認を求めてきたら、それぞれを常に許可するよう選びます。`lagune` マーケットプレイスの新しいコミットを同期すると、もう一度確認を求めてきます。この同期は起動時に行われることがあります。
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'Factory Droid に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'droid plugin marketplace add wellwelwel/lagune を実行してから、droid plugin install lagune@lagune を実行します。',
+    },
+    {
+      question: 'Factory Droid で Lagune を更新するにはどうすればよいですか？',
+      answer:
+        'droid plugin marketplace update lagune を実行してから、droid plugin update lagune@lagune を実行します。',
+    },
+    {
+      question:
+        'Factory Droid で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer: '/lagune-charter のように、コマンド名をそのまま入力します。',
+    },
+    {
+      question:
+        'Factory Droid で、許可を求められずに Lagune を実行できますか？',
+      answer:
+        'はい。Factory Droid が確認を求めてきたら、lagune_read と lagune_write を常に許可するよう選びます。lagune マーケットプレイスの新しいコミットを同期すると、もう一度確認を求めてきます。',
+    },
+  ]}
+/>

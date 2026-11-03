@@ -1,0 +1,113 @@
+---
+id: cvss
+title: 'cvss フック：CVSS v4.0 ベクトルのスコアを算出する'
+sidebar_label: cvss
+description: コマンドラインから 1 つまたは複数の CVSS v4.0 ベクトルのスコアを FIRST の計算ツールと同じ計算方法で算出し、それぞれをわかりやすい言葉で読み解けます。
+source_hash: 'fa4469a734f29f7b7a54349fceb29d66a8efb995fa89292ca56c1be741dae2f5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+`cvss` フックは **CVSS v4.0 ベクトル**のスコアを算出し、スコアと深刻度の区分を出力します。これは [`/lagune-plan`](/docs/commands/plan) が各修正に、[`/lagune-prove`](/docs/commands/prove) が各セキュリティアドバイザリに記載する評価です。フックはこうした評価を支える決定論的なエンジンで、[FIRST の計算ツール](https://www.first.org/cvss/calculator/4.0) と同じ計算方法を使っており、自分で実行することもできます。
+
+## 実行方法
+
+各ベクトルを `--vector` で渡します。フックはベクトルごとに、スコアと区分を 1 行で出力します。
+
+<Tabs>
+  <TabItem value="one" label="1 つのベクトル" default>
+
+```bash
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+# => 9.3, Critical
+```
+
+  </TabItem>
+  <TabItem value="many" label="複数のベクトル">
+
+`--vector` を繰り返し指定すると、複数のベクトルのスコアを一度に算出し、指定した順に 1 行ずつ出力します。
+
+```bash
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 9.3, Critical
+# => 8.7, High
+```
+
+  </TabItem>
+  <TabItem value="explain" label="わかりやすい言葉で">
+
+`--explain` を付けると、各メトリクスをわかりやすい言葉で読み解けます。Threat メトリクスや Environmental メトリクスでスコアが変わる場合は、Base スコア単体が先に表示されます。
+
+```bash
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 8.7, High
+# =>   Base metrics alone: 9.3, Critical
+# =>   Attack Vector: Network, modified to Adjacent
+# =>   Attack Complexity: Low
+# =>   ...
+```
+
+  </TabItem>
+</Tabs>
+
+## 結果の読み方
+
+| 区分       | スコア    |
+| ---------- | --------- |
+| `None`     | 0.0       |
+| `Low`      | 0.1〜3.9  |
+| `Medium`   | 4.0〜6.9  |
+| `High`     | 7.0〜8.9  |
+| `Critical` | 9.0〜10.0 |
+
+Base メトリクスだけのベクトルは、最悪の場合、つまりすべてのセキュリティ要求度が High で、その欠陥が実際に攻撃に悪用されている状態を想定して、欠陥そのものを評価します。Environmental メトリクス（`MAV` などの Modified メトリクスと、`CR`、`IR`、`AR`）は特定のデプロイ環境に合わせて、Threat メトリクス（`E`）は悪用について判明している情報に合わせて、スコアを確定させます。
+
+ベクトルが無効な場合は、`invalid vector:` に続けて問題点を出力し、フックは 0 以外の終了コードで終了します。
+
+### CLI オプション
+
+| オプション  | 値                  | 説明                                                                                                               |
+| ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `--vector`  | `CVSS:4.0` ベクトル | 1 つのベクトルのスコアを算出する。繰り返し指定すると複数を算出し、指定した順に 1 ベクトルにつき 1 行ずつ出力する。 |
+| `--explain` |                     | 各評価行の下に、各メトリクスの説明をわかりやすい言葉で追加する。                                                   |
+
+`--vector` は少なくとも 1 つ必要です。ベクトルを位置引数として単独で渡すことはないため、フラグと取り違えられることはありません。
+
+:::note[フラグの値として渡す理由]
+
+各ベクトルはフラグの値として渡され、コマンドに埋め込まれることはありません。引用符やバッククォートを含む値も無害なままで、シェルへのインジェクションは起こりません。シェルが先に展開してしまわないよう、必ずシングルクォートで囲んでください。
+:::
+
+:::note[対象外の範囲]
+
+対応しているのは CVSS v4.0 だけです。**Lagune** はすべての検出事項を v4.0 で評価するため、v2.0、v3.0、v3.1 のベクトルはスコアを算出せずに拒否します。
+:::
+
+:::tip
+
+plan フェーズの検証では、CVSS の各行に対してこれと同じ計算をやり直すため、ベクトルと食い違ったスコアは計画が承認される前に見つかります。
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Lagune は CVSS スコアをどのように算出していますか？',
+      answer:
+        'cvss フックは FIRST による CVSS v4.0 のリファレンス計算ツールに準拠しているため、ベクトルのスコアは FIRST のサイトで算出した結果と完全に一致します。',
+    },
+    {
+      question: 'CVSS v3.1 のベクトルのスコアも算出できますか？',
+      answer:
+        'いいえ。Lagune はすべての検出事項を CVSS v4.0 で評価しており、フックはそれ以外のバージョンについてはスコアを算出せず、拒否します。',
+    },
+    {
+      question: '--explain フラグは何をするものですか？',
+      answer:
+        '各メトリクスをわかりやすい言葉で読み解き、全体のスコアと並べて Base スコアを表示します。これで、ベクトルが何を表しているのか、プロジェクトの状況によってスコアがどう変わったのかを誰でも確認できます。',
+    },
+  ]}
+/>

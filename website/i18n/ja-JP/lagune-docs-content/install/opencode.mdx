@@ -1,0 +1,134 @@
+---
+id: opencode
+title: 'OpenCode に Lagune をプラグインとしてインストール'
+sidebar_label: OpenCode
+parent: get-started/install
+description: OpenCode 1.x と 2.x に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
+keywords:
+  - opencode
+  - opencode プラグイン
+  - opencode plugin add
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: 'f79638c10be0e2425d9690e2d98375d7739ebc1ae43d8a729cb033f5b0ca3f09'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+ターミナルからプラグインをインストールします：
+
+```bash
+opencode plugin add lagune
+```
+
+または、`plugins` リスト（`opencode.json` 内）に追加します：
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+ターミナルからプロジェクトにプラグインをインストールします。すべてのプロジェクトにインストールするには `-g` を付けます：
+
+```bash
+opencode plugin lagune
+```
+
+または、`plugin` リスト（`opencode.json` 内）に追加します：
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## 更新
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+**Lagune** を更新するには、新しいリリースを上書きインストールします。すべてのプロジェクトにインストールした場合は `-g` を付けます：
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## コマンド
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+`@` と入力して `@lagune-charter` などのコマンドを選び、同じメッセージに続けて入力内容を書きます。
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+`/lagune-charter` のように、コマンド名をそのまま入力します。コマンドは `/skills` に一覧表示され、`/` メニューには表示されません。
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[権限]
+
+エンジンは 2 つのツールで動作します。`lagune_read` はプロジェクトを読み取るだけで、`lagune_write` は `.lagune/` に書き込むだけです。**OpenCode** は確認なしでこれらを実行します。
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'OpenCode に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'OpenCode 2.x では、opencode plugin add lagune を実行します。OpenCode 1.x では、opencode plugin lagune を実行します。すべてのプロジェクトにインストールするには -g を付けます。',
+    },
+    {
+      question: 'OpenCode で Lagune を更新するにはどうすればよいですか？',
+      answer:
+        'OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@{{version}} --force を実行します。',
+    },
+    {
+      question:
+        'OpenCode で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer:
+        'OpenCode 2.x では、@ と入力して @lagune-charter などのコマンドを選び、同じメッセージに続けて入力内容を書きます。OpenCode 1.x では、/lagune-charter のようにコマンド名をそのまま入力するか、/skills から探します。',
+    },
+    {
+      question: 'OpenCode は Lagune の実行前に許可を求めますか？',
+      answer:
+        'いいえ。OpenCode は、エンジンの 2 つのツールである lagune_read と lagune_write を確認なしで実行します。',
+    },
+  ]}
+/>

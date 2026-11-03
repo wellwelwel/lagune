@@ -1,0 +1,90 @@
+---
+id: dashboard
+title: ダッシュボード
+sidebar_label: ダッシュボード
+description: コマンド 1 つで開くローカルのライブビューで、プロジェクトのセキュリティ原則、検出事項、カタログを確認できます。
+keywords:
+  - ダッシュボード
+  - lagune dashboard
+  - lagune ダッシュボード
+  - ライブリロード
+  - ローカル
+  - 検出事項
+  - charter
+  - カタログ
+source_hash: 'e3fe36f3fd68e9cd8c9c13efe05ce019161fc1421ad6e1e8e988eb94c9f8942b'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+サブコマンドを付けずに **Lagune** を直接実行すると、`.lagune/` をインタラクティブなライブビューで確認できます。ランダムなポートでダッシュボードを起動して開きます：
+
+```bash
+npx lagune
+```
+
+- [x] **ライブリロード**
+- [x] **プライベート**かつ**ローカル**
+- [x] 最初の charter から、`.lagune/` の内容をすべて表示
+- [x] ブラウザから直接プロジェクトのカテゴリを**管理**できる
+- [x] `node_modules` も `package.json` も不要 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.webp'
+    alt='Lagune ダッシュボードのセキュリティ原則画面'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.webp'
+    alt='Lagune ダッシュボードの検出事項画面'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.webp'
+    alt='Lagune ダッシュボードの Side Quests 画面'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.webp'
+    alt='Lagune ダッシュボードの検出事項の詳細画面'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.webp'
+    alt='Lagune ダッシュボードのカタログ画面'
+  />
+</div>
+
+:::tip
+
+- 🚪 任意のポートを指定するには `--port` を使います。
+- ⏏️ 停止するには `Ctrl+C` を押します。
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Lagune のダッシュボードはどうやって開きますか？',
+      answer:
+        'プロジェクトのルートで、サブコマンドを付けずに npx lagune を実行します。ランダムなポートで .lagune/ のライブビューを起動し、ブラウザで開きます。',
+    },
+    {
+      question: 'ダッシュボードはプライベートですか？',
+      answer:
+        'はい。自分のマシン上だけで動作し、ほかのコンピューターからはアクセスできないローカルアドレスを使います。',
+    },
+    {
+      question: 'ダッシュボードからプロジェクトを変更できますか？',
+      answer:
+        'ブラウザから変更できるのはカテゴリだけです。それ以外にダッシュボードに表示される内容は、すべて読み取り専用です。',
+    },
+  ]}
+/>

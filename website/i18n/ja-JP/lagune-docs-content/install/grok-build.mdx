@@ -1,0 +1,80 @@
+---
+id: grok-build
+title: 'Grok Build に Lagune をプラグインとしてインストール'
+sidebar_label: Grok Build
+parent: get-started/install
+description: Grok Build に Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
+keywords:
+  - grok build
+  - grok build プラグイン
+  - grok plugin install
+  - lagune インストール
+  - セットアップ
+  - AI セキュリティ
+  - AI エージェント
+source_hash: '793de6857b4003a8fa1ab3c63bf93fe3676d72f44e0e9313ccdca394911167bd'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Grok Build' />
+
+ターミナルからプラグインをインストールします：
+
+```bash
+grok plugin install wellwelwel/lagune@plugin-grok --trust
+```
+
+## 更新
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+grok plugin update lagune
+```
+
+## コマンド
+
+`/lagune-charter` のようにコマンド名をそのまま入力するか、`/lagune:lagune-charter` のようにプラグイン名を付けて入力します。
+
+---
+
+:::info[権限]
+
+エンジンは 2 つのツールで動作します。`lagune_read` はプロジェクトを読み取るだけで、`lagune_write` は `.lagune/` に書き込むだけです。これらを事前に許可するには、`~/.grok/config.toml` に次のルールを追加します：
+
+```toml
+[permission]
+allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
+```
+
+**skills.sh** でインストールした場合など、エンジンが **npx** 経由で動作するときは、`Bash(npx --yes lagune@*)` を許可します。
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'Grok Build に Lagune をインストールするにはどうすればよいですか？',
+      answer:
+        'grok plugin install wellwelwel/lagune@plugin-grok --trust を実行します。',
+    },
+    {
+      question: 'Grok Build で Lagune を更新するにはどうすればよいですか？',
+      answer: 'grok plugin update lagune を実行します。',
+    },
+    {
+      question:
+        'Grok Build で Lagune のコマンドを実行するにはどうすればよいですか？',
+      answer:
+        '/lagune-charter のようにコマンド名をそのまま入力するか、/lagune:lagune-charter のようにプラグイン名を付けて入力します。',
+    },
+    {
+      question: 'Grok Build で、許可を求められずに Lagune を実行できますか？',
+      answer:
+        'はい。Grok Build の設定で MCPTool(lagune__lagune_read) と MCPTool(lagune__lagune_write) を許可します。エンジンが npx 経由で動作する場合は、Bash(npx --yes lagune@*) も許可します。',
+    },
+  ]}
+/>

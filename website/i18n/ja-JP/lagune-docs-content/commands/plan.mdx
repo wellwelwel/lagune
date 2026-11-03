@@ -1,0 +1,92 @@
+---
+id: plan
+title: '/lagune-plan: 検出事項をスコアリングして修正を計画する'
+sidebar_label: 3. Plan
+description: detect が見つけたものを防御計画に変え、各検出事項をカテゴリと CVSS v4.0 スコアで評価して、それぞれに修正を割り当てます。
+source_hash: 'adfed070d605468f2638c18806291967b8e54eb7d2a3c55405be302628740cc3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-plan
+
+🛡️ detect が見つけたものを防御計画に変えます：各検出事項をカテゴリと CVSS v4.0 スコアで評価し、適用する修正を割り当てます。
+
+## 実行方法
+
+<Tabs>
+  <TabItem value="full" label="すべてを計画" default>
+
+```prompt
+/lagune-plan
+```
+
+  </TabItem>
+  <TabItem value="paths" label="パスを指定">
+
+```prompt
+/lagune-plan src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="worry" label="気になる点に絞る">
+
+```prompt
+/lagune-plan 機密データが漏れるおそれのある箇所
+```
+
+  </TabItem>
+</Tabs>
+
+## 仕組み
+
+このフェーズは detect の続きです。システムが何をしていて、それぞれにどんなリスクがあるかは detect がすでに見つけているため、plan はリスクを繰り返し述べるのではなく、その深刻さを評価し、どう対処するかを決めます。plan はコードを一切読まないため、どの修正も必ず detect が実際に検出したものを対象にすることになります。評価は CVSS v4.0 の方法に沿って行い、各検出事項にカテゴリ、CVSS v4.0 ベクトル（detect と charter が捉えた内容から導き出し、[`cvss` フック](/docs/hooks/cvss) でスコアを算出したもの）、そのスコアが該当する優先度の区分を付けます。各修正には、それが守る charter の原則も記されます。
+
+たとえば：
+
+- **ファイルのアップロード**（優先度：**緊急**）
+  - _カテゴリ_：ファイルの無制限アップロード（CWE-434）。
+  - _CVSS_：CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N（9.3、緊急）。
+  - _この優先度の理由_：誰でもインターネット経由でアップロード機能にアクセスでき、しかも顧客のファイルを保存するサーバー上にあります。
+  - _守る原則_：III. すべての入力は、検証されるまで信頼しない。
+  - _修正_：ファイルの実際の種類とサイズを確認し、保存時に名前を変更し、アップロードされたファイルはコードとして実行できない場所に保存します。
+
+こうして、評価と優先順位付けが済んだ修正のリストが手に入ります。各修正は検出事項に紐づいており、次のフェーズですぐに適用できます。スコアは推定ではなく、必ず計算で求めます。ベクトルにはプロジェクトの露出度と影響の大きさが Environmental メトリクスとして含まれているため、誰でも FIRST や NVD の計算ツールに貼り付けて、同じスコアを導き出せます。
+
+:::tip
+
+- detect の結果だけを土台にしています。detect で洗い出していないファイルや懸念がある場合は、先にそれを対象に `/lagune-detect` を実行するよう案内します。
+- 再実行すると計画が更新され、完了した修正は外れ、新しい修正が加わります。
+- 防御計画は `.lagune/memory/plan.md` にあります。
+
+:::
+
+:::warning[detect に依存]
+plan は [`/lagune-detect`](/docs/commands/detect) がすでに洗い出した内容だけをもとに動くため、先に detect を実行してください。
+:::
+
+## 次のステップ
+
+計画を適用しましょう：[`/lagune-harden`](/docs/commands/harden)。
+
+<Faq
+  items={[
+    {
+      question: 'Lagune は脆弱性の優先順位をどう決めますか？',
+      answer:
+        '/lagune-plan が、各検出事項をカテゴリと、cvss フックが算出した CVSS v4.0 スコアで評価し、適用する修正を割り当てます。',
+    },
+    {
+      question: 'Lagune は CVSS v4.0 を使っていますか？',
+      answer:
+        'はい。各検出事項に CVSS v4.0 のベクトルとスコアが付きます。スコアは cvss フックが FIRST の計算ツールと同じ計算式で算出するため、誰でもそこにベクトルを貼り付けて、スコアを再計算できます。',
+    },
+    {
+      question: 'plan はコードを読みますか？',
+      answer:
+        'いいえ。plan はコードを一切読まないため、どの修正も必ず detect が実際に検出したものを対象にすることになります。',
+    },
+  ]}
+/>

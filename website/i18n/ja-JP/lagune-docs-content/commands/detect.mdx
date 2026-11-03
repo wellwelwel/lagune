@@ -1,0 +1,93 @@
+---
+id: detect
+title: '/lagune-detect: システムとそのリスクを洗い出す'
+sidebar_label: 2. Detect
+description: コードを読み取り、システムが何をしているのか、どこにリスクがあるのかを洗い出します。
+source_hash: 'c6b18e96f6fccb85b362fd7a7af5576c5cc332d8fdf2b8ef3dff04dac3d647c5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-detect
+
+🔬 システムが実際に何をしているのか、どこにリスクがあるのかを突き止めます。
+
+detect はコードを読み取り、実際に見つけたものだけを、後続のフェーズが必要とする根拠とともに記録します。根幹となる指針は、創作ではなく検出です。
+
+## 実行方法
+
+<Tabs>
+  <TabItem value="full" label="フルスキャン" default>
+
+```prompt
+/lagune-detect
+```
+
+  </TabItem>
+  <TabItem value="paths" label="パスを指定">
+
+```prompt
+/lagune-detect src/routes/ src/auth.ts
+```
+
+  </TabItem>
+  <TabItem value="concern" label="懸念を伝える">
+
+```prompt
+/lagune-detect 顧客データが外部に漏れることがないか確認してください
+```
+
+  </TabItem>
+</Tabs>
+
+## 洗い出す内容
+
+**Lagune** はコードを読み取り、見つけたものを洗い出します。各検出事項には、それが何か、なぜ重要か、そしてその根拠が含まれます。たとえば：
+
+- **ファイルのアップロード**：システムがユーザーからファイルを受け付けています。
+  - _重要な理由_：画像を装ったファイルに、悪意のあるコードが隠されているおそれがあります。
+  - _根拠_：`POST /upload` のハンドラーが、ファイルの実際の種類を確認せず、クライアントが送ってきた MIME タイプをそのまま信用しています。
+- **ログインとセッション**：ユーザーはサインインして自分のアカウントにアクセスします。
+  - _重要な理由_：セッションの扱いが甘いと、アカウントが他人に乗っ取られるおそれがあります。
+  - _根拠_：セッションを発行するロジックで、有効期限を設定しないままセッションが発行されています。
+
+その過程で、detect はプロジェクトの [カタログ](/docs/catalog) にあるすべての専門知識をコードと照らし合わせて判定し、前提となるコンテキストがコードに存在するものを適用して、**Applied specializations** の下に記録します。harden と verify は、このリストを再利用します。
+
+こうして、システムが何をしていて、どこにリスクがあるのかを示す明確なマップが手に入り、次のステップですぐに対処できます。
+
+:::tip
+
+- 再実行するとマップが更新され、解決済みの検出事項は外れ、新しい検出事項が加わります。
+- detect のマップは `.lagune/memory/detect.md` にあります。
+
+:::
+
+## 次のステップ
+
+マップを計画に変えましょう：[`/lagune-plan`](/docs/commands/plan)。
+
+<Faq
+  items={[
+    {
+      question: '/lagune-detect は何をしますか？',
+      answer:
+        'コードを読み取り、システムが何をしているのか、どこにリスクがあるのかを洗い出し、実際に見つけたものだけを記録します。指針は、創作ではなく検出です。',
+    },
+    {
+      question: 'Lagune の検出事項とは何ですか？',
+      answer:
+        '検出事項とは、検出されたリスク 1 件分のことで、それが何か、なぜ重要か、コード上の根拠を含みます。plan、harden、verify が引き継いでいく、追跡の単位です。',
+    },
+    {
+      question: 'detect のマップはどこに保存されますか？',
+      answer: '.lagune/memory/detect.md に保存されます。',
+    },
+    {
+      question: 'detect はどの専門知識を使いますか？',
+      answer:
+        'プロジェクトのカタログにあるすべての専門知識が、コードと照らし合わせて判定されます。detect は前提となるコンテキストが存在するものを適用し、Applied specializations の下に記録します。',
+    },
+  ]}
+/>
