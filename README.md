@@ -15,7 +15,7 @@
 
 > [!NOTE]
 >
-> Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lagune)! It helps more people discover the project.
+> Love **Lagune**? [**Give us a ⭐ on GitHub!**](https://github.com/wellwelwel/lagune) It helps more people discover the project.
 
 ---
 
