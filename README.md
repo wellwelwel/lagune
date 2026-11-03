@@ -107,314 +107,23 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 
 </td>
 </tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/cursor"><b>Cursor</b></a></td>
-</tr>
-<tr>
-<td>
-
-- Open **Customize**.
-- Select **From GitHub Repository** and enter `https://github.com/wellwelwel/lagune`.
-- Select **Install** on **Lagune**.
-
-</td>
-<td>
-
-- Open **Customize**.
-- Select **Refresh** on the `lagune` marketplace.
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/cursor"><b>Cursor CLI</b></a></td>
-</tr>
-<tr>
-<td>
-
-- Add the marketplace:
-
-  ```bash
-  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
-  ```
-
-- Type `/plugins` in an `agent` session.
-- Install **Lagune**.
-
-</td>
-<td>
-
-- Replace the marketplace:
-
-  ```bash
-  agent plugin marketplace remove lagune
-  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
-  ```
-
-- Type `/plugins` in an `agent` session.
-- Install **Lagune** again.
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/github-copilot-cli"><b>GitHub Copilot</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-copilot plugin marketplace add wellwelwel/lagune
-copilot plugin install lagune@lagune
-```
-
-</td>
-<td>
-
-```bash
-copilot plugin marketplace update lagune
-copilot plugin update lagune@lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/opencode"><b>OpenCode</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-opencode plugin add lagune
-```
-
-On **OpenCode** 1.x, run `opencode plugin lagune` instead.
-
-</td>
-<td>
-
-```bash
-opencode plugin update lagune
-opencode reload
-```
-
-On **OpenCode** 1.x, install the new release over the old one with `--force`.
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/devin.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/devin-cli"><b>Devin for Terminal</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-devin auth login
-devin plugins install wellwelwel/lagune
-```
-
-</td>
-<td>
-
-```bash
-devin plugins update lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/droid.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/factory-droid"><b>Factory Droid</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-droid plugin marketplace add wellwelwel/lagune
-droid plugin install lagune@lagune
-```
-
-</td>
-<td>
-
-```bash
-droid plugin marketplace update lagune
-droid plugin update lagune@lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/grok.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/grok-build"><b>Grok Build</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-grok plugin install wellwelwel/lagune@plugin-grok --trust
-```
-
-</td>
-<td>
-
-```bash
-grok plugin update lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/qwen-code"><b>Qwen Code</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-qwen extensions install lagune
-```
-
-</td>
-<td>
-
-```bash
-qwen extensions update lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/kimi.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/kimi-code"><b>Kimi Code</b></a></td>
-</tr>
-<tr>
-<td>
-
-From a **Kimi Code** session, choose **Trust and install** when asked:
-
-```text
-/plugins install https://github.com/wellwelwel/lagune
-/new
-```
-
-</td>
-<td>
-
-Install it again from a **Kimi Code** session:
-
-```text
-/plugins install https://github.com/wellwelwel/lagune
-/new
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/muse.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/muse-code"><b>Muse Code</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-muse plugins marketplace add lagune wellwelwel/lagune
-muse plugins install lagune@lagune
-```
-
-</td>
-<td>
-
-```bash
-muse plugins marketplace update lagune
-muse plugins remove lagune
-muse plugins install lagune@lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/pi"><b>Pi</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-pi install npm:lagune
-```
-
-</td>
-<td>
-
-```bash
-pi update npm:lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/hermes.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/hermes-agent"><b>Hermes Agent</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-hermes plugins install wellwelwel/lagune --enable
-```
-
-</td>
-<td>
-
-```bash
-hermes plugins update lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/gemini-cli"><b>Gemini CLI</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-gemini extensions install https://github.com/wellwelwel/lagune
-```
-
-</td>
-<td>
-
-```bash
-gemini extensions update lagune
-```
-
-</td>
-</tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/universal"><b>Universal</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-npx skills add wellwelwel/lagune
-```
-
-</td>
-<td>
-
-```bash
-npx skills update
-```
-
-</td>
-</tr>
 </table>
 
----
+For any other agent, follow its install page:
 
-#### › Migrate from `lagune init`
-
-A project set up with `npx lagune init` has a `.lagune/manifest.json` and keeps working as it is until `v1.x`. To move it to the new **Lagune** approach, keeping your charter, artifacts, tracking, and own specializations, commit your work and run from the project root:
-
-```bash
-npx lagune migrate
-```
-
-Then commit what it changed, install **Lagune** as above, and follow the rest of the move in [**Migrate**](https://lagune.ai/docs/commands/migrate).
+- <picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> [**Cursor**](https://lagune.ai/docs/install/cursor)
+- <picture><img src="./.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> [**GitHub Copilot**](https://lagune.ai/docs/install/github-copilot-cli)
+- <picture><img src="./.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> [**OpenCode**](https://lagune.ai/docs/install/opencode)
+- <picture><img src="./.github/readme/assets/agents/devin.svg" width="20" align="absmiddle" /></picture> [**Devin for Terminal**](https://lagune.ai/docs/install/devin-cli)
+- <picture><img src="./.github/readme/assets/agents/droid.svg" width="20" align="absmiddle" /></picture> [**Factory Droid**](https://lagune.ai/docs/install/factory-droid)
+- <picture><img src="./.github/readme/assets/agents/grok.svg" width="20" align="absmiddle" /></picture> [**Grok Build**](https://lagune.ai/docs/install/grok-build)
+- <picture><img src="./.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> [**Qwen Code**](https://lagune.ai/docs/install/qwen-code)
+- <picture><img src="./.github/readme/assets/agents/kimi.svg" width="20" align="absmiddle" /></picture> [**Kimi Code**](https://lagune.ai/docs/install/kimi-code)
+- <picture><img src="./.github/readme/assets/agents/muse.svg" width="20" align="absmiddle" /></picture> [**Muse Code**](https://lagune.ai/docs/install/muse-code)
+- <picture><img src="./.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> [**Pi**](https://lagune.ai/docs/install/pi)
+- <picture><img src="./.github/readme/assets/agents/hermes.svg" width="20" align="absmiddle" /></picture> [**Hermes Agent**](https://lagune.ai/docs/install/hermes-agent)
+- <picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> [**Gemini CLI**](https://lagune.ai/docs/install/gemini-cli)
+- <picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal**](https://lagune.ai/docs/install/universal)
 
 ---
 
@@ -500,6 +209,18 @@ It serves a dashboard and opens it on a random port:
 >
 > - 🚪 Use `--port` to specify a custom port.
 > - ⏏️ Press `Ctrl+C` to stop.
+
+---
+
+#### › Migrate from `lagune init`
+
+A project set up with `npx lagune init` has a `.lagune/manifest.json` and keeps working as it is until `v1.x`. To move it to the new **Lagune** approach, keeping your charter, artifacts, tracking, and own specializations, commit your work and run from the project root:
+
+```bash
+npx lagune migrate
+```
+
+Then commit what it changed, install **Lagune** as above, and follow the rest of the move in [**Migrate**](https://lagune.ai/docs/commands/migrate).
 
 ---
 
