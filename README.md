@@ -26,8 +26,8 @@ Pick your agent:
 
 <table>
 <tr>
-<th width="50%">Install</th>
-<th width="50%">Update</th>
+<th width="50%" align="left">Install</th>
+<th width="50%" align="left">Update</th>
 </tr>
 <tr>
 <td colspan="2"><picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Code</b></a></td>
