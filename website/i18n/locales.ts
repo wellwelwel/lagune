@@ -29,24 +29,6 @@ export const LOCALES: SiteLocale[] = [
     status: 'published',
   },
   {
-    code: 'zh-CN',
-    label: '简体中文',
-    flag: '/img/flags/cn.svg',
-    status: 'published',
-  },
-  {
-    code: 'ja-JP',
-    label: '日本語',
-    flag: '/img/flags/jp.svg',
-    status: 'published',
-  },
-  {
-    code: 'ko-KR',
-    label: '한국어',
-    flag: '/img/flags/kr.svg',
-    status: 'published',
-  },
-  {
     code: 'es-ES',
     label: 'Español (España)',
     flag: '/img/flags/es.svg',
@@ -86,6 +68,24 @@ export const LOCALES: SiteLocale[] = [
     code: 'ru-RU',
     label: 'Русский',
     flag: '/img/flags/ru.svg',
+    status: 'published',
+  },
+  {
+    code: 'zh-CN',
+    label: '简体中文',
+    flag: '/img/flags/cn.svg',
+    status: 'published',
+  },
+  {
+    code: 'ja-JP',
+    label: '日本語',
+    flag: '/img/flags/jp.svg',
+    status: 'published',
+  },
+  {
+    code: 'ko-KR',
+    label: '한국어',
+    flag: '/img/flags/kr.svg',
     status: 'published',
   },
 ];
