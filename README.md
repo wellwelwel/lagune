@@ -9,13 +9,7 @@
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
 - **Lagune** works with projects in **any programming language** ✨
-- **Lagune** adapts to your environment, whether it is a **new project** or an **existing project**.
-
----
-
-> [!NOTE]
->
-> Love **Lagune**? [**Give us a ⭐ on GitHub!**](https://github.com/wellwelwel/lagune) It helps more people discover the project.
+- [**Give us a ⭐ on GitHub:**](https://github.com/wellwelwel/lagune) it helps more people discover the project.
 
 ---
 
@@ -23,12 +17,12 @@
 
 ### Documentation
 
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/us.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/docs">English</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/br.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/pt-BR/docs">Português (Brasil)</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/es.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/es-ES/docs">Español (España)</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/de.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/de-DE/docs">Deutsch</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/cn.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/zh-CN/docs">简体中文</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/jp.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/ja-JP/docs">日本語</a>
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/us.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/docs"><b>English</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/br.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/pt-BR/docs"><b>Português (Brasil)</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/es.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/es-ES/docs"><b>Español (España)</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/de.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/de-DE/docs"><b>Deutsch</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/cn.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/zh-CN/docs"><b>简体中文</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/jp.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/ja-JP/docs"><b>日本語</b></a>
 
 ---
 
