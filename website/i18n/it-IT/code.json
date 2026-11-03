@@ -135,10 +135,6 @@
     "message": "EN",
     "description": "The badge on a search result that is still in English"
   },
-  "docs.shell.backHome": {
-    "message": "Torna alla home",
-    "description": "The label of the compact link to the home page"
-  },
   "docs.shell.closeNavigation": {
     "message": "Chiudi la navigazione",
     "description": "The label of the button that closes the docs navigation drawer"

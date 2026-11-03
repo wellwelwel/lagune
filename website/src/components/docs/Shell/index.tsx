@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import { translate } from '@docusaurus/Translate';
 import { LanguageSwitcher } from '@site/src/components/LanguageSwitcher';
@@ -14,9 +13,6 @@ import { toggleDocsTheme } from '../theme';
 
 const ICON_BTN =
   'relative grid size-11.5 flex-none cursor-pointer max-sm:size-10 place-items-center rounded-full border-0 bg-surface text-[1.2rem] text-ink-2 no-underline shadow-card transition-[color,box-shadow] hover:text-accent hover:no-underline hover:shadow-pop';
-
-const PILL =
-  'inline-flex h-11.5 flex-none items-center gap-2 rounded-full bg-surface px-4.5 text-[0.85rem] font-bold text-ink-2 no-underline shadow-card transition-[color,box-shadow] hover:text-accent hover:no-underline hover:shadow-pop';
 
 export const DocsShell = ({
   children,
@@ -96,7 +92,6 @@ export const DocsShell = ({
               </button>
               <QuickSearch />
               <div className='flex items-center gap-2 sm:gap-3'>
-                <LanguageSwitcher tone='docs' />
                 <button
                   className={ICON_BTN}
                   type='button'
@@ -145,41 +140,7 @@ export const DocsShell = ({
                   </span>
                 </a>
                 <span className='h-7.5 w-px bg-line-2 max-md:hidden' />
-                <Link className={clsx(PILL, 'max-md:hidden')} to='/'>
-                  <img
-                    className='size-4.5 flex-none object-contain'
-                    src='/img/icons/wave.svg'
-                    alt='Lagune'
-                    aria-hidden
-                    width={18}
-                    height={18}
-                  />
-                  {translate({
-                    id: 'common.home',
-                    message: 'Home',
-                    description:
-                      'The name of the home page, in links and breadcrumbs',
-                  })}
-                </Link>
-                <Link
-                  className={clsx(ICON_BTN, 'md:hidden')}
-                  to='/'
-                  aria-label={translate({
-                    id: 'docs.shell.backHome',
-                    message: 'Back to the home page',
-                    description:
-                      'The label of the compact link to the home page',
-                  })}
-                >
-                  <img
-                    className='size-4.75 object-contain'
-                    src='/img/icons/wave.svg'
-                    alt='Lagune'
-                    aria-hidden
-                    width={19}
-                    height={19}
-                  />
-                </Link>
+                <LanguageSwitcher tone='docs' />
               </div>
             </header>
             <div className='mx-auto w-full max-w-360 flex-1 px-4 pt-2 pb-7 sm:px-7 min-[1280px]:grid min-[1280px]:grid-cols-[minmax(0,1fr)_300px] min-[1280px]:items-start min-[1280px]:gap-7'>

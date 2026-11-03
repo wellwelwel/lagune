@@ -25,11 +25,13 @@ const TONES: Record<
     menu: string;
     item: string;
     current: string;
-    entrance: string;
+    opened: string;
+    closed: string;
   }
 > = {
   docs: {
-    entrance: 'lagune-docs-route-fade',
+    opened: 'duration-250 ease-out',
+    closed: 'invisible opacity-0 duration-150 ease-in',
     button:
       'inline-flex h-11.5 flex-none cursor-pointer items-center justify-center gap-2 rounded-full border-0 bg-surface text-[0.85rem] font-bold text-ink-2 shadow-card transition-[color,box-shadow] hover:text-accent hover:shadow-pop max-sm:size-10 sm:pr-4 sm:pl-3.5',
     flag: 'size-4.5',
@@ -39,11 +41,13 @@ const TONES: Record<
       'bg-accent-soft text-accent hover:bg-accent-soft hover:text-accent',
   },
   canvas: {
-    entrance: 'lagune-menu-pop',
+    opened: 'duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]',
+    closed:
+      'invisible -translate-y-1.5 scale-97 opacity-0 duration-150 ease-in',
     button:
       'inline-flex h-10 cursor-pointer items-center justify-center gap-[10px] rounded-xl border-0 bg-transparent px-1 text-[12.75px] font-semibold tracking-[-0.01em] text-[#a1b1e7] transition-colors duration-200 ease-out hover:text-ink',
     flag: 'size-4',
-    menu: 'rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)]',
+    menu: 'origin-top-right rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)]',
     item: 'flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] text-ink no-underline transition-colors duration-200 ease-out hover:bg-white/[0.06] hover:text-ink',
     current: 'bg-accent/15 text-accent hover:bg-accent/15 hover:text-accent',
   },
@@ -137,8 +141,15 @@ export const LanguageSwitcher = ({
   const options = useLanguageOptions();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const hoveringRef = useRef(false);
   const menuId = useId();
   const current = options.find((option) => option.current);
+  const hover = (pointerType: string, hovering: boolean) => {
+    if (pointerType !== 'mouse') return;
+
+    hoveringRef.current = hovering;
+    setOpen(hovering);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -167,7 +178,12 @@ export const LanguageSwitcher = ({
   if (options.length < 2 || current === undefined) return null;
 
   return (
-    <div ref={rootRef} className={clsx('relative flex-none', className)}>
+    <div
+      ref={rootRef}
+      className={clsx('relative flex-none', className)}
+      onPointerEnter={(event) => hover(event.pointerType, true)}
+      onPointerLeave={(event) => hover(event.pointerType, false)}
+    >
       <button
         type='button'
         className={TONES[tone].button}
@@ -182,30 +198,29 @@ export const LanguageSwitcher = ({
         )}
         aria-expanded={open}
         aria-controls={menuId}
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => setOpen((value) => hoveringRef.current || !value)}
       >
         <FlagIcon src={current.flag} className={TONES[tone].flag} />
         <span className={clsx(tone === 'docs' && 'max-sm:hidden')}>
           {shortName(current.htmlLang)}
         </span>
       </button>
-      {open && (
-        <nav
-          id={menuId}
-          aria-label={languageLabel()}
-          className={clsx(
-            'absolute top-[calc(100%+8px)] right-0 z-40 flex min-w-48 flex-col gap-0.5',
-            TONES[tone].entrance,
-            TONES[tone].menu
-          )}
-        >
-          <LanguageLinks
-            options={options}
-            tone={tone}
-            onSelect={() => setOpen(false)}
-          />
-        </nav>
-      )}
+      <nav
+        id={menuId}
+        aria-label={languageLabel()}
+        inert={!open}
+        className={clsx(
+          'absolute top-[calc(100%+8px)] right-0 z-40 flex min-w-48 flex-col gap-0.5 transition-[opacity,translate,scale,visibility] before:absolute before:inset-x-0 before:bottom-full before:h-2.5 motion-reduce:transition-none',
+          TONES[tone].menu,
+          open ? TONES[tone].opened : TONES[tone].closed
+        )}
+      >
+        <LanguageLinks
+          options={options}
+          tone={tone}
+          onSelect={() => setOpen(false)}
+        />
+      </nav>
     </div>
   );
 };
