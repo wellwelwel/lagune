@@ -50,6 +50,42 @@ claude plugin update lagune@lagune
 </td>
 </tr>
 <tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Code Extension</b></a></td>
+</tr>
+<tr>
+<td>
+
+- Type `/plugins`.
+- Add `wellwelwel/lagune` on the **Marketplaces** tab.
+- Install `lagune` on the **Plugins** tab.
+
+</td>
+<td>
+
+- Type `/plugins`.
+- Open the **Marketplaces** tab.
+- Select the refresh icon on `lagune`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Desktop</b></a></td>
+</tr>
+<tr>
+<td>
+
+- Install **Lagune** for yourself in **Claude Code** or its extension.
+- Start a new session in the desktop app.
+
+</td>
+<td>
+
+- Update **Lagune** in **Claude Code** or its extension.
+- Start a new session in the desktop app.
+
+</td>
+</tr>
+<tr>
 <td colspan="2"><picture><img src="./.github/readme/assets/agents/codex.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/codex"><b>Codex</b></a></td>
 </tr>
 <tr>
@@ -94,14 +130,15 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 <tr>
 <td>
 
-- Open **Customize**
+- Open **Customize**.
 - Select **From GitHub Repository** and enter `https://github.com/wellwelwel/lagune`.
-- Then select **Install** on **Lagune**.
+- Select **Install** on **Lagune**.
 
 </td>
 <td>
 
-Select **Refresh** on the `lagune` marketplace in **Customize**.
+- Open **Customize**.
+- Select **Refresh** on the `lagune` marketplace.
 
 </td>
 </tr>
@@ -111,21 +148,27 @@ Select **Refresh** on the `lagune` marketplace in **Customize**.
 <tr>
 <td>
 
-```bash
-agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
-```
+- Add the marketplace:
 
-Then type `/plugins` in an `agent` session and install **Lagune**.
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Type `/plugins` in an `agent` session.
+- Install **Lagune**.
 
 </td>
 <td>
 
-```bash
-agent plugin marketplace remove lagune
-agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
-```
+- Replace the marketplace:
 
-Then type `/plugins` in an `agent` session and install **Lagune** again.
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Type `/plugins` in an `agent` session.
+- Install **Lagune** again.
 
 </td>
 </tr>

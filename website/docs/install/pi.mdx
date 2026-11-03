@@ -17,8 +17,13 @@ keywords:
 
 import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
 
 <InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
 
 Install the package from your terminal:
 
@@ -26,22 +31,40 @@ Install the package from your terminal:
 pi install npm:lagune
 ```
 
-**Pi** runs the engine's two tools without asking: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`.
+  </TabItem>
+  <TabItem value="github" label="GitHub">
 
-To install the latest commit from **GitHub** instead, which runs the engine through **npx**, run:
+Install the latest commit from **GitHub**, which runs the engine through **npx**:
 
 ```bash
 pi install git:github.com/wellwelwel/lagune
 ```
 
+  </TabItem>
+</Tabs>
+
 ## Update
 
-To update **Lagune**, run the command that matches your install:
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+To update **Lagune**, run:
 
 ```bash
 pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+To update **Lagune**, run:
+
+```bash
 pi update git:github.com/wellwelwel/lagune
 ```
+
+  </TabItem>
+</Tabs>
 
 `pi update --extensions` updates every package you installed, while `pi update` alone updates only **Pi**.
 

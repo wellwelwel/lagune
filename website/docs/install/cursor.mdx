@@ -17,29 +17,58 @@ keywords:
 
 import { Faq } from '@site/src/components/docs/Faq';
 import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
 
 <InstallHeader name='Cursor' />
 
-In **Cursor**, open **Customize**, select **From GitHub Repository**, and enter `https://github.com/wellwelwel/lagune`. Then select **Install** on **Lagune** and choose a project or user scope.
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
 
-In the **Cursor CLI**, add the marketplace from your terminal, then install **Lagune** from `/plugins` in an `agent` session:
+- Open **Customize**.
+- Select **From GitHub Repository** and enter `https://github.com/wellwelwel/lagune`.
+- Select **Install** on **Lagune** and choose a project or user scope.
 
-```bash
-agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
-```
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Add the marketplace from your terminal:
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Type `/plugins` in an `agent` session.
+- Install **Lagune**.
 
 If **Lagune** is already installed in **Claude Code**, the **Cursor CLI** loads it from there.
 
+</TabItem>
+</Tabs>
+
 ## Update
 
-In **Cursor**, select **Refresh** on the `lagune` marketplace in **Customize**.
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
 
-In the **Cursor CLI**, replace the marketplace, then install **Lagune** again from `/plugins` in an `agent` session:
+- Open **Customize**.
+- Select **Refresh** on the `lagune` marketplace.
 
-```bash
-agent plugin marketplace remove lagune
-agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
-```
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Replace the marketplace from your terminal:
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Type `/plugins` in an `agent` session.
+- Install **Lagune** again.
+
+</TabItem>
+</Tabs>
 
 ## Commands
 
