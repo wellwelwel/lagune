@@ -5,6 +5,15 @@
       "include-component-in-tag": false,
       "package-name": "lagune",
       "release-type": "node",
+      "exclude-paths": [
+        ".claude",
+        ".github",
+        ".vscode",
+        "scripts",
+        "test",
+        "tools",
+        "website"
+      ],
       "extra-files": [
         {
           "type": "json",
