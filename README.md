@@ -9,16 +9,17 @@
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
 
 - **Lagune** works with projects in **any programming language** ✨
+- **Lagune** adapts to your environment, whether it is a **new project** or an **existing project**.
 
 ---
 
-Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lagune)! It helps more people discover the project.
+> [!NOTE]
+>
+> Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lagune)! It helps more people discover the project.
 
 ---
 
 ## Get Started
-
-**Lagune** adapts to your environment, whether it is a new project or an existing one.
 
 ### Install and Update
 
@@ -90,7 +91,7 @@ codex plugin marketplace upgrade lagune
 </tr>
 </table>
 
-For any other agent, follow its install page:
+See the [**install page**](https://lagune.ai/docs) for detailed instructions:
 
 - <picture><img src="./.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> [**Antigravity**](https://lagune.ai/docs/install/antigravity-cli)
 - <picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> [**Cursor**](https://lagune.ai/docs/install/cursor)
