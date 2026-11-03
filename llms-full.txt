@@ -175,7 +175,7 @@ No. Lagune reads code and never runs your system or sends it crafted requests. V
 
 ### Does Lagune replace a Pentest (penetration test)?
 
-No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow, to detect the concerns, so what a professional reports gets planned, hardened, and verified.
+No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow as concerns you hand to detect, so what a professional reports gets planned, hardened, and verified.
 
 ## Security Policy
 
@@ -3110,7 +3110,7 @@ It keys on provenance, not on the value contents. High-confidence formats (provi
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-11-02
+Last updated: 2026-11-03
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -3185,7 +3185,7 @@ Execute the following commands, one by one: `/lagune-charter`, `/lagune-detect`,
 
 ## Loop
 
-When `/lagune-verify` reproves one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
+When `/lagune-verify` rejects one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
 
 ## Important
 
@@ -3236,7 +3236,7 @@ In the `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, and `/lagune-verify` 
 
 ## Loop
 
-When `/lagune-verify` reproves one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
+When `/lagune-verify` rejects one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
 
 ## Important
 
@@ -3480,11 +3480,11 @@ flowchart TB
     harden["4 · harden (remediate)<br/>reads: the defense plan, and the code it touches<br/>writes: the code, and the hardening record<br/>the only phase that changes code, one fix at a time, the smallest change that holds"]
     verify["5 · verify (verify)<br/>reads: the code, and the hardening record<br/>writes: each open verdict onto the hardening record<br/>the confrontation of code against record, statically, never softened"]
     charter --> detect --> plan --> harden --> verify
-    verify -.->|"reproved: reopened work for harden,<br/>re-applied against the recorded reason"| harden
+    verify -.->|"rejected: reopened work for harden,<br/>re-applied against the recorded reason"| harden
     verify -.->|"closure: stands what it proved closed<br/>down across the whole chain,<br/>one line in the history"| detect
 ```
 
-**Figure 1.** The five-phase flow: what each phase reads, what it writes, and its load-bearing invariant. Verify drives both returns: a reproved control reopens harden, and a proven-closed finding is stood down across the chain, one line in the history.
+**Figure 1.** The five-phase flow: what each phase reads, what it writes, and its load-bearing invariant. Verify drives both returns: a rejected control reopens harden, and a proven-closed finding is stood down across the chain, one line in the history.
 
 The separation of duties is the contribution. Because each phase has one job, a failure mode is contained to one place, and the reader can trust what each artifact claims.
 
@@ -3510,7 +3510,7 @@ Harden is the only phase that changes code, so it proceeds with caution. Whether
 
 ### verify (verify)
 
-Verify verifies each applied control by reading the code and confronting it with what harden recorded. The verification is that confrontation, code against record, and it is static: it confirms a control is present and correct in the code, not that the control holds under attack on a running system. That runtime check, the kind that executes real or simulated attacks against the live system, is out of scope by design. Verify returns one of three verdicts: risk closed, risk not closed, or cannot tell from the code. It produces no artifact of its own: harden and verify share the hardening record, harden owning what was done and verify owning the verdict and its reason, and neither ever writes the other's fields. A reproved control is reopened work for harden, whose next run treats the verdict as overriding its own reading of the code and re-applies against the exact gap the reason names. Verify trusts the code over the record, because a record can claim more than the code delivers. It is read-only on the user's code, and it never softens a verdict to match the record. A control can be present and still leave the risk reachable another way, and in that case the honest verdict is "risk not closed." If, while reading, verify notices a security problem the detect map never covered, it does not invent a verdict for it, since detection is detect's job: it surfaces the problem and routes the user back to detect, so the finding enters through the same flow rather than bypassing it.
+Verify verifies each applied control by reading the code and confronting it with what harden recorded. The verification is that confrontation, code against record, and it is static: it confirms a control is present and correct in the code, not that the control holds under attack on a running system. That runtime check, the kind that executes real or simulated attacks against the live system, is out of scope by design. Verify returns one of three verdicts: risk closed, risk not closed, or cannot tell from the code. It produces no artifact of its own: harden and verify share the hardening record, harden owning what was done and verify owning the verdict and its reason, and neither ever writes the other's fields. A rejected control is reopened work for harden, whose next run treats the verdict as overriding its own reading of the code and re-applies against the exact gap the reason names. Verify trusts the code over the record, because a record can claim more than the code delivers. It is read-only on the user's code, and it never softens a verdict to match the record. A control can be present and still leave the risk reachable another way, and in that case the honest verdict is "risk not closed." If, while reading, verify notices a security problem the detect map never covered, it does not invent a verdict for it, since detection is detect's job: it surfaces the problem and routes the user back to detect, so the finding enters through the same flow rather than bypassing it.
 
 > **Worked thread: file uploads.** A single finding shows the spine end to end.
 >
@@ -4028,7 +4028,7 @@ When verify proves a risk closed, the finding is stood down: removed from the wh
 > The JSON Schema for a Lagune project's configs, for autocompletion and validation in your editor, following the current Lagune or pinned to a version.
 
 Canonical: https://lagune.ai/docs/references/configs-schema
-Last updated: 2026-10-27
+Last updated: 2026-11-03
 
 `.lagune/configs.json` records the [**categories**](https://lagune.ai/docs/categories) a project uses and indexes its own [**specializations**](https://lagune.ai/docs/catalog). Its JSON Schema lets your editor autocomplete each field and flag a typo or an unknown category as you edit the file.
 
@@ -4047,7 +4047,7 @@ This address always follows the current **Lagune**. A file written before **Lagu
 
 ## Pin a version
 
-Every **Lagune** release from 0.16.0 onward carries the schema as it was in that version, published on **npm** and served by **jsDelivr**. To pin one, replace `$schema` with the version after `lagune@`:
+Every **Lagune** release from 0.16.0 onward carries the schema as it was in that version, published on **npm** and served by **jsDelivr**. To pin one, put the version after `lagune@` in the `$schema` address:
 
 ```json
 {
@@ -4654,7 +4654,7 @@ A project with a manifest keeps working as it is until `v1.x`: `npx lagune` hand
    npx lagune migrate
    ```
 
-2. Commit what it changed on its own, so the move stays one reviewable change.
+2. Commit only what it changed, so the move stays one reviewable change.
 3. Install the commands for your agent, as the [install page](https://lagune.ai/docs) shows.
 4. If the project already has a detect, plan, or harden artifact, ask [`/lagune-repair`](https://lagune.ai/docs/commands/repair) to reconcile the old references in them and in your own specializations:
 

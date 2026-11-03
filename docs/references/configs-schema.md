@@ -3,7 +3,7 @@
 > The JSON Schema for a Lagune project's configs, for autocompletion and validation in your editor, following the current Lagune or pinned to a version.
 
 Canonical: https://lagune.ai/docs/references/configs-schema
-Last updated: 2026-10-27
+Last updated: 2026-11-03
 
 `.lagune/configs.json` records the [**categories**](https://lagune.ai/docs/categories) a project uses and indexes its own [**specializations**](https://lagune.ai/docs/catalog). Its JSON Schema lets your editor autocomplete each field and flag a typo or an unknown category as you edit the file.
 
@@ -22,7 +22,7 @@ This address always follows the current **Lagune**. A file written before **Lagu
 
 ## Pin a version
 
-Every **Lagune** release from 0.16.0 onward carries the schema as it was in that version, published on **npm** and served by **jsDelivr**. To pin one, replace `$schema` with the version after `lagune@`:
+Every **Lagune** release from 0.16.0 onward carries the schema as it was in that version, published on **npm** and served by **jsDelivr**. To pin one, put the version after `lagune@` in the `$schema` address:
 
 ```json
 {

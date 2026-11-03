@@ -19,7 +19,7 @@ A project with a manifest keeps working as it is until `v1.x`: `npx lagune` hand
    npx lagune migrate
    ```
 
-2. Commit what it changed on its own, so the move stays one reviewable change.
+2. Commit only what it changed, so the move stays one reviewable change.
 3. Install the commands for your agent, as the [install page](https://lagune.ai/docs) shows.
 4. If the project already has a detect, plan, or harden artifact, ask [`/lagune-repair`](https://lagune.ai/docs/commands/repair) to reconcile the old references in them and in your own specializations:
 

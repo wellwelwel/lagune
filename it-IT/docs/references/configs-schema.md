@@ -24,7 +24,7 @@ Questo indirizzo segue sempre il **Lagune** attuale. Un file scritto prima di **
 
 ## Fissa una versione
 
-Ogni release di **Lagune** dalla 0.16.0 in poi porta con sé lo schema com'era in quella versione, pubblicato su **npm** e servito da **jsDelivr**. Per fissarne una, imposta come `$schema` l'indirizzo con la versione dopo `lagune@`:
+Ogni release di **Lagune** dalla 0.16.0 in poi porta con sé lo schema com'era in quella versione, pubblicato su **npm** e servito da **jsDelivr**. Per fissarne una, metti la versione dopo `lagune@` nell'indirizzo di `$schema`:
 
 ```json
 {

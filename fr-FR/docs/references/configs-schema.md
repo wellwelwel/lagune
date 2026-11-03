@@ -24,7 +24,7 @@ Cette adresse suit toujours la version actuelle de **Lagune**. Un fichier écrit
 
 ## Épingler une version
 
-Chaque version de **Lagune** à partir de la 0.16.0 embarque le schéma tel qu'il était dans cette version, publié sur **npm** et servi par **jsDelivr**. Pour en épingler une, indiquez dans `$schema` la version après `lagune@` :
+Chaque version de **Lagune** à partir de la 0.16.0 embarque le schéma tel qu'il était dans cette version, publié sur **npm** et servi par **jsDelivr**. Pour en épingler une, indiquez la version après `lagune@` dans l'adresse de `$schema` :
 
 ```json
 {

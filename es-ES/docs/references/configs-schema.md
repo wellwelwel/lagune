@@ -24,7 +24,7 @@ Esta dirección sigue siempre la versión actual de **Lagune**. Un archivo escri
 
 ## Fijar una versión
 
-Cada versión de **Lagune** a partir de la 0.16.0 incluye el esquema tal como era en ella, publicado en **npm** y servido por **jsDelivr**. Para fijar una, escribe en `$schema` la versión después de `lagune@`:
+Cada versión de **Lagune** a partir de la 0.16.0 incluye el esquema tal como era en ella, publicado en **npm** y servido por **jsDelivr**. Para fijar una, pon la versión después de `lagune@` en la dirección de `$schema`:
 
 ```json
 {

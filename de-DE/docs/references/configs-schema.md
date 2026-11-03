@@ -24,7 +24,7 @@ Diese Adresse folgt immer der aktuellen Version von **Lagune**. Eine Datei, die 
 
 ## Eine Version festlegen
 
-Jedes Release von **Lagune** ab 0.16.0 enthält das Schema so, wie es in dieser Version war, veröffentlicht auf **npm** und ausgeliefert über **jsDelivr**. Um eine Version festzulegen, trage in `$schema` die Version hinter `lagune@` ein:
+Jedes Release von **Lagune** ab 0.16.0 enthält das Schema so, wie es in dieser Version war, veröffentlicht auf **npm** und ausgeliefert über **jsDelivr**. Um eine Version festzulegen, trage die Version hinter `lagune@` in die Adresse von `$schema` ein:
 
 ```json
 {

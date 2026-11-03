@@ -4133,7 +4133,7 @@ Esse endereço sempre acompanha a versão atual do **Lagune**. Um arquivo gravad
 
 ## Fixe uma versão
 
-Cada release do **Lagune** a partir da 0.16.0 traz o schema como ele era naquela versão, publicado no **npm** e servido pelo **jsDelivr**. Para fixar uma, troque o `$schema` pela versão depois de `lagune@`:
+Cada release do **Lagune** a partir da 0.16.0 traz o schema como ele era naquela versão, publicado no **npm** e servido pelo **jsDelivr**. Para fixar uma, coloque a versão depois de `lagune@` no endereço do `$schema`:
 
 ```json
 {

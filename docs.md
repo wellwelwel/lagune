@@ -167,7 +167,7 @@ No. Lagune reads code and never runs your system or sends it crafted requests. V
 
 ### Does Lagune replace a Pentest (penetration test)?
 
-No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow, to detect the concerns, so what a professional reports gets planned, hardened, and verified.
+No, definitely not! A pentest is an authorized engagement where a professional exercises judgment against your live system, chaining findings and probing the business logic that no per-surface rule describes. Findings from a pentest can enter the Lagune Blue Team flow as concerns you hand to detect, so what a professional reports gets planned, hardened, and verified.
 
 ## Security Policy
 

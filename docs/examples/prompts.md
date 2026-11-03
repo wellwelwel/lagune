@@ -3,7 +3,7 @@
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-11-02
+Last updated: 2026-11-03
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -78,7 +78,7 @@ Execute the following commands, one by one: `/lagune-charter`, `/lagune-detect`,
 
 ## Loop
 
-When `/lagune-verify` reproves one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
+When `/lagune-verify` rejects one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
 
 ## Important
 
@@ -129,7 +129,7 @@ In the `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, and `/lagune-verify` 
 
 ## Loop
 
-When `/lagune-verify` reproves one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
+When `/lagune-verify` rejects one or more fixes, repeat `/lagune-harden` and then `/lagune-verify` until all findings are properly resolved.
 
 ## Important
 
