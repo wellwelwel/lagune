@@ -1,0 +1,93 @@
+---
+id: pi
+title: 'Встановлення Lagune у Pi як пакета'
+sidebar_label: Pi
+parent: get-started/install
+description: Встановіть Lagune у Pi як пакет з npm чи GitHub і підтримуйте його оновленим.
+keywords:
+  - pi
+  - pi coding agent
+  - pi package
+  - pi install
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+Встановіть пакет із термінала:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+Встановіть останній коміт із **GitHub**, який запускає рушій через **npx**:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## Оновлення
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` оновлює кожен встановлений вами пакет, а `pi update` сам по собі оновлює лише **Pi**.
+
+## Команди
+
+Вводьте команди з префіксом `skill:`, як-от `/skill:lagune-charter` для `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune у Pi?',
+      answer:
+        'Виконайте pi install npm:lagune або pi install git:github.com/wellwelwel/lagune, щоб отримати останній коміт із GitHub.',
+    },
+    {
+      question: 'Як оновити Lagune у Pi?',
+      answer:
+        'Виконайте pi update npm:lagune або pi update git:github.com/wellwelwel/lagune для встановлення з GitHub. pi update --extensions оновлює кожен встановлений вами пакет.',
+    },
+    {
+      question: 'Як запускати команди Lagune у Pi?',
+      answer: 'Вводьте їх з префіксом skill:, як-от /skill:lagune-charter.',
+    },
+  ]}
+/>

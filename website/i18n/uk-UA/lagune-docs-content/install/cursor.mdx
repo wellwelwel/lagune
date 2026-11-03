@@ -1,0 +1,123 @@
+---
+id: cursor
+title: 'Встановлення Lagune у Cursor як плагіна'
+sidebar_label: Cursor
+parent: get-started/install
+description: Встановіть Lagune у Cursor і Cursor CLI як плагін, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+keywords:
+  - cursor
+  - cursor plugin
+  - cursor cli
+  - plugin marketplace
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: '08c54cd98449fce87b9f38a44aef834689e3fd5ffd6a8a0aed023de7f8acdf19'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Cursor' />
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Відкрийте **Customize**.
+- Виберіть **From GitHub Repository** і введіть `https://github.com/wellwelwel/lagune`.
+- Натисніть **Install** біля **Lagune** і виберіть область проєкту чи користувача.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Додайте маркетплейс із термінала:
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Введіть `/plugins` у сесії `agent`.
+- Встановіть **Lagune**.
+
+Якщо **Lagune** уже встановлено в **Claude Code**, **Cursor CLI** завантажує його звідти.
+
+</TabItem>
+</Tabs>
+
+## Оновлення
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Відкрийте **Customize**.
+- Натисніть **Refresh** біля маркетплейсу `lagune`.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Замініть маркетплейс із термінала:
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Введіть `/plugins` у сесії `agent`.
+- Знову встановіть **Lagune**.
+
+</TabItem>
+</Tabs>
+
+## Команди
+
+Вводьте команди за назвою, як-от `/lagune-charter`.
+
+---
+
+:::info[Дозволи]
+
+У **Cursor** команди запускають рушій через **npx**, що його режим Auto-review за замовчуванням дозволяє, не питаючи.
+
+У **Cursor CLI** рушій працює через два інструменти: `lagune_read` лише читає ваш проєкт, а `lagune_write` лише записує в `.lagune/`. Щоб дозволити їх заздалегідь, додайте ці правила до `.cursor/cli.json` для одного проєкту або до `~/.cursor/cli-config.json` для всіх:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
+  }
+}
+```
+
+Коли рушій працює через **npx**, як із **skills.sh**, дозвольте `Shell(npx:--yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune у Cursor?',
+      answer:
+        'У Cursor відкрийте Customize, виберіть From GitHub Repository, введіть https://github.com/wellwelwel/lagune і встановіть Lagune. У Cursor CLI виконайте agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor, а потім встановіть Lagune через /plugins.',
+    },
+    {
+      question: 'Як оновити Lagune у Cursor?',
+      answer:
+        'У Cursor натисніть Refresh біля маркетплейсу lagune у Customize. У Cursor CLI видаліть маркетплейс lagune, додайте його знову, а потім знову встановіть Lagune через /plugins.',
+    },
+    {
+      question: 'Як запускати команди Lagune у Cursor?',
+      answer: 'Вводьте їх за назвою, як-от /lagune-charter.',
+    },
+    {
+      question: 'Чи може Cursor запускати Lagune, не питаючи дозволу?',
+      answer:
+        'Так. Режим Auto-review у Cursor за замовчуванням уже це дозволяє. У Cursor CLI дозвольте Mcp(plugin-lagune-lagune:lagune_read) і Mcp(plugin-lagune-lagune:lagune_write), а також Shell(npx:--yes lagune@*), коли рушій працює через npx.',
+    },
+  ]}
+/>

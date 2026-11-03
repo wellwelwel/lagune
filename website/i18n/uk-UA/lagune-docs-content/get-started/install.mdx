@@ -1,0 +1,221 @@
+---
+id: install
+title: 'Встановлення: посилення захисту для будь-якого ШІ-агента'
+sidebar_label: Встановлення
+slug: /
+description: Встановіть Lagune у будь-який проєкт як плагін, якщо ваш агент його підтримує, або через CLI skills в інших випадках, а потім оберіть спеціалізації з безпеки, що йому підходять.
+keywords:
+  - встановити lagune
+  - claude code plugin
+  - copilot cli plugin
+  - muse code plugin
+  - gemini cli extension
+  - qwen code extension
+  - antigravity cli plugin
+  - kimi code plugin
+  - cursor plugin
+  - hermes agent plugin
+  - devin cli plugin
+  - grok build plugin
+  - factory droid plugin
+  - codex plugin
+  - opencode plugin
+  - pi package
+  - npx skills add
+  - skills CLI
+  - налаштування
+  - початок роботи
+  - спеціалізації
+  - категорії
+  - вимоги
+  - бейдж
+  - security-driven hardening
+  - безпека ШІ
+  - безпека застосунків
+  - оборонна безпека
+  - blue team
+  - безпечне програмування
+  - ШІ-агенти
+source_hash: 'a560b2dd65be3ed3daa59b91f2b3bbbf6b1e516bf70479e928679887c1c76c7a'
+---
+
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** допомагає вашому ШІ-агенту зробити проєкт безпечнішим. Ви спрямовуєте його на свій код, агент з'ясовує, що насправді робить ваша система, а потім веде вас через роботу з безпеки, важливу саме для неї. **Lagune** є першим проєктом методології [Security-Driven Hardening (SDH)](/docs/references/paper).
+
+:::tip[Підтримайте відкритий код]
+Подобається **Lagune**? <ArrowLink to="https://github.com/wellwelwel/lagune">Поставте нам ⭐ на **GitHub**</ArrowLink>
+:::
+
+## Оберіть свій агент
+
+<AgentPicker />
+
+:::info
+
+- Під капотом **Lagune** працює на **Node.js**, але ви використовуєте будь-яку мову, яку хочете.
+- Щоб працювати повністю офлайн, встановіть **Lagune** у свій проєкт командою `npm i -D lagune@{{version}}`.
+
+:::
+
+## Категорії
+
+Знання **Lagune** з безпеки надходять у вигляді [**спеціалізацій**](/docs/catalog), згрупованих у [**категорії**](/docs/categories).
+
+<CategoryPicker />
+
+:::tip
+Проєкт починає з `owasp`, а [`/lagune-charter`](/docs/commands/charter) додає категорії, які підтверджує її аналіз проєкту.
+:::
+
+## Вимоги
+
+У вашій системі має бути встановлено [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager).
+
+## Додайте бейдж ✨
+
+Використовуєте **Lagune**? Додайте бейдж у свій **README**:
+
+<Tabs>
+  <TabItem value="two-tones" label="Двоколірний" default>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
+  alt='Secured By Lagune'
+  width={141}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
+  alt='Security Powered By Lagune'
+  width={193}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
+  alt='Security-Driven Hardening with Lagune'
+  width={225}
+/>
+
+  </TabItem>
+  <TabItem value="solid" label="Суцільний">
+
+<Badge
+  src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Secured By Lagune'
+  width={135}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security Powered By Lagune'
+  width={185}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security-Driven Hardening'
+  width={175}
+/>
+
+  </TabItem>
+</Tabs>
+
+## Далі
+
+Дізнайтеся, що робить кожна з [**навичок**](/docs/get-started/commands) **Lagune**.
+
+<Faq
+  items={[
+    {
+      question: 'Що таке Lagune?',
+      answer:
+        'Lagune є робочим процесом безпеки з відкритим кодом, суто оборонним, який допомагає вашому ШІ-агенту посилити захист будь-якої кодової бази. Ви спрямовуєте його на свій код, він визначає, що насправді робить ваша система, а потім спрямовує виправлення безпеки, важливі саме для цього контексту.',
+    },
+    {
+      question: 'Як встановити Lagune?',
+      answer:
+        'Оберіть свій агент: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI і Hermes Agent встановлюють Lagune як плагін, Gemini CLI і Qwen Code як розширення, Pi як пакет, а будь-який інший агент через npx skills add wellwelwel/lagune. Lagune працює як у нових, так і в наявних проєктах.',
+    },
+    {
+      question: 'Чи потрібен Lagune API-ключ?',
+      answer:
+        "Ні. Lagune працює через вашого власного ШІ-агента, тож API-ключі не потрібні.",
+    },
+    {
+      question: 'Які вимоги?',
+      answer: 'У вашій системі має бути встановлено Node.js (LTS).',
+    },
+    {
+      question: 'Які мови програмування підтримує Lagune?',
+      answer:
+        'Будь-які. Під капотом Lagune працює на Node.js, але перевіряє й посилює захист проєктів, написаних будь-якою мовою програмування.',
+    },
+    {
+      question: 'Що Lagune додає до мого проєкту?',
+      answer:
+        'Каталог .lagune/ зі станом безпеки вашого проєкту, який створює перша команда, що щось записує. CLI skills також встановлює slash-команди в проєкт, звідки їх читає ваш агент, а плагін тримає їх усередині агента.',
+    },
+    {
+      question: 'Як оновити Lagune?',
+      answer:
+        'Так само, як ви його встановили. Сторінка встановлення кожного агента показує, як оновити там Lagune, а CLI skills оновлює його командою npx skills update. Ваші принципи безпеки, артефакти фаз і власні спеціалізації залишаються недоторканими.',
+    },
+    {
+      question: 'Які спеціалізації використовує проєкт?',
+      answer:
+        'Вбудовані спеціалізації його категорій, а також власні. Фаза charter записує категорії, які підтверджує її аналіз проєкту, а npx lagune write add --categories їх змінює.',
+    },
+    {
+      question: 'Чи треба завершити розробку, перш ніж захищати проєкт?',
+      answer:
+        "Ні. Команда /lagune посилює захист роботи під час написання коду: вона приймає будь-який промпт, створює те, що ви попросили, і посилює захист безпечними налаштуваннями за замовчуванням, керуючись принципами безпеки. П'ятифазний процес Blue Team перевіряє те, що вже існує.",
+    },
+    {
+      question: 'Чи може Lagune перевірити наявний проєкт?',
+      answer:
+        "Так. П'ятифазний процес Blue Team перевіряє те, що вже існує: charter встановлює ваші правила безпеки, detect визначає, що робить система і де ризики, plan оцінює кожну знахідку й підбирає до неї виправлення, harden застосовує виправлення, а verify доводить, що вони діють, і закриває їх.",
+    },
+    {
+      question:
+        'Чим відрізняється використання Lagune від простого прохання до агента знайти вразливості й недоліки безпеки?',
+      answer:
+        'Агент, що читає код сам, знаходить те, що схоже на вразливість, і пропускає те, що схоже на засіб захисту. Список заблокованих адрес виглядає так, ніби хтось уже впорався з ризиком, тож ніхто не перевіряє, що він пропускає більшість із них, і код іде в реліз. Lagune перевертає це припущення: засіб захисту, що вже є в коді, вважається недоведеним, доки його не перевірено, кожна спеціалізація з каталогу отримує явний вердикт, а verify питає, чи зник ризик, а не чи є засіб захисту. Кожна знахідка також залишається одним відстежуваним елементом між запусками, тож можна довести, що її закрито, і зняти її з обліку, тоді як звичайне прохання щоразу дає інший звіт, який нема з чим порівняти.',
+    },
+    {
+      question:
+        'Чим відрізняється розробка з Lagune від простого прохання до агента писати безпечний код?',
+      answer:
+        'Прохання про безпечний код залишає визначення безпеки агенту й припускає, що ви знаєте, про що просити. Вимога зазвичай уже міститься у вашому запиті, хоч ні ви, ні агент її не бачите: прохання про сторінку з курсами, до яких користувач має доступ, задає правило авторизації, а перевірка, яку так і не написали, не залишає в коді нічого, що можна помітити. Команда /lagune завантажує ваші принципи безпеки й спеціалізації, що відповідають тому, що зараз створюватиметься, ще до першого рядка коду, а потім перечитує результат з огляду на захист, який використала. Безпечний варіант рідко коштує більше за небезпечний, тож результат визначає знання, який із них обрати, і саме це знання надходить заздалегідь.',
+    },
+    {
+      question:
+        'Чи виконує Lagune DAST (Dynamic Application Security Testing) або тестує мій запущений застосунок?',
+      answer:
+        "Ні. Lagune читає код і ніколи не запускає вашу систему й не надсилає їй підроблених запитів. Verify підтверджує, що засіб захисту наявний і коректний у вихідному коді, а це інше питання, ніж те, чи витримає він атаку на робочу систему, тож \"cannot tell from the code\" є законним вердиктом, а не тихим проходженням перевірки. DAST відповідає на питання про час виконання, а Lagune на питання про вихідний код, тож жоден не замінює іншого. Навіть необов'язкова команда prove дотримується цієї межі: її тести перевіряють безпечну поведінку, а не payload атаки.",
+
+    },
+    {
+      question: 'Чи замінює Lagune пентест (тест на проникнення)?',
+      answer:
+        'Ні, точно ні! Пентест є авторизованою роботою, у якій фахівець застосовує власне судження до вашої робочої системи, поєднує знахідки в ланцюжки й досліджує бізнес-логіку, яку не описує жодне правило для окремої поверхні. Знахідки з пентесту можуть увійти в процес Blue Team від Lagune через фазу detect як занепокоєння, тож те, про що звітує фахівець, буде сплановано, захищено й перевірено.',
+    },
+
+]}
+/>
+
+## Політика безпеки
+
+Ознайомтеся з [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md).
+
+## Ліцензія
+
+**Lagune** поширюється за ліцензією [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE).
+
+Copyright © 2026-дотепер [Weslley Araújo](https://github.com/wellwelwel) і [контриб'ютори](https://github.com/wellwelwel/lagune/graphs/contributors).

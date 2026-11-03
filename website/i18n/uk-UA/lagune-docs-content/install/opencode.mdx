@@ -1,0 +1,132 @@
+---
+id: opencode
+title: 'Встановлення Lagune в OpenCode як плагіна'
+sidebar_label: OpenCode
+parent: get-started/install
+description: Встановіть Lagune в OpenCode 1.x і 2.x як плагін і підтримуйте його оновленим.
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: 'f79638c10be0e2425d9690e2d98375d7739ebc1ae43d8a729cb033f5b0ca3f09'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Встановіть плагін із термінала:
+
+```bash
+opencode plugin add lagune
+```
+
+Або додайте його до списку `plugins` в `opencode.json`:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Встановіть плагін у свій проєкт із термінала або додайте `-g`, щоб встановити його для всіх своїх проєктів:
+
+```bash
+opencode plugin lagune
+```
+
+Або додайте його до списку `plugin` в `opencode.json`:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Оновлення
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Щоб оновити **Lagune**, встановіть новий реліз поверх старого, додавши `-g`, якщо ви встановлювали його для всіх своїх проєктів:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## Команди
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Введіть `@` і виберіть команду, як-от `@lagune-charter`, а потім напишіть свої вхідні дані в тому самому повідомленні.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Вводьте команди за назвою, як-от `/lagune-charter`. Вони перелічені в `/skills`, а не в меню `/`.
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[Дозволи]
+
+Рушій працює через два інструменти: `lagune_read` лише читає ваш проєкт, а `lagune_write` лише записує в `.lagune/`. **OpenCode** запускає їх, не питаючи.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune в OpenCode?',
+      answer:
+        'В OpenCode 2.x виконайте opencode plugin add lagune. В OpenCode 1.x виконайте opencode plugin lagune, додавши -g, щоб встановити його для всіх своїх проєктів.',
+    },
+    {
+      question: 'Як оновити Lagune в OpenCode?',
+      answer:
+        'В OpenCode 2.x виконайте opencode plugin update lagune, а потім opencode reload. В OpenCode 1.x виконайте opencode plugin lagune@{{version}} --force.',
+    },
+    {
+      question: 'Як запускати команди Lagune в OpenCode?',
+      answer:
+        'В OpenCode 2.x введіть @ і виберіть команду, як-от @lagune-charter, а потім напишіть свої вхідні дані в тому самому повідомленні. В OpenCode 1.x вводьте їх за назвою, як-от /lagune-charter, або знайдіть їх у /skills.',
+    },
+    {
+      question: 'Чи питає OpenCode дозволу, перш ніж запустити Lagune?',
+      answer:
+        'Ні. OpenCode запускає два інструменти рушія, lagune_read і lagune_write, не питаючи.',
+    },
+  ]}
+/>

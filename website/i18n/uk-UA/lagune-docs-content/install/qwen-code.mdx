@@ -1,0 +1,82 @@
+---
+id: qwen-code
+title: 'Встановлення Lagune у Qwen Code як розширення'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: Встановіть Lagune у Qwen Code як розширення, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+Встановіть розширення з термінала:
+
+```bash
+qwen extensions install lagune
+```
+
+## Оновлення
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+qwen extensions update lagune
+```
+
+Щоб оновлення відбувалися автоматично, встановіть його з `--auto-update`.
+
+## Команди
+
+Вводьте команди з назвою розширення, як-от `/lagune:lagune-charter` для `/lagune-charter`.
+
+---
+
+:::info[Дозволи]
+
+Рушій працює через два інструменти: `lagune_read` лише читає ваш проєкт, а `lagune_write` лише записує в `.lagune/`. Щоб дозволити їх заздалегідь, додайте ці правила до `.qwen/settings.json` для одного проєкту або до `~/.qwen/settings.json` для всіх:
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+Коли рушій працює через **npx**, як із **skills.sh**, дозвольте `Shell(npx --yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune у Qwen Code?',
+      answer: 'Виконайте qwen extensions install lagune.',
+    },
+    {
+      question: 'Як оновити Lagune у Qwen Code?',
+      answer:
+        'Виконайте qwen extensions update lagune або встановіть розширення з --auto-update.',
+    },
+    {
+      question: 'Як запускати команди Lagune у Qwen Code?',
+      answer: 'Вводьте їх з назвою розширення, як-от /lagune:lagune-charter.',
+    },
+    {
+      question: 'Чи може Qwen Code запускати Lagune, не питаючи дозволу?',
+      answer:
+        'Так. Дозвольте mcp__lagune__lagune_read і mcp__lagune__lagune_write у налаштуваннях Qwen Code, а також Shell(npx --yes lagune@*), коли рушій працює через npx.',
+    },
+  ]}
+/>

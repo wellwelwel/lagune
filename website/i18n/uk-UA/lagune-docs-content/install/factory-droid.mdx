@@ -1,0 +1,73 @@
+---
+id: factory-droid
+title: 'Встановлення Lagune у Factory Droid як плагіна'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Встановіть Lagune у Factory Droid як плагін, підтримуйте його оновленим і дозвольте інструменти його рушія.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Встановіть плагін із термінала:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Оновлення
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Команди
+
+Вводьте команди за назвою, як-от `/lagune-charter`.
+
+---
+
+:::info[Дозволи]
+
+Рушій працює через два інструменти: `lagune_read` лише читає ваш проєкт, а `lagune_write` лише записує в `.lagune/`. Коли **Factory Droid** запитає, виберіть завжди дозволяти кожен із них. Він запитає знову після синхронізації нового коміту маркетплейсу `lagune`, що може статися під час його запуску.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune у Factory Droid?',
+      answer:
+        'Виконайте droid plugin marketplace add wellwelwel/lagune, а потім droid plugin install lagune@lagune.',
+    },
+    {
+      question: 'Як оновити Lagune у Factory Droid?',
+      answer:
+        'Виконайте droid plugin marketplace update lagune, а потім droid plugin update lagune@lagune.',
+    },
+    {
+      question: 'Як запускати команди Lagune у Factory Droid?',
+      answer: 'Вводьте їх за назвою, як-от /lagune-charter.',
+    },
+    {
+      question: 'Чи може Factory Droid запускати Lagune, не питаючи дозволу?',
+      answer:
+        'Так. Коли Factory Droid запитає, виберіть завжди дозволяти lagune_read і lagune_write. Він запитає знову після синхронізації нового коміту маркетплейсу lagune.',
+    },
+  ]}
+/>

@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: 'Встановлення Lagune в Hermes Agent як плагіна'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Встановіть Lagune в Hermes Agent як плагін і підтримуйте його оновленим.
+keywords:
+  - hermes agent
+  - hermes agent plugin
+  - hermes plugins install
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+Встановіть плагін із термінала:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- Коли **Hermes Agent** попросить підтвердити плагін не з його каталогу, **підтвердьте**.
+- Коли він запропонує встановити залежності **Node.js** з репозиторію, **відмовтеся**.
+
+## Оновлення
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+hermes plugins update lagune
+```
+
+## Команди
+
+Вводьте команди з назвою плагіна, як-от `/lagune:lagune-charter` для `/lagune-charter` і `/lagune:lagune` для `/lagune`.
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune в Hermes Agent?',
+      answer:
+        'Виконайте hermes plugins install wellwelwel/lagune --enable. Підтвердьте плагін, коли попросять, і відмовтеся від встановлення залежностей Node.js з репозиторію.',
+    },
+    {
+      question: 'Як оновити Lagune в Hermes Agent?',
+      answer: 'Виконайте hermes plugins update lagune.',
+    },
+    {
+      question: 'Як запускати команди Lagune в Hermes Agent?',
+      answer:
+        'Вводьте їх з назвою плагіна, як-от /lagune:lagune-charter і /lagune:lagune.',
+    },
+  ]}
+/>

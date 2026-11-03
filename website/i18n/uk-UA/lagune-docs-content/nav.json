@@ -1,0 +1,38 @@
+{
+  "category.development-flow": {
+    "message": "Процес розробки",
+    "description": "The sidebar label of the Development Flow group of pages"
+  },
+  "category.examples": {
+    "message": "Приклади",
+    "description": "The sidebar label of the Examples group of pages"
+  },
+  "category.get-started": {
+    "message": "Початок роботи",
+    "description": "The sidebar label of the Get Started group of pages"
+  },
+  "category.hooks": {
+    "message": "Хуки",
+    "description": "The sidebar label of the Hooks group of pages"
+  },
+  "category.maintenance": {
+    "message": "Обслуговування",
+    "description": "The sidebar label of the Maintenance group of pages"
+  },
+  "category.references-sources": {
+    "message": "Посилання та джерела",
+    "description": "The sidebar label of the References & Sources group of pages"
+  },
+  "category.specializations": {
+    "message": "Спеціалізації",
+    "description": "The sidebar label of the Specializations group of pages"
+  },
+  "category.the-blue-team-flow": {
+    "message": "Процес Blue Team",
+    "description": "The sidebar label of the The Blue Team Flow group of pages"
+  },
+  "category.tools": {
+    "message": "Інструменти",
+    "description": "The sidebar label of the Tools group of pages"
+  }
+}

@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Встановлення Lagune у Muse Code як плагіна'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Встановіть Lagune у Muse Code як плагін, підтримуйте його оновленим і запускайте його рушій у пісочниці.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Встановіть плагін із термінала:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Оновлення
+
+Щоб оновити **Lagune**, оновіть маркетплейс і перевстановіть плагін:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Команди
+
+Вводьте команди за назвою, як-от `/lagune-charter`, або з назвою плагіна, як-от `/lagune:lagune-charter`.
+
+---
+
+:::info[Дозволи]
+
+Пісочниця **Muse Code** не може завантажити рушій. Встановіть його у свій проєкт із власного термінала, один раз і після кожного оновлення:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune у Muse Code?',
+      answer:
+        'Виконайте muse plugins marketplace add lagune wellwelwel/lagune, а потім muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Як оновити Lagune у Muse Code?',
+      answer:
+        'Виконайте muse plugins marketplace update lagune, а потім перевстановіть плагін командами muse plugins remove lagune і muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Як запускати команди Lagune у Muse Code?',
+      answer:
+        'Вводьте їх за назвою, як-от /lagune-charter, або з назвою плагіна, як-от /lagune:lagune-charter.',
+    },
+    {
+      question: 'Чи працює Lagune у пісочниці Muse Code?',
+      answer:
+        'Так, щойно ви встановите рушій у свій проєкт командою npm i -D lagune@{{version}} із власного термінала, один раз і після кожного оновлення.',
+    },
+  ]}
+/>

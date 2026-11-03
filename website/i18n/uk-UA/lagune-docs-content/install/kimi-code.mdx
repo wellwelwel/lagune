@@ -1,0 +1,61 @@
+---
+id: kimi-code
+title: 'Встановлення Lagune у Kimi Code як плагіна'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: Встановіть Lagune у Kimi Code як плагін і підтримуйте його оновленим.
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+Встановіть плагін із сесії **Kimi Code**, виберіть **Trust and install**, а потім почніть нову сесію, щоб завантажити його:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Оновлення
+
+Щоб оновити **Lagune**, встановіть його знову:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Команди
+
+Вводьте команди з назвою плагіна, як-от `/lagune:lagune-charter` для `/lagune-charter`. Меню `/` показує їх як `/skill:lagune:lagune-charter`, і така форма теж працює.
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune у Kimi Code?',
+      answer:
+        'У сесії Kimi Code виконайте /plugins install https://github.com/wellwelwel/lagune, виберіть Trust and install, а потім виконайте /new.',
+    },
+    {
+      question: 'Як оновити Lagune у Kimi Code?',
+      answer:
+        'Знову виконайте /plugins install https://github.com/wellwelwel/lagune, а потім /new.',
+    },
+    {
+      question: 'Як запускати команди Lagune у Kimi Code?',
+      answer:
+        'Вводьте їх з назвою плагіна, як-от /lagune:lagune-charter, або так, як їх показує меню /, як-от /skill:lagune:lagune-charter.',
+    },
+  ]}
+/>

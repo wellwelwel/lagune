@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Встановлення Lagune в Codex CLI як плагіна'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Встановіть Lagune в Codex CLI як плагін, підтримуйте його оновленим і запускайте його рушій у пісочниці.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - встановити lagune
+  - налаштування
+  - безпека ШІ
+  - ШІ-агенти
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Встановіть плагін із термінала:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Оновлення
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Команди
+
+Введіть `$` і команду з назвою плагіна, а потім свої вхідні дані, як-от `$lagune:lagune-charter` для `/lagune-charter`. Якщо ввести `$`, з'явиться список команд, а вибір однієї з них вставляє її повну назву.
+
+---
+
+:::info[Дозволи]
+
+Пісочниця **Codex** не має доступу до мережі. Встановіть рушій у свій проєкт із власного термінала, один раз і після кожного оновлення:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune в Codex CLI?',
+      answer:
+        'Виконайте codex plugin marketplace add wellwelwel/lagune, а потім codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'Як оновити Lagune в Codex CLI?',
+      answer: 'Виконайте codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: 'Як запускати команди Lagune в Codex CLI?',
+      answer:
+        'Введіть $ і команду з назвою плагіна, а потім свої вхідні дані, як-от $lagune:lagune-charter.',
+    },
+    {
+      question: 'Чи працює Lagune у пісочниці Codex?',
+      answer:
+        'Так, щойно ви встановите рушій у свій проєкт командою npm i -D lagune@{{version}} із власного термінала, один раз і після кожного оновлення.',
+    },
+  ]}
+/>

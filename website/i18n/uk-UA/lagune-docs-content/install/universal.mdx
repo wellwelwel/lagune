@@ -1,0 +1,107 @@
+---
+id: universal
+title: 'Встановлення Lagune у будь-який агент через skills.sh'
+sidebar_label: Універсально
+parent: get-started/install
+description: Встановіть Lagune у будь-який ШІ-агент через CLI skills і підтримуйте його оновленим.
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - встановити lagune
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - налаштування
+  - ШІ-агенти
+source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='skills.sh' />
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Термінал" default>
+
+Встановіть команди **Lagune** з термінала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Промпт">
+
+Вставте цей промпт у свій агент:
+
+```md
+Виконай `npx --yes skills add wellwelwel/lagune` і просто зараз дотримуйся згенерованих інструкцій навички. Прочитай увесь її вивід, за потреби спершу перенаправивши його в тимчасовий файл. Розв'язуй відносні шляхи від каталогу допоміжних файлів, який вона надає.
+```
+
+  </TabItem>
+</Tabs>
+
+## Оновлення
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Термінал" default>
+
+Щоб оновити **Lagune**, виконайте:
+
+```bash
+npx skills update
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Промпт">
+
+Щоб оновити **Lagune**, вставте цей промпт у свій агент:
+
+```md
+Виконай `npx --yes skills update -y` і прочитай увесь її вивід, за потреби спершу перенаправивши його в тимчасовий файл.
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::warning[Один спосіб на агента]
+Встановлюйте **Lagune** або через **skills.sh**, або через його **плагін**, але ніколи обома способами.
+:::
+
+:::info[Дозволи]
+
+Команди запускають рушій як `npx --yes lagune@{{version}}`, а [сторінка встановлення кожного агента](/docs) показує правило, що дозволяє його заздалегідь. У пісочниці без доступу до мережі встановіть рушій у свій проєкт із власного термінала, один раз і після кожного оновлення:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Як встановити Lagune у будь-який ШІ-агент?',
+      answer:
+        'Виконайте npx skills add wellwelwel/lagune у своєму проєкті або вставте промпт для встановлення у свій агент.',
+    },
+    {
+      question: 'Як оновити Lagune, встановлений через CLI skills?',
+      answer:
+        'Виконайте npx skills update або вставте промпт для оновлення у свій агент.',
+    },
+    {
+      question:
+        'Чи можна встановити Lagune і через CLI skills, і через плагін?',
+      answer:
+        'Ні. Якщо встановити обома способами, агент показує кожну команду двічі або використовує одну копію й приховує іншу.',
+    },
+  ]}
+/>
