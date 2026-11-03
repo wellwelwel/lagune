@@ -12,7 +12,7 @@
 
 ---
 
-Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lagune)!
+Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lagune)! It helps more people discover the project.
 
 ---
 
@@ -20,62 +20,141 @@ Love **Lagune**? [**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lag
 
 **Lagune** adapts to your environment, whether it is a new project or an existing one.
 
-> [!TIP]
->
-> See real-world [**Prompt Samples**](https://lagune.ai/docs/examples/prompts) 🪼
-
----
-
-### Install
+### Install and Update
 
 Pick your agent:
 
-<picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <b>Claude Code</b>
+<table>
+<tr>
+<th width="50%">Install</th>
+<th width="50%">Update</th>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Code</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 claude plugin install lagune --marketplace wellwelwel/lagune
 ```
 
-<picture><img src="./.github/readme/assets/agents/codex.svg" width="20" align="absmiddle" /></picture> <b>Codex</b>
+</td>
+<td>
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/codex.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/codex"><b>Codex</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 codex plugin marketplace add wellwelwel/lagune
 codex plugin add lagune@lagune
 ```
 
-<picture><img src="./.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> <b>Antigravity</b>
+</td>
+<td>
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/antigravity-cli"><b>Antigravity</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 ```
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> <b>Cursor</b></summary>
+</td>
+<td>
 
-In **Cursor**, open **Customize**, select **From GitHub Repository**, and enter `https://github.com/wellwelwel/lagune`. Then select **Install** on **Lagune**.
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
 
-In the **Cursor CLI**, add the marketplace, then type `/plugins` in an `agent` session and install **Lagune**:
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/cursor"><b>Cursor</b></a></td>
+</tr>
+<tr>
+<td>
+
+- Open **Customize**
+- Select **From GitHub Repository** and enter `https://github.com/wellwelwel/lagune`.
+- Then select **Install** on **Lagune**.
+
+</td>
+<td>
+
+Select **Refresh** on the `lagune` marketplace in **Customize**.
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/cursor"><b>Cursor CLI</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
 ```
 
-</details>
+Then type `/plugins` in an `agent` session and install **Lagune**.
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> <b>GitHub Copilot</b></summary>
+</td>
+<td>
+
+```bash
+agent plugin marketplace remove lagune
+agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+```
+
+Then type `/plugins` in an `agent` session and install **Lagune** again.
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/github-copilot-cli"><b>GitHub Copilot</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 copilot plugin marketplace add wellwelwel/lagune
 copilot plugin install lagune@lagune
 ```
 
-For **GitHub Copilot** in an editor, use the [**Universal**](https://lagune.ai/docs/install/universal) route.
+</td>
+<td>
 
-</details>
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> <b>OpenCode</b></summary>
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/opencode"><b>OpenCode</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 opencode plugin add lagune
@@ -83,48 +162,102 @@ opencode plugin add lagune
 
 On **OpenCode** 1.x, run `opencode plugin lagune` instead.
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/devin.svg" width="20" align="absmiddle" /></picture> <b>Devin for Terminal</b></summary>
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+On **OpenCode** 1.x, install the new release over the old one with `--force`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/devin.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/devin-cli"><b>Devin for Terminal</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 devin auth login
 devin plugins install wellwelwel/lagune
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/droid.svg" width="20" align="absmiddle" /></picture> <b>Factory Droid</b></summary>
+```bash
+devin plugins update lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/droid.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/factory-droid"><b>Factory Droid</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 droid plugin marketplace add wellwelwel/lagune
 droid plugin install lagune@lagune
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/grok.svg" width="20" align="absmiddle" /></picture> <b>Grok Build</b></summary>
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/grok.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/grok-build"><b>Grok Build</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 grok plugin install wellwelwel/lagune@plugin-grok --trust
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> <b>Qwen Code</b></summary>
+```bash
+grok plugin update lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/qwen-code"><b>Qwen Code</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 qwen extensions install lagune
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/kimi.svg" width="20" align="absmiddle" /></picture> <b>Kimi Code</b></summary>
+```bash
+qwen extensions update lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/kimi.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/kimi-code"><b>Kimi Code</b></a></td>
+</tr>
+<tr>
+<td>
 
 From a **Kimi Code** session, choose **Trust and install** when asked:
 
@@ -133,67 +266,117 @@ From a **Kimi Code** session, choose **Trust and install** when asked:
 /new
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/muse.svg" width="20" align="absmiddle" /></picture> <b>Muse Code</b></summary>
+Install it again from a **Kimi Code** session:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/muse.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/muse-code"><b>Muse Code</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 muse plugins marketplace add lagune wellwelwel/lagune
 muse plugins install lagune@lagune
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> <b>Pi</b></summary>
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/pi"><b>Pi</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 pi install npm:lagune
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/hermes.svg" width="20" align="absmiddle" /></picture> <b>Hermes Agent</b></summary>
+```bash
+pi update npm:lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/hermes.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/hermes-agent"><b>Hermes Agent</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 hermes plugins install wellwelwel/lagune --enable
 ```
 
-Confirm the plugin from outside its catalog, and decline installing the repository's **Node.js** dependencies.
+</td>
+<td>
 
-</details>
+```bash
+hermes plugins update lagune
+```
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> <b>Gemini CLI</b></summary>
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/gemini-cli"><b>Gemini CLI</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 gemini extensions install https://github.com/wellwelwel/lagune
 ```
 
-</details>
+</td>
+<td>
 
-<details>
-<summary><picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> <b>Universal (<a href="https://www.skills.sh/wellwelwel/lagune"><b>skills.sh</b></a>)</b></summary>
+```bash
+gemini extensions update lagune
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/universal"><b>Universal</b></a></td>
+</tr>
+<tr>
+<td>
 
 ```bash
 npx skills add wellwelwel/lagune
 ```
 
-Or paste this prompt into your agent:
-
-```md
-Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
-```
-
-To update **Lagune**, run:
+</td>
+<td>
 
 ```bash
 npx skills update
 ```
 
-</details>
+</td>
+</tr>
+</table>
 
 ---
 
@@ -209,13 +392,13 @@ Then commit what it changed, install **Lagune** as above, and follow the rest of
 
 ---
 
-### Commands
+### Skills
 
 Once installed, your **AI** agent unlocks a set of commands, all governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 
-> [!NOTE]
+> [!TIP]
 >
-> Some agents take the commands under the plugin's name, such as `/lagune:lagune-charter`. Your agent's [**install page**](https://lagune.ai/docs) shows how to type them.
+> See real-world [**Prompt Samples**](https://lagune.ai/docs/examples/prompts) 🪼
 
 #### › Build
 
@@ -249,6 +432,10 @@ These five run in order. Each builds on the previous, so following the list top 
 > [!TIP]
 >
 > Security is not a cost, it is an investment: what you put in upfront, you save many times over in the incidents you never have 🙋🏻‍♂️
+
+> [!NOTE]
+>
+> Some agents take the commands under the plugin's name, such as `/lagune:lagune-charter`. Your agent's [**install page**](https://lagune.ai/docs) shows how to type them.
 
 > [!IMPORTANT]
 >
