@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: güvenlik düzeltmelerini kodunuza uygulayın'
+sidebar_label: 4. Harden
+description: Plandaki düzeltmeleri kodunuza güvenli bir şekilde ve tek tek uygulayın.
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 Plandaki düzeltmeleri kodunuza güvenli bir şekilde ve tek tek uygulayın.
+
+## Kullanım
+
+<Tabs>
+  <TabItem value="full" label="Tümünü uygula" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Yolları belirt">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Önceliğe göre">
+
+```prompt
+/lagune-harden Critical ve High
+```
+
+  </TabItem>
+</Tabs>
+
+## Nasıl çalışır
+
+Her düzeltmeye plan zaten karar verdiği için harden fazı yalnızca onu uygular. Kodunuza dokunan tek faz olduğundan dikkatli ilerler: her değişiklik kolayca incelenebilsin diye düzeltmeleri tek tek uygular ve bir düzeltmeyi sığdırmak için bir kontrolü asla zayıflatmaz. Örneğin dosya yükleme düzeltmesi:
+
+- **Dosya yükleme** (Status: **Applied**)
+  - _Ne değişti:_ dosyanın gerçek türünü ve boyutunu kontrol eder, beklenmeyen her şeyi reddeder, kaydederken adını değiştirir ve dosyayı kod olarak çalıştırılamayacağı bir yerde saklar.
+  - _Nerede:_ `handleUpload` fonksiyonu ve çağırdığı depolama yardımcısı.
+
+Bir düzeltme tamamen uygulanamazsa harden güvenle yapabildiğini yapar, kalanı **Partial** ya da **Blocked** olarak işaretler ve açık bırakır.
+
+:::info[Uygulanmış olmak doğrulanmış olmak değildir]
+Applied, henüz kanıtlandığı anlamına gelmez. Bunun için [verify](/docs/commands/verify) vardır.
+:::
+
+:::tip
+
+- Tamamen plana dayanır. Bir düzeltme ya da dosya hiç planlanmadıysa önce onun için `/lagune-plan` komutunu çalıştırmanızı söyler.
+- Yeniden çalıştırmak kaydı uzlaştırır: geri alınan değişiklikler çıkar, yeni uygulanan düzeltmeler eklenir.
+- Sıkılaştırma kaydı `.lagune/memory/harden.md` dosyasında tutulur.
+
+:::
+
+:::warning[Plana dayanır ve kodunuzu değiştirir]
+Harden fazı [`/lagune-plan`](/docs/commands/plan) komutuna dayanır. Kodunuzu değiştiren tek fazdır.
+:::
+
+## Sırada ne var
+
+Her düzeltmenin işe yaradığını kanıtlayın: [`/lagune-verify`](/docs/commands/verify).
+
+<Faq
+  items={[
+    {
+      question: '/lagune-harden kodumu değiştirir mi?',
+      answer:
+        'Evet. Kodunuza dokunan tek fazdır ve plandaki düzeltmeleri tek tek uygular.',
+    },
+    {
+      question: 'Applied, Partial ve Blocked ne anlama geliyor?',
+      answer:
+        "Bunlar Lagune'nin her düzeltme için kaydettiği durumlardır. Applied düzeltmenin yapıldığını, Partial yalnızca bir kısmının yapıldığını, Blocked ise uygulanamadığını gösterir. Applied, henüz kanıtlandığı anlamına gelmez.",
+    },
+    {
+      question: 'Lagune düzeltmeleri bana sormadan mı uygular?',
+      answer:
+        "Bir düzenlemenin onayınızı gerektirip gerektirmediğine Lagune değil, ajanınız ve onu çalıştırdığınız izin modu karar verir. Lagune kendine ait bir onay adımı eklemez. Yine de bir düzeltmeyi karşılamak için bir kontrolü asla zayıflatmaz ve bir düzeltme charter'daki bir kuralla çelişecekse önce durup size haber verir.",
+    },
+  ]}
+/>

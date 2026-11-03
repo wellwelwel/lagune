@@ -1,0 +1,216 @@
+---
+id: regex
+title: "regex hook'u: ReDoS örüntülerini tespit edin"
+sidebar_label: regex
+description: Kod tabanını ReDoS'a yatkın regex'lere karşı tarayın ya da tek bir örüntüyü doğrudan komut satırından puanlayın.
+source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+`regex` hook'u, [`regex` uzmanlığının](/docs/catalog) çalıştırdığı deterministik regex güvenliği motorudur ve onu kendiniz çalıştırabilirsiniz. Tek bir komutla iki modda çalışır: kod tabanını **ReDoS**'a yatkın ve çalışma zamanında oluşturulan örüntülere karşı tarayan **scan** ve verdiğiniz tek bir örüntüyü puanlayan **check**.
+
+## Kod tabanını tarama
+
+Hiçbir bayrak verilmezse tüm proje taranır. `--dir` taramayı bir dizinle, `--file` ise tek bir dosyayla sınırlar. İkisi de tekrarlanabilir ve tek bir raporda birleştirilebilir. Bir dosyayı birden fazla hedef kapsasa bile o dosya raporda yalnızca bir kez listelenir.
+
+<Tabs>
+  <TabItem value="all" label="Tüm proje" default>
+
+```bash
+npx lagune read regex
+```
+
+  </TabItem>
+  <TabItem value="dir" label="Bir dizin">
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+  </TabItem>
+  <TabItem value="file" label="Tek bir dosya">
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+  </TabItem>
+  <TabItem value="many" label="Birkaç hedef">
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+  </TabItem>
+  <TabItem value="limit" label="Sınırla">
+
+`--limit`, tarama için ReDoS eşiğini belirler (varsayılan 25). Bu, check modunun da aldığı sınırın aynısıdır. Daha düşük bir sınır daha katıdır.
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+  </TabItem>
+</Tabs>
+
+Çıktı, başlıkları her bölümün nasıl okunacağını söyleyen düz bir metindir. Bir bölüm yalnızca bulgu içerdiğinde gösterilir.
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+Hiçbir şey bulunamazsa tek bir satır yazdırılır.
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### Bölümleri nasıl okumalı
+
+| Bölüm                                                                                       | Anlamı                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                                                      | Dosyaya göre gruplanmış, ReDoS'a yatkın örüntüler. Her örüntü dosyanın altında girintili yer alır, ardından parantez içinde neden güvensiz olduğu ve varsa kapsamı ile bayrakları gelir. Her satır güvensizdir, bu yüzden karar tekrarlanmaz. |
+| `Regular expressions the analysis could not settle (review manually)`                       | Analizin iş sınırı içinde karara bağlayamadığı örüntüler, aynı şekilde listelenir.                                                                                                                                                            |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | Bir regex'i bir değişkenden, bir birleştirmeden ya da bir enterpolasyondan oluşturan dosyalar.                                                                                                                                                |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | Bir regex literalinin daha basit olacağı ve çalışma zamanındaki derlemeyi atlayacağı yerde bir regex yapıcısına sıradan bir dize literali veren dosyalar.                                                                                     |
+
+İlk bölüm bir güvenlik bulgusudur. İkinci ve üçüncü bölüm tek başına bulgu değildir: statik bir kontrolün karara bağlayamadığı koda işaret eder, bu yüzden bir insanın okumasını gerektirir. Dördüncü bölüm bir güvenlik bulgusu değil, kodu daha anlaşılır kılmaya yönelik bir ipucudur.
+
+### CLI seçenekleri
+
+| Seçenek     | Değer                        | Açıklama                                                                                                         |
+| ----------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `--pattern` | bir regex kaynağı            | Tek bir örüntüyü kontrol eder. Birkaçını kontrol etmek için tekrarlayın, her örüntüye sırasıyla bir karar düşer. |
+| `--flags`   | regex bayrakları             | Her `--pattern` değerini `im` gibi bu bayraklarla kontrol eder. Yalnızca check modunda geçerlidir.               |
+| `--dir`     | bir dizin                    | Taramayı bir dizinle sınırlar. Tekrarlanabilir ve `--file` ile birleştirilebilir.                                |
+| `--file`    | bir dosya                    | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.                            |
+| `--limit`   | negatif olmayan bir tam sayı | ReDoS tekrar sınırını belirler (varsayılan 25). Her iki modda da geçerlidir. Daha düşük bir sınır daha katıdır.  |
+
+Seçenek verilmezse tüm proje taranır. `--pattern` check modudur ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Desteklenen diller
+
+Tarama bu dilleri dosya uzantısına göre tanıyarak, her birini kendi kurallarıyla okur, böylece bir dildeki örüntü asla başka bir dilin kurallarıyla test edilmez. Geri kalan her şey yanlış kurallarla taranmak yerine atlanır.
+
+| #   | Dil                         | Uzantılar                                                                                                    |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`, `.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`, `.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`, `.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`, `.psm1`, `.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`, `.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`, `.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`, `.cljs`, `.cljc`, `.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`, `.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`, `.pm`                                                                                                 |
+
+:::note[Elden gelenin en iyisi, ama eksiksiz değil]
+Hook kaynak kodu metin olarak okur, bu yüzden çalışma zamanında oluşturulan bir örüntüyü değerlendiremez. Birden çok satıra yayılan, bir takma adın arkasına gizlenen ya da tanımadığı bir biçimde yazılan bir örüntü de gözden kaçabilir. Bölümleri eksiksiz bir envanter olarak değil, sağlam bir başlangıç noktası olarak görün ve onların erişemediği yerler için kodu okumaya devam edin.
+:::
+
+## Tek bir örüntüyü kontrol etme
+
+Bir örüntüyü puanlamak için kaynağını `--pattern` ile verin. Hook tek bir kelime yazdırır: `safe`, `unsafe`, analiz örüntüyü karara bağlamadan iş sınırına ulaştığında `undetermined` ya da `invalid regex`. Birkaç örüntüyü aynı anda puanlamak için `--pattern` seçeneğini tekrarlayın. Her örüntüye sırasıyla bir karar düşer.
+
+<Tabs>
+  <TabItem value="one" label="Tek örüntü" default>
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="many" label="Birkaç örüntü">
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="flags" label="Bayraklarla">
+
+`--flags`, çağrıdaki her `--pattern` değerini çalışacağı bayraklarla kontrol eder, çünkü bir bayrak, örüntünün hangi karakterlerle eşleştiğini değiştirir.
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+  </TabItem>
+  <TabItem value="limit" label="Sınırla">
+
+`--limit`, tekrar sınırını belirler (varsayılan 25) ve çağrıdaki her `--pattern` için geçerlidir. Daha düşük bir sınır daha katıdır.
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[Neden tırnak içinde bir argüman]
+
+Her örüntü bir bayrak değeri olarak verilir, asla komutun içine yerleştirilmez. Tırnak veya ters tırnak içeren bir değer etkisiz kalır ve kabuğa enjeksiyon yapamaz. Kabuğunuzun onu önceden genişletmemesi için örüntüyü her zaman tek tırnak içine alın.
+:::
+
+:::tip
+Bu, [`regex` uzmanlığının](/docs/catalog) çalıştırdığı motorun aynısıdır: scan bir ReDoS incelemesini başlatır, check ise taramanın ortaya çıkardığı bir örüntüyü doğrular.
+:::
+
+<Faq
+  items={[
+    {
+      question: "Bir regex'i CLI'dan ReDoS'a karşı nasıl kontrol ederim?",
+      answer:
+        "npx lagune read regex --pattern '<pattern>' komutunu çalıştırın. Hook safe, unsafe, undetermined veya invalid regex sonucunu döndürür.",
+    },
+    {
+      question: "Bütün bir projeyi güvensiz regex'lere karşı nasıl tararım?",
+      answer:
+        "regex hook'unu kod tabanı üzerinde scan modunda çalıştırın. Hook, desteklenen 25 dilde ReDoS'a yatkın örüntüleri raporlar.",
+    },
+  ]}
+/>

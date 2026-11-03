@@ -1,0 +1,83 @@
+---
+id: qwen-code
+title: 'Qwen Code için Lagune uzantısı kurulumu'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: "Lagune'yi Qwen Code için uzantı olarak kurun, güncel tutun ve motoruna baştan izin verin."
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+Uzantıyı terminalden kurun:
+
+```bash
+qwen extensions install lagune
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+qwen extensions update lagune
+```
+
+Otomatik olarak güncel kalması için `--auto-update` ile kurun.
+
+## Komutlar
+
+Komutları uzantının adıyla birlikte yazın, örneğin `/lagune:lagune-charter` yazarak `/lagune-charter` komutunu çalıştırın.
+
+---
+
+:::info[İzinler]
+
+Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. Bunlara baştan izin vermek için bu kuralları tek bir proje için `.qwen/settings.json` dosyasına, tüm projeleriniz için `~/.qwen/settings.json` dosyasına ekleyin:
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+Motor, **skills.sh** ile kurulumda olduğu gibi **npx** üzerinden çalıştığında `Shell(npx --yes lagune@*)` için izin verin.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Qwen Code için Lagune nasıl kurulur?',
+      answer: 'qwen extensions install lagune komutunu çalıştırın.',
+    },
+    {
+      question: 'Qwen Code kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'qwen extensions update lagune komutunu çalıştırın ya da uzantıyı --auto-update ile kurun.',
+    },
+    {
+      question: 'Qwen Code kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Uzantının adıyla birlikte yazın, örneğin /lagune:lagune-charter.',
+    },
+    {
+      question: "Qwen Code, Lagune'yi izin istemeden çalıştırabilir mi?",
+      answer:
+        'Evet. Qwen Code ayarlarında mcp__lagune__lagune_read ve mcp__lagune__lagune_write için izin verin, motor npx üzerinden çalıştığında Shell(npx --yes lagune@*) için de izin verin.',
+    },
+  ]}
+/>

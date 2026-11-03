@@ -1,0 +1,132 @@
+---
+id: opencode
+title: 'OpenCode için Lagune eklentisi kurulumu'
+sidebar_label: OpenCode
+parent: get-started/install
+description: "Lagune'yi OpenCode 1.x ve 2.x için eklenti olarak kurun ve güncel tutun."
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: 'f79638c10be0e2425d9690e2d98375d7739ebc1ae43d8a729cb033f5b0ca3f09'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Eklentiyi terminalden kurun:
+
+```bash
+opencode plugin add lagune
+```
+
+Ya da `plugins` listesine eklemek için `opencode.json` dosyasını düzenleyin:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Eklentiyi terminalden projenize kurun ya da tüm projeleriniz için kurmak üzere `-g` ekleyin:
+
+```bash
+opencode plugin lagune
+```
+
+Ya da `plugin` listesine eklemek için `opencode.json` dosyasını düzenleyin:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Güncelleme
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+**Lagune**'yi güncellemek için yeni sürümü eskisinin üzerine kurun, tüm projeleriniz için kurduysanız `-g` ekleyin:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## Komutlar
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+`@` yazıp komutu seçin, örneğin `@lagune-charter`, ardından girdinizi aynı mesaja yazın.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Komutları adlarıyla yazın, örneğin `/lagune-charter`. Komutlar `/skills` altında listelenir, `/` menüsünde değil.
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[İzinler]
+
+Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. **OpenCode** bunları sormadan çalıştırır.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'OpenCode için Lagune nasıl kurulur?',
+      answer:
+        'OpenCode 2.x sürümünde opencode plugin add lagune komutunu çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune komutunu çalıştırın, tüm projeleriniz için kurmak üzere -g ekleyin.',
+    },
+    {
+      question: 'OpenCode kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@{{version}} --force komutunu çalıştırın.',
+    },
+    {
+      question: 'OpenCode kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'OpenCode 2.x sürümünde @ yazıp komutu seçin, örneğin @lagune-charter, ardından girdinizi aynı mesaja yazın. OpenCode 1.x sürümünde komutları adlarıyla yazın, örneğin /lagune-charter, ya da /skills altında bulun.',
+    },
+    {
+      question: 'OpenCode, Lagune çalışmadan önce izin ister mi?',
+      answer:
+        'Hayır. OpenCode, motorun iki aracı olan lagune_read ve lagune_write araçlarını sormadan çalıştırır.',
+    },
+  ]}
+/>

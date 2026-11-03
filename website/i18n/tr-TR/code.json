@@ -1,0 +1,662 @@
+{
+  "catalog.copyPrompt": {
+    "message": "{specialization} uzmanlığını yükleyen prompt'u kopyala",
+    "description": "The label of the button that copies the prompt loading a specialization, where {specialization} is its name"
+  },
+  "catalog.preview.hover": {
+    "message": "Üzerime gel",
+    "description": "Invites a reader with a mouse to open the example prompt of a specialization"
+  },
+  "catalog.preview.touch": {
+    "message": "Bana dokun",
+    "description": "Invites a touch-screen reader to open the example prompt of a specialization"
+  },
+  "catalog.preview.you": {
+    "message": "Siz",
+    "description": "The name over the reader's own message in the example prompt"
+  },
+  "catalog.reply.read": {
+    "message": "Read",
+    "description": "The tool step an agent shows when it reads a specialization, in the example reply"
+  },
+  "catalog.reply.text": {
+    "message": "Hemen başlıyorum!",
+    "description": "The agent's short answer in the example reply to a prompt that loads a specialization"
+  },
+  "common.copied": {
+    "message": "Kopyalandı",
+    "description": "Confirms that something was copied to the clipboard"
+  },
+  "common.docs": {
+    "message": "Belgeler",
+    "description": "The name of the documentation, in links and breadcrumbs"
+  },
+  "common.documentation": {
+    "message": "Dokümantasyon",
+    "description": "The name of the documentation as a whole"
+  },
+  "common.home": {
+    "message": "Ana sayfa",
+    "description": "The name of the home page, in links and breadcrumbs"
+  },
+  "common.language": {
+    "message": "Dil",
+    "description": "The accessible name of the menu that switches the site language"
+  },
+  "common.language.current": {
+    "message": "Dil: {language}",
+    "description": "The accessible name of the language button, where {language} is the language shown now"
+  },
+  "common.sponsor": {
+    "message": "Sponsor ol",
+    "description": "The link to sponsor Lagune on GitHub Sponsors"
+  },
+  "common.starOnGitHub": {
+    "message": "GitHub'da yıldız ver",
+    "description": "Invites the reader to star the Lagune repository on GitHub"
+  },
+  "common.support": {
+    "message": "Destek ol",
+    "description": "The link to support Lagune through GitHub Sponsors"
+  },
+  "docs.badge.copy": {
+    "message": "\"{badge}\" rozetinin Markdown kodunu kopyala",
+    "description": "The label of the button that copies a badge's Markdown, where {badge} is the badge's text"
+  },
+  "docs.categories.choose": {
+    "message": "Kategorileri seç",
+    "description": "The label over the category cards a reader picks from"
+  },
+  "docs.categories.copy": {
+    "message": "Komutu kopyala",
+    "description": "The label of the button that copies the command adding the chosen categories"
+  },
+  "docs.categories.optional": {
+    "message": "İsteğe bağlı",
+    "description": "Marks picking categories as optional"
+  },
+  "docs.categories.run": {
+    "message": "Bunu çalıştır",
+    "description": "The label over the command that adds the chosen categories"
+  },
+  "docs.faq.title": {
+    "message": "Sıkça sorulan sorular",
+    "description": "The heading of a docs page's questions and answers"
+  },
+  "docs.install.back": {
+    "message": "Tüm ajanlara dön",
+    "description": "The label of the link from an agent's install page back to the list of agents"
+  },
+  "docs.level.label": {
+    "message": "{max} üzerinden {level}",
+    "description": "The accessible reading of a 1 to 5 rating shown as dots"
+  },
+  "docs.notice.original": {
+    "message": "Orijinal sürümü okuyun",
+    "description": "The link from a stale or untranslated page notice to the English page"
+  },
+  "docs.notice.stale": {
+    "message": "Bu sayfa İngilizce sürümünün gerisinde kaldı.",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page"
+  },
+  "docs.notice.untranslated": {
+    "message": "Bu sayfa henüz çevrilmedi.",
+    "description": "Tells the reader the page below is still in English, shown above the page"
+  },
+  "docs.page.imageAlt": {
+    "message": "Lagune {section}: {title}",
+    "description": "The alternative text of a docs page's link preview image, where {section} is its sidebar group and {title} is the page title"
+  },
+  "docs.pagination.label": {
+    "message": "Belge sayfaları",
+    "description": "The accessible name of the previous and next page links"
+  },
+  "docs.pagination.next": {
+    "message": "Sonraki",
+    "description": "The label over the link to the next docs page"
+  },
+  "docs.pagination.previous": {
+    "message": "Önceki",
+    "description": "The label over the link to the previous docs page"
+  },
+  "docs.search.empty": {
+    "message": "\"{query}\" ile eşleşen sayfa yok.",
+    "description": "Shown when a docs search finds nothing, where {query} is what the reader typed"
+  },
+  "docs.search.label": {
+    "message": "Belgelerde ara",
+    "description": "The accessible name of the docs search box"
+  },
+  "docs.search.placeholder": {
+    "message": "Belgelerde ara…",
+    "description": "The placeholder of the docs search box"
+  },
+  "docs.search.untranslatedBadge": {
+    "message": "EN",
+    "description": "The badge on a search result that is still in English"
+  },
+  "docs.shell.closeNavigation": {
+    "message": "Gezinmeyi kapat",
+    "description": "The label of the button that closes the docs navigation drawer"
+  },
+  "docs.shell.openNavigation": {
+    "message": "Gezinmeyi aç",
+    "description": "The label of the button that opens the docs navigation drawer"
+  },
+  "docs.shell.repository": {
+    "message": "GitHub deposu",
+    "description": "The label of the link to Lagune's GitHub repository"
+  },
+  "docs.shell.sponsor": {
+    "message": "Lagune'ye sponsor ol",
+    "description": "The label of the link to sponsor Lagune"
+  },
+  "docs.shell.toggleTheme": {
+    "message": "Temayı değiştir",
+    "description": "The label of the button that switches the docs between light and dark"
+  },
+  "docs.sidebar.supportLagune": {
+    "message": "Lagune'yi destekleyin",
+    "description": "The line under the invitation to star the repository, in the docs sidebar"
+  },
+  "docs.smallPrint.contributors": {
+    "message": "katkıda bulunanlar",
+    "description": "The link to the people who contributed to Lagune"
+  },
+  "docs.smallPrint.copyright": {
+    "message": "Telif hakkı © 2026-günümüz {author} ve {contributors}. Lagune, {license} kapsamında sunulur. Lütfen {policy} belgesini inceleyin.",
+    "description": "The copyright and license notice under every docs page, where {author}, {contributors}, {license}, and {policy} are links"
+  },
+  "docs.smallPrint.lastUpdated": {
+    "message": "Son güncelleme: {date}.",
+    "description": "When a docs page last changed, where {date} is the date"
+  },
+  "docs.smallPrint.securityPolicy": {
+    "message": "Güvenlik politikası",
+    "description": "The link to Lagune's security policy"
+  },
+  "docs.smallPrint.trademarks": {
+    "message": "Bahsedilen tüm ürün adları, ticari markalar ve tescilli ticari markalar ilgili sahiplerine aittir ve yalnızca tanımlama amacıyla kullanılır.",
+    "description": "The trademark notice on pages that name other products"
+  },
+  "docs.toc.label": {
+    "message": "İçindekiler",
+    "description": "The accessible name of a docs page's table of contents"
+  },
+  "docs.toc.title": {
+    "message": "Bu sayfada",
+    "description": "The heading of a docs page's table of contents"
+  },
+  "home.agents.installOn": {
+    "message": "{agent} için kur",
+    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
+  },
+  "home.agents.more": {
+    "message": "{count} ajan daha",
+    "description": "The label of the link to every other supported agent, where {count} is how many"
+  },
+  "home.background.alt": {
+    "message": "Lagune {tab}",
+    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
+  },
+  "home.brand.backToTop": {
+    "message": "Lagune.ai, başa dön",
+    "description": "The label of the brand button that scrolls back to the top"
+  },
+  "home.cta.install": {
+    "message": "Kur",
+    "description": "The main home button, leading to the install page"
+  },
+  "home.faq.audit.answer": {
+    "message": "Evet. Beş fazlı Blue Team akışı var olanı denetler: charter güvenlik kurallarınızı belirler, detect sistemin ne yaptığını ve risklerin nerede olduğunu belirler, plan her bulguyu puanlayıp bir düzeltmeyle eşleştirir, harden düzeltmeleri uygular, verify ise işe yaradıklarını kanıtlayıp onları kapatır.",
+    "description": "The answer to \"Can Lagune audit an existing project?\" in search engines' structured data"
+  },
+  "home.faq.audit.question": {
+    "message": "Lagune mevcut bir projeyi denetleyebilir mi?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.build.answer": {
+    "message": "Evet. /lagune komutu herhangi bir prompt'u alır, istediğinizi oluşturur ve güvenlik ilkelerinizin rehberliğinde, kod yazılırken güvenli varsayılanlarla sıkılaştırır. Ardından beş fazlı Blue Team akışı var olanı denetler.",
+    "description": "The answer to \"Can Lagune secure code as I build it?\" in search engines' structured data"
+  },
+  "home.faq.build.question": {
+    "message": "Lagune, ben kod yazarken kodu güvenli hale getirebilir mi?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.install.answer": {
+    "message": "Çoğu ajan Lagune'yi eklenti olarak, Gemini CLI ve Qwen Code uzantı olarak, Pi ise paket olarak kurar. Diğer tüm ajanlarda npx skills add wellwelwel/lagune yeterlidir. Kurulum sayfası her ajanın komutunu gösterir. Lagune yeni projelerde de mevcut projelerde de çalışır ve API anahtarı gerektirmez.",
+    "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
+  },
+  "home.faq.install.question": {
+    "message": "Lagune'yi nasıl kurarım?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.what.answer": {
+    "message": "Lagune, yapay zeka ajanınızın her kod tabanını sıkılaştırmasına yardımcı olan, açık kaynak ve yalnızca savunma odaklı bir güvenlik iş akışıdır. Sisteminizin gerçekte ne yaptığını tespit eder, ardından o bağlam için önemli olan güvenlik düzeltmelerine rehberlik eder.",
+    "description": "The answer to \"What is Lagune?\" in search engines' structured data"
+  },
+  "home.faq.what.question": {
+    "message": "Lagune nedir?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.feature.overview.eyebrow": {
+    "message": "Pratik",
+    "description": "The small caps label over the home overview title"
+  },
+  "home.feature.overview.kicker": {
+    "message": "Genel bir kontrol listesi uygulamak yerine güvenlik, geliştirmenin {before}, {during} ve {after} var olsaydı nasıl olurdu?",
+    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+  },
+  "home.feature.overview.kicker.after": {
+    "message": "sonrasında",
+    "description": "The emphasized \"after\" of the home overview question"
+  },
+  "home.feature.overview.kicker.before": {
+    "message": "öncesinde",
+    "description": "The emphasized \"before\" of the home overview question"
+  },
+  "home.feature.overview.kicker.during": {
+    "message": "sırasında",
+    "description": "The emphasized \"during\" of the home overview question"
+  },
+  "home.feature.overview.title": {
+    "message": "Tasarım gereği{lineBreak}savunma",
+    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
+  },
+  "home.feature.usage.chip": {
+    "message": "Blue Team akışı",
+    "description": "The chip over the home usage tab"
+  },
+  "home.feature.usage.eyebrow": {
+    "message": "Blue Team akışı",
+    "description": "The small caps label over the home usage title"
+  },
+  "home.feature.usage.kicker": {
+    "message": "Kodunuzu gösterin, gerisini ajan halletsin.",
+    "description": "The sentence that opens the home usage tab"
+  },
+  "home.feature.usage.title": {
+    "message": "Yayına aldığınızı{lineBreak}sıkılaştırın",
+    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+  },
+  "home.group.anyPrompt": {
+    "message": "Her prompt, her an",
+    "description": "The stage label of the universal /lagune command on the home page"
+  },
+  "home.group.defend": {
+    "message": "Savun",
+    "description": "The stage label of the harden and verify phases on the home page"
+  },
+  "home.group.establish": {
+    "message": "Belirle",
+    "description": "The stage label of the charter phase on the home page"
+  },
+  "home.group.understand": {
+    "message": "Anla",
+    "description": "The stage label of the detect and plan phases on the home page"
+  },
+  "home.highlight.build.body": {
+    "message": "Herhangi bir prompt'ta kullanın, ajan istediğinizi her zamanki gibi oluştursun, üstelik artık talep üzerine güvenlik bilgisiyle.",
+    "description": "The body of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.build.lead": {
+    "message": "Tek bir komut, {command}, güvenliği kod yazıldıktan sonra değil, yazılırken getirir.",
+    "description": "The lead of the home highlight about /lagune, where {command} is the command"
+  },
+  "home.highlight.build.title": {
+    "message": "Geliştirirken sıkılaştırın",
+    "description": "The title of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.dashboard.body": {
+    "message": "Ajan çalışırken projenizin güvenliğini canlı izleyin. Kendi makinenizde çalışır ve hiçbir veri dışarı çıkmaz.",
+    "description": "The body of the home highlight about the local dashboard"
+  },
+  "home.highlight.dashboard.lead": {
+    "message": "{dashboard} bulgularınızı, düzeltmelerinizi ve ispatlarınızı canlı olarak izler.",
+    "description": "The lead of the home highlight about the dashboard, where {dashboard} is emphasized"
+  },
+  "home.highlight.dashboard.lead.dashboard": {
+    "message": "Yerel ve gizli bir gösterge paneli",
+    "description": "The emphasized part of the home highlight about the dashboard"
+  },
+  "home.highlight.dashboard.title": {
+    "message": "İlerleme tarayıcınızda",
+    "description": "The title of the home highlight about the local dashboard"
+  },
+  "home.highlight.flow.body": {
+    "message": "Sisteminizin gerçekte ne yaptığını tespit eder, buna uyan saldırı vektörlerini belirler, ardından uygun güvenlik çalışmasını uygular.",
+    "description": "The body of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.flow.lead": {
+    "message": "Beş fazlı, {basis} bir akış, çalıştırmaya hazır.",
+    "description": "The lead of the home highlight about the Blue Team flow, where {basis} is emphasized"
+  },
+  "home.highlight.flow.lead.basis": {
+    "message": "Blue Team tabanlı",
+    "description": "The emphasized part of the home highlight about the Blue Team flow"
+  },
+  "home.highlight.flow.title": {
+    "message": "Spec-Driven'dan ilham alan",
+    "description": "The title of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.knowledge.body": {
+    "message": "Bulduğu bağlama uyan modülü devreye alır ve yeni riskler ortaya çıktıkça uyum sağlamaya devam eden bir katalogdan yararlanır.",
+    "description": "The body of the home highlight about on-demand specializations"
+  },
+  "home.highlight.knowledge.lead": {
+    "message": "Odaklı güvenlik modülleri {scope} yüklenir.",
+    "description": "The lead of the home highlight about specializations, where {scope} is emphasized"
+  },
+  "home.highlight.knowledge.lead.scope": {
+    "message": "yalnızca projenizin ne olduğuna göre",
+    "description": "The emphasized part of the home highlight about specializations"
+  },
+  "home.highlight.knowledge.title": {
+    "message": "Talep üzerine bilgi",
+    "description": "The title of the home highlight about on-demand specializations"
+  },
+  "home.howTo.charter": {
+    "message": "Projenizin güvenlik ilkelerini, yani sonraki her fazın uyduğu kuralları belirleyin.",
+    "description": "The Charter step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.description": {
+    "message": "Lagune, her kod tabanını denetleyip sıkılaştıran, savunmayı öne alan beş fazlı bir akış yürütür ve bu akışı yapay zeka ajanınız yönetir.",
+    "description": "The summary of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.detect": {
+    "message": "Kodu okuyun, sistemin ne yaptığını ve risklerin nerede olduğunu belirleyin.",
+    "description": "The Detect step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.harden": {
+    "message": "Planın düzeltmelerini koda güvenle ve birer birer uygulayın.",
+    "description": "The Harden step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.name": {
+    "message": "Lagune ile bir kod tabanı nasıl sıkılaştırılır (Blue Team akışı)",
+    "description": "The name of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.plan": {
+    "message": "Her bulguyu bir kategori ve CVSS v4.0 puanıyla değerlendirin, ardından bir düzeltmeyle eşleştirin.",
+    "description": "The Plan step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.verify": {
+    "message": "Uygulanan her düzeltmenin işe yaradığını kanıtlayın, ardından kanıtlananları takipten çıkarın.",
+    "description": "The Verify step of the five-phase guide in search engines' structured data"
+  },
+  "home.meta.description": {
+    "message": "Lagune, yapay zeka ajanınızın her kod tabanını sıkılaştırmasına yardımcı olur: sisteminizin gerçekte ne yaptığını tespit eder, ardından siz geliştirirken uygun savunma çalışmasını yürütür.",
+    "description": "The description of the home page in search results and link previews"
+  },
+  "home.meta.title": {
+    "message": "Her kod tabanı için yapay zeka destekli güvenlik sıkılaştırması | Lagune",
+    "description": "The title of the home page in search results and the browser tab"
+  },
+  "home.mode.bySeverity": {
+    "message": "Önem derecesine göre",
+    "description": "The example tab for running a phase on the most severe findings only"
+  },
+  "home.mode.recommendedFull": {
+    "message": "Önerilen (tam)",
+    "description": "The example tab for running a phase over the whole project, the recommended way"
+  },
+  "home.nav.menu": {
+    "message": "Menü",
+    "description": "The label of the button that opens the compact home menu"
+  },
+  "home.nav.sections": {
+    "message": "Bölümler",
+    "description": "The accessible name of the home side rail"
+  },
+  "home.nav.windows": {
+    "message": "Pencereler",
+    "description": "The accessible name of the home tabs that switch the main window"
+  },
+  "home.phase.bannerAlt": {
+    "message": "{phase} fazı",
+    "description": "The alternative text of a phase card's banner, where {phase} is the phase"
+  },
+  "home.phase.charter.description": {
+    "message": "Projenizin güvenlik kurallarını belirler, bunları sizin için önerir ya da anlattıklarınıza göre şekillendirir.",
+    "description": "What the Charter phase does"
+  },
+  "home.phase.charter.eyebrow": {
+    "message": "FAZ 1",
+    "description": "The small caps label over the Charter phase card"
+  },
+  "home.phase.charter.mode.auto": {
+    "message": "Otomatik tespit",
+    "description": "The example tab for the Charter phase: Auto Detect"
+  },
+  "home.phase.charter.mode.describe": {
+    "message": "Önerilen (anlat)",
+    "description": "The example tab for the Charter phase: Recommended (Describe)"
+  },
+  "home.phase.charter.mode.describe.prompt": {
+    "message": "Bir manga SaaS'ı işletiyoruz: yazarlar özgün bölümler yüklüyor, okuyucular Stripe ile kredi satın alıp bu kredilerle bölümlerin kilidini açıyor, yazarlar da her kilit açılışından komisyon kazanıyor. Kullanıcıların bölümleri sonradan sızdırmasını ya da ekran görüntüsünü almasını önlememize yardım et.",
+    "description": "An example request a user writes after /lagune-charter"
+  },
+  "home.phase.charter.title": {
+    "message": "Charter",
+    "description": "The name of the Charter phase"
+  },
+  "home.phase.copyCommand": {
+    "message": "{command} komutunu kopyala",
+    "description": "The label of the button that copies a command, where {command} is the command"
+  },
+  "home.phase.detect.description": {
+    "message": "Kodunuzu okur, sisteminizin ne yaptığını ve risklerin nerede olduğunu belirler.",
+    "description": "What the Detect phase does"
+  },
+  "home.phase.detect.eyebrow": {
+    "message": "FAZ 2",
+    "description": "The small caps label over the Detect phase card"
+  },
+  "home.phase.detect.mode.scoped": {
+    "message": "Sınırlı kapsam",
+    "description": "The example tab for the Detect phase: Scoped"
+  },
+  "home.phase.detect.mode.scoped.prompt": {
+    "message": "Birleştirmeden önce stajyerin dalını tara.",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.mode.targeted": {
+    "message": "Hedefli",
+    "description": "The example tab for the Detect phase: Targeted"
+  },
+  "home.phase.detect.mode.targeted.prompt": {
+    "message": "Olası tüm veri sızıntılarını araştır",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.title": {
+    "message": "Detect",
+    "description": "The name of the Detect phase"
+  },
+  "home.phase.harden.description": {
+    "message": "Planın düzeltmelerini kodunuza güvenle ve birer birer uygular.",
+    "description": "What the Harden phase does"
+  },
+  "home.phase.harden.eyebrow": {
+    "message": "FAZ 4",
+    "description": "The small caps label over the Harden phase card"
+  },
+  "home.phase.harden.mode.severity.prompt": {
+    "message": "Şimdilik yalnızca kritik ve yüksek önem derecesindeki düzeltmeleri uygula.",
+    "description": "An example request a user writes after /lagune-harden"
+  },
+  "home.phase.harden.title": {
+    "message": "Harden",
+    "description": "The name of the Harden phase"
+  },
+  "home.phase.plan.description": {
+    "message": "Detect fazının bulduklarını, her bulgu için bir düzeltme içeren bir savunma planına dönüştürür.",
+    "description": "What the Plan phase does"
+  },
+  "home.phase.plan.eyebrow": {
+    "message": "FAZ 3",
+    "description": "The small caps label over the Plan phase card"
+  },
+  "home.phase.plan.mode.severity.prompt": {
+    "message": "Şimdilik yalnızca kritik ve yüksek önem derecesindeki bulguları planla.",
+    "description": "An example request a user writes after /lagune-plan"
+  },
+  "home.phase.plan.title": {
+    "message": "Plan",
+    "description": "The name of the Plan phase"
+  },
+  "home.phase.universal.description": {
+    "message": "Prompt'unuzun istediğini oluşturur, güvenlik de işi sonradan değil, yapılırken korur.",
+    "description": "What the universal /lagune command does"
+  },
+  "home.phase.universal.eyebrow": {
+    "message": "EVRENSEL",
+    "description": "The small caps label over the universal /lagune command card"
+  },
+  "home.phase.universal.mode.feature": {
+    "message": "Özellik",
+    "description": "The example tab for building a new feature with /lagune"
+  },
+  "home.phase.universal.mode.feature.prompt": {
+    "message": "SaaS kullanıcılarım için bir gösterge paneli oluştur. Kullanıcılar profil fotoğraflarını değiştirebilmeli ve erişebildikleri tüm içeriği görebilmeli.",
+    "description": "An example request a user writes after /lagune to build a feature"
+  },
+  "home.phase.universal.mode.fix": {
+    "message": "Düzeltme",
+    "description": "The example tab for fixing a bug with /lagune"
+  },
+  "home.phase.universal.mode.fix.prompt": {
+    "message": "Kullanıcı formu gönderdiğinde hiçbir şey olmuyor. Sebebi ne olabilir, araştır ve düzelt.",
+    "description": "An example request a user writes after /lagune to fix a bug"
+  },
+  "home.phase.universal.mode.refactor": {
+    "message": "Yeniden düzenleme",
+    "description": "The example tab for refactoring code with /lagune"
+  },
+  "home.phase.universal.mode.refactor.prompt": {
+    "message": "Payload mantığını ayrıştır ve iyileştir.",
+    "description": "An example request a user writes after /lagune to refactor code"
+  },
+  "home.phase.universal.next": {
+    "message": "Mevcut projenizi nasıl denetleyeceğinizi görün",
+    "description": "Leads from the universal command to the audit flow on the home page"
+  },
+  "home.phase.universal.title": {
+    "message": "Geliştirme",
+    "description": "The title of the universal /lagune command card"
+  },
+  "home.phase.verify.description": {
+    "message": "Uygulanan her düzeltmenin işe yaradığını kanıtlar ve kanıtlananları kapatır.",
+    "description": "What the Verify phase does"
+  },
+  "home.phase.verify.eyebrow": {
+    "message": "FAZ 5",
+    "description": "The small caps label over the Verify phase card"
+  },
+  "home.phase.verify.mode.severity.prompt": {
+    "message": "Yalnızca uyguladığımız kritik ve yüksek önem derecesindeki düzeltmeleri doğrula.",
+    "description": "An example request a user writes after /lagune-verify"
+  },
+  "home.phase.verify.title": {
+    "message": "Verify",
+    "description": "The name of the Verify phase"
+  },
+  "home.prompt.example": {
+    "message": "Örnek",
+    "description": "The label over the example prompt typed on the home page"
+  },
+  "home.rail.step": {
+    "message": "{phase} ({stage})",
+    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.software.feature.context": {
+    "message": "Bir sistemin gerçekte ne yaptığını, ne olursa olsun tespit eder, ardından her dilde o bağlam için önemli olan düzeltmeleri yürütür",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.cvss": {
+    "message": "Her bulgu için CVSS v4.0 puanlaması",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.dashboard": {
+    "message": "Bulguları, düzeltmeleri ve ispatları izlemek için yerel ve gizli bir gösterge paneli",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.defense": {
+    "message": "Yalnızca savunma odaklı: asla exploit ya da saldırı aracı üretmez",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.flow": {
+    "message": "Beş fazlı Blue Team akışı: charter, detect, plan, harden, verify",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.install": {
+    "message": "Ajanınıza eklenti olarak ya da diğer tüm ajanlarda skills CLI aracıyla kurulur, API anahtarı gerekmez",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.specializations": {
+    "message": "Talep üzerine yüklenen, dilden bağımsız ve kategorilere ayrılmış güvenlik uzmanlıkları",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.universal": {
+    "message": "Evrensel /lagune komutuyla yeni işi, güvenlik ilkelerinin rehberliğinde, yazılırken güvenceye alır",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tab.overview": {
+    "message": "Genel bakış",
+    "description": "The home tab that presents Lagune"
+  },
+  "home.tab.usage": {
+    "message": "Nasıl kullanılır",
+    "description": "The home tab that walks through the commands"
+  },
+  "home.topBar.label": {
+    "message": "Site",
+    "description": "The accessible name of the top navigation bar"
+  },
+  "home.usage.next": {
+    "message": "Sıradaki: {phase}",
+    "description": "Leads from one phase to the next on the home page, where {phase} is the next phase"
+  },
+  "home.usage.settled": {
+    "message": "Her şey kanıtlandığında döngü durgun hale gelir",
+    "description": "Closes the walk through the phases on the home page"
+  },
+  "paper.reference.eyebrow": {
+    "message": "Kaynak [{index}]",
+    "description": "The heading of the popover that reveals a cited reference of the paper"
+  },
+  "paper.section.eyebrow": {
+    "message": "Bölüm {roman}",
+    "description": "The heading of the popover that reveals a section the paper refers to, where {roman} is its Roman numeral"
+  },
+  "share.breadcrumb": {
+    "message": "Paylaş",
+    "description": "The name of the share page in breadcrumbs"
+  },
+  "share.heading": {
+    "message": "Tarayın, açın, {star}",
+    "description": "The heading of the share page, where {star} is a star icon read as the word star"
+  },
+  "share.heading.star": {
+    "message": "yıldız verin",
+    "description": "The word the star icon of the share heading stands for"
+  },
+  "share.lead": {
+    "message": "Lagune'yi GitHub'da açmak için kameranızı koda tutun, ardından projeyi desteklemek için bir yıldız bırakın.",
+    "description": "The instruction under the share page heading"
+  },
+  "share.meta.description": {
+    "message": "Lagune'nin GitHub deposunu açmak için QR kodunu tarayın, ardından bu açık kaynak, yapay zeka destekli güvenlik sıkılaştırması projesini desteklemek için bir yıldız bırakın.",
+    "description": "The description of the share page in search results and link previews"
+  },
+  "share.meta.title": {
+    "message": "Lagune'yi paylaşın | QR kodunu tarayın ve GitHub deposuna yıldız verin",
+    "description": "The title of the share page in search results and the browser tab"
+  },
+  "share.qr.caption": {
+    "message": "Lagune'nin github.com/wellwelwel/lagune adresindeki GitHub deposunu açmak ve bir yıldız bırakmak için bu QR kodunu tarayın.",
+    "description": "The hidden caption of the QR code on the share page"
+  },
+  "share.qr.title": {
+    "message": "Lagune'nin github.com/wellwelwel/lagune adresindeki GitHub deposunu açan QR kodu",
+    "description": "The accessible name of the QR code on the share page"
+  }
+}

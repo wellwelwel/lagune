@@ -1,0 +1,220 @@
+---
+id: install
+title: 'Kurulum: her yapay zeka ajanı için güvenlik sıkılaştırması'
+sidebar_label: Kurulum
+slug: /
+description: "Lagune'yi her projeye kurun, ajanınız destekliyorsa eklenti olarak, desteklemiyorsa skills CLI aracıyla, ardından projenize uyan güvenlik uzmanlıklarını seçin."
+keywords:
+  - lagune kurulumu
+  - claude code plugin
+  - copilot cli plugin
+  - muse code plugin
+  - gemini cli extension
+  - qwen code extension
+  - antigravity cli plugin
+  - kimi code plugin
+  - cursor plugin
+  - hermes agent plugin
+  - devin cli plugin
+  - grok build plugin
+  - factory droid plugin
+  - codex plugin
+  - opencode plugin
+  - pi package
+  - npx skills add
+  - skills CLI
+  - kurulum
+  - başlarken
+  - uzmanlıklar
+  - kategoriler
+  - gereksinimler
+  - rozet
+  - security-driven hardening
+  - yapay zeka güvenliği
+  - uygulama güvenliği
+  - savunma güvenliği
+  - blue team
+  - güvenli kodlama
+  - yapay zeka ajanları
+source_hash: '1894bdce99917455abf4b24126abf64cd1cdf70530ff3f8ec6478bfe63efb932'
+---
+
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune**, yapay zeka ajanınızın bir projeyi daha güvenli hale getirmesine yardım eder. Ona kodunuzu gösterirsiniz, ajan sisteminizin gerçekte ne yaptığını çıkarır ve ardından o sistem için önemli olan güvenlik çalışmasında size yol gösterir. **Lagune**, [Security-Driven Hardening (SDH)](/docs/references/paper) metodolojisinin ilk projesidir.
+
+:::tip[Açık kaynağı destekleyin]
+**Lagune**'yi sevdiniz mi? <ArrowLink to="https://github.com/wellwelwel/lagune">**GitHub**'da bize bir ⭐ verin</ArrowLink>
+:::
+
+## Ajanınızı seçin
+
+<AgentPicker />
+
+:::info
+
+- **Lagune** arka planda **Node.js** üzerinde çalışır, ama siz istediğiniz dili kullanırsınız.
+- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@{{version}}` ile kurun.
+
+:::
+
+## Kategoriler
+
+**Lagune**'nin güvenlik bilgisi, [**kategoriler**](/docs/categories) halinde gruplanan [**uzmanlıklar**](/docs/catalog) olarak gelir.
+
+<CategoryPicker />
+
+:::tip
+Bir proje `owasp` ile başlar ve [`/lagune-charter`](/docs/commands/charter) komutu, projeyi okuyarak gerekçelendirebildiği kategorileri ekler.
+:::
+
+## Gereksinimler
+
+Sisteminizde [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) kurulu olmalıdır.
+
+## Rozet kullanın ✨
+
+**Lagune** kullanıyor musunuz? **README** dosyanıza bir rozet ekleyin:
+
+<Tabs>
+  <TabItem value="two-tones" label="İki tonlu" default>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
+  alt='Secured By Lagune'
+  width={141}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
+  alt='Security Powered By Lagune'
+  width={193}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
+  alt='Security-Driven Hardening with Lagune'
+  width={225}
+/>
+
+  </TabItem>
+  <TabItem value="solid" label="Düz renk">
+
+<Badge
+  src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Secured By Lagune'
+  width={135}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security Powered By Lagune'
+  width={185}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security-Driven Hardening'
+  width={175}
+/>
+
+  </TabItem>
+</Tabs>
+
+## Sırada ne var
+
+**Lagune**'nin [**becerilerinin**](/docs/get-started/commands) her birinin ne yaptığını görün.
+
+<Faq
+  items={[
+    {
+      question: 'Lagune nedir?',
+      answer:
+        'Lagune, yapay zeka ajanınızın her kod tabanını sıkılaştırmasına yardım eden, açık kaynaklı ve yalnızca savunma odaklı bir güvenlik iş akışıdır. Ona kodunuzu gösterirsiniz, sisteminizin gerçekte ne yaptığını tespit eder, ardından o bağlam için önemli olan güvenlik düzeltmelerinde yol gösterir.',
+    },
+    {
+      question: 'Lagune nasıl kurulur?',
+      answer:
+        "Ajanınızı seçin: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI ve Hermes Agent, Lagune'yi eklenti olarak kurar, Gemini CLI ve Qwen Code uzantı olarak, Pi paket olarak kurar, diğer tüm ajanlar ise npx skills add wellwelwel/lagune ile kurar. Lagune yeni projelerde de mevcut projelerde de çalışır.",
+    },
+    {
+      question: 'Lagune için API anahtarı gerekir mi?',
+      answer:
+        'Hayır. Kendi yapay zeka ajanınız üzerinden çalışır, bu yüzden hiçbir API anahtarı gerekmez.',
+    },
+    {
+      question: 'Gereksinimler nelerdir?',
+      answer: 'Sisteminizde Node.js (LTS) kurulu olmalıdır.',
+    },
+    {
+      question: 'Lagune hangi programlama dillerini destekler?',
+      answer:
+        'Hepsini. Lagune arka planda Node.js üzerinde çalışır, ama hangi programlama dilinde yazılmış olursa olsun projeleri denetler ve sıkılaştırır.',
+    },
+    {
+      question: 'Lagune projeme ne ekler?',
+      answer:
+        'Projenizin güvenlik durumunu tutan, yazma yapan ilk komutun oluşturduğu bir .lagune/ dizini. skills CLI aracı ayrıca slash komutlarını projeye, ajanınızın onları okuduğu yere kurar, eklenti ise onları ajanın içinde tutar.',
+    },
+    {
+      question: 'Lagune nasıl güncellenir?',
+      answer:
+        "Kurduğunuz şekilde. Her ajanın kurulum sayfası Lagune'nin orada nasıl güncelleneceğini gösterir, skills CLI aracı ise onu npx skills update ile günceller. Güvenlik ilkeleriniz, faz artefaktlarınız ve kendi uzmanlıklarınız olduğu gibi kalır.",
+    },
+    {
+      question: 'Bir proje hangi uzmanlıkları kullanır?',
+      answer:
+        'Kategorilerinin yerleşik uzmanlıklarını ve kendi uzmanlıklarını. charter fazı, projeyi okuyarak gerekçelendirebildiği kategorileri kaydeder, npx lagune write add --categories ise onları değiştirir.',
+    },
+    {
+      question:
+        'Projemi güvenli hale getirmeden önce geliştirmeyi bitirmem gerekir mi?',
+      answer:
+        'Hayır. /lagune komutu, iş yazılırken onu sıkılaştırır: her prompt kabul eder, istediğinizi geliştirir ve güvenlik ilkelerinin rehberliğinde güvenli varsayılanlarla sıkılaştırır. Beş fazlı Blue Team akışı ise zaten var olanı denetler.',
+    },
+    {
+      question: 'Lagune mevcut bir projeyi denetleyebilir mi?',
+      answer:
+        'Evet. Beş fazlı Blue Team akışı zaten var olanı denetler: charter güvenlik kurallarınızı belirler, detect sistemin ne yaptığını ve risklerin nerede olduğunu çıkarır, plan her bulguyu puanlayıp bir düzeltmeyle eşleştirir, harden düzeltmeleri uygular, verify ise işe yaradıklarını kanıtlayıp onları kapatır.',
+    },
+    {
+      question:
+        'Lagune kullanmakla ajandan güvenlik açıklarını ve güvenlik kusurlarını çıkarmasını istemek arasındaki fark nedir?',
+      answer:
+        'Kendi başına okuyan bir ajan, güvenlik açığına benzeyeni bulur ve kontrole benzeyeni atlar. Engellenen adreslerin bir listesi, riski birisi zaten halletmiş gibi görünür, bu yüzden kimse adreslerin çoğunu kaçırdığını kontrol etmez ve kod yayına çıkar. Lagune bu varsayılanı tersine çevirir: kodda zaten bulunan bir koruma, kontrol edilene kadar kanıtlanmamış sayılır, katalogdaki her uzmanlık açık bir karar alır ve verify, bir kontrolün var olup olmadığını değil, riskin ortadan kalkıp kalkmadığını sorar. Her bulgu ayrıca çalıştırmalar boyunca takip edilen tek bir öğe olarak kalır, böylece kapandığı kanıtlanıp takipten çıkarılabilir. Sıradan bir istek ise size her seferinde, karşılaştıracak hiçbir şey bırakmayan farklı bir rapor verir.',
+    },
+    {
+      question:
+        'Lagune ile geliştirmekle ajandan güvenli kod yazmasını istemek arasındaki fark nedir?',
+      answer:
+        'Güvenli kod istemek, güvenlinin tanımını ajana bırakır ve neyi isteyeceğinizi bildiğinizi varsayar. Gereksinim çoğu zaman, ikiniz de görmeden, isteğinizin içinde zaten vardır: bir kullanıcının erişebildiği kursları gösteren bir sayfa istemek bir yetkilendirme kuralı koyar ve hiç yazılmayan bir kontrol, kodda fark edilecek hiçbir şey bırakmaz. /lagune komutu, ilk satır yazılmadan önce güvenlik ilkelerinizi ve geliştirilmek üzere olan şeye uyan uzmanlıkları yükler, ardından sonucu kullandığı savunmaya göre yeniden okur. Güvenli yol, güvensiz olandan nadiren daha pahalıdır, bu yüzden sonucu belirleyen hangisine uzanılacağını bilmektir ve en başta gelen de tam olarak budur.',
+    },
+    {
+      question:
+        'Lagune DAST (Dynamic Application Security Testing) çalıştırır mı, ya da çalışan uygulamamı test eder mi?',
+      answer:
+        'Hayır. Lagune kodu okur, sisteminizi asla çalıştırmaz ve ona özel hazırlanmış istekler göndermez. Verify, bir kontrolün kaynak kodda var ve doğru olduğunu teyit eder. Bu, kontrolün canlı bir hedefe yapılan saldırıya dayanıp dayanmadığından farklı bir sorudur, bu yüzden "Cannot tell from the code" sessiz bir onay yerine meşru bir karardır. DAST çalışma zamanı sorusunu, Lagune ise kaynak kod sorusunu yanıtlar, yani biri diğerinin yerini tutmaz. İsteğe bağlı prove komutu bile bu çizgiyi korur: testleri saldırı payload\'unu değil, güvenli davranışı doğrular.',
+    },
+    {
+      question: 'Lagune bir pentest (sızma testi) yerine geçer mi?',
+      answer:
+        "Hayır, kesinlikle hayır! Pentest, bir uzmanın canlı sisteminiz üzerinde kendi muhakemesini kullandığı, bulguları birbirine zincirlediği ve hiçbir yüzey kuralının tarif etmediği iş mantığını yokladığı yetkili bir çalışmadır. Bir pentest'in bulguları, detect fazına verdiğiniz endişeler olarak Lagune Blue Team akışına girebilir, böylece bir uzmanın raporladıkları planlanır, sıkılaştırılır ve doğrulanır.",
+    },
+  ]}
+/>
+
+## Güvenlik politikası
+
+Lütfen [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md) dosyasına göz atın.
+
+## Lisans
+
+**Lagune**, [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE) ile lisanslanmıştır.
+
+Telif hakkı © 2026-günümüz [Weslley Araújo](https://github.com/wellwelwel) ve [katkıda bulunanlar](https://github.com/wellwelwel/lagune/graphs/contributors).

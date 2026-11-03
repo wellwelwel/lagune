@@ -1,0 +1,69 @@
+---
+id: github-copilot-cli
+title: 'GitHub Copilot CLI için Lagune eklentisi kurulumu'
+sidebar_label: GitHub Copilot CLI
+parent: get-started/install
+description: "Lagune'yi GitHub Copilot CLI için eklenti olarak kurun ve güncel tutun."
+keywords:
+  - github copilot cli
+  - copilot cli plugin
+  - plugin marketplace
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '1d93bbd6206e56617cb2dbc1a4c3edcc536fe20e05b3f1984ae995c3d6b58974'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='GitHub Copilot' />
+
+Eklentiyi terminalden kurun:
+
+```bash
+copilot plugin marketplace add wellwelwel/lagune
+copilot plugin install lagune@lagune
+```
+
+Bir editörde **GitHub Copilot** için **Lagune**'yi [**skills.sh**](/docs/install/universal) ile kurun.
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
+
+## Komutlar
+
+Komutları adlarıyla yazın, örneğin `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'GitHub Copilot CLI için Lagune nasıl kurulur?',
+      answer:
+        'copilot plugin marketplace add wellwelwel/lagune ve ardından copilot plugin install lagune@lagune komutlarını çalıştırın.',
+    },
+    {
+      question: 'GitHub Copilot CLI kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'copilot plugin marketplace update lagune ve ardından copilot plugin update lagune@lagune komutlarını çalıştırın.',
+    },
+    {
+      question:
+        'GitHub Copilot CLI kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer: 'Adlarıyla yazın, örneğin /lagune-charter.',
+    },
+    {
+      question:
+        "Lagune'yi VS Code içinde GitHub Copilot ile kullanabilir miyim?",
+      answer:
+        "Evet. VS Code veya başka bir editörde Lagune'yi eklenti yerine skills.sh ile kurun.",
+    },
+  ]}
+/>

@@ -1,0 +1,130 @@
+---
+id: prove
+title: '/lagune-prove: yalnızca savunma odaklı Proof of Concept'
+sidebar_label: Prove
+description: "Tespit edilen her bulguyu sorumlu ifşa için çalıştırılabilir, yalnızca savunma odaklı bir Proof of Concept'e (PoC) ve güvenlik bültenine dönüştürün."
+keywords:
+  - proof of concept
+  - PoC
+  - güvenlik bülteni
+  - security advisory
+  - sorumlu ifşa
+  - responsible disclosure
+  - güvenlik açığı bildirimi
+  - zafiyet bildirimi
+  - regresyon testi
+  - CVE
+  - CWE
+  - OWASP
+  - GitHub Gist
+  - savunma güvenliği
+  - güvenlik açığı raporu
+  - Snyk
+source_hash: '277c99c6438cff41e1055d1d3d7ad2f413af224f1f2e33a1be5aa1c55b16ecba'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-prove
+
+🧪 Tespit edilen her bulguyu sorumlu ifşa için çalıştırılabilir, yalnızca savunma odaklı bir kanıta dönüştürün.
+
+Tespit haritasındaki her bulgu için kendi başına okunabilen bir güvenlik bülteni ve **güvenli yolu** doğrulayan bir test yazar. Böylece test, sorun var olduğu sürece başarısız olur ve kod düzeltildiği anda geçer.
+
+:::tip
+**Lagune** testleri, kendi test paketinizden ayrı olarak `.lagune/` klasöründe yalıtılmış şekilde durur.
+:::
+
+## Kullanım
+
+<Tabs>
+  <TabItem value="full" label="Her bulgu" default>
+
+```prompt
+/lagune-prove
+```
+
+  </TabItem>
+  <TabItem value="named" label="Adıyla bir bulgu">
+
+Takip edilen bulguları adlarıyla görün:
+
+```prompt
+npx lagune read list --findings
+
+# Findings
+#   ...
+#   • Kullanıcı aramasında SQL injection
+#   ...
+```
+
+```prompt
+# Ardından bunlardan birini kanıtla
+/lagune-prove Kullanıcı aramasında SQL injection
+```
+
+  </TabItem>
+</Tabs>
+
+## Nasıl çalışır
+
+Her bulgunun işaret ettiği kaynak kodu okur ve kanıtlanan her bulgu için `.lagune/proofs/` altında tam olarak iki dosya içeren bir dizin yazar:
+
+| Dosya                            | Nedir                                                                                                                                               |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report.test.mjs` (ya da `.cjs`) | Test. Projeniz zaten Poku kullanıyorsa Poku üzerinde, aksi hâlde yerleşik Node.js çalıştırıcısında çalışır, bu yüzden hiçbir şey kurmanız gerekmez. |
+| `report.md`                      | Kendi başına okunabilen bir güvenlik bülteni: önem derecesi, etki, sorunun nasıl yeniden üretildiği ve çalıştırma komutu.                           |
+
+İspatlar her zaman JavaScript'tir, bu yüzden projeniz hangi dille yazılmış olursa olsun taşınabilir kalırlar. Bir `README.md` dizini her ispata bağlantı verir ve hepsini çalıştırmak için tek bir komut sunar.
+
+:::tip
+
+- **İsteğe bağlı ve bağımsızdır:** beş fazdan biri değildir ve takip zincirinin parçası değildir.
+- Yalnızca `.lagune/proofs/` klasörüne yazar. Faz artefaktlarına ya da yalnızca okuduğu kodunuza asla dokunmaz.
+- Testi sorunu yeniden üretmeyen bir bulgu ispat almaz ve uzlaştırmak için o noktada [`/lagune-detect`](/docs/commands/detect) komutunu çalıştırmanızı söyler.
+- Yeniden çalıştırmak ispatları uzlaştırır: ortadan kalkan ya da artık yeniden üretilemeyen bir bulgunun dizini silinir.
+
+:::
+
+:::important
+
+**Yalnızca siz çağırdığınızda çalışır:** ajan onu asla kendiliğinden başlatmaz.
+
+:::
+
+:::warning[Detect fazına dayanır]
+Prove, [`/lagune-detect`](/docs/commands/detect) komutunun tespit haritasını okur, bu yüzden önce detect fazını çalıştırın.
+:::
+
+## Yalnızca savunma ve yalnızca yetkiyle
+
+Herhangi bir şey üretmeden önce hedefi test etme yetkiniz olduğunu doğrular ve çalışan bir exploit, saldırı payload'ı ya da tespit atlatma isteğini reddeder. Bir ispat güvenli davranışı gösterir, asla bir saldırı girdisi üretmez.
+
+## İspattan ifşaya
+
+Kanıtlanan her bulgunun iki dosyası, güvenlik açığını bildirmek için bir **gizli GitHub Gist** içinde birlikte durmalıdır. Bunlar hâlâ var olan ve henüz ifşa edilmemiş bir sorunun kanıtlarıdır, bu yüzden bir `.gitignore` dosyası, bulunduğu `.lagune/proofs/` klasöründen onları her commit'in dışında tutar: bakımcılar sorunu çözene kadar onları yalnızca o Gist üzerinden paylaşın.
+
+**Lagune** zincirinde bir bulguyu kapatmak yine [`/lagune-harden`](/docs/commands/harden) ve [`/lagune-verify`](/docs/commands/verify) komutlarının işidir: prove kanıt üretir, hiçbir şeyi kapatmaz.
+
+<Faq
+  items={[
+    {
+      question: 'Lagune exploit üretir mi?',
+      answer:
+        'Hayır. /lagune-prove yalnızca savunma odaklı kanıt yazar: güvenli yolu doğrulayan, sorun var olduğu sürece başarısız olan ve kod düzeltildiği anda geçen bir test ile sorumlu ifşa için bir güvenlik bülteni.',
+    },
+    {
+      question: 'Prove ne üretir?',
+      answer:
+        'Her bulgu için iki dosya: bir test (report.test.mjs ya da .cjs) ve bir güvenlik bülteni (report.md).',
+    },
+    {
+      question:
+        "Lagune'nin bulduğu bir hatayı sorumlu bir şekilde nasıl bildiririm?",
+      answer:
+        'Prove, sorumlu ifşa ilkesine uygun olarak gizli bir GitHub Gist gibi özel bir kanaldan paylaşabileceğiniz, kendi başına okunabilen bir güvenlik bülteni yazar.',
+    },
+  ]}
+/>

@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: 'Hermes Agent için Lagune eklentisi kurulumu'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: "Lagune'yi Hermes Agent için eklenti olarak kurun ve güncel tutun."
+keywords:
+  - hermes agent
+  - hermes agent plugin
+  - hermes plugins install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+Eklentiyi terminalden kurun:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- **Hermes Agent** kataloğu dışından bir eklentiyi onaylamanızı istediğinde **onaylayın**.
+- Deponun **Node.js** bağımlılıklarını kurmayı önerdiğinde **reddedin**.
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+hermes plugins update lagune
+```
+
+## Komutlar
+
+Komutları eklentinin adıyla birlikte yazın, örneğin `/lagune:lagune-charter` yazarak `/lagune-charter` komutunu, `/lagune:lagune` yazarak `/lagune` komutunu çalıştırın.
+
+<Faq
+  items={[
+    {
+      question: 'Hermes Agent için Lagune nasıl kurulur?',
+      answer:
+        'hermes plugins install wellwelwel/lagune --enable komutunu çalıştırın. İstendiğinde eklentiyi onaylayın, deponun Node.js bağımlılıklarını kurmayı ise reddedin.',
+    },
+    {
+      question: 'Hermes Agent kullanırken Lagune nasıl güncellenir?',
+      answer: 'hermes plugins update lagune komutunu çalıştırın.',
+    },
+    {
+      question: 'Hermes Agent kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Eklentinin adıyla birlikte yazın, örneğin /lagune:lagune-charter ve /lagune:lagune.',
+    },
+  ]}
+/>

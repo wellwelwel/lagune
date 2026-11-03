@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Codex CLI için Lagune eklentisi kurulumu'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: "Lagune'yi Codex CLI için eklenti olarak kurun, güncel tutun ve motorunu korumalı alan içinde çalıştırın."
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Eklentiyi terminalden kurun:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Komutlar
+
+`$` yazın, ardından eklentinin adıyla birlikte komutu ve girdinizi yazın, örneğin `$lagune:lagune-charter` yazarak `/lagune-charter` komutunu çalıştırın. `$` yazmak komutları listeler, birini seçmek de tam adını ekler.
+
+---
+
+:::info[İzinler]
+
+**Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Codex CLI için Lagune nasıl kurulur?',
+      answer:
+        'codex plugin marketplace add wellwelwel/lagune ve ardından codex plugin add lagune@lagune komutlarını çalıştırın.',
+    },
+    {
+      question: 'Codex CLI kullanırken Lagune nasıl güncellenir?',
+      answer: 'codex plugin marketplace upgrade lagune komutunu çalıştırın.',
+    },
+    {
+      question: 'Codex CLI kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        '$ yazın, ardından eklentinin adıyla birlikte komutu ve girdinizi yazın, örneğin $lagune:lagune-charter.',
+    },
+    {
+      question: 'Lagune, Codex korumalı alanı içinde çalışır mı?',
+      answer:
+        'Evet, motoru kendi terminalinizden npm i -D lagune@{{version}} ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.',
+    },
+  ]}
+/>

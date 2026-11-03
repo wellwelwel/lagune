@@ -1,0 +1,93 @@
+---
+id: specialize
+title: '/lagune-specialize: düz metinle bir güvenlik uzmanlığı eğitin'
+sidebar_label: Specialize
+description: Verdiğiniz bir güvenlik kaynağının ya da konusunun özünü çıkararak talep üzerine yüklenen yeni bir uzmanlığa dönüştürün.
+source_hash: '21aac2265799d6380a207b5496085f0da053ec72e67884a7e382012992951833'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-specialize
+
+🎓 Verdiğiniz bir kaynaktan ya da konudan **Lagune**'ye yeni bir uzmanlık öğretin.
+
+Materyali okur ve özünü çıkararak odaklı, yalnızca savunma odaklı bir uzmanlığa dönüştürür. Bu uzmanlık [yerleşik olanlarla](/docs/catalog) tamamen aynı biçimdedir, böylece detect ve verify fazları onu sonrasında diğerleri gibi yükler. Yalnızca denetler ve açıklar: asla saldırı girdisi ya da exploit yazmaz ve kodunuza asla dokunmaz.
+
+<Tabs>
+  <TabItem value="article" label="Bir makaleden" default>
+
+```prompt
+# Bir bağlantı ya da kaynak: Lagune onun özünü çıkarıp savunmaya dönüştürür
+/lagune-specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+  </TabItem>
+  <TabItem value="exploit" label="Bir exploit'ten">
+
+```prompt
+# Kaynak olarak bir saldırı: uzmanlık yine de savunmayı anlatır
+/lagune-specialize "' OR 1=1 -- sorgu metnine SQL ekler"
+```
+
+  </TabItem>
+  <TabItem value="topic" label="Bir konudan">
+
+```prompt
+# Ya da yalnızca neyi kapsaması gerektiğini söyle
+/lagune-specialize SQL injection
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[Bir saldırı kaynak olabilir, asla çıktı olamaz]
+Amaç ona karşı savunma yapmaksa onu bir saldırıya yönlendirmek sorun değildir: bir exploit yazısı, özünü çıkarıp savunmaya dönüştürdüğü bir çalışma materyalidir. Ürettiği uzmanlık her zaman denetler ve açıklar, asla çalışan bir exploit, payload ya da atlatma yöntemi üretmez.
+:::
+
+## Ne yazar
+
+Sonuç, projenizde kodunuzla birlikte commit edilen ve incelenebilen iki dosyadır:
+
+- [Yerleşik olanlar](/docs/catalog) gibi biçimlendirilmiş, `.lagune/catalog/<name>.md` konumundaki uzmanlık.
+- Projenizin kendi uzmanlıklarını, kataloğun yerleşik olanlarla birleştirmesi için dizinlediği `.lagune/configs.json` dosyasındaki kaydı.
+
+Ardından yeni kaydın orada olduğunu doğrulamak için kataloğu listeler. Kendi uzmanlıklarınız, kataloğun kategorileri ne olursa olsun her zaman kataloğun içindedir. Hiçbir zaman bir komut eklemez ya da pakete dokunmazsınız: yeni bir uzmanlık alanı, kendi projenize yazılan bir bilgi dosyası ve bir dizin kaydından ibarettir.
+
+## İyileştirir, asla üzerine yazmaz
+
+`regex` gibi yerleşik bir uzmanlık ya da daha önce oluşturduğunuz bir uzmanlık olsun, zaten var olan bir adı yeniden uzmanlaştırmak mevcut dosyayı değiştirmek yerine onu **uzlaştırır**. Orada olanı okur, yeni bilgiyi içine katar, hâlâ geçerli olanı korur ve değişeni yeniden yazar. Görülmeden hiçbir şey atılmaz. Sizin bir uzmanlığınız aynı adlı yerleşik uzmanlığı gölgeler, böylece yerleşik bir uzmanlığı kaybetmeden kendi projeniz için keskinleştirebilirsiniz.
+
+:::tip
+
+- Yeni uzmanlık tam olarak yerleşik bir uzmanlık gibi yüklenir: detect ve verify fazları onu talep üzerine alır, ya da `npx lagune read catalog <name>` ile kendiniz yükleyip ona bir görev verirsiniz.
+- Materyalin belirlenebilir bir kaynağı olduğunda (bir makale, bir yazar, bir bağlantı, bir standart) uzmanlık o kaynağa atıf yapar. Yalnızca bir konu verildiğinde kaynak belirtilmez.
+
+:::
+
+:::important
+
+**Yalnızca siz çağırdığınızda çalışır:** ajan onu asla kendiliğinden başlatmaz.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Özel bir güvenlik uzmanlığını nasıl eklerim?',
+      answer:
+        '/lagune-specialize komutunu bir kaynak ya da konuyla çalıştırın. Komut, onun özünü çıkararak yalnızca savunma odaklı bir uzmanlığa dönüştürür ve bunu .lagune/catalog/<name>.md dosyasına, kaydını da .lagune/configs.json dosyasına yazar.',
+    },
+    {
+      question: 'Lagune bir exploit yazısından öğrenebilir mi?',
+      answer:
+        'Evet, kaynak olarak, asla çıktı olarak değil. Bir saldırı kaynak olabilir, asla ürün olamaz. Specialize asla saldırı girdisi ya da exploit yazmaz.',
+    },
+    {
+      question: 'Specialize yerleşik uzmanlıkların üzerine yazar mı?',
+      answer: 'Hayır. İyileştirir, asla üzerine yazmaz.',
+    },
+  ]}
+/>

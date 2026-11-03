@@ -1,0 +1,119 @@
+---
+id: lagune
+title: '/lagune: yapay zeka yazarken kodu güvenli hale getirin'
+sidebar_label: /lagune
+description: İstediğinizi geliştirir ve charter rehberliğinde, izlenecek bir akış olmadan, yazılırken sıkılaştırır.
+keywords:
+  - lagune
+  - varsayılan olarak güvenli
+  - secure by default
+  - geliştirme
+  - charter
+  - canlı güvenlik
+source_hash: '05f5fb32186ed4422901f8ce2599182642f6389816c591675a710236f59903d8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune
+
+⌨️ İstediğiniz işi yapın, yazılırken güvenli hale gelsin. **`/lagune`** her aşamada her prompt'u kabul eder, istediğinizi geliştirir ve size geri vermeden önce güvenli varsayılanlarla sıkılaştırır.
+
+## Kullanım
+
+Herhangi bir prompt'ta **`/lagune`** komutunu belirtin ve işi her zamanki gibi anlatın.
+
+<Tabs>
+  <TabItem value="rules" label="📘 Ajan talimatları" default>
+
+```md
+# Ajanlar için proje talimatlarım
+
+<!-- ... -->
+
+## Güvenlik
+
+- Kod geliştirdiğinde ya da değiştirdiğinde her seferinde `/lagune` becerisini kullan, böylece güvenliği varsayılan olarak iyileştirsin.
+```
+
+    - Örneğin: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** vb.
+
+  </TabItem>
+  <TabItem value="feature" label="💬 Bir özellik">
+
+```prompt
+/lagune kullanıcıların profillerine özel bir fotoğraf yükleyebilmesini sağla.
+```
+
+  </TabItem>
+  <TabItem value="fix" label="💬 Bir düzeltme">
+
+```prompt
+/lagune kullanıcı formu gönderdiğinde hiçbir şey olmuyor. Sebebi ne olabilir, araştır ve düzelt.
+```
+
+  </TabItem>
+  <TabItem value="change" label="💬 Bir refactor">
+
+```prompt
+/lagune payload mantığını ayrıştır ve iyileştir
+```
+
+  </TabItem>
+</Tabs>
+
+:::tip[Charter isteğe bağlı, ama onunla daha iyi]
+**`/lagune`** charter olsun ya da olmasın çalışır. Charter varsa, projenizin kendi kuralları her geliştirmeyi şekillendirir. Kuralları bir kez [`/lagune-charter`](/docs/commands/charter) ile belirleyin.
+:::
+
+## Nasıl çalışır
+
+İşi, Lagune'ye hiçbir şey yazmadan üç adımda ele alır:
+
+1. Varsa charter'ınızı yükler ve onun ilkeleri tüm geliştirmeyi yönetir. Henüz charter'ınız yoksa, varsayılan olarak güvenli bir temel çizgiye döner.
+2. Projenizin [kataloğunu](/docs/catalog) listeler ve yalnızca işinizin dokunduğu uzmanlıkları yükler. Bunlar, denetim akışının kullandığı talep üzerine bilginin aynısıdır.
+3. Savunmayı kod yazılırken uygular, ardından işi geri vermeden önce kontrollerin gerçekten işe yaradığını doğrulamak için kendi sonucunu yeniden okur.
+
+Sonuç, projenizde ilk satırdan itibaren güvenli, çalışan koddur.
+
+:::tip[İstediğiniz zaman kullanın]
+detect yok, plan yok, sonradan temizlik yok. **`/lagune`**, sıfırdan bir iskelete de olgun bir kod tabanındaki bir değişikliğe de aynı şekilde uyar ve işi sonra değil, ilerledikçe sıkılaştırır.
+:::
+
+## Ne yapmaz
+
+- `.lagune` dizinine hiçbir şey yazmaz, ne artefakt ne de takip. Ürettiği tek şey, istediğiniz sıkılaştırılmış koddur.
+- Bir prompt'u karşılamak için bir kuralı gevşetmez. İstediğiniz şey bir charter ilkesini çiğneyecekse, onu doğrudan güvensiz şekilde geliştirmek yerine durur ve önce size söyler.
+
+<Faq
+  items={[
+    {
+      question: '/lagune ne yapar?',
+      answer:
+        "Her aşamada her prompt'u kabul eder, istediğinizi geliştirir ve geri vermeden önce güvenli varsayılanlarla sıkılaştırır. Savunma sonra değil, kod yazılırken uygulanır.",
+    },
+    {
+      question: "/lagune kullanmak için charter'a ihtiyacım var mı?",
+      answer:
+        'Hayır. Charter olsun ya da olmasın çalışır. Charter varsa, projenizin kendi kuralları her geliştirmeyi şekillendirir. Yoksa, varsayılan olarak güvenli bir temel çizgiye döner.',
+    },
+    {
+      question: '/lagune ile Blue Team akışı arasındaki fark nedir?',
+      answer:
+        '/lagune yeni işi siz yazarken, izlenecek bir akış olmadan güvenli hale getirir. Blue Team akışı ise beş denetim fazını mevcut bir proje üzerinde sırayla çalıştırır.',
+    },
+    {
+      question: '/lagune bulguları takip eder mi ya da artefakt yazar mı?',
+      answer:
+        'Hayır. .lagune dizinine hiçbir şey yazmaz, ne artefakt ne de takip. Ürettiği tek şey, istediğiniz sıkılaştırılmış koddur.',
+    },
+    {
+      question:
+        'Ajanımın /lagune komutunu otomatik kullanmasını nasıl sağlarım?',
+      answer:
+        'Ajanınızın talimat dosyasına (AGENTS.md, CLAUDE.md, .cursorrules ve benzerleri), kod geliştirdiğinde ya da değiştirdiğinde her seferinde /lagune becerisini kullanmasını söyleyen bir talimat ekleyin.',
+    },
+  ]}
+/>

@@ -1,0 +1,90 @@
+---
+id: dashboard
+title: Gösterge paneli
+sidebar_label: Gösterge paneli
+description: "Projenizin charter'ını, bulgularını ve kataloğunu tek komutla açılan canlı ve yerel bir görünümde izleyin."
+keywords:
+  - dashboard
+  - lagune dashboard
+  - gösterge paneli
+  - live reload
+  - yerel
+  - bulgular
+  - charter
+  - katalog
+source_hash: 'e3fe36f3fd68e9cd8c9c13efe05ce019161fc1421ad6e1e8e988eb94c9f8942b'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+`.lagune/` klasörünün etkileşimli, canlı bir görünümü için **Lagune**'yi alt komut vermeden doğrudan çalıştırın. Bir gösterge paneli sunar ve onu rastgele bir portta açar:
+
+```bash
+npx lagune
+```
+
+- [x] **Live reload**
+- [x] **Özel** ve **yerel**
+- [x] İlk charter'dan itibaren `.lagune/` klasöründe ne varsa gösterir
+- [x] Projenin kategorilerini doğrudan tarayıcınızdan **yönetin**
+- [x] `node_modules` ya da `package.json` dosyasına gerek yoktur 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.webp'
+    alt='Lagune gösterge panelinde charter'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.webp'
+    alt='Lagune gösterge panelinde bulgular'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.webp'
+    alt='Lagune gösterge panelinde yan görevler'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.webp'
+    alt='Lagune gösterge panelinde bulgu ayrıntısı'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.webp'
+    alt='Lagune gösterge panelinde katalog'
+  />
+</div>
+
+:::tip
+
+- 🚪 Özel bir port belirtmek için `--port` seçeneğini kullanın.
+- ⏏️ Durdurmak için `Ctrl+C` tuşlarına basın.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Lagune gösterge panelini nasıl açarım?',
+      answer:
+        'Projenizin kök dizininde npx lagune komutunu alt komut olmadan çalıştırın. .lagune/ klasörünün canlı bir görünümünü rastgele bir portta sunar ve tarayıcınızda açar.',
+    },
+    {
+      question: 'Gösterge paneli özel mi?',
+      answer:
+        'Evet. Yalnızca kendi makinenizde, başka hiçbir bilgisayarın erişemeyeceği yerel bir adreste çalışır.',
+    },
+    {
+      question: 'Projemi gösterge panelinden değiştirebilir miyim?',
+      answer:
+        'Yalnızca kategorilerini, tarayıcınızdan. Panelin gösterdiği diğer her şey salt okunurdur.',
+    },
+  ]}
+/>

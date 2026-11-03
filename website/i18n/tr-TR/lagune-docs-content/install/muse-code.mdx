@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Muse Code için Lagune eklentisi kurulumu'
+sidebar_label: Muse Code
+parent: get-started/install
+description: "Lagune'yi Muse Code için eklenti olarak kurun, güncel tutun ve motorunu korumalı alan içinde çalıştırın."
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Eklentiyi terminalden kurun:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için pazar yerini yenileyin ve eklentiyi yeniden kurun:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Komutlar
+
+Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin adıyla birlikte, örneğin `/lagune:lagune-charter` şeklinde yazın.
+
+---
+
+:::info[İzinler]
+
+**Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Muse Code için Lagune nasıl kurulur?',
+      answer:
+        'muse plugins marketplace add lagune wellwelwel/lagune ve ardından muse plugins install lagune@lagune komutlarını çalıştırın.',
+    },
+    {
+      question: 'Muse Code kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'muse plugins marketplace update lagune komutunu çalıştırın, ardından muse plugins remove lagune ve muse plugins install lagune@lagune ile yeniden kurun.',
+    },
+    {
+      question: 'Muse Code kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikte, örneğin /lagune:lagune-charter şeklinde yazın.',
+    },
+    {
+      question: 'Lagune, Muse Code korumalı alanı içinde çalışır mı?',
+      answer:
+        'Evet, motoru kendi terminalinizden npm i -D lagune@{{version}} ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.',
+    },
+  ]}
+/>

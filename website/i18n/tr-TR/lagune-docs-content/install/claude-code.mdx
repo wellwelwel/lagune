@@ -1,0 +1,137 @@
+---
+id: claude-code
+title: 'Claude Code için Lagune eklentisi kurulumu'
+sidebar_label: Claude Code
+parent: get-started/install
+description: "Lagune'yi Claude Code için eklenti olarak terminalden, uzantıdan veya masaüstü uygulamasından kurun, güncel tutun ve motoruna baştan izin verin."
+keywords:
+  - claude code
+  - claude code plugin
+  - claude code vs code
+  - claude desktop
+  - plugin marketplace
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '14579b30d4f66f17f3f80f8be28ba0a6d3ca7e6dd2474fcaf8966badf4628d4a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Claude Code' />
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="Terminal" default>
+
+Eklentiyi terminalden kurun:
+
+```bash
+claude plugin install lagune --marketplace wellwelwel/lagune
+```
+
+Ya da bir **Claude Code** oturumundan kurun:
+
+```text
+/plugin marketplace add wellwelwel/lagune
+/plugin install lagune@lagune
+```
+
+</TabItem>
+<TabItem value="extension" label="Uzantı">
+
+- `/plugin` yazıp **Manage plugins** seçeneğini seçin.
+- **Marketplaces** sekmesinde `wellwelwel/lagune` pazar yerini ekleyin.
+- **Plugins** sekmesinde `lagune` eklentisini kurun.
+
+</TabItem>
+<TabItem value="desktop" label="Masaüstü">
+
+- **Lagune**'yi terminalden veya uzantıdan kurun, uzantıda **Install for you** seçeneğini seçin.
+- Kendiniz için kurduğunuz eklentileri yükleyen masaüstü uygulamasında yeni bir oturum başlatın.
+
+</TabItem>
+</Tabs>
+
+## Güncelleme
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="Terminal" default>
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+Otomatik olarak güncel kalması için `lagune` pazar yerinde, `/plugin` altındaki **Enable auto-update** seçeneğini seçin.
+
+</TabItem>
+<TabItem value="extension" label="Uzantı">
+
+- `/plugin` yazıp **Manage plugins** seçeneğini seçin.
+- **Marketplaces** sekmesini açın.
+- `lagune` yanındaki yenileme simgesini seçin.
+
+</TabItem>
+<TabItem value="desktop" label="Masaüstü">
+
+- **Lagune**'yi terminalden veya uzantıdan güncelleyin.
+- Masaüstü uygulamasında yeni bir oturum başlatın.
+
+</TabItem>
+</Tabs>
+
+## Komutlar
+
+Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin adıyla birlikte, örneğin `/lagune:lagune-charter` şeklinde yazın.
+
+---
+
+:::info[İzinler]
+
+Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. Bunlara baştan izin vermek için bu kuralları tek bir proje için `.claude/settings.json` dosyasına, tüm projeleriniz için `~/.claude/settings.json` dosyasına ekleyin:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_lagune_lagune__lagune_read",
+      "mcp__plugin_lagune_lagune__lagune_write"
+    ]
+  }
+}
+```
+
+Motor, **skills.sh** ile kurulumda olduğu gibi **npx** üzerinden çalıştığında `Bash(npx --yes lagune@*)` için izin verin. Korumalı alan açıksa `registry.npmjs.org` adresini de `sandbox.network.allowedDomains` listesine ekleyin.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Claude Code için Lagune nasıl kurulur?',
+      answer:
+        'claude plugin install lagune --marketplace wellwelwel/lagune komutunu çalıştırın. Bir oturumda veya uzantıda, eklenti yöneticisinden wellwelwel/lagune pazar yerini ekleyip lagune eklentisini kurun. Masaüstü uygulaması, eklentiyi terminalde veya uzantıda kendiniz için kurduğunuzda onu yükler.',
+    },
+    {
+      question: 'Claude Code kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'claude plugin marketplace update lagune ve ardından claude plugin update lagune@lagune komutlarını çalıştırın ya da /plugin altında lagune pazar yeri için Enable auto-update seçeneğini seçin. Uzantıda /plugin üzerinden Manage plugins bölümünü açın ve lagune pazar yerinin yanındaki yenileme simgesini seçin. Masaüstü uygulaması güncellemeyi bir sonraki oturumda yükler.',
+    },
+    {
+      question: 'Claude Code kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikte, örneğin /lagune:lagune-charter şeklinde yazın.',
+    },
+    {
+      question: "Claude Code, Lagune'yi izin istemeden çalıştırabilir mi?",
+      answer:
+        'Evet. Claude Code ayarlarınızda mcp__plugin_lagune_lagune__lagune_read ve mcp__plugin_lagune_lagune__lagune_write için izin verin, motor npx üzerinden çalıştığında Bash(npx --yes lagune@*) için de izin verin.',
+    },
+  ]}
+/>

@@ -1,0 +1,60 @@
+---
+id: devin-cli
+title: 'Devin CLI için Lagune eklentisi kurulumu'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: "Lagune'yi Devin CLI için eklenti olarak kurun ve güncel tutun."
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli plugin
+  - devin plugins install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+**Devin** hesabınıza giriş yapın, ardından eklentiyi terminalden kurun:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+devin plugins update lagune
+```
+
+## Komutlar
+
+Komutları eklentinin adıyla birlikte yazın, örneğin `/lagune:lagune-charter` yazarak `/lagune-charter` komutunu çalıştırın. `/` menüsü de onları listeler.
+
+<Faq
+  items={[
+    {
+      question: 'Devin CLI için Lagune nasıl kurulur?',
+      answer:
+        'devin auth login ile giriş yapın, ardından devin plugins install wellwelwel/lagune komutunu çalıştırın.',
+    },
+    {
+      question: 'Devin CLI kullanırken Lagune nasıl güncellenir?',
+      answer: 'devin plugins update lagune komutunu çalıştırın.',
+    },
+    {
+      question: 'Devin CLI kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Eklentinin adıyla birlikte yazın, örneğin /lagune:lagune-charter. / menüsü de onları listeler.',
+    },
+  ]}
+/>

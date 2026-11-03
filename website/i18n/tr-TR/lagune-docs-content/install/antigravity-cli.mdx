@@ -1,0 +1,85 @@
+---
+id: antigravity-cli
+title: 'Antigravity CLI için Lagune eklentisi kurulumu'
+sidebar_label: Antigravity CLI
+parent: get-started/install
+description: "Lagune'yi Antigravity CLI için eklenti olarak kurun, güncel tutun ve motoruna baştan izin verin."
+keywords:
+  - antigravity cli
+  - antigravity plugin
+  - agy plugin install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: 'b014e73bcbefbcecaf2c0c58c1764387c55ba91e17ba5a964b3f1105a4d4961a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Antigravity' />
+
+Eklentiyi terminalden kurun:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için yeniden kurun:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Komutlar
+
+Komutları eklentinin adıyla birlikte yazın, örneğin `/lagune:lagune-charter` yazarak `/lagune-charter` komutunu çalıştırın.
+
+---
+
+:::info[İzinler]
+
+Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. Bir oturumun ilk mesajı olarak gönderilen komut bu araçlar yüklenmeden önce çalıştığı için onların yerine **npx** kullanır. Araçlara ve **npx**'e baştan izin vermek için bu kuralları `~/.gemini/antigravity-cli/settings.json` dosyasına ekleyin:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
+  }
+}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Antigravity CLI için Lagune nasıl kurulur?',
+      answer:
+        'agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity komutunu çalıştırın.',
+    },
+    {
+      question: 'Antigravity CLI kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity komutunu yeniden çalıştırın.',
+    },
+    {
+      question:
+        'Antigravity CLI kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Eklentinin adıyla birlikte yazın, örneğin /lagune:lagune-charter.',
+    },
+    {
+      question: "Antigravity CLI, Lagune'yi izin istemeden çalıştırabilir mi?",
+      answer:
+        'Evet. Antigravity CLI ayarlarında mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write) ve command(regex:npx --yes lagune@[0-9.]+) için izin verin. npx kuralı, bir oturumun ilk mesajı olarak gönderilen komutu kapsar.',
+    },
+  ]}
+/>

@@ -1,0 +1,106 @@
+---
+id: universal
+title: 'skills.sh ile her ajana Lagune kurulumu'
+sidebar_label: Evrensel
+parent: get-started/install
+description: "Lagune'yi skills CLI aracıyla her yapay zeka ajanına kurun ve güncel tutun."
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - lagune kurulumu
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - yapılandırma
+  - yapay zeka ajanları
+source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='skills.sh' />
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Terminal" default>
+
+**Lagune** komutlarını [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) ile terminalden kurun:
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Prompt">
+
+Bu prompt'u ajanınıza yapıştırın:
+
+```md
+`npx --yes skills add wellwelwel/lagune` komutunu çalıştır ve oluşturulan beceri talimatlarını hemen uygula. Çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir. Göreli yolları, sağladığı destek dosyaları dizinine göre çözümle.
+```
+
+  </TabItem>
+</Tabs>
+
+## Güncelleme
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Terminal" default>
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+npx skills update
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Prompt">
+
+**Lagune**'yi güncellemek için bu prompt'u ajanınıza yapıştırın:
+
+```md
+`npx --yes skills update -y` komutunu çalıştır ve çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir.
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::warning[Her ajan için tek yol]
+**Lagune**'yi ya **skills.sh** ile ya da **eklentisiyle** kurun, asla ikisiyle birden kurmayın.
+:::
+
+:::info[İzinler]
+
+Komutlar motoru `npx --yes lagune@{{version}}` olarak çalıştırır ve [her ajanın kurulum sayfası](/docs) buna baştan izin veren kuralı gösterir. Ağ erişimi olmayan bir korumalı alanda motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Her yapay zeka ajanına Lagune nasıl kurulur?',
+      answer:
+        "Projenizde npx skills add wellwelwel/lagune komutunu çalıştırın ya da kurulum prompt'unu ajanınıza yapıştırın.",
+    },
+    {
+      question: 'skills CLI ile kurulan Lagune nasıl güncellenir?',
+      answer:
+        "npx skills update komutunu çalıştırın ya da güncelleme prompt'unu ajanınıza yapıştırın.",
+    },
+    {
+      question: 'Lagune hem skills CLI hem de bir eklentiyle kurulabilir mi?',
+      answer:
+        'Hayır. İkisiyle birden kurulursa ajan her komutu iki kez listeler ya da bir kopyayı kullanıp diğerini gizler.',
+    },
+  ]}
+/>

@@ -1,0 +1,74 @@
+---
+id: factory-droid
+title: 'Factory Droid için Lagune eklentisi kurulumu'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: "Lagune'yi Factory Droid için eklenti olarak kurun, güncel tutun ve motorunun araçlarına izin verin."
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Eklentiyi terminalden kurun:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Komutlar
+
+Komutları adlarıyla yazın, örneğin `/lagune-charter`.
+
+---
+
+:::info[İzinler]
+
+Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. **Factory Droid** sorduğunda her biri için her zaman izin vermeyi seçin. `lagune` pazar yerinin yeni bir commit'ini eşitledikten sonra (bunu açılışta yapabilir) yeniden sorar.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Factory Droid için Lagune nasıl kurulur?',
+      answer:
+        'droid plugin marketplace add wellwelwel/lagune ve ardından droid plugin install lagune@lagune komutlarını çalıştırın.',
+    },
+    {
+      question: 'Factory Droid kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'droid plugin marketplace update lagune ve ardından droid plugin update lagune@lagune komutlarını çalıştırın.',
+    },
+    {
+      question:
+        'Factory Droid kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer: 'Adlarıyla yazın, örneğin /lagune-charter.',
+    },
+    {
+      question: "Factory Droid, Lagune'yi izin istemeden çalıştırabilir mi?",
+      answer:
+        "Evet. Factory Droid sorduğunda lagune_read ve lagune_write için her zaman izin vermeyi seçin. lagune pazar yerinin yeni bir commit'ini eşitledikten sonra yeniden sorar.",
+    },
+  ]}
+/>

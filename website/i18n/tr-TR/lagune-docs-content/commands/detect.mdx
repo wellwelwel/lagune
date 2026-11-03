@@ -1,0 +1,93 @@
+---
+id: detect
+title: '/lagune-detect: sisteminizin ve risklerinin haritasını çıkarın'
+sidebar_label: 2. Detect
+description: Kodunuzu okuyun, sisteminizin ne yaptığını ve risklerin nerede olduğunu belirleyin.
+source_hash: 'c6b18e96f6fccb85b362fd7a7af5576c5cc332d8fdf2b8ef3dff04dac3d647c5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-detect
+
+🔬 Sisteminizin gerçekte ne yaptığını ve risklerin nerede olduğunu öğrenin.
+
+Detect kodu okur ve yalnızca gerçekten bulduğunu, sonraki fazların ihtiyaç duyduğu kanıtlarla birlikte kaydeder. Temel kuralı uydurmak değil, tespit etmektir.
+
+## Kullanım
+
+<Tabs>
+  <TabItem value="full" label="Tam tarama" default>
+
+```prompt
+/lagune-detect
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Yolları belirt">
+
+```prompt
+/lagune-detect src/routes/ src/auth.ts
+```
+
+  </TabItem>
+  <TabItem value="concern" label="Bir endişeyi anlat">
+
+```prompt
+/lagune-detect müşteri verilerinin asla açığa çıkmadığından emin ol
+```
+
+  </TabItem>
+</Tabs>
+
+## Neleri çıkarır
+
+**Lagune** kodu okur ve bulduklarının haritasını çıkarır. Her bulgu, ne olduğunu, neden önemli olduğunu ve kanıtını taşır. Örneğin:
+
+- **Dosya yükleme**, sistem kullanıcılardan dosya kabul ediyor:
+  - _Neden önemli:_ görsel kılığına girmiş bir dosya, kötü amaçlı kod gizleyebilir.
+  - _Kanıt:_ `POST /upload` işleyicisi, dosyanın gerçek türünü kontrol etmeden istemcinin gönderdiği MIME türüne güveniyor.
+- **Oturum açma ve oturumlar**, kullanıcılar hesaplarına ulaşmak için giriş yapıyor:
+  - _Neden önemli:_ zayıf oturum yönetimi, bir hesabın başka biri tarafından ele geçirilmesine yol açar.
+  - _Kanıt:_ oturumların hiçbir son kullanma süresi belirlenmeden açıldığı oturum oluşturma mantığı.
+
+Bu sırada detect, projenizin [kataloğundaki](/docs/catalog) her uzmanlık için koda karşı bir karar verir, bağlamı mevcut olanları uygular ve onları harden ile verify fazlarının yeniden kullandığı liste olan **Applied specializations** altında kaydeder.
+
+Böylece sisteminizin ne yaptığının ve risklerin nerede durduğunun, sonraki adımların üzerinde çalışmasına hazır net bir haritası elinizde olur.
+
+:::tip
+
+- Yeniden çalıştırmak haritayı günceller: çözülen bulgular düşer, yenileri eklenir.
+- Tespit haritası `.lagune/memory/detect.md` dosyasında durur.
+
+:::
+
+## Sırada ne var
+
+Haritayı bir plana dönüştürün: [`/lagune-plan`](/docs/commands/plan).
+
+<Faq
+  items={[
+    {
+      question: '/lagune-detect ne yapar?',
+      answer:
+        'Kodunuzu okur, sisteminizin ne yaptığını ve risklerin nerede olduğunu çıkarır ve yalnızca gerçekten bulduğunu kaydeder. Kuralı uydurmak değil, tespit etmektir.',
+    },
+    {
+      question: "Lagune'de bulgu nedir?",
+      answer:
+        'Bulgu, tespit edilen tek bir risktir. Ne olduğunu, neden önemli olduğunu ve koddaki kanıtını taşır. plan, harden ve verify fazlarının ileriye taşıdığı takip edilen birimdir.',
+    },
+    {
+      question: 'Tespit haritası nerede saklanır?',
+      answer: '.lagune/memory/detect.md dosyasında.',
+    },
+    {
+      question: 'Detect hangi uzmanlıkları kullanır?',
+      answer:
+        'Projenizin kataloğundaki her uzmanlık, koda karşı bir karar alır. Detect, bağlamı mevcut olanları uygular ve onları Applied specializations altında kaydeder.',
+    },
+  ]}
+/>

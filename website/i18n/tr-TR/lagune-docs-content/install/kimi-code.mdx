@@ -1,0 +1,61 @@
+---
+id: kimi-code
+title: 'Kimi Code için Lagune eklentisi kurulumu'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: "Lagune'yi Kimi Code için eklenti olarak kurun ve güncel tutun."
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+Eklentiyi bir **Kimi Code** oturumundan kurun, **Trust and install** seçeneğini seçin, ardından eklentiyi yüklemek için yeni bir oturum başlatın:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için yeniden kurun:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Komutlar
+
+Komutları eklentinin adıyla birlikte yazın, örneğin `/lagune:lagune-charter` yazarak `/lagune-charter` komutunu çalıştırın. `/` menüsü onları `/skill:lagune:lagune-charter` biçiminde listeler ve bu biçim de çalışır.
+
+<Faq
+  items={[
+    {
+      question: 'Kimi Code için Lagune nasıl kurulur?',
+      answer:
+        'Bir Kimi Code oturumunda /plugins install https://github.com/wellwelwel/lagune komutunu çalıştırın, Trust and install seçeneğini seçin, ardından /new komutunu çalıştırın.',
+    },
+    {
+      question: 'Kimi Code kullanırken Lagune nasıl güncellenir?',
+      answer:
+        '/plugins install https://github.com/wellwelwel/lagune komutunu yeniden, ardından /new komutunu çalıştırın.',
+    },
+    {
+      question: 'Kimi Code kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Eklentinin adıyla birlikte, örneğin /lagune:lagune-charter şeklinde ya da / menüsünün listelediği gibi, örneğin /skill:lagune:lagune-charter şeklinde yazın.',
+    },
+  ]}
+/>

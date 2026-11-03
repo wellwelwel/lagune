@@ -1,0 +1,92 @@
+---
+id: gemini-cli
+title: 'Gemini CLI için Lagune uzantısı kurulumu'
+sidebar_label: Gemini CLI
+parent: get-started/install
+description: "Lagune'yi Gemini CLI için uzantı olarak kurun, güncel tutun ve motoruna baştan izin verin."
+keywords:
+  - gemini cli
+  - gemini cli extension
+  - gemini extensions install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '0b17bea628e41043a2b89748c61e72646000d90113cbe42e806dc00480bfe3a8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Gemini CLI' />
+
+Uzantıyı terminalden kurun:
+
+```bash
+gemini extensions install https://github.com/wellwelwel/lagune
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+gemini extensions update lagune
+```
+
+Otomatik olarak güncel kalması için `--auto-update` ile kurun.
+
+## Komutlar
+
+Komutları uzantının adıyla birlikte yazın, örneğin `/lagune:lagune-charter` yazarak `/lagune-charter` komutunu çalıştırın.
+
+---
+
+:::info[İzinler]
+
+Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. **Gemini CLI** bunları yalnızca güvenilir bir klasörde başlatır. Bunlara baştan izin vermek için bu kuralı `~/.gemini/policies/lagune.toml` olarak kaydedin:
+
+```toml
+[[rule]]
+mcpName = "lagune"
+toolName = ["lagune_read", "lagune_write"]
+decision = "allow"
+priority = 100
+```
+
+Motor, **skills.sh** ile kurulumda olduğu gibi **npx** üzerinden çalıştığında bu kuralı aynı dosyaya ekleyin:
+
+```toml
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = 'npx --yes lagune@\d+\.\d+\.\d+\s'
+decision = "allow"
+priority = 100
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Gemini CLI için Lagune nasıl kurulur?',
+      answer:
+        'gemini extensions install https://github.com/wellwelwel/lagune komutunu çalıştırın.',
+    },
+    {
+      question: 'Gemini CLI kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'gemini extensions update lagune komutunu çalıştırın ya da uzantıyı --auto-update ile kurun.',
+    },
+    {
+      question: 'Gemini CLI kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Uzantının adıyla birlikte yazın, örneğin /lagune:lagune-charter.',
+    },
+    {
+      question: "Gemini CLI, Lagune'yi izin istemeden çalıştırabilir mi?",
+      answer:
+        'Evet. lagune sunucusunun lagune_read ve lagune_write araçlarına izin veren bir politika kuralı ekleyin. Motor npx üzerinden çalıştığında run_shell_command için npx --yes lagune@ ve bir sürüm numarasıyla başlayan komutlara izin veren bir kural daha ekleyin.',
+    },
+  ]}
+/>

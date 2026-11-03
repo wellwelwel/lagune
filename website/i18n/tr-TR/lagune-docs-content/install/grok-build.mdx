@@ -1,0 +1,78 @@
+---
+id: grok-build
+title: 'Grok Build için Lagune eklentisi kurulumu'
+sidebar_label: Grok Build
+parent: get-started/install
+description: "Lagune'yi Grok Build için eklenti olarak kurun, güncel tutun ve motoruna baştan izin verin."
+keywords:
+  - grok build
+  - grok build plugin
+  - grok plugin install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: '793de6857b4003a8fa1ab3c63bf93fe3676d72f44e0e9313ccdca394911167bd'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Grok Build' />
+
+Eklentiyi terminalden kurun:
+
+```bash
+grok plugin install wellwelwel/lagune@plugin-grok --trust
+```
+
+## Güncelleme
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+grok plugin update lagune
+```
+
+## Komutlar
+
+Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin adıyla birlikte, örneğin `/lagune:lagune-charter` şeklinde yazın.
+
+---
+
+:::info[İzinler]
+
+Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. Bunlara baştan izin vermek için bu kuralları `~/.grok/config.toml` dosyasına ekleyin:
+
+```toml
+[permission]
+allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
+```
+
+Motor, **skills.sh** ile kurulumda olduğu gibi **npx** üzerinden çalıştığında `Bash(npx --yes lagune@*)` için izin verin.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Grok Build için Lagune nasıl kurulur?',
+      answer:
+        'grok plugin install wellwelwel/lagune@plugin-grok --trust komutunu çalıştırın.',
+    },
+    {
+      question: 'Grok Build kullanırken Lagune nasıl güncellenir?',
+      answer: 'grok plugin update lagune komutunu çalıştırın.',
+    },
+    {
+      question: 'Grok Build kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer:
+        'Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikte, örneğin /lagune:lagune-charter şeklinde yazın.',
+    },
+    {
+      question: "Grok Build, Lagune'yi izin istemeden çalıştırabilir mi?",
+      answer:
+        'Evet. Grok Build yapılandırmasında MCPTool(lagune__lagune_read) ve MCPTool(lagune__lagune_write) için izin verin, motor npx üzerinden çalıştığında Bash(npx --yes lagune@*) için de izin verin.',
+    },
+  ]}
+/>

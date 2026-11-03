@@ -1,0 +1,93 @@
+---
+id: pi
+title: 'Pi için Lagune paketi kurulumu'
+sidebar_label: Pi
+parent: get-started/install
+description: "Lagune'yi Pi için npm'den veya GitHub'dan paket olarak kurun ve güncel tutun."
+keywords:
+  - pi
+  - pi coding agent
+  - pi package
+  - pi install
+  - lagune kurulumu
+  - yapılandırma
+  - yapay zeka güvenliği
+  - yapay zeka ajanları
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+Paketi terminalden kurun:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+Motoru **npx** üzerinden çalıştıran en son commit'i **GitHub** üzerinden kurun:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## Güncelleme
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` kurduğunuz tüm paketleri günceller, tek başına `pi update` ise yalnızca **Pi** uygulamasını günceller.
+
+## Komutlar
+
+Komutları `skill:` önekiyle yazın, örneğin `/skill:lagune-charter` yazarak `/lagune-charter` komutunu çalıştırın.
+
+<Faq
+  items={[
+    {
+      question: 'Pi için Lagune nasıl kurulur?',
+      answer:
+        "pi install npm:lagune komutunu ya da GitHub'daki en son commit için pi install git:github.com/wellwelwel/lagune komutunu çalıştırın.",
+    },
+    {
+      question: 'Pi kullanırken Lagune nasıl güncellenir?',
+      answer:
+        'pi update npm:lagune komutunu ya da GitHub kurulumu için pi update git:github.com/wellwelwel/lagune komutunu çalıştırın. pi update --extensions kurduğunuz tüm paketleri günceller.',
+    },
+    {
+      question: 'Pi kullanırken Lagune komutları nasıl çalıştırılır?',
+      answer: 'skill: önekiyle yazın, örneğin /skill:lagune-charter.',
+    },
+  ]}
+/>

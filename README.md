@@ -23,6 +23,7 @@
 <a href="https://lagune.ai/de-DE/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/de.svg" alt="Deutsch" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
 <a href="https://lagune.ai/fr-FR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/fr.svg" alt="Français" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
 <a href="https://lagune.ai/it-IT/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/it.svg" alt="Italiano" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
+<a href="https://lagune.ai/tr-TR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/tr.svg" alt="Türkçe" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
 <a href="https://lagune.ai/uk-UA/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/ua.svg" alt="Українська" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
 <a href="https://lagune.ai/ru-RU/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/ru.svg" alt="Русский" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
 <a href="https://lagune.ai/zh-CN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/cn.svg" alt="简体中文" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
