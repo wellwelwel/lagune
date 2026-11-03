@@ -106,10 +106,10 @@ codex plugin marketplace upgrade lagune
 - <picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> [**Gemini CLI**](https://lagune.ai/docs/install/gemini-cli)
 - <picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh)**](https://lagune.ai/docs/install/universal)
 
-> [!TIP]
+> [!NOTE]
 >
-> - [**See the Install page for detailed instructions**](https://lagune.ai/docs).
-> - [**Migrate from previous Lagune manifest-based setup**](https://lagune.ai/docs/commands/migrate).
+> - See the [**Install**](https://lagune.ai/docs) section for **detailed instructions**.
+> - [**Migrate from previous Lagune**](https://lagune.ai/docs/commands/migrate) manifest-based setup.
 
 ---
 
