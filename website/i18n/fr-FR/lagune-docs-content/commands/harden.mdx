@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: appliquer les correctifs de sécurité à votre code'
+sidebar_label: 4. Harden
+description: Appliquez à votre code les correctifs du plan, en toute sécurité et un par un.
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 Appliquez à votre code les correctifs du plan, en toute sécurité et un par un.
+
+## Utilisation
+
+<Tabs>
+  <TabItem value="full" label="Tout appliquer" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Indiquer des chemins">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Par priorité">
+
+```prompt
+/lagune-harden gravité critique et élevée
+```
+
+  </TabItem>
+</Tabs>
+
+## Fonctionnement
+
+Le plan a déjà décidé de chaque correctif, donc harden se contente de l'appliquer. Comme c'est la seule phase qui touche à votre code, elle avance prudemment : elle applique un correctif à la fois pour que chaque modification reste facile à relire, et n'affaiblit jamais une mesure de protection pour faire entrer un correctif. Par exemple, le correctif de l'envoi de fichiers :
+
+- **Envoi de fichiers** (statut : **Applied**)
+  - _Ce qui a changé :_ vérifie le type réel et la taille du fichier, rejette tout ce qui est inattendu, le renomme à l'enregistrement et le stocke là où il ne peut pas être exécuté comme du code.
+  - _Où :_ la fonction `handleUpload`, ainsi que l'utilitaire de stockage qu'elle appelle.
+
+Si un correctif ne peut pas être appliqué entièrement, harden fait ce qu'il peut sans risque et marque le reste **Partial** ou **Blocked**, en le laissant ouvert.
+
+:::info[Appliqué ne veut pas dire vérifié]
+Applied ne veut pas encore dire prouvé. C'est le rôle de [verify](/docs/commands/verify).
+:::
+
+:::tip
+
+- Il s'appuie entièrement sur le plan. Si un correctif ou un fichier n'a jamais été planifié, il vous demande d'abord d'exécuter `/lagune-plan` dessus.
+- Le relancer met le registre en cohérence : les modifications annulées disparaissent, les correctifs nouvellement appliqués apparaissent.
+- Le registre de durcissement se trouve dans `.lagune/memory/harden.md`.
+
+:::
+
+:::warning[Dépend de plan et modifie votre code]
+Harden s'appuie sur [`/lagune-plan`](/docs/commands/plan). C'est la seule phase qui modifie votre code.
+:::
+
+## Étape suivante
+
+Prouvez que chaque correctif est efficace : [`/lagune-verify`](/docs/commands/verify).
+
+<Faq
+  items={[
+    {
+      question: '/lagune-harden modifie-t-il mon code ?',
+      answer:
+        "Oui. C'est la seule phase qui touche à votre code, en appliquant les correctifs du plan un par un.",
+    },
+    {
+      question: 'Que signifient Applied, Partial et Blocked ?',
+      answer:
+        "Ce sont les statuts que Lagune enregistre pour chaque correctif. Applied signifie que le correctif a été fait, Partial qu'il ne l'a été qu'en partie, Blocked qu'il n'a pas pu être appliqué. Applied ne veut pas encore dire prouvé.",
+    },
+    {
+      question: 'Lagune applique-t-il les correctifs sans demander ?',
+      answer:
+        "C'est votre agent et le mode d'autorisation dans lequel vous l'exécutez qui décident si une modification demande votre accord, pas Lagune, qui n'ajoute aucune étape de confirmation propre. Il n'affaiblit pourtant jamais une mesure de protection pour satisfaire un correctif, et si un correctif entrait en conflit avec une règle de vos principes de sécurité, il s'arrête et vous prévient d'abord.",
+    },
+  ]}
+/>

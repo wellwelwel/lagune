@@ -1,0 +1,127 @@
+---
+id: prove
+title: '/lagune-prove: preuve de concept exclusivement défensive'
+sidebar_label: Prove
+description: Transformez chaque constat détecté en preuve de concept (PoC) exécutable et exclusivement défensive, accompagnée d'un avis de sécurité pour la divulgation responsable.
+keywords:
+  - preuve de concept
+  - PoC
+  - avis de sécurité
+  - divulgation responsable
+  - divulgation de vulnérabilités
+  - test de non-régression
+  - CVE
+  - CWE
+  - OWASP
+  - GitHub Gist
+  - sécurité défensive
+  - rapport de vulnérabilité
+  - Snyk
+source_hash: '277c99c6438cff41e1055d1d3d7ad2f413af224f1f2e33a1be5aa1c55b16ecba'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-prove
+
+🧪 Transformez chaque constat détecté en élément de preuve exécutable et exclusivement défensif, pour la divulgation responsable.
+
+Pour chaque constat que contient la cartographie, il écrit un avis de sécurité autonome et un test qui vérifie le **chemin sûr** : le test échoue tant que le problème existe et passe une fois le code corrigé.
+
+:::tip
+Les tests de **Lagune** vivent isolés sous `.lagune/`, à l'écart de votre propre suite.
+:::
+
+## Utilisation
+
+<Tabs>
+  <TabItem value="full" label="Tous les constats" default>
+
+```prompt
+/lagune-prove
+```
+
+  </TabItem>
+  <TabItem value="named" label="Un constat précis">
+
+Consultez les constats déjà suivis, par nom :
+
+```prompt
+npx lagune read list --findings
+
+# Findings
+#   ...
+#   • SQL injection in user lookup
+#   ...
+```
+
+```prompt
+# Puis prouve l'un d'eux
+/lagune-prove SQL injection in user lookup
+```
+
+  </TabItem>
+</Tabs>
+
+## Fonctionnement
+
+Il lit le code source vers lequel pointe chaque constat et écrit un répertoire par constat prouvé sous `.lagune/proofs/`, qui contient exactement deux fichiers :
+
+| Fichier                       | Ce que c'est                                                                                                                                  |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report.test.mjs` (ou `.cjs`) | Le test. Il s'exécute avec Poku si votre projet l'utilise déjà, sinon avec le runner natif de Node.js, donc il n'a besoin de rien d'installé. |
+| `report.md`                   | Un avis de sécurité autonome : gravité, impact, comment reproduire et commande d'exécution, lisible seul.                                     |
+
+Les preuves sont toujours en JavaScript, donc elles restent portables quel que soit le langage de votre projet. Un index `README.md` relie toutes les preuves et donne une seule commande pour toutes les exécuter.
+
+:::tip
+
+- Il est **facultatif et autonome** : il ne fait pas partie des cinq phases ni de la chaîne de suivi.
+- Il n'écrit que dans `.lagune/proofs/` et ne touche jamais aux artefacts des phases ni à votre code, qu'il se contente de lire.
+- Un constat dont le test ne reproduit pas le problème n'obtient pas de preuve, et il vous demande d'exécuter [`/lagune-detect`](/docs/commands/detect) sur cet endroit pour remettre les choses en cohérence.
+- Le relancer met les preuves en cohérence : le répertoire d'un constat disparu ou qui ne se reproduit plus est supprimé.
+
+:::
+
+:::important
+
+**Il ne s'exécute que quand vous l'appelez :** l'agent ne le lance jamais de lui-même.
+
+:::
+
+:::warning[S'appuie sur detect]
+Prove lit la cartographie produite par [`/lagune-detect`](/docs/commands/detect), donc exécutez detect d'abord.
+:::
+
+## Exclusivement défensif, et autorisé
+
+Avant de générer quoi que ce soit, il confirme que vous êtes autorisé à tester la cible, et il refuse toute demande d'exploit fonctionnel, de payload d'attaque ou de contournement de la détection. Une preuve démontre le comportement sûr, elle n'émet jamais d'entrée d'attaque.
+
+## De la preuve à la divulgation
+
+Les deux fichiers de chaque constat prouvé vont ensemble dans un **GitHub Gist privé** pour signaler la vulnérabilité. Ce sont des éléments de preuve d'un problème actif et non divulgué, donc un `.gitignore` dans `.lagune/proofs/` les tient à l'écart de chaque commit : ne les partagez que par ce Gist tant que les mainteneurs ne l'ont pas résolu.
+
+Clôturer un constat dans la chaîne de **Lagune** reste le travail de [`/lagune-harden`](/docs/commands/harden) et [`/lagune-verify`](/docs/commands/verify) : prove produit des éléments de preuve, il ne clôture rien.
+
+<Faq
+  items={[
+    {
+      question: 'Lagune génère-t-il des exploits ?',
+      answer:
+        'Non. /lagune-prove écrit des éléments de preuve exclusivement défensifs : un test qui vérifie le chemin sûr, donc il échoue tant que le problème existe et passe une fois le code corrigé, plus un avis de sécurité pour la divulgation responsable.',
+    },
+    {
+      question: 'Que produit prove ?',
+      answer:
+        'Deux fichiers par constat : un test (report.test.mjs ou .cjs) et un avis de sécurité (report.md).',
+    },
+    {
+      question:
+        'Comment divulguer de façon responsable un bug trouvé par Lagune ?',
+      answer:
+        'Prove écrit un avis de sécurité autonome que vous pouvez partager par un canal privé, comme un GitHub Gist privé, dans le respect de la divulgation responsable.',
+    },
+  ]}
+/>

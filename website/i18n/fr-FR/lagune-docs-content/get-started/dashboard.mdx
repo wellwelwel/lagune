@@ -1,0 +1,89 @@
+---
+id: dashboard
+title: Tableau de bord
+sidebar_label: Tableau de bord
+description: Consultez les principes de sécurité, les constats et le catalogue de votre projet dans une vue locale en direct, qui s'ouvre avec une seule commande.
+keywords:
+  - tableau de bord
+  - lagune dashboard
+  - live reload
+  - local
+  - constats
+  - charter
+  - catalogue
+source_hash: 'e3fe36f3fd68e9cd8c9c13efe05ce019161fc1421ad6e1e8e988eb94c9f8942b'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Exécutez **Lagune** directement, sans sous-commande, pour obtenir une vue interactive et en direct de `.lagune/`. Il sert un tableau de bord et l'ouvre sur un port aléatoire :
+
+```bash
+npx lagune
+```
+
+- [x] **Live Reload**
+- [x] **Privé** et **local**
+- [x] Affiche tout ce que contient `.lagune/`, dès les premiers principes de sécurité
+- [x] **Gérez** les catégories du projet directement depuis votre navigateur
+- [x] Aucun `node_modules` ni `package.json` n'est nécessaire 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.webp'
+    alt='Principes de sécurité dans le tableau de bord de Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.webp'
+    alt='Constats dans le tableau de bord de Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.webp'
+    alt='Quêtes annexes dans le tableau de bord de Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.webp'
+    alt="Détail d'un constat dans le tableau de bord de Lagune"
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.webp'
+    alt='Catalogue dans le tableau de bord de Lagune'
+  />
+</div>
+
+:::tip
+
+- 🚪 Utilisez `--port` pour choisir un port précis.
+- ⏏️ Appuyez sur `Ctrl+C` pour l'arrêter.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Comment ouvrir le tableau de bord de Lagune ?',
+      answer:
+        "Exécutez npx lagune sans sous-commande à la racine de votre projet. Il sert une vue en direct de .lagune/ sur un port aléatoire et l'ouvre dans votre navigateur.",
+    },
+    {
+      question: 'Le tableau de bord est-il privé ?',
+      answer:
+        "Oui. Il tourne uniquement sur votre propre machine, à une adresse locale qu'aucun autre ordinateur ne peut atteindre.",
+    },
+    {
+      question: 'Puis-je modifier mon projet depuis le tableau de bord ?',
+      answer:
+        "Seulement ses catégories, depuis votre navigateur. Tout le reste de ce qu'affiche le tableau de bord est en lecture seule.",
+    },
+  ]}
+/>

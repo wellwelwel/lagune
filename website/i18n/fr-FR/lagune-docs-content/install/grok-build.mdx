@@ -1,0 +1,79 @@
+---
+id: grok-build
+title: 'Installer Lagune comme plugin sur Grok Build'
+sidebar_label: Grok Build
+parent: get-started/install
+description: Installez Lagune comme plugin sur Grok Build, gardez-le à jour et autorisez son moteur dès le départ.
+keywords:
+  - grok build
+  - grok build plugin
+  - grok plugin install
+  - installer lagune
+  - installation
+  - sécurité de l'IA
+  - agents IA
+source_hash: '793de6857b4003a8fa1ab3c63bf93fe3676d72f44e0e9313ccdca394911167bd'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Grok Build' />
+
+Installez le plugin depuis votre terminal :
+
+```bash
+grok plugin install wellwelwel/lagune@plugin-grok --trust
+```
+
+## Mise à jour
+
+Pour mettre à jour **Lagune**, exécutez :
+
+```bash
+grok plugin update lagune
+```
+
+## Commandes
+
+Tapez les commandes par leur nom, comme `/lagune-charter`, ou sous le nom du plugin, comme `/lagune:lagune-charter`.
+
+---
+
+:::info[Autorisations]
+
+Le moteur passe par deux outils : `lagune_read` ne fait que lire votre projet, et `lagune_write` n'écrit que dans `.lagune/`. Pour les autoriser dès le départ, ajoutez ces règles à `~/.grok/config.toml` :
+
+```toml
+[permission]
+allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
+```
+
+Quand le moteur passe par **npx**, comme avec **skills.sh**, autorisez `Bash(npx --yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Comment installer Lagune sur Grok Build ?',
+      answer:
+        'Exécutez grok plugin install wellwelwel/lagune@plugin-grok --trust.',
+    },
+    {
+      question: 'Comment mettre à jour Lagune sur Grok Build ?',
+      answer: 'Exécutez grok plugin update lagune.',
+    },
+    {
+      question: 'Comment exécuter les commandes de Lagune sur Grok Build ?',
+      answer:
+        'Tapez-les par leur nom, comme /lagune-charter, ou sous le nom du plugin, comme /lagune:lagune-charter.',
+    },
+    {
+      question:
+        "Grok Build peut-il exécuter Lagune sans demander d'autorisation ?",
+      answer:
+        'Oui. Autorisez MCPTool(lagune__lagune_read) et MCPTool(lagune__lagune_write) dans la configuration de Grok Build, plus Bash(npx --yes lagune@*) quand le moteur passe par npx.',
+    },
+  ]}
+/>

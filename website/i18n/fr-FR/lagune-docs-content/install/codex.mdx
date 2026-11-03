@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Installer Lagune comme plugin sur Codex CLI'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Installez Lagune comme plugin sur Codex CLI, gardez-le à jour et exécutez son moteur dans le sandbox.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - installer lagune
+  - installation
+  - sécurité de l'IA
+  - agents IA
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Installez le plugin depuis votre terminal :
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Mise à jour
+
+Pour mettre à jour **Lagune**, exécutez :
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Commandes
+
+Tapez `$` et la commande sous le nom du plugin, suivie de votre demande, comme `$lagune:lagune-charter` pour `/lagune-charter`. Taper `$` liste les commandes, et en choisir une insère son nom complet.
+
+---
+
+:::info[Autorisations]
+
+Le sandbox de **Codex** n'a pas d'accès réseau. Installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Comment installer Lagune sur Codex CLI ?',
+      answer:
+        'Exécutez codex plugin marketplace add wellwelwel/lagune, puis codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'Comment mettre à jour Lagune sur Codex CLI ?',
+      answer: 'Exécutez codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: 'Comment exécuter les commandes de Lagune sur Codex CLI ?',
+      answer:
+        'Tapez $ et la commande sous le nom du plugin, suivie de votre demande, comme $lagune:lagune-charter.',
+    },
+    {
+      question: 'Lagune fonctionne-t-il dans le sandbox de Codex ?',
+      answer:
+        'Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@{{version}} depuis votre propre terminal, une fois puis après chaque mise à jour.',
+    },
+  ]}
+/>

@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Installer Lagune comme plugin sur Muse Code'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Installez Lagune comme plugin sur Muse Code, gardez-le à jour et exécutez son moteur dans le sandbox.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - installer lagune
+  - installation
+  - sécurité de l'IA
+  - agents IA
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Installez le plugin depuis votre terminal :
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Mise à jour
+
+Pour mettre à jour **Lagune**, actualisez la marketplace et réinstallez le plugin :
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Commandes
+
+Tapez les commandes par leur nom, comme `/lagune-charter`, ou sous le nom du plugin, comme `/lagune:lagune-charter`.
+
+---
+
+:::info[Autorisations]
+
+Le sandbox de **Muse Code** ne peut pas télécharger le moteur. Installez-le dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Comment installer Lagune sur Muse Code ?',
+      answer:
+        'Exécutez muse plugins marketplace add lagune wellwelwel/lagune, puis muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Comment mettre à jour Lagune sur Muse Code ?',
+      answer:
+        'Exécutez muse plugins marketplace update lagune, puis réinstallez avec muse plugins remove lagune et muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Comment exécuter les commandes de Lagune sur Muse Code ?',
+      answer:
+        'Tapez-les par leur nom, comme /lagune-charter, ou sous le nom du plugin, comme /lagune:lagune-charter.',
+    },
+    {
+      question: 'Lagune fonctionne-t-il dans le sandbox de Muse Code ?',
+      answer:
+        'Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@{{version}} depuis votre propre terminal, une fois puis après chaque mise à jour.',
+    },
+  ]}
+/>

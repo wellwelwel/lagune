@@ -1,0 +1,92 @@
+---
+id: plan
+title: '/lagune-plan: noter les constats et planifier les correctifs'
+sidebar_label: 3. Plan
+description: Transformez ce que detect a trouvé en plan de défense, en évaluant chaque constat avec une catégorie et un score CVSS v4.0, et en l'associant à un correctif.
+source_hash: 'adfed070d605468f2638c18806291967b8e54eb7d2a3c55405be302628740cc3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-plan
+
+🛡️ Transformez ce que detect a trouvé en plan de défense : évaluez chaque constat avec une catégorie et un score CVSS v4.0, puis associez-le au correctif à appliquer.
+
+## Utilisation
+
+<Tabs>
+  <TabItem value="full" label="Tout planifier" default>
+
+```prompt
+/lagune-plan
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Indiquer des chemins">
+
+```prompt
+/lagune-plan src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="worry" label="Cibler une inquiétude">
+
+```prompt
+/lagune-plan là où des données sensibles pourraient fuiter
+```
+
+  </TabItem>
+</Tabs>
+
+## Fonctionnement
+
+Cette phase prend la suite de detect. Detect a déjà trouvé ce que fait votre système et le risque que porte chaque élément, donc le plan ne répète pas le risque : il évalue sa gravité et décide de ce qu'il faut faire. Plan ne lit jamais le code, ce qui oblige chaque correctif à pointer vers quelque chose que detect a réellement détecté. Il évalue chaque constat avec la méthode CVSS v4.0 : une catégorie, un vecteur CVSS v4.0 raisonné à partir de ce que detect et la charter ont capturé et noté par le [hook `cvss`](/docs/hooks/cvss), et la tranche de priorité où tombe ce score. Chaque correctif indique aussi le principe de sécurité qu'il fait respecter.
+
+Par exemple :
+
+- **Envoi de fichiers** (priorité : **Critical**)
+  - _Catégorie :_ envoi de fichiers sans restriction (CWE-434).
+  - _CVSS :_ CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, Critical).
+  - _Pourquoi cette priorité :_ n'importe qui peut atteindre l'envoi depuis Internet, et il se trouve sur le serveur qui stocke les fichiers des clients.
+  - _Fait respecter :_ III. Toute entrée est non fiable tant qu'elle n'a pas été validée.
+  - _Correctif :_ vérifier le type réel et la taille du fichier, le renommer à l'enregistrement et stocker les fichiers envoyés là où ils ne peuvent pas être exécutés comme du code.
+
+Vous disposez alors d'une liste de correctifs évalués et priorisés, chacun lié à un constat et prêt à être appliqué par la phase suivante. Le score est calculé, jamais estimé : le vecteur porte l'exposition et les enjeux du projet sous forme de métriques Environmental, et n'importe qui peut le coller dans le calculateur de FIRST ou du NVD pour retrouver le même score.
+
+:::tip
+
+- Il s'appuie entièrement sur detect. Si un fichier ou une inquiétude n'a jamais été cartographié, il vous demande d'abord d'exécuter `/lagune-detect` dessus.
+- Le relancer met le plan à jour : les correctifs terminés disparaissent, les nouveaux apparaissent.
+- Le plan de défense se trouve dans `.lagune/memory/plan.md`.
+
+:::
+
+:::warning[Dépend de detect]
+Plan travaille uniquement à partir de ce que [`/lagune-detect`](/docs/commands/detect) a déjà cartographié, donc exécutez detect d'abord.
+:::
+
+## Étape suivante
+
+Appliquez le plan : [`/lagune-harden`](/docs/commands/harden).
+
+<Faq
+  items={[
+    {
+      question: 'Comment Lagune priorise-t-il les vulnérabilités ?',
+      answer:
+        "/lagune-plan évalue chaque constat avec une catégorie et un score CVSS v4.0 calculé par le hook cvss, puis l'associe au correctif à appliquer.",
+    },
+    {
+      question: 'Lagune utilise-t-il CVSS v4.0 ?',
+      answer:
+        "Oui. Chaque constat reçoit un vecteur et un score CVSS v4.0, calculés par le hook cvss avec la même arithmétique que le calculateur de FIRST, donc n'importe qui peut y coller le vecteur et retrouver le score.",
+    },
+    {
+      question: 'Le plan lit-il mon code ?',
+      answer:
+        'Non. Plan ne lit jamais le code, ce qui oblige chaque correctif à pointer vers quelque chose que detect a réellement détecté.',
+    },
+  ]}
+/>

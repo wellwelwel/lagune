@@ -1,0 +1,97 @@
+---
+id: verify
+title: '/lagune-verify: prouver que les mesures de sécurité sont efficaces'
+sidebar_label: 5. Verify
+description: Prouvez que chaque correctif appliqué est efficace, puis clôturez ceux qui passent la preuve.
+source_hash: 'c2d4c971bb4980379ab9995ccaddd67b95a81220fdb062f2bb4378e8732bc9e7'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-verify
+
+⚖️ Prouvez que chaque correctif appliqué est efficace, en lisant le code et en le confrontant à ce que harden a consigné, puis clôturez ceux qui passent la preuve.
+
+## Utilisation
+
+<Tabs>
+  <TabItem value="full" label="Tout vérifier" default>
+
+```prompt
+/lagune-verify
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Indiquer des chemins">
+
+```prompt
+/lagune-verify src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Par priorité">
+
+```prompt
+/lagune-verify gravité critique et élevée
+```
+
+  </TabItem>
+</Tabs>
+
+## Fonctionnement
+
+Il lit le code à chaque endroit consigné par harden et confirme qu'il correspond vraiment à ce qui est affirmé. La preuve, c'est cette confrontation du code avec le registre. Chaque mesure de protection reçoit l'un de trois verdicts :
+
+| Verdict                      | Signification                                               |
+| ---------------------------- | ----------------------------------------------------------- |
+| ✅ Risk closed               | Le code fait exactement ce qu'affirme le registre.          |
+| ❌ Risk not closed           | La mesure est encore ouverte. Verify vous renvoie à harden. |
+| ❓ Cannot tell from the code | L'élément de preuve n'est pas visible dans le code seul.    |
+
+Un risque dont la clôture est prouvée est ensuite retiré de la chaîne, avec votre confirmation. Par exemple :
+
+- **Envoi de fichiers** (verdict : **✅ Risk closed**)
+  - _Comment c'est prouvé :_ lecture du handler d'envoi, qui détecte le type réel du fichier à partir de son contenu, impose une taille maximale et refuse tout le reste, exactement comme l'affirme le registre.
+  - _Élément de preuve :_ la fonction `handleUpload`, qui détecte le type réel du fichier à partir de son contenu.
+
+Si le risque n'est pas clôturé, verify le dit clairement et vous renvoie à [`/lagune-harden`](/docs/commands/harden), puisque le correctif est encore ouvert.
+
+:::tip
+
+- Il s'appuie entièrement sur le registre de durcissement.
+- Il ne lit votre code que pour le juger, et n'affaiblit jamais une mesure de protection ni ne réécrit le code pour faire passer un verdict.
+- Le relancer met les verdicts en cohérence : ceux qui sont périmés disparaissent, et un risque qui n'est plus clôturé est de nouveau signalé.
+- Quand la clôture d'un risque est prouvée, il demande une fois, puis retire ce constat de toute la chaîne (detect, plan, harden et le suivi).
+- Il n'écrit aucun rapport propre : chaque verdict se trouve dans le bloc de sa mesure dans `.lagune/memory/harden.md`, où harden le lit à l'exécution suivante.
+
+:::
+
+:::warning[Dépend de harden]
+Verify s'appuie sur [`/lagune-harden`](/docs/commands/harden).
+:::
+
+## Le cycle se referme
+
+Quand tout ce qui est dans le périmètre a été retiré, le cycle est au repos. Il ne se rouvre que lorsque le code change. La sécurité peut être clôturée, donc le flux a un état final, pas une boucle sans fin.
+
+<Faq
+  items={[
+    {
+      question: 'Comment Lagune vérifie-t-il un correctif ?',
+      answer:
+        "/lagune-verify lit le code et le confronte à ce que harden a consigné, puis rend l'un de trois verdicts : Risk closed, Risk not closed ou Cannot tell from the code.",
+    },
+    {
+      question: "Qu'est-ce que le retrait d'un constat ?",
+      answer:
+        "Quand verify prouve qu'un risque est clôturé, le constat est retiré : supprimé de toute la chaîne, avec votre confirmation, pour qu'il cesse d'être retraité.",
+    },
+    {
+      question: 'Le travail de sécurité peut-il un jour être terminé ?',
+      answer:
+        'Oui. Avec le SDH, la sécurité peut être clôturée : un constat dont la clôture est prouvée est retiré, donc le flux a un état final, pas une boucle sans fin.',
+    },
+  ]}
+/>

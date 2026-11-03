@@ -1,0 +1,126 @@
+---
+id: cors
+title: 'Hook cors : auditer les origines CORS'
+sidebar_label: cors
+description: Analysez le code source à la recherche d'une liste d'origines CORS contournable, ou évaluez une seule valeur d'origine face à un accès trop permissif, en ligne de commande.
+source_hash: '41b67a705f00a590aaa716a07bbe390973e626c295f7187f12cad7a037169458'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Le hook `cors` est le moteur déterministe derrière la [spécialisation `http-request`](/docs/catalog), et vous pouvez l'exécuter vous-même. Il fonctionne en deux modes depuis une seule commande : une **analyse** qui parcourt le code source à la recherche d'une **liste d'origines autorisées contournable** (une regex de validation d'hôte qu'un hôte attaquant parvient à franchir), et une **évaluation** qui classe une seule valeur d'**origine CORS** en `wildcard`, `null` ou `safe`.
+
+## Analyser une base de code
+
+Sans option, il analyse tout le projet.
+
+<Tabs>
+  <TabItem value="all" label="Tout le projet" default>
+
+```bash
+npx lagune read cors
+```
+
+  </TabItem>
+  <TabItem value="dir" label="Un répertoire">
+
+```bash
+npx lagune read cors --dir src/server
+```
+
+  </TabItem>
+  <TabItem value="file" label="Un seul fichier">
+
+```bash
+npx lagune read cors --file internal/auth/origin.go
+```
+
+  </TabItem>
+</Tabs>
+
+Il liste chaque liste d'origines contournable sous un seul en-tête, regroupée par fichier. Un validateur d'hôte dont le `.+`/`.*` se trouve dans le segment d'autorité avant le suffixe de l'hôte de confiance (`^https?://.+\.trusted\.com`) laisse passer un hôte attaquant comme `your-site.com.attacker.com`.
+
+```text
+Origin-allowlist patterns with a greedy wildcard (bypassable, review):
+
+internal/auth/origin.go
+  ^https?://.+\.trusted\.com
+```
+
+C'est une piste à examiner, pas un constat clos : savoir si la regex protège une vraie décision de confiance ne peut pas se trancher à partir du texte, donc une analyse ne change jamais le code de sortie. Lisez chacune et confirmez que la liste compare par égalité stricte. Quand rien n'est trouvé, il affiche une seule ligne.
+
+```bash
+npx lagune read cors --dir src/clean
+# => no bypassable origin allowlist found
+```
+
+## Évaluer une origine
+
+Passez chaque origine avec `--origin`. Le hook affiche un mot par origine et se termine avec un code non nul dès qu'il y a un `wildcard` ou un `null`.
+
+<Tabs>
+  <TabItem value="one" label="Une origine" default>
+
+```bash
+npx lagune read cors --origin '*'                       # => wildcard
+npx lagune read cors --origin 'null'                    # => null
+npx lagune read cors --origin 'https://app.example.com' # => safe
+```
+
+  </TabItem>
+  <TabItem value="many" label="Plusieurs origines">
+
+Répétez `--origin` pour évaluer toute une liste d'autorisation en un seul appel, un verdict par ligne, dans l'ordre.
+
+```bash
+npx lagune read cors \
+  --origin 'https://app.example.com' \
+  --origin '*' \
+  --origin 'null'
+# => safe
+# => wildcard
+# => null
+```
+
+  </TabItem>
+</Tabs>
+
+| Verdict    | Signification                                                                                                         |
+| ---------- | --------------------------------------------------------------------------------------------------------------------- |
+| `safe`     | Ni `*`, ni `null`, ni un glob `*`. Cela ne garantit pas une origine bien formée.                                      |
+| `wildcard` | `*`, ou un glob de sous-domaine, d'hôte ou de port : n'importe quel site (ou un large ensemble) peut lire la réponse. |
+| `null`     | L'origine `null`, que les iframes en sandbox et les redirections peuvent forger.                                      |
+
+Seul `safe` vaut autorisation, et `--origin` est un oracle de valeur : il juge la valeur, pas le handler, donc confirmez le handler avec la spécialisation `http-request`.
+
+### Options de la CLI
+
+| Option     | Valeur        | Description                                                                       |
+| ---------- | ------------- | --------------------------------------------------------------------------------- |
+| `--origin` | une origine   | Évalue une valeur d'origine. Répétez-la pour en évaluer plusieurs, une par ligne. |
+| `--dir`    | un répertoire | Limite l'analyse à un répertoire. Peut être répétée et combinée avec `--file`.    |
+| `--file`   | un fichier    | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`.   |
+
+Sans option, il analyse tout le projet. `--origin` correspond au mode d'évaluation et ne peut pas être combinée avec `--dir` ou `--file`.
+
+:::note[Ce qu'il ne couvre pas]
+
+L'analyse lit la forme de la **regex contournable**, et `--origin` évalue des **valeurs** d'origine. Deux motifs au niveau du code restent hors de portée : la réflexion de l'`Origin` de la requête (le serveur renvoie l'`Origin` reçue, ou l'associe aux identifiants) et une liste permissive par `endsWith` ou par sous-chaîne. Repérez-les dans le code et traitez-les comme le décrit la [spécialisation `http-request`](/docs/catalog).
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Pourquoi une origine CORS null est-elle dangereuse ?',
+      answer:
+        "Les iframes en sandbox et certaines redirections envoient Origin: null, donc une liste d'autorisation qui fait confiance à null donne à ces contextes un accès en lecture. Le hook cors la signale avec le wildcard.",
+    },
+    {
+      question: "Comment repérer une liste d'origines CORS contournable ?",
+      answer:
+        "Exécutez npx lagune read cors sur la base de code. Il signale une regex de validation d'hôte dont le wildcard gourmand se trouve avant le suffixe de confiance, ce qui laisse passer un hôte attaquant comme your-site.com.attacker.com.",
+    },
+  ]}
+/>

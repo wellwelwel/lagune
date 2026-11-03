@@ -1,0 +1,113 @@
+---
+id: cvss
+title: 'Hook cvss : noter un vecteur CVSS v4.0'
+sidebar_label: cvss
+description: Notez un ou plusieurs vecteurs CVSS v4.0 en ligne de commande, avec la même arithmétique que le calculateur de FIRST, et relisez chacun en langage courant.
+source_hash: 'fa4469a734f29f7b7a54349fceb29d66a8efb995fa89292ca56c1be741dae2f5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Le hook `cvss` note un **vecteur CVSS v4.0** et affiche son score et sa tranche de gravité, l'évaluation que [`/lagune-plan`](/docs/commands/plan) écrit sur chaque correctif et [`/lagune-prove`](/docs/commands/prove) sur chaque avis de sécurité. C'est le moteur déterministe derrière ces évaluations, avec la même arithmétique que le [calculateur de FIRST](https://www.first.org/cvss/calculator/4.0), et vous pouvez l'exécuter vous-même.
+
+## Exécution
+
+Passez chaque vecteur avec `--vector`. Le hook affiche une ligne par vecteur : son score et sa tranche.
+
+<Tabs>
+  <TabItem value="one" label="Un vecteur" default>
+
+```bash
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+# => 9.3, Critical
+```
+
+  </TabItem>
+  <TabItem value="many" label="Plusieurs vecteurs">
+
+Répétez `--vector` pour en noter plusieurs à la fois, une ligne chacun, dans l'ordre.
+
+```bash
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 9.3, Critical
+# => 8.7, High
+```
+
+  </TabItem>
+  <TabItem value="explain" label="En langage courant">
+
+Ajoutez `--explain` pour relire chaque métrique en langage courant. Quand des métriques Threat ou Environmental modifient le score, le score Base seul apparaît en premier.
+
+```bash
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 8.7, High
+# =>   Base metrics alone: 9.3, Critical
+# =>   Attack Vector: Network, modified to Adjacent
+# =>   Attack Complexity: Low
+# =>   ...
+```
+
+  </TabItem>
+</Tabs>
+
+## Lire le résultat
+
+| Tranche    | Score      |
+| ---------- | ---------- |
+| `None`     | 0.0        |
+| `Low`      | 0.1 à 3.9  |
+| `Medium`   | 4.0 à 6.9  |
+| `High`     | 7.0 à 8.9  |
+| `Critical` | 9.0 à 10.0 |
+
+Un vecteur avec seulement des métriques Base note la faille elle-même, en supposant le pire : toutes les exigences de sécurité à High et la faille exploitée dans la nature. Les métriques Environmental (`MAV` et les autres métriques modifiées, plus `CR`, `IR` et `AR`) l'ajustent pour un déploiement donné, et la métrique Threat (`E`) selon ce que l'on sait de son exploitation.
+
+Un vecteur invalide affiche `invalid vector:` et ce qui ne va pas, et le hook se termine avec un code non nul.
+
+### Options de la CLI
+
+| Option      | Valeur                | Description                                                                               |
+| ----------- | --------------------- | ----------------------------------------------------------------------------------------- |
+| `--vector`  | un vecteur `CVSS:4.0` | Note un vecteur. Répétez-la pour en noter plusieurs, une ligne par vecteur, dans l'ordre. |
+| `--explain` |                       | Ajoute chaque métrique en langage courant sous chaque ligne d'évaluation.                 |
+
+Au moins un `--vector` est requis. Le vecteur n'est jamais un argument positionnel nu, donc il ne peut pas être confondu avec une option.
+
+:::note[Pourquoi une valeur d'option]
+
+Chaque vecteur est passé comme valeur d'option, jamais interpolé dans la commande. Une valeur contenant des guillemets ou des backticks reste inerte et ne peut rien injecter dans le shell. Entourez-la toujours de guillemets simples pour que votre shell ne l'interprète pas d'abord.
+:::
+
+:::note[Ce qu'il ne couvre pas]
+
+Seulement CVSS v4.0 : un vecteur v2.0, v3.0 ou v3.1 est rejeté au lieu d'être noté, puisque **Lagune** évalue chaque constat en v4.0.
+:::
+
+:::tip
+
+La validation de la phase plan refait cette même arithmétique sur chaque ligne CVSS, donc un score qui s'est écarté de son vecteur est repéré avant que le plan soit accepté.
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Comment Lagune calcule-t-il un score CVSS ?',
+      answer:
+        'Le hook cvss suit le calculateur de référence de FIRST pour CVSS v4.0, donc un vecteur obtient exactement le même score que sur le site de FIRST.',
+    },
+    {
+      question: 'Puis-je noter un vecteur CVSS v3.1 avec ?',
+      answer:
+        'Non. Lagune évalue chaque constat en CVSS v4.0, et le hook rejette toute autre version au lieu de la noter.',
+    },
+    {
+      question: "À quoi sert l'option --explain ?",
+      answer:
+        "Elle relit chaque métrique en langage courant et affiche le score Base à côté du score global, pour que chacun voie ce que dit le vecteur et comment le contexte du projet l'a modifié.",
+    },
+  ]}
+/>

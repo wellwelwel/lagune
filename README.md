@@ -21,6 +21,7 @@
 <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/br.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/pt-BR/docs"><b>Português (Brasil)</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/es.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/es-ES/docs"><b>Español (España)</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/de.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/de-DE/docs"><b>Deutsch</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/fr.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/fr-FR/docs"><b>Français</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/ru.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/ru-RU/docs"><b>Русский</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/cn.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/zh-CN/docs"><b>简体中文</b></a>&nbsp;&nbsp;·&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/jp.svg" width="16" align="absmiddle" />&nbsp;&nbsp;<a href="https://lagune.ai/ja-JP/docs"><b>日本語</b></a>

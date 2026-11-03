@@ -1,0 +1,69 @@
+---
+id: configs-schema
+title: Schéma des configs
+sidebar_label: Schéma des configs
+description: Le JSON Schema des configs d'un projet Lagune, pour l'autocomplétion et la validation dans votre éditeur, qui suit la version actuelle de Lagune ou est épinglé à une version.
+keywords:
+  - configs
+  - configs.json
+  - JSON Schema
+  - $schema
+  - validation
+source_hash: '141733c73377142021f589b024fa4852bcfd65aecbe0cf97aa3b5f7f993cd963'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+`.lagune/configs.json` enregistre les [**catégories**](/docs/categories) qu'utilise un projet et indexe ses propres [**spécialisations**](/docs/catalog). Son JSON Schema permet à votre éditeur d'autocompléter chaque champ et de signaler une faute de frappe ou une catégorie inconnue pendant que vous modifiez le fichier.
+
+## Le schéma actuel
+
+Chaque fois que **Lagune** écrit le fichier sans y trouver de `$schema`, il fait pointer le fichier vers le schéma actuel :
+
+```json
+{
+  "$schema": "https://lagune.ai/schemas/configs.json",
+  "categories": ["owasp", "javascript"]
+}
+```
+
+Cette adresse suit toujours la version actuelle de **Lagune**. Un fichier écrit avant **Lagune** 0.16.0 la reçoit à sa prochaine modification, et chaque phase le signale d'ici là.
+
+## Épingler une version
+
+Chaque version de **Lagune** à partir de la 0.16.0 embarque le schéma tel qu'il était dans cette version, publié sur **npm** et servi par **jsDelivr**. Pour en épingler une, indiquez dans `$schema` la version après `lagune@` :
+
+```json
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/lagune@0.16.0/schemas/configs.json"
+}
+```
+
+La version accepte n'importe quelle plage semver :
+
+| Version            | Schéma                            |
+| ------------------ | --------------------------------- |
+| `0.16.0`           | Celui de la 0.16.0                |
+| `0.16.x` ou `0.16` | Celui de la dernière version 0.16 |
+| `0.x` ou `0`       | Celui de la dernière version 0.x  |
+| `latest`           | Celui de la dernière version      |
+
+<Faq
+  items={[
+    {
+      question: 'Lagune a-t-il besoin du schéma ?',
+      answer:
+        "Non. Le schéma ne sert qu'à votre éditeur, et Lagune lit le fichier de la même façon avec ou sans $schema.",
+    },
+    {
+      question: 'Lagune écrasera-t-il un schéma épinglé ?',
+      answer:
+        "Non. Lagune n'écrit $schema que si le fichier n'en a pas, et garde toute adresse que vous avez définie.",
+    },
+    {
+      question: 'Quand épingler une version ?',
+      answer:
+        "Quand le projet utilise une version précise de Lagune, pour que votre éditeur valide le fichier selon ce qu'accepte cette version.",
+    },
+  ]}
+/>
