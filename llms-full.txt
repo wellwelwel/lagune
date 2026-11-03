@@ -117,7 +117,7 @@ Using **Lagune**? Add one to your **README**:
 
 ## Next
 
-See what each of **Lagune**'s [**Commands**](https://lagune.ai/docs/get-started/commands) does.
+See what each of **Lagune**'s [**Skills**](https://lagune.ai/docs/get-started/commands) does.
 
 ## Frequently Asked Questions
 
@@ -1143,13 +1143,17 @@ Yes. Allow mcp__lagune__lagune_read and mcp__lagune__lagune_write in Qwen Code's
 Canonical: https://lagune.ai/docs/install/universal
 Last updated: 2026-11-03
 
-The [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs **Lagune**'s commands in any agent:
+**Terminal**
+
+Install **Lagune**'s commands from your terminal with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
 npx skills add wellwelwel/lagune
 ```
 
-Or paste this prompt into your agent:
+**Prompt**
+
+Paste this prompt into your agent:
 
 ```md
 Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
@@ -1157,17 +1161,20 @@ Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill inst
 
 ## Update
 
+**Terminal**
+
 To update **Lagune**, run:
 
 ```bash
 npx skills update
 ```
 
-If your agent lists the commands with a dot, such as `/lagune.charter`, remove **Lagune** and add it again:
+**Prompt**
 
-```bash
-npx skills remove wellwelwel/lagune
-npx skills add wellwelwel/lagune
+To update **Lagune**, paste this prompt into your agent:
+
+```md
+Run `npx --yes skills update -y` and read its complete output, redirecting it to a temporary file first if necessary.
 ```
 
 ---
@@ -1188,11 +1195,11 @@ npm i -D lagune@0.16.0
 
 ### How do I install Lagune in any AI agent?
 
-Run npx skills add wellwelwel/lagune in your project.
+Run npx skills add wellwelwel/lagune in your project, or paste the install prompt into your agent.
 
 ### How do I update Lagune installed with the skills CLI?
 
-Run npx skills update.
+Run npx skills update, or paste the update prompt into your agent.
 
 ### Can I install Lagune with both the skills CLI and a plugin?
 
@@ -1200,20 +1207,20 @@ No. With both, the agent lists every command twice, or uses one copy and hides t
 
 ---
 
-# Security Slash Commands for AI Agents
+# Security Skills for AI Agents
 
-> The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
+> The skills your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 
 Canonical: https://lagune.ai/docs/get-started/commands
 Last updated: 2026-11-03
 
-Once **Lagune**'s commands are [installed](https://lagune.ai/docs), your **AI** agent unlocks a set of slash commands. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
+Once **Lagune** is [installed](https://lagune.ai/docs), your **AI** agent unlocks a set of skills. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 
 **⌨️ Build / Development**
 
 You don't need to finish your work before securing it. Use [**`/lagune`**](https://lagune.ai/docs/commands/lagune) for the work you are writing **right now**:
 
-| Command                                       | What it does for you                                                        |
+| Skill                                         | What it does for you                                                        |
 | --------------------------------------------- | --------------------------------------------------------------------------- |
 | [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, the foundation `/lagune` builds against |
 | [**/lagune**](https://lagune.ai/docs/commands/lagune)          | Builds what you ask and hardens it as it is written, guided by the charter  |
@@ -1224,17 +1231,17 @@ You don't need to finish your work before securing it. Use [**`/lagune`**](https
 
 ---
 
-#### Special commands
+#### Special skills
 
-| Command                                             | What it does                                                                        |
+| Skill                                               | What it does                                                                        |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [**/lagune-specialize**](https://lagune.ai/docs/commands/specialize) | Teaches **Lagune** a new security specialization from articles, exploits, or topics |
 
 **🔬 Audit: Blue Team Flow**
 
-The full **Blue Team flow**: read what a project does, map its risks, and close them. Each command builds on the previous, so following the list top to bottom is all it takes:
+The full **Blue Team flow**: read what a project does, map its risks, and close them. Each builds on the previous, so following the list top to bottom is all it takes:
 
-| #   | Command                                       | What it does for you                                                           |
+| #   | Skill                                         | What it does for you                                                           |
 | --- | --------------------------------------------- | ------------------------------------------------------------------------------ |
 | 1   | [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, proposed for you or shaped by what you say |
 | 2   | [**/lagune-detect**](https://lagune.ai/docs/commands/detect)   | Reads your code and maps what your system does and where the risks are         |
@@ -1244,18 +1251,18 @@ The full **Blue Team flow**: read what a project does, map its risks, and close 
 
 ---
 
-#### Special commands
+#### Special skills
 
-| Command                                             | What it does                                                                               |
+| Skill                                               | What it does                                                                               |
 | --------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | [**/lagune-specialize**](https://lagune.ai/docs/commands/specialize) | Teaches **Lagune** a new security specialization from articles, exploits, or topics        |
 | [**/lagune-prove**](https://lagune.ai/docs/commands/prove)           | Turns each detected finding into a runnable, defense-only proof for responsible disclosure |
 
 ---
 
-#### Internal commands
+#### Internal skills
 
-| Command                                     | What it does                           |
+| Skill                                       | What it does                           |
 | ------------------------------------------- | -------------------------------------- |
 | [**/lagune-repair**](https://lagune.ai/docs/commands/repair) | Repairs **Lagune**'s internal tracking |
 
@@ -1265,7 +1272,7 @@ Security is not a cost, it is an investment: what you put in upfront, you save m
 
 ## Frequently Asked Questions
 
-### What slash commands does Lagune add?
+### What skills does Lagune add?
 
 /lagune to harden work as you build it, and the five-phase Blue Team audit flow: /lagune-charter, /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Plus /lagune-specialize and /lagune-prove.
 
@@ -1284,7 +1291,7 @@ A five-phase audit: charter (set rules), detect (map risks), plan (score and pla
 > See your project's charter, findings, and catalog in a live, local view that opens with one command.
 
 Canonical: https://lagune.ai/docs/get-started/dashboard
-Last updated: 2026-11-03
+Last updated: 2026-10-25
 
 Run **Lagune** directly with no subcommand for an interactive live view of `.lagune/`. It serves a dashboard and opens it on a random port:
 
@@ -1334,7 +1341,7 @@ Only its categories, from your browser. Everything else the dashboard shows is r
 > Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 
 Canonical: https://lagune.ai/docs/commands/lagune
-Last updated: 2026-11-03
+Last updated: 2026-10-31
 
 ⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
 
@@ -1426,7 +1433,7 @@ Add an instruction to your agent's instruction file (AGENTS.md, CLAUDE.md, .curs
 > Establish your project's security principles, the rules every later phase respects, and record the specialization categories its reading supports.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -1512,7 +1519,7 @@ Only while none is recorded. It then records each category its reading supports,
 > Read your code and map what your system does and where the risks are.
 
 Canonical: https://lagune.ai/docs/commands/detect
-Last updated: 2026-11-03
+Last updated: 2026-10-31
 
 🔬 Find out what your system really does and where the risks are.
 
@@ -1587,7 +1594,7 @@ Every one in your project's catalog gets a verdict against the code. Detect appl
 > Turn what detect found into a defense plan, rating each finding with a category and a CVSS v4.0 score, and pairing it with a fix.
 
 Canonical: https://lagune.ai/docs/commands/plan
-Last updated: 2026-11-03
+Last updated: 2026-10-31
 
 🛡️ Turn what detect found into a defense plan: rate each finding with a category and a CVSS v4.0 score, then pair it with the fix to apply.
 
@@ -1661,7 +1668,7 @@ No. Plan never reads the code, which forces every fix to point at something dete
 > Apply the plan's fixes to your code, safely and one at a time.
 
 Canonical: https://lagune.ai/docs/commands/harden
-Last updated: 2026-11-03
+Last updated: 2026-10-31
 
 🔧 Apply the plan's fixes to your code, safely and one at a time.
 
@@ -1734,7 +1741,7 @@ Whether an edit needs your approval is decided by your agent and the permission 
 > Prove each applied fix holds, then close out the ones that do.
 
 Canonical: https://lagune.ai/docs/commands/verify
-Last updated: 2026-11-03
+Last updated: 2026-10-31
 
 ⚖️ Prove each applied fix holds, by reading the code and confronting it with what harden recorded, then close out the ones that do.
 
@@ -1813,7 +1820,7 @@ Yes. SDH is closable: a proven-closed finding is stood down, so the flow has an 
 > The specialization categories a Lagune project can use, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust, and how to change them.
 
 Canonical: https://lagune.ai/docs/categories
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 **Lagune** groups its built-in [**specializations**](https://lagune.ai/docs/catalog) into **13 categories**. The categories a project uses decide which built-ins join its [**catalog**](https://lagune.ai/docs/catalog), and they split in two: what the system does, and what it is written in.
 
@@ -1907,7 +1914,7 @@ Start with owasp, the default, then add the one for your language or stack. Spec
 > How the specializations in your project's catalog are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/catalog
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 🧠 **Lagune**'s specializations are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. Your project's catalog is the set it uses: the built-in specializations of its [categories](https://lagune.ai/docs/categories) plus its own. The detect and verify phases reach for them while they run, and you can load one directly any time.
 
@@ -2038,7 +2045,7 @@ In the same prompt as the task, ask your agent to run npx lagune read catalog <n
 > Distill a security source or topic you give it into a new on-demand specialization.
 
 Canonical: https://lagune.ai/docs/commands/specialize
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 🎓 Teach **Lagune** a new specialization, from a source or topic you give it.
 
@@ -2112,7 +2119,7 @@ No. It refines, never overwrites.
 > Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
 
 Canonical: https://lagune.ai/docs/commands/prove
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 🧪 Turn each detected finding into runnable, defense-only evidence for responsible disclosure.
 
@@ -2205,7 +2212,7 @@ Prove writes a self-contained advisory you can share through a private channel s
 > Sweep a codebase for agent/LLM calls with no step or time cap, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/agent
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -2269,7 +2276,7 @@ An uncapped agent can be driven into unbounded recursion, cost, or prompt-inject
 > Scan source for a bypassable CORS origin allowlist, or score a single origin value for over-permissive access, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/cors
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `cors` hook is the deterministic engine behind the [`http-request` specialization](https://lagune.ai/docs/catalog), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
 
@@ -2376,7 +2383,7 @@ Run npx lagune read cors over the codebase. It flags a host-validation regex who
 > Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/crypto
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -2461,7 +2468,7 @@ Only as a review lead in a security context, never as an automatic finding, sinc
 > Score one or many CVSS v4.0 vectors from the command line, with the same arithmetic as the FIRST calculator, and read each one back in plain words.
 
 Canonical: https://lagune.ai/docs/hooks/cvss
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `cvss` hook scores a **CVSS v4.0 vector** and prints its score and severity band, the rating [`/lagune-plan`](https://lagune.ai/docs/commands/plan) writes on each fix and [`/lagune-prove`](https://lagune.ai/docs/commands/prove) on each advisory. It is the deterministic engine behind those ratings, with the same arithmetic as the [FIRST calculator](https://www.first.org/cvss/calculator/4.0), and you can run it yourself.
 
@@ -2557,7 +2564,7 @@ It reads each metric back in plain words and shows the Base score beside the ove
 > Sweep Terraform, Dockerfiles, and GitHub Actions for misconfiguration, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/infra
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `infra` hook flags **infrastructure-as-code misconfiguration** that is decidable from the file: a network open to the world, a wildcard permission, a secret in a manifest, a root container, an untrusted value in a CI shell. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). It is the deterministic engine behind the [`infra` specialization](https://lagune.ai/docs/catalog), in **scan** or **check** mode.
 
@@ -2614,7 +2621,7 @@ Terraform/HCL (.tf, .tf.json, .hcl), Dockerfiles, and GitHub Actions workflow an
 > Sweep a codebase for dynamic-code-execution sinks across languages, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/interpreter
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -2702,7 +2709,7 @@ It reads the languages in the Supported languages table, keyed by file extension
 > Sweep a codebase for JWT verification without an algorithm pin, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/jwt
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `jwt` hook flags **JWT verification without an algorithm pin**, the algorithm-confusion hole where a verifier trusts the token's own `alg` header, and **verification turned off entirely**. It is **language-aware**, reading each file by its own JWT library, and it is the deterministic engine behind the [`federation` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -2777,7 +2784,7 @@ A verifier that reads the algorithm from the token header lets an attacker swap 
 > Score one or many fetch destinations for SSRF, straight from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/network
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` specialization](https://lagune.ai/docs/catalog), and you can run it yourself.
 
@@ -2859,7 +2866,7 @@ A URL that different parsers read differently, which is a classic SSRF bypass. T
 > Sweep a codebase for ReDoS-prone regex, or score a single pattern, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/regex
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `regex` hook is the deterministic regex-safety engine the [`regex` specialization](https://lagune.ai/docs/catalog) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 
@@ -3052,7 +3059,7 @@ Run the regex hook in scan mode over the codebase. It reports ReDoS-prone patter
 > Sweep a codebase for hardcoded credentials from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/secrets
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 The `secrets` hook flags **credentials compiled into the source** instead of read from the environment. It keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` specialization](https://lagune.ai/docs/catalog).
 
@@ -3103,7 +3110,7 @@ It keys on provenance, not on the value contents. High-confidence formats (provi
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -3355,7 +3362,7 @@ At the end, merge all sub-agent reports into one final verdict.
 > The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
 
 Canonical: https://lagune.ai/docs/references/paper
-Last updated: 2026-11-03
+Last updated: 2026-07-13
 
 - **Weslley Araújo**
 - **Methodology Paper, 2026.**
@@ -3924,7 +3931,7 @@ Lagune is the proof, but the contribution is the convention. SDH is offered as t
 > Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, specializations, categories, and the catalog.
 
 Canonical: https://lagune.ai/docs/references/glossary
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 Every load-bearing term in Lagune and the Security-Driven Hardening methodology, defined once, in plain language.
 
@@ -4021,7 +4028,7 @@ When verify proves a risk closed, the finding is stood down: removed from the wh
 > The JSON Schema for a Lagune project's configs, for autocompletion and validation in your editor, following the current Lagune or pinned to a version.
 
 Canonical: https://lagune.ai/docs/references/configs-schema
-Last updated: 2026-11-03
+Last updated: 2026-10-27
 
 `.lagune/configs.json` records the [**categories**](https://lagune.ai/docs/categories) a project uses and indexes its own [**specializations**](https://lagune.ai/docs/catalog). Its JSON Schema lets your editor autocomplete each field and flag a typo or an unknown category as you edit the file.
 
@@ -4078,7 +4085,7 @@ When the project runs a specific Lagune version, so your editor validates the fi
 > A reference comparing Lagune and Vercel's Deepsec across how they work, lifecycle, detection, cost, findings, and closure.
 
 Canonical: https://lagune.ai/docs/references/deepsec
-Last updated: 2026-11-03
+Last updated: 2026-11-02
 
 [Lagune](https://github.com/wellwelwel/lagune) and [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) are two defensive answers to the same problem: security in the age of AI-assisted development. Their premise, their beginning, middle, and end, and how each presents itself to a user diverge by design, even where their mechanics overlap.
 
@@ -4241,7 +4248,7 @@ Lagune does: harden applies fixes to your code. Deepsec does not: it is static a
 > Where the knowledge of the built-in OWASP specializations comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/owasp-sources
-Last updated: 2026-11-03
+Last updated: 2026-10-25
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -4597,7 +4604,7 @@ These are not specialization terrains and carry no checkbox: they are governance
 > Repair the chain when a rename or a moved file confuses Lagune's tracking.
 
 Canonical: https://lagune.ai/docs/commands/repair
-Last updated: 2026-11-03
+Last updated: 2026-10-31
 
 🧰 Repair the chain when a rename or a moved file confuses it.
 
@@ -4649,10 +4656,10 @@ A project with a manifest keeps working as it is until `v1.x`: `npx lagune` hand
 
 2. Commit what it changed on its own, so the move stays one reviewable change.
 3. Install the commands for your agent, as the [install page](https://lagune.ai/docs) shows.
-4. Ask [`/lagune-repair`](https://lagune.ai/docs/commands/repair) to reconcile the old references in the artifacts and in your own specializations:
+4. If the project already has a detect, plan, or harden artifact, ask [`/lagune-repair`](https://lagune.ai/docs/commands/repair) to reconcile the old references in them and in your own specializations:
 
    ```prompt
-   /lagune-repair If they exist, reconcile the applied specializations (formerly sub-skills) in the artifacts under `.lagune/memory/` (`detect.md`, `plan.md`, and `harden.md`) with the names the new catalog lists, and rewrite every call my own specializations in `.lagune/catalog/` make to the old hooks in `.lagune/hooks/` as a call to the `lagune_read` or `lagune_write` tool.
+   /lagune-repair Reconcile the applied specializations (formerly sub-skills) in the artifacts under `.lagune/memory/` (`detect.md`, `plan.md`, and `harden.md`) with the names the new catalog lists, and rewrite every call my own specializations in `.lagune/catalog/` make to the old hooks in `.lagune/hooks/` as a call to the `lagune_read` or `lagune_write` tool.
    ```
 
 ## What changes

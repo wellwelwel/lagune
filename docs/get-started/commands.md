@@ -1,17 +1,17 @@
-# Security Slash Commands for AI Agents
+# Security Skills for AI Agents
 
-> The slash commands your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
+> The skills your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 
 Canonical: https://lagune.ai/docs/get-started/commands
 Last updated: 2026-11-03
 
-Once **Lagune**'s commands are [installed](https://lagune.ai/docs), your **AI** agent unlocks a set of slash commands. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
+Once **Lagune** is [installed](https://lagune.ai/docs), your **AI** agent unlocks a set of skills. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 
 **⌨️ Build / Development**
 
 You don't need to finish your work before securing it. Use [**`/lagune`**](https://lagune.ai/docs/commands/lagune) for the work you are writing **right now**:
 
-| Command                                       | What it does for you                                                        |
+| Skill                                         | What it does for you                                                        |
 | --------------------------------------------- | --------------------------------------------------------------------------- |
 | [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, the foundation `/lagune` builds against |
 | [**/lagune**](https://lagune.ai/docs/commands/lagune)          | Builds what you ask and hardens it as it is written, guided by the charter  |
@@ -22,17 +22,17 @@ You don't need to finish your work before securing it. Use [**`/lagune`**](https
 
 ---
 
-#### Special commands
+#### Special skills
 
-| Command                                             | What it does                                                                        |
+| Skill                                               | What it does                                                                        |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [**/lagune-specialize**](https://lagune.ai/docs/commands/specialize) | Teaches **Lagune** a new security specialization from articles, exploits, or topics |
 
 **🔬 Audit: Blue Team Flow**
 
-The full **Blue Team flow**: read what a project does, map its risks, and close them. Each command builds on the previous, so following the list top to bottom is all it takes:
+The full **Blue Team flow**: read what a project does, map its risks, and close them. Each builds on the previous, so following the list top to bottom is all it takes:
 
-| #   | Command                                       | What it does for you                                                           |
+| #   | Skill                                         | What it does for you                                                           |
 | --- | --------------------------------------------- | ------------------------------------------------------------------------------ |
 | 1   | [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, proposed for you or shaped by what you say |
 | 2   | [**/lagune-detect**](https://lagune.ai/docs/commands/detect)   | Reads your code and maps what your system does and where the risks are         |
@@ -42,18 +42,18 @@ The full **Blue Team flow**: read what a project does, map its risks, and close 
 
 ---
 
-#### Special commands
+#### Special skills
 
-| Command                                             | What it does                                                                               |
+| Skill                                               | What it does                                                                               |
 | --------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | [**/lagune-specialize**](https://lagune.ai/docs/commands/specialize) | Teaches **Lagune** a new security specialization from articles, exploits, or topics        |
 | [**/lagune-prove**](https://lagune.ai/docs/commands/prove)           | Turns each detected finding into a runnable, defense-only proof for responsible disclosure |
 
 ---
 
-#### Internal commands
+#### Internal skills
 
-| Command                                     | What it does                           |
+| Skill                                       | What it does                           |
 | ------------------------------------------- | -------------------------------------- |
 | [**/lagune-repair**](https://lagune.ai/docs/commands/repair) | Repairs **Lagune**'s internal tracking |
 
@@ -63,7 +63,7 @@ Security is not a cost, it is an investment: what you put in upfront, you save m
 
 ## Frequently Asked Questions
 
-### What slash commands does Lagune add?
+### What skills does Lagune add?
 
 /lagune to harden work as you build it, and the five-phase Blue Team audit flow: /lagune-charter, /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Plus /lagune-specialize and /lagune-prove.
 

@@ -5,13 +5,17 @@
 Canonical: https://lagune.ai/docs/install/universal
 Last updated: 2026-11-03
 
-The [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) installs **Lagune**'s commands in any agent:
+**Terminal**
+
+Install **Lagune**'s commands from your terminal with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
 npx skills add wellwelwel/lagune
 ```
 
-Or paste this prompt into your agent:
+**Prompt**
+
+Paste this prompt into your agent:
 
 ```md
 Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
@@ -19,17 +23,20 @@ Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill inst
 
 ## Update
 
+**Terminal**
+
 To update **Lagune**, run:
 
 ```bash
 npx skills update
 ```
 
-If your agent lists the commands with a dot, such as `/lagune.charter`, remove **Lagune** and add it again:
+**Prompt**
 
-```bash
-npx skills remove wellwelwel/lagune
-npx skills add wellwelwel/lagune
+To update **Lagune**, paste this prompt into your agent:
+
+```md
+Run `npx --yes skills update -y` and read its complete output, redirecting it to a temporary file first if necessary.
 ```
 
 ---
@@ -50,11 +57,11 @@ npm i -D lagune@0.16.0
 
 ### How do I install Lagune in any AI agent?
 
-Run npx skills add wellwelwel/lagune in your project.
+Run npx skills add wellwelwel/lagune in your project, or paste the install prompt into your agent.
 
 ### How do I update Lagune installed with the skills CLI?
 
-Run npx skills update.
+Run npx skills update, or paste the update prompt into your agent.
 
 ### Can I install Lagune with both the skills CLI and a plugin?
 

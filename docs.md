@@ -109,7 +109,7 @@ Using **Lagune**? Add one to your **README**:
 
 ## Next
 
-See what each of **Lagune**'s [**Commands**](https://lagune.ai/docs/get-started/commands) does.
+See what each of **Lagune**'s [**Skills**](https://lagune.ai/docs/get-started/commands) does.
 
 ## Frequently Asked Questions
 
