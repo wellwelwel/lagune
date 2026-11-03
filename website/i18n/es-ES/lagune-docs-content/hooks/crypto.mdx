@@ -1,0 +1,97 @@
+---
+id: crypto
+title: 'Hook crypto: detecta criptografía débil'
+sidebar_label: crypto
+description: Analiza un proyecto en busca de primitivas criptográficas débiles, o evalúa un único fragmento de código, desde la línea de comandos.
+source_hash: 'd3c688c47e39ee54573cceb66668f98098f3e51207d795ca3ae7e3f6b3f527d0'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+El hook `crypto` señala **primitivas criptográficas débiles** en el punto de llamada: un cifrado obsoleto, un modo inseguro o un hash roto. **Tiene en cuenta el lenguaje**: lee cada archivo según sus propias reglas, así que nunca señala una construcción de Python en un archivo de Rust. Es el motor determinista en el que se apoya la [especialización `crypto`](/docs/catalog), y puedes ejecutarlo tú mismo en modo **scan** o **check**.
+
+## Cómo ejecutarlo
+
+<Tabs>
+  <TabItem value="scan" label="Analizar el proyecto" default>
+
+```bash
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="Comprobar un fragmento">
+
+```bash
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+El análisis muestra hasta dos secciones. **Weak cryptography found** es el conjunto de hallazgos (DES/3DES/RC4/Blowfish/RC2, modo ECB): cada uno es una primitiva de cifrado rota, así que el hook termina con un código de salida distinto de cero. **Cryptography to review manually** es un conjunto de indicios que no puede juzgar por sí solo: un hash MD5/SHA-1 (roto para usos de seguridad, pero legítimo como simple suma de comprobación, así que decide la intención), un RNG no criptográfico en un contexto de seguridad o una comparación vulnerable a ataques de temporización. Si no encuentra nada, muestra `no weak cryptography found`.
+
+## Cómo interpretar el veredicto
+
+| Veredicto | Significado                                                                                                                 |
+| --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `weak`    | El fragmento usa una primitiva de cifrado rota (DES/3DES, RC4, Blowfish, RC2 o el modo ECB).                                |
+| `review`  | Una primitiva cuyo riesgo depende de la intención: un hash MD5/SHA-1 o un RNG no criptográfico en un contexto de seguridad. |
+| `safe`    | El fragmento usa criptografía y no se ha encontrado ninguna primitiva débil.                                                |
+| `invalid` | El fragmento no contiene ninguna construcción criptográfica reconocible que evaluar.                                        |
+
+### Opciones de la CLI
+
+| Opción      | Valor                  | Descripción                                                                                                |
+| ----------- | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `--pattern` | un fragmento de código | Comprueba un fragmento. Repítela para comprobar varios, con un veredicto por línea.                        |
+| `--lang`    | un lenguaje            | Obligatoria con `--pattern`: uno de javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp. |
+| `--dir`     | un directorio          | Limita el análisis a un directorio. Se puede repetir y combinar con `--file`.                              |
+| `--file`    | un archivo             | Limita el análisis a un solo archivo. Se puede repetir y combinar con `--dir`.                             |
+
+Sin ninguna opción, analiza todo el proyecto. `--pattern` necesita `--lang` y no se puede combinar con `--dir` ni con `--file`.
+
+### Lenguajes compatibles
+
+El análisis lee estos lenguajes, identificados por la extensión del archivo, y comprueba cada uno con sus propias API criptográficas.
+
+| Lenguaje                    | Cifrados débiles (hallazgo), hashes y RNG (revisión)                                                                |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **JavaScript / TypeScript** | `createCipher`, `CryptoJS.DES/RC4`, `*-ecb` entre comillas; MD5/SHA-1 `createHash`/`subtle.digest`; `Math.random()` |
+| **Python**                  | pycryptodome `DES/ARC4/Blowfish.new`, `algorithms.TripleDES`, `MODE_ECB`; `hashlib.md5/sha1`; `random.*`            |
+| **Go**                      | `des.NewCipher`, `rc4.NewCipher`, `blowfish.NewCipher`, `NewECBEncrypter`; `md5/sha1.Sum`; `math/rand`              |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`; `MessageDigest.getInstance("MD5")`, `HmacMD5`; `java.util.Random`               |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`            |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`, `:ECB`; `Digest::MD5/SHA1`; `rand()`/`Random`                                       |
+| **Rust**                    | `Rc4::`, `Blowfish::`, `des::`, `ecb::`; `Md5::`, `Sha1::`, `Hmac<Md5>`; `SmallRng`/`XorShiftRng`                   |
+| **C#**                      | `DES/TripleDES/RC2.Create`, `CipherMode.ECB`; `MD5/SHA1.Create`, `HMACMD5`; `new Random()`                          |
+| **C / C++**                 | OpenSSL `DES_*`/`RC4`/`EVP_des_*`, `EVP_*_ecb`; `MD5()`/`SHA1()`, `EVP_md5`; `rand()`/`random()`                    |
+
+:::note[Orientativo, no exhaustivo]
+Lee el código fuente como texto, así que se le puede escapar una primitiva construida en tiempo de ejecución, oculta tras un alias o escrita de una forma que no reconoce. Toma la tabla como un buen punto de partida, no como un inventario completo.
+:::
+
+:::tip
+El hook garantiza el mínimo (que estas construcciones existen): la gestión de claves, la reutilización de IV y el relleno de RSA son cuestiones de criterio que sigue cubriendo la [especialización `crypto`](/docs/catalog).
+:::
+
+<Faq
+  items={[
+    {
+      question: '¿Cómo analizo un proyecto en busca de criptografía débil?',
+      answer:
+        'Ejecuta el hook crypto sin ninguna opción. Los cifrados rotos y el modo ECB son hallazgos que terminan con un código de salida distinto de cero. Un hash MD5/SHA-1 es un indicio que revisar, porque está roto para usos de seguridad pero es legítimo como simple suma de comprobación.',
+    },
+    {
+      question: '¿El hook crypto señala Math.random()?',
+      answer:
+        'Solo como indicio que revisar en un contexto de seguridad, nunca como hallazgo automático, porque la aleatoriedad es legítima para el jitter o para ordenar elementos de la interfaz.',
+    },
+  ]}
+/>

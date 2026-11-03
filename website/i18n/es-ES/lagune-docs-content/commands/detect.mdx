@@ -1,0 +1,93 @@
+---
+id: detect
+title: '/lagune-detect: identifica qué hace tu sistema y sus riesgos'
+sidebar_label: 2. Detect
+description: Lee tu código e identifica qué hace tu sistema y dónde están los riesgos.
+source_hash: 'c6b18e96f6fccb85b362fd7a7af5576c5cc332d8fdf2b8ef3dff04dac3d647c5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-detect
+
+🔬 Descubre qué hace realmente tu sistema y dónde están los riesgos.
+
+Detect lee el código y registra solo lo que realmente encuentra, con la evidencia que necesitan las fases posteriores. Su instrucción rectora es detectar, no inventar.
+
+## Cómo usarlo
+
+<Tabs>
+  <TabItem value="full" label="Análisis completo" default>
+
+```prompt
+/lagune-detect
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Indicar rutas">
+
+```prompt
+/lagune-detect src/routes/ src/auth.ts
+```
+
+  </TabItem>
+  <TabItem value="concern" label="Describir una preocupación">
+
+```prompt
+/lagune-detect asegúrate de que los datos de los clientes nunca queden expuestos
+```
+
+  </TabItem>
+</Tabs>
+
+## Lo que identifica
+
+**Lagune** lee el código e identifica lo que encuentra. Cada hallazgo indica qué es, por qué importa y la evidencia. Por ejemplo:
+
+- **Subida de archivos**, el sistema acepta archivos de los usuarios:
+  - _Por qué importa:_ un archivo disfrazado de imagen puede ocultar código malicioso.
+  - _Evidencia:_ el handler de `POST /upload` se fía del tipo MIME que envía el cliente, sin comprobar el tipo real del archivo.
+- **Inicio de sesión y sesiones**, los usuarios se identifican para acceder a su cuenta:
+  - _Por qué importa:_ una gestión débil de las sesiones permite que alguien se haga con la cuenta de otra persona.
+  - _Evidencia:_ la lógica de emisión de sesiones, que las emite sin fecha de caducidad.
+
+Por el camino, detect emite un veredicto para cada especialización del [catálogo](/docs/catalog) de tu proyecto contrastándola con el código, aplica aquellas cuyo contexto está presente y las registra en **Applied specializations**, la lista que reutilizan harden y verify.
+
+Con eso tienes un mapa claro de lo que hace tu sistema y de dónde están los riesgos, listo para que los siguientes pasos actúen sobre él.
+
+:::tip
+
+- Volver a ejecutarlo actualiza el mapa: los hallazgos resueltos desaparecen y entran los nuevos.
+- El mapa de detect se guarda en `.lagune/memory/detect.md`.
+
+:::
+
+## Siguiente paso
+
+Convierte el mapa en un plan: [`/lagune-plan`](/docs/commands/plan).
+
+<Faq
+  items={[
+    {
+      question: '¿Qué hace /lagune-detect?',
+      answer:
+        'Lee tu código e identifica qué hace tu sistema y dónde están los riesgos, y registra solo lo que realmente encuentra. Su regla es detectar, no inventar.',
+    },
+    {
+      question: '¿Qué es un hallazgo en Lagune?',
+      answer:
+        'Un hallazgo es un riesgo detectado, con lo que es, por qué importa y la evidencia en el código. Es la unidad en seguimiento que plan, harden y verify van trasladando de una fase a la siguiente.',
+    },
+    {
+      question: '¿Dónde se guarda el mapa de detect?',
+      answer: 'En .lagune/memory/detect.md.',
+    },
+    {
+      question: '¿Qué especializaciones usa detect?',
+      answer:
+        'Todas las del catálogo de tu proyecto reciben un veredicto contrastado con el código. Detect aplica aquellas cuyo contexto está presente y las registra en Applied specializations.',
+    },
+  ]}
+/>

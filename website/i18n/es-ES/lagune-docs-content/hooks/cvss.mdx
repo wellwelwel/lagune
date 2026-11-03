@@ -1,0 +1,113 @@
+---
+id: cvss
+title: 'Hook cvss: calcula la puntuación de un vector CVSS v4.0'
+sidebar_label: cvss
+description: Calcula la puntuación de uno o varios vectores CVSS v4.0 desde la línea de comandos, con los mismos cálculos que la calculadora de FIRST, y consulta cada uno explicado en lenguaje llano.
+source_hash: 'fa4469a734f29f7b7a54349fceb29d66a8efb995fa89292ca56c1be741dae2f5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+El hook `cvss` calcula la puntuación de un **vector CVSS v4.0** y muestra esa puntuación y su franja de gravedad, la calificación que [`/lagune-plan`](/docs/commands/plan) escribe en cada corrección y [`/lagune-prove`](/docs/commands/prove) en cada aviso de seguridad. Es el motor determinista que produce esas calificaciones, con los mismos cálculos que la [calculadora de FIRST](https://www.first.org/cvss/calculator/4.0), y puedes ejecutarlo tú mismo.
+
+## Cómo ejecutarlo
+
+Pasa cada vector con `--vector`. El hook muestra una línea por vector: su puntuación y su franja.
+
+<Tabs>
+  <TabItem value="one" label="Un vector" default>
+
+```bash
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+# => 9.3, Critical
+```
+
+  </TabItem>
+  <TabItem value="many" label="Varios vectores">
+
+Repite `--vector` para puntuar varios a la vez, con una línea para cada uno y en el mismo orden.
+
+```bash
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 9.3, Critical
+# => 8.7, High
+```
+
+  </TabItem>
+  <TabItem value="explain" label="En lenguaje llano">
+
+Añade `--explain` para ver cada métrica explicada en lenguaje llano. Cuando las métricas de amenaza o de entorno cambian la puntuación, primero aparece la puntuación base por sí sola.
+
+```bash
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 8.7, High
+# =>   Base metrics alone: 9.3, Critical
+# =>   Attack Vector: Network, modified to Adjacent
+# =>   Attack Complexity: Low
+# =>   ...
+```
+
+  </TabItem>
+</Tabs>
+
+## Cómo interpretar el resultado
+
+| Franja     | Puntuación |
+| ---------- | ---------- |
+| `None`     | 0.0        |
+| `Low`      | 0.1 a 3.9  |
+| `Medium`   | 4.0 a 6.9  |
+| `High`     | 7.0 a 8.9  |
+| `Critical` | 9.0 a 10.0 |
+
+Un vector que solo tiene métricas base puntúa el fallo en sí, suponiendo lo peor: todos los requisitos de seguridad en High y el fallo explotado activamente. Las métricas de entorno (`MAV` y las demás métricas modificadas, además de `CR`, `IR` y `AR`) la ajustan a un despliegue concreto, y la métrica de amenaza (`E`), a lo que se sabe sobre su explotación.
+
+Con un vector no válido, el hook muestra `invalid vector:` y qué falla, y termina con un código de salida distinto de cero.
+
+### Opciones de la CLI
+
+| Opción      | Valor                | Descripción                                                                                   |
+| ----------- | -------------------- | --------------------------------------------------------------------------------------------- |
+| `--vector`  | un vector `CVSS:4.0` | Puntúa un vector. Repítela para puntuar varios, con una línea por vector y en el mismo orden. |
+| `--explain` |                      | Añade cada métrica en lenguaje llano debajo de cada línea de calificación.                    |
+
+Se necesita al menos un `--vector`. El vector nunca va como argumento posicional suelto, así que no se puede confundir con una opción.
+
+:::note[Por qué como valor de una opción]
+
+Cada vector se pasa como valor de una opción, nunca interpolado en el comando. Un valor con comillas o comillas invertidas queda inerte y no puede inyectar nada en la shell. Escríbelo siempre entre comillas simples para que tu shell no lo expanda antes.
+:::
+
+:::note[Lo que no cubre]
+
+Solo CVSS v4.0: un vector v2.0, v3.0 o v3.1 se rechaza en lugar de puntuarse, porque **Lagune** califica todos los hallazgos en v4.0.
+:::
+
+:::tip
+
+La validación de la fase plan repite estos mismos cálculos en cada línea CVSS, así que una puntuación que ya no corresponde a su vector se detecta antes de aceptar el plan.
+:::
+
+<Faq
+  items={[
+    {
+      question: '¿Cómo calcula Lagune una puntuación CVSS?',
+      answer:
+        'El hook cvss sigue la calculadora de referencia de FIRST para CVSS v4.0, así que un vector obtiene exactamente la misma puntuación que en el sitio web de FIRST.',
+    },
+    {
+      question: '¿Puedo puntuar con él un vector CVSS v3.1?',
+      answer:
+        'No. Lagune califica todos los hallazgos en CVSS v4.0, y el hook rechaza cualquier otra versión en lugar de puntuarla.',
+    },
+    {
+      question: '¿Qué hace la opción --explain?',
+      answer:
+        'Explica cada métrica en lenguaje llano y muestra la puntuación base junto a la global, para que cualquiera pueda ver qué dice el vector y cuánto ha movido la puntuación el contexto del proyecto.',
+    },
+  ]}
+/>

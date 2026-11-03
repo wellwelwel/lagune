@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Instalar Lagune en Codex CLI como plugin'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Instala Lagune en Codex CLI como plugin, mantenlo actualizado y ejecuta su motor dentro del sandbox.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - instalar lagune
+  - configuración
+  - seguridad con IA
+  - agentes de IA
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Instala el plugin desde tu terminal:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Actualización
+
+Para actualizar **Lagune**, ejecuta:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Comandos
+
+Escribe `$` y el comando precedido del nombre del plugin, seguido de tu petición, como `$lagune:lagune-charter` para `/lagune-charter`. Al escribir `$` aparece la lista de comandos, y al elegir uno se inserta su nombre completo.
+
+---
+
+:::info[Permisos]
+
+El sandbox de **Codex** no tiene acceso a la red. Instala el motor en tu proyecto desde tu propio terminal, una vez y tras cada actualización:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '¿Cómo instalo Lagune en Codex CLI?',
+      answer:
+        'Ejecuta codex plugin marketplace add wellwelwel/lagune y después codex plugin add lagune@lagune.',
+    },
+    {
+      question: '¿Cómo actualizo Lagune en Codex CLI?',
+      answer: 'Ejecuta codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: '¿Cómo ejecuto los comandos de Lagune en Codex CLI?',
+      answer:
+        'Escribe $ y el comando precedido del nombre del plugin, seguido de tu petición, como $lagune:lagune-charter.',
+    },
+    {
+      question: '¿Funciona Lagune dentro del sandbox de Codex?',
+      answer:
+        'Sí, en cuanto instales el motor en tu proyecto con npm i -D lagune@{{version}} desde tu propio terminal, una vez y tras cada actualización.',
+    },
+  ]}
+/>

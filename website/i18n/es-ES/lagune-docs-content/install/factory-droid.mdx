@@ -1,0 +1,73 @@
+---
+id: factory-droid
+title: 'Instalar Lagune en Factory Droid como plugin'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Instala Lagune en Factory Droid como plugin, mantenlo actualizado y permite las herramientas de su motor.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - instalar lagune
+  - configuración
+  - seguridad con IA
+  - agentes de IA
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Instala el plugin desde tu terminal:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Actualización
+
+Para actualizar **Lagune**, ejecuta:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Comandos
+
+Escribe los comandos por su nombre, como `/lagune-charter`.
+
+---
+
+:::info[Permisos]
+
+El motor se ejecuta mediante dos herramientas: `lagune_read` solo lee tu proyecto y `lagune_write` solo escribe en `.lagune/`. Cuando **Factory Droid** pregunte, elige permitir siempre cada una. Vuelve a preguntar tras sincronizar un commit nuevo del marketplace `lagune`, algo que puede hacer al arrancar.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '¿Cómo instalo Lagune en Factory Droid?',
+      answer:
+        'Ejecuta droid plugin marketplace add wellwelwel/lagune y después droid plugin install lagune@lagune.',
+    },
+    {
+      question: '¿Cómo actualizo Lagune en Factory Droid?',
+      answer:
+        'Ejecuta droid plugin marketplace update lagune y después droid plugin update lagune@lagune.',
+    },
+    {
+      question: '¿Cómo ejecuto los comandos de Lagune en Factory Droid?',
+      answer: 'Escríbelos por su nombre, como /lagune-charter.',
+    },
+    {
+      question: '¿Puede Factory Droid ejecutar Lagune sin pedir permiso?',
+      answer:
+        'Sí. Elige permitir siempre lagune_read y lagune_write cuando Factory Droid pregunte. Vuelve a preguntar tras sincronizar un commit nuevo del marketplace lagune.',
+    },
+  ]}
+/>

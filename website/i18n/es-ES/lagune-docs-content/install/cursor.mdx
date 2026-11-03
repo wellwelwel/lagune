@@ -1,0 +1,123 @@
+---
+id: cursor
+title: 'Instalar Lagune en Cursor como plugin'
+sidebar_label: Cursor
+parent: get-started/install
+description: Instala Lagune en Cursor y en Cursor CLI como plugin, mantenlo actualizado y permite su motor de antemano.
+keywords:
+  - cursor
+  - cursor plugin
+  - cursor cli
+  - plugin marketplace
+  - instalar lagune
+  - configuración
+  - seguridad con IA
+  - agentes de IA
+source_hash: '08c54cd98449fce87b9f38a44aef834689e3fd5ffd6a8a0aed023de7f8acdf19'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Cursor' />
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Abre **Customize**.
+- Selecciona **From GitHub Repository** e introduce `https://github.com/wellwelwel/lagune`.
+- Selecciona **Install** en **Lagune** y elige el ámbito de proyecto o de usuario.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Añade el marketplace desde tu terminal:
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Escribe `/plugins` en una sesión de `agent`.
+- Instala **Lagune**.
+
+Si ya tienes **Lagune** instalado en **Claude Code**, **Cursor CLI** lo carga desde ahí.
+
+</TabItem>
+</Tabs>
+
+## Actualización
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Abre **Customize**.
+- Selecciona **Refresh** en el marketplace `lagune`.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Sustituye el marketplace desde tu terminal:
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Escribe `/plugins` en una sesión de `agent`.
+- Vuelve a instalar **Lagune**.
+
+</TabItem>
+</Tabs>
+
+## Comandos
+
+Escribe los comandos por su nombre, como `/lagune-charter`.
+
+---
+
+:::info[Permisos]
+
+En **Cursor**, los comandos ejecutan el motor mediante **npx**, que el modo predeterminado, Auto-review, permite sin preguntar.
+
+En **Cursor CLI**, el motor se ejecuta mediante dos herramientas: `lagune_read` solo lee tu proyecto y `lagune_write` solo escribe en `.lagune/`. Para permitirlas de antemano, añade estas reglas a `.cursor/cli.json` para un solo proyecto, o a `~/.cursor/cli-config.json` para todos:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
+  }
+}
+```
+
+Cuando el motor se ejecuta mediante **npx**, como ocurre con **skills.sh**, permite `Shell(npx:--yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '¿Cómo instalo Lagune en Cursor?',
+      answer:
+        'En Cursor, abre Customize, selecciona From GitHub Repository, introduce https://github.com/wellwelwel/lagune e instala Lagune. En Cursor CLI, ejecuta agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor y después instala Lagune desde /plugins.',
+    },
+    {
+      question: '¿Cómo actualizo Lagune en Cursor?',
+      answer:
+        'En Cursor, selecciona Refresh en el marketplace lagune, dentro de Customize. En Cursor CLI, elimina el marketplace lagune, vuelve a añadirlo y después vuelve a instalar Lagune desde /plugins.',
+    },
+    {
+      question: '¿Cómo ejecuto los comandos de Lagune en Cursor?',
+      answer: 'Escríbelos por su nombre, como /lagune-charter.',
+    },
+    {
+      question: '¿Puede Cursor ejecutar Lagune sin pedir permiso?',
+      answer:
+        'Sí. El modo predeterminado de Cursor, Auto-review, ya lo permite. En Cursor CLI, permite Mcp(plugin-lagune-lagune:lagune_read) y Mcp(plugin-lagune-lagune:lagune_write), además de Shell(npx:--yes lagune@*) cuando el motor se ejecuta mediante npx.',
+    },
+  ]}
+/>

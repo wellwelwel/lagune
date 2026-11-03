@@ -1,0 +1,38 @@
+{
+  "category.development-flow": {
+    "message": "Flujo de desarrollo",
+    "description": "The sidebar label of the Development Flow group of pages"
+  },
+  "category.examples": {
+    "message": "Ejemplos",
+    "description": "The sidebar label of the Examples group of pages"
+  },
+  "category.get-started": {
+    "message": "Primeros pasos",
+    "description": "The sidebar label of the Get Started group of pages"
+  },
+  "category.hooks": {
+    "message": "Hooks",
+    "description": "The sidebar label of the Hooks group of pages"
+  },
+  "category.maintenance": {
+    "message": "Mantenimiento",
+    "description": "The sidebar label of the Maintenance group of pages"
+  },
+  "category.references-sources": {
+    "message": "Referencias y fuentes",
+    "description": "The sidebar label of the References & Sources group of pages"
+  },
+  "category.specializations": {
+    "message": "Especializaciones",
+    "description": "The sidebar label of the Specializations group of pages"
+  },
+  "category.the-blue-team-flow": {
+    "message": "El flujo Blue Team",
+    "description": "The sidebar label of the The Blue Team Flow group of pages"
+  },
+  "category.tools": {
+    "message": "Herramientas",
+    "description": "The sidebar label of the Tools group of pages"
+  }
+}

@@ -1,0 +1,706 @@
+{
+  "agent.antigravity.description": {
+    "message": "La plataforma de desarrollo agéntico de Google",
+    "description": "What Antigravity is, in a few words"
+  },
+  "agent.claude-code.description": {
+    "message": "La herramienta de programación agéntica de Anthropic",
+    "description": "What Claude Code is, in a few words"
+  },
+  "agent.codex.description": {
+    "message": "El agente de programación de OpenAI",
+    "description": "What Codex is, in a few words"
+  },
+  "agent.cursor.description": {
+    "message": "El editor de código con IA",
+    "description": "What Cursor is, in a few words"
+  },
+  "agent.devin-for-terminal.description": {
+    "message": "El agente de terminal de Cognition",
+    "description": "What Devin for Terminal is, in a few words"
+  },
+  "agent.factory-droid.description": {
+    "message": "El agente de desarrollo de software de Factory",
+    "description": "What Factory Droid is, in a few words"
+  },
+  "agent.gemini-cli.description": {
+    "message": "El agente de terminal de código abierto de Google",
+    "description": "What Gemini CLI is, in a few words"
+  },
+  "agent.github-copilot.description": {
+    "message": "El compañero de programación con IA de GitHub",
+    "description": "What GitHub Copilot is, in a few words"
+  },
+  "agent.grok-build.description": {
+    "message": "El agente de programación de xAI",
+    "description": "What Grok Build is, in a few words"
+  },
+  "agent.hermes-agent.description": {
+    "message": "El agente de código abierto de Nous Research",
+    "description": "What Hermes Agent is, in a few words"
+  },
+  "agent.kimi-code.description": {
+    "message": "El agente de programación de Moonshot AI",
+    "description": "What Kimi Code is, in a few words"
+  },
+  "agent.muse-code.description": {
+    "message": "El agente de programación de Meta",
+    "description": "What Muse Code is, in a few words"
+  },
+  "agent.opencode.description": {
+    "message": "El agente de programación de código abierto",
+    "description": "What OpenCode is, in a few words"
+  },
+  "agent.pi.description": {
+    "message": "Un agente de programación minimalista para terminal",
+    "description": "What Pi is, in a few words"
+  },
+  "agent.qwen-code.description": {
+    "message": "El agente de programación para terminal de Qwen",
+    "description": "What Qwen Code is, in a few words"
+  },
+  "agent.universal.summary": {
+    "message": "{agents} y {count} más",
+    "description": "The agents the universal install route covers: {agents} lists a few by name and {count} is how many others it also covers"
+  },
+  "agent.universal.title": {
+    "message": "Universal",
+    "description": "The title of the install route that works in any agent through the skills CLI"
+  },
+  "category.ai.description": {
+    "message": "Bastiona las integraciones de IA y LLM frente a la inyección de prompts y las conexiones inseguras con herramientas, agentes, recuperación de documentos y MCP",
+    "description": "What the AI / LLM specialization category covers"
+  },
+  "category.ai.label": {
+    "message": "IA / LLM",
+    "description": "The name of the AI / LLM specialization category"
+  },
+  "category.c-cpp.description": {
+    "message": "Bastiona el código C y C++ frente a errores de cadena de formato, desbordamientos de búfer y escrituras fuera de límites que permiten ejecutar código",
+    "description": "What the C / C++ specialization category covers"
+  },
+  "category.c-cpp.label": {
+    "message": "C / C++",
+    "description": "The name of the C / C++ specialization category"
+  },
+  "category.dotnet.description": {
+    "message": "Bastiona el código .NET y C# frente a la RCE por deserialización con BinaryFormatter y las evasiones del codificador que acaban en XSS",
+    "description": "What the .NET specialization category covers"
+  },
+  "category.dotnet.label": {
+    "message": ".NET",
+    "description": "The name of the .NET specialization category"
+  },
+  "category.go.description": {
+    "message": "Bastiona el código Go frente a fallos de interfaces con nil tipado, carreras de datos entre goroutines y concurrencia insegura en rutas críticas para la seguridad",
+    "description": "What the Go specialization category covers"
+  },
+  "category.go.label": {
+    "message": "Go",
+    "description": "The name of the Go specialization category"
+  },
+  "category.infra.description": {
+    "message": "Bastiona la configuración de contenedores, cargas de trabajo y serverless: Dockerfile, Compose, seguridad de Pods, IAM y desencadenadores de FaaS",
+    "description": "What the Infrastructure specialization category covers"
+  },
+  "category.infra.label": {
+    "message": "Infraestructura",
+    "description": "The name of the Infrastructure specialization category"
+  },
+  "category.java.description": {
+    "message": "Bastiona el código Java frente a las cadenas de gadgets de deserialización con ObjectInputStream que culminan en la ejecución remota de código",
+    "description": "What the Java specialization category covers"
+  },
+  "category.java.label": {
+    "message": "Java",
+    "description": "The name of the Java specialization category"
+  },
+  "category.javascript.description": {
+    "message": "Bastiona el código JavaScript y sus entornos de ejecución frente a la RCE con eval y child_process, el recorrido de directorios y la contaminación de prototipos",
+    "description": "What the JavaScript specialization category covers"
+  },
+  "category.javascript.label": {
+    "message": "JavaScript",
+    "description": "The name of the JavaScript specialization category"
+  },
+  "category.lovable.description": {
+    "message": "Bastiona las aplicaciones de Supabase generadas por IA (Lovable y similares): huecos en RLS, claves service_role filtradas y valores por defecto inseguros",
+    "description": "What the Lovable specialization category covers"
+  },
+  "category.lovable.label": {
+    "message": "Lovable",
+    "description": "The name of the Lovable specialization category"
+  },
+  "category.owasp.description": {
+    "message": "Bastiona las aplicaciones frente a los riesgos de seguridad que recoge OWASP: inyección, pérdida de control de acceso y fallos de autenticación y criptográficos",
+    "description": "What the OWASP specialization category covers"
+  },
+  "category.owasp.label": {
+    "message": "OWASP",
+    "description": "The name of the OWASP specialization category"
+  },
+  "category.php.description": {
+    "message": "Bastiona el código PHP frente a la evasión de la autenticación por type juggling, las cadenas de gadgets de inyección de objetos y los valores de configuración inseguros por defecto",
+    "description": "What the PHP specialization category covers"
+  },
+  "category.php.label": {
+    "message": "PHP",
+    "description": "The name of the PHP specialization category"
+  },
+  "category.python.description": {
+    "message": "Bastiona el código Python frente a la RCE por deserialización de pickle y YAML, el recorrido de atributos con cadenas de formato de str.format y la contaminación de clases",
+    "description": "What the Python specialization category covers"
+  },
+  "category.python.label": {
+    "message": "Python",
+    "description": "The name of the Python specialization category"
+  },
+  "category.ruby.description": {
+    "message": "Bastiona el código Ruby frente a las cadenas de gadgets de deserialización con Marshal.load y YAML que llegan a la ejecución remota de código",
+    "description": "What the Ruby specialization category covers"
+  },
+  "category.ruby.label": {
+    "message": "Ruby",
+    "description": "The name of the Ruby specialization category"
+  },
+  "category.rust.description": {
+    "message": "Bastiona el código Rust frente a las API unsafe no sólidas, el mal uso de transmute, el desbordamiento de enteros y el comportamiento indefinido en la frontera de FFI",
+    "description": "What the Rust specialization category covers"
+  },
+  "category.rust.label": {
+    "message": "Rust",
+    "description": "The name of the Rust specialization category"
+  },
+  "corpus.admonition.caution": {
+    "message": "Precaución",
+    "description": "The title a caution callout without its own title takes in the Markdown copy of a page"
+  },
+  "corpus.admonition.danger": {
+    "message": "Peligro",
+    "description": "The title a danger callout without its own title takes in the Markdown copy of a page"
+  },
+  "corpus.admonition.info": {
+    "message": "Información",
+    "description": "The title a info callout without its own title takes in the Markdown copy of a page"
+  },
+  "corpus.admonition.note": {
+    "message": "Nota",
+    "description": "The title a note callout without its own title takes in the Markdown copy of a page"
+  },
+  "corpus.admonition.tip": {
+    "message": "Consejo",
+    "description": "The title a tip callout without its own title takes in the Markdown copy of a page"
+  },
+  "corpus.admonition.warning": {
+    "message": "Aviso",
+    "description": "The title a warning callout without its own title takes in the Markdown copy of a page"
+  },
+  "corpus.canonicalLabel": {
+    "message": "URL canónica",
+    "description": "The label before the web address of the page a Markdown copy comes from"
+  },
+  "corpus.catalogOverviewNote": {
+    "message": "La vista general interactiva del catálogo está en la página web. Todas las especializaciones integradas aparecen en la tabla de abajo.",
+    "description": "Replaces the interactive catalog overview in the Markdown copy of the catalog page"
+  },
+  "corpus.categoriesCommand": {
+    "message": "Ejecuta `{command} --categories` con las claves de las categorías que elijas.",
+    "description": "Closes the list of categories in the Markdown copy of a page, where {command} is the command that adds them"
+  },
+  "corpus.docsHeading": {
+    "message": "Documentación",
+    "description": "The heading of the list of pages in the AI corpus index (llms.txt)"
+  },
+  "corpus.faqHeading": {
+    "message": "Preguntas frecuentes",
+    "description": "The heading of a page's questions and answers in its Markdown copy"
+  },
+  "corpus.languageLabel": {
+    "message": "Idioma",
+    "description": "The label before the language code of a translated Markdown copy"
+  },
+  "corpus.languagesHeading": {
+    "message": "Otros idiomas",
+    "description": "The heading of the list of the AI corpus in every other language (llms.txt)"
+  },
+  "corpus.lastUpdatedLabel": {
+    "message": "Última actualización",
+    "description": "The label before the date a Markdown copy was last changed"
+  },
+  "corpus.linksNote": {
+    "message": "Cada enlace de la sección Documentación apunta a la versión en Markdown plano de esa página. Quita el sufijo .md para abrir la página web. Todo el corpus en un solo archivo: {url}",
+    "description": "Explains the links of the AI corpus index (llms.txt), where {url} is the address of the whole corpus in one file"
+  },
+  "corpus.originalLabel": {
+    "message": "Original",
+    "description": "The label before the web address of the English page a translated Markdown copy comes from"
+  },
+  "corpus.originalLink": {
+    "message": "Leer la versión original",
+    "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
+  },
+  "corpus.staleNotice": {
+    "message": "Esta página está desactualizada respecto a su versión en inglés.",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+  },
+  "corpus.summary": {
+    "message": "Lagune es un flujo de trabajo de Security-Driven Hardening (SDH) de código abierto y exclusivamente defensivo. Ayuda a tu agente de IA a reforzar la seguridad de cualquier código, en cualquier lenguaje y en todo momento: el charter fija las reglas de seguridad antes de que empieces a desarrollar, el comando universal /lagune bastiona el trabajo a medida que se escribe y el flujo Blue Team de cinco fases detecta lo que tu sistema hace realmente e impulsa las correcciones que importan en ese contexto. Sus comandos se instalan en tu agente con la CLI de skills, y no necesita clave de API.",
+    "description": "The paragraph that introduces Lagune to AI assistants at the top of the AI corpus (llms.txt and llms-full.txt)"
+  },
+  "corpus.tagline": {
+    "message": "Security-Driven Hardening para cualquier código",
+    "description": "The tagline under the title of the AI corpus (llms.txt)"
+  },
+  "site.description": {
+    "message": "Lagune es tu copiloto de seguridad mientras desarrollas y tu Blue Team cuando auditas, seas desarrollador o no.",
+    "description": "The one-sentence summary of Lagune, shown in search results, link previews, and the home page"
+  },
+  "site.imageAlt": {
+    "message": "Lagune: bastionado de seguridad con IA para cualquier código",
+    "description": "The alternative text of the image in link previews"
+  },
+  "site.keywords": {
+    "message": "seguridad, seguridad de aplicaciones, seguridad de IA, bastionado de seguridad, hardening, programación segura, detección de vulnerabilidades, seguridad defensiva, blue team, agentes de IA, Claude Code, vibe coding, npx, OWASP, Lagune AI, Lagune IA, SDH, Spec-Driven, SDH Lagune, Security-Driven Hardening",
+    "description": "The comma-separated search keywords of the whole site, written as people search in this language"
+  },
+  "specialization.access-control.description": {
+    "message": "Garantiza que cada persona solo vea y haga lo que tiene permitido, para que nadie pueda llegar a los datos de otro usuario ni a acciones reservadas a los administradores con solo cambiar un enlace o un ID.",
+    "description": "What the Access Control specialization protects, in plain language"
+  },
+  "specialization.access-control.label": {
+    "message": "Control de acceso",
+    "description": "The name of the Access Control specialization"
+  },
+  "specialization.access-control.request": {
+    "message": "Añade un área de administración para gestionar todas las cuentas de usuario.",
+    "description": "An example request a user writes after /lagune when the Access Control specialization applies"
+  },
+  "specialization.api-endpoint.description": {
+    "message": "Revisa las puertas que tu aplicación abre al exterior, para que las peticiones de desconocidos no puedan sacar datos privados ni lanzar acciones que no les corresponden.",
+    "description": "What the API Endpoint specialization protects, in plain language"
+  },
+  "specialization.api-endpoint.label": {
+    "message": "Endpoint de API",
+    "description": "The name of the API Endpoint specialization"
+  },
+  "specialization.api-endpoint.request": {
+    "message": "Crea una API para que mi aplicación móvil se comunique con el backend.",
+    "description": "An example request a user writes after /lagune when the API Endpoint specialization applies"
+  },
+  "specialization.browser.description": {
+    "message": "Protege lo que se ejecuta en el navegador de tus visitantes, para que un atacante no pueda inyectar código que robe sus datos de inicio de sesión o secuestre lo que tus usuarios ven y pulsan.",
+    "description": "What the Browser specialization protects, in plain language"
+  },
+  "specialization.browser.label": {
+    "message": "Navegador",
+    "description": "The name of the Browser specialization"
+  },
+  "specialization.browser.request": {
+    "message": "Muestra la biografía de cada usuario en su página de perfil pública.",
+    "description": "An example request a user writes after /lagune when the Browser specialization applies"
+  },
+  "specialization.c-cpp.description": {
+    "message": "Detecta errores de memoria de bajo nivel que permiten a los atacantes tumbar el programa o ejecutar su propio código en tu servidor.",
+    "description": "What the C / C++ specialization protects, in plain language"
+  },
+  "specialization.c-cpp.label": {
+    "message": "C / C++",
+    "description": "The name of the C / C++ specialization"
+  },
+  "specialization.c-cpp.request": {
+    "message": "Crea un programa nativo en C++.",
+    "description": "An example request a user writes after /lagune when the C / C++ specialization applies"
+  },
+  "specialization.container.description": {
+    "message": "Revisa cómo se empaqueta y se despliega tu aplicación, para que una intrusión quede contenida en lugar de entregarle a un atacante la máquina entera.",
+    "description": "What the Container specialization protects, in plain language"
+  },
+  "specialization.container.label": {
+    "message": "Contenedor",
+    "description": "The name of the Container specialization"
+  },
+  "specialization.container.request": {
+    "message": "Empaqueta mi aplicación para poder desplegarla en la nube.",
+    "description": "An example request a user writes after /lagune when the Container specialization applies"
+  },
+  "specialization.credential-endpoint.description": {
+    "message": "Protege los flujos de inicio de sesión, registro y restablecimiento de contraseña, para que los atacantes no puedan adivinar contraseñas, apoderarse de cuentas ni restablecer la contraseña de otra persona.",
+    "description": "What the Credential Endpoint specialization protects, in plain language"
+  },
+  "specialization.credential-endpoint.label": {
+    "message": "Endpoint de credenciales",
+    "description": "The name of the Credential Endpoint specialization"
+  },
+  "specialization.credential-endpoint.request": {
+    "message": "Crea el registro, el inicio de sesión y la recuperación de contraseña de mi aplicación.",
+    "description": "An example request a user writes after /lagune when the Credential Endpoint specialization applies"
+  },
+  "specialization.crypto.description": {
+    "message": "Garantiza que los datos sensibles se cifren correctamente, para que las contraseñas, los tokens y la información personal no se puedan leer aunque se filtren.",
+    "description": "What the Crypto specialization protects, in plain language"
+  },
+  "specialization.crypto.label": {
+    "message": "Criptografía",
+    "description": "The name of the Crypto specialization"
+  },
+  "specialization.crypto.request": {
+    "message": "Permite que la gente cree una cuenta con contraseña y vuelva a iniciar sesión.",
+    "description": "An example request a user writes after /lagune when the Crypto specialization applies"
+  },
+  "specialization.csv.description": {
+    "message": "Refuerza la seguridad de las hojas de cálculo exportadas, para que sea mucho menos probable que, al abrir un archivo descargado, se ejecute en silencio un comando dañino en el ordenador de alguien.",
+    "description": "What the CSV specialization protects, in plain language"
+  },
+  "specialization.csv.label": {
+    "message": "CSV",
+    "description": "The name of the CSV specialization"
+  },
+  "specialization.csv.request": {
+    "message": "Añade un botón para exportar mis contactos a una hoja de cálculo.",
+    "description": "An example request a user writes after /lagune when the CSV specialization applies"
+  },
+  "specialization.dotnet.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones .NET que pueden permitir a un atacante ejecutar su propio código en tu servidor.",
+    "description": "What the .NET specialization protects, in plain language"
+  },
+  "specialization.dotnet.label": {
+    "message": ".NET",
+    "description": "The name of the .NET specialization"
+  },
+  "specialization.dotnet.request": {
+    "message": "Crea una aplicación de escritorio con .NET.",
+    "description": "An example request a user writes after /lagune when the .NET specialization applies"
+  },
+  "specialization.federation.description": {
+    "message": "Refuerza la seguridad del \"iniciar sesión con Google, Microsoft, etc.\", para que a un atacante le cueste mucho más suplantar a un usuario o colarse en una cuenta que no es suya.",
+    "description": "What the Federation specialization protects, in plain language"
+  },
+  "specialization.federation.label": {
+    "message": "Federación",
+    "description": "The name of the Federation specialization"
+  },
+  "specialization.federation.request": {
+    "message": "Añade un botón \"Continuar con Google\" a mi página de inicio de sesión.",
+    "description": "An example request a user writes after /lagune when the Federation specialization applies"
+  },
+  "specialization.go.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones Go, sobre todo los fallos sutiles que aparecen con tráfico real.",
+    "description": "What the Go specialization protects, in plain language"
+  },
+  "specialization.go.label": {
+    "message": "Go",
+    "description": "The name of the Go specialization"
+  },
+  "specialization.go.request": {
+    "message": "Crea un servicio de API en Go.",
+    "description": "An example request a user writes after /lagune when the Go specialization applies"
+  },
+  "specialization.http-request.description": {
+    "message": "Inspecciona los datos que llegan con cada petición web, para que una entrada oculta o maliciosa no pueda forzar a tu aplicación a hacer lo que no debe.",
+    "description": "What the HTTP Request specialization protects, in plain language"
+  },
+  "specialization.http-request.label": {
+    "message": "Petición HTTP",
+    "description": "The name of the HTTP Request specialization"
+  },
+  "specialization.http-request.request": {
+    "message": "Permite que los usuarios actualicen su correo electrónico desde su página de perfil.",
+    "description": "An example request a user writes after /lagune when the HTTP Request specialization applies"
+  },
+  "specialization.infra.description": {
+    "message": "Revisa los archivos que construyen y despliegan tu aplicación, como los Dockerfiles, Terraform y los flujos de trabajo de CI, para que un solo ajuste demasiado laxo no deje expuesto todo el entorno.",
+    "description": "What the Infrastructure specialization protects, in plain language"
+  },
+  "specialization.infra.label": {
+    "message": "Infraestructura",
+    "description": "The name of the Infrastructure specialization"
+  },
+  "specialization.infra.request": {
+    "message": "Configura un pipeline que despliegue mi aplicación en la nube con cada push.",
+    "description": "An example request a user writes after /lagune when the Infrastructure specialization applies"
+  },
+  "specialization.interpreter.description": {
+    "message": "Impide que la entrada del usuario se ejecute como si fueran comandos, para que un campo de formulario o una subida de archivos no pueda hacer que tu servidor obedezca las órdenes de un atacante.",
+    "description": "What the Interpreter specialization protects, in plain language"
+  },
+  "specialization.interpreter.label": {
+    "message": "Intérprete",
+    "description": "The name of the Interpreter specialization"
+  },
+  "specialization.interpreter.request": {
+    "message": "Añade un campo donde la gente pueda escribir sus propias fórmulas, como en una hoja de cálculo de Excel.",
+    "description": "An example request a user writes after /lagune when the Interpreter specialization applies"
+  },
+  "specialization.java.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones Java que pueden permitir a un atacante ejecutar su propio código en tu servidor.",
+    "description": "What the Java specialization protects, in plain language"
+  },
+  "specialization.java.label": {
+    "message": "Java",
+    "description": "The name of the Java specialization"
+  },
+  "specialization.java.request": {
+    "message": "Crea un backend en Java.",
+    "description": "An example request a user writes after /lagune when the Java specialization applies"
+  },
+  "specialization.javascript.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones JavaScript y Node, desde ejecutar código no fiable hasta leer archivos que no debería.",
+    "description": "What the JavaScript specialization protects, in plain language"
+  },
+  "specialization.javascript.label": {
+    "message": "JavaScript",
+    "description": "The name of the JavaScript specialization"
+  },
+  "specialization.javascript.request": {
+    "message": "Crea una aplicación web en JavaScript.",
+    "description": "An example request a user writes after /lagune when the JavaScript specialization applies"
+  },
+  "specialization.llm.description": {
+    "message": "Protege las funcionalidades basadas en modelos de IA, para que un mensaje redactado con astucia no engañe a la IA y la lleve a filtrar datos o a hacer un mal uso de las herramientas conectadas.",
+    "description": "What the LLM specialization protects, in plain language"
+  },
+  "specialization.llm.label": {
+    "message": "LLM",
+    "description": "The name of the LLM specialization"
+  },
+  "specialization.llm.request": {
+    "message": "Añade un chatbot que responda preguntas a partir de mi documentación de ayuda.",
+    "description": "An example request a user writes after /lagune when the LLM specialization applies"
+  },
+  "specialization.loadVerb": {
+    "message": "Carga",
+    "description": "The verb that opens the prompt loading a specialization, before its command"
+  },
+  "specialization.network.description": {
+    "message": "Revisa cómo se comunica tu aplicación con otros servicios, para que nadie pueda engañarla y hacer que pida o dé por bueno algo que controla un atacante.",
+    "description": "What the Network specialization protects, in plain language"
+  },
+  "specialization.network.label": {
+    "message": "Red",
+    "description": "The name of the Network specialization"
+  },
+  "specialization.network.request": {
+    "message": "Permite que los usuarios peguen un enlace y muestra una pequeña vista previa del enlace.",
+    "description": "An example request a user writes after /lagune when the Network specialization applies"
+  },
+  "specialization.path.description": {
+    "message": "Impide que los atacantes se paseen por los archivos de tu servidor, para que no puedan leer archivos privados ni sobrescribir otros importantes manipulando un nombre de archivo.",
+    "description": "What the Path specialization protects, in plain language"
+  },
+  "specialization.path.label": {
+    "message": "Ruta",
+    "description": "The name of the Path specialization"
+  },
+  "specialization.path.request": {
+    "message": "Permite que la gente descargue sus archivos haciendo clic en ellos.",
+    "description": "An example request a user writes after /lagune when the Path specialization applies"
+  },
+  "specialization.payment.description": {
+    "message": "Refuerza la seguridad del proceso de compra y la facturación, para que sea mucho más difícil manipular los precios, eludir el pago o repetir un cobro.",
+    "description": "What the Payment specialization protects, in plain language"
+  },
+  "specialization.payment.label": {
+    "message": "Pagos",
+    "description": "The name of the Payment specialization"
+  },
+  "specialization.payment.request": {
+    "message": "Añade la pasarela de pago de Stripe para que los clientes puedan pagar en la página de precios.",
+    "description": "An example request a user writes after /lagune when the Payment specialization applies"
+  },
+  "specialization.php.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones PHP que pueden permitir a un atacante ejecutar su propio código o saltarse un inicio de sesión.",
+    "description": "What the PHP specialization protects, in plain language"
+  },
+  "specialization.php.label": {
+    "message": "PHP",
+    "description": "The name of the PHP specialization"
+  },
+  "specialization.php.request": {
+    "message": "Crea una web en PHP.",
+    "description": "An example request a user writes after /lagune when the PHP specialization applies"
+  },
+  "specialization.python.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones Python, sobre todo la carga de datos no fiables, que puede ejecutar el código de un atacante.",
+    "description": "What the Python specialization protects, in plain language"
+  },
+  "specialization.python.label": {
+    "message": "Python",
+    "description": "The name of the Python specialization"
+  },
+  "specialization.python.request": {
+    "message": "Crea una herramienta de datos en Python.",
+    "description": "An example request a user writes after /lagune when the Python specialization applies"
+  },
+  "specialization.regex.description": {
+    "message": "Refuerza la seguridad de las comprobaciones de texto para que sigan siendo eficientes, de modo que sea mucho más difícil que una entrada maliciosa cuelgue tu aplicación al sobrecargarla.",
+    "description": "What the Regex specialization protects, in plain language"
+  },
+  "specialization.regex.label": {
+    "message": "Expresiones regulares",
+    "description": "The name of the Regex specialization"
+  },
+  "specialization.regex.request": {
+    "message": "Añade al proceso de compra un campo de cupón que solo acepte códigos válidos.",
+    "description": "An example request a user writes after /lagune when the Regex specialization applies"
+  },
+  "specialization.ruby.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones Ruby, sobre todo la carga de datos no fiables, que puede ejecutar el código de un atacante.",
+    "description": "What the Ruby specialization protects, in plain language"
+  },
+  "specialization.ruby.label": {
+    "message": "Ruby",
+    "description": "The name of the Ruby specialization"
+  },
+  "specialization.ruby.request": {
+    "message": "Crea una aplicación web en Ruby.",
+    "description": "An example request a user writes after /lagune when the Ruby specialization applies"
+  },
+  "specialization.rust.description": {
+    "message": "Cubre las trampas de seguridad específicas de las aplicaciones Rust, sobre todo el código unsafe, que puede corromper la memoria o tumbar el programa.",
+    "description": "What the Rust specialization protects, in plain language"
+  },
+  "specialization.rust.label": {
+    "message": "Rust",
+    "description": "The name of the Rust specialization"
+  },
+  "specialization.rust.request": {
+    "message": "Crea un servicio rápido en Rust.",
+    "description": "An example request a user writes after /lagune when the Rust specialization applies"
+  },
+  "specialization.secrets.description": {
+    "message": "Mantiene las contraseñas, las claves de API y los tokens fuera de tu código fuente, para que un repositorio compartido o una compilación filtrada nunca se los entregue a un atacante.",
+    "description": "What the Secrets specialization protects, in plain language"
+  },
+  "specialization.secrets.label": {
+    "message": "Secretos",
+    "description": "The name of the Secrets specialization"
+  },
+  "specialization.secrets.request": {
+    "message": "Conecta mi aplicación al proveedor de pagos con su clave de API.",
+    "description": "An example request a user writes after /lagune when the Secrets specialization applies"
+  },
+  "specialization.serverless.description": {
+    "message": "Revisa las funciones en la nube y sus permisos, para que nadie pueda abusar de una sola función y llegar mucho más allá de lo que le corresponde.",
+    "description": "What the Serverless specialization protects, in plain language"
+  },
+  "specialization.serverless.label": {
+    "message": "Serverless",
+    "description": "The name of the Serverless specialization"
+  },
+  "specialization.serverless.request": {
+    "message": "Genera una miniatura automáticamente cada vez que alguien suba una foto.",
+    "description": "An example request a user writes after /lagune when the Serverless specialization applies"
+  },
+  "specialization.sql.description": {
+    "message": "Protege cómo se comunica tu aplicación con su base de datos, para que una entrada manipulada no pueda leer, cambiar ni borrar datos que nunca debió tocar.",
+    "description": "What the SQL specialization protects, in plain language"
+  },
+  "specialization.sql.label": {
+    "message": "SQL",
+    "description": "The name of the SQL specialization"
+  },
+  "specialization.sql.request": {
+    "message": "Añade un cuadro de búsqueda para que los usuarios encuentren pedidos por el nombre del cliente.",
+    "description": "An example request a user writes after /lagune when the SQL specialization applies"
+  },
+  "specialization.supabase.description": {
+    "message": "Blinda tu backend de Supabase, para que las reglas de tu base de datos se cumplan de verdad y las claves secretas no acaben expuestas al público.",
+    "description": "What the Supabase specialization protects, in plain language"
+  },
+  "specialization.supabase.label": {
+    "message": "Supabase",
+    "description": "The name of the Supabase specialization"
+  },
+  "specialization.supabase.request": {
+    "message": "Configura Supabase para que cada usuario vea solo sus propias notas.",
+    "description": "An example request a user writes after /lagune when the Supabase specialization applies"
+  },
+  "specialization.transport.description": {
+    "message": "Refuerza la seguridad del transporte para que los datos viajen por una conexión cifrada, de modo que sea mucho más difícil leerlos o alterarlos por el camino entre tus usuarios y tu aplicación.",
+    "description": "What the Transport specialization protects, in plain language"
+  },
+  "specialization.transport.label": {
+    "message": "Transporte",
+    "description": "The name of the Transport specialization"
+  },
+  "specialization.transport.request": {
+    "message": "Haz que toda mi web cargue de forma segura por https.",
+    "description": "An example request a user writes after /lagune when the Transport specialization applies"
+  },
+  "specialization.upload.description": {
+    "message": "Refuerza la seguridad de la subida de archivos, de modo que a cualquiera le resulte mucho más difícil subir un archivo camuflado que ejecute código, sobrescriba datos o llene tu almacenamiento.",
+    "description": "What the Upload specialization protects, in plain language"
+  },
+  "specialization.upload.label": {
+    "message": "Subida de archivos",
+    "description": "The name of the Upload specialization"
+  },
+  "specialization.upload.request": {
+    "message": "Permite que la gente suba una foto de perfil en los ajustes de la cuenta.",
+    "description": "An example request a user writes after /lagune when the Upload specialization applies"
+  },
+  "specialization.xml.description": {
+    "message": "Refuerza la seguridad de la forma en que tu aplicación lee datos XML, para que un archivo manipulado tenga muchas menos posibilidades de filtrar archivos del servidor o dejar tu aplicación fuera de servicio.",
+    "description": "What the XML specialization protects, in plain language"
+  },
+  "specialization.xml.label": {
+    "message": "XML",
+    "description": "The name of the XML specialization"
+  },
+  "specialization.xml.request": {
+    "message": "Permite que los proveedores suban sus facturas como archivos XML.",
+    "description": "An example request a user writes after /lagune when the XML specialization applies"
+  },
+  "structuredData.author.knowsAbout.application-security": {
+    "message": "Seguridad de aplicaciones",
+    "description": "A field of expertise the author is known for, in search engines' structured data"
+  },
+  "structuredData.author.knowsAbout.defensive-security": {
+    "message": "Seguridad defensiva",
+    "description": "A field of expertise the author is known for, in search engines' structured data"
+  },
+  "structuredData.author.knowsAbout.secure-coding": {
+    "message": "Programación segura",
+    "description": "A field of expertise the author is known for, in search engines' structured data"
+  },
+  "structuredData.author.knowsAbout.security-driven-hardening": {
+    "message": "Security-Driven Hardening",
+    "description": "A field of expertise the author is known for, in search engines' structured data"
+  },
+  "structuredData.author.knowsAbout.security-hardening": {
+    "message": "Bastionado de seguridad",
+    "description": "A field of expertise the author is known for, in search engines' structured data"
+  },
+  "structuredData.organization.disambiguatingDescription": {
+    "message": "Lagune (también escrito Lagune AI) es un flujo de trabajo de Security-Driven Hardening que refuerza la seguridad de cualquier código, en cualquier lenguaje, tanto si lo escriben personas como una IA. No tiene relación con Laguna AI.",
+    "description": "Tells search engines and AI assistants which Lagune this is, so it is not confused with a similar name"
+  },
+  "structuredData.organization.knowsAbout.ai-security": {
+    "message": "Seguridad de IA",
+    "description": "A field of expertise the organization is known for, in search engines' structured data"
+  },
+  "structuredData.organization.knowsAbout.application-security": {
+    "message": "Seguridad de aplicaciones",
+    "description": "A field of expertise the organization is known for, in search engines' structured data"
+  },
+  "structuredData.organization.knowsAbout.blue-team": {
+    "message": "Blue Team",
+    "description": "A field of expertise the organization is known for, in search engines' structured data"
+  },
+  "structuredData.organization.knowsAbout.owasp": {
+    "message": "OWASP",
+    "description": "A field of expertise the organization is known for, in search engines' structured data"
+  },
+  "structuredData.organization.knowsAbout.security-driven-hardening": {
+    "message": "Security-Driven Hardening",
+    "description": "A field of expertise the organization is known for, in search engines' structured data"
+  },
+  "structuredData.organization.knowsAbout.security-hardening": {
+    "message": "Bastionado de seguridad",
+    "description": "A field of expertise the organization is known for, in search engines' structured data"
+  },
+  "structuredData.organization.knowsAbout.vulnerability-detection": {
+    "message": "Detección de vulnerabilidades",
+    "description": "A field of expertise the organization is known for, in search engines' structured data"
+  }
+}

@@ -1,0 +1,89 @@
+---
+id: dashboard
+title: Dashboard
+sidebar_label: Dashboard
+description: Consulta los principios de seguridad, los hallazgos y el catálogo de tu proyecto en una vista local y en tiempo real que se abre con un solo comando.
+keywords:
+  - dashboard
+  - lagune dashboard
+  - live reload
+  - local
+  - hallazgos
+  - charter
+  - catálogo
+source_hash: 'e3fe36f3fd68e9cd8c9c13efe05ce019161fc1421ad6e1e8e988eb94c9f8942b'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Ejecuta **Lagune** directamente, sin subcomando, para ver `.lagune/` en una vista interactiva y en tiempo real. Arranca un dashboard y lo abre en un puerto aleatorio:
+
+```bash
+npx lagune
+```
+
+- [x] **Recarga automática**
+- [x] **Privado** y **local**
+- [x] Muestra todo lo que contenga `.lagune/`, desde el primer charter
+- [x] **Gestiona** las categorías del proyecto directamente desde tu navegador
+- [x] No necesita `node_modules` ni `package.json` 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.webp'
+    alt='Charter en el dashboard de Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.webp'
+    alt='Hallazgos en el dashboard de Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.webp'
+    alt='Side quests en el dashboard de Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.webp'
+    alt='Detalle de un hallazgo en el dashboard de Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.webp'
+    alt='Catálogo en el dashboard de Lagune'
+  />
+</div>
+
+:::tip
+
+- 🚪 Usa `--port` para indicar un puerto personalizado.
+- ⏏️ Pulsa `Ctrl+C` para detenerlo.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '¿Cómo abro el dashboard de Lagune?',
+      answer:
+        'Ejecuta npx lagune sin subcomando en la raíz de tu proyecto. Arranca una vista en tiempo real de .lagune/ en un puerto aleatorio y la abre en tu navegador.',
+    },
+    {
+      question: '¿El dashboard es privado?',
+      answer:
+        'Sí. Solo se ejecuta en tu propio equipo, en una dirección local a la que ningún otro ordenador puede acceder.',
+    },
+    {
+      question: '¿Puedo modificar mi proyecto desde el dashboard?',
+      answer:
+        'Solo sus categorías, desde tu navegador. Todo lo demás que muestra el dashboard es de solo lectura.',
+    },
+  ]}
+/>

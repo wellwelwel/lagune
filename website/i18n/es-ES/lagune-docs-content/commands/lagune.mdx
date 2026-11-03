@@ -1,0 +1,118 @@
+---
+id: lagune
+title: '/lagune: código seguro mientras tu IA lo escribe'
+sidebar_label: /lagune
+description: Crea lo que pides y lo bastiona a medida que se escribe, guiado por tus principios de seguridad y sin ningún flujo que seguir.
+keywords:
+  - lagune
+  - seguro por defecto
+  - desarrollo
+  - charter
+  - seguridad en tiempo real
+source_hash: '05f5fb32186ed4422901f8ce2599182642f6389816c591675a710236f59903d8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune
+
+⌨️ Hace el trabajo que pediste y lo protege a medida que se escribe. **`/lagune`** acepta cualquier prompt en cualquier etapa, crea lo que querías y lo bastiona con valores por defecto seguros antes de devolvértelo.
+
+## Cómo usarlo
+
+Añade **`/lagune`** a cualquier prompt y describe el trabajo como siempre lo harías.
+
+<Tabs>
+  <TabItem value="rules" label="📘 Instrucciones para agentes" default>
+
+```md
+# Instrucciones de mi proyecto para agentes
+
+<!-- ... -->
+
+## Seguridad
+
+- Usa la skill `/lagune` siempre que crees o modifiques código, para que mejore la seguridad por defecto.
+```
+
+    - Por ejemplo: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules**, etc.
+
+  </TabItem>
+  <TabItem value="feature" label="💬 Una funcionalidad">
+
+```prompt
+/lagune permite que los usuarios suban una foto personalizada a su perfil.
+```
+
+  </TabItem>
+  <TabItem value="fix" label="💬 Una corrección">
+
+```prompt
+/lagune no pasa nada cuando el usuario envía el formulario. Averigua qué puede ser y arréglalo.
+```
+
+  </TabItem>
+  <TabItem value="change" label="💬 Una refactorización">
+
+```prompt
+/lagune desacopla y mejora la lógica del payload
+```
+
+  </TabItem>
+</Tabs>
+
+:::tip[Principios de seguridad opcionales, pero mejor con ellos]
+**`/lagune`** funciona con principios de seguridad o sin ellos. Con ellos, las reglas propias de tu proyecto dan forma a todo lo que crea. Fíjalas una vez con [`/lagune-charter`](/docs/commands/charter).
+:::
+
+## Cómo funciona
+
+Envuelve el trabajo en tres pasos, sin escribir nada en Lagune:
+
+1. Carga tus principios de seguridad, si existen, para que rijan todo el desarrollo, y recurre a una base segura por defecto cuando aún no tienes ninguno.
+2. Lista el [catálogo](/docs/catalog) de tu proyecto y carga solo las especializaciones relacionadas con tu trabajo, el mismo conocimiento bajo demanda que usa el flujo de auditoría.
+3. Aplica la defensa a medida que se escribe el código y luego vuelve a leer su propio resultado para confirmar que los controles se sostienen de verdad antes de devolverte el trabajo.
+
+El resultado es código que funciona en tu proyecto, seguro desde la primera línea.
+
+:::tip[Úsalo cuando quieras]
+Sin detect, sin plan y sin limpieza posterior. **`/lagune`** encaja igual de bien en un esqueleto de proyecto recién creado que en un cambio sobre un código maduro, y bastiona el trabajo sobre la marcha, no después.
+:::
+
+## Lo que no hace
+
+- No escribe nada en la carpeta `.lagune`, ni artefactos ni seguimiento, así que lo único que produce es el código bastionado que pediste.
+- No relaja ninguna regla para satisfacer un prompt, así que si lo que pides infringiría uno de tus principios de seguridad, se detiene y te avisa primero, en lugar de construirlo directamente de forma insegura.
+
+<Faq
+  items={[
+    {
+      question: '¿Qué hace /lagune?',
+      answer:
+        'Acepta cualquier prompt en cualquier etapa, crea lo que pediste y lo bastiona con valores por defecto seguros antes de devolvértelo. Aplica la defensa a medida que se escribe el código, no después.',
+    },
+    {
+      question: '¿Necesito definir principios de seguridad para usar /lagune?',
+      answer:
+        'No. Funciona con ellos o sin ellos. Con ellos, las reglas propias de tu proyecto dan forma a todo lo que crea. Sin ellos, recurre a una base segura por defecto.',
+    },
+    {
+      question: '¿Qué diferencia hay entre /lagune y el flujo Blue Team?',
+      answer:
+        '/lagune protege el trabajo nuevo mientras lo escribes, sin ningún flujo que seguir. El flujo Blue Team ejecuta las cinco fases de auditoría en orden sobre un proyecto que ya existe.',
+    },
+    {
+      question:
+        '¿Hace /lagune seguimiento de los hallazgos o escribe artefactos?',
+      answer:
+        'No. No escribe nada en la carpeta .lagune, ni artefactos ni seguimiento. Lo único que produce es el código bastionado que pediste.',
+    },
+    {
+      question: '¿Cómo hago que mi agente use /lagune automáticamente?',
+      answer:
+        'Añade al archivo de instrucciones de tu agente (AGENTS.md, CLAUDE.md, .cursorrules y similares) una instrucción que le pida usar la skill /lagune siempre que cree o modifique código.',
+    },
+  ]}
+/>
