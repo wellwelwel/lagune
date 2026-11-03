@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "lagune": {
+      "command": "node",
+      "args": ["${CURSOR_PLUGIN_ROOT}/lib/bin/index.js", "mcp"]
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "name": "lagune",
+  "version": "0.16.0",
+  "description": "🪼 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "lib/plugins/opencode.js",
+  "bin": {
+    "lagune": "lib/bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wellwelwel/lagune.git"
+  },
+  "homepage": "https://lagune.ai",
+  "bugs": {
+    "url": "https://github.com/wellwelwel/lagune/issues"
+  },
+  "author": "https://github.com/wellwelwel",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/wellwelwel"
+  },
+  "files": [
+    "lib",
+    "catalog",
+    "schemas",
+    "skills",
+    "qwen-extension.json"
+  ],
+  "pi": {
+    "skills": [
+      "./skills"
+    ],
+    "extensions": [
+      "./lib/plugins/pi.js"
+    ]
+  },
+  "workspaces": [
+    "website"
+  ],
+  "engines": {
+    "node": ">=22.x.x"
+  },
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "typecheck": "bash scripts/typecheck.sh",
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write .",
+    "tokens": "tsx tools/count-tokens.ts",
+    "test": "bash scripts/test.sh",
+    "dashboard:build": "bash scripts/dashboard/build.sh",
+    "dashboard:dev": "bash scripts/dashboard/dev.sh",
+    "update": "bash scripts/update.sh",
+    "website:dev": "npm -w website run start",
+    "website:build": "npm -w website run build"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "@preact/preset-vite": "^2.10.6",
+    "@preact/signals": "^2.11.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/babel__core": "^7.20.5",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^26.5.1",
+    "concurrently": "^10.0.5",
+    "esbuild": "^0.28.2",
+    "mdast-util-from-markdown": "^2.0.3",
+    "packages-update": "^2.0.0",
+    "playwright": "^1.63.0",
+    "poku": "^4.5.0",
+    "preact": "^10.29.8",
+    "preact-iso": "^2.12.2",
+    "prettier": "^3.9.6",
+    "react-icons": "^5.7.0",
+    "react-typed": "^2.0.12",
+    "tailwindcss": "^4.3.3",
+    "tiktoken": "^1.0.22",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0",
+    "yaml.min": "^1.0.0"
+  },
+  "keywords": [
+    "ai",
+    "security",
+    "blue-team",
+    "spec",
+    "sdh",
+    "sdd",
+    "audit",
+    "hardening",
+    "plan",
+    "security-driven-hardening",
+    "spec-driven-development",
+    "agent-skills",
+    "ai-driven",
+    "prompt-engineering",
+    "llm",
+    "prompt-toolkit",
+    "deepsec",
+    "superpowers",
+    "spec-kit",
+    "openspec",
+    "amazon-q",
+    "amp",
+    "antigravity",
+    "auggie",
+    "bob",
+    "claude-code",
+    "cline",
+    "codebuddy",
+    "codex",
+    "continue",
+    "copilot",
+    "crush",
+    "cursor",
+    "devin",
+    "factory-droid",
+    "forge",
+    "gemini-cli",
+    "goose",
+    "hermes",
+    "iflow",
+    "junie",
+    "kilo-code",
+    "kimi-code",
+    "kiro-cli",
+    "lingma",
+    "mistral-vibe",
+    "opencode",
+    "pi",
+    "pi-package",
+    "qoder",
+    "qwen-code",
+    "roo-code",
+    "rovodev",
+    "tabnine",
+    "trae",
+    "windsurf"
+  ]
+}
