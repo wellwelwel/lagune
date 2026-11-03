@@ -33,6 +33,11 @@ jobs:
           check-latest: true
           node-version: lts/*
 
+      - name: Actions - Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       - name: Cache Dependencies
         uses: actions/cache@v5
         with:
@@ -40,14 +45,28 @@ jobs:
           key: npm-linux-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-linux-
 
+      - name: Cache Website Dependencies
+        uses: actions/cache@v5
+        with:
+          path: ~/.bun/install/cache
+          key: bun-linux-${{ hashFiles('website/bun.lock') }}
+          restore-keys: bun-linux-
+
       - name: Installing Dependencies
         run: npm ci
 
+      - name: Installing Website Dependencies
+        working-directory: website
+        run: bun ci
+
       - name: Checking Types
-        run: npm -w website run typecheck
+        working-directory: website
+        run: bun run typecheck
 
       - name: Checking Translations
-        run: npm -w website run i18n -- check
+        working-directory: website
+        run: bun run i18n check
 
       - name: Checking Build
-        run: npm run website:build
+        working-directory: website
+        run: bun run build

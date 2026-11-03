@@ -1,0 +1,4 @@
+env = false
+
+[install]
+ignoreScripts = true

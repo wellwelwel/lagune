@@ -98,9 +98,31 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+      - name: ➕ Actions - Setup Bun
+        uses: oven-sh/setup-bun@v2
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          bun-version: latest
+
+      - name: ➕ Cache Website Dependencies
+        uses: actions/cache@v5
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          path: ~/.bun/install/cache
+          key: bun-linux-${{ hashFiles('website/bun.lock') }}
+          restore-keys: bun-linux-
+
+      - name: 📦 Installing Website Dependencies
+        if: ${{ steps.release.outputs.release_created }}
+        working-directory: website
+        run: bun ci
+
       - name: 🚀 Building Site
         if: ${{ steps.release.outputs.release_created }}
-        run: npm run website:build
+        working-directory: website
+        run: bun run build
+        env:
+          LAGUNE_WEBSITE_DEPLOY: 'true'
 
       - name: 📤 Deploying Site
         if: ${{ steps.release.outputs.release_created }}

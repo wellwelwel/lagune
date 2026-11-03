@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [[ $# -eq 0 ]]; then
-  exec npm -w website run start
+  exec bun run --cwd website start
 fi
 
-exec npm -w website run start -- --locale "$1"
+exec bun run --cwd website start --locale "$1"

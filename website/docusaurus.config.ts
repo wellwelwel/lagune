@@ -18,7 +18,7 @@ import { OG_IMAGE, SITE_TAGLINE, SITE_URL, siteMetadata } from './src/seo/site';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
 import { sitemapPriority } from './src/seo/sitemap/priority';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+// This runs in Bun - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
   title: 'Lagune',

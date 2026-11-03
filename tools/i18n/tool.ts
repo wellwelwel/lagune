@@ -133,7 +133,7 @@ const COMMANDS: Record<string, Command> = {
 };
 
 const USAGE = [
-  'Usage: npm -w website run i18n -- <command>',
+  'Usage: bun run --cwd website i18n <command>',
   '',
   ...Object.values(COMMANDS).map(({ usage }) => `  ${usage}`),
 ].join('\n');

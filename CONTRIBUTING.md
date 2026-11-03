@@ -40,7 +40,7 @@ The final commit message will be generated from the _PR_ title by using "**Squas
 
 ### ⚙️ Environment
 
-You will need [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installed on your system.
+You will need [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installed on your system, plus [**Bun**](https://bun.com/docs/installation) to work on the website.
 
 ---
 
@@ -108,12 +108,12 @@ Feel free to open _PRs_ fixing typos or improving the docs 🤝
 
 <blockquote>
 
-The website keeps its own dependencies. Before committing, consider running:
+The website runs on **Bun** and keeps its own dependencies. Before committing, consider running:
 
 ```sh
-npm --prefix website ci   # Installing dependencies
-npm run website:dev       # Previewing it locally
-npm run website:build     # Ensuring it still builds
+bun ci --cwd website    # Installing dependencies
+npm run website:dev     # Previewing it locally
+npm run website:build   # Ensuring it still builds
 ```
 
 </blockquote>
@@ -127,7 +127,7 @@ The website is written in English, which always leads: a change starts in Englis
 The translation tool runs from the repository root:
 
 ```sh
-npm -w website run i18n -- check
+bun run --cwd website i18n check
 ```
 
 `check` reports what each language has translated, which pages fell behind English, and anything a translation changed that must stay as in English, such as a command, inline code, a code block, a token, or a link. It fails on any error, and CI runs it on every website change.
@@ -135,14 +135,14 @@ npm -w website run i18n -- check
 #### Adding a language
 
 1. Register it in the locale registry (`website/i18n/locales.ts`) with its BCP 47 code, its name in its own language, and the `draft` status. A draft builds locally and in CI, but it never deploys.
-2. Generate its messages with `npm -w website run i18n -- add <code>`, then write its `GUIDE.md`.
+2. Generate its messages with `bun run --cwd website i18n add <code>`, then write its `GUIDE.md`.
 3. Translate the messages. Each new message starts with `[untranslated]` in its description, and removing that mark is what accepts it, including a message meant to stay as in English, such as `OWASP`.
 4. Translate its pages, as below.
 5. Once its interface, data, sidebar labels, home, share, and Get Started pages are translated and `check` reports no errors, set its status to `published`.
 
 #### Translating a page
 
-1. `npm -w website run i18n -- copy <code> <doc id>` copies the English page into the language folder and records which English version it came from.
+1. `bun run --cwd website i18n copy <code> <doc id>` copies the English page into the language folder and records which English version it came from.
 2. Translate the copy, keeping its structure, then run `check <code>` until it reports no errors for that page.
 
 To preview a language, run `npm run website:dev -- <code>`.
@@ -151,7 +151,7 @@ To preview a language, run `npm run website:dev -- <code>`.
 
 When an English page changes, `check` reports its translation as stale. A stale page stays published with a notice that points to the English original.
 
-1. `npm -w website run i18n -- diff <code> <doc id>` shows what changed in English since the translation.
+1. `bun run --cwd website i18n diff <code> <doc id>` shows what changed in English since the translation.
 2. Bring the translation up to date, then accept the new English version with `stamp <code> <doc id>`.
 
 When the website gains new messages, `add <code>` regenerates the language's messages, keeping every translation and marking only the new ones.

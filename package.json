@@ -36,9 +36,6 @@
       "./lib/plugins/pi.js"
     ]
   },
-  "workspaces": [
-    "website"
-  ],
   "engines": {
     "node": ">=22.x.x"
   },
@@ -53,7 +50,7 @@
     "dashboard:dev": "bash scripts/dashboard/dev.sh",
     "update": "bash scripts/update.sh",
     "website:dev": "bash scripts/website/dev.sh",
-    "website:build": "npm -w website run build"
+    "website:build": "bun run --cwd website build"
   },
   "devDependencies": {
     "@docusaurus/babel": "3.10.2",

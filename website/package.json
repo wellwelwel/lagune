@@ -3,17 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "docusaurus": "docusaurus",
-    "start": "docusaurus start --host 0.0.0.0",
-    "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve --host 0.0.0.0",
-    "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc",
-    "i18n": "tsx ../tools/i18n/index.ts",
-    "purge": "tsx --env-file-if-exists=.env ../tools/purge-cache.ts"
+    "start": "bun --bun docusaurus start --host 0.0.0.0",
+    "build": "bun --bun docusaurus build",
+    "swizzle": "bun --bun docusaurus swizzle",
+    "clear": "bun --bun docusaurus clear",
+    "serve": "bun --bun docusaurus serve --host 0.0.0.0",
+    "write-translations": "bun --bun docusaurus write-translations",
+    "write-heading-ids": "bun --bun docusaurus write-heading-ids",
+    "typecheck": "bun --bun tsc",
+    "i18n": "bun --bun ../tools/i18n/index.ts",
+    "purge": "bun --bun --env-file=.env ../tools/purge-cache.ts"
   },
   "devDependencies": {
     "@docusaurus/core": "3.10.2",
@@ -68,6 +67,6 @@
     ]
   },
   "engines": {
-    "node": ">=22.12.0"
+    "bun": ">=1.4.4"
   }
 }
