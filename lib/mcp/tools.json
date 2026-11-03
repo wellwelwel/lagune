@@ -1,0 +1,82 @@
+[
+  {
+    "name": "lagune_read",
+    "title": "Lagune engine (read)",
+    "description": "Runs a Lagune engine command that only reads the project: the catalog, the tracked findings and categories, the memory validation, the CVSS scoring, and the checkers. Pass the engine subcommand as command and each of its arguments, without shell quotes, as one item of arguments.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "enum": [
+            "catalog",
+            "list",
+            "validate",
+            "cvss",
+            "agent",
+            "cors",
+            "crypto",
+            "infra",
+            "interpreter",
+            "jwt",
+            "network",
+            "regex",
+            "secrets"
+          ]
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "command"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "title": "Lagune engine (read)",
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "lagune_write",
+    "title": "Lagune engine (write)",
+    "description": "Runs a Lagune engine command that changes the project's .lagune/ state: tracking findings, standing them down, repairing the tracking map, and recording categories. Pass the engine subcommand as command and each of its arguments, without shell quotes, as one item of arguments.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "enum": [
+            "track",
+            "untrack",
+            "repair",
+            "add",
+            "remove"
+          ]
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "command"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "title": "Lagune engine (write)",
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "openWorldHint": false
+    }
+  }
+]
