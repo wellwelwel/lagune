@@ -1,0 +1,60 @@
+---
+id: devin-cli
+title: 'Lagune als Plugin in Devin CLI installieren'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: Installiere Lagune als Plugin in Devin CLI und halte es aktuell.
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli plugin
+  - devin plugins install
+  - lagune installieren
+  - einrichten
+  - KI-Sicherheit
+  - KI-Agenten
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+Melde dich bei **Devin** an und installiere dann das Plugin über dein Terminal:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## Aktualisierung
+
+Um **Lagune** zu aktualisieren, führe Folgendes aus:
+
+```bash
+devin plugins update lagune
+```
+
+## Befehle
+
+Gib die Befehle mit vorangestelltem Plugin-Namen ein, etwa `/lagune:lagune-charter` für `/lagune-charter`. Auch das Menü `/` listet sie auf.
+
+<Faq
+  items={[
+    {
+      question: 'Wie installiere ich Lagune in Devin CLI?',
+      answer:
+        'Melde dich mit devin auth login an und führe dann devin plugins install wellwelwel/lagune aus.',
+    },
+    {
+      question: 'Wie aktualisiere ich Lagune in Devin CLI?',
+      answer: 'Führe devin plugins update lagune aus.',
+    },
+    {
+      question: 'Wie führe ich die Befehle von Lagune in Devin CLI aus?',
+      answer:
+        'Gib sie mit vorangestelltem Plugin-Namen ein, etwa /lagune:lagune-charter. Auch das Menü / listet sie auf.',
+    },
+  ]}
+/>

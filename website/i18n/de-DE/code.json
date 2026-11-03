@@ -1,0 +1,666 @@
+{
+  "catalog.copyPrompt": {
+    "message": "Prompt kopieren, der {specialization} lädt",
+    "description": "The label of the button that copies the prompt loading a specialization, where {specialization} is its name"
+  },
+  "catalog.preview.hover": {
+    "message": "Fahr mit der Maus darüber",
+    "description": "Invites a reader with a mouse to open the example prompt of a specialization"
+  },
+  "catalog.preview.touch": {
+    "message": "Tipp hier",
+    "description": "Invites a touch-screen reader to open the example prompt of a specialization"
+  },
+  "catalog.preview.you": {
+    "message": "Du",
+    "description": "The name over the reader's own message in the example prompt"
+  },
+  "catalog.reply.read": {
+    "message": "Read",
+    "description": "The tool step an agent shows when it reads a specialization, in the example reply"
+  },
+  "catalog.reply.text": {
+    "message": "Bin dran!",
+    "description": "The agent's short answer in the example reply to a prompt that loads a specialization"
+  },
+  "common.copied": {
+    "message": "Kopiert",
+    "description": "Confirms that something was copied to the clipboard"
+  },
+  "common.docs": {
+    "message": "Doku",
+    "description": "The name of the documentation, in links and breadcrumbs"
+  },
+  "common.documentation": {
+    "message": "Dokumentation",
+    "description": "The name of the documentation as a whole"
+  },
+  "common.home": {
+    "message": "Startseite",
+    "description": "The name of the home page, in links and breadcrumbs"
+  },
+  "common.language": {
+    "message": "Sprache",
+    "description": "The accessible name of the menu that switches the site language"
+  },
+  "common.language.current": {
+    "message": "Sprache: {language}",
+    "description": "The accessible name of the language button, where {language} is the language shown now"
+  },
+  "common.sponsor": {
+    "message": "Sponsern",
+    "description": "The link to sponsor Lagune on GitHub Sponsors"
+  },
+  "common.starOnGitHub": {
+    "message": "Auf GitHub einen Stern geben",
+    "description": "Invites the reader to star the Lagune repository on GitHub"
+  },
+  "common.support": {
+    "message": "Unterstützen",
+    "description": "The link to support Lagune through GitHub Sponsors"
+  },
+  "docs.badge.copy": {
+    "message": "Markdown des Badges \"{badge}\" kopieren",
+    "description": "The label of the button that copies a badge's Markdown, where {badge} is the badge's text"
+  },
+  "docs.categories.choose": {
+    "message": "Kategorien auswählen",
+    "description": "The label over the category cards a reader picks from"
+  },
+  "docs.categories.copy": {
+    "message": "Befehl kopieren",
+    "description": "The label of the button that copies the command adding the chosen categories"
+  },
+  "docs.categories.optional": {
+    "message": "Optional",
+    "description": "Marks picking categories as optional"
+  },
+  "docs.categories.run": {
+    "message": "Führe diesen Befehl aus",
+    "description": "The label over the command that adds the chosen categories"
+  },
+  "docs.faq.title": {
+    "message": "Häufige Fragen",
+    "description": "The heading of a docs page's questions and answers"
+  },
+  "docs.install.back": {
+    "message": "Zurück zu allen Agenten",
+    "description": "The label of the link from an agent's install page back to the list of agents"
+  },
+  "docs.level.label": {
+    "message": "{level} von {max}",
+    "description": "The accessible reading of a 1 to 5 rating shown as dots"
+  },
+  "docs.notice.original": {
+    "message": "Originalversion lesen",
+    "description": "The link from a stale or untranslated page notice to the English page"
+  },
+  "docs.notice.stale": {
+    "message": "Diese Seite ist gegenüber ihrer englischen Version veraltet.",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page"
+  },
+  "docs.notice.untranslated": {
+    "message": "Diese Seite wurde noch nicht übersetzt.",
+    "description": "Tells the reader the page below is still in English, shown above the page"
+  },
+  "docs.page.imageAlt": {
+    "message": "Lagune {section}: {title}",
+    "description": "The alternative text of a docs page's link preview image, where {section} is its sidebar group and {title} is the page title"
+  },
+  "docs.pagination.label": {
+    "message": "Seiten der Doku",
+    "description": "The accessible name of the previous and next page links"
+  },
+  "docs.pagination.next": {
+    "message": "Weiter",
+    "description": "The label over the link to the next docs page"
+  },
+  "docs.pagination.previous": {
+    "message": "Zurück",
+    "description": "The label over the link to the previous docs page"
+  },
+  "docs.search.empty": {
+    "message": "Keine Seite passt zu \"{query}\".",
+    "description": "Shown when a docs search finds nothing, where {query} is what the reader typed"
+  },
+  "docs.search.label": {
+    "message": "Doku durchsuchen",
+    "description": "The accessible name of the docs search box"
+  },
+  "docs.search.placeholder": {
+    "message": "Doku durchsuchen…",
+    "description": "The placeholder of the docs search box"
+  },
+  "docs.search.untranslatedBadge": {
+    "message": "EN",
+    "description": "The badge on a search result that is still in English"
+  },
+  "docs.shell.backHome": {
+    "message": "Zurück zur Startseite",
+    "description": "The label of the compact link to the home page"
+  },
+  "docs.shell.closeNavigation": {
+    "message": "Navigation schließen",
+    "description": "The label of the button that closes the docs navigation drawer"
+  },
+  "docs.shell.openNavigation": {
+    "message": "Navigation öffnen",
+    "description": "The label of the button that opens the docs navigation drawer"
+  },
+  "docs.shell.repository": {
+    "message": "Repository auf GitHub",
+    "description": "The label of the link to Lagune's GitHub repository"
+  },
+  "docs.shell.sponsor": {
+    "message": "Lagune sponsern",
+    "description": "The label of the link to sponsor Lagune"
+  },
+  "docs.shell.toggleTheme": {
+    "message": "Farbschema wechseln",
+    "description": "The label of the button that switches the docs between light and dark"
+  },
+  "docs.sidebar.supportLagune": {
+    "message": "Lagune unterstützen",
+    "description": "The line under the invitation to star the repository, in the docs sidebar"
+  },
+  "docs.smallPrint.contributors": {
+    "message": "Mitwirkende",
+    "description": "The link to the people who contributed to Lagune"
+  },
+  "docs.smallPrint.copyright": {
+    "message": "Copyright © 2026-heute {author} und {contributors}. Lagune steht unter der {license}. Bitte beachte die {policy}.",
+    "description": "The copyright and license notice under every docs page, where {author}, {contributors}, {license}, and {policy} are links"
+  },
+  "docs.smallPrint.lastUpdated": {
+    "message": "Zuletzt aktualisiert am {date}.",
+    "description": "When a docs page last changed, where {date} is the date"
+  },
+  "docs.smallPrint.securityPolicy": {
+    "message": "Sicherheitsrichtlinie",
+    "description": "The link to Lagune's security policy"
+  },
+  "docs.smallPrint.trademarks": {
+    "message": "Alle genannten Produktnamen, Marken und eingetragenen Marken sind Eigentum ihrer jeweiligen Inhaber und werden nur zur Identifikation verwendet.",
+    "description": "The trademark notice on pages that name other products"
+  },
+  "docs.toc.label": {
+    "message": "Inhaltsverzeichnis",
+    "description": "The accessible name of a docs page's table of contents"
+  },
+  "docs.toc.title": {
+    "message": "Auf dieser Seite",
+    "description": "The heading of a docs page's table of contents"
+  },
+  "home.agents.installOn": {
+    "message": "In {agent} installieren",
+    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
+  },
+  "home.agents.more": {
+    "message": "{count} weitere Agenten",
+    "description": "The label of the link to every other supported agent, where {count} is how many"
+  },
+  "home.background.alt": {
+    "message": "Lagune {tab}",
+    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
+  },
+  "home.brand.backToTop": {
+    "message": "Lagune.ai, zurück nach oben",
+    "description": "The label of the brand button that scrolls back to the top"
+  },
+  "home.cta.install": {
+    "message": "Installieren",
+    "description": "The main home button, leading to the install page"
+  },
+  "home.faq.audit.answer": {
+    "message": "Ja. Der Blue-Team-Workflow in fünf Phasen auditiert, was bereits existiert: charter legt deine Sicherheitsregeln fest, detect erfasst, was das System tut und wo die Risiken liegen, plan bewertet jeden Befund und ordnet ihm eine Korrektur zu, harden setzt die Korrekturen um, und verify weist nach, dass sie greifen, und schließt sie ab.",
+    "description": "The answer to \"Can Lagune audit an existing project?\" in search engines' structured data"
+  },
+  "home.faq.audit.question": {
+    "message": "Kann Lagune ein bestehendes Projekt auditieren?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.build.answer": {
+    "message": "Ja. Der Befehl /lagune nimmt jeden Prompt an, setzt um, was du verlangt hast, und härtet es schon beim Schreiben mit sicheren Standardwerten, geleitet von deinen Sicherheitsprinzipien. Danach auditiert der Blue-Team-Workflow in fünf Phasen, was bereits existiert.",
+    "description": "The answer to \"Can Lagune secure code as I build it?\" in search engines' structured data"
+  },
+  "home.faq.build.question": {
+    "message": "Kann Lagune meinen Code schon während der Entwicklung absichern?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.install.answer": {
+    "message": "Die meisten Agenten installieren Lagune als Plugin, Gemini CLI und Qwen Code als Erweiterung, Pi als Paket und alle anderen Agenten mit npx skills add wellwelwel/lagune. Die Installationsseite zeigt den Befehl für jeden Agenten. Es funktioniert in neuen wie in bestehenden Projekten und braucht keinen API-Schlüssel.",
+    "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
+  },
+  "home.faq.install.question": {
+    "message": "Wie installiere ich Lagune?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.what.answer": {
+    "message": "Lagune ist ein Open-Source-Workflow für ausschließlich defensive Sicherheit, der deinem KI-Agenten hilft, jede Codebasis zu härten. Er erkennt, was dein System tatsächlich tut, und führt dich dann durch die Sicherheitskorrekturen, die in diesem Kontext zählen.",
+    "description": "The answer to \"What is Lagune?\" in search engines' structured data"
+  },
+  "home.faq.what.question": {
+    "message": "Was ist Lagune?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.feature.overview.eyebrow": {
+    "message": "Die Praxis",
+    "description": "The small caps label over the home overview title"
+  },
+  "home.feature.overview.kicker": {
+    "message": "Was wäre, wenn es statt einer generischen Checkliste Sicherheit {before}, {during} und {after} der Entwicklung gäbe?",
+    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+  },
+  "home.feature.overview.kicker.after": {
+    "message": "nach",
+    "description": "The emphasized \"after\" of the home overview question"
+  },
+  "home.feature.overview.kicker.before": {
+    "message": "vor",
+    "description": "The emphasized \"before\" of the home overview question"
+  },
+  "home.feature.overview.kicker.during": {
+    "message": "während",
+    "description": "The emphasized \"during\" of the home overview question"
+  },
+  "home.feature.overview.title": {
+    "message": "Verteidigung{lineBreak}von Grund auf",
+    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
+  },
+  "home.feature.usage.chip": {
+    "message": "Der Blue-Team-Workflow",
+    "description": "The chip over the home usage tab"
+  },
+  "home.feature.usage.eyebrow": {
+    "message": "Blue-Team-Workflow",
+    "description": "The small caps label over the home usage title"
+  },
+  "home.feature.usage.kicker": {
+    "message": "Setz es auf deinen Code an und lass den Agenten die Arbeit machen.",
+    "description": "The sentence that opens the home usage tab"
+  },
+  "home.feature.usage.title": {
+    "message": "Härte,{lineBreak}was du auslieferst",
+    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+  },
+  "home.group.anyPrompt": {
+    "message": "Jeder Prompt, jederzeit",
+    "description": "The stage label of the universal /lagune command on the home page"
+  },
+  "home.group.defend": {
+    "message": "Verteidigen",
+    "description": "The stage label of the harden and verify phases on the home page"
+  },
+  "home.group.establish": {
+    "message": "Festlegen",
+    "description": "The stage label of the charter phase on the home page"
+  },
+  "home.group.understand": {
+    "message": "Verstehen",
+    "description": "The stage label of the detect and plan phases on the home page"
+  },
+  "home.highlight.build.body": {
+    "message": "Füge ihn einem beliebigen Prompt hinzu, und der Agent setzt wie gewohnt um, was du verlangst, jetzt mit Sicherheitswissen bei Bedarf.",
+    "description": "The body of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.build.lead": {
+    "message": "Ein einziger Befehl, {command}, sorgt für Sicherheit, während der Code entsteht, nicht erst danach.",
+    "description": "The lead of the home highlight about /lagune, where {command} is the command"
+  },
+  "home.highlight.build.title": {
+    "message": "Härten, während du entwickelst",
+    "description": "The title of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.dashboard.body": {
+    "message": "Eine Live-Ansicht der Sicherheit deines Projekts, während der Agent arbeitet. Es läuft auf deinem Rechner, und nichts verlässt ihn.",
+    "description": "The body of the home highlight about the local dashboard"
+  },
+  "home.highlight.dashboard.lead": {
+    "message": "Ein {dashboard} verfolgt deine Befunde, Korrekturen und Nachweise live.",
+    "description": "The lead of the home highlight about the dashboard, where {dashboard} is emphasized"
+  },
+  "home.highlight.dashboard.lead.dashboard": {
+    "message": "lokales, privates Dashboard",
+    "description": "The emphasized part of the home highlight about the dashboard"
+  },
+  "home.highlight.dashboard.title": {
+    "message": "Der Fortschritt in deinem Browser",
+    "description": "The title of the home highlight about the local dashboard"
+  },
+  "home.highlight.flow.body": {
+    "message": "Er erkennt, was dein System tatsächlich tut, erfasst die zugehörigen Angriffsvektoren und setzt dann die Sicherheitsmaßnahmen um, die dazu passen.",
+    "description": "The body of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.flow.lead": {
+    "message": "Ein {basis} Workflow in fünf Phasen, sofort einsatzbereit.",
+    "description": "The lead of the home highlight about the Blue Team flow, where {basis} is emphasized"
+  },
+  "home.highlight.flow.lead.basis": {
+    "message": "Blue-Team-basierter",
+    "description": "The emphasized part of the home highlight about the Blue Team flow"
+  },
+  "home.highlight.flow.title": {
+    "message": "Inspiriert von Spec-Driven",
+    "description": "The title of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.knowledge.body": {
+    "message": "Lagune lädt das Modul, das zum vorgefundenen Kontext passt, aus einem Katalog, der sich laufend anpasst, wenn neue Risiken auftauchen.",
+    "description": "The body of the home highlight about on-demand specializations"
+  },
+  "home.highlight.knowledge.lead": {
+    "message": "Gezielte Sicherheitsmodule werden {scope} geladen.",
+    "description": "The lead of the home highlight about specializations, where {scope} is emphasized"
+  },
+  "home.highlight.knowledge.lead.scope": {
+    "message": "nur passend zu deinem Projekt",
+    "description": "The emphasized part of the home highlight about specializations"
+  },
+  "home.highlight.knowledge.title": {
+    "message": "Wissen bei Bedarf",
+    "description": "The title of the home highlight about on-demand specializations"
+  },
+  "home.howTo.charter": {
+    "message": "Lege die Sicherheitsprinzipien deines Projekts fest, die Regeln, die jede spätere Phase einhält.",
+    "description": "The Charter step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.description": {
+    "message": "Lagune führt einen defensiv ausgerichteten Workflow in fünf Phasen aus, der jede Codebasis auditiert und härtet, gesteuert von deinem KI-Agenten.",
+    "description": "The summary of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.detect": {
+    "message": "Lies den Code und erfasse, was das System tut und wo die Risiken liegen.",
+    "description": "The Detect step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.harden": {
+    "message": "Setze die Korrekturen aus dem Plan im Code um, sicher und eine nach der anderen.",
+    "description": "The Harden step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.name": {
+    "message": "So härtest du eine Codebasis mit Lagune (der Blue-Team-Workflow)",
+    "description": "The name of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.plan": {
+    "message": "Bewerte jeden Befund mit einer Kategorie und einem Score nach CVSS v4.0 und ordne ihm dann eine Korrektur zu.",
+    "description": "The Plan step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.verify": {
+    "message": "Weise nach, dass jede umgesetzte Korrektur greift, und trage die aus, die den Nachweis bestehen.",
+    "description": "The Verify step of the five-phase guide in search engines' structured data"
+  },
+  "home.meta.description": {
+    "message": "Lagune hilft deinem KI-Agenten, jede Codebasis zu härten: Es erkennt, was dein System tatsächlich tut, und treibt dann die passende defensive Arbeit voran, während du entwickelst.",
+    "description": "The description of the home page in search results and link previews"
+  },
+  "home.meta.title": {
+    "message": "KI-gestützte Sicherheitshärtung für jede Codebasis | Lagune",
+    "description": "The title of the home page in search results and the browser tab"
+  },
+  "home.mode.bySeverity": {
+    "message": "Nach Schweregrad",
+    "description": "The example tab for running a phase on the most severe findings only"
+  },
+  "home.mode.recommendedFull": {
+    "message": "Empfohlen (vollständig)",
+    "description": "The example tab for running a phase over the whole project, the recommended way"
+  },
+  "home.nav.menu": {
+    "message": "Menü",
+    "description": "The label of the button that opens the compact home menu"
+  },
+  "home.nav.sections": {
+    "message": "Abschnitte",
+    "description": "The accessible name of the home side rail"
+  },
+  "home.nav.windows": {
+    "message": "Fenster",
+    "description": "The accessible name of the home tabs that switch the main window"
+  },
+  "home.phase.bannerAlt": {
+    "message": "Phase {phase}",
+    "description": "The alternative text of a phase card's banner, where {phase} is the phase"
+  },
+  "home.phase.charter.description": {
+    "message": "Legt die Sicherheitsregeln deines Projekts fest, als Vorschlag für dich oder nach deinen Vorgaben.",
+    "description": "What the Charter phase does"
+  },
+  "home.phase.charter.eyebrow": {
+    "message": "PHASE 1",
+    "description": "The small caps label over the Charter phase card"
+  },
+  "home.phase.charter.mode.auto": {
+    "message": "Automatisch erkennen",
+    "description": "The example tab for the Charter phase: Auto Detect"
+  },
+  "home.phase.charter.mode.describe": {
+    "message": "Empfohlen (beschreiben)",
+    "description": "The example tab for the Charter phase: Recommended (Describe)"
+  },
+  "home.phase.charter.mode.describe.prompt": {
+    "message": "Wir betreiben ein Manga-SaaS: Autoren laden eigene Kapitel hoch, Leser kaufen mit Stripe Credits und schalten damit Kapitel frei, und Autoren erhalten pro Freischaltung eine Provision. Hilf uns zu verhindern, dass Nutzer die Kapitel danach leaken oder Screenshots davon machen.",
+    "description": "An example request a user writes after /lagune-charter"
+  },
+  "home.phase.charter.title": {
+    "message": "Charter",
+    "description": "The name of the Charter phase"
+  },
+  "home.phase.copyCommand": {
+    "message": "{command} kopieren",
+    "description": "The label of the button that copies a command, where {command} is the command"
+  },
+  "home.phase.detect.description": {
+    "message": "Liest deinen Code und erfasst, was dein System tut und wo die Risiken liegen.",
+    "description": "What the Detect phase does"
+  },
+  "home.phase.detect.eyebrow": {
+    "message": "PHASE 2",
+    "description": "The small caps label over the Detect phase card"
+  },
+  "home.phase.detect.mode.scoped": {
+    "message": "Eingegrenzt",
+    "description": "The example tab for the Detect phase: Scoped"
+  },
+  "home.phase.detect.mode.scoped.prompt": {
+    "message": "Durchsuche den Branch des Praktikanten, bevor ich ihn merge.",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.mode.targeted": {
+    "message": "Gezielt",
+    "description": "The example tab for the Detect phase: Targeted"
+  },
+  "home.phase.detect.mode.targeted.prompt": {
+    "message": "Untersuche jedes mögliche Datenleck",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.title": {
+    "message": "Detect",
+    "description": "The name of the Detect phase"
+  },
+  "home.phase.harden.description": {
+    "message": "Setzt die Korrekturen aus dem Plan in deinem Code um, sicher und eine nach der anderen.",
+    "description": "What the Harden phase does"
+  },
+  "home.phase.harden.eyebrow": {
+    "message": "PHASE 4",
+    "description": "The small caps label over the Harden phase card"
+  },
+  "home.phase.harden.mode.severity.prompt": {
+    "message": "Setze vorerst nur die Korrekturen mit kritischem und hohem Schweregrad um.",
+    "description": "An example request a user writes after /lagune-harden"
+  },
+  "home.phase.harden.title": {
+    "message": "Harden",
+    "description": "The name of the Harden phase"
+  },
+  "home.phase.plan.description": {
+    "message": "Macht aus dem, was detect gefunden hat, einen Abwehrplan mit einer Korrektur für jeden Befund.",
+    "description": "What the Plan phase does"
+  },
+  "home.phase.plan.eyebrow": {
+    "message": "PHASE 3",
+    "description": "The small caps label over the Plan phase card"
+  },
+  "home.phase.plan.mode.severity.prompt": {
+    "message": "Plane vorerst nur die Befunde mit kritischem und hohem Schweregrad.",
+    "description": "An example request a user writes after /lagune-plan"
+  },
+  "home.phase.plan.title": {
+    "message": "Plan",
+    "description": "The name of the Plan phase"
+  },
+  "home.phase.universal.description": {
+    "message": "Setzt um, was dein Prompt verlangt, und die Sicherheit schützt die Arbeit, während sie entsteht, nicht erst danach.",
+    "description": "What the universal /lagune command does"
+  },
+  "home.phase.universal.eyebrow": {
+    "message": "UNIVERSELL",
+    "description": "The small caps label over the universal /lagune command card"
+  },
+  "home.phase.universal.mode.feature": {
+    "message": "Funktion",
+    "description": "The example tab for building a new feature with /lagune"
+  },
+  "home.phase.universal.mode.feature.prompt": {
+    "message": "Erstelle ein Dashboard für die Nutzer meines SaaS. Sie sollen ihr Profilbild ändern und alle Inhalte sehen können, auf die sie Zugriff haben.",
+    "description": "An example request a user writes after /lagune to build a feature"
+  },
+  "home.phase.universal.mode.fix": {
+    "message": "Fehlerbehebung",
+    "description": "The example tab for fixing a bug with /lagune"
+  },
+  "home.phase.universal.mode.fix.prompt": {
+    "message": "Wenn der Nutzer das Formular absendet, passiert nichts. Finde heraus, woran es liegen könnte, und behebe es.",
+    "description": "An example request a user writes after /lagune to fix a bug"
+  },
+  "home.phase.universal.mode.refactor": {
+    "message": "Refactoring",
+    "description": "The example tab for refactoring code with /lagune"
+  },
+  "home.phase.universal.mode.refactor.prompt": {
+    "message": "Entkopple und verbessere die Payload-Logik.",
+    "description": "An example request a user writes after /lagune to refactor code"
+  },
+  "home.phase.universal.next": {
+    "message": "So auditierst du dein bestehendes Projekt",
+    "description": "Leads from the universal command to the audit flow on the home page"
+  },
+  "home.phase.universal.title": {
+    "message": "Entwickeln",
+    "description": "The title of the universal /lagune command card"
+  },
+  "home.phase.verify.description": {
+    "message": "Weist nach, dass jede umgesetzte Korrektur greift, und schließt die ab, die den Nachweis bestehen.",
+    "description": "What the Verify phase does"
+  },
+  "home.phase.verify.eyebrow": {
+    "message": "PHASE 5",
+    "description": "The small caps label over the Verify phase card"
+  },
+  "home.phase.verify.mode.severity.prompt": {
+    "message": "Prüfe nur die umgesetzten Korrekturen mit kritischem und hohem Schweregrad.",
+    "description": "An example request a user writes after /lagune-verify"
+  },
+  "home.phase.verify.title": {
+    "message": "Verify",
+    "description": "The name of the Verify phase"
+  },
+  "home.prompt.example": {
+    "message": "Beispiel",
+    "description": "The label over the example prompt typed on the home page"
+  },
+  "home.rail.step": {
+    "message": "{phase} ({stage})",
+    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.software.feature.context": {
+    "message": "Erkennt, was ein System tatsächlich tut, was auch immer das ist, und treibt dann die Korrekturen voran, die in diesem Kontext zählen, in jeder Programmiersprache",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.cvss": {
+    "message": "Bewertung nach CVSS v4.0 für jeden Befund",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.dashboard": {
+    "message": "Lokales, privates Dashboard, um Befunde, Korrekturen und Nachweise zu verfolgen",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.defense": {
+    "message": "Ausschließlich defensiv: erzeugt nie Exploits oder Angriffswerkzeuge",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.flow": {
+    "message": "Blue-Team-Workflow in fünf Phasen: charter, detect, plan, harden, verify",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.install": {
+    "message": "Lässt sich als Plugin in deinem Agenten installieren oder in jedem anderen Agenten mit der CLI von skills, ganz ohne API-Schlüssel",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.specializations": {
+    "message": "Sprachunabhängige Sicherheitsspezialisierungen bei Bedarf, nach Kategorien gruppiert",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.universal": {
+    "message": "Sichert neue Arbeit schon beim Schreiben ab, mit dem universellen Befehl /lagune und geleitet von den Sicherheitsprinzipien",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tab.overview": {
+    "message": "Überblick",
+    "description": "The home tab that presents Lagune"
+  },
+  "home.tab.usage": {
+    "message": "Verwendung",
+    "description": "The home tab that walks through the commands"
+  },
+  "home.topBar.label": {
+    "message": "Website",
+    "description": "The accessible name of the top navigation bar"
+  },
+  "home.usage.next": {
+    "message": "Weiter: {phase}",
+    "description": "Leads from one phase to the next on the home page, where {phase} is the next phase"
+  },
+  "home.usage.settled": {
+    "message": "Ist alles nachgewiesen, geht der Zyklus in den Ruhezustand",
+    "description": "Closes the walk through the phases on the home page"
+  },
+  "paper.reference.eyebrow": {
+    "message": "Referenz [{index}]",
+    "description": "The heading of the popover that reveals a cited reference of the paper"
+  },
+  "paper.section.eyebrow": {
+    "message": "Abschnitt {roman}",
+    "description": "The heading of the popover that reveals a section the paper refers to, where {roman} is its Roman numeral"
+  },
+  "share.breadcrumb": {
+    "message": "Teilen",
+    "description": "The name of the share page in breadcrumbs"
+  },
+  "share.heading": {
+    "message": "Scanne, öffne, gib einen {star}",
+    "description": "The heading of the share page, where {star} is a star icon read as the word star"
+  },
+  "share.heading.star": {
+    "message": "Stern",
+    "description": "The word the star icon of the share heading stands for"
+  },
+  "share.lead": {
+    "message": "Richte deine Kamera auf den Code, um Lagune auf GitHub zu öffnen, und unterstütze das Projekt dann mit einem Stern.",
+    "description": "The instruction under the share page heading"
+  },
+  "share.meta.description": {
+    "message": "Scanne den QR-Code, um das Repository von Lagune auf GitHub zu öffnen, und unterstütze dann mit einem Stern dieses Open-Source-Projekt für KI-gestützte Sicherheitshärtung.",
+    "description": "The description of the share page in search results and link previews"
+  },
+  "share.meta.title": {
+    "message": "Lagune teilen | QR-Code scannen und dem Repo auf GitHub einen Stern geben",
+    "description": "The title of the share page in search results and the browser tab"
+  },
+  "share.qr.caption": {
+    "message": "Scanne diesen QR-Code, um das Repository von Lagune auf GitHub unter github.com/wellwelwel/lagune zu öffnen und einen Stern zu hinterlassen.",
+    "description": "The hidden caption of the QR code on the share page"
+  },
+  "share.qr.title": {
+    "message": "QR-Code, der das Repository von Lagune auf GitHub unter github.com/wellwelwel/lagune öffnet",
+    "description": "The accessible name of the QR code on the share page"
+  }
+}

@@ -1,0 +1,69 @@
+---
+id: configs-schema
+title: Konfigurationsschema
+sidebar_label: Konfigurationsschema
+description: Das JSON Schema für die Konfiguration eines Projekts mit Lagune, für Autovervollständigung und Validierung in deinem Editor, passend zur aktuellen Version von Lagune oder fest an eine Version gebunden.
+keywords:
+  - configs
+  - configs.json
+  - JSON Schema
+  - $schema
+  - Validierung
+source_hash: '141733c73377142021f589b024fa4852bcfd65aecbe0cf97aa3b5f7f993cd963'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Die Datei `.lagune/configs.json` hält die [**Kategorien**](/docs/categories) fest, die ein Projekt nutzt, und indexiert seine eigenen [**Spezialisierungen**](/docs/catalog). Mit ihrem JSON Schema vervollständigt dein Editor jedes Feld automatisch und meldet einen Tippfehler oder eine unbekannte Kategorie, während du die Datei bearbeitest.
+
+## Das aktuelle Schema
+
+Immer wenn **Lagune** die Datei schreibt und darin kein `$schema` findet, trägt es das aktuelle Schema ein:
+
+```json
+{
+  "$schema": "https://lagune.ai/schemas/configs.json",
+  "categories": ["owasp", "javascript"]
+}
+```
+
+Diese Adresse folgt immer der aktuellen Version von **Lagune**. Eine Datei, die vor **Lagune** 0.16.0 geschrieben wurde, erhält sie bei ihrer nächsten Änderung, und bis dahin weist jede Phase darauf hin.
+
+## Eine Version festlegen
+
+Jedes Release von **Lagune** ab 0.16.0 enthält das Schema so, wie es in dieser Version war, veröffentlicht auf **npm** und ausgeliefert über **jsDelivr**. Um eine Version festzulegen, trage in `$schema` die Version hinter `lagune@` ein:
+
+```json
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/lagune@0.16.0/schemas/configs.json"
+}
+```
+
+Als Version ist jeder semver-Bereich möglich:
+
+| Version              | Schema                            |
+| -------------------- | --------------------------------- |
+| `0.16.0`             | Das aus 0.16.0                    |
+| `0.16.x` oder `0.16` | Das aus dem neuesten Release 0.16 |
+| `0.x` oder `0`       | Das aus dem neuesten Release 0.x  |
+| `latest`             | Das aus dem neuesten Release      |
+
+<Faq
+  items={[
+    {
+      question: 'Braucht Lagune das Schema?',
+      answer:
+        'Nein. Das Schema hilft nur deinem Editor, und Lagune liest die Datei mit oder ohne $schema genauso.',
+    },
+    {
+      question: 'Überschreibt Lagune ein festgelegtes Schema?',
+      answer:
+        'Nein. Lagune schreibt $schema nur, wenn die Datei keins enthält, und behält jede Adresse bei, die du gesetzt hast.',
+    },
+    {
+      question: 'Wann sollte ich eine Version festlegen?',
+      answer:
+        'Wenn das Projekt eine bestimmte Version von Lagune nutzt, damit dein Editor die Datei gegen das prüft, was diese Version akzeptiert.',
+    },
+  ]}
+/>

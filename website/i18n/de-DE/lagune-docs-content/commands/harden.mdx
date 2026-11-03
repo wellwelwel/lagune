@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: Setze Sicherheitskorrekturen in deinem Code um'
+sidebar_label: 4. Harden
+description: Setze die Korrekturen aus dem Plan in deinem Code um, sicher und eine nach der anderen.
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 Setze die Korrekturen aus dem Plan in deinem Code um, sicher und eine nach der anderen.
+
+## Verwendung
+
+<Tabs>
+  <TabItem value="full" label="Alles umsetzen" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Pfade angeben">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Nach Priorität">
+
+```prompt
+/lagune-harden Priorität kritisch und hoch
+```
+
+  </TabItem>
+</Tabs>
+
+## So funktioniert es
+
+Der Plan hat jede Korrektur bereits festgelegt, harden setzt sie also nur noch um. Da harden die einzige Phase ist, die deinen Code anfasst, geht sie behutsam vor: Sie setzt eine Korrektur nach der anderen um, damit jede Änderung leicht zu prüfen bleibt, und schwächt nie eine Schutzmaßnahme ab, nur damit eine Korrektur passt. Zum Beispiel die Korrektur für den Upload:
+
+- **Datei-Uploads** (Status: **Applied**)
+  - _Was sich geändert hat:_ prüft den tatsächlichen Typ und die Größe der Datei, lehnt alles Unerwartete ab, benennt sie beim Speichern um und legt sie dort ab, wo sie nicht als Code ausgeführt werden kann.
+  - _Wo:_ die Funktion `handleUpload` sowie die Speicher-Hilfsfunktion, die sie aufruft.
+
+Lässt sich eine Korrektur nicht vollständig umsetzen, erledigt harden, was gefahrlos möglich ist, markiert den Rest als **Partial** oder **Blocked** und lässt ihn offen.
+
+:::info[Applied heißt nicht verifiziert]
+Applied bedeutet noch nicht nachgewiesen. Dafür ist [verify](/docs/commands/verify) da.
+:::
+
+:::tip
+
+- Die Phase baut vollständig auf dem Plan auf. Wurde eine Korrektur oder Datei nie geplant, fordert sie dich auf, zuerst `/lagune-plan` dafür auszuführen.
+- Ein erneuter Lauf gleicht das Protokoll ab: Rückgängig gemachte Änderungen fallen weg, neu umgesetzte Korrekturen kommen hinzu.
+- Das Härtungsprotokoll liegt in `.lagune/memory/harden.md`.
+
+:::
+
+:::warning[Hängt von plan ab und ändert deinen Code]
+Harden baut auf [`/lagune-plan`](/docs/commands/plan) auf. Es ist die einzige Phase, die deinen Code ändert.
+:::
+
+## Nächster Schritt
+
+Weise nach, dass jede Korrektur greift: [`/lagune-verify`](/docs/commands/verify).
+
+<Faq
+  items={[
+    {
+      question: 'Ändert /lagune-harden meinen Code?',
+      answer:
+        'Ja. Harden ist die einzige Phase, die deinen Code anfasst, und setzt die Korrekturen aus dem Plan eine nach der anderen um.',
+    },
+    {
+      question: 'Was bedeuten Applied, Partial und Blocked?',
+      answer:
+        'Das ist der Status, den Lagune für jede Korrektur festhält. Applied bedeutet, dass die Korrektur umgesetzt wurde, Partial, dass sie nur zum Teil umgesetzt wurde, und Blocked, dass sie sich nicht umsetzen ließ. Applied bedeutet noch nicht nachgewiesen.',
+    },
+    {
+      question: 'Setzt Lagune Korrekturen um, ohne zu fragen?',
+      answer:
+        'Ob eine Änderung deine Zustimmung braucht, entscheiden dein Agent und der Berechtigungsmodus, in dem du ihn ausführst, nicht Lagune: Lagune fügt keine eigene Bestätigungsstufe hinzu. Trotzdem schwächt es nie eine Schutzmaßnahme ab, nur um einer Korrektur gerecht zu werden, und würde eine Korrektur gegen eines deiner Sicherheitsprinzipien verstoßen, hält es an und sagt es dir zuerst.',
+    },
+  ]}
+/>

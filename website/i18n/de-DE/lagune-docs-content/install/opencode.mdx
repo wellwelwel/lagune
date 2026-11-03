@@ -1,0 +1,132 @@
+---
+id: opencode
+title: 'Lagune als Plugin in OpenCode installieren'
+sidebar_label: OpenCode
+parent: get-started/install
+description: Installiere Lagune als Plugin in OpenCode 1.x und 2.x und halte es aktuell.
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - lagune installieren
+  - einrichten
+  - KI-Sicherheit
+  - KI-Agenten
+source_hash: 'f79638c10be0e2425d9690e2d98375d7739ebc1ae43d8a729cb033f5b0ca3f09'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Installiere das Plugin über dein Terminal:
+
+```bash
+opencode plugin add lagune
+```
+
+Oder füge es der Liste `plugins` in `opencode.json` hinzu:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Installiere das Plugin über dein Terminal in deinem Projekt oder ergänze `-g`, um es für alle deine Projekte zu installieren:
+
+```bash
+opencode plugin lagune
+```
+
+Oder füge es der Liste `plugin` in `opencode.json` hinzu:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Aktualisierung
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Um **Lagune** zu aktualisieren, führe Folgendes aus:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Um **Lagune** zu aktualisieren, installiere die neue Version über die alte und ergänze `-g`, falls du das Plugin für alle deine Projekte installiert hast:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## Befehle
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Gib `@` ein, wähle den Befehl, etwa `@lagune-charter`, und schreibe deine Eingabe dann in dieselbe Nachricht.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Gib die Befehle mit ihrem Namen ein, etwa `/lagune-charter`. Sie stehen unter `/skills`, nicht im Menü `/`.
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[Berechtigungen]
+
+Die Engine läuft über zwei Tools: `lagune_read` liest nur dein Projekt und `lagune_write` schreibt nur in `.lagune/`. **OpenCode** führt sie ohne Rückfrage aus.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Wie installiere ich Lagune in OpenCode?',
+      answer:
+        'Führe in OpenCode 2.x opencode plugin add lagune aus. Führe in OpenCode 1.x opencode plugin lagune aus und ergänze -g, um das Plugin für alle deine Projekte zu installieren.',
+    },
+    {
+      question: 'Wie aktualisiere ich Lagune in OpenCode?',
+      answer:
+        'Führe in OpenCode 2.x opencode plugin update lagune aus, dann opencode reload. Führe in OpenCode 1.x opencode plugin lagune@{{version}} --force aus.',
+    },
+    {
+      question: 'Wie führe ich die Befehle von Lagune in OpenCode aus?',
+      answer:
+        'Gib in OpenCode 2.x @ ein, wähle den Befehl, etwa @lagune-charter, und schreibe deine Eingabe dann in dieselbe Nachricht. Gib sie in OpenCode 1.x mit ihrem Namen ein, etwa /lagune-charter, oder finde sie unter /skills.',
+    },
+    {
+      question: 'Fragt OpenCode um Erlaubnis, bevor Lagune läuft?',
+      answer:
+        'Nein. OpenCode führt die beiden Tools der Engine, lagune_read und lagune_write, ohne Rückfrage aus.',
+    },
+  ]}
+/>

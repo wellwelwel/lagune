@@ -1,0 +1,220 @@
+---
+id: install
+title: 'Installation: Sicherheitshärtung für jeden KI-Agenten'
+sidebar_label: Installation
+slug: /
+description: Installiere Lagune in jedem Projekt, als Plugin, wo dein Agent eines unterstützt, sonst mit der CLI von skills, und wähle dann die Sicherheitsspezialisierungen, die dazu passen.
+keywords:
+  - Lagune installieren
+  - claude code plugin
+  - copilot cli plugin
+  - muse code plugin
+  - gemini cli extension
+  - qwen code extension
+  - antigravity cli plugin
+  - kimi code plugin
+  - cursor plugin
+  - hermes agent plugin
+  - devin cli plugin
+  - grok build plugin
+  - factory droid plugin
+  - codex plugin
+  - opencode plugin
+  - pi package
+  - npx skills add
+  - skills CLI
+  - Einrichtung
+  - Erste Schritte
+  - Spezialisierungen
+  - Kategorien
+  - Voraussetzungen
+  - Badge
+  - security-driven hardening
+  - KI-Sicherheit
+  - Anwendungssicherheit
+  - defensive Sicherheit
+  - blue team
+  - sichere Programmierung
+  - KI-Agenten
+source_hash: 'a560b2dd65be3ed3daa59b91f2b3bbbf6b1e516bf70479e928679887c1c76c7a'
+---
+
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** hilft deinem KI-Agenten, ein Projekt sicherer zu machen. Du setzt es auf deinen Code an, und der Agent findet heraus, was dein System tatsächlich tut, und führt dich dann durch die Sicherheitsarbeit, die dafür zählt. **Lagune** ist das erste Projekt der Methodik [Security-Driven Hardening (SDH)](/docs/references/paper).
+
+:::tip[Open Source unterstützen]
+Gefällt dir **Lagune**? <ArrowLink to="https://github.com/wellwelwel/lagune">Gib uns einen ⭐ auf **GitHub**</ArrowLink>
+:::
+
+## Wähle deinen Agenten
+
+<AgentPicker />
+
+:::info
+
+- **Lagune** läuft unter der Haube mit **Node.js**, aber du arbeitest in der Sprache deiner Wahl.
+- Um **Lagune** komplett offline auszuführen, installiere es mit `npm i -D lagune@{{version}}` in deinem Projekt.
+
+:::
+
+## Kategorien
+
+Das Sicherheitswissen von **Lagune** steckt in [**Spezialisierungen**](/docs/catalog), gruppiert in [**Kategorien**](/docs/categories).
+
+<CategoryPicker />
+
+:::tip
+Ein Projekt beginnt mit `owasp`, und [`/lagune-charter`](/docs/commands/charter) fügt die Kategorien hinzu, für die seine Lesart des Projekts spricht.
+:::
+
+## Voraussetzungen
+
+Auf deinem System muss [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installiert sein.
+
+## Nutze ein Badge ✨
+
+Du nutzt **Lagune**? Füge eins in deine **README** ein:
+
+<Tabs>
+  <TabItem value="two-tones" label="Zweifarbig" default>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
+  alt='Secured By Lagune'
+  width={141}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
+  alt='Security Powered By Lagune'
+  width={193}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
+  alt='Security-Driven Hardening with Lagune'
+  width={225}
+/>
+
+  </TabItem>
+  <TabItem value="solid" label="Einfarbig">
+
+<Badge
+  src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Secured By Lagune'
+  width={135}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security Powered By Lagune'
+  width={185}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security-Driven Hardening'
+  width={175}
+/>
+
+  </TabItem>
+</Tabs>
+
+## Nächster Schritt
+
+Erfahre, was jeder der [**Skills**](/docs/get-started/commands) von **Lagune** macht.
+
+<Faq
+  items={[
+    {
+      question: 'Was ist Lagune?',
+      answer:
+        'Lagune ist ein Open-Source-Workflow für ausschließlich defensive Sicherheit, der deinem KI-Agenten hilft, jede Codebasis zu härten. Du setzt Lagune auf deinen Code an, es erkennt, was dein System tatsächlich tut, und führt dich dann durch die Sicherheitskorrekturen, die in diesem Kontext zählen.',
+    },
+    {
+      question: 'Wie installiere ich Lagune?',
+      answer:
+        'Wähle deinen Agenten: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI und Hermes Agent installieren Lagune als Plugin, Gemini CLI und Qwen Code als Erweiterung, Pi als Paket und alle anderen Agenten mit npx skills add wellwelwel/lagune. Es funktioniert in neuen wie in bestehenden Projekten.',
+    },
+    {
+      question: 'Braucht Lagune einen API-Schlüssel?',
+      answer:
+        'Nein. Es läuft über deinen eigenen KI-Agenten, daher brauchst du keine API-Schlüssel.',
+    },
+    {
+      question: 'Welche Voraussetzungen gibt es?',
+      answer: 'Auf deinem System muss Node.js (LTS) installiert sein.',
+    },
+    {
+      question: 'Welche Programmiersprachen unterstützt Lagune?',
+      answer:
+        'Alle. Lagune läuft unter der Haube mit Node.js, auditiert und härtet aber Projekte in jeder Programmiersprache.',
+    },
+    {
+      question: 'Was fügt Lagune meinem Projekt hinzu?',
+      answer:
+        'Einen Ordner .lagune/ mit dem Sicherheitszustand deines Projekts, den der erste Befehl anlegt, der etwas schreibt. Die CLI von skills installiert außerdem die Slash-Befehle im Projekt, wo dein Agent sie liest, während ein Plugin sie im Agenten selbst behält.',
+    },
+    {
+      question: 'Wie aktualisiere ich Lagune?',
+      answer:
+        'Genauso, wie du es installiert hast. Die Installationsseite jedes Agenten zeigt, wie du Lagune dort aktualisierst, und die CLI von skills aktualisiert es mit npx skills update. Deine Sicherheitsprinzipien, die Artefakte der Phasen und deine eigenen Spezialisierungen bleiben unangetastet.',
+    },
+    {
+      question: 'Welche Spezialisierungen nutzt ein Projekt?',
+      answer:
+        'Die integrierten seiner Kategorien und dazu seine eigenen. Die Phase charter hält die Kategorien fest, für die ihre Lesart des Projekts spricht, und npx lagune write add --categories ändert sie.',
+    },
+    {
+      question:
+        'Muss ich mit der Entwicklung fertig sein, bevor ich mein Projekt absichere?',
+      answer:
+        'Nein. Der Befehl /lagune härtet die Arbeit schon beim Schreiben: Er nimmt jeden Prompt an, setzt um, was du verlangt hast, und härtet es mit sicheren Standardwerten, geleitet von den Sicherheitsprinzipien. Der Blue-Team-Workflow in fünf Phasen auditiert, was bereits existiert.',
+    },
+    {
+      question: 'Kann Lagune ein bestehendes Projekt auditieren?',
+      answer:
+        'Ja. Der Blue-Team-Workflow in fünf Phasen auditiert, was bereits existiert: charter legt deine Sicherheitsregeln fest, detect erfasst, was das System tut und wo die Risiken liegen, plan bewertet jeden Befund und ordnet ihm eine Korrektur zu, harden setzt die Korrekturen um, und verify weist nach, dass sie greifen, und schließt sie ab.',
+    },
+    {
+      question:
+        'Was unterscheidet die Arbeit mit Lagune davon, den Agenten einfach zu bitten, Schwachstellen und Sicherheitslücken zu erfassen?',
+      answer:
+        'Ein Agent, der den Code auf eigene Faust liest, findet, was nach einer Schwachstelle aussieht, und übergeht, was nach einer Schutzmaßnahme aussieht. Eine Liste gesperrter Adressen wirkt, als hätte sich schon jemand um das Risiko gekümmert, also prüft niemand nach, dass ihr die meisten fehlen, und der Code wird ausgeliefert. Lagune kehrt diese Grundannahme um: Eine Schutzvorkehrung, die schon im Code steht, gilt als nicht nachgewiesen, bis sie geprüft ist, jede Spezialisierung im Katalog bekommt ein ausdrückliches Urteil, und verify fragt, ob das Risiko beseitigt ist, nicht, ob eine Schutzmaßnahme vorhanden ist. Außerdem bleibt jeder Befund über alle Durchläufe hinweg ein einziger nachverfolgter Eintrag, sodass sich sein Abschluss nachweisen lässt und er ausgetragen werden kann, während dir eine einfache Anfrage jedes Mal einen anderen Bericht liefert, ohne Vergleichsgrundlage.',
+    },
+    {
+      question:
+        'Was unterscheidet die Entwicklung mit Lagune davon, den Agenten einfach zu bitten, sicheren Code zu schreiben?',
+      answer:
+        'Die Bitte um sicheren Code überlässt dem Agenten, was sicher bedeutet, und setzt voraus, dass du weißt, wonach du fragen musst. Die Anforderung steckt meist schon in deiner Anfrage, ohne dass einer von euch beiden sie sieht: Wenn du eine Seite verlangst, die die Kurse zeigt, auf die ein Nutzer Zugriff hat, formulierst du damit eine Autorisierungsregel, und eine Prüfung, die nie geschrieben wird, hinterlässt im Code nichts, was auffallen könnte. Der Befehl /lagune lädt deine Sicherheitsprinzipien und die Spezialisierungen, die zu dem passen, was gleich entstehen soll, bevor die erste Zeile geschrieben ist, und prüft das Ergebnis danach noch einmal anhand der Verteidigung, die er eingesetzt hat. Die sichere Variante kostet selten mehr als die unsichere, also entscheidet das Wissen, zu welcher du greifen musst, über das Ergebnis, und genau dieses Wissen ist von Anfang an da.',
+    },
+    {
+      question:
+        'Führt Lagune DAST (Dynamic Application Security Testing) durch oder testet es meine laufende Anwendung?',
+      answer:
+        'Nein. Lagune liest Code und führt dein System nie aus oder schickt ihm manipulierte Anfragen. Die Phase verify bestätigt, dass eine Schutzmaßnahme im Quellcode vorhanden und korrekt ist, und das ist eine andere Frage als die, ob sie einem Angriff auf ein laufendes Ziel standhält, daher ist "cannot tell from the code" ein legitimes Urteil statt eines stillschweigenden Durchwinkens. DAST beantwortet die Frage zur Laufzeit und Lagune die Frage zum Quellcode, sodass keines das andere ersetzt. Selbst der optionale Befehl prove hält sich an diese Grenze: Seine Tests prüfen das sichere Verhalten, nie Angriffs-Payloads.',
+    },
+    {
+      question: 'Ersetzt Lagune einen Pentest (Penetrationstest)?',
+      answer:
+        'Nein, auf keinen Fall! Ein Pentest ist ein autorisierter Auftrag, bei dem eine Fachperson mit eigenem Urteilsvermögen gegen dein laufendes System vorgeht, Befunde verkettet und die Geschäftslogik untersucht, die keine Regel pro Angriffsfläche beschreibt. Befunde aus einem Pentest können in den Blue-Team-Workflow von Lagune einfließen, indem du sie der Phase detect als Anliegen übergibst, sodass das, was eine Fachperson meldet, geplant, gehärtet und überprüft wird.',
+    },
+  ]}
+/>
+
+## Sicherheitsrichtlinie
+
+Bitte lies die [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md).
+
+## Lizenz
+
+**Lagune** steht unter der [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE).
+
+Copyright © 2026-heute [Weslley Araújo](https://github.com/wellwelwel) und [Mitwirkende](https://github.com/wellwelwel/lagune/graphs/contributors).

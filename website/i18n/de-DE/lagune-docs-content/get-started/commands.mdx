@@ -1,0 +1,101 @@
+---
+id: commands
+title: Sicherheits-Skills für KI-Agenten
+sidebar_label: Skills
+description: 'Die Skills, die dein KI-Agent mit Lagune freischaltet: ein bestehendes Projekt auditieren oder neue Arbeit schon beim Entwickeln absichern, stets nach deinen Sicherheitsprinzipien.'
+keywords:
+  - lagune skills
+  - charter
+  - detect
+  - plan
+  - harden
+  - verify
+  - Slash-Befehle
+source_hash: 'e34c6589c180b121ae8e1f366ac2be88f76ff6ba219679daeb30c0bf9f3f1036'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Sobald **Lagune** [installiert](/docs) ist, schaltet dein **KI**-Agent eine Reihe von Skills frei. Es gibt zwei Wege, sie zu nutzen, und beide folgen deinen **Sicherheitsprinzipien**: neue Arbeit schon beim Entwickeln absichern oder das vollständige Audit über ein Projekt laufen lassen.
+
+<Tabs queryString="mode">
+  <TabItem value="build" label="⌨️ Bauen / Entwickeln" default>
+
+Du musst deine Arbeit nicht erst fertigstellen, bevor du sie absicherst. Nutze [**`/lagune`**](/docs/commands/lagune) für die Arbeit, die du **gerade jetzt** schreibst:
+
+| Skill                                         | Was er für dich tut                                                                                   |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [**/lagune-charter**](/docs/commands/charter) | Legt die Sicherheitsregeln deines Projekts fest, die Grundlage, auf der `/lagune` aufbaut             |
+| [**/lagune**](/docs/commands/lagune)          | Baut, worum du bittest, und härtet es schon beim Schreiben, geleitet von deinen Sicherheitsprinzipien |
+
+:::tip[Nutze ihn jederzeit]
+[**`/lagune`**](/docs/commands/lagune) befolgt die Regeln deiner Sicherheitsprinzipien bei jeder Ausführung. Er nimmt jeden Prompt an, baut, worum du gebeten hast, und härtet es dabei mit sicheren Standardwerten, nicht erst später.
+:::
+
+---
+
+#### Spezielle Skills
+
+| Skill                                               | Was er tut                                                                                           |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Bringt **Lagune** anhand von Artikeln, Exploits oder Themen eine neue Sicherheitsspezialisierung bei |
+
+  </TabItem>
+  <TabItem value="audit" label="🔬 Auditieren: Blue-Team-Workflow">
+
+Der vollständige **Blue-Team-Workflow**: lesen, was ein Projekt tut, seine Risiken erfassen und schließen. Jede Phase baut auf der vorherigen auf, du musst der Liste also nur von oben nach unten folgen:
+
+| #   | Skill                                         | Was er für dich tut                                                                                       |
+| --- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 1   | [**/lagune-charter**](/docs/commands/charter) | Legt die Sicherheitsregeln deines Projekts fest, für dich vorgeschlagen oder nach deinen Vorgaben geformt |
+| 2   | [**/lagune-detect**](/docs/commands/detect)   | Liest deinen Code und erfasst, was dein System tut und wo die Risiken liegen                              |
+| 3   | [**/lagune-plan**](/docs/commands/plan)       | Macht aus dem, was detect gefunden hat, einen Abwehrplan mit einer Korrektur für jeden Befund             |
+| 4   | [**/lagune-harden**](/docs/commands/harden)   | Setzt die Korrekturen des Plans in deinem Code um, sicher und eine nach der anderen                       |
+| 5   | [**/lagune-verify**](/docs/commands/verify)   | Weist nach, dass jede umgesetzte Korrektur greift, und schließt die ab, die den Nachweis bestehen         |
+
+---
+
+#### Spezielle Skills
+
+| Skill                                               | Was er tut                                                                                                             |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Bringt **Lagune** anhand von Artikeln, Exploits oder Themen eine neue Sicherheitsspezialisierung bei                   |
+| [**/lagune-prove**](/docs/commands/prove)           | Macht aus jedem erkannten Befund einen ausführbaren, ausschließlich defensiven Nachweis für die Responsible Disclosure |
+
+---
+
+#### Interne Skills
+
+| Skill                                       | Was er tut                                          |
+| ------------------------------------------- | --------------------------------------------------- |
+| [**/lagune-repair**](/docs/commands/repair) | Repariert die interne Nachverfolgung von **Lagune** |
+
+:::tip
+Sicherheit ist kein Kostenfaktor, sondern eine Investition: Was du am Anfang hineinsteckst, sparst du bei den Vorfällen, die du nie erlebst, um ein Vielfaches wieder ein 🙋🏻‍♂️
+:::
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'Welche Skills bringt Lagune mit?',
+      answer:
+        '/lagune, um Arbeit schon beim Entwickeln zu härten, und den Blue-Team-Workflow für Audits in fünf Phasen: /lagune-charter, /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Dazu kommen /lagune-specialize und /lagune-prove.',
+    },
+    {
+      question: 'Was ist der Blue-Team-Workflow von Lagune?',
+      answer:
+        'Ein Audit in fünf Phasen: charter (Regeln festlegen), detect (Risiken erfassen), plan (bewerten und Korrekturen planen), harden (Korrekturen umsetzen), verify (nachweisen, dass sie greifen, und sie abschließen).',
+    },
+    {
+      question:
+        'Was ist der Unterschied zwischen /lagune und dem Audit-Workflow?',
+      answer:
+        '/lagune sichert neue Arbeit schon beim Schreiben ab, ohne einen Workflow, dem du folgen musst. Der Audit-Workflow wendet die fünf Phasen der Reihe nach auf ein bestehendes Projekt an.',
+    },
+  ]}
+/>

@@ -1,0 +1,137 @@
+---
+id: claude-code
+title: 'Lagune als Plugin in Claude Code installieren'
+sidebar_label: Claude Code
+parent: get-started/install
+description: Installiere Lagune als Plugin in Claude Code, im Terminal, in der Erweiterung oder in der Desktop-App, halte es aktuell und gib die Engine vorab frei.
+keywords:
+  - claude code
+  - claude code plugin
+  - claude code vs code
+  - claude desktop
+  - plugin marketplace
+  - lagune installieren
+  - einrichten
+  - KI-Sicherheit
+  - KI-Agenten
+source_hash: '14579b30d4f66f17f3f80f8be28ba0a6d3ca7e6dd2474fcaf8966badf4628d4a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Claude Code' />
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="Terminal" default>
+
+Installiere das Plugin über dein Terminal:
+
+```bash
+claude plugin install lagune --marketplace wellwelwel/lagune
+```
+
+Oder in einer Sitzung von **Claude Code**:
+
+```text
+/plugin marketplace add wellwelwel/lagune
+/plugin install lagune@lagune
+```
+
+</TabItem>
+<TabItem value="extension" label="Erweiterung">
+
+- Gib `/plugin` ein und wähle **Manage plugins**.
+- Füge `wellwelwel/lagune` im Tab **Marketplaces** hinzu.
+- Installiere `lagune` im Tab **Plugins**.
+
+</TabItem>
+<TabItem value="desktop" label="Desktop">
+
+- Installiere **Lagune** über das Terminal oder die Erweiterung und wähle in der Erweiterung **Install for you**.
+- Starte eine neue Sitzung in der Desktop-App: Sie lädt die Plugins, die du für dich selbst installierst.
+
+</TabItem>
+</Tabs>
+
+## Aktualisierung
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="Terminal" default>
+
+Um **Lagune** zu aktualisieren, führe Folgendes aus:
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+Für automatische Aktualisierungen wähle beim Marketplace `lagune` unter `/plugin` die Option **Enable auto-update**.
+
+</TabItem>
+<TabItem value="extension" label="Erweiterung">
+
+- Gib `/plugin` ein und wähle **Manage plugins**.
+- Öffne den Tab **Marketplaces**.
+- Wähle das Aktualisierungssymbol bei `lagune`.
+
+</TabItem>
+<TabItem value="desktop" label="Desktop">
+
+- Aktualisiere **Lagune** über das Terminal oder die Erweiterung.
+- Starte eine neue Sitzung in der Desktop-App.
+
+</TabItem>
+</Tabs>
+
+## Befehle
+
+Gib die Befehle mit ihrem Namen ein, etwa `/lagune-charter`, oder mit vorangestelltem Plugin-Namen, etwa `/lagune:lagune-charter`.
+
+---
+
+:::info[Berechtigungen]
+
+Die Engine läuft über zwei Tools: `lagune_read` liest nur dein Projekt und `lagune_write` schreibt nur in `.lagune/`. Um sie vorab zu erlauben, füge diese Regeln für ein einzelnes Projekt zu `.claude/settings.json` hinzu oder für alle Projekte zu `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_lagune_lagune__lagune_read",
+      "mcp__plugin_lagune_lagune__lagune_write"
+    ]
+  }
+}
+```
+
+Läuft die Engine über **npx**, wie bei **skills.sh**, erlaube `Bash(npx --yes lagune@*)`. Ist die Sandbox aktiv, füge außerdem `registry.npmjs.org` zu `sandbox.network.allowedDomains` hinzu.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Wie installiere ich Lagune in Claude Code?',
+      answer:
+        'Führe claude plugin install lagune --marketplace wellwelwel/lagune aus. In einer Sitzung oder in der Erweiterung fügst du über die Plugin-Verwaltung den Marketplace wellwelwel/lagune hinzu und installierst lagune. Die Desktop-App lädt das Plugin, sobald du es im Terminal oder in der Erweiterung für dich selbst installierst.',
+    },
+    {
+      question: 'Wie aktualisiere ich Lagune in Claude Code?',
+      answer:
+        'Führe claude plugin marketplace update lagune aus, dann claude plugin update lagune@lagune, oder wähle beim Marketplace lagune unter /plugin die Option Enable auto-update. In der Erweiterung öffnest du über /plugin den Bereich Manage plugins und wählst das Aktualisierungssymbol beim Marketplace lagune. Die Desktop-App lädt die Aktualisierung in ihrer nächsten Sitzung.',
+    },
+    {
+      question: 'Wie führe ich die Befehle von Lagune in Claude Code aus?',
+      answer:
+        'Gib sie mit ihrem Namen ein, etwa /lagune-charter, oder mit vorangestelltem Plugin-Namen, etwa /lagune:lagune-charter.',
+    },
+    {
+      question: 'Kann Claude Code Lagune ohne Rückfrage ausführen?',
+      answer:
+        'Ja. Erlaube mcp__plugin_lagune_lagune__lagune_read und mcp__plugin_lagune_lagune__lagune_write in den Einstellungen von Claude Code, dazu Bash(npx --yes lagune@*), wenn die Engine über npx läuft.',
+    },
+  ]}
+/>
