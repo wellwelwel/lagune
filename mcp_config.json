@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "lagune": {
+      "command": "node",
+      "args": ["${PLUGIN_ROOT}/lib/bin/index.js", "mcp"],
+      "tools": {
+        "lagune_read": { "eager": true },
+        "lagune_write": { "eager": true }
+      }
+    }
+  }
+}
