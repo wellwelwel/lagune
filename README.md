@@ -193,15 +193,6 @@ To update **Lagune**, run:
 npx skills update
 ```
 
-> [!NOTE]
->
-> If your agent still lists the commands with a dot, such as `/lagune.charter`, remove them and add **Lagune** again:
->
-> ```bash
-> npx skills remove wellwelwel/lagune
-> npx skills add wellwelwel/lagune
-> ```
-
 </details>
 
 ---
