@@ -1,4 +1,4 @@
-<img src="./website/static/img/banner.png" />
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/banner.png" />
 
 # 🪼 [Lagune AI](https://lagune.ai)
 
@@ -31,7 +31,7 @@ Pick your agent:
 <th width="50%" align="left">Update</th>
 </tr>
 <tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Code</b></a></td>
+<td colspan="2"><picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Code</b></a></td>
 </tr>
 <tr>
 <td>
@@ -51,7 +51,7 @@ claude plugin update lagune@lagune
 </td>
 </tr>
 <tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Code Extension</b></a></td>
+<td colspan="2"><picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/claude.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/claude-code"><b>Claude Code Extension</b></a></td>
 </tr>
 <tr>
 <td>
@@ -70,7 +70,7 @@ claude plugin update lagune@lagune
 </td>
 </tr>
 <tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/codex.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/codex"><b>Codex</b></a></td>
+<td colspan="2"><picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/codex.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/codex"><b>Codex</b></a></td>
 </tr>
 <tr>
 <td>
@@ -91,20 +91,20 @@ codex plugin marketplace upgrade lagune
 </tr>
 </table>
 
-- <picture><img src="./.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> [**Antigravity**](https://lagune.ai/docs/install/antigravity-cli)
-- <picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> [**Cursor**](https://lagune.ai/docs/install/cursor)
-- <picture><img src="./.github/readme/assets/agents/devin.svg" width="20" align="absmiddle" /></picture> [**Devin for Terminal**](https://lagune.ai/docs/install/devin-cli)
-- <picture><img src="./.github/readme/assets/agents/droid.svg" width="20" align="absmiddle" /></picture> [**Factory Droid**](https://lagune.ai/docs/install/factory-droid)
-- <picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> [**Gemini CLI**](https://lagune.ai/docs/install/gemini-cli)
-- <picture><img src="./.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> [**GitHub Copilot**](https://lagune.ai/docs/install/github-copilot-cli)
-- <picture><img src="./.github/readme/assets/agents/grok.svg" width="20" align="absmiddle" /></picture> [**Grok Build**](https://lagune.ai/docs/install/grok-build)
-- <picture><img src="./.github/readme/assets/agents/hermes.svg" width="20" align="absmiddle" /></picture> [**Hermes Agent**](https://lagune.ai/docs/install/hermes-agent)
-- <picture><img src="./.github/readme/assets/agents/kimi.svg" width="20" align="absmiddle" /></picture> [**Kimi Code**](https://lagune.ai/docs/install/kimi-code)
-- <picture><img src="./.github/readme/assets/agents/muse.svg" width="20" align="absmiddle" /></picture> [**Muse Code**](https://lagune.ai/docs/install/muse-code)
-- <picture><img src="./.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> [**OpenCode**](https://lagune.ai/docs/install/opencode)
-- <picture><img src="./.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> [**Pi**](https://lagune.ai/docs/install/pi)
-- <picture><img src="./.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> [**Qwen Code**](https://lagune.ai/docs/install/qwen-code)
-- <picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh)**](https://lagune.ai/docs/install/universal)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> [**Antigravity**](https://lagune.ai/docs/install/antigravity-cli)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> [**Cursor**](https://lagune.ai/docs/install/cursor)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/devin.svg" width="20" align="absmiddle" /></picture> [**Devin for Terminal**](https://lagune.ai/docs/install/devin-cli)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/droid.svg" width="20" align="absmiddle" /></picture> [**Factory Droid**](https://lagune.ai/docs/install/factory-droid)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> [**Gemini CLI**](https://lagune.ai/docs/install/gemini-cli)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> [**GitHub Copilot**](https://lagune.ai/docs/install/github-copilot-cli)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/grok.svg" width="20" align="absmiddle" /></picture> [**Grok Build**](https://lagune.ai/docs/install/grok-build)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/hermes.svg" width="20" align="absmiddle" /></picture> [**Hermes Agent**](https://lagune.ai/docs/install/hermes-agent)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/kimi.svg" width="20" align="absmiddle" /></picture> [**Kimi Code**](https://lagune.ai/docs/install/kimi-code)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/muse.svg" width="20" align="absmiddle" /></picture> [**Muse Code**](https://lagune.ai/docs/install/muse-code)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> [**OpenCode**](https://lagune.ai/docs/install/opencode)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> [**Pi**](https://lagune.ai/docs/install/pi)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> [**Qwen Code**](https://lagune.ai/docs/install/qwen-code)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh)**](https://lagune.ai/docs/install/universal)
 
 > [!NOTE]
 >
@@ -182,11 +182,11 @@ It serves a dashboard and opens it on a random port:
 <summary>Overview</summary>
 <br />
 
-<img width="320" src="./website/static/img/dashboard/02.png" />
-<img width="320" src="./website/static/img/dashboard/03.png" />
-<img width="320" src="./website/static/img/dashboard/04.png" />
-<img width="320" src="./website/static/img/dashboard/05.png" />
-<img width="320" src="./website/static/img/dashboard/06.png" />
+<img width="320" src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/dashboard/02.png" />
+<img width="320" src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/dashboard/03.png" />
+<img width="320" src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/dashboard/04.png" />
+<img width="320" src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/dashboard/05.png" />
+<img width="320" src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/dashboard/06.png" />
 
 </details>
 
