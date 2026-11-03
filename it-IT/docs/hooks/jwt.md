@@ -1,0 +1,74 @@
+# Hook jwt: rileva la verifica JWT senza algoritmo fissato
+
+> Analizza una codebase alla ricerca di verifiche JWT che non fissano l'algoritmo, oppure valuta una singola chiamata, dalla riga di comando.
+
+Canonico: https://lagune.ai/it-IT/docs/hooks/jwt
+Lingua: it-IT
+Originale: https://lagune.ai/docs/hooks/jwt
+Ultimo aggiornamento: 2026-11-03
+
+L'hook `jwt` segnala la **verifica dei JWT senza un algoritmo fissato**, la falla di algorithm confusion in cui chi verifica si fida dell'header `alg` del token stesso, e la **verifica disattivata del tutto**. È **consapevole del linguaggio**, legge ogni file in base alla sua libreria JWT, ed è il motore deterministico dietro la [specializzazione `federation`](https://lagune.ai/it-IT/docs/catalog), che puoi eseguire tu stesso in modalità **scan** o **check**.
+
+## Come eseguirlo
+
+**Analizza la codebase**
+
+```bash
+npx lagune read jwt                # scans the whole project
+npx lagune read jwt --dir src      # scans a directory
+npx lagune read jwt --file auth.ts # scans a single file
+```
+
+**Controlla una chiamata**
+
+```bash
+npx lagune read jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
+```
+
+Ogni riga sotto **Unpinned JWT verification found** è una chiamata di verifica che non imposta alcuna allowlist `algorithms` (dove la libreria ne richiede una), ne accetta una non sicura (`none`, o un algoritmo asimmetrico mescolato con HMAC) o disattiva del tutto il controllo della firma, e quindi si fida dell'`alg` del token stesso. È un'esposizione confermata, quindi l'hook esce con un codice diverso da zero. Un'esecuzione pulita stampa `no unpinned JWT verification found`.
+
+## Come leggere il verdetto
+
+| Verdetto   | Significato                                                                                                                  |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `unpinned` | Una chiamata di verifica senza allowlist di algoritmi (dove ne serve una), con una non sicura o con la verifica disattivata. |
+| `safe`     | Una chiamata di verifica che fissa una allowlist di algoritmi solida, o la cui libreria la fissa implicitamente.             |
+| `invalid`  | Il frammento non contiene alcuna chiamata di verifica riconoscibile da giudicare.                                            |
+
+### Opzioni della CLI
+
+| Opzione     | Valore                 | Descrizione                                                                                          |
+| ----------- | ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| `--pattern` | un frammento di codice | Controlla una chiamata. Ripetila per controllarne diverse, un verdetto per riga.                     |
+| `--lang`    | un linguaggio          | Obbligatoria con `--pattern`: uno tra javascript, python, go, java, kotlin, php, ruby, rust, csharp. |
+| `--dir`     | una directory          | Limita l'analisi a una directory. Si ripete e si combina con `--file`.                               |
+| `--file`    | un file                | Limita l'analisi a un singolo file. Si ripete e si combina con `--dir`.                              |
+
+Senza opzioni analizza l'intero progetto. `--pattern` richiede `--lang` e non si può combinare con `--dir` o `--file`.
+
+### Linguaggi supportati
+
+L'analisi legge queste librerie, riconosciute dall'estensione del file. Dato che alcune fissano l'algoritmo implicitamente (l'assenza di un elenco esplicito è corretta), la regola "nessuna allowlist ⇒ unpinned" si applica solo dove la libreria se ne aspetta una esplicita, così una chiamata configurata correttamente non viene mai segnalata.
+
+| Linguaggio                  | Libreria                | Segnala come unpinned l'assenza di allowlist?                                          | Segnala sempre                                  |
+| --------------------------- | ----------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **JavaScript / TypeScript** | jsonwebtoken, jose      | Sì                                                                                     | `none`, mix asimmetrico+HMAC                    |
+| **Python**                  | PyJWT, python-jose      | Sì (PyJWT la richiede, python-jose usa per impostazione predefinita `algorithms=None`) | `none`, `verify_signature: False`               |
+| **Go**                      | golang-jwt              | Sì (senza `WithValidMethods`)                                                          | `none`, `ParseUnverified`                       |
+| **Ruby**                    | ruby-jwt                | Sì                                                                                     | `none`, `verify = false`                        |
+| **Java / Kotlin**           | jjwt, nimbus            | No (derivato dalla chiave)                                                             | `none`, un parser unsigned/`unsecured`          |
+| **PHP**                     | firebase/php-jwt        | No (`Key` porta con sé l'algoritmo)                                                    | `none`                                          |
+| **Rust**                    | jsonwebtoken            | No (`Validation` ne richiede uno)                                                      | `none`, `insecure_disable_signature_validation` |
+| **C#**                      | Microsoft.IdentityModel | No (parametri su più righe)                                                            | `none`, `RequireSignedTokens = false`           |
+
+**Suggerimento**
+
+L'hook decide solo se l'algoritmo è fissato: i controlli su claim, chiavi e flussi restano valutazioni coperte dalla [specializzazione `federation`](https://lagune.ai/it-IT/docs/catalog).
+
+## Domande frequenti
+
+### Che cos'è l'algorithm confusion nei JWT?
+
+Un verificatore che legge l'algoritmo dall'header del token permette a un attaccante di sostituire RS256 con HS256 e firmare con la chiave pubblica. Fissare nel codice una allowlist di algoritmi solida lo impedisce, e l'hook jwt segnala una chiamata di verifica che non ne imposta nessuna o ne imposta una non sicura.

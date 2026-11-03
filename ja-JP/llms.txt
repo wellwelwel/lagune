@@ -63,3 +63,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 - [简体中文](https://lagune.ai/zh-CN/llms.txt)
 - [Español (España)](https://lagune.ai/es-ES/llms.txt)
 - [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)

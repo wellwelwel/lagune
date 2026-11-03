@@ -63,3 +63,7 @@ Jeder Link unter Dokumentation führt zur reinen Markdown-Version der jeweiligen
 - [简体中文](https://lagune.ai/zh-CN/llms.txt)
 - [日本語](https://lagune.ai/ja-JP/llms.txt)
 - [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)

@@ -1,0 +1,95 @@
+# Hook cvss: valuta un vettore CVSS v4.0
+
+> Calcola il punteggio di uno o più vettori CVSS v4.0 dalla riga di comando, con la stessa aritmetica del calcolatore di FIRST, e rileggili in parole semplici.
+
+Canonico: https://lagune.ai/it-IT/docs/hooks/cvss
+Lingua: it-IT
+Originale: https://lagune.ai/docs/hooks/cvss
+Ultimo aggiornamento: 2026-11-03
+
+L'hook `cvss` calcola il punteggio di un **vettore CVSS v4.0** e ne stampa il punteggio e la fascia di gravità, la valutazione che [`/lagune-plan`](https://lagune.ai/it-IT/docs/commands/plan) scrive su ogni correzione e [`/lagune-prove`](https://lagune.ai/it-IT/docs/commands/prove) su ogni bollettino. È il motore deterministico dietro quelle valutazioni, con la stessa aritmetica del [calcolatore di FIRST](https://www.first.org/cvss/calculator/4.0), e puoi eseguirlo tu stesso.
+
+## Come eseguirlo
+
+Passa ogni vettore con `--vector`. L'hook stampa una riga per vettore: il suo punteggio e la sua fascia.
+
+**Un vettore**
+
+```bash
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+# => 9.3, Critical
+```
+
+**Più vettori**
+
+Ripeti `--vector` per valutarne diversi insieme, una riga ciascuno, nell'ordine.
+
+```bash
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 9.3, Critical
+# => 8.7, High
+```
+
+**In parole semplici**
+
+Aggiungi `--explain` per rileggere ogni metrica in parole semplici. Quando le metriche Threat o Environmental spostano il punteggio, il solo punteggio Base viene mostrato per primo.
+
+```bash
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 8.7, High
+# =>   Base metrics alone: 9.3, Critical
+# =>   Attack Vector: Network, modified to Adjacent
+# =>   Attack Complexity: Low
+# =>   ...
+```
+
+## Come leggere il risultato
+
+| Fascia     | Punteggio     |
+| ---------- | ------------- |
+| `None`     | 0.0           |
+| `Low`      | da 0.1 a 3.9  |
+| `Medium`   | da 4.0 a 6.9  |
+| `High`     | da 7.0 a 8.9  |
+| `Critical` | da 9.0 a 10.0 |
+
+Un vettore con le sole metriche Base valuta la falla in sé, ipotizzando il caso peggiore: ogni requisito di sicurezza High e la falla sfruttata attivamente. Le metriche Environmental (`MAV` e le altre metriche modificate, più `CR`, `IR` e `AR`) la definiscono per un singolo deployment, e la metrica Threat (`E`) in base a ciò che si sa del suo sfruttamento.
+
+Un vettore non valido stampa `invalid vector:` e cosa c'è di sbagliato, e l'hook esce con un codice diverso da zero.
+
+### Opzioni della CLI
+
+| Opzione     | Valore                | Descrizione                                                                           |
+| ----------- | --------------------- | ------------------------------------------------------------------------------------- |
+| `--vector`  | un vettore `CVSS:4.0` | Valuta un vettore. Ripetila per valutarne diversi, una riga per vettore, nell'ordine. |
+| `--explain` |                       | Aggiunge ogni metrica in parole semplici sotto ogni riga di valutazione.              |
+
+Serve almeno un `--vector`. Il vettore non è mai un argomento posizionale semplice, quindi non può essere scambiato per un flag.
+
+**Perché il valore di un flag**
+
+Ogni vettore viene passato come valore di un flag, mai interpolato nel comando. Un valore con virgolette o backtick resta inerte e non può iniettare nulla nella shell. Racchiudilo sempre tra apici singoli, così la tua shell non lo espande prima.
+
+**Cosa non copre**
+
+Solo CVSS v4.0: un vettore v2.0, v3.0 o v3.1 viene rifiutato invece che valutato, perché **Lagune** valuta ogni rilievo in v4.0.
+
+**Suggerimento**
+
+La validazione della fase plan riesegue questa stessa aritmetica su ogni riga CVSS, così un punteggio che si è discostato dal suo vettore viene individuato prima che il piano venga accettato.
+
+## Domande frequenti
+
+### Come calcola Lagune un punteggio CVSS?
+
+L'hook cvss segue il calcolatore di riferimento di FIRST per CVSS v4.0, quindi un vettore ottiene esattamente lo stesso punteggio che ha sul sito di FIRST.
+
+### Posso valutare con esso un vettore CVSS v3.1?
+
+No. Lagune valuta ogni rilievo in CVSS v4.0, e l'hook rifiuta qualsiasi altra versione invece di valutarla.
+
+### Cosa fa il flag --explain?
+
+Rilegge ogni metrica in parole semplici e mostra il punteggio Base accanto a quello complessivo, così chiunque può vedere cosa dice il vettore e come il contesto del progetto lo ha spostato.

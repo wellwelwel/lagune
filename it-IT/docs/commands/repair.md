@@ -1,0 +1,33 @@
+# /lagune-repair: ripara il tracciamento dei rilievi
+
+> Ripara la catena quando un file rinominato o spostato confonde il tracciamento di Lagune.
+
+Canonico: https://lagune.ai/it-IT/docs/commands/repair
+Lingua: it-IT
+Originale: https://lagune.ai/docs/commands/repair
+Ultimo aggiornamento: 2026-11-03
+
+🧰 Ripara la catena quando un file rinominato o spostato la confonde.
+
+**Manutenzione interna, non una fase di sicurezza**
+
+Repair non è una sesta fase del flusso lineare. Il suo compito è mantenere coerente il tracciamento.
+
+```prompt
+# Non accetta input: ripara sempre l'intera catena
+/lagune-repair
+```
+
+## Come funziona
+
+Ogni rilievo di detect è un elemento tracciato che plan, harden e verify portano avanti, ciascuno agendo su di esso e riportandolo per nome. Quel nome, scritto in modo identico come titolo di sezione in ogni artefatto, è la sua identità dall'inizio alla fine.
+
+L'unica cosa volatile che il tracciamento conserva sono i percorsi dei file a cui l'elemento punta. Quei percorsi non si trovano da nessun'altra parte, quindi un file rinominato o spostato può rompere il collegamento solo lì, mai in due copie divergenti. Quando succede, repair corregge la mappa (`.lagune/tracking.json`) perché l'identità sopravviva alla rinomina. Legge gli artefatti e la mappa di tracciamento, legge il tuo sorgente solo per scoprire il nuovo percorso di un file rinominato, e non scrive mai contenuti di sicurezza.
+
+Nello stesso passaggio, confronta ogni artefatto della memoria con il suo template e segnala ciò che si è discostato, indicando per ognuno la fase che lo corregge.
+
+**Suggerimento**
+
+- Non tocca né il tuo codice né gli artefatti in prosa, solo il tracciamento.
+- Raramente lo esegui a mano. Quando una fase nota che la catena è incoerente, esegue repair per te e prosegue.
+- Il tracciamento che mantiene si trova in `.lagune/tracking.json`, uno stato interno che non modifichi mai a mano.

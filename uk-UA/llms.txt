@@ -1,0 +1,69 @@
+# Lagune
+
+> Security-Driven Hardening для будь-якої кодової бази
+
+Lagune є робочим процесом Security-Driven Hardening (SDH) з відкритим кодом, суто оборонним. Він допомагає вашому ШІ-агенту посилити захист будь-якої кодової бази будь-якою мовою на кожному етапі: фаза charter встановлює правила безпеки ще до розробки, універсальна команда /lagune посилює захист роботи під час написання коду, а п'ятифазний процес Blue Team визначає, що насправді робить ваша система, і спрямовує виправлення, важливі для цього контексту. Його команди встановлюються у ваш агент через CLI skills, і API-ключ не потрібен.
+
+Кожне посилання в розділі "Документація" веде на версію сторінки у звичайному Markdown. Приберіть суфікс .md, щоб відкрити вебсторінку. Увесь корпус в одному файлі: https://lagune.ai/uk-UA/llms-full.txt
+
+## Документація
+
+- [Встановлення: посилення захисту для будь-якого ШІ-агента](https://lagune.ai/uk-UA/docs.md): Встановіть Lagune у будь-який проєкт як плагін, якщо ваш агент його підтримує, або через CLI skills в інших випадках, а потім оберіть спеціалізації з безпеки, що йому підходять.
+- [Встановлення Lagune в Antigravity CLI як плагіна](https://lagune.ai/uk-UA/docs/install/antigravity-cli.md): Встановіть Lagune в Antigravity CLI як плагін, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+- [Встановлення Lagune у Claude Code як плагіна](https://lagune.ai/uk-UA/docs/install/claude-code.md): Встановіть Lagune у Claude Code як плагін у терміналі, розширенні чи десктопному застосунку, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+- [Встановлення Lagune в Codex CLI як плагіна](https://lagune.ai/uk-UA/docs/install/codex.md): Встановіть Lagune в Codex CLI як плагін, підтримуйте його оновленим і запускайте його рушій у пісочниці.
+- [Встановлення Lagune у Cursor як плагіна](https://lagune.ai/uk-UA/docs/install/cursor.md): Встановіть Lagune у Cursor і Cursor CLI як плагін, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+- [Встановлення Lagune в Devin CLI як плагіна](https://lagune.ai/uk-UA/docs/install/devin-cli.md): Встановіть Lagune в Devin CLI як плагін і підтримуйте його оновленим.
+- [Встановлення Lagune у Factory Droid як плагіна](https://lagune.ai/uk-UA/docs/install/factory-droid.md): Встановіть Lagune у Factory Droid як плагін, підтримуйте його оновленим і дозвольте інструменти його рушія.
+- [Встановлення Lagune в Gemini CLI як розширення](https://lagune.ai/uk-UA/docs/install/gemini-cli.md): Встановіть Lagune в Gemini CLI як розширення, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+- [Встановлення Lagune у GitHub Copilot CLI як плагіна](https://lagune.ai/uk-UA/docs/install/github-copilot-cli.md): Встановіть Lagune у GitHub Copilot CLI як плагін і підтримуйте його оновленим.
+- [Встановлення Lagune у Grok Build як плагіна](https://lagune.ai/uk-UA/docs/install/grok-build.md): Встановіть Lagune у Grok Build як плагін, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+- [Встановлення Lagune в Hermes Agent як плагіна](https://lagune.ai/uk-UA/docs/install/hermes-agent.md): Встановіть Lagune в Hermes Agent як плагін і підтримуйте його оновленим.
+- [Встановлення Lagune у Kimi Code як плагіна](https://lagune.ai/uk-UA/docs/install/kimi-code.md): Встановіть Lagune у Kimi Code як плагін і підтримуйте його оновленим.
+- [Встановлення Lagune у Muse Code як плагіна](https://lagune.ai/uk-UA/docs/install/muse-code.md): Встановіть Lagune у Muse Code як плагін, підтримуйте його оновленим і запускайте його рушій у пісочниці.
+- [Встановлення Lagune в OpenCode як плагіна](https://lagune.ai/uk-UA/docs/install/opencode.md): Встановіть Lagune в OpenCode 1.x і 2.x як плагін і підтримуйте його оновленим.
+- [Встановлення Lagune у Pi як пакета](https://lagune.ai/uk-UA/docs/install/pi.md): Встановіть Lagune у Pi як пакет з npm чи GitHub і підтримуйте його оновленим.
+- [Встановлення Lagune у Qwen Code як розширення](https://lagune.ai/uk-UA/docs/install/qwen-code.md): Встановіть Lagune у Qwen Code як розширення, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
+- [Встановлення Lagune у будь-який агент через skills.sh](https://lagune.ai/uk-UA/docs/install/universal.md): Встановіть Lagune у будь-який ШІ-агент через CLI skills і підтримуйте його оновленим.
+- [Навички безпеки для ШІ-агентів](https://lagune.ai/uk-UA/docs/get-started/commands.md): Навички, які ваш ШІ-агент отримує з Lagune: перевірка наявного проєкту або захист нової роботи під час розробки, і все це за принципами безпеки.
+- [Дашборд](https://lagune.ai/uk-UA/docs/get-started/dashboard.md): Переглядайте принципи безпеки, знахідки й каталог свого проєкту в локальному огляді наживо, що відкривається однією командою.
+- [/lagune: захищайте код, поки його пише ваш ШІ](https://lagune.ai/uk-UA/docs/commands/lagune.md): Створюйте те, що просите, і посилюйте захист під час написання коду, за принципами безпеки, без жодного процесу, якого треба дотримуватися.
+- [/lagune-charter: встановіть принципи безпеки](https://lagune.ai/uk-UA/docs/commands/charter.md): Встановіть принципи безпеки свого проєкту, правила, яких дотримується кожна наступна фаза, і запишіть категорії спеціалізацій, які підтверджує аналіз проєкту.
+- [/lagune-detect: визначте, що робить ваша система і де ризики](https://lagune.ai/uk-UA/docs/commands/detect.md): Прочитайте свій код і визначте, що робить ваша система і де ризики.
+- [/lagune-plan: оцініть знахідки й сплануйте виправлення](https://lagune.ai/uk-UA/docs/commands/plan.md): Перетворіть те, що знайшла фаза detect, на план захисту, оцінивши кожну знахідку за категорією й оцінкою CVSS v4.0 і підібравши до неї виправлення.
+- [/lagune-harden: застосуйте виправлення безпеки до свого коду](https://lagune.ai/uk-UA/docs/commands/harden.md): Застосуйте виправлення з плану до свого коду, безпечно й по одному.
+- [/lagune-verify: доведіть, що засоби захисту діють](https://lagune.ai/uk-UA/docs/commands/verify.md): Доведіть, що кожне застосоване виправлення діє, а потім закрийте ті, що пройшли перевірку.
+- [Категорії](https://lagune.ai/uk-UA/docs/categories.md): Категорії спеціалізацій, які може використовувати проєкт Lagune, від OWASP до захисту окремих мов, як-от JavaScript, Python, Go і Rust, і як їх змінювати.
+- [Каталог: спеціалізації з безпеки на вимогу](https://lagune.ai/uk-UA/docs/catalog.md): Як завантажуються спеціалізації з каталогу вашого проєкту, фазою на вимогу і вами напряму.
+- [/lagune-specialize: навчіть спеціалізації з безпеки звичайним текстом](https://lagune.ai/uk-UA/docs/commands/specialize.md): Стисло викладіть джерело чи тему з безпеки, які ви надаєте, у нову спеціалізацію на вимогу.
+- [/lagune-prove: суто оборонний Proof of Concept](https://lagune.ai/uk-UA/docs/commands/prove.md): Перетворіть кожну виявлену знахідку на виконуваний, суто оборонний Proof of Concept (PoC) і бюлетень безпеки для відповідального розкриття.
+- [Хук agent: виявлення необмежених циклів агентів](https://lagune.ai/uk-UA/docs/hooks/agent.md): Перевірте кодову базу на виклики агентів і LLM без обмеження кроків чи часу або оцініть окремий виклик просто з командного рядка.
+- [Хук cors: аудит джерел CORS](https://lagune.ai/uk-UA/docs/hooks/cors.md): Перевірте вихідний код на allowlist джерел CORS, який можна обійти, або оцініть окреме значення джерела на надто вільний доступ просто з командного рядка.
+- [Хук crypto: виявлення слабкої криптографії](https://lagune.ai/uk-UA/docs/hooks/crypto.md): Перевірте кодову базу на слабкі криптографічні примітиви або оцініть окремий фрагмент коду просто з командного рядка.
+- [Хук cvss: оцінка вектора CVSS v4.0](https://lagune.ai/uk-UA/docs/hooks/cvss.md): Оцініть один чи кілька векторів CVSS v4.0 з командного рядка за тією самою арифметикою, що й калькулятор FIRST, і прочитайте кожен простими словами.
+- [Хук infra: виявлення помилок конфігурації IaC](https://lagune.ai/uk-UA/docs/hooks/infra.md): Перевірте Terraform, Dockerfile і GitHub Actions на помилки конфігурації або оцініть окремий фрагмент просто з командного рядка.
+- [Хук interpreter: позначення sinks динамічного виконання коду](https://lagune.ai/uk-UA/docs/hooks/interpreter.md): Перевірте кодову базу на sinks динамічного виконання коду різними мовами або оцініть окремий фрагмент просто з командного рядка.
+- [Хук jwt: виявлення перевірки JWT без закріпленого алгоритму](https://lagune.ai/uk-UA/docs/hooks/jwt.md): Перевірте кодову базу на перевірку JWT без закріпленого алгоритму або оцініть окремий виклик просто з командного рядка.
+- [Хук network: оцінка URL на SSRF](https://lagune.ai/uk-UA/docs/hooks/network.md): Оцініть одну чи кілька адрес призначення запитів на SSRF просто з командного рядка.
+- [Хук regex: виявлення шаблонів ReDoS](https://lagune.ai/uk-UA/docs/hooks/regex.md): Перевірте кодову базу на регулярні вирази, схильні до ReDoS, або оцініть окремий шаблон просто з командного рядка.
+- [Хук secrets: виявлення жорстко закодованих секретів](https://lagune.ai/uk-UA/docs/hooks/secrets.md): Перевірте кодову базу на жорстко закодовані облікові дані просто з командного рядка.
+- [Приклади промптів Lagune: автоматизуйте процес Blue Team](https://lagune.ai/uk-UA/docs/examples/prompts.md): Готові до копіювання промпти Lagune: перевірка лише для читання, повний процес Blue Team і аудит Zero Trust, а також виявлення в межах коміту, diff гілки чи PR або реального інциденту.
+- [Security-Driven Hardening: конвенція для епохи розробки з допомогою ШІ](https://lagune.ai/uk-UA/docs/references/paper.md): Методологія Security-Driven Hardening (SDH): конвенція Blue Team з урахуванням контексту для аудиту й посилення захисту програм, створених з допомогою ШІ та у стилі vibe coding.
+- [Глосарій Lagune: SDH, принципи безпеки, знахідки й засоби захисту](https://lagune.ai/uk-UA/docs/references/glossary.md): Визначення простою мовою для кожного терміна Lagune і Security-Driven Hardening: SDH, charter, detect, знахідка, засіб захисту, harden, verify, зняття з обліку, закриваність, спеціалізації, категорії й каталог.
+- [Схема конфігурації](https://lagune.ai/uk-UA/docs/references/configs-schema.md): JSON Schema для конфігурації проєкту Lagune, що дає автодоповнення й валідацію у вашому редакторі, за поточною версією Lagune чи із закріпленою версією.
+- [Lagune vs. Deepsec: два підходи до безпеки на основі ШІ пліч-о-пліч](https://lagune.ai/uk-UA/docs/references/deepsec.md): Довідка, що порівнює Lagune і Deepsec від Vercel за принципом роботи, життєвим циклом, виявленням, вартістю, знахідками й закриттям.
+- [Джерела OWASP](https://lagune.ai/uk-UA/docs/references/owasp-sources.md): Звідки походять знання вбудованих спеціалізацій OWASP, зіставлені з канонічними сторінками атак і Cheat Sheet від OWASP.
+- [/lagune-repair: відновіть відстеження знахідок](https://lagune.ai/uk-UA/docs/commands/repair.md): Відновіть ланцюжок, коли перейменування чи переміщений файл заплутує відстеження Lagune.
+- [Migrate: перенесіть проєкт Lagune на маніфесті на навички й плагіни](https://lagune.ai/uk-UA/docs/commands/migrate.md): Перенесіть проєкт Lagune на основі маніфесту на Lagune на основі навичок, зберігши принципи безпеки, артефакти, відстеження й власні спеціалізації.
+
+## Інші мови
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)

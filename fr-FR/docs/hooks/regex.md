@@ -1,0 +1,192 @@
+# Hook regex : détecter les motifs vulnérables au ReDoS
+
+> Analysez une base de code à la recherche de regex exposées au ReDoS, ou évaluez un seul motif, en ligne de commande.
+
+Canonique: https://lagune.ai/fr-FR/docs/hooks/regex
+Langue: fr-FR
+Original: https://lagune.ai/docs/hooks/regex
+Dernière mise à jour: 2026-11-03
+
+Le hook `regex` est le moteur déterministe de sûreté des regex qu'exécute la [spécialisation `regex`](https://lagune.ai/fr-FR/docs/catalog), et vous pouvez l'exécuter vous-même. Il fonctionne en deux modes depuis une seule commande : une **analyse** qui parcourt une base de code à la recherche de motifs exposés au **ReDoS** et de motifs construits à l'exécution, et une **vérification** qui évalue un seul motif que vous lui donnez.
+
+## Analyser une base de code
+
+Sans option, il analyse tout le projet. `--dir` limite l'analyse à un répertoire, `--file` à un seul fichier. Les deux peuvent être répétées et se combinent en un seul rapport, où chaque fichier n'apparaît qu'une fois même quand plusieurs cibles le couvrent.
+
+**Tout le projet**
+
+```bash
+npx lagune read regex
+```
+
+**Un répertoire**
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+**Un seul fichier**
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+**Plusieurs cibles**
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+**Avec une limite**
+
+`--limit` fixe le seuil de ReDoS de l'analyse (25 par défaut), la même limite que prend le mode check. Une limite plus basse est plus stricte.
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+La sortie est du texte brut dont les en-têtes indiquent comment lire chaque section. Une section n'apparaît que si elle contient des résultats.
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+Quand rien n'est trouvé, il affiche une seule ligne.
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### Lire les sections
+
+| Section                                                                                     | Signification                                                                                                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                                                      | Motifs exposés au ReDoS, regroupés par fichier avec chaque motif en retrait en dessous, suivi entre parenthèses de la raison pour laquelle il n'est pas sûr et, s'il en a, de sa portée et de ses flags. Chaque ligne est non sûre, donc le verdict n'est pas répété. |
+| `Regular expressions the analysis could not settle (review manually)`                       | Motifs que l'analyse n'a pas pu trancher dans sa limite de travail, listés de la même façon.                                                                                                                                                                          |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | Fichiers qui construisent une regex à partir d'une variable, d'une concaténation ou d'une interpolation.                                                                                                                                                              |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | Fichiers qui passent un simple littéral de chaîne à un constructeur de regex là où un littéral de regex est plus simple et évite une compilation à l'exécution.                                                                                                       |
+
+La première section est un constat de sécurité. La deuxième et la troisième ne sont pas des constats en soi : elles pointent vers du code qu'une vérification statique ne peut pas trancher, donc elles demandent une lecture humaine. La quatrième est une suggestion de clarté, pas un constat de sécurité.
+
+### Options de la CLI
+
+| Option      | Valeur                   | Description                                                                                                               |
+| ----------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `--pattern` | la source d'une regex    | Vérifie un motif. Répétez-la pour en vérifier plusieurs, un verdict par motif, dans l'ordre.                              |
+| `--flags`   | des flags de regex       | Vérifie chaque `--pattern` avec ces flags, comme `im`. S'applique uniquement au mode check.                               |
+| `--dir`     | un répertoire            | Limite l'analyse à un répertoire. Peut être répétée et combinée avec `--file`.                                            |
+| `--file`    | un fichier               | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`.                                           |
+| `--limit`   | un entier positif ou nul | Fixe la limite de répétition du ReDoS (25 par défaut). S'applique aux deux modes. Une limite plus basse est plus stricte. |
+
+Sans option, il analyse tout le projet. `--pattern` correspond au mode check et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Langages pris en charge
+
+L'analyse lit ces langages, selon l'extension du fichier, chacun selon ses propres règles, donc un motif d'un langage n'est jamais testé selon les règles d'un autre. Tout le reste est ignoré plutôt qu'analysé avec les mauvaises règles.
+
+| #   | Langage                     | Extensions                                                                                                   |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`, `.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`, `.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`, `.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`, `.psm1`, `.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`, `.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`, `.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`, `.cljs`, `.cljc`, `.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`, `.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`, `.pm`                                                                                                 |
+
+**Au mieux, pas de façon exhaustive**
+
+Il lit le code source comme du texte, donc il ne peut pas juger un motif assemblé à l'exécution, et un motif réparti sur plusieurs lignes, caché derrière un alias ou écrit sous une forme qu'il ne reconnaît pas peut lui échapper. Considérez les sections comme un point de départ solide, pas comme un inventaire complet, et continuez à lire le code pour ce qu'elles ne peuvent pas atteindre.
+
+## Vérifier un seul motif
+
+Passez `--pattern` avec la source du motif pour l'évaluer. Le hook affiche un mot : `safe`, `unsafe`, `undetermined` quand l'analyse atteint sa limite de travail avant de trancher, ou `invalid regex`. Répétez `--pattern` pour en évaluer plusieurs à la fois, un verdict par motif, dans l'ordre.
+
+**Un motif**
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+**Plusieurs motifs**
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+**Avec des flags**
+
+`--flags` vérifie chaque `--pattern` de l'appel avec les flags avec lesquels il s'exécute, puisqu'un flag change les caractères que reconnaît un motif.
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+**Avec une limite**
+
+`--limit` fixe la limite de répétition (25 par défaut) et s'applique à chaque `--pattern` de l'appel. Une limite plus basse est plus stricte.
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+**Pourquoi un argument entre guillemets**
+
+Chaque motif est passé comme valeur d'option, jamais interpolé dans la commande. Une valeur contenant des guillemets ou des backticks reste inerte et ne peut rien injecter dans le shell. Entourez toujours le motif de guillemets simples pour que votre shell ne l'interprète pas d'abord.
+
+**Astuce**
+
+C'est le même moteur qu'exécute la [spécialisation `regex`](https://lagune.ai/fr-FR/docs/catalog) : l'analyse ouvre une passe ReDoS, la vérification confirme un motif qu'elle fait ressortir.
+
+## Questions fréquentes
+
+### Comment vérifier une regex face au ReDoS depuis la CLI ?
+
+Exécutez npx lagune read regex --pattern '<pattern>'. Il renvoie safe, unsafe, undetermined ou invalid regex.
+
+### Comment analyser tout un projet à la recherche de regex non sûres ?
+
+Exécutez le hook regex en mode scan sur la base de code. Il signale les motifs exposés au ReDoS dans 25 langages pris en charge.

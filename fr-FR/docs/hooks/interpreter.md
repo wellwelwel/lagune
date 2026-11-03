@@ -1,0 +1,87 @@
+# Hook interpreter : signaler les sinks d'exécution dynamique de code
+
+> Analysez une base de code à la recherche de sinks d'exécution dynamique de code dans plusieurs langages, ou évaluez un seul extrait, en ligne de commande.
+
+Canonique: https://lagune.ai/fr-FR/docs/hooks/interpreter
+Langue: fr-FR
+Original: https://lagune.ai/docs/hooks/interpreter
+Dernière mise à jour: 2026-11-03
+
+Le hook `interpreter` signale les **sinks d'exécution dynamique de code** : les constructions qui transforment des données en code exécuté ou les confient à un shell, d'`eval` à la désérialisation native. Il est adapté au langage et lit chaque fichier selon ses propres règles. C'est le moteur déterministe derrière la [spécialisation `interpreter`](https://lagune.ai/fr-FR/docs/catalog), que vous pouvez exécuter vous-même en mode **scan** ou **check**.
+
+## Exécution
+
+**Analyser la base de code**
+
+```bash
+npx lagune read interpreter               # scans the whole project
+npx lagune read interpreter --dir src     # scans a directory
+npx lagune read interpreter --file app.py # scans a single file
+```
+
+**Vérifier un extrait**
+
+```bash
+npx lagune read interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
+```
+
+Ces sinks sont à double usage : une analyse statique ne peut pas trancher si une entrée influencée par un attaquant en atteint un, donc chaque correspondance est un **point de vigilance à examiner**, jamais un constat confirmé. L'analyse affiche une seule section **Dynamic-execution sinks to review**, regroupée par fichier. Une analyse propre affiche `no dynamic-execution sinks found`.
+
+**Lisez le code signalé, ne l'exécutez jamais !**
+
+Raisonnez sur chaque sink de façon **statique**, en traçant si une entrée non fiable l'atteint. N'exécutez jamais et ne passez jamais à `eval` le code signalé, ni le code distant ou récupéré à l'exécution qu'il charge, pour "tester" ce qu'il fait.
+
+## Lire le verdict
+
+| Verdict   | Signification                                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------------------------------- |
+| `careful` | L'extrait contient un sink d'exécution dynamique pour son langage. Examinez-le en le lisant, jamais en l'exécutant. |
+| `safe`    | Aucun sink d'exécution dynamique n'a été trouvé pour le langage indiqué.                                            |
+
+### Options de la CLI
+
+| Option      | Valeur             | Description                                                                                         |
+| ----------- | ------------------ | --------------------------------------------------------------------------------------------------- |
+| `--pattern` | un extrait de code | Vérifie un extrait. Répétez-la pour en vérifier plusieurs, un verdict par ligne.                    |
+| `--lang`    | un langage         | Requise avec `--pattern` : javascript, python, php, ruby, java, kotlin, go, rust, c, cpp ou csharp. |
+| `--dir`     | un répertoire      | Limite l'analyse à un répertoire. Peut être répétée et combinée avec `--file`.                      |
+| `--file`    | un fichier         | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`.                     |
+
+Sans option, il analyse tout le projet. `--pattern` exige `--lang` et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Langages pris en charge
+
+L'analyse lit ces langages, selon l'extension du fichier, chacun confronté à son propre ensemble de sinks d'exécution dynamique.
+
+| #   | Langage                     | Extensions                                                                                                   | Sinks signalés                                                                                                                                                                                                                             |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` | `eval()`, constructeur Function, `setTimeout`/`setInterval` avec un corps en chaîne, module `vm`, exec de `child_process`, `require()` dynamique, `import()` dynamique                                                                     |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                | `eval`/`exec`, `__import__()`, `os.system`/`os.popen`, `subprocess` `shell=True`, `pickle.load`/`loads`, `yaml.load` (non sûr)                                                                                                             |
+| 3   | **Ruby**                    | `.rb`                                                                                                        | famille eval (`instance_eval`/`class_eval`/`module_eval`/`eval`), `system`/`exec`, backticks ou `%x`, `Kernel#open` / `IO.popen`/`read`/`binread` / `Open3`, `Process.spawn`, `Marshal.load`                                               |
+| 4   | **Go**                      | `.go`                                                                                                        | `exec.Command`/`exec.CommandContext`, `plugin.Open`                                                                                                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       | `eval()`, `assert()` sur une chaîne, `create_function()`, exécution shell (`system`/`exec`/`shell_exec`/`passthru`/`popen`/`proc_open`), `call_user_func`/`call_user_func_array`, `include`/`require` avec un chemin calculé à l'exécution |
+| 6   | **Rust**                    | `.rs`                                                                                                        | `Command::new`, `process::Command`                                                                                                                                                                                                         |
+| 7   | **Java**                    | `.java`                                                                                                      | `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                                                           |
+| 8   | **Kotlin**                  | `.kt`, `.kts`                                                                                                | Les sinks de la JVM : `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                                     |
+| 9   | **C#**                      | `.cs`                                                                                                        | `Process.Start` / `new Process`, `BinaryFormatter`, `Assembly.Load`                                                                                                                                                                        |
+| 10  | **C**                       | `.c`, `.h`                                                                                                   | `system()`, `popen()`, la famille `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                                                 |
+| 11  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 | `system()`, `popen()`, la famille `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                                                 |
+
+**Au mieux, pas de façon exhaustive**
+
+Il lit le code source comme du texte, donc un sink assemblé à l'exécution, caché derrière un alias ou écrit sous une forme qu'il ne reconnaît pas peut lui échapper. Considérez le tableau comme un point de départ solide, pas comme un inventaire complet.
+
+**Astuce**
+
+Le hook garantit le socle (ces sinks existent, et à tel endroit) : savoir si une valeur non fiable en atteint réellement un relève du jugement que couvre la [spécialisation `interpreter`](https://lagune.ai/fr-FR/docs/catalog).
+
+## Questions fréquentes
+
+### Le hook interpreter confirme-t-il une vulnérabilité ?
+
+Non. Il signale les sinks d'exécution dynamique comme des points de vigilance à examiner, jamais comme des constats confirmés, parce qu'une analyse statique ne peut pas trancher si une entrée influencée par un attaquant atteint le sink.
+
+### Quels langages le hook interpreter couvre-t-il ?
+
+Il lit les langages du tableau Langages pris en charge, selon l'extension du fichier, chacun confronté à son propre ensemble de sinks. Les autres langages ne produisent aucun sink.

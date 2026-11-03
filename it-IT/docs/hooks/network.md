@@ -1,0 +1,81 @@
+# Hook network: valuta gli URL contro la SSRF
+
+> Valuta una o più destinazioni di richiesta contro la SSRF, direttamente dalla riga di comando.
+
+Canonico: https://lagune.ai/it-IT/docs/hooks/network
+Lingua: it-IT
+Originale: https://lagune.ai/docs/hooks/network
+Ultimo aggiornamento: 2026-11-03
+
+L'hook `network` decide se la destinazione di una richiesta lato server è al sicuro dalla **SSRF** (una richiesta che può essere puntata verso servizi interni, metadati del cloud o host privati). È il motore deterministico dietro la [specializzazione `network`](https://lagune.ai/it-IT/docs/catalog), e puoi eseguirlo tu stesso.
+
+## Come eseguirlo
+
+Passa ogni destinazione con `--url`. L'hook stampa una parola per destinazione, da leggere con la tabella qui sotto.
+
+**Una destinazione**
+
+```bash
+npx lagune read network --url 'http://example.com/'
+# => safe
+
+npx lagune read network --url 'http://0x7f000001/'
+# => private-target
+```
+
+**Più destinazioni**
+
+Ripeti `--url` per valutare un'intera allowlist o denylist in una sola chiamata, un verdetto per riga, nell'ordine.
+
+```bash
+npx lagune read network \
+  --url 'http://example.com/' \
+  --url 'http://[::1]/' \
+  --url 'http://allowed.com@evil.example/'
+# => safe
+# => private-target
+# => parser-divergent
+```
+
+Risolve l'host come fa la rete, così le forme codificate di un indirizzo interno non sfuggono: esadecimale, ottale, decimale senza punti, forma abbreviata, IPv6 e IPv4 mappato su IPv6 risultano tutte `private-target`. E dove un validatore approssimativo e il vero client leggerebbero host diversi, il verdetto è `parser-divergent`.
+
+## Come leggere il verdetto
+
+| Verdetto           | Significato                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `safe`             | La destinazione si collega a un host pubblico, e un validatore approssimativo leggerebbe lo stesso host.      |
+| `private-target`   | L'host si risolve in un indirizzo privato, di loopback, link-local, non specificato o dei metadati del cloud. |
+| `parser-divergent` | Un validatore testuale approssimativo leggerebbe un host reale diverso da quello a cui si collega il client.  |
+| `invalid url`      | La stringa non è analizzabile come URL, quindi non c'è nulla da richiedere.                                   |
+
+Solo `safe` è un via libera. Tratta `private-target`, `parser-divergent` e `invalid url` tutti come un blocco.
+
+### Opzioni della CLI
+
+| Opzione | Valore           | Descrizione                                                                          |
+| ------- | ---------------- | ------------------------------------------------------------------------------------ |
+| `--url` | un URL o un host | Controlla una destinazione. Ripetila per controllarne diverse, un verdetto per riga. |
+
+Serve almeno un `--url`. La destinazione non è mai un argomento posizionale semplice, quindi non può essere scambiata per un flag.
+
+**Perché il valore di un flag**
+
+Ogni destinazione viene passata come valore di un flag, mai interpolata nel comando. Un valore con virgolette o backtick resta inerte e non può iniettare nulla nella shell. Racchiudilo sempre tra apici singoli, così la tua shell non lo espande prima.
+
+**Cosa non copre**
+
+L'hook è puro e non risolve mai il DNS, quindi due lacune a runtime restano fuori dal suo ambito: il **DNS rebinding** (un nome che risulta pubblico al controllo e interno al momento della richiesta) e le **catene di redirect** (un primo salto che passa e poi reindirizza verso l'interno). Chiudile risolvendo una sola volta e collegandoti all'indirizzo validato, e rifiutando i redirect. Associa i nomi di loopback riservati (`localhost` e la famiglia `.localhost`) a indirizzi interni senza alcuna risoluzione, ma qualsiasi altro nome DNS risulta `safe`, perché affermare che si risolve verso l'interno richiederebbe una risoluzione: a proteggerli è l'allowlist, ed è proprio ciò che questo controllo valida.
+
+**Suggerimento**
+
+È lo stesso controllo che la [specializzazione `network`](https://lagune.ai/it-IT/docs/catalog) esegue per dimostrare che un filtro delle destinazioni regge.
+
+## Domande frequenti
+
+### Come verifico se un URL è esposto alla SSRF?
+
+Esegui l'hook network. Valuta la destinazione di una richiesta e restituisce safe, private-target, parser-divergent o invalid url. Solo safe è un via libera.
+
+### Che cos'è un URL parser-divergent?
+
+Un URL che parser diversi leggono in modo diverso, un classico aggiramento della SSRF. L'hook network lo segnala invece di consentirlo.

@@ -1,0 +1,85 @@
+# /lagune-charter: definisci i tuoi principi di sicurezza
+
+> Stabilisci i principi di sicurezza del tuo progetto, le regole che ogni fase successiva rispetta, e registra le categorie di specializzazioni che la sua lettura giustifica.
+
+Canonico: https://lagune.ai/it-IT/docs/commands/charter
+Lingua: it-IT
+Originale: https://lagune.ai/docs/commands/charter
+Ultimo aggiornamento: 2026-11-03
+
+🧬 Racconta a **Lagune** che cos'è il tuo progetto e lo trasformerà nelle tue regole di sicurezza (oppure, senza alcuna descrizione, le ricaverà dal solo progetto).
+
+Il charter è il livello di governo: un insieme di principi con la sicurezza al primo posto che ogni fase successiva deve rispettare. Consideralo il controllo in fase di compilazione della postura di sicurezza del tuo progetto.
+
+## Come usarlo
+
+**Descrivilo**
+
+```prompt
+/lagune-charter Il mio progetto è un negozio online che vende videogiochi. I clienti aggiungono prodotti al carrello e pagano con carta di credito o bollettino. Possono vedere i propri ordini e lo stato di ciascuno.
+```
+
+**Lascia proporre a Lagune**
+
+```prompt
+/lagune-charter
+```
+
+> _Vedo una libreria di pagamento, una configurazione di login e un modello di ordine legato a un cliente. Sembra un negozio online che vende qualcosa. I clienti pagano e seguono i propri ordini..._ ☁️
+
+## Cosa ricava
+
+**Lagune** prende la tua descrizione o il tuo **PRD** come direzione e ricava cosa implica per la sicurezza, poi legge il progetto per andare oltre ciò che hai nominato. Per esempio:
+
+- Un carrello che contiene ordini significa che c'è un **database**:
+  - ad es. `"Dove risiedono i dati?"`, `"Chi può raggiungerli?"`, `"I dati trapelano?"`.
+- Clienti che possono vedere i propri ordini significa che c'è una qualche forma di **login o controllo degli accessi**:
+  - ad es. `"Un cliente può raggiungere gli ordini di un altro?"`, `"Le sessioni sono protette?"`.
+- Accettare pagamenti con carta e bollettino significa che **sono in gioco denaro e dati sensibili**:
+  - ad es. `"I dati delle carte vengono salvati?"`, `"I pagamenti vengono verificati?"`.
+
+La tua descrizione e il progetto si sommano: mentre la descrizione stabilisce l'intento, la lettura delle dipendenze, del README e della configurazione fa emergere ciò che non hai menzionato. Se qualcosa di importante resta poco chiaro, **Lagune** fa una domanda breve e semplice invece di tirare a indovinare.
+
+Da lì, **Lagune** costruisce un insieme di regole di sicurezza su misura per il progetto, che puoi rivedere e modificare ogni volta che ti serve.
+
+**Sfruttalo al massimo**
+
+- Puoi anche definire le tue regole di sicurezza per il progetto.
+- Più dettagli pertinenti fornisci, migliore sarà il report finale:
+  - Spiega il progetto, come funziona e cosa succede dietro le quinte.
+  - Chi è l'utente finale? Cosa possono fare gli utenti e cosa no?
+  - I dettagli sul comportamento valgono quanto quelli tecnici.
+- La memoria del charter si trova in `.lagune/memory/charter.md`.
+
+## Le categorie che registra
+
+Le specializzazioni, le conoscenze di sicurezza che le fasi successive caricano su richiesta, entrano nel [catalogo](https://lagune.ai/it-IT/docs/catalog) del tuo progetto per [categoria](https://lagune.ai/it-IT/docs/categories). Finché il progetto non ha alcuna categoria registrata, il charter registra ognuna di quelle che la sua lettura giustifica, come il linguaggio del progetto, le chiamate a un LLM o i container, e le nomina nel suo riepilogo.
+
+Una volta registrate le categorie, il charter le lascia come sono e nomina soltanto una categoria che il tuo progetto non usa ancora. Puoi modificarle tu in qualsiasi momento:
+
+```bash
+npx lagune write add --categories python
+npx lagune write remove --categories python
+```
+
+## Passo successivo
+
+Con le regole definite, mappa cosa fa davvero il tuo sistema: [`/lagune-detect`](https://lagune.ai/it-IT/docs/commands/detect).
+
+## Domande frequenti
+
+### Che cos'è un charter in Lagune?
+
+Il charter è il livello di governo di Lagune, un insieme di principi con la sicurezza al primo posto che ogni fase successiva deve rispettare. Consideralo il controllo in fase di compilazione della postura di sicurezza del tuo progetto.
+
+### Dove viene salvato il charter?
+
+In .lagune/memory/charter.md.
+
+### Posso scrivere le mie regole nel charter?
+
+Sì. Lagune propone regole partendo dalla tua descrizione e dal tuo codice, e tu puoi riformularle, eliminarle, aggiungerne o restringerne l'ambito.
+
+### È il charter a scegliere le categorie di specializzazioni?
+
+Solo finché non ne è registrata nessuna. In quel caso registra ogni categoria che la sua lettura giustifica, come il tuo linguaggio o le chiamate a un LLM. Una volta registrate le categorie, non le modifica mai.

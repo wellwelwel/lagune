@@ -1,0 +1,33 @@
+# /lagune-repair: réparer le suivi des constats
+
+> Réparez la chaîne quand un renommage ou un fichier déplacé perturbe le suivi de Lagune.
+
+Canonique: https://lagune.ai/fr-FR/docs/commands/repair
+Langue: fr-FR
+Original: https://lagune.ai/docs/commands/repair
+Dernière mise à jour: 2026-11-03
+
+🧰 Réparez la chaîne quand un renommage ou un fichier déplacé la perturbe.
+
+**Maintenance interne, pas une phase de sécurité**
+
+Repair n'est pas une sixième phase du flux linéaire. Son rôle est de garder le suivi cohérent.
+
+```prompt
+# Il ne prend aucune entrée : il répare toujours toute la chaîne
+/lagune-repair
+```
+
+## Fonctionnement
+
+Chaque constat de detect est un élément suivi que plan, harden et verify reprennent, chacun agissant dessus et le rapportant de nouveau par son nom. Ce nom, écrit à l'identique comme titre de section dans chaque artefact, est son identité de bout en bout.
+
+La seule donnée volatile que stocke le suivi, ce sont les chemins de fichiers vers lesquels pointe l'élément. Ces chemins ne se trouvent nulle part ailleurs, donc un renommage ou un fichier déplacé ne peut casser le lien qu'à cet endroit, jamais dans deux copies divergentes. Quand cela arrive, repair corrige la carte (`.lagune/tracking.json`) pour que l'identité survive au renommage. Il lit les artefacts et la carte de suivi, ne lit votre code source que pour connaître le nouveau chemin d'un fichier renommé, et ne rédige jamais de contenu de sécurité.
+
+Dans le même passage, il vérifie chaque artefact de la mémoire par rapport à son modèle et signale ce qui a dérivé, en renvoyant chaque écart vers la phase qui le corrige.
+
+**Astuce**
+
+- Il ne touche ni à votre code ni aux artefacts rédigés, seulement au suivi.
+- Vous l'exécutez rarement à la main. Quand une phase remarque que la chaîne est incohérente, elle exécute repair pour vous et continue.
+- Le suivi qu'il entretient se trouve dans `.lagune/tracking.json`, un état interne que vous ne modifiez jamais à la main.
