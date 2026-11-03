@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.1](https://github.com/wellwelwel/lagune/compare/v0.16.0...v0.16.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* **i18n:** accept quoted phrases in scripts without spaces ([935ae3d](https://github.com/wellwelwel/lagune/commit/935ae3db9d75998728b61c56b8d96490a2dca6a5))
+
 ## [0.16.0](https://github.com/wellwelwel/lagune/compare/v0.15.0...v0.16.0) (2026-11-03)
 
 
