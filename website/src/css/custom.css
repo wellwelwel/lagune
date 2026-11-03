@@ -314,6 +314,12 @@ html.lagune-canvas-html body.lagune-canvas-body {
   }
 }
 
+@media (max-width: 920px) {
+  html:has(.lagune-menu-pop) {
+    overflow: hidden;
+  }
+}
+
 /* Two slightly off-balance hops for the little robot when its card is hovered. */
 .lagune-robot-hop {
   transform-origin: 50% 100%;

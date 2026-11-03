@@ -393,6 +393,16 @@ const railItemClass = (current: boolean): string =>
     current ? 'lagune-rail__item--active text-ink' : 'text-[#515664]'
   }`;
 
+const measureMenuBounds = (menu: HTMLDivElement | null) => {
+  const anchor = menu?.offsetParent;
+  if (!menu || !anchor) return;
+
+  const { top, right } = anchor.getBoundingClientRect();
+
+  menu.style.setProperty('--lagune-menu-top', `${top + menu.offsetTop}px`);
+  menu.style.setProperty('--lagune-menu-right', `${right}px`);
+};
+
 let glideId = 0;
 
 /**
@@ -687,7 +697,10 @@ const Home = (): ReactNode => {
               </button>
 
               {menuOpen && (
-                <div className='lagune-menu-pop absolute top-[calc(100%+8px)] right-0 z-[20] flex w-[200px] flex-col gap-1 rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)] min-[921px]:hidden'>
+                <div
+                  ref={measureMenuBounds}
+                  className='lagune-menu-pop lagune-flow absolute top-[calc(100%+8px)] right-0 z-[20] flex max-h-[calc(100dvh-var(--lagune-menu-top)-16px-env(safe-area-inset-bottom))] w-max max-w-[calc(var(--lagune-menu-right)-16px)] min-w-50 flex-col gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)] min-[921px]:hidden'
+                >
                   {headerLinks.map(({ label, Icon, href }) => (
                     <Link
                       key={label}
