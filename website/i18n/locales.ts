@@ -59,6 +59,12 @@ export const LOCALES: SiteLocale[] = [
     status: 'published',
   },
   {
+    code: 'it-IT',
+    label: 'Italiano',
+    flag: '/img/flags/it.svg',
+    status: 'published',
+  },
+  {
     code: 'ru-RU',
     label: 'Русский',
     flag: '/img/flags/ru.svg',

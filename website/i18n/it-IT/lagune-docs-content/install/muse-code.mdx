@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Installa Lagune su Muse Code come plugin'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Installa Lagune su Muse Code come plugin, tienilo aggiornato ed esegui il suo motore dentro la sandbox.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - installare lagune
+  - installazione
+  - sicurezza IA
+  - agenti IA
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Installa il plugin dal terminale:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Aggiornamento
+
+Per aggiornare **Lagune**, aggiorna il marketplace e reinstalla il plugin:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Comandi
+
+Digita i comandi per nome, come `/lagune-charter`, oppure con il nome del plugin, come `/lagune:lagune-charter`.
+
+---
+
+:::info[Permessi]
+
+La sandbox di **Muse Code** non può scaricare il motore. Installalo nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Come installo Lagune su Muse Code?',
+      answer:
+        'Esegui muse plugins marketplace add lagune wellwelwel/lagune, poi muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Come aggiorno Lagune su Muse Code?',
+      answer:
+        'Esegui muse plugins marketplace update lagune, poi reinstalla con muse plugins remove lagune e muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Come eseguo i comandi di Lagune su Muse Code?',
+      answer:
+        'Digitali per nome, come /lagune-charter, oppure con il nome del plugin, come /lagune:lagune-charter.',
+    },
+    {
+      question: 'Lagune funziona dentro la sandbox di Muse Code?',
+      answer:
+        'Sì, una volta installato il motore nel tuo progetto con npm i -D lagune@{{version}} dal tuo terminale, una volta e dopo ogni aggiornamento.',
+    },
+  ]}
+/>

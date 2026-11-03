@@ -1,0 +1,100 @@
+---
+id: commands
+title: Skill di sicurezza per agenti IA
+sidebar_label: Skill
+description: "Le skill che il tuo agente IA sblocca con Lagune: fai l'audit di un progetto esistente o proteggi il nuovo lavoro mentre sviluppi, sempre sotto il governo del charter."
+keywords:
+  - skill lagune
+  - charter
+  - detect
+  - plan
+  - harden
+  - verify
+  - comandi slash
+source_hash: 'e34c6589c180b121ae8e1f366ac2be88f76ff6ba219679daeb30c0bf9f3f1036'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Una volta [installato](/docs) **Lagune**, il tuo agente **IA** sblocca una serie di skill. Ci sono due modi di usarle, ed entrambi sono governati dal **charter**: proteggere il nuovo lavoro mentre lo costruisci, oppure eseguire l'audit completo su un progetto.
+
+<Tabs queryString="mode">
+  <TabItem value="build" label="⌨️ Costruzione e sviluppo" default>
+
+Non devi finire il tuo lavoro prima di metterlo in sicurezza. Usa [**`/lagune`**](/docs/commands/lagune) per il lavoro che stai scrivendo **in questo momento**:
+
+| Skill                                         | Cosa fa per te                                                                              |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| [**/lagune-charter**](/docs/commands/charter) | Definisce le regole di sicurezza del tuo progetto, la base su cui `/lagune` costruisce      |
+| [**/lagune**](/docs/commands/lagune)          | Costruisce ciò che chiedi e lo mette in sicurezza mentre viene scritto, guidato dal charter |
+
+:::tip[Usalo quando vuoi]
+[**`/lagune`**](/docs/commands/lagune) rispetta le regole del tuo charter ogni volta che viene eseguito. Accetta qualsiasi prompt, costruisce ciò che hai chiesto e lo mette in sicurezza con impostazioni predefinite sicure strada facendo, non dopo.
+:::
+
+---
+
+#### Skill speciali
+
+| Skill                                               | Cosa fa                                                                                  |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Insegna a **Lagune** una nuova specializzazione di sicurezza da articoli, exploit o temi |
+
+  </TabItem>
+  <TabItem value="audit" label="🔬 Audit: flusso Blue Team">
+
+Il **flusso Blue Team** completo: leggere cosa fa un progetto, mapparne i rischi e chiuderli. Ogni fase si basa sulla precedente, quindi basta seguire l'elenco dall'alto verso il basso:
+
+| #   | Skill                                         | Cosa fa per te                                                                                 |
+| --- | --------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| 1   | [**/lagune-charter**](/docs/commands/charter) | Definisce le regole di sicurezza del tuo progetto, proposte per te o modellate su ciò che dici |
+| 2   | [**/lagune-detect**](/docs/commands/detect)   | Legge il tuo codice e mappa cosa fa il sistema e dove sono i rischi                            |
+| 3   | [**/lagune-plan**](/docs/commands/plan)       | Trasforma ciò che detect ha trovato in un piano di difesa, con una correzione per ogni rilievo |
+| 4   | [**/lagune-harden**](/docs/commands/harden)   | Applica al tuo codice le correzioni del piano, in sicurezza e una alla volta                   |
+| 5   | [**/lagune-verify**](/docs/commands/verify)   | Dimostra che ogni correzione applicata regge e chiude quelle che reggono                       |
+
+---
+
+#### Skill speciali
+
+| Skill                                               | Cosa fa                                                                                                                 |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Insegna a **Lagune** una nuova specializzazione di sicurezza da articoli, exploit o temi                                |
+| [**/lagune-prove**](/docs/commands/prove)           | Trasforma ogni rilievo individuato in una prova eseguibile ed esclusivamente difensiva per la divulgazione responsabile |
+
+---
+
+#### Skill interne
+
+| Skill                                       | Cosa fa                                      |
+| ------------------------------------------- | -------------------------------------------- |
+| [**/lagune-repair**](/docs/commands/repair) | Ripara il tracciamento interno di **Lagune** |
+
+:::tip
+La sicurezza non è un costo, è un investimento: ciò che metti all'inizio lo risparmi molte volte negli incidenti che non avrai mai 🙋🏻‍♂️
+:::
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'Quali skill aggiunge Lagune?',
+      answer:
+        '/lagune per mettere in sicurezza il lavoro mentre lo costruisci, e il flusso di audit Blue Team in cinque fasi: /lagune-charter, /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Più /lagune-specialize e /lagune-prove.',
+    },
+    {
+      question: "Che cos'è il flusso Blue Team di Lagune?",
+      answer:
+        'Un audit in cinque fasi: charter (definire le regole), detect (mappare i rischi), plan (assegnare un punteggio e pianificare le correzioni), harden (applicare le correzioni), verify (dimostrare che reggono e chiuderle).',
+    },
+    {
+      question: 'Qual è la differenza tra /lagune e il flusso di audit?',
+      answer:
+        '/lagune protegge il nuovo lavoro mentre lo scrivi, senza alcun flusso da seguire. Il flusso di audit esegue le cinque fasi in ordine su un progetto esistente.',
+    },
+  ]}
+/>

@@ -1,0 +1,92 @@
+---
+id: plan
+title: '/lagune-plan: valuta i rilievi e pianifica le correzioni'
+sidebar_label: 3. Plan
+description: Trasforma ciò che detect ha trovato in un piano di difesa, valutando ogni rilievo con una categoria e un punteggio CVSS v4.0 e abbinandolo a una correzione.
+source_hash: 'adfed070d605468f2638c18806291967b8e54eb7d2a3c55405be302628740cc3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-plan
+
+🛡️ Trasforma ciò che detect ha trovato in un piano di difesa: valuta ogni rilievo con una categoria e un punteggio CVSS v4.0, poi abbinalo alla correzione da applicare.
+
+## Come usarlo
+
+<Tabs>
+  <TabItem value="full" label="Pianifica tutto" default>
+
+```prompt
+/lagune-plan
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Indica i percorsi">
+
+```prompt
+/lagune-plan src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="worry" label="Concentrati su un timore">
+
+```prompt
+/lagune-plan dove potrebbero trapelare dati sensibili
+```
+
+  </TabItem>
+</Tabs>
+
+## Come funziona
+
+Questa fase riprende da detect. Detect ha già trovato cosa fa il tuo sistema e il rischio che ogni cosa comporta, quindi il piano non ripete il rischio: ne valuta la gravità e decide cosa fare. Plan non legge mai il codice, e questo obbliga ogni correzione a puntare a qualcosa che detect ha davvero rilevato. Valuta ogni rilievo con il metodo CVSS v4.0: una categoria, un vettore CVSS v4.0 ragionato a partire da ciò che detect e il charter hanno raccolto e calcolato dall'[hook `cvss`](/docs/hooks/cvss), e la fascia di priorità in cui cade quel punteggio. Ogni correzione indica anche il principio del charter che rispetta.
+
+Per esempio:
+
+- **Caricamento di file** (Priorità: **Critical**)
+  - _Categoria:_ caricamento di file senza restrizioni (CWE-434).
+  - _CVSS:_ CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, Critical).
+  - _Perché questa priorità:_ chiunque può raggiungere il caricamento via internet, e si trova sul server che conserva i file dei clienti.
+  - _Rispetta:_ III. Ogni input è non attendibile finché non viene validato.
+  - _Correzione:_ controllare il tipo reale e la dimensione del file, rinominarlo al salvataggio e conservare i caricamenti dove non possono essere eseguiti come codice.
+
+Da lì hai un elenco di correzioni valutate e con priorità, ognuna legata a un rilievo e pronta per essere applicata nella fase successiva. Il punteggio viene calcolato, mai stimato: il vettore riporta l'esposizione e la posta in gioco del progetto come metriche Environmental, e chiunque può incollarlo nel calcolatore di FIRST o del NVD e ricavare lo stesso punteggio.
+
+:::tip
+
+- Si basa interamente su detect. Se un file o un timore non è mai stato mappato, ti dice di eseguire prima `/lagune-detect` su di esso.
+- Eseguirlo di nuovo aggiorna il piano: le correzioni completate escono, quelle nuove entrano.
+- Il piano di difesa si trova in `.lagune/memory/plan.md`.
+
+:::
+
+:::warning[Dipende da detect]
+Plan lavora solo su ciò che [`/lagune-detect`](/docs/commands/detect) ha già mappato, quindi esegui prima detect.
+:::
+
+## Passo successivo
+
+Applica il piano: [`/lagune-harden`](/docs/commands/harden).
+
+<Faq
+  items={[
+    {
+      question: 'Come assegna Lagune la priorità alle vulnerabilità?',
+      answer:
+        "/lagune-plan valuta ogni rilievo con una categoria e un punteggio CVSS v4.0 calcolato dall'hook cvss, poi lo abbina alla correzione da applicare.",
+    },
+    {
+      question: 'Lagune usa CVSS v4.0?',
+      answer:
+        "Sì. Ogni rilievo riceve un vettore e un punteggio CVSS v4.0, calcolati dall'hook cvss con la stessa aritmetica del calcolatore di FIRST, così chiunque può incollarvi il vettore e ricavare di nuovo il punteggio.",
+    },
+    {
+      question: 'Il piano legge il mio codice?',
+      answer:
+        'No. Plan non legge mai il codice, e questo obbliga ogni correzione a puntare a qualcosa che detect ha davvero rilevato.',
+    },
+  ]}
+/>

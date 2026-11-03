@@ -1,0 +1,89 @@
+---
+id: dashboard
+title: Dashboard
+sidebar_label: Dashboard
+description: Guarda il charter, i rilievi e il catalogo del tuo progetto in una vista locale in tempo reale che si apre con un solo comando.
+keywords:
+  - dashboard
+  - lagune dashboard
+  - live reload
+  - locale
+  - rilievi
+  - charter
+  - catalogo
+source_hash: 'e3fe36f3fd68e9cd8c9c13efe05ce019161fc1421ad6e1e8e988eb94c9f8942b'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Esegui **Lagune** direttamente, senza sottocomando, per una vista interattiva e in tempo reale di `.lagune/`. Serve una dashboard e la apre su una porta casuale:
+
+```bash
+npx lagune
+```
+
+- [x] **Live reload**
+- [x] **Privata** e **locale**
+- [x] Mostra qualunque cosa contenga `.lagune/`, a partire dal primo charter
+- [x] **Gestisci** le categorie del progetto direttamente dal browser
+- [x] Non servono `node_modules` né `package.json` 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.webp'
+    alt='Charter nella dashboard di Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.webp'
+    alt='Rilievi nella dashboard di Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.webp'
+    alt='Missioni secondarie nella dashboard di Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.webp'
+    alt='Dettaglio di un rilievo nella dashboard di Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.webp'
+    alt='Catalogo nella dashboard di Lagune'
+  />
+</div>
+
+:::tip
+
+- 🚪 Usa `--port` per indicare una porta personalizzata.
+- ⏏️ Premi `Ctrl+C` per fermarla.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Come apro la dashboard di Lagune?',
+      answer:
+        'Esegui npx lagune senza sottocomando nella radice del tuo progetto. Serve una vista in tempo reale di .lagune/ su una porta casuale e la apre nel tuo browser.',
+    },
+    {
+      question: 'La dashboard è privata?',
+      answer:
+        'Sì. Gira solo sulla tua macchina, a un indirizzo locale che nessun altro computer può raggiungere.',
+    },
+    {
+      question: 'Posso modificare il mio progetto dalla dashboard?',
+      answer:
+        'Solo le sue categorie, dal browser. Tutto il resto che la dashboard mostra è in sola lettura.',
+    },
+  ]}
+/>

@@ -1,0 +1,93 @@
+---
+id: detect
+title: '/lagune-detect: mappa il tuo sistema e i suoi rischi'
+sidebar_label: 2. Detect
+description: Legge il tuo codice e mappa cosa fa il sistema e dove sono i rischi.
+source_hash: 'c6b18e96f6fccb85b362fd7a7af5576c5cc332d8fdf2b8ef3dff04dac3d647c5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-detect
+
+🔬 Scopri cosa fa davvero il tuo sistema e dove sono i rischi.
+
+Detect legge il codice e registra solo ciò che trova davvero, con le evidenze di cui hanno bisogno le fasi successive. La sua regola guida è rilevare, non inventare.
+
+## Come usarlo
+
+<Tabs>
+  <TabItem value="full" label="Analisi completa" default>
+
+```prompt
+/lagune-detect
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Indica i percorsi">
+
+```prompt
+/lagune-detect src/routes/ src/auth.ts
+```
+
+  </TabItem>
+  <TabItem value="concern" label="Descrivi una preoccupazione">
+
+```prompt
+/lagune-detect assicurati che i dati dei clienti non vengano mai esposti
+```
+
+  </TabItem>
+</Tabs>
+
+## Cosa mappa
+
+**Lagune** legge il codice e mappa ciò che trova. Ogni rilievo indica cos'è, perché conta e l'evidenza. Per esempio:
+
+- **Caricamento di file**, il sistema accetta file dagli utenti:
+  - _Perché conta:_ un file camuffato da immagine può nascondere codice malevolo.
+  - _Evidenza:_ l'handler di `POST /upload` si fida del tipo MIME inviato dal client, senza controllare il tipo reale del file.
+- **Login e sessioni**, gli utenti accedono per raggiungere il proprio account:
+  - _Perché conta:_ una gestione debole delle sessioni permette a qualcuno di prendere il controllo di un account altrui.
+  - _Evidenza:_ la logica di emissione delle sessioni, dove le sessioni vengono emesse senza alcuna scadenza.
+
+Strada facendo, detect dà a ogni specializzazione del [catalogo](/docs/catalog) del tuo progetto un verdetto confrontandola con il codice, applica quelle il cui contesto è presente e le registra sotto **Applied specializations**, l'elenco che harden e verify riutilizzano.
+
+Da lì hai una mappa chiara di cosa fa il tuo sistema e di dove si trovano i rischi, pronta perché i passi successivi agiscano.
+
+:::tip
+
+- Eseguirlo di nuovo aggiorna la mappa: i rilievi risolti escono, quelli nuovi entrano.
+- La mappa di detect si trova in `.lagune/memory/detect.md`.
+
+:::
+
+## Passo successivo
+
+Trasforma la mappa in un piano: [`/lagune-plan`](/docs/commands/plan).
+
+<Faq
+  items={[
+    {
+      question: 'Cosa fa /lagune-detect?',
+      answer:
+        'Legge il tuo codice e mappa cosa fa il sistema e dove sono i rischi, registrando solo ciò che trova davvero. La sua regola è rilevare, non inventare.',
+    },
+    {
+      question: "Che cos'è un rilievo in Lagune?",
+      answer:
+        "Un rilievo è un singolo rischio individuato, che indica cos'è, perché conta e l'evidenza nel codice. È l'unità tracciata che plan, harden e verify portano avanti.",
+    },
+    {
+      question: 'Dove viene salvata la mappa di detect?',
+      answer: 'In .lagune/memory/detect.md.',
+    },
+    {
+      question: 'Quali specializzazioni usa detect?',
+      answer:
+        'Ognuna di quelle nel catalogo del tuo progetto riceve un verdetto confrontato con il codice. Detect applica quelle il cui contesto è presente e le registra sotto Applied specializations.',
+    },
+  ]}
+/>

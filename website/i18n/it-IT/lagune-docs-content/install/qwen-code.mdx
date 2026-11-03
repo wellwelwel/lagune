@@ -1,0 +1,83 @@
+---
+id: qwen-code
+title: 'Installa Lagune su Qwen Code come estensione'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: Installa Lagune su Qwen Code come estensione, tienilo aggiornato e consenti il suo motore in anticipo.
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - installare lagune
+  - installazione
+  - sicurezza IA
+  - agenti IA
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+Installa l'estensione dal terminale:
+
+```bash
+qwen extensions install lagune
+```
+
+## Aggiornamento
+
+Per aggiornare **Lagune**, esegui:
+
+```bash
+qwen extensions update lagune
+```
+
+Per tenerlo aggiornato, installalo con `--auto-update`.
+
+## Comandi
+
+Digita i comandi con il nome dell'estensione, come `/lagune:lagune-charter` per `/lagune-charter`.
+
+---
+
+:::info[Permessi]
+
+Il motore funziona tramite due strumenti: `lagune_read` legge soltanto il tuo progetto e `lagune_write` scrive soltanto in `.lagune/`. Per consentirli in anticipo, aggiungi queste regole a `.qwen/settings.json` per un singolo progetto, oppure a `~/.qwen/settings.json` per tutti:
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+Quando il motore viene eseguito tramite **npx**, come con **skills.sh**, consenti `Shell(npx --yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Come installo Lagune su Qwen Code?',
+      answer: 'Esegui qwen extensions install lagune.',
+    },
+    {
+      question: 'Come aggiorno Lagune su Qwen Code?',
+      answer:
+        "Esegui qwen extensions update lagune, oppure installa l'estensione con --auto-update.",
+    },
+    {
+      question: 'Come eseguo i comandi di Lagune su Qwen Code?',
+      answer:
+        "Digitali con il nome dell'estensione, come /lagune:lagune-charter.",
+    },
+    {
+      question: 'Qwen Code può eseguire Lagune senza chiedere il permesso?',
+      answer:
+        'Sì. Consenti mcp__lagune__lagune_read e mcp__lagune__lagune_write nelle impostazioni di Qwen Code, più Shell(npx --yes lagune@*) quando il motore viene eseguito tramite npx.',
+    },
+  ]}
+/>

@@ -1,0 +1,61 @@
+---
+id: kimi-code
+title: 'Installa Lagune su Kimi Code come plugin'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: Installa Lagune su Kimi Code come plugin e tienilo aggiornato.
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - installare lagune
+  - installazione
+  - sicurezza IA
+  - agenti IA
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+Installa il plugin da una sessione di **Kimi Code**, scegli **Trust and install**, poi avvia una nuova sessione per caricarlo:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Aggiornamento
+
+Per aggiornare **Lagune**, installalo di nuovo:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Comandi
+
+Digita i comandi con il nome del plugin, come `/lagune:lagune-charter` per `/lagune-charter`. Il menu `/` li elenca come `/skill:lagune:lagune-charter`, e funziona anche così.
+
+<Faq
+  items={[
+    {
+      question: 'Come installo Lagune su Kimi Code?',
+      answer:
+        'In una sessione di Kimi Code, esegui /plugins install https://github.com/wellwelwel/lagune, scegli Trust and install, poi esegui /new.',
+    },
+    {
+      question: 'Come aggiorno Lagune su Kimi Code?',
+      answer:
+        'Esegui di nuovo /plugins install https://github.com/wellwelwel/lagune, poi /new.',
+    },
+    {
+      question: 'Come eseguo i comandi di Lagune su Kimi Code?',
+      answer:
+        'Digitali con il nome del plugin, come /lagune:lagune-charter, oppure come li elenca il menu /, come /skill:lagune:lagune-charter.',
+    },
+  ]}
+/>

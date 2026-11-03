@@ -1,0 +1,93 @@
+---
+id: pi
+title: 'Installa Lagune su Pi come pacchetto'
+sidebar_label: Pi
+parent: get-started/install
+description: Installa Lagune su Pi come pacchetto, da npm o da GitHub, e tienilo aggiornato.
+keywords:
+  - pi
+  - pi coding agent
+  - pi package
+  - pi install
+  - installare lagune
+  - installazione
+  - sicurezza IA
+  - agenti IA
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+Installa il pacchetto dal terminale:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+Installa l'ultimo commit da **GitHub**, che esegue il motore tramite **npx**:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## Aggiornamento
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+Per aggiornare **Lagune**, esegui:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+Per aggiornare **Lagune**, esegui:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` aggiorna tutti i pacchetti che hai installato, mentre `pi update` da solo aggiorna soltanto **Pi**.
+
+## Comandi
+
+Digita i comandi con il prefisso `skill:`, come `/skill:lagune-charter` per `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'Come installo Lagune su Pi?',
+      answer:
+        "Esegui pi install npm:lagune, oppure pi install git:github.com/wellwelwel/lagune per l'ultimo commit da GitHub.",
+    },
+    {
+      question: 'Come aggiorno Lagune su Pi?',
+      answer:
+        "Esegui pi update npm:lagune, oppure pi update git:github.com/wellwelwel/lagune per un'installazione da GitHub. pi update --extensions aggiorna tutti i pacchetti che hai installato.",
+    },
+    {
+      question: 'Come eseguo i comandi di Lagune su Pi?',
+      answer: 'Digitali con il prefisso skill:, come /skill:lagune-charter.',
+    },
+  ]}
+/>

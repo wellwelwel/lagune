@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Installa Lagune su Codex CLI come plugin'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Installa Lagune su Codex CLI come plugin, tienilo aggiornato ed esegui il suo motore dentro la sandbox.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - installare lagune
+  - installazione
+  - sicurezza IA
+  - agenti IA
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Installa il plugin dal terminale:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Aggiornamento
+
+Per aggiornare **Lagune**, esegui:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Comandi
+
+Digita `$` e il comando con il nome del plugin, seguito dal tuo input, come `$lagune:lagune-charter` per `/lagune-charter`. Digitando `$` vengono elencati i comandi, e sceglierne uno ne inserisce il nome completo.
+
+---
+
+:::info[Permessi]
+
+La sandbox di **Codex** non ha accesso alla rete. Installa il motore nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Come installo Lagune su Codex CLI?',
+      answer:
+        'Esegui codex plugin marketplace add wellwelwel/lagune, poi codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'Come aggiorno Lagune su Codex CLI?',
+      answer: 'Esegui codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: 'Come eseguo i comandi di Lagune su Codex CLI?',
+      answer:
+        'Digita $ e il comando con il nome del plugin, seguito dal tuo input, come $lagune:lagune-charter.',
+    },
+    {
+      question: 'Lagune funziona dentro la sandbox di Codex?',
+      answer:
+        'Sì, una volta installato il motore nel tuo progetto con npm i -D lagune@{{version}} dal tuo terminale, una volta e dopo ogni aggiornamento.',
+    },
+  ]}
+/>
