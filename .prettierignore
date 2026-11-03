@@ -3,3 +3,6 @@
 /website/.docusaurus
 /website/build
 LICENSE
+/.codex-plugin/plugin.json
+/scripts/plugins/gemini/gemini-extension.json
+/scripts/plugins/qwen/qwen-extension.json
