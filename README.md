@@ -88,29 +88,11 @@ codex plugin marketplace upgrade lagune
 
 </td>
 </tr>
-<tr>
-<td colspan="2"><picture><img src="./.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/antigravity-cli"><b>Antigravity</b></a></td>
-</tr>
-<tr>
-<td>
-
-```bash
-agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
-```
-
-</td>
-<td>
-
-```bash
-agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
-```
-
-</td>
-</tr>
 </table>
 
 For any other agent, follow its install page:
 
+- <picture><img src="./.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> [**Antigravity**](https://lagune.ai/docs/install/antigravity-cli)
 - <picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> [**Cursor**](https://lagune.ai/docs/install/cursor)
 - <picture><img src="./.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> [**GitHub Copilot**](https://lagune.ai/docs/install/github-copilot-cli)
 - <picture><img src="./.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> [**OpenCode**](https://lagune.ai/docs/install/opencode)
@@ -123,7 +105,7 @@ For any other agent, follow its install page:
 - <picture><img src="./.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> [**Pi**](https://lagune.ai/docs/install/pi)
 - <picture><img src="./.github/readme/assets/agents/hermes.svg" width="20" align="absmiddle" /></picture> [**Hermes Agent**](https://lagune.ai/docs/install/hermes-agent)
 - <picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> [**Gemini CLI**](https://lagune.ai/docs/install/gemini-cli)
-- <picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal**](https://lagune.ai/docs/install/universal)
+- <picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh)**](https://lagune.ai/docs/install/universal)
 
 ---
 
