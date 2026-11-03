@@ -17,18 +17,18 @@
 
 ### Documentation
 
-<a href="https://lagune.ai/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/us.svg" alt="English" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/pt-BR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/br.svg" alt="Português (Brasil)" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/es-ES/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/es.svg" alt="Español (España)" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/de-DE/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/de.svg" alt="Deutsch" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/fr-FR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/fr.svg" alt="Français" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/it-IT/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/it.svg" alt="Italiano" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/tr-TR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/tr.svg" alt="Türkçe" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/uk-UA/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/ua.svg" alt="Українська" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/ru-RU/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/ru.svg" alt="Русский" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/zh-CN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/cn.svg" alt="简体中文" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/ja-JP/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/jp.svg" alt="日本語" width="24" align="absmiddle" /></a>&nbsp;&nbsp;&nbsp;
-<a href="https://lagune.ai/ko-KR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/flags/kr.svg" alt="한국어" width="24" align="absmiddle" /></a>
+<a href="https://lagune.ai/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/us.svg" alt="English" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/pt-BR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/br.svg" alt="Português (Brasil)" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/es-ES/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/es.svg" alt="Español (España)" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/de-DE/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/de.svg" alt="Deutsch" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/fr-FR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/fr.svg" alt="Français" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/it-IT/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/it.svg" alt="Italiano" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/tr-TR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/tr.svg" alt="Türkçe" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/uk-UA/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/ua.svg" alt="Українська" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/ru-RU/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/ru.svg" alt="Русский" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/zh-CN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/cn.svg" alt="简体中文" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/ja-JP/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/jp.svg" alt="日本語" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/ko-KR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/kr.svg" alt="한국어" width="32" align="absmiddle" /></a>
 
 ---
 
