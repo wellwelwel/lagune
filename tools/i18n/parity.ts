@@ -92,7 +92,8 @@ const QUOTE_PAIRS: Record<string, string> = {
   '‘': '’',
 };
 const PHRASE_CODE_CHARACTER = /[()[\]{}<>/\\=;_$@#|*`~^&%+]/;
-const PHRASE_WORDS = /\p{L}+[\s\u00a0]+\p{L}+/u;
+const PHRASE_WORDS =
+  /\p{L}+[\s\u00a0]+\p{L}+|[\p{sc=Han}\p{sc=Hiragana}\p{sc=Katakana}]{2}/u;
 const MERMAID_QUOTED_LABEL = /"([^"]*)"/g;
 const MERMAID_SHAPE_LABEL =
   /(?<=[\w-])(\[\[|\[\(|\(\(|\(\[|\{\{|\[|\(|\{)(?!")([^\]\)\}"]+?)(\]\]|\)\]|\)\)|\]\)|\}\}|\]|\)|\})/g;

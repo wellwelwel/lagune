@@ -647,6 +647,21 @@ describe('the check of inline code that holds a phrase', () => {
     );
   });
 
+  it('accepts a phrase in a script written without spaces between words', () => {
+    strict.deepStrictEqual(
+      pageParity(
+        ENGLISH_INLINE,
+        translatedInline([
+          '"数据存放在哪里？"',
+          '"npx lagune 能在这里帮上忙吗？"',
+          FAITHFUL_SPANS[2],
+          FAITHFUL_SPANS[3],
+        ])
+      ),
+      []
+    );
+  });
+
   for (const { name, spans } of hostileInline)
     it(`rejects a translation that ${name}`, () => {
       strict(pageParity(ENGLISH_INLINE, translatedInline(spans)).length > 0);
