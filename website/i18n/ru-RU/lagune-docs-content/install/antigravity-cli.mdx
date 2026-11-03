@@ -1,0 +1,84 @@
+---
+id: antigravity-cli
+title: 'Установка Lagune в Antigravity CLI как плагина'
+sidebar_label: Antigravity CLI
+parent: get-started/install
+description: Установите Lagune в Antigravity CLI как плагин, поддерживайте его в актуальном состоянии и заранее разрешите его движок.
+keywords:
+  - antigravity cli
+  - antigravity plugin
+  - agy plugin install
+  - установить lagune
+  - настройка
+  - безопасность ИИ
+  - ИИ-агенты
+source_hash: 'b014e73bcbefbcecaf2c0c58c1764387c55ba91e17ba5a964b3f1105a4d4961a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Antigravity' />
+
+Установите плагин из терминала:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Обновление
+
+Чтобы обновить **Lagune**, установите его снова:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Команды
+
+Вводите команды с именем плагина, например `/lagune:lagune-charter` для `/lagune-charter`.
+
+---
+
+:::info[Разрешения]
+
+Движок работает через два инструмента: `lagune_read` только читает ваш проект, а `lagune_write` только пишет в `.lagune/`. Команда, отправленная первым сообщением сессии, выполняется до их загрузки, поэтому использует **npx**. Чтобы разрешить инструменты и **npx** заранее, добавьте эти правила в `~/.gemini/antigravity-cli/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
+  }
+}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Как установить Lagune в Antigravity CLI?',
+      answer:
+        'Выполните agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity.',
+    },
+    {
+      question: 'Как обновить Lagune в Antigravity CLI?',
+      answer:
+        'Снова выполните agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity.',
+    },
+    {
+      question: 'Как запускать команды Lagune в Antigravity CLI?',
+      answer: 'Вводите их с именем плагина, например /lagune:lagune-charter.',
+    },
+    {
+      question:
+        'Может ли Antigravity CLI запускать Lagune, не спрашивая разрешения?',
+      answer:
+        'Да. Разрешите mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write) и command(regex:npx --yes lagune@[0-9.]+) в настройках Antigravity CLI. Правило для npx охватывает команду, отправленную первым сообщением сессии.',
+    },
+  ]}
+/>

@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Установка Lagune в Muse Code как плагина'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Установите Lagune в Muse Code как плагин, поддерживайте его в актуальном состоянии и запускайте его движок внутри песочницы.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - установить lagune
+  - настройка
+  - безопасность ИИ
+  - ИИ-агенты
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Установите плагин из терминала:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Обновление
+
+Чтобы обновить **Lagune**, обновите маркетплейс и переустановите плагин:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Команды
+
+Вводите команды по имени, например `/lagune-charter`, или с именем плагина, например `/lagune:lagune-charter`.
+
+---
+
+:::info[Разрешения]
+
+Песочница **Muse Code** не может скачать движок. Установите его в проект из своего терминала, один раз и после каждого обновления:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Как установить Lagune в Muse Code?',
+      answer:
+        'Выполните muse plugins marketplace add lagune wellwelwel/lagune, затем muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Как обновить Lagune в Muse Code?',
+      answer:
+        'Выполните muse plugins marketplace update lagune, затем переустановите плагин командами muse plugins remove lagune и muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Как запускать команды Lagune в Muse Code?',
+      answer:
+        'Вводите их по имени, например /lagune-charter, или с именем плагина, например /lagune:lagune-charter.',
+    },
+    {
+      question: 'Работает ли Lagune внутри песочницы Muse Code?',
+      answer:
+        'Да, если установить движок в проект командой npm i -D lagune@{{version}} из своего терминала, один раз и после каждого обновления.',
+    },
+  ]}
+/>

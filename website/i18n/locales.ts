@@ -52,6 +52,12 @@ export const LOCALES: SiteLocale[] = [
     flag: '/img/flags/de.svg',
     status: 'published',
   },
+  {
+    code: 'ru-RU',
+    label: 'Русский',
+    flag: '/img/flags/ru.svg',
+    status: 'published',
+  },
 ];
 
 export const isPublished = (code: string): boolean =>

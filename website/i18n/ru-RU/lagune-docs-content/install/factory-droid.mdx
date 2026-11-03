@@ -1,0 +1,74 @@
+---
+id: factory-droid
+title: 'Установка Lagune в Factory Droid как плагина'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Установите Lagune в Factory Droid как плагин, поддерживайте его в актуальном состоянии и разрешите инструменты его движка.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - установить lagune
+  - настройка
+  - безопасность ИИ
+  - ИИ-агенты
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Установите плагин из терминала:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Обновление
+
+Чтобы обновить **Lagune**, выполните:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Команды
+
+Вводите команды по имени, например `/lagune-charter`.
+
+---
+
+:::info[Разрешения]
+
+Движок работает через два инструмента: `lagune_read` только читает ваш проект, а `lagune_write` только пишет в `.lagune/`. Когда **Factory Droid** спросит, выберите всегда разрешать каждый из них. Он спросит снова после синхронизации нового коммита маркетплейса `lagune`, что может произойти при запуске.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Как установить Lagune в Factory Droid?',
+      answer:
+        'Выполните droid plugin marketplace add wellwelwel/lagune, затем droid plugin install lagune@lagune.',
+    },
+    {
+      question: 'Как обновить Lagune в Factory Droid?',
+      answer:
+        'Выполните droid plugin marketplace update lagune, затем droid plugin update lagune@lagune.',
+    },
+    {
+      question: 'Как запускать команды Lagune в Factory Droid?',
+      answer: 'Вводите их по имени, например /lagune-charter.',
+    },
+    {
+      question:
+        'Может ли Factory Droid запускать Lagune, не спрашивая разрешения?',
+      answer:
+        'Да. Когда Factory Droid спросит, выберите всегда разрешать lagune_read и lagune_write. Он спросит снова после синхронизации нового коммита маркетплейса lagune.',
+    },
+  ]}
+/>

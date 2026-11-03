@@ -1,0 +1,38 @@
+{
+  "category.development-flow": {
+    "message": "Процесс разработки",
+    "description": "The sidebar label of the Development Flow group of pages"
+  },
+  "category.examples": {
+    "message": "Примеры",
+    "description": "The sidebar label of the Examples group of pages"
+  },
+  "category.get-started": {
+    "message": "Начало работы",
+    "description": "The sidebar label of the Get Started group of pages"
+  },
+  "category.hooks": {
+    "message": "Хуки",
+    "description": "The sidebar label of the Hooks group of pages"
+  },
+  "category.maintenance": {
+    "message": "Обслуживание",
+    "description": "The sidebar label of the Maintenance group of pages"
+  },
+  "category.references-sources": {
+    "message": "Справка и источники",
+    "description": "The sidebar label of the References & Sources group of pages"
+  },
+  "category.specializations": {
+    "message": "Специализации",
+    "description": "The sidebar label of the Specializations group of pages"
+  },
+  "category.the-blue-team-flow": {
+    "message": "Процесс Blue Team",
+    "description": "The sidebar label of the The Blue Team Flow group of pages"
+  },
+  "category.tools": {
+    "message": "Инструменты",
+    "description": "The sidebar label of the Tools group of pages"
+  }
+}

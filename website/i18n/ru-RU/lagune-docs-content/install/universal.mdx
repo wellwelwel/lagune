@@ -1,0 +1,106 @@
+---
+id: universal
+title: 'Установка Lagune в любой агент через skills.sh'
+sidebar_label: Универсальная
+parent: get-started/install
+description: Установите Lagune в любой ИИ-агент через CLI skills и поддерживайте его в актуальном состоянии.
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - установить lagune
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - настройка
+  - ИИ-агенты
+source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='skills.sh' />
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Терминал" default>
+
+Установите команды **Lagune** из терминала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Промпт">
+
+Вставьте этот промпт в своего агента:
+
+```md
+Выполни `npx --yes skills add wellwelwel/lagune` и сразу следуй сгенерированным инструкциям навыка. Прочитай весь вывод, при необходимости сначала перенаправив его во временный файл. Разрешай относительные пути от директории со вспомогательными файлами, которую он указывает.
+```
+
+  </TabItem>
+</Tabs>
+
+## Обновление
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="Терминал" default>
+
+Чтобы обновить **Lagune**, выполните:
+
+```bash
+npx skills update
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="Промпт">
+
+Чтобы обновить **Lagune**, вставьте этот промпт в своего агента:
+
+```md
+Выполни `npx --yes skills update -y` и прочитай весь вывод, при необходимости сначала перенаправив его во временный файл.
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::warning[Один способ на агента]
+Устанавливайте **Lagune** либо через **skills.sh**, либо через его **плагин**, но никогда обоими способами.
+:::
+
+:::info[Разрешения]
+
+Команды запускают движок как `npx --yes lagune@{{version}}`, а на [странице установки каждого агента](/docs) показано правило, которое разрешает его заранее. В песочнице без доступа к сети установите движок в проект из своего терминала, один раз и после каждого обновления:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Как установить Lagune в любой ИИ-агент?',
+      answer:
+        'Выполните npx skills add wellwelwel/lagune в своем проекте или вставьте промпт установки в своего агента.',
+    },
+    {
+      question: 'Как обновить Lagune, установленный через CLI skills?',
+      answer:
+        'Выполните npx skills update или вставьте промпт обновления в своего агента.',
+    },
+    {
+      question: 'Можно ли установить Lagune и через CLI skills, и как плагин?',
+      answer:
+        'Нет. При обоих способах агент показывает каждую команду дважды или использует одну копию и скрывает другую.',
+    },
+  ]}
+/>
