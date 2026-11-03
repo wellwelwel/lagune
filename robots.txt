@@ -43,5 +43,6 @@ Sitemap: https://lagune.ai/es-ES/sitemap.xml
 Sitemap: https://lagune.ai/de-DE/sitemap.xml
 Sitemap: https://lagune.ai/fr-FR/sitemap.xml
 Sitemap: https://lagune.ai/it-IT/sitemap.xml
+Sitemap: https://lagune.ai/tr-TR/sitemap.xml
 Sitemap: https://lagune.ai/uk-UA/sitemap.xml
 Sitemap: https://lagune.ai/ru-RU/sitemap.xml

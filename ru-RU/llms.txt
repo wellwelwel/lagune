@@ -66,4 +66,5 @@ Lagune представляет собой открытый процесс Secur
 - [Deutsch](https://lagune.ai/de-DE/llms.txt)
 - [Français](https://lagune.ai/fr-FR/llms.txt)
 - [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
 - [Українська](https://lagune.ai/uk-UA/llms.txt)

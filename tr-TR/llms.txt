@@ -1,0 +1,70 @@
+# Lagune
+
+> Her kod tabanı için Security-Driven Hardening
+
+Lagune, açık kaynak ve yalnızca savunma odaklı bir Security-Driven Hardening (SDH) iş akışıdır. Yapay zeka ajanınızın, hangi dilde olursa olsun her kod tabanını her aşamada sıkılaştırmasına yardımcı olur: charter, siz geliştirmeye başlamadan güvenlik kurallarını belirler, evrensel /lagune komutu işi yazılırken sıkılaştırır, beş fazlı Blue Team akışı da sisteminizin gerçekte ne yaptığını tespit edip o bağlam için önemli olan düzeltmeleri yürütür. Komutları skills CLI aracıyla ajanınıza kurulur ve API anahtarı gerektirmez.
+
+Belgeler altındaki her bağlantı, o sayfanın düz Markdown sürümüne gider. Web sayfası için .md uzantısını kaldırın. Derlemin tamamı tek bir dosyada: https://lagune.ai/tr-TR/llms-full.txt
+
+## Belgeler
+
+- [Kurulum: her yapay zeka ajanı için güvenlik sıkılaştırması](https://lagune.ai/tr-TR/docs.md): Lagune'yi her projeye kurun, ajanınız destekliyorsa eklenti olarak, desteklemiyorsa skills CLI aracıyla, ardından projenize uyan güvenlik uzmanlıklarını seçin.
+- [Antigravity CLI için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/antigravity-cli.md): Lagune'yi Antigravity CLI için eklenti olarak kurun, güncel tutun ve motoruna baştan izin verin.
+- [Claude Code için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/claude-code.md): Lagune'yi Claude Code için eklenti olarak terminalden, uzantıdan veya masaüstü uygulamasından kurun, güncel tutun ve motoruna baştan izin verin.
+- [Codex CLI için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/codex.md): Lagune'yi Codex CLI için eklenti olarak kurun, güncel tutun ve motorunu korumalı alan içinde çalıştırın.
+- [Cursor için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/cursor.md): Lagune'yi Cursor ve Cursor CLI için eklenti olarak kurun, güncel tutun ve motoruna baştan izin verin.
+- [Devin CLI için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/devin-cli.md): Lagune'yi Devin CLI için eklenti olarak kurun ve güncel tutun.
+- [Factory Droid için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/factory-droid.md): Lagune'yi Factory Droid için eklenti olarak kurun, güncel tutun ve motorunun araçlarına izin verin.
+- [Gemini CLI için Lagune uzantısı kurulumu](https://lagune.ai/tr-TR/docs/install/gemini-cli.md): Lagune'yi Gemini CLI için uzantı olarak kurun, güncel tutun ve motoruna baştan izin verin.
+- [GitHub Copilot CLI için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/github-copilot-cli.md): Lagune'yi GitHub Copilot CLI için eklenti olarak kurun ve güncel tutun.
+- [Grok Build için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/grok-build.md): Lagune'yi Grok Build için eklenti olarak kurun, güncel tutun ve motoruna baştan izin verin.
+- [Hermes Agent için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/hermes-agent.md): Lagune'yi Hermes Agent için eklenti olarak kurun ve güncel tutun.
+- [Kimi Code için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/kimi-code.md): Lagune'yi Kimi Code için eklenti olarak kurun ve güncel tutun.
+- [Muse Code için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/muse-code.md): Lagune'yi Muse Code için eklenti olarak kurun, güncel tutun ve motorunu korumalı alan içinde çalıştırın.
+- [OpenCode için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/opencode.md): Lagune'yi OpenCode 1.x ve 2.x için eklenti olarak kurun ve güncel tutun.
+- [Pi için Lagune paketi kurulumu](https://lagune.ai/tr-TR/docs/install/pi.md): Lagune'yi Pi için npm'den veya GitHub'dan paket olarak kurun ve güncel tutun.
+- [Qwen Code için Lagune uzantısı kurulumu](https://lagune.ai/tr-TR/docs/install/qwen-code.md): Lagune'yi Qwen Code için uzantı olarak kurun, güncel tutun ve motoruna baştan izin verin.
+- [skills.sh ile her ajana Lagune kurulumu](https://lagune.ai/tr-TR/docs/install/universal.md): Lagune'yi skills CLI aracıyla her yapay zeka ajanına kurun ve güncel tutun.
+- [Yapay zeka ajanları için güvenlik becerileri](https://lagune.ai/tr-TR/docs/get-started/commands.md): Yapay zeka ajanınızın Lagune ile kazandığı beceriler: mevcut bir projeyi denetleyin ya da yeni işi geliştirirken güvenli hale getirin, hepsi charter'ın yönetiminde.
+- [Gösterge paneli](https://lagune.ai/tr-TR/docs/get-started/dashboard.md): Projenizin charter'ını, bulgularını ve kataloğunu tek komutla açılan canlı ve yerel bir görünümde izleyin.
+- [/lagune: yapay zeka yazarken kodu güvenli hale getirin](https://lagune.ai/tr-TR/docs/commands/lagune.md): İstediğinizi geliştirir ve charter rehberliğinde, izlenecek bir akış olmadan, yazılırken sıkılaştırır.
+- [/lagune-charter: güvenlik ilkelerinizi belirleyin](https://lagune.ai/tr-TR/docs/commands/charter.md): Projenizin güvenlik ilkelerini, yani sonraki her fazın uyduğu kuralları belirleyin ve projeyi okuyarak gerekçelendirilen uzmanlık kategorilerini kaydedin.
+- [/lagune-detect: sisteminizin ve risklerinin haritasını çıkarın](https://lagune.ai/tr-TR/docs/commands/detect.md): Kodunuzu okuyun, sisteminizin ne yaptığını ve risklerin nerede olduğunu belirleyin.
+- [/lagune-plan: bulguları puanlayın ve düzeltmeleri planlayın](https://lagune.ai/tr-TR/docs/commands/plan.md): detect fazının bulduklarını bir savunma planına dönüştürün, her bulguyu bir kategori ve CVSS v4.0 puanıyla değerlendirin ve bir düzeltmeyle eşleştirin.
+- [/lagune-harden: güvenlik düzeltmelerini kodunuza uygulayın](https://lagune.ai/tr-TR/docs/commands/harden.md): Plandaki düzeltmeleri kodunuza güvenli bir şekilde ve tek tek uygulayın.
+- [/lagune-verify: güvenlik kontrollerinin işe yaradığını kanıtlayın](https://lagune.ai/tr-TR/docs/commands/verify.md): Uygulanan her düzeltmenin işe yaradığını kanıtlayın, ardından kanıtlananları kapatın.
+- [Kategoriler](https://lagune.ai/tr-TR/docs/categories.md): Bir Lagune projesinin kullanabileceği, OWASP'tan JavaScript, Python, Go ve Rust gibi dillere özgü sıkılaştırmaya uzanan uzmanlık kategorileri ve bunların nasıl değiştirileceği.
+- [Katalog: talep üzerine yüklenen güvenlik uzmanlıkları](https://lagune.ai/tr-TR/docs/catalog.md): Projenizin kataloğundaki uzmanlıkların nasıl yüklendiği: bir faz tarafından talep üzerine ya da doğrudan sizin tarafınızdan.
+- [/lagune-specialize: düz metinle bir güvenlik uzmanlığı eğitin](https://lagune.ai/tr-TR/docs/commands/specialize.md): Verdiğiniz bir güvenlik kaynağının ya da konusunun özünü çıkararak talep üzerine yüklenen yeni bir uzmanlığa dönüştürün.
+- [/lagune-prove: yalnızca savunma odaklı Proof of Concept](https://lagune.ai/tr-TR/docs/commands/prove.md): Tespit edilen her bulguyu sorumlu ifşa için çalıştırılabilir, yalnızca savunma odaklı bir Proof of Concept'e (PoC) ve güvenlik bültenine dönüştürün.
+- [agent hook'u: sınırsız ajan döngülerini tespit edin](https://lagune.ai/tr-TR/docs/hooks/agent.md): Kod tabanını adım veya süre sınırı olmayan ajan ve LLM çağrılarına karşı tarayın ya da tek bir çağrıyı doğrudan komut satırından değerlendirin.
+- [cors hook'u: CORS kökenlerini denetleyin](https://lagune.ai/tr-TR/docs/hooks/cors.md): Kaynak kodu atlatılabilir bir CORS köken izin listesine karşı tarayın ya da tek bir köken değerini aşırı serbest erişime karşı doğrudan komut satırından puanlayın.
+- [crypto hook'u: zayıf kriptografiyi tespit edin](https://lagune.ai/tr-TR/docs/hooks/crypto.md): Kod tabanını zayıf kriptografik primitiflere karşı tarayın ya da tek bir kod parçasını doğrudan komut satırından puanlayın.
+- [cvss hook'u: bir CVSS v4.0 vektörünü puanlayın](https://lagune.ai/tr-TR/docs/hooks/cvss.md): Bir veya birden çok CVSS v4.0 vektörünü FIRST hesaplayıcısıyla aynı aritmetikle doğrudan komut satırından puanlayın ve her birini sade bir dille okuyun.
+- [infra hook'u: IaC yapılandırma hatalarını tespit edin](https://lagune.ai/tr-TR/docs/hooks/infra.md): Terraform, Dockerfile ve GitHub Actions dosyalarını yapılandırma hatalarına karşı tarayın ya da tek bir kod parçasını doğrudan komut satırından puanlayın.
+- [interpreter hook'u: dinamik kod çalıştırma sink'lerini işaretleyin](https://lagune.ai/tr-TR/docs/hooks/interpreter.md): Kod tabanını farklı dillerdeki dinamik kod çalıştırma sink'lerine karşı tarayın ya da tek bir kod parçasını doğrudan komut satırından puanlayın.
+- [jwt hook'u: algoritması sabitlenmemiş JWT doğrulamasını tespit edin](https://lagune.ai/tr-TR/docs/hooks/jwt.md): Kod tabanını algoritması sabitlenmemiş JWT doğrulamasına karşı tarayın ya da tek bir çağrıyı doğrudan komut satırından puanlayın.
+- [network hook'u: URL'leri SSRF'ye karşı puanlayın](https://lagune.ai/tr-TR/docs/hooks/network.md): Bir veya birden çok istek hedefini doğrudan komut satırından SSRF'ye karşı puanlayın.
+- [regex hook'u: ReDoS örüntülerini tespit edin](https://lagune.ai/tr-TR/docs/hooks/regex.md): Kod tabanını ReDoS'a yatkın regex'lere karşı tarayın ya da tek bir örüntüyü doğrudan komut satırından puanlayın.
+- [secrets hook'u: koda gömülü gizli bilgileri tespit edin](https://lagune.ai/tr-TR/docs/hooks/secrets.md): Kod tabanını koda gömülü kimlik bilgilerine karşı doğrudan komut satırından tarayın.
+- [Lagune prompt örnekleri: Blue Team akışını otomatikleştirin](https://lagune.ai/tr-TR/docs/examples/prompts.md): Kopyalamaya hazır Lagune prompt'ları: salt okunur bir tarama, tam Blue Team akışı ve bir Zero Trust denetimi, ayrıca bir commit'e, bir dalın ya da PR'ın diff'ine veya gerçek bir olaya göre kapsamı daraltılmış tespit.
+- [Security-Driven Hardening: yapay zeka destekli geliştirme çağı için bir yaklaşım](https://lagune.ai/tr-TR/docs/references/paper.md): Security-Driven Hardening (SDH) metodolojisi: yapay zeka desteğiyle ve vibe coding ile geliştirilen yazılımları denetlemek ve sıkılaştırmak için bağlama duyarlı bir Blue Team yaklaşımı.
+- [Lagune sözlüğü: SDH, charter, bulgular ve kontroller](https://lagune.ai/tr-TR/docs/references/glossary.md): Lagune ve Security-Driven Hardening terimlerinin her birinin sade bir dille tanımı: SDH, charter, detect, bulgu, kontrol, harden, verify, takipten çıkarma, kapatılabilirlik, uzmanlıklar, kategoriler ve katalog.
+- [Yapılandırma şeması](https://lagune.ai/tr-TR/docs/references/configs-schema.md): Bir Lagune projesinin yapılandırması için JSON Schema: düzenleyicinizde otomatik tamamlama ve doğrulama sağlar, güncel Lagune'yi izler ya da bir sürüme sabitlenir.
+- [Lagune ve Deepsec: yapay zeka destekli iki güvenlik yaklaşımı yan yana](https://lagune.ai/tr-TR/docs/references/deepsec.md): Lagune'yi ve Vercel'in Deepsec'ini çalışma biçimi, yaşam döngüsü, tespit, maliyet, bulgular ve kapatma açısından karşılaştıran bir başvuru sayfası.
+- [OWASP kaynakları](https://lagune.ai/tr-TR/docs/references/owasp-sources.md): Yerleşik OWASP uzmanlıklarının bilgisinin nereden geldiği, OWASP'ın resmi saldırı ve Cheat Sheet sayfalarıyla eşleştirilmiş hâlde.
+- [/lagune-repair: bozulan bulgu takibini onarın](https://lagune.ai/tr-TR/docs/commands/repair.md): Bir yeniden adlandırma ya da taşınan bir dosya Lagune'nin takibini karıştırdığında zinciri onarın.
+- [Migrate: manifest tabanlı bir Lagune projesini becerilere ve eklentilere taşıyın](https://lagune.ai/tr-TR/docs/commands/migrate.md): Manifest tabanlı bir Lagune projesini güvenlik ilkelerinizi, artefaktlarınızı, takibinizi ve kendi uzmanlıklarınızı koruyarak beceri tabanlı Lagune'ye taşıyın.
+
+## Diğer diller
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)

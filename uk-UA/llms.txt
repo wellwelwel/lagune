@@ -66,4 +66,5 @@ Lagune є робочим процесом Security-Driven Hardening (SDH) з в�
 - [Deutsch](https://lagune.ai/de-DE/llms.txt)
 - [Français](https://lagune.ai/fr-FR/llms.txt)
 - [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
 - [Русский](https://lagune.ai/ru-RU/llms.txt)

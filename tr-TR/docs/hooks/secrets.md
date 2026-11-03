@@ -1,0 +1,50 @@
+# secrets hook'u: koda gömülü gizli bilgileri tespit edin
+
+> Kod tabanını koda gömülü kimlik bilgilerine karşı doğrudan komut satırından tarayın.
+
+Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/secrets
+Dil: tr-TR
+Orijinal: https://lagune.ai/docs/hooks/secrets
+Son güncelleme: 2026-11-03
+
+`secrets` hook'u, ortamdan okunmak yerine **kaynak koda gömülmüş kimlik bilgilerini** işaretler. Değerin içeriğine değil **kaynağına** (bir literal mi, yoksa ortamdan okunan bir değer mi) bakar, bu yüzden sağlayıcı öneklerinden oluşan kapsamlı bir kataloğa ihtiyaç duymaz ve neredeyse hiç yanlış pozitif üretmez. [`secrets` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur.
+
+Sağlayıcı biçimi imzaları, bağlantı dizelerindeki kimlik bilgileri ve adı gizli bilgiye işaret eden bir tanımlayıcıya atanmış bir literal **dilden bağımsızdır**: aynı dize her dosyada aynı şekilde okunur. Sözdizimine bağlı iki sezgisel kural, yani koda gömülü varsayılan değere sahip bir ortam değişkeni okuması ve bir log sink'ine akan gizli bilgi ise **dile duyarlıdır**, bu yüzden JavaScript'in `console.log` çağrısı asla bir Rust dosyasında aranmaz ve Python'un `os.getenv("X", "default")` kalıbı kendi başına tanınır.
+
+## Çalıştırma
+
+```bash
+npx lagune read secrets                  # scans the whole project
+npx lagune read secrets --dir src        # scans a directory
+npx lagune read secrets --file config.ts # scans a single file
+```
+
+Tarama en fazla iki bölüm yazdırır. **Hardcoded secrets found** bulgu kümesidir (adı gizli bilgiye işaret eden bir ortam değişkeni için koda gömülü bir varsayılan değer, bir bağlantı dizesine gömülmüş bir kimlik bilgisi ya da özenle derlenmiş bir sağlayıcı biçimiyle eşleşen bir değer), bu yüzden hook sıfırdan farklı bir kodla çıkar. **Secret handling to review manually** ise ipuçlarının kümesidir: adı gizli bilgiye işaret eden bir tanımlayıcıya atanmış sıradan bir literal (kaynağı belirlenebilir, ama değerin gerçek bir gizli bilgi olup olmadığı belirlenemez) ve bir log ya da yanıt sink'ine akan, adı gizli bilgiye işaret eden bir değer. Temiz bir çalıştırma `no hardcoded secrets found` çıktısını verir.
+
+### CLI seçenekleri
+
+| Seçenek  | Değer     | Açıklama                                                                              |
+| -------- | --------- | ------------------------------------------------------------------------------------- |
+| `--dir`  | bir dizin | Taramayı bir dizinle sınırlar. Tekrarlanabilir ve `--file` ile birleştirilebilir.     |
+| `--file` | bir dosya | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir. |
+
+Seçenek verilmezse tüm proje taranır.
+
+### Dil kapsamı
+
+Ortam değişkeni varsayılanı bulgusu ve log sink'i ipucu, her dil için ayrı bir biçim kümesi okur, bu yüzden aşağıdaki dilleri kapsar ve diğerlerinde sessiz kalır. Diğer üç sinyal **her** dosyada çalışır.
+
+| Sinyal                      | Diller                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------- |
+| Ortam değişkeni varsayılanı | JavaScript/TypeScript, Python, Ruby, PHP, Kotlin, Java, Go (`cmp.Or`), Rust, C# |
+| Log veya yanıt sink'i       | JavaScript/TypeScript, Python, Ruby, PHP, Java, Kotlin, Go, Rust, C, C++, C#    |
+
+**Bu bir kullanım politikası sorunu mu?**
+
+Hayır. Commit edildiği konusunda uyarmak için bir gizli bilginin biçimini tespit etmek, standart bir savunma aracıdır ve gitleaks, trufflehog ve GitHub push protection'ın yaptığı işlemin aynısıdır. Hook, gerçek bir gizli bilgiyi değil, tespit imzalarını (herkese açık token **biçimlerini**) içerir, veriyi dışarı sızdırmak yerine denetler ve açıklar.
+
+## Sıkça sorulan sorular
+
+### secrets hook'u yanlış pozitiflerden nasıl kaçınır?
+
+Değerin içeriğine değil kaynağına bakar. Yüksek güvenilirlikli biçimler (sağlayıcı token'ları, ortam değişkeni varsayılanları, bağlantı dizeleri) sıfırdan farklı bir kodla çıkan bulgulardır. Adı gizli bilgiye işaret eden bir tanımlayıcıya atanmış sıradan bir literal doğrulanması gereken bir inceleme ipucudur ve aynı tanımlayıcı process.env üzerinden okunduğunda hiç işaretlenmez.
