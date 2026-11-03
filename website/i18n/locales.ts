@@ -3,6 +3,7 @@ export type LocaleStatus = 'published' | 'draft';
 export type SiteLocale = {
   code: string;
   label: string;
+  flag: string;
   status: LocaleStatus;
 };
 
@@ -15,8 +16,18 @@ export type LocaleBuild = {
 export const DEFAULT_LOCALE = 'en';
 
 export const LOCALES: SiteLocale[] = [
-  { code: 'en', label: 'English', status: 'published' },
-  { code: 'pt-BR', label: 'Português (Brasil)', status: 'published' },
+  {
+    code: 'en',
+    label: 'English',
+    flag: '/img/flags/us.svg',
+    status: 'published',
+  },
+  {
+    code: 'pt-BR',
+    label: 'Português (Brasil)',
+    flag: '/img/flags/br.svg',
+    status: 'published',
+  },
 ];
 
 export const isPublished = (code: string): boolean =>
