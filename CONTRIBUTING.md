@@ -120,6 +120,44 @@ npm run website:build     # Ensuring it still builds
 
 ---
 
+### 🌎 Translations
+
+The website is written in English, which always leads: a change starts in English and then reaches each translation. Every other language lives in its own folder, `website/i18n/<code>/`, and that folder's `GUIDE.md` holds the tone, the glossary, and the translation rules for that language. Read it before translating anything.
+
+The translation tool runs from the repository root:
+
+```sh
+npm -w website run i18n -- check
+```
+
+`check` reports what each language has translated, which pages fell behind English, and anything a translation changed that must stay as in English, such as a command, inline code, a code block, a token, or a link. It fails on any error, and CI runs it on every website change.
+
+#### Adding a language
+
+1. Register it in the locale registry (`website/i18n/locales.ts`) with its BCP 47 code, its name in its own language, and the `draft` status. A draft builds locally and in CI, but it never deploys.
+2. Generate its messages with `npm -w website run i18n -- add <code>`, then write its `GUIDE.md`.
+3. Translate the messages. Each new message starts with `[untranslated]` in its description, and removing that mark is what accepts it, including a message meant to stay as in English, such as `OWASP`.
+4. Translate its pages, as below.
+5. Once its interface, data, sidebar labels, home, share, and Get Started pages are translated and `check` reports no errors, set its status to `published`.
+
+#### Translating a page
+
+1. `npm -w website run i18n -- copy <code> <doc id>` copies the English page into the language folder and records which English version it came from.
+2. Translate the copy, keeping its structure, then run `check <code>` until it reports no errors for that page.
+
+To preview a language, run `npm -w website run start -- --locale <code>`.
+
+#### Keeping a translation in sync
+
+When an English page changes, `check` reports its translation as stale. A stale page stays published with a notice that points to the English original.
+
+1. `npm -w website run i18n -- diff <code> <doc id>` shows what changed in English since the translation.
+2. Bring the translation up to date, then accept the new English version with `stamp <code> <doc id>`.
+
+When the website gains new messages, `add <code>` regenerates the language's messages, keeping every translation and marking only the new ones.
+
+---
+
 ## Testing
 
 ```sh

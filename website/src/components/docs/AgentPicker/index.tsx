@@ -2,13 +2,14 @@ import type { CSSProperties, ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
-  FEATURED_AGENTS,
+  featuredAgentsIn,
   UNIVERSAL_BACKGROUND,
   UNIVERSAL_HIGHLIGHTS,
   UNIVERSAL_INSTALL,
-  UNIVERSAL_SUMMARY,
+  universalIn,
 } from '@site/src/data/agents';
 import clsx from 'clsx';
+import { useDataMessages } from '../data';
 import { Icon } from '../icons';
 
 type TileStyle = CSSProperties & { '--tile-delay'?: string };
@@ -96,47 +97,52 @@ const AgentCard = ({
   </Link>
 );
 
-export const AgentPicker = (): ReactNode => (
-  <div className='@container mb-(--ifm-leading)'>
-    <div className={clsx(CARD_GRID, '@4xl:grid-cols-4')}>
-      {FEATURED_AGENTS.map((agent) => (
-        <AgentCard
-          key={agent.name}
-          to={agent.install}
-          title={agent.name}
-          description={agent.description}
-          className='bg-surface shadow-card-half hover:shadow-pop'
-          icon={
-            <AgentTile
-              icon={agent.icon}
-              className={clsx(TILE_HOVER, 'transition-colors')}
-            />
-          }
-          background={agent.icon}
-        />
-      ))}
-      <AgentCard
-        to={UNIVERSAL_INSTALL}
-        title='Universal'
-        description={UNIVERSAL_SUMMARY}
-        background={UNIVERSAL_BACKGROUND}
-        className='border-dashed hover:border-accent'
-        icon={
-          <span className='flex'>
-            {UNIVERSAL_HIGHLIGHTS.map((agent, index) => (
+export const AgentPicker = (): ReactNode => {
+  const messages = useDataMessages();
+  const universal = universalIn(messages);
+
+  return (
+    <div className='@container mb-(--ifm-leading)'>
+      <div className={clsx(CARD_GRID, '@4xl:grid-cols-4')}>
+        {featuredAgentsIn(messages).map((agent) => (
+          <AgentCard
+            key={agent.name}
+            to={agent.install}
+            title={agent.name}
+            description={agent.description}
+            className='bg-surface shadow-card-half hover:shadow-pop'
+            icon={
               <AgentTile
-                key={agent.name}
                 icon={agent.icon}
-                delay={index * TILE_STAGGER_MS}
-                className={clsx(
-                  TILE_HOVER,
-                  '-ml-2 ring-2 ring-surface first:ml-0'
-                )}
+                className={clsx(TILE_HOVER, 'transition-colors')}
               />
-            ))}
-          </span>
-        }
-      />
+            }
+            background={agent.icon}
+          />
+        ))}
+        <AgentCard
+          to={UNIVERSAL_INSTALL}
+          title={universal.title}
+          description={universal.summary}
+          background={UNIVERSAL_BACKGROUND}
+          className='border-dashed hover:border-accent'
+          icon={
+            <span className='flex'>
+              {UNIVERSAL_HIGHLIGHTS.map((agent, index) => (
+                <AgentTile
+                  key={agent.name}
+                  icon={agent.icon}
+                  delay={index * TILE_STAGGER_MS}
+                  className={clsx(
+                    TILE_HOVER,
+                    '-ml-2 ring-2 ring-surface first:ml-0'
+                  )}
+                />
+              ))}
+            </span>
+          }
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};

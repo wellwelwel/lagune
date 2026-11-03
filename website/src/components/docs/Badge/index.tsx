@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { translate } from '@docusaurus/Translate';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { badgeMarkdown } from '@site/src/data/badges';
 
@@ -17,7 +18,15 @@ export const Badge = ({
     <img src={src} alt={alt} width={width} height={BADGE_HEIGHT} />
     <CopyButton
       value={badgeMarkdown(alt, src)}
-      label={`Copy the "${alt}" badge Markdown`}
+      label={translate(
+        {
+          id: 'docs.badge.copy',
+          message: 'Copy the "{badge}" badge Markdown',
+          description:
+            "The label of the button that copies a badge's Markdown, where {badge} is the badge's text",
+        },
+        { badge: alt }
+      )}
     />
   </div>
 );

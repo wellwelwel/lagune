@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Authoritative record of Lagune's architecture decisions, covering the three owners, what ships, the engine command, the published skills and their plugins, project state, the catalog, and the tracking map. Use when a change depends on one or alters it.
+description: Authoritative record of Lagune's architecture decisions, covering the three owners, what ships, the engine, the skills and plugins, project state, the catalog, the tracking map, and the website's languages. Use when a change depends on one or alters it.
 user-invocable: true
 metadata:
   internal: true
@@ -84,3 +84,15 @@ Installing and updating the commands belongs to the **skills** CLI and to each a
 
 - **Validation judges shape, never security content.** A written artifact must keep its template's shape, and a value the template derives from another, such as a score from its vector, is part of that shape, so one that drifted fails.
 - **Ownership stays with the writer.** Each phase checks the artifact it wrote, verify the record it wrote its verdicts into, and the sweep over the whole memory belongs to `/lagune-repair`, which reports drift for the owning phase to fix. Validation writes nothing, and like track and untrack it is internal plumbing with no user-facing command.
+
+## The website's languages
+
+- **English is the source and stays at the root.** Every other language derives from it under its own prefix, so no existing URL, backlink, or redirect moves, and a change always starts in English before it reaches a translation.
+- **One locale registry decides every language and whether it is published.** The build, the language switcher, hreflang, the sitemaps, `robots.txt`, and the AI corpus all derive from it, so no layer can disagree about which languages exist. A draft builds in development and CI and never deploys, so a half-translated language never reaches readers or crawlers.
+- **A translation pairs with its English page by doc id and records the English version it came from.** That pairing gives each page one state, translated, stale, or untranslated, and every layer follows the state instead of deciding on its own, so a page cannot be translated for search and untranslated for its reader.
+- **Every route exists in every published language.** An untranslated page shows its English content inside the language's interface, with its canonical on the English page, so navigation never leaves the language and search engines never index the copy.
+- **hreflang pairs only real translations.** The **Docusaurus** default declares every locale on every page, which would point crawlers at English content dressed as a translation.
+- **One structured-data identity in every language.** The organization, the author, the website, and the software are the same entity across languages, and a translated page points to its English original, so search engines and AI assistants never split the project into one entity per language.
+- **The website overlays engine and Dashboard text by key and never edits it.** That text keeps its English source in the engine, where the engine and the Dashboard also read it, so a translation can never change what they show, and a missing translation falls back to it key by key.
+- **The translation check is a barrier, not a style linter.** A mistranslated command in a security product is a real risk, so commands, code, tokens, paths, and links stay as in English, and the check rejects any translation that changes or adds one.
+- **A translated language's build keeps only what it serves.** Root-only files, such as `robots.txt` and the host's settings, and every static file its pages take from the root stay at the root alone, since the host reads them only at the root and the language's pages load them from there, so a copy under its prefix would only be dead weight.

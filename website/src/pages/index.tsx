@@ -1,15 +1,29 @@
 import type { TopBarLink } from '@site/src/components/home/TopBar';
+import type { LocalePage } from '@site/src/components/LocaleHead';
 import type { WindowId } from '@site/src/data/home';
 import type { ReactNode } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
+import { translate } from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useDataMessages } from '@site/src/components/docs/data';
 import { frameResizeObserver } from '@site/src/components/frameResizeObserver';
 import { AgentStack } from '@site/src/components/home/AgentStack';
 import { Brand } from '@site/src/components/home/Brand';
 import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
 import { RailTip } from '@site/src/components/home/RailTip';
 import { TopBar } from '@site/src/components/home/TopBar';
+import {
+  LanguageLinks,
+  useLanguageOptions,
+} from '@site/src/components/LanguageSwitcher';
+import {
+  LocaleHead,
+  translationOf,
+  useLocalePage,
+  usePublishedAlternates,
+} from '@site/src/components/LocaleHead';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
   BACKGROUND_SIZES,
@@ -20,6 +34,8 @@ import {
   STEP_RAIL_ICONS,
   TABS,
 } from '@site/src/data/home';
+import { jsonLd } from '@site/src/seo/jsonLd';
+import { siteDescriptionIn } from '@site/src/seo/site';
 import {
   lazy,
   Suspense,
@@ -33,18 +49,34 @@ import { FaStar } from 'react-icons/fa6';
 import { GoHeartFill } from 'react-icons/go';
 import { LuMenu, LuX } from 'react-icons/lu';
 
-const PAGE_URL = 'https://lagune.ai/';
+const SITE_URL = 'https://lagune.ai';
+const SITE_HOME = `${SITE_URL}/`;
 const REPO_URL = 'https://github.com/wellwelwel/lagune';
 const SPONSOR_URL = 'https://github.com/sponsors/wellwelwel';
 const NPM_URL = 'https://www.npmjs.com/package/lagune';
 const OG_IMAGE = 'https://lagune.ai/img/og.png';
-const PAGE_TITLE = 'AI-Driven Security Hardening for Any Codebase | Lagune';
-const PAGE_DESCRIPTION =
-  'Lagune helps your AI agent harden any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.';
-const SITE_SUMMARY =
-  "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.";
 
-const STRUCTURED_DATA = {
+const howToStep = (
+  page: LocalePage,
+  position: number,
+  name: string,
+  text: string,
+  command: string
+) => ({
+  '@type': 'HowToStep',
+  position,
+  name,
+  text,
+  url: `${SITE_URL}${page.baseUrl}docs/commands/${command}`,
+});
+
+const faqEntry = (question: string, answer: string) => ({
+  '@type': 'Question',
+  name: question,
+  acceptedAnswer: { '@type': 'Answer', text: answer },
+});
+
+const homeStructuredData = (page: LocalePage, summary: string) => ({
   '@context': 'https://schema.org',
   '@graph': [
     {
@@ -52,9 +84,9 @@ const STRUCTURED_DATA = {
       '@id': 'https://lagune.ai/#website',
       name: 'Lagune',
       alternateName: ['Lagune AI', 'lagune'],
-      url: PAGE_URL,
-      inLanguage: 'en',
-      description: SITE_SUMMARY,
+      url: SITE_HOME,
+      inLanguage: page.htmlLang,
+      description: summary,
       publisher: { '@id': 'https://lagune.ai/#organization' },
     },
     {
@@ -65,111 +97,239 @@ const STRUCTURED_DATA = {
       applicationCategory: 'DeveloperApplication',
       applicationSubCategory: 'Security',
       operatingSystem: 'Node.js',
-      url: PAGE_URL,
-      description: SITE_SUMMARY,
+      url: SITE_HOME,
+      description: summary,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       screenshot: OG_IMAGE,
       license: `${REPO_URL}/blob/main/LICENSE`,
       publisher: { '@id': 'https://lagune.ai/#organization' },
       author: { '@id': 'https://lagune.ai/#author' },
       downloadUrl: NPM_URL,
-      softwareHelp: 'https://lagune.ai/docs',
+      softwareHelp: `${SITE_URL}${page.baseUrl}docs`,
       featureList: [
-        'Detects what a system actually does, whatever that is, then drives the fixes that matter for that context, in any language',
-        'Secures new work as it is written with the universal /lagune command, guided by the charter',
-        'Five-phase Blue Team flow: charter, detect, plan, harden, verify',
-        'CVSS v4.0 scoring for each finding',
-        'On-demand, language-agnostic security specializations, grouped in categories',
-        'Installs into your agent as a plugin, or with the skills CLI in any other agent, no API key required',
-        'Defense-only: never generates exploits or attack tooling',
-        'Local, private dashboard to follow findings, fixes, and proofs',
+        translate({
+          id: 'home.software.feature.context',
+          message:
+            'Detects what a system actually does, whatever that is, then drives the fixes that matter for that context, in any language',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
+        translate({
+          id: 'home.software.feature.universal',
+          message:
+            'Secures new work as it is written with the universal /lagune command, guided by the charter',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
+        translate({
+          id: 'home.software.feature.flow',
+          message:
+            'Five-phase Blue Team flow: charter, detect, plan, harden, verify',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
+        translate({
+          id: 'home.software.feature.cvss',
+          message: 'CVSS v4.0 scoring for each finding',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
+        translate({
+          id: 'home.software.feature.specializations',
+          message:
+            'On-demand, language-agnostic security specializations, grouped in categories',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
+        translate({
+          id: 'home.software.feature.install',
+          message:
+            'Installs into your agent as a plugin, or with the skills CLI in any other agent, no API key required',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
+        translate({
+          id: 'home.software.feature.defense',
+          message: 'Defense-only: never generates exploits or attack tooling',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
+        translate({
+          id: 'home.software.feature.dashboard',
+          message:
+            'Local, private dashboard to follow findings, fixes, and proofs',
+          description: "A feature of Lagune in search engines' structured data",
+        }),
       ],
       sameAs: [REPO_URL, NPM_URL],
     },
     {
       '@type': 'HowTo',
-      '@id': 'https://lagune.ai/#howto',
-      name: 'How to harden a codebase with Lagune (the Blue Team flow)',
-      description:
-        'Lagune runs a five-phase, defense-first flow that audits and hardens any codebase, driven by your AI agent.',
+      '@id': `${page.url}#howto`,
+      ...translationOf(page, '#howto'),
+      name: translate({
+        id: 'home.howTo.name',
+        message: 'How to harden a codebase with Lagune (the Blue Team flow)',
+        description:
+          "The name of the five-phase guide in search engines' structured data",
+      }),
+      description: translate({
+        id: 'home.howTo.description',
+        message:
+          'Lagune runs a five-phase, defense-first flow that audits and hardens any codebase, driven by your AI agent.',
+        description:
+          "The summary of the five-phase guide in search engines' structured data",
+      }),
       step: [
-        {
-          '@type': 'HowToStep',
-          position: 1,
-          name: 'Charter',
-          text: "Set your project's security principles, the rules every later phase respects.",
-          url: 'https://lagune.ai/docs/commands/charter',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 2,
-          name: 'Detect',
-          text: 'Read the code and map what the system does and where the risks are.',
-          url: 'https://lagune.ai/docs/commands/detect',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 3,
-          name: 'Plan',
-          text: 'Rate each finding with a category and a CVSS v4.0 score, then pair it with a fix.',
-          url: 'https://lagune.ai/docs/commands/plan',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 4,
-          name: 'Harden',
-          text: "Apply the plan's fixes to the code, safely and one at a time.",
-          url: 'https://lagune.ai/docs/commands/harden',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 5,
-          name: 'Verify',
-          text: 'Prove each applied fix holds, then stand down the ones that do.',
-          url: 'https://lagune.ai/docs/commands/verify',
-        },
+        howToStep(
+          page,
+          1,
+          translate({
+            id: 'home.phase.charter.title',
+            message: 'Charter',
+            description: 'The name of the Charter phase',
+          }),
+          translate({
+            id: 'home.howTo.charter',
+            message:
+              "Set your project's security principles, the rules every later phase respects.",
+            description:
+              "The Charter step of the five-phase guide in search engines' structured data",
+          }),
+          'charter'
+        ),
+        howToStep(
+          page,
+          2,
+          translate({
+            id: 'home.phase.detect.title',
+            message: 'Detect',
+            description: 'The name of the Detect phase',
+          }),
+          translate({
+            id: 'home.howTo.detect',
+            message:
+              'Read the code and map what the system does and where the risks are.',
+            description:
+              "The Detect step of the five-phase guide in search engines' structured data",
+          }),
+          'detect'
+        ),
+        howToStep(
+          page,
+          3,
+          translate({
+            id: 'home.phase.plan.title',
+            message: 'Plan',
+            description: 'The name of the Plan phase',
+          }),
+          translate({
+            id: 'home.howTo.plan',
+            message:
+              'Rate each finding with a category and a CVSS v4.0 score, then pair it with a fix.',
+            description:
+              "The Plan step of the five-phase guide in search engines' structured data",
+          }),
+          'plan'
+        ),
+        howToStep(
+          page,
+          4,
+          translate({
+            id: 'home.phase.harden.title',
+            message: 'Harden',
+            description: 'The name of the Harden phase',
+          }),
+          translate({
+            id: 'home.howTo.harden',
+            message:
+              "Apply the plan's fixes to the code, safely and one at a time.",
+            description:
+              "The Harden step of the five-phase guide in search engines' structured data",
+          }),
+          'harden'
+        ),
+        howToStep(
+          page,
+          5,
+          translate({
+            id: 'home.phase.verify.title',
+            message: 'Verify',
+            description: 'The name of the Verify phase',
+          }),
+          translate({
+            id: 'home.howTo.verify',
+            message:
+              'Prove each applied fix holds, then stand down the ones that do.',
+            description:
+              "The Verify step of the five-phase guide in search engines' structured data",
+          }),
+          'verify'
+        ),
       ],
     },
     {
       '@type': 'FAQPage',
-      '@id': 'https://lagune.ai/#faq',
+      '@id': `${page.url}#faq`,
+      ...translationOf(page, '#faq'),
       mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What is Lagune?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Lagune is an open-source, defense-only security workflow that helps your AI agent harden any codebase. It detects what your system actually does, then guides the security fixes that matter for that context.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can Lagune secure code as I build it?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. The /lagune command takes any prompt, builds what you asked, and hardens it with safe defaults as it is written, guided by your charter. The five-phase Blue Team flow then audits what already exists.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can Lagune audit an existing project?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'How do I install Lagune?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Most agents install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. The install page shows the command for each agent. It works in both new and existing projects and needs no API key.',
-          },
-        },
+        faqEntry(
+          translate({
+            id: 'home.faq.what.question',
+            message: 'What is Lagune?',
+            description:
+              "A question of the home page in search engines' structured data",
+          }),
+          translate({
+            id: 'home.faq.what.answer',
+            message:
+              'Lagune is an open-source, defense-only security workflow that helps your AI agent harden any codebase. It detects what your system actually does, then guides the security fixes that matter for that context.',
+            description:
+              'The answer to "What is Lagune?" in search engines\' structured data',
+          })
+        ),
+        faqEntry(
+          translate({
+            id: 'home.faq.build.question',
+            message: 'Can Lagune secure code as I build it?',
+            description:
+              "A question of the home page in search engines' structured data",
+          }),
+          translate({
+            id: 'home.faq.build.answer',
+            message:
+              'Yes. The /lagune command takes any prompt, builds what you asked, and hardens it with safe defaults as it is written, guided by your charter. The five-phase Blue Team flow then audits what already exists.',
+            description:
+              'The answer to "Can Lagune secure code as I build it?" in search engines\' structured data',
+          })
+        ),
+        faqEntry(
+          translate({
+            id: 'home.faq.audit.question',
+            message: 'Can Lagune audit an existing project?',
+            description:
+              "A question of the home page in search engines' structured data",
+          }),
+          translate({
+            id: 'home.faq.audit.answer',
+            message:
+              'Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.',
+            description:
+              'The answer to "Can Lagune audit an existing project?" in search engines\' structured data',
+          })
+        ),
+        faqEntry(
+          translate({
+            id: 'home.faq.install.question',
+            message: 'How do I install Lagune?',
+            description:
+              "A question of the home page in search engines' structured data",
+          }),
+          translate({
+            id: 'home.faq.install.answer',
+            message:
+              'Most agents install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. The install page shows the command for each agent. It works in both new and existing projects and needs no API key.',
+            description:
+              'The answer to "How do I install Lagune?" in search engines\' structured data',
+          })
+        ),
       ],
     },
   ],
-};
+});
 
 const WaterField = lazy(() =>
   import('@site/src/components/WaterField').then((module) => ({
@@ -199,9 +359,33 @@ const WaveIcon = (): ReactNode => (
 );
 
 const headerLinks: TopBarLink[] = [
-  { label: 'Docs', Icon: WaveIcon, href: '/docs' },
-  { label: 'Star on GitHub', Icon: FaStar, href: REPO_URL },
-  { label: 'Support', Icon: GoHeartFill, href: SPONSOR_URL },
+  {
+    label: translate({
+      id: 'common.docs',
+      message: 'Docs',
+      description: 'The name of the documentation, in links and breadcrumbs',
+    }),
+    Icon: WaveIcon,
+    href: '/docs',
+  },
+  {
+    label: translate({
+      id: 'common.starOnGitHub',
+      message: 'Star on GitHub',
+      description: 'Invites the reader to star the Lagune repository on GitHub',
+    }),
+    Icon: FaStar,
+    href: REPO_URL,
+  },
+  {
+    label: translate({
+      id: 'common.support',
+      message: 'Support',
+      description: 'The link to support Lagune through GitHub Sponsors',
+    }),
+    Icon: GoHeartFill,
+    href: SPONSOR_URL,
+  },
 ];
 
 const railItemClass = (current: boolean): string =>
@@ -349,25 +533,48 @@ const Home = (): ReactNode => {
   const markTyped = useCallback(() => setTypedDone(true), []);
 
   const feature = FEATURE[active];
+  const summary = siteDescriptionIn(useDataMessages());
+  const page = useLocalePage();
+  const {
+    i18n: { currentLocale },
+  } = useDocusaurusContext();
+  const alternates = usePublishedAlternates();
+  const languages = useLanguageOptions();
+  const pageTitle = translate({
+    id: 'home.meta.title',
+    message: 'AI-Driven Security Hardening for Any Codebase | Lagune',
+    description:
+      'The title of the home page in search results and the browser tab',
+  });
+  const pageDescription = translate({
+    id: 'home.meta.description',
+    message:
+      'Lagune helps your AI agent harden any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.',
+    description:
+      'The description of the home page in search results and link previews',
+  });
 
   return (
     <div className='lagune-canvas relative min-h-screen m-0 antialiased text-ink bg-[#050a18] font-sans'>
+      <LocaleHead
+        canonical={page.url}
+        contentLocale={currentLocale}
+        alternates={alternates}
+      />
       <Head>
-        <title>{PAGE_TITLE}</title>
-        <html className='lagune-canvas-html' lang='en' />
+        <title>{pageTitle}</title>
+        <html className='lagune-canvas-html' lang={page.htmlLang} />
         <body className='lagune-canvas-body' />
-        <meta name='description' content={PAGE_DESCRIPTION} />
-        <link rel='canonical' href={PAGE_URL} />
+        <meta name='description' content={pageDescription} />
         <meta property='og:type' content='website' />
-        <meta property='og:url' content={PAGE_URL} />
-        <meta property='og:title' content={PAGE_TITLE} />
-        <meta property='og:description' content={PAGE_DESCRIPTION} />
+        <meta property='og:title' content={pageTitle} />
+        <meta property='og:description' content={pageDescription} />
         <meta property='og:image' content={OG_IMAGE} />
-        <meta name='twitter:title' content={PAGE_TITLE} />
-        <meta name='twitter:description' content={PAGE_DESCRIPTION} />
+        <meta name='twitter:title' content={pageTitle} />
+        <meta name='twitter:description' content={pageDescription} />
         <meta name='twitter:image' content={OG_IMAGE} />
         <script type='application/ld+json'>
-          {JSON.stringify(STRUCTURED_DATA)}
+          {jsonLd(homeStructuredData(page, summary))}
         </script>
       </Head>
 
@@ -408,7 +615,12 @@ const Home = (): ReactNode => {
             <nav
               ref={navRef}
               className='relative flex items-center gap-1 rounded-xl p-1 max-[920px]:order-3 max-[920px]:w-full'
-              aria-label='Windows'
+              aria-label={translate({
+                id: 'home.nav.windows',
+                message: 'Windows',
+                description:
+                  'The accessible name of the home tabs that switch the main window',
+              })}
               onMouseLeave={() => setHoveredTab(null)}
             >
               {pill && (
@@ -448,7 +660,12 @@ const Home = (): ReactNode => {
             >
               <button
                 type='button'
-                aria-label='Menu'
+                aria-label={translate({
+                  id: 'home.nav.menu',
+                  message: 'Menu',
+                  description:
+                    'The label of the button that opens the compact home menu',
+                })}
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((open) => !open)}
                 className='relative hidden size-10 items-center justify-center rounded-xl border border-line bg-card text-ink transition-[background-color,border-color] duration-200 ease-out hover:bg-card-hover hover:border-accent/50 max-[920px]:inline-flex'
@@ -484,6 +701,23 @@ const Home = (): ReactNode => {
                       {label}
                     </Link>
                   ))}
+                  {languages.length > 1 && (
+                    <nav
+                      aria-label={translate({
+                        id: 'common.language',
+                        message: 'Language',
+                        description:
+                          'The accessible name of the menu that switches the site language',
+                      })}
+                      className='mt-1 flex flex-col gap-1 border-t border-line pt-1.5'
+                    >
+                      <LanguageLinks
+                        options={languages}
+                        tone='canvas'
+                        onSelect={() => setMenuOpen(false)}
+                      />
+                    </nav>
+                  )}
                 </div>
               )}
             </div>
@@ -492,7 +726,11 @@ const Home = (): ReactNode => {
           <div className='grid grid-cols-[56px_1fr] max-[600px]:grid-cols-[1fr] max-[600px]:flex-1'>
             <nav
               className='relative z-20 border-r border-[#0c155c] max-[600px]:border-r-0 max-[600px]:border max-[600px]:border-[#0c155c] max-[600px]:order-3 max-[600px]:fixed max-[600px]:bottom-[calc(16px+env(safe-area-inset-bottom))] max-[600px]:left-1/2 max-[600px]:-translate-x-1/2 max-[600px]:z-20 max-[600px]:w-auto max-[600px]:rounded-full max-[600px]:bg-[rgba(12,16,28,0.42)] max-[600px]:[backdrop-filter:blur(10px)_saturate(140%)] max-[600px]:[-webkit-backdrop-filter:blur(10px)_saturate(140%)] max-[600px]:[box-shadow:0_8px_30px_-6px_rgba(0,0,0,0.55)]'
-              aria-label='Sections'
+              aria-label={translate({
+                id: 'home.nav.sections',
+                message: 'Sections',
+                description: 'The accessible name of the home side rail',
+              })}
             >
               <div
                 key={active}
@@ -508,7 +746,18 @@ const Home = (): ReactNode => {
                             type='button'
                             onClick={() => goToStep(index)}
                             className={railItemClass(index === usageStep)}
-                            aria-label={`${step.phase.title} (${step.phase.eyebrow})`}
+                            aria-label={translate(
+                              {
+                                id: 'home.rail.step',
+                                message: '{phase} ({stage})',
+                                description:
+                                  'The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label',
+                              },
+                              {
+                                phase: step.phase.title,
+                                stage: step.phase.eyebrow,
+                              }
+                            )}
                             aria-current={
                               index === usageStep ? 'step' : undefined
                             }
@@ -584,7 +833,15 @@ const Home = (): ReactNode => {
                     src={BACKGROUNDS[tab.id].src}
                     srcSet={BACKGROUNDS[tab.id].srcSet}
                     sizes={BACKGROUND_SIZES}
-                    alt={`Lagune ${tab.label}`}
+                    alt={translate(
+                      {
+                        id: 'home.background.alt',
+                        message: 'Lagune {tab}',
+                        description:
+                          "The alternative text of a home tab's background image, where {tab} is the tab",
+                      },
+                      { tab: tab.label }
+                    )}
                     aria-hidden
                     decoding='async'
                     loading={active === tab.id ? 'eager' : 'lazy'}

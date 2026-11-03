@@ -1,5 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
 import Link from '@docusaurus/Link';
+import { translate } from '@docusaurus/Translate';
+import { LanguageSwitcher } from '@site/src/components/LanguageSwitcher';
 import { useEffect, useState } from 'react';
 
 export type TopBarLink = {
@@ -50,13 +52,21 @@ export const TopBar = ({ links }: TopBarProps): ReactNode => {
           : 'border-b border-transparent bg-transparent'
       }`}
     >
-      <nav aria-label='Site' className='flex items-center gap-4'>
+      <nav
+        aria-label={translate({
+          id: 'home.topBar.label',
+          message: 'Site',
+          description: 'The accessible name of the top navigation bar',
+        })}
+        className='flex items-center gap-4'
+      >
         {links.map(({ label, Icon, href }) => (
           <Link key={label} className={TOP_LINK} to={href}>
             <IconSlide Icon={Icon} />
             {label}
           </Link>
         ))}
+        <LanguageSwitcher tone='canvas' />
       </nav>
     </header>
   );

@@ -37,13 +37,14 @@ const trimInlineStyle = (html: string): string =>
     }
   );
 
-export const criticalCssPlugin: PluginModule = () => ({
+export const criticalCssPlugin: PluginModule = ({ baseUrl }) => ({
   name: pluginName,
   postBuild: async ({ outDir }) => {
     const homepage = path.join(outDir, 'index.html');
     const html = await fs.readFile(homepage, 'utf8');
     const beasties = new Beasties({
       path: outDir,
+      publicPath: baseUrl,
       preload: 'swap',
       pruneSource: false,
       fonts: false,

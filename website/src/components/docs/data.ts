@@ -5,6 +5,8 @@ import type {
   DocsSidebarEntry,
   DocsSidebarLink,
 } from '@site/plugins/docs-content';
+import type { Messages } from '@site/src/data/messages';
+import { translate } from '@docusaurus/Translate';
 import { usePluginData } from '@docusaurus/useGlobalData';
 
 export type DocContext = {
@@ -18,6 +20,8 @@ export const useDocsData = (): DocsGlobalData => {
   const data = usePluginData('lagune-docs-content');
   return data as DocsGlobalData;
 };
+
+export const useDataMessages = (): Messages => useDocsData().data;
 
 const isCategory = (entry: DocsSidebarEntry): entry is DocsSidebarCategory =>
   entry.type === 'category';
@@ -45,7 +49,14 @@ export const findDocContext = (
   const entry = owner === -1 ? undefined : sidebar[owner];
 
   return {
-    eyebrow: entry && isCategory(entry) ? entry.label : 'Documentation',
+    eyebrow:
+      entry && isCategory(entry)
+        ? entry.label
+        : translate({
+            id: 'common.documentation',
+            message: 'Documentation',
+            description: 'The name of the documentation as a whole',
+          }),
     banner: `/img/docs/banner-${banners[Math.max(owner, 0) % banners.length]}.webp`,
     previous: links[doc.parent ? position : position - 1],
     next:

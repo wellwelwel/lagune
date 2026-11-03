@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
+import { translate } from '@docusaurus/Translate';
+import { LanguageSwitcher } from '@site/src/components/LanguageSwitcher';
 import LayoutProvider from '@theme/Layout/Provider';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
@@ -11,7 +13,7 @@ import { DocsSidebar } from '../Sidebar';
 import { toggleDocsTheme } from '../theme';
 
 const ICON_BTN =
-  'relative grid size-11.5 flex-none cursor-pointer place-items-center rounded-full border-0 bg-surface text-[1.2rem] text-ink-2 no-underline shadow-card transition-[color,box-shadow] hover:text-accent hover:no-underline hover:shadow-pop';
+  'relative grid size-11.5 flex-none cursor-pointer max-sm:size-10 place-items-center rounded-full border-0 bg-surface text-[1.2rem] text-ink-2 no-underline shadow-card transition-[color,box-shadow] hover:text-accent hover:no-underline hover:shadow-pop';
 
 const PILL =
   'inline-flex h-11.5 flex-none items-center gap-2 rounded-full bg-surface px-4.5 text-[0.85rem] font-bold text-ink-2 no-underline shadow-card transition-[color,box-shadow] hover:text-accent hover:no-underline hover:shadow-pop';
@@ -27,6 +29,12 @@ export const DocsShell = ({
 }): ReactNode => {
   const { sidebar } = useDocsData();
   const { pathname } = useLocation();
+  const closeNavigation = translate({
+    id: 'docs.shell.closeNavigation',
+    message: 'Close navigation',
+    description:
+      'The label of the button that closes the docs navigation drawer',
+  });
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -47,14 +55,14 @@ export const DocsShell = ({
             <button
               className='lagune-docs-backdrop absolute inset-0 size-full cursor-pointer border-0'
               type='button'
-              aria-label='Close navigation'
+              aria-label={closeNavigation}
               onClick={() => setDrawerOpen(false)}
             />
             <aside className='lagune-docs-drawer lagune-scroll absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col overflow-y-auto bg-surface px-4 py-6 shadow-pop'>
               <button
                 className='absolute top-4 right-3 grid size-10 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-[1.2rem] text-muted transition-colors hover:text-ink'
                 type='button'
-                aria-label='Close navigation'
+                aria-label={closeNavigation}
                 onClick={() => setDrawerOpen(false)}
               >
                 <Icon name='x' />
@@ -72,21 +80,32 @@ export const DocsShell = ({
             <DocsSidebar sidebar={sidebar} activeDocId={activeDocId} />
           </aside>
           <div className='flex min-w-0 flex-col'>
-            <header className='sticky top-0 z-30 flex items-center gap-3 bg-canvas/85 px-4 pt-4 pb-3 backdrop-blur-md sm:gap-4.5 sm:px-7 sm:pt-5.5 sm:pb-4'>
+            <header className='sticky top-0 z-30 flex items-center gap-2 bg-canvas/85 px-3 pt-4 pb-3 backdrop-blur-md sm:gap-4.5 sm:px-7 sm:pt-5.5 sm:pb-4'>
               <button
                 className={clsx(ICON_BTN, 'min-[1024px]:hidden')}
                 type='button'
-                aria-label='Open navigation'
+                aria-label={translate({
+                  id: 'docs.shell.openNavigation',
+                  message: 'Open navigation',
+                  description:
+                    'The label of the button that opens the docs navigation drawer',
+                })}
                 onClick={() => setDrawerOpen(true)}
               >
                 <Icon name='menu' />
               </button>
               <QuickSearch />
-              <div className='flex items-center gap-3'>
+              <div className='flex items-center gap-2 sm:gap-3'>
+                <LanguageSwitcher tone='docs' />
                 <button
                   className={ICON_BTN}
                   type='button'
-                  aria-label='Toggle theme'
+                  aria-label={translate({
+                    id: 'docs.shell.toggleTheme',
+                    message: 'Toggle theme',
+                    description:
+                      'The label of the button that switches the docs between light and dark',
+                  })}
                   onClick={toggleDocsTheme}
                 >
                   <span className='col-start-1 row-start-1 inline-flex scale-100 opacity-100 filter-[blur(0)] transition-[opacity,scale,filter] duration-200 ease-[cubic-bezier(0.2,0,0,1)] docs-dark:scale-[0.25] docs-dark:opacity-0 docs-dark:filter-[blur(4px)]'>
@@ -101,7 +120,12 @@ export const DocsShell = ({
                   href='https://github.com/wellwelwel/lagune'
                   target='_blank'
                   rel='noreferrer'
-                  aria-label='GitHub repository'
+                  aria-label={translate({
+                    id: 'docs.shell.repository',
+                    message: 'GitHub repository',
+                    description:
+                      "The label of the link to Lagune's GitHub repository",
+                  })}
                 >
                   <Icon name='github' />
                 </a>
@@ -110,7 +134,11 @@ export const DocsShell = ({
                   href='https://github.com/sponsors/wellwelwel'
                   target='_blank'
                   rel='noreferrer'
-                  aria-label='Sponsor Lagune'
+                  aria-label={translate({
+                    id: 'docs.shell.sponsor',
+                    message: 'Sponsor Lagune',
+                    description: 'The label of the link to sponsor Lagune',
+                  })}
                 >
                   <span className='inline-flex text-pink'>
                     <Icon name='heart' />
@@ -126,12 +154,22 @@ export const DocsShell = ({
                     width={18}
                     height={18}
                   />
-                  Home
+                  {translate({
+                    id: 'common.home',
+                    message: 'Home',
+                    description:
+                      'The name of the home page, in links and breadcrumbs',
+                  })}
                 </Link>
                 <Link
                   className={clsx(ICON_BTN, 'md:hidden')}
                   to='/'
-                  aria-label='Back to the home page'
+                  aria-label={translate({
+                    id: 'docs.shell.backHome',
+                    message: 'Back to the home page',
+                    description:
+                      'The label of the compact link to the home page',
+                  })}
                 >
                   <img
                     className='size-4.75 object-contain'

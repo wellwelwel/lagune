@@ -56,6 +56,7 @@
     "website:build": "npm -w website run build"
   },
   "devDependencies": {
+    "@docusaurus/babel": "3.10.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@preact/preset-vite": "^2.10.6",
     "@preact/signals": "^2.11.2",
@@ -74,10 +75,14 @@
     "prettier": "^3.9.6",
     "react-icons": "^5.7.0",
     "react-typed": "^2.0.12",
+    "remark-directive": "^3.0.1",
+    "remark-mdx": "^3.1.1",
+    "remark-parse": "^11.0.0",
     "tailwindcss": "^4.3.3",
     "tiktoken": "^1.0.22",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
+    "unified": "^11.0.5",
     "vite": "^8.3.0",
     "yaml.min": "^1.0.0"
   },

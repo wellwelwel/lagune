@@ -1,6 +1,7 @@
 import type { DocsSidebarLink } from '@site/plugins/docs-content';
 import type { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
+import { translate } from '@docusaurus/Translate';
 import clsx from 'clsx';
 import { Icon } from '../icons';
 
@@ -26,7 +27,17 @@ const PaginationCard = ({
     </span>
     <span className='flex min-w-0 flex-1 flex-col gap-0.5'>
       <span className='text-[0.7rem] font-bold uppercase tracking-[0.09em] text-faint'>
-        {direction === 'previous' ? 'Previous' : 'Next'}
+        {direction === 'previous'
+          ? translate({
+              id: 'docs.pagination.previous',
+              message: 'Previous',
+              description: 'The label over the link to the previous docs page',
+            })
+          : translate({
+              id: 'docs.pagination.next',
+              message: 'Next',
+              description: 'The label over the link to the next docs page',
+            })}
       </span>
       <span className='truncate text-[0.9rem] font-extrabold text-ink transition-colors group-hover:text-accent'>
         {link.label}
@@ -45,7 +56,14 @@ export const DocsPagination = ({
   if (!previous && !next) return null;
 
   return (
-    <nav className='mt-5 grid gap-4 sm:grid-cols-2' aria-label='Docs pages'>
+    <nav
+      className='mt-5 grid gap-4 sm:grid-cols-2'
+      aria-label={translate({
+        id: 'docs.pagination.label',
+        message: 'Docs pages',
+        description: 'The accessible name of the previous and next page links',
+      })}
+    >
       <span className='min-w-0'>
         {previous && <PaginationCard link={previous} direction='previous' />}
       </span>

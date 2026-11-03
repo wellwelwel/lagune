@@ -6,8 +6,8 @@ import { specializationLoadPrompt } from '../../../src/dashboard/shared/speciali
 import { runsCommand, toolBehind, toolFor } from '../../../src/mcp/tools.js';
 import { listFolderFiles, packageRoot } from '../plugins/__utils__.js';
 
-const SITE_FOLDERS = ['website/docs', 'website/src'];
-const SITE_FILE = /\.(?:mdx?|tsx?)$/;
+const SITE_FOLDERS = ['website/docs', 'website/src', 'website/i18n'];
+const SITE_FILE = /\.(?:mdx?|tsx?|json)$/;
 const ENGINE_COMMAND =
   /npx (?:--yes )?lagune(?:@\S+)? ([a-z][\w-]*)(?: ([a-z][\w-]*))?/g;
 

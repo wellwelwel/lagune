@@ -1,4 +1,5 @@
 export type DocsNavCategory = {
+  key: string;
   label: string;
   collapsed?: boolean;
   items: string[];
@@ -8,6 +9,7 @@ export type DocsNavEntry = string | DocsNavCategory;
 
 export const docsNav: DocsNavEntry[] = [
   {
+    key: 'get-started',
     label: 'Get Started',
     collapsed: false,
     items: [
@@ -17,11 +19,13 @@ export const docsNav: DocsNavEntry[] = [
     ],
   },
   {
+    key: 'development-flow',
     label: 'Development Flow',
     collapsed: false,
     items: ['commands/lagune'],
   },
   {
+    key: 'the-blue-team-flow',
     label: 'The Blue Team Flow',
     collapsed: false,
     items: [
@@ -33,14 +37,17 @@ export const docsNav: DocsNavEntry[] = [
     ],
   },
   {
+    key: 'specializations',
     label: 'Specializations',
     items: ['categories', 'catalog'],
   },
   {
+    key: 'tools',
     label: 'Tools',
     items: ['commands/specialize', 'commands/prove'],
   },
   {
+    key: 'hooks',
     label: 'Hooks',
     items: [
       'hooks/agent',
@@ -56,10 +63,12 @@ export const docsNav: DocsNavEntry[] = [
     ],
   },
   {
+    key: 'examples',
     label: 'Examples',
     items: ['examples/prompts'],
   },
   {
+    key: 'references-sources',
     label: 'References & Sources',
     items: [
       'references/paper',
@@ -70,6 +79,7 @@ export const docsNav: DocsNavEntry[] = [
     ],
   },
   {
+    key: 'maintenance',
     label: 'Maintenance',
     items: ['commands/repair', 'commands/migrate'],
   },

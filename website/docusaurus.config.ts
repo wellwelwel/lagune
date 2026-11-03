@@ -1,12 +1,20 @@
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import tailwindPostcss from '@tailwindcss/postcss';
+import { localeBuild, localeOfBaseUrl } from './i18n/locales';
 import { criticalCssPlugin } from './plugins/critical-css';
-import { docsContentPlugin } from './plugins/docs-content';
+import {
+  docsContentPlugin,
+  rendersUntranslatedPage,
+} from './plugins/docs-content';
+import { dataMessages } from './plugins/docs-content/messages';
 import { substituteTokens } from './plugins/docs-content/tokens';
 import { dropWoff } from './plugins/drop-woff';
+import { localeOutputPlugin } from './plugins/locale-output';
 import { schemasPlugin } from './plugins/schemas';
+import { messageTexts } from './src/data/messages';
 import { laguneCode } from './src/prism/lagune';
+import { OG_IMAGE, SITE_TAGLINE, SITE_URL, siteMetadata } from './src/seo/site';
 import { extraSitemapItems } from './src/seo/sitemap/extras';
 import { sitemapPriority } from './src/seo/sitemap/priority';
 
@@ -14,7 +22,7 @@ import { sitemapPriority } from './src/seo/sitemap/priority';
 
 const config: Config = {
   title: 'Lagune',
-  tagline: 'Security-Driven Hardening for any codebase',
+  tagline: SITE_TAGLINE,
   favicon: 'favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -24,7 +32,7 @@ const config: Config = {
     experimental_vcs: true,
   },
 
-  url: 'https://lagune.ai',
+  url: SITE_URL,
   baseUrl: '/',
   trailingSlash: false,
   organizationName: 'wellwelwel',
@@ -43,85 +51,15 @@ const config: Config = {
     },
   },
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
-
-  headTags: [
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'apple-touch-icon',
-        sizes: '180x180',
-        href: '/apple-touch-icon.png',
-      },
-    },
-    {
-      tagName: 'meta',
-      attributes: {
-        name: 'robots',
-        content:
-          'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-      },
-    },
-    {
-      tagName: 'script',
-      attributes: { type: 'application/ld+json' },
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Person',
-        '@id': 'https://lagune.ai/#author',
-        name: 'Weslley Araújo',
-        url: 'https://github.com/wellwelwel',
-        sameAs: ['https://github.com/wellwelwel'],
-        knowsAbout: [
-          'Application security',
-          'Defensive security',
-          'Secure coding',
-          'Security-Driven Hardening',
-          'Security Hardening',
-        ],
-      }),
-    },
-    {
-      tagName: 'script',
-      attributes: { type: 'application/ld+json' },
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        '@id': 'https://lagune.ai/#organization',
-        name: 'Lagune',
-        alternateName: ['Lagune AI', 'Lagune Security', 'lagune', 'lagune.ai'],
-        url: 'https://lagune.ai/',
-        logo: 'https://lagune.ai/img/logo.png',
-        description:
-          "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
-        disambiguatingDescription:
-          'Lagune (also written Lagune AI) is a Security-Driven Hardening workflow that hardens any codebase, in any language, whether written by humans or an AI. It is not related to Laguna AI.',
-        foundingDate: '2026',
-        founder: { '@id': 'https://lagune.ai/#author' },
-        knowsAbout: [
-          'Application security',
-          'AI security',
-          'Vulnerability detection',
-          'Security-Driven Hardening',
-          'Security Hardening',
-          'Blue Team',
-          'OWASP',
-        ],
-        sameAs: [
-          'https://github.com/wellwelwel/lagune',
-          'https://www.npmjs.com/package/lagune',
-        ],
-      }),
-    },
-  ],
+  i18n: localeBuild({
+    includeDrafts: process.env.LAGUNE_WEBSITE_DEPLOY !== 'true',
+  }),
 
   plugins: [
     docsContentPlugin,
     criticalCssPlugin,
     schemasPlugin,
+    localeOutputPlugin,
     function tailwindPlugin() {
       return {
         name: 'tailwind-plugin',
@@ -151,13 +89,20 @@ const config: Config = {
             defaultCreateSitemapItems,
             ...params
           }) => {
-            const items = await defaultCreateSitemapItems(params);
+            const { baseUrl, url } = params.siteConfig;
+            const items = await defaultCreateSitemapItems({
+              ...params,
+              routes: params.routes.filter(
+                (route) =>
+                  !rendersUntranslatedPage(route, localeOfBaseUrl(baseUrl))
+              ),
+            });
             const ranked = items.map((item) => ({
               ...item,
-              priority: sitemapPriority(item.url),
+              priority: sitemapPriority(item.url, baseUrl),
             }));
 
-            return [...ranked, ...extraSitemapItems(params.siteConfig.url)];
+            return [...ranked, ...extraSitemapItems(url, baseUrl)];
           },
         },
       } satisfies Preset.Options,
@@ -165,38 +110,8 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/og.png',
-    metadata: [
-      {
-        name: 'description',
-        content:
-          "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
-      },
-      {
-        name: 'keywords',
-        content:
-          'security, application security, AI security, security hardening, secure coding, vulnerability detection, defensive security, blue team, AI agents, Claude Code, vibe coding, npx, OWASP, Lagune AI, Lagune IA, SDH, Spec-Driven, SDH Lagune, Security-Driven Hardening',
-      },
-      { name: 'author', content: 'Weslley Araújo' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      {
-        name: 'twitter:image:alt',
-        content: 'Lagune: AI-driven security hardening for any codebase',
-      },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Lagune' },
-      { property: 'og:locale', content: 'en_US' },
-      {
-        property: 'og:image:alt',
-        content: 'Lagune: AI-driven security hardening for any codebase',
-      },
-      { property: 'og:image:width', content: '1280' },
-      { property: 'og:image:height', content: '640' },
-      {
-        property: 'og:image:secure_url',
-        content: 'https://lagune.ai/img/og.png',
-      },
-    ],
+    image: OG_IMAGE,
+    metadata: siteMetadata(messageTexts(dataMessages())),
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,

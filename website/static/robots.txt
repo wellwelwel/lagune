@@ -34,5 +34,3 @@ User-agent: Meta-ExternalAgent
 Allow: /
 User-agent: cohere-ai
 Allow: /
-
-Sitemap: https://lagune.ai/sitemap.xml

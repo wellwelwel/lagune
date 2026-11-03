@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 import Head from '@docusaurus/Head';
+import { translate } from '@docusaurus/Translate';
+import { jsonLd } from '@site/src/seo/jsonLd';
 import { useState } from 'react';
 import { LuPlus } from 'react-icons/lu';
 
@@ -21,7 +23,7 @@ export const Faq = ({ items }: { items: FaqItem[] }): ReactNode => {
       return next;
     });
 
-  const jsonLd = {
+  const faqPage = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: items.map((item) => ({
@@ -34,11 +36,15 @@ export const Faq = ({ items }: { items: FaqItem[] }): ReactNode => {
   return (
     <>
       <Head>
-        <script type='application/ld+json'>{JSON.stringify(jsonLd)}</script>
+        <script type='application/ld+json'>{jsonLd(faqPage)}</script>
       </Head>
       <section className='lagune-faq mt-8'>
         <h2 id='faq' className='text-balance'>
-          Frequently Asked Questions
+          {translate({
+            id: 'docs.faq.title',
+            message: 'Frequently Asked Questions',
+            description: "The heading of a docs page's questions and answers",
+          })}
         </h2>
         <div className='flex flex-col gap-3'>
           {items.map((item, index) => {

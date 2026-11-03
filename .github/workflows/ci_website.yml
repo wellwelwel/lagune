@@ -10,6 +10,9 @@ on:
       - 'src/catalog/**'
       - 'src/categories/**'
       - 'src/types/**'
+      - 'src/cli/**'
+      - 'src/mcp/**'
+      - 'tools/i18n/**'
       - '.github/workflows/ci_website.yml'
       - 'package-lock.json'
       - 'package.json'
@@ -18,7 +21,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     name: Check
     steps:
       - name: Actions - Checkout
@@ -42,6 +45,9 @@ jobs:
 
       - name: Checking Types
         run: npm -w website run typecheck
+
+      - name: Checking Translations
+        run: npm -w website run i18n -- check
 
       - name: Checking Build
         run: npm run website:build

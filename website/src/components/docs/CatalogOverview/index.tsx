@@ -3,22 +3,23 @@ import type {
   PromptMark,
   PromptSegment,
 } from '@site/src/data/lagune';
+import type { CatalogSpecialization } from '@site/src/data/specializations';
 import type { ReactNode } from 'react';
-import type { CatalogSpecialization } from './data';
+import { translate } from '@docusaurus/Translate';
 import { MaskIcon } from '@site/src/components/MaskIcon';
+import { typedText } from '@site/src/components/typedText';
 import {
   agentThemeAt,
   CATALOG_COMMAND,
   ENGINE_COMMAND,
-  LOAD_VERB,
-  specializationLoadPrompt,
 } from '@site/src/data/lagune';
+import { catalogIn, loadVerbIn } from '@site/src/data/specializations';
 import clsx from 'clsx';
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ReactTyped } from 'react-typed';
+import { useDataMessages } from '../data';
 import { Icon } from '../icons';
-import { builtinCatalog } from './data';
 
 /* The global .font-mono rule (custom.css) carries the landing page's weight
    and size, so the mono bits here set the family directly. */
@@ -191,7 +192,16 @@ const CopyButton = ({
   return (
     <button
       type='button'
-      aria-label={copied ? 'Copied' : label}
+      aria-label={
+        copied
+          ? translate({
+              id: 'common.copied',
+              message: 'Copied',
+              description:
+                'Confirms that something was copied to the clipboard',
+            })
+          : label
+      }
       onClick={copy}
       className='grid size-10 flex-none cursor-pointer place-items-center rounded-field border-0 bg-transparent text-[0.95rem] text-faint transition-colors hover:text-accent'
     >
@@ -273,7 +283,12 @@ const AgentReply = ({
             className={clsx('size-2 flex-none rounded-full', theme.readDot)}
           />
           <span className={clsx('text-[0.74rem] font-bold', theme.readLabel)}>
-            Read
+            {translate({
+              id: 'catalog.reply.read',
+              message: 'Read',
+              description:
+                'The tool step an agent shows when it reads a specialization, in the example reply',
+            })}
           </span>
           <span
             className={clsx('truncate text-[0.72rem]', MONO, theme.readPath)}
@@ -291,7 +306,16 @@ const AgentReply = ({
         >
           {open && (
             <ReactTyped
-              strings={[`On it!`]}
+              strings={[
+                typedText(
+                  translate({
+                    id: 'catalog.reply.text',
+                    message: 'On it!',
+                    description:
+                      "The agent's short answer in the example reply to a prompt that loads a specialization",
+                  })
+                ),
+              ]}
               typeSpeed={45}
               startDelay={620}
               showCursor
@@ -392,7 +416,19 @@ const PromptPreview = ({
           <span className='lagune-robot-hop inline-flex text-[1.25rem]'>
             <Icon name='messageAi' />
           </span>
-          {isTouch ? 'Touch me' : 'Hover me'}
+          {isTouch
+            ? translate({
+                id: 'catalog.preview.touch',
+                message: 'Touch me',
+                description:
+                  'Invites a touch-screen reader to open the example prompt of a specialization',
+              })
+            : translate({
+                id: 'catalog.preview.hover',
+                message: 'Hover me',
+                description:
+                  'Invites a reader with a mouse to open the example prompt of a specialization',
+              })}
         </span>
       }
     >
@@ -428,7 +464,12 @@ const PromptPreview = ({
                   theme.userLabel
                 )}
               >
-                You
+                {translate({
+                  id: 'catalog.preview.you',
+                  message: 'You',
+                  description:
+                    "The name over the reader's own message in the example prompt",
+                })}
               </span>
             </span>
             <AgentReply
@@ -446,9 +487,11 @@ const PromptPreview = ({
 const SpecializationCard = ({
   specialization,
   seed,
+  loadVerb,
 }: {
   specialization: CatalogSpecialization;
   seed: number;
+  loadVerb: string;
 }): ReactNode => (
   <article className='group/card flex flex-col overflow-hidden rounded-panel bg-surface shadow-card'>
     <header className='flex items-center gap-3 p-4.5 pb-3.5'>
@@ -485,7 +528,7 @@ const SpecializationCard = ({
         <Icon name='messageAi' />
       </span>
       <span className='flex min-w-0 flex-1 items-baseline gap-1.5 text-[0.72rem] leading-none font-semibold text-[#6b737a] docs-dark:text-muted'>
-        <span className='flex-none'>{LOAD_VERB}</span>
+        <span className='flex-none'>{loadVerb}</span>
         <code
           className={clsx(
             'flex min-w-0 rounded-[5px]! border-0! bg-surface! px-1.5! py-px! text-[0.72rem] leading-4 text-inherit! docs-dark:bg-surface-3!',
@@ -500,21 +543,35 @@ const SpecializationCard = ({
         </code>
       </span>
       <CopyButton
-        text={specializationLoadPrompt(specialization.name)}
-        label={`Copy the prompt that loads ${specialization.label}`}
+        text={specialization.loadPrompt}
+        label={translate(
+          {
+            id: 'catalog.copyPrompt',
+            message: 'Copy the prompt that loads {specialization}',
+            description:
+              'The label of the button that copies the prompt loading a specialization, where {specialization} is its name',
+          },
+          { specialization: specialization.label }
+        )}
       />
     </div>
   </article>
 );
 
-export const CatalogOverview = (): ReactNode => (
-  <div className='grid grid-cols-1 gap-4 font-jakarta leading-normal md:grid-cols-2 min-[1600px]:grid-cols-3'>
-    {builtinCatalog.map((specialization, index) => (
-      <SpecializationCard
-        key={specialization.name}
-        specialization={specialization}
-        seed={index}
-      />
-    ))}
-  </div>
-);
+export const CatalogOverview = (): ReactNode => {
+  const messages = useDataMessages();
+  const loadVerb = loadVerbIn(messages);
+
+  return (
+    <div className='grid grid-cols-1 gap-4 font-jakarta leading-normal md:grid-cols-2 min-[1600px]:grid-cols-3'>
+      {catalogIn(messages).map((specialization, index) => (
+        <SpecializationCard
+          key={specialization.name}
+          specialization={specialization}
+          seed={index}
+          loadVerb={loadVerb}
+        />
+      ))}
+    </div>
+  );
+};

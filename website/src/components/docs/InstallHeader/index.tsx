@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
+import { translate } from '@docusaurus/Translate';
 import {
   FEATURED_AGENTS,
   INSTALL_INDEX,
@@ -16,6 +17,13 @@ export const InstallHeader = ({ name }: { name: string }): ReactNode => {
 
   if (!route) throw new Error(`No install route is named "${name}".`);
 
+  const backLabel = translate({
+    id: 'docs.install.back',
+    message: 'Back to all agents',
+    description:
+      "The label of the link from an agent's install page back to the list of agents",
+  });
+
   return (
     <div className='mb-(--ifm-leading) flex items-center gap-3 font-jakarta'>
       <AgentTile icon={route.icon} />
@@ -29,8 +37,8 @@ export const InstallHeader = ({ name }: { name: string }): ReactNode => {
       </span>
       <Link
         to={INSTALL_INDEX}
-        aria-label='Back to all agents'
-        title='Back to all agents'
+        aria-label={backLabel}
+        title={backLabel}
         className='-mr-3 ml-auto grid size-10 flex-none place-items-center rounded-field text-[1.1rem] text-faint transition-colors hover:text-accent'
       >
         <Icon name='undo' strokeWidth={2.5} />

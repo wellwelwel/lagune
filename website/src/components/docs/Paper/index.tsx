@@ -1,8 +1,8 @@
 import type { MDXComponents } from 'mdx/types';
 import type { ReactElement, ReactNode } from 'react';
 import type { DocsTheme } from '../useDocsTheme';
+import { translate } from '@docusaurus/Translate';
 import { MDXProvider } from '@mdx-js/react';
-import PaperContent from '@site/src/content/PAPER.mdx';
 import CodeBlock from '@theme/CodeBlock';
 import {
   Children,
@@ -154,7 +154,15 @@ const CitationRef = ({ index }: { index: string }): ReactNode => {
   return (
     <RefPopover
       label={`[${index}]`}
-      eyebrow={`Reference [${index}]`}
+      eyebrow={translate(
+        {
+          id: 'paper.reference.eyebrow',
+          message: 'Reference [{index}]',
+          description:
+            'The heading of the popover that reveals a cited reference of the paper',
+        },
+        { index }
+      )}
       content={reference}
     />
   );
@@ -166,7 +174,15 @@ const SectionRef = ({ roman }: { roman: string }): ReactNode => {
   return (
     <RefPopover
       label={`§${roman}`}
-      eyebrow={`Section ${roman}`}
+      eyebrow={translate(
+        {
+          id: 'paper.section.eyebrow',
+          message: 'Section {roman}',
+          description:
+            'The heading of the popover that reveals a section the paper refers to, where {roman} is its Roman numeral',
+        },
+        { roman }
+      )}
       content={title}
     />
   );
@@ -254,7 +270,6 @@ const Callout = ({ children }: { children: ReactNode }): ReactNode => {
 };
 
 const components: MDXComponents = {
-  h1: () => null,
   p: P,
   strong: Strong,
   blockquote: ({ children }) => <Callout>{children}</Callout>,
@@ -275,15 +290,13 @@ const components: MDXComponents = {
   },
 };
 
-export const Paper = (): ReactNode => {
+export const Paper = ({ children }: { children: ReactNode }): ReactNode => {
   const rootRef = useRef<HTMLDivElement>(null);
   const theme = useDocsTheme();
   const [maps, setMaps] = useState<{
     references: Map<string, string>;
     sections: Map<string, string>;
   }>({ references: new Map(), sections: new Map() });
-
-  const content = useMemo(() => <PaperContent />, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -325,7 +338,7 @@ export const Paper = (): ReactNode => {
   return (
     <div ref={rootRef}>
       <RefContext.Provider value={value}>
-        <MDXProvider components={components}>{content}</MDXProvider>
+        <MDXProvider components={components}>{children}</MDXProvider>
       </RefContext.Provider>
     </div>
   );

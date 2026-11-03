@@ -46,8 +46,20 @@ const pathnameOf = (url: string): string => {
   }
 };
 
-export const sitemapPriority = (url: string): number => {
-  const pathname = pathnameOf(url);
+const withoutBaseUrl = (pathname: string, baseUrl: string): string => {
+  const prefix = baseUrl.replace(/\/$/, '');
+
+  if (
+    prefix === '' ||
+    !(pathname === prefix || pathname.startsWith(`${prefix}/`))
+  )
+    return pathname;
+
+  return pathname.slice(prefix.length) || '/';
+};
+
+export const sitemapPriority = (url: string, baseUrl = '/'): number => {
+  const pathname = withoutBaseUrl(pathnameOf(url), baseUrl);
   const tier = tiers.find(({ match }) => match(pathname));
 
   return tier ? tier.priority : DEFAULT_PRIORITY;

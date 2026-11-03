@@ -1,11 +1,24 @@
 import type { TopBarLink } from '@site/src/components/home/TopBar';
+import type { LocalePage } from '@site/src/components/LocaleHead';
 import type { ReactNode } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Head from '@docusaurus/Head';
 import { useHistory } from '@docusaurus/router';
+import Translate, { translate } from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useDataMessages } from '@site/src/components/docs/data';
 import { Brand } from '@site/src/components/home/Brand';
 import { TopBar } from '@site/src/components/home/TopBar';
+import { LanguageSwitcher } from '@site/src/components/LanguageSwitcher';
+import {
+  LocaleHead,
+  translationOf,
+  useLocalePage,
+  usePublishedAlternates,
+} from '@site/src/components/LocaleHead';
 import { MaskIcon } from '@site/src/components/MaskIcon';
+import { jsonLd } from '@site/src/seo/jsonLd';
+import { siteImageAltIn } from '@site/src/seo/site';
 import { QRCodeSVG } from 'qrcode.react';
 import { lazy, Suspense } from 'react';
 import { FaStar } from 'react-icons/fa6';
@@ -13,49 +26,62 @@ import { GoHeartFill } from 'react-icons/go';
 
 const REPO_URL = 'https://github.com/wellwelwel/lagune';
 const SPONSOR_URL = 'https://github.com/sponsors/wellwelwel';
-const PAGE_URL = 'https://lagune.ai/share';
+const SITE_URL = 'https://lagune.ai';
 const OG_IMAGE = 'https://lagune.ai/img/og.png';
-const OG_IMAGE_ALT = 'Lagune: AI-driven security hardening for any codebase';
-const PAGE_TITLE = 'Share Lagune | Scan the QR code and star the GitHub repo';
-const PAGE_DESCRIPTION =
-  "Scan the QR code to open Lagune's GitHub repository, then leave a star to support this open-source, AI-driven security hardening project.";
 
-const STRUCTURED_DATA = {
+const shareStructuredData = ({
+  page,
+  title,
+  description,
+}: {
+  page: LocalePage;
+  title: string;
+  description: string;
+}) => ({
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': `${PAGE_URL}#webpage`,
-      url: PAGE_URL,
-      name: PAGE_TITLE,
-      description: PAGE_DESCRIPTION,
-      inLanguage: 'en',
+      '@id': `${page.url}#webpage`,
+      url: page.url,
+      name: title,
+      description,
+      inLanguage: page.htmlLang,
+      ...translationOf(page, '#webpage'),
       isPartOf: { '@id': 'https://lagune.ai/#website' },
       about: { '@id': 'https://lagune.ai/#software' },
       primaryImageOfPage: OG_IMAGE,
       significantLink: [REPO_URL, SPONSOR_URL],
-      breadcrumb: { '@id': `${PAGE_URL}#breadcrumb` },
+      breadcrumb: { '@id': `${page.url}#breadcrumb` },
     },
     {
       '@type': 'BreadcrumbList',
-      '@id': `${PAGE_URL}#breadcrumb`,
+      '@id': `${page.url}#breadcrumb`,
       itemListElement: [
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://lagune.ai/',
+          name: translate({
+            id: 'common.home',
+            message: 'Home',
+            description: 'The name of the home page, in links and breadcrumbs',
+          }),
+          item: `${SITE_URL}${page.baseUrl}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Share',
-          item: PAGE_URL,
+          name: translate({
+            id: 'share.breadcrumb',
+            message: 'Share',
+            description: 'The name of the share page in breadcrumbs',
+          }),
+          item: page.url,
         },
       ],
     },
   ],
-};
+});
 
 const WaterField = lazy(() =>
   import('@site/src/components/WaterField').then((module) => ({
@@ -78,41 +104,91 @@ const WaveIcon = (): ReactNode => (
   </span>
 );
 
+const STAR_ON_GITHUB = translate({
+  id: 'common.starOnGitHub',
+  message: 'Star on GitHub',
+  description: 'Invites the reader to star the Lagune repository on GitHub',
+});
+
 const headerLinks: TopBarLink[] = [
-  { label: 'Docs', Icon: WaveIcon, href: '/docs' },
-  { label: 'Star on GitHub', Icon: FaStar, href: REPO_URL },
-  { label: 'Support', Icon: GoHeartFill, href: SPONSOR_URL },
+  {
+    label: translate({
+      id: 'common.docs',
+      message: 'Docs',
+      description: 'The name of the documentation, in links and breadcrumbs',
+    }),
+    Icon: WaveIcon,
+    href: '/docs',
+  },
+  { label: STAR_ON_GITHUB, Icon: FaStar, href: REPO_URL },
+  {
+    label: translate({
+      id: 'common.support',
+      message: 'Support',
+      description: 'The link to support Lagune through GitHub Sponsors',
+    }),
+    Icon: GoHeartFill,
+    href: SPONSOR_URL,
+  },
 ];
 
 const Share = (): ReactNode => {
   const history = useHistory();
+  const page = useLocalePage();
+  const alternates = usePublishedAlternates();
+  const {
+    i18n: { currentLocale },
+  } = useDocusaurusContext();
+  const imageAlt = siteImageAltIn(useDataMessages());
+  const pageTitle = translate({
+    id: 'share.meta.title',
+    message: 'Share Lagune | Scan the QR code and star the GitHub repo',
+    description:
+      'The title of the share page in search results and the browser tab',
+  });
+  const pageDescription = translate({
+    id: 'share.meta.description',
+    message:
+      "Scan the QR code to open Lagune's GitHub repository, then leave a star to support this open-source, AI-driven security hardening project.",
+    description:
+      'The description of the share page in search results and link previews',
+  });
 
   return (
     <div className='lagune-canvas relative min-h-screen m-0 antialiased text-ink bg-[#050a18] font-sans'>
+      <LocaleHead
+        canonical={page.url}
+        contentLocale={currentLocale}
+        alternates={alternates}
+      />
       <Head>
-        <title>{PAGE_TITLE}</title>
-        <html className='lagune-canvas-html' lang='en' />
+        <title>{pageTitle}</title>
+        <html className='lagune-canvas-html' lang={page.htmlLang} />
         <body className='lagune-canvas-body' />
-        <meta name='description' content={PAGE_DESCRIPTION} />
-        <link rel='canonical' href={PAGE_URL} />
+        <meta name='description' content={pageDescription} />
 
         <meta property='og:type' content='website' />
-        <meta property='og:url' content={PAGE_URL} />
-        <meta property='og:title' content={PAGE_TITLE} />
-        <meta property='og:description' content={PAGE_DESCRIPTION} />
+        <meta property='og:title' content={pageTitle} />
+        <meta property='og:description' content={pageDescription} />
         <meta property='og:image' content={OG_IMAGE} />
         <meta property='og:image:secure_url' content={OG_IMAGE} />
-        <meta property='og:image:alt' content={OG_IMAGE_ALT} />
+        <meta property='og:image:alt' content={imageAlt} />
         <meta property='og:image:width' content='1280' />
         <meta property='og:image:height' content='640' />
 
-        <meta name='twitter:title' content={PAGE_TITLE} />
-        <meta name='twitter:description' content={PAGE_DESCRIPTION} />
+        <meta name='twitter:title' content={pageTitle} />
+        <meta name='twitter:description' content={pageDescription} />
         <meta name='twitter:image' content={OG_IMAGE} />
-        <meta name='twitter:image:alt' content={OG_IMAGE_ALT} />
+        <meta name='twitter:image:alt' content={imageAlt} />
 
         <script type='application/ld+json'>
-          {JSON.stringify(STRUCTURED_DATA)}
+          {jsonLd(
+            shareStructuredData({
+              page,
+              title: pageTitle,
+              description: pageDescription,
+            })
+          )}
         </script>
       </Head>
 
@@ -149,6 +225,10 @@ const Share = (): ReactNode => {
                 className='max-[420px]:flex'
               />
             </div>
+            <LanguageSwitcher
+              tone='canvas'
+              className='ml-auto min-[921px]:hidden'
+            />
           </header>
 
           <div className='flex flex-col items-center gap-12.5 px-[clamp(22px,4vw,44px)] py-[clamp(28px,4vw,44px)]'>
@@ -157,16 +237,39 @@ const Share = (): ReactNode => {
               style={{ animationDelay: '40ms' }}
             >
               <h1 className='font-display font-black text-[clamp(26px,5vw,32px)] leading-[1.15] tracking-[-0.02em] m-0'>
-                Scan, open,{' '}
-                <FaStar
-                  aria-hidden
-                  className='inline-block size-[0.82em] align-[-0.1em] text-[#6db4e2]'
-                />
-                <span className='sr-only'>star</span>
+                <Translate
+                  id='share.heading'
+                  description='The heading of the share page, where {star} is a star icon read as the word star'
+                  values={{
+                    star: (
+                      <>
+                        <FaStar
+                          aria-hidden
+                          className='inline-block size-[0.82em] align-[-0.1em] text-[#6db4e2]'
+                        />
+                        <span className='sr-only'>
+                          <Translate
+                            id='share.heading.star'
+                            description='The word the star icon of the share heading stands for'
+                          >
+                            star
+                          </Translate>
+                        </span>
+                      </>
+                    ),
+                  }}
+                >
+                  {'Scan, open, {star}'}
+                </Translate>
               </h1>
               <p className='max-w-[38ch] text-[14px] leading-[1.55] text-[rgba(233,237,247,0.72)]'>
-                Point your camera at the code to open Lagune on GitHub, then
-                leave a star to support the project.
+                <Translate
+                  id='share.lead'
+                  description='The instruction under the share page heading'
+                >
+                  Point your camera at the code to open Lagune on GitHub, then
+                  leave a star to support the project.
+                </Translate>
               </p>
             </div>
 
@@ -188,12 +291,23 @@ const Share = (): ReactNode => {
                   excavate: true,
                 }}
                 role='img'
-                title="QR code that opens Lagune's GitHub repository at github.com/wellwelwel/lagune"
+                title={translate({
+                  id: 'share.qr.title',
+                  message:
+                    "QR code that opens Lagune's GitHub repository at github.com/wellwelwel/lagune",
+                  description:
+                    'The accessible name of the QR code on the share page',
+                })}
                 className='block size-54 max-w-full'
               />
               <figcaption className='sr-only'>
-                Scan this QR code to open Lagune's GitHub repository at
-                github.com/wellwelwel/lagune and leave a star.
+                <Translate
+                  id='share.qr.caption'
+                  description='The hidden caption of the QR code on the share page'
+                >
+                  Scan this QR code to open Lagune's GitHub repository at
+                  github.com/wellwelwel/lagune and leave a star.
+                </Translate>
               </figcaption>
             </figure>
 
@@ -209,7 +323,7 @@ const Share = (): ReactNode => {
               >
                 <FaStar className='size-[17px] shrink-0' aria-hidden />
                 <span className='[text-shadow:0_1px_1px_rgba(0,0,0,.5)]'>
-                  Star on GitHub
+                  {STAR_ON_GITHUB}
                 </span>
               </a>
             </div>

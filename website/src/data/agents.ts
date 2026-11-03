@@ -1,3 +1,6 @@
+import type { Messages, TranslationMessages } from './messages';
+import { slugOf, text } from './messages';
+
 export type Agent = {
   name: string;
   icon: string;
@@ -211,7 +214,50 @@ export const UNIVERSAL_HIGHLIGHTS = UNIVERSAL_AGENTS.filter((agent) =>
   HIGHLIGHTED_NAMES.includes(agent.name)
 );
 
-export const UNIVERSAL_SUMMARY = `${UNIVERSAL_HIGHLIGHTS.map((agent) => agent.name).join(', ')} & ${UNIVERSAL_AGENTS.length - UNIVERSAL_HIGHLIGHTS.length} more`;
+const UNIVERSAL_TITLE_ID = 'agent.universal.title';
+
+const UNIVERSAL_SUMMARY_ID = 'agent.universal.summary';
+
+const descriptionId = (agent: Agent): string =>
+  `agent.${slugOf(agent.name)}.description`;
+
+export const agentMessages = (): TranslationMessages => ({
+  ...Object.fromEntries(
+    FEATURED_AGENTS.map((agent) => [
+      descriptionId(agent),
+      {
+        message: agent.description,
+        description: `What ${agent.name} is, in a few words`,
+      },
+    ])
+  ),
+  [UNIVERSAL_TITLE_ID]: {
+    message: 'Universal',
+    description:
+      'The title of the install route that works in any agent through the skills CLI',
+  },
+  [UNIVERSAL_SUMMARY_ID]: {
+    message: '{agents} & {count} more',
+    description:
+      'The agents the universal install route covers: {agents} lists a few by name and {count} is how many others it also covers',
+  },
+});
+
+export const featuredAgentsIn = (messages: Messages): FeaturedAgent[] =>
+  FEATURED_AGENTS.map((agent) => ({
+    ...agent,
+    description: text(messages, descriptionId(agent)),
+  }));
+
+export const universalIn = (
+  messages: Messages
+): { title: string; summary: string } => ({
+  title: text(messages, UNIVERSAL_TITLE_ID),
+  summary: text(messages, UNIVERSAL_SUMMARY_ID, {
+    agents: UNIVERSAL_HIGHLIGHTS.map((agent) => agent.name).join(', '),
+    count: UNIVERSAL_AGENTS.length - UNIVERSAL_HIGHLIGHTS.length,
+  }),
+});
 
 const MAIN_NAMES = [
   'Claude Code',

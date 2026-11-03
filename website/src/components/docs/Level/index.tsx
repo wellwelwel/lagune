@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { translate } from '@docusaurus/Translate';
 import { GoDotFill } from 'react-icons/go';
 
 const MAX = 5;
@@ -15,7 +16,15 @@ export const Level = ({ value }: { value: number }): ReactNode => {
   return (
     <span
       role='img'
-      aria-label={`${level} out of ${MAX}`}
+      aria-label={translate(
+        {
+          id: 'docs.level.label',
+          message: '{level} out of {max}',
+          description:
+            'The accessible reading of a 1 to 5 rating shown as dots',
+        },
+        { level: String(level), max: String(MAX) }
+      )}
       style={{
         display: 'inline-flex',
         alignItems: 'center',

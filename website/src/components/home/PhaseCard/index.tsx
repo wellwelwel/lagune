@@ -1,5 +1,6 @@
 import type { Phase } from '@site/src/data/home';
 import type { ComponentType } from 'react';
+import { translate } from '@docusaurus/Translate';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 
 export const PhaseCard = ({
@@ -19,7 +20,15 @@ export const PhaseCard = ({
     <div className='relative h-[140px] bg-[linear-gradient(135deg,rgba(10,26,74,0.55),rgba(3,8,28,0.65))]'>
       <img
         src={phase.banner}
-        alt={`${phase.title} phase`}
+        alt={translate(
+          {
+            id: 'home.phase.bannerAlt',
+            message: '{phase} phase',
+            description:
+              "The alternative text of a phase card's banner, where {phase} is the phase",
+          },
+          { phase: phase.title }
+        )}
         decoding='async'
         className='lagune-img-outline absolute inset-0 size-full object-cover'
         aria-hidden
@@ -55,7 +64,18 @@ export const PhaseCard = ({
         <code className='px-2.5 py-[5px] rounded-md bg-accent/10 font-mono text-[12px] tracking-[0.02em] text-accent overflow-hidden text-ellipsis whitespace-nowrap'>
           {phase.command}
         </code>
-        <CopyButton value={phase.command} label={`Copy ${phase.command}`} />
+        <CopyButton
+          value={phase.command}
+          label={translate(
+            {
+              id: 'home.phase.copyCommand',
+              message: 'Copy {command}',
+              description:
+                'The label of the button that copies a command, where {command} is the command',
+            },
+            { command: phase.command }
+          )}
+        />
       </div>
       <div className='flex shrink-0 rounded-lg border border-line overflow-hidden max-[600px]:w-full'>
         {phase.modes.map((mode, index) => (

@@ -1,8 +1,9 @@
 import type { Category } from '@site/src/data/categories';
 import type { ReactNode } from 'react';
+import { translate } from '@docusaurus/Translate';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { IconSwap, SWAP_TIMING } from '@site/src/components/IconSwap';
-import { ALL_CATEGORIES, CATEGORIES_ADD } from '@site/src/data/categories';
+import { CATEGORIES_ADD, categoriesIn } from '@site/src/data/categories';
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 import { LuCheck } from 'react-icons/lu';
@@ -13,6 +14,7 @@ import {
   CARD_GRID,
   CARD_TITLE,
 } from '../AgentPicker';
+import { useDataMessages } from '../data';
 
 const LABEL = 'text-[0.7rem] font-bold uppercase tracking-[0.09em] text-faint';
 
@@ -66,6 +68,7 @@ const CategoryCard = ({
 
 export const CategoryPicker = (): ReactNode => {
   const [chosen, setChosen] = useState<string[]>(['owasp']);
+  const categories = categoriesIn(useDataMessages());
 
   const toggle = useCallback(
     (key: string) =>
@@ -80,11 +83,24 @@ export const CategoryPicker = (): ReactNode => {
   return (
     <div className='@container font-jakarta text-base'>
       <span className={clsx(LABEL, 'mb-3 flex flex-wrap gap-x-2')}>
-        <span>Choose categories</span>
-        <span className='text-faint/60'>Optional</span>
+        <span>
+          {translate({
+            id: 'docs.categories.choose',
+            message: 'Choose categories',
+            description:
+              'The label over the category cards a reader picks from',
+          })}
+        </span>
+        <span className='text-faint/60'>
+          {translate({
+            id: 'docs.categories.optional',
+            message: 'Optional',
+            description: 'Marks picking categories as optional',
+          })}
+        </span>
       </span>
       <div className={clsx(CARD_GRID, 'mb-6 @4xl:grid-cols-3')}>
-        {ALL_CATEGORIES.map((category) => (
+        {categories.map((category) => (
           <CategoryCard
             key={category.key}
             category={category}
@@ -93,7 +109,14 @@ export const CategoryPicker = (): ReactNode => {
           />
         ))}
       </div>
-      <span className={clsx(LABEL, 'mb-3 block')}>Run this</span>
+      <span className={clsx(LABEL, 'mb-3 block')}>
+        {translate({
+          id: 'docs.categories.run',
+          message: 'Run this',
+          description:
+            'The label over the command that adds the chosen categories',
+        })}
+      </span>
       <div className='lagune-terminal mb-(--ifm-leading) flex items-center gap-3 rounded-[14px] border border-line bg-canvas p-[15px_16px] font-mono text-[13px] leading-[1.65] text-ink'>
         <span className='select-none text-accent' aria-hidden>
           $
@@ -110,7 +133,12 @@ export const CategoryPicker = (): ReactNode => {
         </code>
         <CopyButton
           value={[`${CATEGORIES_ADD} --categories`, ...chosen].join(' ')}
-          label='Copy the command'
+          label={translate({
+            id: 'docs.categories.copy',
+            message: 'Copy the command',
+            description:
+              'The label of the button that copies the command adding the chosen categories',
+          })}
         />
       </div>
     </div>

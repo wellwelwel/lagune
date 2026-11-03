@@ -1,12 +1,11 @@
 import lagunePackage from '../../../package.json';
-import { ALL_CATEGORIES } from '../../src/data/categories';
+import { CATEGORIES } from '../../src/data/lagune';
+import { TOKEN } from './token-pattern';
 
 const TOKENS: Record<string, string> = {
-  categories: String(ALL_CATEGORIES.length),
+  categories: String(CATEGORIES.length),
   version: lagunePackage.version,
 };
-
-const TOKEN = /\{\{\s*([a-z]+)\s*\}\}/g;
 
 export const substituteTokens = (source: string, origin: string): string =>
   source.replace(TOKEN, (token: string, name: string) => {

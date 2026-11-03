@@ -1,3 +1,4 @@
+import Translate, { translate } from '@docusaurus/Translate';
 import { PhaseCard } from '@site/src/components/home/PhaseCard';
 import { PromptCard } from '@site/src/components/home/PromptCard';
 import { PHASE_STEPS, STEP_CARD_ICONS } from '@site/src/data/home';
@@ -42,26 +43,49 @@ const UsagePanelComponent = ({
             type='button'
             onClick={() => onStep(usageStep + 1)}
             className='lagune-fade-in group inline-flex items-center gap-2 self-start mt-5 mx-1 font-mono text-[12px] tracking-[0.04em] uppercase text-muted cursor-pointer transition-colors duration-200 hover:text-ink [&>svg]:size-4 [&>svg]:text-accent'
-            aria-label={step.phase.nextLabel ?? `Next: ${next.phase.title}`}
+            aria-label={
+              step.phase.nextLabel ??
+              translate(
+                {
+                  id: 'home.usage.next',
+                  message: 'Next: {phase}',
+                  description:
+                    'Leads from one phase to the next on the home page, where {phase} is the next phase',
+                },
+                { phase: next.phase.title }
+              )
+            }
           >
             {step.phase.nextLabel ? (
               <span className='font-semibold text-[rgba(233, 237, 247,0.82)] group-hover:text-ink'>
                 {step.phase.nextLabel}
               </span>
             ) : (
-              <>
-                Next:{' '}
-                <span className='font-semibold text-[rgba(233, 237, 247,0.82)] group-hover:text-ink'>
-                  {next.phase.title}
-                </span>
-              </>
+              <Translate
+                id='home.usage.next'
+                description='Leads from one phase to the next on the home page, where {phase} is the next phase'
+                values={{
+                  phase: (
+                    <span className='font-semibold text-[rgba(233, 237, 247,0.82)] group-hover:text-ink'>
+                      {next.phase.title}
+                    </span>
+                  ),
+                }}
+              >
+                {'Next: {phase}'}
+              </Translate>
             )}
             <LuArrowDown className='transition-transform duration-200 group-hover:translate-y-0.5' />
           </button>
         ) : (
           <span className='lagune-fade-in inline-flex items-center gap-2 self-start mt-5 mx-1 font-mono text-[12px] tracking-[0.04em] uppercase text-muted [&>svg]:size-4 [&>svg]:text-accent'>
             <LuCircleCheckBig />
-            After all proven, the cycle is settled
+            {translate({
+              id: 'home.usage.settled',
+              message: 'After all proven, the cycle is settled',
+              description:
+                'Closes the walk through the phases on the home page',
+            })}
           </span>
         ))}
     </div>

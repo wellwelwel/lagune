@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useLocation } from '@docusaurus/router';
+import { translate } from '@docusaurus/Translate';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
@@ -51,10 +52,18 @@ export const DocsToc = ({ toc }: { toc: DocTocItem[] }): ReactNode => {
   return (
     <nav
       className='lagune-docs-route-rise rounded-card bg-surface px-5 pt-5 pb-1.5 shadow-card'
-      aria-label='Table of contents'
+      aria-label={translate({
+        id: 'docs.toc.label',
+        message: 'Table of contents',
+        description: "The accessible name of a docs page's table of contents",
+      })}
     >
       <span className='px-2.5 text-[0.7rem] font-bold uppercase tracking-[0.09em] text-faint'>
-        On this page
+        {translate({
+          id: 'docs.toc.title',
+          message: 'On this page',
+          description: "The heading of a docs page's table of contents",
+        })}
       </span>
       <ul className='mt-2 flex list-none flex-col gap-0.5 p-0'>
         {items.map((item) => (
