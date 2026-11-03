@@ -1,6 +1,11 @@
 import type { Specialization } from '../types/catalog.js';
-import type { LegacyInstall, MigrateResult, MovedFile } from '../types/core.js';
-import { readdir, rename, rmdir } from 'node:fs/promises';
+import type {
+  MigratedConfig,
+  MigrateResult,
+  MigrateSummary,
+  MovedFile,
+} from '../types/core.js';
+import { rename, rmdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { BUILTIN_SPECIALIZATIONS } from '../catalog/builtin.js';
 import {
@@ -14,19 +19,20 @@ import { CONFIGS_FILE, writeConfigs } from './configs.js';
 import {
   ensureDir,
   entryWithin,
-  existingWithin,
   fileWithin,
+  listingWithin,
   pathExists,
   removeEntryIfPresent,
-  removeFileIfPresent,
   writeFileOverwrite,
 } from './fs-actions.js';
 import { removeLaguneBlock } from './gitignore.js';
 import { parseJsonObject } from './json.js';
+import { legacyCommands } from './legacy-commands.js';
 import { readText } from './markdown/read.js';
 import { containedStateFile } from './state-file.js';
 
 const MANIFEST_FILE = '.lagune/manifest.json';
+const BLUE_SPEC_DIR = '.bluespec';
 const LEGACY_INDEX_FILE = '.lagune/skills.json';
 const LEGACY_SPECIALIZATIONS_DIR = '.lagune/skills';
 const PROOFS_DIR = '.lagune/proofs';
@@ -35,27 +41,25 @@ const GENERATED = [
   '.lagune/hooks/',
   '.lagune/specializations.md',
 ];
-const LEGACY_SKILL_FOLDER = /^lagune(\.[a-z]+)?$/;
-const LEGACY_COMMAND_FILE = /^lagune(\.[a-z]+)?\.(md|mdc|toml|yaml)$/;
+const CONFIG_FIELDS: MigratedConfig[] = ['categories', 'catalog'];
 
 export const hasManifest = (cwd: string): Promise<boolean> =>
   pathExists(join(cwd, MANIFEST_FILE));
 
-const readLegacyInstall = async (
+/** Blue Spec, Lagune's former name, installed into its own folder, which only the manifest-based Lagune moves */
+export const hasBlueSpec = (cwd: string): Promise<boolean> =>
+  pathExists(join(cwd, BLUE_SPEC_DIR));
+
+const readManifestCategories = async (
   cwd: string
-): Promise<LegacyInstall | undefined> => {
+): Promise<string[] | undefined> => {
   const raw = await readText(join(cwd, MANIFEST_FILE));
 
   if (raw === null) return undefined;
 
-  const fields = parseJsonObject(raw, MANIFEST_FILE);
+  const { categories } = parseJsonObject(raw, MANIFEST_FILE);
 
-  return {
-    files: isStringArray(fields.files) ? fields.files : [],
-    categories: isStringArray(fields.categories)
-      ? fields.categories
-      : undefined,
-  };
+  return isStringArray(categories) ? categories : undefined;
 };
 
 const readLegacyIndex = async (cwd: string): Promise<Specialization[]> => {
@@ -65,27 +69,6 @@ const readLegacyIndex = async (cwd: string): Promise<Specialization[]> => {
 
   return specializationsOf(parseJsonObject(raw, LEGACY_INDEX_FILE).entries);
 };
-
-/** The folder or file the Lagune CLI generated for one agent command, never anything else */
-const commandEntry = (path: string): string | undefined => {
-  const segments = path.split('/');
-  const file = segments[segments.length - 1] ?? '';
-  const folder = segments[segments.length - 2] ?? '';
-
-  if (file === 'SKILL.md' && LEGACY_SKILL_FOLDER.test(folder))
-    return `${segments.slice(0, -1).join('/')}/`;
-
-  return LEGACY_COMMAND_FILE.test(file) ? path : undefined;
-};
-
-const agentCommands = (files: string[]): string[] => [
-  ...new Set(
-    files
-      .filter((file) => !file.startsWith('.lagune/'))
-      .map(commandEntry)
-      .filter((entry): entry is string => entry !== undefined)
-  ),
-];
 
 /** Removes the entry itself, never a link's target, and only when it sits inside the project */
 const removeWithin = async (cwd: string, path: string): Promise<boolean> => {
@@ -104,18 +87,10 @@ const removeAll = async (cwd: string, paths: string[]): Promise<string[]> => {
   return paths.filter((_path, index) => removed[index]);
 };
 
-const legacyFiles = async (cwd: string): Promise<string[]> => {
-  const folder = await existingWithin(
-    cwd,
-    join(cwd, LEGACY_SPECIALIZATIONS_DIR)
-  );
-
-  if (folder === undefined) return [];
-
-  const entries = await readdir(folder).catch((): string[] => []);
-
-  return entries.filter((entry) => entry.endsWith('.md')).toSorted();
-};
+const legacyFiles = async (cwd: string): Promise<string[]> =>
+  (await listingWithin(cwd, join(cwd, LEGACY_SPECIALIZATIONS_DIR)))
+    .filter((entry) => entry.endsWith('.md'))
+    .toSorted();
 
 const isGeneratedCopy = (file: string, ownNames: Set<string>): boolean => {
   const name = file.slice(0, -'.md'.length);
@@ -176,47 +151,55 @@ const mergedEntries = (
   ),
 ];
 
-const writeCategories = async (
-  configsFile: string,
-  categories: string[] | undefined
-): Promise<void> => {
-  if (categories === undefined) return;
-
-  await writeConfigs(configsFile, { categories });
-};
-
-const writeOwnIndex = async (
-  configsFile: string,
+/** What the configs file gains: the manifest's categories while it records none, and the legacy index */
+const configChanges = (
+  categories: string[] | undefined,
   catalog: Specialization[]
-): Promise<void> => {
-  if (catalog.length === 0) return;
+): Partial<Record<MigratedConfig, unknown>> => ({
+  ...(categories === undefined ? {} : { categories }),
+  ...(catalog.length === 0 ? {} : { catalog }),
+});
 
-  await writeConfigs(configsFile, { catalog });
-};
-
-const guardProofs = async (cwd: string): Promise<void> => {
+const guardProofs = async (cwd: string): Promise<boolean> => {
   const ignore = await fileWithin(cwd, join(cwd, PROOFS_DIR, '.gitignore'));
 
-  if (ignore === undefined) return;
-  if (await pathExists(ignore)) return;
+  if (ignore === undefined) return false;
+  if (await pathExists(ignore)) return false;
 
   await writeFileOverwrite(ignore, '*\n');
+
+  return true;
 };
 
-/** Moves a project the Lagune CLI installed to the skills-based layout, keeping its memory and tracking */
+const changedAnything = (summary: MigrateSummary): boolean =>
+  summary.manifest ||
+  summary.removed.length > 0 ||
+  summary.moved.length > 0 ||
+  summary.kept.length > 0 ||
+  summary.configs.length > 0 ||
+  summary.gitignore !== 'unchanged' ||
+  summary.proofs;
+
+/** Moves a project off the manifest-based Lagune, on the clone that holds its manifest and on every clone that pulls the move, keeping its memory and tracking */
 export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
-  const install = await readLegacyInstall(cwd);
-
-  if (install === undefined) return { migrated: false };
-
-  const configsFile = await containedStateFile(cwd, CONFIGS_FILE);
-  const [legacy, ownIndex, recorded, files] = await Promise.all([
-    readLegacyIndex(cwd),
-    readOwnIndex(cwd),
-    readProjectCategories(cwd),
-    legacyFiles(cwd),
-  ]);
-  const ownNames = new Set(legacy.map((entry) => entry.name));
+  const [manifestCategories, legacy, ownIndex, recorded, files] =
+    await Promise.all([
+      readManifestCategories(cwd),
+      readLegacyIndex(cwd),
+      readOwnIndex(cwd),
+      readProjectCategories(cwd),
+      legacyFiles(cwd),
+    ]);
+  const changes = configChanges(
+    recorded === undefined ? manifestCategories : undefined,
+    legacy.length === 0 ? [] : mergedEntries(ownIndex, legacy)
+  );
+  const configs = CONFIG_FIELDS.filter((field) => changes[field] !== undefined);
+  const configsFile =
+    configs.length === 0
+      ? undefined
+      : await containedStateFile(cwd, CONFIGS_FILE);
+  const ownNames = new Set([...legacy, ...ownIndex].map((entry) => entry.name));
   const copies = files
     .filter((file) => isGeneratedCopy(file, ownNames))
     .map((file) => `${LEGACY_SPECIALIZATIONS_DIR}/${file}`);
@@ -224,19 +207,29 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
   const removed = await removeAll(cwd, [
     ...GENERATED,
     ...copies,
-    ...agentCommands(install.files),
+    ...(await legacyCommands(cwd)),
   ]);
   const { moved, kept } = await moveOwnSpecializations(cwd, own);
 
   await removeIfEmpty(join(cwd, LEGACY_SPECIALIZATIONS_DIR));
-  await writeCategories(configsFile, recorded ?? install.categories);
-  await writeOwnIndex(configsFile, mergedEntries(ownIndex, legacy));
-  await removeFileIfPresent(join(cwd, LEGACY_INDEX_FILE));
-  await guardProofs(cwd);
 
+  if (configsFile !== undefined) await writeConfigs(configsFile, changes);
+
+  const index = await removeAll(cwd, [LEGACY_INDEX_FILE]);
+  const proofs = await guardProofs(cwd);
   const gitignore = await removeLaguneBlock(cwd);
+  const manifest = await removeWithin(cwd, MANIFEST_FILE);
+  const summary: MigrateSummary = {
+    manifest,
+    removed: [...removed, ...index],
+    moved,
+    kept,
+    configs,
+    gitignore,
+    proofs,
+  };
 
-  await removeFileIfPresent(join(cwd, MANIFEST_FILE));
-
-  return { migrated: true, removed, moved, kept, gitignore };
+  return changedAnything(summary)
+    ? { migrated: true, ...summary }
+    : { migrated: false };
 };

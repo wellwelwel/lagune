@@ -1,5 +1,5 @@
 import type { Category, CategoryChange } from '../types/categories.js';
-import type { MigrateSummary } from '../types/core.js';
+import type { MigratedConfig, MigrateSummary } from '../types/core.js';
 import type { EngineCommand, EngineTool } from '../types/mcp.js';
 import { allOf } from '../core/collections.js';
 import { CONFIGS_FILE } from '../core/configs.js';
@@ -7,10 +7,9 @@ import { toolFor } from '../mcp/tools.js';
 import { color } from './colors.js';
 
 const ENGINE_COMMAND = 'npx lagune';
-const SKILLS_ADD = 'npx skills add wellwelwel/lagune';
-const SKILLS_UPDATE = 'npx skills update';
+const INSTALL_PAGE = 'https://lagune.ai/docs';
 
-export const MIGRATE_PAGE = 'https://lagune.ai/docs/commands/migrate';
+const MIGRATE_PAGE = 'https://lagune.ai/docs/commands/migrate';
 
 const GLYPH = {
   added: color.blue('+'),
@@ -19,7 +18,7 @@ const GLYPH = {
   removed: color.blue('-'),
 };
 
-export const banner = (): string => `\n🌊 ${color.bold(color.blue('Lagune'))}`;
+export const banner = (): string => `\n🪼 ${color.bold(color.blue('Lagune'))}`;
 
 const done = (text: string): string => `${color.blue('✓')} ${text}`;
 
@@ -82,7 +81,7 @@ const HELP_COMMANDS: [string, string][] = [
   ['dashboard', 'Serve a live view of .lagune/ and open it in the browser'],
   [
     'migrate',
-    'Move a project the Lagune CLI installed to the skills-based layout',
+    'Move a manifest-based Lagune project to the skills-based layout',
   ],
   ['mcp', "Serve the engine's commands to an agent over MCP, from the project"],
 ];
@@ -132,9 +131,8 @@ export const helpText = (tools: readonly EngineTool[]): string =>
     heading('Options'),
     ...definitions(HELP_OPTIONS),
     '',
-    heading('Agent skills'),
-    bullet(`Install them with ${SKILLS_ADD}`),
-    bullet(`Update them with ${SKILLS_UPDATE}`),
+    heading('Agent commands'),
+    bullet(`Install and update them for your agent at ${INSTALL_PAGE}`),
   ].join('\n');
 
 export const unknownCommand = (command: string): string =>
@@ -147,11 +145,7 @@ export const unprefixedCommand = (command: string): string =>
   `${command} runs only as ${commandLine(command)}.`;
 
 export const movedToSkills = (command: string): string =>
-  [
-    `${command} moved to the skills CLI, which installs and updates Lagune's commands:`,
-    `  ${SKILLS_ADD}`,
-    `  ${SKILLS_UPDATE}`,
-  ].join('\n');
+  `${command} is gone: install and update Lagune's commands for your agent at ${INSTALL_PAGE}`;
 
 export const categoriesUsage = (command: string): string =>
   [
@@ -187,13 +181,16 @@ export const noNodeForEngine = (): string =>
   "Lagune's engine runs on Node.js, and none was found on this computer's search path. Install Node.js (LTS), then restart your agent.";
 
 export const frozenHandoff = (version: string): string =>
-  `This project was installed by the Lagune CLI and keeps working with it: lagune@${version} answers here. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
+  `This project runs on the manifest-based Lagune, which keeps working: lagune@${version} answers here. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
 
 export const frozenRefusal = (command: string): string =>
-  `This project was installed by the Lagune CLI, which keeps working here, but ${command} is part of the skills-based Lagune the project has not moved to yet. To move it, see ${MIGRATE_PAGE}`;
+  `This project runs on the manifest-based Lagune, which keeps working here, but ${command} is part of the skills-based Lagune the project has not moved to yet. To move it, see ${MIGRATE_PAGE}`;
+
+export const handoffLoop = (version: string): string =>
+  `lagune@${version} answered with this skills-based Lagune instead of the manifest-based Lagune, so the hand-off stopped rather than starting itself again. Remove the copy that carries that version, such as a linked one, then run this again. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
 
 export const handoffUnavailable = (version: string): string =>
-  `This project was installed by the Lagune CLI, which keeps working with lagune@${version}, but this runtime brings no npm to start it. Run npx lagune@${version} yourself with the same arguments. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
+  `This project runs on the manifest-based Lagune, which keeps working with lagune@${version}, but this runtime brings no npm to start it. Run npx lagune@${version} yourself with the same arguments. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;
 
 const footer = (...middle: string[]): string =>
   ['Enter to confirm', ...middle, 'Esc to cancel'].join(' · ');
@@ -272,8 +269,11 @@ export const findingsReport = (names: string[]): string => {
 
 export const migrateNothing = (): string =>
   color.dim(
-    'No Lagune CLI install found here, so there is nothing to migrate.'
+    'No manifest-based Lagune found here, so there is nothing to migrate.'
   );
+
+export const migrateBlueSpecFirst = (version: string): string =>
+  `This project is still on Blue Spec, Lagune's former name. Move it to the manifest-based Lagune with ${color.blue(`npx lagune@${version} migrate`)}, then run this again.`;
 
 const removedLine = (path: string): string => `  ${GLYPH.removed} ${path}`;
 
@@ -288,6 +288,34 @@ const GITIGNORE_NOTES: Record<MigrateSummary['gitignore'], string> = {
   updated: 'Removed the Lagune block from .gitignore',
   unchanged: '',
 };
+
+const CONFIG_NOTES: Record<MigratedConfig, string> = {
+  categories: 'the categories',
+  catalog: 'the index of your own specializations',
+};
+
+const migrateNotes = (summary: MigrateSummary): string[] => [
+  ...(summary.configs.length === 0
+    ? []
+    : [
+        done(
+          `Recorded ${allOf(summary.configs.map((config) => CONFIG_NOTES[config]))} in ${CONFIGS_FILE}`
+        ),
+      ]),
+  ...(summary.gitignore === 'unchanged'
+    ? []
+    : [done(GITIGNORE_NOTES[summary.gitignore])]),
+  ...(summary.proofs
+    ? [done('Kept .lagune/proofs/ out of commits with its own .gitignore')]
+    : []),
+];
+
+const migrateSteps = (summary: MigrateSummary): string[] =>
+  [
+    ...(summary.manifest ? ['Commit this change on its own'] : []),
+    `Install Lagune's commands for your agent at ${INSTALL_PAGE}`,
+    `Follow the rest of the move at ${MIGRATE_PAGE}`,
+  ].map((step, index) => `  ${color.dim(String(index + 1))}  ${step}`);
 
 export const migrateReport = (summary: MigrateSummary): string =>
   [
@@ -305,12 +333,8 @@ export const migrateReport = (summary: MigrateSummary): string =>
     done(
       `Moved to the skills-based layout ${color.dim('·')} ${summary.removed.length} removed${color.dim(`, ${summary.moved.length} moved`)}`
     ),
-    ...(summary.gitignore === 'unchanged'
-      ? []
-      : [done(GITIGNORE_NOTES[summary.gitignore])]),
+    ...migrateNotes(summary),
     '',
     color.bold('Next steps'),
-    `  ${color.dim('1')}  Commit this change on its own`,
-    `  ${color.dim('2')}  Install Lagune's commands with ${color.blue(SKILLS_ADD)}`,
-    `  ${color.dim('3')}  Follow the rest of the move at ${MIGRATE_PAGE}`,
+    ...migrateSteps(summary),
   ].join('\n');

@@ -13,8 +13,6 @@ export const docsNav: DocsNavEntry[] = [
     items: [
       'get-started/install',
       'get-started/commands',
-      'categories',
-      'catalog',
       'get-started/dashboard',
     ],
   },
@@ -33,6 +31,10 @@ export const docsNav: DocsNavEntry[] = [
       'commands/harden',
       'commands/verify',
     ],
+  },
+  {
+    label: 'Specializations',
+    items: ['categories', 'catalog'],
   },
   {
     label: 'Tools',

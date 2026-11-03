@@ -3,7 +3,7 @@ id: antigravity-cli
 title: 'Install Lagune on Antigravity CLI as a Plugin'
 sidebar_label: Antigravity CLI
 parent: get-started/install
-description: Install Lagune's commands in Antigravity CLI through its own plugin installer, keep them updated, and allow the engine up front.
+description: Install Lagune on Antigravity CLI as a plugin, keep it updated, and allow its engine up front.
 keywords:
   - antigravity cli
   - antigravity plugin
@@ -27,7 +27,7 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 
 ## Update
 
-**Antigravity CLI** leaves the plugin at its installed version until you install it again, which replaces the installed copy. To update **Lagune**, run:
+To update **Lagune**, install it again:
 
 ```bash
 agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
@@ -35,13 +35,13 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 
 ## Commands
 
-Type the commands under the plugin's name, such as `/lagune:lagune-charter` wherever these docs write `/lagune-charter`.
+Type the commands under the plugin's name, such as `/lagune:lagune-charter` for `/lagune-charter`.
 
 ---
 
 :::info[Permissions]
 
-The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. **Antigravity CLI** loads them while a session's first message runs, so a command sent as that first message runs the engine through **npx** instead, and every later message uses the tools. To allow both routes up front, add these rules to `~/.gemini/antigravity-cli/settings.json`:
+The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. A command sent as a session's first message runs before they load, so it uses **npx** instead. To allow the tools and **npx** up front, add these rules to `~/.gemini/antigravity-cli/settings.json`:
 
 ```json
 {
@@ -67,17 +67,17 @@ The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_re
     {
       question: 'How do I update Lagune on Antigravity CLI?',
       answer:
-        'Run agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity again, which replaces the installed copy.',
+        'Run agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity again.',
     },
     {
       question: "How do I run Lagune's commands on Antigravity CLI?",
       answer:
-        "Type them under the plugin's name: /lagune:lagune-charter instead of /lagune-charter.",
+        "Type them under the plugin's name, such as /lagune:lagune-charter.",
     },
     {
       question: 'Can Antigravity CLI run Lagune without asking for permission?',
       answer:
-        "Yes. Add mcp(lagune_lagune/lagune_read) and mcp(lagune_lagune/lagune_write) to the permissions allow list in Antigravity CLI's settings, which allow Lagune's two engine tools, and command(regex:npx --yes lagune@[0-9.]+) for a command sent as a session's first message, which runs the engine through npx before the tools load.",
+        "Yes. Allow mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write), and command(regex:npx --yes lagune@[0-9.]+) in Antigravity CLI's settings. The npx rule covers a command sent as a session's first message.",
     },
   ]}
 />

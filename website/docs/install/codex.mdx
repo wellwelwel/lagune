@@ -3,7 +3,7 @@ id: codex
 title: 'Install Lagune on Codex CLI as a Plugin'
 sidebar_label: Codex CLI
 parent: get-started/install
-description: Install Lagune's commands in Codex CLI through its own plugin installer, keep them updated, and run the engine inside its sandbox.
+description: Install Lagune on Codex CLI as a plugin, keep it updated, and run its engine inside the sandbox.
 keywords:
   - codex
   - codex cli
@@ -29,7 +29,7 @@ codex plugin add lagune@lagune
 
 ## Update
 
-To update **Lagune**, upgrade its marketplace, which reinstalls the plugin from the latest commit:
+To update **Lagune**, run:
 
 ```bash
 codex plugin marketplace upgrade lagune
@@ -37,19 +37,17 @@ codex plugin marketplace upgrade lagune
 
 ## Commands
 
-Type the commands with `$` under the plugin's name, followed by your input: where these docs show `/lagune-charter`, type `$lagune:lagune-charter`. Typing `$` lists them, such as `lagune-charter (lagune)`, and picking one inserts its full name.
+Type `$` and the command under the plugin's name, followed by your input, such as `$lagune:lagune-charter` for `/lagune-charter`. Typing `$` lists the commands, and picking one inserts its full name.
 
 ---
 
 :::info[Permissions]
 
-**Codex**'s sandbox has no network access by default. To run the engine inside it, install the engine in your project from your own terminal, once and again after each update:
+**Codex**'s sandbox has no network access. Install the engine in your project from your own terminal, once and after each update:
 
 ```bash
 npm i -D lagune@{{version}}
 ```
-
-Every engine call, the first included, then runs inside the sandbox, with no download and no network access.
 
 :::
 
@@ -58,22 +56,21 @@ Every engine call, the first included, then runs inside the sandbox, with no dow
     {
       question: 'How do I install Lagune on Codex CLI?',
       answer:
-        'Add the marketplace with codex plugin marketplace add wellwelwel/lagune, then install the plugin with codex plugin add lagune@lagune.',
+        'Run codex plugin marketplace add wellwelwel/lagune, then codex plugin add lagune@lagune.',
     },
     {
       question: 'How do I update Lagune on Codex CLI?',
-      answer:
-        'Run codex plugin marketplace upgrade lagune, which reinstalls the plugin from the latest commit.',
+      answer: 'Run codex plugin marketplace upgrade lagune.',
     },
     {
       question: "How do I run Lagune's commands on Codex CLI?",
       answer:
-        "Type $ and the command under the plugin's name, followed by your input, such as $lagune:lagune-charter. Typing $ lists every command, and picking one inserts its full name.",
+        "Type $ and the command under the plugin's name, followed by your input, such as $lagune:lagune-charter.",
     },
     {
       question: "Does Lagune work inside Codex's sandbox?",
       answer:
-        'Yes, once its engine is installed in your project. The sandbox has no network access by default, so run npm i -D lagune@{{version}} from your own terminal, once and again after each update.',
+        'Yes, once you install the engine in your project with npm i -D lagune@{{version}} from your own terminal, once and after each update.',
     },
   ]}
 />

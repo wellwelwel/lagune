@@ -6,10 +6,9 @@ import { createDashboardServer } from './http-server';
 import { openBrowser } from './open-browser';
 import { createSessionToken, persistSessionToken } from './session';
 
-const announce = (port: number): void => {
-  const url = `http://${host}:${port}`;
-  process.stdout.write(`\n  🌊 Lagune dashboard → ${url}\n`);
-  process.stdout.write('\n  Watching .lagune/ — changes reload the browser.\n');
+const announce = (url: string): void => {
+  process.stdout.write(`\n  🪼 Lagune dashboard → ${url}\n`);
+  process.stdout.write('\n  Watching .lagune/: changes reload the browser.\n');
   process.stdout.write('  Press Ctrl+C to stop.\n\n');
 };
 
@@ -20,17 +19,16 @@ const listen = (
 ): Promise<number> =>
   new Promise((resolve, reject) => {
     const onError = (error: NodeJS.ErrnoException): void => {
-      if (error.code === 'EADDRINUSE' && triesLeft > 0) {
-        listen(server, port + 1, triesLeft - 1).then(resolve, reject);
-        return;
-      }
-      reject(error);
+      if (error.code !== 'EADDRINUSE' || triesLeft <= 0) return reject(error);
+
+      listen(server, port + 1, triesLeft - 1).then(resolve, reject);
     };
 
     server.once('error', onError);
     server.listen(port, host, () => {
-      server.removeListener('error', onError);
       const address = server.address();
+
+      server.removeListener('error', onError);
       resolve(typeof address === 'object' && address ? address.port : port);
     });
   });
@@ -51,10 +49,11 @@ export const startDashboard = async (
     token,
   });
   const port = await listen(server, options.port ?? defaultPort, 10);
+  const url = `http://${host}:${port}`;
 
-  announce(port);
+  announce(url);
 
-  if (options.open !== false) await openBrowser(`http://${host}:${port}`);
+  if (options.open !== false) await openBrowser(url);
 
   return new Promise((resolve) => {
     const shutdown = (): void => {

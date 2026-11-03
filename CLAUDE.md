@@ -1,6 +1,6 @@
 # SDH (Security-Driven Hardening): Lagune
 
-> This file orients any AI agent (and human) working in this repository. Read it fully before making changes. It describes **what Lagune is**, **who it is for**, **how it is built**, and **how to work in this codebase**. For the architecture decisions, invoke the internal `/architecture` skill, for the code conventions, the `/engineering` skill, and for the language conventions and how to write Lagune's prose, the `/writer` skill.
+> This file orients any AI agent (and human) working in this repository. Read it fully before making changes. It describes **what Lagune is**, **who it is for**, **how it is built**, and **how to work in this codebase**. For the architecture decisions, invoke the internal `/architecture` skill, for the code conventions, the `/engineering` skill, and for the language conventions and how to write **Lagune**'s prose, the `/writer` skill.
 
 ---
 
@@ -8,33 +8,33 @@
 
 This workspace is the **development environment for Lagune**.
 
-Lagune is the practice of **Security-Driven Hardening (SDH)**: a structured, AI-driven security workflow. **Lagune turns a codebase into a more secure one**, driving the work from a spec the agent runs rather than from ad-hoc fixes.
+**Lagune** is the practice of **Security-Driven Hardening (SDH)**: a structured, AI-driven security workflow. **Lagune turns a codebase into a more secure one**, driving the work from a spec the agent runs rather than from ad-hoc fixes.
 
-The project stands in the tradition of **Blue Teams**: the defenders in security. Lagune is about defense, hardening, and verification, never offense.
+The project stands in the tradition of **Blue Teams**: the defenders in security. **Lagune** is about defense, hardening, and verification, never offense.
 
 ### The problem it exists to solve
 
 Software is increasingly shipped by people, and AI agents, who cannot reliably recognize an insecure pattern: a leaked secret, a missing authorization check, an injectable query. AI coding assistants made this acute by letting non-developers ship real software, but the gap is broader than any one audience. Most projects never get a security pass that is specific to what they actually do. The ecosystem becomes more fragile with every "it works, ship it" moment.
 
-Lagune's mission is to **put a defensive, security-first workflow within reach of any user**, by making the AI agent do the heavy lifting: detecting what a system actually is, and guiding it toward the security practices that matter for that system, in a safe-by-default way.
+**Lagune**'s mission is to **put a defensive, security-first workflow within reach of any user**, by making the AI agent do the heavy lifting: detecting what a system actually is, and guiding it toward the security practices that matter for that system, in a safe-by-default way.
 
 ### What Lagune actually ships
 
-Lagune is **a set of agent skills and templates backed by a small engine**, not a heavy framework. Its value is the **workflow the AI agent runs**: detecting what the system actually does (login, uploads, payments, and so on), mapping the vulnerabilities that matter for that context, then proposing, applying, and validating the right fixes. The context detection is what makes the rest specific instead of generic.
+**Lagune** is **a set of agent skills and templates backed by a small engine**, not a heavy framework. Its value is the **workflow the AI agent runs**: detecting what the system actually does (login, uploads, payments, and so on), mapping the vulnerabilities that matter for that context, then proposing, applying, and validating the right fixes. The context detection is what makes the rest specific instead of generic.
 
-Concretely, the user runs Lagune via the AI agent and the agent follows Lagune's templated, security-first process: slash commands, each beside the template it fills, that an AI agent consumes, oriented toward defense rather than feature delivery. Three owners keep it apart. The project owns its state in `.lagune/`, committed with its code. Lagune's instructions, the nine commands, reach each agent through the **skills** CLI or through that agent's own plugin installer. The engine, the `lagune` package on **npm**, runs every deterministic step.
+Concretely, the user runs **Lagune** via the AI agent and the agent follows **Lagune**'s templated, security-first process: slash commands, each beside the template it fills, that an AI agent consumes, oriented toward defense rather than feature delivery. Three owners keep it apart. The project owns its state in `.lagune/`, committed with its code. **Lagune**'s instructions, the nine commands, reach each agent through the **skills** CLI or through that agent's own plugin installer. The engine, the `lagune` package on **npm**, runs every deterministic step.
 
 ### Flexible by design
 
-Lagune is meant to flex, never to impose a rigid contract. Its principles, requirements, and recommendations are starting points the user can adapt, not a fixed contract. The charter can grow or shrink, a principle can be reworded or dropped, and every phase adapts to what the project actually is rather than forcing the project to fit a template. Safe-by-default never means take-it-or-leave-it.
+**Lagune** is meant to flex, never to impose a rigid contract. Its principles, requirements, and recommendations are starting points the user can adapt, not a fixed contract. The charter can grow or shrink, a principle can be reworded or dropped, and every phase adapts to what the project actually is rather than forcing the project to fit a template. Safe-by-default never means take-it-or-leave-it.
 
 ---
 
 ## 2. Who it is for
 
-Lagune is for **any user who wants a development flow with the security practices Lagune specializes in**. "User" means a person or a system, developer or not, and **all are served the same way**. There is no primary or secondary audience. The project must be **self-sufficient**, so the experience does not depend on the user already knowing what to ask for.
+**Lagune** is for **any user who wants a development flow with the security practices Lagune specializes in**. "User" means a person or a system, developer or not, and **all are served the same way**. There is no primary or secondary audience. The project must be **self-sufficient**, so the experience does not depend on the user already knowing what to ask for.
 
-What makes that possible is the core idea: Lagune is **not a static checklist of generic recommendations**. It is a spec **intelligent enough to detect the context of the system** it is run against, for example whether the project has login, file uploads, payments, and so on. From that detection it **directs the user to the specific recommendations that matter for that context**.
+What makes that possible is the core idea: **Lagune** is **not a static checklist of generic recommendations**. It is a spec **intelligent enough to detect the context of the system** it is run against, for example whether the project has login, file uploads, payments, and so on. From that detection it **directs the user to the specific recommendations that matter for that context**.
 
 This is why developers and non-developers are served equally: the deep security knowledge is carried by the spec and its on-demand specializations, a baseline every user can build on: the more they know, the more they can drive it. Findings and recommendations should still be expressed in plain language, so they are actionable regardless of the user's technical depth.
 
@@ -50,7 +50,7 @@ This is why developers and non-developers are served equally: the deep security 
 
 ## 4. The Lagune workflow (phase model)
 
-Lagune runs a structured lifecycle with every phase framed around **defense**. This is the **5-phase Blue Team flow** and it is the product's spine:
+**Lagune** runs a structured lifecycle with every phase framed around **defense**. This is the **5-phase Blue Team flow** and it is the product's spine:
 
 | #   | Command           | Blue Team purpose                                                                                               |
 | --- | ----------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +66,7 @@ There is no separate task-breakdown phase, because `plan` already produces concr
 
 Alongside the five sequential phases there is one maintenance command, `/lagune-repair`. It is **not** a 6th phase in the linear flow. Its job is to keep the tracking coherent. Each detect finding is **one tracked item** that plan, harden, and verify carry forward, each acting on it and re-reporting it by name. That name, written identically as the section title in every artifact, is its identity throughout. The tracking map holds only tracking, never prose. The one volatile thing it stores is the file paths the item points at. Those paths live nowhere else, so a rename or a moved file can break the link only there, never in two diverging copies. When that happens, repair corrects the map (`.lagune/tracking.json`) so identity survives the rename. It corrects the paths on the one entry, leaves the prose untouched (the prose never held a path), and surfaces an item no artifact mentions anymore as an orphan for the user to drop. In the same pass it checks every memory artifact against its template, reporting drift for the owning phase to fix. It reads the artifacts and the tracking map, reads the user's source only to learn a renamed file's new path, and never authors security content. The five phases consult the same deterministic tracking during their own reconciliation, so repair is rarely run by hand.
 
-Lagune also carries **specializations**: focused, language-agnostic security knowledge modules that load **only on demand**, never by default. A specialization is not a command and is not invocable on its own. The built-ins are grouped in **categories**, and a project's **catalog** holds the built-ins of the categories it records plus its own specializations, its own winning a shared name. While no category is recorded the project uses OWASP alone, and the charter records the categories its reading of the project supports. Detect is the phase that reaches for them: it lists the catalog with the engine's `read catalog`, which prints each specialization's name and the tags that say what it covers, matches them against the code, and records which it applied by name, so the later phases reuse that list rather than re-listing. Each reads the matching specialization with `read catalog <name>`, which a user can also ask for in any prompt. The collection grows by adding one knowledge file plus one index row, never a new command, and `/lagune-specialize` is how the user grows it on their own: it distills a security source or topic they give it into a new specialization in the project's own catalog, so the phases then load it like any built-in. This is the same context-aware principle as the phases: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
+**Lagune** also carries **specializations**: focused, language-agnostic security knowledge modules that load **only on demand**, never by default. A specialization is not a command and is not invocable on its own. The built-ins are grouped in **categories**, and a project's **catalog** holds the built-ins of the categories it records plus its own specializations, its own winning a shared name. While no category is recorded the project uses OWASP alone, and the charter records the categories its reading of the project supports. Detect is the phase that reaches for them: it lists the catalog with the engine's `read catalog`, which prints each specialization's name and the tags that say what it covers, matches them against the code, and records which it applied by name, so the later phases reuse that list rather than re-listing. Each reads the matching specialization with `read catalog <name>`, which a user can also ask for in any prompt. The collection grows by adding one knowledge file plus one index row, never a new command, and `/lagune-specialize` is how the user grows it on their own: it distills a security source or topic they give it into a new specialization in the project's own catalog, so the phases then load it like any built-in. This is the same context-aware principle as the phases: the relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
 
 > Names above (`/lagune-*`) are the current convention. They can still be refined, so treat them as the working shape, not a frozen contract.
 
@@ -78,9 +78,9 @@ These are binding instructions for any agent or contributor working here.
 
 1. **Safe-by-default, in plain language, for everyone equally.** Every default, message, and fix must be safe out of the box and intelligible to any user, developer or not. No user tier is privileged over another.
 2. **Context-aware over generic.** Every phase must start from the context detected in `detect` (login, uploads, payments, and so on) and act on what the system actually does. Prefer recommendations specific to that context over generic checklists. The deep security knowledge is carried by the spec and its on-demand specializations, a baseline every user can build on.
-3. **Flexible over rigid.** Lagune flexes to the project and the user. Principles, requirements, and recommendations are starting points, not a fixed contract. Let the user reword, drop, add, or scope anything down. Every phase adapts to what the project actually is. Flexibility never weakens the safe-by-default baseline, it only lets the user shape how it is applied.
-4. **Reconcile, never append-only.** Lagune's artifacts are living documents, not logs, so a re-run reconciles each existing entry against the current truth rather than appending to it. The full discipline, including how closure stands a proven-closed finding down across the whole chain, lives in the phase skills under `skills/`.
-5. **Defense only.** Lagune audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm. Dual-use security content is acceptable only in a clearly defensive, authorized framing.
+3. **Flexible over rigid.** **Lagune** flexes to the project and the user. Principles, requirements, and recommendations are starting points, not a fixed contract. Let the user reword, drop, add, or scope anything down. Every phase adapts to what the project actually is. Flexibility never weakens the safe-by-default baseline, it only lets the user shape how it is applied.
+4. **Reconcile, never append-only.** **Lagune**'s artifacts are living documents, not logs, so a re-run reconciles each existing entry against the current truth rather than appending to it. The full discipline, including how closure stands a proven-closed finding down across the whole chain, lives in the phase skills under `skills/`.
+5. **Defense only.** **Lagune** audits, hardens, and verifies. It never produces offensive tooling, exploits for malicious use, or detection-evasion for harm. Dual-use security content is acceptable only in a clearly defensive, authorized framing.
 6. **TypeScript in, JavaScript out.** Author in strict TypeScript and ship compiled JavaScript. The end-user runtime is JavaScript via `npx`.
 7. **Spec-first, agent-driven, framed for security.** Build the workflow from a proven structure: templates, commands, a governing charter, and an agent that runs the phases. Reimplement that structure in our stack with a defensive purpose.
 8. **Architecture, engineering, and writing live elsewhere.** Architecture decisions belong in the internal `/architecture` skill, the code conventions and type rules belong in the `/engineering` skill, and the language conventions, the plain-language rule, and the reconcile discipline for prose belong in the `/writer` skill. They load when an agent touches the relevant work. Keep this file focused on the _what_ and _why_, and keep those decisions in those skills.
@@ -91,11 +91,10 @@ These are binding instructions for any agent or contributor working here.
 
 ## 6. Naming
 
-- **Project name:** Lagune. Working command prefix: `lagune` / `/lagune-*`.
+- **Project name:** **Lagune**. Working command prefix: `lagune` / `/lagune-*`.
 
 ---
 
 ## Others
 
-- The README is intentionally outdated. Do not edit it.
 - The `/architecture` skill records decisions only: each states a structural choice and why it holds, never how something works or what exists, which the code and its tests already carry. A decision covers a whole kind, such as the plugins, and names a single member only as an unavoidable or intentional exception. Edit the skill only when a decision is made, changed, or dropped.

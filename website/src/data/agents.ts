@@ -132,7 +132,7 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
   },
 ];
 
-export const UNIVERSAL_AGENTS: Agent[] = [
+const UNIVERSAL_AGENTS: Agent[] = [
   { name: 'AdaL', icon: '/img/icons/adal.svg' },
   { name: 'AiderDesk', icon: '/img/icons/aiderdesk.svg' },
   { name: 'Amazon Q Developer', icon: '/img/icons/amazonq.svg' },
@@ -212,3 +212,20 @@ export const UNIVERSAL_HIGHLIGHTS = UNIVERSAL_AGENTS.filter((agent) =>
 );
 
 export const UNIVERSAL_SUMMARY = `${UNIVERSAL_HIGHLIGHTS.map((agent) => agent.name).join(', ')} & ${UNIVERSAL_AGENTS.length - UNIVERSAL_HIGHLIGHTS.length} more`;
+
+const MAIN_NAMES = [
+  'Claude Code',
+  'Codex',
+  'Cursor',
+  'GitHub Copilot',
+  'Gemini CLI',
+  'OpenCode',
+  'Muse Code',
+];
+
+export const MAIN_AGENTS = FEATURED_AGENTS.filter((agent) =>
+  MAIN_NAMES.includes(agent.name)
+);
+
+export const OTHER_AGENTS_COUNT =
+  FEATURED_AGENTS.length + UNIVERSAL_AGENTS.length - MAIN_AGENTS.length;

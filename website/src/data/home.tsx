@@ -21,18 +21,6 @@ import {
   TbCircleNumber5,
 } from 'react-icons/tb';
 
-const DocsRailIcon = (): ReactNode => (
-  <>
-    <LuBookOpen className='max-[600px]:hidden' aria-hidden />
-    <img
-      src='/img/icons/wave.svg'
-      className='hidden size-[19px] max-[600px]:block'
-      alt='Lagune'
-      aria-hidden
-    />
-  </>
-);
-
 export type WindowId = 'overview' | 'usage';
 
 export type PromptMode = {
@@ -41,10 +29,10 @@ export type PromptMode = {
 };
 
 export type Phase = {
-  no: string;
+  eyebrow: string;
   title: string;
   command: string;
-  desc: string;
+  description: string;
   banner: string;
   modes: PromptMode[];
   nextLabel?: string;
@@ -55,15 +43,16 @@ export type Group = {
   phases: Phase[];
 };
 
-export const PHASE_GROUPS: Group[] = [
+const PHASE_GROUPS: Group[] = [
   {
     label: 'Any prompt, any time',
     phases: [
       {
-        no: 'UNIVERSAL',
+        eyebrow: 'UNIVERSAL',
         title: 'Build',
         command: '/lagune',
-        desc: 'Builds what your prompt asks for, with security guarding the work as it happens, not later.',
+        description:
+          'Builds what your prompt asks for, with security guarding the work as it happens, not later.',
         banner: '/img/docs/banner-0.webp',
         nextLabel: 'See how to audit your existing project',
         modes: [
@@ -89,10 +78,11 @@ export const PHASE_GROUPS: Group[] = [
     label: 'Establish',
     phases: [
       {
-        no: 'PHASE 1',
+        eyebrow: 'PHASE 1',
         title: 'Charter',
         command: '/lagune-charter',
-        desc: "Sets your project's security rules, proposed for you or shaped by what you say.",
+        description:
+          "Sets your project's security rules, proposed for you or shaped by what you say.",
         banner: '/img/docs/banner-1.webp',
         modes: [
           {
@@ -112,10 +102,11 @@ export const PHASE_GROUPS: Group[] = [
     label: 'Understand',
     phases: [
       {
-        no: 'PHASE 2',
+        eyebrow: 'PHASE 2',
         title: 'Detect',
         command: '/lagune-detect',
-        desc: 'Reads your code and maps what your system does and where the risks are.',
+        description:
+          'Reads your code and maps what your system does and where the risks are.',
         banner: '/img/docs/banner-5.webp',
         modes: [
           {
@@ -133,10 +124,11 @@ export const PHASE_GROUPS: Group[] = [
         ],
       },
       {
-        no: 'PHASE 3',
+        eyebrow: 'PHASE 3',
         title: 'Plan',
         command: '/lagune-plan',
-        desc: 'Turns what detect found into a defense plan, with a fix for each finding.',
+        description:
+          'Turns what detect found into a defense plan, with a fix for each finding.',
         banner: '/img/docs/banner-3.webp',
         modes: [
           {
@@ -155,10 +147,11 @@ export const PHASE_GROUPS: Group[] = [
     label: 'Defend',
     phases: [
       {
-        no: 'PHASE 4',
+        eyebrow: 'PHASE 4',
         title: 'Harden',
         command: '/lagune-harden',
-        desc: "Applies the plan's fixes to your code, safely and one at a time.",
+        description:
+          "Applies the plan's fixes to your code, safely and one at a time.",
         banner: '/img/docs/banner-2.webp',
         modes: [
           {
@@ -172,10 +165,11 @@ export const PHASE_GROUPS: Group[] = [
         ],
       },
       {
-        no: 'PHASE 5',
+        eyebrow: 'PHASE 5',
         title: 'Verify',
         command: '/lagune-verify',
-        desc: 'Proves each applied fix holds and closes out the ones that do.',
+        description:
+          'Proves each applied fix holds and closes out the ones that do.',
         banner: '/img/docs/banner-4.webp',
         modes: [
           {
@@ -192,7 +186,7 @@ export const PHASE_GROUPS: Group[] = [
   },
 ];
 
-export const STEP_ICONS: ComponentType[] = [
+export const STEP_RAIL_ICONS: ComponentType[] = [
   LuSparkle,
   TbCircleNumber1,
   TbCircleNumber2,
@@ -201,7 +195,7 @@ export const STEP_ICONS: ComponentType[] = [
   TbCircleNumber5,
 ];
 
-export const STEP_THEME: ComponentType<{ className?: string }>[] = [
+export const STEP_CARD_ICONS: ComponentType<{ className?: string }>[] = [
   LuSparkle,
   LuShieldCheck,
   LuScanSearch,
@@ -257,7 +251,6 @@ export const HIGHLIGHTS: {
       </>
     ),
   },
-
   {
     Icon: LuBrain,
     title: 'Knowledge on demand',
@@ -306,6 +299,18 @@ export type RailItem = {
   href?: string;
 };
 
+const DocsRailIcon = (): ReactNode => (
+  <>
+    <LuBookOpen className='max-[600px]:hidden' aria-hidden />
+    <img
+      src='/img/icons/wave.svg'
+      className='hidden size-[19px] max-[600px]:block'
+      alt='Lagune'
+      aria-hidden
+    />
+  </>
+);
+
 export const OVERVIEW_RAIL: RailItem[] = [
   { label: 'Home', tip: 'Overview', active: true, Icon: LuHouse },
   {
@@ -329,17 +334,14 @@ export const TABS: { id: WindowId; label: string }[] = [
   { id: 'usage', label: 'How to Use' },
 ];
 
-export const BACKGROUNDS: Record<WindowId, string> = {
-  overview: '/img/bg-1.webp',
-  usage: '/img/bg-3.webp',
-};
+const backgroundImage = (name: string) => ({
+  src: `/img/${name}.webp`,
+  srcSet: `/img/${name}-480.webp 480w, /img/${name}-720.webp 720w, /img/${name}-912.webp 912w, /img/${name}.webp 1380w`,
+});
 
-const backgroundSrcSet = (name: string) =>
-  `/img/${name}-480.webp 480w, /img/${name}-720.webp 720w, /img/${name}-912.webp 912w, /img/${name}.webp 1380w`;
-
-export const BACKGROUND_SRCSETS: Record<WindowId, string> = {
-  overview: backgroundSrcSet('bg-1'),
-  usage: backgroundSrcSet('bg-3'),
+export const BACKGROUNDS: Record<WindowId, { src: string; srcSet: string }> = {
+  overview: backgroundImage('bg-1'),
+  usage: backgroundImage('bg-3'),
 };
 
 export const BACKGROUND_SIZES =
@@ -352,8 +354,10 @@ export const FEATURE: Record<
   overview: {
     kicker: (
       <>
-        Instead of running a generic checklist, the agent first detects what
-        your system does, then drives the fixes that matter for it.
+        Instead of running a generic checklist, what if security existed{' '}
+        <span className='font-semibold'>before</span>,{' '}
+        <span className='font-semibold'>during</span>, and{' '}
+        <span className='font-semibold'>after</span> development?
       </>
     ),
     chip: 'Security-Driven Hardening',

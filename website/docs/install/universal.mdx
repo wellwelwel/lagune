@@ -3,7 +3,7 @@ id: universal
 title: 'Install Lagune in Any Agent with skills.sh'
 sidebar_label: Universal
 parent: get-started/install
-description: Install Lagune's commands in any AI agent with the skills CLI, and keep them updated.
+description: Install Lagune in any AI agent with the skills CLI, and keep it updated.
 keywords:
   - skills.sh
   - npx skills add
@@ -36,13 +36,13 @@ Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill inst
 
 ## Update
 
-To update **Lagune**'s commands to their latest version, run:
+To update **Lagune**, run:
 
 ```bash
 npx skills update
 ```
 
-If your agent still lists the commands with a dot, such as `/lagune.charter`, they predate the current names. Remove them and add **Lagune** again:
+If your agent lists the commands with a dot, such as `/lagune.charter`, remove **Lagune** and add it again:
 
 ```bash
 npx skills remove wellwelwel/lagune
@@ -57,13 +57,11 @@ Install **Lagune** through the **skills.sh** or through its **plugin**, never bo
 
 :::info[Permissions]
 
-The commands run **Lagune**'s engine through **npx**, as `npx --yes lagune@{{version}}` from your project. The [install page of each agent](/docs) shows the rule that allows it up front. In a sandbox without network access, install the engine in your project from your own terminal, once and again after each update:
+The commands run the engine as `npx --yes lagune@{{version}}`, and each [agent's install page](/docs) shows the rule that allows it up front. In a sandbox without network access, install the engine in your project from your own terminal, once and after each update:
 
 ```bash
 npm i -D lagune@{{version}}
 ```
-
-The engine then runs inside the sandbox, with no download and no network access.
 
 :::
 
@@ -71,8 +69,7 @@ The engine then runs inside the sandbox, with no download and no network access.
   items={[
     {
       question: 'How do I install Lagune in any AI agent?',
-      answer:
-        "Run npx skills add wellwelwel/lagune in your project. The skills CLI installs Lagune's commands in any agent.",
+      answer: 'Run npx skills add wellwelwel/lagune in your project.',
     },
     {
       question: 'How do I update Lagune installed with the skills CLI?',
@@ -81,7 +78,7 @@ The engine then runs inside the sandbox, with no download and no network access.
     {
       question: 'Can I install Lagune with both the skills CLI and a plugin?',
       answer:
-        'No. Pick one route per agent. With both, the agent lists every command twice, or uses one copy and hides the other.',
+        'No. With both, the agent lists every command twice, or uses one copy and hides the other.',
     },
   ]}
 />

@@ -3,7 +3,7 @@ id: opencode
 title: 'Install Lagune on OpenCode as a Plugin'
 sidebar_label: OpenCode
 parent: get-started/install
-description: Install Lagune's commands in OpenCode 1.x and 2.x through OpenCode's own plugin installer, and keep them updated.
+description: Install Lagune on OpenCode 1.x and 2.x as a plugin, and keep it updated.
 keywords:
   - opencode
   - opencode plugin
@@ -58,14 +58,12 @@ Or add it to the `plugin` list of `opencode.json`:
   </TabItem>
 </Tabs>
 
-**OpenCode** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release.
-
 ## Update
 
 <Tabs groupId="opencode-version">
   <TabItem value="v2" label="OpenCode 2.x" default>
 
-`opencode plugin check` reports a new release without installing it. To update **Lagune**, run:
+To update **Lagune**, run:
 
 ```bash
 opencode plugin update lagune
@@ -75,7 +73,7 @@ opencode reload
   </TabItem>
   <TabItem value="v1" label="OpenCode 1.x">
 
-**OpenCode** keeps the release it installed first, even after a restart. To update **Lagune**, install the new release over it, adding `-g` if you installed it for all your projects:
+To update **Lagune**, install the new release over the old one, adding `-g` if you installed it for all your projects:
 
 ```bash
 opencode plugin lagune@{{version}} --force
@@ -89,12 +87,12 @@ opencode plugin lagune@{{version}} --force
 <Tabs groupId="opencode-version">
   <TabItem value="v2" label="OpenCode 2.x" default>
 
-Type `@` and pick the command, such as `@lagune-charter`, then write your input after it in the same message.
+Type `@` and pick the command, such as `@lagune-charter`, then write your input in the same message.
 
   </TabItem>
   <TabItem value="v1" label="OpenCode 1.x">
 
-Type the commands by their names, such as `/lagune-charter`. **OpenCode** leaves them out of the `/` menu and lists them under `/skills` instead.
+Type the commands by name, such as `/lagune-charter`. They are listed under `/skills`, not in the `/` menu.
 
   </TabItem>
 </Tabs>
@@ -103,7 +101,7 @@ Type the commands by their names, such as `/lagune-charter`. **OpenCode** leaves
 
 :::info[Permissions]
 
-The plugin carries **Lagune**'s engine and adds two tools for it: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. **OpenCode** runs them without asking, as it runs its own tools.
+The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. **OpenCode** runs them without asking.
 
 :::
 
@@ -117,17 +115,17 @@ The plugin carries **Lagune**'s engine and adds two tools for it: `lagune_read`,
     {
       question: 'How do I update Lagune on OpenCode?',
       answer:
-        'On OpenCode 2.x, run opencode plugin update lagune, then opencode reload. On OpenCode 1.x, install the new release over the old one with opencode plugin lagune@{{version}} --force.',
+        'On OpenCode 2.x, run opencode plugin update lagune, then opencode reload. On OpenCode 1.x, run opencode plugin lagune@{{version}} --force.',
     },
     {
       question: "How do I run Lagune's commands on OpenCode?",
       answer:
-        'On OpenCode 2.x, type @ and pick the command, such as @lagune-charter, then write your input in the same message. On OpenCode 1.x, type them by name, such as /lagune-charter, and find them under /skills.',
+        'On OpenCode 2.x, type @ and pick the command, such as @lagune-charter, then write your input in the same message. On OpenCode 1.x, type them by name, such as /lagune-charter, or find them under /skills.',
     },
     {
       question: 'Does OpenCode ask for permission before Lagune runs?',
       answer:
-        "No. The plugin adds Lagune's engine as two tools, lagune_read and lagune_write, which OpenCode runs without asking, as it runs its own tools.",
+        "No. OpenCode runs the engine's two tools, lagune_read and lagune_write, without asking.",
     },
   ]}
 />

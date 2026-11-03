@@ -114,19 +114,25 @@ export type MovedFile = {
 
 export type GitignoreChange = 'removed' | 'updated' | 'unchanged';
 
+export type MigratedConfig = 'categories' | 'catalog';
+
 export type MigrateSummary = {
+  manifest: boolean;
   removed: string[];
   moved: MovedFile[];
   kept: string[];
+  configs: MigratedConfig[];
   gitignore: GitignoreChange;
+  proofs: boolean;
 };
 
 export type MigrateResult =
   { migrated: false } | ({ migrated: true } & MigrateSummary);
 
-export type LegacyInstall = {
-  files: string[];
-  categories: string[] | undefined;
+export type LegacyCommand = {
+  path: string;
+  main: boolean;
+  source: string;
 };
 
 export type TrackingEntry = {

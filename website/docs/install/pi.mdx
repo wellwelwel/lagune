@@ -3,7 +3,7 @@ id: pi
 title: 'Install Lagune on Pi as a Package'
 sidebar_label: Pi
 parent: get-started/install
-description: Install Lagune's commands in Pi as a package, from npm or from GitHub, and keep them updated.
+description: Install Lagune on Pi as a package, from npm or from GitHub, and keep it updated.
 keywords:
   - pi
   - pi coding agent
@@ -26,9 +26,9 @@ Install the package from your terminal:
 pi install npm:lagune
 ```
 
-**Pi** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release. The package carries **Lagune**'s engine as two tools **Pi** runs without asking: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder.
+**Pi** runs the engine's two tools without asking: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`.
 
-To install the latest commit from **GitHub** instead, run the command below. That commit carries no engine build, so the commands run the engine through **npx**:
+To install the latest commit from **GitHub** instead, which runs the engine through **npx**, run:
 
 ```bash
 pi install git:github.com/wellwelwel/lagune
@@ -36,35 +36,35 @@ pi install git:github.com/wellwelwel/lagune
 
 ## Update
 
-**Pi** keeps **Lagune** at its installed version until you update it. To update **Lagune**, run the command that matches your install:
+To update **Lagune**, run the command that matches your install:
 
 ```bash
 pi update npm:lagune
 pi update git:github.com/wellwelwel/lagune
 ```
 
-`pi update` alone updates **Pi** itself, and `pi update --extensions` updates every package you installed.
+`pi update --extensions` updates every package you installed, while `pi update` alone updates only **Pi**.
 
 ## Commands
 
-Type the commands with the `skill:` prefix: where these docs write `/lagune-charter`, type `/skill:lagune-charter`.
+Type the commands with the `skill:` prefix, such as `/skill:lagune-charter` for `/lagune-charter`.
 
 <Faq
   items={[
     {
       question: 'How do I install Lagune on Pi?',
       answer:
-        "Run pi install npm:lagune for Lagune's latest release, or pi install git:github.com/wellwelwel/lagune for the latest commit from GitHub.",
+        'Run pi install npm:lagune, or pi install git:github.com/wellwelwel/lagune for the latest commit from GitHub.',
     },
     {
       question: 'How do I update Lagune on Pi?',
       answer:
-        'Run pi update npm:lagune, or pi update git:github.com/wellwelwel/lagune if you installed it from GitHub. To update every package you installed, run pi update --extensions.',
+        'Run pi update npm:lagune, or pi update git:github.com/wellwelwel/lagune for a GitHub install. pi update --extensions updates every package you installed.',
     },
     {
       question: "How do I run Lagune's commands on Pi?",
       answer:
-        'Type them with the skill: prefix: /skill:lagune-charter instead of /lagune-charter.',
+        'Type them with the skill: prefix, such as /skill:lagune-charter.',
     },
   ]}
 />

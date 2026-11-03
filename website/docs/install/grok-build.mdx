@@ -3,7 +3,7 @@ id: grok-build
 title: 'Install Lagune on Grok Build as a Plugin'
 sidebar_label: Grok Build
 parent: get-started/install
-description: Install Lagune's commands in Grok Build through its own plugin installer, keep them updated, and allow the engine up front.
+description: Install Lagune on Grok Build as a plugin, keep it updated, and allow its engine up front.
 keywords:
   - grok build
   - grok build plugin
@@ -35,20 +35,20 @@ grok plugin update lagune
 
 ## Commands
 
-Type the commands by their names, such as `/lagune-charter`. **Grok Build** also takes them under the plugin's name, such as `/lagune:lagune-charter`, and both forms run the same command.
+Type the commands by name, such as `/lagune-charter`, or under the plugin's name, such as `/lagune:lagune-charter`.
 
 ---
 
 :::info[Permissions]
 
-The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. To allow them up front, add these rules to `~/.grok/config.toml`:
+The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. To allow them up front, add these rules to `~/.grok/config.toml`:
 
 ```toml
 [permission]
 allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
 ```
 
-Where the engine runs through **npx** instead, as it does for the **skills.sh**, also allow `Bash(npx --yes lagune@*)`.
+When the engine runs through **npx**, as with the **skills.sh**, allow `Bash(npx --yes lagune@*)`.
 
 :::
 
@@ -65,12 +65,12 @@ Where the engine runs through **npx** instead, as it does for the **skills.sh**,
     {
       question: "How do I run Lagune's commands on Grok Build?",
       answer:
-        "Type them by name, such as /lagune-charter. The form under the plugin's name, such as /lagune:lagune-charter, runs the same command.",
+        "Type them by name, such as /lagune-charter, or under the plugin's name, such as /lagune:lagune-charter.",
     },
     {
       question: 'Can Grok Build run Lagune without asking for permission?',
       answer:
-        "Yes. Add MCPTool(lagune__lagune_read) and MCPTool(lagune__lagune_write) to the permission allow list in Grok Build's config. Where the engine runs through npx instead, as it does for the skills.sh, also allow Bash(npx --yes lagune@*).",
+        "Yes. Allow MCPTool(lagune__lagune_read) and MCPTool(lagune__lagune_write) in Grok Build's config, plus Bash(npx --yes lagune@*) when the engine runs through npx.",
     },
   ]}
 />

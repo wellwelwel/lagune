@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 export type TopBarLink = {
   label: string;
   Icon: ComponentType;
-  href?: string;
-  onClick?: () => void;
+  href: string;
 };
 
 type TopBarProps = {
@@ -52,24 +51,12 @@ export const TopBar = ({ links }: TopBarProps): ReactNode => {
       }`}
     >
       <nav aria-label='Site' className='flex items-center gap-4'>
-        {links.map(({ label, Icon, href, onClick }) =>
-          href ? (
-            <Link key={label} className={TOP_LINK} to={href}>
-              <IconSlide Icon={Icon} />
-              {label}
-            </Link>
-          ) : (
-            <button
-              key={label}
-              type='button'
-              onClick={onClick}
-              className={TOP_LINK}
-            >
-              <IconSlide Icon={Icon} />
-              {label}
-            </button>
-          )
-        )}
+        {links.map(({ label, Icon, href }) => (
+          <Link key={label} className={TOP_LINK} to={href}>
+            <IconSlide Icon={Icon} />
+            {label}
+          </Link>
+        ))}
       </nav>
     </header>
   );

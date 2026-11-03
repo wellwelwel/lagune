@@ -20,7 +20,7 @@ const absent = (workspace: string): Promise<boolean> =>
     () => true
   );
 
-await describe('removing the block the Lagune CLI wrote to .gitignore', async () => {
+await describe('removing the block the manifest-based Lagune wrote to .gitignore', async () => {
   await it('keeps every line of the project around it', async () => {
     const workspace = await newWorkspace();
 

@@ -3,7 +3,7 @@ id: muse-code
 title: 'Install Lagune on Muse Code as a Plugin'
 sidebar_label: Muse Code
 parent: get-started/install
-description: Install Lagune's commands in Muse Code through its own plugin installer, keep them updated, and run the engine inside its sandbox.
+description: Install Lagune on Muse Code as a plugin, keep it updated, and run its engine inside the sandbox.
 keywords:
   - muse code
   - muse code plugin
@@ -28,7 +28,7 @@ muse plugins install lagune@lagune
 
 ## Update
 
-**Muse Code** leaves the plugin at its installed version until you update it. To update **Lagune**, refresh the marketplace, then install the plugin again:
+To update **Lagune**, refresh the marketplace and reinstall the plugin:
 
 ```bash
 muse plugins marketplace update lagune
@@ -38,19 +38,17 @@ muse plugins install lagune@lagune
 
 ## Commands
 
-Type the commands by their names, such as `/lagune-charter`. **Muse Code** also lists them under the plugin's name, such as `/lagune:lagune-charter`, and both forms run the same command.
+Type the commands by name, such as `/lagune-charter`, or under the plugin's name, such as `/lagune:lagune-charter`.
 
 ---
 
 :::info[Permissions]
 
-**Muse Code**'s sandbox keeps **npm**'s cache read-only, so the engine cannot be downloaded inside it. Install the engine in your project from your own terminal, once and again after each update:
+**Muse Code**'s sandbox cannot download the engine. Install it in your project from your own terminal, once and after each update:
 
 ```bash
 npm i -D lagune@{{version}}
 ```
-
-The engine then runs inside the sandbox, with no download and no network access.
 
 :::
 
@@ -59,22 +57,22 @@ The engine then runs inside the sandbox, with no download and no network access.
     {
       question: 'How do I install Lagune on Muse Code?',
       answer:
-        'Add the marketplace with muse plugins marketplace add lagune wellwelwel/lagune, then install the plugin with muse plugins install lagune@lagune.',
+        'Run muse plugins marketplace add lagune wellwelwel/lagune, then muse plugins install lagune@lagune.',
     },
     {
       question: 'How do I update Lagune on Muse Code?',
       answer:
-        'Refresh the marketplace with muse plugins marketplace update lagune, then reinstall the plugin with muse plugins remove lagune and muse plugins install lagune@lagune.',
+        'Run muse plugins marketplace update lagune, then reinstall with muse plugins remove lagune and muse plugins install lagune@lagune.',
     },
     {
       question: "How do I run Lagune's commands on Muse Code?",
       answer:
-        "Type them by name, such as /lagune-charter. The form under the plugin's name, such as /lagune:lagune-charter, runs the same command.",
+        "Type them by name, such as /lagune-charter, or under the plugin's name, such as /lagune:lagune-charter.",
     },
     {
       question: "Does Lagune work inside Muse Code's sandbox?",
       answer:
-        "Yes, once its engine is installed in your project. The sandbox keeps npm's cache read-only, so the engine cannot be downloaded inside it. Run npm i -D lagune@{{version}} from your own terminal, once and again after each update.",
+        'Yes, once you install the engine in your project with npm i -D lagune@{{version}} from your own terminal, once and after each update.',
     },
   ]}
 />

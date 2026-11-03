@@ -32,7 +32,7 @@ const tidy = (lines: string[]): string =>
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 
-/** Removes the block the Lagune CLI wrote, deleting the file when nothing else remains */
+/** Removes the block the manifest-based Lagune wrote, deleting the file when nothing else remains */
 export const removeLaguneBlock = async (
   cwd: string
 ): Promise<GitignoreChange> => {

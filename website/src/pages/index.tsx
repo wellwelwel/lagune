@@ -5,6 +5,7 @@ import BrowserOnly from '@docusaurus/BrowserOnly';
 import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
 import { frameResizeObserver } from '@site/src/components/frameResizeObserver';
+import { AgentStack } from '@site/src/components/home/AgentStack';
 import { Brand } from '@site/src/components/home/Brand';
 import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
 import { RailTip } from '@site/src/components/home/RailTip';
@@ -12,12 +13,11 @@ import { TopBar } from '@site/src/components/home/TopBar';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
   BACKGROUND_SIZES,
-  BACKGROUND_SRCSETS,
   BACKGROUNDS,
   FEATURE,
   OVERVIEW_RAIL,
   PHASE_STEPS,
-  STEP_ICONS,
+  STEP_RAIL_ICONS,
   TABS,
 } from '@site/src/data/home';
 import {
@@ -32,6 +32,144 @@ import {
 import { FaStar } from 'react-icons/fa6';
 import { GoHeartFill } from 'react-icons/go';
 import { LuMenu, LuX } from 'react-icons/lu';
+
+const PAGE_URL = 'https://lagune.ai/';
+const REPO_URL = 'https://github.com/wellwelwel/lagune';
+const SPONSOR_URL = 'https://github.com/sponsors/wellwelwel';
+const NPM_URL = 'https://www.npmjs.com/package/lagune';
+const OG_IMAGE = 'https://lagune.ai/img/og.png';
+const PAGE_TITLE = 'AI-Driven Security Hardening for Any Codebase | Lagune';
+const PAGE_DESCRIPTION =
+  'Lagune helps your AI agent harden any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.';
+const SITE_SUMMARY =
+  "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.";
+
+const STRUCTURED_DATA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://lagune.ai/#website',
+      name: 'Lagune',
+      alternateName: ['Lagune AI', 'lagune'],
+      url: PAGE_URL,
+      inLanguage: 'en',
+      description: SITE_SUMMARY,
+      publisher: { '@id': 'https://lagune.ai/#organization' },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://lagune.ai/#software',
+      name: 'Lagune',
+      alternateName: ['Lagune AI', 'Lagune Security'],
+      applicationCategory: 'DeveloperApplication',
+      applicationSubCategory: 'Security',
+      operatingSystem: 'Node.js',
+      url: PAGE_URL,
+      description: SITE_SUMMARY,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      screenshot: OG_IMAGE,
+      license: `${REPO_URL}/blob/main/LICENSE`,
+      publisher: { '@id': 'https://lagune.ai/#organization' },
+      author: { '@id': 'https://lagune.ai/#author' },
+      downloadUrl: NPM_URL,
+      softwareHelp: 'https://lagune.ai/docs',
+      featureList: [
+        'Detects what a system actually does, whatever that is, then drives the fixes that matter for that context, in any language',
+        'Secures new work as it is written with the universal /lagune command, guided by the charter',
+        'Five-phase Blue Team flow: charter, detect, plan, harden, verify',
+        'CVSS v4.0 scoring for each finding',
+        'On-demand, language-agnostic security specializations, grouped in categories',
+        'Installs into your agent as a plugin, or with the skills CLI in any other agent, no API key required',
+        'Defense-only: never generates exploits or attack tooling',
+        'Local, private dashboard to follow findings, fixes, and proofs',
+      ],
+      sameAs: [REPO_URL, NPM_URL],
+    },
+    {
+      '@type': 'HowTo',
+      '@id': 'https://lagune.ai/#howto',
+      name: 'How to harden a codebase with Lagune (the Blue Team flow)',
+      description:
+        'Lagune runs a five-phase, defense-first flow that audits and hardens any codebase, driven by your AI agent.',
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'Charter',
+          text: "Set your project's security principles, the rules every later phase respects.",
+          url: 'https://lagune.ai/docs/commands/charter',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'Detect',
+          text: 'Read the code and map what the system does and where the risks are.',
+          url: 'https://lagune.ai/docs/commands/detect',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'Plan',
+          text: 'Rate each finding with a category and a CVSS v4.0 score, then pair it with a fix.',
+          url: 'https://lagune.ai/docs/commands/plan',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 4,
+          name: 'Harden',
+          text: "Apply the plan's fixes to the code, safely and one at a time.",
+          url: 'https://lagune.ai/docs/commands/harden',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 5,
+          name: 'Verify',
+          text: 'Prove each applied fix holds, then stand down the ones that do.',
+          url: 'https://lagune.ai/docs/commands/verify',
+        },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://lagune.ai/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What is Lagune?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Lagune is an open-source, defense-only security workflow that helps your AI agent harden any codebase. It detects what your system actually does, then guides the security fixes that matter for that context.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can Lagune secure code as I build it?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. The /lagune command takes any prompt, builds what you asked, and hardens it with safe defaults as it is written, guided by your charter. The five-phase Blue Team flow then audits what already exists.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can Lagune audit an existing project?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I install Lagune?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Most agents install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. The install page shows the command for each agent. It works in both new and existing projects and needs no API key.',
+          },
+        },
+      ],
+    },
+  ],
+};
 
 const WaterField = lazy(() =>
   import('@site/src/components/WaterField').then((module) => ({
@@ -60,11 +198,21 @@ const WaveIcon = (): ReactNode => (
   </span>
 );
 
+const headerLinks: TopBarLink[] = [
+  { label: 'Docs', Icon: WaveIcon, href: '/docs' },
+  { label: 'Star on GitHub', Icon: FaStar, href: REPO_URL },
+  { label: 'Support', Icon: GoHeartFill, href: SPONSOR_URL },
+];
+
+const railItemClass = (current: boolean): string =>
+  `relative flex items-center justify-center size-[22px] border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-[19px] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
+    current ? 'lagune-rail__item--active text-ink' : 'text-[#515664]'
+  }`;
+
 let glideId = 0;
 
 /**
  * Native smooth scrolling is unreliable on touch browsers: the tab-swap reflow, Safari's toolbar animation, or a leftover fling abort it partway.
- * Driving the same glide frame by frame keeps it smooth and keeps re-pinning the page until the toolbar settles, yielding the moment the user scrolls on their own.
  */
 const glideToTop = () => {
   const id = ++glideId;
@@ -126,30 +274,28 @@ const Home = (): ReactNode => {
 
   pillTabRef.current = hoveredTab ?? active;
 
-  useLayoutEffect(() => {
-    const el = tabRefs.current[hoveredTab ?? active];
-    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
-  }, [hoveredTab, active]);
+  const measurePill = useCallback(() => {
+    const tab = tabRefs.current[pillTabRef.current];
+
+    if (tab) setPill({ left: tab.offsetLeft, width: tab.offsetWidth });
+  }, []);
+
+  useLayoutEffect(measurePill, [hoveredTab, active, measurePill]);
 
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
 
-    const measure = () => {
-      const el = tabRefs.current[pillTabRef.current];
-      if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
-    };
-
-    const observer = frameResizeObserver(measure);
+    const observer = frameResizeObserver(measurePill);
 
     observer.observe(nav);
-    nav.addEventListener('scroll', measure, { passive: true });
+    nav.addEventListener('scroll', measurePill, { passive: true });
 
     return () => {
       observer.disconnect();
-      nav.removeEventListener('scroll', measure);
+      nav.removeEventListener('scroll', measurePill);
     };
-  }, []);
+  }, [measurePill]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -204,184 +350,24 @@ const Home = (): ReactNode => {
 
   const feature = FEATURE[active];
 
-  const headerLinks: TopBarLink[] = [
-    { label: 'Docs', Icon: WaveIcon, href: '/docs' },
-    {
-      label: 'Star on GitHub',
-      Icon: FaStar,
-      href: 'https://github.com/wellwelwel/lagune',
-    },
-    {
-      label: 'Support',
-      Icon: GoHeartFill,
-      href: 'https://github.com/sponsors/wellwelwel',
-    },
-  ];
-
   return (
     <div className='lagune-canvas relative min-h-screen m-0 antialiased text-ink bg-[#050a18] font-sans'>
       <Head>
-        <title>AI-Driven Security Hardening for Any Codebase | Lagune</title>
+        <title>{PAGE_TITLE}</title>
         <html className='lagune-canvas-html' lang='en' />
         <body className='lagune-canvas-body' />
-        <meta
-          name='description'
-          content='Lagune helps your AI agent harden any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.'
-        />
-        <link rel='canonical' href='https://lagune.ai/' />
+        <meta name='description' content={PAGE_DESCRIPTION} />
+        <link rel='canonical' href={PAGE_URL} />
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://lagune.ai/' />
-        <meta
-          property='og:title'
-          content='AI-Driven Security Hardening for Any Codebase | Lagune'
-        />
-        <meta
-          property='og:description'
-          content='Lagune helps your AI agent harden any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.'
-        />
-        <meta property='og:image' content='https://lagune.ai/img/og.png' />
-        <meta
-          name='twitter:title'
-          content='AI-Driven Security Hardening for Any Codebase | Lagune'
-        />
-        <meta
-          name='twitter:description'
-          content='Lagune helps your AI agent harden any codebase: it detects what your system actually does, then drives the defensive work that fits as you build.'
-        />
-        <meta name='twitter:image' content='https://lagune.ai/img/og.png' />
+        <meta property='og:url' content={PAGE_URL} />
+        <meta property='og:title' content={PAGE_TITLE} />
+        <meta property='og:description' content={PAGE_DESCRIPTION} />
+        <meta property='og:image' content={OG_IMAGE} />
+        <meta name='twitter:title' content={PAGE_TITLE} />
+        <meta name='twitter:description' content={PAGE_DESCRIPTION} />
+        <meta name='twitter:image' content={OG_IMAGE} />
         <script type='application/ld+json'>
-          {JSON.stringify({
-            '@context': 'https://schema.org',
-            '@graph': [
-              {
-                '@type': 'WebSite',
-                '@id': 'https://lagune.ai/#website',
-                name: 'Lagune',
-                alternateName: ['Lagune AI', 'lagune'],
-                url: 'https://lagune.ai/',
-                inLanguage: 'en',
-                description:
-                  "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
-                publisher: { '@id': 'https://lagune.ai/#organization' },
-              },
-              {
-                '@type': 'SoftwareApplication',
-                '@id': 'https://lagune.ai/#software',
-                name: 'Lagune',
-                alternateName: ['Lagune AI', 'Lagune Security'],
-                applicationCategory: 'DeveloperApplication',
-                applicationSubCategory: 'Security',
-                operatingSystem: 'Node.js',
-                url: 'https://lagune.ai/',
-                description:
-                  "Lagune is your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
-                offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-                screenshot: 'https://lagune.ai/img/og.png',
-                license:
-                  'https://github.com/wellwelwel/lagune/blob/main/LICENSE',
-                publisher: { '@id': 'https://lagune.ai/#organization' },
-                author: { '@id': 'https://lagune.ai/#author' },
-                downloadUrl: 'https://www.npmjs.com/package/lagune',
-                softwareHelp: 'https://lagune.ai/docs',
-                featureList: [
-                  'Detects what a system actually does, whatever that is, then drives the fixes that matter for that context, in any language',
-                  'Secures new work as it is written with the universal /lagune command, guided by the charter',
-                  'Five-phase Blue Team flow: charter, detect, plan, harden, verify',
-                  'CVSS v4.0 scoring for each finding',
-                  'On-demand, language-agnostic security specializations, grouped in categories',
-                  'Installs into your agent as a plugin, or with the skills CLI in any other agent, no API key required',
-                  'Defense-only: never generates exploits or attack tooling',
-                  'Local, private dashboard to follow findings, fixes, and proofs',
-                ],
-                sameAs: [
-                  'https://github.com/wellwelwel/lagune',
-                  'https://www.npmjs.com/package/lagune',
-                ],
-              },
-              {
-                '@type': 'HowTo',
-                '@id': 'https://lagune.ai/#howto',
-                name: 'How to harden a codebase with Lagune (the Blue Team flow)',
-                description:
-                  'Lagune runs a five-phase, defense-first flow that audits and hardens any codebase, driven by your AI agent.',
-                step: [
-                  {
-                    '@type': 'HowToStep',
-                    position: 1,
-                    name: 'Charter',
-                    text: "Set your project's security principles, the rules every later phase respects.",
-                    url: 'https://lagune.ai/docs/commands/charter',
-                  },
-                  {
-                    '@type': 'HowToStep',
-                    position: 2,
-                    name: 'Detect',
-                    text: 'Read the code and map what the system does and where the risks are.',
-                    url: 'https://lagune.ai/docs/commands/detect',
-                  },
-                  {
-                    '@type': 'HowToStep',
-                    position: 3,
-                    name: 'Plan',
-                    text: 'Rate each finding with a category and a CVSS v4.0 score, then pair it with a fix.',
-                    url: 'https://lagune.ai/docs/commands/plan',
-                  },
-                  {
-                    '@type': 'HowToStep',
-                    position: 4,
-                    name: 'Harden',
-                    text: "Apply the plan's fixes to the code, safely and one at a time.",
-                    url: 'https://lagune.ai/docs/commands/harden',
-                  },
-                  {
-                    '@type': 'HowToStep',
-                    position: 5,
-                    name: 'Verify',
-                    text: 'Prove each applied fix holds, then stand down the ones that do.',
-                    url: 'https://lagune.ai/docs/commands/verify',
-                  },
-                ],
-              },
-              {
-                '@type': 'FAQPage',
-                '@id': 'https://lagune.ai/#faq',
-                mainEntity: [
-                  {
-                    '@type': 'Question',
-                    name: 'What is Lagune?',
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: 'Lagune is an open-source, defense-only security workflow that helps your AI agent harden any codebase. It detects what your system actually does, then guides the security fixes that matter for that context.',
-                    },
-                  },
-                  {
-                    '@type': 'Question',
-                    name: 'Can Lagune secure code as I build it?',
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: 'Yes. The /lagune command takes any prompt, builds what you asked, and hardens it with safe defaults as it is written, guided by your charter. The five-phase Blue Team flow then audits what already exists.',
-                    },
-                  },
-                  {
-                    '@type': 'Question',
-                    name: 'Can Lagune audit an existing project?',
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: 'Yes. The five-phase Blue Team flow audits what already exists: charter sets your security rules, detect maps what the system does and where the risks are, plan scores each finding and pairs it with a fix, harden applies the fixes, and verify proves they hold and closes them.',
-                    },
-                  },
-                  {
-                    '@type': 'Question',
-                    name: 'How do I install Lagune?',
-                    acceptedAnswer: {
-                      '@type': 'Answer',
-                      text: 'Most agents install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. The install page shows the command for each agent. It works in both new and existing projects and needs no API key.',
-                    },
-                  },
-                ],
-              },
-            ],
-          })}
+          {JSON.stringify(STRUCTURED_DATA)}
         </script>
       </Head>
 
@@ -438,8 +424,8 @@ const Home = (): ReactNode => {
               {TABS.map((tab) => (
                 <button
                   key={tab.id}
-                  ref={(el) => {
-                    tabRefs.current[tab.id] = el;
+                  ref={(element) => {
+                    tabRefs.current[tab.id] = element;
                   }}
                   type='button'
                   aria-current={active === tab.id ? 'page' : undefined}
@@ -487,32 +473,17 @@ const Home = (): ReactNode => {
 
               {menuOpen && (
                 <div className='lagune-menu-pop absolute top-[calc(100%+8px)] right-0 z-[20] flex w-[200px] flex-col gap-1 rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)] min-[921px]:hidden'>
-                  {headerLinks.map(({ label, Icon, href, onClick }) =>
-                    href ? (
-                      <Link
-                        key={label}
-                        className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] no-underline text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
-                        to={href}
-                        onClick={() => setMenuOpen(false)}
-                      >
-                        <Icon aria-hidden />
-                        {label}
-                      </Link>
-                    ) : (
-                      <button
-                        key={label}
-                        type='button'
-                        onClick={() => {
-                          onClick?.();
-                          setMenuOpen(false);
-                        }}
-                        className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
-                      >
-                        <Icon aria-hidden />
-                        {label}
-                      </button>
-                    )
-                  )}
+                  {headerLinks.map(({ label, Icon, href }) => (
+                    <Link
+                      key={label}
+                      className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] no-underline text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
+                      to={href}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <Icon aria-hidden />
+                      {label}
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
@@ -529,19 +500,15 @@ const Home = (): ReactNode => {
               >
                 {active === 'usage'
                   ? PHASE_STEPS.map((step, index) => {
-                      const Icon = STEP_ICONS[index];
+                      const Icon = STEP_RAIL_ICONS[index];
 
                       return (
                         <RailTip key={step.phase.title} tip={step.phase.title}>
                           <button
                             type='button'
                             onClick={() => goToStep(index)}
-                            className={`relative flex items-center justify-center size-[22px] border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-[19px] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
-                              index === usageStep
-                                ? 'lagune-rail__item--active text-ink'
-                                : 'text-[#515664]'
-                            }`}
-                            aria-label={`${step.phase.title} (${step.phase.no})`}
+                            className={railItemClass(index === usageStep)}
+                            aria-label={`${step.phase.title} (${step.phase.eyebrow})`}
                             aria-current={
                               index === usageStep ? 'step' : undefined
                             }
@@ -552,18 +519,12 @@ const Home = (): ReactNode => {
                       );
                     })
                   : OVERVIEW_RAIL.map((item) => {
-                      const railItemClass = `relative flex items-center justify-center size-[22px] border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-[19px] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
-                        item.active
-                          ? 'lagune-rail__item--active text-ink'
-                          : 'text-[#515664]'
-                      }`;
-
                       if (item.href)
                         return (
                           <RailTip key={item.label} tip={item.tip}>
                             <Link
                               to={item.href}
-                              className={railItemClass}
+                              className={railItemClass(item.active)}
                               aria-label={item.label}
                             >
                               <item.Icon aria-hidden />
@@ -575,7 +536,7 @@ const Home = (): ReactNode => {
                         <RailTip key={item.label} tip={item.tip}>
                           <button
                             type='button'
-                            className={railItemClass}
+                            className={railItemClass(item.active)}
                             aria-label={item.label}
                             aria-current={item.active ? 'page' : undefined}
                           >
@@ -613,15 +574,15 @@ const Home = (): ReactNode => {
                 </div>
               </div>
 
-              <aside className='relative flex flex-col justify-between h-[var(--lagune-window-h)] rounded-[20px] overflow-hidden p-[clamp(22px,2.4vw,32px)] isolate max-[920px]:h-auto max-[920px]:min-h-[420px] max-[920px]:order-first max-[600px]:min-h-[300px]'>
+              <aside className='relative flex flex-col justify-between gap-10 h-[var(--lagune-window-h)] rounded-[20px] overflow-hidden p-[clamp(22px,2.4vw,32px)] isolate max-[920px]:h-auto max-[920px]:min-h-[420px] max-[920px]:order-first max-[600px]:min-h-[300px]'>
                 {TABS.map((tab) => (
                   <img
                     key={tab.id}
                     className={`absolute inset-0 -z-[2] w-full h-full object-cover object-[50%_70%] [filter:contrast(1.04)_saturate(1.08)] transition-opacity duration-700 ease-out ${
                       active === tab.id ? 'opacity-25' : 'opacity-0'
                     }`}
-                    src={BACKGROUNDS[tab.id]}
-                    srcSet={BACKGROUND_SRCSETS[tab.id]}
+                    src={BACKGROUNDS[tab.id].src}
+                    srcSet={BACKGROUNDS[tab.id].srcSet}
                     sizes={BACKGROUND_SIZES}
                     alt={`Lagune ${tab.label}`}
                     aria-hidden
@@ -644,6 +605,7 @@ const Home = (): ReactNode => {
                   <p className='text-[clamp(14px,1.35vw,16px)] font-normal leading-[1.55] tracking-[-0.01em] text-[rgba(233, 237, 247,0.92)] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]'>
                     {feature.kicker}
                   </p>
+                  {active === 'overview' && <AgentStack />}
                 </div>
 
                 <div

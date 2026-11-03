@@ -17,7 +17,7 @@ You can use **LLM**s to review, correct, or improve your grammar with ease. We'l
 
 > [!IMPORTANT]
 >
-> Pull Requests that do not respect the rules above may be closed automatically by **GitHub** bot.
+> Pull Requests that do not respect the rules above may be closed automatically by a **GitHub** bot.
 
 ## Issues
 
@@ -52,15 +52,6 @@ npm ci
 ```
 
 > Please, do not change the _package-lock.json_ manually.
-
----
-
-### 🌊 What you are changing
-
-**Lagune** is two layers, and knowing which one you are in saves most of the guesswork.
-
-- **`skills/`** and **`catalog/`** carry the security value: the nine commands the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) or an agent's own plugin installer installs, each beside the template it fills, and the built-in specializations they load on demand. They are agent-agnostic and written once.
-- **`src/`** carries the engine the commands call: the deterministic hooks, the catalog, validation, the move from a **Lagune** CLI install, and the dashboard.
 
 ---
 

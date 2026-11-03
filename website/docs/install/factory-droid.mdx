@@ -3,7 +3,7 @@ id: factory-droid
 title: 'Install Lagune on Factory Droid as a Plugin'
 sidebar_label: Factory Droid
 parent: get-started/install
-description: Install Lagune's commands in Factory Droid through its own plugin installer, keep them updated, and allow the engine's tools.
+description: Install Lagune on Factory Droid as a plugin, keep it updated, and allow its engine's tools.
 keywords:
   - factory droid
   - droid plugin
@@ -37,13 +37,13 @@ droid plugin update lagune@lagune
 
 ## Commands
 
-Type the commands by their names, such as `/lagune-charter`.
+Type the commands by name, such as `/lagune-charter`.
 
 ---
 
 :::info[Permissions]
 
-The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. Choosing to always allow each one when **Factory Droid** asks keeps it allowed until **Factory Droid** syncs a new commit of **Lagune**'s marketplace, which it can do when it starts.
+The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. When **Factory Droid** asks, choose to always allow each one. It asks again after syncing a new commit of the `lagune` marketplace, which it can do when it starts.
 
 :::
 
@@ -52,7 +52,7 @@ The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_re
     {
       question: 'How do I install Lagune on Factory Droid?',
       answer:
-        'Add the marketplace with droid plugin marketplace add wellwelwel/lagune, then install the plugin with droid plugin install lagune@lagune.',
+        'Run droid plugin marketplace add wellwelwel/lagune, then droid plugin install lagune@lagune.',
     },
     {
       question: 'How do I update Lagune on Factory Droid?',
@@ -66,7 +66,7 @@ The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_re
     {
       question: 'Can Factory Droid run Lagune without asking for permission?',
       answer:
-        "Yes. Choose to always allow each of Lagune's engine tools, lagune_read and lagune_write, when Factory Droid asks. It asks again after it syncs a new commit of Lagune's marketplace, which it can do when it starts.",
+        'Yes. Choose to always allow lagune_read and lagune_write when Factory Droid asks. It asks again after syncing a new commit of the lagune marketplace.',
     },
   ]}
 />

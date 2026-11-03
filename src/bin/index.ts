@@ -40,7 +40,7 @@ const refuse = (command: string): void => {
 const prefixedName = (tool: EngineTool, command: string | undefined): string =>
   runsCommand(tool, command) ? `${tool.prefix} ${command}` : tool.prefix;
 
-/** The routing the old CLI's project keeps, where every prefixed command is the skills-based design's alone */
+/** The routing a manifest-based project keeps, where every prefixed command is the skills-based design's alone */
 const answerInstalled = async (): Promise<void> => {
   const tool = toolBehind(subcommand);
 

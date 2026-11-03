@@ -1,6 +1,6 @@
 import { PhaseCard } from '@site/src/components/home/PhaseCard';
 import { PromptCard } from '@site/src/components/home/PromptCard';
-import { PHASE_STEPS, STEP_THEME } from '@site/src/data/home';
+import { PHASE_STEPS, STEP_CARD_ICONS } from '@site/src/data/home';
 import { memo } from 'react';
 import { LuArrowDown, LuCircleCheckBig } from 'react-icons/lu';
 
@@ -27,7 +27,7 @@ const UsagePanelComponent = ({
       <PhaseCard
         phase={step.phase}
         stage={step.group}
-        Icon={STEP_THEME[usageStep]}
+        Icon={STEP_CARD_ICONS[usageStep]}
         modeIndex={modeIndex}
         onSelectMode={onSelectMode}
       />

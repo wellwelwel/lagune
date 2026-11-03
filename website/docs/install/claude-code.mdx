@@ -3,7 +3,7 @@ id: claude-code
 title: 'Install Lagune on Claude Code as a Plugin'
 sidebar_label: Claude Code
 parent: get-started/install
-description: Install Lagune's commands in Claude Code through its own plugin installer, keep them updated, and allow the engine up front.
+description: Install Lagune on Claude Code as a plugin, keep it updated, and allow its engine up front.
 keywords:
   - claude code
   - claude code plugin
@@ -32,26 +32,28 @@ Or from a **Claude Code** session:
 /plugin install lagune@lagune
 ```
 
-In the **VS Code** extension, type `/plugins` to open **Manage plugins**, add `wellwelwel/lagune` on the **Marketplaces** tab, then install `lagune` on the **Plugins** tab.
+In the **VS Code** extension, type `/plugins`, add `wellwelwel/lagune` on the **Marketplaces** tab, then install `lagune` on the **Plugins** tab.
 
 ## Update
 
-**Claude Code** leaves a third-party plugin at its installed version until you update it, or until you select **Enable auto-update** for the `lagune` marketplace under `/plugin`. To update **Lagune**, run:
+To update **Lagune**, run:
 
 ```bash
 claude plugin marketplace update lagune
 claude plugin update lagune@lagune
 ```
 
+To keep it updated, select **Enable auto-update** for the `lagune` marketplace under `/plugin`.
+
 ## Commands
 
-Type the commands by their names, such as `/lagune-charter`. **Claude Code** also lists them under the plugin's name, such as `/lagune:lagune-charter`, and both forms run the same command.
+Type the commands by name, such as `/lagune-charter`, or under the plugin's name, such as `/lagune:lagune-charter`.
 
 ---
 
 :::info[Permissions]
 
-The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. To allow them up front, add these rules to `.claude/settings.json` for one project, or to `~/.claude/settings.json` for all of them:
+The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. To allow them up front, add these rules to `.claude/settings.json` for one project, or to `~/.claude/settings.json` for all of them:
 
 ```json
 {
@@ -64,7 +66,7 @@ The plugin carries **Lagune**'s engine and runs it through two tools: `lagune_re
 }
 ```
 
-Where the engine runs through **npx** instead, as it does for the **skills.sh**, allow `Bash(npx --yes lagune@*)`, and with the sandbox on, add `registry.npmjs.org` to `sandbox.network.allowedDomains`, so the engine can be downloaded.
+When the engine runs through **npx**, as with the **skills.sh**, allow `Bash(npx --yes lagune@*)`. With the sandbox on, also add `registry.npmjs.org` to `sandbox.network.allowedDomains`.
 
 :::
 
@@ -73,22 +75,22 @@ Where the engine runs through **npx** instead, as it does for the **skills.sh**,
     {
       question: 'How do I install Lagune on Claude Code?',
       answer:
-        'Run claude plugin install lagune --marketplace wellwelwel/lagune in your terminal. In a Claude Code session or the VS Code extension, add the wellwelwel/lagune marketplace from the plugin manager, then install lagune from it.',
+        'Run claude plugin install lagune --marketplace wellwelwel/lagune. In a session or the VS Code extension, add the wellwelwel/lagune marketplace from the plugin manager and install lagune.',
     },
     {
       question: 'How do I update Lagune on Claude Code?',
       answer:
-        'Run claude plugin marketplace update lagune, then claude plugin update lagune@lagune. To keep it updated on its own, select Enable auto-update for the lagune marketplace under /plugin.',
+        'Run claude plugin marketplace update lagune, then claude plugin update lagune@lagune, or select Enable auto-update for the lagune marketplace under /plugin.',
     },
     {
       question: "How do I run Lagune's commands on Claude Code?",
       answer:
-        "Type them by name, such as /lagune-charter. The form under the plugin's name, such as /lagune:lagune-charter, runs the same command.",
+        "Type them by name, such as /lagune-charter, or under the plugin's name, such as /lagune:lagune-charter.",
     },
     {
       question: 'Can Claude Code run Lagune without asking for permission?',
       answer:
-        'Yes. Add mcp__plugin_lagune_lagune__lagune_read and mcp__plugin_lagune_lagune__lagune_write to the permissions allow list in your Claude Code settings. Where the engine runs through npx instead, as it does for the skills.sh, allow Bash(npx --yes lagune@*).',
+        'Yes. Allow mcp__plugin_lagune_lagune__lagune_read and mcp__plugin_lagune_lagune__lagune_write in your Claude Code settings, plus Bash(npx --yes lagune@*) when the engine runs through npx.',
     },
   ]}
 />

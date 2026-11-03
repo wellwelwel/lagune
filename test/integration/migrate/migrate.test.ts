@@ -29,6 +29,14 @@ const GITIGNORE = [
   '',
 ].join('\n');
 
+const OLD_MAIN_COMMAND =
+  '---\nname: lagune\n---\nRead the catalog at `.lagune/specializations.md`.\n';
+
+const NEW_MAIN_COMMAND = await readFile(
+  new URL('../../../skills/lagune/SKILL.md', import.meta.url),
+  'utf8'
+);
+
 const MANIFEST = {
   name: 'lagune',
   version: '0.15.0',
@@ -37,6 +45,7 @@ const MANIFEST = {
   files: [
     '.lagune/templates/charter-template.md',
     '.lagune/hooks/regex.mjs',
+    '.claude/skills/lagune/SKILL.md',
     '.claude/skills/lagune.detect/SKILL.md',
     '.opencode/commands/lagune.detect.md',
     'src/lagune.ts',
@@ -65,6 +74,7 @@ const INSTALL: Record<string, string> = {
   '.lagune/tracking.json':
     '{"name":"lagune","entries":[{"name":"Leak","paths":["src/a.ts"]}]}\n',
   '.lagune/proofs/leak/report.md': '# Leak\n',
+  '.claude/skills/lagune/SKILL.md': OLD_MAIN_COMMAND,
   '.claude/skills/lagune.detect/SKILL.md': '---\nname: lagune.detect\n---\n',
   '.opencode/commands/lagune.detect.md': '---\ndescription: detect\n---\n',
   'src/lagune.ts': 'export const config = {};\n',
@@ -92,9 +102,11 @@ const newProject = async (files: Record<string, string>): Promise<string> => {
 
 const without = (
   files: Record<string, string>,
-  path: string
+  folder: string
 ): Record<string, string> =>
-  Object.fromEntries(Object.entries(files).filter(([file]) => file !== path));
+  Object.fromEntries(
+    Object.entries(files).filter(([file]) => !file.startsWith(`${folder}/`))
+  );
 
 const linkAt = async (
   project: string,
@@ -122,7 +134,7 @@ afterEach(async () => {
   projects.length = 0;
 });
 
-await describe('migrate moves a Lagune CLI install to the skills-based layout', async () => {
+await describe('migrate moves a manifest-based project to the skills-based layout', async () => {
   await it('keeps only the project state under .lagune/', async () => {
     const project = await newProject(INSTALL);
 
@@ -180,7 +192,7 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
     strict.strictEqual(tracking, INSTALL['.lagune/tracking.json']);
   });
 
-  await it('removes the agent commands the manifest lists, and nothing else it lists', async () => {
+  await it('removes the agent commands the manifest-based Lagune wrote, and nothing else, whatever the manifest lists', async () => {
     const project = await newProject(INSTALL);
 
     await performMigrate(project);
@@ -200,7 +212,40 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
     strict.strictEqual(outside, 'outside\n');
   });
 
-  await it('keeps the commands the skills CLI installs, even beside the old ones or listed in the manifest', async () => {
+  await it('removes the commands every manifest-based release wrote, only from the folders it wrote them to', async () => {
+    const commands = [
+      '.github/prompts/lagune.detect.prompt.md',
+      '.github/prompts/lagune.prompt.md',
+      '.continue/prompts/lagune.verify.prompt',
+      '.gemini/commands/lagune.plan.toml',
+      '.tabnine/agent/commands/lagune.charter.toml',
+      '.goose/recipes/lagune.harden.yaml',
+      '.firebender/commands/lagune.repair.mdc',
+      '.windsurf/workflows/lagune.prove.md',
+      '.agent/skills/lagune.specialize/SKILL.md',
+    ];
+    const lookalike = 'docs/lagune.detect.md';
+    const project = await newProject({
+      ...INSTALL,
+      ...Object.fromEntries(
+        commands.map((path) => [
+          path,
+          path.includes('lagune.prompt') ? OLD_MAIN_COMMAND : 'command\n',
+        ])
+      ),
+      [lookalike]: 'command\n',
+    });
+
+    await performMigrate(project);
+
+    const left = await Promise.all(
+      [...commands, lookalike].map((path) => read(project, path))
+    );
+
+    strict.deepStrictEqual(left, [...commands.map(() => null), 'command\n']);
+  });
+
+  await it('keeps the commands the skills CLI installs, even where the old /lagune sat or listed in the manifest', async () => {
     const installed = '.claude/skills/lagune-detect/SKILL.md';
     const project = await newProject({
       ...INSTALL,
@@ -208,14 +253,19 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
         ...MANIFEST,
         files: [...MANIFEST.files, installed],
       }),
+      '.claude/skills/lagune/SKILL.md': NEW_MAIN_COMMAND,
       [installed]: '---\nname: lagune-detect\n---\n',
     });
 
     await performMigrate(project);
 
-    const claude = await listing(project, '.claude/skills');
+    const [claude, main] = await Promise.all([
+      listing(project, '.claude/skills'),
+      read(project, '.claude/skills/lagune/SKILL.md'),
+    ]);
 
-    strict.deepStrictEqual(claude, ['lagune-detect']);
+    strict.deepStrictEqual(claude, ['lagune', 'lagune-detect']);
+    strict.strictEqual(main, NEW_MAIN_COMMAND);
   });
 
   await it('removes the Lagune block from .gitignore and keeps the proofs ignored', async () => {
@@ -263,15 +313,88 @@ await describe('migrate moves a Lagune CLI install to the skills-based layout', 
   });
 });
 
-await describe('migrate changes nothing it cannot account for', async () => {
-  await it('reports nothing to migrate without a manifest', async () => {
-    const project = await newProject({ '.lagune/memory/charter.md': '# C\n' });
+await describe('migrate cleans a clone that pulled the move', async () => {
+  const PULLED: Record<string, string> = {
+    '.lagune/configs.json': `${JSON.stringify({ categories: ['owasp'], catalog: [{ name: 'graphql', tags: ['GraphQL'] }] }, null, 2)}\n`,
+    '.lagune/catalog/graphql.md': '# GraphQL vulnerabilities\n',
+    '.lagune/memory/charter.md': '# Demo Security Charter\n',
+    '.lagune/tracking.json': '{"entries":[]}\n',
+    '.gitignore': 'node_modules\n',
+  };
+  const LEFT_BEHIND: Record<string, string> = {
+    '.lagune/templates/charter-template.md': '# template\n',
+    '.lagune/hooks/regex.mjs': 'export {};\n',
+    '.lagune/specializations.md': 'regex: Regular Expression [required]\n',
+    '.lagune/skills/regex.md': '# copy of the built-in\n',
+    '.lagune/proofs/leak/report.md': '# Leak\n',
+    '.claude/skills/lagune/SKILL.md': OLD_MAIN_COMMAND,
+    '.claude/skills/lagune.detect/SKILL.md': '---\nname: lagune.detect\n---\n',
+  };
+
+  await it('removes what the manifest-based Lagune left on it and keeps its proofs out of commits', async () => {
+    const project = await newProject({ ...PULLED, ...LEFT_BEHIND });
 
     const result = await performMigrate(project);
-    const lagune = await listing(project, '.lagune');
+    const [lagune, claude, proofs] = await Promise.all([
+      listing(project, '.lagune'),
+      listing(project, '.claude/skills'),
+      read(project, '.lagune/proofs/.gitignore'),
+    ]);
+
+    strict.strictEqual(result.migrated, true);
+    strict.strictEqual(result.migrated && result.manifest, false);
+    strict.deepStrictEqual(lagune, [
+      'catalog',
+      'configs.json',
+      'memory',
+      'proofs',
+      'tracking.json',
+    ]);
+    strict.deepStrictEqual(claude, []);
+    strict.strictEqual(proofs, '*\n');
+  });
+
+  await it('leaves the state it pulled untouched', async () => {
+    const project = await newProject({ ...PULLED, ...LEFT_BEHIND });
+
+    await performMigrate(project);
+
+    const pulled = await Promise.all(
+      Object.keys(PULLED).map((path) => read(project, path))
+    );
+
+    strict.deepStrictEqual(pulled, Object.values(PULLED));
+  });
+});
+
+await describe('migrate changes nothing it cannot account for', async () => {
+  await it('reports nothing to migrate where the manifest-based Lagune left nothing, even beside the skills-based commands', async () => {
+    const project = await newProject({
+      '.lagune/memory/charter.md': '# C\n',
+      '.claude/skills/lagune/SKILL.md': NEW_MAIN_COMMAND,
+      '.claude/skills/lagune-detect/SKILL.md':
+        '---\nname: lagune-detect\n---\n',
+    });
+
+    const result = await performMigrate(project);
+    const [lagune, main, detect] = await Promise.all([
+      listing(project, '.lagune'),
+      read(project, '.claude/skills/lagune/SKILL.md'),
+      read(project, '.claude/skills/lagune-detect/SKILL.md'),
+    ]);
 
     strict.deepStrictEqual(result, { migrated: false });
     strict.deepStrictEqual(lagune, ['memory']);
+    strict.strictEqual(main, NEW_MAIN_COMMAND);
+    strict.strictEqual(detect, '---\nname: lagune-detect\n---\n');
+  });
+
+  await it('reports nothing to migrate in a folder that never held Lagune', async () => {
+    const project = await newProject({ 'src/index.ts': 'export {};\n' });
+
+    const result = await performMigrate(project);
+
+    strict.deepStrictEqual(result, { migrated: false });
   });
 
   for (const file of [
@@ -299,9 +422,7 @@ await describe('migrate changes nothing it cannot account for', async () => {
 
 await describe('migrate never reaches outside the project', async () => {
   await it('removes a generated folder that is a link, never what it points to', async () => {
-    const project = await newProject(
-      without(INSTALL, '.lagune/hooks/regex.mjs')
-    );
+    const project = await newProject(without(INSTALL, '.lagune/hooks'));
 
     await linkAt(project, '.lagune/hooks', '../../outside');
     await performMigrate(project);
@@ -316,9 +437,7 @@ await describe('migrate never reaches outside the project', async () => {
   });
 
   await it('leaves alone an agent command whose folder resolves outside the project', async () => {
-    const project = await newProject(
-      without(INSTALL, '.claude/skills/lagune.detect/SKILL.md')
-    );
+    const project = await newProject(without(INSTALL, '.claude'));
 
     await mkdir(join(project, '../outside/agent/skills/lagune.detect'), {
       recursive: true,

@@ -3,7 +3,7 @@ id: hermes-agent
 title: 'Install Lagune on Hermes Agent as a Plugin'
 sidebar_label: Hermes Agent
 parent: get-started/install
-description: Install Lagune's commands in Hermes Agent through its own plugin installer, and keep them updated.
+description: Install Lagune on Hermes Agent as a plugin, and keep it updated.
 keywords:
   - hermes agent
   - hermes agent plugin
@@ -38,14 +38,14 @@ hermes plugins update lagune
 
 ## Commands
 
-Type the commands under the plugin's name: where these docs show `/lagune-charter`, type `/lagune:lagune-charter`, and `/lagune` is `/lagune:lagune`.
+Type the commands under the plugin's name, such as `/lagune:lagune-charter` for `/lagune-charter` and `/lagune:lagune` for `/lagune`.
 
 <Faq
   items={[
     {
       question: 'How do I install Lagune on Hermes Agent?',
       answer:
-        "Run hermes plugins install wellwelwel/lagune --enable. Confirm the plugin when Hermes Agent asks, and decline its offer to install the repository's Node.js dependencies.",
+        "Run hermes plugins install wellwelwel/lagune --enable. Confirm the plugin when asked, and decline installing the repository's Node.js dependencies.",
     },
     {
       question: 'How do I update Lagune on Hermes Agent?',
@@ -54,7 +54,7 @@ Type the commands under the plugin's name: where these docs show `/lagune-charte
     {
       question: "How do I run Lagune's commands on Hermes Agent?",
       answer:
-        "Type them under the plugin's name: /lagune:lagune-charter instead of /lagune-charter, and /lagune:lagune instead of /lagune.",
+        "Type them under the plugin's name, such as /lagune:lagune-charter and /lagune:lagune.",
     },
   ]}
 />

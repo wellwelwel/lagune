@@ -42,7 +42,7 @@ jobs:
         if: always()
         run: npm run typecheck
 
-      - name: 🌊 Basic Security Check
+      - name: 🪼 Basic Security Check
         if: always()
         run: |
           npm run build

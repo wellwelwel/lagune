@@ -3,7 +3,7 @@ id: gemini-cli
 title: 'Install Lagune on Gemini CLI as an Extension'
 sidebar_label: Gemini CLI
 parent: get-started/install
-description: Install Lagune's commands in Gemini CLI through its own extension installer, keep them updated, and allow the engine up front.
+description: Install Lagune on Gemini CLI as an extension, keep it updated, and allow its engine up front.
 keywords:
   - gemini cli
   - gemini cli extension
@@ -25,25 +25,25 @@ Install the extension from your terminal:
 gemini extensions install https://github.com/wellwelwel/lagune
 ```
 
-**Gemini CLI** installs **Lagune**'s latest release, so each change reaches you with the next release.
-
 ## Update
 
-**Gemini CLI** leaves the extension at its installed release until you update it, or until you install it with `--auto-update`. To update **Lagune**, run:
+To update **Lagune**, run:
 
 ```bash
 gemini extensions update lagune
 ```
 
+To keep it updated, install it with `--auto-update`.
+
 ## Commands
 
-Type the commands under the extension's name: where these docs show `/lagune-charter`, type `/lagune:lagune-charter`.
+Type the commands under the extension's name, such as `/lagune:lagune-charter` for `/lagune-charter`.
 
 ---
 
 :::info[Permissions]
 
-**Lagune**'s release carries its engine, which the extension runs through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. **Gemini CLI** starts them only in a folder you trust. To allow them up front, save this rule as `~/.gemini/policies/lagune.toml`:
+The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. **Gemini CLI** starts them only in a trusted folder. To allow them up front, save this rule as `~/.gemini/policies/lagune.toml`:
 
 ```toml
 [[rule]]
@@ -53,7 +53,7 @@ decision = "allow"
 priority = 100
 ```
 
-Where the engine runs through **npx** instead, as it does for the **skills.sh**, add this rule to the same file:
+When the engine runs through **npx**, as with the **skills.sh**, add this rule to the same file:
 
 ```toml
 [[rule]]
@@ -75,17 +75,17 @@ priority = 100
     {
       question: 'How do I update Lagune on Gemini CLI?',
       answer:
-        'Run gemini extensions update lagune. To keep it updated on its own, install the extension with --auto-update.',
+        'Run gemini extensions update lagune, or install the extension with --auto-update.',
     },
     {
       question: "How do I run Lagune's commands on Gemini CLI?",
       answer:
-        "Type them under the extension's name: /lagune:lagune-charter instead of /lagune-charter.",
+        "Type them under the extension's name, such as /lagune:lagune-charter.",
     },
     {
       question: 'Can Gemini CLI run Lagune without asking for permission?',
       answer:
-        "Yes. Add a Gemini CLI policy rule that allows the lagune MCP server's lagune_read and lagune_write tools. Where the engine runs through npx instead, as it does for the skills.sh, also allow run_shell_command for npx --yes lagune@ followed by a version.",
+        "Yes. Add a policy rule that allows the lagune server's lagune_read and lagune_write tools, plus one for run_shell_command with npx --yes lagune@ and a version when the engine runs through npx.",
     },
   ]}
 />

@@ -3,7 +3,7 @@ id: qwen-code
 title: 'Install Lagune on Qwen Code as an Extension'
 sidebar_label: Qwen Code
 parent: get-started/install
-description: Install Lagune's commands in Qwen Code through its own extension installer, keep them updated, and allow the engine up front.
+description: Install Lagune on Qwen Code as an extension, keep it updated, and allow its engine up front.
 keywords:
   - qwen code
   - qwen code extension
@@ -25,25 +25,25 @@ Install the extension from your terminal:
 qwen extensions install lagune
 ```
 
-**Qwen Code** installs **Lagune**'s latest release from **npm**, so each change reaches you with the next release.
-
 ## Update
 
-**Qwen Code** leaves the extension at its installed release until you update it, or until you install it with `--auto-update`. To update **Lagune**, run:
+To update **Lagune**, run:
 
 ```bash
 qwen extensions update lagune
 ```
 
+To keep it updated, install it with `--auto-update`.
+
 ## Commands
 
-Type the commands under the extension's name: where these docs show `/lagune-charter`, type `/lagune:lagune-charter`.
+Type the commands under the extension's name, such as `/lagune:lagune-charter` for `/lagune-charter`.
 
 ---
 
 :::info[Permissions]
 
-The extension carries **Lagune**'s engine and runs it through two tools: `lagune_read`, which only reads your project, and `lagune_write`, which changes only its `.lagune/` folder. To allow them up front, add these rules to `.qwen/settings.json` for one project, or to `~/.qwen/settings.json` for all of them:
+The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. To allow them up front, add these rules to `.qwen/settings.json` for one project, or to `~/.qwen/settings.json` for all of them:
 
 ```json
 {
@@ -53,7 +53,7 @@ The extension carries **Lagune**'s engine and runs it through two tools: `lagune
 }
 ```
 
-Where the engine runs through **npx** instead, as it does for the **skills.sh**, allow `Shell(npx --yes lagune@*)`.
+When the engine runs through **npx**, as with the **skills.sh**, allow `Shell(npx --yes lagune@*)`.
 
 :::
 
@@ -61,23 +61,22 @@ Where the engine runs through **npx** instead, as it does for the **skills.sh**,
   items={[
     {
       question: 'How do I install Lagune on Qwen Code?',
-      answer:
-        "Run qwen extensions install lagune, which installs Lagune's latest release from npm.",
+      answer: 'Run qwen extensions install lagune.',
     },
     {
       question: 'How do I update Lagune on Qwen Code?',
       answer:
-        'Run qwen extensions update lagune. To keep it updated on its own, install the extension with --auto-update.',
+        'Run qwen extensions update lagune, or install the extension with --auto-update.',
     },
     {
       question: "How do I run Lagune's commands on Qwen Code?",
       answer:
-        "Type them under the extension's name: /lagune:lagune-charter instead of /lagune-charter.",
+        "Type them under the extension's name, such as /lagune:lagune-charter.",
     },
     {
       question: 'Can Qwen Code run Lagune without asking for permission?',
       answer:
-        "Yes. Add mcp__lagune__lagune_read and mcp__lagune__lagune_write to the permissions allow list in Qwen Code's settings. Where the engine runs through npx instead, as it does for the skills.sh, also allow Shell(npx --yes lagune@*).",
+        "Yes. Allow mcp__lagune__lagune_read and mcp__lagune__lagune_write in Qwen Code's settings, plus Shell(npx --yes lagune@*) when the engine runs through npx.",
     },
   ]}
 />

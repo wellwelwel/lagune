@@ -3,7 +3,7 @@ id: devin-cli
 title: 'Install Lagune on Devin CLI as a Plugin'
 sidebar_label: Devin CLI
 parent: get-started/install
-description: Install Lagune's commands in Devin CLI through its own plugin installer, and keep them updated.
+description: Install Lagune on Devin CLI as a plugin, and keep it updated.
 keywords:
   - devin cli
   - devin for terminal
@@ -20,7 +20,7 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 
 <InstallHeader name='Devin for Terminal' />
 
-**Devin CLI** installs plugins into your **Devin** account, so sign in first, then install the plugin from your terminal:
+Sign in to **Devin**, then install the plugin from your terminal:
 
 ```bash
 devin auth login
@@ -37,14 +37,14 @@ devin plugins update lagune
 
 ## Commands
 
-Type the commands under the plugin's name: where these docs show `/lagune-charter`, type `/lagune:lagune-charter`. The `/` menu also lists them.
+Type the commands under the plugin's name, such as `/lagune:lagune-charter` for `/lagune-charter`. The `/` menu also lists them.
 
 <Faq
   items={[
     {
       question: 'How do I install Lagune on Devin CLI?',
       answer:
-        'Sign in with devin auth login, since Devin CLI installs plugins into your Devin account, then run devin plugins install wellwelwel/lagune.',
+        'Sign in with devin auth login, then run devin plugins install wellwelwel/lagune.',
     },
     {
       question: 'How do I update Lagune on Devin CLI?',
@@ -53,7 +53,7 @@ Type the commands under the plugin's name: where these docs show `/lagune-charte
     {
       question: "How do I run Lagune's commands on Devin CLI?",
       answer:
-        "Type them under the plugin's name: /lagune:lagune-charter instead of /lagune-charter. The / menu also lists them.",
+        "Type them under the plugin's name, such as /lagune:lagune-charter. The / menu also lists them.",
     },
   ]}
 />

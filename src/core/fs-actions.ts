@@ -3,6 +3,7 @@ import {
   access,
   lstat,
   mkdir,
+  readdir,
   realpath,
   rm,
   writeFile,
@@ -31,6 +32,18 @@ export const existingWithin = async (
   if (realRoot === undefined || realPath === undefined) return undefined;
 
   return isWithin(realRoot, realPath) ? realPath : undefined;
+};
+
+/** The names in a folder that resolves inside the root, or none */
+export const listingWithin = async (
+  root: string,
+  folder: string
+): Promise<string[]> => {
+  const real = await existingWithin(root, folder);
+
+  if (real === undefined) return [];
+
+  return readdir(real).catch((): string[] => []);
 };
 
 /** The entry itself, never what it links to, under a folder that resolves inside the root */
