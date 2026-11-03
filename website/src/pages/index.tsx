@@ -446,7 +446,6 @@ const Home = (): ReactNode => {
   const [hoveredTab, setHoveredTab] = useState<WindowId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const contentRef = useRef<HTMLDivElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>(
     Object.create(null)
@@ -520,7 +519,6 @@ const Home = (): ReactNode => {
     }
 
     setActive(id);
-    contentRef.current?.scrollTo({ top: 0 });
 
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
       glideToTop();
@@ -798,17 +796,20 @@ const Home = (): ReactNode => {
             </nav>
 
             <div className='grid grid-cols-[1.15fr_0.85fr] gap-[clamp(20px,2.6vw,38px)] p-[clamp(22px,3vw,38px)] max-[920px]:grid-cols-[1fr] max-[600px]:pt-3 max-[600px]:pb-[calc(104px+env(safe-area-inset-bottom))]'>
-              <div
-                ref={contentRef}
-                className='lagune-flow flex flex-col min-w-0 h-[var(--lagune-window-h)] overflow-y-auto max-[920px]:h-auto max-[920px]:overflow-visible'
-              >
+              <div className='relative grid min-w-0 min-h-[var(--lagune-window-h)] max-[920px]:min-h-0'>
                 <div
-                  key={active}
-                  className='lagune-fade-in-soft flex flex-col min-w-0 h-full max-[920px]:h-auto'
+                  className={`flex flex-col min-w-0 ${
+                    active === 'overview'
+                      ? 'lagune-fade-in-soft'
+                      : 'invisible max-[920px]:hidden'
+                  }`}
+                  inert={active !== 'overview'}
                 >
-                  {active === 'overview' && <OverviewPanel />}
+                  <OverviewPanel />
+                </div>
 
-                  {active === 'usage' && (
+                {active === 'usage' && (
+                  <div className='lagune-flow lagune-fade-in-soft absolute inset-0 flex flex-col min-w-0 overflow-y-auto max-[920px]:static max-[920px]:overflow-visible'>
                     <Suspense fallback={null}>
                       <UsagePanel
                         usageStep={usageStep}
@@ -819,11 +820,11 @@ const Home = (): ReactNode => {
                         onTyped={markTyped}
                       />
                     </Suspense>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
-              <aside className='relative flex flex-col justify-between gap-10 h-[var(--lagune-window-h)] rounded-[20px] overflow-hidden p-[clamp(22px,2.4vw,32px)] isolate max-[920px]:h-auto max-[920px]:min-h-[420px] max-[920px]:order-first max-[600px]:min-h-[300px]'>
+              <aside className='relative flex flex-col justify-between gap-10 min-h-[var(--lagune-window-h)] rounded-[20px] overflow-hidden p-[clamp(22px,2.4vw,32px)] isolate max-[920px]:min-h-[420px] max-[920px]:order-first max-[600px]:min-h-[300px]'>
                 {TABS.map((tab) => (
                   <img
                     key={tab.id}
