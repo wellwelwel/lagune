@@ -1,0 +1,56 @@
+# infra hook：检测 IaC 配置错误
+
+> 在命令行中扫描 Terraform、Dockerfile 和 GitHub Actions 中的配置错误，或评估单个代码片段。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/infra
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/infra
+最后更新: 2026-11-03
+
+`infra` hook 会标记仅凭文件本身就能判定的**基础设施即代码配置错误**：对全网开放的网络、通配符权限、清单文件中的密钥、以 root 身份运行的容器、CI shell 中的不可信值。它只读取 IaC 文件（`.tf`/`.tf.json`/`.hcl`、`Dockerfile*`、`.github/workflows/**`）。它是 [`infra` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，有 **scan** 和 **check** 两种模式。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read infra                   # scans every IaC file
+npx lagune read infra --dir infra       # scans a directory
+npx lagune read infra --file Dockerfile # scans a single file
+```
+
+**检查代码片段**
+
+用 `--pattern` 传入代码片段，用 `--kind` 指定它的类型（`terraform`、`dockerfile` 或 `github-actions`）。
+
+```bash
+npx lagune read infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
+npx lagune read infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
+```
+
+扫描最多输出两个部分。**Infrastructure risks found** 会以非零退出码退出，其中列出可判定的缺陷（敏感端口上的 `0.0.0.0/0` 入站规则、通配符 IAM 语句、清单文件中的密钥、`encrypted = false`、未固定版本的 git 模块、显式以 root 身份运行的镜像、`curl | sh`、CI 脚本注入、`permissions: write-all`）。**Infrastructure hardening advisories** 不会改变退出码（可变的基础镜像标签、按标签固定的 action）。扫描结果干净时会输出 `no infrastructure risks found`。
+
+## 如何解读判定结果
+
+check 模式会输出它匹配到的严重程度最高的标签（例如 `public-ingress`、`iam-wildcard`、`root-user`、`curl-pipe`、`script-injection`、`write-all`）、建议类标签（`mutable-tag`、`unpinned-action`）或 `safe`。只有达到发现项严重程度的标签才会以非零退出码退出。
+
+### CLI 选项
+
+| 选项        | 值                                              | 说明                                                         |
+| ----------- | ----------------------------------------------- | ------------------------------------------------------------ |
+| `--pattern` | 一个代码片段                                    | 检查一个代码片段。需要配合 `--kind`。可重复使用以检查多个。  |
+| `--kind`    | `terraform` \| `dockerfile` \| `github-actions` | 判定代码片段时所依据的类型。                                 |
+| `--dir`     | 一个目录                                        | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。 |
+| `--file`    | 一个文件                                        | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
+
+不带任何选项时，它会扫描项目中的所有 IaC 文件。`--pattern` 不能与 `--dir` 或 `--file` 组合使用。
+
+**提示**
+
+hook 只捕捉明显、可判定的情况：缺少加密、`pull_request_target` 带来的暴露，以及 IAM 范围是否合适，则由 [`infra` 专项](https://lagune.ai/zh-CN/docs/catalog) 来判断。
+
+## 常见问题
+
+### infra hook 会读取哪些基础设施文件？
+
+Terraform/HCL（.tf、.tf.json、.hcl）、Dockerfile，以及 .github/ 下的 GitHub Actions workflow 和 action YAML 文件。即使源代码扫描器会跳过这些文件，它也能读到。

@@ -1,0 +1,62 @@
+# Lagune
+
+> 适用于任何代码库的 Security-Driven Hardening
+
+Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工作流。它帮助你的 AI 智能体随时加固任何语言的任何代码库：charter 在你动手构建之前设定安全规则，通用的 /lagune 命令边写边加固，五阶段的 Blue Team 流程则检测你的系统实际在做什么，并据此推动真正相关的修复。它的命令通过 skills CLI 安装到你的智能体中，也不需要 API 密钥。
+
+"文档"下的每个链接都指向该页面的纯 Markdown 版本，去掉 .md 后缀即可打开网页版。全部语料汇总在一个文件中：https://lagune.ai/zh-CN/llms-full.txt
+
+## 文档
+
+- [安装：为任何 AI 智能体提供安全加固](https://lagune.ai/zh-CN/docs.md): 在任何项目中安装 Lagune：智能体支持插件时以插件安装，否则使用 skills CLI，然后选择适合项目的安全专项。
+- [在 Antigravity CLI 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/antigravity-cli.md): 在 Antigravity CLI 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+- [在 Claude Code 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/claude-code.md): 在 Claude Code 的终端、扩展或桌面应用中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+- [在 Codex CLI 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/codex.md): 在 Codex CLI 中以插件形式安装 Lagune，保持更新，并在沙箱中运行引擎。
+- [在 Cursor 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/cursor.md): 在 Cursor 和 Cursor CLI 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+- [在 Devin CLI 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/devin-cli.md): 在 Devin CLI 中以插件形式安装 Lagune，并保持更新。
+- [在 Factory Droid 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/factory-droid.md): 在 Factory Droid 中以插件形式安装 Lagune，保持更新，并允许引擎所用的工具。
+- [在 Gemini CLI 中以扩展形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/gemini-cli.md): 在 Gemini CLI 中以扩展形式安装 Lagune，保持更新，并预先允许引擎运行。
+- [在 GitHub Copilot CLI 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/github-copilot-cli.md): 在 GitHub Copilot CLI 中以插件形式安装 Lagune，并保持更新。
+- [在 Grok Build 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/grok-build.md): 在 Grok Build 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+- [在 Hermes Agent 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/hermes-agent.md): 在 Hermes Agent 中以插件形式安装 Lagune，并保持更新。
+- [在 Kimi Code 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/kimi-code.md): 在 Kimi Code 中以插件形式安装 Lagune，并保持更新。
+- [在 Muse Code 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/muse-code.md): 在 Muse Code 中以插件形式安装 Lagune，保持更新，并在沙箱中运行引擎。
+- [在 OpenCode 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/opencode.md): 在 OpenCode 1.x 和 2.x 中以插件形式安装 Lagune，并保持更新。
+- [在 Pi 中以包的形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/pi.md): 从 npm 或 GitHub 在 Pi 中以包的形式安装 Lagune，并保持更新。
+- [在 Qwen Code 中以扩展形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/qwen-code.md): 在 Qwen Code 中以扩展形式安装 Lagune，保持更新，并预先允许引擎运行。
+- [用 skills.sh 在任意智能体中安装 Lagune](https://lagune.ai/zh-CN/docs/install/universal.md): 用 skills CLI 在任意 AI 智能体中安装 Lagune，并保持更新。
+- [AI 智能体的安全 Skills](https://lagune.ai/zh-CN/docs/get-started/commands.md): Lagune 为你的 AI 智能体解锁的 Skills：审计现有项目，或在构建时保障新代码的安全，全部遵循 charter 设定的安全原则。
+- [仪表盘](https://lagune.ai/zh-CN/docs/get-started/dashboard.md): 一条命令就能打开本地实时视图，查看项目的安全原则、发现项和目录。
+- [/lagune: 在 AI 编写代码的同时保障安全](https://lagune.ai/zh-CN/docs/commands/lagune.md): 按你的要求构建，并在安全原则的指引下边写边加固，无需遵循任何流程。
+- [/lagune-charter: 设定你的安全原则](https://lagune.ai/zh-CN/docs/commands/charter.md): 确立项目的安全原则，也就是后续每个阶段都要遵守的规则，并根据对项目的解读，记录有依据的专项类别。
+- [/lagune-detect: 摸清你的系统和它的风险](https://lagune.ai/zh-CN/docs/commands/detect.md): 读取你的代码，梳理系统在做什么、风险在哪里。
+- [/lagune-plan: 为发现项评分并规划修复](https://lagune.ai/zh-CN/docs/commands/plan.md): 把 detect 的发现转化为防御计划，用类别和 CVSS v4.0 评分为每个发现项定级，并为它配上修复。
+- [/lagune-harden: 为你的代码应用安全修复](https://lagune.ai/zh-CN/docs/commands/harden.md): 把计划中的修复逐项应用到你的代码中，安全稳妥。
+- [/lagune-verify: 证明安全控制措施确实有效](https://lagune.ai/zh-CN/docs/commands/verify.md): 证明每项已应用的修复确实有效，并将有效的发现项结案。
+- [类别](https://lagune.ai/zh-CN/docs/categories.md): Lagune 项目可以使用的专项类别，从 OWASP 到 JavaScript、Python、Go 和 Rust 的语言级加固，以及如何更改它们。
+- [目录：按需加载的安全专项](https://lagune.ai/zh-CN/docs/catalog.md): 项目目录中的专项如何加载：由阶段按需加载，或由你直接加载。
+- [/lagune-specialize: 用纯文本训练安全专项](https://lagune.ai/zh-CN/docs/commands/specialize.md): 把你提供的安全资料或主题提炼成一个按需加载的新专项。
+- [/lagune-prove: 仅限防御的概念验证（PoC）](https://lagune.ai/zh-CN/docs/commands/prove.md): 把检测到的每个发现项转化为可运行、仅限防御的概念验证（PoC），并附上用于负责任披露的安全公告。
+- [agent hook：检测没有上限的智能体循环](https://lagune.ai/zh-CN/docs/hooks/agent.md): 在命令行中扫描代码库里没有步数或时间上限的智能体或 LLM 调用，或评估单个调用。
+- [cors hook：审计 CORS 源](https://lagune.ai/zh-CN/docs/hooks/cors.md): 在命令行中扫描源代码里可被绕过的 CORS 源白名单，或评估单个源值是否放行过宽。
+- [crypto hook：检测弱加密](https://lagune.ai/zh-CN/docs/hooks/crypto.md): 在命令行中扫描代码库里的弱加密原语，或评估单个代码片段。
+- [cvss hook：为 CVSS v4.0 向量评分](https://lagune.ai/zh-CN/docs/hooks/cvss.md): 在命令行中为一个或多个 CVSS v4.0 向量评分，算法与 FIRST 计算器相同，还能用通俗的语言逐项解读。
+- [infra hook：检测 IaC 配置错误](https://lagune.ai/zh-CN/docs/hooks/infra.md): 在命令行中扫描 Terraform、Dockerfile 和 GitHub Actions 中的配置错误，或评估单个代码片段。
+- [interpreter hook：标记动态代码执行 sink](https://lagune.ai/zh-CN/docs/hooks/interpreter.md): 在命令行中扫描代码库里多种语言的动态代码执行 sink，或评估单个代码片段。
+- [jwt hook：检测未固定算法的 JWT 验证](https://lagune.ai/zh-CN/docs/hooks/jwt.md): 在命令行中扫描代码库里未固定算法的 JWT 验证，或评估单个调用。
+- [network hook：评估 URL 的 SSRF 风险](https://lagune.ai/zh-CN/docs/hooks/network.md): 直接在命令行中评估一个或多个请求目标的 SSRF 风险。
+- [regex hook：检测有 ReDoS 风险的正则](https://lagune.ai/zh-CN/docs/hooks/regex.md): 在命令行中扫描代码库里容易引发 ReDoS 的正则表达式，或评估单个正则模式。
+- [secrets hook：检测硬编码的密钥](https://lagune.ai/zh-CN/docs/hooks/secrets.md): 在命令行中扫描代码库里硬编码的凭证。
+- [Lagune 提示词示例：自动化 Blue Team 流程](https://lagune.ai/zh-CN/docs/examples/prompts.md): 复制即用的 Lagune 提示词：只读扫描、完整的 Blue Team 流程和零信任审计，以及限定在某个 commit、分支或 PR diff，或真实安全事件上的检测。
+- [Security-Driven Hardening：面向 AI 辅助开发时代的约定](https://lagune.ai/zh-CN/docs/references/paper.md): Security-Driven Hardening（SDH）方法论：一种场景感知的 Blue Team 约定，用于审计和加固 AI 辅助开发与 vibe coding 写出的软件。
+- [Lagune 术语表：SDH、charter、发现项与控制措施](https://lagune.ai/zh-CN/docs/references/glossary.md): Lagune 与 Security-Driven Hardening 全部术语的通俗定义：SDH、charter、detect、发现项、控制措施、harden、verify、结案、可结案性、专项、类别与目录。
+- [配置 Schema](https://lagune.ai/zh-CN/docs/references/configs-schema.md): Lagune 项目配置文件的 JSON Schema，让编辑器提供自动补全和校验，可以跟随当前版本的 Lagune，也可以固定到某个版本。
+- [Lagune vs. Deepsec：两种 AI 驱动的安全方案对比](https://lagune.ai/zh-CN/docs/references/deepsec.md): 一份参考资料，从工作方式、生命周期、检测、成本、发现项和结案几个方面，对比 Lagune 与 Vercel 的 Deepsec。
+- [OWASP 来源](https://lagune.ai/zh-CN/docs/references/owasp-sources.md): 内置 OWASP 专项的知识从何而来，并对应到 OWASP 官方的攻击页面和 Cheat Sheet 页面。
+- [/lagune-repair: 修复失效的发现项追踪](https://lagune.ai/zh-CN/docs/commands/repair.md): 文件重命名或移动让 Lagune 的追踪出错时，修复整条链路。
+- [Migrate：将基于 manifest 的 Lagune 项目迁移到 skills 和插件](https://lagune.ai/zh-CN/docs/commands/migrate.md): 将基于 manifest 的 Lagune 项目迁移到基于 skills 的 Lagune，同时保留你的安全原则、产物、追踪和你自己的专项。
+
+## 其他语言
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)

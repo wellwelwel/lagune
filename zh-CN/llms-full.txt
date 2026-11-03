@@ -1,0 +1,4791 @@
+# Lagune
+
+> 适用于任何代码库的 Security-Driven Hardening
+
+Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工作流。它帮助你的 AI 智能体随时加固任何语言的任何代码库：charter 在你动手构建之前设定安全规则，通用的 /lagune 命令边写边加固，五阶段的 Blue Team 流程则检测你的系统实际在做什么，并据此推动真正相关的修复。它的命令通过 skills CLI 安装到你的智能体中，也不需要 API 密钥。
+
+---
+
+# 安装：为任何 AI 智能体提供安全加固
+
+> 在任何项目中安装 Lagune：智能体支持插件时以插件安装，否则使用 skills CLI，然后选择适合项目的安全专项。
+
+规范链接: https://lagune.ai/zh-CN/docs
+语言: zh-CN
+原文: https://lagune.ai/docs
+最后更新: 2026-11-03
+
+**Lagune** 帮助你的 AI 智能体提升项目的安全性。你把它指向自己的代码，智能体就会弄清楚你的系统实际在做什么，再带你完成对它而言真正重要的安全工作。**Lagune** 是 [Security-Driven Hardening (SDH)](https://lagune.ai/zh-CN/docs/references/paper) 方法论的第一个项目。
+
+**支持开源**
+
+喜欢 **Lagune**？[到 **GitHub** 给我们点个 ⭐](https://github.com/wellwelwel/lagune)
+
+## 选择你的智能体
+
+- [Claude Code](https://lagune.ai/zh-CN/docs/install/claude-code): Anthropic 的智能体编程工具
+- [Codex](https://lagune.ai/zh-CN/docs/install/codex): OpenAI 的编程智能体
+- [Cursor](https://lagune.ai/zh-CN/docs/install/cursor): AI 代码编辑器
+- [GitHub Copilot](https://lagune.ai/zh-CN/docs/install/github-copilot-cli): GitHub 的 AI 结对编程助手
+- [Gemini CLI](https://lagune.ai/zh-CN/docs/install/gemini-cli): Google 的开源终端智能体
+- [Antigravity](https://lagune.ai/zh-CN/docs/install/antigravity-cli): Google 的智能体开发平台
+- [OpenCode](https://lagune.ai/zh-CN/docs/install/opencode): 开源编程智能体
+- [Devin for Terminal](https://lagune.ai/zh-CN/docs/install/devin-cli): Cognition 的终端智能体
+- [Factory Droid](https://lagune.ai/zh-CN/docs/install/factory-droid): Factory 的软件开发智能体
+- [Grok Build](https://lagune.ai/zh-CN/docs/install/grok-build): xAI 的编程智能体
+- [Qwen Code](https://lagune.ai/zh-CN/docs/install/qwen-code): Qwen 的终端编程智能体
+- [Kimi Code](https://lagune.ai/zh-CN/docs/install/kimi-code): Moonshot AI 的编程智能体
+- [Muse Code](https://lagune.ai/zh-CN/docs/install/muse-code): Meta 的编程智能体
+- [Pi](https://lagune.ai/zh-CN/docs/install/pi): 极简的终端编程智能体
+- [Hermes Agent](https://lagune.ai/zh-CN/docs/install/hermes-agent): Nous Research 的开源智能体
+- [通用](https://lagune.ai/zh-CN/docs/install/universal): Cline, Kiro CLI, Windsurf, Zed 及另外 66 款
+
+**信息**
+
+- **Lagune** 底层基于 **Node.js** 运行，但你用什么语言都可以。
+- 如需完全离线运行，用 `npm i -D lagune@0.16.0` 把 **Lagune** 安装到你的项目中。
+
+## 类别
+
+**Lagune** 的安全知识以 [**专项**](https://lagune.ai/zh-CN/docs/catalog) 的形式提供，并按 [**类别**](https://lagune.ai/zh-CN/docs/categories) 分组。
+
+- **OWASP** (`owasp`): 防范 OWASP 追踪的应用安全风险：注入、失效的访问控制、身份认证失效和加密失效
+- **基础设施** (`infra`): 加固容器、工作负载和 Serverless 配置：Dockerfile、Compose、Pod 安全、FaaS 的 IAM 与触发器
+- **AI / LLM** (`ai`): 加固 AI 与 LLM 集成，防范提示词注入，以及工具、智能体、检索和 MCP 的不安全接入
+- **Lovable** (`lovable`): 加固 AI 生成的 Supabase 应用（Lovable 及同类工具）：RLS 策略缺失、service_role 密钥泄露和不安全的默认设置
+- **JavaScript** (`javascript`): 加固 JavaScript 及其运行时，防范 eval 和 child_process 导致的 RCE、路径遍历和原型链污染
+- **Python** (`python`): 加固 Python，防范 pickle 和 YAML 反序列化 RCE、str.format 格式化字符串遍历和类污染
+- **Rust** (`rust`): 加固 Rust，防范不健全的 unsafe API、transmute 误用、整数溢出，以及 FFI 边界上的未定义行为
+- **Java** (`java`): 加固 Java，防范最终导致远程代码执行的 ObjectInputStream 反序列化利用链
+- **Ruby** (`ruby`): 加固 Ruby，防范可导致远程代码执行的 Marshal.load 和 YAML 反序列化利用链
+- **PHP** (`php`): 加固 PHP，防范弱类型比较导致的认证绕过、对象注入利用链和不安全的默认配置
+- **Go** (`go`): 加固 Go，防范带类型 nil 的接口漏洞、goroutine 数据竞争，以及安全路径上的不安全并发
+- **C / C++** (`c-cpp`): 加固 C 和 C++，防范可导致代码执行的格式化字符串漏洞、缓冲区溢出和越界写入
+- **.NET** (`dotnet`): 加固 .NET 和 C#，防范 BinaryFormatter 反序列化 RCE，以及可导致 XSS 的编码器绕过
+
+运行 `npx lagune write add --categories`，并传入你所选类别的键名。
+
+**提示**
+
+项目起初只启用 `owasp`，随后 [`/lagune-charter`](https://lagune.ai/zh-CN/docs/commands/charter) 会根据它对项目的解读，添加有依据的类别。
+
+## 环境要求
+
+你需要在系统中安装 [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager)。
+
+## 使用徽章 ✨
+
+正在使用 **Lagune**？在你的 **README** 里加一个吧：
+
+**双色**
+
+![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)
+
+```md
+[![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
+```
+
+![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)
+
+```md
+[![Security Powered By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952)](https://lagune.ai)
+```
+
+![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)
+
+```md
+[![Security-Driven Hardening with Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952)](https://lagune.ai)
+```
+
+**纯色**
+
+![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Secured By Lagune](https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
+![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Security Powered By Lagune](https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
+![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)
+
+```md
+[![Security-Driven Hardening](https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white)](https://lagune.ai)
+```
+
+## 下一步
+
+了解 **Lagune** 的每个 [**Skills**](https://lagune.ai/zh-CN/docs/get-started/commands) 分别做什么。
+
+## 常见问题
+
+### 什么是 Lagune？
+
+Lagune 是一个开源、仅限防御的安全工作流，帮助你的 AI 智能体加固任何代码库。你把它指向自己的代码，它会检测出你的系统实际在做什么，再针对这个场景引导真正重要的安全修复。
+
+### 怎么安装 Lagune？
+
+先选择你的智能体：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI 和 Hermes Agent 以插件形式安装 Lagune，Gemini CLI 和 Qwen Code 以扩展形式安装，Pi 以包的形式安装，其他任何智能体都可以用 npx skills add wellwelwel/lagune 安装。新项目和现有项目都能用。
+
+### Lagune 需要 API 密钥吗？
+
+不需要。它通过你自己的 AI 智能体运行，所以用不着 API 密钥。
+
+### 有哪些环境要求？
+
+你需要在系统中安装 Node.js (LTS)。
+
+### Lagune 支持哪些编程语言？
+
+任何语言都支持。Lagune 底层基于 Node.js 运行，但能审计和加固用任何编程语言编写的项目。
+
+### Lagune 会往我的项目里加什么？
+
+一个保存项目安全状态的 .lagune/ 目录，由第一个需要写入的命令创建。skills CLI 还会把斜杠命令安装到项目中，供智能体读取，而插件则把它们保留在智能体内部。
+
+### 怎么更新 Lagune？
+
+和安装时的方式一样。每个智能体的安装页面都说明了如何在该智能体中更新 Lagune，skills CLI 则用 npx skills update 更新。你的安全原则、各阶段产物和你自己的专项都不会受影响。
+
+### 一个项目会用到哪些专项？
+
+项目所属类别中的内置专项，加上项目自己的专项。charter 阶段会根据它对项目的解读，记录有依据的类别，npx lagune write add --categories 可以修改这些类别。
+
+### 一定要等项目开发完，才能开始做安全吗？
+
+不用。/lagune 命令会边写边加固：它接受任何提示词，按你的要求构建，并在安全原则的指引下，用安全的默认设置加固构建出的内容。五阶段的 Blue Team 流程则用来审计已有的代码。
+
+### Lagune 能审计现有项目吗？
+
+能。五阶段的 Blue Team 流程会审计已有的代码：charter 设定你的安全规则，detect 梳理系统做了什么、风险在哪里，plan 为每个发现项打分并配上修复，harden 应用这些修复，verify 证明它们确实有效并将其结案。
+
+### 用 Lagune 和直接让智能体找出漏洞与安全缺陷，有什么区别？
+
+智能体自己读代码时，会找出看起来像漏洞的地方，却跳过看起来像控制措施的地方。一份屏蔽地址列表看上去像是已经有人处理过这个风险，于是没人去检查它其实漏掉了大部分该屏蔽的地址，代码就这样上线了。Lagune 扭转了这种默认做法：代码里已有的防护在检查之前一律视为未经证明，目录中的每个专项都会得到明确的判定结果，verify 问的是风险是否已经消除，而不是有没有控制措施。每个发现项在多次运行之间也始终是同一个追踪项，因此可以证明它已关闭并将其结案，而直接提问每次给你的报告都不一样，无从比较。
+
+### 用 Lagune 开发和直接让智能体写安全的代码，有什么区别？
+
+直接要求写安全的代码，等于把安全的定义交给了智能体，而且还默认你知道该提什么要求。安全需求往往早就藏在你的请求里，只是你和智能体都没察觉：要一个展示用户有权访问的课程的页面，本身就规定了一条授权规则，而从没写下的检查，在代码里也就无迹可寻。/lagune 命令会在写下第一行代码之前，加载你的安全原则，以及与即将构建的内容相匹配的专项，然后对照它所采用的防御重新审视结果。安全的写法很少比不安全的写法成本更高，所以决定结果的是知道该选哪一种，而这正是它提前提供的。
+
+### Lagune 会做 DAST（动态应用安全测试），或者测试我正在运行的应用吗？
+
+不会。Lagune 只读代码，从不运行你的系统，也不会向它发送构造的请求。verify 确认的是控制措施在源码中存在且正确，这和它能否在线上目标遭受攻击时守住是两个不同的问题，所以"cannot tell from the code"（无法从代码判断）是正当的判定结果，而不是悄悄放行。DAST 回答运行时的问题，Lagune 回答源码的问题，二者谁也替代不了谁。就连可选的 prove 命令也守着这条线：它的测试断言的是安全行为，从不使用攻击 payload。
+
+### Lagune 能取代渗透测试（Pentest）吗？
+
+不能，绝对不能！渗透测试是一项经过授权的工作，由专业人员针对你的线上系统运用自己的判断，把多个发现项串联起来，并探查任何按攻击面划分的规则都描述不了的业务逻辑。渗透测试的发现项可以进入 Lagune 的 Blue Team 流程，交由 detect 记录这些问题，让专业人员报告的内容也能得到规划、加固和验证。
+
+## 安全策略
+
+请查看 [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md)。
+
+## 许可证
+
+**Lagune** 采用 [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE) 许可。
+
+Copyright © 2026 至今 [Weslley Araújo](https://github.com/wellwelwel) 及 [贡献者](https://github.com/wellwelwel/lagune/graphs/contributors)。
+
+---
+
+# 在 Antigravity CLI 中以插件形式安装 Lagune
+
+> 在 Antigravity CLI 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/antigravity-cli
+语言: zh-CN
+原文: https://lagune.ai/docs/install/antigravity-cli
+最后更新: 2026-11-03
+
+在终端中安装插件：
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## 更新
+
+重新安装即可更新 **Lagune**：
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## 命令
+
+输入命令时加上插件的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。
+
+---
+
+**权限**
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。作为会话第一条消息发送的命令会在这两个工具加载之前运行，因此会改用 **npx**。如需预先允许这两个工具和 **npx**，把这些规则添加到 `~/.gemini/antigravity-cli/settings.json`：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
+  }
+}
+```
+
+## 常见问题
+
+### 如何在 Antigravity CLI 中安装 Lagune？
+
+运行 agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 即可。
+
+### 如何在 Antigravity CLI 中更新 Lagune？
+
+再次运行 agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 即可。
+
+### 如何在 Antigravity CLI 中运行 Lagune 的命令？
+
+输入时加上插件的名称作为前缀，例如 /lagune:lagune-charter。
+
+### Antigravity CLI 可以不请求权限直接运行 Lagune 吗？
+
+可以。在 Antigravity CLI 的设置中允许 mcp(lagune_lagune/lagune_read)、mcp(lagune_lagune/lagune_write) 和 command(regex:npx --yes lagune@[0-9.]+)。npx 规则针对的是作为会话第一条消息发送的命令。
+
+---
+
+# 在 Claude Code 中以插件形式安装 Lagune
+
+> 在 Claude Code 的终端、扩展或桌面应用中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/claude-code
+语言: zh-CN
+原文: https://lagune.ai/docs/install/claude-code
+最后更新: 2026-11-03
+
+**终端**
+
+在终端中安装插件：
+
+```bash
+claude plugin install lagune --marketplace wellwelwel/lagune
+```
+
+或者在 **Claude Code** 会话中安装：
+
+```text
+/plugin marketplace add wellwelwel/lagune
+/plugin install lagune@lagune
+```
+
+**扩展**
+
+- 输入 `/plugin`，然后选择 **Manage plugins**。
+- 在 **Marketplaces** 选项卡中添加 `wellwelwel/lagune`。
+- 在 **Plugins** 选项卡中安装 `lagune`。
+
+**桌面端**
+
+- 通过终端或扩展安装 **Lagune**，在扩展中安装时选择 **Install for you**。
+- 在桌面应用中开启新会话，它会加载你为自己安装的插件。
+
+## 更新
+
+**终端**
+
+运行以下命令更新 **Lagune**：
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+要让 `lagune` 插件市场自动更新，在 `/plugin` 中为它选择 **Enable auto-update**。
+
+**扩展**
+
+- 输入 `/plugin`，然后选择 **Manage plugins**。
+- 打开 **Marketplaces** 选项卡。
+- 点击 `lagune` 上的刷新图标。
+
+**桌面端**
+
+- 通过终端或扩展更新 **Lagune**。
+- 在桌面应用中开启新会话。
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`，或者加上插件的名称作为前缀，例如 `/lagune:lagune-charter`。
+
+---
+
+**权限**
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。如需预先允许它们，把这些规则添加到 `.claude/settings.json`（单个项目）或 `~/.claude/settings.json`（所有项目）：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_lagune_lagune__lagune_read",
+      "mcp__plugin_lagune_lagune__lagune_write"
+    ]
+  }
+}
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），允许 `Bash(npx --yes lagune@*)`。开启沙箱时，还要把 `registry.npmjs.org` 加入 `sandbox.network.allowedDomains`。
+
+## 常见问题
+
+### 如何在 Claude Code 中安装 Lagune？
+
+运行 claude plugin install lagune --marketplace wellwelwel/lagune。在会话或扩展中，通过插件管理器添加 wellwelwel/lagune 插件市场，然后安装 lagune。你在终端或扩展中为自己安装之后，桌面应用就会加载它。
+
+### 如何在 Claude Code 中更新 Lagune？
+
+运行 claude plugin marketplace update lagune，然后运行 claude plugin update lagune@lagune，或者在 /plugin 中为 lagune 插件市场选择 Enable auto-update。在扩展中，从 /plugin 打开 Manage plugins，点击 lagune 插件市场上的刷新图标。桌面应用会在下一次会话中加载更新。
+
+### 如何在 Claude Code 中运行 Lagune 的命令？
+
+直接输入命令名，例如 /lagune-charter，或者加上插件的名称作为前缀，例如 /lagune:lagune-charter。
+
+### Claude Code 可以不请求权限直接运行 Lagune 吗？
+
+可以。在 Claude Code 的设置中允许 mcp__plugin_lagune_lagune__lagune_read 和 mcp__plugin_lagune_lagune__lagune_write，引擎通过 npx 运行时，再允许 Bash(npx --yes lagune@*)。
+
+---
+
+# 在 Codex CLI 中以插件形式安装 Lagune
+
+> 在 Codex CLI 中以插件形式安装 Lagune，保持更新，并在沙箱中运行引擎。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/codex
+语言: zh-CN
+原文: https://lagune.ai/docs/install/codex
+最后更新: 2026-11-03
+
+在终端中安装插件：
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## 命令
+
+输入 `$` 和带插件名称前缀的命令，后面接上你的输入，例如用 `$lagune:lagune-charter` 运行 `/lagune-charter`。输入 `$` 会列出所有命令，选中一个就会插入它的完整名称。
+
+---
+
+**权限**
+
+**Codex** 的沙箱无法访问网络。在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
+
+```bash
+npm i -D lagune@0.16.0
+```
+
+## 常见问题
+
+### 如何在 Codex CLI 中安装 Lagune？
+
+运行 codex plugin marketplace add wellwelwel/lagune，然后运行 codex plugin add lagune@lagune。
+
+### 如何在 Codex CLI 中更新 Lagune？
+
+运行 codex plugin marketplace upgrade lagune。
+
+### 如何在 Codex CLI 中运行 Lagune 的命令？
+
+输入 $ 和带插件名称前缀的命令，后面接上你的输入，例如 $lagune:lagune-charter。
+
+### Lagune 能在 Codex 的沙箱中运行吗？
+
+可以，只要你在自己的终端中用 npm i -D lagune@0.16.0 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+
+---
+
+# 在 Cursor 中以插件形式安装 Lagune
+
+> 在 Cursor 和 Cursor CLI 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/cursor
+语言: zh-CN
+原文: https://lagune.ai/docs/install/cursor
+最后更新: 2026-11-03
+
+**Cursor**
+
+- 打开 **Customize**。
+- 选择 **From GitHub Repository**，然后输入 `https://github.com/wellwelwel/lagune`。
+- 在 **Lagune** 上选择 **Install**，然后选择项目或用户作用域。
+
+**Cursor CLI**
+
+- 在终端中添加插件市场：
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- 把 `/plugins` 输入到 `agent` 会话中。
+- 安装 **Lagune**。
+
+如果 **Claude Code** 中已经安装了 **Lagune**，**Cursor CLI** 会直接从那里加载它。
+
+## 更新
+
+**Cursor**
+
+- 打开 **Customize**。
+- 在 `lagune` 插件市场上选择 **Refresh**。
+
+**Cursor CLI**
+
+- 在终端中替换插件市场：
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- 把 `/plugins` 输入到 `agent` 会话中。
+- 重新安装 **Lagune**。
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`。
+
+---
+
+**权限**
+
+在 **Cursor** 中，命令通过 **npx** 运行引擎，默认的 Auto-review 模式会直接允许，不会询问。
+
+在 **Cursor CLI** 中，引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。如需预先允许它们，把这些规则添加到 `.cursor/cli.json`（单个项目）或 `~/.cursor/cli-config.json`（所有项目）：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
+  }
+}
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），允许 `Shell(npx:--yes lagune@*)`。
+
+## 常见问题
+
+### 如何在 Cursor 中安装 Lagune？
+
+在 Cursor 中，打开 Customize，选择 From GitHub Repository，输入 https://github.com/wellwelwel/lagune 并安装 Lagune。在 Cursor CLI 中，运行 agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor，然后在 /plugins 中安装 Lagune。
+
+### 如何在 Cursor 中更新 Lagune？
+
+在 Cursor 中，到 Customize 里的 lagune 插件市场上选择 Refresh。在 Cursor CLI 中，移除 lagune 插件市场，重新添加，然后在 /plugins 中重新安装 Lagune。
+
+### 如何在 Cursor 中运行 Lagune 的命令？
+
+直接输入命令名，例如 /lagune-charter。
+
+### Cursor 可以不请求权限直接运行 Lagune 吗？
+
+可以。Cursor 默认的 Auto-review 模式已经允许它运行。在 Cursor CLI 中，允许 Mcp(plugin-lagune-lagune:lagune_read) 和 Mcp(plugin-lagune-lagune:lagune_write)，引擎通过 npx 运行时，再允许 Shell(npx:--yes lagune@*)。
+
+---
+
+# 在 Devin CLI 中以插件形式安装 Lagune
+
+> 在 Devin CLI 中以插件形式安装 Lagune，并保持更新。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/devin-cli
+语言: zh-CN
+原文: https://lagune.ai/docs/install/devin-cli
+最后更新: 2026-11-03
+
+先登录 **Devin**，然后在终端中安装插件：
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+devin plugins update lagune
+```
+
+## 命令
+
+输入命令时加上插件的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。`/` 菜单中也会列出这些命令。
+
+## 常见问题
+
+### 如何在 Devin CLI 中安装 Lagune？
+
+先用 devin auth login 登录，然后运行 devin plugins install wellwelwel/lagune。
+
+### 如何在 Devin CLI 中更新 Lagune？
+
+运行 devin plugins update lagune。
+
+### 如何在 Devin CLI 中运行 Lagune 的命令？
+
+输入时加上插件的名称作为前缀，例如 /lagune:lagune-charter。/ 菜单中也会列出这些命令。
+
+---
+
+# 在 Factory Droid 中以插件形式安装 Lagune
+
+> 在 Factory Droid 中以插件形式安装 Lagune，保持更新，并允许引擎所用的工具。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/factory-droid
+语言: zh-CN
+原文: https://lagune.ai/docs/install/factory-droid
+最后更新: 2026-11-03
+
+在终端中安装插件：
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`。
+
+---
+
+**权限**
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。**Factory Droid** 询问时，为每个工具选择始终允许。它同步 `lagune` 插件市场的新提交后会再次询问，而这种同步可能在它启动时发生。
+
+## 常见问题
+
+### 如何在 Factory Droid 中安装 Lagune？
+
+运行 droid plugin marketplace add wellwelwel/lagune，然后运行 droid plugin install lagune@lagune。
+
+### 如何在 Factory Droid 中更新 Lagune？
+
+运行 droid plugin marketplace update lagune，然后运行 droid plugin update lagune@lagune。
+
+### 如何在 Factory Droid 中运行 Lagune 的命令？
+
+直接输入命令名，例如 /lagune-charter。
+
+### Factory Droid 可以不请求权限直接运行 Lagune 吗？
+
+可以。Factory Droid 询问时，为 lagune_read 和 lagune_write 选择始终允许。它同步 lagune 插件市场的新提交后会再次询问。
+
+---
+
+# 在 Gemini CLI 中以扩展形式安装 Lagune
+
+> 在 Gemini CLI 中以扩展形式安装 Lagune，保持更新，并预先允许引擎运行。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/gemini-cli
+语言: zh-CN
+原文: https://lagune.ai/docs/install/gemini-cli
+最后更新: 2026-11-03
+
+在终端中安装扩展：
+
+```bash
+gemini extensions install https://github.com/wellwelwel/lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+gemini extensions update lagune
+```
+
+如需自动更新，安装时加上 `--auto-update`。
+
+## 命令
+
+输入命令时加上扩展的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。
+
+---
+
+**权限**
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。**Gemini CLI** 只会在受信任的文件夹中启动它们。如需预先允许它们，把这条规则保存为 `~/.gemini/policies/lagune.toml`：
+
+```toml
+[[rule]]
+mcpName = "lagune"
+toolName = ["lagune_read", "lagune_write"]
+decision = "allow"
+priority = 100
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），把这条规则添加到同一个文件中：
+
+```toml
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = 'npx --yes lagune@\d+\.\d+\.\d+\s'
+decision = "allow"
+priority = 100
+```
+
+## 常见问题
+
+### 如何在 Gemini CLI 中安装 Lagune？
+
+运行 gemini extensions install https://github.com/wellwelwel/lagune 即可。
+
+### 如何在 Gemini CLI 中更新 Lagune？
+
+运行 gemini extensions update lagune，或者安装扩展时加上 --auto-update。
+
+### 如何在 Gemini CLI 中运行 Lagune 的命令？
+
+输入时加上扩展的名称作为前缀，例如 /lagune:lagune-charter。
+
+### Gemini CLI 可以不请求权限直接运行 Lagune 吗？
+
+可以。添加一条策略规则，允许 lagune 服务器的 lagune_read 和 lagune_write 工具。引擎通过 npx 运行时，再为 run_shell_command 添加一条规则，匹配 npx --yes lagune@ 加上版本号。
+
+---
+
+# 在 GitHub Copilot CLI 中以插件形式安装 Lagune
+
+> 在 GitHub Copilot CLI 中以插件形式安装 Lagune，并保持更新。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/github-copilot-cli
+语言: zh-CN
+原文: https://lagune.ai/docs/install/github-copilot-cli
+最后更新: 2026-11-03
+
+在终端中安装插件：
+
+```bash
+copilot plugin marketplace add wellwelwel/lagune
+copilot plugin install lagune@lagune
+```
+
+在编辑器中，用 [**skills.sh**](https://lagune.ai/zh-CN/docs/install/universal) 为 **GitHub Copilot** 安装 **Lagune**。
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`。
+
+## 常见问题
+
+### 如何在 GitHub Copilot CLI 中安装 Lagune？
+
+运行 copilot plugin marketplace add wellwelwel/lagune，然后运行 copilot plugin install lagune@lagune。
+
+### 如何在 GitHub Copilot CLI 中更新 Lagune？
+
+运行 copilot plugin marketplace update lagune，然后运行 copilot plugin update lagune@lagune。
+
+### 如何在 GitHub Copilot CLI 中运行 Lagune 的命令？
+
+直接输入命令名，例如 /lagune-charter。
+
+### 可以在 VS Code 的 GitHub Copilot 中使用 Lagune 吗？
+
+可以。在 VS Code 或其他编辑器中，用 skills.sh 而不是插件来安装 Lagune。
+
+---
+
+# 在 Grok Build 中以插件形式安装 Lagune
+
+> 在 Grok Build 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/grok-build
+语言: zh-CN
+原文: https://lagune.ai/docs/install/grok-build
+最后更新: 2026-11-03
+
+在终端中安装插件：
+
+```bash
+grok plugin install wellwelwel/lagune@plugin-grok --trust
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+grok plugin update lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`，或者加上插件的名称作为前缀，例如 `/lagune:lagune-charter`。
+
+---
+
+**权限**
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。如需预先允许它们，把这些规则添加到 `~/.grok/config.toml`：
+
+```toml
+[permission]
+allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），允许 `Bash(npx --yes lagune@*)`。
+
+## 常见问题
+
+### 如何在 Grok Build 中安装 Lagune？
+
+运行 grok plugin install wellwelwel/lagune@plugin-grok --trust。
+
+### 如何在 Grok Build 中更新 Lagune？
+
+运行 grok plugin update lagune。
+
+### 如何在 Grok Build 中运行 Lagune 的命令？
+
+直接输入命令名，例如 /lagune-charter，或者加上插件的名称作为前缀，例如 /lagune:lagune-charter。
+
+### Grok Build 可以不请求权限直接运行 Lagune 吗？
+
+可以。在 Grok Build 的配置中允许 MCPTool(lagune__lagune_read) 和 MCPTool(lagune__lagune_write)，引擎通过 npx 运行时，再允许 Bash(npx --yes lagune@*)。
+
+---
+
+# 在 Hermes Agent 中以插件形式安装 Lagune
+
+> 在 Hermes Agent 中以插件形式安装 Lagune，并保持更新。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/hermes-agent
+语言: zh-CN
+原文: https://lagune.ai/docs/install/hermes-agent
+最后更新: 2026-11-03
+
+在终端中安装插件：
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- **Hermes Agent** 要求你确认一个不在其插件目录中的插件时，选择**确认**。
+- 它提出安装该仓库的 **Node.js** 依赖时，选择**拒绝**。
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+hermes plugins update lagune
+```
+
+## 命令
+
+输入命令时加上插件的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`，用 `/lagune:lagune` 运行 `/lagune`。
+
+## 常见问题
+
+### 如何在 Hermes Agent 中安装 Lagune？
+
+运行 hermes plugins install wellwelwel/lagune --enable。询问时确认该插件，并拒绝安装该仓库的 Node.js 依赖。
+
+### 如何在 Hermes Agent 中更新 Lagune？
+
+运行 hermes plugins update lagune。
+
+### 如何在 Hermes Agent 中运行 Lagune 的命令？
+
+输入时加上插件的名称作为前缀，例如 /lagune:lagune-charter 和 /lagune:lagune。
+
+---
+
+# 在 Kimi Code 中以插件形式安装 Lagune
+
+> 在 Kimi Code 中以插件形式安装 Lagune，并保持更新。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/kimi-code
+语言: zh-CN
+原文: https://lagune.ai/docs/install/kimi-code
+最后更新: 2026-11-03
+
+在 **Kimi Code** 会话中安装插件，选择 **Trust and install**，然后开启新会话来加载它：
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## 更新
+
+重新安装即可更新 **Lagune**：
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## 命令
+
+输入命令时加上插件的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。`/` 菜单会把它们列为 `/skill:lagune:lagune-charter`，这种写法同样可用。
+
+## 常见问题
+
+### 如何在 Kimi Code 中安装 Lagune？
+
+在 Kimi Code 会话中运行 /plugins install https://github.com/wellwelwel/lagune 并选择 Trust and install，然后运行 /new。
+
+### 如何在 Kimi Code 中更新 Lagune？
+
+重新运行 /plugins install https://github.com/wellwelwel/lagune 之后，再运行 /new。
+
+### 如何在 Kimi Code 中运行 Lagune 的命令？
+
+输入时加上插件的名称作为前缀，例如 /lagune:lagune-charter，或者按 / 菜单列出的形式输入，例如 /skill:lagune:lagune-charter。
+
+---
+
+# 在 Muse Code 中以插件形式安装 Lagune
+
+> 在 Muse Code 中以插件形式安装 Lagune，保持更新，并在沙箱中运行引擎。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/muse-code
+语言: zh-CN
+原文: https://lagune.ai/docs/install/muse-code
+最后更新: 2026-11-03
+
+在终端中安装插件：
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## 更新
+
+刷新插件市场并重新安装插件即可更新 **Lagune**：
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`，或者加上插件的名称作为前缀，例如 `/lagune:lagune-charter`。
+
+---
+
+**权限**
+
+**Muse Code** 的沙箱无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
+
+```bash
+npm i -D lagune@0.16.0
+```
+
+## 常见问题
+
+### 如何在 Muse Code 中安装 Lagune？
+
+运行 muse plugins marketplace add lagune wellwelwel/lagune，然后运行 muse plugins install lagune@lagune。
+
+### 如何在 Muse Code 中更新 Lagune？
+
+运行 muse plugins marketplace update lagune，然后用 muse plugins remove lagune 和 muse plugins install lagune@lagune 重新安装。
+
+### 如何在 Muse Code 中运行 Lagune 的命令？
+
+直接输入命令名，例如 /lagune-charter，或者加上插件的名称作为前缀，例如 /lagune:lagune-charter。
+
+### Lagune 能在 Muse Code 的沙箱中运行吗？
+
+可以，只要你在自己的终端中用 npm i -D lagune@0.16.0 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+
+---
+
+# 在 OpenCode 中以插件形式安装 Lagune
+
+> 在 OpenCode 1.x 和 2.x 中以插件形式安装 Lagune，并保持更新。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/opencode
+语言: zh-CN
+原文: https://lagune.ai/docs/install/opencode
+最后更新: 2026-11-03
+
+**OpenCode 2.x**
+
+在终端中安装插件：
+
+```bash
+opencode plugin add lagune
+```
+
+或者把它添加到 `plugins` 列表（位于 `opencode.json`）：
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+**OpenCode 1.x**
+
+在终端中把插件安装到你的项目里，或者加上 `-g` 为你的所有项目安装：
+
+```bash
+opencode plugin lagune
+```
+
+或者把它添加到 `plugin` 列表（位于 `opencode.json`）：
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+## 更新
+
+**OpenCode 2.x**
+
+运行以下命令更新 **Lagune**：
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+**OpenCode 1.x**
+
+直接在旧版本上安装新版本即可更新 **Lagune**。如果你是为所有项目安装的，就加上 `-g`：
+
+```bash
+opencode plugin lagune@0.16.0 --force
+```
+
+## 命令
+
+**OpenCode 2.x**
+
+输入 `@` 并选择命令，例如 `@lagune-charter`，然后在同一条消息中写下你的输入。
+
+**OpenCode 1.x**
+
+直接输入命令名，例如 `/lagune-charter`。这些命令列在 `/skills` 中，而不是 `/` 菜单里。
+
+---
+
+**权限**
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。**OpenCode** 运行它们时不会询问。
+
+## 常见问题
+
+### 如何在 OpenCode 中安装 Lagune？
+
+在 OpenCode 2.x 中，运行 opencode plugin add lagune。在 OpenCode 1.x 中，运行 opencode plugin lagune，加上 -g 可为你的所有项目安装。
+
+### 如何在 OpenCode 中更新 Lagune？
+
+在 OpenCode 2.x 中，运行 opencode plugin update lagune，然后运行 opencode reload。在 OpenCode 1.x 中，运行 opencode plugin lagune@0.16.0 --force。
+
+### 如何在 OpenCode 中运行 Lagune 的命令？
+
+在 OpenCode 2.x 中，输入 @ 并选择命令，例如 @lagune-charter，然后在同一条消息中写下你的输入。在 OpenCode 1.x 中，直接输入命令名，例如 /lagune-charter，或者在 /skills 中找到它们。
+
+### OpenCode 运行 Lagune 前会请求权限吗？
+
+不会。OpenCode 会直接运行引擎的两个工具 lagune_read 和 lagune_write，不会询问。
+
+---
+
+# 在 Pi 中以包的形式安装 Lagune
+
+> 从 npm 或 GitHub 在 Pi 中以包的形式安装 Lagune，并保持更新。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/pi
+语言: zh-CN
+原文: https://lagune.ai/docs/install/pi
+最后更新: 2026-11-03
+
+**npm**
+
+在终端中安装包：
+
+```bash
+pi install npm:lagune
+```
+
+**GitHub**
+
+从 **GitHub** 安装最新提交，这种方式会通过 **npx** 运行引擎：
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+## 更新
+
+**npm**
+
+运行以下命令更新 **Lagune**：
+
+```bash
+pi update npm:lagune
+```
+
+**GitHub**
+
+运行以下命令更新 **Lagune**：
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+`pi update --extensions` 会更新你安装的所有包，而单独运行 `pi update` 只会更新 **Pi** 本身。
+
+## 命令
+
+输入命令时加上 `skill:` 前缀，例如用 `/skill:lagune-charter` 运行 `/lagune-charter`。
+
+## 常见问题
+
+### 如何在 Pi 中安装 Lagune？
+
+运行 pi install npm:lagune。如需 GitHub 上的最新提交，则运行 pi install git:github.com/wellwelwel/lagune。
+
+### 如何在 Pi 中更新 Lagune？
+
+运行 pi update npm:lagune。如果是从 GitHub 安装的，则运行 pi update git:github.com/wellwelwel/lagune。pi update --extensions 会更新你安装的所有包。
+
+### 如何在 Pi 中运行 Lagune 的命令？
+
+输入时加上 skill: 前缀，例如 /skill:lagune-charter。
+
+---
+
+# 在 Qwen Code 中以扩展形式安装 Lagune
+
+> 在 Qwen Code 中以扩展形式安装 Lagune，保持更新，并预先允许引擎运行。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/qwen-code
+语言: zh-CN
+原文: https://lagune.ai/docs/install/qwen-code
+最后更新: 2026-11-03
+
+在终端中安装扩展：
+
+```bash
+qwen extensions install lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+qwen extensions update lagune
+```
+
+如需自动更新，安装时加上 `--auto-update`。
+
+## 命令
+
+输入命令时加上扩展的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。
+
+---
+
+**权限**
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。如需预先允许它们，把这些规则添加到 `.qwen/settings.json`（单个项目）或 `~/.qwen/settings.json`（所有项目）：
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），允许 `Shell(npx --yes lagune@*)`。
+
+## 常见问题
+
+### 如何在 Qwen Code 中安装 Lagune？
+
+运行 qwen extensions install lagune。
+
+### 如何在 Qwen Code 中更新 Lagune？
+
+运行 qwen extensions update lagune，或者安装扩展时加上 --auto-update。
+
+### 如何在 Qwen Code 中运行 Lagune 的命令？
+
+输入时加上扩展的名称作为前缀，例如 /lagune:lagune-charter。
+
+### Qwen Code 可以不请求权限直接运行 Lagune 吗？
+
+可以。在 Qwen Code 的设置中允许 mcp__lagune__lagune_read 和 mcp__lagune__lagune_write，引擎通过 npx 运行时，再允许 Shell(npx --yes lagune@*)。
+
+---
+
+# 用 skills.sh 在任意智能体中安装 Lagune
+
+> 用 skills CLI 在任意 AI 智能体中安装 Lagune，并保持更新。
+
+规范链接: https://lagune.ai/zh-CN/docs/install/universal
+语言: zh-CN
+原文: https://lagune.ai/docs/install/universal
+最后更新: 2026-11-03
+
+**终端**
+
+在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 安装 **Lagune** 的命令：
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+**提示词**
+
+把这段提示词粘贴到你的智能体中：
+
+```md
+运行 `npx --yes skills add wellwelwel/lagune`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
+```
+
+## 更新
+
+**终端**
+
+运行以下命令更新 **Lagune**：
+
+```bash
+npx skills update
+```
+
+**提示词**
+
+把这段提示词粘贴到你的智能体中来更新 **Lagune**：
+
+```md
+运行 `npx --yes skills update -y`，并完整阅读它的输出，必要时先把输出重定向到临时文件。
+```
+
+---
+
+**每个智能体只用一种安装方式**
+
+安装 **Lagune** 时，要么用 **skills.sh**，要么用它的**插件**，不要两者同时使用。
+
+**权限**
+
+这些命令以 `npx --yes lagune@0.16.0` 的形式运行引擎，每个 [智能体的安装页面](https://lagune.ai/zh-CN/docs) 都列出了预先允许它的规则。如果沙箱无法访问网络，就在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
+
+```bash
+npm i -D lagune@0.16.0
+```
+
+## 常见问题
+
+### 如何在任意 AI 智能体中安装 Lagune？
+
+在项目中运行 npx skills add wellwelwel/lagune，或者把安装提示词粘贴到你的智能体中。
+
+### 用 skills CLI 安装的 Lagune 如何更新？
+
+运行 npx skills update，或者把更新提示词粘贴到你的智能体中。
+
+### 可以同时用 skills CLI 和插件安装 Lagune 吗？
+
+不可以。两者都装的话，智能体会把每个命令列出两次，或者只用其中一份而隐藏另一份。
+
+---
+
+# AI 智能体的安全 Skills
+
+> Lagune 为你的 AI 智能体解锁的 Skills：审计现有项目，或在构建时保障新代码的安全，全部遵循 charter 设定的安全原则。
+
+规范链接: https://lagune.ai/zh-CN/docs/get-started/commands
+语言: zh-CN
+原文: https://lagune.ai/docs/get-started/commands
+最后更新: 2026-11-03
+
+[安装](https://lagune.ai/zh-CN/docs) **Lagune** 之后，你的 **AI** 智能体就会解锁一组 Skills。它们有两种用法，都遵循**安全原则**：一边构建一边保障新代码的安全，或者对整个项目运行完整审计。
+
+**⌨️ 构建 / 开发**
+
+你不必等工作做完才去保障安全。你**此刻**在写的内容，就交给 [**`/lagune`**](https://lagune.ai/zh-CN/docs/commands/lagune)：
+
+| Skill                                         | 它能为你做什么                                        |
+| --------------------------------------------- | ----------------------------------------------------- |
+| [**/lagune-charter**](https://lagune.ai/zh-CN/docs/commands/charter) | 设定项目的安全规则，也就是 `/lagune` 构建时依据的基础 |
+| [**/lagune**](https://lagune.ai/zh-CN/docs/commands/lagune)          | 按你的要求构建，并在安全原则的指引下边写边加固        |
+
+**随时可用**
+
+[**`/lagune`**](https://lagune.ai/zh-CN/docs/commands/lagune) 每次运行都会遵守你的安全原则。它接受任何提示词，按你的要求构建，并在构建过程中就用安全的默认设置加固，而不是事后再补。
+
+---
+
+#### 特殊 Skills
+
+| Skill                                               | 作用                                                           |
+| --------------------------------------------------- | -------------------------------------------------------------- |
+| [**/lagune-specialize**](https://lagune.ai/zh-CN/docs/commands/specialize) | 根据文章、漏洞利用代码或主题，教会 **Lagune** 一个新的安全专项 |
+
+**🔬 审计：Blue Team 流程**
+
+完整的 **Blue Team 流程**：读懂项目在做什么，梳理它的风险，再逐一消除。每一步都建立在上一步的基础上，所以照着列表从上往下做就够了：
+
+| #   | Skill                                         | 它能为你做什么                                             |
+| --- | --------------------------------------------- | ---------------------------------------------------------- |
+| 1   | [**/lagune-charter**](https://lagune.ai/zh-CN/docs/commands/charter) | 设定项目的安全规则，可以由它为你提议，也可以按你的想法来定 |
+| 2   | [**/lagune-detect**](https://lagune.ai/zh-CN/docs/commands/detect)   | 读取你的代码，梳理系统在做什么、风险在哪里                 |
+| 3   | [**/lagune-plan**](https://lagune.ai/zh-CN/docs/commands/plan)       | 把 detect 的发现转化为防御计划，为每个发现项配上修复       |
+| 4   | [**/lagune-harden**](https://lagune.ai/zh-CN/docs/commands/harden)   | 把计划中的修复安全地、逐项应用到你的代码中                 |
+| 5   | [**/lagune-verify**](https://lagune.ai/zh-CN/docs/commands/verify)   | 证明每项已应用的修复确实有效，并将有效的发现项结案         |
+
+---
+
+#### 特殊 Skills
+
+| Skill                                               | 作用                                                             |
+| --------------------------------------------------- | ---------------------------------------------------------------- |
+| [**/lagune-specialize**](https://lagune.ai/zh-CN/docs/commands/specialize) | 根据文章、漏洞利用代码或主题，教会 **Lagune** 一个新的安全专项   |
+| [**/lagune-prove**](https://lagune.ai/zh-CN/docs/commands/prove)           | 把每个检测到的发现项转化为可运行、仅限防御的证明，用于负责任披露 |
+
+---
+
+#### 内部 Skills
+
+| Skill                                       | 作用                       |
+| ------------------------------------------- | -------------------------- |
+| [**/lagune-repair**](https://lagune.ai/zh-CN/docs/commands/repair) | 修复 **Lagune** 的内部追踪 |
+
+**提示**
+
+安全不是成本，而是投资：前期投入的每一分，都会在那些从未发生的安全事件中成倍省回来 🙋🏻‍♂️
+
+## 常见问题
+
+### Lagune 提供了哪些 Skills？
+
+/lagune 用于边构建边加固，还有五阶段的 Blue Team 审计流程：/lagune-charter、/lagune-detect、/lagune-plan、/lagune-harden、/lagune-verify。此外还有 /lagune-specialize 和 /lagune-prove。
+
+### 什么是 Lagune 的 Blue Team 流程？
+
+一套分五个阶段的审计：charter（设定规则）、detect（梳理风险）、plan（评分并规划修复）、harden（应用修复）、verify（证明修复有效并结案）。
+
+### /lagune 和审计流程有什么区别？
+
+/lagune 在你编写新代码时就保障它的安全，无需遵循任何流程。审计流程则对现有项目按顺序运行五个阶段。
+
+---
+
+# 仪表盘
+
+> 一条命令就能打开本地实时视图，查看项目的安全原则、发现项和目录。
+
+规范链接: https://lagune.ai/zh-CN/docs/get-started/dashboard
+语言: zh-CN
+原文: https://lagune.ai/docs/get-started/dashboard
+最后更新: 2026-11-03
+
+不带子命令直接运行 **Lagune**，就能获得 `.lagune/` 的交互式实时视图。它会在一个随机端口上启动仪表盘并打开它：
+
+```bash
+npx lagune
+```
+
+- [x] **实时刷新**
+- [x] **私密**且**本地**
+- [x] 从首次运行 charter 起，展示 `.lagune/` 中的全部内容
+- [x] 直接在浏览器中**管理**项目的类别
+- [x] 无需 `node_modules` 或 `package.json` 📦
+
+![Lagune 仪表盘的安全原则页面](https://lagune.ai/img/dashboard/02.webp)
+
+![Lagune 仪表盘的发现项页面](https://lagune.ai/img/dashboard/03.webp)
+
+![Lagune 仪表盘的 Side Quests 页面](https://lagune.ai/img/dashboard/04.webp)
+
+![Lagune 仪表盘的发现项详情](https://lagune.ai/img/dashboard/05.webp)
+
+![Lagune 仪表盘的目录页面](https://lagune.ai/img/dashboard/06.webp)
+
+**提示**
+
+- 🚪 用 `--port` 指定自定义端口。
+- ⏏️ 按 `Ctrl+C` 停止。
+
+## 常见问题
+
+### 怎么打开 Lagune 仪表盘？
+
+在项目根目录下不带子命令运行 npx lagune。它会在随机端口上提供 .lagune/ 的实时视图，并在浏览器中打开。
+
+### 仪表盘是私密的吗？
+
+是的。它只在你自己的电脑上运行，使用的是其他电脑都无法访问的本地地址。
+
+### 可以在仪表盘里修改项目吗？
+
+只能在浏览器中修改项目的类别。仪表盘展示的其他内容都是只读的。
+
+---
+
+# /lagune: 在 AI 编写代码的同时保障安全
+
+> 按你的要求构建，并在安全原则的指引下边写边加固，无需遵循任何流程。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/lagune
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/lagune
+最后更新: 2026-11-03
+
+⌨️ 完成你要求的工作，并在编写过程中就保障安全。**`/lagune`** 在任何阶段都接受任何提示词，构建你想要的内容，并在交付前用安全的默认设置加固它。
+
+## 如何使用
+
+在任何提示词里标上 **`/lagune`**，再像平常一样描述要做的工作。
+
+**📘 智能体指令**
+
+```md
+# 我的项目智能体指令
+
+<!-- ... -->
+
+## 安全
+
+- 每当你构建或修改代码时，都使用 `/lagune` skill，让它默认提升安全性。
+```
+
+    - 例如：**AGENTS.md**、**CLAUDE.md**、**.github/copilot-instructions.md**、**.cursorrules** 等。
+
+**💬 新功能**
+
+```prompt
+/lagune 让用户可以在个人资料里上传自定义照片。
+```
+
+**💬 修复**
+
+```prompt
+/lagune 用户提交表单后什么反应都没有。查一下可能是什么原因，然后修好它。
+```
+
+**💬 重构**
+
+```prompt
+/lagune 解耦并改进 payload 逻辑
+```
+
+**charter 可选，但有它更好**
+
+无论有没有安全原则，**`/lagune`** 都能运行。有了安全原则，项目自己的规则就会贯穿每一次构建。用 [`/lagune-charter`](https://lagune.ai/zh-CN/docs/commands/charter) 设定一次即可。
+
+## 工作原理
+
+它分三步完成工作，且不会向 Lagune 写入任何内容：
+
+1. 它会加载你的安全原则（如果有），让这些原则约束整个构建过程，还没有时，则退回到默认安全的基线。
+2. 它会列出项目的 [目录](https://lagune.ai/zh-CN/docs/catalog)，只加载与你的工作相关的专项，也就是审计流程所用的同一套按需知识。
+3. 它在编写代码的同时应用防御，然后重新审视自己的成果，确认控制措施确实有效，再把工作交还给你。
+
+最终，你的项目里得到的是能正常运行的代码，从第一行起就是安全的。
+
+**随时可用**
+
+不需要 detect，不需要 plan，事后也不用收拾。无论是全新的脚手架，还是对成熟代码库的改动，**`/lagune`** 都同样适用，而且边做边加固，而不是留到以后。
+
+## 它不会做什么
+
+- 它不会向 `.lagune` 目录写入任何内容，既不生成产物，也不做追踪，所以它唯一的产出就是你要的、经过加固的代码。
+- 它不会为了满足提示词而放宽规则，所以如果你的要求会违反某条安全原则，它会先停下来告诉你，而不是直接以不安全的方式构建。
+
+## 常见问题
+
+### /lagune 能做什么？
+
+它在任何阶段都接受任何提示词，构建你要的内容，并在交付前用安全的默认设置加固。防御是在编写代码的同时应用的，而不是事后再补。
+
+### 用 /lagune 之前必须先设定安全原则吗？
+
+不需要。有没有安全原则它都能运行。有安全原则时，项目自己的规则会贯穿每一次构建。没有时，它会退回到默认安全的基线。
+
+### /lagune 和 Blue Team 流程有什么区别？
+
+/lagune 在你编写新代码时就保障它的安全，无需遵循任何流程。Blue Team 流程则对现有项目按顺序运行五个审计阶段。
+
+### /lagune 会追踪发现项或写入产物吗？
+
+不会。它不会向 .lagune 目录写入任何内容，既不生成产物，也不做追踪。它唯一的产出就是你要的、经过加固的代码。
+
+### 怎么让智能体自动使用 /lagune？
+
+在智能体的指令文件（AGENTS.md、CLAUDE.md、.cursorrules 等）中加一条指令，让它每次构建或修改代码时都使用 /lagune skill。
+
+---
+
+# /lagune-charter: 设定你的安全原则
+
+> 确立项目的安全原则，也就是后续每个阶段都要遵守的规则，并根据对项目的解读，记录有依据的专项类别。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/charter
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/charter
+最后更新: 2026-11-03
+
+🧬 告诉 **Lagune** 你的项目是做什么的，它会据此制定你的安全规则（如果你不提供描述，它也能仅凭项目本身推断出来）。
+
+charter 是治理层：一套安全优先的原则，后续每个阶段都必须遵守。可以把它看作项目安全态势的编译期检查。
+
+## 如何使用
+
+**描述项目**
+
+```prompt
+/lagune-charter 我的项目是一个卖电子游戏的网店。顾客把商品加入购物车，用信用卡或银行转账付款。他们可以查看自己的订单，以及每个订单的状态。
+```
+
+**让 Lagune 提议**
+
+```prompt
+/lagune-charter
+```
+
+> _我看到了一个支付库、一套登录配置，以及一个与顾客关联的订单模型。这看起来像是一个卖东西的网店。顾客会付款，并跟踪自己的订单_…… ☁️
+
+## 它会推断出什么
+
+**Lagune** 以你的描述或 **PRD** 为方向，推断出它对安全意味着什么，再读取项目，找出你没有提到的内容。例如：
+
+- 购物车里保存着订单，说明有**数据库**：
+  - 例如：`"数据存在哪里？"`、`"谁能访问？"`、`"会不会泄露？"`。
+- 顾客能查看自己的订单，说明有某种**登录或访问控制**：
+  - 例如：`"一个顾客能看到另一个顾客的订单吗？"`、`"会话有没有保护？"`。
+- 接受信用卡和银行转账付款，说明**涉及资金和敏感数据**：
+  - 例如：`"是否存储了信用卡数据？"`、`"付款有没有经过验证？"`。
+
+你的描述和项目本身会相互补充：描述确定意图，而读取依赖、README 和配置，则能发现你没有提到的内容。如果仍有重要的地方不清楚，**Lagune** 会问一个简短、直白的问题，而不是去猜。
+
+在此基础上，**Lagune** 会为项目量身定制一套安全规则，你可以随时查看和调整。
+
+**使用技巧**
+
+- 你也可以为项目定义自己的安全规则。
+- 你提供的相关细节越多，最终报告就越好：
+  - 说明项目是什么、如何运作，以及底层发生了什么。
+  - 最终用户是谁？用户能做什么，不能做什么？
+  - 行为层面的细节和技术细节同样有价值。
+- charter 的记忆保存在 `.lagune/memory/charter.md` 中。
+
+## 它记录的类别
+
+专项是后续阶段按需加载的安全知识，进入项目 [目录](https://lagune.ai/zh-CN/docs/catalog) 时以 [类别](https://lagune.ai/zh-CN/docs/categories) 为单位。当项目还没有记录任何类别时，charter 会根据它对项目的解读，记录每个有依据的类别，例如项目所用的语言、对 LLM 的调用或容器，并在摘要中列出它们。
+
+类别一旦记录下来，charter 就不会再改动它们，只会点出项目还没用上的类别。你可以随时自己修改：
+
+```bash
+npx lagune write add --categories python
+npx lagune write remove --categories python
+```
+
+## 下一步
+
+规则设定好之后，接下来梳理你的系统实际在做什么：[`/lagune-detect`](https://lagune.ai/zh-CN/docs/commands/detect)。
+
+## 常见问题
+
+### Lagune 里的 charter 是什么？
+
+charter 是 Lagune 的治理层，一套安全优先的原则，后续每个阶段都必须遵守。可以把它看作项目安全态势的编译期检查。
+
+### charter 保存在哪里？
+
+保存在 .lagune/memory/charter.md。
+
+### 可以自己编写 charter 规则吗？
+
+可以。Lagune 会根据你的描述和代码提议规则，你可以改写、删除、新增规则，或缩小它们的适用范围。
+
+### charter 会替我选择专项类别吗？
+
+只在还没有记录任何类别时才会。这时它会根据对项目的解读，记录每个有依据的类别，例如你使用的语言或对 LLM 的调用。类别一旦记录下来，它就不会再改动。
+
+---
+
+# /lagune-detect: 摸清你的系统和它的风险
+
+> 读取你的代码，梳理系统在做什么、风险在哪里。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/detect
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/detect
+最后更新: 2026-11-03
+
+🔬 弄清你的系统到底在做什么，风险又在哪里。
+
+detect 会读取代码，只记录实际发现的内容，并附上后续阶段需要的证据。它的核心准则是只检测，不编造。
+
+## 如何使用
+
+**全面扫描**
+
+```prompt
+/lagune-detect
+```
+
+**指定路径**
+
+```prompt
+/lagune-detect src/routes/ src/auth.ts
+```
+
+**描述关注点**
+
+```prompt
+/lagune-detect 确保客户数据绝不会泄露
+```
+
+## 它会梳理什么
+
+**Lagune** 会读取代码，梳理它发现的内容。每个发现项都会说明它是什么、为什么重要，并附上证据。例如：
+
+- **文件上传**，系统会接收用户上传的文件：
+  - _为什么重要_：伪装成图片的文件可能藏有恶意代码。
+  - _证据_：`POST /upload` 的 handler 直接信任客户端发送的 MIME 类型，没有检查文件的真实类型。
+- **登录与会话**，用户登录后才能访问自己的账户：
+  - _为什么重要_：会话处理薄弱时，账户可能被他人接管。
+  - _证据_：会话签发逻辑签发的会话没有设置过期时间。
+
+在这个过程中，detect 会对照代码，为项目 [目录](https://lagune.ai/zh-CN/docs/catalog) 中的每个专项给出判定结果，应用其上下文在代码中确实存在的专项，并把它们记录在 **Applied specializations** 下，这份列表会被 harden 和 verify 复用。
+
+这样，你就有了一张清晰的地图，标明系统在做什么、风险在哪里，后续步骤可以直接据此行动。
+
+**提示**
+
+- 再次运行会更新地图：已解决的发现项会移除，新的发现项会加入。
+- detect 地图保存在 `.lagune/memory/detect.md`。
+
+## 下一步
+
+把地图变成计划：[`/lagune-plan`](https://lagune.ai/zh-CN/docs/commands/plan)。
+
+## 常见问题
+
+### /lagune-detect 是做什么的？
+
+它会读取你的代码，梳理系统在做什么、风险在哪里，并且只记录实际发现的内容。它的准则是只检测，不编造。
+
+### Lagune 里的发现项是什么？
+
+发现项是检测到的一个风险，说明它是什么、为什么重要，并附上代码中的证据。它是 plan、harden 和 verify 一路沿用的追踪单元。
+
+### detect 地图存放在哪里？
+
+存放在 .lagune/memory/detect.md。
+
+### detect 会用到哪些专项？
+
+项目目录中的每个专项都会对照代码得到判定结果。detect 会应用其上下文在代码中确实存在的专项，并把它们记录在 Applied specializations 下。
+
+---
+
+# /lagune-plan: 为发现项评分并规划修复
+
+> 把 detect 的发现转化为防御计划，用类别和 CVSS v4.0 评分为每个发现项定级，并为它配上修复。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/plan
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/plan
+最后更新: 2026-11-03
+
+🛡️ 把 detect 的发现转化为防御计划：用类别和 CVSS v4.0 评分为每个发现项定级，再为它配上要应用的修复。
+
+## 如何使用
+
+**规划全部**
+
+```prompt
+/lagune-plan
+```
+
+**指定路径**
+
+```prompt
+/lagune-plan src/routes/upload.ts
+```
+
+**聚焦某个担忧**
+
+```prompt
+/lagune-plan 敏感数据可能在哪里泄露
+```
+
+## 工作原理
+
+这个阶段承接 detect。detect 已经找出系统在做什么，以及每一处带来的风险，所以 plan 不会重复描述风险，而是评估它有多严重，并决定如何应对。plan 从不读取代码，这样每项修复都必须指向 detect 实际检测到的内容。它按 CVSS v4.0 方法为每个发现项定级：给出类别，根据 detect 和 charter 记录的信息推导出 CVSS v4.0 向量并交由 [`cvss` hook](https://lagune.ai/zh-CN/docs/hooks/cvss) 计算评分，再给出该评分落入的优先级区间。每项修复还会注明它遵循的 charter 原则。
+
+例如：
+
+- **文件上传**（优先级：**严重**）
+  - _类别_：无限制文件上传（CWE-434）。
+  - _CVSS_：CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N（9.3，严重）。
+  - _为什么是这个优先级_：任何人都能通过互联网访问上传功能，而且它位于存放客户文件的服务器上。
+  - _遵循_：III. 所有输入在验证之前都不可信。
+  - _修复_：检查文件的真实类型和大小，保存时重命名，并把上传的文件存放在无法作为代码执行的位置。
+
+这样，你就有了一份定好级、排好优先级的修复清单，每项修复都对应一个发现项，可以直接交给下一阶段应用。评分是计算出来的，绝非估计：向量以 Environmental 指标的形式记录项目的暴露程度和利害关系，任何人都可以把它粘贴到 FIRST 或 NVD 的计算器中，重新算出相同的评分。
+
+**提示**
+
+- 它完全建立在 detect 之上。如果 detect 从未梳理过某个文件或担忧，它会提示你先对其运行 `/lagune-detect`。
+- 再次运行会更新计划：已完成的修复会移除，新的修复会加入。
+- 防御计划保存在 `.lagune/memory/plan.md`。
+
+**依赖 detect**
+
+plan 只基于 [`/lagune-detect`](https://lagune.ai/zh-CN/docs/commands/detect) 已经梳理过的内容工作，所以请先运行 detect。
+
+## 下一步
+
+应用计划：[`/lagune-harden`](https://lagune.ai/zh-CN/docs/commands/harden)。
+
+## 常见问题
+
+### Lagune 如何给漏洞排优先级？
+
+/lagune-plan 会用类别和由 cvss hook 计算的 CVSS v4.0 评分为每个发现项定级，再为它配上要应用的修复。
+
+### Lagune 用的是 CVSS v4.0 吗？
+
+是的。每个发现项都会得到一个 CVSS v4.0 向量和评分，由 cvss hook 按照与 FIRST 计算器相同的算法算出，所以任何人都可以把向量粘贴到那里，重新算出评分。
+
+### plan 会读取我的代码吗？
+
+不会。plan 从不读取代码，这样每项修复都必须指向 detect 实际检测到的内容。
+
+---
+
+# /lagune-harden: 为你的代码应用安全修复
+
+> 把计划中的修复逐项应用到你的代码中，安全稳妥。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/harden
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/harden
+最后更新: 2026-11-03
+
+🔧 把计划中的修复逐项应用到你的代码中，安全稳妥。
+
+## 如何使用
+
+**应用全部**
+
+```prompt
+/lagune-harden
+```
+
+**指定路径**
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+**按优先级**
+
+```prompt
+/lagune-harden 严重和高危
+```
+
+## 工作原理
+
+每项修复都已经在计划中定好了，harden 只负责应用。由于这是唯一会改动你代码的阶段，它行事谨慎：一次只应用一项修复，让每处改动都便于审查，而且绝不会为了迁就某项修复而削弱控制措施。以上传功能的修复为例：
+
+- **文件上传**（状态：**Applied**）
+  - _改了什么_：检查文件的真实类型和大小，拒绝任何异常内容，保存时重命名，并把它存放在无法作为代码执行的位置。
+  - _位置_：`handleUpload` 函数，以及它调用的存储辅助函数。
+
+如果某项修复无法完整应用，harden 会先完成能安全完成的部分，再把剩下的标记为 **Partial** 或 **Blocked**，让它保持待处理状态。
+
+**Applied 不等于已验证**
+
+Applied 还不代表已经得到证明，证明正是 [verify](https://lagune.ai/zh-CN/docs/commands/verify) 的工作。
+
+**提示**
+
+- 它完全建立在计划之上。如果某项修复或某个文件从未规划过，它会提示你先对其运行 `/lagune-plan`。
+- 再次运行会核对并更新记录：已撤销的改动会移除，新应用的修复会加入。
+- 加固记录保存在 `.lagune/memory/harden.md`。
+
+**依赖 plan，并且会改动你的代码**
+
+harden 建立在 [`/lagune-plan`](https://lagune.ai/zh-CN/docs/commands/plan) 之上。它是唯一会改动你代码的阶段。
+
+## 下一步
+
+证明每项修复确实有效：[`/lagune-verify`](https://lagune.ai/zh-CN/docs/commands/verify)。
+
+## 常见问题
+
+### /lagune-harden 会改动我的代码吗？
+
+会。它是唯一会改动你代码的阶段，一次应用一项计划中的修复。
+
+### Applied、Partial 和 Blocked 是什么意思？
+
+它们是 Lagune 为每项修复记录的状态。Applied 表示修复已完成，Partial 表示只完成了一部分，Blocked 表示无法应用。Applied 还不代表已经得到证明。
+
+### Lagune 会不经询问就直接应用修复吗？
+
+改动是否需要你批准，取决于你的智能体以及你运行它时使用的权限模式，而不是 Lagune，Lagune 本身不会额外设置确认环节。即便如此，它也绝不会为了迁就某项修复而削弱控制措施。如果某项修复会与 charter 中的规则冲突，它会先停下来告诉你。
+
+---
+
+# /lagune-verify: 证明安全控制措施确实有效
+
+> 证明每项已应用的修复确实有效，并将有效的发现项结案。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/verify
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/verify
+最后更新: 2026-11-03
+
+⚖️ 读取代码并与 harden 的记录对照，证明每项已应用的修复确实有效，再将有效的发现项结案。
+
+## 如何使用
+
+**验证全部**
+
+```prompt
+/lagune-verify
+```
+
+**指定路径**
+
+```prompt
+/lagune-verify src/routes/upload.ts
+```
+
+**按优先级**
+
+```prompt
+/lagune-verify 严重和高危
+```
+
+## 工作原理
+
+它会读取 harden 记录的每一处代码，确认代码确实与记录的说法一致。证明就来自这种对照：拿代码对照记录。每项控制措施都会得到以下三种判定结果之一：
+
+| 判定结果                     | 含义                                             |
+| ---------------------------- | ------------------------------------------------ |
+| ✅ Risk closed               | 代码的行为与记录的说法完全一致。                 |
+| ❌ Risk not closed           | 这项控制措施仍未到位。verify 会让你回到 harden。 |
+| ❓ Cannot tell from the code | 仅凭代码看不到证据。                             |
+
+经证明已关闭的风险，会在你确认后结案，移出整条链路。例如：
+
+- **文件上传**（判定结果：**✅ Risk closed**）
+  - _如何证明_：读取上传的 handler 后确认，它会根据文件内容识别真实类型，强制执行大小限制，并拒绝其他一切内容，与记录的说法完全一致。
+  - _证据_：`handleUpload` 函数，它会根据内容识别文件的真实类型。
+
+如果风险没有关闭，verify 会直接告诉你，并让你回到 [`/lagune-harden`](https://lagune.ai/zh-CN/docs/commands/harden)，因为这项修复还没有完成。
+
+**提示**
+
+- 它完全建立在加固记录之上。
+- 它只读取你的代码来做判断，绝不会为了让判定结果通过而削弱控制措施或改写代码。
+- 再次运行会核对并更新判定结果：过时的判定结果会移除，不再处于关闭状态的风险会重新标记出来。
+- 风险经证明已关闭时，它会询问你一次，然后把这个发现项从整条链路（detect、plan、harden 和追踪）中清除。
+- 它不会另写报告：每个判定结果都写在 `.lagune/memory/harden.md` 中对应控制措施的区块里，harden 下次运行时会读取它。
+
+**依赖 harden**
+
+verify 建立在 [`/lagune-harden`](https://lagune.ai/zh-CN/docs/commands/harden) 之上。
+
+## 循环就此闭合
+
+当范围内的一切都结案后，循环进入静止状态，只有代码发生变化时才会重新开启。安全是可以结案的，所以这个流程有终点，而不是无休止的循环。
+
+## 常见问题
+
+### Lagune 如何验证一项修复？
+
+/lagune-verify 会读取代码，并与 harden 的记录对照，给出三种判定结果之一：Risk closed（风险已关闭）、Risk not closed（风险未关闭）或 Cannot tell from the code（仅凭代码无法判断）。
+
+### 什么是结案？
+
+当 verify 证明某个风险已关闭，对应的发现项就会结案：在你确认后从整条链路中移除，之后不会再重复处理。
+
+### 安全工作真的能做完吗？
+
+能。SDH 是可以结案的：经证明已关闭的发现项会结案，所以这个流程有终点，而不是无休止的循环。
+
+---
+
+# 类别
+
+> Lagune 项目可以使用的专项类别，从 OWASP 到 JavaScript、Python、Go 和 Rust 的语言级加固，以及如何更改它们。
+
+规范链接: https://lagune.ai/zh-CN/docs/categories
+语言: zh-CN
+原文: https://lagune.ai/docs/categories
+最后更新: 2026-11-03
+
+**Lagune** 把内置的 [**专项**](https://lagune.ai/zh-CN/docs/catalog) 分为 **13 个类别**。项目使用哪些类别，决定了哪些内置专项会进入它的 [**目录**](https://lagune.ai/zh-CN/docs/catalog)。这些类别分为两组：系统做什么，以及系统用什么语言编写。
+
+在没有记录任何类别时，项目只使用 `owasp`。[`/lagune-charter`](https://lagune.ai/zh-CN/docs/commands/charter) 会根据它对项目的解读，记录每个有依据的类别，你也可以随时自行更改。
+
+## 系统做什么
+
+| 类别     | 键        | 加固什么                                                                                              |
+| -------- | --------- | ----------------------------------------------------------------------------------------------------- |
+| OWASP    | `owasp`   | OWASP 追踪的应用安全风险：注入、失效的访问控制，以及身份验证和加密机制失效                            |
+| 基础设施 | `infra`   | 容器、工作负载和 serverless 配置：Dockerfile、Compose、Pod 安全，以及 FaaS 的 IAM 和触发器            |
+| AI / LLM | `ai`      | AI 和 LLM 集成，防范提示词注入，以及不安全的工具、智能体、检索和 MCP 接入方式                         |
+| Lovable  | `lovable` | AI 生成的 Supabase 应用（Lovable 及同类工具）：RLS 疏漏、泄露的 `service_role` 密钥和不安全的默认设置 |
+
+## 系统用什么语言编写
+
+| 类别       | 键           | 加固什么                                                                       |
+| ---------- | ------------ | ------------------------------------------------------------------------------ |
+| JavaScript | `javascript` | `eval` 和 `child_process` 导致的 RCE、路径遍历和原型链污染，覆盖它的各种运行时 |
+| Python     | `python`     | `pickle` 和 YAML 反序列化导致的 RCE、`str.format` 字符串遍历和类污染           |
+| Rust       | `rust`       | 不健全的 `unsafe` API、`transmute` 误用、整数溢出，以及 FFI 边界上的未定义行为 |
+| C / C++    | `c-cpp`      | 可导致代码执行的格式化字符串漏洞、缓冲区溢出和越界写入                         |
+| PHP        | `php`        | type juggling 导致的身份验证绕过、对象注入利用链和不安全的默认配置             |
+| Go         | `go`         | typed nil 接口缺陷、goroutine 数据竞争，以及安全路径上不安全的并发             |
+| Java       | `java`       | 最终导致远程代码执行的 `ObjectInputStream` 反序列化利用链                      |
+| Ruby       | `ruby`       | 可达成远程代码执行的 `Marshal.load` 和 YAML 反序列化利用链                     |
+| .NET / C#  | `dotnet`     | `BinaryFormatter` 反序列化导致的 RCE，以及可导致 XSS 的编码器绕过              |
+
+**提示**
+
+**Lagune** 与语言无关：无论你的项目用什么语言编写，整个流程都能读懂它，这些类别只是针对某种语言特有的陷阱加深分析。
+
+## 随时添加和移除
+
+类别只是起点，不是承诺。先用适合项目当前情况的类别，之后随时可以用 `write add` 和 `write remove` 按键名更改。在终端中，不带值的 `--categories` 会打开交互式选择器（空格键切换选中，回车键确认，不选则跳过）。在终端之外，请把类别写在它后面。
+
+**添加**
+
+```bash
+npx lagune write add --categories # interactive
+npx lagune write add --categories owasp
+npx lagune write add --categories owasp rust
+```
+
+**移除**
+
+```bash
+npx lagune write remove --categories # interactive
+npx lagune write remove --categories owasp
+npx lagune write remove --categories owasp rust
+```
+
+第一次 `write add` 或 `write remove` 会以 `owasp` 为起点，所以移除所有类别后得到的是空列表，而不是默认值。每次更改都会写入 `.lagune/configs.json`，让整个团队使用同一组类别。
+
+## 查看项目使用的类别
+
+`read list --categories` 会列出所有类别，并显示项目是否使用了每个类别：
+
+```bash
+npx lagune read list --categories
+# Categories
+#   • owasp       [used]       Harden against the application security risks OWASP tracks
+#   • javascript  [available]  Harden JavaScript and its runtimes
+#   • php         [available]  Harden PHP against type-juggling auth bypass
+#   • go          [available]  Harden Go against typed-nil interface bugs
+#   ...
+#
+# No category is recorded yet, so this project uses the default: owasp.
+```
+
+每个类别包含哪些专项，请参阅 [**目录**](https://lagune.ai/zh-CN/docs/catalog)。你用 [`/lagune-specialize`](https://lagune.ai/zh-CN/docs/commands/specialize) 编写的自有专项，无论选了哪些类别，都会加入目录。
+
+## 常见问题
+
+### 怎么添加类别？
+
+把类别的键名传给 --categories，例如 npx lagune write add --categories javascript。在还没有记录任何类别时，charter 也会根据它对项目的解读，记录有依据的类别。
+
+### 可以同时使用多个类别吗？
+
+可以。把它们依次写在同一行即可。
+
+### 项目应该用哪个类别？
+
+先从默认的 owasp 开始，再添加适合你的语言或技术栈的类别。专项只会按需加载，所以在某个阶段需要用到它的专项之前，类别不会带来任何开销。
+
+---
+
+# 目录：按需加载的安全专项
+
+> 项目目录中的专项如何加载：由阶段按需加载，或由你直接加载。
+
+规范链接: https://lagune.ai/zh-CN/docs/catalog
+语言: zh-CN
+原文: https://lagune.ai/docs/catalog
+最后更新: 2026-11-03
+
+🧠 **Lagune** 的专项是聚焦特定领域、与语言无关的安全知识模块，只会按需加载，绝不默认加载。它们不是命令。项目的目录就是它使用的专项集合：所用 [类别](https://lagune.ai/zh-CN/docs/categories) 中的内置专项，加上它自己的专项。detect 和 verify 阶段会在运行时调用它们，你也可以随时直接加载某个专项。
+
+**概览**
+
+*交互式目录概览请在网页上查看。下表列出了所有内置专项。*
+
+**工作原理**
+
+## 自己运行
+
+要直接使用某个专项，请让你的智能体用 `read catalog <name>` 加载它，并在同一条提示词里写明任务。这些知识随后就会作用于你要求的内容。任何提示词都可以这样用，即使与 **Lagune** 的流程无关。
+
+例如，用一条直接的自由格式提示词，以 **Python** 生成一组安全的 **RegExp**：
+
+```prompt
+用 `npx lagune read catalog regex` 加载 regex 专项，然后在 @src/utils/regex.py 中创建一组用于验证邮箱和用户名的正则表达式。
+```
+
+这会用一个确定性的 hook 逐一测试每个 **RegExp** 是否存在 **ReDoS** 风险，保留安全的那些，并生成类似下面的结果：
+
+```python
+import re
+
+EMAIL = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+USERNAME = re.compile(r"^[a-zA-Z0-9_]{3,20}$")
+
+def is_email(value: str) -> bool:
+    return EMAIL.match(value) is not None
+
+def is_username(value: str) -> bool:
+    return USERNAME.match(value) is not None
+```
+
+**试试 ReDoS 检查器**
+
+你可以在 [**devina.io/redos-checker**](https://devina.io/redos-checker) 亲自测试一个正则表达式。
+
+## 内置专项
+
+内置专项按 [**类别**](https://lagune.ai/zh-CN/docs/categories) 分组。以下是 **Lagune** 自带的专项集合：
+
+| 专项                  | 类别                        | 重点                                                                   |
+| --------------------- | --------------------------- | ---------------------------------------------------------------------- |
+| `regex`               | `owasp`                     | **ReDoS**：遇到精心构造的输入就会失控的正则表达式。                    |
+| `network`             | `owasp`                     | **SSRF 与重定向**：由用户提供的请求目标或重定向目标。                  |
+| `interpreter`         | `owasp`, `lovable`          | **代码注入**：`eval`、动态 include、按名称调度。                       |
+| `sql`                 | `owasp`                     | **关系型数据库**：注入、原生 ORM 调用、权限、数据库引擎的能力范围。    |
+| `path`                | `owasp`                     | **文件系统路径**：路径遍历、空字节、NTFS 数据流、文件植入。            |
+| `upload`              | `owasp`                     | **文件上传**：类型与文件签名、恶意内容、存储、限制。                   |
+| `access-control`      | `owasp`, `lovable`          | **身份验证、授权与会话**：IDOR、批量赋值、租户隔离、会话。             |
+| `credential-endpoint` | `owasp`, `lovable`          | **猜测与机器人**：暴力破解、密码喷洒、撞库、限流。                     |
+| `federation`          | `owasp`                     | **令牌信任**：OAuth/OIDC、SAML、JWT 验证、扫码登录。                   |
+| `http-request`        | `owasp`                     | **请求来源**：CSRF、CORS 配置错误、伪造的客户端 IP。                   |
+| `transport`           | `owasp`                     | **信道安全**：TLS 配置、HTTPS 与明文传输、HSTS、证书固定。             |
+| `crypto`              | `owasp`, `lovable`          | **静态数据加密**：弱算法或自研算法、CSPRNG、密钥管理。                 |
+| `secrets`             | `owasp`, `lovable`          | **硬编码凭证**：以字面量写在源码中的密钥、令牌和密码。                 |
+| `api-endpoint`        | `owasp`                     | **非 REST 接口**：GraphQL、gRPC、WebSocket 授权、DoS、schema。         |
+| `payment`             | `owasp`, `lovable`          | **支付流程**：在服务端向网关核验、签名回调、幂等性。                   |
+| `xml`                 | `owasp`                     | **XML 解析**：XXE、外部实体、billion laughs 实体膨胀。                 |
+| `csv`                 | `owasp`                     | **公式注入**：以 `=`/`+`/`-`/`@` 开头的电子表格单元格。                |
+| `container`           | `owasp`, `infra`            | **容器配置**：root 权限、capabilities、socket 挂载、镜像加固。         |
+| `infra`               | `infra`                     | **基础设施即代码**：Terraform、Dockerfile、GitHub Actions。            |
+| `serverless`          | `owasp`, `infra`, `lovable` | **FaaS 函数**：最小权限 IAM、事件输入、上下文、密钥。                  |
+| `llm`                 | `ai`, `lovable`             | **AI/LLM 风险**：提示词注入、代理权限、RAG、MCP、输出。                |
+| `supabase`            | `lovable`                   | **Supabase 后端**：默认关闭的 RLS、AI 误生成的策略、密钥模型。         |
+| `browser`             | `javascript`, `lovable`     | **客户端风险**：XSS、CSP、iframe 嵌套、存储等。                        |
+| `javascript`          | `javascript`                | **语言层面的风险**：RCE、原型链污染等。                                |
+| `python`              | `python`                    | **语言层面的风险**：`pickle` RCE、类污染、`-O` 等。                    |
+| `rust`                | `rust`                      | **`unsafe` 健全性**：safe 代码调用方引发的 UB、`transmute`、溢出。     |
+| `java`                | `java`                      | **反序列化与移动代码**：`readObject` 利用链、对象劫持。                |
+| `ruby`                | `ruby`                      | **反序列化与 `open`**：`Marshal`/YAML 对象复活、管道符陷阱。           |
+| `php`                 | `php`                       | **type juggling 与 `unserialize`**：魔术哈希、POP 链。                 |
+| `go`                  | `go`                        | **typed nil 与数据竞争**：`nil != nil`、共享内存的 goroutine。         |
+| `c-cpp`               | `c-cpp`                     | **格式化字符串**：`printf(user_input)`、`%n` 任意地址写。              |
+| `dotnet`              | `dotnet`                    | **平台层面的风险**：`BinaryFormatter` RCE、`@Html.Raw`、枚举校验缺口。 |
+
+大部分内置知识提炼自 OWASP。每个专项与 OWASP 官方攻击页面和 Cheat Sheet 页面的完整对应关系，请参阅 [**OWASP 来源**](https://lagune.ai/zh-CN/docs/references/owasp-sources)。少数特定技术栈的模块则取材于厂商自己的指南，例如 `supabase` 来自 Supabase 文档和 CVE-2025-48757。
+
+## 你自己的专项
+
+内置专项的扩充方式是新增一个知识文件和一行索引，从不新增命令。你也可以用同样的方式，通过 [`/lagune-specialize`](https://lagune.ai/zh-CN/docs/commands/specialize) 添加自己的专项：给它一篇文章或一个主题，它就会为你的项目提炼出一个新专项，文件放在 `.lagune/catalog/` 下，条目写入 `.lagune/configs.json`。无论目录包含哪些类别，你自己的专项始终都在目录中，与内置专项同名时，你的专项会覆盖内置的那个。
+
+**Lagune 会在内部按需自动加载专项**
+
+当 detect 或 verify 阶段遇到某个专项涵盖的上下文时，会自行用 `read catalog <name>` 加载该专项。这是阶段流程的一部分，会自动完成，无需你手动操作。
+
+## 查看可用的专项
+
+要在终端中列出项目的目录，每行显示一个专项及其标签：
+
+```bash
+npx lagune read catalog
+# regex: Regular Expression [required]
+# network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
+# interpreter: Evaluator, Sink, Shell, Dynamic Execution
+# ...
+```
+
+标记为 `[required]` 的专项无论做什么工作都会应用。列表中包含哪些内置专项，取决于项目的 [**类别**](https://lagune.ai/zh-CN/docs/categories)。
+
+**专项不会默认加载**
+
+相关知识会针对项目的实际情况引入，而不是默认运行所有检查。
+
+## 常见问题
+
+### Lagune 的专项是什么？
+
+专项是聚焦特定领域、与语言无关的安全知识模块，只会按需加载，绝不默认加载。它不是命令，这一点与智能体的 skill 不同。
+
+### 项目的目录是什么？
+
+就是项目使用的专项：所用类别中的内置专项，加上它自己的专项。在没有记录任何类别时，项目只使用 OWASP。
+
+### 专项会默认加载吗？
+
+不会。专项只会根据项目的实际情况按需加载。
+
+### 怎么直接加载某个专项？
+
+在写任务的同一条提示词里，让你的智能体运行 npx lagune read catalog <name>。
+
+---
+
+# /lagune-specialize: 用纯文本训练安全专项
+
+> 把你提供的安全资料或主题提炼成一个按需加载的新专项。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/specialize
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/specialize
+最后更新: 2026-11-03
+
+🎓 根据你提供的资料或主题，教 **Lagune** 一个新专项。
+
+它会阅读这些材料，提炼成一个聚焦、仅限防御的专项，格式与 [内置专项](https://lagune.ai/zh-CN/docs/catalog) 完全一致，之后 detect 和 verify 阶段会像加载其他专项一样加载它。它只做审计和解释：从不编写攻击输入或漏洞利用代码，也从不改动你的代码。
+
+**基于文章**
+
+```prompt
+# 链接或参考资料：Lagune 会从中提炼出防御方法
+/lagune-specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+**基于漏洞利用**
+
+```prompt
+# 以攻击作为资料：产出的专项仍然是防御
+/lagune-specialize "' OR 1=1 -- 会把 SQL 拼接进查询语句"
+```
+
+**基于主题**
+
+```prompt
+# 或者直接说出要覆盖的主题
+/lagune-specialize SQL 注入
+```
+
+**攻击可以作为资料，但绝不会成为产出**
+
+只要目的是防御，让它分析某种攻击没有问题：漏洞利用的分析文章是学习材料，它会从中提炼出防御方法。它产出的专项始终只做审计和解释，绝不会产出可用的漏洞利用代码、payload 或规避检测的手段。
+
+## 它会写入什么
+
+产出是项目中的两个文件，和你的代码一起提交、一起审查：
+
+- 专项本身，位于 `.lagune/catalog/<name>.md`，格式与 [内置专项](https://lagune.ai/zh-CN/docs/catalog) 相同。
+- 它在 `.lagune/configs.json` 中的条目，项目在这里为自己的专项建立索引，供目录与内置专项合并。
+
+随后它会列出目录，确认新条目已经在其中。无论目录包含哪些类别，你自己的专项始终都在目录里。你无需新增命令，也无需改动包：一个新专项就是一个知识文件加一条索引条目，写在你自己的项目里。
+
+## 只完善，不覆盖
+
+如果专项名称已经存在，无论是 `regex` 这样的内置专项，还是你之前创建的专项，它都会**核对并更新**现有文件，而不是替换它。它会读取现有内容，融入新知识，保留仍然成立的部分，改写已经变化的部分。没有任何内容会在未经审阅的情况下被丢弃。你的专项会优先于同名的内置专项，因此你可以为自己的项目强化某个内置专项，同时不会失去原版。
+
+**提示**
+
+- 新专项的加载方式与内置专项完全相同：detect 和 verify 阶段会按需加载它，你也可以用 `npx lagune read catalog <name>` 自己加载，再给它分配任务。
+- 如果材料有明确的出处（文章、作者、链接或标准），专项会注明来源。只给出主题时则不附来源。
+
+**备注**
+
+**它只会在你调用时运行**：智能体绝不会自行启动它。
+
+## 常见问题
+
+### 如何添加自定义安全专项？
+
+运行 /lagune-specialize 并附上资料或主题。它会把内容提炼成仅限防御的专项，写入 .lagune/catalog/<name>.md，并在 .lagune/configs.json 中添加对应条目。
+
+### Lagune 能从漏洞利用的分析文章中学习吗？
+
+可以，但只作为资料，绝不作为产出。攻击可以作为资料来源，但绝不会成为最终成果。specialize 从不编写攻击输入或漏洞利用代码。
+
+### specialize 会覆盖内置专项吗？
+
+不会。它只会完善，从不覆盖。
+
+---
+
+# /lagune-prove: 仅限防御的概念验证（PoC）
+
+> 把检测到的每个发现项转化为可运行、仅限防御的概念验证（PoC），并附上用于负责任披露的安全公告。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/prove
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/prove
+最后更新: 2026-11-03
+
+🧪 把检测到的每个发现项转化为可运行、仅限防御的证据，用于负责任披露。
+
+对于 detect 地图中的每个发现项，它都会编写一份独立完整的安全公告，以及一个断言**安全路径**的测试：问题存在时测试失败，代码修复后测试通过。
+
+**提示**
+
+**Lagune** 的测试隔离存放在 `.lagune/` 下，与你自己的测试套件分开。
+
+## 如何使用
+
+**所有发现项**
+
+```prompt
+/lagune-prove
+```
+
+**指定发现项**
+
+按名称查看已在追踪的发现项：
+
+```prompt
+npx lagune read list --findings
+
+# Findings
+#   ...
+#   • 用户查询中的 SQL 注入
+#   ...
+```
+
+```prompt
+# 然后证明其中一个
+/lagune-prove 用户查询中的 SQL 注入
+```
+
+## 工作原理
+
+它会读取每个发现项指向的源代码，并在 `.lagune/proofs/` 下为每个得到证明的发现项创建一个目录，其中恰好包含两个文件：
+
+| 文件                           | 说明                                                                                                             |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `report.test.mjs`（或 `.cjs`） | 测试本身。如果你的项目已经在用 Poku，它就在 Poku 上运行，否则使用 Node.js 原生测试运行器，因此无需安装任何东西。 |
+| `report.md`                    | 独立完整的安全公告：包含严重程度、影响、复现方式和运行命令，单独阅读也能看懂。                                   |
+
+证明始终用 JavaScript 编写，因此无论你的项目使用哪种语言，都能照常运行。`README.md` 索引会链接每个证明，并给出一条运行全部证明的命令。
+
+**提示**
+
+- 它是**可选且独立的**：不属于五个阶段，也不在追踪链路之中。
+- 它只写入 `.lagune/proofs/`，从不改动阶段产物或你的代码，对它们只读不写。
+- 如果某个发现项的测试无法复现问题，它就不会为其生成证明，而是提示你对那一处运行 [`/lagune-detect`](https://lagune.ai/zh-CN/docs/commands/detect)，重新核对。
+- 再次运行会核对并更新这些证明：已消失或不再能复现的发现项，其目录会被删除。
+
+**备注**
+
+**它只会在你调用时运行**：智能体绝不会自行启动它。
+
+**依赖 detect**
+
+prove 读取的是 [`/lagune-detect`](https://lagune.ai/zh-CN/docs/commands/detect) 生成的 detect 地图，所以请先运行 detect。
+
+## 仅限防御，且须经授权
+
+在生成任何内容之前，它会确认你有权测试目标，并拒绝任何索要可用漏洞利用代码、攻击 payload 或检测规避手段的请求。证明展示的是安全的行为，绝不会输出攻击输入。
+
+## 从证明到披露
+
+每个得到证明的发现项，其两个文件应一起放进一个**私密 GitHub Gist**，用于报告漏洞。它们是一个仍然存在、尚未公开的问题的证据，因此有一个 `.gitignore` 放在 `.lagune/proofs/` 中，把它们排除在所有提交之外：在维护者解决问题之前，只通过这个 Gist 分享它们。
+
+在 **Lagune** 链路中为发现项结案，仍然是 [`/lagune-harden`](https://lagune.ai/zh-CN/docs/commands/harden) 和 [`/lagune-verify`](https://lagune.ai/zh-CN/docs/commands/verify) 的工作：prove 只产出证据，不会为任何发现项结案。
+
+## 常见问题
+
+### Lagune 会生成漏洞利用代码吗？
+
+不会。/lagune-prove 编写的是仅限防御的证据：一个断言安全路径的测试（问题存在时失败，代码修复后通过），外加一份用于负责任披露的安全公告。
+
+### prove 会输出什么？
+
+每个发现项两个文件：一个测试（report.test.mjs 或 .cjs）和一份安全公告（report.md）。
+
+### 如何负责任地披露 Lagune 发现的漏洞？
+
+prove 会编写一份独立完整的安全公告，你可以按照负责任披露的做法，通过私密 GitHub Gist 等私密渠道分享它。
+
+---
+
+# agent hook：检测没有上限的智能体循环
+
+> 在命令行中扫描代码库里没有步数或时间上限的智能体或 LLM 调用，或评估单个调用。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/agent
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/agent
+最后更新: 2026-11-03
+
+`agent` hook 会标记**不设轮次、预算或时间上限就循环运行的智能体运行时**，这种失控的自主性漏洞会让一条精心构造的输入造成无上限的成本，或让提示词注入不断升级。它**能识别语言**，覆盖两大智能体框架生态：**JavaScript**（**Claude** 智能体 SDK 的 `query` 运行时）和 **Python**（**LangChain**、**LangGraph**、**CrewAI**、**OpenAI Agents**）。它是 [`llm` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read agent                # scans the whole project
+npx lagune read agent --dir src/ai   # scans a directory
+npx lagune read agent --file chat.ts # scans a single file
+```
+
+**检查调用**
+
+```bash
+npx lagune read agent --lang javascript --pattern 'query({ prompt })'                           # => uncapped
+npx lagune read agent --lang javascript --pattern 'query({ prompt, options: { maxTurns: 5 } })' # => safe
+npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterations=None)'     # => uncapped
+```
+
+**Uncapped agent loops found** 下的每一行都出现在导入了智能体 SDK 的文件中，要么是调用 Claude 智能体 SDK 的 `query` 运行时却没有设置轮次、预算或时间上限（JavaScript，默认无上限），要么是显式移除了框架的默认上限，例如 `max_iterations=None` / `max_turns=None`（Python，默认有上限）。两种情况都会以非零退出码退出。Vercel AI SDK 的 `generateText`/`streamText` 默认只执行一步（`stopWhen: stepCountIs(1)`），因此直接调用它们不会形成循环，也不会被标记，普通的 `db.query(...)` 也绝不会被误认为智能体调用。扫描结果干净时会输出 `no uncapped agent loops found`。
+
+## 如何解读判定结果
+
+| 判定结果   | 含义                                                                       |
+| ---------- | -------------------------------------------------------------------------- |
+| `uncapped` | 没有设置上限的 `query` 运行时调用（JS），或显式移除了上限（`=None`，Py）。 |
+| `safe`     | 设置了上限的 `query` 调用、单步生成，或默认有上限的框架调用。              |
+| `invalid`  | 代码片段中没有可识别、可判定的智能体调用。                                 |
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                         |
+| ----------- | ------------ | ------------------------------------------------------------ |
+| `--pattern` | 一个代码片段 | 检查一个调用。可重复使用以检查多个，每行一个判定结果。       |
+| `--lang`    | 一种语言     | 使用 `--pattern` 时必填：`javascript` 或 `python`。          |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。 |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+**尽力而为，并非详尽无遗**
+
+无论用哪种语言，手写的智能体循环都超出了静态扫描的能力范围。请把它当作可靠的底线，而不是完整的清单。
+
+**提示**
+
+hook 只判断上限：能力范围的划定、信任级别的混用和授权，则由 [`llm` 专项](https://lagune.ai/zh-CN/docs/catalog) 来判断。
+
+## 常见问题
+
+### 为什么要给智能体循环设置上限？
+
+没有上限的智能体可能被诱导陷入无限递归、无上限的成本或不断升级的提示词注入。设置 maxTurns/maxBudgetUsd/stopWhen/signal 可以约束它，而 agent hook 会标记一个都没有设置的 query 运行时调用。
+
+---
+
+# cors hook：审计 CORS 源
+
+> 在命令行中扫描源代码里可被绕过的 CORS 源白名单，或评估单个源值是否放行过宽。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/cors
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/cors
+最后更新: 2026-11-03
+
+`cors` hook 是 [`http-request` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己运行它。同一条命令有两种模式：**scan** 模式会扫描源代码，查找**可被绕过的源白名单**（攻击者的主机能够蒙混过关的主机校验正则），**score** 模式则把单个 **CORS 源**值判定为 `wildcard`、`null` 或 `safe`。
+
+## 扫描代码库
+
+不带任何选项时，它会扫描整个项目。
+
+**整个项目**
+
+```bash
+npx lagune read cors
+```
+
+**某个目录**
+
+```bash
+npx lagune read cors --dir src/server
+```
+
+**单个文件**
+
+```bash
+npx lagune read cors --file internal/auth/origin.go
+```
+
+它会把每个可被绕过的白名单列在同一个标题下，按文件分组。如果主机校验器的 `.+`/`.*` 位于 URL 的 authority 部分、可信主机后缀之前（`^https?://.+\.trusted\.com`），像 `your-site.com.attacker.com` 这样的攻击者主机就能蒙混过关。
+
+```text
+Origin-allowlist patterns with a greedy wildcard (bypassable, review):
+
+internal/auth/origin.go
+  ^https?://.+\.trusted\.com
+```
+
+这是需要审查的警示，而不是已确认的发现项：仅凭文本无法判定这个正则是否真的把守着某个信任决策，因此扫描从不改变退出码。请逐条阅读，确认白名单使用完全相等的比较。没有发现任何问题时，它只输出一行。
+
+```bash
+npx lagune read cors --dir src/clean
+# => no bypassable origin allowlist found
+```
+
+## 评估源
+
+用 `--origin` 传入每个源。hook 会为每个源输出一个词，只要出现 `wildcard` 或 `null` 就以非零退出码退出。
+
+**单个源**
+
+```bash
+npx lagune read cors --origin '*'                       # => wildcard
+npx lagune read cors --origin 'null'                    # => null
+npx lagune read cors --origin 'https://app.example.com' # => safe
+```
+
+**多个源**
+
+重复使用 `--origin`，即可在一次调用中评估整份白名单，按顺序每行输出一个判定结果。
+
+```bash
+npx lagune read cors \
+  --origin 'https://app.example.com' \
+  --origin '*' \
+  --origin 'null'
+# => safe
+# => wildcard
+# => null
+```
+
+| 判定结果   | 含义                                                                                |
+| ---------- | ----------------------------------------------------------------------------------- |
+| `safe`     | 不是 `*`、`null`，也不是含 `*` 的通配模式。它不保证源的格式正确。                   |
+| `wildcard` | `*`，或子域名、主机、端口的通配模式：任何站点（或范围很广的一组站点）都能读取响应。 |
+| `null`     | `null` 源，沙箱化的 iframe 和重定向都能伪造它。                                     |
+
+只有 `safe` 表示放行。`--origin` 只是值的判定器：它判断的是值，而不是 handler，因此还需要借助 `http-request` 专项确认 handler。
+
+### CLI 选项
+
+| 选项       | 值       | 说明                                                         |
+| ---------- | -------- | ------------------------------------------------------------ |
+| `--origin` | 一个源   | 评估一个源值。可重复使用以评估多个，每行一个。               |
+| `--dir`    | 一个目录 | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。 |
+| `--file`   | 一个文件 | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
+
+不带任何选项时，它会扫描整个项目。`--origin` 属于 score 模式，不能与 `--dir` 或 `--file` 组合使用。
+
+**它不覆盖的范围**
+
+扫描识别的是**可被绕过的正则**这种形态，`--origin` 评估的则是源的**值**。有两种源代码层面的模式超出了它的范围：反射请求的 `Origin`（服务器把收到的 `Origin` 原样返回，或在返回时同时允许携带凭据），以及基于 `endsWith` 或子字符串匹配的宽松白名单。请在代码中识别它们，并按照 [`http-request` 专项](https://lagune.ai/zh-CN/docs/catalog) 的说明处理。
+
+## 常见问题
+
+### 为什么 CORS 的 null 源很危险？
+
+沙箱化的 iframe 和某些重定向会发送 Origin: null，所以信任 null 的白名单会让这些上下文获得读取权限。cors hook 会把它和通配符一起标记出来。
+
+### 如何发现可被绕过的 CORS 源白名单？
+
+对代码库运行 npx lagune read cors。它会标记贪婪通配符位于可信后缀之前的主机校验正则，这类正则会让 your-site.com.attacker.com 这样的攻击者主机蒙混过关。
+
+---
+
+# crypto hook：检测弱加密
+
+> 在命令行中扫描代码库里的弱加密原语，或评估单个代码片段。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/crypto
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/crypto
+最后更新: 2026-11-03
+
+`crypto` hook 会在调用处标记**弱加密原语**：已弃用的密码算法、不安全的模式或已被攻破的摘要算法。它**能识别语言**，按每个文件自己的规则读取，因此绝不会在 Rust 文件上标记 Python 的写法。它也是 [`crypto` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
+```
+
+**检查代码片段**
+
+```bash
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+```
+
+扫描最多输出两个部分。**Weak cryptography found** 是发现项集合（DES/3DES/RC4/Blowfish/RC2、ECB 模式）：每一项都是已被攻破的密码原语，因此 hook 会以非零退出码退出。**Cryptography to review manually** 是它无法独立判断的警示集合：MD5/SHA-1 摘要（用于安全场景时已被攻破，但作为普通校验和是正当用法，所以取决于用途）、安全场景中的非密码学随机数生成器，或易受时序攻击的比较。扫描结果干净时会输出 `no weak cryptography found`。
+
+## 如何解读判定结果
+
+| 判定结果  | 含义                                                                           |
+| --------- | ------------------------------------------------------------------------------ |
+| `weak`    | 代码片段使用了已被攻破的密码原语（DES/3DES、RC4、Blowfish、RC2 或 ECB 模式）。 |
+| `review`  | 取决于用途的原语：MD5/SHA-1 摘要，或安全场景中的非密码学随机数生成器。         |
+| `safe`    | 代码片段用到了加密，且没有发现弱原语。                                         |
+| `invalid` | 代码片段中没有可识别、可判定的加密结构。                                       |
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                                                                         |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
+| `--pattern` | 一个代码片段 | 检查一个代码片段。可重复使用以检查多个，每行一个判定结果。                                                   |
+| `--lang`    | 一种语言     | 使用 `--pattern` 时必填，取值为 javascript、python、go、java、kotlin、php、ruby、rust、csharp、c、cpp 之一。 |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。                                                 |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                                  |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 支持的语言
+
+扫描会按文件扩展名识别以下语言，并对照每种语言自己的加密 API 进行检查。
+
+| 语言                        | 弱密码算法（发现项）与摘要/随机数生成器（审查）                                                                  |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **JavaScript / TypeScript** | `createCipher`、`CryptoJS.DES/RC4`、带引号的 `*-ecb`；MD5/SHA-1 的 `createHash`/`subtle.digest`；`Math.random()` |
+| **Python**                  | pycryptodome 的 `DES/ARC4/Blowfish.new`、`algorithms.TripleDES`、`MODE_ECB`；`hashlib.md5/sha1`；`random.*`      |
+| **Go**                      | `des.NewCipher`、`rc4.NewCipher`、`blowfish.NewCipher`、`NewECBEncrypter`；`md5/sha1.Sum`；`math/rand`           |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`；`MessageDigest.getInstance("MD5")`、`HmacMD5`；`java.util.Random`            |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`、`mcrypt_*`；`md5()`/`sha1()`、`hash("md5", …)`；`rand()`/`mt_rand()`         |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`、`:ECB`；`Digest::MD5/SHA1`；`rand()`/`Random`                                    |
+| **Rust**                    | `Rc4::`、`Blowfish::`、`des::`、`ecb::`；`Md5::`、`Sha1::`、`Hmac<Md5>`；`SmallRng`/`XorShiftRng`                |
+| **C#**                      | `DES/TripleDES/RC2.Create`、`CipherMode.ECB`；`MD5/SHA1.Create`、`HMACMD5`；`new Random()`                       |
+| **C / C++**                 | OpenSSL 的 `DES_*`/`RC4`/`EVP_des_*`、`EVP_*_ecb`；`MD5()`/`SHA1()`、`EVP_md5`；`rand()`/`random()`              |
+
+**尽力而为，并非详尽无遗**
+
+它把源代码当作文本读取，因此在运行时拼装、藏在别名后面，或以它无法识别的形式写出的原语都可能被漏掉。请把这张表当作可靠的起点，而不是完整的清单。
+
+**提示**
+
+hook 保证的是底线（这些结构确实存在）：密钥管理、IV 重用和 RSA 填充，则由 [`crypto` 专项](https://lagune.ai/zh-CN/docs/catalog) 来判断。
+
+## 常见问题
+
+### 如何扫描代码库中的弱加密？
+
+不带任何选项运行 crypto hook。已被攻破的密码算法和 ECB 模式属于发现项，会以非零退出码退出。MD5/SHA-1 摘要则是需要审查的警示，因为它用于安全场景时已被攻破，但作为普通校验和是正当用法。
+
+### crypto hook 会标记 Math.random() 吗？
+
+只会在安全场景中把它标记为需要审查的警示，绝不会自动当作发现项，因为把随机数用于抖动（jitter）或界面排序是正当用法。
+
+---
+
+# cvss hook：为 CVSS v4.0 向量评分
+
+> 在命令行中为一个或多个 CVSS v4.0 向量评分，算法与 FIRST 计算器相同，还能用通俗的语言逐项解读。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/cvss
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/cvss
+最后更新: 2026-11-03
+
+`cvss` hook 会为 **CVSS v4.0 向量**评分，并输出评分及其严重程度区间，也就是 [`/lagune-plan`](https://lagune.ai/zh-CN/docs/commands/plan) 为每项修复、[`/lagune-prove`](https://lagune.ai/zh-CN/docs/commands/prove) 为每份安全公告写下的定级。它是这些定级背后的确定性引擎，算法与 [FIRST 计算器](https://www.first.org/cvss/calculator/4.0) 相同，你也可以自己运行它。
+
+## 如何运行
+
+用 `--vector` 传入每个向量。hook 会为每个向量输出一行：评分和严重程度区间。
+
+**单个向量**
+
+```bash
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+# => 9.3, Critical
+```
+
+**多个向量**
+
+重复使用 `--vector`，即可一次为多个向量评分，按顺序每个一行。
+
+```bash
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 9.3, Critical
+# => 8.7, High
+```
+
+**通俗解读**
+
+加上 `--explain`，即可用通俗的语言逐项解读每个指标。当 Threat 或 Environmental 指标改变了评分时，会先单独列出 Base 评分。
+
+```bash
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 8.7, High
+# =>   Base metrics alone: 9.3, Critical
+# =>   Attack Vector: Network, modified to Adjacent
+# =>   Attack Complexity: Low
+# =>   ...
+```
+
+## 如何解读结果
+
+| 区间       | 评分        |
+| ---------- | ----------- |
+| `None`     | 0.0         |
+| `Low`      | 0.1 至 3.9  |
+| `Medium`   | 4.0 至 6.9  |
+| `High`     | 7.0 至 8.9  |
+| `Critical` | 9.0 至 10.0 |
+
+只含 Base 指标的向量评估的是缺陷本身，并按最坏情况假设：每项安全要求都是 High，且该缺陷已在现实中遭到攻击。Environmental 指标（`MAV` 和其他修改后的指标，以及 `CR`、`IR` 和 `AR`）会针对具体部署确定评分，Threat 指标（`E`）则根据已知的利用情况确定评分。
+
+无效的向量会输出 `invalid vector:` 及具体错误，hook 会以非零退出码退出。
+
+### CLI 选项
+
+| 选项        | 值                   | 说明                                                       |
+| ----------- | -------------------- | ---------------------------------------------------------- |
+| `--vector`  | 一个 `CVSS:4.0` 向量 | 为一个向量评分。可重复使用以评估多个，按顺序每个向量一行。 |
+| `--explain` |                      | 在每一行定级下方，用通俗的语言列出每个指标。               |
+
+至少需要一个 `--vector`。向量从不作为单独的位置参数传入，因此不会被误认为某个选项。
+
+**为什么作为选项值传入**
+
+每个向量都作为选项值传入，绝不会被插入命令文本。含有引号或反引号的值也只会被当作普通文本，无法注入 shell。请始终用单引号把它括起来，以免 shell 先对它进行展开。
+
+**它不覆盖的范围**
+
+只支持 CVSS v4.0：v2.0、v3.0 或 v3.1 的向量会被拒绝，而不会被评分，因为 **Lagune** 对每个发现项都按 v4.0 定级。
+
+**提示**
+
+plan 阶段的校验会对每一行 CVSS 重新运行同样的算法，因此与向量不符的评分会在计划被接受之前被发现。
+
+## 常见问题
+
+### Lagune 如何计算 CVSS 评分？
+
+cvss hook 遵循 FIRST 的 CVSS v4.0 参考计算器，因此一个向量得到的评分与在 FIRST 网站上完全相同。
+
+### 能用它为 CVSS v3.1 向量评分吗？
+
+不能。Lagune 对每个发现项都按 CVSS v4.0 定级，hook 会拒绝其他任何版本，而不会为其评分。
+
+### --explain 选项有什么作用？
+
+它会用通俗的语言逐项解读每个指标，并在总评分旁显示 Base 评分，让任何人都能看懂向量表达了什么，以及项目上下文如何改变了评分。
+
+---
+
+# infra hook：检测 IaC 配置错误
+
+> 在命令行中扫描 Terraform、Dockerfile 和 GitHub Actions 中的配置错误，或评估单个代码片段。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/infra
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/infra
+最后更新: 2026-11-03
+
+`infra` hook 会标记仅凭文件本身就能判定的**基础设施即代码配置错误**：对全网开放的网络、通配符权限、清单文件中的密钥、以 root 身份运行的容器、CI shell 中的不可信值。它只读取 IaC 文件（`.tf`/`.tf.json`/`.hcl`、`Dockerfile*`、`.github/workflows/**`）。它是 [`infra` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，有 **scan** 和 **check** 两种模式。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read infra                   # scans every IaC file
+npx lagune read infra --dir infra       # scans a directory
+npx lagune read infra --file Dockerfile # scans a single file
+```
+
+**检查代码片段**
+
+用 `--pattern` 传入代码片段，用 `--kind` 指定它的类型（`terraform`、`dockerfile` 或 `github-actions`）。
+
+```bash
+npx lagune read infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
+npx lagune read infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
+```
+
+扫描最多输出两个部分。**Infrastructure risks found** 会以非零退出码退出，其中列出可判定的缺陷（敏感端口上的 `0.0.0.0/0` 入站规则、通配符 IAM 语句、清单文件中的密钥、`encrypted = false`、未固定版本的 git 模块、显式以 root 身份运行的镜像、`curl | sh`、CI 脚本注入、`permissions: write-all`）。**Infrastructure hardening advisories** 不会改变退出码（可变的基础镜像标签、按标签固定的 action）。扫描结果干净时会输出 `no infrastructure risks found`。
+
+## 如何解读判定结果
+
+check 模式会输出它匹配到的严重程度最高的标签（例如 `public-ingress`、`iam-wildcard`、`root-user`、`curl-pipe`、`script-injection`、`write-all`）、建议类标签（`mutable-tag`、`unpinned-action`）或 `safe`。只有达到发现项严重程度的标签才会以非零退出码退出。
+
+### CLI 选项
+
+| 选项        | 值                                              | 说明                                                         |
+| ----------- | ----------------------------------------------- | ------------------------------------------------------------ |
+| `--pattern` | 一个代码片段                                    | 检查一个代码片段。需要配合 `--kind`。可重复使用以检查多个。  |
+| `--kind`    | `terraform` \| `dockerfile` \| `github-actions` | 判定代码片段时所依据的类型。                                 |
+| `--dir`     | 一个目录                                        | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。 |
+| `--file`    | 一个文件                                        | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
+
+不带任何选项时，它会扫描项目中的所有 IaC 文件。`--pattern` 不能与 `--dir` 或 `--file` 组合使用。
+
+**提示**
+
+hook 只捕捉明显、可判定的情况：缺少加密、`pull_request_target` 带来的暴露，以及 IAM 范围是否合适，则由 [`infra` 专项](https://lagune.ai/zh-CN/docs/catalog) 来判断。
+
+## 常见问题
+
+### infra hook 会读取哪些基础设施文件？
+
+Terraform/HCL（.tf、.tf.json、.hcl）、Dockerfile，以及 .github/ 下的 GitHub Actions workflow 和 action YAML 文件。即使源代码扫描器会跳过这些文件，它也能读到。
+
+---
+
+# interpreter hook：标记动态代码执行 sink
+
+> 在命令行中扫描代码库里多种语言的动态代码执行 sink，或评估单个代码片段。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/interpreter
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/interpreter
+最后更新: 2026-11-03
+
+`interpreter` hook 会标记**动态代码执行 sink**：把数据变成可运行代码或交给 shell 的结构，从 `eval` 到原生反序列化都在其列。它能识别语言，按每个文件自己的规则读取，也是 [`interpreter` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read interpreter               # scans the whole project
+npx lagune read interpreter --dir src     # scans a directory
+npx lagune read interpreter --file app.py # scans a single file
+```
+
+**检查代码片段**
+
+```bash
+npx lagune read interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
+```
+
+这些 sink 都是双刃剑：受攻击者影响的输入是否会到达某个 sink，静态扫描无法判定，因此每个匹配项都是**需要审查的警示**，而不是已确认的发现项。扫描只输出一个 **Dynamic-execution sinks to review** 部分，按文件分组。扫描结果干净时会输出 `no dynamic-execution sinks found`。
+
+**只阅读被标记的代码，绝不运行！**
+
+以**静态**方式分析每个 sink，追踪不可信输入是否会到达它。绝不要为了"测试"它的行为而执行或 `eval` 被标记的代码，也不要执行它引入的任何远程代码或运行时获取的代码。
+
+## 如何解读判定结果
+
+| 判定结果  | 含义                                                                |
+| --------- | ------------------------------------------------------------------- |
+| `careful` | 代码片段包含该语言的动态执行 sink。请通过阅读来审查，绝不要运行它。 |
+| `safe`    | 在指定的语言中没有发现动态执行 sink。                               |
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                                                                         |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
+| `--pattern` | 一个代码片段 | 检查一个代码片段。可重复使用以检查多个，每行一个判定结果。                                                   |
+| `--lang`    | 一种语言     | 使用 `--pattern` 时必填，取值为 javascript、python、php、ruby、java、kotlin、go、rust、c、cpp、csharp 之一。 |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。                                                 |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                                  |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 支持的语言
+
+扫描会按文件扩展名识别以下语言，并对照每种语言自己的一组动态执行 sink 进行检查。
+
+| #   | 语言                        | 扩展名                                                                                                       | 标记的 sink                                                                                                                                                                                                        |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`、`.jsx`、`.mjs`、`.cjs`、`.ts`、`.tsx`、`.mts`、`.cts`、`.astro`、`.vue`、`.svelte`、`.marko`、`.riot` | `eval()`、Function 构造函数、以字符串为函数体的 `setTimeout`/`setInterval`、`vm` 模块、`child_process` 的 exec、动态 `require()`、动态 `import()`                                                                  |
+| 2   | **Python**                  | `.py`、`.pyi`                                                                                                | `eval`/`exec`、`__import__()`、`os.system`/`os.popen`、`subprocess` 的 `shell=True`、`pickle.load`/`loads`、`yaml.load`（不安全）                                                                                  |
+| 3   | **Ruby**                    | `.rb`                                                                                                        | eval 系列（`instance_eval`/`class_eval`/`module_eval`/`eval`）、`system`/`exec`、反引号或 `%x`、`Kernel#open` / `IO.popen`/`read`/`binread` / `Open3`、`Process.spawn`、`Marshal.load`                             |
+| 4   | **Go**                      | `.go`                                                                                                        | `exec.Command`/`exec.CommandContext`、`plugin.Open`                                                                                                                                                                |
+| 5   | **PHP**                     | `.php`                                                                                                       | `eval()`、作用于字符串的 `assert()`、`create_function()`、shell 执行（`system`/`exec`/`shell_exec`/`passthru`/`popen`/`proc_open`）、`call_user_func`/`call_user_func_array`、使用运行时路径的 `include`/`require` |
+| 6   | **Rust**                    | `.rs`                                                                                                        | `Command::new`、`process::Command`                                                                                                                                                                                 |
+| 7   | **Java**                    | `.java`                                                                                                      | `Runtime.exec`、`ProcessBuilder`、`ScriptEngine`、`ObjectInputStream.readObject`                                                                                                                                   |
+| 8   | **Kotlin**                  | `.kt`、`.kts`                                                                                                | JVM 的 sink：`Runtime.exec`、`ProcessBuilder`、`ScriptEngine`、`ObjectInputStream.readObject`                                                                                                                      |
+| 9   | **C#**                      | `.cs`                                                                                                        | `Process.Start` / `new Process`、`BinaryFormatter`、`Assembly.Load`                                                                                                                                                |
+| 10  | **C**                       | `.c`、`.h`                                                                                                   | `system()`、`popen()`、`exec*` 系列（`execl`、`execve`、`execvp` 等）                                                                                                                                              |
+| 11  | **C++**                     | `.cc`、`.cpp`、`.cxx`、`.hpp`、`.hh`、`.hxx`                                                                 | `system()`、`popen()`、`exec*` 系列（`execl`、`execve`、`execvp` 等）                                                                                                                                              |
+
+**尽力而为，并非详尽无遗**
+
+它把源代码当作文本读取，因此在运行时拼装、藏在别名后面，或以它无法识别的形式写出的 sink 都可能被漏掉。请把这张表当作可靠的起点，而不是完整的清单。
+
+**提示**
+
+hook 保证的是底线（这些 sink 确实存在，以及它们在哪里）：不可信的值是否真的会到达某个 sink，则由 [`interpreter` 专项](https://lagune.ai/zh-CN/docs/catalog) 来判断。
+
+## 常见问题
+
+### interpreter hook 能确认漏洞吗？
+
+不能。它把动态执行 sink 标记为需要审查的警示，而不是已确认的发现项，因为受攻击者影响的输入是否会到达 sink，静态扫描无法判定。
+
+### interpreter hook 支持哪些语言？
+
+它会按文件扩展名识别"支持的语言"表中列出的语言，并对照每种语言自己的一组 sink 进行检查。其他语言不会产出任何 sink。
+
+---
+
+# jwt hook：检测未固定算法的 JWT 验证
+
+> 在命令行中扫描代码库里未固定算法的 JWT 验证，或评估单个调用。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/jwt
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/jwt
+最后更新: 2026-11-03
+
+`jwt` hook 会标记**未固定算法的 JWT 验证**，也就是验证方信任令牌自身 `alg` 头部的算法混淆漏洞，以及**完全关闭了验证**的情况。它能**识别语言**，按每个文件所用的 JWT 库来读取，也是 [`federation` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read jwt                # scans the whole project
+npx lagune read jwt --dir src      # scans a directory
+npx lagune read jwt --file auth.ts # scans a single file
+```
+
+**检查调用**
+
+```bash
+npx lagune read jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
+```
+
+**Unpinned JWT verification found** 下的每一行都是一个验证调用：它没有设置 `algorithms` 白名单（在库需要时），或接受了不安全的白名单（`none`，或把非对称算法与 HMAC 混用），或干脆关闭了签名检查，因此会信任令牌自身的 `alg`。这是已确认的风险暴露，所以 hook 会以非零退出码退出。扫描结果干净时会输出 `no unpinned JWT verification found`。
+
+## 如何解读判定结果
+
+| 判定结果   | 含义                                                                           |
+| ---------- | ------------------------------------------------------------------------------ |
+| `unpinned` | 验证调用没有算法白名单（在需要的情况下）、使用了不安全的白名单，或关闭了验证。 |
+| `safe`     | 验证调用固定了可靠的算法白名单，或者所用的库会隐式固定算法。                   |
+| `invalid`  | 代码片段中没有可识别的验证调用可供判定。                                       |
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                                                                 |
+| ----------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| `--pattern` | 一个代码片段 | 检查一个调用。可重复使用以检查多个，每行一个判定结果。                                               |
+| `--lang`    | 一种语言     | 使用 `--pattern` 时必填，取值为 javascript、python、go、java、kotlin、php、ruby、rust、csharp 之一。 |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。                                         |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                          |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 支持的语言
+
+扫描会按文件扩展名识别以下库。由于有些库会隐式固定算法（没有显式列表也是安全的），"没有白名单 ⇒ unpinned"这条规则只适用于要求显式列表的库，因此配置正确的调用永远不会被标记。
+
+| 语言                        | 库                      | 未设白名单时标记为 unpinned？                            | 始终标记                                        |
+| --------------------------- | ----------------------- | -------------------------------------------------------- | ----------------------------------------------- |
+| **JavaScript / TypeScript** | jsonwebtoken、jose      | 是                                                       | `none`、非对称算法与 HMAC 混用                  |
+| **Python**                  | PyJWT、python-jose      | 是（PyJWT 要求提供，python-jose 默认 `algorithms=None`） | `none`、`verify_signature: False`               |
+| **Go**                      | golang-jwt              | 是（未使用 `WithValidMethods` 时）                       | `none`、`ParseUnverified`                       |
+| **Ruby**                    | ruby-jwt                | 是                                                       | `none`、`verify = false`                        |
+| **Java / Kotlin**           | jjwt、nimbus            | 否（由密钥推导）                                         | `none`、unsigned/`unsecured` 解析器             |
+| **PHP**                     | firebase/php-jwt        | 否（`Key` 自带 alg）                                     | `none`                                          |
+| **Rust**                    | jsonwebtoken            | 否（`Validation` 要求提供）                              | `none`、`insecure_disable_signature_validation` |
+| **C#**                      | Microsoft.IdentityModel | 否（参数跨多行）                                         | `none`、`RequireSignedTokens = false`           |
+
+**提示**
+
+这个 hook 只判定算法是否固定：声明（claim）、密钥和流程方面的检查需要判断，仍由 [`federation` 专项](https://lagune.ai/zh-CN/docs/catalog) 负责。
+
+## 常见问题
+
+### 什么是 JWT 算法混淆？
+
+如果验证方从令牌头部读取算法，攻击者就能把 RS256 换成 HS256，并用公钥签名。在代码中固定一份可靠的算法白名单就能防止这种攻击，jwt hook 会标记没有设置白名单或白名单不安全的验证调用。
+
+---
+
+# network hook：评估 URL 的 SSRF 风险
+
+> 直接在命令行中评估一个或多个请求目标的 SSRF 风险。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/network
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/network
+最后更新: 2026-11-03
+
+`network` hook 会判断服务端请求的目标地址是否存在 **SSRF** 风险（SSRF 指可被引向内部服务、云元数据或私有主机的请求）。它是 [`network` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己运行它。
+
+## 如何运行
+
+用 `--url` 传入每个目标地址。hook 会为每个目标输出一个词，含义见下表。
+
+**单个目标**
+
+```bash
+npx lagune read network --url 'http://example.com/'
+# => safe
+
+npx lagune read network --url 'http://0x7f000001/'
+# => private-target
+```
+
+**多个目标**
+
+重复使用 `--url`，就能在一次调用中评估整份白名单或黑名单，每行一个判定结果，顺序与输入一致。
+
+```bash
+npx lagune read network \
+  --url 'http://example.com/' \
+  --url 'http://[::1]/' \
+  --url 'http://allowed.com@evil.example/'
+# => safe
+# => private-target
+# => parser-divergent
+```
+
+它会像网络本身那样解析主机，因此内部地址的各种编码形式都逃不过：十六进制、八进制、无点十进制、简写、IPv6 和 IPv4 映射地址都会得到 `private-target`。如果粗糙的校验器和真正发起请求的客户端会读出不同的主机，判定结果就是 `parser-divergent`。
+
+## 如何解读判定结果
+
+| 判定结果           | 含义                                                             |
+| ------------------ | ---------------------------------------------------------------- |
+| `safe`             | 目标连接的是公网主机，粗糙的校验器读出的也是同一个主机。         |
+| `private-target`   | 主机解析到私有、回环、链路本地、未指定或云元数据地址。           |
+| `parser-divergent` | 粗糙的文本校验器读出的真实主机，与请求客户端实际连接的主机不同。 |
+| `invalid url`      | 该字符串无法解析为 URL，因此没有可请求的目标。                   |
+
+只有 `safe` 表示放行。`private-target`、`parser-divergent` 和 `invalid url` 都应视为拦截。
+
+### CLI 选项
+
+| 选项    | 值              | 说明                                                   |
+| ------- | --------------- | ------------------------------------------------------ |
+| `--url` | 一个 URL 或主机 | 检查一个目标。可重复使用以检查多个，每行一个判定结果。 |
+
+至少需要一个 `--url`。目标地址从不作为裸位置参数传入，因此不会被误认为是选项。
+
+**为什么作为选项值传入**
+
+每个目标地址都作为选项值传入，绝不会被插入命令文本。含有引号或反引号的值也只会被当作普通文本，无法注入 shell。请始终用单引号把它括起来，以免 shell 先对它进行展开。
+
+**它不覆盖的范围**
+
+这个 hook 是纯函数，从不做 DNS 解析，因此有两个运行时缺口不在它的范围内：**DNS 重绑定**（检查时解析为公网地址，请求时却解析为内部地址的域名）和**重定向链**（第一跳通过检查，随后重定向到内部）。要堵住这两个缺口，只解析一次并连接到已校验的地址，同时拒绝重定向。它会把保留的回环名称（`localhost` 和 `.localhost` 系列）直接认定为内部地址，无需查询，但其他任何 DNS 名称都会得到 `safe`，因为要断定它解析到内部就必须做解析：这类名称由白名单把关，而白名单正是这个检查器所校验的对象。
+
+**提示**
+
+这与 [`network` 专项](https://lagune.ai/zh-CN/docs/catalog) 用来证明目标过滤确实有效的检查完全相同。
+
+## 常见问题
+
+### 如何测试 URL 是否存在 SSRF 风险？
+
+运行 network hook。它会评估请求目标，并返回 safe、private-target、parser-divergent 或 invalid url。只有 safe 表示放行。
+
+### 什么是 parser-divergent URL？
+
+指不同解析器会读出不同结果的 URL，这是绕过 SSRF 防护的经典手法。network hook 会标记它，而不是放行。
+
+---
+
+# regex hook：检测有 ReDoS 风险的正则
+
+> 在命令行中扫描代码库里容易引发 ReDoS 的正则表达式，或评估单个正则模式。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/regex
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/regex
+最后更新: 2026-11-03
+
+`regex` hook 是 [`regex` 专项](https://lagune.ai/zh-CN/docs/catalog) 运行的确定性正则安全引擎，你也可以自己运行它。同一条命令有两种模式：**scan** 会扫描代码库，找出容易引发 **ReDoS** 的模式和运行时构建的模式，**check** 则评估你传入的单个模式。
+
+## 扫描代码库
+
+不带任何选项时，它会扫描整个项目。`--dir` 把扫描范围限定在某个目录，`--file` 则限定在单个文件。两者都可以重复使用，并合并成一份报告，即使一个文件被多个目标覆盖，也只列出一次。
+
+**整个项目**
+
+```bash
+npx lagune read regex
+```
+
+**某个目录**
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+**单个文件**
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+**多个目标**
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+**设置上限**
+
+`--limit` 设置扫描的 ReDoS 阈值（默认 25），与 check 模式使用的上限相同。上限越低越严格。
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+输出是纯文本，各部分的标题说明了如何解读该部分。只有存在发现项时才会显示对应的部分。
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+什么都没发现时，它只输出一行。
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### 如何解读各部分
+
+| 部分                                                                                        | 含义                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                                                      | 容易引发 ReDoS 的模式，按文件分组，每个模式缩进列在文件下方，后面的括号里写明它为何不安全，以及（如有）它的作用范围和标志。每一行都不安全，所以不再重复判定结果。 |
+| `Regular expressions the analysis could not settle (review manually)`                       | 分析在工作量上限内无法定论的模式，列出方式相同。                                                                                                                  |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | 通过变量、拼接或插值构建正则的文件。                                                                                                                              |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | 把普通字符串字面量传给正则构造函数的文件，而用正则字面量会更简单，还能省去运行时编译。                                                                            |
+
+第一部分是安全发现项。第二和第三部分本身不算发现项：它们指向静态检查无法定论的代码，因此需要人工阅读。第四部分是关于代码清晰度的提示，不是安全发现项。
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                                   |
+| ----------- | ------------ | ---------------------------------------------------------------------- |
+| `--pattern` | 一段正则源码 | 检查一个模式。可重复使用以检查多个，每个模式一个判定结果，按顺序输出。 |
+| `--flags`   | 正则标志     | 用这些标志检查每个 `--pattern`，例如 `im`。仅适用于 check 模式。       |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。           |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。            |
+| `--limit`   | 一个非负整数 | 设置 ReDoS 重复次数上限（默认 25）。两种模式都适用。上限越低越严格。   |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 即 check 模式，不能与 `--dir` 或 `--file` 组合使用。
+
+### 支持的语言
+
+扫描会按文件扩展名识别以下语言，并按各自的规则读取，因此一种语言的模式绝不会按另一种语言的规则来测试。其他文件会被跳过，而不是套用错误的规则去扫描。
+
+| #   | 语言                        | 扩展名                                                                                                       |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`、`.jsx`、`.mjs`、`.cjs`、`.ts`、`.tsx`、`.mts`、`.cts`、`.astro`、`.vue`、`.svelte`、`.marko`、`.riot` |
+| 2   | **Python**                  | `.py`、`.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`、`.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`、`.cpp`、`.cxx`、`.hpp`、`.hh`、`.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`、`.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`、`.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`、`.psm1`、`.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`、`.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`、`.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`、`.cljs`、`.cljc`、`.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`、`.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`、`.pm`                                                                                                 |
+
+**尽力而为，并非详尽无遗**
+
+它把源代码当作文本读取，因此无法判断运行时拼装的模式，而跨多行书写、藏在别名后面，或以它无法识别的形式写出的模式也可能被漏掉。请把这些部分当作可靠的起点，而不是完整的清单，它们覆盖不到的地方，还要继续阅读代码。
+
+## 检查单个模式
+
+用 `--pattern` 传入模式的源码即可评估它。hook 会输出一个词：`safe`、`unsafe`、`undetermined`（分析在得出结论前就达到了工作量上限）或 `invalid regex`。重复使用 `--pattern` 可一次评估多个，每个模式一个判定结果，按顺序输出。
+
+**单个模式**
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+**多个模式**
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+**使用标志**
+
+`--flags` 会按模式实际运行时的标志，检查本次调用中的每个 `--pattern`，因为标志会改变模式匹配哪些字符。
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+**设置上限**
+
+`--limit` 设置重复次数上限（默认 25），适用于本次调用中的每个 `--pattern`。上限越低越严格。
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+**为什么要给参数加引号**
+
+每个模式都作为选项值传入，绝不会被插入命令文本。含有引号或反引号的值也只会被当作普通文本，无法注入 shell。请始终用单引号把模式括起来，以免 shell 先对它进行展开。
+
+**提示**
+
+这正是 [`regex` 专项](https://lagune.ai/zh-CN/docs/catalog) 运行的引擎：scan 开启一轮 ReDoS 排查，check 确认扫描找出的模式。
+
+## 常见问题
+
+### 如何在命令行中检查正则是否有 ReDoS 风险？
+
+运行 npx lagune read regex --pattern '<pattern>'。它会返回 safe、unsafe、undetermined 或 invalid regex。
+
+### 如何扫描整个项目中不安全的正则？
+
+在代码库上以 scan 模式运行 regex hook。它会在支持的 25 种语言中报告容易引发 ReDoS 的模式。
+
+---
+
+# secrets hook：检测硬编码的密钥
+
+> 在命令行中扫描代码库里硬编码的凭证。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/secrets
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/secrets
+最后更新: 2026-11-03
+
+`secrets` hook 会标记没有从环境中读取、而是**固化在源代码中的凭证**。它依据的是**来源**（字面量还是环境变量读取），而不是值的内容，因此不需要一份详尽的服务商前缀清单，也几乎不会产生误报。它是 [`secrets` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎。
+
+服务商格式特征、连接字符串中的凭证，以及赋给以密钥命名的标识符的字面量，都**与语言无关**：同一个字符串在任何文件里读起来都一样。而依赖语法的两种启发式规则（带硬编码默认值的环境变量读取，以及流入日志 sink 的密钥）则**能识别语言**，因此绝不会在 Rust 文件里去找 JavaScript 的 `console.log`，Python 的 `os.getenv("X", "default")` 也会按它自己的写法识别。
+
+## 如何运行
+
+```bash
+npx lagune read secrets                  # scans the whole project
+npx lagune read secrets --dir src        # scans a directory
+npx lagune read secrets --file config.ts # scans a single file
+```
+
+扫描最多输出两个部分。**Hardcoded secrets found** 是发现项集合（以密钥命名的环境变量带有硬编码默认值、嵌在连接字符串里的凭证，或匹配收录的服务商格式的值），因此 hook 会以非零退出码退出。**Secret handling to review manually** 是线索集合：赋给以密钥命名的标识符的普通字面量（它的来源可以判定，但值是否真是密钥无法判定），以及流入日志或响应 sink 的以密钥命名的值。扫描结果干净时会输出 `no hardcoded secrets found`。
+
+### CLI 选项
+
+| 选项     | 值       | 说明                                                         |
+| -------- | -------- | ------------------------------------------------------------ |
+| `--dir`  | 一个目录 | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。 |
+| `--file` | 一个文件 | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
+
+不带任何选项时，它会扫描整个项目。
+
+### 语言覆盖范围
+
+环境变量默认值这一发现项和日志 sink 这一线索，读取的是每种语言各自的一组写法，因此只覆盖下列语言，在其他语言中不会报告。其余三种信号会在**所有**文件上运行。
+
+| 信号             | 语言                                                                             |
+| ---------------- | -------------------------------------------------------------------------------- |
+| 环境变量默认值   | JavaScript/TypeScript、Python、Ruby、PHP、Kotlin、Java、Go（`cmp.Or`）、Rust、C# |
+| 日志 / 响应 sink | JavaScript/TypeScript、Python、Ruby、PHP、Java、Kotlin、Go、Rust、C、C++、C#     |
+
+**这是否涉及政策问题？**
+
+不涉及。识别密钥的格式，以警告它已被提交，是标准的防御性工具做法，gitleaks、trufflehog 和 GitHub push-protection 做的也是同样的事。这个 hook 只附带检测特征（公开的令牌**格式**），从不包含真实可用的密钥，它负责审计和解释，而不是外泄数据。
+
+## 常见问题
+
+### secrets hook 如何避免误报？
+
+它依据的是来源，而不是值的内容。高置信度的格式（服务商令牌、环境变量默认值、连接字符串）属于发现项，会以非零退出码退出。赋给以密钥命名的标识符的普通字面量是一条需要确认的审查线索，而从 process.env 读取的同名标识符根本不会被标记。
+
+---
+
+# Lagune 提示词示例：自动化 Blue Team 流程
+
+> 复制即用的 Lagune 提示词：只读扫描、完整的 Blue Team 流程和零信任审计，以及限定在某个 commit、分支或 PR diff，或真实安全事件上的检测。
+
+规范链接: https://lagune.ai/zh-CN/docs/examples/prompts
+语言: zh-CN
+原文: https://lagune.ai/docs/examples/prompts
+最后更新: 2026-11-03
+
+复制即用的 Lagune 提示词，可以直接粘贴到你的 AI 智能体中。
+
+## 💧 浅层扫描
+
+一次只读扫描：智能体自行阅读代码，报告每个缺陷并附上修复方案，既不运行 Blue Team 流程，也不写入 Lagune 的追踪记录。
+
+**提示**
+
+在规划模式下，并且已经定义了安全原则（`/lagune-charter`）时，效果更好。
+
+**🪼 默认**
+
+| 方面           | 权衡                                             | 等级                |
+| -------------- | ------------------------------------------------ | ------------------- |
+| **工作量**     | 由一个智能体扫描并报告，不使用子智能体。         | 1/5 |
+| **耗时**       | 快。只做一轮只读扫描，不应用任何修改。           | 2/5 |
+| **Token 消耗** | 中等，共享上下文。整个扫描在同一个上下文中运行。 | 2/5 |
+
+```md
+/lagune 你是一名精通防御性安全的网络安全研究员，正在使用 Lagune 提升自己的知识和精准度。
+
+自行扫描工作区，并为发现的每个缺陷配上具体的修复方案。这是一次独立扫描，不是 Blue Team 流程：不要运行 detect、plan、harden 或 verify，也不要向 Lagune 的追踪记录写入任何内容。
+
+最后，列出你发现的所有缺陷，每个都附上严重程度和具体的修复方案。
+```
+
+**🐬 多智能体**
+
+| 方面           | 权衡                                                 | 等级                |
+| -------------- | ---------------------------------------------------- | ------------------- |
+| **工作量**     | 每个文件一个子智能体，数量随代码库规模调整。         | 2/5 |
+| **耗时**       | 按文件并行，最后合并成一份报告。仍然只读。           | 3/5 |
+| **Token 消耗** | 较高，但相互隔离。每个子智能体在各自的上下文中扫描。 | 3/5 |
+
+````md
+/lagune 你是一名网络安全编排者，使用 Lagune 枚举路径、为每个路径派发一个子智能体，并合并它们的报告（所有内容都由子智能体读取）。
+
+你必须根据当前项目的规模把任务委派给子智能体：代码库越大，派发的子智能体就越多，全部并行运行，并给每个子智能体下面这段提示词：
+
+```prompt
+/lagune 你是一名精通防御性安全的网络安全研究员，正在使用 Lagune 提升自己的知识和精准度。
+
+自行扫描 <path>，并为发现的每个缺陷配上具体的修复方案。这是一次独立扫描，不是 Blue Team 流程：不要运行 detect、plan、harden 或 verify，也不要向 Lagune 的追踪记录写入任何内容。
+
+最后，列出 <path> 中的所有缺陷，每个都附上严重程度和具体的修复方案。
+```
+
+最后，把所有子智能体的报告合并成一份按优先级排列的缺陷与修复清单。
+````
+
+**注意**
+
+快速扫描是一条宽泛、不限定范围的提示词，因此有些智能体更容易拒绝执行或中途停止。如果你的智能体不配合，请改为运行下面完整的 **Blue Team 流程**：它的各个阶段范围明确、循序渐进，被拦下的可能性要小得多。
+
+---
+
+## 🌊 自动 Blue Team 审计流程
+
+从头到尾运行 [完整的命令流程](https://lagune.ai/zh-CN/docs/get-started/commands)，中途不会停下来等待输入。
+
+**🪼 默认**
+
+| 方面           | 权衡                                                   | 等级                |
+| -------------- | ------------------------------------------------------ | ------------------- |
+| **工作量**     | 一个智能体，不使用子智能体，与代码库规模无关。         | 3/5 |
+| **耗时**       | 中等，但在大型代码库中不够全面。每条命令依次运行一次。 | 4/5 |
+| **Token 消耗** | 较低，但隔离性较差。所有命令共享同一个上下文。         | 4/5 |
+
+```md
+依次执行以下命令：`/lagune-charter`、`/lagune-detect`、`/lagune-plan`、`/lagune-harden` 和 `/lagune-verify`。
+
+## 循环
+
+当 `/lagune-verify` 判定一项或多项修复未通过时，重复执行 `/lagune-harden`，再执行 `/lagune-verify`，直到所有发现项都得到妥善解决。
+
+## 重要
+
+- 不要暂停，也不要提问：如有疑问，一律使用 "full" 模式。
+```
+
+**🐋 多智能体（深度扫描）**
+
+| 方面           | 权衡                                                               | 等级                |
+| -------------- | ------------------------------------------------------------------ | ------------------- |
+| **工作量**     | 子智能体的数量随代码库规模调整。                                   | 5/5 |
+| **耗时**       | 较长，但更全面。会派发多个子智能体，并行地检测、规划和加固发现项。 | 5/5 |
+| **Token 消耗** | 较高，但更安全。每个子智能体都有自己独立的上下文，不受偏见影响。   | 5/5 |
+
+````md
+把以下每条命令分别交给一个子智能体执行，一次一个（不带反引号，只写命令本身）：
+
+子智能体 1 的提示词：`/lagune-charter`
+子智能体 2 的提示词：`/lagune-detect`
+子智能体 3 的提示词：`/lagune-plan`
+子智能体 4 的提示词：`/lagune-harden`
+子智能体 5 的提示词：`/lagune-verify`
+
+在 `/lagune-detect`、`/lagune-plan`、`/lagune-harden` 和 `/lagune-verify` 命令中，你必须根据当前项目的规模把任务委派给子智能体：代码库越大，派发的子智能体就越多。例如：
+
+```prompt
+/lagune-detect <path>
+```
+
+```prompt
+/lagune-plan <finding>
+```
+
+```prompt
+/lagune-harden <finding>
+```
+
+```prompt
+/lagune-verify <finding>
+```
+
+- 同一条命令的多个智能体应并行派发。
+- 所有 `/lagune-detect` 子智能体完成后，执行：
+
+```prompt
+/lagune-detect 合并等价的发现项。不要检测新的发现项，也不要重新扫描代码库。
+```
+
+## 循环
+
+当 `/lagune-verify` 判定一项或多项修复未通过时，重复执行 `/lagune-harden`，再执行 `/lagune-verify`，直到所有发现项都得到妥善解决。
+
+## 重要
+
+- 不要暂停，也不要提问：如有疑问，一律使用 "full" 模式。
+````
+
+---
+
+## 🪄 限定范围的检测
+
+让 [`/lagune-detect`](https://lagune.ai/zh-CN/docs/commands/detect) 只针对项目的一部分，而不是整个项目。用日常语言描述范围（某个 commit、某个 pull request 或一个真实情况），它就只找出该范围内与安全相关的发现项。
+
+**提示**
+
+它在这里检测到的都是普通发现项，因此你可以直接把它们带入 `/lagune-plan`、`/lagune-harden` 和 `/lagune-verify`，范围只限于这些条目。
+
+**📌 自某个 commit 起**
+
+为一批新提交单独做一次安全检查，范围只限于它们改动的内容，例如：
+
+```prompt
+/lagune-detect 把检测范围限定在自 commit `a1b2c3d` 以来改动的所有内容。
+```
+
+**🔀 分支或 PR diff**
+
+在 pull request 合并之前审查它的安全性，范围只限于它的 diff，例如：
+
+```prompt
+/lagune-detect 把检测范围限定在这个分支相对 `main` 引入的改动。
+```
+
+**⛑️ 安全事件之后**
+
+用你自己的话描述发生了什么。Lagune 读的是情况本身，而不是某个选项，并会把它变成一次有针对性的排查，例如：
+
+```prompt
+/lagune-detect 几周前我们的网站发生了数据泄露。我不清楚具体是怎么发生的，担心还有漏洞没堵上，可能再次泄露数据。请仔细检查代码，重点关注所有读取、存储或暴露敏感数据的地方，把任何仍可能让数据流出的途径都梳理出来。请把这当作真实的安全事件，而不是演练。
+```
+
+---
+
+## 🚨 零信任审计
+
+把整个工作区和每个依赖都视为敌对的：它会搜寻解释器、网络调用、编码过的 payload，以及藏在意想不到的地方、企图躲过扫描器的代码，最后给出 go/no-go 判定结果，说明这个项目能否安全使用。
+
+无论项目设置了哪些类别，这些提示词都会直接加载这项审计所依赖的专项。至于 `/lagune` 从目录中匹配的其余专项，请确保项目使用了 **OWASP**、**AI/LLM**，以及项目技术栈对应的类别（例如 **JavaScript**、**Python** 等）：
+
+```bash
+npx lagune write add --categories owasp ai javascript
+```
+
+**危险**
+
+在本地环境中运行来源不可信的项目时要格外小心。请使用隔离环境，例如**沙箱**（推荐）、**虚拟机**或类似环境，防止恶意代码影响你的系统。
+
+**🪼 默认**
+
+| 方面           | 权衡                                                         | 等级                |
+| -------------- | ------------------------------------------------------------ | ------------------- |
+| **工作量**     | 由一个智能体扫描整个工作区，不使用子智能体。                 | 2/5 |
+| **耗时**       | 中等。一个智能体依次检查代码及其依赖。                       | 3/5 |
+| **Token 消耗** | 中等，但共享上下文。专项、代码和依赖都加载到同一个上下文中。 | 3/5 |
+
+```md
+/lagune 你是一名精通零信任防御性安全的网络安全研究员，正在使用 Lagune 提升自己的知识和精准度。
+
+梳理整个工作区，把它当作不可信的来源和潜在的恶意范围。所有解释器、fetch、base64 等都必须视为潜在威胁。
+
+把分析扩展到依赖和子依赖：项目可能会把恶意代码藏在意想不到的地方，以躲过扫描器。
+
+必须加载的专项（使用 `npx lagune read catalog <name>` 逐个加载）：
+
+- interpreter
+- secrets
+- llm
+- path
+
+需要明确的是：每个梳理出的漏洞都必须视为潜在威胁，没有例外。
+
+最后，给出判定结果：这个项目对我来说是否安全可信、能否使用。
+```
+
+**🐋 多智能体（深度扫描）**
+
+| 方面           | 权衡                                                         | 等级                |
+| -------------- | ------------------------------------------------------------ | ------------------- |
+| **工作量**     | 每个文件一个子智能体，数量随代码库规模调整。                 | 5/5 |
+| **耗时**       | 较长，但更全面。并行扫描各个文件，最后合并成一个判定结果。   | 4/5 |
+| **Token 消耗** | 最高，但最安全。每个子智能体都在自己独立的上下文中读取专项。 | 5/5 |
+
+````md
+/lagune 你是一名网络安全编排者，使用 Lagune 枚举文件、为每个文件派发一个子智能体并生成报告（所有内容都由子智能体读取）。
+
+为每个文件派发一个子智能体，全部并行运行，并给每个子智能体下面这段提示词，范围限定在它负责的文件：
+
+```prompt
+/lagune 你是一名精通零信任防御性安全的网络安全研究员，正在使用 Lagune 提升自己的知识和精准度。
+
+把 <file> 视为不可信的来源和潜在的恶意范围。所有解释器、fetch、base64 等都必须视为潜在威胁。
+
+把分析扩展到 <file> 导入的所有内容，包括依赖和子依赖，恶意代码可能藏在其中以躲过扫描器。
+
+每个子智能体都必须加载的专项（使用 `npx lagune read catalog <name>` 逐个加载）：
+
+- interpreter
+- secrets
+- llm
+- path
+
+需要明确的是：每个梳理出的漏洞都必须视为潜在威胁，没有例外。
+
+最后，给出判定结果：这个项目对我来说是否安全可信、能否使用。
+```
+
+最后，把所有子智能体的报告合并成一个最终判定结果。
+````
+
+---
+
+# Security-Driven Hardening：面向 AI 辅助开发时代的约定
+
+> Security-Driven Hardening（SDH）方法论：一种场景感知的 Blue Team 约定，用于审计和加固 AI 辅助开发与 vibe coding 写出的软件。
+
+规范链接: https://lagune.ai/zh-CN/docs/references/paper
+语言: zh-CN
+原文: https://lagune.ai/docs/references/paper
+最后更新: 2026-11-03
+
+- **Weslley Araújo**
+- **方法论论文，2026 年**
+
+---
+
+## 摘要
+
+Security-Driven Hardening（SDH）是一种结构化、由 AI 驱动、仅限防御的安全方法论，面向这样一个时代：越来越多的软件由 AI 智能体和并非安全专家的人编写。SDH 不套用通用的检查清单，而是先检测系统实际在做什么（登录、文件上传、支付、数据暴露等），再推动针对这一场景的安全工作。它遵循默认安全的原则，完全围绕防御展开，并用通俗的语言表达，让任何用户都能据此行动。
+
+本文认为，SDH 是一项一直缺失的约定，而不是某个单一的工具。安全知识存在于方法论及其按需加载的专项中，这是每个用户都能在此基础上继续拓展的基线，因此新手和专家可以使用同一套流程。有两项特性使它区别于以往的规范优先方法 `[1]`。SDH 是**状态无关**的：无论是空目录、进行中的项目、单个 pull request，还是庞大的遗留代码库，无论使用什么技术栈，它都能适应。SDH 也是**可结案**的：经验证已关闭的风险会从整个流程中结案，使该发现项进入静止状态，只有代码发生变化时才会重新开启。SDH 不能取代安全专业人员或专门的 Blue Team 工具。它扩展的是开发者自身的知识，开发者越懂安全，就越能主导它。
+
+**Lagune** 是参考实现，它证明了这套方法论既可以构建，也可以移植。SDH 作为一项约定提出，供他人采用。
+
+> **关键词**
+>
+> AI 辅助开发、软件安全、防御性安全、规范驱动开发、安全加固、智能体驱动的工作流、可结案性、场景感知安全、按需知识、与智能体无关的工具
+
+---
+
+## I. 引言：AI 辅助开发带来的安全缺口
+
+越来越多的软件由无法可靠识别不安全模式的人和 AI 智能体交付：泄露的密钥、缺失的授权检查、可被注入的查询。这些并不是罕见的风险。它们属于真实安全事件中最常见的几类风险，多年来一直记录在公开的参考资料中 `[6]`、`[7]`，近期的研究也表明，相当一部分 AI 生成的代码在发布时恰恰带有这类缺陷 `[8]`。AI 编程助手让非开发者也能发布真正的软件，使这一问题愈发突出，但这个缺口远不止影响某一类人群。大多数项目从未经过一次针对其实际功能的安全审查。每一次草率的"能跑就上线"，都让整个生态更加脆弱。
+
+通用的安全建议弥合不了这个缺口。静态检查清单并不针对系统实际在做的事，于是它会用无关的条目淹没一个小项目，却依然漏掉对这个项目真正重要的风险。问题不在于世上缺少安全知识，而在于把正确的知识匹配到用户眼前的这个系统上，并且要为一个可能不知道该问什么的人做到这一点。
+
+SDH 用一次反转来回应这个问题：**安全知识存在于规范及其按需加载的专项中，这是每个用户都能在此基础上继续拓展的基线**。方法论检测场景，研判这一场景带来的风险，并指导修复，因此开发者和非开发者都通过同一套流程获得支持。发现项和建议始终使用通俗的语言，无论读者的技术深浅如何，都能据此行动。专家并不会因此受限，反而能借此放大自己的能力，这种双重性我们将在 `§VI` 中展开。
+
+> **核心洞见**
+>
+> **核心反转**：安全知识存在于规范及其按需加载的专项中，这是每个用户都能在此基础上继续拓展的基线。方法论先了解系统在做什么，再为它匹配相应的安全工作，并扩展用户已有的知识。
+
+设想一位开发者对 AI 助手说："我的应用允许用户上传头像。"在没有安全审查的情况下，助手会写出能运行的代码，却悄悄信任客户端发来的一切：声明的文件类型、文件名、文件大小。上传功能上线后，伪装成图片的文件可以携带代码，精心构造的文件名可以跳出存储路径，超大的文件可以耗尽服务器资源。这些在演示中都看不出来，于是就这样上线了。
+
+同样的代码经过 SDH，结果就不同了。它检测到系统会接收来自外部的文件（检测），将其研判为上传功能所带来的风险（研判），提出检查文件的真实类型和大小、保存时重命名、存放到代码无法执行的位置（处置），然后读取结果，确认每项控制措施确实有效（验证）。开发者从来不需要知道"无限制文件上传"这个说法。方法论替他们补上了这一点。
+
+本文的贡献如下：
+
+- 对 SDH 这一方法论的精确定义，独立于任何具体实现，并给出其设计原则（`§III`）。
+- 一个五阶段的防御生命周期，其中职责分离本身就是贡献：检测从不编造，规划从不读取代码，只有一个阶段会修改代码，验证从不放宽判断（`§IV`）。
+- 将**可结案性**作为一种方法论立场：每个发现项都有终态，而不是陷入无尽的循环（`§V`）。
+- **开发者知识扩展器**的双重性：同一套流程既保护新手，又放大专家的能力（`§VI`）。
+- **不可调用的专项与按需提示词**：智能体在项目场景需要时才加载的聚焦安全知识，绝不默认加载（`§VII`）。
+- **状态无关性**与**非强制性适应**：SDH 适用于任何开发状态，并根据场景调整，而不是强加固定的范围（`§VIII`）。
+- 一种**预防模式**：在日常开发的同时运行同样的防御，让代码一落地就默认安全，各阶段需要纠正的问题也更少（`§IX`）。
+- 与 Spec-Driven Development 的专门比较，SDH 由这一谱系发展而来，随后又与之分道扬镳（`§X`）。
+- 让方法论经得起重构、并且不依赖任何智能体的工程纪律：名称即身份的追踪（`§XI`）和与智能体无关的载体（`§XII`）。
+
+---
+
+## II. 背景与相关工作
+
+SDH 建立在已有工作的基础之上。它从规范优先、智能体驱动的开发 `[1]`、`[2]`、`[3]` 中继承了一套成熟的结构：模板、供智能体使用的斜杠命令、一份纲领性文档，以及一个运行各阶段的智能体。它以防御为目的重新实现了这套结构。这种传承是有意为之，SDH 的一条工作原则直接点明了这一点：基于成熟的结构搭建工作流，再让它服务于安全。
+
+SDH 不是一份罗列通用建议的静态检查清单。检查清单对一般意义上的安全了解很多，对眼前的项目却一无所知。SDH 把这种侧重颠倒了过来。它首先把精力花在检测上，弄清系统在做什么，然后才去调用检测结果所指向的知识。
+
+SDH 也不能取代安全人员或专门的 Blue Team 工具。它扩展的是开发者的知识（`§VI`）。设有专职安全岗位的团队应当保留这一岗位。SDH 为这样的团队提供一个结构化的载体，也为没有安全岗位的团队提供一条站得住脚的基线。
+
+SDH 还与确定性的安全扫描器（静态分析、linter）`[4]`、`[5]` 并存。这些工具之所以有价值，恰恰因为它们是确定性的、可重复的。SDH 主要依靠智能体推理，以牺牲严格的确定性换取场景感知。方法论对此并不讳言。在确定性至关重要的地方，它会在推理中嵌入一个确定性引擎（`§VII`）：由智能体判断某个输入是否值得检查，由确定性程序判断该输入是否危险。
+
+最直接的先行工作是 Spec-Driven Development（SDD，规范驱动开发），即一类从可执行规范出发、向前推进构建的规范优先方法论。我们把 SDD 当作一类方法来看待。作为一种实践方法论，它最清晰的表述是 Piskala 的报告 `[1]`，最知名的智能体驱动工具包是 GitHub 的 Spec Kit `[2]`，同一家族的第二个工具则是 OpenSpec `[3]`。它们是 `§X` 中比较所依据的权威参考。
+
+---
+
+## III. SDH：定义与设计原则
+
+**Security-Driven Hardening** 是一种结构化、由 AI 驱动的安全方法论，它以智能体运行的规范来推动工作，而不是依靠临时拼凑的修复，从而让代码库变得更安全。这个名字的灵感来自 **Blue Team**，即安全领域中的防御者。SDH 关注的是防御、加固和验证，从不涉及进攻。
+
+> **定义**
+>
+> **Security-Driven Hardening**（SDH）：一种结构化、由 AI 驱动、仅限防御的安全方法论，它先检测系统实际在做什么，再推动针对该场景的安全工作，遵循默认安全的原则，并用通俗的语言表达。
+
+SDH 由一组具有约束力的原则来定义。每条原则都是一条规则，并为用户带来一项具体的保证。
+
+| 原则                           | 规则                                                                                                         | 为用户带来的保证                                                                                               |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| 默认安全、语言通俗、人人平等   | 每项默认设置、每条消息和每个修复都开箱即安全，任何读者（无论是否是开发者）都能看懂。没有哪一类用户享有特权。 | 新手无需开口就能得到安全的基线，并能用自己能理解的方式读懂结果。                                               |
+| 场景感知优先于通用方案         | 每个阶段都从 detect 检测到的场景出发，针对系统实际在做的事采取行动。                                         | 建议贴合项目本身，而不是贴合检查清单。安全知识存在于规范及其按需加载的专项中，在用户已有的知识之上进一步扩展。 |
+| 灵活优先于僵化                 | 原则、要求和建议都只是起点。用户可以改写、删除、添加任何内容，或缩小其范围。                                 | 方法论会顺应项目和用户，严格程度绝不超出用户的意愿。灵活性从不削弱默认安全的基线。                             |
+| 核对并更新，而非只追加         | 产物是活文档，而不是日志。每次运行都会重新检查每个条目：保留仍然成立的，改写已经变化的，删除不再适用的。     | 记录始终反映当下，因此绝不会沦为过时的积压清单。                                                               |
+| 仅限防御                       | SDH 负责审计、加固和验证。它从不制作进攻性工具、用于恶意目的的漏洞利用，或用于造成危害的检测规避手段。       | 方法论无法被当作武器使用。两用内容只会出现在明确的防御语境中。                                                 |
+| 规范优先、智能体驱动、面向安全 | 工作流由模板、命令、起统领作用的安全原则，以及运行各阶段的智能体构成。                                       | 一套成熟的开发结构，经过改造后由智能体承担实质性的安全工作。                                                   |
+
+**表 1** SDH 的设计原则，以及每条原则为用户带来的保证。
+
+这些原则并非装饰。它们是下文每个阶段都必须遵守的约束，`§XV` 的讨论也会回到这些原则，以划定方法论的边界。
+
+本文其余部分将展开九个有名称的支柱。它们是读者应当记住的部分，也是其他团队若要声称自己在实践 SDH 就需要重新实现的部分。
+
+| 支柱                       | 提供的内容                                                             | 章节        |
+| -------------------------- | ---------------------------------------------------------------------- | ----------- |
+| 场景感知的反转             | 安全知识存在于规范及其按需加载的专项中，因此新手和专家共用同一套流程。 | `§I`、`§VI` |
+| 五阶段防御生命周期         | 职责分离：策略、检测、研判、处置、验证，各司其职。                     | `§IV`       |
+| 可结案性                   | 发现项有终态，而不是无尽的循环。已关闭的工作会结案。                   | `§V`        |
+| 开发者知识扩展器的双重性   | 同一套流程既保护新手，又放大专家的能力，而不取代任何一方。             | `§VI`       |
+| 按需提示词与不可调用的知识 | 根据项目的实际情况加载相关的安全知识，绝不默认加载。                   | `§VII`      |
+| 状态无关性与非强制性适应   | 适用于任何技术栈中的任何开发状态，并根据场景调整，而不是强加范围。     | `§VIII`     |
+| 预防模式                   | 在构建新功能的同时运行同样的防御，让代码一落地就默认安全。             | `§IX`       |
+| 名称即身份的追踪           | 发现项在各阶段之间始终是同一个追踪项，重命名只会在一个地方断开关联。   | `§XI`       |
+| 与智能体无关的载体         | 安全价值只需编写一次，不依赖任何智能体或技术栈。                       | `§XII`      |
+
+**表 2** SDH 的九个支柱，以及每个支柱展开的章节。
+
+---
+
+## IV. 五阶段 Blue Team 流程
+
+SDH 把工作组织成一个五阶段的防御生命周期（图 1）。每个阶段都围绕防御展开，并建立在前一个阶段之上，各阶段也对应着 Blue Team 的真实工作：制定策略、检测、研判、处置、验证。
+
+```mermaid
+flowchart TB
+    charter["1 · charter（策略）<br/>读取：项目，以及用户提供的描述（如有）<br/>写入：安全原则<br/>每条原则都用通俗的语言说明它所防范的风险"]
+    detect["2 · detect（检测）<br/>读取：用户的代码<br/>写入：detect 地图<br/>只检测，不编造：只记录代码能够佐证的内容"]
+    plan["3 · plan（研判）<br/>读取：detect 地图，从不读取代码<br/>写入：防御计划<br/>每个修复都指向 detect 实际梳理出的内容"]
+    harden["4 · harden（处置）<br/>读取：防御计划，以及它涉及的代码<br/>写入：代码，以及加固记录<br/>唯一修改代码的阶段，一次一个修复，采用足以奏效的最小改动"]
+    verify["5 · verify（验证）<br/>读取：代码，以及加固记录<br/>写入：加固记录上每个未结的判定结果<br/>以静态方式将代码与记录对照，从不放宽"]
+    charter --> detect --> plan --> harden --> verify
+    verify -.->|"驳回：交回 harden 重新处理，<br/>按记录的理由重新应用"| harden
+    verify -.->|"结案：将已证明关闭的发现项<br/>在整条链路中结案，<br/>在历史中留下一行记录"| detect
+```
+
+**图 1** 五阶段流程：每个阶段读取什么、写入什么，以及它的关键不变量。两条回路都由 verify 驱动：被驳回的控制措施会让 harden 重新处理，已证明关闭的发现项则会在整条链路中结案，并在历史中留下一行记录。
+
+职责分离正是本文的贡献所在。由于每个阶段只做一件事，任何失效模式都被限制在一个地方，读者也可以信任每个产物所陈述的内容。
+
+> **核心洞见**
+>
+> **Applied 不等于已验证**：harden 记录的是某个修复已被应用。verify 会将代码与这份记录对照来验证它，判定结果也绝不会为了迎合记录而放宽。控制措施可能已存在于代码中，风险却依然可被触及，此时诚实的判定结果就是 "Risk not closed"。
+
+### charter（策略）
+
+charter 阶段确立项目的安全原则，也就是之后每个阶段都必须遵守的规则。它是治理层，相当于项目安全态势的编译期检查。每条原则都有一个清晰的名称、一条可以对照代码检查且不容商量的规则，以及一行 `Why:`，说明它所防范的风险，而不仅仅是修复方法。charter 始终会读取项目本身（清单文件、结构和依赖），如果用户提供了描述，这份描述只是一个方向，读取时还会扩展到用户提到的范围之外。没有描述时，项目就是唯一的信息来源。两者是叠加关系而非竞争关系，安全原则记录的是项目应当遵守的策略，而不是代码的现状。非开发者也应该能读懂它，并同时理解规则和风险。
+
+### detect（检测）
+
+detect 读取代码，梳理系统实际在做的、与安全相关的事。它的核心准则是"只检测，不编造"：只记录代码能够佐证的内容，并附上后续阶段需要的证据。detect 保持中立。它不会强行让发现项去迎合安全原则，因为将风险与安全原则中的规则相对照是 plan 阶段的工作。每个发现项包含三个部分：它是什么（用通俗语言描述）、为什么重要（风险，而不只是事实），以及证据（它所在的函数或路由）。证据中不包含文件路径。路径只保存在追踪映射中（`§XI`），因此正文中永远不会出现可能过时的路径。
+
+### plan（研判）
+
+plan 把每个发现项转化为一个修复，按风险类型命名（在 CWE 和 OWASP 等公认参考能提供依据时加以引用），并关联到该修复所维护的那条安全原则。优先级（严重、高危、中危、低危）不能随意指定：plan 使用 CVSS v4.0 的 Base-and-Environmental 方法为每个发现项定级，因此优先级档位就是用通俗语言表述的评分，并附上一行通俗说明，解释暴露程度和利害关系，两次运行也会得出相同的排序。向量是供专家参考的精确依据，而档位及其说明则是任何人都能看懂的同一个定级结果。plan 只依据 detect 地图工作，从不读取代码。这是有意为之的约束，而不是局限：它迫使每个修复都指向 detect 实际检测到的内容。如果某个范围从未被梳理过，plan 会停下来，把用户引回 detect，而不是去猜测。
+
+### harden（处置）
+
+harden 是唯一会修改代码的阶段，因此行事谨慎。一次编辑是否需要用户批准，由智能体及其运行时的权限模式决定，所以 harden 不会另设自己的确认关卡。它一次只应用一个修复，先处理依赖项，再按优先级从高到低进行，让每次改动都保持精简、便于审查、易于撤销。它从不为了容纳新的修复而削弱已有的控制措施，也从不违背任何一条安全原则。如果某个修复会与某条原则冲突，harden 会停下来指出冲突，而不是照样应用。每个区块都会被记录为 Applied、Partial 或 Blocked。"Applied 并不代表已经验证"，这正是下一个阶段要解决的问题。
+
+### verify（验证）
+
+verify 通过读取代码并与 harden 的记录相对照，来验证每项已应用的控制措施。验证就是这种代码与记录的对照，而且是静态的：它确认的是控制措施在代码中存在且正确，而不是控制措施在运行中的系统上能抵御攻击。那种运行时检查，即对线上系统执行真实或模拟攻击的检查，在设计上就不属于它的范围。verify 会给出三种判定结果之一：Risk closed、Risk not closed 或 Cannot tell from the code。它不产出自己的产物：harden 和 verify 共用加固记录，harden 负责记录做了什么，verify 负责判定结果及其理由，双方都从不改写对方的字段。被驳回的控制措施会成为 harden 需要重新处理的工作，harden 下次运行时会以该判定结果为准，而不是以自己对代码的解读为准，并针对理由中指出的具体缺口重新应用修复。verify 更相信代码而不是记录，因为记录声称的可能多于代码实际做到的。它对用户的代码只读，也从不为了迎合记录而放宽判定结果。控制措施可能已经存在，风险却仍可通过其他途径被触及，这种情况下诚实的判定结果就是 "Risk not closed"。如果 verify 在读取过程中注意到 detect 地图从未涵盖的安全问题，它不会为此编造判定结果，因为检测是 detect 的职责：它会指出这个问题，并把用户引回 detect，让这个发现项通过同一套流程进入，而不是绕过流程。
+
+> **贯穿示例：文件上传**。单个发现项就能完整展示整条主线。
+>
+> - **detect** 发现它：系统会接收用户上传的文件，而上传 handler 直接信任客户端发送的 MIME 类型，没有检查文件的真实类型。_为什么重要_：伪装成图片的文件可能藏有恶意代码。
+> - **plan** 确定修复方案，优先级为**严重**，维护的原则是"所有输入在验证之前都不可信"：检查文件的真实类型和大小，保存时重命名，并把上传的文件存放在无法作为代码执行的位置。
+> - **harden** 应用修复，状态为 **Applied**：handler 现在会根据内容识别真实类型，限制文件大小，拒绝任何意外的内容，保存时重命名，并存放到代码无法执行的位置。
+> - **verify** 读取 handler，将它与记录对照，给出 **Risk closed**：代码所做的与记录所述完全一致。
+>
+> 同一个发现项名称贯穿 detect 地图、防御计划和加固记录，verify 也以同一个名称处理这份记录：未结的判定结果会写入该发现项的区块，已证明关闭的发现项则会结案（`§V`）。这个共用的名称就是它的身份（`§XI`）。
+
+---
+
+## V. 可结案性：发现项有终态
+
+大多数安全工具留给用户的，是一份只增不减的积压清单。SDH 采取了不同的立场：**发现项是可结案的，因此它有终态，而不是永远停留在无尽的积压清单中**（图 2）。这直接源于核对并更新的原则。
+
+> **定义**
+>
+> **可结案性**：经验证已关闭的风险会从整个流程中结案，使该发现项进入静止状态，只有代码发生变化时才会重新开启。即使安全工作本身持续进行，每个发现项也都有终态。
+
+SDH 的产物是活文档，而不是日志。每当某个阶段重新运行，它都会对照当前的实际情况重新检查每个已有条目，并做三件事之一：保留仍然成立的，改写已经变化的，删除不再适用的。代码显示已经解决的发现项会被直接删除。工作记录反映的是当下，而不是过去。
+
+结案正是同样的核对并更新走到了终点。当 verify 验证某个风险已关闭时，它会在整个流程中将该发现项结案，涉及 detect 地图、防御计划、加固记录和追踪映射。这就是为什么 verify 是唯一会写入其他阶段产物的阶段：它是让循环闭合的那个阶段。在发现项离开链路时，结案会把它提炼成历史记录中的一条简短条目，这份历史记录位于工作链路之外，永远不会被重新处理。这正是消失与结案的分界：因不再成立而在核对并更新中被删除的发现项不会留下任何痕迹，而已证明关闭的发现项则会在历史中留下一行记录。被结案的发现项此后不会出现在任何工作产物中，这种缺失是预期之中的，而不是链路断裂。
+
+```mermaid
+stateDiagram-v2
+    direction TB
+    [*] --> OPEN: detect 检测到
+    OPEN --> Plan: plan
+    Plan --> Harden: harden
+    Harden --> Verify: verify
+    Verify --> StoodDown: Risk closed
+    StoodDown --> SETTLED
+    SETTLED --> OPEN: 代码变化重新开启发现项
+    Plan: plan
+    Harden: harden
+    Verify: verify
+    StoodDown: STOOD DOWN · 历史中的一行记录
+```
+
+**图 2** 可结案性状态机。发现项依次经历 OPEN → STOOD DOWN → SETTLED，只有代码发生变化时才会重新开启。
+
+当范围内的一切都已结案，循环就进入静止状态，而静止状态有其具体形态：最后一个发现项已关闭的产物会被整体删除，因此一条完全关闭的链路只会留下安全原则和历史记录，也就是策略与证明。只有代码发生变化时，循环才会重新开启。方法论为每个发现项都设定了明确的终点，而这恰恰是无尽的积压清单做不到的。
+
+---
+
+## VI. 开发者知识扩展器的双重性
+
+SDH 不能取代人，也不能取代专门的 Blue Team 工具。它**扩展的是开发者自身的知识**。开发者越懂安全，就越能精准地主导流程，拥有的自主权也越大。即使开发者懂得不多，也依然能得到安全的结果，因为自动模式会保护他们。
+
+`§I` 中的反转，即安全知识存在于规范中，在两个方向上都成立。对新手而言，这是保护：他们不需要知道该问什么，因为规范会主动提出建议。对专家而言，这是放大：同一份规范让他们能精准地引导流程，而不必与一份固定的检查清单较劲。
+
+每个阶段在自身的运作中都体现了这种双重性（图 3）。不提供任何输入时，它会代表用户处理整个范围。给出方向时，同一个阶段会精确收窄到用户所指向的内容。
+
+```mermaid
+flowchart TB
+    inversion["一次反转，两个方向：<br/>安全知识存在于规范中"]
+    inversion --> auto["自动模式（无输入）<br/>阶段主动提出建议，并作用于<br/>整个范围"]
+    inversion --> directed["定向模式（有输入）<br/>阶段精确收窄到<br/>用户所指向的内容"]
+    auto --> novice["新手，受到保护：<br/>无需知道该问什么<br/>也能得到安全的结果"]
+    directed --> expert["专家，能力被放大：<br/>精准引导流程，<br/>而非依赖固定的检查清单"]
+    novice -.-> phases["同样的五个阶段服务于两者：<br/>charter · detect · plan · harden · verify"]
+    expert -.-> phases
+```
+
+**图 3** 开发者知识扩展器的双重性。一次反转服务于两类人群：通过同样的五个阶段，自动模式保护新手，定向模式放大专家的能力。
+
+按需加载的专项（`§VII`）在其文本中明确体现了这种双重性。每个专项都会告诉智能体，它的知识是在"扩展你的判断"，并要求智能体在专项提供的内容之外继续推理。这些知识是下限，而不是上限。正是这一点让本文所追求的平衡同时惠及两类人群：开发者社区获得了一件实用的工具，Blue Team 从业者则获得了一个结构化的载体，而这个载体并不会假装替他们完成本职工作。
+
+---
+
+## VII. 不可调用的专项与按需提示词
+
+这是该方法论中最具新意的模式。SDH 以专项的形式承载聚焦的安全知识，这些专项**只会按需加载**，由智能体自己根据项目的场景决定加载哪些。我们称之为**按需提示词**（prompt-on-demand）：让智能体根据所在项目的范围选择激活哪些知识，而不是默认运行所有检查。专项是不断演进的，其中任何一个都可能随时变更或被替换。本文的贡献在于这种模式，而不在于专项本身。
+
+> **定义**
+>
+> **按需提示词**：智能体将安全知识与眼前项目的范围进行匹配，以此选择激活哪些知识，从而根据项目的实际情况引入相关知识，而不是默认运行所有检查。
+
+> **定义**
+>
+> **不可调用的专项**：针对单一场景、聚焦且与编程语言无关的安全知识单元，例如文件上传或在浏览器中运行的代码。它只负责审计和解释，从不改写代码，也从不生成攻击输入。它不是命令：当它所涵盖的场景在范围内，或者提示词点名要求它时，它才会加载。
+
+每个专项都会为其涵盖的风险给出更安全的写法，并告诉智能体在使用它的每个阶段应如何处理发现项：在检测时如何判断，在处置时如何安全地应用修复，在验证时如何证明。
+
+专项的决定性特征在于它**无法单独调用**：它不是命令，在流程中由匹配来加载它。检测阶段会列出一次目录，将项目的场景与每个条目涵盖的内容进行匹配，只加载场景确实存在于范围内的专项。后续阶段复用这份匹配结果，而不是重新列出，因此一次匹配就能服务整条链路，预防模式（`§IX`）也会针对即将构建的工作执行同样的匹配。场景不存在的专项会被跳过，而跳过与加载一样需要有据可查：目录中的每个条目都会得到明确的判定结果，即应用或跳过，并附上从代码中得出的理由，因此模糊的"不相关"印象绝不能代替确实不存在。没有找到任何适用的专项，也是有效的结果。
+
+目录是数据，扩充目录只需一个知识文件加上目录中的一行，从不需要新增命令。内置专项按类别分组，例如 OWASP、某种编程语言或 AI 集成，项目所使用的目录则包含它所选类别中的内置专项，以及它自己的专项。项目会把这一选择与其他状态一起记录下来，因此整个团队都对照同一份目录进行匹配。这与各阶段遵循的是同一条场景感知原则，只是应用在知识上：根据项目的实际情况引入相关知识，而不是默认运行所有检查。同样的特性也让用户（而不仅仅是维护者）能够扩充目录：用户提供的安全资料或主题会被提炼成一个属于该项目的新专项，无论项目选择了哪些类别，它都会加入目录，并像内置专项一样加载，同时取代同名的内置专项。编写专项本身也仅限防御，并遵守专项所执行的同一条边界：攻击类的技术文章可以作为资料来源，但由此产出的专项只负责审计和解释，绝不会生成可用的漏洞利用代码。因此，`§I` 中的反转，即智能存在于规范之中，也延伸到了目录本身，用户无需编写代码，就能针对自己的场景不断深化目录。
+
+举一个简短的例子来说明按需提示词。detect 读取一个包含浏览器端代码的文件夹。它在目录中匹配到这一场景，加载涵盖它的专项，并通过 detect 的常规步骤指出一个客户端发现项。场景不在此范围内的专项不会被匹配，因此永远不会加载，每一个都会被记录为已跳过。决定哪些知识相关的是项目本身，而不是某个固定的配置。
+
+确定性恰好出现在最需要它的地方。专项除了文字之外，还可以携带一个确定性检查器：当某类风险有明确的判定方法时，一个小程序会针对给定的输入返回固定的判定结果，例如 `safe`、`unsafe` 或 `invalid input` 这样的少数几个词。有些风险类型正是可以用这种方式确定性地判定的，其判定方法背后也有一批先行工作 `[9]`、`[10]`、`[11]`。检查器要么对智能体提供的候选项打分，要么自行扫描范围来找出候选项，无论哪种情况，返回判定结果的都是检查器，而不是智能体。足够通用的专项可以在目录中被标记为必需，从而始终被应用，并在整个范围内运行它的检查器。这是知识在没有场景匹配的情况下被加载的唯一情形，而且它在目录数据中声明，从不由智能体临时决定。SDH 正是在这里让智能体的推理建立在可重复的基础之上，同时又不假装整个流程都是确定性的。
+
+最后，专项是**可独立使用的**。由于这些知识可以自成一体，用户可以在与完整 SDH 流程毫不相关的提示词中直接运行某个专项，让安全与日常开发并行。例如，带有确定性检查器的专项可以筛查日常编码中产生的每个候选项，只保留安全的那些。这种可独立使用的特性正是 SDH 能适应如此多情况的部分原因，这也是 `§VIII` 的主题，而它最完整的体现是预防模式（`§IX`），在这种模式下，同样的知识会全程守护日常开发。
+
+---
+
+## VIII. 状态无关性与非强制性适应
+
+有两项特性让 SDH 区别于僵化的规范方法论。
+
+### 状态无关性
+
+> **定义**
+>
+> **状态无关性**：方法论不依赖开发所处的状态。无论是空目录、进行中的项目、单个 pull request，还是庞大的遗留代码库，无论使用什么技术栈，它都适用，因为它通过阅读来了解起点。
+
+无论项目是全新的还是已经存在，每个阶段的工作方式都相同。charter 会根据现有的任何代码推断原则。detect 会梳理现有的任何代码，哪怕只有很少一点。不存在预设的起点。
+
+### 非强制性适应
+
+> **定义**
+>
+> **非强制性适应**：方法论根据场景调整自身，而不是强加一个用户必须遵循的固定范围。当用户不知道该说什么时，它会读取自己被调用时所处的环境，生成上下文，并提出决定下一步行动的问题。
+
+charter 的提议模式就是最清楚的例子：SDH 通过分析项目，推导出一套默认安全的安全原则，只在某个缺口确实会改变结果时才询问用户，然后写下这些原则，并用通俗的语言逐条呈现，说明每条原则所防范的风险。安全原则是一份活文档，用户通过重新运行来修改它，而不是一份要先经过审批提示才能生效的契约，因此它从不要求用户知道该问什么。
+
+这种适应性体现为对输入形态的敏感：同一个阶段会读取它收到的内容，并选择相应的模式（图 4）。提示词中的一个文件、列表中的一个发现项、一个担忧、一次针对已知薄弱点的专项任务，或是一次全面的暴力扫描请求：每一种都能满足用户的需要，因为流程在设计上就是非强制性的。这些都不会削弱默认安全的基线。灵活性决定的是基线如何应用，而从不降低基线。
+
+```mermaid
+flowchart TB
+    shape["阶段读取所收到内容的<br/>形态"]
+    shape --> none["无输入"]
+    shape --> paths["一个或多个路径"]
+    shape --> concern["一个描述出来的关注点"]
+    shape --> finding["一个点名的发现项"]
+    shape --> band["一个优先级档位"]
+    none --> auto["自动模式：<br/>提出建议，或扫描<br/>整个范围"]
+    paths --> focus["只关注这些<br/>文件或目录"]
+    concern --> scoped["范围限定在<br/>这一个关注点"]
+    finding --> item["只处理这一个<br/>追踪项"]
+    band --> priority["只处理严重、<br/>高危、中危或低危"]
+```
+
+**图 4** 非强制性适应。同一个阶段读取输入的形态并选择模式，因此范围始终由用户决定，从不被强加。
+
+---
+
+## IX. 通用预防模式：在构建过程中运行同样的防御
+
+SDH 还有一种互补的模式：在编写代码的同时启用同样的防御，进行日常开发。用户直接提出要做的工作，比如一个登录页、一个上传功能、一个接口，方法论会在构建过程中全程守护，让结果在落地的那一刻就默认安全，而不是等到之后再做一轮加固。
+
+> **定义**
+>
+> **预防模式**：在 SDH 的治理层和知识之下进行的日常开发。安全原则约束构建过程，与即将创建的内容相关的专项会按需加载，并且在工作被宣告完成之前，结果会与所用的防御逐一对照。
+
+这种模式复用了各阶段已有的每个部分，只是对准的是尚不存在的代码。场景检测从代码转向意图：智能体会推演它即将构建的内容，以及这项工作会跨越哪些边界（登录意味着凭据、会话和来自外部的输入），知识目录匹配的正是这种推演。按需提示词（`§VII`）在这里得到了推广：场景不仅可以从已有的代码中检测，也可以从编写代码的计划中检测。安全原则一如既往地发挥治理作用，任何会违背某条原则的请求都会作为冲突被指出，而绝不会被构建出来。防御会在编写每个部分的当下就地应用，在边界处进行校验，并一开始就采用安全的写法，因此"能用但不安全"的版本根本不会出现，也就无需纠正。
+
+这种模式以 verify 开始的方式收尾。在宣告工作完成之前，构建者会将自己的结果与所用的防御相对照：控制措施必须位于风险的路径上，而不是旁边，必须完整无缺，而且当专项带有确定性检查器时，检查器的判定结果优先于智能体自己的解读。在这里发现的缺口会作为同一项工作的一部分被补上，因为完成工作就意味着安全地完成它。
+
+这种模式拒绝做的事，与它要做的事一样经过深思熟虑。它只构建被要求的内容，不审计周围的任何东西：审计已有的内容是各阶段的职责。它不写入任何产物，也不追踪任何发现项，因为发现项是在已有内容中检测到的风险，而这种模式的目的是让不安全的版本根本不会落地。两个方向相辅相成：各阶段关闭已经存在的问题（`§V`），预防模式则防止新的工作把它们重新打开。处于静止状态的链路之所以能保持静止，不是因为开发停止了，而是因为在静止期间构建的一切都带着防御。
+
+---
+
+## X. Security-Driven Hardening 与 Spec-Driven Development 对比
+
+Security-Driven Hardening（SDH）脱胎于 Spec-Driven Development（SDD），随后却与之大相径庭。两者在结构上的传承真实存在，也得到了承认：规范优先、智能体驱动、一份纲领性文档，以及一组由智能体运行的分阶段命令。SDH 有意复用了这套结构。不同之处在于目的、约束模型、假定的状态和终止条件。我们把 SDD 当作一类方法来看待，以 Piskala 的报告 `[1]` 作为这一方法论的权威表述，以 GitHub 的 Spec Kit `[2]` 作为权威的智能体工具包，并以 OpenSpec `[3]` 作为同一家族的第二个工具。
+
+SDD 通过让规范变得可执行，颠覆了传统开发：规范直接生成可运行的实现，而不只是起指导作用 `[1]`。它的阶段设置推动构建向前推进 `[2]`（确立治理原则、明确要构建什么、规划技术栈、把计划拆分为任务，然后实现）。它的纲领性文档是一部由原则构成的宪法（constitution），是智能体自始至终必须遵守的基础。这正是差异的核心所在。SDD 的约束力从规范流向构建，实现应当遵循规范。
+
+SDH 几乎在这份契约的每个维度上都反其道而行（表 3）。
+
+> **核心洞见**
+>
+> **核心差异**：SDD 的约束力从规范流向构建，实现应当遵循规范。SDH 是非强制性的，方向正好相反：从检测到的系统场景出发向内推进，加固已经存在的东西。
+
+| 维度         | SDD                                                | SDH                                                                              |
+| ------------ | -------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 目标         | 交付功能。规范变成可运行的实现。                   | 加固已有的或正在构建的内容。每个阶段都围绕防御展开。                             |
+| 约束模型     | 强制性。规范和宪法把构建限定在它必须遵循的范围内。 | 非强制性。SDH 根据场景调整，用户可以改写、删除或缩小范围。                       |
+| 状态假设     | 从一份规范出发向前构建。                           | 状态无关：空目录、进行中的项目、单个 PR 或遗留代码。                             |
+| 终止条件     | 功能构建完成即结束。                               | 可结案。发现项进入静止状态，只有代码发生变化时才会重新开启。                     |
+| 纲领性文档   | 一部智能体必须遵守的原则宪法。                     | 一份以风险为出发点的安全原则（每条都带有 `Why:` 行），明确不是一份固定的契约。   |
+| 知识如何扩充 | 新增命令（或扩展阶段设置）。                       | 新增一个由智能体按需加载的不可调用专项：一个文件加上目录中的一行，无需新增命令。 |
+| 服务对象     | 推动功能向前的构建者。                             | 任何用户，无论是否是开发者，都通过同一套流程获得支持。                           |
+| 由谁修改代码 | 实现阶段生成构建结果。                             | 只有 harden 阶段修改代码，一次一个修复。                                         |
+
+**表 3** SDD 与 SDH 在八个维度上的对比。结构是借来的，契约是反转的。
+
+公平地说：SDD 是经过检验的先行工作，SDH 运行所依托的结构也得益于它。两者的分歧并不是对 SDD 的批评，SDD 很好地解决了另一个问题（向前构建）。SDH 借用同一套成熟的机制，把它对准防御、适应性和结案。OpenSpec `[3]` 围绕变更提案、任务清单和逐个变更的规范来组织，也印证了这一模式：这一家族从规范出发向前推进构建，而 SDH 则从检测到的场景出发向内加固系统。即便是 SDH 的预防模式（`§IX`），也就是它唯一伴随向前构建的地方，也保持着反转的契约：它约束的是工作如何构建，从不决定要构建什么。
+
+---
+
+## XI. 工程严谨性：追踪纪律
+
+核对并更新而非追加的纪律（`§V`）需要一个经得起重构的底层基础。一个发现项在涉及它的每个阶段中都必须保持为同一个追踪项，文件被重命名或移动也不能让链路断裂。SDH 用**名称即身份**和**路径只保存在追踪中**来解决这个问题。
+
+> **定义**
+>
+> **名称即身份**：发现项的身份就是它的名称，在每个产物中都以完全相同的写法出现。正文只承载名称，从不承载路径。文件路径只保存在追踪映射中，因此重命名或移动文件只会在一个地方断开关联。
+
+每个 detect 发现项都是一个追踪项。它的身份就是它的**名称**，即章节标题，在 detect 地图、防御计划和加固记录中都以完全相同的写法出现。后续阶段在处理同一个追踪项时会逐字复用这个名称，verify 也会以同一个名称把判定结果写入加固记录。追踪映射只保存追踪信息，别无其他，每个追踪项对应一条记录：
+
+```json
+{ "name": "File uploads", "paths": ["src/routes/upload.ts"] }
+```
+
+映射中不记录正文、注释、单独的标识符，也不记录阶段。文字类产物承载措辞，映射只承载身份和路径。文件路径是唯一易变的内容，而它们只保存在这里。重命名或移动文件只可能在一个地方断开关联，绝不会出现两份互相矛盾的副本。
+
+```mermaid
+flowchart TB
+    detect["detect 地图"] --> name
+    plan["防御计划"] --> name
+    harden["加固记录<br/>verify 在这里写入判定结果"] --> name
+    name["name = &quot;File uploads&quot;<br/>正文只承载名称，从不承载路径"]
+    name -.-> tracking
+    tracking["追踪映射<br/>{ name: &quot;File uploads&quot;,<br/>paths: [&quot;src/routes/upload.ts&quot;] }<br/>路径只保存在这里，因此重命名只需修正这一条记录"]
+```
+
+**图 5** 身份传送带。一个发现项名称贯穿所有产物，而它的路径只保存在追踪映射中，因此重命名只需在一个地方修正。
+
+在常规流程中，有两种操作负责维护映射，第三种则作为维护操作单独存在。**Track** 是增量登记：阶段报告它写入的发现项，引擎记录其中新增的部分，并为其余发现项跟踪重命名后的路径，把每一项归类为新增、已移动或未变化。它从不删除阶段没有报告的任何内容。**Untrack** 负责将 verify 已关闭的发现项结案：在一次确定性处理中，它把每个发现项提炼成历史条目，从产物中删除它的整个章节，删除最后一个发现项已移除的产物，并去掉它的追踪记录，因此这些工作都不需要智能体手动完成。如果确定性处理无法安全进行，比如已结案的名称仍在另一个发现项的正文中被引用，它会为智能体标记出这个位置，而不是去猜测该怎么修改。这两种操作是各阶段在运行时调用的。**Repair** 是维护操作：当某个阶段在自身的核对并更新中发现追踪信息不一致（记录的路径已不存在）时，会自动把工作交给它，其他情况下则按需运行。它会一次性重新校准整个映射，读取每个产物和当前代码，修正每个追踪项的路径，并指出它无法独自决定的情况：孤立项（不再被任何产物提及的追踪项），或疑似重命名项（路径与另一个已报告名称相匹配的追踪项）。
+
+Repair 是维护操作，而不是第六个阶段。它既不触碰用户的代码，也不触碰文字类产物，只处理追踪信息。它读取用户源代码只有一个原因，就是了解被重命名文件的新路径，而且它从不编写安全内容。在引擎拒绝猜测的那个判断上，人是最终裁决者：一个消失的追踪项究竟是已经解决，还是仅仅被重命名了。宁可询问也不要猜测，因为错误删除的追踪项会让链路断裂。
+
+方法论也把自己的防御纪律用在自己身上。确定性引擎以命令行程序的形式调用，每个输入都作为独立的进程参数传入，使它始终只是普通数据，因此含有引号或反引号的值永远无法注入命令。未知的检查会直接失败，而不是给出答案，因此拼错名称的检查绝不会被误读为干净的结果。SDH 不会让自己的底层管道免于默认安全原则的约束。
+
+---
+
+## XII. 载体：以与智能体无关的架构证明可移植性
+
+要让 SDH 成为他人采用的约定，它就不能绑定某个智能体或某个技术栈，因此它的载体将三个关注点彼此分开（图 6）。Lagune 证明了这是可以做到的。
+
+**安全价值**只需编写一次，并且完全不知道由哪个智能体来运行它：各阶段的指令及其要填写的模板、知识目录，以及确定性引擎。**交付层**很薄：它唯一的任务是以智能体期望的形式、在智能体期望的位置把这些价值交给它，自身不携带任何安全逻辑。**项目状态**属于项目本身：安全原则、各阶段产物、追踪映射、项目选择的类别以及它自己的专项，都像代码的其他部分一样提交到仓库并可供审查。
+
+```mermaid
+flowchart TB
+    value["安全价值，只编写一次<br/>阶段指令 · 模板 · 知识目录 · 确定性引擎<br/>不知道由哪个智能体运行"]
+    delivery["交付层<br/>以每个智能体期望的形式把价值交给它<br/>不携带安全逻辑"]
+    agent["智能体<br/>运行各阶段"]
+    project["项目状态<br/>与代码一起提交<br/>安全原则 · 阶段产物 · 追踪 · 类别 · 自有专项"]
+    value --> delivery --> agent
+    agent -->|"读取和写入"| project
+```
+
+**图 6** 与智能体无关的载体。安全价值只编写一次，由一层很薄的交付层把它带给每个智能体，而状态始终属于项目。
+
+由于交付层不携带安全逻辑，它如何构建不会改变 SDH 的任何内容。载体可以自己构建交付层，也可以像参考实现那样，把交付交给一个已经在分发智能体 skill 的生态，而各阶段、它们的产物和保证都保持不变。这一切也不局限于某种语言或运行时。参考实现恰好是用某个技术栈编写的，但方法论在于这些关注点之间的边界，而不是构建它们的工具链。同样的设计完全可以用另一种语言重新实现，而不会改变 SDH 的本质。
+
+---
+
+## XIII. 实例：SDH 的完整流程
+
+> **实例**
+>
+> **对上传与管理后台攻击面的防御性加固**
+> **背景**：一个小型应用，接收用户上传的文件，并在管理页面中列出这些文件。
+> **流程**：charter → detect（由场景激活按需知识）→ plan → harden → verify，其中包含一次结案和一次真实的失败。
+> **结果**（能力）：一项风险经验证已关闭，并在整条链路中结案，另一项控制措施经验证*并未*关闭，被交回 harden。判定结果反映的是代码，而不是记录。
+
+_这是一个说明方法论运作机制的示例，而非实地测量的研究，也不报告任何效果指标_。
+
+下面用一个连贯的完整演练来展示方法论的实际运作，而不只是它的各个组成部分。我们在 `§IV` 的文件上传贯穿示例基础上，加入一次按需知识激活和一次结案，并纳入一次真实的失败。
+
+1. **charter** 提出原则"所有输入在验证之前都不可信"，并用通俗的语言说明其风险：未经检查的输入是系统被攻破最常见的途径。
+2. **detect** 扫描上传路由，以及列出已上传文件的小型管理页面。它检测到上传相关的发现项（handler 信任客户端提供的 MIME 类型）。管理页面在浏览器中运行，这是按需提示词（`§VII`）能够识别的场景，因此 detect 会加载针对该场景的专项，并指出第二个发现项：页面中有一处以标记而非文本的形式写入文件名，因此精心构造的文件名可能在访问者的浏览器中作为脚本运行。场景不在此范围内的专项永远不会加载，每一次跳过都会连同从代码中确认的缺失情况一起记录下来。
+3. **plan** 将上传修复的优先级定为严重，并关联到该原则：检查文件的真实类型和大小，保存时重命名，存放到代码无法执行的位置。它将第二个修复的优先级定为高危：把文件名渲染为文本，而不是标记。
+4. **harden** 先应用上传修复（优先级最高），记录为 Applied，再应用第二个修复，同样记录为 Applied。
+5. **verify** 读取每一处代码，并将代码与记录对照。上传的控制措施确实有效：handler 根据内容识别真实类型，限制文件大小，并拒绝其余一切。判定结果：Risk closed。verify 在整条链路中将上传发现项结案，其提炼后的摘要被写入历史记录。
+
+接下来是那次真实的失败。假设 harden 的第二个修复添加了一个安全的文本渲染辅助函数，却让旧的写入标记的调用在另一条代码路径上依然可被触及。verify 读取页面，看到了安全的辅助函数，也看到不安全的路径仍然有效。控制措施存在，但风险并未关闭。verify 拒绝为了迎合记录而放宽判定结果。它给出 "Risk not closed"，记录下缺口，并指回 harden。没有完全解决风险的控制措施不算通过。
+
+这一个例子就体现了方法论的特点：场景感知的检测、与原则挂钩并排好优先级的修复、谨慎的应用，以及不受记录左右、如实报告代码实际状态的验证。
+
+---
+
+## XIV. 何时使用 SDH，以及它的局限
+
+SDH 很少像繁重的流程那样显得大材小用，因为它是状态无关且可结案的：它可以缩小到单个文件和单个关注点，并且会进入静止状态，而不是留下长期的负担。它的边界不在于项目规模，而在于**保障深度**。
+
+```mermaid
+flowchart TB
+    q1{"代码是否涉及任何与安全相关的操作？<br/>（输入、认证、数据、密钥、外部调用）"}
+    q1 -->|否| little["SDH 在这里作用不大。"]
+    q1 -->|是| q2{"运行 SDH。是否有合规要求，<br/>或专职的安全岗位？"}
+    q2 -->|否| baseline["SDH 就是一条站得住脚的基线。"]
+    q2 -->|是| carrier["SDH 是结构化的载体：<br/>它为专家审查和审计提供支持，<br/>但不取代它们。"]
+```
+
+**图 7** 何时使用 SDH。先看是否与安全相关，再看保障深度，从不看项目规模。
+
+SDH 触及边界的情况包括：只有在系统运行时才会出现的行为（verify 读取的是代码，并不执行系统），取决于智能体无法读取的配置或环境的风险，以及无论如何都必须由专家审查的高风险场合。在这些情况下，SDH 作为结构化的第一轮检查仍然有价值，但它是下限，而不是上限。
+
+> **核心洞见**
+>
+> **边界**：SDH 的局限在于保障深度，而不在于项目规模。它几乎在任何地方都能充当站得住脚的基线，并在风险较高时为专家审查提供支持，但它不能取代对运行中系统的测试，也不能取代安全专业人员的判断。
+
+---
+
+## XV. 讨论：定位、局限，以及 SDH 不作的主张
+
+SDH 对自身的边界有清晰的界定。
+
+### 扩展，而非取代
+
+SDH 不能取代安全专业人员或专门的 Blue Team 工具。它扩展的是开发者的知识（`§VI`）。恰当的说法应当是审慎的：只要运用得当，SDH **能够**有效关闭真实存在的风险，尤其是对那些原本根本得不到任何安全审查的项目而言。但它不是一种保证，在风险较高、需要专家审查的场合，它也无法替代专家审查。
+
+### 从构造上就仅限防御
+
+SDH 负责审计、加固和验证。它从不制作进攻性工具、漏洞利用，或用于造成危害的检测规避手段。两用的安全内容只有在明确防御性且经过授权的语境中才可接受。这是一条硬性边界，而不是一种偏好。
+
+### 验证是实质性的，而非走过场
+
+verify 通过读取代码并将其与记录对照来进行验证，而不是运行系统。这是静态验证：它确认控制措施在代码中存在且正确，但并不证明控制措施在运行时能抵御攻击。因此，"Cannot tell from the code" 是一个正当的判定结果，而不是藏在通过结果背后的失败。当证据不在代码中时（它取决于配置，或取决于智能体无法读取的路径），SDH 会如实说明，而不是去猜测。
+
+### 确定性有明确的范围和名称
+
+SDH 的大部分内容依靠智能体推理，这正是它能够感知场景的原因。确定性只留给确定性引擎：专项可能携带的检查器（`§VII`）和追踪引擎（`§XI`）。本文不会模糊这条界线。凡是确定性的结果，都是程序给出的结果。凡是推理得出的结果，都是智能体对代码的解读，并由用户作为最终裁决者。
+
+### 成本与规模
+
+一次全面扫描会消耗大量 token。手动模式（`§VI`、`§VIII`）之所以存在，部分原因就是让成本与关注点相称。
+
+### 用户是最终裁决者
+
+SDH 会请人来判断某个追踪项是被重命名了还是已经解决，而对代码修改的批准，仍然留在用户原本就用来管理智能体的地方，也就是用户运行智能体时所用的权限模式。方法论负责提出和验证。它不会推翻人的决定。
+
+### 异议与回应
+
+一位公正的怀疑者会提出几项异议。其中实质性的几项值得用原话提出来。
+
+"**这不就是在静态分析器上硬加了一个 LLM 吗**？"不是。静态分析器默认会运行它拥有的每一条规则。SDH 先检测系统是什么，再调用相关的知识（`§II`、`§VII`），并且只在某类风险有明确判定方法的地方才*嵌入*确定性检查器。推理以场景为先，确定性则有的放矢。
+
+"**这不就是一份安全检查清单吗**？"不是。SDH 把检查清单颠倒了过来：检测在先，再根据项目实际在做的事引入知识（`§II`、`§VII`）。
+
+"**这不就是把 SDD 换个名字用在安全上吗**？"不是。SDH 借用了 SDD 的结构，却反转了它的契约：约束力、状态假设、终止条件和服务对象全都不同（`§X`）。机制相同，方向相反。
+
+"**依靠 AI 推理的方法难道不会凭空捏造发现项吗**？"这套设计约束的是编造本身，而不是寄希望于模型自觉守规矩。detect 只记录代码能够佐证的内容（"只检测，不编造"，`§IV`），verify 将代码与记录对照，并且可以回答 "Cannot tell from the code"（`§XV`），确定性检查器为可判定的情形提供依据（`§VII`），而用户是最终裁决者。这并不会让智能体永不出错，但会让它的主张可以被检验。
+
+关于定位，还需说明一点。本文对 SDH 的定义独立于它的参考实现。五个阶段、以风险为出发点的安全原则、核对并更新而非追加的纪律及其可结案性、按需提示词知识、预防模式、名称即身份的追踪，以及仅限防御的边界，这些构成了方法论本身。其他团队可以在另一种技术栈和另一个智能体生态中实现它们，结果依然是 SDH。Lagune 是它的证明，而不是它的定义。
+
+---
+
+## XVI. 常见陷阱，以及 SDH 如何从结构上避开它们
+
+这一家族的方法论有一组共同的已知失效模式。SDH 对其中大多数的应对是结构性的，直接融入流程，而不是依赖使用者自觉。
+
+| 陷阱                   | 失效表现                             | SDH 的结构性应对                                                                                    |
+| ---------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| 规范腐化、积压清单过时 | 产物堆积着没人信任的失效条目         | 核对并更新而非追加（`§V`）：每次运行都会重新检查每个条目，并删除已解决的条目                        |
+| 虚假的信心、表面的通过 | 认定只要控制措施存在，风险就已关闭   | verify 将代码与记录对照，因此 "Risk not closed" 和 "Cannot tell" 都是一等的判定结果（`§IV`、`§XV`） |
+| 检查清单泛滥           | 通用条目掩盖了真正重要的那个风险     | 场景感知优先于通用方案，按需提示词只加载范围所需的内容（`§VII`）                                    |
+| 工具锁定               | 方法被绑死在某个供应商或智能体上     | 与智能体无关的载体：安全价值只编写一次，把它交付给各个智能体的交付层不携带任何安全逻辑（`§XII`）    |
+| 无尽的循环             | 积压清单永远清不完，工作永远停不下来 | 可结案性与静止状态（`§V`）                                                                          |
+
+**表 4** 这一方法论家族中的已知陷阱，以及 SDH 对每个陷阱的结构性应对。
+
+关键在于点明陷阱并指出对应的机制：这些不是提醒大家小心的警告，而是流程本身具备的特性。
+
+---
+
+## XVII. 未来工作
+
+方法论及其参考实现都有明确的下一步方向。
+
+- **扩充知识目录**：
+  每次新增都保持 `§VII` 中的形式：一个知识文件加上目录中的一行，无需新增命令。用户这一侧的途径已经存在：用户可以按需提炼自己的专项。更多内置的编程语言、运行时和风险类型（每一项都归入某个类别）是维护者这一侧的方向，而专项本身也会不断演进。
+- **更多确定性检查器**：
+  当某类风险有明确的判定方法时，专项可以携带一个确定性检查器，让智能体的推理建立在可重复的判定结果之上。把这一点扩展到更多风险类型，是自然而然的方向。
+- **实证评估**：
+  最重要的悬而未决的问题是可度量的效果：在真实代码库中的结案质量和误判率。对 SDH 安全成效的研究属于未来的工作，本文的主张也相应地限定了范围。
+
+---
+
+## XVIII. 结论
+
+AI 辅助开发带来了一个通用检查清单无法填补的安全缺口，因为真正重要的风险取决于系统实际在做什么，而发布它的人可能并不知道该问什么。SDH 用一套场景感知、仅限防御、可结案的流程来弥合这一缺口，在这套流程中，安全知识存在于方法论及其按需加载的专项中，这是每个用户都能在此基础上继续拓展的基线。它检测系统的真实场景，研判这一场景带来的风险，谨慎地应用修复，并逐一验证，然后将已关闭的内容结案，让每个发现项都抵达终态。同样的防御也会在构建新工作时以预防的方式运行，因此流程关闭的东西会一直保持关闭。它适应任何技术栈中的任何开发状态，扩展开发者的知识，而不是取代那些已经在做这项工作的人和工具。
+
+Lagune 是证明，但贡献在于这项约定。SDH 作为 AI 开发时代必不可少的安全流程提出，供他人采用、完善，并在各自的技术栈中实现。
+
+---
+
+## 参考文献
+
+**[1]** D. B. Piskala, "Spec-Driven Development: From Code to Contract in the Age of AI Coding Assistants," arXiv preprint arXiv:2602.00180v1 [cs.SE], Jan. 2026. (Submitted to AIWare 2026.) [Online]. Available: https://arxiv.org/abs/2602.00180
+
+**[2]** GitHub, "Spec Kit: Toolkit for Spec-Driven Development." [Online]. Available: https://github.com/github/spec-kit. Accessed: 2026.
+
+**[3]** Fission AI, "OpenSpec: Spec-Driven Development for AI Coding Assistants." [Online]. Available: https://github.com/Fission-AI/OpenSpec. Accessed: 2026.
+
+**[4]** B. Chess and G. McGraw, "Static Analysis for Security," IEEE Security & Privacy, vol. 2, no. 6, pp. 76-79, 2004, doi: 10.1109/MSP.2004.111.
+
+**[5]** OWASP Foundation, "Source Code Analysis Tools." [Online]. Available: https://owasp.org/www-community/Source_Code_Analysis_Tools. Accessed: 2026.
+
+**[6]** OWASP Foundation, "OWASP Top 10:2021." [Online]. Available: https://owasp.org/Top10/. Accessed: 2026.
+
+**[7]** MITRE, "Common Weakness Enumeration (CWE)." [Online]. Available: https://cwe.mitre.org/. Accessed: 2026.
+
+**[8]** N. Perry, M. Srivastava, D. Kumar, and D. Boneh, "Do Users Write More Insecure Code with AI Assistants?," in Proc. ACM SIGSAC Conf. on Computer and Communications Security (CCS '23), 2023, pp. 2785-2799, doi: 10.1145/3576915.3623157. [Online]. Available: https://arxiv.org/abs/2211.03622
+
+**[9]** J. Davis and contributors, "safe-regex: Detect Possibly Catastrophic, Exponential-Time Regular Expressions." [Online]. Available: https://github.com/davisjam/safe-regex. Accessed: 2026.
+
+**[10]** D. Soshnikov, "regexp-tree: Regular Expressions Processor in JavaScript." [Online]. Available: https://github.com/DmitrySoshnikov/regexp-tree. Accessed: 2026.
+
+**[11]** T. Jenkinson, "redos-detector: A CLI and Library to Score How Vulnerable a Regex Pattern Is to ReDoS Attacks." [Online]. Available: https://github.com/tjenkinson/redos-detector. Accessed: 2026.
+
+---
+
+## 附录 A：原则全文
+
+1. **默认安全、语言通俗、人人平等**：
+   每项默认设置、每条消息和每个修复都必须开箱即安全，并且任何用户（无论是否是开发者）都能看懂。没有哪一类用户比其他用户更享有特权。
+2. **场景感知优先于通用方案**：
+   每个阶段都必须从 detect 检测到的场景出发，针对系统实际在做的事采取行动。优先采用针对该场景的建议，而不是通用的检查清单。安全知识存在于规范及其按需加载的专项中，在用户已有的知识之上进一步扩展。
+3. **灵活优先于僵化**：
+   SDH 会灵活适应项目和用户。原则、要求和建议都只是起点，而不是固定的契约。允许用户改写、删除、添加任何内容，或缩小其范围。灵活性从不削弱默认安全的基线，它只是让用户决定基线如何应用。
+4. **核对并更新，而非只追加**：
+   产物是活文档，而不是日志。阶段重新运行时，要对照当前的实际情况核对并更新每个已有条目：保留仍然成立的，改写已经变化的，删除不再适用的。结案正是同样的核对并更新走到了终点。
+5. **仅限防御**：
+   SDH 负责审计、加固和验证。它从不制作进攻性工具、用于恶意目的的漏洞利用，或用于造成危害的检测规避手段。两用的安全内容只有在明确防御性且经过授权的语境中才可接受。
+6. **规范优先、智能体驱动、面向安全**：
+   基于成熟的结构搭建工作流：模板、命令、起统领作用的安全原则，以及运行各阶段的智能体。以防御为目的重新实现这套结构。
+
+---
+
+# Lagune 术语表：SDH、charter、发现项与控制措施
+
+> Lagune 与 Security-Driven Hardening 全部术语的通俗定义：SDH、charter、detect、发现项、控制措施、harden、verify、结案、可结案性、专项、类别与目录。
+
+规范链接: https://lagune.ai/zh-CN/docs/references/glossary
+语言: zh-CN
+原文: https://lagune.ai/docs/references/glossary
+最后更新: 2026-11-03
+
+这里用通俗的语言定义 Lagune 和 Security-Driven Hardening 方法论中的每个核心术语，每个术语只定义一次。
+
+### Security-Driven Hardening (SDH)
+
+Lagune 所实现的方法论：一种场景感知的 Blue Team 约定，先检测系统所处的场景，再研判这一场景带来的风险，并指导修复。安全知识存在于规范及其按需加载的专项中，因此开发者和非开发者都通过同一套流程获得支持。
+
+### Lagune
+
+SDH 的参考实现：九个智能体命令，每个命令都配有它要填写的模板，由 AI 智能体运行，用来加固代码库。各个智能体可以通过自己的插件安装器或 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 安装这些命令，具体见 [安装页面](https://lagune.ai/zh-CN/docs)。每个确定性步骤都由这些命令交给 Lagune 的引擎执行。
+
+### Charter（安全原则）
+
+Lagune 的治理层：一组安全优先的原则，之后的每个阶段都必须遵守。可以把它看作项目安全态势的编译期检查。它保存在 `.lagune/memory/charter.md`。
+
+### 开发流程
+
+通用命令 `/lagune`，在编写的同时加固工作成果。它接受任何阶段的任何提示词，构建你要求的内容，并在交还之前用安全的默认设置加固它，如果项目已有安全原则，还会以它为指引。它不会向 Lagune 的追踪写入任何内容，因此它唯一的产出就是加固后的代码。它与事前制定的安全原则、事后的 Blue Team 流程一起，构成了 Lagune 在构建期间的防护。
+
+### Blue Team 流程
+
+Lagune 核心的五阶段审计：charter、detect、plan、harden、verify。每个阶段都建立在前一个阶段之上。"Blue Team" 指安全领域中防御者的传统，与负责进攻的 Red Team 相对。
+
+### 发现项（Finding）
+
+一个检测到的风险。每个发现项都会说明它是什么、为什么重要，并附上代码中的证据。发现项是 plan、harden 和 verify 一路沿用的唯一追踪单元，在每个产物中都通过名称来识别。
+
+### 控制措施（Control）
+
+为关闭某个风险而应用的安全措施。harden 负责应用控制措施，verify 负责证明它们确实有效。Lagune 绝不会为了满足某个提示词而削弱控制措施。
+
+### Detect
+
+读取代码、梳理系统在做什么以及风险在哪里的阶段。它的核心准则是只检测，不编造：只记录代码能够佐证的内容。
+
+### Harden
+
+唯一会改动你代码的阶段。它一次应用计划中的一项修复，并把每项记录为 Applied、Partial 或 Blocked。Applied 并不代表已经得到证明。
+
+### Verify
+
+通过读取代码并与 harden 的记录相对照，证明每项已应用的修复确实有效的阶段。它会给出三种判定结果之一：Risk closed、Risk not closed 或 Cannot tell from the code。
+
+### 结案（Stand down）
+
+当 verify 证明某个风险已关闭时，对应的发现项就会结案：经你确认后，从整条链路中移除，不再被重复处理。
+
+### 可结案性（Closability）
+
+安全工作拥有终态的特性。由于已证明关闭的发现项会结案，流程可以进入静止状态，只有代码发生变化时才会重新开启。SDH 是可结案的，而不是一个无尽的循环。
+
+### 引擎（Engine）
+
+**npm** 上的 `lagune` 包，命令的每个确定性步骤都通过 `npx` 运行它：hook、目录和类别。
+
+### 专项（Specialization）
+
+一个聚焦且与编程语言无关的安全知识模块，只会按需加载，绝不默认加载。专项不是命令。你可以用引擎的 `read catalog <name>` 把某个专项加载到任意提示词中，例如 `npx lagune read catalog regex`。
+
+### 类别（Category）
+
+一组有名称的内置专项，从 `owasp` 到按语言划分的类别，例如 `javascript`、`python`、`go` 和 `rust`。项目所用的类别记录在 `.lagune/configs.json` 中，决定哪些内置专项会加入它的目录。在没有记录任何类别时，项目只使用 `owasp`。
+
+### 目录（Catalog）
+
+项目使用的专项集合：其类别中的内置专项，加上用 `/lagune-specialize` 编写的自有专项。引擎的 `read catalog` 会列出目录，各阶段则把它与代码相匹配。
+
+### 按需提示词（Prompt-on-demand）
+
+一项原则：根据项目的实际情况引入相关的安全知识，而不是默认运行所有检查。
+
+### 名称即身份（Identity-by-name）
+
+Lagune 的追踪模型：每个发现项的名称在每个产物中都以完全相同的写法作为章节标题，在整条链路中就是它的身份。追踪映射（`.lagune/tracking.json`）只保存追踪信息，从不保存说明文字。
+
+## 常见问题
+
+### Security-Driven Hardening（SDH）是什么？
+
+SDH 是一种场景感知的 Blue Team 安全方法论。它先检测系统所处的场景，再研判这一场景带来的风险，并指导修复，每个发现项都用通俗的语言表述。Lagune 是它的参考实现。
+
+### Lagune 里的 charter 是什么？
+
+charter 是 Lagune 的治理层，即一组安全优先的原则，之后的每个阶段都必须遵守。它保存在 .lagune/memory/charter.md。
+
+### 把发现项结案是什么意思？
+
+当 verify 证明某个风险已关闭时，对应的发现项就会结案：经你确认后从整条链路中移除，不再被重复处理。
+
+---
+
+# 配置 Schema
+
+> Lagune 项目配置文件的 JSON Schema，让编辑器提供自动补全和校验，可以跟随当前版本的 Lagune，也可以固定到某个版本。
+
+规范链接: https://lagune.ai/zh-CN/docs/references/configs-schema
+语言: zh-CN
+原文: https://lagune.ai/docs/references/configs-schema
+最后更新: 2026-11-03
+
+`.lagune/configs.json` 记录项目使用的 [**类别**](https://lagune.ai/zh-CN/docs/categories)，并为项目自己的 [**专项**](https://lagune.ai/zh-CN/docs/catalog) 建立索引。有了它的 JSON Schema，你编辑这个文件时，编辑器就能自动补全每个字段，并标记拼写错误或未知的类别。
+
+## 当前 Schema
+
+每当 **Lagune** 写入这个文件却没在其中找到 `$schema` 时，就会把文件指向当前的 Schema：
+
+```json
+{
+  "$schema": "https://lagune.ai/schemas/configs.json",
+  "categories": ["owasp", "javascript"]
+}
+```
+
+这个地址始终跟随当前版本的 **Lagune**。**Lagune** 0.16.0 之前写入的文件会在下次修改时加上它，在那之前，每个阶段都会提醒这一点。
+
+## 固定版本
+
+从 0.16.0 开始，**Lagune** 的每个发布版本都附带该版本当时的 Schema，发布在 **npm** 上，并通过 **jsDelivr** 分发。要固定某个版本，就把 `$schema` 换成在 `lagune@` 后写明版本号的地址：
+
+```json
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/lagune@0.16.0/schemas/configs.json"
+}
+```
+
+版本号可以是任意 semver 范围：
+
+| 版本               | Schema                       |
+| ------------------ | ---------------------------- |
+| `0.16.0`           | 0.16.0 版本中的 Schema       |
+| `0.16.x` 或 `0.16` | 0.16 系列最新版本中的 Schema |
+| `0.x` 或 `0`       | 0.x 系列最新版本中的 Schema  |
+| `latest`           | 最新版本中的 Schema          |
+
+## 常见问题
+
+### Lagune 必须有这个 Schema 才能用吗？
+
+不需要。Schema 只是帮你的编辑器，不管有没有 $schema，Lagune 读取这个文件的方式都一样。
+
+### Lagune 会覆盖我固定的 Schema 吗？
+
+不会。Lagune 只在文件里没有 $schema 时才写入它，你设置的任何地址都会保留。
+
+### 什么时候应该固定版本？
+
+在项目运行特定版本的 Lagune 时固定，这样编辑器会按照该版本接受的内容来校验文件。
+
+---
+
+# Lagune vs. Deepsec：两种 AI 驱动的安全方案对比
+
+> 一份参考资料，从工作方式、生命周期、检测、成本、发现项和结案几个方面，对比 Lagune 与 Vercel 的 Deepsec。
+
+规范链接: https://lagune.ai/zh-CN/docs/references/deepsec
+语言: zh-CN
+原文: https://lagune.ai/docs/references/deepsec
+最后更新: 2026-11-03
+
+[Lagune](https://github.com/wellwelwel/lagune) 和 [Deepsec](https://github.com/vercel-labs/deepsec)（`v2.2.1`）是两种防御性方案，针对的是同一个问题：AI 辅助开发时代的安全。即使在机制上有重叠，两者的前提、从开始到结束的整个过程，以及在用户面前的呈现方式，都是有意设计得不同的。
+
+**提示**
+
+Lagune 是受 Deepsec 启发的吗？不是。Lagune 从零开始编写，灵感来自 Spec-Driven Development 和 Security Hardening。两个项目是各自独立开发的，这里的对比是为了帮助用户了解它们之间的差异。
+
+## 速览
+
+| 方面         | Lagune                                                                    | Deepsec                                           |
+| ------------ | ------------------------------------------------------------------------- | ------------------------------------------------- |
+| 类型         | 一套方法论（SDH），附带一个参考实现                                       | 一个产品：由智能体驱动的漏洞扫描器                |
+| 核心         | 由安全原则和按需加载的知识驱动智能体，并以确定性 hook 为基础              | 大范围的正则表达式网为必需的 AI 调查提供输入      |
+| 产出         | 加固后的代码、证明，以及一条可追踪的发现项链路                            | 一份按严重程度排序、经过研判的发现项报告          |
+| 是否改动代码 | 是：`harden` 会编辑你的代码                                               | 否：只做静态分析，输出发现项和建议文本            |
+| 运行方式     | 在你已经在用的智能体和模型上运行，任何档次的模型都可以                    | 运行自己的模型流水线，默认使用前沿级模型          |
+| 快速开始     | 安装一个插件或运行 `npx skills add`，然后用日常语言驱动它，无需搭建新工具 | 搭建 `.deepsec/` 工作区，安装依赖，再添加模型密钥 |
+
+## 工作原理
+
+Lagune 以智能体为先：由智能体主导，根据代码的实际情况按需调入知识，并把能够确定判定的那部分交给确定性 hook。
+
+Deepsec 以确定性为先：大范围扫描标记出候选项，告诉必需的模型该调查和判断什么。
+
+| 方面             | Lagune                                                                  | Deepsec                                                 |
+| ---------------- | ----------------------------------------------------------------------- | ------------------------------------------------------- |
+| 顺序             | 安全原则和匹配到的知识引导智能体，智能体把一部分交给 hook，其余自己判断 | 匹配器标记候选项，模型逐一调查并判断                    |
+| 确定性部分的作用 | 多语言 hook，给出判定结果或为智能体指明方向，并结合类别知识             | 匹配器标记候选项，交给必需的模型判断                    |
+| 开发流程         | `/lagune` 在你写代码的同时安全地构建                                    | 它只审查代码，不编写代码                                |
+| 审计流程         | `charter` → `detect` → `plan` → `harden` → `verify`                     | `scan` → `process` → `triage` → `revalidate` → `report` |
+| AI 的任务        | 依据知识推理，应用修复，并证明修复确实有效                              | 调查每个候选项并报告发现项                              |
+
+## 生命周期
+
+Lagune 在代码编写之前、之中和之后都能发挥作用。Deepsec 则在代码写好之后审查仓库。
+
+| 时机           | Lagune                                                     | Deepsec                                              |
+| -------------- | ---------------------------------------------------------- | ---------------------------------------------------- |
+| 代码还不存在时 | `charter` 根据你表达的意图制定安全策略                     | 从已有代码开始：`init` 需要一个目录                  |
+| 开发过程中     | `/lagune` 在编写过程中按默认安全的方式构建，不留下任何产物 | 在开发完成后审查，而不是在开发过程中                 |
+| 针对已有代码   | `detect` → `plan` → `harden` → `verify`                    | `scan` → `process`，即核心流程                       |
+| 持续审查       | 按范围重新运行各阶段，没有现成的 CI 门禁                   | 增量重新扫描，用 `process --diff` 作为 CI 的退出门禁 |
+
+## 检测层
+
+两者的确定性层性质相反：一个负责判定，另一个负责标记。
+
+| 方面     | Lagune                                                          | Deepsec                                                    |
+| -------- | --------------------------------------------------------------- | ---------------------------------------------------------- |
+| 组织方式 | hook 和专项，按类别分组                                         | 按模式或框架划分的匹配器                                   |
+| 输出     | 明确的判定结果（finding / review / advisory），外加一个分类标签 | 不带判定结果的候选项（slug、行号、代码片段、匹配到的模式） |
+| 调校方向 | 精确率：能识别注释，并带有占位符防护和窗口防护                  | 召回率：撒大网，之后由 AI 剔除误报                         |
+| 深度     | 在两者都覆盖的问题类型上更深入                                  | 覆盖更广，但在两者都覆盖的问题类型上没那么深入             |
+| 误报     | 从源头压低，再结合上下文判定                                    | 有意多报，再通过一轮 `revalidate` 削减                     |
+
+## 知识与判断
+
+两者都具备正则表达式无法承载的安全知识。区别在于这些知识放在哪里，以及谁能塑造它们。
+
+| 方面         | Lagune                                                 | Deepsec                                                  |
+| ------------ | ------------------------------------------------------ | -------------------------------------------------------- |
+| 形式         | 可编辑的 Markdown 模块，其中一些有确定性 hook 作为支撑 | 一段简短的提示词加上按技术划分的要点，依靠模型自身的知识 |
+| 选取方式     | 与代码匹配，只在相应场景存在时加载                     | 注入每个 AI 批次，再加上针对检测到的技术的要点           |
+| 由谁编写     | 用户编辑模块，并用 `specialize` 添加新模块             | 提示词由维护者掌控，用户填写一份 `INFO.md`               |
+| 判断由谁做出 | hook 负责判定基础层，其余由智能体依据知识判断          | 集中式：由一个 AI 处理器判断所有候选项                   |
+| 复用         | 同一个模块同时指导 `detect` 和 `verify`                | 一段提示词驱动唯一的 `process` 阶段                      |
+
+## 发现项与结案
+
+两者分歧最大的地方，在于发现项解决之后会变成什么。
+
+| 方面     | Lagune                                                    | Deepsec                                                                   |
+| -------- | --------------------------------------------------------- | ------------------------------------------------------------------------- |
+| 严重程度 | CVSS v4.0 评分，并根据暴露程度和利害关系调整              | 由 AI 给出的严重程度，外加按可利用性和影响划分的 P0 / P1 / P2 分级        |
+| 判定结果 | Risk closed、Risk not closed 或 Cannot tell from the code | true-positive, false-positive, fixed, uncertain, accepted-risk, duplicate |
+| 持久化   | 工作链路持续核对更新，已结案的发现项提炼成历史记录        | 按文件记录，只增不删                                                      |
+| 最终状态 | 可结案：已证明的发现项会结案，链路可以进入静止状态        | 每个发现项都永久保留，解决后从视图中隐藏                                  |
+| 历史详情 | 对风险本身的简要总结                                      | 完整的判定记录，包括它是如何修复的                                        |
+
+## 成本
+
+| 方面         | Lagune                                                                                                     | Deepsec                                                                                                                                                                                                 |
+| ------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 确定性基础层 | 免费：hook 无需 AI、无需密钥即可运行，并且已经会给出判定结果                                               | 免费：`scan` 无需 AI 即可运行，但本身不给出判定结果                                                                                                                                                     |
+| 常见开销     | 包含在你已经在用的智能体里：用本地模型可低至 $0，否则就是你现有套餐的价格，或在基于 API 的使用中按迭代计费 | [每次运行 100 到 2,000 个文件约需 $25 到 $1,200，规模更大时更贵](https://github.com/vercel-labs/deepsec/blob/f75a16803ec5250938bacfe41571d929e8564f45/docs/getting-started.md#run-the-ai-investigation) |
+| 最省钱的方式 | 任何模型都能走完整个循环，包括免费的本地模型                                                               | 有更便宜的付费档位，但要得到发现项，仍离不开付费的 AI 阶段                                                                                                                                              |
+
+## 可扩展性与治理
+
+一方开放的那一层，正是另一方保持封闭的。
+
+| 方面         | Lagune                                   | Deepsec                                |
+| ------------ | ---------------------------------------- | -------------------------------------- |
+| 可以扩展什么 | 编辑模块，或通过 `specialize` 添加新模块 | 添加匹配器、智能体、通知器和代码归属   |
+| 策略层       | 安全原则管辖每个阶段，并纳入版本管理     | 配置是运行层面的（匹配器、模型、路径） |
+| 按名称覆盖   | 改进后的模块会覆盖同名的内置模块         | 匹配器 slug 冲突时，以你的匹配器为准   |
+
+## 界面
+
+Deepsec 为安全团队产出交付物。Lagune 则为运行它的人呈现实时视图。
+
+| 方面         | Lagune                                           | Deepsec                                          |
+| ------------ | ------------------------------------------------ | ------------------------------------------------ |
+| 面向人的界面 | 一个本地实时仪表盘，用通俗的语言展示整条链路     | 报告、导出、指标和 PR 评论文件，外加一个文档站点 |
+| 责任归属     | 列出相关文件和所应用的专项                       | 给出建议的负责人：值班人员、经理或提交者         |
+| 可复现的证明 | `prove` 编写可运行的测试和一份用于披露的安全公告 | 按设计保持静态，从不执行目标代码                 |
+| 工具自身防护 | 加固仪表盘上的本地写入 API                       | 加固自身的 AI 执行环境，防范不可信的目标代码     |
+
+## 规模与部署
+
+| 方面       | Lagune                                                       | Deepsec                                              |
+| ---------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| 安装       | 通过智能体的插件或 skills CLI 安装九个命令，不生成任何脚手架 | 一个 `.deepsec/` 工作区，带有自己的包和依赖          |
+| 规模取向   | 可以限定到任意范围：某个场景，或从单个文件到整个项目         | 扫描整个仓库，最大可到大型 monorepo                  |
+| 分布式运行 | 仅限本地，唯一的服务器绑定在回环地址上                       | 可选择分发到多台 Vercel Sandbox 工作虚拟机上并行执行 |
+
+## 用户体验
+
+两者各自如何面对使用者：第一次运行需要什么，以及操作者如何为它指定方向。
+
+### 上手
+
+Lagune 直接通过已经打开的智能体运行。Deepsec 则要先准备好自己的工作区和模型访问权限。
+
+| 方面         | Lagune                                                                            | Deepsec                                                                             |
+| ------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 第一条命令   | 安装插件或运行 `npx skills add wellwelwel/lagune`，然后在智能体中使用 `/lagune-*` | `npx deepsec init`，然后依次执行 `cd .deepsec`、`pnpm install`、`scan`、`process`   |
+| 运行所需凭证 | 不需要额外的密钥，直接使用你当前的智能体                                          | 一个模型密钥（例如 AI Gateway、有效期 12 小时的 Vercel OIDC 令牌或 Anthropic 令牌） |
+
+### 如何驱动
+
+两者都接受指引。Lagune 在每个阶段都会识别输入的形式。Deepsec 则缩小同一套调查所覆盖的文件范围。
+
+| 方面       | Lagune                                                           | Deepsec                                               |
+| ---------- | ---------------------------------------------------------------- | ----------------------------------------------------- |
+| 整个项目   | 不带输入运行某个阶段，就会扫描整个范围                           | `scan` 和 `process` 扫描整个仓库                      |
+| 局部范围   | 任何阶段都可以限定到指定的文件或目录                             | 用 `--files`、`--files-from` 或 `--diff` 缩小运行范围 |
+| 某个顾虑   | 阶段可以限定到你描述的某个担忧                                   | 调查用的提示词是固定的                                |
+| 某个优先级 | `harden` 和 `verify` 可以限定到严重、高危、中危或低危            | 发现项在运行结束后才打上标签                          |
+| 单个值     | hook 直接为单个代码片段、模式或 URL 评分（`--pattern`、`--url`） | 工作单位是文件                                        |
+
+## 常见问题
+
+### Lagune 和 Deepsec 有什么区别？
+
+Lagune 以智能体为先，在代码编写之前、之中和之后都能发挥作用：写代码之前先制定策略，开发时在编写过程中直接加固，并对已经写好的代码进行审计、加固和验证。Deepsec 以确定性为先：大范围的正则表达式扫描为必需的前沿模型调查提供输入，这项调查会审查已有代码并报告发现项，但不会修改代码。
+
+### 这两个工具能免费用吗？
+
+Lagune 的完整流程可以在免费的本地模型上以 $0 运行，它的确定性 hook 完全不用 AI 也能给出判定结果。Deepsec 的扫描是免费的，但不给出判定结果，所以任何发现项都要依靠它付费的 AI 阶段。
+
+### 它们会修改我的代码吗？
+
+Lagune 会：harden 会把修复应用到你的代码中。Deepsec 不会：它只做静态分析，输出发现项和建议文本，由人或智能体另行应用。
+
+---
+
+# OWASP 来源
+
+> 内置 OWASP 专项的知识从何而来，并对应到 OWASP 官方的攻击页面和 Cheat Sheet 页面。
+
+规范链接: https://lagune.ai/zh-CN/docs/references/owasp-sources
+语言: zh-CN
+原文: https://lagune.ai/docs/references/owasp-sources
+最后更新: 2026-11-03
+
+本文档把 OWASP 的每个**攻击**（`www-community`）和每份 **Cheat Sheet**（`CheatSheetSeries`）对应到一个安全类别，并分别链接到它们的官方公开页面。在同一个类别中，等价的条目共用一行清单：针对同一风险的攻击和 Cheat Sheet 列在一起，用逗号分隔。没有直接对应项的条目单独占一行。
+
+- 内容归功于 OWASP。攻击页面位于 `https://owasp.org/www-community/attacks/<attack>`，Cheat Sheet 位于 `https://cheatsheetseries.owasp.org/cheatsheets/<cheat>.html`。
+
+---
+
+## 1. 注入（通用）
+
+- [x] [Code Injection](https://owasp.org/www-community/attacks/Code_Injection), [Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html), [Injection Prevention in Java](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_in_Java_Cheat_Sheet.html) (interpreter)
+- [x] [Direct Dynamic Code Evaluation (Eval Injection)](https://owasp.org/www-community/attacks/Direct_Dynamic_Code_Evaluation_Eval_Injection) (interpreter)
+- [x] [Function Injection](https://owasp.org/www-community/attacks/Function_Injection) (interpreter)
+- [x] [Resource Injection](https://owasp.org/www-community/attacks/Resource_Injection) (network)
+- [x] [Special Element Injection](https://owasp.org/www-community/attacks/Special_Element_Injection) (interpreter)
+- [x] [Custom Special Character Injection](https://owasp.org/www-community/attacks/Custom_Special_Character_Injection) (interpreter)
+- [x] [Comment Injection Attack](https://owasp.org/www-community/attacks/Comment_Injection_Attack) (interpreter)
+- [x] [Parameter Delimiter](https://owasp.org/www-community/attacks/Parameter_Delimiter) (interpreter)
+- [x] [Server-Side Includes (SSI) Injection](https://owasp.org/www-community/attacks/Server-Side_Includes_%28SSI%29_Injection) (interpreter)
+- [x] [Input Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html), [Bean Validation](https://cheatsheetseries.owasp.org/cheatsheets/Bean_Validation_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 2. SQL / 数据库注入
+
+- [x] [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html), [Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) (sql)
+- [x] [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) (sql)
+- [x] [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF) (sql)
+- [x] [RSQL Injection](https://owasp.org/www-community/attacks/RSQL_Injection) (interpreter)
+- [x] [Database Security](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html) (sql)
+- [x] [NoSQL Security](https://cheatsheetseries.owasp.org/cheatsheets/NoSQL_Security_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 3. 操作系统 / 命令注入
+
+- [x] [Command Injection](https://owasp.org/www-community/attacks/Command_Injection), [OS Command Injection Defense](https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 4. LDAP / XPath / XML 注入
+
+- [x] [LDAP Injection](https://owasp.org/www-community/attacks/LDAP_Injection), [LDAP Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html) (interpreter)
+- [x] [XPATH Injection](https://owasp.org/www-community/attacks/XPATH_Injection) (interpreter)
+- [x] [Blind XPath Injection](https://owasp.org/www-community/attacks/Blind_XPath_Injection) (interpreter)
+- [x] [XML External Entity (XXE) Prevention](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html), [XML Security](https://cheatsheetseries.owasp.org/cheatsheets/XML_Security_Cheat_Sheet.html) (xml)
+
+---
+
+## 5. 跨站脚本（XSS）
+
+- [x] [Cross Site Scripting (XSS)](https://owasp.org/www-community/attacks/Cross-site-Scripting-%28XSS%29), [Cross Site Scripting Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html), [XSS Filter Evasion](https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html) (browser)
+- [x] [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS), [DOM based XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html), [DOM Clobbering Prevention](https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html) (browser)
+- [x] [Reflected DOM Injection](https://owasp.org/www-community/attacks/Reflected_DOM_Injection) (browser)
+- [x] [XSS in Converting File Content to Text](https://owasp.org/www-community/attacks/XSS_in_Converting_File_Content_to_Text) (browser)
+- [x] [XSS in subtitle](https://owasp.org/www-community/attacks/Xss_in_subtitle) (browser)
+- [x] [Cross Frame Scripting](https://owasp.org/www-community/attacks/Cross_Frame_Scripting) (browser)
+- [x] [Cross Site Tracing](https://owasp.org/www-community/attacks/Cross_Site_Tracing) (browser)
+- [x] [Content Security Policy](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html) (browser)
+
+---
+
+## 6. 跨站请求伪造（CSRF）与点击劫持
+
+- [x] [Cross Site Request Forgery (CSRF)](https://owasp.org/www-community/attacks/cross-site-request-forgery), [XSRF](https://owasp.org/www-community/attacks/XSRF), [Cross-Site Request Forgery Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) (http-request)
+- [x] [Clickjacking](https://owasp.org/www-community/attacks/Clickjacking), [Clickjacking Defense](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html) (browser)
+- [x] [Cross Site History Manipulation (XSHM)](https://owasp.org/www-community/attacks/Cross_Site_History_Manipulation_%28XSHM%29) (browser)
+- [x] [Form action hijacking](https://owasp.org/www-community/attacks/Form_action_hijacking) (network)
+- [x] [Reverse Tabnabbing](https://owasp.org/www-community/attacks/Reverse_Tabnabbing) (browser)
+
+---
+
+## 7. 重定向与转发
+
+- [x] [Open Redirect](https://owasp.org/www-community/attacks/open_redirect), [Unvalidated Redirects and Forwards](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) (network)
+- [x] [Execution After Redirect (EAR)](https://owasp.org/www-community/attacks/Execution_After_Redirect_%28EAR%29) (browser)
+
+---
+
+## 8. 访问控制与授权
+
+- [x] [Insecure Direct Object Reference (IDOR)](https://owasp.org/www-community/attacks/insecure_direct_object_reference), [Insecure Direct Object Reference Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html) (access-control)
+- [x] [Forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) (access-control)
+- [x] [Web Parameter Tampering](https://owasp.org/www-community/attacks/Web_Parameter_Tampering) (access-control)
+- [x] [Setting Manipulation](https://owasp.org/www-community/attacks/Setting_Manipulation) (access-control)
+- [x] [Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) (access-control)
+- [x] [Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html) (access-control)
+- [x] [Mass Assignment](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html) (access-control)
+- [x] [Multi-Tenant Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Multi_Tenant_Security_Cheat_Sheet.html) (access-control)
+
+---
+
+## 9. 认证与凭证
+
+- [x] [Brute Force Attack](https://owasp.org/www-community/attacks/Brute_force_attack), [Password Spraying Attack](https://owasp.org/www-community/attacks/Password_Spraying_Attack), [Bot Management and Anti-Automation](https://cheatsheetseries.owasp.org/cheatsheets/Bot_Management_and_Anti-Automation_Cheat_Sheet.html) (credential-endpoint)
+- [x] [Credential stuffing](https://owasp.org/www-community/attacks/Credential_stuffing), [Credential Stuffing Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html) (credential-endpoint)
+- [x] [Qrljacking](https://owasp.org/www-community/attacks/Qrljacking) (federation)
+- [x] [Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html), [Multifactor Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html) (access-control)
+- [x] [Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) (access-control)
+- [x] [Forgot Password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html), [Choosing and Using Security Questions](https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html) (access-control)
+- [x] [Email Validation and Verification in Identity Systems](https://cheatsheetseries.owasp.org/cheatsheets/Email_Validation_and_Verification_Cheat_Sheet.html) (access-control)
+
+---
+
+## 10. 会话管理
+
+- [x] [Session fixation](https://owasp.org/www-community/attacks/Session_fixation), [Session hijacking attack](https://owasp.org/www-community/attacks/Session_hijacking_attack), [Session Prediction](https://owasp.org/www-community/attacks/Session_Prediction), [Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) (access-control)
+- [x] [Cookie Theft Mitigation](https://cheatsheetseries.owasp.org/cheatsheets/Cookie_Theft_Mitigation_Cheat_Sheet.html) (access-control)
+
+---
+
+## 11. 联合登录（OAuth / SAML / JWT）
+
+- [x] [OAuth 2.0 Protocol](https://cheatsheetseries.owasp.org/cheatsheets/OAuth2_Cheat_Sheet.html) (federation)
+- [x] [SAML Security](https://cheatsheetseries.owasp.org/cheatsheets/SAML_Security_Cheat_Sheet.html) (federation)
+- [x] [JSON Web Token for Java](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html) (federation)
+
+---
+
+## 12. 密码学与传输安全
+
+- [x] [Cryptanalysis](https://owasp.org/www-community/attacks/Cryptanalysis), [Cryptographic Storage](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html), [Key Management](https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html) (crypto)
+- [x] [Manipulator-in-the-Middle (MITM)](https://owasp.org/www-community/attacks/Man-in-the-middle_attack), [Transport Layer Security](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html) (transport)
+- [x] [HTTP Strict Transport Security](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html) (transport)
+- [x] [Pinning](https://cheatsheetseries.owasp.org/cheatsheets/Pinning_Cheat_Sheet.html) (transport)
+
+---
+
+## 13. 服务端请求伪造（SSRF）
+
+- [x] [Server Side Request Forgery](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery), [Server-Side Request Forgery Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html) (network)
+
+---
+
+## 14. 路径遍历与文件处理
+
+- [x] [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal) (path)
+- [x] [Binary Planting](https://owasp.org/www-community/attacks/Binary_planting) (path)
+- [x] [Windows ::DATA Alternate Data Stream](https://owasp.org/www-community/attacks/Windows_DATA_alternate_data_stream) (path)
+- [x] [Embedding Null Code](https://owasp.org/www-community/attacks/Embedding_Null_Code) (path)
+- [x] [File Upload](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html) (upload)
+
+---
+
+## 15. HTTP 协议滥用（标头、缓存、拆分）
+
+- [x] [HTTP Response Splitting](https://owasp.org/www-community/attacks/HTTP_Response_Splitting), [Cross-User Defacement](https://owasp.org/www-community/attacks/Cross-User_Defacement) (interpreter)
+- [x] [HTTP Security Response Headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html)（拆分到 browser、transport、http-request、access-control）
+- [x] [Cache Poisoning](https://owasp.org/www-community/attacks/Cache_Poisoning) (interpreter)
+- [x] [IP Spoofing via HTTP Headers](https://owasp.org/www-community/attacks/ip_spoofing_via_http_headers) (http-request)
+
+---
+
+## 16. 编码与内容欺骗
+
+- [x] [Unicode Encoding](https://owasp.org/www-community/attacks/Unicode_Encoding) (interpreter)
+- [x] [Double Encoding](https://owasp.org/www-community/Double_Encoding) (interpreter)
+- [x] [Content Spoofing](https://owasp.org/www-community/attacks/Content_Spoofing) (browser)
+
+---
+
+## 17. CSV / 电子表格注入
+
+- [x] [CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection) (csv)
+
+---
+
+## 18. CORS（跨源资源共享）
+
+- [x] [CORS OriginHeaderScrutiny](https://owasp.org/www-community/attacks/CORS_OriginHeaderScrutiny) (http-request)
+- [x] [CORS RequestPreflightScrutiny](https://owasp.org/www-community/attacks/CORS_RequestPreflightScrutiny) (http-request)
+
+---
+
+## 19. 拒绝服务
+
+- [x] [Regular expression Denial of Service (ReDoS)](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS) (regex)
+
+---
+
+## 20. 内存安全与原生代码
+
+- [x] [Buffer Overflow Attack](https://owasp.org/www-community/attacks/Buffer_overflow_attack), [Buffer Overflow via Environment Variables](https://owasp.org/www-community/attacks/Buffer_Overflow_via_Environment_Variables) (c-cpp)
+- [x] [Format string attack](https://owasp.org/www-community/attacks/Format_string_attack) (c-cpp)
+
+---
+
+## 21. 移动代码与不可信代码的执行
+
+- [x] [Mobile code invoking untrusted mobile code](https://owasp.org/www-community/attacks/Mobile_code_invoking_untrusted_mobile_code) (interpreter)
+- [x] [Mobile code non-final public field](https://owasp.org/www-community/attacks/Mobile_code_non-final_public_field) (java)
+- [x] [Mobile code object hijack](https://owasp.org/www-community/attacks/Mobile_code_object_hijack) (java)
+
+---
+
+## 22. 反序列化
+
+- [x] [Deserialization](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html)（拆分到 python、ruby、php、java、dotnet）
+
+---
+
+## 23. 恶意软件与客户端威胁
+
+- [x] [Man-in-the-browser attack](https://owasp.org/www-community/attacks/Man-in-the-browser_attack), [Browser Extension Security Vulnerabilities](https://cheatsheetseries.owasp.org/cheatsheets/Browser_Extension_Vulnerabilities_Cheat_Sheet.html) (browser)
+- [x] [Third Party JavaScript Management](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Javascript_Management_Cheat_Sheet.html) (browser)
+
+---
+
+## 24. 日志、抵赖与错误处理
+
+- [x] [Log Injection](https://owasp.org/www-community/attacks/Log_Injection), [Logging](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), [Application Logging Vocabulary](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Vocabulary_Cheat_Sheet.html) (interpreter)
+- [x] [Repudiation Attack](https://owasp.org/www-community/attacks/Repudiation_Attack) (interpreter)
+
+---
+
+## 25. 业务逻辑与功能滥用
+
+业务逻辑和功能滥用没有单一的代码攻击面可供按攻击面划分的专项来防御：防御靠的是针对具体应用的设计，也就是项目威胁建模所推动的那种思考。已移至"不在范围内"。
+
+---
+
+## 26. AI / LLM / 智能体安全
+
+- [x] [Prompt Injection](https://owasp.org/www-community/attacks/prompt-injection), [LLM Prompt Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html) (llm)
+- [x] [MCP Tool Poisoning](https://owasp.org/www-community/attacks/MCP_Tool_Poisoning), [MCP (Model Context Protocol) Security](https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html) (llm)
+- [x] [HITL Dialog Forging (Lies-in-the-Loop)](https://owasp.org/www-community/attacks/lies-in-the-loop) (llm)
+- [x] [AI Agent Security](https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html), [Secure Coding with AI](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Coding_with_AI_Cheat_Sheet.html) (llm)
+- [x] [Retrieval-Augmented Generation (RAG) Security](https://cheatsheetseries.owasp.org/cheatsheets/RAG_Security_Cheat_Sheet.html) (llm)
+- [x] [Secure AI/ML Model Ops](https://cheatsheetseries.owasp.org/cheatsheets/Secure_AI_Model_Ops_Cheat_Sheet.html) (llm)
+- [x] [AML and Sanctions Compliance for AI Agent Payments](https://cheatsheetseries.owasp.org/cheatsheets/AML_Sanctions_AI_Agent_Payments_Cheat_Sheet.html) (llm)
+
+---
+
+## 27. 原型链污染与跨站泄露
+
+- [x] [Prototype Pollution Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html) (javascript)
+- [x] [Cross-site leaks (XS-Leaks)](https://cheatsheetseries.owasp.org/cheatsheets/XS_Leaks_Cheat_Sheet.html) (browser)
+
+---
+
+## 28. 框架与语言平台
+
+- [x] [Django Security](https://cheatsheetseries.owasp.org/cheatsheets/Django_Security_Cheat_Sheet.html), [Django REST Framework](https://cheatsheetseries.owasp.org/cheatsheets/Django_REST_Framework_Cheat_Sheet.html) (python)
+- [x] [Ruby on Rails](https://cheatsheetseries.owasp.org/cheatsheets/Ruby_on_Rails_Cheat_Sheet.html) (ruby)
+- [x] [Laravel](https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html) (php)
+- [x] [Symfony](https://cheatsheetseries.owasp.org/cheatsheets/Symfony_Cheat_Sheet.html) (php)
+- [x] [Java Security](https://cheatsheetseries.owasp.org/cheatsheets/Java_Security_Cheat_Sheet.html) (java)
+- [x] [DotNet Security](https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html) (dotnet)
+- [x] [NodeJS Security](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html) (javascript)
+- [x] [PHP Configuration](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html) (php)
+
+---
+
+## 29. Web 前端与浏览器
+
+- [x] [HTML5 Security](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html) (browser)
+- [x] [AJAX Security](https://cheatsheetseries.owasp.org/cheatsheets/AJAX_Security_Cheat_Sheet.html) (browser)
+- [x] [Securing Cascading Style Sheets](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html)（拆分到 access-control、browser）
+
+---
+
+## 30. API 与服务
+
+- [x] [GraphQL](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html) (api-endpoint)
+- [x] [gRPC Security](https://cheatsheetseries.owasp.org/cheatsheets/gRPC_Security_Cheat_Sheet.html) (api-endpoint)
+- [x] [WebSocket Security](https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html) (api-endpoint)
+
+---
+
+## 31. 云、容器与基础设施
+
+容器和工作负载的配置属于配置即代码，由开发者随应用一起发布（`Dockerfile`、Compose、Pod 的 `securityContext`），是 `harden` 能修复、`verify` 能证明的真实攻击面，因此在范围内。集群管理（RBAC、etcd、API server、准入控制、网络分段）属于运维人员的职责，仍不在范围内。
+
+- [x] [Docker Security](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html), [Node.js Docker](https://cheatsheetseries.owasp.org/cheatsheets/NodeJS_Docker_Cheat_Sheet.html) (container)
+- [x] [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)（container：工作负载和 Pod 部分。集群管理仍不在范围内）
+- [x] [Serverless / FaaS Security](https://cheatsheetseries.owasp.org/cheatsheets/Serverless_FaaS_Security_Cheat_Sheet.html) (serverless)
+
+---
+
+## 32. 供应链与 CI/CD
+
+- [x] [NPM Security](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html) (interpreter)
+- [x] [Dependency Graph & SBOM Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Dependency_Graph_SBOM_Cheat_Sheet.html), [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 33. 密钥与配置
+
+密钥管理属于运维范畴：密钥保管库、CI/CD、云配置、轮换。唯一涉及代码的部分（源码中硬编码的密钥）由确定性扫描负责，而不是风险专项。已移至"不在范围内"。
+
+---
+
+## 34. 流程、设计与治理
+
+用户隐私保护属于策略和设计问题（数据最小化、透明度、保留期限），不是专项能够防御的代码攻击面。已移至"不在范围内"。
+
+---
+
+## 35. 支付与合规
+
+- [x] [Secure Integration of Third-Party Payment Gateways](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Payment_Gateway_Integration_Cheat_Sheet.html) (payment)
+
+---
+
+## 36. 嵌入式 / IoT / 专门领域
+
+汽车安全和无人机安全属于嵌入式系统领域（CAN 总线、OTA 固件、传感器和无线电的完整性、物理访问），而不是 Lagune 审计的 Web / API 应用源码。已移至"不在范围内"。
+
+---
+
+## 不在范围内（没有代码攻击面）
+
+这些条目不属于专项的领域，也没有复选框：它们属于治理、流程、运维层面的加固或框架用法，没有单一的代码攻击面可供按攻击面划分的专项来防御。它们的安全价值是真实的，但体现在流程和架构中（对于框架，则体现在该语言自己的 skill 中），而不在这个目录提供的防御里。列在这里仅供参考，不是待办工作。
+
+- [Authorization Regression Testing](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Regression_Testing_Cheat_Sheet.html), [Authorization Testing Automation](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Testing_Automation_Cheat_Sheet.html)
+- [JAAS](https://cheatsheetseries.owasp.org/cheatsheets/JAAS_Cheat_Sheet.html)
+- [Denial of Service](https://owasp.org/www-community/attacks/Denial_of_Service), [Denial of Service](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)
+- [HTTP/2 Reset Attack](https://owasp.org/www-community/attacks/HTTP2_Reset_Attack)
+- [Traffic flood](https://owasp.org/www-community/attacks/Traffic_flood)
+- [Web Service Amplification Attack](https://owasp.org/www-community/attacks/web_service_amplificaiton)（SOAP/WS-Addressing 放大攻击，一种运维层面的 DoS 变体，没有代码攻击面）
+- [Cash Overflow](https://owasp.org/www-community/attacks/Cash_Overflow)
+- [Spyware](https://owasp.org/www-community/attacks/Spyware), [Trojan Horse](https://owasp.org/www-community/attacks/Trojan_Horse)（终端用户侧的恶意软件，不是被审计项目中的代码攻击面。通过浏览器投放的那部分归入 `browser`）
+- [REST Security](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html), [REST Assessment](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
+- [Web Service Security](https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html)
+- [Cloud Architecture Security](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Cloud_Architecture_Cheat_Sheet.html)（设计与权衡：IAM 与签名 URL 的取舍、公有和私有 VPC、信任边界、责任共担。与 `container` 不同，它没有可供专项检查的具体配置）
+- [Infrastructure as Code Security](https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html)（虽然名字如此，它讲的其实是用于*管理* IaC 的 SDLC 流程和工具：IDE 插件、静态分析、镜像扫描、CI/CD、签名。它没有给出 Terraform 或 CloudFormation 文件中从不安全模式到安全写法的对照）
+- [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html)（_仅限集群管理部分_：RBAC、etcd、API server、准入控制。工作负载和 Pod 部分在 `container` 下，属于范围内）
+- [Network Segmentation](https://cheatsheetseries.owasp.org/cheatsheets/Network_Segmentation_Cheat_Sheet.html)（网络架构和防火墙策略）
+- [Subdomain Takeover Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Subdomain_Takeover_Prevention_Cheat_Sheet.html)（DNS 生命周期和监控，而非代码）
+- [Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)（密钥保管库、CI/CD、轮换。硬编码密钥这部分由确定性扫描负责，而不是风险专项）
+- [C-Based Toolchain Hardening](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)（编译器、链接器和构建参数，源码中没有 sink）
+- [Microservices Security](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_Security_Cheat_Sheet.html), [Microservices based Security Arch Doc](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_based_Security_Arch_Doc_Cheat_Sheet.html)
+- [Zero Trust Architecture](https://cheatsheetseries.owasp.org/cheatsheets/Zero_Trust_Architecture_Cheat_Sheet.html)
+- [CI/CD Security](https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html), [GitHub Actions Security](https://cheatsheetseries.owasp.org/cheatsheets/GitHub_Actions_Security_Cheat_Sheet.html)
+- [Software Supply Chain Security](https://cheatsheetseries.owasp.org/cheatsheets/Software_Supply_Chain_Security_Cheat_Sheet.html)
+- [Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html), [Full Path Disclosure](https://owasp.org/www-community/attacks/Full_Path_Disclosure)（每种技术栈的全局错误处理器配置。这种泄露与错误处理本来就管控的信息泄露是同一回事）
+- [Abuse of Functionality](https://owasp.org/www-community/attacks/Abuse_of_Functionality), [Business Logic Security](https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html), [Abuse Case（_历史版本_）](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html)（针对具体应用的设计，没有单一的代码 sink）
+- [User Privacy Protection](https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html)（数据最小化、透明度、保留策略）
+- [Top 10 Automotive Security Vulnerabilities](https://cheatsheetseries.owasp.org/cheatsheets/Automotive_Security_Cheat_Sheet.html), [Drone Security](https://cheatsheetseries.owasp.org/cheatsheets/Drone_Security_Cheat_Sheet.html)（嵌入式系统领域：CAN 总线、OTA 固件、传感器和无线电的完整性，而不是 Web / API 源码）
+- [Mobile Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Mobile_Application_Security_Cheat_Sheet.html)（Android 和 iOS 平台加固：存储、生物识别、证书固定、PII。它没有单一的代码攻击面，其中加载不可信代码的部分已归入 `interpreter`）
+- [Threat Modeling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html), [Threat Modeling（_社区页面_）](https://owasp.org/www-community/Threat_Modeling)
+- [Attack Surface Analysis](https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html)
+- [Secure Product Design](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Product_Design_Cheat_Sheet.html)
+- [Secure Code Review](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Code_Review_Cheat_Sheet.html)
+- [Virtual Patching](https://cheatsheetseries.owasp.org/cheatsheets/Virtual_Patching_Cheat_Sheet.html)
+- [Vulnerability Disclosure](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html)
+- [Legacy Application Management](https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html)
+- [Security Terminology](https://cheatsheetseries.owasp.org/cheatsheets/Security_Terminology_Cheat_Sheet.html)
+
+---
+
+# /lagune-repair: 修复失效的发现项追踪
+
+> 文件重命名或移动让 Lagune 的追踪出错时，修复整条链路。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/repair
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/repair
+最后更新: 2026-11-03
+
+🧰 文件重命名或移动让链路出错时，用它来修复链路。
+
+**内部维护，不是安全阶段**
+
+repair 不是线性流程中的第六个阶段。它的任务是保持追踪的一致性。
+
+```prompt
+# 不需要任何输入：它总是修复整条链路
+/lagune-repair
+```
+
+## 工作原理
+
+detect 的每个发现项都是一个追踪项，由 plan、harden 和 verify 依次沿用，每个阶段都会处理它，并按名称再次报告它。这个名称在每个产物中都以完全相同的写法作为章节标题，是它贯穿始终的身份标识。
+
+追踪中唯一会变动的内容，是追踪项指向的文件路径。这些路径不保存在其他任何地方，所以重命名或移动文件只会让这一处的关联断开，绝不会出现两份互相矛盾的副本。出现这种情况时，repair 会修正映射（`.lagune/tracking.json`），让身份标识在重命名后依然有效。它会读取产物和追踪映射，只为查明重命名文件的新路径才读取你的源代码，并且从不编写安全内容。
+
+在同一轮中，它还会对照模板检查每个记忆产物，报告出现偏差的地方，并为每处偏差指明负责修复的阶段。
+
+**提示**
+
+- 它既不改动你的代码，也不改动文字产物，只处理追踪。
+- 你很少需要手动运行它。某个阶段发现链路不一致时，会替你运行 repair，然后继续。
+- 它维护的追踪保存在 `.lagune/tracking.json` 中，这是内部状态，不要手动编辑。
+
+---
+
+# Migrate：将基于 manifest 的 Lagune 项目迁移到 skills 和插件
+
+> 将基于 manifest 的 Lagune 项目迁移到基于 skills 的 Lagune，同时保留你的安全原则、产物、追踪和你自己的专项。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/migrate
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/migrate
+最后更新: 2026-11-03
+
+🔀 将基于 manifest 的 **Lagune** 项目迁移到基于 skills 的 **Lagune**，你写过的一切都会保留。
+
+**弃用通知**
+
+带有 manifest 的项目会一直照常运行到 `v1.x`：`npx lagune` 会把 `init`、`pull`、`update`、`add`、`remove`、`list` 和仪表盘交给 `lagune@0.15.0` 处理，这是最后一个基于 manifest 的版本。
+
+## 如何迁移
+
+1. 确认当前的工作都已提交，然后在项目根目录运行 migrate：
+
+   ```bash
+   npx lagune migrate
+   ```
+
+2. 把它做出的改动单独提交，让这次迁移保持为一个便于审查的变更。
+3. 按照 [安装页面](https://lagune.ai/zh-CN/docs) 的说明，为你的智能体安装命令。
+4. 如果项目里已经有 detect、plan 或 harden 产物，请让 [`/lagune-repair`](https://lagune.ai/zh-CN/docs/commands/repair) 核对并更新这些产物和你自己的专项中的旧引用：
+
+   ```prompt
+   /lagune-repair 把 `.lagune/memory/` 下各产物（`detect.md`、`plan.md` 和 `harden.md`）中已应用的专项（以前叫 sub-skills）与新目录列出的名称核对并更新，并把我在 `.lagune/catalog/` 中自己的专项对 `.lagune/hooks/` 中旧 hook 的每一次调用，都改写为对 `lagune_read` 或 `lagune_write` 工具的调用。
+   ```
+
+## 有哪些变化
+
+| 迁移前                                                                 | 迁移后                                                                 |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `.lagune/templates/`、`.lagune/hooks/` 和 `.lagune/specializations.md` | 已移除：每个 skill 自带模板，hook 由引擎运行                           |
+| `.lagune/skills/` 中内置专项的副本                                     | 已移除：内置专项由引擎提供                                             |
+| `.lagune/skills/` 中你自己的专项                                       | 移至 `.lagune/catalog/`                                                |
+| `.lagune/skills.json`，即你自己的专项的索引                            | 合并到 `.lagune/configs.json`                                          |
+| manifest 中的类别                                                      | 记录在 `.lagune/configs.json` 中                                       |
+| 旧的智能体命令，例如 `/lagune.detect`                                  | 已移除：[安装 **Lagune**](https://lagune.ai/zh-CN/docs) 后会带来新命令，例如 `/lagune-detect` |
+| `.gitignore` 中的 **Lagune** 区块                                      | 已移除，如果文件里没有其他内容，文件也一并删除                         |
+| `.lagune/proofs/`，原本由该区块忽略                                    | 由它自己的 `.gitignore` 排除在提交之外                                 |
+| `.lagune/manifest.json`                                                | 最后删除                                                               |
+
+你的安全工作保持不变：安全原则、每个阶段生成的产物，以及记录了每个发现项所指路径的追踪映射。
+
+## 常见问题
+
+### 我必须迁移吗？
+
+是的。基于 manifest 的项目已被弃用，只能继续使用到 v1.x，所以请运行 npx lagune migrate 迁移你的项目。
+
+### migrate 会保留哪些内容？
+
+你的安全原则、每个阶段产物、追踪映射、你的类别以及你自己的专项。专项会移到 .lagune/catalog/，它们的索引会和你的类别一起放进 .lagune/configs.json。
+
+### 什么时候安装新命令？
+
+在运行 migrate 之后，按照安装页面针对你的智能体给出的说明安装。先安装也可以，因为 migrate 会保留新的 /lagune。
+
+### 团队成员已经迁移过了，我该运行什么？
+
+先拉取这次迁移，然后运行一次 npx lagune migrate。它会删除基于 manifest 的 Lagune 留在你本地克隆中的内容（这些内容从未纳入版本控制），并把你的证明文件排除在提交之外。

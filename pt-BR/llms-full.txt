@@ -1486,7 +1486,7 @@ O charter é a camada que rege tudo: um conjunto de princípios que colocam a se
 **Descreva o projeto**
 
 ```prompt
-/lagune-charter Meu projeto é uma loja virtual que vende videogames. Os clientes adicionam produtos ao carrinho e pagam com cartão de crédito ou boleto. Eles podem ver os próprios pedidos e o status de cada um.
+/lagune-charter Meu projeto é uma loja virtual que vende jogos de videogames. Os clientes adicionam produtos ao carrinho e pagam com cartão de crédito ou boleto. Eles podem ver os próprios pedidos e o status de cada um.
 ```
 
 **Deixe o Lagune propor**

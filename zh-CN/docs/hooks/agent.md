@@ -1,0 +1,63 @@
+# agent hook：检测没有上限的智能体循环
+
+> 在命令行中扫描代码库里没有步数或时间上限的智能体或 LLM 调用，或评估单个调用。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/agent
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/agent
+最后更新: 2026-11-03
+
+`agent` hook 会标记**不设轮次、预算或时间上限就循环运行的智能体运行时**，这种失控的自主性漏洞会让一条精心构造的输入造成无上限的成本，或让提示词注入不断升级。它**能识别语言**，覆盖两大智能体框架生态：**JavaScript**（**Claude** 智能体 SDK 的 `query` 运行时）和 **Python**（**LangChain**、**LangGraph**、**CrewAI**、**OpenAI Agents**）。它是 [`llm` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read agent                # scans the whole project
+npx lagune read agent --dir src/ai   # scans a directory
+npx lagune read agent --file chat.ts # scans a single file
+```
+
+**检查调用**
+
+```bash
+npx lagune read agent --lang javascript --pattern 'query({ prompt })'                           # => uncapped
+npx lagune read agent --lang javascript --pattern 'query({ prompt, options: { maxTurns: 5 } })' # => safe
+npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterations=None)'     # => uncapped
+```
+
+**Uncapped agent loops found** 下的每一行都出现在导入了智能体 SDK 的文件中，要么是调用 Claude 智能体 SDK 的 `query` 运行时却没有设置轮次、预算或时间上限（JavaScript，默认无上限），要么是显式移除了框架的默认上限，例如 `max_iterations=None` / `max_turns=None`（Python，默认有上限）。两种情况都会以非零退出码退出。Vercel AI SDK 的 `generateText`/`streamText` 默认只执行一步（`stopWhen: stepCountIs(1)`），因此直接调用它们不会形成循环，也不会被标记，普通的 `db.query(...)` 也绝不会被误认为智能体调用。扫描结果干净时会输出 `no uncapped agent loops found`。
+
+## 如何解读判定结果
+
+| 判定结果   | 含义                                                                       |
+| ---------- | -------------------------------------------------------------------------- |
+| `uncapped` | 没有设置上限的 `query` 运行时调用（JS），或显式移除了上限（`=None`，Py）。 |
+| `safe`     | 设置了上限的 `query` 调用、单步生成，或默认有上限的框架调用。              |
+| `invalid`  | 代码片段中没有可识别、可判定的智能体调用。                                 |
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                         |
+| ----------- | ------------ | ------------------------------------------------------------ |
+| `--pattern` | 一个代码片段 | 检查一个调用。可重复使用以检查多个，每行一个判定结果。       |
+| `--lang`    | 一种语言     | 使用 `--pattern` 时必填：`javascript` 或 `python`。          |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。 |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+**尽力而为，并非详尽无遗**
+
+无论用哪种语言，手写的智能体循环都超出了静态扫描的能力范围。请把它当作可靠的底线，而不是完整的清单。
+
+**提示**
+
+hook 只判断上限：能力范围的划定、信任级别的混用和授权，则由 [`llm` 专项](https://lagune.ai/zh-CN/docs/catalog) 来判断。
+
+## 常见问题
+
+### 为什么要给智能体循环设置上限？
+
+没有上限的智能体可能被诱导陷入无限递归、无上限的成本或不断升级的提示词注入。设置 maxTurns/maxBudgetUsd/stopWhen/signal 可以约束它，而 agent hook 会标记一个都没有设置的 query 运行时调用。

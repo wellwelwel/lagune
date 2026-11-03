@@ -1,0 +1,84 @@
+# crypto hook：检测弱加密
+
+> 在命令行中扫描代码库里的弱加密原语，或评估单个代码片段。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/crypto
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/crypto
+最后更新: 2026-11-03
+
+`crypto` hook 会在调用处标记**弱加密原语**：已弃用的密码算法、不安全的模式或已被攻破的摘要算法。它**能识别语言**，按每个文件自己的规则读取，因此绝不会在 Rust 文件上标记 Python 的写法。它也是 [`crypto` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
+
+## 如何运行
+
+**扫描代码库**
+
+```bash
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
+```
+
+**检查代码片段**
+
+```bash
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+```
+
+扫描最多输出两个部分。**Weak cryptography found** 是发现项集合（DES/3DES/RC4/Blowfish/RC2、ECB 模式）：每一项都是已被攻破的密码原语，因此 hook 会以非零退出码退出。**Cryptography to review manually** 是它无法独立判断的警示集合：MD5/SHA-1 摘要（用于安全场景时已被攻破，但作为普通校验和是正当用法，所以取决于用途）、安全场景中的非密码学随机数生成器，或易受时序攻击的比较。扫描结果干净时会输出 `no weak cryptography found`。
+
+## 如何解读判定结果
+
+| 判定结果  | 含义                                                                           |
+| --------- | ------------------------------------------------------------------------------ |
+| `weak`    | 代码片段使用了已被攻破的密码原语（DES/3DES、RC4、Blowfish、RC2 或 ECB 模式）。 |
+| `review`  | 取决于用途的原语：MD5/SHA-1 摘要，或安全场景中的非密码学随机数生成器。         |
+| `safe`    | 代码片段用到了加密，且没有发现弱原语。                                         |
+| `invalid` | 代码片段中没有可识别、可判定的加密结构。                                       |
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                                                                         |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
+| `--pattern` | 一个代码片段 | 检查一个代码片段。可重复使用以检查多个，每行一个判定结果。                                                   |
+| `--lang`    | 一种语言     | 使用 `--pattern` 时必填，取值为 javascript、python、go、java、kotlin、php、ruby、rust、csharp、c、cpp 之一。 |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。                                                 |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                                  |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 支持的语言
+
+扫描会按文件扩展名识别以下语言，并对照每种语言自己的加密 API 进行检查。
+
+| 语言                        | 弱密码算法（发现项）与摘要/随机数生成器（审查）                                                                  |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **JavaScript / TypeScript** | `createCipher`、`CryptoJS.DES/RC4`、带引号的 `*-ecb`；MD5/SHA-1 的 `createHash`/`subtle.digest`；`Math.random()` |
+| **Python**                  | pycryptodome 的 `DES/ARC4/Blowfish.new`、`algorithms.TripleDES`、`MODE_ECB`；`hashlib.md5/sha1`；`random.*`      |
+| **Go**                      | `des.NewCipher`、`rc4.NewCipher`、`blowfish.NewCipher`、`NewECBEncrypter`；`md5/sha1.Sum`；`math/rand`           |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`；`MessageDigest.getInstance("MD5")`、`HmacMD5`；`java.util.Random`            |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`、`mcrypt_*`；`md5()`/`sha1()`、`hash("md5", …)`；`rand()`/`mt_rand()`         |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`、`:ECB`；`Digest::MD5/SHA1`；`rand()`/`Random`                                    |
+| **Rust**                    | `Rc4::`、`Blowfish::`、`des::`、`ecb::`；`Md5::`、`Sha1::`、`Hmac<Md5>`；`SmallRng`/`XorShiftRng`                |
+| **C#**                      | `DES/TripleDES/RC2.Create`、`CipherMode.ECB`；`MD5/SHA1.Create`、`HMACMD5`；`new Random()`                       |
+| **C / C++**                 | OpenSSL 的 `DES_*`/`RC4`/`EVP_des_*`、`EVP_*_ecb`；`MD5()`/`SHA1()`、`EVP_md5`；`rand()`/`random()`              |
+
+**尽力而为，并非详尽无遗**
+
+它把源代码当作文本读取，因此在运行时拼装、藏在别名后面，或以它无法识别的形式写出的原语都可能被漏掉。请把这张表当作可靠的起点，而不是完整的清单。
+
+**提示**
+
+hook 保证的是底线（这些结构确实存在）：密钥管理、IV 重用和 RSA 填充，则由 [`crypto` 专项](https://lagune.ai/zh-CN/docs/catalog) 来判断。
+
+## 常见问题
+
+### 如何扫描代码库中的弱加密？
+
+不带任何选项运行 crypto hook。已被攻破的密码算法和 ECB 模式属于发现项，会以非零退出码退出。MD5/SHA-1 摘要则是需要审查的警示，因为它用于安全场景时已被攻破，但作为普通校验和是正当用法。
+
+### crypto hook 会标记 Math.random() 吗？
+
+只会在安全场景中把它标记为需要审查的警示，绝不会自动当作发现项，因为把随机数用于抖动（jitter）或界面排序是正当用法。

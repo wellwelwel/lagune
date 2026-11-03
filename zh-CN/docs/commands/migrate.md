@@ -1,0 +1,64 @@
+# Migrate：将基于 manifest 的 Lagune 项目迁移到 skills 和插件
+
+> 将基于 manifest 的 Lagune 项目迁移到基于 skills 的 Lagune，同时保留你的安全原则、产物、追踪和你自己的专项。
+
+规范链接: https://lagune.ai/zh-CN/docs/commands/migrate
+语言: zh-CN
+原文: https://lagune.ai/docs/commands/migrate
+最后更新: 2026-11-03
+
+🔀 将基于 manifest 的 **Lagune** 项目迁移到基于 skills 的 **Lagune**，你写过的一切都会保留。
+
+**弃用通知**
+
+带有 manifest 的项目会一直照常运行到 `v1.x`：`npx lagune` 会把 `init`、`pull`、`update`、`add`、`remove`、`list` 和仪表盘交给 `lagune@0.15.0` 处理，这是最后一个基于 manifest 的版本。
+
+## 如何迁移
+
+1. 确认当前的工作都已提交，然后在项目根目录运行 migrate：
+
+   ```bash
+   npx lagune migrate
+   ```
+
+2. 把它做出的改动单独提交，让这次迁移保持为一个便于审查的变更。
+3. 按照 [安装页面](https://lagune.ai/zh-CN/docs) 的说明，为你的智能体安装命令。
+4. 如果项目里已经有 detect、plan 或 harden 产物，请让 [`/lagune-repair`](https://lagune.ai/zh-CN/docs/commands/repair) 核对并更新这些产物和你自己的专项中的旧引用：
+
+   ```prompt
+   /lagune-repair 把 `.lagune/memory/` 下各产物（`detect.md`、`plan.md` 和 `harden.md`）中已应用的专项（以前叫 sub-skills）与新目录列出的名称核对并更新，并把我在 `.lagune/catalog/` 中自己的专项对 `.lagune/hooks/` 中旧 hook 的每一次调用，都改写为对 `lagune_read` 或 `lagune_write` 工具的调用。
+   ```
+
+## 有哪些变化
+
+| 迁移前                                                                 | 迁移后                                                                 |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `.lagune/templates/`、`.lagune/hooks/` 和 `.lagune/specializations.md` | 已移除：每个 skill 自带模板，hook 由引擎运行                           |
+| `.lagune/skills/` 中内置专项的副本                                     | 已移除：内置专项由引擎提供                                             |
+| `.lagune/skills/` 中你自己的专项                                       | 移至 `.lagune/catalog/`                                                |
+| `.lagune/skills.json`，即你自己的专项的索引                            | 合并到 `.lagune/configs.json`                                          |
+| manifest 中的类别                                                      | 记录在 `.lagune/configs.json` 中                                       |
+| 旧的智能体命令，例如 `/lagune.detect`                                  | 已移除：[安装 **Lagune**](https://lagune.ai/zh-CN/docs) 后会带来新命令，例如 `/lagune-detect` |
+| `.gitignore` 中的 **Lagune** 区块                                      | 已移除，如果文件里没有其他内容，文件也一并删除                         |
+| `.lagune/proofs/`，原本由该区块忽略                                    | 由它自己的 `.gitignore` 排除在提交之外                                 |
+| `.lagune/manifest.json`                                                | 最后删除                                                               |
+
+你的安全工作保持不变：安全原则、每个阶段生成的产物，以及记录了每个发现项所指路径的追踪映射。
+
+## 常见问题
+
+### 我必须迁移吗？
+
+是的。基于 manifest 的项目已被弃用，只能继续使用到 v1.x，所以请运行 npx lagune migrate 迁移你的项目。
+
+### migrate 会保留哪些内容？
+
+你的安全原则、每个阶段产物、追踪映射、你的类别以及你自己的专项。专项会移到 .lagune/catalog/，它们的索引会和你的类别一起放进 .lagune/configs.json。
+
+### 什么时候安装新命令？
+
+在运行 migrate 之后，按照安装页面针对你的智能体给出的说明安装。先安装也可以，因为 migrate 会保留新的 /lagune。
+
+### 团队成员已经迁移过了，我该运行什么？
+
+先拉取这次迁移，然后运行一次 npx lagune migrate。它会删除基于 manifest 的 Lagune 留在你本地克隆中的内容（这些内容从未纳入版本控制），并把你的证明文件排除在提交之外。

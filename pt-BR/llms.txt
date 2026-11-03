@@ -59,3 +59,4 @@ Cada link em Docs aponta para a versão em Markdown simples da página. Remova o
 ## Outros idiomas
 
 - [English](https://lagune.ai/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
