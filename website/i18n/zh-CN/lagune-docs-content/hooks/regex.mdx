@@ -1,0 +1,216 @@
+---
+id: regex
+title: 'regex hook：检测有 ReDoS 风险的正则'
+sidebar_label: regex
+description: 在命令行中扫描代码库里容易引发 ReDoS 的正则表达式，或评估单个正则模式。
+source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+`regex` hook 是 [`regex` 专项](/docs/catalog) 运行的确定性正则安全引擎，你也可以自己运行它。同一条命令有两种模式：**scan** 会扫描代码库，找出容易引发 **ReDoS** 的模式和运行时构建的模式，**check** 则评估你传入的单个模式。
+
+## 扫描代码库
+
+不带任何选项时，它会扫描整个项目。`--dir` 把扫描范围限定在某个目录，`--file` 则限定在单个文件。两者都可以重复使用，并合并成一份报告，即使一个文件被多个目标覆盖，也只列出一次。
+
+<Tabs>
+  <TabItem value="all" label="整个项目" default>
+
+```bash
+npx lagune read regex
+```
+
+  </TabItem>
+  <TabItem value="dir" label="某个目录">
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+  </TabItem>
+  <TabItem value="file" label="单个文件">
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+  </TabItem>
+  <TabItem value="many" label="多个目标">
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+  </TabItem>
+  <TabItem value="limit" label="设置上限">
+
+`--limit` 设置扫描的 ReDoS 阈值（默认 25），与 check 模式使用的上限相同。上限越低越严格。
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+  </TabItem>
+</Tabs>
+
+输出是纯文本，各部分的标题说明了如何解读该部分。只有存在发现项时才会显示对应的部分。
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+什么都没发现时，它只输出一行。
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### 如何解读各部分
+
+| 部分                                                                                        | 含义                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                                                      | 容易引发 ReDoS 的模式，按文件分组，每个模式缩进列在文件下方，后面的括号里写明它为何不安全，以及（如有）它的作用范围和标志。每一行都不安全，所以不再重复判定结果。 |
+| `Regular expressions the analysis could not settle (review manually)`                       | 分析在工作量上限内无法定论的模式，列出方式相同。                                                                                                                  |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | 通过变量、拼接或插值构建正则的文件。                                                                                                                              |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | 把普通字符串字面量传给正则构造函数的文件，而用正则字面量会更简单，还能省去运行时编译。                                                                            |
+
+第一部分是安全发现项。第二和第三部分本身不算发现项：它们指向静态检查无法定论的代码，因此需要人工阅读。第四部分是关于代码清晰度的提示，不是安全发现项。
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                                   |
+| ----------- | ------------ | ---------------------------------------------------------------------- |
+| `--pattern` | 一段正则源码 | 检查一个模式。可重复使用以检查多个，每个模式一个判定结果，按顺序输出。 |
+| `--flags`   | 正则标志     | 用这些标志检查每个 `--pattern`，例如 `im`。仅适用于 check 模式。       |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。           |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。            |
+| `--limit`   | 一个非负整数 | 设置 ReDoS 重复次数上限（默认 25）。两种模式都适用。上限越低越严格。   |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 即 check 模式，不能与 `--dir` 或 `--file` 组合使用。
+
+### 支持的语言
+
+扫描会按文件扩展名识别以下语言，并按各自的规则读取，因此一种语言的模式绝不会按另一种语言的规则来测试。其他文件会被跳过，而不是套用错误的规则去扫描。
+
+| #   | 语言                        | 扩展名                                                                                                       |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`、`.jsx`、`.mjs`、`.cjs`、`.ts`、`.tsx`、`.mts`、`.cts`、`.astro`、`.vue`、`.svelte`、`.marko`、`.riot` |
+| 2   | **Python**                  | `.py`、`.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`、`.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`、`.cpp`、`.cxx`、`.hpp`、`.hh`、`.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`、`.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`、`.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`、`.psm1`、`.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`、`.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`、`.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`、`.cljs`、`.cljc`、`.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`、`.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`、`.pm`                                                                                                 |
+
+:::note[尽力而为，并非详尽无遗]
+它把源代码当作文本读取，因此无法判断运行时拼装的模式，而跨多行书写、藏在别名后面，或以它无法识别的形式写出的模式也可能被漏掉。请把这些部分当作可靠的起点，而不是完整的清单，它们覆盖不到的地方，还要继续阅读代码。
+:::
+
+## 检查单个模式
+
+用 `--pattern` 传入模式的源码即可评估它。hook 会输出一个词：`safe`、`unsafe`、`undetermined`（分析在得出结论前就达到了工作量上限）或 `invalid regex`。重复使用 `--pattern` 可一次评估多个，每个模式一个判定结果，按顺序输出。
+
+<Tabs>
+  <TabItem value="one" label="单个模式" default>
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="many" label="多个模式">
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="flags" label="使用标志">
+
+`--flags` 会按模式实际运行时的标志，检查本次调用中的每个 `--pattern`，因为标志会改变模式匹配哪些字符。
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+  </TabItem>
+  <TabItem value="limit" label="设置上限">
+
+`--limit` 设置重复次数上限（默认 25），适用于本次调用中的每个 `--pattern`。上限越低越严格。
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[为什么要给参数加引号]
+
+每个模式都作为选项值传入，绝不会被插入命令文本。含有引号或反引号的值也只会被当作普通文本，无法注入 shell。请始终用单引号把模式括起来，以免 shell 先对它进行展开。
+:::
+
+:::tip
+这正是 [`regex` 专项](/docs/catalog) 运行的引擎：scan 开启一轮 ReDoS 排查，check 确认扫描找出的模式。
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在命令行中检查正则是否有 ReDoS 风险？',
+      answer:
+        "运行 npx lagune read regex --pattern '<pattern>'。它会返回 safe、unsafe、undetermined 或 invalid regex。",
+    },
+    {
+      question: '如何扫描整个项目中不安全的正则？',
+      answer:
+        '在代码库上以 scan 模式运行 regex hook。它会在支持的 25 种语言中报告容易引发 ReDoS 的模式。',
+    },
+  ]}
+/>

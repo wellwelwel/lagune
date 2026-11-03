@@ -1,0 +1,120 @@
+---
+id: lagune
+title: '/lagune: 在 AI 编写代码的同时保障安全'
+sidebar_label: /lagune
+description: 按你的要求构建，并在安全原则的指引下边写边加固，无需遵循任何流程。
+keywords:
+  - lagune
+  - secure by default
+  - 默认安全
+  - 开发
+  - charter
+  - 实时安全
+  - AI 编程安全
+  - 安全编码
+source_hash: '05f5fb32186ed4422901f8ce2599182642f6389816c591675a710236f59903d8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune
+
+⌨️ 完成你要求的工作，并在编写过程中就保障安全。**`/lagune`** 在任何阶段都接受任何提示词，构建你想要的内容，并在交付前用安全的默认设置加固它。
+
+## 如何使用
+
+在任何提示词里标上 **`/lagune`**，再像平常一样描述要做的工作。
+
+<Tabs>
+  <TabItem value="rules" label="📘 智能体指令" default>
+
+```md
+# 我的项目智能体指令
+
+<!-- ... -->
+
+## 安全
+
+- 每当你构建或修改代码时，都使用 `/lagune` skill，让它默认提升安全性。
+```
+
+    - 例如：**AGENTS.md**、**CLAUDE.md**、**.github/copilot-instructions.md**、**.cursorrules** 等。
+
+  </TabItem>
+  <TabItem value="feature" label="💬 新功能">
+
+```prompt
+/lagune 让用户可以在个人资料里上传自定义照片。
+```
+
+  </TabItem>
+  <TabItem value="fix" label="💬 修复">
+
+```prompt
+/lagune 用户提交表单后什么反应都没有。查一下可能是什么原因，然后修好它。
+```
+
+  </TabItem>
+  <TabItem value="change" label="💬 重构">
+
+```prompt
+/lagune 解耦并改进 payload 逻辑
+```
+
+  </TabItem>
+</Tabs>
+
+:::tip[charter 可选，但有它更好]
+无论有没有安全原则，**`/lagune`** 都能运行。有了安全原则，项目自己的规则就会贯穿每一次构建。用 [`/lagune-charter`](/docs/commands/charter) 设定一次即可。
+:::
+
+## 工作原理
+
+它分三步完成工作，且不会向 Lagune 写入任何内容：
+
+1. 它会加载你的安全原则（如果有），让这些原则约束整个构建过程，还没有时，则退回到默认安全的基线。
+2. 它会列出项目的 [目录](/docs/catalog)，只加载与你的工作相关的专项，也就是审计流程所用的同一套按需知识。
+3. 它在编写代码的同时应用防御，然后重新审视自己的成果，确认控制措施确实有效，再把工作交还给你。
+
+最终，你的项目里得到的是能正常运行的代码，从第一行起就是安全的。
+
+:::tip[随时可用]
+不需要 detect，不需要 plan，事后也不用收拾。无论是全新的脚手架，还是对成熟代码库的改动，**`/lagune`** 都同样适用，而且边做边加固，而不是留到以后。
+:::
+
+## 它不会做什么
+
+- 它不会向 `.lagune` 目录写入任何内容，既不生成产物，也不做追踪，所以它唯一的产出就是你要的、经过加固的代码。
+- 它不会为了满足提示词而放宽规则，所以如果你的要求会违反某条安全原则，它会先停下来告诉你，而不是直接以不安全的方式构建。
+
+<Faq
+  items={[
+    {
+      question: '/lagune 能做什么？',
+      answer:
+        '它在任何阶段都接受任何提示词，构建你要的内容，并在交付前用安全的默认设置加固。防御是在编写代码的同时应用的，而不是事后再补。',
+    },
+    {
+      question: '用 /lagune 之前必须先设定安全原则吗？',
+      answer:
+        '不需要。有没有安全原则它都能运行。有安全原则时，项目自己的规则会贯穿每一次构建。没有时，它会退回到默认安全的基线。',
+    },
+    {
+      question: '/lagune 和 Blue Team 流程有什么区别？',
+      answer:
+        '/lagune 在你编写新代码时就保障它的安全，无需遵循任何流程。Blue Team 流程则对现有项目按顺序运行五个审计阶段。',
+    },
+    {
+      question: '/lagune 会追踪发现项或写入产物吗？',
+      answer:
+        '不会。它不会向 .lagune 目录写入任何内容，既不生成产物，也不做追踪。它唯一的产出就是你要的、经过加固的代码。',
+    },
+    {
+      question: '怎么让智能体自动使用 /lagune？',
+      answer:
+        '在智能体的指令文件（AGENTS.md、CLAUDE.md、.cursorrules 等）中加一条指令，让它每次构建或修改代码时都使用 /lagune skill。',
+    },
+  ]}
+/>

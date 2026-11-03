@@ -1,0 +1,38 @@
+{
+  "category.development-flow": {
+    "message": "开发流程",
+    "description": "The sidebar label of the Development Flow group of pages"
+  },
+  "category.examples": {
+    "message": "示例",
+    "description": "The sidebar label of the Examples group of pages"
+  },
+  "category.get-started": {
+    "message": "快速开始",
+    "description": "The sidebar label of the Get Started group of pages"
+  },
+  "category.hooks": {
+    "message": "Hooks",
+    "description": "The sidebar label of the Hooks group of pages"
+  },
+  "category.maintenance": {
+    "message": "维护",
+    "description": "The sidebar label of the Maintenance group of pages"
+  },
+  "category.references-sources": {
+    "message": "参考资料与来源",
+    "description": "The sidebar label of the References & Sources group of pages"
+  },
+  "category.specializations": {
+    "message": "专项",
+    "description": "The sidebar label of the Specializations group of pages"
+  },
+  "category.the-blue-team-flow": {
+    "message": "Blue Team 流程",
+    "description": "The sidebar label of the The Blue Team Flow group of pages"
+  },
+  "category.tools": {
+    "message": "工具",
+    "description": "The sidebar label of the Tools group of pages"
+  }
+}

@@ -28,6 +28,12 @@ export const LOCALES: SiteLocale[] = [
     flag: '/img/flags/br.svg',
     status: 'published',
   },
+  {
+    code: 'zh-CN',
+    label: '简体中文',
+    flag: '/img/flags/cn.svg',
+    status: 'published',
+  },
 ];
 
 export const isPublished = (code: string): boolean =>

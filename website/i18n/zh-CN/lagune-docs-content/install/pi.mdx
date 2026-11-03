@@ -1,0 +1,93 @@
+---
+id: pi
+title: '在 Pi 中以包的形式安装 Lagune'
+sidebar_label: Pi
+parent: get-started/install
+description: 从 npm 或 GitHub 在 Pi 中以包的形式安装 Lagune，并保持更新。
+keywords:
+  - pi
+  - pi coding agent
+  - pi 包
+  - pi install
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+在终端中安装包：
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+从 **GitHub** 安装最新提交，这种方式会通过 **npx** 运行引擎：
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## 更新
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+运行以下命令更新 **Lagune**：
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+运行以下命令更新 **Lagune**：
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` 会更新你安装的所有包，而单独运行 `pi update` 只会更新 **Pi** 本身。
+
+## 命令
+
+输入命令时加上 `skill:` 前缀，例如用 `/skill:lagune-charter` 运行 `/lagune-charter`。
+
+<Faq
+  items={[
+    {
+      question: '如何在 Pi 中安装 Lagune？',
+      answer:
+        '运行 pi install npm:lagune。如需 GitHub 上的最新提交，则运行 pi install git:github.com/wellwelwel/lagune。',
+    },
+    {
+      question: '如何在 Pi 中更新 Lagune？',
+      answer:
+        '运行 pi update npm:lagune。如果是从 GitHub 安装的，则运行 pi update git:github.com/wellwelwel/lagune。pi update --extensions 会更新你安装的所有包。',
+    },
+    {
+      question: '如何在 Pi 中运行 Lagune 的命令？',
+      answer: '输入时加上 skill: 前缀，例如 /skill:lagune-charter。',
+    },
+  ]}
+/>

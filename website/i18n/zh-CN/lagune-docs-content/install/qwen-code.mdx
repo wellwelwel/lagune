@@ -1,0 +1,82 @@
+---
+id: qwen-code
+title: '在 Qwen Code 中以扩展形式安装 Lagune'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: 在 Qwen Code 中以扩展形式安装 Lagune，保持更新，并预先允许引擎运行。
+keywords:
+  - qwen code
+  - qwen code 扩展
+  - qwen extensions install
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+在终端中安装扩展：
+
+```bash
+qwen extensions install lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+qwen extensions update lagune
+```
+
+如需自动更新，安装时加上 `--auto-update`。
+
+## 命令
+
+输入命令时加上扩展的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。
+
+---
+
+:::info[权限]
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。如需预先允许它们，把这些规则添加到 `.qwen/settings.json`（单个项目）或 `~/.qwen/settings.json`（所有项目）：
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），允许 `Shell(npx --yes lagune@*)`。
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在 Qwen Code 中安装 Lagune？',
+      answer: '运行 qwen extensions install lagune。',
+    },
+    {
+      question: '如何在 Qwen Code 中更新 Lagune？',
+      answer:
+        '运行 qwen extensions update lagune，或者安装扩展时加上 --auto-update。',
+    },
+    {
+      question: '如何在 Qwen Code 中运行 Lagune 的命令？',
+      answer: '输入时加上扩展的名称作为前缀，例如 /lagune:lagune-charter。',
+    },
+    {
+      question: 'Qwen Code 可以不请求权限直接运行 Lagune 吗？',
+      answer:
+        '可以。在 Qwen Code 的设置中允许 mcp__lagune__lagune_read 和 mcp__lagune__lagune_write，引擎通过 npx 运行时，再允许 Shell(npx --yes lagune@*)。',
+    },
+  ]}
+/>

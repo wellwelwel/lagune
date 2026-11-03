@@ -1,0 +1,77 @@
+---
+id: codex
+title: '在 Codex CLI 中以插件形式安装 Lagune'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: 在 Codex CLI 中以插件形式安装 Lagune，保持更新，并在沙箱中运行引擎。
+keywords:
+  - codex
+  - codex cli
+  - codex 插件
+  - 插件市场
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+在终端中安装插件：
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## 命令
+
+输入 `$` 和带插件名称前缀的命令，后面接上你的输入，例如用 `$lagune:lagune-charter` 运行 `/lagune-charter`。输入 `$` 会列出所有命令，选中一个就会插入它的完整名称。
+
+---
+
+:::info[权限]
+
+**Codex** 的沙箱无法访问网络。在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在 Codex CLI 中安装 Lagune？',
+      answer:
+        '运行 codex plugin marketplace add wellwelwel/lagune，然后运行 codex plugin add lagune@lagune。',
+    },
+    {
+      question: '如何在 Codex CLI 中更新 Lagune？',
+      answer: '运行 codex plugin marketplace upgrade lagune。',
+    },
+    {
+      question: '如何在 Codex CLI 中运行 Lagune 的命令？',
+      answer:
+        '输入 $ 和带插件名称前缀的命令，后面接上你的输入，例如 $lagune:lagune-charter。',
+    },
+    {
+      question: 'Lagune 能在 Codex 的沙箱中运行吗？',
+      answer:
+        '可以，只要你在自己的终端中用 npm i -D lagune@{{version}} 把引擎安装到项目里，先装一次，之后每次更新后再装一次。',
+    },
+  ]}
+/>

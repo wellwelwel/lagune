@@ -1,0 +1,103 @@
+---
+id: charter
+title: '/lagune-charter: 设定你的安全原则'
+sidebar_label: 1. Charter
+description: 确立项目的安全原则，也就是后续每个阶段都要遵守的规则，并根据对项目的解读，记录有依据的专项类别。
+source_hash: 'afebb33c5b1c8ddb897242ba7486d828d7c9a25f67e9983c660ac8a733377bcf'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-charter
+
+🧬 告诉 **Lagune** 你的项目是做什么的，它会据此制定你的安全规则（如果你不提供描述，它也能仅凭项目本身推断出来）。
+
+charter 是治理层：一套安全优先的原则，后续每个阶段都必须遵守。可以把它看作项目安全态势的编译期检查。
+
+## 如何使用
+
+<Tabs>
+  <TabItem value="describe" label="描述项目" default>
+
+```prompt
+/lagune-charter 我的项目是一个卖电子游戏的网店。顾客把商品加入购物车，用信用卡或银行转账付款。他们可以查看自己的订单，以及每个订单的状态。
+```
+
+  </TabItem>
+  <TabItem value="propose" label="让 Lagune 提议">
+
+```prompt
+/lagune-charter
+```
+
+> _我看到了一个支付库、一套登录配置，以及一个与顾客关联的订单模型。这看起来像是一个卖东西的网店。顾客会付款，并跟踪自己的订单_…… ☁️
+
+  </TabItem>
+</Tabs>
+
+## 它会推断出什么
+
+**Lagune** 以你的描述或 **PRD** 为方向，推断出它对安全意味着什么，再读取项目，找出你没有提到的内容。例如：
+
+- 购物车里保存着订单，说明有**数据库**：
+  - 例如：`"数据存在哪里？"`、`"谁能访问？"`、`"会不会泄露？"`。
+- 顾客能查看自己的订单，说明有某种**登录或访问控制**：
+  - 例如：`"一个顾客能看到另一个顾客的订单吗？"`、`"会话有没有保护？"`。
+- 接受信用卡和银行转账付款，说明**涉及资金和敏感数据**：
+  - 例如：`"是否存储了信用卡数据？"`、`"付款有没有经过验证？"`。
+
+你的描述和项目本身会相互补充：描述确定意图，而读取依赖、README 和配置，则能发现你没有提到的内容。如果仍有重要的地方不清楚，**Lagune** 会问一个简短、直白的问题，而不是去猜。
+
+在此基础上，**Lagune** 会为项目量身定制一套安全规则，你可以随时查看和调整。
+
+:::tip[使用技巧]
+
+- 你也可以为项目定义自己的安全规则。
+- 你提供的相关细节越多，最终报告就越好：
+  - 说明项目是什么、如何运作，以及底层发生了什么。
+  - 最终用户是谁？用户能做什么，不能做什么？
+  - 行为层面的细节和技术细节同样有价值。
+- charter 的记忆保存在 `.lagune/memory/charter.md` 中。
+
+:::
+
+## 它记录的类别
+
+专项是后续阶段按需加载的安全知识，进入项目 [目录](/docs/catalog) 时以 [类别](/docs/categories) 为单位。当项目还没有记录任何类别时，charter 会根据它对项目的解读，记录每个有依据的类别，例如项目所用的语言、对 LLM 的调用或容器，并在摘要中列出它们。
+
+类别一旦记录下来，charter 就不会再改动它们，只会点出项目还没用上的类别。你可以随时自己修改：
+
+```bash
+npx lagune write add --categories python
+npx lagune write remove --categories python
+```
+
+## 下一步
+
+规则设定好之后，接下来梳理你的系统实际在做什么：[`/lagune-detect`](/docs/commands/detect)。
+
+<Faq
+  items={[
+    {
+      question: 'Lagune 里的 charter 是什么？',
+      answer:
+        'charter 是 Lagune 的治理层，一套安全优先的原则，后续每个阶段都必须遵守。可以把它看作项目安全态势的编译期检查。',
+    },
+    {
+      question: 'charter 保存在哪里？',
+      answer: '保存在 .lagune/memory/charter.md。',
+    },
+    {
+      question: '可以自己编写 charter 规则吗？',
+      answer:
+        '可以。Lagune 会根据你的描述和代码提议规则，你可以改写、删除、新增规则，或缩小它们的适用范围。',
+    },
+    {
+      question: 'charter 会替我选择专项类别吗？',
+      answer:
+        '只在还没有记录任何类别时才会。这时它会根据对项目的解读，记录每个有依据的类别，例如你使用的语言或对 LLM 的调用。类别一旦记录下来，它就不会再改动。',
+    },
+  ]}
+/>

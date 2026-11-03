@@ -1,0 +1,86 @@
+---
+id: jwt
+title: 'jwt hook：检测未固定算法的 JWT 验证'
+sidebar_label: jwt
+description: 在命令行中扫描代码库里未固定算法的 JWT 验证，或评估单个调用。
+source_hash: 'cbcad5ea3da3d78004b06a865439770e1c44fd60b1add3cf6c0867370cf1d054'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+`jwt` hook 会标记**未固定算法的 JWT 验证**，也就是验证方信任令牌自身 `alg` 头部的算法混淆漏洞，以及**完全关闭了验证**的情况。它能**识别语言**，按每个文件所用的 JWT 库来读取，也是 [`federation` 专项](/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
+
+## 如何运行
+
+<Tabs>
+  <TabItem value="scan" label="扫描代码库" default>
+
+```bash
+npx lagune read jwt                # scans the whole project
+npx lagune read jwt --dir src      # scans a directory
+npx lagune read jwt --file auth.ts # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="检查调用">
+
+```bash
+npx lagune read jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+**Unpinned JWT verification found** 下的每一行都是一个验证调用：它没有设置 `algorithms` 白名单（在库需要时），或接受了不安全的白名单（`none`，或把非对称算法与 HMAC 混用），或干脆关闭了签名检查，因此会信任令牌自身的 `alg`。这是已确认的风险暴露，所以 hook 会以非零退出码退出。扫描结果干净时会输出 `no unpinned JWT verification found`。
+
+## 如何解读判定结果
+
+| 判定结果   | 含义                                                                           |
+| ---------- | ------------------------------------------------------------------------------ |
+| `unpinned` | 验证调用没有算法白名单（在需要的情况下）、使用了不安全的白名单，或关闭了验证。 |
+| `safe`     | 验证调用固定了可靠的算法白名单，或者所用的库会隐式固定算法。                   |
+| `invalid`  | 代码片段中没有可识别的验证调用可供判定。                                       |
+
+### CLI 选项
+
+| 选项        | 值           | 说明                                                                                                 |
+| ----------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| `--pattern` | 一个代码片段 | 检查一个调用。可重复使用以检查多个，每行一个判定结果。                                               |
+| `--lang`    | 一种语言     | 使用 `--pattern` 时必填，取值为 javascript、python、go、java、kotlin、php、ruby、rust、csharp 之一。 |
+| `--dir`     | 一个目录     | 将扫描范围限定在某个目录。可重复使用，也可与 `--file` 组合。                                         |
+| `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                          |
+
+不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 支持的语言
+
+扫描会按文件扩展名识别以下库。由于有些库会隐式固定算法（没有显式列表也是安全的），"没有白名单 ⇒ unpinned"这条规则只适用于要求显式列表的库，因此配置正确的调用永远不会被标记。
+
+| 语言                        | 库                      | 未设白名单时标记为 unpinned？                            | 始终标记                                        |
+| --------------------------- | ----------------------- | -------------------------------------------------------- | ----------------------------------------------- |
+| **JavaScript / TypeScript** | jsonwebtoken、jose      | 是                                                       | `none`、非对称算法与 HMAC 混用                  |
+| **Python**                  | PyJWT、python-jose      | 是（PyJWT 要求提供，python-jose 默认 `algorithms=None`） | `none`、`verify_signature: False`               |
+| **Go**                      | golang-jwt              | 是（未使用 `WithValidMethods` 时）                       | `none`、`ParseUnverified`                       |
+| **Ruby**                    | ruby-jwt                | 是                                                       | `none`、`verify = false`                        |
+| **Java / Kotlin**           | jjwt、nimbus            | 否（由密钥推导）                                         | `none`、unsigned/`unsecured` 解析器             |
+| **PHP**                     | firebase/php-jwt        | 否（`Key` 自带 alg）                                     | `none`                                          |
+| **Rust**                    | jsonwebtoken            | 否（`Validation` 要求提供）                              | `none`、`insecure_disable_signature_validation` |
+| **C#**                      | Microsoft.IdentityModel | 否（参数跨多行）                                         | `none`、`RequireSignedTokens = false`           |
+
+:::tip
+这个 hook 只判定算法是否固定：声明（claim）、密钥和流程方面的检查需要判断，仍由 [`federation` 专项](/docs/catalog) 负责。
+:::
+
+<Faq
+  items={[
+    {
+      question: '什么是 JWT 算法混淆？',
+      answer:
+        '如果验证方从令牌头部读取算法，攻击者就能把 RS256 换成 HS256，并用公钥签名。在代码中固定一份可靠的算法白名单就能防止这种攻击，jwt hook 会标记没有设置白名单或白名单不安全的验证调用。',
+    },
+  ]}
+/>

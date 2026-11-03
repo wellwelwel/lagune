@@ -1,0 +1,91 @@
+---
+id: gemini-cli
+title: '在 Gemini CLI 中以扩展形式安装 Lagune'
+sidebar_label: Gemini CLI
+parent: get-started/install
+description: 在 Gemini CLI 中以扩展形式安装 Lagune，保持更新，并预先允许引擎运行。
+keywords:
+  - gemini cli
+  - gemini cli 扩展
+  - gemini extensions install
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: '0b17bea628e41043a2b89748c61e72646000d90113cbe42e806dc00480bfe3a8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Gemini CLI' />
+
+在终端中安装扩展：
+
+```bash
+gemini extensions install https://github.com/wellwelwel/lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+gemini extensions update lagune
+```
+
+如需自动更新，安装时加上 `--auto-update`。
+
+## 命令
+
+输入命令时加上扩展的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。
+
+---
+
+:::info[权限]
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。**Gemini CLI** 只会在受信任的文件夹中启动它们。如需预先允许它们，把这条规则保存为 `~/.gemini/policies/lagune.toml`：
+
+```toml
+[[rule]]
+mcpName = "lagune"
+toolName = ["lagune_read", "lagune_write"]
+decision = "allow"
+priority = 100
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），把这条规则添加到同一个文件中：
+
+```toml
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = 'npx --yes lagune@\d+\.\d+\.\d+\s'
+decision = "allow"
+priority = 100
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在 Gemini CLI 中安装 Lagune？',
+      answer:
+        '运行 gemini extensions install https://github.com/wellwelwel/lagune 即可。',
+    },
+    {
+      question: '如何在 Gemini CLI 中更新 Lagune？',
+      answer:
+        '运行 gemini extensions update lagune，或者安装扩展时加上 --auto-update。',
+    },
+    {
+      question: '如何在 Gemini CLI 中运行 Lagune 的命令？',
+      answer: '输入时加上扩展的名称作为前缀，例如 /lagune:lagune-charter。',
+    },
+    {
+      question: 'Gemini CLI 可以不请求权限直接运行 Lagune 吗？',
+      answer:
+        '可以。添加一条策略规则，允许 lagune 服务器的 lagune_read 和 lagune_write 工具。引擎通过 npx 运行时，再为 run_shell_command 添加一条规则，匹配 npx --yes lagune@ 加上版本号。',
+    },
+  ]}
+/>

@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: '在 Hermes Agent 中以插件形式安装 Lagune'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: 在 Hermes Agent 中以插件形式安装 Lagune，并保持更新。
+keywords:
+  - hermes agent
+  - hermes agent 插件
+  - hermes plugins install
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+在终端中安装插件：
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- **Hermes Agent** 要求你确认一个不在其插件目录中的插件时，选择**确认**。
+- 它提出安装该仓库的 **Node.js** 依赖时，选择**拒绝**。
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+hermes plugins update lagune
+```
+
+## 命令
+
+输入命令时加上插件的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`，用 `/lagune:lagune` 运行 `/lagune`。
+
+<Faq
+  items={[
+    {
+      question: '如何在 Hermes Agent 中安装 Lagune？',
+      answer:
+        '运行 hermes plugins install wellwelwel/lagune --enable。询问时确认该插件，并拒绝安装该仓库的 Node.js 依赖。',
+    },
+    {
+      question: '如何在 Hermes Agent 中更新 Lagune？',
+      answer: '运行 hermes plugins update lagune。',
+    },
+    {
+      question: '如何在 Hermes Agent 中运行 Lagune 的命令？',
+      answer:
+        '输入时加上插件的名称作为前缀，例如 /lagune:lagune-charter 和 /lagune:lagune。',
+    },
+  ]}
+/>

@@ -1,0 +1,60 @@
+---
+id: devin-cli
+title: '在 Devin CLI 中以插件形式安装 Lagune'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: 在 Devin CLI 中以插件形式安装 Lagune，并保持更新。
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli 插件
+  - devin plugins install
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+先登录 **Devin**，然后在终端中安装插件：
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+devin plugins update lagune
+```
+
+## 命令
+
+输入命令时加上插件的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。`/` 菜单中也会列出这些命令。
+
+<Faq
+  items={[
+    {
+      question: '如何在 Devin CLI 中安装 Lagune？',
+      answer:
+        '先用 devin auth login 登录，然后运行 devin plugins install wellwelwel/lagune。',
+    },
+    {
+      question: '如何在 Devin CLI 中更新 Lagune？',
+      answer: '运行 devin plugins update lagune。',
+    },
+    {
+      question: '如何在 Devin CLI 中运行 Lagune 的命令？',
+      answer:
+        '输入时加上插件的名称作为前缀，例如 /lagune:lagune-charter。/ 菜单中也会列出这些命令。',
+    },
+  ]}
+/>

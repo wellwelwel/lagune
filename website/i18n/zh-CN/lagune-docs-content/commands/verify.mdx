@@ -1,0 +1,97 @@
+---
+id: verify
+title: '/lagune-verify: 证明安全控制措施确实有效'
+sidebar_label: 5. Verify
+description: 证明每项已应用的修复确实有效，并将有效的发现项结案。
+source_hash: 'c2d4c971bb4980379ab9995ccaddd67b95a81220fdb062f2bb4378e8732bc9e7'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-verify
+
+⚖️ 读取代码并与 harden 的记录对照，证明每项已应用的修复确实有效，再将有效的发现项结案。
+
+## 如何使用
+
+<Tabs>
+  <TabItem value="full" label="验证全部" default>
+
+```prompt
+/lagune-verify
+```
+
+  </TabItem>
+  <TabItem value="paths" label="指定路径">
+
+```prompt
+/lagune-verify src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="按优先级">
+
+```prompt
+/lagune-verify 严重和高危
+```
+
+  </TabItem>
+</Tabs>
+
+## 工作原理
+
+它会读取 harden 记录的每一处代码，确认代码确实与记录的说法一致。证明就来自这种对照：拿代码对照记录。每项控制措施都会得到以下三种判定结果之一：
+
+| 判定结果                     | 含义                                             |
+| ---------------------------- | ------------------------------------------------ |
+| ✅ Risk closed               | 代码的行为与记录的说法完全一致。                 |
+| ❌ Risk not closed           | 这项控制措施仍未到位。verify 会让你回到 harden。 |
+| ❓ Cannot tell from the code | 仅凭代码看不到证据。                             |
+
+经证明已关闭的风险，会在你确认后结案，移出整条链路。例如：
+
+- **文件上传**（判定结果：**✅ Risk closed**）
+  - _如何证明_：读取上传的 handler 后确认，它会根据文件内容识别真实类型，强制执行大小限制，并拒绝其他一切内容，与记录的说法完全一致。
+  - _证据_：`handleUpload` 函数，它会根据内容识别文件的真实类型。
+
+如果风险没有关闭，verify 会直接告诉你，并让你回到 [`/lagune-harden`](/docs/commands/harden)，因为这项修复还没有完成。
+
+:::tip
+
+- 它完全建立在加固记录之上。
+- 它只读取你的代码来做判断，绝不会为了让判定结果通过而削弱控制措施或改写代码。
+- 再次运行会核对并更新判定结果：过时的判定结果会移除，不再处于关闭状态的风险会重新标记出来。
+- 风险经证明已关闭时，它会询问你一次，然后把这个发现项从整条链路（detect、plan、harden 和追踪）中清除。
+- 它不会另写报告：每个判定结果都写在 `.lagune/memory/harden.md` 中对应控制措施的区块里，harden 下次运行时会读取它。
+
+:::
+
+:::warning[依赖 harden]
+verify 建立在 [`/lagune-harden`](/docs/commands/harden) 之上。
+:::
+
+## 循环就此闭合
+
+当范围内的一切都结案后，循环进入静止状态，只有代码发生变化时才会重新开启。安全是可以结案的，所以这个流程有终点，而不是无休止的循环。
+
+<Faq
+  items={[
+    {
+      question: 'Lagune 如何验证一项修复？',
+      answer:
+        '/lagune-verify 会读取代码，并与 harden 的记录对照，给出三种判定结果之一：Risk closed（风险已关闭）、Risk not closed（风险未关闭）或 Cannot tell from the code（仅凭代码无法判断）。',
+    },
+    {
+      question: '什么是结案？',
+      answer:
+        '当 verify 证明某个风险已关闭，对应的发现项就会结案：在你确认后从整条链路中移除，之后不会再重复处理。',
+    },
+    {
+      question: '安全工作真的能做完吗？',
+      answer:
+        '能。SDH 是可以结案的：经证明已关闭的发现项会结案，所以这个流程有终点，而不是无休止的循环。',
+    },
+  ]}
+/>

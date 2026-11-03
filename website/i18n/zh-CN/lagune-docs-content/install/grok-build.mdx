@@ -1,0 +1,78 @@
+---
+id: grok-build
+title: '在 Grok Build 中以插件形式安装 Lagune'
+sidebar_label: Grok Build
+parent: get-started/install
+description: 在 Grok Build 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+keywords:
+  - grok build
+  - grok build 插件
+  - grok plugin install
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: '793de6857b4003a8fa1ab3c63bf93fe3676d72f44e0e9313ccdca394911167bd'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Grok Build' />
+
+在终端中安装插件：
+
+```bash
+grok plugin install wellwelwel/lagune@plugin-grok --trust
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+grok plugin update lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`，或者加上插件的名称作为前缀，例如 `/lagune:lagune-charter`。
+
+---
+
+:::info[权限]
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。如需预先允许它们，把这些规则添加到 `~/.grok/config.toml`：
+
+```toml
+[permission]
+allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
+```
+
+引擎通过 **npx** 运行时（例如用 **skills.sh** 安装），允许 `Bash(npx --yes lagune@*)`。
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在 Grok Build 中安装 Lagune？',
+      answer:
+        '运行 grok plugin install wellwelwel/lagune@plugin-grok --trust。',
+    },
+    {
+      question: '如何在 Grok Build 中更新 Lagune？',
+      answer: '运行 grok plugin update lagune。',
+    },
+    {
+      question: '如何在 Grok Build 中运行 Lagune 的命令？',
+      answer:
+        '直接输入命令名，例如 /lagune-charter，或者加上插件的名称作为前缀，例如 /lagune:lagune-charter。',
+    },
+    {
+      question: 'Grok Build 可以不请求权限直接运行 Lagune 吗？',
+      answer:
+        '可以。在 Grok Build 的配置中允许 MCPTool(lagune__lagune_read) 和 MCPTool(lagune__lagune_write)，引擎通过 npx 运行时，再允许 Bash(npx --yes lagune@*)。',
+    },
+  ]}
+/>

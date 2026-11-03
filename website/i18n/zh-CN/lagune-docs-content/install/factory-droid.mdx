@@ -1,0 +1,73 @@
+---
+id: factory-droid
+title: '在 Factory Droid 中以插件形式安装 Lagune'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: 在 Factory Droid 中以插件形式安装 Lagune，保持更新，并允许引擎所用的工具。
+keywords:
+  - factory droid
+  - droid 插件
+  - 插件市场
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+在终端中安装插件：
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`。
+
+---
+
+:::info[权限]
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。**Factory Droid** 询问时，为每个工具选择始终允许。它同步 `lagune` 插件市场的新提交后会再次询问，而这种同步可能在它启动时发生。
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在 Factory Droid 中安装 Lagune？',
+      answer:
+        '运行 droid plugin marketplace add wellwelwel/lagune，然后运行 droid plugin install lagune@lagune。',
+    },
+    {
+      question: '如何在 Factory Droid 中更新 Lagune？',
+      answer:
+        '运行 droid plugin marketplace update lagune，然后运行 droid plugin update lagune@lagune。',
+    },
+    {
+      question: '如何在 Factory Droid 中运行 Lagune 的命令？',
+      answer: '直接输入命令名，例如 /lagune-charter。',
+    },
+    {
+      question: 'Factory Droid 可以不请求权限直接运行 Lagune 吗？',
+      answer:
+        '可以。Factory Droid 询问时，为 lagune_read 和 lagune_write 选择始终允许。它同步 lagune 插件市场的新提交后会再次询问。',
+    },
+  ]}
+/>

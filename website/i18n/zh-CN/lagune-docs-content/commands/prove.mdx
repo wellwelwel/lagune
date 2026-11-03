@@ -1,0 +1,129 @@
+---
+id: prove
+title: '/lagune-prove: 仅限防御的概念验证（PoC）'
+sidebar_label: Prove
+description: 把检测到的每个发现项转化为可运行、仅限防御的概念验证（PoC），并附上用于负责任披露的安全公告。
+keywords:
+  - 概念验证
+  - proof of concept
+  - PoC
+  - 安全公告
+  - security advisory
+  - 负责任披露
+  - responsible disclosure
+  - 漏洞披露
+  - 回归测试
+  - CVE
+  - CWE
+  - OWASP
+  - GitHub Gist
+  - 防御性安全
+  - 漏洞报告
+  - Snyk
+source_hash: '277c99c6438cff41e1055d1d3d7ad2f413af224f1f2e33a1be5aa1c55b16ecba'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-prove
+
+🧪 把检测到的每个发现项转化为可运行、仅限防御的证据，用于负责任披露。
+
+对于 detect 地图中的每个发现项，它都会编写一份独立完整的安全公告，以及一个断言**安全路径**的测试：问题存在时测试失败，代码修复后测试通过。
+
+:::tip
+**Lagune** 的测试隔离存放在 `.lagune/` 下，与你自己的测试套件分开。
+:::
+
+## 如何使用
+
+<Tabs>
+  <TabItem value="full" label="所有发现项" default>
+
+```prompt
+/lagune-prove
+```
+
+  </TabItem>
+  <TabItem value="named" label="指定发现项">
+
+按名称查看已在追踪的发现项：
+
+```prompt
+npx lagune read list --findings
+
+# Findings
+#   ...
+#   • 用户查询中的 SQL 注入
+#   ...
+```
+
+```prompt
+# 然后证明其中一个
+/lagune-prove 用户查询中的 SQL 注入
+```
+
+  </TabItem>
+</Tabs>
+
+## 工作原理
+
+它会读取每个发现项指向的源代码，并在 `.lagune/proofs/` 下为每个得到证明的发现项创建一个目录，其中恰好包含两个文件：
+
+| 文件                           | 说明                                                                                                             |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `report.test.mjs`（或 `.cjs`） | 测试本身。如果你的项目已经在用 Poku，它就在 Poku 上运行，否则使用 Node.js 原生测试运行器，因此无需安装任何东西。 |
+| `report.md`                    | 独立完整的安全公告：包含严重程度、影响、复现方式和运行命令，单独阅读也能看懂。                                   |
+
+证明始终用 JavaScript 编写，因此无论你的项目使用哪种语言，都能照常运行。`README.md` 索引会链接每个证明，并给出一条运行全部证明的命令。
+
+:::tip
+
+- 它是**可选且独立的**：不属于五个阶段，也不在追踪链路之中。
+- 它只写入 `.lagune/proofs/`，从不改动阶段产物或你的代码，对它们只读不写。
+- 如果某个发现项的测试无法复现问题，它就不会为其生成证明，而是提示你对那一处运行 [`/lagune-detect`](/docs/commands/detect)，重新核对。
+- 再次运行会核对并更新这些证明：已消失或不再能复现的发现项，其目录会被删除。
+
+:::
+
+:::important
+
+**它只会在你调用时运行**：智能体绝不会自行启动它。
+
+:::
+
+:::warning[依赖 detect]
+prove 读取的是 [`/lagune-detect`](/docs/commands/detect) 生成的 detect 地图，所以请先运行 detect。
+:::
+
+## 仅限防御，且须经授权
+
+在生成任何内容之前，它会确认你有权测试目标，并拒绝任何索要可用漏洞利用代码、攻击 payload 或检测规避手段的请求。证明展示的是安全的行为，绝不会输出攻击输入。
+
+## 从证明到披露
+
+每个得到证明的发现项，其两个文件应一起放进一个**私密 GitHub Gist**，用于报告漏洞。它们是一个仍然存在、尚未公开的问题的证据，因此有一个 `.gitignore` 放在 `.lagune/proofs/` 中，把它们排除在所有提交之外：在维护者解决问题之前，只通过这个 Gist 分享它们。
+
+在 **Lagune** 链路中为发现项结案，仍然是 [`/lagune-harden`](/docs/commands/harden) 和 [`/lagune-verify`](/docs/commands/verify) 的工作：prove 只产出证据，不会为任何发现项结案。
+
+<Faq
+  items={[
+    {
+      question: 'Lagune 会生成漏洞利用代码吗？',
+      answer:
+        '不会。/lagune-prove 编写的是仅限防御的证据：一个断言安全路径的测试（问题存在时失败，代码修复后通过），外加一份用于负责任披露的安全公告。',
+    },
+    {
+      question: 'prove 会输出什么？',
+      answer:
+        '每个发现项两个文件：一个测试（report.test.mjs 或 .cjs）和一份安全公告（report.md）。',
+    },
+    {
+      question: '如何负责任地披露 Lagune 发现的漏洞？',
+      answer:
+        'prove 会编写一份独立完整的安全公告，你可以按照负责任披露的做法，通过私密 GitHub Gist 等私密渠道分享它。',
+    },
+  ]}
+/>

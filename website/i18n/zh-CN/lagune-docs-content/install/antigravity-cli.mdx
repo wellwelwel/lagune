@@ -1,0 +1,83 @@
+---
+id: antigravity-cli
+title: '在 Antigravity CLI 中以插件形式安装 Lagune'
+sidebar_label: Antigravity CLI
+parent: get-started/install
+description: 在 Antigravity CLI 中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
+keywords:
+  - antigravity cli
+  - antigravity 插件
+  - agy plugin install
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: 'b014e73bcbefbcecaf2c0c58c1764387c55ba91e17ba5a964b3f1105a4d4961a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Antigravity' />
+
+在终端中安装插件：
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## 更新
+
+重新安装即可更新 **Lagune**：
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## 命令
+
+输入命令时加上插件的名称作为前缀，例如用 `/lagune:lagune-charter` 运行 `/lagune-charter`。
+
+---
+
+:::info[权限]
+
+引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。作为会话第一条消息发送的命令会在这两个工具加载之前运行，因此会改用 **npx**。如需预先允许这两个工具和 **npx**，把这些规则添加到 `~/.gemini/antigravity-cli/settings.json`：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
+  }
+}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在 Antigravity CLI 中安装 Lagune？',
+      answer:
+        '运行 agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 即可。',
+    },
+    {
+      question: '如何在 Antigravity CLI 中更新 Lagune？',
+      answer:
+        '再次运行 agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 即可。',
+    },
+    {
+      question: '如何在 Antigravity CLI 中运行 Lagune 的命令？',
+      answer: '输入时加上插件的名称作为前缀，例如 /lagune:lagune-charter。',
+    },
+    {
+      question: 'Antigravity CLI 可以不请求权限直接运行 Lagune 吗？',
+      answer:
+        '可以。在 Antigravity CLI 的设置中允许 mcp(lagune_lagune/lagune_read)、mcp(lagune_lagune/lagune_write) 和 command(regex:npx --yes lagune@[0-9.]+)。npx 规则针对的是作为会话第一条消息发送的命令。',
+    },
+  ]}
+/>

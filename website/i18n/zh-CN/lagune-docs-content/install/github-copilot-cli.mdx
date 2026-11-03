@@ -1,0 +1,67 @@
+---
+id: github-copilot-cli
+title: '在 GitHub Copilot CLI 中以插件形式安装 Lagune'
+sidebar_label: GitHub Copilot CLI
+parent: get-started/install
+description: 在 GitHub Copilot CLI 中以插件形式安装 Lagune，并保持更新。
+keywords:
+  - github copilot cli
+  - copilot cli 插件
+  - 插件市场
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: '1d93bbd6206e56617cb2dbc1a4c3edcc536fe20e05b3f1984ae995c3d6b58974'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='GitHub Copilot' />
+
+在终端中安装插件：
+
+```bash
+copilot plugin marketplace add wellwelwel/lagune
+copilot plugin install lagune@lagune
+```
+
+在编辑器中，用 [**skills.sh**](/docs/install/universal) 为 **GitHub Copilot** 安装 **Lagune**。
+
+## 更新
+
+运行以下命令更新 **Lagune**：
+
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`。
+
+<Faq
+  items={[
+    {
+      question: '如何在 GitHub Copilot CLI 中安装 Lagune？',
+      answer:
+        '运行 copilot plugin marketplace add wellwelwel/lagune，然后运行 copilot plugin install lagune@lagune。',
+    },
+    {
+      question: '如何在 GitHub Copilot CLI 中更新 Lagune？',
+      answer:
+        '运行 copilot plugin marketplace update lagune，然后运行 copilot plugin update lagune@lagune。',
+    },
+    {
+      question: '如何在 GitHub Copilot CLI 中运行 Lagune 的命令？',
+      answer: '直接输入命令名，例如 /lagune-charter。',
+    },
+    {
+      question: '可以在 VS Code 的 GitHub Copilot 中使用 Lagune 吗？',
+      answer:
+        '可以。在 VS Code 或其他编辑器中，用 skills.sh 而不是插件来安装 Lagune。',
+    },
+  ]}
+/>

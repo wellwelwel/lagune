@@ -1,0 +1,93 @@
+---
+id: specialize
+title: '/lagune-specialize: 用纯文本训练安全专项'
+sidebar_label: Specialize
+description: 把你提供的安全资料或主题提炼成一个按需加载的新专项。
+source_hash: '21aac2265799d6380a207b5496085f0da053ec72e67884a7e382012992951833'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-specialize
+
+🎓 根据你提供的资料或主题，教 **Lagune** 一个新专项。
+
+它会阅读这些材料，提炼成一个聚焦、仅限防御的专项，格式与 [内置专项](/docs/catalog) 完全一致，之后 detect 和 verify 阶段会像加载其他专项一样加载它。它只做审计和解释：从不编写攻击输入或漏洞利用代码，也从不改动你的代码。
+
+<Tabs>
+  <TabItem value="article" label="基于文章" default>
+
+```prompt
+# 链接或参考资料：Lagune 会从中提炼出防御方法
+/lagune-specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+  </TabItem>
+  <TabItem value="exploit" label="基于漏洞利用">
+
+```prompt
+# 以攻击作为资料：产出的专项仍然是防御
+/lagune-specialize "' OR 1=1 -- 会把 SQL 拼接进查询语句"
+```
+
+  </TabItem>
+  <TabItem value="topic" label="基于主题">
+
+```prompt
+# 或者直接说出要覆盖的主题
+/lagune-specialize SQL 注入
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[攻击可以作为资料，但绝不会成为产出]
+只要目的是防御，让它分析某种攻击没有问题：漏洞利用的分析文章是学习材料，它会从中提炼出防御方法。它产出的专项始终只做审计和解释，绝不会产出可用的漏洞利用代码、payload 或规避检测的手段。
+:::
+
+## 它会写入什么
+
+产出是项目中的两个文件，和你的代码一起提交、一起审查：
+
+- 专项本身，位于 `.lagune/catalog/<name>.md`，格式与 [内置专项](/docs/catalog) 相同。
+- 它在 `.lagune/configs.json` 中的条目，项目在这里为自己的专项建立索引，供目录与内置专项合并。
+
+随后它会列出目录，确认新条目已经在其中。无论目录包含哪些类别，你自己的专项始终都在目录里。你无需新增命令，也无需改动包：一个新专项就是一个知识文件加一条索引条目，写在你自己的项目里。
+
+## 只完善，不覆盖
+
+如果专项名称已经存在，无论是 `regex` 这样的内置专项，还是你之前创建的专项，它都会**核对并更新**现有文件，而不是替换它。它会读取现有内容，融入新知识，保留仍然成立的部分，改写已经变化的部分。没有任何内容会在未经审阅的情况下被丢弃。你的专项会优先于同名的内置专项，因此你可以为自己的项目强化某个内置专项，同时不会失去原版。
+
+:::tip
+
+- 新专项的加载方式与内置专项完全相同：detect 和 verify 阶段会按需加载它，你也可以用 `npx lagune read catalog <name>` 自己加载，再给它分配任务。
+- 如果材料有明确的出处（文章、作者、链接或标准），专项会注明来源。只给出主题时则不附来源。
+
+:::
+
+:::important
+
+**它只会在你调用时运行**：智能体绝不会自行启动它。
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何添加自定义安全专项？',
+      answer:
+        '运行 /lagune-specialize 并附上资料或主题。它会把内容提炼成仅限防御的专项，写入 .lagune/catalog/<name>.md，并在 .lagune/configs.json 中添加对应条目。',
+    },
+    {
+      question: 'Lagune 能从漏洞利用的分析文章中学习吗？',
+      answer:
+        '可以，但只作为资料，绝不作为产出。攻击可以作为资料来源，但绝不会成为最终成果。specialize 从不编写攻击输入或漏洞利用代码。',
+    },
+    {
+      question: 'specialize 会覆盖内置专项吗？',
+      answer: '不会。它只会完善，从不覆盖。',
+    },
+  ]}
+/>

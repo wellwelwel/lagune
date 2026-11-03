@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: '在 Muse Code 中以插件形式安装 Lagune'
+sidebar_label: Muse Code
+parent: get-started/install
+description: 在 Muse Code 中以插件形式安装 Lagune，保持更新，并在沙箱中运行引擎。
+keywords:
+  - muse code
+  - muse code 插件
+  - 插件市场
+  - 安装 lagune
+  - 配置
+  - AI 安全
+  - AI 智能体
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+在终端中安装插件：
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## 更新
+
+刷新插件市场并重新安装插件即可更新 **Lagune**：
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## 命令
+
+直接输入命令名，例如 `/lagune-charter`，或者加上插件的名称作为前缀，例如 `/lagune:lagune-charter`。
+
+---
+
+:::info[权限]
+
+**Muse Code** 的沙箱无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: '如何在 Muse Code 中安装 Lagune？',
+      answer:
+        '运行 muse plugins marketplace add lagune wellwelwel/lagune，然后运行 muse plugins install lagune@lagune。',
+    },
+    {
+      question: '如何在 Muse Code 中更新 Lagune？',
+      answer:
+        '运行 muse plugins marketplace update lagune，然后用 muse plugins remove lagune 和 muse plugins install lagune@lagune 重新安装。',
+    },
+    {
+      question: '如何在 Muse Code 中运行 Lagune 的命令？',
+      answer:
+        '直接输入命令名，例如 /lagune-charter，或者加上插件的名称作为前缀，例如 /lagune:lagune-charter。',
+    },
+    {
+      question: 'Lagune 能在 Muse Code 的沙箱中运行吗？',
+      answer:
+        '可以，只要你在自己的终端中用 npm i -D lagune@{{version}} 把引擎安装到项目里，先装一次，之后每次更新后再装一次。',
+    },
+  ]}
+/>
