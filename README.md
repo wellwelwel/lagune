@@ -91,8 +91,6 @@ codex plugin marketplace upgrade lagune
 </tr>
 </table>
 
-See the [**install page**](https://lagune.ai/docs) for detailed instructions:
-
 - <picture><img src="./.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> [**Antigravity**](https://lagune.ai/docs/install/antigravity-cli)
 - <picture><img src="./.github/readme/assets/agents/cursor.svg" width="20" align="absmiddle" /></picture> [**Cursor**](https://lagune.ai/docs/install/cursor)
 - <picture><img src="./.github/readme/assets/agents/copilot.svg" width="20" align="absmiddle" /></picture> [**GitHub Copilot**](https://lagune.ai/docs/install/github-copilot-cli)
@@ -108,6 +106,11 @@ See the [**install page**](https://lagune.ai/docs) for detailed instructions:
 - <picture><img src="./.github/readme/assets/agents/gemini.svg" width="20" align="absmiddle" /></picture> [**Gemini CLI**](https://lagune.ai/docs/install/gemini-cli)
 - <picture><img src="./.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh)**](https://lagune.ai/docs/install/universal)
 
+> [!TIP]
+>
+> - [**See the Install page for detailed instructions**](https://lagune.ai/docs).
+> - [**Migrate from previous Lagune manifest-based setup**](https://lagune.ai/docs/commands/migrate).
+
 ---
 
 ### Skills
@@ -122,16 +125,16 @@ Once installed, your **AI** agent unlocks a set of commands, all governed by the
 
 Harden the work as you write it, with no flow to follow:
 
-| Command                                                        | What it does for you                                                        |
-| -------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, the foundation `/lagune` builds against |
-| [**/lagune**](https://lagune.ai/docs/commands/lagune)          | Builds what you ask and hardens it as it is written, guided by the charter  |
+| Skill                                                               | What it does for you                                                        |
+| ------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| [**/lagune-charter**](https://lagune.ai/docs/commands/charter)      | Sets your project's security rules, the foundation `/lagune` builds against |
+| [**/lagune**](https://lagune.ai/docs/commands/lagune) _(Universal)_ | Builds what you ask and hardens it as it is written, guided by the charter  |
 
 #### › Audit: the Blue Team flow
 
 These five run in order. Each builds on the previous, so following the list top to bottom is all it takes:
 
-| #   | Command                                                        | What it does for you                                                           |
+| #   | Skill                                                          | What it does for you                                                           |
 | --- | -------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | 1   | [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, proposed for you or shaped by what you say |
 | 2   | [**/lagune-detect**](https://lagune.ai/docs/commands/detect)   | Reads your code and maps what your system does and where the risks are         |
@@ -139,9 +142,9 @@ These five run in order. Each builds on the previous, so following the list top 
 | 4   | [**/lagune-harden**](https://lagune.ai/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
 | 5   | [**/lagune-verify**](https://lagune.ai/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
 
-#### › Special commands
+#### › Special skills
 
-| Command                                                              | What it does                                                                               |
+| Skill                                                                | What it does                                                                               |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | [**/lagune-specialize**](https://lagune.ai/docs/commands/specialize) | Teaches **Lagune** a new security specialization from articles, exploits, or topics        |
 | [**/lagune-prove**](https://lagune.ai/docs/commands/prove)           | Turns each detected finding into a runnable, defense-only proof for responsible disclosure |
@@ -192,18 +195,6 @@ It serves a dashboard and opens it on a random port:
 >
 > - 🚪 Use `--port` to specify a custom port.
 > - ⏏️ Press `Ctrl+C` to stop.
-
----
-
-#### › Migrate from `lagune init`
-
-A project set up with `npx lagune init` has a `.lagune/manifest.json` and keeps working as it is until `v1.x`. To move it to the new **Lagune** approach, keeping your charter, artifacts, tracking, and own specializations, commit your work and run from the project root:
-
-```bash
-npx lagune migrate
-```
-
-Then commit what it changed, install **Lagune** as above, and follow the rest of the move in [**Migrate**](https://lagune.ai/docs/commands/migrate).
 
 ---
 
