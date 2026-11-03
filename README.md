@@ -1,21 +1,21 @@
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/website/static/img/banner.png" />
+<div align="center">
 
-# 🪼 [Lagune AI](https://lagune.ai)
+# 🪼 Lagune [AI](https://lagune.ai)
 
 [![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
 [![Version](https://img.shields.io/npm/v/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
 [![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.ai/docs)
 
-**Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it.
-
-- **Lagune** works with projects in **any programming language** ✨
-- [**Give us a ⭐ on GitHub:**](https://github.com/wellwelwel/lagune) it helps more people discover the project.
+Instead of running a generic checklist, what if security existed **before**, **during**, and **after** development?
 
 ---
 
-## Get Started
+[**Give us a ⭐ on GitHub**](https://github.com/wellwelwel/lagune)<br />
+It helps more people discover the project.
 
-### Documentation
+---
+
+#### 📘 Documentation
 
 <a href="https://lagune.ai/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/us.svg" alt="English" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/pt-BR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/br.svg" alt="Português (Brasil)" width="32" align="absmiddle" /></a>
@@ -30,7 +30,11 @@
 <a href="https://lagune.ai/ja-JP/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/jp.svg" alt="日本語" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/ko-KR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/kr.svg" alt="한국어" width="32" align="absmiddle" /></a>
 
+</div>
+
 ---
+
+## Get Started
 
 ### Install and Update
 
