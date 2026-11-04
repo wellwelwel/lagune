@@ -5,7 +5,6 @@ node_modules
 /draft/
 /playground/
 .DS_Store
-.lagune/
 /PLAN.md
 /.plans
 /.agents/skills
