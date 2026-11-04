@@ -1,8 +1,26 @@
-import { isAbsolute, relative, resolve, sep } from 'node:path';
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+  sep,
+} from 'node:path';
 import { realPathOf } from '../fs-actions.js';
 
-const realOrSelf = async (path: string): Promise<string> =>
-  (await realPathOf(path)) ?? path;
+/** The real location of a path, the part that does not exist yet resolved from its deepest existing folder */
+const realLocationOf = async (path: string): Promise<string> => {
+  const real = await realPathOf(path);
+
+  if (real !== undefined) return real;
+
+  const parent = dirname(path);
+
+  if (parent === path) return path;
+
+  return join(await realLocationOf(parent), basename(path));
+};
 
 const isWithin = (root: string, path: string): boolean => {
   const fromRoot = relative(root, path);
@@ -19,12 +37,12 @@ export const resolveTargets = async (
   root: string,
   targets: string[]
 ): Promise<string[]> => {
-  const realRoot = await realOrSelf(root);
+  const realRoot = await realLocationOf(root);
   const resolved = await Promise.all(
     (targets.length > 0 ? targets : ['.']).map(async (target) => {
       const path = resolve(root, target);
 
-      return { target, path, real: await realOrSelf(path) };
+      return { target, path, real: await realLocationOf(path) };
     })
   );
   const outside = resolved.filter(({ real }) => !isWithin(realRoot, real));

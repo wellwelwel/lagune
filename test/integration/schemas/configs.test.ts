@@ -1,14 +1,10 @@
-import type { ConfigsSchema, PackedPackage } from '../../../src/types/test.js';
-import { execFile } from 'node:child_process';
+import type { ConfigsSchema } from '../../../src/types/test.js';
 import { readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
-import { promisify } from 'node:util';
 import { describe, it, strict } from 'poku';
 import { CATEGORIES } from '../../../src/categories/categories.js';
 import { CHECKERS } from '../../../src/core/checkers.js';
+import { listPackedPaths, packageRoot } from '../plugins/__utils__.js';
 
-const run = promisify(execFile);
-const packageRoot = new URL('../../../', import.meta.url);
 const schemaFile = new URL('schemas/configs.json', packageRoot);
 
 await describe('the configs schema', async () => {
@@ -29,14 +25,8 @@ await describe('the configs schema', async () => {
   });
 
   await it('ships with every npm release, which pins its own copy', async () => {
-    const { stdout } = await run(
-      'npm',
-      ['pack', '--dry-run', '--json', '--ignore-scripts'],
-      { cwd: fileURLToPath(packageRoot) }
-    );
-    // npm 12 keys the report by package name, earlier versions list it
-    const [packed]: PackedPackage[] = Object.values(JSON.parse(stdout));
+    const packed = await listPackedPaths();
 
-    strict(packed.files.some((file) => file.path === 'schemas/configs.json'));
+    strict(packed.has('schemas/configs.json'));
   });
 });

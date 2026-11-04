@@ -11,7 +11,7 @@
   "arrowParens": "always",
   "proseWrap": "preserve",
   "htmlWhitespaceSensitivity": "css",
-  "endOfLine": "auto",
+  "endOfLine": "lf",
   "embeddedLanguageFormatting": "auto",
   "singleAttributePerLine": false,
   "plugins": ["@ianvs/prettier-plugin-sort-imports"],

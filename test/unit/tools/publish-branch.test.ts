@@ -8,9 +8,11 @@ import {
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { platform } from 'node:process';
 import { afterEach, describe, it, strict } from 'poku';
 import { objectId, readBundle } from '../../../tools/publish-branch.js';
 
+const HAS_EXECUTE_PERMISSION = platform !== 'win32';
 const bundles: string[] = [];
 
 const newBundle = async (): Promise<string> => {
@@ -41,24 +43,28 @@ await describe('publishing a bundle to a plugin branch', async () => {
     ]);
   });
 
-  await it('publishes every file under its bundle path, executable or not', async () => {
-    const bundle = await newBundle();
+  if (HAS_EXECUTE_PERMISSION)
+    await it('publishes every file under its bundle path, executable or not', async () => {
+      const bundle = await newBundle();
 
-    await mkdir(join(bundle, 'skills/lagune'), { recursive: true });
-    await mkdir(join(bundle, 'lib/bin'), { recursive: true });
-    await writeFile(join(bundle, 'skills/lagune/SKILL.md'), '# Lagune\n');
-    await writeFile(join(bundle, 'lib/bin/index.js'), '#!/usr/bin/env node\n');
-    await chmod(join(bundle, 'lib/bin/index.js'), 0o755);
+      await mkdir(join(bundle, 'skills/lagune'), { recursive: true });
+      await mkdir(join(bundle, 'lib/bin'), { recursive: true });
+      await writeFile(join(bundle, 'skills/lagune/SKILL.md'), '# Lagune\n');
+      await writeFile(
+        join(bundle, 'lib/bin/index.js'),
+        '#!/usr/bin/env node\n'
+      );
+      await chmod(join(bundle, 'lib/bin/index.js'), 0o755);
 
-    const published = (await readBundle(bundle))
-      .map(({ path, mode }) => ({ path, mode }))
-      .sort((left, right) => left.path.localeCompare(right.path));
+      const published = (await readBundle(bundle))
+        .map(({ path, mode }) => ({ path, mode }))
+        .sort((left, right) => left.path.localeCompare(right.path));
 
-    strict.deepStrictEqual(published, [
-      { path: 'lib/bin/index.js', mode: '100755' },
-      { path: 'skills/lagune/SKILL.md', mode: '100644' },
-    ]);
-  });
+      strict.deepStrictEqual(published, [
+        { path: 'lib/bin/index.js', mode: '100755' },
+        { path: 'skills/lagune/SKILL.md', mode: '100644' },
+      ]);
+    });
 
   await it('refuses a bundle that carries a symbolic link', async () => {
     const bundle = await newBundle();

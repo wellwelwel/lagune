@@ -1,4 +1,4 @@
-name: '🐧 CI — Test'
+name: '🔬 CI — Test'
 
 on:
   push:
@@ -28,13 +28,21 @@ on:
 
 jobs:
   node:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    runs-on: ${{ matrix.os.runner }}
+    timeout-minutes: ${{ matrix.os.timeout }}
     strategy:
       fail-fast: false
       matrix:
         node-version: ['22', '24', '26']
-    name: Node.js ${{ matrix.node-version }}
+        os:
+          - { name: Linux, runner: ubuntu-latest, timeout: 5 }
+          - { name: macOS, runner: macos-latest, timeout: 10 }
+          - { name: Windows, runner: windows-latest, timeout: 15 }
+    name: Node.js ${{ matrix.node-version }} on ${{ matrix.os.name }}
+    defaults:
+      run:
+        # On Windows, the npm scripts need Git Bash rather than the WSL launcher in System32
+        shell: bash
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v6
@@ -44,13 +52,7 @@ jobs:
         with:
           check-latest: true
           node-version: ${{ matrix.node-version }}
-
-      - name: ➕ Cache dependencies
-        uses: actions/cache@v5
-        with:
-          path: ~/.npm
-          key: npm-linux-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-linux-
+          cache: 'npm'
 
       - name: 📦 Installing Dependencies
         run: npm ci

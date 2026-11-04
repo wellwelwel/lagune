@@ -1,5 +1,6 @@
 import type { PublishedText } from '../../../src/types/test.js';
 import { readdir, readFile } from 'node:fs/promises';
+import { sep } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { loadVersion } from '../../../src/core/version.js';
 import {
@@ -21,7 +22,6 @@ const COMMANDS = [
   'lagune-specialize',
   'lagune-verify',
 ];
-
 const FILLS_A_TEMPLATE = [
   'lagune-charter',
   'lagune-detect',
@@ -30,11 +30,8 @@ const FILLS_A_TEMPLATE = [
   'lagune-prove',
   'lagune-specialize',
 ];
-
 const KEPT_FROM_THE_MODEL = ['lagune-prove', 'lagune-specialize'];
-
 const PUBLISHED_FOLDERS = ['skills', 'catalog'];
-
 const ENGINE_COMMAND = `npx --yes lagune@${await loadVersion(packageRoot)} `;
 const ENGINE_CALL = /npx (?:-\S+ )*lagune(?:@\S*)? [^\n`]*/g;
 const SHELL_CALL = /(?<![\w@./-])lagune [a-z][\w-]*[^\n`]*/g;
@@ -42,7 +39,6 @@ const TOOL_CALL = /`(lagune_\w+)` with `command` set to `([a-z]+)`/g;
 const SHORT_FLAG = /(?:^|\s)-[a-zA-Z](?=\s|$)/;
 const SHORT_FLAG_ARGUMENT = /"-[a-zA-Z]"/g;
 const PLACEHOLDER = /^<[a-z]+>$/;
-
 const folders = (await readdir(new URL('skills/', packageRoot))).toSorted();
 
 const readPublished = async (): Promise<PublishedText[]> => {
@@ -95,7 +91,9 @@ await describe('the published skills', async () => {
         await readdir(new URL(`skills/${folder}/`, packageRoot), {
           recursive: true,
         })
-      ).toSorted();
+      )
+        .map((file) => file.split(sep).join('/'))
+        .toSorted();
       const expected = [
         'SKILL.md',
         ...(KEPT_FROM_THE_MODEL.includes(folder)

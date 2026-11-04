@@ -1,9 +1,9 @@
 import { readdir } from 'node:fs/promises';
+import { sep } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { deepFreeze } from '../../../src/core/collections.js';
 
 const packageRoot = new URL('../../../', import.meta.url);
-
 const SHARED_SOURCES = [
   'src/bin/hooks.ts',
   'src/core/checkers.ts',
@@ -31,7 +31,7 @@ const modulesOf = async (source: string): Promise<string[]> => {
 
   return entries
     .filter((entry) => entry.endsWith('.ts'))
-    .map((entry) => `${source}${entry}`);
+    .map((entry) => `${source}${entry.split(sep).join('/')}`);
 };
 
 const tablesOf = async (module: string): Promise<[string, unknown][]> => {

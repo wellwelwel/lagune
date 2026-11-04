@@ -3,13 +3,14 @@ import type { WalkResult } from '../../../src/types/scan.js';
 import { mkdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { env, pid } from 'node:process';
+import { env, pid, platform } from 'node:process';
 import { describe, it, strict } from 'poku';
 import { SOURCE_FILTER } from '../../../src/core/scan/filters.js';
 import { walkTargets } from '../../../src/core/scan/walk.js';
 import { git, newWorkspace, writeFiles } from './__utils__.js';
 
 const NO_HOME = join(tmpdir(), `lagune-no-home-${pid}`);
+const FILE_NAMES_HOLD_ASTERISKS = platform !== 'win32';
 
 env.HOME = NO_HOME;
 env.USERPROFILE = NO_HOME;
@@ -37,6 +38,12 @@ const repository = async (
 
   return workspace;
 };
+
+/** Runs a case only where the file system can name every file it creates */
+const itNaming = (files: readonly string[]): typeof it.skip =>
+  FILE_NAMES_HOLD_ASTERISKS || files.every((file) => !file.includes('*'))
+    ? it
+    : it.skip;
 
 await describe('a scan leaves out the paths the checker settings ignore', async () => {
   await it('skips each folder and file a setting names from the project root, even one Git tracks, apart from what Git ignores', async () => {
@@ -81,7 +88,6 @@ await describe('a scan leaves out the paths the checker settings ignore', async 
       '.gitignore': 'dist/\n',
       'dist/app.js': '',
     });
-
     const result = await scan(workspace, { gitignore: false, ignore: [] });
 
     strict.deepStrictEqual(result, {
@@ -96,7 +102,6 @@ await describe('a scan leaves out the paths the checker settings ignore', async 
       'test/fixtures/deep/worse.js': '',
     });
     const settings = { gitignore: true, ignore: ['test/fixtures'] };
-
     const results = await Promise.all([
       scan(workspace, settings, ['test/fixtures']),
       scan(workspace, settings, ['test/fixtures/deep']),
@@ -194,11 +199,10 @@ await describe('a scan reads each ignore entry as a glob pattern from the projec
   ];
 
   for (const [name, pattern, files, skipped] of cases)
-    await it(name, async () => {
+    await itNaming(files)(name, async () => {
       const workspace = await repository(
         Object.fromEntries(files.map((file) => [file, '']))
       );
-
       const result = await scan(workspace, {
         gitignore: true,
         ignore: [pattern],
@@ -212,7 +216,6 @@ await describe('a scan reads each ignore entry as a glob pattern from the projec
 
   await it('scans a named folder a pattern ignores', async () => {
     const workspace = await repository({ 'packages/web/dist/a.js': '' });
-
     const result = await scan(
       workspace,
       { gitignore: true, ignore: ['**/dist'] },

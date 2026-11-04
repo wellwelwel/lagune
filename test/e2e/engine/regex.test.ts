@@ -4,7 +4,6 @@ import { describe, it, strict } from 'poku';
 import { newWorkspace, runEngine } from './__utils__.js';
 
 const FINDING_EXIT = 1;
-
 const SAFE_EXIT = 0;
 
 const runRegex = async (
@@ -26,37 +25,44 @@ const runRegex = async (
 await describe('the regex hook runs through the engine', async () => {
   await it('classifies one pattern as unsafe, safe, or invalid', async () => {
     const workspace = await newWorkspace();
+    const cases: [pattern: string, verdict: string][] = [
+      ['(a+)+$', 'unsafe'],
+      ['boundary=(.+)$', 'unsafe'],
+      ['^([IVXLC]+)\\.\\s*(.*)$', 'unsafe'],
+      ['(a+)+', 'unsafe'],
+      ['^abc$', 'safe'],
+      ['(', 'invalid regex'],
+    ];
+    const verdicts = await Promise.all(
+      cases.map(([pattern]) => runRegex(workspace, '-p', pattern))
+    );
 
-    strict.strictEqual(await runRegex(workspace, '-p', '(a+)+$'), 'unsafe');
-    strict.strictEqual(
-      await runRegex(workspace, '-p', 'boundary=(.+)$'),
-      'unsafe'
+    strict.deepStrictEqual(
+      verdicts,
+      cases.map(([, verdict]) => verdict)
     );
-    strict.strictEqual(
-      await runRegex(workspace, '-p', '^([IVXLC]+)\\.\\s*(.*)$'),
-      'unsafe'
-    );
-    strict.strictEqual(await runRegex(workspace, '-p', '(a+)+'), 'unsafe');
-    strict.strictEqual(await runRegex(workspace, '-p', '^abc$'), 'safe');
-    strict.strictEqual(await runRegex(workspace, '-p', '('), 'invalid regex');
   });
 
   await it('checks many patterns in one call, one verdict per line', async () => {
     const workspace = await newWorkspace();
-
-    strict.strictEqual(
-      await runRegex(workspace, '-p', '(a+)+$', '-p', '^abc$', '-p', '('),
-      'unsafe\nsafe\ninvalid regex'
+    const verdicts = await runRegex(
+      workspace,
+      '-p',
+      '(a+)+$',
+      '-p',
+      '^abc$',
+      '-p',
+      '('
     );
+
+    strict.strictEqual(verdicts, 'unsafe\nsafe\ninvalid regex');
   });
 
   await it('applies a custom repetition limit to the checks', async () => {
     const workspace = await newWorkspace();
+    const verdict = await runRegex(workspace, '-p', 'a?a?a?', '-l', '2');
 
-    strict.strictEqual(
-      await runRegex(workspace, '-p', 'a?a?a?', '-l', '2'),
-      'unsafe'
-    );
+    strict.strictEqual(verdict, 'unsafe');
   });
 
   await it('scans a file for ReDoS-prone literals', async () => {
@@ -68,8 +74,10 @@ await describe('the regex hook runs through the engine', async () => {
       'utf8'
     );
 
+    const report = await runRegex(workspace, '-f', 'app.js');
+
     strict.strictEqual(
-      await runRegex(workspace, '-f', 'app.js'),
+      report,
       'Vulnerable regular expressions found:\n\napp.js\n  (a+)+$ (exponential, search)'
     );
   });
@@ -84,13 +92,18 @@ await describe('the regex hook runs through the engine', async () => {
       'utf8'
     );
 
+    const [directory, project] = await Promise.all([
+      runRegex(workspace, '-d', 'src'),
+      runRegex(workspace),
+    ]);
+
     strict.strictEqual(
-      await runRegex(workspace, '-d', 'src'),
-      'Vulnerable regular expressions found:\n\nsrc/app.js\n  (a+)+$ (exponential, search)'
+      directory,
+      `Vulnerable regular expressions found:\n\n${join('src', 'app.js')}\n  (a+)+$ (exponential, search)`
     );
     strict.strictEqual(
-      await runRegex(workspace),
-      'Vulnerable regular expressions found:\n\nsrc/app.js\n  (a+)+$ (exponential, search)'
+      project,
+      `Vulnerable regular expressions found:\n\n${join('src', 'app.js')}\n  (a+)+$ (exponential, search)`
     );
   });
 
@@ -107,8 +120,10 @@ await describe('the regex hook runs through the engine', async () => {
       'utf8'
     );
 
+    const report = await runRegex(workspace, '-f', 'app.js');
+
     strict.strictEqual(
-      await runRegex(workspace, '-f', 'app.js'),
+      report,
       'Vulnerable regular expressions found:\n\n' +
         'app.js\n  (.+)$ (polynomial of degree 2, search)\n  (a+)+$ (exponential, search)'
     );
@@ -130,11 +145,21 @@ await describe('the regex hook runs through the engine', async () => {
       'utf8'
     );
 
+    const report = await runRegex(
+      workspace,
+      '-d',
+      'src',
+      '-d',
+      'lib',
+      '-f',
+      'src/a.js'
+    );
+
     strict.strictEqual(
-      await runRegex(workspace, '-d', 'src', '-d', 'lib', '-f', 'src/a.js'),
+      report,
       'Vulnerable regular expressions found:\n\n' +
-        'lib/b.js\n  (.+)$ (polynomial of degree 2, search)\n\n' +
-        'src/a.js\n  (a+)+$ (exponential, search)'
+        `${join('lib', 'b.js')}\n  (.+)$ (polynomial of degree 2, search)\n\n` +
+        `${join('src', 'a.js')}\n  (a+)+$ (exponential, search)`
     );
   });
 
@@ -147,12 +172,14 @@ await describe('the regex hook runs through the engine', async () => {
       'utf8'
     );
 
+    const [withDefaultLimit, withLimitOfTwo] = await Promise.all([
+      runRegex(workspace, '-f', 'app.js'),
+      runRegex(workspace, '-f', 'app.js', '-l', '2'),
+    ]);
+
+    strict.strictEqual(withDefaultLimit, 'no unsafe patterns found');
     strict.strictEqual(
-      await runRegex(workspace, '-f', 'app.js'),
-      'no unsafe patterns found'
-    );
-    strict.strictEqual(
-      await runRegex(workspace, '-f', 'app.js', '-l', '2'),
+      withLimitOfTwo,
       'Vulnerable regular expressions found:\n\napp.js\n  a?a?a? (more than 2 quantifiers)'
     );
   });
@@ -177,6 +204,14 @@ await describe('the regex hook runs through the engine', async () => {
 
   await it('exits 1 on an unsafe finding and 0 when clean', async () => {
     const workspace = await newWorkspace();
+    const cases: [args: string[], code: number][] = [
+      [['-p', '(a+)+$'], 1],
+      [['-f', 'app.js'], 1],
+      [['-p', '^abc$'], 0],
+      [['-p', '('], 0],
+      [['-p', `${'('.repeat(600)}a+${')'.repeat(600)}`], 0],
+      [['-d', 'src'], 0],
+    ];
 
     await writeFile(
       join(workspace, 'app.js'),
@@ -184,36 +219,13 @@ await describe('the regex hook runs through the engine', async () => {
       'utf8'
     );
 
-    strict.strictEqual(
-      (await runEngine(workspace, ['read', 'regex', '-p', '(a+)+$'])).code,
-      1
+    const runs = await Promise.all(
+      cases.map(([args]) => runEngine(workspace, ['read', 'regex', ...args]))
     );
-    strict.strictEqual(
-      (await runEngine(workspace, ['read', 'regex', '-f', 'app.js'])).code,
-      1
-    );
-    strict.strictEqual(
-      (await runEngine(workspace, ['read', 'regex', '-p', '^abc$'])).code,
-      0
-    );
-    strict.strictEqual(
-      (await runEngine(workspace, ['read', 'regex', '-p', '('])).code,
-      0
-    );
-    strict.strictEqual(
-      (
-        await runEngine(workspace, [
-          'read',
-          'regex',
-          '-p',
-          `${'('.repeat(600)}a+${')'.repeat(600)}`,
-        ])
-      ).code,
-      0
-    );
-    strict.strictEqual(
-      (await runEngine(workspace, ['read', 'regex', '-d', 'src'])).code,
-      0
+
+    strict.deepStrictEqual(
+      runs.map(({ code }) => code),
+      cases.map(([, code]) => code)
     );
   });
 });

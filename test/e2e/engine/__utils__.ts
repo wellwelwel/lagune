@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { cp, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { execPath } from 'node:process';
+import { execPath, platform } from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { afterEach } from 'poku';
 
@@ -13,6 +13,7 @@ const INSTALLED_FILES = ['package.json', 'lib/bin'];
 const workspaces: string[] = [];
 
 export const ENGINE = fileURLToPath(new URL(ENGINE_ENTRY, packageRoot));
+export const IS_WINDOWS = platform === 'win32';
 
 export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-engine-'));

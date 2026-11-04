@@ -164,6 +164,10 @@ When the website gains new messages, `add <code>` regenerates the language's mes
 npm test
 ```
 
+> [!NOTE]
+>
+> On **Windows**, run the tests from **Git Bash**, which their scripts need. Some tests also create symbolic links, which take Developer Mode or an administrator terminal.
+
 ---
 
 ### 👔 Lint
