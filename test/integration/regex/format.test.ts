@@ -1,6 +1,9 @@
 import type { RegexFinding } from '../../../src/types/hooks/regex.js';
+import type { SkippedCounts } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
 import { format } from '../../../src/hooks/regex/format.js';
+
+const NOTHING_SKIPPED: SkippedCounts = { git: 0, configs: 0 };
 
 const exponential = (file: string, source: string): RegexFinding => ({
   file,
@@ -18,7 +21,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: [],
-        skipped: 0,
+        skipped: NOTHING_SKIPPED,
       }),
       'no unsafe patterns found\n'
     );
@@ -35,7 +38,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: [],
-        skipped: 0,
+        skipped: NOTHING_SKIPPED,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  (a+)+$ (exponential, search)\n  (.*)x (exponential, search)\n\nb.js\n  (.+)$ (exponential, search)\n'
     );
@@ -70,7 +73,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: [],
-        skipped: 0,
+        skipped: NOTHING_SKIPPED,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  ^\\s*#[^\\n]+ (polynomial of degree 2, search, flags: gm)\n  (a+)+a (exponential, whole match)\n  a?a?a? (more than 2 quantifiers)\n'
     );
@@ -91,7 +94,7 @@ describe('format renders findings grouped by file with no colors', () => {
         ],
         dynamic: ['c.js'],
         staticWrap: [],
-        skipped: 0,
+        skipped: NOTHING_SKIPPED,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  (a+)+$ (exponential, search)\n\n' +
         'Regular expressions the analysis could not settle (review manually):\n\nb.js\n  (?:x+){1,9}y (work cap reached, flags: i)\n\n' +
@@ -106,7 +109,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: ['lib/build.py', 'src/router.js'],
         staticWrap: ['src/wrap.js'],
-        skipped: 0,
+        skipped: NOTHING_SKIPPED,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  (a+)+$ (exponential, search)\n\n' +
         'Dynamically built regular expressions (review manually by simulating a constructed regex):\n\n' +
@@ -123,7 +126,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: ['src/wrap.js'],
-        skipped: 0,
+        skipped: NOTHING_SKIPPED,
       }),
       'Static regex wrapped in a constructor (use a literal instead):\n\nsrc/wrap.js\n'
     );
@@ -135,7 +138,7 @@ describe('format renders findings grouped by file with no colors', () => {
       undetermined: [],
       dynamic: ['b.js'],
       staticWrap: ['c.js'],
-      skipped: 0,
+      skipped: NOTHING_SKIPPED,
     });
 
     strict.strictEqual(output.includes(String.fromCharCode(27)), false);
@@ -148,7 +151,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: [],
-        skipped: 2,
+        skipped: { git: 2, configs: 0 },
       }),
       'no unsafe patterns found\n\nSkipped 2 paths that Git ignores. Name one with --dir or --file to scan it.\n'
     );

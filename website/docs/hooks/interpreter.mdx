@@ -55,7 +55,25 @@ Reason about each sink **statically**, tracing whether untrusted input reaches i
 | `--dir`     | a directory    | Scope a scan to a directory. Repeats and combines with `--file`.                                         |
 | `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`.                                        |
 
-With no option it scans the whole project except what **Git** ignores, and the report ends with how many paths it left out. A path named with `--dir` or `--file` is scanned even when **Git** ignores it. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
+With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `interpreter` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](/docs/hooks/configure) covers every setting.
 
 ### Supported languages
 

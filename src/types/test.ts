@@ -54,8 +54,13 @@ export type SpecLimitViolation = {
 };
 
 export type ConfigsSchema = {
-  properties: { categories: { items: { enum: string[] } } };
+  properties: {
+    categories: { items: { enum: string[] } };
+    checkers: { properties: Record<string, unknown> };
+  };
 };
+
+export type GitWalk = { files: string[]; skipped: string[] };
 
 export type PackedPackage = { files: { path: string }[] };
 

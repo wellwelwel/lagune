@@ -9,6 +9,8 @@ import type {
 } from '../../types/git.js';
 import { deepFreeze } from '../collections.js';
 
+export const MATCH_STEPS = 100_000_000;
+
 const STAR: PatternToken = deepFreeze({ kind: 'star' });
 
 const ANY: PatternToken = deepFreeze({ kind: 'any' });
@@ -149,6 +151,17 @@ const anchoredTokens = (segments: readonly string[]): PathToken[] | null => {
     return [...tokens.slice(0, -1), ANY_SEGMENT, GLOBSTAR];
 
   return tokens;
+};
+
+/** Reads a pattern given by its segments from the project root into a rule, or none for a segment it cannot read */
+export const rootPatternOf = (
+  segments: readonly string[]
+): IgnoreRule | null => {
+  const tokens = anchoredTokens(segments);
+
+  return tokens === null
+    ? null
+    : { negated: false, directoryOnly: false, anchored: true, tokens };
 };
 
 /** Reads one line of a Git ignore file into a rule, or none for a blank line, a comment, or a pattern it cannot read */

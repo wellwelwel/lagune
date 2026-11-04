@@ -2,7 +2,16 @@ import type {
   ReportHeadings,
   ScanDetail,
   ScanReport,
+  SkippedCounts,
 } from '../../types/scan.js';
+import { allOf, deepFreeze } from '../collections.js';
+import { CONFIGS_FILE } from '../configs.js';
+
+const SKIPPED_ORIGINS: readonly (readonly [keyof SkippedCounts, string])[] =
+  deepFreeze([
+    ['git', 'Git'],
+    ['configs', CONFIGS_FILE],
+  ]);
 
 const groupByFile = (items: readonly ScanDetail[]): Map<string, string[]> => {
   const groups = new Map<string, string[]>();
@@ -33,12 +42,19 @@ export const groupedSection = (
   return `${header}\n\n${blocks.join('\n\n')}`;
 };
 
-const skippedNote = (count: number): string =>
-  `Skipped ${count} ${count === 1 ? 'path' : 'paths'} that Git ignores. Name one with --dir or --file to scan it.`;
+const ignoredBy = (count: number, origin: string): string =>
+  `${count} ${count === 1 ? 'path' : 'paths'} that ${origin} ignores`;
 
-/** Ends a report with how many paths Git ignores that the scan left out */
-export const withSkipped = (output: string, skipped: number): string =>
-  skipped === 0 ? output : `${output}\n${skippedNote(skipped)}\n`;
+/** Ends a report with how many paths the scan left out, by what ignores them */
+export const withSkipped = (output: string, skipped: SkippedCounts): string => {
+  const counted = SKIPPED_ORIGINS.filter(([origin]) => skipped[origin] > 0).map(
+    ([origin, name]) => ignoredBy(skipped[origin], name)
+  );
+
+  if (counted.length === 0) return output;
+
+  return `${output}\nSkipped ${allOf(counted)}. Name one with --dir or --file to scan it.\n`;
+};
 
 const reportBody = (report: ScanReport, headings: ReportHeadings): string => {
   const sections: string[] = [];

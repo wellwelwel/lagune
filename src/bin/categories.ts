@@ -1,11 +1,9 @@
-import type { CategoryAction, CategoryChange } from '../types/categories.js';
+import type { ConfigsAction } from '../types/core.js';
 import { stdout } from 'node:process';
 import {
-  addCategories,
   assertKnownCategories,
   CATEGORIES,
   findCategory,
-  removeCategories,
 } from '../categories/categories.js';
 import {
   readProjectCategories,
@@ -20,20 +18,13 @@ import {
   nothingSelected,
 } from '../cli/messages.js';
 import { selectCategories } from '../cli/select-categories.js';
-
-const CHANGES: Record<
-  CategoryAction,
-  (current: string[], requested: string[]) => CategoryChange
-> = {
-  add: addCategories,
-  remove: removeCategories,
-};
+import { changeList } from '../core/collections.js';
 
 const print = (lines: string[]): void => {
   stdout.write(`${lines.join('\n')}\n`);
 };
 
-const choices = (action: CategoryAction, used: string[]) =>
+const choices = (action: ConfigsAction, used: string[]) =>
   action === 'add'
     ? { categories: CATEGORIES, locked: used }
     : {
@@ -45,7 +36,7 @@ const choices = (action: CategoryAction, used: string[]) =>
 
 /** Records the categories the project uses, starting from the default while none is recorded */
 export const runCategoryChange = async (
-  action: CategoryAction,
+  action: ConfigsAction,
   requested: string[],
   cwd: string
 ): Promise<void> => {
@@ -61,9 +52,9 @@ export const runCategoryChange = async (
 
   if (selected.length === 0) return print([banner(), '', nothingSelected()]);
 
-  const change = CHANGES[action](used, selected);
+  const change = changeList(action, used, selected);
 
-  await recordCategories(cwd, change.categories);
+  await recordCategories(cwd, change.values);
 
   print([banner(), '', categoriesRecorded(action, change)]);
 };

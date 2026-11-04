@@ -7,9 +7,10 @@ import type {
 } from '../../types/hooks/regex.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { checkerSettings } from '../../core/checkers.js';
 import { SOURCE_FILTER } from '../../core/scan/filters.js';
 import { languageOf } from '../../core/scan/language.js';
-import { walkTargets } from '../../core/scan/walk.js';
+import { skippedCounts, walkTargets } from '../../core/scan/walk.js';
 import { extractPatterns, readingKey } from './extract.js';
 import { assessReadings } from './pool.js';
 import { regexUsage } from './usage.js';
@@ -91,7 +92,12 @@ export const scan = async (
   targets: string[],
   repetitionLimit?: number
 ): Promise<RegexScanResult> => {
-  const { files, skipped } = await walkTargets(root, targets, SOURCE_FILTER);
+  const { files, skipped } = await walkTargets(
+    root,
+    targets,
+    SOURCE_FILTER,
+    await checkerSettings(root, 'regex')
+  );
   const read = await Promise.all(files.map((file) => extractFile(root, file)));
   const extracted = read.filter((entry) => entry !== null);
   const assessments = await assessReadings(
@@ -104,6 +110,6 @@ export const scan = async (
     undetermined: findingsOf(extracted, assessments, 'undetermined'),
     dynamic: filesWhere(extracted, ({ dynamic }) => dynamic),
     staticWrap: filesWhere(extracted, ({ staticWrap }) => staticWrap),
-    skipped: skipped.length,
+    skipped: skippedCounts(skipped),
   };
 };

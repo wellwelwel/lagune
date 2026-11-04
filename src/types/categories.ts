@@ -18,11 +18,3 @@ export type Category = {
   label: string;
   description: string;
 };
-
-export type CategoryAction = 'add' | 'remove';
-
-export type CategoryChange = {
-  categories: string[];
-  changed: string[];
-  unchanged: string[];
-};

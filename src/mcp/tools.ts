@@ -38,7 +38,7 @@ export const ENGINE_TOOLS: readonly EngineTool[] = [
     prefix: 'write',
     title: 'Lagune engine (write)',
     summary:
-      "Runs a Lagune engine command that changes the project's .lagune/ state: tracking findings, standing them down, repairing the tracking map, and recording categories.",
+      "Runs a Lagune engine command that changes the project's .lagune/ state: tracking findings, standing them down, repairing the tracking map, and recording categories and the paths the checkers leave out.",
     readOnly: false,
     commands: ['track', 'untrack', 'repair', 'add', 'remove'],
   },

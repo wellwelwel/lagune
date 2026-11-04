@@ -6,6 +6,7 @@ const packageRoot = new URL('../../../', import.meta.url);
 
 const SHARED_SOURCES = [
   'src/bin/hooks.ts',
+  'src/core/checkers.ts',
   'src/core/git/',
   'src/core/scan/',
   'src/hooks/',

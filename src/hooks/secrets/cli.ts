@@ -22,7 +22,13 @@ const HEADINGS: ReportHeadings = {
 const runScan = async (targets: string[]): Promise<HookResult> => {
   const root = cwd();
   const paths = await resolveTargets(root, targets);
-  const report = await scanReport(root, paths, SOURCE_FILTER, analyze);
+  const report = await scanReport(
+    root,
+    paths,
+    SOURCE_FILTER,
+    analyze,
+    'secrets'
+  );
 
   return {
     output: formatReport(report, HEADINGS),

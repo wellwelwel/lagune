@@ -73,6 +73,10 @@ npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
 
+## The folders it offers to leave out
+
+When the charter's reading finds committed folders that are not your project's code to defend, such as test fixtures written to look vulnerable, it lists them by number at the end of its summary. It never leaves one out on its own, since a hostile repository can make its code look like fixtures, so only the numbers you reply with are recorded. [Configure the hooks](/docs/hooks/configure) covers changing them yourself.
+
 ## Next
 
 With the rules set, map what your system actually does: [`/lagune-detect`](/docs/commands/detect).

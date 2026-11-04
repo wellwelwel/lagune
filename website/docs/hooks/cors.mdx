@@ -13,7 +13,7 @@ The `cors` hook is the deterministic engine behind the [`http-request` specializ
 
 ## Scan a codebase
 
-With no flag it scans the whole project except what **Git** ignores, and the report ends with how many paths it left out. A path named with `--dir` or `--file` is scanned even when **Git** ignores it.
+With no flag it scans the whole project.
 
 <Tabs>
   <TabItem value="all" label="Whole project" default>
@@ -103,6 +103,24 @@ Only `safe` is an allow, and `--origin` is a value oracle: it judges the value, 
 | `--file`   | a file      | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
 With no option it scans the whole project. `--origin` is the score mode and cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `cors` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](/docs/hooks/configure) covers every setting.
 
 :::note[What it does not cover]
 

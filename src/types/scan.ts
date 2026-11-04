@@ -1,3 +1,5 @@
+import type { IgnoreList, MatchBudget } from './git.js';
+
 export type LanguageId =
   | 'javascript'
   | 'python'
@@ -33,9 +35,30 @@ export type WalkFilter = {
   accept: (relativePath: string) => boolean;
 };
 
+export type SkippedPaths = {
+  git: string[];
+  configs: string[];
+};
+
+export type SkippedCounts = {
+  [Origin in keyof SkippedPaths]: number;
+};
+
 export type WalkResult = {
   files: string[];
-  skipped: string[];
+  skipped: SkippedPaths;
+};
+
+export type ConfigIgnores = {
+  lists: readonly IgnoreList[];
+  budget: MatchBudget;
+};
+
+export type WalkContext = {
+  scanRoot: string;
+  displayRoot: string;
+  filter: WalkFilter;
+  configIgnores: ConfigIgnores | null;
 };
 
 export type ScanDetail = { file: string; detail: string };
@@ -44,7 +67,7 @@ export type ScanReport = {
   findings: ScanDetail[];
   review: ScanDetail[];
   advisory: ScanDetail[];
-  skipped: number;
+  skipped: SkippedCounts;
 };
 
 export type ReportHeadings = {
@@ -58,14 +81,6 @@ export type FileAnalysis = {
   findings: string[];
   review: string[];
   advisory: string[];
-};
-
-export type SourceHook = {
-  language: LanguageId;
-  headings: ReportHeadings;
-  findingVerdict: string;
-  analyze: (content: string) => FileAnalysis;
-  classify: (snippet: string) => string;
 };
 
 export type CommentSpec = {

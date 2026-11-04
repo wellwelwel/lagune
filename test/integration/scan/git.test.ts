@@ -1,9 +1,10 @@
-import type { WalkResult } from '../../../src/types/scan.js';
+import type { GitWalk } from '../../../src/types/test.js';
 import { mkdir, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { env, pid } from 'node:process';
 import { describe, it, strict } from 'poku';
+import { DEFAULT_SETTINGS } from '../../../src/core/checkers.js';
 import { SOURCE_FILTER } from '../../../src/core/scan/filters.js';
 import { walkTargets } from '../../../src/core/scan/walk.js';
 import { git, newWorkspace, writeFiles } from './__utils__.js';
@@ -14,17 +15,21 @@ env.HOME = NO_HOME;
 env.USERPROFILE = NO_HOME;
 delete env.XDG_CONFIG_HOME;
 
-const scan = (
+const scan = async (
   workspace: string,
   targets: readonly string[] = ['.']
-): Promise<WalkResult> =>
-  walkTargets(
+): Promise<GitWalk> => {
+  const { files, skipped } = await walkTargets(
     workspace,
     targets.map((target) => join(workspace, target)),
-    SOURCE_FILTER
+    SOURCE_FILTER,
+    DEFAULT_SETTINGS
   );
 
-const sorted = ({ files, skipped }: WalkResult): WalkResult => ({
+  return { files, skipped: skipped.git };
+};
+
+const sorted = ({ files, skipped }: GitWalk): GitWalk => ({
   files: files.toSorted(),
   skipped: skipped.toSorted(),
 });

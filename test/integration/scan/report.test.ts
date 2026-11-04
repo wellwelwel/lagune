@@ -1,6 +1,8 @@
-import type { ScanReport } from '../../../src/types/scan.js';
+import type { ScanReport, SkippedCounts } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
 import { formatReport } from '../../../src/core/scan/report.js';
+
+const NOTHING_SKIPPED: SkippedCounts = { git: 0, configs: 0 };
 
 const HEADINGS = {
   sentinel: 'no risks found\n',
@@ -13,7 +15,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
   it('prints the sentinel when every section is empty', () => {
     strict.strictEqual(
       formatReport(
-        { findings: [], review: [], advisory: [], skipped: 0 },
+        { findings: [], review: [], advisory: [], skipped: NOTHING_SKIPPED },
         HEADINGS
       ),
       'no risks found\n'
@@ -31,7 +33,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
           ],
           review: [],
           advisory: [],
-          skipped: 0,
+          skipped: NOTHING_SKIPPED,
         },
         HEADINGS
       ),
@@ -46,7 +48,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
           findings: [{ file: 'a.ts', detail: 'weak cipher' }],
           review: [{ file: 'b.ts', detail: 'timing-unsafe compare' }],
           advisory: [{ file: 'c.ts', detail: 'mutable base tag' }],
-          skipped: 0,
+          skipped: NOTHING_SKIPPED,
         },
         HEADINGS
       ),
@@ -63,7 +65,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
           findings: [{ file: 'a.ts', detail: 'weak cipher' }],
           review: [{ file: 'b.ts', detail: 'unjudged' }],
           advisory: [],
-          skipped: 0,
+          skipped: NOTHING_SKIPPED,
         },
         { sentinel: 'no risks found\n', findings: 'Findings:' }
       ),
@@ -77,7 +79,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
         findings: [{ file: 'a.ts', detail: 'weak cipher' }],
         review: [{ file: 'b.ts', detail: 'lead' }],
         advisory: [{ file: 'c.ts', detail: 'posture' }],
-        skipped: 0,
+        skipped: NOTHING_SKIPPED,
       },
       HEADINGS
     );
@@ -86,22 +88,37 @@ describe('formatReport renders findings, review, and advisory sections', () => {
   });
 });
 
-describe('formatReport ends a report with how many paths Git kept out of the scan', () => {
+describe('formatReport ends a report with how many paths the scan left out, by what ignores them', () => {
   const cases: [name: string, report: ScanReport, expected: string][] = [
     [
-      'after the sentinel, naming a single path',
-      { findings: [], review: [], advisory: [], skipped: 1 },
+      'after the sentinel, naming a single path Git ignores',
+      {
+        findings: [],
+        review: [],
+        advisory: [],
+        skipped: { git: 1, configs: 0 },
+      },
       'no risks found\n\nSkipped 1 path that Git ignores. Name one with --dir or --file to scan it.\n',
     ],
     [
-      'after the sections, counting several paths',
+      'after the sections, counting several paths the configs ignore',
       {
         findings: [{ file: 'a.ts', detail: 'weak cipher' }],
         review: [],
         advisory: [],
-        skipped: 3,
+        skipped: { git: 0, configs: 3 },
       },
-      'Findings:\n\na.ts\n  weak cipher\n\nSkipped 3 paths that Git ignores. Name one with --dir or --file to scan it.\n',
+      'Findings:\n\na.ts\n  weak cipher\n\nSkipped 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.\n',
+    ],
+    [
+      'with both counts in one line',
+      {
+        findings: [],
+        review: [],
+        advisory: [],
+        skipped: { git: 2, configs: 1 },
+      },
+      'no risks found\n\nSkipped 2 paths that Git ignores and 1 path that .lagune/configs.json ignores. Name one with --dir or --file to scan it.\n',
     ],
   ];
 

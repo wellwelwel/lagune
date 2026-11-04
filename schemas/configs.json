@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Lagune configs",
-  "description": "A Lagune project's configs: the categories it uses and the index of its own specializations.",
+  "description": "A Lagune project's configs: the categories it uses, the index of its own specializations, and what its checkers leave out.",
   "type": "object",
   "properties": {
     "$schema": {
@@ -52,7 +52,76 @@
         "required": ["name", "tags"],
         "additionalProperties": false
       }
+    },
+    "checkers": {
+      "description": "What the checkers leave out when they scan the project. A checker's own settings replace the shared ones key by key, and a path a scan names is scanned whatever they say.",
+      "type": "object",
+      "properties": {
+        "gitignore": {
+          "$ref": "#/definitions/gitignore"
+        },
+        "ignore": {
+          "$ref": "#/definitions/ignore"
+        },
+        "agent": {
+          "$ref": "#/definitions/checker"
+        },
+        "cors": {
+          "$ref": "#/definitions/checker"
+        },
+        "crypto": {
+          "$ref": "#/definitions/checker"
+        },
+        "infra": {
+          "$ref": "#/definitions/checker"
+        },
+        "interpreter": {
+          "$ref": "#/definitions/checker"
+        },
+        "jwt": {
+          "$ref": "#/definitions/checker"
+        },
+        "regex": {
+          "$ref": "#/definitions/checker"
+        },
+        "secrets": {
+          "$ref": "#/definitions/checker"
+        }
+      },
+      "additionalProperties": false
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "definitions": {
+    "gitignore": {
+      "description": "Whether the scan leaves out what Git ignores: the project's .gitignore files, its local exclude file, and the user's global excludes file. Files Git tracks are scanned either way.",
+      "type": "boolean",
+      "default": true
+    },
+    "ignore": {
+      "description": "Paths or glob patterns from the project root a scan leaves out, each with everything under it, whether Git tracks it or not. * matches within a folder name, ** across folders, ? one character, and [abc] one of a set. A pattern cannot start with !.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024,
+        "pattern": "^(?![\\\\/!\\s])(?![A-Za-z]:)(?!(.*[\\\\/])?\\.\\.([\\\\/]|$))(?!.*\\s$)[^\\u0000-\\u001f\\u007f]+$"
+      },
+      "uniqueItems": true,
+      "maxItems": 1000
+    },
+    "checker": {
+      "description": "This checker's own settings, each replacing the shared one of the same name.",
+      "type": "object",
+      "properties": {
+        "gitignore": {
+          "$ref": "#/definitions/gitignore"
+        },
+        "ignore": {
+          "$ref": "#/definitions/ignore"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
 }

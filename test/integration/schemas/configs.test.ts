@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { describe, it, strict } from 'poku';
 import { CATEGORIES } from '../../../src/categories/categories.js';
+import { CHECKERS } from '../../../src/core/checkers.js';
 
 const run = promisify(execFile);
 const packageRoot = new URL('../../../', import.meta.url);
@@ -17,6 +18,13 @@ await describe('the configs schema', async () => {
     strict.deepStrictEqual(
       schema.properties.categories.items.enum.toSorted(),
       CATEGORIES.map((category) => category.key).toSorted()
+    );
+  });
+
+  it('takes the shared settings and exactly the checkers the engine runs', () => {
+    strict.deepStrictEqual(
+      Object.keys(schema.properties.checkers.properties).toSorted(),
+      ['gitignore', 'ignore', ...CHECKERS].toSorted()
     );
   });
 

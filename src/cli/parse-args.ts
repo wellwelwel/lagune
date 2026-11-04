@@ -27,6 +27,12 @@ const parsePort = (value: unknown): number | undefined => {
   return port;
 };
 
+const parseChecker = (value: unknown): string | undefined => {
+  if (value === undefined || typeof value === 'string') return value;
+
+  throw new Error('--checker needs the name of a checker');
+};
+
 export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
   const { values, positionals } = parseArgs({
     args: argv,
@@ -36,6 +42,8 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
       help: { type: 'boolean', short: 'h' },
       version: { type: 'boolean', short: 'v' },
       categories: { type: 'boolean' },
+      ignore: { type: 'boolean' },
+      checker: { type: 'string' },
       findings: { type: 'boolean' },
       port: { type: 'string', short: 'p' },
     },
@@ -44,12 +52,16 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
   const [first, ...rest] = positionals;
   const command = toCommand(first);
   const categoriesRequested = values.categories === true;
+  const ignoreRequested = values.ignore === true;
+  const checker = parseChecker(values.checker);
   const findingsRequested = values.findings === true;
   const help = values.help === true;
   const version = values.version === true;
   const bare =
     positionals.length === 0 &&
     !categoriesRequested &&
+    !ignoreRequested &&
+    checker === undefined &&
     !findingsRequested &&
     !help &&
     !version;
@@ -59,6 +71,8 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
     unknown: command === undefined ? first : undefined,
     values: rest,
     categoriesRequested,
+    ignoreRequested,
+    checker,
     findingsRequested,
     help,
     version,

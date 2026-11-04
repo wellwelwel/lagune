@@ -50,6 +50,7 @@ export const docsNav: DocsNavEntry[] = [
     key: 'hooks',
     label: 'Hooks',
     items: [
+      'hooks/configure',
       'hooks/agent',
       'hooks/cors',
       'hooks/crypto',

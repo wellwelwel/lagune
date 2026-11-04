@@ -1,3 +1,5 @@
+import type { ConfigsAction, ListChange } from '../types/core.js';
+
 export const isString = (value: unknown): value is string =>
   typeof value === 'string';
 
@@ -35,13 +37,56 @@ export const deepFreeze = <Value>(value: Value): Value => {
   return value;
 };
 
-const joinNaturally = (values: string[], conjunction: string): string => {
+const joinNaturally = (
+  values: readonly string[],
+  conjunction: string
+): string => {
   if (values.length <= 1) return values[0] ?? '';
   if (values.length === 2) return `${values[0]} ${conjunction} ${values[1]}`;
 
   return `${values.slice(0, -1).join(', ')}, ${conjunction} ${values[values.length - 1]}`;
 };
 
-export const oneOf = (values: string[]): string => joinNaturally(values, 'or');
+export const oneOf = (values: readonly string[]): string =>
+  joinNaturally(values, 'or');
 
-export const allOf = (values: string[]): string => joinNaturally(values, 'and');
+export const allOf = (values: readonly string[]): string =>
+  joinNaturally(values, 'and');
+
+/** Adds the requested values a list lacks, keeping its order and naming what changed */
+export const addToList = (
+  current: readonly string[],
+  requested: readonly string[]
+): ListChange => {
+  const distinct = [...new Set(requested)];
+  const changed = distinct.filter((value) => !current.includes(value));
+
+  return {
+    values: [...current, ...changed],
+    changed,
+    unchanged: distinct.filter((value) => current.includes(value)),
+  };
+};
+
+/** Drops the requested values a list holds, naming what changed */
+export const removeFromList = (
+  current: readonly string[],
+  requested: readonly string[]
+): ListChange => {
+  const distinct = [...new Set(requested)];
+
+  return {
+    values: current.filter((value) => !distinct.includes(value)),
+    changed: distinct.filter((value) => current.includes(value)),
+    unchanged: distinct.filter((value) => !current.includes(value)),
+  };
+};
+
+export const changeList = (
+  action: ConfigsAction,
+  current: readonly string[],
+  requested: readonly string[]
+): ListChange =>
+  action === 'add'
+    ? addToList(current, requested)
+    : removeFromList(current, requested);

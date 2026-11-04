@@ -1,5 +1,5 @@
 import type { MessagePort } from 'node:worker_threads';
-import type { HookJob } from '../types/core.js';
+import type { HookJob, ParsedCliArgs } from '../types/core.js';
 import type { EngineTool } from '../types/mcp.js';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
@@ -41,6 +41,15 @@ const refuse = (command: string): void => {
   process.exitCode = 1;
 };
 
+const refusedForm = (parsed: ParsedCliArgs): string => {
+  const command = parsed.command ?? '';
+
+  if (parsed.categoriesRequested) return `${command} --categories`;
+  if (parsed.ignoreRequested) return `${command} --ignore`;
+
+  return command;
+};
+
 const prefixedName = (tool: EngineTool, command: string | undefined): string =>
   runsCommand(tool, command) ? `${tool.prefix} ${command}` : tool.prefix;
 
@@ -54,12 +63,7 @@ const answerInstalled = async (): Promise<void> => {
   const parsed = parseCliArgs(args);
   const route = installedRoute(parsed);
 
-  if (route === 'refused')
-    return refuse(
-      parsed.categoriesRequested
-        ? `${parsed.command} --categories`
-        : (parsed.command ?? '')
-    );
+  if (route === 'refused') return refuse(refusedForm(parsed));
   if (route === 'local') return run(parsed, cwd, packageRoot);
 
   const npx = await frozenNpx();

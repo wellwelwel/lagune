@@ -1,10 +1,9 @@
 import type { GitIgnores, GitScope } from '../../types/git.js';
 import { join, relative, sep } from 'node:path';
-import { isIgnored } from './pattern.js';
+import { isIgnored, MATCH_STEPS } from './pattern.js';
 import { ignoreListAt } from './repository.js';
 
 const IGNORE_FILE = '.gitignore';
-const MATCH_STEPS_PER_TARGET = 100_000_000;
 
 const withFolderRules = async (
   scope: GitScope,
@@ -72,7 +71,7 @@ export const targetScope = async (
       ...ignores,
       segments: [],
       ignored: false,
-      budget: { remaining: MATCH_STEPS_PER_TARGET },
+      budget: { remaining: MATCH_STEPS },
     },
     root
   );

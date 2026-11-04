@@ -1,16 +1,12 @@
 import type { CategoriesRequest } from '../../types/dashboard/api';
 import type { ActionHandler, ActionResult } from '../../types/dashboard/server';
-import {
-  addCategories,
-  CATEGORIES,
-  removeCategories,
-} from '../../categories/categories';
+import { CATEGORIES } from '../../categories/categories';
 import {
   readProjectCategories,
   recordCategories,
   usedCategories,
 } from '../../categories/project';
-import { isRecord } from '../../core/collections';
+import { addToList, isRecord, removeFromList } from '../../core/collections';
 
 const CATEGORY_KEYS: ReadonlySet<string> = new Set(
   CATEGORIES.map((category) => category.key)
@@ -71,13 +67,13 @@ const handleCategories: ActionHandler = async (body, context) => {
 
   try {
     const used = usedCategories(await readProjectCategories(context.cwd));
-    const removed = removeCategories(
+    const removed = removeFromList(
       used,
       used.filter((key) => !request.categories.includes(key))
     );
-    const added = addCategories(removed.categories, request.categories);
+    const added = addToList(removed.values, request.categories);
 
-    await recordCategories(context.cwd, added.categories);
+    await recordCategories(context.cwd, added.values);
 
     return {
       status: 200,

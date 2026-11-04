@@ -19,7 +19,8 @@ await describe('cors scan surfaces bypassable origin allowlists as review leads'
       workspace,
       [workspace],
       SOURCE_FILTER,
-      analyze
+      analyze,
+      'cors'
     );
 
     strict.deepStrictEqual(
@@ -42,7 +43,8 @@ await describe('cors scan surfaces bypassable origin allowlists as review leads'
       workspace,
       [workspace],
       SOURCE_FILTER,
-      analyze
+      analyze,
+      'cors'
     );
 
     strict.deepStrictEqual(

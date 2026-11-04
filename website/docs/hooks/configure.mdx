@@ -1,0 +1,79 @@
+---
+id: configure
+title: 'Configure the hooks: Choose what they scan'
+sidebar_label: Configure
+description: Choose what the hooks that scan files leave out, for all of them or for one.
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+The `checkers` block of `.lagune/configs.json` sets what the hooks that scan files leave out, for all of them or for one.
+
+## Configure it
+
+Add or remove paths and patterns from the command line, quoting a pattern so the shell leaves it as written:
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+Or set them in the file:
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### Settings
+
+| Key         | Value                                   | Default | Description                                                                          |
+| ----------- | --------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `gitignore` | `true` or `false`                       | `true`  | Leave out what **Git** ignores. A file **Git** tracks is scanned either way.         |
+| `ignore`    | paths or patterns from the project root | `[]`    | Leave out what each one matches and everything under it, even a file **Git** tracks. |
+
+At the top of `checkers`, a key applies to every checker. Under a checker's name, it applies to that checker alone and replaces the shared one, so in the example `secrets` scans what **Git** ignores and leaves out `test/fixtures` and `temp`. When `write add --ignore` gives a checker its first list of its own, that list starts as a copy of the shared one.
+
+### Patterns
+
+A pattern starts at the project root, so `*.generated.ts` reaches only the files there and `**/*.generated.ts` reaches them at any depth. Names match exactly, case included.
+
+| Pattern             | Leaves out                                    |
+| ------------------- | --------------------------------------------- |
+| `dist`              | `dist` at the project root                    |
+| `packages/*/dist`   | `dist` in each folder under `packages`        |
+| `**/dist`           | every `dist`, at any depth                    |
+| `**/*.generated.ts` | every file whose name ends in `.generated.ts` |
+| `fixture-?`         | `fixture-a`, `fixture-1`, and the like        |
+| `[ab]-cache`        | `a-cache` and `b-cache`                       |
+| `[*]x`              | `*x`, with a literal `*`                      |
+
+## How to read the result
+
+The report ends with how many paths the scan left out, by what ignores them:
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+A path named with `--dir` or `--file` is scanned whatever the settings say. A setting the engine cannot read stops the checker with an error that names it, such as a pattern that starts with `!` or a space, climbs out of the project, leaves a bracket open, or takes too long to match.
+
+<Faq
+  items={[
+    {
+      question: 'Does Lagune set these for me?',
+      answer:
+        'No. The charter lists the committed folders its reading shows are not your code to defend, such as test fixtures written to look vulnerable, and records only the ones you pick by number.',
+    },
+    {
+      question: 'When should a checker scan what Git ignores?',
+      answer:
+        'When the repository is not yours to trust, since its own .gitignore files could hide code, or when a build folder may carry a key inlined at build time. Set gitignore to false for every checker or for one.',
+    },
+  ]}
+/>

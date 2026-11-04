@@ -1,8 +1,14 @@
-import type { Category, CategoryChange } from '../types/categories.js';
-import type { MigratedConfig, MigrateSummary } from '../types/core.js';
+import type { Category } from '../types/categories.js';
+import type {
+  ConfigsAction,
+  ListChange,
+  MigratedConfig,
+  MigrateSummary,
+} from '../types/core.js';
 import type { EngineCommand, EngineTool } from '../types/mcp.js';
 import { allOf } from '../core/collections.js';
 import { CONFIGS_FILE } from '../core/configs.js';
+import { quotedExcerpt } from '../core/errors.js';
 import { toolFor } from '../mcp/tools.js';
 import { color } from './colors.js';
 
@@ -10,6 +16,7 @@ const ENGINE_COMMAND = 'npx lagune';
 const INSTALL_PAGE = 'https://lagune.ai/docs';
 const MIGRATE_PAGE = 'https://lagune.ai/docs/commands/migrate';
 const NOT_DONE = 'Report it as not done and never do its work by hand.';
+const IGNORE_FORM = '--ignore <path...> [--checker <name>]';
 
 const GLYPH = {
   added: color.blue('+'),
@@ -91,6 +98,10 @@ const HELP_OPTIONS: [string, string][] = [
     '--categories <...>',
     'With add, remove, or list, the categories (no value to choose interactively)',
   ],
+  [
+    IGNORE_FORM,
+    'With add or remove, paths or glob patterns from the project root the checkers leave out, for every checker or the one named',
+  ],
   ['--findings', 'With list, show the tracked findings'],
   [
     '--port <1024-65535>',
@@ -152,6 +163,31 @@ export const categoriesUsage = (command: string): string =>
     `usage: ${commandLine(command)} --categories <category...>`,
     `Run ${commandLine('list')} --categories to see every category.`,
   ].join('\n');
+
+export const ignoreUsage = (command: string): string =>
+  [
+    `usage: ${commandLine(command)} ${IGNORE_FORM}`,
+    'Name each path or glob pattern from the project root, quoted so the shell leaves it as written.',
+  ].join('\n');
+
+export const changeUsage = (command: string): string =>
+  [
+    `usage: ${commandLine(command)} --categories <category...>`,
+    `       ${commandLine(command)} ${IGNORE_FORM}`,
+    `Run ${commandLine('list')} --categories to see every category.`,
+  ].join('\n');
+
+export const unknownChecker = (
+  name: string,
+  checkers: readonly string[]
+): string =>
+  [`Unknown checker: ${name}`, `Checkers: ${checkers.join(', ')}`].join('\n');
+
+export const ignorePatternProblem = (entry: string, problem: string): string =>
+  `${quotedExcerpt(entry)} ${problem}.`;
+
+export const tooManyIgnored = (limit: number): string =>
+  `A checker leaves out at most ${limit} paths and patterns: remove some before adding more.`;
 
 export const listUsage = (): string =>
   [
@@ -245,25 +281,62 @@ export const categoryList = (
   return [heading('Categories'), ...rows, '', color.dim(origin)].join('\n');
 };
 
+const changeLines = (
+  change: ListChange,
+  verb: string,
+  untouched: string
+): string[] => [
+  ...(change.changed.length > 0
+    ? [
+        done(
+          `${verb} ${allOf(change.changed)} ${color.dim(`· ${CONFIGS_FILE}`)}`
+        ),
+      ]
+    : []),
+  ...(change.unchanged.length > 0
+    ? [color.dim(`${untouched}: ${allOf(change.unchanged)}.`)]
+    : []),
+];
+
 export const categoriesRecorded = (
-  action: 'add' | 'remove',
-  change: CategoryChange
+  action: ConfigsAction,
+  change: ListChange
 ): string => {
   const verb = action === 'add' ? 'Added' : 'Removed';
   const untouched = action === 'add' ? 'Already used' : 'Not used';
 
   return [
-    ...(change.changed.length > 0
-      ? [
-          done(
-            `${verb} ${allOf(change.changed)} ${color.dim(`· ${CONFIGS_FILE}`)}`
-          ),
-        ]
-      : []),
-    ...(change.unchanged.length > 0
-      ? [color.dim(`${untouched}: ${allOf(change.unchanged)}.`)]
-      : []),
-    usedLine(change.categories),
+    ...changeLines(change, verb, untouched),
+    usedLine(change.values),
+  ].join('\n');
+};
+
+const ignoringWho = (
+  checker: string | undefined,
+  ownLists: readonly string[]
+): string => {
+  if (checker !== undefined) return `The ${checker} checker`;
+  if (ownLists.length === 0) return 'Every checker';
+
+  const keeps = ownLists.length === 1 ? 'keeps its' : 'keep their';
+
+  return `Every checker except ${allOf(ownLists)}, which ${keeps} own list,`;
+};
+
+export const ignoreRecorded = (
+  action: ConfigsAction,
+  change: ListChange,
+  checker: string | undefined,
+  ownLists: readonly string[]
+): string => {
+  const verb = action === 'add' ? 'Now ignoring' : 'No longer ignoring';
+  const untouched = action === 'add' ? 'Already ignored' : 'Not ignored';
+  const who = ignoringWho(checker, ownLists);
+  const ignored = change.values.length === 0 ? 'no path' : allOf(change.values);
+
+  return [
+    ...changeLines(change, verb, untouched),
+    `${who} ignores ${ignored}.`,
   ].join('\n');
 };
 

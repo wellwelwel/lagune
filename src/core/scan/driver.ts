@@ -1,3 +1,4 @@
+import type { CheckerName } from '../../types/checkers.js';
 import type {
   AnalyzedFile,
   FileAnalysis,
@@ -7,7 +8,8 @@ import type {
 } from '../../types/scan.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { walkTargets } from './walk.js';
+import { checkerSettings } from '../checkers.js';
+import { skippedCounts, walkTargets } from './walk.js';
 
 const readText = async (path: string): Promise<string | null> => {
   try {
@@ -25,13 +27,16 @@ const details = (
     pick(analysis).map((detail) => ({ file, detail }))
   );
 
+/** Scans the targets for one checker, leaving out what its settings and Git ignore */
 export const scanReport = async (
   root: string,
   targets: string[],
   filter: WalkFilter,
-  analyze: (file: string, content: string) => FileAnalysis
+  analyze: (file: string, content: string) => FileAnalysis,
+  checker: CheckerName
 ): Promise<ScanReport> => {
-  const { files, skipped } = await walkTargets(root, targets, filter);
+  const settings = await checkerSettings(root, checker);
+  const { files, skipped } = await walkTargets(root, targets, filter, settings);
   const analyzed = await Promise.all(
     files.map(async (file): Promise<AnalyzedFile | null> => {
       const content = await readText(join(root, file));
@@ -47,6 +52,6 @@ export const scanReport = async (
     findings: details(present, (analysis) => analysis.findings),
     review: details(present, (analysis) => analysis.review),
     advisory: details(present, (analysis) => analysis.advisory),
-    skipped: skipped.length,
+    skipped: skippedCounts(skipped),
   };
 };

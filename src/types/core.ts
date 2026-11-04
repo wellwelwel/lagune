@@ -17,6 +17,8 @@ export type ParsedCliArgs = {
   unknown: string | undefined;
   values: string[];
   categoriesRequested: boolean;
+  ignoreRequested: boolean;
+  checker: string | undefined;
   findingsRequested: boolean;
   help: boolean;
   version: boolean;
@@ -25,6 +27,14 @@ export type ParsedCliArgs = {
 };
 
 export type InstalledRoute = 'local' | 'frozen' | 'refused';
+
+export type ConfigsAction = 'add' | 'remove';
+
+export type ListChange = {
+  values: string[];
+  changed: string[];
+  unchanged: string[];
+};
 
 export type HookResult = {
   output: string;

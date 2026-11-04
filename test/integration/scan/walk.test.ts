@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
+import { DEFAULT_SETTINGS } from '../../../src/core/checkers.js';
 import { SOURCE_FILTER } from '../../../src/core/scan/filters.js';
 import { walkTargets } from '../../../src/core/scan/walk.js';
 import { createFiles, newWorkspace } from './__utils__.js';
@@ -9,7 +10,9 @@ const walkSources = async (paths: readonly string[]): Promise<string[]> => {
 
   await createFiles(workspace, paths);
 
-  return (await walkTargets(workspace, [workspace], SOURCE_FILTER)).files;
+  return (
+    await walkTargets(workspace, [workspace], SOURCE_FILTER, DEFAULT_SETTINGS)
+  ).files;
 };
 
 await describe('a source walk lists the files a hook reads', async () => {

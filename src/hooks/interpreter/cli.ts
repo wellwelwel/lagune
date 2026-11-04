@@ -39,7 +39,13 @@ const runCheck = (snippets: string[], lang: string | undefined): HookResult => {
 const runScan = async (targets: string[]): Promise<HookResult> => {
   const root = cwd();
   const paths = await resolveTargets(root, targets);
-  const report = await scanReport(root, paths, SOURCE_FILTER, analyze);
+  const report = await scanReport(
+    root,
+    paths,
+    SOURCE_FILTER,
+    analyze,
+    'interpreter'
+  );
 
   return { output: formatReport(report, HEADINGS), hasFinding: false };
 };

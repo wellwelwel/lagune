@@ -1,8 +1,11 @@
-import type { CategoryAction } from '../types/categories.js';
-import type { CliCommand, ParsedCliArgs } from '../types/core.js';
+import type {
+  CliCommand,
+  ConfigsAction,
+  ParsedCliArgs,
+} from '../types/core.js';
 import { stdout } from 'node:process';
 import {
-  categoriesUsage,
+  changeUsage,
   helpText,
   movedToSkills,
   unknownCommand,
@@ -13,6 +16,7 @@ import { ENGINE_TOOLS } from '../mcp/tools.js';
 import { runCatalog } from './catalog.js';
 import { runCategoryChange } from './categories.js';
 import { runDashboard } from './dashboard.js';
+import { runIgnoreChange } from './ignore.js';
 import { runList } from './list.js';
 import { runMigrate } from './migrate.js';
 
@@ -22,12 +26,19 @@ const print = (line: string): void => {
 
 const printHelp = (): void => print(helpText(ENGINE_TOOLS));
 
-const changeCategories =
-  (action: CategoryAction) =>
+const changeConfigs =
+  (action: ConfigsAction) =>
   (args: ParsedCliArgs, cwd: string): Promise<void> => {
-    if (!args.categoriesRequested) throw new Error(categoriesUsage(action));
+    if (args.ignoreRequested && !args.categoriesRequested)
+      return runIgnoreChange(action, args.values, args.checker, cwd);
+    if (
+      args.categoriesRequested &&
+      !args.ignoreRequested &&
+      args.checker === undefined
+    )
+      return runCategoryChange(action, args.values, cwd);
 
-    return runCategoryChange(action, args.values, cwd);
+    throw new Error(changeUsage(action));
   };
 
 const moved = (command: string) => async (): Promise<void> => {
@@ -40,8 +51,8 @@ const COMMANDS: Record<
 > = {
   catalog: (args, cwd, packageRoot) =>
     runCatalog(args.values, cwd, packageRoot),
-  add: changeCategories('add'),
-  remove: changeCategories('remove'),
+  add: changeConfigs('add'),
+  remove: changeConfigs('remove'),
   list: (args, cwd) => runList(args, cwd),
   dashboard: (args, cwd, packageRoot) =>
     runDashboard(cwd, packageRoot, args.port),

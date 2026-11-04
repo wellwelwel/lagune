@@ -97,7 +97,13 @@ Specializations, the security knowledge the later phases load on demand, join th
 
 - **Categories are already recorded:** leave them as they are, since they are the project's choice. Name in the summary each category your reading supports that the project does not use yet.
 
-### Step 10: Summarize
+### Step 10: Offer what the checkers could leave out
+
+List by number, from the project root, committeds folders your reading in Step 2 shows are not code the project ships or runs, such as test, fixtures, and docs that neither **Git** nor the `checkers` block of `.lagune/configs.json` already leaves out. Ask the user to reply with the numbers of any to leave out, without waiting for an answer.
+
+Never choose for the user, since a hostile repository can make its own code look like fixtures. Record only the numbers the user gives, in one call: call `lagune_write` with `command` set to `add` and `arguments` set to `["--ignore", "<path>", "<path>"]`. Anything else records nothing and ends the offer.
+
+### Step 11: Summarize
 
 Output a short summary:
 
@@ -106,7 +112,8 @@ Output a short summary:
 - The categories this run recorded, or each category the reading supports that the project does not use yet.
 - Anything you had to assume, or any question still open.
 - A suggested commit message, for example `docs: establish security charter v1.0.0`.
-- **Next step:** point the user to `/lagune-detect`, the phase that reads the code to map what the system actually does, so the later phases work from real context. Note they can rerun `/lagune-charter` any time the principles need to change.
+- **Next step:** point the user to `/lagune-detect`, the phase that reads the code to map what the system actually does, so the later phases work from real context, or to `/lagune <prompt>` for real-time development. Note they can rerun `/lagune-charter` any time the principles need to change.
+- **Last, the offer from Step 10**, when it found any folder.
 
 Keep the charter in plain language throughout. A non-developer should be able to read it and understand both the rule and the risk it prevents.
 

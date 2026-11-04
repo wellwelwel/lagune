@@ -43,7 +43,13 @@ const runCheck = (snippets: string[], kind: string | undefined): HookResult => {
 const runScan = async (targets: string[]): Promise<HookResult> => {
   const root = cwd();
   const paths = await resolveTargets(root, targets);
-  const report = await scanReport(root, paths, INFRA_FILTER, analyzeInfra);
+  const report = await scanReport(
+    root,
+    paths,
+    INFRA_FILTER,
+    analyzeInfra,
+    'infra'
+  );
 
   return {
     output: formatReport(report, HEADINGS),

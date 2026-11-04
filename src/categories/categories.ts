@@ -1,4 +1,4 @@
-import type { Category, CategoryChange } from '../types/categories.js';
+import type { Category } from '../types/categories.js';
 
 export const CATEGORIES: Category[] = [
   {
@@ -115,31 +115,4 @@ export const assertKnownCategories = (
         categories.map((category) => category.key)
       )
     );
-};
-
-export const addCategories = (
-  current: string[],
-  requested: string[]
-): CategoryChange => {
-  const keys = [...new Set(requested)];
-  const changed = keys.filter((key) => !current.includes(key));
-
-  return {
-    categories: [...current, ...changed],
-    changed,
-    unchanged: keys.filter((key) => current.includes(key)),
-  };
-};
-
-export const removeCategories = (
-  current: string[],
-  requested: string[]
-): CategoryChange => {
-  const keys = [...new Set(requested)];
-
-  return {
-    categories: current.filter((key) => !keys.includes(key)),
-    changed: keys.filter((key) => current.includes(key)),
-    unchanged: keys.filter((key) => !current.includes(key)),
-  };
 };

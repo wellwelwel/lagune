@@ -1,12 +1,11 @@
 import { describe, it, strict } from 'poku';
 import {
-  addCategories,
   assertKnownCategories,
   CATEGORIES,
   findCategory,
-  removeCategories,
   unknownCategoryKeys,
 } from '../../../src/categories/categories.js';
+import { addToList, removeFromList } from '../../../src/core/collections.js';
 
 describe('a category resolves by its exact key', () => {
   it('finds a known key and nothing for a wrong case or an unknown key', () => {
@@ -42,9 +41,9 @@ describe('a category resolves by its exact key', () => {
 describe('adding and removing categories', () => {
   it('adds the new keys after the used ones, once each', () => {
     strict.deepStrictEqual(
-      addCategories(['owasp'], ['ai', 'owasp', 'ai', 'javascript']),
+      addToList(['owasp'], ['ai', 'owasp', 'ai', 'javascript']),
       {
-        categories: ['owasp', 'ai', 'javascript'],
+        values: ['owasp', 'ai', 'javascript'],
         changed: ['ai', 'javascript'],
         unchanged: ['owasp'],
       }
@@ -53,15 +52,12 @@ describe('adding and removing categories', () => {
 
   it('removes the used keys and reports the unused ones untouched', () => {
     strict.deepStrictEqual(
-      removeCategories(['owasp', 'ai'], ['owasp', 'go', 'owasp']),
-      { categories: ['ai'], changed: ['owasp'], unchanged: ['go'] }
+      removeFromList(['owasp', 'ai'], ['owasp', 'go', 'owasp']),
+      { values: ['ai'], changed: ['owasp'], unchanged: ['go'] }
     );
   });
 
   it('removes every category down to an empty list', () => {
-    strict.deepStrictEqual(
-      removeCategories(['owasp'], ['owasp']).categories,
-      []
-    );
+    strict.deepStrictEqual(removeFromList(['owasp'], ['owasp']).values, []);
   });
 });

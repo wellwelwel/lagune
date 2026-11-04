@@ -10,7 +10,7 @@ export const FROZEN_VERSION = '0.15.0';
 
 const FROZEN_ENGINE = ['--yes', '--prefer-offline', `lagune@${FROZEN_VERSION}`];
 const SKILLS_ONLY_COMMANDS = new Set(['catalog']);
-const CATEGORY_COMMANDS = new Set(['add', 'remove', 'list']);
+const CONFIGS_COMMANDS = new Set(['add', 'remove', 'list']);
 const NPX_ENTRY = 'npx-cli.js';
 const HANDOFF_MARK = 'LAGUNE_FROZEN_HANDOFF';
 const NPM_CONFIG_PREFIX = 'npm_config_';
@@ -30,9 +30,9 @@ export const installedRoute = (args: ParsedCliArgs): InstalledRoute => {
   if (args.command !== undefined && SKILLS_ONLY_COMMANDS.has(args.command))
     return 'refused';
   if (
-    args.categoriesRequested &&
+    (args.categoriesRequested || args.ignoreRequested) &&
     args.command !== undefined &&
-    CATEGORY_COMMANDS.has(args.command)
+    CONFIGS_COMMANDS.has(args.command)
   )
     return 'refused';
 

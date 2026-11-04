@@ -1,4 +1,4 @@
-import type { LanguageId } from '../scan.js';
+import type { LanguageId, SkippedCounts } from '../scan.js';
 
 export type RegexSafetyOptions = {
   repetitionLimit?: number;
@@ -544,7 +544,7 @@ export type RegexScanResult = {
   undetermined: RegexFinding[];
   dynamic: string[];
   staticWrap: string[];
-  skipped: number;
+  skipped: SkippedCounts;
 };
 
 export type ArgumentShape = 'dynamic' | 'static-literal';

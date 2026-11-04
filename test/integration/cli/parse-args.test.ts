@@ -25,6 +25,29 @@ describe('commands and their values', () => {
     strict.deepStrictEqual(parsed.values, ['owasp']);
   });
 
+  it('reads the paths after --ignore and the checker --checker names', () => {
+    const parsed = parseCliArgs([
+      'add',
+      '--ignore',
+      'test/fixtures',
+      'vendor',
+      '--checker',
+      'secrets',
+    ]);
+
+    strict.deepStrictEqual(
+      [parsed.command, parsed.ignoreRequested, parsed.checker, parsed.values],
+      ['add', true, 'secrets', ['test/fixtures', 'vendor']]
+    );
+  });
+
+  it('refuses --checker with no name', () => {
+    strict.throws(
+      () => parseCliArgs(['add', '--ignore', 'vendor', '--checker']),
+      /--checker needs the name of a checker/
+    );
+  });
+
   it('reads the name after catalog', () => {
     const parsed = parseCliArgs(['catalog', 'regex']);
 
@@ -102,6 +125,8 @@ describe('flags', () => {
       unknown: undefined,
       values: [],
       categoriesRequested: false,
+      ignoreRequested: false,
+      checker: undefined,
       findingsRequested: false,
       help: false,
       version: false,

@@ -215,6 +215,14 @@ The prompts load the specializations this audit relies on directly, whatever you
 npx lagune write add --categories owasp ai javascript
 ```
 
+The repository's own `.gitignore` files and configs could hide files from the checkers, so set the `checkers` block of `.lagune/configs.json` to [scan everything](/docs/hooks/configure), replacing any block the repository ships:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
+```
+
 :::danger
 Be careful when running projects from untrusted sources in your local environment. Use an isolated environment, such as a **sandbox** (recommended), **VM**, or similar, to prevent malicious code from affecting your system.
 :::
