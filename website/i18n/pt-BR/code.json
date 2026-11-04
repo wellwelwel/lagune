@@ -96,12 +96,12 @@
     "description": "The link from a stale or untranslated page notice to the English page"
   },
   "docs.notice.stale": {
-    "message": "Esta página está desatualizada em relação à versão em inglês.",
-    "description": "Tells the reader a translated page fell behind its English source, shown above the page"
+    "message": "Esta página está desatualizada em relação à versão em inglês. {original}.",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
   },
   "docs.notice.untranslated": {
-    "message": "Esta página ainda não foi traduzida.",
-    "description": "Tells the reader the page below is still in English, shown above the page"
+    "message": "Esta página ainda não foi traduzida. {original}.",
+    "description": "Tells the reader the page below is still in English, shown above the page, where {original} is the link to the English page"
   },
   "docs.page.imageAlt": {
     "message": "Lagune {section}: {title}",

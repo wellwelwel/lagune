@@ -96,12 +96,12 @@
     "description": "The link from a stale or untranslated page notice to the English page"
   },
   "docs.notice.stale": {
-    "message": "Bu sayfa İngilizce sürümünün gerisinde kaldı.",
-    "description": "Tells the reader a translated page fell behind its English source, shown above the page"
+    "message": "Bu sayfa İngilizce sürümünün gerisinde kaldı. {original}.",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
   },
   "docs.notice.untranslated": {
-    "message": "Bu sayfa henüz çevrilmedi.",
-    "description": "Tells the reader the page below is still in English, shown above the page"
+    "message": "Bu sayfa henüz çevrilmedi. {original}.",
+    "description": "Tells the reader the page below is still in English, shown above the page, where {original} is the link to the English page"
   },
   "docs.page.imageAlt": {
     "message": "Lagune {section}: {title}",
