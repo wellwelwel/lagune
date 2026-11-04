@@ -1,6 +1,6 @@
 {
   "name": "lagune",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "🪼 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
   "license": "Apache-2.0",
   "type": "module",
@@ -36,9 +36,6 @@
       "./lib/plugins/pi.js"
     ]
   },
-  "workspaces": [
-    "website"
-  ],
   "engines": {
     "node": ">=22.x.x"
   },
@@ -52,10 +49,11 @@
     "dashboard:build": "bash scripts/dashboard/build.sh",
     "dashboard:dev": "bash scripts/dashboard/dev.sh",
     "update": "bash scripts/update.sh",
-    "website:dev": "npm -w website run start",
-    "website:build": "npm -w website run build"
+    "website:dev": "bash scripts/website/dev.sh",
+    "website:build": "bun run --cwd website build"
   },
   "devDependencies": {
+    "@docusaurus/babel": "3.10.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@preact/preset-vite": "^2.10.6",
     "@preact/signals": "^2.11.2",
@@ -74,10 +72,14 @@
     "prettier": "^3.9.6",
     "react-icons": "^5.7.0",
     "react-typed": "^2.0.12",
+    "remark-directive": "^3.0.1",
+    "remark-mdx": "^3.1.1",
+    "remark-parse": "^11.0.0",
     "tailwindcss": "^4.3.3",
     "tiktoken": "^1.0.22",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
+    "unified": "^11.0.5",
     "vite": "^8.3.0",
     "yaml.min": "^1.0.0"
   },

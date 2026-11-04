@@ -46,7 +46,7 @@
   {
     "name": "lagune_write",
     "title": "Lagune engine (write)",
-    "description": "Runs a Lagune engine command that changes the project's .lagune/ state: tracking findings, standing them down, repairing the tracking map, and recording categories. Pass the engine subcommand as command and each of its arguments, without shell quotes, as one item of arguments.",
+    "description": "Runs a Lagune engine command that changes the project's .lagune/ state: tracking findings, standing them down, repairing the tracking map, and recording categories and the paths the checkers leave out. Pass the engine subcommand as command and each of its arguments, without shell quotes, as one item of arguments.",
     "inputSchema": {
       "type": "object",
       "properties": {
