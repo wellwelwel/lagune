@@ -1,0 +1,74 @@
+# Hook'ları yapılandırın: neleri taradıklarını seçin
+
+> Dosya tarayan hook'ların neleri dışarıda bırakacağını hepsi için ya da tek biri için seçin.
+
+Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/configure
+Dil: tr-TR
+Orijinal: https://lagune.ai/docs/hooks/configure
+Son güncelleme: 2026-11-04
+
+`checkers` bloğu `.lagune/configs.json` içinde yer alır ve dosya tarayan hook'ların neleri dışarıda bırakacağını hepsi için ya da tek biri için belirler.
+
+## Yapılandırma
+
+Kabuğun yazıldığı gibi bırakması için kalıpları tırnak içine alarak yolları ve kalıpları komut satırından ekleyin ya da kaldırın:
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+Ya da bunları dosyada belirleyin:
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### Ayarlar
+
+| Anahtar     | Değer                               | Varsayılan | Açıklama                                                                                                        |
+| ----------- | ----------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------- |
+| `gitignore` | `true` veya `false`                 | `true`     | **Git**'in yok saydıklarını dışarıda bırakır. **Git**'in takip ettiği bir dosya her durumda taranır.            |
+| `ignore`    | proje kökünden yollar veya kalıplar | `[]`       | Her birinin eşleştiği şeyi ve altındaki her şeyi, **Git**'in takip ettiği bir dosya olsa bile dışarıda bırakır. |
+
+`checkers` bloğunun en üst düzeyindeki bir anahtar her denetleyici için geçerlidir. Bir denetleyicinin adının altındaysa yalnızca o denetleyici için geçerlidir ve ortak anahtarın yerini alır, bu yüzden örnekte `secrets` denetleyicisi **Git**'in yok saydıklarını tarar ve `test/fixtures` ile `temp` yollarını dışarıda bırakır. `write add --ignore` komutu bir denetleyiciye ilk kez kendine ait bir liste verdiğinde, bu liste ortak listenin bir kopyası olarak başlar.
+
+### Kalıplar
+
+Kalıp proje kökünden başlar, bu yüzden `*.generated.ts` kalıbı yalnızca oradaki dosyalara ulaşır, `**/*.generated.ts` kalıbı ise onlara her derinlikte ulaşır. Adlar büyük ve küçük harf dahil tam olarak eşleşir.
+
+| Kalıp               | Dışarıda bıraktığı                        |
+| ------------------- | ----------------------------------------- |
+| `dist`              | proje kökündeki `dist`                    |
+| `packages/*/dist`   | `dist`, `packages` altındaki her klasörde |
+| `**/dist`           | her derinlikteki her `dist`               |
+| `**/*.generated.ts` | adı `.generated.ts` ile biten her dosya   |
+| `fixture-?`         | `fixture-a`, `fixture-1` ve benzerleri    |
+| `[ab]-cache`        | `a-cache` ve `b-cache`                    |
+| `[*]x`              | `*x`, düz bir `*` karakteriyle            |
+
+## Sonucu nasıl okumalı
+
+Rapor, taramanın kaç yolu dışarıda bıraktığını ve bunları neyin yok saydığını belirterek biter:
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+`--dir` ya da `--file` ile belirtilen bir yol, ayarlar ne derse desin taranır. Motorun okuyamadığı bir ayar, örneğin `!` ya da boşlukla başlayan, projenin dışına çıkan, bir köşeli parantezi açık bırakan ya da eşleşmesi çok uzun süren bir kalıp, denetleyiciyi o ayarı adıyla belirten bir hatayla durdurur.
+
+## Sıkça sorulan sorular
+
+### Bu ayarları Lagune benim için yapar mı?
+
+Hayır. Charter, okumasına göre savunulacak kodunuzun parçası olmayan commit edilmiş klasörleri (örneğin savunmasız görünmek üzere yazılmış test fixture'larını) listeler ve yalnızca numarasıyla seçtiklerinizi kaydeder.
+
+### Bir denetleyici Git'in yok saydıklarını ne zaman taramalı?
+
+Depoya güvenemediğinizde, çünkü deponun kendi .gitignore dosyaları kodu gizleyebilir, ya da bir derleme klasöründe derleme sırasında koda yerleştirilmiş bir anahtar bulunabileceğinde. Her denetleyici için ya da tek biri için gitignore değerini false yapın.

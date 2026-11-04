@@ -3,7 +3,7 @@
 > Install Lagune on Factory Droid as a plugin, keep it updated, and allow its engine's tools.
 
 Canonical: https://lagune.ai/docs/install/factory-droid
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 Install the plugin from your terminal:
 

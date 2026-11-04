@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/qwen-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/qwen-code
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
 Встановіть розширення з термінала:
 

@@ -37,6 +37,7 @@ Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工�
 - [目录：按需加载的安全专项](https://lagune.ai/zh-CN/docs/catalog.md): 项目目录中的专项如何加载：由阶段按需加载，或由你直接加载。
 - [/lagune-specialize: 用纯文本训练安全专项](https://lagune.ai/zh-CN/docs/commands/specialize.md): 把你提供的安全资料或主题提炼成一个按需加载的新专项。
 - [/lagune-prove: 仅限防御的概念验证（PoC）](https://lagune.ai/zh-CN/docs/commands/prove.md): 把检测到的每个发现项转化为可运行、仅限防御的概念验证（PoC），并附上用于负责任披露的安全公告。
+- [配置 hook：选择扫描范围](https://lagune.ai/zh-CN/docs/hooks/configure.md): 选择扫描文件的 hook 要跳过哪些内容，可以对所有 hook 统一设置，也可以单独设置某一个。
 - [agent hook：检测没有上限的智能体循环](https://lagune.ai/zh-CN/docs/hooks/agent.md): 在命令行中扫描代码库里没有步数或时间上限的智能体或 LLM 调用，或评估单个调用。
 - [cors hook：审计 CORS 源](https://lagune.ai/zh-CN/docs/hooks/cors.md): 在命令行中扫描源代码里可被绕过的 CORS 源白名单，或评估单个源值是否放行过宽。
 - [crypto hook：检测弱加密](https://lagune.ai/zh-CN/docs/hooks/crypto.md): 在命令行中扫描代码库里的弱加密原语，或评估单个代码片段。

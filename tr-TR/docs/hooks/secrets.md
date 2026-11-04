@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/secrets
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/secrets
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `secrets` hook'u, ortamdan okunmak yerine **kaynak koda gömülmüş kimlik bilgilerini** işaretler. Değerin içeriğine değil **kaynağına** (bir literal mi, yoksa ortamdan okunan bir değer mi) bakar, bu yüzden sağlayıcı öneklerinden oluşan kapsamlı bir kataloğa ihtiyaç duymaz ve neredeyse hiç yanlış pozitif üretmez. [`secrets` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur.
 
@@ -29,6 +29,24 @@ Tarama en fazla iki bölüm yazdırır. **Hardcoded secrets found** bulgu kümes
 | `--file` | bir dosya | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir. |
 
 Seçenek verilmezse tüm proje taranır.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `secrets` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 ### Dil kapsamı
 

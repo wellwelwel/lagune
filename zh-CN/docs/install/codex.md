@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/codex
 语言: zh-CN
 原文: https://lagune.ai/docs/install/codex
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 在终端中安装插件：
 
@@ -33,7 +33,7 @@ codex plugin marketplace upgrade lagune
 **Codex** 的沙箱无法访问网络。在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## 常见问题
@@ -52,4 +52,4 @@ npm i -D lagune@0.16.0
 
 ### Lagune 能在 Codex 的沙箱中运行吗？
 
-可以，只要你在自己的终端中用 npm i -D lagune@0.16.0 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+可以，只要你在自己的终端中用 npm i -D lagune@0.17.0 把引擎安装到项目里，先装一次，之后每次更新后再装一次。

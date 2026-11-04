@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/infra
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/infra
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `infra` 훅은 파일만 보고 판단할 수 있는 **코드형 인프라(IaC) 설정 오류**를 잡아냅니다: 전 세계에 열린 네트워크, 와일드카드 권한, 매니페스트 안의 시크릿, root로 실행되는 컨테이너, CI 셸에 들어가는 신뢰할 수 없는 값이 여기에 해당합니다. 읽는 파일은 IaC 파일(`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`)뿐입니다. 또한 [`infra` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 동작합니다.
 
@@ -44,6 +44,24 @@ check 모드는 일치한 태그 중 심각도가 가장 높은 태그(예: `pub
 | `--file`    | 파일                                            | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능 |
 
 옵션을 지정하지 않으면 프로젝트의 모든 IaC 파일을 스캔합니다. `--pattern` 옵션은 `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `infra` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 **팁**
 

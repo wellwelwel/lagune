@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/secrets
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/secrets
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 `secrets` hook 会标记没有从环境中读取、而是**固化在源代码中的凭证**。它依据的是**来源**（字面量还是环境变量读取），而不是值的内容，因此不需要一份详尽的服务商前缀清单，也几乎不会产生误报。它是 [`secrets` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎。
 
@@ -29,6 +29,24 @@ npx lagune read secrets --file config.ts # scans a single file
 | `--file` | 一个文件 | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
 
 不带任何选项时，它会扫描整个项目。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `secrets` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 ### 语言覆盖范围
 

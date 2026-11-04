@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/crypto
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/crypto
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `crypto` meldet **schwache kryptografische Primitive** direkt an der Aufrufstelle: ein veraltetes Verschl체sselungsverfahren, einen unsicheren Modus oder einen gebrochenen Hash. Er arbeitet **sprachspezifisch** und liest jede Datei nach ihren eigenen Regeln, sodass er ein Python-Konstrukt nie in einer Rust-Datei meldet. Er ist die deterministische Engine hinter der [Spezialisierung `crypto`](https://lagune.ai/de-DE/docs/catalog), und du kannst ihn selbst im Modus **scan** oder **check** ausf체hren.
 
@@ -48,6 +48,24 @@ Der Durchlauf gibt bis zu zwei Abschnitte aus. **Weak cryptography found** enth�
 | `--file`    | eine Datei         | Beschr채nkt den Durchlauf auf eine einzelne Datei. Wiederholbar und mit `--dir` kombinierbar.                  |
 
 Ohne Option durchsucht er das gesamte Projekt. `--pattern` erfordert `--lang` und l채sst sich nicht mit `--dir` oder `--file` kombinieren.
+
+### Festlegen, was er durchsucht
+
+Er l채sst aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `crypto` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](https://lagune.ai/de-DE/docs/hooks/configure) beschreibt jede Einstellung.
 
 ### Unterst체tzte Sprachen
 

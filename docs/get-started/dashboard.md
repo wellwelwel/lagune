@@ -3,7 +3,7 @@
 > See your project's charter, findings, and catalog in a live, local view that opens with one command.
 
 Canonical: https://lagune.ai/docs/get-started/dashboard
-Last updated: 2026-10-25
+Last updated: 2026-11-04
 
 Run **Lagune** directly with no subcommand for an interactive live view of `.lagune/`. It serves a dashboard and opens it on a random port:
 

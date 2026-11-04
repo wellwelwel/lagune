@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/get-started/commands
 언어: ko-KR
 원문: https://lagune.ai/docs/get-started/commands
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 **Lagune**을 [설치](https://lagune.ai/ko-KR/docs)하면 **AI** 에이전트가 여러 스킬을 쓸 수 있게 됩니다. 사용 방법은 두 가지이며, 둘 다 **보안 원칙**을 따릅니다: 개발하면서 새 작업을 안전하게 만들거나, 프로젝트를 대상으로 전체 감사를 실행하는 것입니다.
 

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/get-started/commands
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/get-started/commands
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 **Lagune** [kurulduktan](https://lagune.ai/tr-TR/docs) sonra **yapay zeka** ajanınız bir dizi beceri kazanır. Bunları kullanmanın iki yolu vardır ve ikisi de **charter**'ın yönetimindedir: yeni işi geliştirirken güvenli hale getirmek ya da bir proje üzerinde tam denetimi çalıştırmak.
 

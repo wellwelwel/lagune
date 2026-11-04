@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/get-started/dashboard
 Sprache: de-DE
 Original: https://lagune.ai/docs/get-started/dashboard
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Führe **Lagune** direkt und ohne Unterbefehl aus, um `.lagune/` in einer interaktiven Live-Ansicht zu sehen. Der Befehl startet ein Dashboard und öffnet es auf einem zufälligen Port:
 

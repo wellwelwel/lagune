@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/deepsec
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/deepsec
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 [Lagune](https://github.com/wellwelwel/lagune) ve [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`), aynı soruna verilmiş iki savunma odaklı yanıttır: yapay zeka destekli geliştirme çağında güvenlik. Çıkış noktaları, başları, ortaları ve sonları, ayrıca kullanıcıya kendilerini nasıl sundukları, mekanikleri örtüştüğü yerlerde bile bilinçli olarak ayrışır.
 

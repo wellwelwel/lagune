@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/hooks/regex
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/regex
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `regex` est le moteur déterministe de sûreté des regex qu'exécute la [spécialisation `regex`](https://lagune.ai/fr-FR/docs/catalog), et vous pouvez l'exécuter vous-même. Il fonctionne en deux modes depuis une seule commande : une **analyse** qui parcourt une base de code à la recherche de motifs exposés au **ReDoS** et de motifs construits à l'exécution, et une **vérification** qui évalue un seul motif que vous lui donnez.
 
@@ -93,6 +93,24 @@ La première section est un constat de sécurité. La deuxième et la troisième
 | `--limit`   | un entier positif ou nul | Fixe la limite de répétition du ReDoS (25 par défaut). S'applique aux deux modes. Une limite plus basse est plus stricte. |
 
 Sans option, il analyse tout le projet. `--pattern` correspond au mode check et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `regex` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
 
 ### Langages pris en charge
 

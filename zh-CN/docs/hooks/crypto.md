@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/crypto
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/crypto
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 `crypto` hook 会在调用处标记**弱加密原语**：已弃用的密码算法、不安全的模式或已被攻破的摘要算法。它**能识别语言**，按每个文件自己的规则读取，因此绝不会在 Rust 文件上标记 Python 的写法。它也是 [`crypto` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
 
@@ -48,6 +48,24 @@ npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                
 | `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                                  |
 
 不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `crypto` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 ### 支持的语言
 

@@ -3,7 +3,7 @@
 > Install Lagune on Qwen Code as an extension, keep it updated, and allow its engine up front.
 
 Canonical: https://lagune.ai/docs/install/qwen-code
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 Install the extension from your terminal:
 

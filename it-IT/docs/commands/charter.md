@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/charter
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/charter
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 🧬 Racconta a **Lagune** che cos'è il tuo progetto e lo trasformerà nelle tue regole di sicurezza (oppure, senza alcuna descrizione, le ricaverà dal solo progetto).
 
@@ -61,6 +61,10 @@ Una volta registrate le categorie, il charter le lascia come sono e nomina solta
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## Le cartelle che propone di lasciare fuori
+
+Quando la lettura del charter trova cartelle versionate che non sono codice del tuo progetto da difendere, come le fixture di test scritte per sembrare vulnerabili, le elenca numerate alla fine del suo riepilogo. Non ne lascia mai fuori nessuna di sua iniziativa, perché un repository ostile può far sembrare fixture il proprio codice, quindi vengono registrati solo i numeri con cui rispondi. [Configura gli hook](https://lagune.ai/it-IT/docs/hooks/configure) spiega come modificarle tu stesso.
 
 ## Passo successivo
 

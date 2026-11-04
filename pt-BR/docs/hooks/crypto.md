@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/crypto
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/crypto
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 O hook `crypto` sinaliza **primitivas criptográficas fracas** no ponto da chamada: uma cifra obsoleta, um modo inseguro ou um digest quebrado. Ele **reconhece a linguagem**, lendo cada arquivo pelas regras dela, para que uma construção de Python nunca seja sinalizada em um arquivo Rust, e é o engine determinístico por trás da [especialização `crypto`](https://lagune.ai/pt-BR/docs/catalog), que você mesmo pode executar no modo **scan** ou **check**.
 
@@ -48,6 +48,24 @@ O scan imprime até duas seções. **Weak cryptography found** é o conjunto de 
 | `--file`    | um arquivo          | Restringe a varredura a um único arquivo. Pode ser repetida e combinada com `--dir`.                  |
 
 Sem nenhuma opção, ele varre o projeto inteiro. `--pattern` exige `--lang` e não pode ser combinada com `--dir` nem com `--file`.
+
+### Escolha o que ele varre
+
+Ele deixa de fora o que o **Git** ignora. Para deixar mais coisas de fora, ou para varrer o que o **Git** ignora, dê ao `crypto` configurações próprias:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Todas as configurações estão em [Configure os hooks](https://lagune.ai/pt-BR/docs/hooks/configure).
 
 ### Linguagens suportadas
 

@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/infra
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/infra
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 `infra` hook 会标记仅凭文件本身就能判定的**基础设施即代码配置错误**：对全网开放的网络、通配符权限、清单文件中的密钥、以 root 身份运行的容器、CI shell 中的不可信值。它只读取 IaC 文件（`.tf`/`.tf.json`/`.hcl`、`Dockerfile*`、`.github/workflows/**`）。它是 [`infra` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，有 **scan** 和 **check** 两种模式。
 
@@ -44,6 +44,24 @@ check 模式会输出它匹配到的严重程度最高的标签（例如 `public
 | `--file`    | 一个文件                                        | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
 
 不带任何选项时，它会扫描项目中的所有 IaC 文件。`--pattern` 不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `infra` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 **提示**
 

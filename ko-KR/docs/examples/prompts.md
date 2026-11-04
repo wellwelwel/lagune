@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/examples/prompts
 언어: ko-KR
 원문: https://lagune.ai/docs/examples/prompts
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 AI 에이전트에 그대로 붙여 넣어 바로 쓸 수 있는 Lagune 프롬프트입니다.
 
@@ -182,6 +182,14 @@ Blue Team 흐름을 실행하거나 Lagune의 추적에 기록하지 않고, 에
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+저장소에 포함된 `.gitignore` 파일과 설정 때문에 검사기가 일부 파일을 보지 못할 수 있으므로, `checkers` 블록을 `.lagune/configs.json` 파일에 넣어 [모든 것을 스캔](https://lagune.ai/ko-KR/docs/hooks/configure)하도록 설정하세요. 저장소에 이미 들어 있는 블록이 있다면 이 블록으로 바꾸세요:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **위험**

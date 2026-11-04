@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/get-started/dashboard
 Lingua: it-IT
 Originale: https://lagune.ai/docs/get-started/dashboard
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 Esegui **Lagune** direttamente, senza sottocomando, per una vista interattiva e in tempo reale di `.lagune/`. Serve una dashboard e la apre su una porta casuale:
 

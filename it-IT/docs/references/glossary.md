@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/references/glossary
 Lingua: it-IT
 Originale: https://lagune.ai/docs/references/glossary
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 Ogni termine portante di Lagune e della metodologia Security-Driven Hardening, definito una sola volta, in linguaggio semplice.
 

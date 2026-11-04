@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/devin-cli
 语言: zh-CN
 原文: https://lagune.ai/docs/install/devin-cli
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 先登录 **Devin**，然后在终端中安装插件：
 

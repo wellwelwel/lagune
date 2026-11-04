@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/cvss
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/cvss
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 O hook `cvss` calcula a nota de um **vetor CVSS v4.0** e imprime a nota e a faixa de severidade, a classificação que o [`/lagune-plan`](https://lagune.ai/pt-BR/docs/commands/plan) registra em cada correção e o [`/lagune-prove`](https://lagune.ai/pt-BR/docs/commands/prove) em cada advisory. Ele é o engine determinístico por trás dessas classificações, com a mesma aritmética da [calculadora da FIRST](https://www.first.org/cvss/calculator/4.0), e você mesmo pode executá-lo.
 

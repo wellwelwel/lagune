@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/infra
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/infra
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `infra` フックは、インターネット全体に開放されたネットワーク、ワイルドカードの権限、マニフェスト内のシークレット、root で動くコンテナ、CI のシェルに渡る信頼できない値といった、ファイルだけで判定できる **IaC（Infrastructure as Code）の設定ミス**を指摘します。読み取るのは IaC ファイル（`.tf`/`.tf.json`/`.hcl`、`Dockerfile*`、`.github/workflows/**`）だけです。また、[`infra` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで動作します。
 
@@ -44,6 +44,24 @@ check モードは、一致したタグのうち最も深刻度の高いもの�
 | `--file`    | ファイル                                        | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。               |
 
 オプションを指定しなければ、プロジェクト内のすべての IaC ファイルをスキャンします。`--pattern` は `--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`infra` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 **ヒント**
 

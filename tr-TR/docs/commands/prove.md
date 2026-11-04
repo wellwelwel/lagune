@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/prove
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/prove
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 🧪 Tespit edilen her bulguyu sorumlu ifşa için çalıştırılabilir, yalnızca savunma odaklı bir kanıta dönüştürün.
 

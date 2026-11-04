@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/cvss
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/cvss
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `cvss` 훅은 **CVSS v4.0 벡터**에 점수를 매기고 점수와 심각도 등급을 출력합니다. [`/lagune-plan`](https://lagune.ai/ko-KR/docs/commands/plan) 명령어가 각 수정에, [`/lagune-prove`](https://lagune.ai/ko-KR/docs/commands/prove) 명령어가 각 보안 권고에 기록하는 평가가 바로 이것입니다. 훅은 이 평가를 뒷받침하는 결정론적 엔진으로 [FIRST 계산기](https://www.first.org/cvss/calculator/4.0)와 같은 계산 방식을 사용하며, 직접 실행할 수도 있습니다.
 

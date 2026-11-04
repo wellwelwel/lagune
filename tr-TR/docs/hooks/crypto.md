@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/crypto
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/crypto
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `crypto` hook'u, **zayıf kriptografik primitifleri** çağrıldıkları yerde işaretler: kullanımdan kaldırılmış bir şifre, güvensiz bir mod ya da kırılmış bir özet algoritması. **Dile duyarlıdır**, her dosyayı kendi kurallarıyla okur, bu yüzden bir Python yapısı asla bir Rust dosyasında işaretlenmez. [`crypto` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -48,6 +48,24 @@ Tarama en fazla iki bölüm yazdırır. **Weak cryptography found** bulgu kümes
 | `--file`    | bir dosya       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.                               |
 
 Seçenek verilmezse tüm proje taranır. `--pattern`, `--lang` gerektirir ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `crypto` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 ### Desteklenen diller
 

@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/interpreter
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/interpreter
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
 Хук `interpreter` позначає **sinks динамічного виконання коду**: конструкції, що перетворюють дані на виконуваний код або передають їх в оболонку, від `eval` до нативної десеріалізації. Він враховує мову й читає кожен файл за його власними правилами. Це детермінований рушій [спеціалізації `interpreter`](https://lagune.ai/uk-UA/docs/catalog), який ви можете запускати самі в режимі **scan** або **check**.
 
@@ -49,6 +49,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | файл          | Обмежити перевірку одним файлом. Повторюється й поєднується з `--dir`.                                     |
 
 Без параметрів хук перевіряє весь проєкт. `--pattern` потребує `--lang` і не поєднується з `--dir` чи `--file`.
+
+### Виберіть, що перевіряти
+
+Хук пропускає те, що ігнорує **Git**. Щоб виключити більше або перевіряти те, що ігнорує **Git**, задайте хуку `interpreter` власні налаштування:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Усі налаштування описано на сторінці [Налаштування хуків](https://lagune.ai/uk-UA/docs/hooks/configure).
 
 ### Підтримувані мови
 

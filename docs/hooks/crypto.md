@@ -3,7 +3,7 @@
 > Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/crypto
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 The `crypto` hook flags **weak cryptographic primitives** at the call site: a deprecated cipher, an insecure mode, or a broken digest. It is **language-aware**, reading each file by its own rules so a Python construct is never flagged on a Rust file, and it is the deterministic engine behind the [`crypto` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -46,6 +46,24 @@ The scan prints up to two sections. **Weak cryptography found** is the finding s
 | `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`.                                        |
 
 With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `crypto` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
 ### Supported languages
 

@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/examples/prompts
 Idioma: es-ES
 Original: https://lagune.ai/docs/examples/prompts
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 Prompts de Lagune listos para copiar y pegar directamente en tu agente de IA.
 
@@ -182,6 +182,14 @@ Los prompts cargan directamente las especializaciones en las que se apoya esta a
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Los propios archivos `.gitignore` y la configuración del repositorio podrían ocultar archivos a los checkers, así que configura el bloque `checkers` de `.lagune/configs.json` para [analizarlo todo](https://lagune.ai/es-ES/docs/hooks/configure), sustituyendo cualquier bloque que traiga el repositorio:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Peligro**

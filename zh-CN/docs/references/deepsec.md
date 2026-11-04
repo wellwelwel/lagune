@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/references/deepsec
 语言: zh-CN
 原文: https://lagune.ai/docs/references/deepsec
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 [Lagune](https://github.com/wellwelwel/lagune) 和 [Deepsec](https://github.com/vercel-labs/deepsec)（`v2.2.1`）是两种防御性方案，针对的是同一个问题：AI 辅助开发时代的安全。即使在机制上有重叠，两者的前提、从开始到结束的整个过程，以及在用户面前的呈现方式，都是有意设计得不同的。
 

@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/plan
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/plan
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 🛡️ Mach aus dem, was detect gefunden hat, einen Abwehrplan: Bewerte jeden Befund mit einer Kategorie und einem CVSS-v4.0-Score und ordne ihm dann die Korrektur zu, die umgesetzt werden soll.
 

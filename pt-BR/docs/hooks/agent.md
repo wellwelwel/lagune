@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/agent
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/agent
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 O hook `agent` sinaliza **runtimes de agente que entram em loop sem limite de turnos, de orçamento ou de tempo**, a brecha de autonomia descontrolada que transforma uma entrada manipulada em custo ilimitado ou em escalada de prompt injection. Ele **reconhece a linguagem** e cobre os dois ecossistemas de frameworks de agentes: **JavaScript** (o runtime `query` do SDK de agentes do **Claude**) e **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). Ele é o engine determinístico por trás da [especialização `llm`](https://lagune.ai/pt-BR/docs/catalog), e você mesmo pode executá-lo no modo **scan** ou **check**.
 
@@ -47,6 +47,24 @@ Cada linha em **Uncapped agent loops found** é, em um arquivo que importa um SD
 | `--file`    | um arquivo          | Restringe a varredura a um único arquivo. Pode ser repetida e combinada com `--dir`. |
 
 Sem nenhuma opção, ele varre o projeto inteiro. `--pattern` exige `--lang` e não pode ser combinada com `--dir` nem com `--file`.
+
+### Escolha o que ele varre
+
+Ele deixa de fora o que o **Git** ignora. Para deixar mais coisas de fora, ou para varrer o que o **Git** ignora, dê ao `agent` configurações próprias:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Todas as configurações estão em [Configure os hooks](https://lagune.ai/pt-BR/docs/hooks/configure).
 
 **Melhor esforço, não exaustivo**
 

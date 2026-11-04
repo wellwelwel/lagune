@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/gemini-cli
 言語: ja-JP
 原文: https://lagune.ai/docs/install/gemini-cli
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルから拡張機能をインストールします：
 

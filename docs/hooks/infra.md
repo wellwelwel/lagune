@@ -3,7 +3,7 @@
 > Sweep Terraform, Dockerfiles, and GitHub Actions for misconfiguration, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/infra
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 The `infra` hook flags **infrastructure-as-code misconfiguration** that is decidable from the file: a network open to the world, a wildcard permission, a secret in a manifest, a root container, an untrusted value in a CI shell. It reads only IaC files (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). It is the deterministic engine behind the [`infra` specialization](https://lagune.ai/docs/catalog), in **scan** or **check** mode.
 
@@ -42,6 +42,24 @@ The check mode prints the highest-severity tag it matched (for example `public-i
 | `--file`    | a file                                          | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
 With no option it scans every IaC file in the project. `--pattern` cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `infra` settings of its own:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
 **Tip**
 

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/opencode
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/opencode
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 **OpenCode 2.x**
 
@@ -55,7 +55,7 @@ opencode reload
 **Lagune**'yi güncellemek için yeni sürümü eskisinin üzerine kurun, tüm projeleriniz için kurduysanız `-g` ekleyin:
 
 ```bash
-opencode plugin lagune@0.16.0 --force
+opencode plugin lagune@0.17.0 --force
 ```
 
 ## Komutlar
@@ -82,7 +82,7 @@ OpenCode 2.x sürümünde opencode plugin add lagune komutunu çalıştırın. O
 
 ### OpenCode kullanırken Lagune nasıl güncellenir?
 
-OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.16.0 --force komutunu çalıştırın.
+OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.17.0 --force komutunu çalıştırın.
 
 ### OpenCode kullanırken Lagune komutları nasıl çalıştırılır?
 

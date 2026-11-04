@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/cursor
 语言: zh-CN
 原文: https://lagune.ai/docs/install/cursor
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 **Cursor**
 

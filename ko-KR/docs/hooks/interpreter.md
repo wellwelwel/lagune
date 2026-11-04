@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/interpreter
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/interpreter
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `interpreter` 훅은 데이터를 실행되는 코드로 바꾸거나 셸에 넘기는 구문, 즉 **동적 코드 실행 싱크**를 잡아냅니다. `eval` 호출부터 네이티브 역직렬화까지 모두 여기에 해당합니다. 언어를 인식해 파일마다 그 언어의 규칙으로 읽습니다. 또한 [`interpreter` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
 
@@ -49,6 +49,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | 파일      | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능                                  |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션에는 `--lang` 옵션이 필요하며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `interpreter` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 ### 지원 언어
 

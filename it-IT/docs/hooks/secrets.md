@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/hooks/secrets
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/secrets
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 L'hook `secrets` segnala le **credenziali compilate nel sorgente** invece che lette dall'ambiente. Si basa sulla **provenienza** (un letterale contro una lettura dall'ambiente), non sul contenuto del valore, quindi non ha bisogno di un catalogo esaustivo dei prefissi dei fornitori e non produce quasi falsi positivi. È il motore deterministico dietro la [specializzazione `secrets`](https://lagune.ai/it-IT/docs/catalog).
 
@@ -29,6 +29,24 @@ L'analisi stampa fino a due sezioni. **Hardcoded secrets found** è l'insieme de
 | `--file` | un file       | Limita l'analisi a un singolo file. Si ripete e si combina con `--dir`. |
 
 Senza opzioni analizza l'intero progetto.
+
+### Scegli cosa analizza
+
+Lascia fuori ciò che **Git** ignora. Per lasciare fuori altro, o per analizzare ciò che **Git** ignora, assegna impostazioni proprie a `secrets`:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tutte le impostazioni sono in [Configura gli hook](https://lagune.ai/it-IT/docs/hooks/configure).
 
 ### Copertura dei linguaggi
 

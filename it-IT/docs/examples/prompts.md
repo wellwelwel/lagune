@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/examples/prompts
 Lingua: it-IT
 Originale: https://lagune.ai/docs/examples/prompts
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 Prompt di Lagune pronti da copiare, da incollare direttamente nel tuo agente IA.
 
@@ -182,6 +182,14 @@ I prompt caricano direttamente le specializzazioni su cui si basa questo audit, 
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+I file `.gitignore` e le configurazioni del repository stesso potrebbero nascondere file ai checker, quindi imposta il blocco `checkers` di `.lagune/configs.json` per [analizzare tutto](https://lagune.ai/it-IT/docs/hooks/configure), sostituendo qualsiasi blocco fornito dal repository:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Pericolo**

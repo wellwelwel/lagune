@@ -37,6 +37,7 @@ Lagune은 오픈 소스이자 방어 전용인 Security-Driven Hardening(SDH) �
 - [카탈로그: 필요할 때만 불러오는 보안 전문 지식](https://lagune.ai/ko-KR/docs/catalog.md): 프로젝트 카탈로그의 전문 지식을 불러오는 방식을 설명합니다. 각 단계가 필요할 때만 불러오며, 직접 불러올 수도 있습니다.
 - [/lagune-specialize: 일반 텍스트로 보안 전문 지식 학습시키기](https://lagune.ai/ko-KR/docs/commands/specialize.md): 제공한 보안 자료나 주제의 핵심을 정리해, 필요할 때만 불러오는 새 전문 지식으로 만듭니다.
 - [/lagune-prove: 방어 전용 개념 증명(PoC)](https://lagune.ai/ko-KR/docs/commands/prove.md): 탐지한 발견 사항마다 실행할 수 있는 방어 전용 개념 증명(PoC)과 책임 있는 공개를 위한 보안 권고를 만듭니다.
+- [훅 설정하기: 스캔 대상 선택하기](https://lagune.ai/ko-KR/docs/hooks/configure.md): 파일을 스캔하는 훅이 무엇을 제외할지 모든 훅에 한꺼번에, 또는 훅마다 따로 정할 수 있습니다.
 - [agent 훅: 상한 없는 에이전트 루프 탐지하기](https://lagune.ai/ko-KR/docs/hooks/agent.md): 명령줄에서 코드베이스를 스캔해 스텝 수나 시간에 상한이 없는 에이전트나 LLM 호출을 찾거나, 호출 하나에 점수를 매길 수 있습니다.
 - [cors 훅: CORS 오리진 점검하기](https://lagune.ai/ko-KR/docs/hooks/cors.md): 명령줄에서 소스 코드를 스캔해 우회할 수 있는 CORS 오리진 허용 목록을 찾거나, 오리진 값 하나가 지나치게 넓은 접근을 허용하는지 점수를 매길 수 있습니다.
 - [crypto 훅: 취약한 암호화 탐지하기](https://lagune.ai/ko-KR/docs/hooks/crypto.md): 명령줄에서 코드베이스를 스캔해 취약한 암호 알고리즘을 찾거나, 코드 조각 하나에 점수를 매길 수 있습니다.

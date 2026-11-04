@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/examples/prompts
 Sprache: de-DE
 Original: https://lagune.ai/docs/examples/prompts
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Prompts für Lagune zum Kopieren, die du direkt in deinen KI-Agenten einfügen kannst.
 
@@ -182,6 +182,14 @@ Die Prompts laden die Spezialisierungen, auf die sich dieses Audit stützt, unab
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Die eigenen `.gitignore`-Dateien und Konfigurationen des Repositorys könnten Dateien vor den Prüfprogrammen verbergen. Setze den Block `checkers` in `.lagune/configs.json` deshalb so, dass [alles durchsucht wird](https://lagune.ai/de-DE/docs/hooks/configure), und ersetze dabei jeden Block, den das Repository mitbringt:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Gefahr**

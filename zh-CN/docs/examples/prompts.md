@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/examples/prompts
 语言: zh-CN
 原文: https://lagune.ai/docs/examples/prompts
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 复制即用的 Lagune 提示词，可以直接粘贴到你的 AI 智能体中。
 
@@ -182,6 +182,14 @@
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+仓库自带的 `.gitignore` 文件和配置可能会把文件藏起来，让检查器看不到，因此请把 `checkers` 块写进 `.lagune/configs.json`，设置为 [扫描全部内容](https://lagune.ai/zh-CN/docs/hooks/configure)，如果仓库自带了这个块，就替换掉它：
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **危险**

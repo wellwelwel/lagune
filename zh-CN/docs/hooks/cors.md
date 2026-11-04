@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/cors
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/cors
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 `cors` hook 是 [`http-request` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己运行它。同一条命令有两种模式：**scan** 模式会扫描源代码，查找**可被绕过的源白名单**（攻击者的主机能够蒙混过关的主机校验正则），**score** 模式则把单个 **CORS 源**值判定为 `wildcard`、`null` 或 `safe`。
 
@@ -90,6 +90,24 @@ npx lagune read cors \
 | `--file`   | 一个文件 | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
 
 不带任何选项时，它会扫描整个项目。`--origin` 属于 score 模式，不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `cors` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 **它不覆盖的范围**
 

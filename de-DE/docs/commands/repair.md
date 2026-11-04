@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/repair
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/repair
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 🧰 Repariere die Kette, wenn eine Umbenennung oder eine verschobene Datei sie durcheinanderbringt.
 

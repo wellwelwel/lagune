@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/cursor
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/cursor
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 **Cursor**
 

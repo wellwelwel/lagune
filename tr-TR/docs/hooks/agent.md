@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/agent
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/agent
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `agent` hook'u, **tur, bütçe veya süre sınırı olmadan döngüye giren ajan çalışma ortamlarını** işaretler. Bu, özel hazırlanmış bir girdiyi sınırsız maliyete ya da prompt injection yoluyla yetki yükseltmeye dönüştüren, kontrolden çıkmış özerklik açığıdır. Hook **dile duyarlıdır** ve iki ajan çatısı ekosistemini kapsar: **JavaScript** (**Claude** ajan SDK'sının `query` çalışma ortamı) ve **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). [`llm` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -47,6 +47,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | bir dosya       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.               |
 
 Seçenek verilmezse tüm proje taranır. `--pattern`, `--lang` gerektirir ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `agent` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 **Elden gelenin en iyisi, ama eksiksiz değil**
 

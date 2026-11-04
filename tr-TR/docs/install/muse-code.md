@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/muse-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/muse-code
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 Eklentiyi terminalden kurun:
 
@@ -35,7 +35,7 @@ Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin ad
 **Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## Sıkça sorulan sorular
@@ -54,4 +54,4 @@ Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikt
 
 ### Lagune, Muse Code korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.16.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.17.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.

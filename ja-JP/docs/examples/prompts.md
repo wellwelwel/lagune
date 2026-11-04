@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/examples/prompts
 言語: ja-JP
 原文: https://lagune.ai/docs/examples/prompts
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 AI エージェントにそのまま貼り付けて使える、コピー用の Lagune のプロンプトです。
 
@@ -182,6 +182,14 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+リポジトリ自身の `.gitignore` ファイルや設定が、チェッカーからファイルを隠してしまうおそれがあります。そこで、`checkers` ブロックを `.lagune/configs.json` で設定し、リポジトリに同梱されているブロックがあれば置き換えて、[すべてをスキャンする](https://lagune.ai/ja-JP/docs/hooks/configure) ようにしてください：
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **危険**

@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/agent
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/agent
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `agent` meldet **Agent-Runtimes, die ohne Runden-, Budget- oder Zeitlimit in einer Schleife laufen**, die Lücke einer entfesselten Autonomie, durch die eine manipulierte Eingabe unbegrenzte Kosten oder eine Eskalation per Prompt Injection auslöst. Er arbeitet **sprachspezifisch** und deckt die zwei Ökosysteme der Agent-Frameworks ab: **JavaScript** (die Runtime `query` des Agent-SDK von **Claude**) und **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). Er ist die deterministische Engine hinter der [Spezialisierung `llm`](https://lagune.ai/de-DE/docs/catalog), und du kannst ihn selbst im Modus **scan** oder **check** ausführen.
 
@@ -47,6 +47,24 @@ Jede Zeile unter **Uncapped agent loops found** steht in einer Datei, die ein Ag
 | `--file`    | eine Datei         | Beschränkt den Durchlauf auf eine einzelne Datei. Wiederholbar und mit `--dir` kombinierbar. |
 
 Ohne Option durchsucht er das gesamte Projekt. `--pattern` erfordert `--lang` und lässt sich nicht mit `--dir` oder `--file` kombinieren.
+
+### Festlegen, was er durchsucht
+
+Er lässt aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `agent` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](https://lagune.ai/de-DE/docs/hooks/configure) beschreibt jede Einstellung.
 
 **Bestmöglich, aber nicht lückenlos**
 

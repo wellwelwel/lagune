@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/paper
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/paper
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 - **Weslley Araújo**
 - **Metodoloji makalesi, 2026.**
@@ -22,7 +22,7 @@ Bu belge, SDH'nin tek bir araç değil, eksik olan bir yaklaşım olduğunu savu
 
 > **Anahtar terimler**
 >
-> yapay zeka destekli geliştirme, yazılım güvenliği, savunma güvenliği, spec-driven development, güvenlik sıkılaştırması, ajan güdümlü iş akışları, kapatılabilirlik, bağlama duyarlı güvenlik, talep üzerine bilgi, ajandan bağımsız araçlar.
+> Yapay zeka destekli geliştirme, yazılım güvenliği, savunma güvenliği, spec-driven development, güvenlik sıkılaştırması, ajan güdümlü iş akışları, kapatılabilirlik, bağlama duyarlı güvenlik, talep üzerine bilgi, ajandan bağımsız araçlar.
 
 ---
 

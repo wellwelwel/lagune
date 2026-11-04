@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/crypto
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/crypto
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `crypto` 훅은 **취약한 암호 알고리즘**을 호출 지점에서 잡아냅니다: 지원 중단된 암호 방식, 안전하지 않은 모드, 깨진 해시 함수가 그 대상입니다. **언어를 인식해** 파일마다 그 언어의 규칙으로 읽으므로 Rust 파일에서 Python 구문을 잡아내는 일은 없습니다. 또한 [`crypto` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
 
@@ -48,6 +48,24 @@ npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                
 | `--file`    | 파일      | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능                                  |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션에는 `--lang` 옵션이 필요하며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `crypto` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 ### 지원 언어
 

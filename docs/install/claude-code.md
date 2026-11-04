@@ -3,7 +3,7 @@
 > Install Lagune on Claude Code as a plugin, in the terminal, the extension, or the desktop app, keep it updated, and allow its engine up front.
 
 Canonical: https://lagune.ai/docs/install/claude-code
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 **Terminal**
 

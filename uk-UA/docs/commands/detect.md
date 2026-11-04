@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/detect
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/detect
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
 🔬 З'ясуйте, що насправді робить ваша система і де ризики.
 

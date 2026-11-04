@@ -3,7 +3,7 @@
 > Sweep a codebase for ReDoS-prone regex, or score a single pattern, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/regex
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 The `regex` hook is the deterministic regex-safety engine the [`regex` specialization](https://lagune.ai/docs/catalog) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 
@@ -91,6 +91,24 @@ The first section is a security finding. The second and third are not findings o
 | `--limit`   | a non-negative integer | Set the ReDoS repetition limit (default 25). Applies to both modes. A lower limit is stricter. |
 
 With no option it scans the whole project. `--pattern` is the check mode and cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `regex` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
 ### Supported languages
 

@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/universal
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/universal
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 **Terminal**
 
@@ -49,10 +49,10 @@ Installiere **Lagune** entweder über **skills.sh** oder über das **Plugin**, n
 
 **Berechtigungen**
 
-Die Befehle starten die Engine als `npx --yes lagune@0.16.0`, und die [Installationsseite jedes Agenten](https://lagune.ai/de-DE/docs) zeigt die Regel, die das vorab erlaubt. Hat deine Sandbox keinen Netzwerkzugriff, installiere die Engine über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
+Die Befehle starten die Engine als `npx --yes lagune@0.17.0`, und die [Installationsseite jedes Agenten](https://lagune.ai/de-DE/docs) zeigt die Regel, die das vorab erlaubt. Hat deine Sandbox keinen Netzwerkzugriff, installiere die Engine über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## Häufige Fragen

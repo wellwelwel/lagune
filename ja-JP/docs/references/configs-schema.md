@@ -5,9 +5,9 @@
 正規 URL: https://lagune.ai/ja-JP/docs/references/configs-schema
 言語: ja-JP
 原文: https://lagune.ai/docs/references/configs-schema
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
-`.lagune/configs.json` は、プロジェクトが使う [**カテゴリ**](https://lagune.ai/ja-JP/docs/categories) を記録し、プロジェクト独自の [**専門知識**](https://lagune.ai/ja-JP/docs/catalog) の索引を持つファイルです。この JSON Schema を使うと、ファイルを編集している間、エディターが各フィールドを自動補完し、タイプミスや存在しないカテゴリを指摘してくれます。
+`.lagune/configs.json` は、プロジェクトが使う [**カテゴリ**](https://lagune.ai/ja-JP/docs/categories) を記録し、プロジェクト独自の [**専門知識**](https://lagune.ai/ja-JP/docs/catalog) の索引を持ち、[**チェッカー**](https://lagune.ai/ja-JP/docs/hooks/configure) がスキャンから除外するものを決めるファイルです。この JSON Schema を使うと、ファイルを編集している間、エディターが各フィールドを自動補完し、タイプミスや存在しないカテゴリを指摘してくれます。
 
 ## 最新のスキーマ
 

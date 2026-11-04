@@ -3,7 +3,7 @@
 > Establish your project's security principles, the rules every later phase respects, and record the specialization categories its reading supports.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 
@@ -59,6 +59,10 @@ Once categories are recorded, the charter leaves them as they are and only names
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## The folders it offers to leave out
+
+When the charter's reading finds committed folders that are not your project's code to defend, such as test fixtures written to look vulnerable, it lists them by number at the end of its summary. It never leaves one out on its own, since a hostile repository can make its code look like fixtures, so only the numbers you reply with are recorded. [Configure the hooks](https://lagune.ai/docs/hooks/configure) covers changing them yourself.
 
 ## Next
 

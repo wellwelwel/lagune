@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/charter
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/charter
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 🧬 Erzähl **Lagune**, worum es in deinem Projekt geht, und es macht daraus deine Sicherheitsregeln (ohne Beschreibung leitet es sie allein aus dem Projekt ab).
 
@@ -61,6 +61,10 @@ Sind Kategorien eingetragen, lässt die charter sie unverändert und nennt nur n
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## Die Ordner, die sie zum Auslassen vorschlägt
+
+Stößt die charter bei ihrer Analyse auf committete Ordner, die nicht zu dem Code gehören, den dein Projekt verteidigen muss, etwa Test-Fixtures, die so geschrieben sind, dass sie verwundbar wirken, listet sie diese am Ende ihrer Zusammenfassung nummeriert auf. Sie lässt nie von sich aus einen davon aus, denn ein feindseliges Repository kann seinen Code wie Fixtures aussehen lassen, deshalb werden nur die Nummern eingetragen, die du in deiner Antwort nennst. [Hooks konfigurieren](https://lagune.ai/de-DE/docs/hooks/configure) zeigt, wie du sie selbst änderst.
 
 ## Nächster Schritt
 

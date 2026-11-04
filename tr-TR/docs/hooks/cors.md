@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/cors
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/cors
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `cors` hook'u, [`http-request` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu kendiniz çalıştırabilirsiniz. Tek bir komutla iki modda çalışır: kaynak kodu **atlatılabilir bir köken izin listesine** (saldırganın sunucusunun yanından sızıp geçtiği bir sunucu doğrulama regex'ine) karşı tarayan **scan** ve tek bir **CORS köken** değerini `wildcard`, `null` veya `safe` olarak puanlayan **score**.
 
@@ -90,6 +90,24 @@ Yalnızca `safe` bir izindir ve `--origin` bir değer kahinidir: işleyiciyi de�
 | `--file`   | bir dosya | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.      |
 
 Seçenek verilmezse tüm proje taranır. `--origin` score modudur ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `cors` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 **Neleri kapsamaz**
 

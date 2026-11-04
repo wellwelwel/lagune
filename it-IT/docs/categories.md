@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/categories
 Lingua: it-IT
 Originale: https://lagune.ai/docs/categories
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 **Lagune** raggruppa le sue [**specializzazioni**](https://lagune.ai/it-IT/docs/catalog) integrate in **13 categorie**. Le categorie usate da un progetto decidono quali specializzazioni integrate entrano nel suo [**catalogo**](https://lagune.ai/it-IT/docs/catalog), e si dividono in due: ciò che fa il sistema e ciò in cui è scritto.
 

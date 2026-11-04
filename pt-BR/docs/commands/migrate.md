@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/commands/migrate
 Idioma: pt-BR
 Original: https://lagune.ai/docs/commands/migrate
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 🔀 Leve um projeto **Lagune** baseado em manifest para o **Lagune** baseado em skills, mantendo tudo o que você escreveu.
 

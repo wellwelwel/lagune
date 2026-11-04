@@ -3,7 +3,7 @@
 > How the specializations in your project's catalog are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/catalog
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 🧠 **Lagune**'s specializations are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. Your project's catalog is the set it uses: the built-in specializations of its [categories](https://lagune.ai/docs/categories) plus its own. The detect and verify phases reach for them while they run, and you can load one directly any time.
 

@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/references/paper
 Lingua: it-IT
 Originale: https://lagune.ai/docs/references/paper
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 - **Weslley Araújo**
 - **Articolo sulla metodologia, 2026.**
@@ -22,7 +22,7 @@ Questo documento sostiene che SDH è una convenzione mancante, non un singolo st
 
 > **Parole chiave**
 >
-> sviluppo assistito dall'IA, sicurezza del software, sicurezza difensiva, spec-driven development, hardening di sicurezza, flussi di lavoro guidati da agenti, chiudibilità, sicurezza sensibile al contesto, conoscenza su richiesta, strumenti indipendenti dall'agente.
+> Sviluppo assistito dall'IA, sicurezza del software, sicurezza difensiva, spec-driven development, hardening di sicurezza, flussi di lavoro guidati da agenti, chiudibilità, sicurezza sensibile al contesto, conoscenza su richiesta, strumenti indipendenti dall'agente.
 
 ---
 

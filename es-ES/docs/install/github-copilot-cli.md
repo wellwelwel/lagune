@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/github-copilot-cli
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/github-copilot-cli
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 Instala el plugin desde tu terminal:
 

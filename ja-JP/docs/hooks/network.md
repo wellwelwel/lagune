@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/network
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/network
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `network` フックは、サーバー側のリクエスト先が **SSRF**（内部サービス、クラウドのメタデータ、プライベートなホストに向けられうるリクエスト）に対して安全かどうかを判定します。[`network` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンで、自分で実行することもできます。
 

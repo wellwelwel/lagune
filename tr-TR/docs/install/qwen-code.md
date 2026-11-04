@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/qwen-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/qwen-code
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 Uzantıyı terminalden kurun:
 

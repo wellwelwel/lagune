@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/secrets
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/secrets
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `secrets` meldet **Zugangsdaten, die fest im Quellcode stehen**, statt aus der Umgebung gelesen zu werden. Er achtet auf die **Herkunft** (ein Literal oder ein Zugriff auf die Umgebung), nicht auf den Inhalt des Werts, deshalb braucht er keinen vollständigen Katalog von Anbieter-Präfixen und erzeugt kaum False Positives. Er ist die deterministische Engine hinter der [Spezialisierung `secrets`](https://lagune.ai/de-DE/docs/catalog).
 
@@ -29,6 +29,24 @@ Der Durchlauf gibt bis zu zwei Abschnitte aus. **Hardcoded secrets found** enth�
 | `--file` | eine Datei      | Beschränkt den Durchlauf auf eine einzelne Datei. Wiederholbar und mit `--dir` kombinierbar. |
 
 Ohne Option durchsucht er das gesamte Projekt.
+
+### Festlegen, was er durchsucht
+
+Er lässt aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `secrets` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](https://lagune.ai/de-DE/docs/hooks/configure) beschreibt jede Einstellung.
 
 ### Abgedeckte Sprachen
 

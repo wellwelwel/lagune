@@ -37,6 +37,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 - [カタログ：必要なときに読み込むセキュリティの専門知識](https://lagune.ai/ja-JP/docs/catalog.md): プロジェクトのカタログにある専門知識がどう読み込まれるかを解説します。フェーズが必要なときに読み込むほか、自分で直接読み込むこともできます。
 - [/lagune-specialize: プレーンテキストでセキュリティの専門知識を学習させる](https://lagune.ai/ja-JP/docs/commands/specialize.md): 渡したセキュリティの資料やトピックを、必要なときに読み込まれる新しい専門知識にまとめます。
 - [/lagune-prove: 防御専用の概念実証（PoC）](https://lagune.ai/ja-JP/docs/commands/prove.md): 検出事項を 1 件ずつ、実行できる防御専用の概念実証（PoC）と、責任ある開示のためのセキュリティアドバイザリに変えます。
+- [フックの設定：スキャン対象を選ぶ](https://lagune.ai/ja-JP/docs/hooks/configure.md): ファイルをスキャンするフックが何を除外するかを、すべてのフックにまとめて、または 1 つずつ選べます。
 - [agent フック：上限のないエージェントループを検出する](https://lagune.ai/ja-JP/docs/hooks/agent.md): コマンドラインから、ステップ数や時間に上限のないエージェントや LLM の呼び出しをコードベース全体でスキャンしたり、1 つの呼び出しを判定したりできます。
 - [cors フック：CORS オリジンを監査する](https://lagune.ai/ja-JP/docs/hooks/cors.md): コマンドラインから、ソースコードをスキャンして回避可能な CORS オリジン許可リストを探したり、1 つのオリジン値の許可範囲が広すぎないかを判定したりできます。
 - [crypto フック：脆弱な暗号を検出する](https://lagune.ai/ja-JP/docs/hooks/crypto.md): コマンドラインから、脆弱な暗号プリミティブをコードベース全体でスキャンしたり、1 つのコードスニペットを判定したりできます。

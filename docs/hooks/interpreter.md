@@ -3,7 +3,7 @@
 > Sweep a codebase for dynamic-code-execution sinks across languages, or score a single snippet, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/interpreter
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 The `interpreter` hook flags **dynamic-code-execution sinks**: constructs that turn data into running code or hand it to a shell, from `eval` to native deserialization. It is language-aware, reading each file by its own rules, and it is the deterministic engine behind the [`interpreter` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -47,6 +47,24 @@ Reason about each sink **statically**, tracing whether untrusted input reaches i
 | `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`.                                        |
 
 With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `interpreter` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
 ### Supported languages
 

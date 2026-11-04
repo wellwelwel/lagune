@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/pi
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/pi
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 **npm**
 

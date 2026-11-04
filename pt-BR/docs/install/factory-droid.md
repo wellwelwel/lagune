@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/install/factory-droid
 Idioma: pt-BR
 Original: https://lagune.ai/docs/install/factory-droid
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 Instale o plugin pelo terminal:
 

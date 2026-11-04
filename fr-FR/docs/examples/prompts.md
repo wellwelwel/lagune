@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/examples/prompts
 Langue: fr-FR
 Original: https://lagune.ai/docs/examples/prompts
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Des prompts Lagune prêts à copier, à coller directement dans votre agent IA.
 
@@ -182,6 +182,14 @@ Les prompts chargent directement les spécialisations sur lesquelles repose cet 
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Les fichiers `.gitignore` et les configurations propres au dépôt pourraient cacher des fichiers aux vérificateurs. Réglez donc le bloc `checkers` de `.lagune/configs.json` pour [tout analyser](https://lagune.ai/fr-FR/docs/hooks/configure), en remplaçant tout bloc fourni par le dépôt :
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Danger**

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/plan
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/plan
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 🛡️ detect fazının bulduklarını bir savunma planına dönüştürün: her bulguyu bir kategori ve CVSS v4.0 puanıyla değerlendirin, ardından uygulanacak düzeltmeyle eşleştirin.
 

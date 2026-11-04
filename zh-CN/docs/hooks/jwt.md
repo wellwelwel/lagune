@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/jwt
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/jwt
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 `jwt` hook 会标记**未固定算法的 JWT 验证**，也就是验证方信任令牌自身 `alg` 头部的算法混淆漏洞，以及**完全关闭了验证**的情况。它能**识别语言**，按每个文件所用的 JWT 库来读取，也是 [`federation` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
 
@@ -47,6 +47,24 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 | `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                          |
 
 不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `jwt` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 ### 支持的语言
 

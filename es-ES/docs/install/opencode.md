@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/opencode
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/opencode
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 **OpenCode 2.x**
 
@@ -55,7 +55,7 @@ opencode reload
 Para actualizar **Lagune**, instala la nueva versión sobre la anterior, añadiendo `-g` si lo instalaste en todos tus proyectos:
 
 ```bash
-opencode plugin lagune@0.16.0 --force
+opencode plugin lagune@0.17.0 --force
 ```
 
 ## Comandos
@@ -82,7 +82,7 @@ En OpenCode 2.x, ejecuta opencode plugin add lagune. En OpenCode 1.x, ejecuta op
 
 ### ¿Cómo actualizo Lagune en OpenCode?
 
-En OpenCode 2.x, ejecuta opencode plugin update lagune y después opencode reload. En OpenCode 1.x, ejecuta opencode plugin lagune@0.16.0 --force.
+En OpenCode 2.x, ejecuta opencode plugin update lagune y después opencode reload. En OpenCode 1.x, ejecuta opencode plugin lagune@0.17.0 --force.
 
 ### ¿Cómo ejecuto los comandos de Lagune en OpenCode?
 

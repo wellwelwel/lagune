@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/get-started/commands
 Langue: fr-FR
 Original: https://lagune.ai/docs/get-started/commands
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Une fois **Lagune** [installé](https://lagune.ai/fr-FR/docs), votre agent **IA** débloque un ensemble de skills. Il y a deux façons de les utiliser, toutes deux encadrées par la **charter** : sécuriser le nouveau travail pendant que vous le construisez, ou lancer l'audit complet d'un projet.
 

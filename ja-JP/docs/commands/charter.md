@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/charter
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/charter
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🧬 プロジェクトがどんなものかを **Lagune** に伝えると、それをセキュリティのルールに落とし込みます（説明がなくても、プロジェクトそのものからルールを導き出します）。
 
@@ -61,6 +61,10 @@ charter は全体を統括するレイヤーで、後続のすべてのフェー
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## 除外を提案するフォルダー
+
+charter がプロジェクトを読み取る中で、コミットされてはいても守るべきプロジェクトのコードではないフォルダー（脆弱に見えるように書かれたテスト用フィクスチャなど）が見つかると、要約の最後に番号を付けて一覧にします。悪意のあるリポジトリは自分のコードをフィクスチャに見せかけられるため、charter が自分の判断で除外することはなく、記録されるのは返信で指定した番号のものだけです。自分で変更する方法は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ## 次のステップ
 

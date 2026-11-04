@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/agent
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/agent
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 `agent` hook 会标记**不设轮次、预算或时间上限就循环运行的智能体运行时**，这种失控的自主性漏洞会让一条精心构造的输入造成无上限的成本，或让提示词注入不断升级。它**能识别语言**，覆盖两大智能体框架生态：**JavaScript**（**Claude** 智能体 SDK 的 `query` 运行时）和 **Python**（**LangChain**、**LangGraph**、**CrewAI**、**OpenAI Agents**）。它是 [`llm` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
 
@@ -47,6 +47,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
 
 不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `agent` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 **尽力而为，并非详尽无遗**
 

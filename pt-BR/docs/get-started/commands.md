@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/get-started/commands
 Idioma: pt-BR
 Original: https://lagune.ai/docs/get-started/commands
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 Depois que o **Lagune** está [instalado](https://lagune.ai/pt-BR/docs), o seu agente de **IA** ganha um conjunto de skills. Há duas formas de usá-las, e as duas são regidas pelo **charter**: proteger o trabalho novo enquanto você o constrói ou rodar a auditoria completa em um projeto.
 

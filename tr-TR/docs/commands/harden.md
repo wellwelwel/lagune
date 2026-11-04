@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/harden
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/harden
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 🔧 Plandaki düzeltmeleri kodunuza güvenli bir şekilde ve tek tek uygulayın.
 

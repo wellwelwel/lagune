@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/charter
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/charter
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 🧬 告诉 **Lagune** 你的项目是做什么的，它会据此制定你的安全规则（如果你不提供描述，它也能仅凭项目本身推断出来）。
 
@@ -61,6 +61,10 @@ charter 是治理层：一套安全优先的原则，后续每个阶段都必须
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## 它建议排除的文件夹
+
+如果 charter 在解读项目时发现某些已提交的文件夹并不是你的项目需要防护的代码，例如写得看起来存在漏洞的测试夹具，它会在摘要末尾按编号列出这些文件夹。由于恶意仓库可以把自己的代码伪装成测试夹具，charter 从不自行排除任何文件夹，只会记录你回复的编号。如何自己修改它们，见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 ## 下一步
 

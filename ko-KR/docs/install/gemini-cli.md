@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/gemini-cli
 언어: ko-KR
 원문: https://lagune.ai/docs/install/gemini-cli
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 터미널에서 확장 프로그램을 설치하세요:
 

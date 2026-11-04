@@ -3,7 +3,7 @@
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -180,6 +180,14 @@ The prompts load the specializations this audit relies on directly, whatever you
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+The repository's own `.gitignore` files and configs could hide files from the checkers, so set the `checkers` block of `.lagune/configs.json` to [scan everything](https://lagune.ai/docs/hooks/configure), replacing any block the repository ships:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Danger**

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/charter
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/charter
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 🧬 **Lagune**'ye projenizin ne olduğunu anlatın, o da bunu güvenlik kurallarınıza dönüştürsün (ya da hiçbir açıklama olmadan kuralları yalnızca projeden çıkarsın).
 
@@ -61,6 +61,10 @@ Kategoriler kaydedildikten sonra charter onlara dokunmaz ve yalnızca projenizin
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## Dışarıda bırakmayı önerdiği klasörler
+
+Charter, projeyi okurken savunulacak kodunuzun parçası olmayan commit edilmiş klasörler bulduğunda (örneğin savunmasız görünmek üzere yazılmış test fixture'ları), bunları özetinin sonunda numaralandırarak listeler. Düşmanca bir depo kendi kodunu fixture gibi gösterebileceği için hiçbirini kendi başına dışarıda bırakmaz ve yalnızca yanıtınızda belirttiğiniz numaraları kaydeder. Bunları kendiniz nasıl değiştireceğinizi [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfası anlatır.
 
 ## Sırada ne var
 

@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/qwen-code
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/qwen-code
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez l'extension depuis votre terminal :
 

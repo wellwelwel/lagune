@@ -5,9 +5,9 @@
 표준 URL: https://lagune.ai/ko-KR/docs/references/configs-schema
 언어: ko-KR
 원문: https://lagune.ai/docs/references/configs-schema
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
-`.lagune/configs.json` 파일은 프로젝트가 사용하는 [**카테고리**](https://lagune.ai/ko-KR/docs/categories)를 기록하고, 프로젝트가 직접 만든 [**전문 지식**](https://lagune.ai/ko-KR/docs/catalog)의 색인을 담습니다. 이 파일의 JSON Schema를 사용하면 파일을 편집하는 동안 에디터가 각 필드를 자동 완성하고, 오타나 알 수 없는 카테고리를 잡아냅니다.
+`.lagune/configs.json` 파일은 프로젝트가 사용하는 [**카테고리**](https://lagune.ai/ko-KR/docs/categories)를 기록하고, 프로젝트가 직접 만든 [**전문 지식**](https://lagune.ai/ko-KR/docs/catalog)의 색인을 담으며, [**검사기**](https://lagune.ai/ko-KR/docs/hooks/configure)가 제외할 대상을 정합니다. 이 파일의 JSON Schema를 사용하면 파일을 편집하는 동안 에디터가 각 필드를 자동 완성하고, 오타나 알 수 없는 카테고리를 잡아냅니다.
 
 ## 최신 스키마
 

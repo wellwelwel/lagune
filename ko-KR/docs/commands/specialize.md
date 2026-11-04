@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/specialize
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/specialize
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 🎓 자료나 주제를 주고 **Lagune**에 새 전문 지식을 가르치세요.
 

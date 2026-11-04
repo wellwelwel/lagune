@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/get-started/dashboard
 Idioma: pt-BR
 Original: https://lagune.ai/docs/get-started/dashboard
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 Execute o **Lagune** diretamente, sem subcomando, para ter uma visão interativa e ao vivo de `.lagune/`. Ele serve um dashboard e o abre em uma porta aleatória:
 

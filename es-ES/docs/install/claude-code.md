@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/claude-code
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/claude-code
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 **Terminal**
 

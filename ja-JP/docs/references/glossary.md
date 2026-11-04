@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/references/glossary
 言語: ja-JP
 原文: https://lagune.ai/docs/references/glossary
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 Lagune と Security-Driven Hardening の方法論で要となる用語をすべて、わかりやすい言葉で一度ずつ定義します。
 

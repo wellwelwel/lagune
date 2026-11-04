@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/regex
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/regex
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `regex` フックは、[`regex` 専門知識](https://lagune.ai/ja-JP/docs/catalog) が実行する、正規表現の安全性を判定する決定論的なエンジンで、自分で実行することもできます。1 つのコマンドで 2 つのモードが使えます：**scan** モードはコードベースをスキャンして、**ReDoS** を起こしやすいパターンや実行時に組み立てられるパターンを探し、**check** モードは渡された 1 つのパターンを判定します。
 
@@ -93,6 +93,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | 0 以上の整数     | ReDoS の繰り返し回数の上限（デフォルトは 25）を設定する。両方のモードに適用。値が低いほど厳しい。                        |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` は check モードで、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`regex` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 対応言語
 

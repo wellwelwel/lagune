@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/secrets
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/secrets
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `secrets` 훅은 환경 변수에서 읽지 않고 **소스 코드에 박혀 있는 자격 증명**을 잡아냅니다. 값의 내용이 아니라 **출처**(리터럴인지, 환경 변수 조회인지)를 기준으로 판단하므로, 서비스 제공자별 접두사를 빠짐없이 모은 목록이 필요 없고 오탐도 거의 없습니다. [`secrets` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진입니다.
 
@@ -29,6 +29,24 @@ npx lagune read secrets --file config.ts # scans a single file
 | `--file` | 파일     | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능 |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `secrets` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 ### 언어별 지원 범위
 

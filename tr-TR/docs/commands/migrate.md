@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/migrate
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/migrate
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 🔀 Manifest tabanlı bir **Lagune** projesini, yazdığınız her şeyi koruyarak beceri tabanlı **Lagune**'ye taşıyın.
 

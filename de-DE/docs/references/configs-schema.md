@@ -5,9 +5,9 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/references/configs-schema
 Sprache: de-DE
 Original: https://lagune.ai/docs/references/configs-schema
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
-Die Datei `.lagune/configs.json` hält die [**Kategorien**](https://lagune.ai/de-DE/docs/categories) fest, die ein Projekt nutzt, und indexiert seine eigenen [**Spezialisierungen**](https://lagune.ai/de-DE/docs/catalog). Mit ihrem JSON Schema vervollständigt dein Editor jedes Feld automatisch und meldet einen Tippfehler oder eine unbekannte Kategorie, während du die Datei bearbeitest.
+Die Datei `.lagune/configs.json` hält die [**Kategorien**](https://lagune.ai/de-DE/docs/categories) fest, die ein Projekt nutzt, indexiert seine eigenen [**Spezialisierungen**](https://lagune.ai/de-DE/docs/catalog) und legt fest, was die [**Prüfprogramme**](https://lagune.ai/de-DE/docs/hooks/configure) auslassen. Mit ihrem JSON Schema vervollständigt dein Editor jedes Feld automatisch und meldet einen Tippfehler oder eine unbekannte Kategorie, während du die Datei bearbeitest.
 
 ## Das aktuelle Schema
 

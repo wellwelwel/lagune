@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/interpreter
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/interpreter
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `interpreter` フックは、**動的コード実行のシンク**を指摘します。データを実行可能なコードに変えたり、シェルに渡したりする構文のことで、`eval` からネイティブのデシリアライズまでが含まれます。言語を識別して動作し、各ファイルをその言語のルールで読み取ります。また、[`interpreter` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 
@@ -49,6 +49,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                                    |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`interpreter` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 対応言語
 

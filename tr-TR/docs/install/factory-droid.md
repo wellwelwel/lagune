@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/factory-droid
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/factory-droid
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 Eklentiyi terminalden kurun:
 

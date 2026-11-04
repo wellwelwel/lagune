@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/get-started/dashboard
 언어: ko-KR
 원문: https://lagune.ai/docs/get-started/dashboard
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 하위 명령어 없이 **Lagune**을 바로 실행하면 `.lagune/` 폴더를 인터랙티브한 실시간 뷰로 볼 수 있습니다. 임의의 포트에서 대시보드를 띄우고 엽니다:
 

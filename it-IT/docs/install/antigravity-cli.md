@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/antigravity-cli
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/antigravity-cli
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 Installa il plugin dal terminale:
 

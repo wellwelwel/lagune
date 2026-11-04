@@ -3,7 +3,7 @@
 > The skills your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 
 Canonical: https://lagune.ai/docs/get-started/commands
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 Once **Lagune** is [installed](https://lagune.ai/docs), your **AI** agent unlocks a set of skills. There are two ways to use them, and both are governed by the **charter**: secure new work as you build it, or run the full audit over a project.
 

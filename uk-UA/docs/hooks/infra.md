@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/infra
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/infra
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
 Хук `infra` позначає **помилки конфігурації інфраструктури як коду**, які можна визначити з самого файлу: мережу, відкриту для всього світу, дозвіл із wildcard, секрет у маніфесті, контейнер від root, недовірене значення в shell CI. Він читає лише файли IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). Це детермінований рушій [спеціалізації `infra`](https://lagune.ai/uk-UA/docs/catalog) у режимі **scan** або **check**.
 
@@ -44,6 +44,24 @@ npx lagune read infra --kind dockerfile --pattern 'FROM node:20'    # => mutable
 | `--file`    | файл                                            | Обмежити перевірку одним файлом. Повторюється й поєднується з `--dir`. |
 
 Без параметрів хук перевіряє кожен файл IaC у проєкті. `--pattern` не поєднується з `--dir` чи `--file`.
+
+### Виберіть, що перевіряти
+
+Хук пропускає те, що ігнорує **Git**. Щоб виключити більше або перевіряти те, що ігнорує **Git**, задайте хуку `infra` власні налаштування:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+Усі налаштування описано на сторінці [Налаштування хуків](https://lagune.ai/uk-UA/docs/hooks/configure).
 
 **Порада**
 

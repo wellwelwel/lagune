@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/grok-build
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/grok-build
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
 Встановіть плагін із термінала:
 

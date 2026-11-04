@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/secrets
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/secrets
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 O hook `secrets` sinaliza **credenciais embutidas no código-fonte** em vez de lidas do ambiente. Ele se baseia na **procedência** (um literal versus uma leitura do ambiente), não no conteúdo do valor, então não precisa de um catálogo exaustivo de prefixos de provedores e quase não gera falsos positivos. É o engine determinístico por trás da [especialização `secrets`](https://lagune.ai/pt-BR/docs/catalog).
 
@@ -29,6 +29,24 @@ A varredura imprime até duas seções. **Hardcoded secrets found** é o conjunt
 | `--file` | um arquivo   | Limita a varredura a um único arquivo. Pode ser repetida e combinada com `--dir`. |
 
 Sem nenhuma opção, ele varre o projeto inteiro.
+
+### Escolha o que ele varre
+
+Ele deixa de fora o que o **Git** ignora. Para deixar mais coisas de fora, ou para varrer o que o **Git** ignora, dê ao `secrets` configurações próprias:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Todas as configurações estão em [Configure os hooks](https://lagune.ai/pt-BR/docs/hooks/configure).
 
 ### Cobertura de linguagens
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/cvss
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/cvss
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `cvss` フックは **CVSS v4.0 ベクトル**のスコアを算出し、スコアと深刻度の区分を出力します。これは [`/lagune-plan`](https://lagune.ai/ja-JP/docs/commands/plan) が各修正に、[`/lagune-prove`](https://lagune.ai/ja-JP/docs/commands/prove) が各セキュリティアドバイザリに記載する評価です。フックはこうした評価を支える決定論的なエンジンで、[FIRST の計算ツール](https://www.first.org/cvss/calculator/4.0) と同じ計算方法を使っており、自分で実行することもできます。
 

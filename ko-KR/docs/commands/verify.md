@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/verify
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/verify
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 ⚖️ 코드를 읽고 harden 단계가 기록한 내용과 대조해 적용한 각 수정이 실제로 효과가 있는지 증명한 뒤, 효과가 증명된 항목을 마무리합니다.
 

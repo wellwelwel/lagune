@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/migrate
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/migrate
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 🔀 将基于 manifest 的 **Lagune** 项目迁移到基于 skills 的 **Lagune**，你写过的一切都会保留。
 

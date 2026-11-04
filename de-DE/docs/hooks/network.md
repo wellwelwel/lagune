@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/network
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/network
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `network` entscheidet, ob das Ziel einer serverseitigen Anfrage vor **SSRF** sicher ist (einer Anfrage, die sich auf interne Dienste, Cloud-Metadaten oder private Hosts richten lässt). Er ist die deterministische Engine hinter der [Spezialisierung `network`](https://lagune.ai/de-DE/docs/catalog), und du kannst ihn selbst ausführen.
 

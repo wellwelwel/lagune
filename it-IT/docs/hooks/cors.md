@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/hooks/cors
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/cors
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 L'hook `cors` è il motore deterministico dietro la [specializzazione `http-request`](https://lagune.ai/it-IT/docs/catalog), e puoi eseguirlo tu stesso. Funziona in due modalità con un solo comando: uno **scan** che analizza il sorgente alla ricerca di una **allowlist di origini aggirabile** (una regex di validazione dell'host che un host malevolo riesce a superare) e uno **score** che classifica un singolo valore di **origine CORS** come `wildcard`, `null` o `safe`.
 
@@ -90,6 +90,24 @@ Solo `safe` è un via libera, e `--origin` è un oracolo dei valori: giudica il 
 | `--file`   | un file       | Limita l'analisi a un singolo file. Si ripete e si combina con `--dir`.    |
 
 Senza opzioni analizza l'intero progetto. `--origin` è la modalità score e non si può combinare con `--dir` o `--file`.
+
+### Scegli cosa analizza
+
+Lascia fuori ciò che **Git** ignora. Per lasciare fuori altro, o per analizzare ciò che **Git** ignora, assegna impostazioni proprie a `cors`:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tutte le impostazioni sono in [Configura gli hook](https://lagune.ai/it-IT/docs/hooks/configure).
 
 **Cosa non copre**
 

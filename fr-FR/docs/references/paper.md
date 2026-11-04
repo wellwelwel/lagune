@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/references/paper
 Langue: fr-FR
 Original: https://lagune.ai/docs/references/paper
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 - **Weslley Araújo**
 - **Article méthodologique, 2026.**
@@ -22,7 +22,7 @@ Ce document soutient que le SDH est une convention qui manquait, et non un outil
 
 > **Mots-clés**
 >
-> développement assisté par IA, sécurité logicielle, sécurité défensive, spec-driven development, durcissement de la sécurité, workflows pilotés par agent, clôturabilité, sécurité adaptée au contexte, connaissances à la demande, outillage indépendant de l'agent.
+> Développement assisté par IA, sécurité logicielle, sécurité défensive, spec-driven development, durcissement de la sécurité, workflows pilotés par agent, clôturabilité, sécurité adaptée au contexte, connaissances à la demande, outillage indépendant de l'agent.
 
 ---
 

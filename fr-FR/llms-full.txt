@@ -13,7 +13,7 @@ Lagune est un workflow de Security-Driven Hardening (SDH) open source et exclusi
 Canonique: https://lagune.ai/fr-FR/docs
 Langue: fr-FR
 Original: https://lagune.ai/docs
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **Lagune** aide votre agent IA à rendre un projet plus sûr. Vous le pointez vers votre code, et l'agent comprend ce que fait réellement votre système, puis vous guide dans le travail de sécurité qui compte pour lui. **Lagune** est le premier projet de la méthodologie [Security-Driven Hardening (SDH)](https://lagune.ai/fr-FR/docs/references/paper).
 
@@ -43,7 +43,7 @@ Vous aimez **Lagune** ? [Donnez-nous une ⭐ sur **GitHub**](https://github.com
 **Info**
 
 - **Lagune** tourne sur **Node.js** en coulisses, mais vous utilisez le langage que vous voulez.
-- Pour fonctionner entièrement hors ligne, installez **Lagune** dans votre projet avec `npm i -D lagune@0.16.0`.
+- Pour fonctionner entièrement hors ligne, installez **Lagune** dans votre projet avec `npm i -D lagune@0.17.0`.
 
 ## Catégories
 
@@ -198,7 +198,7 @@ Copyright © 2026-aujourd'hui [Weslley Araújo](https://github.com/wellwelwel) e
 Canonique: https://lagune.ai/fr-FR/docs/install/antigravity-cli
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/antigravity-cli
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -263,7 +263,7 @@ Oui. Autorisez mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write) e
 Canonique: https://lagune.ai/fr-FR/docs/install/claude-code
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/claude-code
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **Terminal**
 
@@ -365,7 +365,7 @@ Oui. Autorisez mcp__plugin_lagune_lagune__lagune_read et mcp__plugin_lagune_lagu
 Canonique: https://lagune.ai/fr-FR/docs/install/codex
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/codex
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -393,7 +393,7 @@ Tapez `$` et la commande sous le nom du plugin, suivie de votre demande, comme `
 Le sandbox de **Codex** n'a pas d'accès réseau. Installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## Questions fréquentes
@@ -412,7 +412,7 @@ Tapez $ et la commande sous le nom du plugin, suivie de votre demande, comme $la
 
 ### Lagune fonctionne-t-il dans le sandbox de Codex ?
 
-Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.16.0 depuis votre propre terminal, une fois puis après chaque mise à jour.
+Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.17.0 depuis votre propre terminal, une fois puis après chaque mise à jour.
 
 ---
 
@@ -423,7 +423,7 @@ Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.16.0 
 Canonique: https://lagune.ai/fr-FR/docs/install/cursor
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/cursor
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **Cursor**
 
@@ -515,7 +515,7 @@ Oui. Le mode Auto-review par défaut de Cursor l'autorise déjà. Dans la Cursor
 Canonique: https://lagune.ai/fr-FR/docs/install/devin-cli
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/devin-cli
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Connectez-vous à **Devin**, puis installez le plugin depuis votre terminal :
 
@@ -559,7 +559,7 @@ Tapez-les sous le nom du plugin, comme /lagune:lagune-charter. Le menu / les lis
 Canonique: https://lagune.ai/fr-FR/docs/install/factory-droid
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/factory-droid
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -614,7 +614,7 @@ Oui. Choisissez de toujours autoriser lagune_read et lagune_write quand Factory 
 Canonique: https://lagune.ai/fr-FR/docs/install/gemini-cli
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/gemini-cli
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez l'extension depuis votre terminal :
 
@@ -687,7 +687,7 @@ Oui. Ajoutez une règle de politique qui autorise les outils lagune_read et lagu
 Canonique: https://lagune.ai/fr-FR/docs/install/github-copilot-cli
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/github-copilot-cli
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -738,7 +738,7 @@ Oui. Dans VS Code ou un autre éditeur, installez Lagune avec skills.sh plutôt 
 Canonique: https://lagune.ai/fr-FR/docs/install/grok-build
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/grok-build
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -798,7 +798,7 @@ Oui. Autorisez MCPTool(lagune__lagune_read) et MCPTool(lagune__lagune_write) dan
 Canonique: https://lagune.ai/fr-FR/docs/install/hermes-agent
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/hermes-agent
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -844,7 +844,7 @@ Tapez-les sous le nom du plugin, comme /lagune:lagune-charter et /lagune:lagune.
 Canonique: https://lagune.ai/fr-FR/docs/install/kimi-code
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/kimi-code
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis une session **Kimi Code**, choisissez **Trust and install**, puis démarrez une nouvelle session pour le charger :
 
@@ -889,7 +889,7 @@ Tapez-les sous le nom du plugin, comme /lagune:lagune-charter, ou comme les list
 Canonique: https://lagune.ai/fr-FR/docs/install/muse-code
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/muse-code
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -919,7 +919,7 @@ Tapez les commandes par leur nom, comme `/lagune-charter`, ou sous le nom du plu
 Le sandbox de **Muse Code** ne peut pas télécharger le moteur. Installez-le dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## Questions fréquentes
@@ -938,7 +938,7 @@ Tapez-les par leur nom, comme /lagune-charter, ou sous le nom du plugin, comme /
 
 ### Lagune fonctionne-t-il dans le sandbox de Muse Code ?
 
-Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.16.0 depuis votre propre terminal, une fois puis après chaque mise à jour.
+Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.17.0 depuis votre propre terminal, une fois puis après chaque mise à jour.
 
 ---
 
@@ -949,7 +949,7 @@ Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.16.0 
 Canonique: https://lagune.ai/fr-FR/docs/install/opencode
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/opencode
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **OpenCode 2.x**
 
@@ -999,7 +999,7 @@ opencode reload
 Pour mettre à jour **Lagune**, installez la nouvelle version par-dessus l'ancienne, en ajoutant `-g` si vous l'avez installé pour tous vos projets :
 
 ```bash
-opencode plugin lagune@0.16.0 --force
+opencode plugin lagune@0.17.0 --force
 ```
 
 ## Commandes
@@ -1026,7 +1026,7 @@ Sur OpenCode 2.x, exécutez opencode plugin add lagune. Sur OpenCode 1.x, exécu
 
 ### Comment mettre à jour Lagune sur OpenCode ?
 
-Sur OpenCode 2.x, exécutez opencode plugin update lagune, puis opencode reload. Sur OpenCode 1.x, exécutez opencode plugin lagune@0.16.0 --force.
+Sur OpenCode 2.x, exécutez opencode plugin update lagune, puis opencode reload. Sur OpenCode 1.x, exécutez opencode plugin lagune@0.17.0 --force.
 
 ### Comment exécuter les commandes de Lagune sur OpenCode ?
 
@@ -1045,7 +1045,7 @@ Non. OpenCode exécute les deux outils du moteur, lagune_read et lagune_write, s
 Canonique: https://lagune.ai/fr-FR/docs/install/pi
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/pi
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **npm**
 
@@ -1110,7 +1110,7 @@ Tapez-les avec le préfixe skill:, comme /skill:lagune-charter.
 Canonique: https://lagune.ai/fr-FR/docs/install/qwen-code
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/qwen-code
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez l'extension depuis votre terminal :
 
@@ -1175,7 +1175,7 @@ Oui. Autorisez mcp__lagune__lagune_read et mcp__lagune__lagune_write dans les pa
 Canonique: https://lagune.ai/fr-FR/docs/install/universal
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/universal
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **Terminal**
 
@@ -1219,10 +1219,10 @@ Installez **Lagune** avec **skills.sh** ou avec son **plugin**, jamais les deux.
 
 **Autorisations**
 
-Les commandes exécutent le moteur sous la forme `npx --yes lagune@0.16.0`, et la [page d'installation de chaque agent](https://lagune.ai/fr-FR/docs) indique la règle qui l'autorise dès le départ. Dans un sandbox sans accès réseau, installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
+Les commandes exécutent le moteur sous la forme `npx --yes lagune@0.17.0`, et la [page d'installation de chaque agent](https://lagune.ai/fr-FR/docs) indique la règle qui l'autorise dès le départ. Dans un sandbox sans accès réseau, installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## Questions fréquentes
@@ -1248,7 +1248,7 @@ Non. Avec les deux, l'agent liste chaque commande deux fois, ou utilise une copi
 Canonique: https://lagune.ai/fr-FR/docs/get-started/commands
 Langue: fr-FR
 Original: https://lagune.ai/docs/get-started/commands
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Une fois **Lagune** [installé](https://lagune.ai/fr-FR/docs), votre agent **IA** débloque un ensemble de skills. Il y a deux façons de les utiliser, toutes deux encadrées par la **charter** : sécuriser le nouveau travail pendant que vous le construisez, ou lancer l'audit complet d'un projet.
 
@@ -1329,7 +1329,7 @@ Un audit en cinq phases : charter (fixer les règles), detect (cartographier le
 Canonique: https://lagune.ai/fr-FR/docs/get-started/dashboard
 Langue: fr-FR
 Original: https://lagune.ai/docs/get-started/dashboard
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Exécutez **Lagune** directement, sans sous-commande, pour obtenir une vue interactive et en direct de `.lagune/`. Il sert un tableau de bord et l'ouvre sur un port aléatoire :
 
@@ -1381,7 +1381,7 @@ Seulement ses catégories, depuis votre navigateur. Tout le reste de ce qu'affic
 Canonique: https://lagune.ai/fr-FR/docs/commands/lagune
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/lagune
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 ⌨️ Faites le travail demandé, sécurisé au fil de l'écriture. **`/lagune`** accepte n'importe quel prompt, à n'importe quelle étape, construit ce que vous vouliez et le durcit avec des valeurs par défaut sûres avant de vous le rendre.
 
@@ -1475,7 +1475,7 @@ Ajoutez au fichier d'instructions de votre agent (AGENTS.md, CLAUDE.md, .cursorr
 Canonique: https://lagune.ai/fr-FR/docs/commands/charter
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/charter
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🧬 Dites à **Lagune** ce qu'est votre projet, et il le transforme en règles de sécurité (ou, sans description, il les déduit du projet seul).
 
@@ -1532,6 +1532,10 @@ npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
 
+## Les dossiers qu'il propose d'exclure
+
+Quand la lecture de la charter trouve des dossiers commités qui ne relèvent pas du code que votre projet doit défendre, comme des fixtures de test écrites pour sembler vulnérables, elle les liste par numéro à la fin de son résumé. Elle n'en exclut jamais aucun d'elle-même, car un dépôt hostile peut faire passer son code pour des fixtures, si bien que seuls les numéros que vous donnez en réponse sont enregistrés. [Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) explique comment les modifier vous-même.
+
 ## Étape suivante
 
 Les règles fixées, cartographiez ce que fait réellement votre système : [`/lagune-detect`](https://lagune.ai/fr-FR/docs/commands/detect).
@@ -1563,7 +1567,7 @@ Seulement tant qu'aucune n'est enregistrée. Elle enregistre alors chaque catég
 Canonique: https://lagune.ai/fr-FR/docs/commands/detect
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/detect
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🔬 Découvrez ce que fait vraiment votre système et où se trouvent les risques.
 
@@ -1640,7 +1644,7 @@ Chacune de celles du catalogue de votre projet reçoit un verdict face au code. 
 Canonique: https://lagune.ai/fr-FR/docs/commands/plan
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/plan
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🛡️ Transformez ce que detect a trouvé en plan de défense : évaluez chaque constat avec une catégorie et un score CVSS v4.0, puis associez-le au correctif à appliquer.
 
@@ -1716,7 +1720,7 @@ Non. Plan ne lit jamais le code, ce qui oblige chaque correctif à pointer vers 
 Canonique: https://lagune.ai/fr-FR/docs/commands/harden
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/harden
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🔧 Appliquez à votre code les correctifs du plan, en toute sécurité et un par un.
 
@@ -1791,7 +1795,7 @@ C'est votre agent et le mode d'autorisation dans lequel vous l'exécutez qui dé
 Canonique: https://lagune.ai/fr-FR/docs/commands/verify
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/verify
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 ⚖️ Prouvez que chaque correctif appliqué est efficace, en lisant le code et en le confrontant à ce que harden a consigné, puis clôturez ceux qui passent la preuve.
 
@@ -1872,7 +1876,7 @@ Oui. Avec le SDH, la sécurité peut être clôturée : un constat dont la clô
 Canonique: https://lagune.ai/fr-FR/docs/categories
 Langue: fr-FR
 Original: https://lagune.ai/docs/categories
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **Lagune** regroupe ses [**spécialisations**](https://lagune.ai/fr-FR/docs/catalog) intégrées en **13 catégories**. Les catégories qu'utilise un projet déterminent quelles spécialisations intégrées rejoignent son [**catalogue**](https://lagune.ai/fr-FR/docs/catalog), et elles se répartissent en deux : ce que fait le système, et le langage dans lequel il est écrit.
 
@@ -1968,7 +1972,7 @@ Commencez par owasp, la valeur par défaut, puis ajoutez celle de votre langage 
 Canonique: https://lagune.ai/fr-FR/docs/catalog
 Langue: fr-FR
 Original: https://lagune.ai/docs/catalog
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🧠 Les spécialisations de **Lagune** sont des modules de connaissances en sécurité ciblés et indépendants du langage, qui ne se chargent qu'à la demande, jamais par défaut. Ce ne sont pas des commandes. Le catalogue de votre projet est l'ensemble qu'il utilise : les spécialisations intégrées de ses [catégories](https://lagune.ai/fr-FR/docs/categories) plus les siennes. Les phases detect et verify y font appel pendant leur exécution, et vous pouvez en charger une directement à tout moment.
 
@@ -2101,7 +2105,7 @@ Dans le même prompt que la tâche, demandez à votre agent d'exécuter npx lagu
 Canonique: https://lagune.ai/fr-FR/docs/commands/specialize
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/specialize
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🎓 Apprenez à **Lagune** une nouvelle spécialisation, à partir d'une source ou d'un sujet que vous lui donnez.
 
@@ -2177,7 +2181,7 @@ Non. Il affine, il n'écrase jamais.
 Canonique: https://lagune.ai/fr-FR/docs/commands/prove
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/prove
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🧪 Transformez chaque constat détecté en élément de preuve exécutable et exclusivement défensif, pour la divulgation responsable.
 
@@ -2265,6 +2269,83 @@ Prove écrit un avis de sécurité autonome que vous pouvez partager par un cana
 
 ---
 
+# Configurer les hooks : choisir ce qu'ils analysent
+
+> Choisissez ce que les hooks qui analysent des fichiers laissent de côté, pour tous ou pour un seul.
+
+Canonique: https://lagune.ai/fr-FR/docs/hooks/configure
+Langue: fr-FR
+Original: https://lagune.ai/docs/hooks/configure
+Dernière mise à jour: 2026-11-04
+
+Le bloc `checkers` de `.lagune/configs.json` définit ce que les hooks qui analysent des fichiers laissent de côté, pour tous ou pour un seul.
+
+## Configuration
+
+Ajoutez ou retirez des chemins et des motifs en ligne de commande, en mettant un motif entre guillemets pour que le shell le laisse tel quel :
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+Ou définissez-les dans le fichier :
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### Paramètres
+
+| Clé         | Valeur                                       | Défaut | Description                                                                                                 |
+| ----------- | -------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
+| `gitignore` | `true` ou `false`                            | `true` | Laisse de côté ce que **Git** ignore. Un fichier que **Git** suit est analysé dans tous les cas.            |
+| `ignore`    | chemins ou motifs depuis la racine du projet | `[]`   | Laisse de côté ce que chacun désigne et tout ce qui se trouve en dessous, même un fichier que **Git** suit. |
+
+Au premier niveau de `checkers`, une clé s'applique à tous les vérificateurs. Sous le nom d'un vérificateur, elle ne s'applique qu'à lui et remplace la clé commune, si bien que dans l'exemple `secrets` analyse ce que **Git** ignore et laisse de côté `test/fixtures` et `temp`. Quand `write add --ignore` donne à un vérificateur sa première liste propre, cette liste commence par une copie de la liste commune.
+
+### Motifs
+
+Un motif part de la racine du projet, donc `*.generated.ts` n'atteint que les fichiers qui s'y trouvent et `**/*.generated.ts` les atteint à n'importe quelle profondeur. Les noms doivent correspondre exactement, casse comprise.
+
+| Motif               | Laisse de côté                                            |
+| ------------------- | --------------------------------------------------------- |
+| `dist`              | `dist` à la racine du projet                              |
+| `packages/*/dist`   | `dist` dans chaque dossier sous `packages`                |
+| `**/dist`           | chaque `dist`, à n'importe quelle profondeur              |
+| `**/*.generated.ts` | chaque fichier dont le nom se termine par `.generated.ts` |
+| `fixture-?`         | `fixture-a`, `fixture-1` et les noms du même genre        |
+| `[ab]-cache`        | `a-cache` et `b-cache`                                    |
+| `[*]x`              | `*x`, avec un `*` littéral                                |
+
+## Lire le résultat
+
+Le rapport se termine par le nombre de chemins que l'analyse a laissés de côté, selon ce qui les ignore :
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+Un chemin indiqué avec `--dir` ou `--file` est analysé quoi que disent les paramètres. Un paramètre que le moteur ne peut pas lire arrête le vérificateur avec une erreur qui le nomme, par exemple un motif qui commence par `!` ou par une espace, qui sort du projet, qui laisse un crochet ouvert ou dont la correspondance prend trop de temps.
+
+## Questions fréquentes
+
+### Lagune définit-il ces paramètres à ma place ?
+
+Non. La charter liste les dossiers commités qui, d'après sa lecture, ne relèvent pas du code que vous avez à défendre, comme des fixtures de test écrites pour sembler vulnérables, et n'enregistre que ceux que vous choisissez par numéro.
+
+### Quand un vérificateur doit-il analyser ce que Git ignore ?
+
+Quand vous n'avez pas de raison de faire confiance au dépôt, car ses propres fichiers .gitignore pourraient cacher du code, ou quand un dossier de build peut contenir une clé intégrée au moment du build. Réglez gitignore sur false pour tous les vérificateurs ou pour un seul.
+
+---
+
 # Hook agent : détecter les boucles d'agent sans limite
 
 > Analysez une base de code à la recherche d'appels d'agent ou de LLM sans limite d'étapes ni de temps, ou évaluez un seul appel, en ligne de commande.
@@ -2272,7 +2353,7 @@ Prove écrit un avis de sécurité autonome que vous pouvez partager par un cana
 Canonique: https://lagune.ai/fr-FR/docs/hooks/agent
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/agent
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `agent` signale les **runtimes d'agent qui bouclent sans limite de tours, de budget ni de temps**, la faille d'autonomie incontrôlée qui transforme une entrée forgée en coût illimité ou en escalade par injection de prompt. Il est **adapté au langage** et couvre les deux écosystèmes de frameworks d'agents : **JavaScript** (le runtime `query` du SDK d'agent de **Claude**) et **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). C'est le moteur déterministe derrière la [spécialisation `llm`](https://lagune.ai/fr-FR/docs/catalog), que vous pouvez exécuter vous-même en mode **scan** ou **check**.
 
@@ -2315,6 +2396,24 @@ Chaque ligne sous **Uncapped agent loops found** correspond, dans un fichier qui
 
 Sans option, il analyse tout le projet. `--pattern` exige `--lang` et ne peut pas être combinée avec `--dir` ou `--file`.
 
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `agent` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
+
 **Au mieux, pas de façon exhaustive**
 
 Une boucle d'agent écrite à la main, dans n'importe quel langage, échappe à une analyse statique. Considérez ceci comme un socle solide, pas comme un inventaire complet.
@@ -2338,7 +2437,7 @@ Un agent sans limite peut être entraîné dans une récursion, un coût ou une 
 Canonique: https://lagune.ai/fr-FR/docs/hooks/cors
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/cors
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `cors` est le moteur déterministe derrière la [spécialisation `http-request`](https://lagune.ai/fr-FR/docs/catalog), et vous pouvez l'exécuter vous-même. Il fonctionne en deux modes depuis une seule commande : une **analyse** qui parcourt le code source à la recherche d'une **liste d'origines autorisées contournable** (une regex de validation d'hôte qu'un hôte attaquant parvient à franchir), et une **évaluation** qui classe une seule valeur d'**origine CORS** en `wildcard`, `null` ou `safe`.
 
@@ -2424,6 +2523,24 @@ Seul `safe` vaut autorisation, et `--origin` est un oracle de valeur : il juge 
 
 Sans option, il analyse tout le projet. `--origin` correspond au mode d'évaluation et ne peut pas être combinée avec `--dir` ou `--file`.
 
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `cors` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
+
 **Ce qu'il ne couvre pas**
 
 L'analyse lit la forme de la **regex contournable**, et `--origin` évalue des **valeurs** d'origine. Deux motifs au niveau du code restent hors de portée : la réflexion de l'`Origin` de la requête (le serveur renvoie l'`Origin` reçue, ou l'associe aux identifiants) et une liste permissive par `endsWith` ou par sous-chaîne. Repérez-les dans le code et traitez-les comme le décrit la [spécialisation `http-request`](https://lagune.ai/fr-FR/docs/catalog).
@@ -2447,7 +2564,7 @@ Exécutez npx lagune read cors sur la base de code. Il signale une regex de vali
 Canonique: https://lagune.ai/fr-FR/docs/hooks/crypto
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/crypto
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `crypto` signale les **primitives cryptographiques faibles** à l'endroit de l'appel : un chiffrement obsolète, un mode non sûr ou une empreinte cassée. Il est **adapté au langage** et lit chaque fichier selon ses propres règles, donc une construction Python n'est jamais signalée dans un fichier Rust. C'est le moteur déterministe derrière la [spécialisation `crypto`](https://lagune.ai/fr-FR/docs/catalog), que vous pouvez exécuter vous-même en mode **scan** ou **check**.
 
@@ -2490,6 +2607,24 @@ L'analyse affiche jusqu'à deux sections. **Weak cryptography found** est l'ense
 | `--file`    | un fichier         | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`.                     |
 
 Sans option, il analyse tout le projet. `--pattern` exige `--lang` et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `crypto` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
 
 ### Langages pris en charge
 
@@ -2534,7 +2669,7 @@ Seulement comme piste à examiner dans un contexte de sécurité, jamais comme c
 Canonique: https://lagune.ai/fr-FR/docs/hooks/cvss
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/cvss
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `cvss` note un **vecteur CVSS v4.0** et affiche son score et sa tranche de gravité, l'évaluation que [`/lagune-plan`](https://lagune.ai/fr-FR/docs/commands/plan) écrit sur chaque correctif et [`/lagune-prove`](https://lagune.ai/fr-FR/docs/commands/prove) sur chaque avis de sécurité. C'est le moteur déterministe derrière ces évaluations, avec la même arithmétique que le [calculateur de FIRST](https://www.first.org/cvss/calculator/4.0), et vous pouvez l'exécuter vous-même.
 
@@ -2632,7 +2767,7 @@ Elle relit chaque métrique en langage courant et affiche le score Base à côt�
 Canonique: https://lagune.ai/fr-FR/docs/hooks/infra
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/infra
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `infra` signale les **erreurs de configuration de l'infrastructure as code** qu'il est possible de trancher à partir du fichier : un réseau ouvert au monde entier, une autorisation générique, un secret dans un manifeste, un conteneur root, une valeur non fiable dans un shell de CI. Il ne lit que les fichiers IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). C'est le moteur déterministe derrière la [spécialisation `infra`](https://lagune.ai/fr-FR/docs/catalog), en mode **scan** ou **check**.
 
@@ -2672,6 +2807,24 @@ Le mode check affiche le tag de plus haute gravité qu'il a reconnu (par exemple
 
 Sans option, il analyse tous les fichiers IaC du projet. `--pattern` ne peut pas être combinée avec `--dir` ou `--file`.
 
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `infra` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
+
 **Astuce**
 
 Le hook repère les cas flagrants et tranchables : l'absence de chiffrement, l'exposition via `pull_request_target` et le bon périmètre IAM relèvent du jugement que couvre toujours la [spécialisation `infra`](https://lagune.ai/fr-FR/docs/catalog).
@@ -2691,7 +2844,7 @@ Terraform/HCL (.tf, .tf.json, .hcl), les Dockerfiles, et le YAML des workflows e
 Canonique: https://lagune.ai/fr-FR/docs/hooks/interpreter
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/interpreter
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `interpreter` signale les **sinks d'exécution dynamique de code** : les constructions qui transforment des données en code exécuté ou les confient à un shell, d'`eval` à la désérialisation native. Il est adapté au langage et lit chaque fichier selon ses propres règles. C'est le moteur déterministe derrière la [spécialisation `interpreter`](https://lagune.ai/fr-FR/docs/catalog), que vous pouvez exécuter vous-même en mode **scan** ou **check**.
 
@@ -2735,6 +2888,24 @@ Raisonnez sur chaque sink de façon **statique**, en traçant si une entrée non
 | `--file`    | un fichier         | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`.                     |
 
 Sans option, il analyse tout le projet. `--pattern` exige `--lang` et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `interpreter` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
 
 ### Langages pris en charge
 
@@ -2781,7 +2952,7 @@ Il lit les langages du tableau Langages pris en charge, selon l'extension du fic
 Canonique: https://lagune.ai/fr-FR/docs/hooks/jwt
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/jwt
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `jwt` signale les **vérifications JWT sans algorithme épinglé**, la faille de confusion d'algorithme où le vérificateur fait confiance à l'en-tête `alg` du jeton lui-même, ainsi que la **vérification entièrement désactivée**. Il est **adapté au langage** et lit chaque fichier selon sa propre bibliothèque JWT. C'est le moteur déterministe derrière la [spécialisation `federation`](https://lagune.ai/fr-FR/docs/catalog), que vous pouvez exécuter vous-même en mode **scan** ou **check**.
 
@@ -2824,6 +2995,24 @@ Chaque ligne sous **Unpinned JWT verification found** est un appel de vérificat
 
 Sans option, il analyse tout le projet. `--pattern` exige `--lang` et ne peut pas être combinée avec `--dir` ou `--file`.
 
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `jwt` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
+
 ### Langages pris en charge
 
 L'analyse lit ces bibliothèques, selon l'extension du fichier. Comme certaines épinglent l'algorithme implicitement (l'absence de liste explicite est alors saine), la règle "pas de liste ⇒ unpinned" ne s'applique que là où la bibliothèque attend une liste explicite, donc un appel correctement configuré n'est jamais signalé.
@@ -2858,7 +3047,7 @@ Un vérificateur qui lit l'algorithme dans l'en-tête du jeton permet à un atta
 Canonique: https://lagune.ai/fr-FR/docs/hooks/network
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/network
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `network` détermine si une destination de requête côté serveur est à l'abri du **SSRF** (une requête qui peut être dirigée vers des services internes, des métadonnées cloud ou des hôtes privés). C'est le moteur déterministe derrière la [spécialisation `network`](https://lagune.ai/fr-FR/docs/catalog), et vous pouvez l'exécuter vous-même.
 
@@ -2942,7 +3131,7 @@ Une URL que des analyseurs différents lisent différemment, un contournement cl
 Canonique: https://lagune.ai/fr-FR/docs/hooks/regex
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/regex
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `regex` est le moteur déterministe de sûreté des regex qu'exécute la [spécialisation `regex`](https://lagune.ai/fr-FR/docs/catalog), et vous pouvez l'exécuter vous-même. Il fonctionne en deux modes depuis une seule commande : une **analyse** qui parcourt une base de code à la recherche de motifs exposés au **ReDoS** et de motifs construits à l'exécution, et une **vérification** qui évalue un seul motif que vous lui donnez.
 
@@ -3030,6 +3219,24 @@ La première section est un constat de sécurité. La deuxième et la troisième
 | `--limit`   | un entier positif ou nul | Fixe la limite de répétition du ReDoS (25 par défaut). S'applique aux deux modes. Une limite plus basse est plus stricte. |
 
 Sans option, il analyse tout le projet. `--pattern` correspond au mode check et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `regex` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
 
 ### Langages pris en charge
 
@@ -3137,7 +3344,7 @@ Exécutez le hook regex en mode scan sur la base de code. Il signale les motifs 
 Canonique: https://lagune.ai/fr-FR/docs/hooks/secrets
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/secrets
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `secrets` signale les **identifiants compilés dans le code source** au lieu d'être lus depuis l'environnement. Il se fonde sur la **provenance** (un littéral face à une lecture de l'environnement), pas sur le contenu de la valeur, donc il n'a besoin d'aucun catalogue exhaustif de préfixes de fournisseurs et ne produit presque aucun faux positif. C'est le moteur déterministe derrière la [spécialisation `secrets`](https://lagune.ai/fr-FR/docs/catalog).
 
@@ -3161,6 +3368,24 @@ L'analyse affiche jusqu'à deux sections. **Hardcoded secrets found** est l'ense
 | `--file` | un fichier    | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`. |
 
 Sans option, il analyse tout le projet.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `secrets` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
 
 ### Langages couverts
 
@@ -3190,7 +3415,7 @@ Il se fonde sur la provenance, pas sur le contenu de la valeur. Les formats à h
 Canonique: https://lagune.ai/fr-FR/docs/examples/prompts
 Langue: fr-FR
 Original: https://lagune.ai/docs/examples/prompts
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Des prompts Lagune prêts à copier, à coller directement dans votre agent IA.
 
@@ -3369,6 +3594,14 @@ Les prompts chargent directement les spécialisations sur lesquelles repose cet 
 npx lagune write add --categories owasp ai javascript
 ```
 
+Les fichiers `.gitignore` et les configurations propres au dépôt pourraient cacher des fichiers aux vérificateurs. Réglez donc le bloc `checkers` de `.lagune/configs.json` pour [tout analyser](https://lagune.ai/fr-FR/docs/hooks/configure), en remplaçant tout bloc fourni par le dépôt :
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
+```
+
 **Danger**
 
 Soyez prudent lorsque vous exécutez des projets de sources non fiables dans votre environnement local. Utilisez un environnement isolé, comme un **sandbox** (recommandé), une **VM** ou équivalent, pour empêcher du code malveillant d'affecter votre système.
@@ -3444,7 +3677,7 @@ Pour être clair : chaque vulnérabilité cartographiée doit être traitée com
 Canonique: https://lagune.ai/fr-FR/docs/references/paper
 Langue: fr-FR
 Original: https://lagune.ai/docs/references/paper
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 - **Weslley Araújo**
 - **Article méthodologique, 2026.**
@@ -3461,7 +3694,7 @@ Ce document soutient que le SDH est une convention qui manquait, et non un outil
 
 > **Mots-clés**
 >
-> développement assisté par IA, sécurité logicielle, sécurité défensive, spec-driven development, durcissement de la sécurité, workflows pilotés par agent, clôturabilité, sécurité adaptée au contexte, connaissances à la demande, outillage indépendant de l'agent.
+> Développement assisté par IA, sécurité logicielle, sécurité défensive, spec-driven development, durcissement de la sécurité, workflows pilotés par agent, clôturabilité, sécurité adaptée au contexte, connaissances à la demande, outillage indépendant de l'agent.
 
 ---
 
@@ -4015,7 +4248,7 @@ Lagune en est la preuve, mais la contribution est la convention. Le SDH est prop
 Canonique: https://lagune.ai/fr-FR/docs/references/glossary
 Langue: fr-FR
 Original: https://lagune.ai/docs/references/glossary
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Chaque terme structurant de Lagune et de la méthodologie Security-Driven Hardening, défini une seule fois, en langage courant.
 
@@ -4114,9 +4347,9 @@ Quand verify prouve qu'un risque est clôturé, le constat est retiré : suppri
 Canonique: https://lagune.ai/fr-FR/docs/references/configs-schema
 Langue: fr-FR
 Original: https://lagune.ai/docs/references/configs-schema
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
-`.lagune/configs.json` enregistre les [**catégories**](https://lagune.ai/fr-FR/docs/categories) qu'utilise un projet et indexe ses propres [**spécialisations**](https://lagune.ai/fr-FR/docs/catalog). Son JSON Schema permet à votre éditeur d'autocompléter chaque champ et de signaler une faute de frappe ou une catégorie inconnue pendant que vous modifiez le fichier.
+`.lagune/configs.json` enregistre les [**catégories**](https://lagune.ai/fr-FR/docs/categories) qu'utilise un projet, indexe ses propres [**spécialisations**](https://lagune.ai/fr-FR/docs/catalog) et définit ce que les [**vérificateurs**](https://lagune.ai/fr-FR/docs/hooks/configure) laissent de côté. Son JSON Schema permet à votre éditeur d'autocompléter chaque champ et de signaler une faute de frappe ou une catégorie inconnue pendant que vous modifiez le fichier.
 
 ## Le schéma actuel
 
@@ -4173,7 +4406,7 @@ Quand le projet utilise une version précise de Lagune, pour que votre éditeur 
 Canonique: https://lagune.ai/fr-FR/docs/references/deepsec
 Langue: fr-FR
 Original: https://lagune.ai/docs/references/deepsec
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 [Lagune](https://github.com/wellwelwel/lagune) et [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) sont deux réponses défensives au même problème : la sécurité à l'ère du développement assisté par IA. Leur prémisse, leur début, leur milieu et leur fin, ainsi que la façon dont chacun se présente à l'utilisateur, divergent par conception, même là où leurs mécanismes se recoupent.
 
@@ -4338,7 +4571,7 @@ Lagune, oui : harden applique des correctifs à votre code. Deepsec, non : il 
 Canonique: https://lagune.ai/fr-FR/docs/references/owasp-sources
 Langue: fr-FR
 Original: https://lagune.ai/docs/references/owasp-sources
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Ce document met en correspondance chaque **attaque** (`www-community`) et chaque **Cheat Sheet** (`CheatSheetSeries`) de l'OWASP avec une catégorie de sécurité, chacune liée à sa page publique canonique. Au sein d'une catégorie, les éléments équivalents partagent une seule ligne de la checklist : les attaques et les cheat sheets qui traitent le même risque sont listées ensemble, séparées par des virgules. Les éléments sans équivalent direct ont leur propre ligne.
 
@@ -4696,7 +4929,7 @@ Ce ne sont pas des terrains de spécialisation et ils n'ont pas de case à coche
 Canonique: https://lagune.ai/fr-FR/docs/commands/repair
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/repair
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🧰 Réparez la chaîne quand un renommage ou un fichier déplacé la perturbe.
 
@@ -4732,7 +4965,7 @@ Dans le même passage, il vérifie chaque artefact de la mémoire par rapport à
 Canonique: https://lagune.ai/fr-FR/docs/commands/migrate
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/migrate
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 🔀 Passez un projet **Lagune** à manifeste au **Lagune** fondé sur les skills, en gardant tout ce que vous avez écrit.
 

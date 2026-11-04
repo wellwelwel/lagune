@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/plan
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/plan
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 🛡️ detect 단계가 찾은 내용을 방어 계획으로 바꿉니다. 각 발견 사항에 카테고리와 CVSS v4.0 점수를 매기고, 적용할 수정을 짝지어 줍니다.
 

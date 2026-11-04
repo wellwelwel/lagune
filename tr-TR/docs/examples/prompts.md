@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/examples/prompts
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/examples/prompts
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 Doğrudan yapay zeka ajanınıza yapıştırabileceğiniz, kopyalamaya hazır Lagune prompt'ları.
 
@@ -182,6 +182,14 @@ Prompt'lar bu denetimin dayandığı uzmanlıkları, projenizin kategorileri ne 
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Deponun kendi `.gitignore` dosyaları ve yapılandırmaları dosyaları denetleyicilerden gizleyebilir, bu yüzden deponun getirdiği her bloğun yerine, `checkers` bloğunu `.lagune/configs.json` dosyasında [her şeyi tarayacak](https://lagune.ai/tr-TR/docs/hooks/configure) şekilde ayarlayın:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Tehlike**

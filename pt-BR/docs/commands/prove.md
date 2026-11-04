@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/commands/prove
 Idioma: pt-BR
 Original: https://lagune.ai/docs/commands/prove
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 🧪 Transforme cada achado detectado em uma evidência executável e exclusivamente defensiva para divulgação responsável.
 

@@ -3,7 +3,7 @@
 > Scan source for a bypassable CORS origin allowlist, or score a single origin value for over-permissive access, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/cors
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 The `cors` hook is the deterministic engine behind the [`http-request` specialization](https://lagune.ai/docs/catalog), and you can run it yourself. It works in two modes from one command: a **scan** that sweeps source for a **bypassable origin allowlist** (a host-validation regex an attacker host slips past), and a **score** that rates a single **CORS origin** value as `wildcard`, `null`, or `safe`.
 
@@ -88,6 +88,24 @@ Only `safe` is an allow, and `--origin` is a value oracle: it judges the value, 
 | `--file`   | a file      | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
 With no option it scans the whole project. `--origin` is the score mode and cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `cors` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
 **What it does not cover**
 

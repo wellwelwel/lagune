@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/examples/prompts
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/examples/prompts
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
 Готові до копіювання промпти Lagune, які можна вставити просто у ваш ШІ-агент.
 
@@ -182,6 +182,14 @@
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Власні файли `.gitignore` і конфігурації репозиторію можуть приховати файли від перевіряльників, тож налаштуйте блок `checkers` у `.lagune/configs.json` так, щоб [перевіряти все](https://lagune.ai/uk-UA/docs/hooks/configure), замінивши будь-який блок, що постачається з репозиторієм:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Небезпека**

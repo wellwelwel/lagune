@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/prove
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/prove
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 🧪 탐지한 발견 사항 하나하나를 책임 있는 공개에 쓸 수 있는, 실행 가능한 방어 전용 증거로 만드세요.
 

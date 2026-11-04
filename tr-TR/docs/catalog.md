@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/catalog
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/catalog
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 🧠 **Lagune**'nin uzmanlıkları, yalnızca talep üzerine yüklenen, asla varsayılan olarak yüklenmeyen, dilden bağımsız ve odaklı güvenlik bilgisi modülleridir. Komut değildirler. Projenizin kataloğu, projenin kullandığı kümedir: [kategorilerinin](https://lagune.ai/tr-TR/docs/categories) yerleşik uzmanlıkları ile projenin kendi uzmanlıkları. Detect ve verify fazları çalışırken onlara başvurur, siz de herhangi birini istediğiniz zaman doğrudan yükleyebilirsiniz.
 

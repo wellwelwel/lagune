@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/secrets
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/secrets
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `secrets` フックは、環境から読み込むのではなく、**ソースコードに埋め込まれている認証情報**を指摘します。判断の基準は値の中身ではなく**出どころ**（リテラルか、環境からの読み込みか）なので、プロバイダーごとのプレフィックスを網羅した一覧は必要なく、誤検知もほとんど出ません。[`secrets` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンです。
 
@@ -29,6 +29,24 @@ npx lagune read secrets --file config.ts # scans a single file
 | `--file`   | ファイル     | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。 |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`secrets` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 言語ごとの対応範囲
 

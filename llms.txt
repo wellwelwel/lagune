@@ -37,6 +37,7 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 - [Catalog: On-Demand Security Specializations](https://lagune.ai/docs/catalog.md): How the specializations in your project's catalog are loaded, by a phase on demand, and by you directly.
 - [/lagune-specialize: Train a Security Specialization with Plain Text](https://lagune.ai/docs/commands/specialize.md): Distill a security source or topic you give it into a new on-demand specialization.
 - [/lagune-prove: Defense-Only Proof of Concept](https://lagune.ai/docs/commands/prove.md): Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
+- [Configure the hooks: Choose what they scan](https://lagune.ai/docs/hooks/configure.md): Choose what the hooks that scan files leave out, for all of them or for one.
 - [agent hook: Detect uncapped agent loops](https://lagune.ai/docs/hooks/agent.md): Sweep a codebase for agent/LLM calls with no step or time cap, or score a single call, from the command line.
 - [cors hook: Audit CORS origins](https://lagune.ai/docs/hooks/cors.md): Scan source for a bypassable CORS origin allowlist, or score a single origin value for over-permissive access, from the command line.
 - [crypto hook: Detect weak cryptography](https://lagune.ai/docs/hooks/crypto.md): Sweep a codebase for weak cryptographic primitives, or score a single snippet, from the command line.

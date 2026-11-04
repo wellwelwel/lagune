@@ -5,9 +5,9 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/configs-schema
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/configs-schema
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
-`.lagune/configs.json` записує [**категорії**](https://lagune.ai/uk-UA/docs/categories), які використовує проєкт, і індексує його власні [**спеціалізації**](https://lagune.ai/uk-UA/docs/catalog). Його JSON Schema дає вашому редактору змогу автодоповнювати кожне поле й позначати друкарську помилку чи невідому категорію ще під час редагування файлу.
+`.lagune/configs.json` записує [**категорії**](https://lagune.ai/uk-UA/docs/categories), які використовує проєкт, індексує його власні [**спеціалізації**](https://lagune.ai/uk-UA/docs/catalog) і визначає, що пропускають [**перевіряльники**](https://lagune.ai/uk-UA/docs/hooks/configure). Його JSON Schema дає вашому редактору змогу автодоповнювати кожне поле й позначати друкарську помилку чи невідому категорію ще під час редагування файлу.
 
 ## Поточна схема
 

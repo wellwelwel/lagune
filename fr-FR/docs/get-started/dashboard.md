@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/get-started/dashboard
 Langue: fr-FR
 Original: https://lagune.ai/docs/get-started/dashboard
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Exécutez **Lagune** directement, sans sous-commande, pour obtenir une vue interactive et en direct de `.lagune/`. Il sert un tableau de bord et l'ouvre sur un port aléatoire :
 

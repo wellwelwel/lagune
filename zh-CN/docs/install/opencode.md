@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/opencode
 语言: zh-CN
 原文: https://lagune.ai/docs/install/opencode
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 **OpenCode 2.x**
 
@@ -55,7 +55,7 @@ opencode reload
 直接在旧版本上安装新版本即可更新 **Lagune**。如果你是为所有项目安装的，就加上 `-g`：
 
 ```bash
-opencode plugin lagune@0.16.0 --force
+opencode plugin lagune@0.17.0 --force
 ```
 
 ## 命令
@@ -82,7 +82,7 @@ opencode plugin lagune@0.16.0 --force
 
 ### 如何在 OpenCode 中更新 Lagune？
 
-在 OpenCode 2.x 中，运行 opencode plugin update lagune，然后运行 opencode reload。在 OpenCode 1.x 中，运行 opencode plugin lagune@0.16.0 --force。
+在 OpenCode 2.x 中，运行 opencode plugin update lagune，然后运行 opencode reload。在 OpenCode 1.x 中，运行 opencode plugin lagune@0.17.0 --force。
 
 ### 如何在 OpenCode 中运行 Lagune 的命令？
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/references/deepsec
 言語: ja-JP
 原文: https://lagune.ai/docs/references/deepsec
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 [Lagune](https://github.com/wellwelwel/lagune) と [Deepsec](https://github.com/vercel-labs/deepsec)（`v2.2.1`）は、AI 支援開発の時代のセキュリティという同じ課題に対する、2 つの防御的な答えです。仕組みが重なる部分はあっても、前提も、始まりから終わりまでの流れも、ユーザーへの見せ方も、意図して異なるように作られています。
 

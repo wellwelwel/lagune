@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/lagune
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/lagune
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 ⌨️ 요청한 작업을, 작성하는 순간부터 안전하게 완성합니다. **`/lagune`** 명령어는 어느 단계에서든 어떤 프롬프트든 받아 원하는 것을 만들고, 결과를 돌려주기 전에 안전한 기본값으로 보안을 강화합니다.
 

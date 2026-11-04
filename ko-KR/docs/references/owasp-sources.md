@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/references/owasp-sources
 언어: ko-KR
 원문: https://lagune.ai/docs/references/owasp-sources
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 이 문서는 OWASP의 모든 **공격**(`www-community`)과 **Cheat Sheet**(`CheatSheetSeries`) 항목을 보안 카테고리에 대응시키고, 각 항목을 공식 공개 페이지에 연결합니다. 한 카테고리 안에서 같은 위험을 다루는 공격과 Cheat Sheet는 체크리스트 한 줄에 쉼표로 구분해 함께 나열합니다. 직접 대응하는 짝이 없는 항목은 한 줄을 단독으로 차지합니다.
 

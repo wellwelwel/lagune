@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/specialize
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/specialize
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 🎓 根据你提供的资料或主题，教 **Lagune** 一个新专项。
 

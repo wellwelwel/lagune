@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/regex
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/regex
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `regex` hook'u, [`regex` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) çalıştırdığı deterministik regex güvenliği motorudur ve onu kendiniz çalıştırabilirsiniz. Tek bir komutla iki modda çalışır: kod tabanını **ReDoS**'a yatkın ve çalışma zamanında oluşturulan örüntülere karşı tarayan **scan** ve verdiğiniz tek bir örüntüyü puanlayan **check**.
 
@@ -93,6 +93,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | negatif olmayan bir tam sayı | ReDoS tekrar sınırını belirler (varsayılan 25). Her iki modda da geçerlidir. Daha düşük bir sınır daha katıdır.  |
 
 Seçenek verilmezse tüm proje taranır. `--pattern` check modudur ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `regex` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 ### Desteklenen diller
 

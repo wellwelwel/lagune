@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/jwt
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/jwt
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `jwt` hook'u, **algoritması sabitlenmemiş JWT doğrulamasını**, yani doğrulayıcının token'ın kendi `alg` başlığına güvendiği algoritma karışıklığı açığını ve **tamamen kapatılmış doğrulamayı** işaretler. **Dile duyarlıdır**, her dosyayı kullandığı JWT kütüphanesine göre okur. [`federation` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -47,6 +47,24 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 | `--file`    | bir dosya       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.                       |
 
 Seçenek verilmezse tüm proje taranır. `--pattern`, `--lang` gerektirir ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `jwt` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 ### Desteklenen diller
 

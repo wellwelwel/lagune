@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/catalog
 Sprache: de-DE
 Original: https://lagune.ai/docs/catalog
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 🧠 Die Spezialisierungen von **Lagune** sind fokussierte, sprachunabhängige Module mit Sicherheitswissen, die nur bei Bedarf geladen werden, nie standardmäßig. Sie sind keine Befehle. Der Katalog deines Projekts ist die Auswahl, die es nutzt: die integrierten Spezialisierungen seiner [Kategorien](https://lagune.ai/de-DE/docs/categories) plus seine eigenen. Die Phasen detect und verify ziehen sie während ihres Laufs heran, und du kannst jederzeit direkt eine laden.
 

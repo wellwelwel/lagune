@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/codex
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/codex
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 Eklentiyi terminalden kurun:
 
@@ -33,7 +33,7 @@ codex plugin marketplace upgrade lagune
 **Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## Sıkça sorulan sorular
@@ -52,4 +52,4 @@ $ yazın, ardından eklentinin adıyla birlikte komutu ve girdinizi yazın, örn
 
 ### Lagune, Codex korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.16.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.17.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.

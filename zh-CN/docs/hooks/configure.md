@@ -1,0 +1,74 @@
+# 配置 hook：选择扫描范围
+
+> 选择扫描文件的 hook 要跳过哪些内容，可以对所有 hook 统一设置，也可以单独设置某一个。
+
+规范链接: https://lagune.ai/zh-CN/docs/hooks/configure
+语言: zh-CN
+原文: https://lagune.ai/docs/hooks/configure
+最后更新: 2026-11-04
+
+`checkers` 块位于 `.lagune/configs.json` 中，用来设定扫描文件的 hook 要跳过哪些内容，可以对所有 hook 统一设置，也可以单独设置某一个。
+
+## 如何配置
+
+在命令行中添加或移除路径和模式。模式要用引号括起来，这样 shell 才会原样保留：
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+也可以直接写在文件里：
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### 设置项
+
+| 键          | 值                           | 默认值 | 说明                                                                      |
+| ----------- | ---------------------------- | ------ | ------------------------------------------------------------------------- |
+| `gitignore` | `true` 或 `false`            | `true` | 跳过 **Git** 忽略的内容。**Git** 跟踪的文件无论如何都会扫描。             |
+| `ignore`    | 从项目根目录开始的路径或模式 | `[]`   | 跳过每一项匹配的内容及其下的所有内容，即使是 **Git** 跟踪的文件也会跳过。 |
+
+写在 `checkers` 顶层的键对所有检查器生效。写在某个检查器名下的键只对该检查器生效，并取代共享的键，因此在上面的示例中，`secrets` 会扫描 **Git** 忽略的内容，并跳过 `test/fixtures` 和 `temp`。当 `write add --ignore` 第一次为某个检查器创建它自己的列表时，这个列表会先复制一份共享列表。
+
+### 模式
+
+模式从项目根目录开始匹配，因此 `*.generated.ts` 只匹配根目录下的文件，而 `**/*.generated.ts` 会匹配任意深度的文件。名称必须完全一致，包括大小写。
+
+| 模式                | 跳过的内容                                 |
+| ------------------- | ------------------------------------------ |
+| `dist`              | 项目根目录下的 `dist`                      |
+| `packages/*/dist`   | `dist`（位于 `packages` 下的每个文件夹中） |
+| `**/dist`           | 任意深度的所有 `dist`                      |
+| `**/*.generated.ts` | 名称以 `.generated.ts` 结尾的所有文件      |
+| `fixture-?`         | `fixture-a`、`fixture-1` 等                |
+| `[ab]-cache`        | `a-cache` 和 `b-cache`                     |
+| `[*]x`              | `*x`（其中 `*` 是字面字符）                |
+
+## 如何解读结果
+
+报告末尾会按忽略来源列出扫描跳过了多少条路径：
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+用 `--dir` 或 `--file` 指定的路径，无论设置如何都会扫描。如果引擎无法读取某个设置，检查器会报错并停止，错误信息会指出这个设置，例如以 `!` 或空格开头、跳出项目范围、方括号未闭合，或匹配耗时过长的模式。
+
+## 常见问题
+
+### Lagune 会自动帮我设置这些吗？
+
+不会。charter 会列出它解读项目后认为不属于你需要防护的代码的已提交文件夹，例如写得看起来存在漏洞的测试夹具，并且只记录你按编号选中的那些。
+
+### 什么时候应该让检查器扫描 Git 忽略的内容？
+
+当这个仓库不值得你信任时（它自带的 .gitignore 文件可能会藏起代码），或者构建文件夹里可能带有构建时内联进去的密钥时。你可以为所有检查器或某一个检查器把 gitignore 设为 false。

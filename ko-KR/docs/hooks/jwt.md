@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/jwt
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/jwt
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `jwt` 훅은 **알고리즘을 고정하지 않은 JWT 검증**과 **아예 꺼 버린 검증**을 잡아냅니다. 알고리즘을 고정하지 않은 검증은 검증하는 쪽이 토큰에 적힌 `alg` 헤더를 그대로 믿게 되는 알고리즘 혼동 허점입니다. **언어를 인식해** 파일마다 그 파일이 쓰는 JWT 라이브러리에 맞춰 읽습니다. 또한 [`federation` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
 
@@ -47,6 +47,24 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 | `--file`    | 파일      | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능                          |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션에는 `--lang` 옵션이 필요하며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `jwt` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 ### 지원 언어
 

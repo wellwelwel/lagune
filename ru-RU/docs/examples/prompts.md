@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/examples/prompts
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/examples/prompts
-Последнее обновление: 2026-11-03
+Последнее обновление: 2026-11-04
 
 Готовые промпты Lagune, которые можно сразу вставить в своего ИИ-агента.
 
@@ -182,6 +182,14 @@
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Собственные файлы `.gitignore` и конфигурации репозитория могут скрыть файлы от проверок, поэтому настройте блок `checkers` в `.lagune/configs.json` так, чтобы [сканировать все](https://lagune.ai/ru-RU/docs/hooks/configure), заменив любой блок, который поставляется вместе с репозиторием:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 **Опасно**

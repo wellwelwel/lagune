@@ -3,7 +3,7 @@
 > Turn each detected finding into a runnable, defense-only proof of concept (PoC) and advisory for responsible disclosure.
 
 Canonical: https://lagune.ai/docs/commands/prove
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 🧪 Turn each detected finding into runnable, defense-only evidence for responsible disclosure.
 

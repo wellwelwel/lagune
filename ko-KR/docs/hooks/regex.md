@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/regex
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/regex
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `regex` 훅은 [`regex` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)이 실행하는 결정론적 정규식 안전성 엔진이며, 직접 실행할 수도 있습니다. 명령어 하나로 두 가지 모드를 쓸 수 있습니다: **scan** 모드는 **ReDoS**에 취약한 패턴과 런타임에 만들어지는 패턴이 있는지 코드베이스를 스캔하고, **check** 모드는 건네받은 패턴 하나에 점수를 매깁니다.
 
@@ -93,6 +93,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | 0 이상의 정수 | ReDoS 반복 한도 설정(기본값 25). 두 모드 모두에 적용. 한도가 낮을수록 더 엄격              |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션은 check 모드이며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `regex` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 ### 지원 언어
 

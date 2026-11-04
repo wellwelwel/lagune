@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/get-started/dashboard
 言語: ja-JP
 原文: https://lagune.ai/docs/get-started/dashboard
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 サブコマンドを付けずに **Lagune** を直接実行すると、`.lagune/` をインタラクティブなライブビューで確認できます。ランダムなポートでダッシュボードを起動して開きます：
 

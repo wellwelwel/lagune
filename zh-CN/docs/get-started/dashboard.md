@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/get-started/dashboard
 语言: zh-CN
 原文: https://lagune.ai/docs/get-started/dashboard
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 不带子命令直接运行 **Lagune**，就能获得 `.lagune/` 的交互式实时视图。它会在一个随机端口上启动仪表盘并打开它：
 

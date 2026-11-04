@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/interpreter
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/interpreter
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `interpreter` hook'u **dinamik kod çalıştırma sink'lerini** işaretler: `eval`'den yerel seri durumdan çıkarmaya kadar, veriyi çalışan koda dönüştüren ya da bir kabuğa aktaran yapılar. Dile duyarlıdır, her dosyayı kendi kurallarıyla okur. [`interpreter` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -49,6 +49,24 @@ Her sink'i **statik olarak** değerlendirin ve güvenilmeyen bir girdinin ona ul
 | `--file`    | bir dosya       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.                               |
 
 Seçenek verilmezse tüm proje taranır. `--pattern`, `--lang` gerektirir ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `interpreter` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 ### Desteklenen diller
 

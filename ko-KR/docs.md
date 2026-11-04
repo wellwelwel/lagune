@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs
 언어: ko-KR
 원문: https://lagune.ai/docs
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 **Lagune**은 AI 에이전트가 프로젝트를 더 안전하게 만들도록 돕습니다. 코드를 대상으로 실행하면 에이전트가 시스템이 실제로 하는 일을 파악하고, 그 시스템에 중요한 보안 작업을 차근차근 안내합니다. **Lagune**은 [Security-Driven Hardening (SDH)](https://lagune.ai/ko-KR/docs/references/paper) 방법론의 첫 번째 프로젝트입니다.
 
@@ -35,7 +35,7 @@
 **정보**
 
 - **Lagune**은 내부적으로 **Node.js**에서 실행되지만, 개발 언어는 무엇이든 자유롭게 쓸 수 있습니다.
-- 완전히 오프라인으로 실행하려면 `npm i -D lagune@0.16.0` 명령어로 프로젝트에 **Lagune**을 설치하세요.
+- 완전히 오프라인으로 실행하려면 `npm i -D lagune@0.17.0` 명령어로 프로젝트에 **Lagune**을 설치하세요.
 
 ## 카테고리
 

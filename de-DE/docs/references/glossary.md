@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/references/glossary
 Sprache: de-DE
 Original: https://lagune.ai/docs/references/glossary
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Jeder zentrale Begriff von Lagune und der Methodik Security-Driven Hardening, einmal definiert und in einfacher Sprache.
 

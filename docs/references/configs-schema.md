@@ -3,9 +3,9 @@
 > The JSON Schema for a Lagune project's configs, for autocompletion and validation in your editor, following the current Lagune or pinned to a version.
 
 Canonical: https://lagune.ai/docs/references/configs-schema
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
-`.lagune/configs.json` records the [**categories**](https://lagune.ai/docs/categories) a project uses and indexes its own [**specializations**](https://lagune.ai/docs/catalog). Its JSON Schema lets your editor autocomplete each field and flag a typo or an unknown category as you edit the file.
+`.lagune/configs.json` records the [**categories**](https://lagune.ai/docs/categories) a project uses, indexes its own [**specializations**](https://lagune.ai/docs/catalog), and sets what the [**checkers**](https://lagune.ai/docs/hooks/configure) leave out. Its JSON Schema lets your editor autocomplete each field and flag a typo or an unknown category as you edit the file.
 
 ## The current schema
 

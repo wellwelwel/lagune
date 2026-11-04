@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/universal
 语言: zh-CN
 原文: https://lagune.ai/docs/install/universal
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 **终端**
 
@@ -49,10 +49,10 @@ npx skills update
 
 **权限**
 
-这些命令以 `npx --yes lagune@0.16.0` 的形式运行引擎，每个 [智能体的安装页面](https://lagune.ai/zh-CN/docs) 都列出了预先允许它的规则。如果沙箱无法访问网络，就在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
+这些命令以 `npx --yes lagune@0.17.0` 的形式运行引擎，每个 [智能体的安装页面](https://lagune.ai/zh-CN/docs) 都列出了预先允许它的规则。如果沙箱无法访问网络，就在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## 常见问题

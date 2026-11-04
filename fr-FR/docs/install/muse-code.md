@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/muse-code
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/muse-code
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Installez le plugin depuis votre terminal :
 
@@ -35,7 +35,7 @@ Tapez les commandes par leur nom, comme `/lagune-charter`, ou sous le nom du plu
 Le sandbox de **Muse Code** ne peut pas télécharger le moteur. Installez-le dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## Questions fréquentes
@@ -54,4 +54,4 @@ Tapez-les par leur nom, comme /lagune-charter, ou sous le nom du plugin, comme /
 
 ### Lagune fonctionne-t-il dans le sandbox de Muse Code ?
 
-Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.16.0 depuis votre propre terminal, une fois puis après chaque mise à jour.
+Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.17.0 depuis votre propre terminal, une fois puis après chaque mise à jour.

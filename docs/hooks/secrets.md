@@ -3,7 +3,7 @@
 > Sweep a codebase for hardcoded credentials from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/secrets
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 The `secrets` hook flags **credentials compiled into the source** instead of read from the environment. It keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` specialization](https://lagune.ai/docs/catalog).
 
@@ -27,6 +27,24 @@ The scan prints up to two sections. **Hardcoded secrets found** is the finding s
 | `--file` | a file      | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
 With no option it scans the whole project.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `secrets` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
 ### Language coverage
 

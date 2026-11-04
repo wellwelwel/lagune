@@ -13,7 +13,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 正規 URL: https://lagune.ai/ja-JP/docs
 言語: ja-JP
 原文: https://lagune.ai/docs
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **Lagune** は、AI エージェントがプロジェクトをより安全にするのを手伝います。コードに対して実行すると、エージェントはシステムが実際に何をしているかを把握したうえで、そのシステムにとって重要なセキュリティ作業を順に案内します。**Lagune** は、[Security-Driven Hardening (SDH)](https://lagune.ai/ja-JP/docs/references/paper) という方法論の最初のプロジェクトです。
 
@@ -43,7 +43,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 **備考**
 
 - **Lagune** は内部で **Node.js** を使って動作しますが、開発に使う言語は自由です。
-- 完全にオフラインで実行するには、`npm i -D lagune@0.16.0` で **Lagune** をプロジェクトにインストールします。
+- 完全にオフラインで実行するには、`npm i -D lagune@0.17.0` で **Lagune** をプロジェクトにインストールします。
 
 ## カテゴリ
 
@@ -198,7 +198,7 @@ Copyright © 2026-present [Weslley Araújo](https://github.com/wellwelwel) お�
 正規 URL: https://lagune.ai/ja-JP/docs/install/antigravity-cli
 言語: ja-JP
 原文: https://lagune.ai/docs/install/antigravity-cli
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルからプラグインをインストールします：
 
@@ -263,7 +263,7 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 
 正規 URL: https://lagune.ai/ja-JP/docs/install/claude-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/claude-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **ターミナル**
 
@@ -365,7 +365,7 @@ claude plugin marketplace update lagune を実行してから claude plugin upda
 正規 URL: https://lagune.ai/ja-JP/docs/install/codex
 言語: ja-JP
 原文: https://lagune.ai/docs/install/codex
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルからプラグインをインストールします：
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** のサンドボックスはネットワークにアクセスできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## よくある質問
@@ -412,7 +412,7 @@ $lagune:lagune-charter のように、$ に続けてプラグイン名付きの�
 
 ### Codex のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.16.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.17.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -423,7 +423,7 @@ $lagune:lagune-charter のように、$ に続けてプラグイン名付きの�
 正規 URL: https://lagune.ai/ja-JP/docs/install/cursor
 言語: ja-JP
 原文: https://lagune.ai/docs/install/cursor
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **Cursor**
 
@@ -515,7 +515,7 @@ Cursor では、Customize で lagune マーケットプレイスの Refresh を�
 正規 URL: https://lagune.ai/ja-JP/docs/install/devin-cli
 言語: ja-JP
 原文: https://lagune.ai/docs/install/devin-cli
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **Devin** にサインインしてから、ターミナルからプラグインをインストールします：
 
@@ -559,7 +559,7 @@ devin plugins update lagune を実行します。
 正規 URL: https://lagune.ai/ja-JP/docs/install/factory-droid
 言語: ja-JP
 原文: https://lagune.ai/docs/install/factory-droid
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルからプラグインをインストールします：
 
@@ -614,7 +614,7 @@ droid plugin marketplace update lagune を実行してから、droid plugin upda
 正規 URL: https://lagune.ai/ja-JP/docs/install/gemini-cli
 言語: ja-JP
 原文: https://lagune.ai/docs/install/gemini-cli
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルから拡張機能をインストールします：
 
@@ -687,7 +687,7 @@ gemini extensions update lagune を実行するか、--auto-update を付けて�
 正規 URL: https://lagune.ai/ja-JP/docs/install/github-copilot-cli
 言語: ja-JP
 原文: https://lagune.ai/docs/install/github-copilot-cli
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルからプラグインをインストールします：
 
@@ -738,7 +738,7 @@ copilot plugin marketplace update lagune を実行してから、copilot plugin 
 正規 URL: https://lagune.ai/ja-JP/docs/install/grok-build
 言語: ja-JP
 原文: https://lagune.ai/docs/install/grok-build
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルからプラグインをインストールします：
 
@@ -798,7 +798,7 @@ grok plugin update lagune を実行します。
 正規 URL: https://lagune.ai/ja-JP/docs/install/hermes-agent
 言語: ja-JP
 原文: https://lagune.ai/docs/install/hermes-agent
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルからプラグインをインストールします：
 
@@ -844,7 +844,7 @@ hermes plugins update lagune を実行します。
 正規 URL: https://lagune.ai/ja-JP/docs/install/kimi-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/kimi-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **Kimi Code** のセッションからプラグインをインストールし、**Trust and install** を選んでから、新しいセッションを開始して読み込みます：
 
@@ -889,7 +889,7 @@ Kimi Code のセッションで /plugins install https://github.com/wellwelwel/l
 正規 URL: https://lagune.ai/ja-JP/docs/install/muse-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/muse-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルからプラグインをインストールします：
 
@@ -919,7 +919,7 @@ muse plugins install lagune@lagune
 **Muse Code** のサンドボックスはエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## よくある質問
@@ -938,7 +938,7 @@ muse plugins marketplace update lagune を実行してから、muse plugins remo
 
 ### Muse Code のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.16.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.17.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -949,7 +949,7 @@ muse plugins marketplace update lagune を実行してから、muse plugins remo
 正規 URL: https://lagune.ai/ja-JP/docs/install/opencode
 言語: ja-JP
 原文: https://lagune.ai/docs/install/opencode
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **OpenCode 2.x**
 
@@ -999,7 +999,7 @@ opencode reload
 **Lagune** を更新するには、新しいリリースを上書きインストールします。すべてのプロジェクトにインストールした場合は `-g` を付けます：
 
 ```bash
-opencode plugin lagune@0.16.0 --force
+opencode plugin lagune@0.17.0 --force
 ```
 
 ## コマンド
@@ -1026,7 +1026,7 @@ OpenCode 2.x では、opencode plugin add lagune を実行します。OpenCode 1
 
 ### OpenCode で Lagune を更新するにはどうすればよいですか？
 
-OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.16.0 --force を実行します。
+OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.17.0 --force を実行します。
 
 ### OpenCode で Lagune のコマンドを実行するにはどうすればよいですか？
 
@@ -1045,7 +1045,7 @@ OpenCode 2.x では、@ と入力して @lagune-charter などのコマンドを
 正規 URL: https://lagune.ai/ja-JP/docs/install/pi
 言語: ja-JP
 原文: https://lagune.ai/docs/install/pi
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **npm**
 
@@ -1110,7 +1110,7 @@ pi update npm:lagune を実行します。GitHub からインストールした�
 正規 URL: https://lagune.ai/ja-JP/docs/install/qwen-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/qwen-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ターミナルから拡張機能をインストールします：
 
@@ -1175,7 +1175,7 @@ qwen extensions update lagune を実行するか、--auto-update を付けて拡
 正規 URL: https://lagune.ai/ja-JP/docs/install/universal
 言語: ja-JP
 原文: https://lagune.ai/docs/install/universal
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **ターミナル**
 
@@ -1219,10 +1219,10 @@ npx skills update
 
 **権限**
 
-コマンドは `npx --yes lagune@0.16.0` でエンジンを実行します。これを事前に許可するルールは、各 [エージェントのインストールページ](https://lagune.ai/ja-JP/docs) に記載しています。ネットワークにアクセスできないサンドボックスでは、自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
+コマンドは `npx --yes lagune@0.17.0` でエンジンを実行します。これを事前に許可するルールは、各 [エージェントのインストールページ](https://lagune.ai/ja-JP/docs) に記載しています。ネットワークにアクセスできないサンドボックスでは、自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## よくある質問
@@ -1248,7 +1248,7 @@ npx skills update を実行するか、更新用のプロンプトをエージ�
 正規 URL: https://lagune.ai/ja-JP/docs/get-started/commands
 言語: ja-JP
 原文: https://lagune.ai/docs/get-started/commands
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **Lagune** を [インストール](https://lagune.ai/ja-JP/docs) すると、**AI** エージェントで一連のスキルが使えるようになります。使い方は 2 通りあり、どちらも**セキュリティ原則**に従います：開発しながら新しいコードを安全にするか、プロジェクト全体を監査するかです。
 
@@ -1329,7 +1329,7 @@ npx skills update を実行するか、更新用のプロンプトをエージ�
 正規 URL: https://lagune.ai/ja-JP/docs/get-started/dashboard
 言語: ja-JP
 原文: https://lagune.ai/docs/get-started/dashboard
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 サブコマンドを付けずに **Lagune** を直接実行すると、`.lagune/` をインタラクティブなライブビューで確認できます。ランダムなポートでダッシュボードを起動して開きます：
 
@@ -1381,7 +1381,7 @@ npx lagune
 正規 URL: https://lagune.ai/ja-JP/docs/commands/lagune
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/lagune
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ⌨️ 依頼した作業を、書くそばから安全な形で仕上げます。**`/lagune`** はどの段階でもどんなプロンプトでも受け付け、求められたものを構築し、引き渡す前に安全なデフォルト設定で堅牢化します。
 
@@ -1475,7 +1475,7 @@ detect も plan も、後片付けも不要です。**`/lagune`** は作った�
 正規 URL: https://lagune.ai/ja-JP/docs/commands/charter
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/charter
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🧬 プロジェクトがどんなものかを **Lagune** に伝えると、それをセキュリティのルールに落とし込みます（説明がなくても、プロジェクトそのものからルールを導き出します）。
 
@@ -1532,6 +1532,10 @@ npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
 
+## 除外を提案するフォルダー
+
+charter がプロジェクトを読み取る中で、コミットされてはいても守るべきプロジェクトのコードではないフォルダー（脆弱に見えるように書かれたテスト用フィクスチャなど）が見つかると、要約の最後に番号を付けて一覧にします。悪意のあるリポジトリは自分のコードをフィクスチャに見せかけられるため、charter が自分の判断で除外することはなく、記録されるのは返信で指定した番号のものだけです。自分で変更する方法は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
+
 ## 次のステップ
 
 ルールが決まったら、システムが実際に何をしているかを洗い出しましょう：[`/lagune-detect`](https://lagune.ai/ja-JP/docs/commands/detect)。
@@ -1563,7 +1567,7 @@ charter は Lagune の全体を統括するレイヤーで、後続のすべて�
 正規 URL: https://lagune.ai/ja-JP/docs/commands/detect
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/detect
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🔬 システムが実際に何をしているのか、どこにリスクがあるのかを突き止めます。
 
@@ -1640,7 +1644,7 @@ detect はコードを読み取り、実際に見つけたものだけを、後�
 正規 URL: https://lagune.ai/ja-JP/docs/commands/plan
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/plan
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🛡️ detect が見つけたものを防御計画に変えます：各検出事項をカテゴリと CVSS v4.0 スコアで評価し、適用する修正を割り当てます。
 
@@ -1716,7 +1720,7 @@ plan は [`/lagune-detect`](https://lagune.ai/ja-JP/docs/commands/detect) がす
 正規 URL: https://lagune.ai/ja-JP/docs/commands/harden
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/harden
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🔧 計画の修正を、安全に 1 つずつコードへ適用します。
 
@@ -1791,7 +1795,7 @@ Lagune が各修正について記録するステータスです。Applied は�
 正規 URL: https://lagune.ai/ja-JP/docs/commands/verify
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/verify
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 ⚖️ コードを読み、harden が記録した内容と突き合わせることで、適用した修正が実際に有効かを証明し、有効だった検出事項をクローズします。
 
@@ -1872,7 +1876,7 @@ verify がリスクの解消を証明すると、その検出事項はクロー�
 正規 URL: https://lagune.ai/ja-JP/docs/categories
 言語: ja-JP
 原文: https://lagune.ai/docs/categories
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **Lagune** は組み込みの [**専門知識**](https://lagune.ai/ja-JP/docs/catalog) を **13 のカテゴリ**に分類しています。プロジェクトで使うカテゴリによって、どの組み込みの専門知識がプロジェクトの [**カタログ**](https://lagune.ai/ja-JP/docs/catalog) に入るかが決まります。カテゴリは、システムが何をするかを扱うものと、何の言語で書かれているかを扱うものの 2 種類に分かれます。
 
@@ -1968,7 +1972,7 @@ npx lagune read list --categories
 正規 URL: https://lagune.ai/ja-JP/docs/catalog
 言語: ja-JP
 原文: https://lagune.ai/docs/catalog
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🧠 **Lagune** の専門知識は、特定の分野に絞った、言語に依存しないセキュリティの知識モジュールです。必要なときだけ読み込まれ、デフォルトで読み込まれることはありません。専門知識はコマンドではありません。プロジェクトのカタログとは、そのプロジェクトが使う専門知識の集まりで、プロジェクトの [カテゴリ](https://lagune.ai/ja-JP/docs/categories) に属する組み込みの専門知識と、プロジェクト独自の専門知識からなります。detect フェーズと verify フェーズは実行中にこれらを参照します。また、いつでも自分で直接読み込むこともできます。
 
@@ -2101,7 +2105,7 @@ npx lagune read catalog
 正規 URL: https://lagune.ai/ja-JP/docs/commands/specialize
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/specialize
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🎓 渡した資料やトピックから、**Lagune** に新しい専門知識を教えます。
 
@@ -2177,7 +2181,7 @@ npx lagune read catalog
 正規 URL: https://lagune.ai/ja-JP/docs/commands/prove
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/prove
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🧪 detect で見つかった検出事項を 1 件ずつ、責任ある開示に使える、実行可能な防御専用の証拠に変えます。
 
@@ -2265,6 +2269,83 @@ prove は自己完結したセキュリティアドバイザリを書き出し�
 
 ---
 
+# フックの設定：スキャン対象を選ぶ
+
+> ファイルをスキャンするフックが何を除外するかを、すべてのフックにまとめて、または 1 つずつ選べます。
+
+正規 URL: https://lagune.ai/ja-JP/docs/hooks/configure
+言語: ja-JP
+原文: https://lagune.ai/docs/hooks/configure
+最終更新日: 2026-11-04
+
+`checkers` ブロックは `.lagune/configs.json` の中にあり、ファイルをスキャンするフックが何を除外するかを、すべてのフックにまとめて、または 1 つずつ設定します。
+
+## 設定方法
+
+パスやパターンはコマンドラインから追加・削除できます。パターンは、シェルに書き換えられないよう引用符で囲んでください：
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+ファイルに直接書くこともできます：
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### 設定項目
+
+| キー        | 値                                         | デフォルト | 説明                                                                                                       |
+| ----------- | ------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------- |
+| `gitignore` | `true` または `false`                      | `true`     | **Git** が無視するものを除外する。**Git** が追跡しているファイルは、どちらの場合もスキャンする。           |
+| `ignore`    | プロジェクトルートからのパスまたはパターン | `[]`       | それぞれに一致するものと、その下にあるすべてを除外する。**Git** が追跡しているファイルであっても除外する。 |
+
+`checkers` の直下に書いたキーは、すべてのチェッカーに適用されます。チェッカー名の下に書いたキーはそのチェッカーだけに適用され、共通のキーを置き換えます。そのため上の例では、`secrets` は **Git** が無視するものもスキャンし、`test/fixtures` と `temp` を除外します。`write add --ignore` でチェッカーに初めて専用のリストを作ると、そのリストは共通のリストのコピーから始まります。
+
+### パターン
+
+パターンはプロジェクトルートを起点とします。そのため `*.generated.ts` はルート直下のファイルにしか一致せず、`**/*.generated.ts` はどの階層のファイルにも一致します。名前は大文字と小文字の区別も含めて、完全に一致する必要があります。
+
+| パターン            | 除外されるもの                                  |
+| ------------------- | ----------------------------------------------- |
+| `dist`              | プロジェクトルートにある `dist`                 |
+| `packages/*/dist`   | `dist`（`packages` の下にある各フォルダー内）   |
+| `**/dist`           | 階層を問わず、すべての `dist`                   |
+| `**/*.generated.ts` | 名前が `.generated.ts` で終わるすべてのファイル |
+| `fixture-?`         | `fixture-a`、`fixture-1` など                   |
+| `[ab]-cache`        | `a-cache` と `b-cache`                          |
+| `[*]x`              | `*x`（`*` を文字どおりに扱う）                  |
+
+## 結果の読み方
+
+レポートの最後に、スキャンで除外したパスの数を、何によって無視されたかの内訳とともに表示します：
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+`--dir` または `--file` で指定したパスは、設定にかかわらずスキャンします。エンジンが読み取れない設定があると、チェッカーはその設定を示すエラーを出して停止します。たとえば、`!` や空白で始まるパターン、プロジェクトの外に出るパターン、角かっこが閉じていないパターン、一致の判定に時間がかかりすぎるパターンです。
+
+## よくある質問
+
+### Lagune がこれらを自動で設定してくれますか？
+
+いいえ。charter は、プロジェクトを読み取った結果、守るべきコードではないと判断したコミット済みのフォルダー（脆弱に見えるように書かれたテスト用フィクスチャなど）を一覧にし、番号で選んだものだけを記録します。
+
+### チェッカーに Git が無視するものもスキャンさせるべきなのはどんなときですか？
+
+リポジトリが信頼できるものではないとき（リポジトリ自身の .gitignore ファイルがコードを隠している可能性があります）や、ビルド時に埋め込まれたキーがビルドフォルダーに含まれている可能性があるときです。すべてのチェッカー、または 1 つのチェッカーに対して gitignore を false に設定してください。
+
+---
+
 # agent フック：上限のないエージェントループを検出する
 
 > コマンドラインから、ステップ数や時間に上限のないエージェントや LLM の呼び出しをコードベース全体でスキャンしたり、1 つの呼び出しを判定したりできます。
@@ -2272,7 +2353,7 @@ prove は自己完結したセキュリティアドバイザリを書き出し�
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/agent
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/agent
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `agent` フックは、**ターン数、予算、時間のどれにも上限を設けずにループするエージェントランタイム**を指摘します。自律動作の暴走を招くこの穴があると、細工された入力ひとつで、コストが際限なく膨らんだり、プロンプトインジェクションがエスカレートしたりします。**言語を識別**して動作し、**JavaScript**（**Claude** エージェント SDK の `query` ランタイム）と **Python**（**LangChain**、**LangGraph**、**CrewAI**、**OpenAI Agents**）という 2 つのエージェントフレームワークのエコシステムに対応しています。また、[`llm` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 
@@ -2315,6 +2396,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
 
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`agent` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
+
 **ベストエフォートであり、網羅的ではない**
 
 自前で実装したエージェントループは、どの言語で書かれていても静的スキャンでは捉えられません。完全な一覧ではなく、確かな最低ラインとして扱ってください。
@@ -2338,7 +2437,7 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/cors
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/cors
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `cors` フックは [`http-request` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンで、自分で実行することもできます。1 つのコマンドで 2 つのモードが使えます：**scan** モードはソースコードをスキャンして**回避可能なオリジン許可リスト**（攻撃者のホストがすり抜けられる、ホスト検証用の正規表現）を探し、**score** モードは 1 つの **CORS オリジン**の値を `wildcard`、`null`、`safe` のいずれかに判定します。
 
@@ -2424,6 +2523,24 @@ npx lagune read cors \
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--origin` は score モードで、`--dir` や `--file` とは併用できません。
 
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`cors` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
+
 **対象外の範囲**
 
 スキャンが読み取るのは**回避可能な正規表現**という形で、`--origin` が判定するのはオリジンの**値**です。ソースコード上の次の 2 つのパターンは対象外です：リクエストの `Origin` の反射（サーバーが受け取った `Origin` をそのまま返す、または認証情報と組み合わせて返す）と、`endsWith` や部分文字列による緩い許可リストです。これらはコードを読んで見分け、[`http-request` 専門知識](https://lagune.ai/ja-JP/docs/catalog) の説明に沿って対処してください。
@@ -2447,7 +2564,7 @@ npx lagune read cors \
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/crypto
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/crypto
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `crypto` フックは、非推奨の暗号方式、安全でないモード、破られたダイジェストといった**脆弱な暗号プリミティブ**を、呼び出し箇所で指摘します。**言語を識別**して動作し、各ファイルをその言語のルールで読み取るため、Python の構文が Rust のファイルで指摘されることはありません。また、[`crypto` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 
@@ -2490,6 +2607,24 @@ npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                
 | `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                                    |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`crypto` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 対応言語
 
@@ -2534,7 +2669,7 @@ npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/cvss
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/cvss
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `cvss` フックは **CVSS v4.0 ベクトル**のスコアを算出し、スコアと深刻度の区分を出力します。これは [`/lagune-plan`](https://lagune.ai/ja-JP/docs/commands/plan) が各修正に、[`/lagune-prove`](https://lagune.ai/ja-JP/docs/commands/prove) が各セキュリティアドバイザリに記載する評価です。フックはこうした評価を支える決定論的なエンジンで、[FIRST の計算ツール](https://www.first.org/cvss/calculator/4.0) と同じ計算方法を使っており、自分で実行することもできます。
 
@@ -2632,7 +2767,7 @@ cvss フックは FIRST による CVSS v4.0 のリファレンス計算ツール
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/infra
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/infra
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `infra` フックは、インターネット全体に開放されたネットワーク、ワイルドカードの権限、マニフェスト内のシークレット、root で動くコンテナ、CI のシェルに渡る信頼できない値といった、ファイルだけで判定できる **IaC（Infrastructure as Code）の設定ミス**を指摘します。読み取るのは IaC ファイル（`.tf`/`.tf.json`/`.hcl`、`Dockerfile*`、`.github/workflows/**`）だけです。また、[`infra` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで動作します。
 
@@ -2672,6 +2807,24 @@ check モードは、一致したタグのうち最も深刻度の高いもの�
 
 オプションを指定しなければ、プロジェクト内のすべての IaC ファイルをスキャンします。`--pattern` は `--dir` や `--file` とは併用できません。
 
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`infra` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
+
 **ヒント**
 
 フックが捉えるのは明白で判定可能なケースで、暗号化の設定漏れ、`pull_request_target` による露出、適切な IAM の範囲といった判断は、引き続き [`infra` 専門知識](https://lagune.ai/ja-JP/docs/catalog) が担います。
@@ -2691,7 +2844,7 @@ Terraform/HCL（.tf、.tf.json、.hcl）、Dockerfile、そして .github/ 配�
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/interpreter
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/interpreter
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `interpreter` フックは、**動的コード実行のシンク**を指摘します。データを実行可能なコードに変えたり、シェルに渡したりする構文のことで、`eval` からネイティブのデシリアライズまでが含まれます。言語を識別して動作し、各ファイルをその言語のルールで読み取ります。また、[`interpreter` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 
@@ -2735,6 +2888,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                                    |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`interpreter` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 対応言語
 
@@ -2781,7 +2952,7 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/jwt
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/jwt
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `jwt` フックは、**アルゴリズムを固定していない JWT 検証**と、**検証そのものを無効にしている箇所**を指摘します。前者は、検証側がトークン自身の `alg` ヘッダーを信頼してしまうアルゴリズム混同の穴です。**言語を識別**して動作し、各ファイルをそのファイルが使う JWT ライブラリに合わせて読み取ります。また、[`federation` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 
@@ -2824,6 +2995,24 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
 
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`jwt` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
+
 ### 対応言語
 
 スキャンはファイル拡張子をもとに、次のライブラリを読み取ります。ライブラリによってはアルゴリズムを暗黙的に固定する（明示的なリストがなくても安全な）ため、"許可リストなし ⇒ unpinned" というルールは、明示的なリストを前提とするライブラリにだけ適用されます。そのため、正しく設定された呼び出しが指摘されることはありません。
@@ -2858,7 +3047,7 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/network
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/network
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `network` フックは、サーバー側のリクエスト先が **SSRF**（内部サービス、クラウドのメタデータ、プライベートなホストに向けられうるリクエスト）に対して安全かどうかを判定します。[`network` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンで、自分で実行することもできます。
 
@@ -2942,7 +3131,7 @@ network フックを実行します。リクエスト先を判定し、safe、pr
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/regex
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/regex
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `regex` フックは、[`regex` 専門知識](https://lagune.ai/ja-JP/docs/catalog) が実行する、正規表現の安全性を判定する決定論的なエンジンで、自分で実行することもできます。1 つのコマンドで 2 つのモードが使えます：**scan** モードはコードベースをスキャンして、**ReDoS** を起こしやすいパターンや実行時に組み立てられるパターンを探し、**check** モードは渡された 1 つのパターンを判定します。
 
@@ -3030,6 +3219,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | 0 以上の整数     | ReDoS の繰り返し回数の上限（デフォルトは 25）を設定する。両方のモードに適用。値が低いほど厳しい。                        |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` は check モードで、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`regex` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 対応言語
 
@@ -3137,7 +3344,7 @@ npx lagune read regex --pattern '<pattern>' を実行します。safe、unsafe�
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/secrets
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/secrets
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `secrets` フックは、環境から読み込むのではなく、**ソースコードに埋め込まれている認証情報**を指摘します。判断の基準は値の中身ではなく**出どころ**（リテラルか、環境からの読み込みか）なので、プロバイダーごとのプレフィックスを網羅した一覧は必要なく、誤検知もほとんど出ません。[`secrets` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンです。
 
@@ -3161,6 +3368,24 @@ npx lagune read secrets --file config.ts # scans a single file
 | `--file`   | ファイル     | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。 |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`secrets` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker secrets
+```
+
+```json
+{
+  "checkers": {
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 言語ごとの対応範囲
 
@@ -3190,7 +3415,7 @@ npx lagune read secrets --file config.ts # scans a single file
 正規 URL: https://lagune.ai/ja-JP/docs/examples/prompts
 言語: ja-JP
 原文: https://lagune.ai/docs/examples/prompts
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 AI エージェントにそのまま貼り付けて使える、コピー用の Lagune のプロンプトです。
 
@@ -3369,6 +3594,14 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 npx lagune write add --categories owasp ai javascript
 ```
 
+リポジトリ自身の `.gitignore` ファイルや設定が、チェッカーからファイルを隠してしまうおそれがあります。そこで、`checkers` ブロックを `.lagune/configs.json` で設定し、リポジトリに同梱されているブロックがあれば置き換えて、[すべてをスキャンする](https://lagune.ai/ja-JP/docs/hooks/configure) ようにしてください：
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
+```
+
 **危険**
 
 信頼できない提供元のプロジェクトをローカル環境で実行するときは注意してください。悪意のあるコードがシステムに影響を与えないよう、**サンドボックス**（推奨）や **VM** などの隔離された環境を使ってください。
@@ -3444,7 +3677,7 @@ npx lagune write add --categories owasp ai javascript
 正規 URL: https://lagune.ai/ja-JP/docs/references/paper
 言語: ja-JP
 原文: https://lagune.ai/docs/references/paper
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 - **Weslley Araújo**
 - **方法論論文、2026 年**
@@ -4015,7 +4248,7 @@ Lagune は証明ですが、貢献はこの規約にあります。SDH を、ほ
 正規 URL: https://lagune.ai/ja-JP/docs/references/glossary
 言語: ja-JP
 原文: https://lagune.ai/docs/references/glossary
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 Lagune と Security-Driven Hardening の方法論で要となる用語をすべて、わかりやすい言葉で一度ずつ定義します。
 
@@ -4114,9 +4347,9 @@ verify がリスクの解消を証明すると、その検出事項をクロー�
 正規 URL: https://lagune.ai/ja-JP/docs/references/configs-schema
 言語: ja-JP
 原文: https://lagune.ai/docs/references/configs-schema
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
-`.lagune/configs.json` は、プロジェクトが使う [**カテゴリ**](https://lagune.ai/ja-JP/docs/categories) を記録し、プロジェクト独自の [**専門知識**](https://lagune.ai/ja-JP/docs/catalog) の索引を持つファイルです。この JSON Schema を使うと、ファイルを編集している間、エディターが各フィールドを自動補完し、タイプミスや存在しないカテゴリを指摘してくれます。
+`.lagune/configs.json` は、プロジェクトが使う [**カテゴリ**](https://lagune.ai/ja-JP/docs/categories) を記録し、プロジェクト独自の [**専門知識**](https://lagune.ai/ja-JP/docs/catalog) の索引を持ち、[**チェッカー**](https://lagune.ai/ja-JP/docs/hooks/configure) がスキャンから除外するものを決めるファイルです。この JSON Schema を使うと、ファイルを編集している間、エディターが各フィールドを自動補完し、タイプミスや存在しないカテゴリを指摘してくれます。
 
 ## 最新のスキーマ
 
@@ -4173,7 +4406,7 @@ verify がリスクの解消を証明すると、その検出事項をクロー�
 正規 URL: https://lagune.ai/ja-JP/docs/references/deepsec
 言語: ja-JP
 原文: https://lagune.ai/docs/references/deepsec
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 [Lagune](https://github.com/wellwelwel/lagune) と [Deepsec](https://github.com/vercel-labs/deepsec)（`v2.2.1`）は、AI 支援開発の時代のセキュリティという同じ課題に対する、2 つの防御的な答えです。仕組みが重なる部分はあっても、前提も、始まりから終わりまでの流れも、ユーザーへの見せ方も、意図して異なるように作られています。
 
@@ -4338,7 +4571,7 @@ Lagune は変更します。harden がコードに修正を適用します。Dee
 正規 URL: https://lagune.ai/ja-JP/docs/references/owasp-sources
 言語: ja-JP
 原文: https://lagune.ai/docs/references/owasp-sources
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 このドキュメントでは、OWASP のすべての**攻撃**（`www-community`）と **Cheat Sheet**（`CheatSheetSeries`）をセキュリティのカテゴリに対応づけ、それぞれ公式の公開ページにリンクしています。同じカテゴリ内で同等の項目は、チェックリストの 1 行にまとめています。同じリスクを扱う攻撃と Cheat Sheet は、カンマ区切りで並べています。直接対応するものがない項目は、それぞれ単独の行にしています。
 
@@ -4696,7 +4929,7 @@ Lagune は変更します。harden がコードに修正を適用します。Dee
 正規 URL: https://lagune.ai/ja-JP/docs/commands/repair
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/repair
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🧰 ファイル名の変更や移動でチェーンが混乱したときに、それを修復します。
 
@@ -4732,7 +4965,7 @@ detect の各検出事項は 1 つの追跡項目で、plan、harden、verify �
 正規 URL: https://lagune.ai/ja-JP/docs/commands/migrate
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/migrate
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 🔀 マニフェスト方式の **Lagune** プロジェクトを、書いた内容をすべて保ったまま、スキル方式の **Lagune** に移行します。
 

@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/charter
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/charter
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 🧬 프로젝트가 무엇인지 **Lagune**에 알려 주면, 그 설명을 보안 규칙으로 바꿉니다(설명이 없으면 프로젝트만 보고 규칙을 도출합니다).
 
@@ -61,6 +61,10 @@ charter는 모든 단계를 규율하는 계층으로, 이후 단계가 빠짐�
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## 제외를 제안하는 폴더
+
+charter가 프로젝트를 읽다가 커밋되어 있지만 방어할 프로젝트 코드가 아닌 폴더(취약해 보이도록 작성한 테스트 픽스처 등)를 찾으면, 요약 끝에 번호를 붙여 나열합니다. 악의적인 저장소는 자기 코드를 픽스처처럼 보이게 만들 수 있으므로 charter는 어떤 폴더도 스스로 제외하지 않으며, 사용자가 답한 번호만 기록합니다. 직접 바꾸는 방법은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 ## 다음 단계
 

@@ -3,7 +3,7 @@
 > Sweep a codebase for agent/LLM calls with no step or time cap, or score a single call, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/agent
-Last updated: 2026-11-02
+Last updated: 2026-11-04
 
 The `agent` hook flags **agent runtimes that loop with no turn, budget, or time cap**, the runaway-autonomy hole that turns a crafted input into unbounded cost or prompt-injection escalation. It is **language-aware**, covering the two agent-framework ecosystems: **JavaScript** (the **Claude** agent SDK `query` runtime) and **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). It is the deterministic engine behind the [`llm` specialization](https://lagune.ai/docs/catalog), which you can run yourself in **scan** or **check** mode.
 
@@ -45,6 +45,24 @@ Every line under **Uncapped agent loops found** is, in a file that imports an ag
 | `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
 With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `agent` settings of its own:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
 **Best-effort, not exhaustive**
 

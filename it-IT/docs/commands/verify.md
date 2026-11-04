@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/verify
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/verify
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 ⚖️ Dimostra che ogni correzione applicata regge, leggendo il codice e confrontandolo con ciò che harden ha registrato, poi chiudi quelle che reggono.
 

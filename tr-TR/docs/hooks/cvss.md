@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/cvss
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/cvss
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `cvss` hook'u bir **CVSS v4.0 vektörünü** puanlar ve puanını ile önem derecesi aralığını yazdırır. Bu, [`/lagune-plan`](https://lagune.ai/tr-TR/docs/commands/plan) komutunun her düzeltmeye, [`/lagune-prove`](https://lagune.ai/tr-TR/docs/commands/prove) komutunun da her güvenlik bültenine yazdığı derecelendirmedir. Hook, bu derecelendirmelerin arkasındaki deterministik motordur, [FIRST hesaplayıcısıyla](https://www.first.org/cvss/calculator/4.0) aynı aritmetiği kullanır ve onu kendiniz çalıştırabilirsiniz.
 

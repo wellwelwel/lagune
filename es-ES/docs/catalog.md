@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/catalog
 Idioma: es-ES
 Original: https://lagune.ai/docs/catalog
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 🧠 Las especializaciones de **Lagune** son módulos acotados de conocimiento de seguridad, independientes del lenguaje, que se cargan solo bajo demanda, nunca por defecto. No son comandos. El catálogo de tu proyecto es el conjunto que usa: las especializaciones integradas de sus [categorías](https://lagune.ai/es-ES/docs/categories) más las suyas propias. Las fases detect y verify recurren a ellas mientras se ejecutan, y tú puedes cargar una directamente cuando quieras.
 

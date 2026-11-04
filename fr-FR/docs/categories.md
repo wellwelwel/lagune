@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/categories
 Langue: fr-FR
 Original: https://lagune.ai/docs/categories
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 **Lagune** regroupe ses [**spécialisations**](https://lagune.ai/fr-FR/docs/catalog) intégrées en **13 catégories**. Les catégories qu'utilise un projet déterminent quelles spécialisations intégrées rejoignent son [**catalogue**](https://lagune.ai/fr-FR/docs/catalog), et elles se répartissent en deux : ce que fait le système, et le langage dans lequel il est écrit.
 

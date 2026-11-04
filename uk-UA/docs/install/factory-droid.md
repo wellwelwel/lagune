@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/factory-droid
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/factory-droid
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-04
 
 Встановіть плагін із термінала:
 

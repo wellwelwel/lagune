@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/references/paper
 Idioma: pt-BR
 Original: https://lagune.ai/docs/references/paper
-Última atualização: 2026-11-03
+Última atualização: 2026-11-04
 
 - **Weslley Araújo**
 - **Artigo de metodologia, 2026.**
@@ -22,7 +22,7 @@ O **Lagune** é a implementação de referência e comprova que a metodologia po
 
 > **Palavras-chave**
 >
-> desenvolvimento assistido por IA, segurança de software, segurança defensiva, spec-driven development, hardening de segurança, fluxos conduzidos por agentes, encerrabilidade, segurança sensível ao contexto, conhecimento sob demanda, ferramentas independentes de agente.
+> Desenvolvimento assistido por IA, segurança de software, segurança defensiva, spec-driven development, hardening de segurança, fluxos conduzidos por agentes, encerrabilidade, segurança sensível ao contexto, conhecimento sob demanda, ferramentas independentes de agente.
 
 ---
 

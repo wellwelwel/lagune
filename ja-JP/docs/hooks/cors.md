@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/cors
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/cors
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `cors` フックは [`http-request` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンで、自分で実行することもできます。1 つのコマンドで 2 つのモードが使えます：**scan** モードはソースコードをスキャンして**回避可能なオリジン許可リスト**（攻撃者のホストがすり抜けられる、ホスト検証用の正規表現）を探し、**score** モードは 1 つの **CORS オリジン**の値を `wildcard`、`null`、`safe` のいずれかに判定します。
 
@@ -90,6 +90,24 @@ npx lagune read cors \
 | `--file`   | ファイル     | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。         |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--origin` は score モードで、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`cors` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 **対象外の範囲**
 

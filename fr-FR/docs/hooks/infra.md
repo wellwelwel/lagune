@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/hooks/infra
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/infra
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-04
 
 Le hook `infra` signale les **erreurs de configuration de l'infrastructure as code** qu'il est possible de trancher à partir du fichier : un réseau ouvert au monde entier, une autorisation générique, un secret dans un manifeste, un conteneur root, une valeur non fiable dans un shell de CI. Il ne lit que les fichiers IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). C'est le moteur déterministe derrière la [spécialisation `infra`](https://lagune.ai/fr-FR/docs/catalog), en mode **scan** ou **check**.
 
@@ -44,6 +44,24 @@ Le mode check affiche le tag de plus haute gravité qu'il a reconnu (par exemple
 | `--file`    | un fichier                                      | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`. |
 
 Sans option, il analyse tous les fichiers IaC du projet. `--pattern` ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `infra` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+[Configurer les hooks](https://lagune.ai/fr-FR/docs/hooks/configure) présente chaque paramètre.
 
 **Astuce**
 

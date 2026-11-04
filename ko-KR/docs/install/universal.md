@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/universal
 언어: ko-KR
 원문: https://lagune.ai/docs/install/universal
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 **터미널**
 
@@ -49,10 +49,10 @@ npx skills update
 
 **권한**
 
-명령어는 엔진을 `npx --yes lagune@0.16.0` 형태로 실행하며, 이를 미리 허용하는 규칙은 [에이전트별 설치 페이지](https://lagune.ai/ko-KR/docs)에서 안내합니다. 네트워크에 접근할 수 없는 샌드박스에서는 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
+명령어는 엔진을 `npx --yes lagune@0.17.0` 형태로 실행하며, 이를 미리 허용하는 규칙은 [에이전트별 설치 페이지](https://lagune.ai/ko-KR/docs)에서 안내합니다. 네트워크에 접근할 수 없는 샌드박스에서는 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.16.0
+npm i -D lagune@0.17.0
 ```
 
 ## 자주 묻는 질문

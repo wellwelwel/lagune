@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/get-started/dashboard
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/get-started/dashboard
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `.lagune/` klasörünün etkileşimli, canlı bir görünümü için **Lagune**'yi alt komut vermeden doğrudan çalıştırın. Bir gösterge paneli sunar ve onu rastgele bir portta açar:
 

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/hermes-agent
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/hermes-agent
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 Eklentiyi terminalden kurun:
 

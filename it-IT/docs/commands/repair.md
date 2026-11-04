@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/repair
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/repair
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 🧰 Ripara la catena quando un file rinominato o spostato la confonde.
 

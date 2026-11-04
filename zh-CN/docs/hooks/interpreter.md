@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/interpreter
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/interpreter
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 `interpreter` hook 会标记**动态代码执行 sink**：把数据变成可运行代码或交给 shell 的结构，从 `eval` 到原生反序列化都在其列。它能识别语言，按每个文件自己的规则读取，也是 [`interpreter` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
 
@@ -49,6 +49,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。                                                  |
 
 不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `interpreter` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](https://lagune.ai/zh-CN/docs/hooks/configure)。
 
 ### 支持的语言
 

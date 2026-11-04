@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/infra
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/infra
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 `infra` hook'u, dosyanın kendisinden anlaşılabilen **kod olarak altyapı (IaC) yapılandırma hatalarını** işaretler: tüm dünyaya açık bir ağ, wildcard içeren bir izin, bir manifestteki gizli bilgi, root olarak çalışan bir konteyner, bir CI kabuğundaki güvenilmeyen bir değer. Yalnızca IaC dosyalarını okur (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). [`infra` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve **scan** veya **check** modunda çalışır.
 
@@ -44,6 +44,24 @@ check modu, eşleştiği en yüksek önem derecesine sahip etiketi (örneğin `p
 | `--file`    | bir dosya                                       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir. |
 
 Seçenek verilmezse projedeki her IaC dosyası taranır. `--pattern`, `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `infra` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](https://lagune.ai/tr-TR/docs/hooks/configure) sayfasında açıklanır.
 
 **İpucu**
 

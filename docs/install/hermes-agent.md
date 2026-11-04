@@ -3,7 +3,7 @@
 > Install Lagune on Hermes Agent as a plugin, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/hermes-agent
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 Install the plugin from your terminal:
 

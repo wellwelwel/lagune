@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/agent
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/agent
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `agent` 훅은 **턴 수, 예산, 시간 중 어느 것에도 상한을 두지 않고 반복 실행되는 에이전트 런타임**을 잡아냅니다. 자율 실행이 폭주할 수 있는 이 허점 때문에, 조작된 입력 하나가 끝없는 비용 증가나 프롬프트 인젝션 피해 확대로 이어집니다. **언어를 인식하며**, 두 에이전트 프레임워크 생태계를 다룹니다: **JavaScript**(**Claude** 에이전트 SDK의 `query` 런타임)와 **Python**(**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**)입니다. 또한 [`llm` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
 
@@ -47,6 +47,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | 파일      | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능 |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션에는 `--lang` 옵션이 필요하며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `agent` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 **전수 검사가 아닌 최선의 탐지**
 

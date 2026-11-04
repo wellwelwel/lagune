@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/pi
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/pi
-Последнее обновление: 2026-11-03
+Последнее обновление: 2026-11-04
 
 **npm**
 

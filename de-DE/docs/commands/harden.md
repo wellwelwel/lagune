@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/harden
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/harden
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 🔧 Setze die Korrekturen aus dem Plan in deinem Code um, sicher und eine nach der anderen.
 

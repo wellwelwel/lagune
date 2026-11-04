@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/references/paper
 Idioma: es-ES
 Original: https://lagune.ai/docs/references/paper
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 - **Weslley Araújo**
 - **Artículo de metodología, 2026.**
@@ -22,7 +22,7 @@ Este documento sostiene que SDH es una convención que faltaba, no una herramien
 
 > **Palabras clave**
 >
-> desarrollo asistido por IA, seguridad del software, seguridad defensiva, spec-driven development, bastionado, flujos de trabajo guiados por agentes, posibilidad de cierre, seguridad adaptada al contexto, conocimiento bajo demanda, herramientas independientes del agente.
+> Desarrollo asistido por IA, seguridad del software, seguridad defensiva, spec-driven development, bastionado, flujos de trabajo guiados por agentes, posibilidad de cierre, seguridad adaptada al contexto, conocimiento bajo demanda, herramientas independientes del agente.
 
 ---
 

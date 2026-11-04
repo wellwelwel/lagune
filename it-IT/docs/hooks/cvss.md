@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/hooks/cvss
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/cvss
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 L'hook `cvss` calcola il punteggio di un **vettore CVSS v4.0** e ne stampa il punteggio e la fascia di gravità, la valutazione che [`/lagune-plan`](https://lagune.ai/it-IT/docs/commands/plan) scrive su ogni correzione e [`/lagune-prove`](https://lagune.ai/it-IT/docs/commands/prove) su ogni bollettino. È il motore deterministico dietro quelle valutazioni, con la stessa aritmetica del [calcolatore di FIRST](https://www.first.org/cvss/calculator/4.0), e puoi eseguirlo tu stesso.
 

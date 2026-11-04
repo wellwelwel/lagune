@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/references/glossary
 언어: ko-KR
 원문: https://lagune.ai/docs/references/glossary
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 Lagune과 Security-Driven Hardening 방법론을 이해하는 데 꼭 필요한 용어를 한곳에서 쉬운 말로 정의합니다.
 

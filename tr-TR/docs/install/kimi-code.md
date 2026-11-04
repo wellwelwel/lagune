@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/kimi-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/kimi-code
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 Eklentiyi bir **Kimi Code** oturumundan kurun, **Trust and install** seçeneğini seçin, ardından eklentiyi yüklemek için yeni bir oturum başlatın:
 

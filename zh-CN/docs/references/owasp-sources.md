@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/references/owasp-sources
 语言: zh-CN
 原文: https://lagune.ai/docs/references/owasp-sources
-最后更新: 2026-11-03
+最后更新: 2026-11-04
 
 本文档把 OWASP 的每个**攻击**（`www-community`）和每份 **Cheat Sheet**（`CheatSheetSeries`）对应到一个安全类别，并分别链接到它们的官方公开页面。在同一个类别中，等价的条目共用一行清单：针对同一风险的攻击和 Cheat Sheet 列在一起，用逗号分隔。没有直接对应项的条目单独占一行。
 

@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/jwt
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/jwt
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `jwt` meldet **JWT-Verifizierungen ohne festgelegten Algorithmus**, also die Lücke der Algorithm Confusion, bei der ein Verifizierer dem Header `alg` des Tokens selbst vertraut, sowie **vollständig abgeschaltete Verifizierungen**. Er arbeitet **sprachspezifisch** und liest jede Datei anhand ihrer eigenen JWT-Bibliothek. Er ist die deterministische Engine hinter der [Spezialisierung `federation`](https://lagune.ai/de-DE/docs/catalog), und du kannst ihn selbst im Modus **scan** oder **check** ausführen.
 
@@ -47,6 +47,24 @@ Jede Zeile unter **Unpinned JWT verification found** ist ein Verifizierungsaufru
 | `--file`    | eine Datei         | Beschränkt den Durchlauf auf eine einzelne Datei. Wiederholbar und mit `--dir` kombinierbar.          |
 
 Ohne Option durchsucht er das gesamte Projekt. `--pattern` erfordert `--lang` und lässt sich nicht mit `--dir` oder `--file` kombinieren.
+
+### Festlegen, was er durchsucht
+
+Er lässt aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `jwt` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](https://lagune.ai/de-DE/docs/hooks/configure) beschreibt jede Einstellung.
 
 ### Unterstützte Sprachen
 

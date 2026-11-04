@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/crypto
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/crypto
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 `crypto` フックは、非推奨の暗号方式、安全でないモード、破られたダイジェストといった**脆弱な暗号プリミティブ**を、呼び出し箇所で指摘します。**言語を識別**して動作し、各ファイルをその言語のルールで読み取るため、Python の構文が Rust のファイルで指摘されることはありません。また、[`crypto` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 
@@ -48,6 +48,24 @@ npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                
 | `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                                    |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`crypto` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](https://lagune.ai/ja-JP/docs/hooks/configure) で説明しています。
 
 ### 対応言語
 

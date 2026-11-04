@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/hooks/interpreter
 Idioma: es-ES
 Original: https://lagune.ai/docs/hooks/interpreter
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 El hook `interpreter` señala **sinks de ejecución dinámica de código**: construcciones que convierten datos en código que se ejecuta o que se los pasan a una shell, desde `eval` hasta la deserialización nativa. Tiene en cuenta el lenguaje, ya que lee cada archivo según sus propias reglas. Es el motor determinista en el que se apoya la [especialización `interpreter`](https://lagune.ai/es-ES/docs/catalog), y puedes ejecutarlo tú mismo en modo **scan** o **check**.
 
@@ -49,6 +49,24 @@ Estudia cada sink de forma **estática**, rastreando si una entrada no fiable ll
 | `--file`    | un archivo             | Limita el análisis a un solo archivo. Se puede repetir y combinar con `--dir`.                             |
 
 Sin ninguna opción, analiza todo el proyecto. `--pattern` necesita `--lang` y no se puede combinar con `--dir` ni con `--file`.
+
+### Elige qué analiza
+
+Deja fuera lo que **Git** ignora. Para dejar fuera más cosas, o para analizar lo que **Git** ignora, dale a `interpreter` una configuración propia:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Todos los ajustes están en [Configura los hooks](https://lagune.ai/es-ES/docs/hooks/configure).
 
 ### Lenguajes compatibles
 

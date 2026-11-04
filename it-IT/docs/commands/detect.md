@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/detect
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/detect
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-04
 
 🔬 Scopri cosa fa davvero il tuo sistema e dove sono i rischi.
 

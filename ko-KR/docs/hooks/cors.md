@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/cors
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/cors
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-04
 
 `cors` 훅은 [`http-request` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, 직접 실행할 수도 있습니다. 명령어 하나로 두 가지 모드를 쓸 수 있습니다: **scan** 모드는 소스 코드를 스캔해 **우회할 수 있는 오리진 허용 목록**(공격자 호스트가 빠져나갈 수 있는 호스트 검증 정규식)을 찾고, **score** 모드는 **CORS 오리진** 값 하나에 점수를 매겨 `wildcard`, `null`, `safe` 중 하나로 판정합니다.
 
@@ -90,6 +90,24 @@ npx lagune read cors \
 | `--file`   | 파일     | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능             |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--origin` 옵션은 score 모드이며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `cors` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](https://lagune.ai/ko-KR/docs/hooks/configure)에서 설명합니다.
 
 **다루지 않는 범위**
 

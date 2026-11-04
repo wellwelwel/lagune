@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/get-started/commands
 言語: ja-JP
 原文: https://lagune.ai/docs/get-started/commands
-最終更新日: 2026-11-03
+最終更新日: 2026-11-04
 
 **Lagune** を [インストール](https://lagune.ai/ja-JP/docs) すると、**AI** エージェントで一連のスキルが使えるようになります。使い方は 2 通りあり、どちらも**セキュリティ原則**に従います：開発しながら新しいコードを安全にするか、プロジェクト全体を監査するかです。
 

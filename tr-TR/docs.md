@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-04
 
 **Lagune**, yapay zeka ajanınızın bir projeyi daha güvenli hale getirmesine yardım eder. Ona kodunuzu gösterirsiniz, ajan sisteminizin gerçekte ne yaptığını çıkarır ve ardından o sistem için önemli olan güvenlik çalışmasında size yol gösterir. **Lagune**, [Security-Driven Hardening (SDH)](https://lagune.ai/tr-TR/docs/references/paper) metodolojisinin ilk projesidir.
 
@@ -35,7 +35,7 @@ Son güncelleme: 2026-11-03
 **Bilgi**
 
 - **Lagune** arka planda **Node.js** üzerinde çalışır, ama siz istediğiniz dili kullanırsınız.
-- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.16.0` ile kurun.
+- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.17.0` ile kurun.
 
 ## Kategoriler
 

@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/repair
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/repair
-Última actualización: 2026-11-03
+Última actualización: 2026-11-04
 
 🧰 Repara la cadena cuando un cambio de nombre o un archivo movido la confunde.
 
