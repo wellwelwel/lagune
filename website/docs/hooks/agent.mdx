@@ -53,7 +53,7 @@ Every line under **Uncapped agent loops found** is, in a file that imports an ag
 | `--dir`     | a directory    | Scope a scan to a directory. Repeats and combines with `--file`.  |
 | `--file`    | a file         | Scope a scan to a single file. Repeats and combines with `--dir`. |
 
-With no option it scans the whole project. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
+With no option it scans the whole project except what **Git** ignores, and the report ends with how many paths it left out. A path named with `--dir` or `--file` is scanned even when **Git** ignores it. `--pattern` needs `--lang` and cannot be combined with `--dir` or `--file`.
 
 :::note[Best-effort, not exhaustive]
 A hand-rolled agent loop, in any language, is beyond a static scan. Treat this as a strong floor, not a complete inventory.

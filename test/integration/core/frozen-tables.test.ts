@@ -4,7 +4,12 @@ import { deepFreeze } from '../../../src/core/collections.js';
 
 const packageRoot = new URL('../../../', import.meta.url);
 
-const SHARED_SOURCES = ['src/bin/hooks.ts', 'src/core/scan/', 'src/hooks/'];
+const SHARED_SOURCES = [
+  'src/bin/hooks.ts',
+  'src/core/git/',
+  'src/core/scan/',
+  'src/hooks/',
+];
 
 const isPlainContainer = (value: unknown): value is object =>
   Array.isArray(value) ||

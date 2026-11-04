@@ -121,6 +121,7 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
       undetermined: [],
       dynamic: [],
       staticWrap: [],
+      skipped: 0,
     });
   });
 

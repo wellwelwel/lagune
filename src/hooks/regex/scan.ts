@@ -9,7 +9,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { SOURCE_FILTER } from '../../core/scan/filters.js';
 import { languageOf } from '../../core/scan/language.js';
-import { walk } from '../../core/scan/walk.js';
+import { walkTargets } from '../../core/scan/walk.js';
 import { extractPatterns, readingKey } from './extract.js';
 import { assessReadings } from './pool.js';
 import { regexUsage } from './usage.js';
@@ -40,9 +40,6 @@ const extractFile = async (
     ...regexUsage(text, language),
   };
 };
-
-const isExtracted = (entry: ExtractedFile | null): entry is ExtractedFile =>
-  entry !== null;
 
 const distinctReadings = (
   extracted: readonly ExtractedFile[]
@@ -94,12 +91,9 @@ export const scan = async (
   targets: string[],
   repetitionLimit?: number
 ): Promise<RegexScanResult> => {
-  const walked = await Promise.all(
-    targets.map((target) => walk(root, target, SOURCE_FILTER))
-  );
-  const files = [...new Set(walked.flat())];
+  const { files, skipped } = await walkTargets(root, targets, SOURCE_FILTER);
   const read = await Promise.all(files.map((file) => extractFile(root, file)));
-  const extracted = read.filter(isExtracted);
+  const extracted = read.filter((entry) => entry !== null);
   const assessments = await assessReadings(
     distinctReadings(extracted),
     repetitionLimit
@@ -110,5 +104,6 @@ export const scan = async (
     undetermined: findingsOf(extracted, assessments, 'undetermined'),
     dynamic: filesWhere(extracted, ({ dynamic }) => dynamic),
     staticWrap: filesWhere(extracted, ({ staticWrap }) => staticWrap),
+    skipped: skipped.length,
   };
 };

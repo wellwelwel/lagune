@@ -1,12 +1,13 @@
 import type {
   AnalyzedFile,
   FileAnalysis,
+  ScanDetail,
   ScanReport,
   WalkFilter,
 } from '../../types/scan.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { walk } from './walk.js';
+import { walkTargets } from './walk.js';
 
 const readText = async (path: string): Promise<string | null> => {
   try {
@@ -16,13 +17,10 @@ const readText = async (path: string): Promise<string | null> => {
   }
 };
 
-const isPresent = (entry: AnalyzedFile | null): entry is AnalyzedFile =>
-  entry !== null;
-
 const details = (
   analyzed: AnalyzedFile[],
   pick: (analysis: FileAnalysis) => string[]
-): { file: string; detail: string }[] =>
+): ScanDetail[] =>
   analyzed.flatMap(({ file, analysis }) =>
     pick(analysis).map((detail) => ({ file, detail }))
   );
@@ -33,12 +31,7 @@ export const scanReport = async (
   filter: WalkFilter,
   analyze: (file: string, content: string) => FileAnalysis
 ): Promise<ScanReport> => {
-  const walked = await Promise.all(
-    targets.map((target) => walk(root, target, filter))
-  );
-  const files = [...new Set(walked.flat())].toSorted((a, b) =>
-    a.localeCompare(b)
-  );
+  const { files, skipped } = await walkTargets(root, targets, filter);
   const analyzed = await Promise.all(
     files.map(async (file): Promise<AnalyzedFile | null> => {
       const content = await readText(join(root, file));
@@ -48,11 +41,12 @@ export const scanReport = async (
         : { file, analysis: analyze(file, content) };
     })
   );
-  const present = analyzed.filter(isPresent);
+  const present = analyzed.filter((entry) => entry !== null);
 
   return {
     findings: details(present, (analysis) => analysis.findings),
     review: details(present, (analysis) => analysis.review),
     advisory: details(present, (analysis) => analysis.advisory),
+    skipped: skipped.length,
   };
 };

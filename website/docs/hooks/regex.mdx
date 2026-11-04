@@ -13,7 +13,7 @@ The `regex` hook is the deterministic regex-safety engine the [`regex` specializ
 
 ## Scan a codebase
 
-With no flag it scans the whole project. `--dir` scopes the scan to a directory, `--file` to a single file. Both repeat and combine into one report, each file listed once even when more than one target covers it.
+With no flag it scans the whole project except what **Git** ignores, and the report ends with how many paths it left out. `--dir` scopes the scan to a directory, `--file` to a single file, either one scanned even when **Git** ignores it. Both repeat and combine into one report, each file listed once even when more than one target covers it.
 
 <Tabs>
   <TabItem value="all" label="Whole project" default>

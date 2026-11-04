@@ -10,8 +10,8 @@ import {
 } from 'node:fs/promises';
 import { basename, dirname, join, sep } from 'node:path';
 
-const hasErrorCode = (error: unknown, code: string): boolean =>
-  error instanceof Error && (error as NodeJS.ErrnoException).code === code;
+export const hasErrorCode = (error: unknown, code: string): boolean =>
+  error instanceof Error && 'code' in error && error.code === code;
 
 const isWithin = (root: string, path: string): boolean =>
   path === root || path.startsWith(`${root}${sep}`);

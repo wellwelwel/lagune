@@ -1,13 +1,10 @@
 import type {
   ReportHeadings,
-  ScanFinding,
-  ScanNote,
+  ScanDetail,
   ScanReport,
 } from '../../types/scan.js';
 
-const groupByFile = (
-  items: readonly (ScanFinding | ScanNote)[]
-): Map<string, string[]> => {
+const groupByFile = (items: readonly ScanDetail[]): Map<string, string[]> => {
   const groups = new Map<string, string[]>();
 
   for (const { file, detail } of items) {
@@ -23,7 +20,7 @@ const groupByFile = (
 /** Lists each file once under the header, sorted, with its details indented beneath it */
 export const groupedSection = (
   header: string,
-  items: readonly (ScanFinding | ScanNote)[]
+  items: readonly ScanDetail[]
 ): string => {
   const blocks = [...groupByFile(items)]
     .toSorted(([left], [right]) => left.localeCompare(right))
@@ -36,10 +33,14 @@ export const groupedSection = (
   return `${header}\n\n${blocks.join('\n\n')}`;
 };
 
-export const formatReport = (
-  report: ScanReport,
-  headings: ReportHeadings
-): string => {
+const skippedNote = (count: number): string =>
+  `Skipped ${count} ${count === 1 ? 'path' : 'paths'} that Git ignores. Name one with --dir or --file to scan it.`;
+
+/** Ends a report with how many paths Git ignores that the scan left out */
+export const withSkipped = (output: string, skipped: number): string =>
+  skipped === 0 ? output : `${output}\n${skippedNote(skipped)}\n`;
+
+const reportBody = (report: ScanReport, headings: ReportHeadings): string => {
   const sections: string[] = [];
 
   if (report.findings.length > 0)
@@ -55,3 +56,8 @@ export const formatReport = (
 
   return `${sections.join('\n\n')}\n`;
 };
+
+export const formatReport = (
+  report: ScanReport,
+  headings: ReportHeadings
+): string => withSkipped(reportBody(report, headings), report.skipped);

@@ -1,5 +1,5 @@
 import type { RegexFinding, RegexScanResult } from '../../types/hooks/regex.js';
-import { groupedSection } from '../../core/scan/report.js';
+import { groupedSection, withSkipped } from '../../core/scan/report.js';
 
 const EMPTY = 'no unsafe patterns found\n';
 
@@ -41,7 +41,7 @@ const findingSection = (header: string, findings: RegexFinding[]): string =>
 const fileSection = (header: string, files: string[]): string =>
   `${header}\n\n${files.join('\n')}`;
 
-export const format = ({
+const findingsText = ({
   unsafe,
   undetermined,
   dynamic,
@@ -60,3 +60,6 @@ export const format = ({
 
   return `${sections.join('\n\n')}\n`;
 };
+
+export const format = (result: RegexScanResult): string =>
+  withSkipped(findingsText(result), result.skipped);

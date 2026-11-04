@@ -13,7 +13,13 @@ const exponential = (file: string, source: string): RegexFinding => ({
 describe('format renders findings grouped by file with no colors', () => {
   it('reports plainly when every section is empty', () => {
     strict.strictEqual(
-      format({ unsafe: [], undetermined: [], dynamic: [], staticWrap: [] }),
+      format({
+        unsafe: [],
+        undetermined: [],
+        dynamic: [],
+        staticWrap: [],
+        skipped: 0,
+      }),
       'no unsafe patterns found\n'
     );
   });
@@ -29,6 +35,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: [],
+        skipped: 0,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  (a+)+$ (exponential, search)\n  (.*)x (exponential, search)\n\nb.js\n  (.+)$ (exponential, search)\n'
     );
@@ -63,6 +70,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: [],
+        skipped: 0,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  ^\\s*#[^\\n]+ (polynomial of degree 2, search, flags: gm)\n  (a+)+a (exponential, whole match)\n  a?a?a? (more than 2 quantifiers)\n'
     );
@@ -83,6 +91,7 @@ describe('format renders findings grouped by file with no colors', () => {
         ],
         dynamic: ['c.js'],
         staticWrap: [],
+        skipped: 0,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  (a+)+$ (exponential, search)\n\n' +
         'Regular expressions the analysis could not settle (review manually):\n\nb.js\n  (?:x+){1,9}y (work cap reached, flags: i)\n\n' +
@@ -97,6 +106,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: ['lib/build.py', 'src/router.js'],
         staticWrap: ['src/wrap.js'],
+        skipped: 0,
       }),
       'Vulnerable regular expressions found:\n\na.js\n  (a+)+$ (exponential, search)\n\n' +
         'Dynamically built regular expressions (review manually by simulating a constructed regex):\n\n' +
@@ -113,6 +123,7 @@ describe('format renders findings grouped by file with no colors', () => {
         undetermined: [],
         dynamic: [],
         staticWrap: ['src/wrap.js'],
+        skipped: 0,
       }),
       'Static regex wrapped in a constructor (use a literal instead):\n\nsrc/wrap.js\n'
     );
@@ -124,8 +135,22 @@ describe('format renders findings grouped by file with no colors', () => {
       undetermined: [],
       dynamic: ['b.js'],
       staticWrap: ['c.js'],
+      skipped: 0,
     });
 
     strict.strictEqual(output.includes(String.fromCharCode(27)), false);
+  });
+
+  it('ends with how many paths Git kept out of the scan', () => {
+    strict.strictEqual(
+      format({
+        unsafe: [],
+        undetermined: [],
+        dynamic: [],
+        staticWrap: [],
+        skipped: 2,
+      }),
+      'no unsafe patterns found\n\nSkipped 2 paths that Git ignores. Name one with --dir or --file to scan it.\n'
+    );
   });
 });

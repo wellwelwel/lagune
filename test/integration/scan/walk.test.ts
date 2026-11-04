@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { SOURCE_FILTER } from '../../../src/core/scan/filters.js';
-import { walk } from '../../../src/core/scan/walk.js';
+import { walkTargets } from '../../../src/core/scan/walk.js';
 import { createFiles, newWorkspace } from './__utils__.js';
 
 const walkSources = async (paths: readonly string[]): Promise<string[]> => {
@@ -9,7 +9,7 @@ const walkSources = async (paths: readonly string[]): Promise<string[]> => {
 
   await createFiles(workspace, paths);
 
-  return (await walk(workspace, workspace, SOURCE_FILTER)).toSorted();
+  return (await walkTargets(workspace, [workspace], SOURCE_FILTER)).files;
 };
 
 await describe('a source walk lists the files a hook reads', async () => {

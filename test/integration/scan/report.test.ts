@@ -1,3 +1,4 @@
+import type { ScanReport } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
 import { formatReport } from '../../../src/core/scan/report.js';
 
@@ -11,7 +12,10 @@ const HEADINGS = {
 describe('formatReport renders findings, review, and advisory sections', () => {
   it('prints the sentinel when every section is empty', () => {
     strict.strictEqual(
-      formatReport({ findings: [], review: [], advisory: [] }, HEADINGS),
+      formatReport(
+        { findings: [], review: [], advisory: [], skipped: 0 },
+        HEADINGS
+      ),
       'no risks found\n'
     );
   });
@@ -27,6 +31,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
           ],
           review: [],
           advisory: [],
+          skipped: 0,
         },
         HEADINGS
       ),
@@ -41,6 +46,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
           findings: [{ file: 'a.ts', detail: 'weak cipher' }],
           review: [{ file: 'b.ts', detail: 'timing-unsafe compare' }],
           advisory: [{ file: 'c.ts', detail: 'mutable base tag' }],
+          skipped: 0,
         },
         HEADINGS
       ),
@@ -57,6 +63,7 @@ describe('formatReport renders findings, review, and advisory sections', () => {
           findings: [{ file: 'a.ts', detail: 'weak cipher' }],
           review: [{ file: 'b.ts', detail: 'unjudged' }],
           advisory: [],
+          skipped: 0,
         },
         { sentinel: 'no risks found\n', findings: 'Findings:' }
       ),
@@ -70,10 +77,36 @@ describe('formatReport renders findings, review, and advisory sections', () => {
         findings: [{ file: 'a.ts', detail: 'weak cipher' }],
         review: [{ file: 'b.ts', detail: 'lead' }],
         advisory: [{ file: 'c.ts', detail: 'posture' }],
+        skipped: 0,
       },
       HEADINGS
     );
 
     strict.strictEqual(output.includes(String.fromCharCode(27)), false);
   });
+});
+
+describe('formatReport ends a report with how many paths Git kept out of the scan', () => {
+  const cases: [name: string, report: ScanReport, expected: string][] = [
+    [
+      'after the sentinel, naming a single path',
+      { findings: [], review: [], advisory: [], skipped: 1 },
+      'no risks found\n\nSkipped 1 path that Git ignores. Name one with --dir or --file to scan it.\n',
+    ],
+    [
+      'after the sections, counting several paths',
+      {
+        findings: [{ file: 'a.ts', detail: 'weak cipher' }],
+        review: [],
+        advisory: [],
+        skipped: 3,
+      },
+      'Findings:\n\na.ts\n  weak cipher\n\nSkipped 3 paths that Git ignores. Name one with --dir or --file to scan it.\n',
+    ],
+  ];
+
+  for (const [name, report, expected] of cases)
+    it(name, () => {
+      strict.strictEqual(formatReport(report, HEADINGS), expected);
+    });
 });

@@ -33,14 +33,18 @@ export type WalkFilter = {
   accept: (relativePath: string) => boolean;
 };
 
-export type ScanFinding = { file: string; detail: string };
+export type WalkResult = {
+  files: string[];
+  skipped: string[];
+};
 
-export type ScanNote = { file: string; detail: string };
+export type ScanDetail = { file: string; detail: string };
 
 export type ScanReport = {
-  findings: ScanFinding[];
-  review: ScanNote[];
-  advisory: ScanNote[];
+  findings: ScanDetail[];
+  review: ScanDetail[];
+  advisory: ScanDetail[];
+  skipped: number;
 };
 
 export type ReportHeadings = {

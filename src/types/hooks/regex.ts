@@ -544,6 +544,7 @@ export type RegexScanResult = {
   undetermined: RegexFinding[];
   dynamic: string[];
   staticWrap: string[];
+  skipped: number;
 };
 
 export type ArgumentShape = 'dynamic' | 'static-literal';

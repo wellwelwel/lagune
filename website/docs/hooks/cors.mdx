@@ -13,7 +13,7 @@ The `cors` hook is the deterministic engine behind the [`http-request` specializ
 
 ## Scan a codebase
 
-With no flag it scans the whole project.
+With no flag it scans the whole project except what **Git** ignores, and the report ends with how many paths it left out. A path named with `--dir` or `--file` is scanned even when **Git** ignores it.
 
 <Tabs>
   <TabItem value="all" label="Whole project" default>
