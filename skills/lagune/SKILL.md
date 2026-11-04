@@ -1,6 +1,6 @@
 ---
 name: lagune
-description: Do the work the prompt asks for, with security guarding the build as it happens. Loads the charter, matches the security knowledge the work touches, builds safe-by-default, then checks its own result against what it used.
+description: Use this skill whenever you are about to build or change code. It builds safe-by-default from the project's charter and the defensive security knowledge the work touches, then checks the result.
 argument-hint: Describe the work to do, and Lagune builds it safely
 user-invocable: true
 ---
@@ -73,4 +73,4 @@ Output a short summary to the user, in plain language a non-developer understand
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root. If the `lagune_read` and `lagune_write` MCP tools are available, make every call through them. Otherwise, run it in the shell as `npx --yes lagune@0.16.0 read <command> <arguments>` and `npx --yes lagune@0.16.0 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root. If the `lagune_read` and `lagune_write` MCP tools are available, make every call through them. Otherwise, run it in the shell as `npx --yes lagune@0.17.0 read <command> <arguments>` and `npx --yes lagune@0.17.0 write <command> <arguments>` as a fallback.
