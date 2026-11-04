@@ -8,8 +8,8 @@ import {
 } from './__utils__.js';
 
 const CLAUDE_BRANCH = {
-  source: 'github',
-  repo: 'wellwelwel/lagune',
+  source: 'url',
+  url: 'https://github.com/wellwelwel/lagune.git',
   ref: 'plugin-claude',
 };
 
@@ -22,7 +22,7 @@ const engineServer = await readDeclaredServer(
 );
 
 describe('the Claude Code marketplace', () => {
-  it('installs the plugin from its branch, which carries the engine', () => {
+  it('installs the plugin from its branch, which carries the engine, over HTTPS, since Claude Code updates a GitHub source over SSH alone', () => {
     strict.deepStrictEqual(
       entries.map((entry) => entry.source),
       [CLAUDE_BRANCH]

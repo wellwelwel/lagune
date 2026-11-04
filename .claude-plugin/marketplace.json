@@ -8,8 +8,8 @@
     {
       "name": "lagune",
       "source": {
-        "source": "github",
-        "repo": "wellwelwel/lagune",
+        "source": "url",
+        "url": "https://github.com/wellwelwel/lagune.git",
         "ref": "plugin-claude"
       },
       "description": "🪼 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
