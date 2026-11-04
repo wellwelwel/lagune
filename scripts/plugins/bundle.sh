@@ -7,7 +7,7 @@ overlay="scripts/plugins/$plugin"
 sharedPaths=(skills README.md LICENSE)
 enginePaths=(package.json catalog lib/bin lib/THIRD_PARTY_LICENSES.txt)
 paths=("${sharedPaths[@]}" "${enginePaths[@]}")
-packingOptions=(-cf - --exclude='skills/*/agents')
+packingOptions=(--exclude='skills/*/agents')
 
 case "$plugin" in
   antigravity)
@@ -34,13 +34,24 @@ if [[ -e "$bundle" ]]; then
   exit 1
 fi
 
+archive="$(mktemp)"
+
+if [[ -z "$archive" || ! -f "$archive" || -L "$archive" || -s "$archive" ]]; then
+  echo "Refusing to use \"$archive\" as the temporary bundle archive." >&2
+  exit 1
+fi
+
+trap 'rm -f -- "${archive:?}"' EXIT
+
 mkdir -p "$bundle"
 # Git Bash's tar opens a folder after -C only in the shell's own path form, never as a Windows path
 bundle="$(cd "$bundle" && pwd)"
-tar "${packingOptions[@]}" "${paths[@]}" | tar -xf - -C "$bundle"
+tar -cf "$archive" "${packingOptions[@]}" "${paths[@]}"
+tar -xf "$archive" -C "$bundle"
 
 if [[ -d "$overlay" ]]; then
-  tar -cf - -C "$overlay" . | tar -xf - -C "$bundle"
+  tar -cf "$archive" -C "$overlay" .
+  tar -xf "$archive" -C "$bundle"
 fi
 
 # Hermes Agent's catalog installs a plugin from its root, while the default branch keeps it one level down
