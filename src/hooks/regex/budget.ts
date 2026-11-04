@@ -16,3 +16,8 @@ export const spend = (meter: WorkMeter, steps: number): void => {
 
   if (meter.spent > meter.cap) reachCap();
 };
+
+/** Stops the analysis up front when the steps ahead would pass the cap */
+export const ensureAffordable = (meter: WorkMeter, steps: number): void => {
+  if (meter.spent + steps > meter.cap) reachCap();
+};

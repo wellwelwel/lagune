@@ -1,7 +1,7 @@
 import type { AgentVerdict } from '../../types/hooks/agent.js';
 import type { FileAnalysis, LanguageId } from '../../types/scan.js';
-import { languageOf } from '../../core/scan/language.js';
 import { codeLines, firedRules } from '../../core/scan/lines.js';
+import { EMPTY_ANALYSIS, forDetectedLanguage } from '../../core/scan/scope.js';
 import {
   alwaysLoopCallsOf,
   capOf,
@@ -9,8 +9,6 @@ import {
   sdkImportOf,
   uncappedRulesOf,
 } from './patterns.js';
-
-const EMPTY: FileAnalysis = { findings: [], review: [], advisory: [] };
 
 const WINDOW = 30;
 
@@ -48,7 +46,7 @@ export const analyzeFor = (
 ): FileAnalysis => {
   const sdk = sdkImportOf(language);
 
-  if (sdk === null || !sdk.test(content)) return EMPTY;
+  if (sdk === null || !sdk.test(content)) return EMPTY_ANALYSIS;
 
   const findings = [
     ...firedRules(content, uncappedRulesOf(language), language),
@@ -60,11 +58,7 @@ export const analyzeFor = (
   return { findings, review: [], advisory: [] };
 };
 
-export const analyze = (file: string, content: string): FileAnalysis => {
-  const language = languageOf(file);
-
-  return language === null ? EMPTY : analyzeFor(language, content);
-};
+export const analyze = forDetectedLanguage(analyzeFor);
 
 export const classify = (
   snippet: string,
@@ -75,7 +69,7 @@ export const classify = (
 
   const always = alwaysLoopCallsOf(language);
 
-  if (!(always !== null && always.test(snippet))) return 'invalid';
+  if (always === null || !always.test(snippet)) return 'invalid';
 
   const cap = capOf(language);
 

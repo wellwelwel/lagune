@@ -1,11 +1,13 @@
 import type { LanguageId, LineRule } from '../../types/scan.js';
+import { deepFreeze } from '../../core/collections.js';
+import { isLanguageIn, languagesOf } from '../../core/scan/language.js';
 
 const rule = (regex: RegExp, detail: string): LineRule => ({
   regex,
   detail,
 });
 
-const WEAK_CIPHER: Partial<Record<LanguageId, LineRule[]>> = {
+const WEAK_CIPHER: Partial<Record<LanguageId, LineRule[]>> = deepFreeze({
   javascript: [
     rule(
       /\bcreate(?:Decipher|Cipher)\s{0,16}\(/i,
@@ -188,9 +190,9 @@ const WEAK_CIPHER: Partial<Record<LanguageId, LineRule[]>> = {
       'ECB cipher mode: leaks plaintext structure, use GCM or CBC'
     ),
   ],
-};
+});
 
-const WEAK_DIGEST: Partial<Record<LanguageId, LineRule[]>> = {
+const WEAK_DIGEST: Partial<Record<LanguageId, LineRule[]>> = deepFreeze({
   javascript: [
     rule(
       /createHash\s{0,16}\(\s{0,16}[\'"`]md5[\'"`]/i,
@@ -373,9 +375,9 @@ const WEAK_DIGEST: Partial<Record<LanguageId, LineRule[]>> = {
       'weak Crypto++ digest (MD5 / SHA1): broken for security use, fine only as a non-security checksum, use CryptoPP::SHA256'
     ),
   ],
-};
+});
 
-const TIMING: Partial<Record<LanguageId, LineRule[]>> = {
+const TIMING: Partial<Record<LanguageId, LineRule[]>> = deepFreeze({
   javascript: [
     rule(
       /(?:===?)\s{0,16}[^=]{0,40}\b(?:hmac|digest|mac|tag)\b|\b(?:hmac|digest|mac|tag)\b[^=]{0,40}(?:===?)/i,
@@ -458,7 +460,7 @@ const TIMING: Partial<Record<LanguageId, LineRule[]>> = {
       'timing-unsafe equality of an hmac/digest: use OpenSSL CRYPTO_memcmp or Crypto++ VerifyBufsEqual'
     ),
   ],
-};
+});
 
 const INSECURE_PRNG: Partial<Record<LanguageId, RegExp>> = {
   javascript: /\bMath\.random\s{0,16}\(/i,
@@ -494,12 +496,9 @@ const CRYPTO_MARKER: Partial<Record<LanguageId, RegExp>> = {
   cpp: /\b(?:EVP_[A-Za-z0-9_]{2,32}|(?:CryptoPP|Weak)::[A-Za-z0-9_]{2,32}|RAND_(?:bytes|priv_bytes)|CRYPTO_memcmp|VerifyBufsEqual|AutoSeededRandomPool|HMAC|SHA(?:1|224|256|384|512)?|MD5|AES|RSA|DES|RC4|Blowfish|getrandom|random_device|EncryptInit|DecryptInit|DigestInit)\b/i,
 };
 
-export const SUPPORTED_LANGUAGES: readonly LanguageId[] = Object.keys(
-  CRYPTO_MARKER
-) as LanguageId[];
+export const SUPPORTED_LANGUAGES = languagesOf(CRYPTO_MARKER);
 
-export const isSupportedLanguage = (value: string): value is LanguageId =>
-  (SUPPORTED_LANGUAGES as readonly string[]).includes(value);
+export const isSupportedLanguage = isLanguageIn(SUPPORTED_LANGUAGES);
 
 export const weakCipherRulesOf = (language: LanguageId): LineRule[] =>
   WEAK_CIPHER[language] ?? [];

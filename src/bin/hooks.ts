@@ -1,4 +1,5 @@
 import type { HookHandler, HookName } from '../types/core.js';
+import { deepFreeze } from '../core/collections.js';
 import { run as agent } from '../hooks/agent/cli.js';
 import { run as cors } from '../hooks/cors/cli.js';
 import { run as crypto } from '../hooks/crypto/cli.js';
@@ -14,7 +15,7 @@ import { run as track } from '../hooks/track/cli.js';
 import { run as untrack } from '../hooks/untrack/cli.js';
 import { run as validate } from '../hooks/validate/cli.js';
 
-export const HOOKS: Record<HookName, HookHandler> = {
+export const HOOKS: Record<HookName, HookHandler> = deepFreeze({
   agent,
   cors,
   crypto,
@@ -29,7 +30,7 @@ export const HOOKS: Record<HookName, HookHandler> = {
   track,
   untrack,
   validate,
-};
+});
 
 export const isHookName = (value: string | undefined): value is HookName =>
   value !== undefined && Object.hasOwn(HOOKS, value);

@@ -386,6 +386,21 @@ describe('a pattern the analysis cannot settle reads undetermined, naming the ca
   ]);
 });
 
+describe('a repetition count too large to lay out reads undetermined instead of failing the check', () => {
+  expectAssessments([
+    [
+      'a{99999999999}',
+      '',
+      { verdict: 'undetermined', reason: 'work cap reached', scope: null },
+    ],
+    [
+      `(?:a+){${'9'.repeat(400)}}`,
+      '',
+      { verdict: 'undetermined', reason: 'work cap reached', scope: null },
+    ],
+  ]);
+});
+
 describe('a search whose long bounded runs pile up at most 200 paths settles as safe', () => {
   expectAssessments([
     [

@@ -1,10 +1,8 @@
 import type { InterpreterVerdict } from '../../types/hooks/interpreter.js';
 import type { FileAnalysis, LanguageId } from '../../types/scan.js';
-import { languageOf } from '../../core/scan/language.js';
 import { firedRules } from '../../core/scan/lines.js';
+import { forDetectedLanguage } from '../../core/scan/scope.js';
 import { rulesOf } from './patterns.js';
-
-const EMPTY: FileAnalysis = { findings: [], review: [], advisory: [] };
 
 export const analyzeFor = (
   language: LanguageId,
@@ -15,11 +13,7 @@ export const analyzeFor = (
   advisory: [],
 });
 
-export const analyze = (file: string, content: string): FileAnalysis => {
-  const language = languageOf(file);
-
-  return language === null ? EMPTY : analyzeFor(language, content);
-};
+export const analyze = forDetectedLanguage(analyzeFor);
 
 export const classify = (
   snippet: string,

@@ -1,7 +1,7 @@
 import type { CryptoVerdict } from '../../types/hooks/crypto.js';
 import type { FileAnalysis, LanguageId } from '../../types/scan.js';
-import { languageOf } from '../../core/scan/language.js';
 import { codeLines, firedRules } from '../../core/scan/lines.js';
+import { forDetectedLanguage } from '../../core/scan/scope.js';
 import {
   cryptoMarkerOf,
   insecurePrngOf,
@@ -9,8 +9,6 @@ import {
   weakCipherRulesOf,
   weakDigestRulesOf,
 } from './patterns.js';
-
-const EMPTY: FileAnalysis = { findings: [], review: [], advisory: [] };
 
 const SECURITY_CONTEXT =
   /\b(?:token|secret|password|nonce|salt|session|csrf|auth|credential|api[_-]?key|private[_-]?key|otp|reset|\biv\b)\b/i;
@@ -60,11 +58,7 @@ export const analyzeFor = (
   advisory: [],
 });
 
-export const analyze = (file: string, content: string): FileAnalysis => {
-  const language = languageOf(file);
-
-  return language === null ? EMPTY : analyzeFor(language, content);
-};
+export const analyze = forDetectedLanguage(analyzeFor);
 
 export const classify = (
   snippet: string,

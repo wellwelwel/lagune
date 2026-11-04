@@ -1,5 +1,8 @@
+export const isString = (value: unknown): value is string =>
+  typeof value === 'string';
+
 export const isStringArray = (value: unknown): value is string[] =>
-  Array.isArray(value) && value.every((item) => typeof item === 'string');
+  Array.isArray(value) && value.every(isString);
 
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -12,13 +15,25 @@ export const ownValue = <Value>(
 export const readField = (payload: unknown, field: string): unknown =>
   isRecord(payload) ? ownValue(payload, field) : undefined;
 
-export const appendUnique = (
-  current: string[],
-  incoming: string[]
-): string[] => [
-  ...current,
-  ...incoming.filter((item) => !current.includes(item)),
-];
+const isPlainContainer = (value: unknown): value is object => {
+  if (Array.isArray(value)) return true;
+  if (!isRecord(value)) return false;
+
+  const prototype: unknown = Object.getPrototypeOf(value);
+
+  return prototype === Object.prototype || prototype === null;
+};
+
+/** Freezes an array or plain object and every one nested in it, leaving any other value as it is */
+export const deepFreeze = <Value>(value: Value): Value => {
+  if (!isPlainContainer(value) || Object.isFrozen(value)) return value;
+
+  Object.freeze(value);
+
+  for (const child of Object.values(value)) deepFreeze(child);
+
+  return value;
+};
 
 const joinNaturally = (values: string[], conjunction: string): string => {
   if (values.length <= 1) return values[0] ?? '';

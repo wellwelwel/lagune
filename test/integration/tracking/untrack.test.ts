@@ -10,6 +10,14 @@ import {
 import { untrack } from '../../../src/hooks/untrack/untrack.js';
 import { mapOf, newWorkspace, seedMemoryFile } from './__utils__.js';
 
+const NOW = new Date('2026-07-06T00:00:00.000Z');
+
+const MEMORY_FILES = [
+  '.lagune/memory/detect.md',
+  '.lagune/memory/plan.md',
+  '.lagune/memory/harden.md',
+];
+
 const detectWith = (...findings: string[]): string =>
   [
     '# Project Detect Map',
@@ -24,10 +32,21 @@ const detectWith = (...findings: string[]): string =>
     ]),
   ].join('\n');
 
+const detectWithDanglingMention = (...findings: string[]): string =>
+  `${detectWith(...findings)}
+## Applied sub-skills
+
+- \`.lagune/skills/config.md\`: surfaced "Leaked secret".
+`;
+
 const readMemory = (workspace: string, relativePath: string): Promise<string> =>
   readFile(join(workspace, relativePath), 'utf8');
 
-const NOW = new Date('2026-07-06T00:00:00.000Z');
+const untrackNames = async (
+  workspace: string,
+  names: unknown[]
+): Promise<UntrackSummary> =>
+  JSON.parse(await untrack(workspace, JSON.stringify({ names }), NOW));
 
 describe('removeEntries drops items by name and reports what it removed', () => {
   it('removes one named entry, leaving the rest in place', () => {
@@ -97,6 +116,7 @@ describe('removeEntries drops items by name and reports what it removed', () => 
 await describe('the untrack hook logic', async () => {
   await it('removes a named entry from a seeded map and emits JSON', async () => {
     const workspace = await newWorkspace();
+
     await writeTrackingMap(
       workspace,
       mapOf([
@@ -105,17 +125,10 @@ await describe('the untrack hook logic', async () => {
       ])
     );
 
-    const output = await untrack(
-      workspace,
-      JSON.stringify({ names: ['Leaked secret'] }),
-      NOW
-    );
-    const parsed: { removed: string[]; notFound: string[] } =
-      JSON.parse(output);
-
-    strict.deepStrictEqual(parsed.removed, ['Leaked secret']);
-
+    const summary = await untrackNames(workspace, ['Leaked secret']);
     const map = await loadTrackingMap(workspace);
+
+    strict.deepStrictEqual(summary.removed, ['Leaked secret']);
     strict.deepStrictEqual(
       map.entries.map((entry) => entry.name),
       ['Open redirect']
@@ -131,22 +144,27 @@ await describe('the untrack hook logic', async () => {
     );
   });
 
+  await it('rejects an input that does not carry `names` as a list', async () => {
+    const workspace = await newWorkspace();
+
+    for (const payload of ['null', '["Leaked secret"]', '{"names":"x"}'])
+      await strict.rejects(untrack(workspace, payload, NOW), {
+        message: 'the input needs `names` as a list',
+      });
+  });
+
   await it('fails closed on a non-string name', async () => {
     const workspace = await newWorkspace();
+
     await writeTrackingMap(
       workspace,
       mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }])
     );
 
-    const output = await untrack(
-      workspace,
-      JSON.stringify({ names: [42, 'Leaked secret'] }),
-      NOW
-    );
-    const parsed: { removed: string[] } = JSON.parse(output);
+    const summary = await untrackNames(workspace, [42, 'Leaked secret']);
 
     strict.deepStrictEqual(
-      parsed.removed,
+      summary.removed,
       ['Leaked secret'],
       'the non-string name is filtered out, the valid one still removes'
     );
@@ -154,18 +172,17 @@ await describe('the untrack hook logic', async () => {
 
   await it('does not rewrite the file when nothing changed', async () => {
     const workspace = await newWorkspace();
+    const trackingPath = join(workspace, '.lagune/tracking.json');
+
     await writeTrackingMap(
       workspace,
       mapOf([{ name: 'Open redirect', paths: ['src/routes.ts'] }])
     );
-    const trackingPath = join(workspace, '.lagune/tracking.json');
+
     const before = await stat(trackingPath);
 
-    await untrack(
-      workspace,
-      JSON.stringify({ names: ['Missing finding'] }),
-      NOW
-    );
+    await untrackNames(workspace, ['Missing finding']);
+
     const after = await stat(trackingPath);
 
     strict.strictEqual(
@@ -179,6 +196,8 @@ await describe('the untrack hook logic', async () => {
 await describe('untrack removes finding sections from the memory artifacts', async () => {
   await it('strips the section from all three files and drops the entry', async () => {
     const workspace = await newWorkspace();
+    const body = detectWith('Leaked secret', 'Open redirect');
+
     await writeTrackingMap(
       workspace,
       mapOf([
@@ -186,18 +205,15 @@ await describe('untrack removes finding sections from the memory artifacts', asy
         { name: 'Open redirect', paths: ['src/routes.ts'] },
       ])
     );
-    const body = detectWith('Leaked secret', 'Open redirect');
-    await seedMemoryFile(workspace, '.lagune/memory/detect.md', body);
-    await seedMemoryFile(workspace, '.lagune/memory/plan.md', body);
-    await seedMemoryFile(workspace, '.lagune/memory/harden.md', body);
 
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
+    for (const file of MEMORY_FILES)
+      await seedMemoryFile(workspace, file, body);
+
+    const summary = await untrackNames(workspace, ['Leaked secret']);
+    const contents = await Promise.all(
+      MEMORY_FILES.map((file) => readMemory(workspace, file))
     );
+    const map = await loadTrackingMap(workspace);
 
     strict.deepStrictEqual(summary.removed, ['Leaked secret']);
     strict.deepStrictEqual(
@@ -205,18 +221,14 @@ await describe('untrack removes finding sections from the memory artifacts', asy
       ['edited', 'edited', 'edited'],
       'every memory file was edited'
     );
-
-    for (const file of [
-      '.lagune/memory/detect.md',
-      '.lagune/memory/plan.md',
-      '.lagune/memory/harden.md',
-    ]) {
-      const content = await readMemory(workspace, file);
-      strict.strictEqual(content.includes('### Leaked secret'), false);
-      strict.strictEqual(content.includes('### Open redirect'), true);
-    }
-
-    const map = await loadTrackingMap(workspace);
+    strict.deepStrictEqual(
+      contents.map((content) => content.includes('### Leaked secret')),
+      [false, false, false]
+    );
+    strict.deepStrictEqual(
+      contents.map((content) => content.includes('### Open redirect')),
+      [true, true, true]
+    );
     strict.deepStrictEqual(
       map.entries.map((entry) => entry.name),
       ['Open redirect']
@@ -225,34 +237,29 @@ await describe('untrack removes finding sections from the memory artifacts', asy
 
   await it('tolerates a missing memory file', async () => {
     const workspace = await newWorkspace();
+    const body = detectWith('Leaked secret');
+
     await writeTrackingMap(
       workspace,
       mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }])
     );
-    const body = detectWith('Leaked secret');
     await seedMemoryFile(workspace, '.lagune/memory/detect.md', body);
     await seedMemoryFile(workspace, '.lagune/memory/plan.md', body);
 
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
-    );
-
+    const summary = await untrackNames(workspace, ['Leaked secret']);
     const harden = summary.prose.find(
       (entry) => entry.file === '.lagune/memory/harden.md'
     );
+    const map = await loadTrackingMap(workspace);
+
     strict.strictEqual(harden?.status, 'absent', 'the absent file is reported');
     strict.deepStrictEqual(summary.removed, ['Leaked secret']);
-
-    const map = await loadTrackingMap(workspace);
     strict.strictEqual(map.entries.length, 0);
   });
 
   await it('reports a file where the name is already gone as unchanged', async () => {
     const workspace = await newWorkspace();
+
     await seedMemoryFile(
       workspace,
       '.lagune/memory/detect.md',
@@ -269,41 +276,30 @@ await describe('untrack removes finding sections from the memory artifacts', asy
       detectWith('Leaked secret')
     );
 
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
-    );
-
+    const summary = await untrackNames(workspace, ['Leaked secret']);
     const plan = summary.prose.find(
       (entry) => entry.file === '.lagune/memory/plan.md'
     );
+
     strict.strictEqual(plan?.status, 'unchanged');
     strict.deepStrictEqual(plan?.removed, []);
   });
 
   await it('reports a dangling mention without editing the prose that holds it', async () => {
     const workspace = await newWorkspace();
-    const detect = `${detectWith('Leaked secret', 'Open redirect')}
-## Applied sub-skills
 
-- \`.lagune/skills/config.md\`: surfaced "Leaked secret".
-`;
-    await seedMemoryFile(workspace, '.lagune/memory/detect.md', detect);
-
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
+    await seedMemoryFile(
+      workspace,
+      '.lagune/memory/detect.md',
+      detectWithDanglingMention('Leaked secret', 'Open redirect')
     );
 
+    const summary = await untrackNames(workspace, ['Leaked secret']);
     const entry = summary.prose.find(
       (item) => item.file === '.lagune/memory/detect.md'
     );
+    const content = await readMemory(workspace, '.lagune/memory/detect.md');
+
     strict.strictEqual(entry?.status, 'edited');
     strict.strictEqual(
       entry?.dangling.length,
@@ -312,8 +308,6 @@ await describe('untrack removes finding sections from the memory artifacts', asy
     );
     strict.strictEqual(entry?.dangling[0].name, 'Leaked secret');
     strict.strictEqual(entry?.dangling[0].text.includes('config.md'), true);
-
-    const content = await readMemory(workspace, '.lagune/memory/detect.md');
     strict.strictEqual(content.includes('### Leaked secret'), false);
     strict.strictEqual(
       content.includes('surfaced "Leaked secret"'),
@@ -324,19 +318,14 @@ await describe('untrack removes finding sections from the memory artifacts', asy
 
   await it('reports no dangling when the name only lived in its own section', async () => {
     const workspace = await newWorkspace();
+
     await seedMemoryFile(
       workspace,
       '.lagune/memory/detect.md',
       detectWith('Leaked secret', 'Open redirect')
     );
 
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
-    );
+    const summary = await untrackNames(workspace, ['Leaked secret']);
 
     strict.deepStrictEqual(
       summary.prose.flatMap((entry) => entry.dangling),
@@ -347,24 +336,18 @@ await describe('untrack removes finding sections from the memory artifacts', asy
 
   await it('flags a lingering mention even when this run edits nothing', async () => {
     const workspace = await newWorkspace();
-    const detect = `${detectWith('Open redirect')}
-## Applied sub-skills
 
-- \`.lagune/skills/config.md\`: surfaced "Leaked secret".
-`;
-    await seedMemoryFile(workspace, '.lagune/memory/detect.md', detect);
-
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
+    await seedMemoryFile(
+      workspace,
+      '.lagune/memory/detect.md',
+      detectWithDanglingMention('Open redirect')
     );
 
+    const summary = await untrackNames(workspace, ['Leaked secret']);
     const entry = summary.prose.find(
       (item) => item.file === '.lagune/memory/detect.md'
     );
+
     strict.strictEqual(
       entry?.status,
       'unchanged',
@@ -379,38 +362,31 @@ await describe('untrack removes finding sections from the memory artifacts', asy
 
   await it('leaves every memory file untouched when nothing matches', async () => {
     const workspace = await newWorkspace();
+    const modifiedTimes = async (): Promise<number[]> =>
+      (
+        await Promise.all(
+          MEMORY_FILES.map((file) => stat(join(workspace, file)))
+        )
+      ).map((stamp) => stamp.mtimeMs);
+
     await writeTrackingMap(
       workspace,
       mapOf([{ name: 'Open redirect', paths: ['src/routes.ts'] }])
     );
-    const files = [
-      '.lagune/memory/detect.md',
-      '.lagune/memory/plan.md',
-      '.lagune/memory/harden.md',
-    ];
-    for (const file of files)
+
+    for (const file of MEMORY_FILES)
       await seedMemoryFile(workspace, file, detectWith('Open redirect'));
 
-    const before = await Promise.all(
-      files.map((file) => stat(join(workspace, file)))
-    );
+    const before = await modifiedTimes();
 
-    await untrack(
-      workspace,
-      JSON.stringify({ names: ['Missing finding'] }),
-      NOW
-    );
+    await untrackNames(workspace, ['Missing finding']);
 
-    const after = await Promise.all(
-      files.map((file) => stat(join(workspace, file)))
-    );
+    const after = await modifiedTimes();
 
-    after.forEach((stamp, index) =>
-      strict.strictEqual(
-        stamp.mtimeMs,
-        before[index].mtimeMs,
-        'a file with no match is never rewritten'
-      )
+    strict.deepStrictEqual(
+      after,
+      before,
+      'a file with no match is never rewritten'
     );
   });
 });
@@ -420,11 +396,7 @@ await describe('untrack deletes a memory file once its last finding is gone', as
     workspace: string
   ): Promise<{ file: string; exists: boolean }[]> =>
     Promise.all(
-      [
-        '.lagune/memory/detect.md',
-        '.lagune/memory/plan.md',
-        '.lagune/memory/harden.md',
-      ].map(async (file) => ({
+      MEMORY_FILES.map(async (file) => ({
         file,
         exists: await stat(join(workspace, file)).then(
           () => true,
@@ -435,28 +407,18 @@ await describe('untrack deletes a memory file once its last finding is gone', as
 
   await it('removes the file and reports it removed when no finding remains', async () => {
     const workspace = await newWorkspace();
-    for (const file of [
-      '.lagune/memory/detect.md',
-      '.lagune/memory/plan.md',
-      '.lagune/memory/harden.md',
-    ])
+
+    for (const file of MEMORY_FILES)
       await seedMemoryFile(workspace, file, detectWith('Leaked secret'));
 
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
-    );
+    const summary = await untrackNames(workspace, ['Leaked secret']);
+    const present = await filesExist(workspace);
 
     strict.deepStrictEqual(
       summary.prose.map((entry) => entry.status),
       ['removed', 'removed', 'removed'],
       'every emptied file is deleted, not left as a husk'
     );
-
-    const present = await filesExist(workspace);
     strict.deepStrictEqual(
       present.filter((entry) => entry.exists),
       [],
@@ -466,57 +428,44 @@ await describe('untrack deletes a memory file once its last finding is gone', as
 
   await it('keeps a file that still holds another finding', async () => {
     const workspace = await newWorkspace();
+
     await seedMemoryFile(
       workspace,
       '.lagune/memory/detect.md',
       detectWith('Leaked secret', 'Open redirect')
     );
 
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
-    );
-
+    const summary = await untrackNames(workspace, ['Leaked secret']);
     const detect = summary.prose.find(
       (entry) => entry.file === '.lagune/memory/detect.md'
     );
-    strict.strictEqual(detect?.status, 'edited');
-
     const content = await readMemory(workspace, '.lagune/memory/detect.md');
+
+    strict.strictEqual(detect?.status, 'edited');
     strict.strictEqual(content.includes('### Open redirect'), true);
   });
 
   await it('deletes an emptied file even when a dangling mention lingered', async () => {
     const workspace = await newWorkspace();
-    const detect = `${detectWith('Leaked secret')}
-## Applied sub-skills
 
-- \`.lagune/skills/config.md\`: surfaced "Leaked secret".
-`;
-    await seedMemoryFile(workspace, '.lagune/memory/detect.md', detect);
-
-    const summary: UntrackSummary = JSON.parse(
-      await untrack(
-        workspace,
-        JSON.stringify({ names: ['Leaked secret'] }),
-        NOW
-      )
+    await seedMemoryFile(
+      workspace,
+      '.lagune/memory/detect.md',
+      detectWithDanglingMention('Leaked secret')
     );
 
+    const summary = await untrackNames(workspace, ['Leaked secret']);
     const entry = summary.prose.find(
       (item) => item.file === '.lagune/memory/detect.md'
     );
+    const present = await filesExist(workspace);
+
     strict.strictEqual(entry?.status, 'removed');
     strict.deepStrictEqual(
       entry?.dangling,
       [],
       'a deleted file has no residue to reconcile'
     );
-
-    const present = await filesExist(workspace);
     strict.strictEqual(
       present.find((item) => item.file === '.lagune/memory/detect.md')?.exists,
       false

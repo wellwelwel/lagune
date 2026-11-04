@@ -3,6 +3,7 @@ import type {
   CodeSet,
   Segment,
 } from '../../../types/hooks/regex.js';
+import { deepFreeze } from '../../../core/collections.js';
 import { propertyRun } from '../../../core/dynamic-regex.js';
 import {
   expandPoints,
@@ -31,20 +32,24 @@ const FOLDING_PAIRS: readonly (readonly [number, number])[] = [
   [0xfb05, 0xfb06],
 ];
 
-export const LINE_TERMINATORS: CodeSet = fromRanges([
-  [0x0a, 0x0b],
-  [0x0d, 0x0e],
-  [0x2028, 0x202a],
-]);
+export const LINE_TERMINATORS: CodeSet = deepFreeze(
+  fromRanges([
+    [0x0a, 0x0b],
+    [0x0d, 0x0e],
+    [0x2028, 0x202a],
+  ])
+);
 
-export const DIGITS: CodeSet = rangeSet(0x30, 0x3a);
+export const DIGITS: CodeSet = deepFreeze(rangeSet(0x30, 0x3a));
 
-export const BASIC_WORD: CodeSet = fromRanges([
-  [0x30, 0x3a],
-  [0x41, 0x5b],
-  [0x5f, 0x60],
-  [0x61, 0x7b],
-]);
+export const BASIC_WORD: CodeSet = deepFreeze(
+  fromRanges([
+    [0x30, 0x3a],
+    [0x41, 0x5b],
+    [0x5f, 0x60],
+    [0x61, 0x7b],
+  ])
+);
 
 const CASE_CHANGING_RUN =
   /[\p{Changes_When_Casemapped}\p{Changes_When_Casefolded}]+/gu;

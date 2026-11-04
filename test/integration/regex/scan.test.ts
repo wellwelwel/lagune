@@ -147,6 +147,30 @@ await describe('scan maps unsafe regex across a path, language-gated', async () 
     );
   });
 
+  await it('lists a repetition too large to lay out as unsettled, never letting it hide the vulnerable ones', async () => {
+    await withWorkspace(
+      {
+        'planted.js':
+          'const huge = /(?:a+){99999999999}/;\nconst bad = /(a+)+$/;',
+      },
+      ({ unsafe, undetermined }) => {
+        strict.deepStrictEqual(
+          unsafe.map(({ source, reason }) => `${source} ${reason}`),
+          ['(a+)+$ exponential']
+        );
+        strict.deepStrictEqual(undetermined, [
+          {
+            file: 'planted.js',
+            source: '(?:a+){99999999999}',
+            flags: '',
+            reason: 'work cap reached',
+            scope: null,
+          },
+        ]);
+      }
+    );
+  });
+
   await it('reports nothing for template literals, URLs, prose strings, and shell globs', async () => {
     await withWorkspace(
       {

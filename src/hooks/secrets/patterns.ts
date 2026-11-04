@@ -1,7 +1,8 @@
 import type { LanguageId, LineRule } from '../../types/scan.js';
+import { deepFreeze } from '../../core/collections.js';
 
 /** Curated provider token formats, not exhaustive: the structural rule (a literal bound to a secret-named identifier) catches the rest */
-export const SIGNATURES: LineRule[] = [
+export const SIGNATURES: LineRule[] = deepFreeze([
   {
     regex: /\bAKIA[0-9A-Z]{16}\b/,
     detail: 'AWS access key id (AKIA…) committed in source',
@@ -56,7 +57,7 @@ export const SIGNATURES: LineRule[] = [
       /-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?(?:ENCRYPTED )?PRIVATE KEY(?: BLOCK)?-----/,
     detail: 'private key block (PEM) committed in source',
   },
-];
+]);
 
 const JVM_SINK =
   /System\.(?:out|err)\.(?:println|print|printf|format)\s{0,16}\(|\b(?:log|logger)\.(?:info|warn|error|debug|trace|fatal)\s{0,16}\(|\bprintln\s{0,16}\(|throw\s{1,16}new\s{1,16}\w{0,64}(?:Exception|Error)/;
@@ -82,43 +83,40 @@ const SINKS: Partial<Record<LanguageId, RegExp>> = {
 };
 
 /** Group 2 is the default literal in every regex, so the length/placeholder filter reads the same group everywhere */
-const ENV_FALLBACKS: Partial<Record<LanguageId, readonly RegExp[]>> = {
-  javascript: [
-    /(?:process\.env\.\w{1,64}|import\.meta\.env\.\w{1,64})\s{0,16}(?:\?\?|\|\|)\s{0,16}(['"`])([^'"`]{8,512})\1/,
-  ],
-  python: [
-    /\bos\.(?:getenv|environ\.get)\s{0,16}\(\s{0,16}['"]\w{1,64}['"]\s{0,16},\s{0,16}(['"])([^'"]{8,512})\1/,
-    /\bos\.(?:getenv\s{0,16}\([^)]{0,200}\)|environ\s{0,16}\[\s{0,16}['"]\w{1,64}['"]\s{0,16}\])\s{1,16}or\s{1,16}(['"])([^'"]{8,512})\1/,
-  ],
-  ruby: [
-    /\bENV\s{0,16}\[\s{0,16}['"]\w{1,64}['"]\s{0,16}\]\s{0,16}\|\|\s{0,16}(['"])([^'"]{8,512})\1/,
-    /\bENV\.fetch\s{0,16}\(\s{0,16}['"]\w{1,64}['"]\s{0,16},\s{0,16}(['"])([^'"]{8,512})\1/,
-  ],
-  php: [
-    /\bgetenv\s{0,16}\(\s{0,16}['"]\w{1,64}['"]\s{0,16}\)\s{0,16}\?:\s{0,16}(['"])([^'"]{8,512})\1/,
-    /\$_(?:ENV|SERVER)\s{0,16}\[\s{0,16}['"]\w{1,64}['"]\s{0,16}\]\s{0,16}\?\?\s{0,16}(['"])([^'"]{8,512})\1/,
-  ],
-  java: [
-    /System\.getenv\s{0,16}\([^)]{0,200}\)[^;\n]{0,120}\.orElse\s{0,16}\(\s{0,16}(['"])([^'"]{8,512})\1/,
-  ],
-  kotlin: [
-    /System\.getenv\s{0,16}\([^)]{0,200}\)\s{0,16}\?:\s{0,16}(['"])([^'"]{8,512})\1/,
-    /System\.getenv\s{0,16}\([^)]{0,200}\)[^;\n]{0,120}\.orElse\s{0,16}\(\s{0,16}(['"])([^'"]{8,512})\1/,
-  ],
-  go: [
-    /\bcmp\.Or\s{0,16}\(\s{0,16}os\.Getenv\s{0,16}\([^)]{0,200}\)\s{0,16},\s{0,16}(['"])([^'"]{8,512})\1/,
-  ],
-  rust: [
-    /\benv::var\w{0,8}\s{0,16}\([^)]{0,200}\)[^;\n]{0,120}\.unwrap_or(?:_else)?\s{0,16}\([^"'\n]{0,40}(['"])([^'"]{8,512})\1/,
-  ],
-  csharp: [
-    /\bEnvironment\.GetEnvironmentVariable\s{0,16}\([^)]{0,200}\)\s{0,16}\?\?\s{0,16}(['"])([^'"]{8,512})\1/,
-  ],
-};
-
-export const SINK_LANGUAGES: readonly LanguageId[] = Object.keys(
-  SINKS
-) as LanguageId[];
+const ENV_FALLBACKS: Partial<Record<LanguageId, readonly RegExp[]>> =
+  deepFreeze({
+    javascript: [
+      /(?:process\.env\.\w{1,64}|import\.meta\.env\.\w{1,64})\s{0,16}(?:\?\?|\|\|)\s{0,16}(['"`])([^'"`]{8,512})\1/,
+    ],
+    python: [
+      /\bos\.(?:getenv|environ\.get)\s{0,16}\(\s{0,16}['"]\w{1,64}['"]\s{0,16},\s{0,16}(['"])([^'"]{8,512})\1/,
+      /\bos\.(?:getenv\s{0,16}\([^)]{0,200}\)|environ\s{0,16}\[\s{0,16}['"]\w{1,64}['"]\s{0,16}\])\s{1,16}or\s{1,16}(['"])([^'"]{8,512})\1/,
+    ],
+    ruby: [
+      /\bENV\s{0,16}\[\s{0,16}['"]\w{1,64}['"]\s{0,16}\]\s{0,16}\|\|\s{0,16}(['"])([^'"]{8,512})\1/,
+      /\bENV\.fetch\s{0,16}\(\s{0,16}['"]\w{1,64}['"]\s{0,16},\s{0,16}(['"])([^'"]{8,512})\1/,
+    ],
+    php: [
+      /\bgetenv\s{0,16}\(\s{0,16}['"]\w{1,64}['"]\s{0,16}\)\s{0,16}\?:\s{0,16}(['"])([^'"]{8,512})\1/,
+      /\$_(?:ENV|SERVER)\s{0,16}\[\s{0,16}['"]\w{1,64}['"]\s{0,16}\]\s{0,16}\?\?\s{0,16}(['"])([^'"]{8,512})\1/,
+    ],
+    java: [
+      /System\.getenv\s{0,16}\([^)]{0,200}\)[^;\n]{0,120}\.orElse\s{0,16}\(\s{0,16}(['"])([^'"]{8,512})\1/,
+    ],
+    kotlin: [
+      /System\.getenv\s{0,16}\([^)]{0,200}\)\s{0,16}\?:\s{0,16}(['"])([^'"]{8,512})\1/,
+      /System\.getenv\s{0,16}\([^)]{0,200}\)[^;\n]{0,120}\.orElse\s{0,16}\(\s{0,16}(['"])([^'"]{8,512})\1/,
+    ],
+    go: [
+      /\bcmp\.Or\s{0,16}\(\s{0,16}os\.Getenv\s{0,16}\([^)]{0,200}\)\s{0,16},\s{0,16}(['"])([^'"]{8,512})\1/,
+    ],
+    rust: [
+      /\benv::var\w{0,8}\s{0,16}\([^)]{0,200}\)[^;\n]{0,120}\.unwrap_or(?:_else)?\s{0,16}\([^"'\n]{0,40}(['"])([^'"]{8,512})\1/,
+    ],
+    csharp: [
+      /\bEnvironment\.GetEnvironmentVariable\s{0,16}\([^)]{0,200}\)\s{0,16}\?\?\s{0,16}(['"])([^'"]{8,512})\1/,
+    ],
+  });
 
 export const sinkOf = (language: LanguageId): RegExp | null =>
   SINKS[language] ?? null;

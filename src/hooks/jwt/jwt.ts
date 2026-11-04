@@ -1,7 +1,7 @@
 import type { JwtVerdict } from '../../types/hooks/jwt.js';
 import type { FileAnalysis, LanguageId } from '../../types/scan.js';
-import { languageOf } from '../../core/scan/language.js';
 import { codeLines } from '../../core/scan/lines.js';
+import { EMPTY_ANALYSIS, forDetectedLanguage } from '../../core/scan/scope.js';
 import {
   disableIsStandalone,
   disableVerifyOf,
@@ -10,8 +10,6 @@ import {
   requiresExplicitPin,
   verifyCallOf,
 } from './patterns.js';
-
-const EMPTY: FileAnalysis = { findings: [], review: [], advisory: [] };
 
 const ASYMMETRIC = /^(?:RS|ES|PS)(?:256|384|512)$/i;
 const HMAC = /^HS(?:256|384|512)$/i;
@@ -28,11 +26,11 @@ const DISABLED_DETAIL =
 const isUnsafeAllowlist = (body: string): boolean => {
   const algorithms = body.match(/[A-Za-z0-9]+/g) ?? [];
 
-  if (algorithms.some((alg) => /^none$/i.test(alg))) return true;
+  if (algorithms.some((algorithm) => /^none$/i.test(algorithm))) return true;
 
   return (
-    algorithms.some((alg) => ASYMMETRIC.test(alg)) &&
-    algorithms.some((alg) => HMAC.test(alg))
+    algorithms.some((algorithm) => ASYMMETRIC.test(algorithm)) &&
+    algorithms.some((algorithm) => HMAC.test(algorithm))
   );
 };
 
@@ -49,13 +47,22 @@ const pinDetail = (window: string, language: LanguageId): string | null => {
   return requiresExplicitPin(language) ? UNPINNED_DETAIL : null;
 };
 
+const verifyDetail = (
+  window: string,
+  language: LanguageId,
+  disable: RegExp | null
+): string | null =>
+  disable !== null && disable.test(window)
+    ? DISABLED_DETAIL
+    : pinDetail(window, language);
+
 export const analyzeFor = (
   language: LanguageId,
   content: string
 ): FileAnalysis => {
   const call = verifyCallOf(language);
 
-  if (call === null) return EMPTY;
+  if (call === null) return EMPTY_ANALYSIS;
 
   const disable = disableVerifyOf(language);
   const lines = codeLines(content, language);
@@ -72,13 +79,10 @@ export const analyzeFor = (
       const window = lines
         .slice(index, Math.min(lines.length, index + WINDOW))
         .join('\n');
+      const detail = verifyDetail(window, language, disable);
 
-      if (disable !== null && disable.test(window)) add(DISABLED_DETAIL);
-      else {
-        const detail = pinDetail(window, language);
+      if (detail !== null) add(detail);
 
-        if (detail !== null) add(detail);
-      }
       continue;
     }
 
@@ -89,11 +93,7 @@ export const analyzeFor = (
   return { findings, review: [], advisory: [] };
 };
 
-export const analyze = (file: string, content: string): FileAnalysis => {
-  const language = languageOf(file);
-
-  return language === null ? EMPTY : analyzeFor(language, content);
-};
+export const analyze = forDetectedLanguage(analyzeFor);
 
 export const classify = (snippet: string, language: LanguageId): JwtVerdict => {
   const call = verifyCallOf(language);

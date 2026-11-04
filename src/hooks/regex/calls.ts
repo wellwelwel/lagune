@@ -4,9 +4,10 @@ import type {
   RegexCall,
 } from '../../types/hooks/regex.js';
 import type { LanguageId } from '../../types/scan.js';
+import { deepFreeze } from '../../core/collections.js';
 import { isIdentifierChar, QUOTES, readLiteral, skipSpace } from './lexer.js';
 
-const REGEX_CALLS: readonly RegexCall[] = [
+const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
   {
     name: 'new RegExp',
     argumentIndex: 0,
@@ -275,7 +276,7 @@ const REGEX_CALLS: readonly RegexCall[] = [
     hasLiteralForm: false,
     languages: ['c', 'cpp'],
   },
-];
+]);
 
 export const callsOf = (language: LanguageId): RegexCall[] =>
   REGEX_CALLS.filter((call) => call.languages.includes(language));

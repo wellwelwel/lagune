@@ -1,4 +1,5 @@
 import type { AssertionTest } from '../../../types/hooks/regex.js';
+import { deepFreeze } from '../../../core/collections.js';
 
 export const BOUNDARY = 0;
 
@@ -12,9 +13,8 @@ export const OTHER = 4;
 
 export const KIND_COUNT = 5;
 
-export const KINDS: readonly number[] = Array.from(
-  { length: KIND_COUNT },
-  (_, kind) => kind
+export const KINDS: readonly number[] = deepFreeze(
+  Array.from({ length: KIND_COUNT }, (_, kind) => kind)
 );
 
 export const ALL_KINDS = (1 << KIND_COUNT) - 1;

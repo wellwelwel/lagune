@@ -9,6 +9,7 @@ import type {
   RegexSafetyOptions,
   RegexVerdict,
 } from '../../types/hooks/regex.js';
+import { deepFreeze } from '../../core/collections.js';
 import { compilePattern } from '../../core/dynamic-regex.js';
 import { amplifies } from './amplification/amplification.js';
 import { createMeter, isCapReached } from './budget.js';
@@ -24,11 +25,11 @@ const AMPLIFICATION_LIMIT = 200;
 
 const WORK_CAP = 18_000_000;
 
-const CAPPED: RegexAssessment = {
+const CAPPED: RegexAssessment = deepFreeze({
   verdict: 'undetermined',
   reason: 'work cap reached',
   scope: null,
-};
+});
 
 const AMPLIFIED: RankedReason = {
   reason: `amplification score above ${AMPLIFICATION_LIMIT}`,

@@ -1,4 +1,6 @@
 import type { LanguageId, LineRule } from '../../types/scan.js';
+import { deepFreeze } from '../../core/collections.js';
+import { isLanguageIn, languagesOf } from '../../core/scan/language.js';
 
 const SDK_IMPORT: Partial<Record<LanguageId, RegExp>> = {
   javascript:
@@ -22,7 +24,7 @@ const CAP: Partial<Record<LanguageId, RegExp>> = {
 };
 
 /** Explicit removal of a default cap. Python frameworks cap by default, so only turning the cap off is a finding */
-const UNCAPPED_RULES: Partial<Record<LanguageId, LineRule[]>> = {
+const UNCAPPED_RULES: Partial<Record<LanguageId, LineRule[]>> = deepFreeze({
   python: [
     {
       regex: /\bmax_iterations\s{0,16}=\s{0,16}None\b/,
@@ -45,19 +47,16 @@ const UNCAPPED_RULES: Partial<Record<LanguageId, LineRule[]>> = {
         'agent with max_turns=None: removes the turn limit, so the agent loop is unbounded (DoS / cost-burn)',
     },
   ],
-};
+});
 
 /** True where the framework loops unbounded by default (JavaScript SDKs), false where it caps by default (Python) */
 const FLAGS_MISSING_CAP: Partial<Record<LanguageId, boolean>> = {
   javascript: true,
 };
 
-export const SUPPORTED_LANGUAGES: readonly LanguageId[] = Object.keys(
-  SDK_IMPORT
-) as LanguageId[];
+export const SUPPORTED_LANGUAGES = languagesOf(SDK_IMPORT);
 
-export const isSupportedLanguage = (value: string): value is LanguageId =>
-  (SUPPORTED_LANGUAGES as readonly string[]).includes(value);
+export const isSupportedLanguage = isLanguageIn(SUPPORTED_LANGUAGES);
 
 export const sdkImportOf = (language: LanguageId): RegExp | null =>
   SDK_IMPORT[language] ?? null;

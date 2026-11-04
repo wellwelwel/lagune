@@ -11,7 +11,7 @@ import type {
   RegexNode,
   RepeatNode,
 } from '../../../types/hooks/regex.js';
-import { spend } from '../budget.js';
+import { ensureAffordable, spend } from '../budget.js';
 import { rangeSet, setKey } from '../syntax/codeset.js';
 import {
   alternationOf,
@@ -233,6 +233,8 @@ const repeatFragment = (
     return starFragment(builder, body, lazy, scope);
   if (min === 1 && max === Infinity)
     return plusFragment(builder, body, lazy, scope);
+
+  ensureAffordable(builder.meter, max === Infinity ? min : max);
 
   const required = Array.from({ length: min }, () =>
     buildNode(builder, body, scope)

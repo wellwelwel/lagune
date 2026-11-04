@@ -9,12 +9,13 @@ import type {
 } from '../types/core.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { isString, isStringArray, readField } from './collections.js';
 import { ensureDir, writeFileOverwrite } from './fs-actions.js';
 
 const TRACKING_DIR = '.lagune';
 const TRACKING_PATH = '.lagune/tracking.json';
 
-export const emptyTrackingMap = (): TrackingMap => ({ entries: [] });
+const emptyTrackingMap = (): TrackingMap => ({ entries: [] });
 
 export const samePaths = (left: string[], right: string[]): boolean => {
   if (left.length !== right.length) return false;
@@ -92,65 +93,46 @@ export const removeEntries = (
 };
 
 const isObservedEntry = (value: unknown): value is ObservedEntry =>
-  typeof value === 'object' &&
-  value !== null &&
-  typeof (value as ObservedEntry).name === 'string' &&
-  Array.isArray((value as ObservedEntry).paths) &&
-  (value as ObservedEntry).paths.every((path) => typeof path === 'string');
+  isString(readField(value, 'name')) &&
+  isStringArray(readField(value, 'paths'));
 
-export const toObservedEntries = (value: unknown): ObservedEntry[] =>
-  Array.isArray(value)
-    ? value
-        .filter(isObservedEntry)
-        .map((entry) => ({ name: entry.name, paths: [...entry.paths] }))
-    : [];
+const payloadList = (raw: string, field: string): unknown[] => {
+  const list = readField(JSON.parse(raw), field);
 
-export const parseObservedPayload = (raw: string): ObservedEntry[] => {
-  const parsed: unknown = JSON.parse(raw);
+  if (!Array.isArray(list))
+    throw new Error(`the input needs \`${field}\` as a list`);
 
-  return toObservedEntries((parsed as { entries?: unknown }).entries);
+  return list;
 };
 
-export const toNames = (value: unknown): string[] =>
-  Array.isArray(value)
-    ? value.filter((name): name is string => typeof name === 'string')
-    : [];
+export const parseObservedPayload = (raw: string): ObservedEntry[] =>
+  payloadList(raw, 'entries')
+    .filter(isObservedEntry)
+    .map((entry) => ({ name: entry.name, paths: [...entry.paths] }));
 
-export const parseNamePayload = (raw: string): string[] => {
-  const parsed: unknown = JSON.parse(raw);
-
-  return toNames((parsed as { names?: unknown }).names);
-};
+export const parseNamePayload = (raw: string): string[] =>
+  payloadList(raw, 'names').filter(isString);
 
 const normalizeEntry = (value: unknown): TrackingEntry | undefined => {
-  if (typeof value !== 'object' || value === null) return undefined;
+  const name = readField(value, 'name');
 
-  const candidate = value as Record<string, unknown>;
-  const { name } = candidate;
-  const paths = Array.isArray(candidate.paths)
-    ? candidate.paths.filter((path): path is string => typeof path === 'string')
-    : [];
+  if (!isString(name)) return undefined;
 
-  if (typeof name !== 'string') return undefined;
+  const paths = readField(value, 'paths');
 
-  return { name, paths };
+  return { name, paths: Array.isArray(paths) ? paths.filter(isString) : [] };
 };
 
 const parseTrackingMap = (raw: string): TrackingMap => {
-  const parsed: unknown = JSON.parse(raw);
+  const entries = readField(JSON.parse(raw), 'entries');
 
-  if (
-    typeof parsed !== 'object' ||
-    parsed === null ||
-    !Array.isArray((parsed as { entries?: unknown }).entries)
-  )
-    return emptyTrackingMap();
+  if (!Array.isArray(entries)) return emptyTrackingMap();
 
-  const entries = (parsed as { entries: unknown[] }).entries
-    .map(normalizeEntry)
-    .filter((entry): entry is TrackingEntry => entry !== undefined);
-
-  return { entries };
+  return {
+    entries: entries
+      .map(normalizeEntry)
+      .filter((entry): entry is TrackingEntry => entry !== undefined),
+  };
 };
 
 export const loadTrackingMap = async (

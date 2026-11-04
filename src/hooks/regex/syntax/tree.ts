@@ -1,6 +1,7 @@
 import type { CodeSet, RegexNode } from '../../../types/hooks/regex.js';
+import { deepFreeze } from '../../../core/collections.js';
 
-export const EMPTY_NODE: RegexNode = { kind: 'empty' };
+export const EMPTY_NODE: RegexNode = deepFreeze({ kind: 'empty' });
 
 const reversedCache = new WeakMap<RegexNode, RegexNode>();
 

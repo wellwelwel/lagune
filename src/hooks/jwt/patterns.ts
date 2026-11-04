@@ -1,4 +1,5 @@
 import type { LanguageId } from '../../types/scan.js';
+import { isLanguageIn, languagesOf } from '../../core/scan/language.js';
 
 const VERIFY_CALL: Partial<Record<LanguageId, RegExp>> = {
   javascript:
@@ -55,12 +56,9 @@ const DISABLE_STANDALONE: Partial<Record<LanguageId, boolean>> = {
   python: false,
 };
 
-export const SUPPORTED_LANGUAGES: readonly LanguageId[] = Object.keys(
-  VERIFY_CALL
-) as LanguageId[];
+export const SUPPORTED_LANGUAGES = languagesOf(VERIFY_CALL);
 
-export const isSupportedLanguage = (value: string): value is LanguageId =>
-  (SUPPORTED_LANGUAGES as readonly string[]).includes(value);
+export const isSupportedLanguage = isLanguageIn(SUPPORTED_LANGUAGES);
 
 export const verifyCallOf = (language: LanguageId): RegExp | null =>
   VERIFY_CALL[language] ?? null;

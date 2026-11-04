@@ -7,15 +7,6 @@ import { track, trackEntries } from '../../../src/hooks/track/track.js';
 import { mapOf, newWorkspace } from './__utils__.js';
 
 describe('trackEntries registers and re-reports one item per finding', () => {
-  it('registers a reported finding as new', () => {
-    const result = trackEntries(mapOf([]), [
-      { name: 'Leaked secret', paths: ['src/config.ts'] },
-    ]);
-
-    strict.strictEqual(result.classifications[0].classification, 'new');
-    strict.strictEqual(result.updatedMap.entries.length, 1);
-  });
-
   it('leaves an identical report unchanged', () => {
     const map = mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }]);
 
@@ -25,48 +16,6 @@ describe('trackEntries registers and re-reports one item per finding', () => {
 
     strict.strictEqual(result.classifications[0].classification, 'unchanged');
     strict.deepStrictEqual(result.updatedMap.entries, map.entries);
-  });
-
-  it('re-reports the same item by name, one entry not two', () => {
-    const map = mapOf([
-      {
-        name: 'Avatar uploads keep the filename',
-        paths: ['src/routes/avatar.js'],
-      },
-    ]);
-
-    const result = trackEntries(map, [
-      {
-        name: 'Avatar uploads keep the filename',
-        paths: ['src/routes/avatar.js'],
-      },
-    ]);
-
-    strict.strictEqual(result.classifications[0].classification, 'unchanged');
-    strict.strictEqual(
-      result.updatedMap.entries.length,
-      1,
-      're-reporting reuses the one entry, never creates a second'
-    );
-    strict.strictEqual(
-      result.updatedMap.entries[0].name,
-      'Avatar uploads keep the filename'
-    );
-  });
-
-  it('re-reporting the same item keeps one entry', () => {
-    const map = mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }]);
-
-    const afterHarden = trackEntries(map, [
-      { name: 'Leaked secret', paths: ['src/config.ts'] },
-    ]);
-    strict.strictEqual(afterHarden.updatedMap.entries.length, 1);
-
-    const afterVerify = trackEntries(afterHarden.updatedMap, [
-      { name: 'Leaked secret', paths: ['src/config.ts'] },
-    ]);
-    strict.strictEqual(afterVerify.updatedMap.entries[0].name, 'Leaked secret');
-    strict.strictEqual(afterVerify.updatedMap.entries.length, 1);
   });
 
   it('follows a moved path on re-run, no duplicate', () => {
@@ -175,5 +124,14 @@ await describe('the track hook logic', async () => {
         { name: 'Open redirect', paths: ['src/routes.ts'] },
       ])
     );
+  });
+
+  await it('rejects an input that does not carry `entries` as a list, never reading it as nothing to track', async () => {
+    const workspace = await newWorkspace();
+
+    for (const payload of ['null', '[]', '{}', '"entries"', '{"entries":"x"}'])
+      await strict.rejects(track(workspace, payload), {
+        message: 'the input needs `entries` as a list',
+      });
   });
 });

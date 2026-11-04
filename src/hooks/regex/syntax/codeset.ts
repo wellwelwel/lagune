@@ -1,6 +1,7 @@
 import type { CodeSet } from '../../../types/hooks/regex.js';
+import { deepFreeze } from '../../../core/collections.js';
 
-export const EMPTY_SET: CodeSet = [];
+export const EMPTY_SET: CodeSet = deepFreeze([]);
 
 export const LEGACY_LIMIT = 0x10000;
 

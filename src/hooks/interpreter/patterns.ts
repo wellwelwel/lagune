@@ -1,4 +1,6 @@
 import type { LanguageId, LineRule } from '../../types/scan.js';
+import { deepFreeze } from '../../core/collections.js';
+import { isLanguageIn, languagesOf } from '../../core/scan/language.js';
 
 const REVIEW = 'review statically, never run it';
 
@@ -36,7 +38,7 @@ const JVM_FAMILY: LineRule[] = [
   },
 ];
 
-const SINK_RULES: Partial<Record<LanguageId, LineRule[]>> = {
+const SINK_RULES: Partial<Record<LanguageId, LineRule[]>> = deepFreeze({
   javascript: [
     {
       regex:
@@ -195,14 +197,11 @@ const SINK_RULES: Partial<Record<LanguageId, LineRule[]>> = {
       detail: `Assembly.Load loads and runs code at runtime (.NET): ${REVIEW}`,
     },
   ],
-};
+});
 
-export const SUPPORTED_LANGUAGES: readonly LanguageId[] = Object.keys(
-  SINK_RULES
-) as LanguageId[];
+export const SUPPORTED_LANGUAGES = languagesOf(SINK_RULES);
 
 export const rulesOf = (language: LanguageId): LineRule[] =>
   SINK_RULES[language] ?? [];
 
-export const isSupportedLanguage = (value: string): value is LanguageId =>
-  (SUPPORTED_LANGUAGES as readonly string[]).includes(value);
+export const isSupportedLanguage = isLanguageIn(SUPPORTED_LANGUAGES);

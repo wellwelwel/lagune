@@ -1,4 +1,5 @@
 import type { WalkFilter } from '../../types/scan.js';
+import { deepFreeze } from '../collections.js';
 
 export const BASE_IGNORED_DIRS: ReadonlySet<string> = new Set([
   '.git',
@@ -36,10 +37,10 @@ export const BASE_IGNORED_DIRS: ReadonlySet<string> = new Set([
   '__fixtures__',
 ]);
 
-export const BASE_IGNORED_DIR_PATTERNS: readonly RegExp[] = [
+export const BASE_IGNORED_DIR_PATTERNS: readonly RegExp[] = deepFreeze([
   /^lagune-/,
   /\.egg-info$/,
-];
+]);
 
 const IGNORED_EXTENSIONS = new Set([
   '.gif',
@@ -82,10 +83,10 @@ const hasIgnoredExtension = (path: string): boolean => {
   return dot !== -1 && IGNORED_EXTENSIONS.has(path.slice(dot).toLowerCase());
 };
 
-export const SOURCE_FILTER: WalkFilter = {
+export const SOURCE_FILTER: WalkFilter = deepFreeze({
   ignoredDirs: BASE_IGNORED_DIRS,
   ignoredDirPatterns: BASE_IGNORED_DIR_PATTERNS,
   accept: (relativePath) =>
     !hasIgnoredExtension(relativePath) &&
     !IGNORED_NAME_PATTERNS.some((pattern) => pattern.test(relativePath)),
-};
+});

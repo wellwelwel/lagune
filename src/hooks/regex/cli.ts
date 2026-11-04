@@ -18,12 +18,14 @@ const OPTIONS = {
 const parseLimit = (raw: string | undefined): number | undefined => {
   if (raw === undefined) return undefined;
 
-  if (!/^\d+$/.test(raw))
+  const limit = Number(raw);
+
+  if (!/^\d+$/.test(raw) || !Number.isSafeInteger(limit))
     throw new Error(
       `repetition limit must be a non-negative integer, got "${raw}"`
     );
 
-  return Number(raw);
+  return limit;
 };
 
 /** Reads the flags into a check or scan request, rejecting conflicting modes */

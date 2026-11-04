@@ -4,6 +4,7 @@ import type {
   AutomatonShape,
   RegexNode,
 } from '../../../types/hooks/regex.js';
+import { deepFreeze } from '../../../core/collections.js';
 import { someNode } from '../syntax/tree.js';
 import { isLineTest } from './kinds.js';
 
@@ -104,11 +105,11 @@ const anchoring = (root: RegexNode, sticky: boolean): AutomatonShape => {
   return { searches, trails, keepsLines };
 };
 
-const SUBMATCH_SHAPE: AutomatonShape = {
+const SUBMATCH_SHAPE: AutomatonShape = deepFreeze({
   searches: false,
   trails: true,
   keepsLines: true,
-};
+});
 
 export const shapeOf = (job: AutomatonJob): AutomatonShape => {
   if (job.scope === 'submatch') return SUBMATCH_SHAPE;

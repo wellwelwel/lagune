@@ -1,5 +1,6 @@
 import type { LanguageId, LanguageMap } from '../../types/scan.js';
 import { extname } from 'node:path';
+import { deepFreeze } from '../collections.js';
 
 const EXTENSIONS = {
   '.js': 'javascript',
@@ -63,3 +64,12 @@ const BY_EXTENSION: LanguageMap = EXTENSIONS;
 
 export const languageOf = (file: string): LanguageId | null =>
   BY_EXTENSION[extname(file).toLowerCase()] ?? null;
+
+export const languagesOf = (
+  table: Partial<Record<LanguageId, unknown>>
+): readonly LanguageId[] => deepFreeze(Object.keys(table) as LanguageId[]);
+
+export const isLanguageIn =
+  (languages: readonly LanguageId[]) =>
+  (value: string): value is LanguageId =>
+    languages.some((language) => language === value);

@@ -11,6 +11,7 @@ import type {
   RegexNode,
   SeparateLook,
 } from '../../../types/hooks/regex.js';
+import { deepFreeze } from '../../../core/collections.js';
 import { compile } from '../automaton/compile.js';
 import {
   ancestorsOf,
@@ -32,7 +33,7 @@ import { EMPTY_SET, overlaps, union } from '../syntax/codeset.js';
 import { assessGrowth } from './ambiguity.js';
 import { buildProduct } from './product.js';
 
-const STEADY: GrowthReport = { exponential: false, degree: 0 };
+const STEADY: GrowthReport = deepFreeze({ exponential: false, degree: 0 });
 
 const lookCache = new WeakMap<RegexNode, JobReport>();
 

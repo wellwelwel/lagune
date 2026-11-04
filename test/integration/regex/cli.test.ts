@@ -143,6 +143,14 @@ describe('parseArgs chooses a mode from the flags', () => {
     }
   });
 
+  it('rejects a repetition limit too large to hold as an exact integer', () => {
+    for (const huge of ['9007199254740993', '9'.repeat(400)]) {
+      strict.throws(() => parseArgs(['-p', 'a', '-l', huge]), {
+        message: `repetition limit must be a non-negative integer, got "${huge}"`,
+      });
+    }
+  });
+
   it('rejects a negative repetition limit', () => {
     strict.throws(() => parseArgs(['-p', 'a', '-l', '-1']), {
       code: 'ERR_PARSE_ARGS_INVALID_OPTION_VALUE',
