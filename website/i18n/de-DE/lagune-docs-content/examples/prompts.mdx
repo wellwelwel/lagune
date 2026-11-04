@@ -16,7 +16,7 @@ keywords:
   - eingegrenzte erkennung
   - pull request sicherheitsprüfung
   - incident response
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -214,6 +214,14 @@ Die Prompts laden die Spezialisierungen, auf die sich dieses Audit stützt, unab
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Die eigenen `.gitignore`-Dateien und Konfigurationen des Repositorys könnten Dateien vor den Prüfprogrammen verbergen. Setze den Block `checkers` in `.lagune/configs.json` deshalb so, dass [alles durchsucht wird](/docs/hooks/configure), und ersetze dabei jeden Block, den das Repository mitbringt:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

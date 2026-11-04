@@ -3,7 +3,7 @@ id: interpreter
 title: 'interpreter フック：動的コード実行のシンクを指摘する'
 sidebar_label: interpreter
 description: コマンドラインから、さまざまな言語の動的コード実行のシンクをコードベース全体でスキャンしたり、1 つのコードスニペットを判定したりできます。
-source_hash: '77a21f86909e04b51b00f0fe5dfa2a27a1af76b8e8f473743c8d39710ca8d710'
+source_hash: 'eda066803e327623c0eb256cb11d4a0cfce4ab83541036a781bbb1f88d45e1ab'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -57,6 +57,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                                    |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`interpreter` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](/docs/hooks/configure) で説明しています。
 
 ### 対応言語
 

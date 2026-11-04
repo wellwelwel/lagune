@@ -18,7 +18,7 @@ keywords:
   - 限定范围检测
   - pull request 安全审查
   - 安全事件响应
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -216,6 +216,14 @@ import Tabs from '@theme/Tabs';
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+仓库自带的 `.gitignore` 文件和配置可能会把文件藏起来，让检查器看不到，因此请把 `checkers` 块写进 `.lagune/configs.json`，设置为 [扫描全部内容](/docs/hooks/configure)，如果仓库自带了这个块，就替换掉它：
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

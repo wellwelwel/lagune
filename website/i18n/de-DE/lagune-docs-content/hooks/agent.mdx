@@ -3,7 +3,7 @@ id: agent
 title: 'Hook agent: unbegrenzte Agentenschleifen erkennen'
 sidebar_label: agent
 description: Durchsuche eine Codebasis nach Agenten- und LLM-Aufrufen ohne Schritt- oder Zeitlimit, oder bewerte einen einzelnen Aufruf, direkt über die Kommandozeile.
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ Jede Zeile unter **Uncapped agent loops found** steht in einer Datei, die ein Ag
 | `--file`    | eine Datei         | Beschränkt den Durchlauf auf eine einzelne Datei. Wiederholbar und mit `--dir` kombinierbar. |
 
 Ohne Option durchsucht er das gesamte Projekt. `--pattern` erfordert `--lang` und lässt sich nicht mit `--dir` oder `--file` kombinieren.
+
+### Festlegen, was er durchsucht
+
+Er lässt aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `agent` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](/docs/hooks/configure) beschreibt jede Einstellung.
 
 :::note[Bestmöglich, aber nicht lückenlos]
 Eine selbst gebaute Agentenschleife entzieht sich in jeder Sprache einem statischen Durchlauf. Betrachte das Ergebnis als solide Untergrenze, nicht als vollständige Bestandsaufnahme.

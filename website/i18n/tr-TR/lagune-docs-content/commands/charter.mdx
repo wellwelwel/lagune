@@ -3,7 +3,7 @@ id: charter
 title: '/lagune-charter: güvenlik ilkelerinizi belirleyin'
 sidebar_label: 1. Charter
 description: Projenizin güvenlik ilkelerini, yani sonraki her fazın uyduğu kuralları belirleyin ve projeyi okuyarak gerekçelendirilen uzmanlık kategorilerini kaydedin.
-source_hash: 'afebb33c5b1c8ddb897242ba7486d828d7c9a25f67e9983c660ac8a733377bcf'
+source_hash: '82c4e09393d711ce0c09964acc49c1d4b81b4c39c605f84188b3bcadcd4d2107'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -73,6 +73,10 @@ Kategoriler kaydedildikten sonra charter onlara dokunmaz ve yalnızca projenizin
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## Dışarıda bırakmayı önerdiği klasörler
+
+Charter, projeyi okurken savunulacak kodunuzun parçası olmayan commit edilmiş klasörler bulduğunda (örneğin savunmasız görünmek üzere yazılmış test fixture'ları), bunları özetinin sonunda numaralandırarak listeler. Düşmanca bir depo kendi kodunu fixture gibi gösterebileceği için hiçbirini kendi başına dışarıda bırakmaz ve yalnızca yanıtınızda belirttiğiniz numaraları kaydeder. Bunları kendiniz nasıl değiştireceğinizi [Hook'ları yapılandırın](/docs/hooks/configure) sayfası anlatır.
 
 ## Sırada ne var
 

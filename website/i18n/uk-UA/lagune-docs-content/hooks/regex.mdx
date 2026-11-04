@@ -3,7 +3,7 @@ id: regex
 title: 'Хук regex: виявлення шаблонів ReDoS'
 sidebar_label: regex
 description: Перевірте кодову базу на регулярні вирази, схильні до ReDoS, або оцініть окремий шаблон просто з командного рядка.
-source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | невід'ємне ціле число       | Задати ліміт повторень ReDoS (за замовчуванням 25). Діє в обох режимах. Нижчий ліміт суворіший.         |
 
 Без параметрів хук перевіряє весь проєкт. `--pattern` вмикає режим check і не поєднується з `--dir` чи `--file`.
+
+### Виберіть, що перевіряти
+
+Хук пропускає те, що ігнорує **Git**. Щоб виключити більше або перевіряти те, що ігнорує **Git**, задайте хуку `regex` власні налаштування:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Усі налаштування описано на сторінці [Налаштування хуків](/docs/hooks/configure).
 
 ### Підтримувані мови
 

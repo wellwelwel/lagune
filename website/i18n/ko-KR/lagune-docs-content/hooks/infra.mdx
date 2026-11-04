@@ -3,7 +3,7 @@ id: infra
 title: 'infra 훅: IaC 설정 오류 탐지하기'
 sidebar_label: infra
 description: 명령줄에서 Terraform, Dockerfile, GitHub Actions를 스캔해 설정 오류를 찾거나, 코드 조각 하나에 점수를 매길 수 있습니다.
-source_hash: 'b1d0f473e8aef1a679101692288b64b863078da6e944d28ee30a6ba51bf4c50c'
+source_hash: 'e6a556c30f366efef83f794c865528430ab4717e4e80ddf5951d645a87afa651'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -52,6 +52,24 @@ check 모드는 일치한 태그 중 심각도가 가장 높은 태그(예: `pub
 | `--file`    | 파일                                            | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능 |
 
 옵션을 지정하지 않으면 프로젝트의 모든 IaC 파일을 스캔합니다. `--pattern` 옵션은 `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `infra` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](/docs/hooks/configure)에서 설명합니다.
 
 :::tip
 훅은 명백하고 판단할 수 있는 경우만 잡아냅니다: 암호화 누락, `pull_request_target` 노출, 적절한 IAM 범위처럼 판단이 필요한 부분은 여전히 [`infra` 전문 지식](/docs/catalog)이 다룹니다.

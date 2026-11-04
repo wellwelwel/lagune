@@ -3,7 +3,7 @@ id: cors
 title: 'cors hook：审计 CORS 源'
 sidebar_label: cors
 description: 在命令行中扫描源代码里可被绕过的 CORS 源白名单，或评估单个源值是否放行过宽。
-source_hash: '41b67a705f00a590aaa716a07bbe390973e626c295f7187f12cad7a037169458'
+source_hash: '89f32bfbbe6ec55a73d4c2fb23da72045b2af8cbe729288f7b1516c3d95e646a'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read cors \
 | `--file`   | 一个文件 | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
 
 不带任何选项时，它会扫描整个项目。`--origin` 属于 score 模式，不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `cors` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](/docs/hooks/configure)。
 
 :::note[它不覆盖的范围]
 

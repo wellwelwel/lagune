@@ -3,7 +3,7 @@ id: crypto
 title: 'Hook crypto: schwache Kryptografie erkennen'
 sidebar_label: crypto
 description: Durchsuche eine Codebasis nach schwachen kryptografischen Primitiven, oder bewerte einen einzelnen Codeausschnitt, direkt 체ber die Kommandozeile.
-source_hash: 'd3c688c47e39ee54573cceb66668f98098f3e51207d795ca3ae7e3f6b3f527d0'
+source_hash: 'd48d3cc15e73810012b8e5e089ce975d1a36aec245f5aaab79a13fa92fbf1a5b'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -56,6 +56,24 @@ Der Durchlauf gibt bis zu zwei Abschnitte aus. **Weak cryptography found** enth�
 | `--file`    | eine Datei         | Beschr채nkt den Durchlauf auf eine einzelne Datei. Wiederholbar und mit `--dir` kombinierbar.                  |
 
 Ohne Option durchsucht er das gesamte Projekt. `--pattern` erfordert `--lang` und l채sst sich nicht mit `--dir` oder `--file` kombinieren.
+
+### Festlegen, was er durchsucht
+
+Er l채sst aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `crypto` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](/docs/hooks/configure) beschreibt jede Einstellung.
 
 ### Unterst체tzte Sprachen
 

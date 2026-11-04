@@ -3,7 +3,7 @@ id: infra
 title: 'Хук infra: обнаружение ошибок конфигурации IaC'
 sidebar_label: infra
 description: Проверьте Terraform, Dockerfile и GitHub Actions на ошибки конфигурации или оцените отдельный фрагмент из командной строки.
-source_hash: 'b1d0f473e8aef1a679101692288b64b863078da6e944d28ee30a6ba51bf4c50c'
+source_hash: 'e6a556c30f366efef83f794c865528430ab4717e4e80ddf5951d645a87afa651'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -52,6 +52,24 @@ npx lagune read infra --kind dockerfile --pattern 'FROM node:20'    # => mutable
 | `--file`    | файл                                            | Ограничивает сканирование одним файлом. Можно повторять и сочетать с `--dir`. |
 
 Без параметров хук сканирует каждый файл IaC в проекте. `--pattern` не сочетается с `--dir` или `--file`.
+
+### Выберите, что сканировать
+
+Хук пропускает то, что игнорирует **Git**. Чтобы исключить больше или сканировать то, что игнорирует **Git**, задайте хуку `infra` собственные настройки:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+Все настройки описаны на странице [Настройка хуков](/docs/hooks/configure).
 
 :::tip
 Хук ловит грубые, однозначно определяемые случаи: отсутствие шифрования, открытость через `pull_request_target` и правильный охват IAM остаются вопросами суждения, которые по-прежнему охватывает [специализация `infra`](/docs/catalog).

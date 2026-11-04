@@ -12,6 +12,7 @@
     "write-heading-ids": "bun --bun docusaurus write-heading-ids",
     "typecheck": "bun --bun tsc",
     "i18n": "bun --bun ../tools/i18n/index.ts",
+    "i18n:check": "bun run i18n check",
     "purge": "bun --bun --env-file=.env ../tools/purge-cache.ts"
   },
   "devDependencies": {

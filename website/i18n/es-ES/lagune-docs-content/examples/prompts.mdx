@@ -16,7 +16,7 @@ keywords:
   - detección acotada
   - revisión de seguridad de pull requests
   - respuesta a incidentes
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -214,6 +214,14 @@ Los prompts cargan directamente las especializaciones en las que se apoya esta a
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Los propios archivos `.gitignore` y la configuración del repositorio podrían ocultar archivos a los checkers, así que configura el bloque `checkers` de `.lagune/configs.json` para [analizarlo todo](/docs/hooks/configure), sustituyendo cualquier bloque que traiga el repositorio:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

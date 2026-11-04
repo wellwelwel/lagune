@@ -3,7 +3,7 @@ id: jwt
 title: "jwt hook'u: algoritması sabitlenmemiş JWT doğrulamasını tespit edin"
 sidebar_label: jwt
 description: Kod tabanını algoritması sabitlenmemiş JWT doğrulamasına karşı tarayın ya da tek bir çağrıyı doğrudan komut satırından puanlayın.
-source_hash: 'cbcad5ea3da3d78004b06a865439770e1c44fd60b1add3cf6c0867370cf1d054'
+source_hash: '086650f69077e3f35c8507d308bd2a345027896fdb897f1d012617fd3d7917ee'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 | `--file`    | bir dosya       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.                       |
 
 Seçenek verilmezse tüm proje taranır. `--pattern`, `--lang` gerektirir ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `jwt` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](/docs/hooks/configure) sayfasında açıklanır.
 
 ### Desteklenen diller
 

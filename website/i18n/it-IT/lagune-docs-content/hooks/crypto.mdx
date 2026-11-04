@@ -3,7 +3,7 @@ id: crypto
 title: 'Hook crypto: rileva la crittografia debole'
 sidebar_label: crypto
 description: Analizza una codebase alla ricerca di primitive crittografiche deboli, oppure valuta un singolo frammento, dalla riga di comando.
-source_hash: 'd3c688c47e39ee54573cceb66668f98098f3e51207d795ca3ae7e3f6b3f527d0'
+source_hash: 'd48d3cc15e73810012b8e5e089ce975d1a36aec245f5aaab79a13fa92fbf1a5b'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -56,6 +56,24 @@ L'analisi stampa fino a due sezioni. **Weak cryptography found** è l'insieme de
 | `--file`    | un file                | Limita l'analisi a un singolo file. Si ripete e si combina con `--dir`.                                      |
 
 Senza opzioni analizza l'intero progetto. `--pattern` richiede `--lang` e non si può combinare con `--dir` o `--file`.
+
+### Scegli cosa analizza
+
+Lascia fuori ciò che **Git** ignora. Per lasciare fuori altro, o per analizzare ciò che **Git** ignora, assegna impostazioni proprie a `crypto`:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tutte le impostazioni sono in [Configura gli hook](/docs/hooks/configure).
 
 ### Linguaggi supportati
 

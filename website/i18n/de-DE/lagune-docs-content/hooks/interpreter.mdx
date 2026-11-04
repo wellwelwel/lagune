@@ -3,7 +3,7 @@ id: interpreter
 title: 'Hook interpreter: Sinks für dynamische Codeausführung melden'
 sidebar_label: interpreter
 description: Durchsuche eine Codebasis sprachübergreifend nach Sinks für dynamische Codeausführung, oder bewerte einen einzelnen Codeausschnitt, direkt über die Kommandozeile.
-source_hash: '77a21f86909e04b51b00f0fe5dfa2a27a1af76b8e8f473743c8d39710ca8d710'
+source_hash: 'eda066803e327623c0eb256cb11d4a0cfce4ab83541036a781bbb1f88d45e1ab'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -57,6 +57,24 @@ Analysiere jeden Sink **statisch** und verfolge, ob nicht vertrauenswürdige Ein
 | `--file`    | eine Datei         | Beschränkt den Durchlauf auf eine einzelne Datei. Wiederholbar und mit `--dir` kombinierbar.                  |
 
 Ohne Option durchsucht er das gesamte Projekt. `--pattern` erfordert `--lang` und lässt sich nicht mit `--dir` oder `--file` kombinieren.
+
+### Festlegen, was er durchsucht
+
+Er lässt aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `interpreter` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](/docs/hooks/configure) beschreibt jede Einstellung.
 
 ### Unterstützte Sprachen
 

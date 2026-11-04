@@ -240,8 +240,8 @@
     "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
   },
   "corpus.staleNotice": {
-    "message": "このページは英語版より古くなっています。",
-    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+    "message": "このページは英語版より古くなっています。{original}。",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page"
   },
   "corpus.summary": {
     "message": "Lagune は、オープンソースで防御専用の Security-Driven Hardening（SDH）ワークフローです。あらゆる言語のあらゆるコードベースを、どの段階でも AI エージェントが堅牢化できるよう支援します。charter は開発前にセキュリティのルールを定め、汎用の /lagune コマンドは書いているそばからコードを堅牢化し、5 フェーズの Blue Team フローはシステムが実際に何をしているかを検出して、そのコンテキストで重要な修正を進めます。コマンドは skills CLI でエージェントにインストールでき、API キーは不要です。",

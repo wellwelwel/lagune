@@ -145,9 +145,10 @@ export const corpusMessages = (): TranslationMessages => ({
       'The label before the web address of the English page a translated Markdown copy comes from',
   },
   [STALE_NOTICE_ID]: {
-    message: 'This page is outdated compared to its English version.',
+    message:
+      'This page is outdated compared to its English version. {original}.',
     description:
-      'The status line under the title of a translated Markdown copy that fell behind its English source',
+      'The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page',
   },
   [ORIGINAL_LINK_ID]: {
     message: 'Read the original version',
@@ -429,6 +430,11 @@ const stripLeadingH1 = (markdown: string): string => {
   return lines.slice(first + 1).join('\n');
 };
 
+const staleNotice = (messages: Messages, originalUrl: string): string =>
+  text(messages, STALE_NOTICE_ID, {
+    original: `[${text(messages, ORIGINAL_LINK_ID)}](${originalUrl})`,
+  });
+
 export const renderDocMarkdown = (
   input: MarkdownDocInput,
   corpus: CorpusLocale,
@@ -441,10 +447,7 @@ export const renderDocMarkdown = (
     `# ${input.title}`,
     '',
     ...(input.original?.stale
-      ? [
-          `> ${text(messages, STALE_NOTICE_ID)} [${text(messages, ORIGINAL_LINK_ID)}](${input.original.url})`,
-          '',
-        ]
+      ? [`> ${staleNotice(messages, input.original.url)}`, '']
       : []),
     ...(input.description ? [`> ${input.description}`, ''] : []),
     `${text(messages, CANONICAL_LABEL_ID)}: ${corpus.siteUrl}${input.permalink}`,

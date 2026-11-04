@@ -3,7 +3,7 @@ id: regex
 title: 'Hook regex: detecta patrones vulnerables a ReDoS'
 sidebar_label: regex
 description: Analiza un proyecto en busca de regex vulnerables a ReDoS, o evalúa un único patrón, desde la línea de comandos.
-source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ La primera sección es un hallazgo de seguridad. La segunda y la tercera no son 
 | `--limit`   | un entero no negativo  | Fija el límite de repeticiones de ReDoS (25 por defecto). Se aplica a los dos modos. Cuanto más bajo, más estricto. |
 
 Sin ninguna opción, analiza todo el proyecto. `--pattern` es el modo check y no se puede combinar con `--dir` ni con `--file`.
+
+### Elige qué analiza
+
+Deja fuera lo que **Git** ignora. Para dejar fuera más cosas, o para analizar lo que **Git** ignora, dale a `regex` una configuración propia:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Todos los ajustes están en [Configura los hooks](/docs/hooks/configure).
 
 ### Lenguajes compatibles
 

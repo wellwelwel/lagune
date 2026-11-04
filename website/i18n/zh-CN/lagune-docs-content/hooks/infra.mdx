@@ -3,7 +3,7 @@ id: infra
 title: 'infra hook：检测 IaC 配置错误'
 sidebar_label: infra
 description: 在命令行中扫描 Terraform、Dockerfile 和 GitHub Actions 中的配置错误，或评估单个代码片段。
-source_hash: 'b1d0f473e8aef1a679101692288b64b863078da6e944d28ee30a6ba51bf4c50c'
+source_hash: 'e6a556c30f366efef83f794c865528430ab4717e4e80ddf5951d645a87afa651'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -52,6 +52,24 @@ check 模式会输出它匹配到的严重程度最高的标签（例如 `public
 | `--file`    | 一个文件                                        | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
 
 不带任何选项时，它会扫描项目中的所有 IaC 文件。`--pattern` 不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `infra` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](/docs/hooks/configure)。
 
 :::tip
 hook 只捕捉明显、可判定的情况：缺少加密、`pull_request_target` 带来的暴露，以及 IAM 范围是否合适，则由 [`infra` 专项](/docs/catalog) 来判断。

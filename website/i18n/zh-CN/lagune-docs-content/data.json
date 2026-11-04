@@ -240,8 +240,8 @@
     "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
   },
   "corpus.staleNotice": {
-    "message": "本页内容已落后于英文版本。",
-    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+    "message": "本页内容已落后于英文版本。{original}。",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page"
   },
   "corpus.summary": {
     "message": "Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工作流。它帮助你的 AI 智能体随时加固任何语言的任何代码库：charter 在你动手构建之前设定安全规则，通用的 /lagune 命令边写边加固，五阶段的 Blue Team 流程则检测你的系统实际在做什么，并据此推动真正相关的修复。它的命令通过 skills CLI 安装到你的智能体中，也不需要 API 密钥。",

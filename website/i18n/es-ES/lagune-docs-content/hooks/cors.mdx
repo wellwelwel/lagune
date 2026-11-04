@@ -3,7 +3,7 @@ id: cors
 title: 'Hook cors: audita los orígenes CORS'
 sidebar_label: cors
 description: Analiza el código fuente en busca de una lista de orígenes CORS permitidos que se pueda eludir, o evalúa si un único valor de origen concede un acceso demasiado permisivo, desde la línea de comandos.
-source_hash: '41b67a705f00a590aaa716a07bbe390973e626c295f7187f12cad7a037169458'
+source_hash: '89f32bfbbe6ec55a73d4c2fb23da72045b2af8cbe729288f7b1516c3d95e646a'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ Solo `safe` equivale a permitir, y `--origin` es un oráculo de valores: juzga e
 | `--file`   | un archivo    | Limita el análisis a un solo archivo. Se puede repetir y combinar con `--dir`. |
 
 Sin ninguna opción, analiza todo el proyecto. `--origin` es el modo score y no se puede combinar con `--dir` ni con `--file`.
+
+### Elige qué analiza
+
+Deja fuera lo que **Git** ignora. Para dejar fuera más cosas, o para analizar lo que **Git** ignora, dale a `cors` una configuración propia:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Todos los ajustes están en [Configura los hooks](/docs/hooks/configure).
 
 :::note[Lo que no cubre]
 

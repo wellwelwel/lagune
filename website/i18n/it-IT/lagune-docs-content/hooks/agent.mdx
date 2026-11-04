@@ -3,7 +3,7 @@ id: agent
 title: 'Hook agent: rileva i loop di agenti senza limiti'
 sidebar_label: agent
 description: Analizza una codebase alla ricerca di chiamate ad agenti e LLM senza limite di passi o di tempo, oppure valuta una singola chiamata, dalla riga di comando.
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ Ogni riga sotto **Uncapped agent loops found** è, in un file che importa un SDK
 | `--file`    | un file                | Limita l'analisi a un singolo file. Si ripete e si combina con `--dir`.          |
 
 Senza opzioni analizza l'intero progetto. `--pattern` richiede `--lang` e non si può combinare con `--dir` o `--file`.
+
+### Scegli cosa analizza
+
+Lascia fuori ciò che **Git** ignora. Per lasciare fuori altro, o per analizzare ciò che **Git** ignora, assegna impostazioni proprie a `agent`:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tutte le impostazioni sono in [Configura gli hook](/docs/hooks/configure).
 
 :::note[Al meglio delle possibilità, non esaustivo]
 Un loop di agente scritto a mano, in qualsiasi linguaggio, va oltre un'analisi statica. Consideralo una base solida, non un inventario completo.

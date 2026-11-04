@@ -93,11 +93,11 @@
   },
   "docs.notice.original": {
     "message": "Leggi la versione originale",
-    "description": "The link from a stale or untranslated page notice to the English page"
+    "description": "The link from a stale page notice to the English page"
   },
   "docs.notice.stale": {
-    "message": "Questa pagina non è aggiornata rispetto alla versione inglese.",
-    "description": "Tells the reader a translated page fell behind its English source, shown above the page"
+    "message": "Questa pagina non è aggiornata rispetto alla versione inglese. {original}.",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
   },
   "docs.notice.untranslated": {
     "message": "Questa pagina non è ancora stata tradotta.",

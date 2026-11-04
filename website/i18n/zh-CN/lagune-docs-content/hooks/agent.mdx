@@ -3,7 +3,7 @@ id: agent
 title: 'agent hook：检测没有上限的智能体循环'
 sidebar_label: agent
 description: 在命令行中扫描代码库里没有步数或时间上限的智能体或 LLM 调用，或评估单个调用。
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | 一个文件     | 将扫描范围限定在单个文件。可重复使用，也可与 `--dir` 组合。  |
 
 不带任何选项时，它会扫描整个项目。`--pattern` 需要配合 `--lang`，且不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `agent` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](/docs/hooks/configure)。
 
 :::note[尽力而为，并非详尽无遗]
 无论用哪种语言，手写的智能体循环都超出了静态扫描的能力范围。请把它当作可靠的底线，而不是完整的清单。

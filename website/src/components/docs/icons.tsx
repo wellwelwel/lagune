@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { IconBaseProps, IconType } from 'react-icons';
 import {
   FiActivity,
+  FiAlertTriangle,
   FiArrowLeft,
   FiArrowRight,
   FiArrowUpRight,
@@ -36,6 +37,7 @@ import { RiMessageAi3Line } from 'react-icons/ri';
 
 const registry = {
   activity: FiActivity,
+  alert: FiAlertTriangle,
   arrowLeft: FiArrowLeft,
   arrowRight: FiArrowRight,
   arrowUpRight: FiArrowUpRight,

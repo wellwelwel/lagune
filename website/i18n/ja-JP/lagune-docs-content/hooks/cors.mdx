@@ -3,7 +3,7 @@ id: cors
 title: 'cors フック：CORS オリジンを監査する'
 sidebar_label: cors
 description: コマンドラインから、ソースコードをスキャンして回避可能な CORS オリジン許可リストを探したり、1 つのオリジン値の許可範囲が広すぎないかを判定したりできます。
-source_hash: '41b67a705f00a590aaa716a07bbe390973e626c295f7187f12cad7a037169458'
+source_hash: '89f32bfbbe6ec55a73d4c2fb23da72045b2af8cbe729288f7b1516c3d95e646a'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read cors \
 | `--file`   | ファイル     | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。         |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--origin` は score モードで、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`cors` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](/docs/hooks/configure) で説明しています。
 
 :::note[対象外の範囲]
 

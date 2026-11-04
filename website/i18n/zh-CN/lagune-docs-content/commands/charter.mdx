@@ -3,7 +3,7 @@ id: charter
 title: '/lagune-charter: 设定你的安全原则'
 sidebar_label: 1. Charter
 description: 确立项目的安全原则，也就是后续每个阶段都要遵守的规则，并根据对项目的解读，记录有依据的专项类别。
-source_hash: 'afebb33c5b1c8ddb897242ba7486d828d7c9a25f67e9983c660ac8a733377bcf'
+source_hash: '82c4e09393d711ce0c09964acc49c1d4b81b4c39c605f84188b3bcadcd4d2107'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -73,6 +73,10 @@ charter 是治理层：一套安全优先的原则，后续每个阶段都必须
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## 它建议排除的文件夹
+
+如果 charter 在解读项目时发现某些已提交的文件夹并不是你的项目需要防护的代码，例如写得看起来存在漏洞的测试夹具，它会在摘要末尾按编号列出这些文件夹。由于恶意仓库可以把自己的代码伪装成测试夹具，charter 从不自行排除任何文件夹，只会记录你回复的编号。如何自己修改它们，见 [配置 hook](/docs/hooks/configure)。
 
 ## 下一步
 

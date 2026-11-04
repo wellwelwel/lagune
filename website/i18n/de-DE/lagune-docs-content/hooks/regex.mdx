@@ -3,7 +3,7 @@ id: regex
 title: 'Hook regex: ReDoS-Muster erkennen'
 sidebar_label: regex
 description: Durchsuche eine Codebasis nach ReDoS-anfälligen Regex-Mustern, oder bewerte ein einzelnes Muster, direkt über die Kommandozeile.
-source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ Der erste Abschnitt ist ein Sicherheitsbefund. Der zweite und dritte sind für s
 | `--limit`   | eine nicht negative Ganzzahl | Legt das ReDoS-Wiederholungslimit fest (Standard 25). Gilt für beide Modi. Ein niedrigeres Limit ist strenger.  |
 
 Ohne Option durchsucht er das gesamte Projekt. `--pattern` steht für den Modus check und lässt sich nicht mit `--dir` oder `--file` kombinieren.
+
+### Festlegen, was er durchsucht
+
+Er lässt aus, was **Git** ignoriert. Wenn du mehr auslassen oder auch durchsuchen willst, was **Git** ignoriert, gib `regex` eigene Einstellungen:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Hooks konfigurieren](/docs/hooks/configure) beschreibt jede Einstellung.
 
 ### Unterstützte Sprachen
 

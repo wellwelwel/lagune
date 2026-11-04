@@ -17,7 +17,7 @@ keywords:
   - виявлення в обмеженому обсязі
   - перевірка безпеки pull request
   - реагування на інциденти
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -215,6 +215,14 @@ import Tabs from '@theme/Tabs';
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Власні файли `.gitignore` і конфігурації репозиторію можуть приховати файли від перевіряльників, тож налаштуйте блок `checkers` у `.lagune/configs.json` так, щоб [перевіряти все](/docs/hooks/configure), замінивши будь-який блок, що постачається з репозиторієм:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

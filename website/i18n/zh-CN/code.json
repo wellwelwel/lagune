@@ -93,11 +93,11 @@
   },
   "docs.notice.original": {
     "message": "查看原文",
-    "description": "The link from a stale or untranslated page notice to the English page"
+    "description": "The link from a stale page notice to the English page"
   },
   "docs.notice.stale": {
-    "message": "与英文版相比，本页内容已过时。",
-    "description": "Tells the reader a translated page fell behind its English source, shown above the page"
+    "message": "与英文版相比，本页内容已过时。{original}。",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
   },
   "docs.notice.untranslated": {
     "message": "本页尚未翻译。",

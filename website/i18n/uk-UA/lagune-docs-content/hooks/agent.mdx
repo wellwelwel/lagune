@@ -3,7 +3,7 @@ id: agent
 title: 'Хук agent: виявлення необмежених циклів агентів'
 sidebar_label: agent
 description: Перевірте кодову базу на виклики агентів і LLM без обмеження кроків чи часу або оцініть окремий виклик просто з командного рядка.
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | файл          | Обмежити перевірку одним файлом. Повторюється й поєднується з `--dir`.          |
 
 Без параметрів хук перевіряє весь проєкт. `--pattern` потребує `--lang` і не поєднується з `--dir` чи `--file`.
+
+### Виберіть, що перевіряти
+
+Хук пропускає те, що ігнорує **Git**. Щоб виключити більше або перевіряти те, що ігнорує **Git**, задайте хуку `agent` власні налаштування:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Усі налаштування описано на сторінці [Налаштування хуків](/docs/hooks/configure).
 
 :::note[Найкраще з можливого, але не вичерпно]
 Власноруч написаний цикл агента будь-якою мовою не під силу статичній перевірці. Сприймайте це як надійний мінімум, а не як повний перелік.

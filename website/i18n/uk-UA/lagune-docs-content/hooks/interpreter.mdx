@@ -3,7 +3,7 @@ id: interpreter
 title: 'Хук interpreter: позначення sinks динамічного виконання коду'
 sidebar_label: interpreter
 description: Перевірте кодову базу на sinks динамічного виконання коду різними мовами або оцініть окремий фрагмент просто з командного рядка.
-source_hash: '77a21f86909e04b51b00f0fe5dfa2a27a1af76b8e8f473743c8d39710ca8d710'
+source_hash: 'eda066803e327623c0eb256cb11d4a0cfce4ab83541036a781bbb1f88d45e1ab'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -57,6 +57,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | файл          | Обмежити перевірку одним файлом. Повторюється й поєднується з `--dir`.                                     |
 
 Без параметрів хук перевіряє весь проєкт. `--pattern` потребує `--lang` і не поєднується з `--dir` чи `--file`.
+
+### Виберіть, що перевіряти
+
+Хук пропускає те, що ігнорує **Git**. Щоб виключити більше або перевіряти те, що ігнорує **Git**, задайте хуку `interpreter` власні налаштування:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Усі налаштування описано на сторінці [Налаштування хуків](/docs/hooks/configure).
 
 ### Підтримувані мови
 
