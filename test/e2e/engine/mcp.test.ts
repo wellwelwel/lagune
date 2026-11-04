@@ -4,16 +4,17 @@ import type {
   RootsClient,
 } from '../../../src/types/test.js';
 import { spawn } from 'node:child_process';
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, parse } from 'node:path';
 import { execPath } from 'node:process';
 import { createInterface } from 'node:readline';
 import { pathToFileURL } from 'node:url';
 import { describe, it, strict } from 'poku';
 import { isRecord, readField } from '../../../src/core/collections.js';
-import { ENGINE, newWorkspace, runEngine } from './__utils__.js';
+import { installEngine, newWorkspace, runEngine } from './__utils__.js';
 
 const LEAKED_KEY = 'export const key = "AKIAIOSFODNN7EXAMPLE";\n';
+const ENGINE = await installEngine();
 const ENGINE_FOLDER = dirname(dirname(dirname(ENGINE)));
 const ADD_PYTHON = ['--categories', 'python'];
 const REJECTED_ROOTS: RootsCase[] = [
@@ -46,6 +47,7 @@ const serve = (
   requests: object[]
 ): Promise<HookRun> =>
   runEngine(cwd, ['mcp', ...args], {
+    engine: ENGINE,
     input:
       requests
         .map((request) => JSON.stringify({ jsonrpc: '2.0', ...request }))
@@ -235,7 +237,9 @@ await describe('the engine served over MCP', async () => {
       exchange(workspace, [
         callTool(1, 'lagune_read', 'secrets', ['--file', 'config.ts']),
       ]),
-      runEngine(workspace, ['read', 'secrets', '--file', 'config.ts']),
+      runEngine(workspace, ['read', 'secrets', '--file', 'config.ts'], {
+        engine: ENGINE,
+      }),
     ]);
 
     strict.strictEqual(cli.code, 1);
@@ -451,3 +455,5 @@ await describe('the engine served over MCP', async () => {
     );
   });
 });
+
+await rm(ENGINE_FOLDER, { recursive: true, force: true });

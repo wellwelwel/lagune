@@ -1,6 +1,6 @@
 import type { EngineRunOptions, HookRun } from '../../../src/types/test.js';
 import { spawn } from 'node:child_process';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { cp, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execPath } from 'node:process';
@@ -8,9 +8,11 @@ import { fileURLToPath } from 'node:url';
 import { afterEach } from 'poku';
 
 const packageRoot = new URL('../../../', import.meta.url);
+const ENGINE_ENTRY = 'lib/bin/index.js';
+const INSTALLED_FILES = ['package.json', 'lib/bin'];
 const workspaces: string[] = [];
 
-export const ENGINE = fileURLToPath(new URL('lib/bin/index.js', packageRoot));
+export const ENGINE = fileURLToPath(new URL(ENGINE_ENTRY, packageRoot));
 
 export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-engine-'));
@@ -20,13 +22,27 @@ export const newWorkspace = async (): Promise<string> => {
   return workspace;
 };
 
+export const installEngine = async (): Promise<string> => {
+  const folder = await mkdtemp(join(tmpdir(), 'lagune-install-'));
+
+  await Promise.all(
+    INSTALLED_FILES.map((path) =>
+      cp(fileURLToPath(new URL(path, packageRoot)), join(folder, path), {
+        recursive: true,
+      })
+    )
+  );
+
+  return join(folder, ENGINE_ENTRY);
+};
+
 export const runEngine = (
   cwd: string,
   args: string[],
-  { env, input }: EngineRunOptions = {}
+  { env, input, engine = ENGINE }: EngineRunOptions = {}
 ): Promise<HookRun> =>
   new Promise((resolve, reject) => {
-    const child = spawn(execPath, [ENGINE, ...args], { cwd, env });
+    const child = spawn(execPath, [engine, ...args], { cwd, env });
     const out: string[] = [];
     const err: string[] = [];
 

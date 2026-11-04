@@ -1,6 +1,10 @@
 export type HookRun = { stdout: string; stderr: string; code: number | null };
 
-export type EngineRunOptions = { env?: NodeJS.ProcessEnv; input?: string };
+export type EngineRunOptions = {
+  env?: NodeJS.ProcessEnv;
+  input?: string;
+  engine?: string;
+};
 
 export type FrontmatterSource = {
   relativePath: string;
