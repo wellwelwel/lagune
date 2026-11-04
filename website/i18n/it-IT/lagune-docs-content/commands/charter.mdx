@@ -3,7 +3,7 @@ id: charter
 title: '/lagune-charter: definisci i tuoi principi di sicurezza'
 sidebar_label: 1. Charter
 description: Stabilisci i principi di sicurezza del tuo progetto, le regole che ogni fase successiva rispetta, e registra le categorie di specializzazioni che la sua lettura giustifica.
-source_hash: 'afebb33c5b1c8ddb897242ba7486d828d7c9a25f67e9983c660ac8a733377bcf'
+source_hash: '82c4e09393d711ce0c09964acc49c1d4b81b4c39c605f84188b3bcadcd4d2107'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -73,6 +73,10 @@ Una volta registrate le categorie, il charter le lascia come sono e nomina solta
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## Le cartelle che propone di lasciare fuori
+
+Quando la lettura del charter trova cartelle versionate che non sono codice del tuo progetto da difendere, come le fixture di test scritte per sembrare vulnerabili, le elenca numerate alla fine del suo riepilogo. Non ne lascia mai fuori nessuna di sua iniziativa, perché un repository ostile può far sembrare fixture il proprio codice, quindi vengono registrati solo i numeri con cui rispondi. [Configura gli hook](/docs/hooks/configure) spiega come modificarle tu stesso.
 
 ## Passo successivo
 

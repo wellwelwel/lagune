@@ -3,7 +3,7 @@ id: infra
 title: 'infra フック：IaC の設定ミスを検出する'
 sidebar_label: infra
 description: コマンドラインから、Terraform、Dockerfile、GitHub Actions の設定ミスをスキャンしたり、1 つのコードスニペットを判定したりできます。
-source_hash: 'b1d0f473e8aef1a679101692288b64b863078da6e944d28ee30a6ba51bf4c50c'
+source_hash: 'e6a556c30f366efef83f794c865528430ab4717e4e80ddf5951d645a87afa651'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -52,6 +52,24 @@ check モードは、一致したタグのうち最も深刻度の高いもの�
 | `--file`    | ファイル                                        | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。               |
 
 オプションを指定しなければ、プロジェクト内のすべての IaC ファイルをスキャンします。`--pattern` は `--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`infra` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](/docs/hooks/configure) で説明しています。
 
 :::tip
 フックが捉えるのは明白で判定可能なケースで、暗号化の設定漏れ、`pull_request_target` による露出、適切な IAM の範囲といった判断は、引き続き [`infra` 専門知識](/docs/catalog) が担います。

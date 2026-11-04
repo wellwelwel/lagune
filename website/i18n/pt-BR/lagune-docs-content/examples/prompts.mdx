@@ -17,7 +17,7 @@ keywords:
   - detecção com escopo
   - revisão de segurança de pull request
   - resposta a incidentes
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -215,6 +215,14 @@ Os prompts carregam diretamente as especializações em que essa auditoria se ap
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Os próprios arquivos `.gitignore` e as configurações do repositório podem esconder arquivos dos checkers, então defina o bloco `checkers` do `.lagune/configs.json` para [varrer tudo](/docs/hooks/configure), substituindo qualquer bloco que o repositório traga:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

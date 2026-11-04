@@ -3,7 +3,7 @@ id: crypto
 title: 'Хук crypto: виявлення слабкої криптографії'
 sidebar_label: crypto
 description: Перевірте кодову базу на слабкі криптографічні примітиви або оцініть окремий фрагмент коду просто з командного рядка.
-source_hash: 'd3c688c47e39ee54573cceb66668f98098f3e51207d795ca3ae7e3f6b3f527d0'
+source_hash: 'd48d3cc15e73810012b8e5e089ce975d1a36aec245f5aaab79a13fa92fbf1a5b'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -56,6 +56,24 @@ npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                
 | `--file`    | файл          | Обмежити перевірку одним файлом. Повторюється й поєднується з `--dir`.                                     |
 
 Без параметрів хук перевіряє весь проєкт. `--pattern` потребує `--lang` і не поєднується з `--dir` чи `--file`.
+
+### Виберіть, що перевіряти
+
+Хук пропускає те, що ігнорує **Git**. Щоб виключити більше або перевіряти те, що ігнорує **Git**, задайте хуку `crypto` власні налаштування:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Усі налаштування описано на сторінці [Налаштування хуків](/docs/hooks/configure).
 
 ### Підтримувані мови
 

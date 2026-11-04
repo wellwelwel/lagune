@@ -3,7 +3,7 @@ id: agent
 title: "Hook agent : détecter les boucles d'agent sans limite"
 sidebar_label: agent
 description: Analysez une base de code à la recherche d'appels d'agent ou de LLM sans limite d'étapes ni de temps, ou évaluez un seul appel, en ligne de commande.
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ Chaque ligne sous **Uncapped agent loops found** correspond, dans un fichier qui
 | `--file`    | un fichier         | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`. |
 
 Sans option, il analyse tout le projet. `--pattern` exige `--lang` et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `agent` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](/docs/hooks/configure) présente chaque paramètre.
 
 :::note[Au mieux, pas de façon exhaustive]
 Une boucle d'agent écrite à la main, dans n'importe quel langage, échappe à une analyse statique. Considérez ceci comme un socle solide, pas comme un inventaire complet.

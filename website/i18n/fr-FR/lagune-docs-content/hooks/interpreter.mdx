@@ -3,7 +3,7 @@ id: interpreter
 title: "Hook interpreter : signaler les sinks d'exécution dynamique de code"
 sidebar_label: interpreter
 description: Analysez une base de code à la recherche de sinks d'exécution dynamique de code dans plusieurs langages, ou évaluez un seul extrait, en ligne de commande.
-source_hash: '77a21f86909e04b51b00f0fe5dfa2a27a1af76b8e8f473743c8d39710ca8d710'
+source_hash: 'eda066803e327623c0eb256cb11d4a0cfce4ab83541036a781bbb1f88d45e1ab'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -57,6 +57,24 @@ Raisonnez sur chaque sink de façon **statique**, en traçant si une entrée non
 | `--file`    | un fichier         | Limite l'analyse à un seul fichier. Peut être répétée et combinée avec `--dir`.                     |
 
 Sans option, il analyse tout le projet. `--pattern` exige `--lang` et ne peut pas être combinée avec `--dir` ou `--file`.
+
+### Choisir ce qu'il analyse
+
+Il laisse de côté ce que **Git** ignore. Pour exclure davantage, ou pour analyser ce que **Git** ignore, donnez à `interpreter` ses propres paramètres :
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Configurer les hooks](/docs/hooks/configure) présente chaque paramètre.
 
 ### Langages pris en charge
 

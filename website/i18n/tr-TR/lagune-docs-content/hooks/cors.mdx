@@ -3,7 +3,7 @@ id: cors
 title: "cors hook'u: CORS kökenlerini denetleyin"
 sidebar_label: cors
 description: Kaynak kodu atlatılabilir bir CORS köken izin listesine karşı tarayın ya da tek bir köken değerini aşırı serbest erişime karşı doğrudan komut satırından puanlayın.
-source_hash: '41b67a705f00a590aaa716a07bbe390973e626c295f7187f12cad7a037169458'
+source_hash: '89f32bfbbe6ec55a73d4c2fb23da72045b2af8cbe729288f7b1516c3d95e646a'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ Yalnızca `safe` bir izindir ve `--origin` bir değer kahinidir: işleyiciyi de�
 | `--file`   | bir dosya | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.      |
 
 Seçenek verilmezse tüm proje taranır. `--origin` score modudur ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `cors` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](/docs/hooks/configure) sayfasında açıklanır.
 
 :::note[Neleri kapsamaz]
 

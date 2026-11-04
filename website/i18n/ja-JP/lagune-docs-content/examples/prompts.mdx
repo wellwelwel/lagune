@@ -18,7 +18,7 @@ keywords:
   - 範囲を絞った検出
   - プルリクエストのセキュリティレビュー
   - インシデント対応
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -216,6 +216,14 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+リポジトリ自身の `.gitignore` ファイルや設定が、チェッカーからファイルを隠してしまうおそれがあります。そこで、`checkers` ブロックを `.lagune/configs.json` で設定し、リポジトリに同梱されているブロックがあれば置き換えて、[すべてをスキャンする](/docs/hooks/configure) ようにしてください：
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

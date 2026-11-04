@@ -3,7 +3,7 @@ id: jwt
 title: 'Hook jwt: rileva la verifica JWT senza algoritmo fissato'
 sidebar_label: jwt
 description: Analizza una codebase alla ricerca di verifiche JWT che non fissano l'algoritmo, oppure valuta una singola chiamata, dalla riga di comando.
-source_hash: 'cbcad5ea3da3d78004b06a865439770e1c44fd60b1add3cf6c0867370cf1d054'
+source_hash: '086650f69077e3f35c8507d308bd2a345027896fdb897f1d012617fd3d7917ee'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ Ogni riga sotto **Unpinned JWT verification found** è una chiamata di verifica 
 | `--file`    | un file                | Limita l'analisi a un singolo file. Si ripete e si combina con `--dir`.                              |
 
 Senza opzioni analizza l'intero progetto. `--pattern` richiede `--lang` e non si può combinare con `--dir` o `--file`.
+
+### Scegli cosa analizza
+
+Lascia fuori ciò che **Git** ignora. Per lasciare fuori altro, o per analizzare ciò che **Git** ignora, assegna impostazioni proprie a `jwt`:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tutte le impostazioni sono in [Configura gli hook](/docs/hooks/configure).
 
 ### Linguaggi supportati
 

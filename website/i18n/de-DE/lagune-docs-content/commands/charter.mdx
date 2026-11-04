@@ -3,7 +3,7 @@ id: charter
 title: '/lagune-charter: Lege deine Sicherheitsprinzipien fest'
 sidebar_label: 1. Charter
 description: Lege die Sicherheitsprinzipien deines Projekts fest, also die Regeln, an die sich jede spätere Phase hält, und trage die Spezialisierungskategorien ein, die die Analyse des Projekts stützt.
-source_hash: 'afebb33c5b1c8ddb897242ba7486d828d7c9a25f67e9983c660ac8a733377bcf'
+source_hash: '82c4e09393d711ce0c09964acc49c1d4b81b4c39c605f84188b3bcadcd4d2107'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -73,6 +73,10 @@ Sind Kategorien eingetragen, lässt die charter sie unverändert und nennt nur n
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## Die Ordner, die sie zum Auslassen vorschlägt
+
+Stößt die charter bei ihrer Analyse auf committete Ordner, die nicht zu dem Code gehören, den dein Projekt verteidigen muss, etwa Test-Fixtures, die so geschrieben sind, dass sie verwundbar wirken, listet sie diese am Ende ihrer Zusammenfassung nummeriert auf. Sie lässt nie von sich aus einen davon aus, denn ein feindseliges Repository kann seinen Code wie Fixtures aussehen lassen, deshalb werden nur die Nummern eingetragen, die du in deiner Antwort nennst. [Hooks konfigurieren](/docs/hooks/configure) zeigt, wie du sie selbst änderst.
 
 ## Nächster Schritt
 

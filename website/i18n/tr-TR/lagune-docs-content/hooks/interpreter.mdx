@@ -3,7 +3,7 @@ id: interpreter
 title: "interpreter hook'u: dinamik kod çalıştırma sink'lerini işaretleyin"
 sidebar_label: interpreter
 description: Kod tabanını farklı dillerdeki dinamik kod çalıştırma sink'lerine karşı tarayın ya da tek bir kod parçasını doğrudan komut satırından puanlayın.
-source_hash: '77a21f86909e04b51b00f0fe5dfa2a27a1af76b8e8f473743c8d39710ca8d710'
+source_hash: 'eda066803e327623c0eb256cb11d4a0cfce4ab83541036a781bbb1f88d45e1ab'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -57,6 +57,24 @@ Her sink'i **statik olarak** değerlendirin ve güvenilmeyen bir girdinin ona ul
 | `--file`    | bir dosya       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.                               |
 
 Seçenek verilmezse tüm proje taranır. `--pattern`, `--lang` gerektirir ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `interpreter` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](/docs/hooks/configure) sayfasında açıklanır.
 
 ### Desteklenen diller
 

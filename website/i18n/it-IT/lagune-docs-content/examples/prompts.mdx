@@ -16,7 +16,7 @@ keywords:
   - rilevamento circoscritto
   - revisione di sicurezza delle pull request
   - risposta agli incidenti
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -214,6 +214,14 @@ I prompt caricano direttamente le specializzazioni su cui si basa questo audit, 
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+I file `.gitignore` e le configurazioni del repository stesso potrebbero nascondere file ai checker, quindi imposta il blocco `checkers` di `.lagune/configs.json` per [analizzare tutto](/docs/hooks/configure), sostituendo qualsiasi blocco fornito dal repository:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

@@ -3,7 +3,7 @@ id: agent
 title: "agent hook'u: sınırsız ajan döngülerini tespit edin"
 sidebar_label: agent
 description: Kod tabanını adım veya süre sınırı olmayan ajan ve LLM çağrılarına karşı tarayın ya da tek bir çağrıyı doğrudan komut satırından değerlendirin.
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | bir dosya       | Taramayı tek bir dosyayla sınırlar. Tekrarlanabilir ve `--dir` ile birleştirilebilir.               |
 
 Seçenek verilmezse tüm proje taranır. `--pattern`, `--lang` gerektirir ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `agent` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](/docs/hooks/configure) sayfasında açıklanır.
 
 :::note[Elden gelenin en iyisi, ama eksiksiz değil]
 Herhangi bir dilde elle yazılmış bir ajan döngüsü, statik bir taramanın erişebileceği şey değildir. Bunu eksiksiz bir envanter olarak değil, sağlam bir taban olarak görün.

@@ -3,7 +3,7 @@ id: interpreter
 title: 'Хук interpreter: поиск точек динамического выполнения кода'
 sidebar_label: interpreter
 description: Проверьте кодовую базу на точки динамического выполнения кода на разных языках или оцените отдельный фрагмент из командной строки.
-source_hash: '77a21f86909e04b51b00f0fe5dfa2a27a1af76b8e8f473743c8d39710ca8d710'
+source_hash: 'eda066803e327623c0eb256cb11d4a0cfce4ab83541036a781bbb1f88d45e1ab'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -57,6 +57,24 @@ npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
 | `--file`    | файл          | Ограничивает сканирование одним файлом. Можно повторять и сочетать с `--dir`.                            |
 
 Без параметров хук сканирует весь проект. `--pattern` требует `--lang` и не сочетается с `--dir` или `--file`.
+
+### Выберите, что сканировать
+
+Хук пропускает то, что игнорирует **Git**. Чтобы исключить больше или сканировать то, что игнорирует **Git**, задайте хуку `interpreter` собственные настройки:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Все настройки описаны на странице [Настройка хуков](/docs/hooks/configure).
 
 ### Поддерживаемые языки
 

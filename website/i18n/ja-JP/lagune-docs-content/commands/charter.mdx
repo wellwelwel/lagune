@@ -3,7 +3,7 @@ id: charter
 title: '/lagune-charter: セキュリティ原則を定める'
 sidebar_label: 1. Charter
 description: 後続のすべてのフェーズが守るルールとして、プロジェクトのセキュリティ原則を定め、プロジェクトを読み取って裏付けが得られた専門知識のカテゴリを記録します。
-source_hash: 'afebb33c5b1c8ddb897242ba7486d828d7c9a25f67e9983c660ac8a733377bcf'
+source_hash: '82c4e09393d711ce0c09964acc49c1d4b81b4c39c605f84188b3bcadcd4d2107'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -73,6 +73,10 @@ charter は全体を統括するレイヤーで、後続のすべてのフェー
 npx lagune write add --categories python
 npx lagune write remove --categories python
 ```
+
+## 除外を提案するフォルダー
+
+charter がプロジェクトを読み取る中で、コミットされてはいても守るべきプロジェクトのコードではないフォルダー（脆弱に見えるように書かれたテスト用フィクスチャなど）が見つかると、要約の最後に番号を付けて一覧にします。悪意のあるリポジトリは自分のコードをフィクスチャに見せかけられるため、charter が自分の判断で除外することはなく、記録されるのは返信で指定した番号のものだけです。自分で変更する方法は [フックの設定](/docs/hooks/configure) で説明しています。
 
 ## 次のステップ
 

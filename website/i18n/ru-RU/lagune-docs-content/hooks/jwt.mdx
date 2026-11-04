@@ -3,7 +3,7 @@ id: jwt
 title: 'Хук jwt: обнаружение проверки JWT без закрепленного алгоритма'
 sidebar_label: jwt
 description: Проверьте кодовую базу на проверку JWT без закрепленного алгоритма или оцените отдельный вызов из командной строки.
-source_hash: 'cbcad5ea3da3d78004b06a865439770e1c44fd60b1add3cf6c0867370cf1d054'
+source_hash: '086650f69077e3f35c8507d308bd2a345027896fdb897f1d012617fd3d7917ee'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 | `--file`    | файл          | Ограничивает сканирование одним файлом. Можно повторять и сочетать с `--dir`.                    |
 
 Без параметров хук сканирует весь проект. `--pattern` требует `--lang` и не сочетается с `--dir` или `--file`.
+
+### Выберите, что сканировать
+
+Хук пропускает то, что игнорирует **Git**. Чтобы исключить больше или сканировать то, что игнорирует **Git**, задайте хуку `jwt` собственные настройки:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Все настройки описаны на странице [Настройка хуков](/docs/hooks/configure).
 
 ### Поддерживаемые языки
 

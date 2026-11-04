@@ -3,7 +3,7 @@ id: cors
 title: 'cors 훅: CORS 오리진 점검하기'
 sidebar_label: cors
 description: 명령줄에서 소스 코드를 스캔해 우회할 수 있는 CORS 오리진 허용 목록을 찾거나, 오리진 값 하나가 지나치게 넓은 접근을 허용하는지 점수를 매길 수 있습니다.
-source_hash: '41b67a705f00a590aaa716a07bbe390973e626c295f7187f12cad7a037169458'
+source_hash: '89f32bfbbe6ec55a73d4c2fb23da72045b2af8cbe729288f7b1516c3d95e646a'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read cors \
 | `--file`   | 파일     | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능             |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--origin` 옵션은 score 모드이며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `cors` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](/docs/hooks/configure)에서 설명합니다.
 
 :::note[다루지 않는 범위]
 

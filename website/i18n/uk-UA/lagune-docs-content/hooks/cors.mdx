@@ -3,7 +3,7 @@ id: cors
 title: 'Хук cors: аудит джерел CORS'
 sidebar_label: cors
 description: Перевірте вихідний код на allowlist джерел CORS, який можна обійти, або оцініть окреме значення джерела на надто вільний доступ просто з командного рядка.
-source_hash: '41b67a705f00a590aaa716a07bbe390973e626c295f7187f12cad7a037169458'
+source_hash: '89f32bfbbe6ec55a73d4c2fb23da72045b2af8cbe729288f7b1516c3d95e646a'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read cors \
 | `--file`   | файл     | Обмежити перевірку одним файлом. Повторюється й поєднується з `--dir`.            |
 
 Без параметрів хук перевіряє весь проєкт. `--origin` вмикає режим score і не поєднується з `--dir` чи `--file`.
+
+### Виберіть, що перевіряти
+
+Хук пропускає те, що ігнорує **Git**. Щоб виключити більше або перевіряти те, що ігнорує **Git**, задайте хуку `cors` власні налаштування:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker cors
+```
+
+```json
+{
+  "checkers": {
+    "cors": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Усі налаштування описано на сторінці [Налаштування хуків](/docs/hooks/configure).
 
 :::note[Чого він не охоплює]
 

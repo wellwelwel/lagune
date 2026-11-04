@@ -20,7 +20,7 @@ keywords:
   - 범위 지정 탐지
   - 풀 리퀘스트 보안 검토
   - 보안 사고 대응
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -218,6 +218,14 @@ Blue Team 흐름을 실행하거나 Lagune의 추적에 기록하지 않고, 에
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+저장소에 포함된 `.gitignore` 파일과 설정 때문에 검사기가 일부 파일을 보지 못할 수 있으므로, `checkers` 블록을 `.lagune/configs.json` 파일에 넣어 [모든 것을 스캔](/docs/hooks/configure)하도록 설정하세요. 저장소에 이미 들어 있는 블록이 있다면 이 블록으로 바꾸세요:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

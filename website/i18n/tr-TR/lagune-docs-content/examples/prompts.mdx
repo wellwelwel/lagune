@@ -19,7 +19,7 @@ keywords:
   - kapsamlı tespit
   - pull request güvenlik incelemesi
   - olay müdahalesi
-source_hash: 'ab9960b6057a534ef70a1bcfda8c7ce40631f6a1948beaec499867d2d232568f'
+source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -217,6 +217,14 @@ Prompt'lar bu denetimin dayandığı uzmanlıkları, projenizin kategorileri ne 
 
 ```bash
 npx lagune write add --categories owasp ai javascript
+```
+
+Deponun kendi `.gitignore` dosyaları ve yapılandırmaları dosyaları denetleyicilerden gizleyebilir, bu yüzden deponun getirdiği her bloğun yerine, `checkers` bloğunu `.lagune/configs.json` dosyasında [her şeyi tarayacak](/docs/hooks/configure) şekilde ayarlayın:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
 ```
 
 :::danger

@@ -3,7 +3,7 @@ id: agent
 title: 'agent 훅: 상한 없는 에이전트 루프 탐지하기'
 sidebar_label: agent
 description: 명령줄에서 코드베이스를 스캔해 스텝 수나 시간에 상한이 없는 에이전트나 LLM 호출을 찾거나, 호출 하나에 점수를 매길 수 있습니다.
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | 파일      | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능 |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션에는 `--lang` 옵션이 필요하며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `agent` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](/docs/hooks/configure)에서 설명합니다.
 
 :::note[전수 검사가 아닌 최선의 탐지]
 직접 구현한 에이전트 루프는 어떤 언어로 작성했든 정적 스캔으로 잡아낼 수 없습니다. 완전한 목록이 아니라 든든한 최소 기준으로 활용하세요.

@@ -3,7 +3,7 @@ id: regex
 title: 'regex hook：检测有 ReDoS 风险的正则'
 sidebar_label: regex
 description: 在命令行中扫描代码库里容易引发 ReDoS 的正则表达式，或评估单个正则模式。
-source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | 一个非负整数 | 设置 ReDoS 重复次数上限（默认 25）。两种模式都适用。上限越低越严格。   |
 
 不带任何选项时，它会扫描整个项目。`--pattern` 即 check 模式，不能与 `--dir` 或 `--file` 组合使用。
+
+### 选择扫描范围
+
+它会跳过 **Git** 忽略的内容。如果想排除更多内容，或者扫描 **Git** 忽略的内容，就为 `regex` hook 单独指定设置：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+所有设置项见 [配置 hook](/docs/hooks/configure)。
 
 ### 支持的语言
 

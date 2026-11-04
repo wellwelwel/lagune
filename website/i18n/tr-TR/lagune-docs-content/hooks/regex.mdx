@@ -3,7 +3,7 @@ id: regex
 title: "regex hook'u: ReDoS örüntülerini tespit edin"
 sidebar_label: regex
 description: Kod tabanını ReDoS'a yatkın regex'lere karşı tarayın ya da tek bir örüntüyü doğrudan komut satırından puanlayın.
-source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | negatif olmayan bir tam sayı | ReDoS tekrar sınırını belirler (varsayılan 25). Her iki modda da geçerlidir. Daha düşük bir sınır daha katıdır.  |
 
 Seçenek verilmezse tüm proje taranır. `--pattern` check modudur ve `--dir` ya da `--file` ile birleştirilemez.
+
+### Neyin taranacağını seçin
+
+Hook, **Git**'in yok saydıklarını dışarıda bırakır. Daha fazlasını dışarıda bırakmak ya da **Git**'in yok saydıklarını taramak için `regex` hook'una kendi ayarlarını verin:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Tüm ayarlar [Hook'ları yapılandırın](/docs/hooks/configure) sayfasında açıklanır.
 
 ### Desteklenen diller
 

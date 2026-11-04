@@ -3,7 +3,7 @@ id: agent
 title: 'agent フック：上限のないエージェントループを検出する'
 sidebar_label: agent
 description: コマンドラインから、ステップ数や時間に上限のないエージェントや LLM の呼び出しをコードベース全体でスキャンしたり、1 つの呼び出しを判定したりできます。
-source_hash: 'e79485f92c36a505b47969c727909a2050e47cbbafaf0bc69dc75c288d3216ad'
+source_hash: 'c857bf7127c9d1e6e67848fa5d541c2b755e3c8ee81fb6fc8871190a76eee94f'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read agent --lang python --pattern 'AgentExecutor(agent=a, max_iterat
 | `--file`    | ファイル         | スキャン対象を 1 つのファイルに絞る。繰り返し指定でき、`--dir` と併用できる。                     |
 
 オプションを指定しなければ、プロジェクト全体をスキャンします。`--pattern` には `--lang` が必要で、`--dir` や `--file` とは併用できません。
+
+### スキャン対象を選ぶ
+
+**Git** が無視するものはスキャンしません。さらに除外したいときや、**Git** が無視するものもスキャンしたいときは、`agent` フック専用の設定を指定します：
+
+```bash
+npx lagune write add --ignore test/fixtures --checker agent
+```
+
+```json
+{
+  "checkers": {
+    "agent": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+すべての設定項目は [フックの設定](/docs/hooks/configure) で説明しています。
 
 :::note[ベストエフォートであり、網羅的ではない]
 自前で実装したエージェントループは、どの言語で書かれていても静的スキャンでは捉えられません。完全な一覧ではなく、確かな最低ラインとして扱ってください。

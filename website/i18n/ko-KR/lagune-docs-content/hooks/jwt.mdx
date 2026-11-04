@@ -3,7 +3,7 @@ id: jwt
 title: 'jwt 훅: 알고리즘을 고정하지 않은 JWT 검증 탐지하기'
 sidebar_label: jwt
 description: 명령줄에서 코드베이스를 스캔해 알고리즘을 고정하지 않은 JWT 검증을 찾거나, 호출 하나에 점수를 매길 수 있습니다.
-source_hash: 'cbcad5ea3da3d78004b06a865439770e1c44fd60b1add3cf6c0867370cf1d054'
+source_hash: '086650f69077e3f35c8507d308bd2a345027896fdb897f1d012617fd3d7917ee'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -55,6 +55,24 @@ npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256
 | `--file`    | 파일      | 스캔 범위를 단일 파일로 한정. 반복 지정 가능, `--dir` 옵션과 함께 사용 가능                          |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션에는 `--lang` 옵션이 필요하며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `jwt` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](/docs/hooks/configure)에서 설명합니다.
 
 ### 지원 언어
 

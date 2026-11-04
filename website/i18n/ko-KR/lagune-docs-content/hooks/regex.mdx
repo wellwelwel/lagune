@@ -3,7 +3,7 @@ id: regex
 title: 'regex 훅: ReDoS 패턴 탐지하기'
 sidebar_label: regex
 description: 명령줄에서 코드베이스를 스캔해 ReDoS에 취약한 정규식을 찾거나, 패턴 하나에 점수를 매길 수 있습니다.
-source_hash: 'ddc2e3eb83cec8e187990ea2bfaa0d6fd49614de3f6a4b37d9ded74d04405a1a'
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -104,6 +104,24 @@ npx lagune read regex --dir src/clean
 | `--limit`   | 0 이상의 정수 | ReDoS 반복 한도 설정(기본값 25). 두 모드 모두에 적용. 한도가 낮을수록 더 엄격              |
 
 옵션을 지정하지 않으면 프로젝트 전체를 스캔합니다. `--pattern` 옵션은 check 모드이며, `--dir` 또는 `--file` 옵션과 함께 쓸 수 없습니다.
+
+### 스캔 대상 선택하기
+
+**Git**이 무시하는 항목은 건너뜁니다. 더 많은 항목을 제외하거나 **Git**이 무시하는 항목도 스캔하려면 `regex` 훅에 전용 설정을 지정하세요:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+모든 설정은 [훅 설정하기](/docs/hooks/configure)에서 설명합니다.
 
 ### 지원 언어
 

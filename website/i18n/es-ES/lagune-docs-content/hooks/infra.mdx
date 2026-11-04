@@ -3,7 +3,7 @@ id: infra
 title: 'Hook infra: detecta errores de configuración en IaC'
 sidebar_label: infra
 description: Analiza Terraform, Dockerfiles y GitHub Actions en busca de errores de configuración, o evalúa un único fragmento de código, desde la línea de comandos.
-source_hash: 'b1d0f473e8aef1a679101692288b64b863078da6e944d28ee30a6ba51bf4c50c'
+source_hash: 'e6a556c30f366efef83f794c865528430ab4717e4e80ddf5951d645a87afa651'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -52,6 +52,24 @@ El modo check muestra la etiqueta de mayor gravedad que ha detectado (por ejempl
 | `--file`    | un archivo                                      | Limita el análisis a un solo archivo. Se puede repetir y combinar con `--dir`. |
 
 Sin ninguna opción, analiza todos los archivos de IaC del proyecto. `--pattern` no se puede combinar con `--dir` ni con `--file`.
+
+### Elige qué analiza
+
+Deja fuera lo que **Git** ignora. Para dejar fuera más cosas, o para analizar lo que **Git** ignora, dale a `infra` una configuración propia:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+Todos los ajustes están en [Configura los hooks](/docs/hooks/configure).
 
 :::tip
 El hook detecta los casos evidentes y decidibles: la ausencia de cifrado, la exposición de `pull_request_target` y el alcance IAM adecuado son cuestiones de criterio que sigue cubriendo la [especialización `infra`](/docs/catalog).
