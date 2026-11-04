@@ -8,8 +8,8 @@ import { color } from './colors.js';
 
 const ENGINE_COMMAND = 'npx lagune';
 const INSTALL_PAGE = 'https://lagune.ai/docs';
-
 const MIGRATE_PAGE = 'https://lagune.ai/docs/commands/migrate';
+const NOT_DONE = 'Report it as not done and never do its work by hand.';
 
 const GLYPH = {
   added: color.blue('+'),
@@ -179,6 +179,12 @@ export const noServedProject = (): string =>
 
 export const noNodeForEngine = (): string =>
   "Lagune's engine runs on Node.js, and none was found on this computer's search path. Install Node.js (LTS), then restart your agent.";
+
+export const hookStalled = (hook: string, seconds: number): string =>
+  `${hook} gave no answer within ${seconds} seconds. A very large or crafted input can stall it. ${NOT_DONE}`;
+
+export const hookStopped = (hook: string): string =>
+  `${hook} stopped without an answer. ${NOT_DONE}`;
 
 export const frozenHandoff = (version: string): string =>
   `This project runs on the manifest-based Lagune, which keeps working: lagune@${version} answers here. To move the project to the skills-based Lagune, see ${MIGRATE_PAGE}`;

@@ -1,6 +1,9 @@
+import type { MessagePort } from 'node:worker_threads';
+import type { HookJob } from '../types/core.js';
 import type { EngineTool } from '../types/mcp.js';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+import { parentPort, workerData } from 'node:worker_threads';
 import {
   frozenHandoff,
   frozenRefusal,
@@ -8,7 +11,8 @@ import {
   unprefixedCommand,
 } from '../cli/messages.js';
 import { parseCliArgs } from '../cli/parse-args.js';
-import { executeHook } from '../cli/run-hook.js';
+import { answerHook, executeHook } from '../cli/run-hook.js';
+import { errorMessage } from '../core/errors.js';
 import { hasManifest } from '../core/migrate.js';
 import {
   commandRefusal,
@@ -70,7 +74,8 @@ const runBehind = async (
 ): Promise<void> => {
   if (!runsCommand(tool, command))
     throw new Error(commandRefusal(tool, command, toolCommandLine));
-  if (isHookName(command)) return executeHook(HOOKS[command], values);
+  if (isHookName(command))
+    return executeHook(entry, { name: command, args: values });
 
   return run(parseCliArgs([command, ...values]), cwd, packageRoot);
 };
@@ -98,11 +103,21 @@ const answer = async (): Promise<void> => {
   return run(parsed, cwd, packageRoot);
 };
 
-try {
-  await answer();
-} catch (error) {
-  const message = error instanceof Error ? error.message : String(error);
+const main = async (): Promise<void> => {
+  try {
+    await answer();
+  } catch (error) {
+    process.stderr.write(`${errorMessage(error)}\n`);
+    process.exitCode = 1;
+  }
+};
 
-  process.stderr.write(`${message}\n`);
-  process.exitCode = 1;
-}
+/** Answers a hook job when this entry runs as a worker */
+const serveHook = async (port: MessagePort): Promise<void> => {
+  const job: HookJob = workerData;
+
+  port.postMessage(await answerHook(HOOKS[job.name], job.args));
+};
+
+if (parentPort === null) await main();
+else await serveHook(parentPort);

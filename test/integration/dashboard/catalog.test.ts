@@ -122,4 +122,30 @@ await describe('the dashboard catalog follows the project catalog', async () => 
       recorded: true,
     });
   });
+
+  await it('labels a specialization by its name, never by the prototype', async () => {
+    const data = await dataOf({
+      '.lagune/configs.json': JSON.stringify({
+        categories: [],
+        catalog: [{ name: 'constructor', tags: [] }],
+      }),
+      '.lagune/catalog/constructor.md': '# constructor\n',
+      '.lagune/memory/detect.md': [
+        '# Demo Detect Map',
+        '',
+        '## Applied specializations',
+        '',
+        '- `.lagune/skills/__proto__.md`: a legacy entry',
+        '',
+      ].join('\n'),
+    });
+
+    strict.deepStrictEqual(
+      data.catalog.map((item) => [item.name, item.label]),
+      [
+        ['__proto__', '__proto__'],
+        ['constructor', 'Constructor'],
+      ]
+    );
+  });
 });

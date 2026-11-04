@@ -9,6 +9,7 @@ import type {
 import type { CatalogItem } from '../../types/dashboard/dashboard';
 import { BUILTIN_SPECIALIZATIONS } from '../../catalog/builtin';
 import { CATEGORIES } from '../../categories/categories';
+import { ownValue } from '../../core/collections';
 import { iconPath } from './assets';
 
 const LABELS: Record<string, string> = {
@@ -204,17 +205,17 @@ export const builtinNames = (): string[] =>
   BUILTIN_SPECIALIZATIONS.map((entry) => entry.name);
 
 export const specializationLabel = (name: string): string =>
-  LABELS[name] ?? titleCase(name);
+  ownValue(LABELS, name) ?? titleCase(name);
 
 export const specializationIconName = (name: string): SpecializationIconName =>
-  ICONS[name] ?? 'brain';
+  ownValue(ICONS, name) ?? 'brain';
 
 export const specializationDescription = (name: string): string =>
-  DESCRIPTIONS[name] ??
+  ownValue(DESCRIPTIONS, name) ??
   'Adds focused security checks for this part of your project.';
 
 const specializationPromptTask = (name: string): string =>
-  PROMPT_TASKS[name] ??
+  ownValue(PROMPT_TASKS, name) ??
   `Add a feature that touches ${specializationLabel(name)}`;
 
 export const ENGINE_COMMAND = 'npx lagune';

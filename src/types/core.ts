@@ -51,6 +51,17 @@ export type HookName =
   | 'untrack'
   | 'validate';
 
+export type HookJob = {
+  name: HookName;
+  args: string[];
+};
+
+export type HookOutcome =
+  | ({ kind: 'answered' } & HookResult)
+  | { kind: 'failed'; message: string }
+  | { kind: 'stopped' }
+  | { kind: 'stalled' };
+
 export type TokenCount = {
   relativePath: string;
   tokens: number;
