@@ -1,6 +1,6 @@
 import type { ComponentChildren, VNode } from 'preact';
 import { createPortal } from 'preact/compat';
-import { useEffect, useRef } from 'preact/hooks';
+import { useLayoutEffect, useRef } from 'preact/hooks';
 
 export const Modal = (props: {
   onClose: () => void;
@@ -10,7 +10,7 @@ export const Modal = (props: {
 }): VNode => {
   const panel = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') props.onClose();
     };
