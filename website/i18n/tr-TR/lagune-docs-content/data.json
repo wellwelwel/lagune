@@ -240,8 +240,8 @@
     "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
   },
   "corpus.staleNotice": {
-    "message": "Bu sayfa İngilizce sürümünün gerisinde kaldı.",
-    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+    "message": "Bu sayfa İngilizce sürümünün gerisinde kaldı. {original}.",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page"
   },
   "corpus.summary": {
     "message": "Lagune, açık kaynak ve yalnızca savunma odaklı bir Security-Driven Hardening (SDH) iş akışıdır. Yapay zeka ajanınızın, hangi dilde olursa olsun her kod tabanını her aşamada sıkılaştırmasına yardımcı olur: charter, siz geliştirmeye başlamadan güvenlik kurallarını belirler, evrensel /lagune komutu işi yazılırken sıkılaştırır, beş fazlı Blue Team akışı da sisteminizin gerçekte ne yaptığını tespit edip o bağlam için önemli olan düzeltmeleri yürütür. Komutları skills CLI aracıyla ajanınıza kurulur ve API anahtarı gerektirmez.",

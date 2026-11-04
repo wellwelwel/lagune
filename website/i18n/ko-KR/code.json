@@ -93,15 +93,15 @@
   },
   "docs.notice.original": {
     "message": "원문 읽기",
-    "description": "The link from a stale or untranslated page notice to the English page"
+    "description": "The link from a stale page notice to the English page"
   },
   "docs.notice.stale": {
     "message": "이 페이지는 영어 버전보다 내용이 오래되었습니다. {original}.",
     "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
   },
   "docs.notice.untranslated": {
-    "message": "이 페이지는 아직 번역되지 않았습니다. {original}.",
-    "description": "Tells the reader the page below is still in English, shown above the page, where {original} is the link to the English page"
+    "message": "이 페이지는 아직 번역되지 않았습니다.",
+    "description": "Tells the reader the page below is still in English, shown above the page"
   },
   "docs.page.imageAlt": {
     "message": "Lagune {section}: {title}",

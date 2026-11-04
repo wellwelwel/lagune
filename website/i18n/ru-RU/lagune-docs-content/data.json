@@ -240,8 +240,8 @@
     "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
   },
   "corpus.staleNotice": {
-    "message": "Эта страница устарела по сравнению с английской версией.",
-    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+    "message": "Эта страница устарела по сравнению с английской версией. {original}.",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page"
   },
   "corpus.summary": {
     "message": "Lagune представляет собой открытый процесс Security-Driven Hardening (SDH), ориентированный только на защиту. Он помогает вашему ИИ-агенту усилить защиту любой кодовой базы на любом языке в любой момент: charter задает правила безопасности еще до разработки, универсальная команда /lagune усиливает защиту кода прямо во время написания, а пятифазный процесс Blue Team выявляет, что на самом деле делает ваша система, и ведет исправления, важные в этом контексте. Его команды устанавливаются в агент через CLI skills, и ему не нужен API-ключ.",

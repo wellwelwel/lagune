@@ -240,8 +240,8 @@
     "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
   },
   "corpus.staleNotice": {
-    "message": "Esta página está desatualizada em relação à versão em inglês.",
-    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+    "message": "Esta página está desatualizada em relação à versão em inglês. {original}.",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page"
   },
   "corpus.summary": {
     "message": "O Lagune é um fluxo de Security-Driven Hardening (SDH) open source e exclusivamente defensivo. Ele ajuda seu agente de IA a fortalecer a segurança de qualquer código, em qualquer linguagem e em qualquer momento: o charter define as regras de segurança antes de você construir, o comando universal /lagune aplica hardening ao trabalho enquanto ele é escrito, e o fluxo Blue Team de cinco fases detecta o que o seu sistema realmente faz e conduz as correções que importam para esse contexto. Seus comandos são instalados no seu agente com o skills CLI, e ele não precisa de chave de API.",

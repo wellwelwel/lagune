@@ -240,8 +240,8 @@
     "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
   },
   "corpus.staleNotice": {
-    "message": "Diese Seite ist gegenüber ihrer englischen Version veraltet.",
-    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+    "message": "Diese Seite ist gegenüber ihrer englischen Version veraltet. {original}.",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page"
   },
   "corpus.summary": {
     "message": "Lagune ist ein ausschließlich defensiver Open-Source-Workflow für Security-Driven Hardening (SDH). Er hilft deinem KI-Agenten, jede Codebasis in jeder Sprache jederzeit zu härten: Die Phase charter legt die Sicherheitsregeln fest, bevor du entwickelst, der universelle Befehl /lagune härtet die Arbeit, während sie geschrieben wird, und der Blue-Team-Workflow in fünf Phasen erkennt, was dein System tatsächlich tut, und treibt die Korrekturen voran, die in diesem Kontext zählen. Die Befehle installierst du mit der CLI von skills in deinem Agenten, und ein API-Schlüssel ist nicht nötig.",

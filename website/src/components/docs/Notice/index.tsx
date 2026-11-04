@@ -20,27 +20,41 @@ const NOTICE_LOOKS: Record<NoticeState, NoticeLook> = {
 const isNoticeState = (state: PageState): state is NoticeState =>
   Object.hasOwn(NOTICE_LOOKS, state);
 
-const noticeText = (state: NoticeState, original: ReactNode): ReactNode => {
+const OriginalLink = ({ href }: { href: string }): ReactNode => (
+  <a
+    className='font-semibold whitespace-nowrap text-inherit underline decoration-(--notice-tone)/50 underline-offset-3 transition-colors hover:decoration-current'
+    href={href}
+    hrefLang={DEFAULT_LOCALE}
+  >
+    {translate({
+      id: 'docs.notice.original',
+      message: 'Read the original version',
+      description: 'The link from a stale page notice to the English page',
+    })}
+  </a>
+);
+
+const noticeText = (
+  state: NoticeState,
+  originalPermalink: string
+): ReactNode => {
   if (state === 'stale')
     return (
       <Translate
         id='docs.notice.stale'
         description='Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page'
-        values={{ original }}
+        values={{ original: <OriginalLink href={originalPermalink} /> }}
       >
         {'This page is outdated compared to its English version. {original}.'}
       </Translate>
     );
 
-  return (
-    <Translate
-      id='docs.notice.untranslated'
-      description='Tells the reader the page below is still in English, shown above the page, where {original} is the link to the English page'
-      values={{ original }}
-    >
-      {'This page has not been translated yet. {original}.'}
-    </Translate>
-  );
+  return translate({
+    id: 'docs.notice.untranslated',
+    message: 'This page has not been translated yet.',
+    description:
+      'Tells the reader the page below is still in English, shown above the page',
+  });
 };
 
 export const DocsNotice = ({
@@ -53,20 +67,6 @@ export const DocsNotice = ({
   if (!isNoticeState(state)) return null;
 
   const { tone, icon } = NOTICE_LOOKS[state];
-  const original = (
-    <a
-      className='font-semibold whitespace-nowrap text-inherit underline decoration-(--notice-tone)/50 underline-offset-3 transition-colors hover:decoration-current'
-      href={originalPermalink}
-      hrefLang={DEFAULT_LOCALE}
-    >
-      {translate({
-        id: 'docs.notice.original',
-        message: 'Read the original version',
-        description:
-          'The link from a stale or untranslated page notice to the English page',
-      })}
-    </a>
-  );
 
   return (
     <div
@@ -77,7 +77,7 @@ export const DocsNotice = ({
       <span className='mt-0.5 inline-flex flex-none text-[1.15rem] text-(--notice-tone)'>
         <Icon name={icon} />
       </span>
-      <p className='m-0 text-wrap!'>{noticeText(state, original)}</p>
+      <p className='m-0 text-wrap!'>{noticeText(state, originalPermalink)}</p>
     </div>
   );
 };

@@ -93,15 +93,15 @@
   },
   "docs.notice.original": {
     "message": "Leggi la versione originale",
-    "description": "The link from a stale or untranslated page notice to the English page"
+    "description": "The link from a stale page notice to the English page"
   },
   "docs.notice.stale": {
     "message": "Questa pagina non è aggiornata rispetto alla versione inglese. {original}.",
     "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
   },
   "docs.notice.untranslated": {
-    "message": "Questa pagina non è ancora stata tradotta. {original}.",
-    "description": "Tells the reader the page below is still in English, shown above the page, where {original} is the link to the English page"
+    "message": "Questa pagina non è ancora stata tradotta.",
+    "description": "Tells the reader the page below is still in English, shown above the page"
   },
   "docs.page.imageAlt": {
     "message": "Lagune {section}: {title}",

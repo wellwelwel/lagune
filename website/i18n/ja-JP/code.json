@@ -93,15 +93,15 @@
   },
   "docs.notice.original": {
     "message": "原文を読む",
-    "description": "The link from a stale or untranslated page notice to the English page"
+    "description": "The link from a stale page notice to the English page"
   },
   "docs.notice.stale": {
     "message": "このページは英語版より古くなっています。{original}。",
     "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
   },
   "docs.notice.untranslated": {
-    "message": "このページはまだ翻訳されていません。{original}。",
-    "description": "Tells the reader the page below is still in English, shown above the page, where {original} is the link to the English page"
+    "message": "このページはまだ翻訳されていません。",
+    "description": "Tells the reader the page below is still in English, shown above the page"
   },
   "docs.page.imageAlt": {
     "message": "Lagune {section}：{title}",

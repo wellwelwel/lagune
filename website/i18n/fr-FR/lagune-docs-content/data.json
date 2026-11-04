@@ -240,8 +240,8 @@
     "description": "The link to the English page at the end of the status line of an outdated Markdown copy"
   },
   "corpus.staleNotice": {
-    "message": "Cette page n'est plus à jour par rapport à sa version anglaise.",
-    "description": "The status line under the title of a translated Markdown copy that fell behind its English source"
+    "message": "Cette page n'est plus à jour par rapport à sa version anglaise. {original}.",
+    "description": "The status line under the title of a translated Markdown copy that fell behind its English source, where {original} is the link to the English page"
   },
   "corpus.summary": {
     "message": "Lagune est un workflow de Security-Driven Hardening (SDH) open source et exclusivement défensif. Il aide votre agent IA à durcir n'importe quelle base de code, dans n'importe quel langage et à tout moment : la phase charter fixe les règles de sécurité avant que vous développiez, la commande universelle /lagune durcit le travail au fil de l'écriture, et le flux Blue Team en cinq phases détecte ce que fait réellement votre système et pilote les correctifs qui comptent dans ce contexte. Ses commandes s'installent dans votre agent avec la CLI skills, sans clé d'API.",
