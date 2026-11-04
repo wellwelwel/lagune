@@ -1,6 +1,6 @@
 ---
 name: lagune
-description: Do the work the prompt asks for, with security guarding the build as it happens. Loads the charter, matches the security knowledge the work touches, builds safe-by-default, then checks its own result against what it used.
+description: Use this skill whenever you are about to build or change code. It builds safe-by-default from the project's charter and the defensive security knowledge the work touches, then checks the result.
 argument-hint: Describe the work to do, and Lagune builds it safely
 user-invocable: true
 ---
