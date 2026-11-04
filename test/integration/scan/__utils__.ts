@@ -1,14 +1,17 @@
 import { execFile } from 'node:child_process';
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
-import { devNull, tmpdir } from 'node:os';
+import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
-import { env } from 'node:process';
+import { env, pid } from 'node:process';
 import { promisify } from 'node:util';
 import { afterEach } from 'poku';
 
 const run = promisify(execFile);
 
 const workspaces: string[] = [];
+
+/** A global Git config that does not exist, which Git skips on every platform, unlike the null device on Windows */
+const NO_GLOBAL_CONFIG = join(tmpdir(), `lagune-no-git-config-${pid}`);
 
 export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-scan-'));
@@ -43,7 +46,11 @@ export const git = async (
 ): Promise<void> => {
   await run('git', [...args], {
     cwd: workspace,
-    env: { ...env, GIT_CONFIG_GLOBAL: devNull, GIT_CONFIG_NOSYSTEM: '1' },
+    env: {
+      ...env,
+      GIT_CONFIG_GLOBAL: NO_GLOBAL_CONFIG,
+      GIT_CONFIG_NOSYSTEM: '1',
+    },
   });
 };
 
