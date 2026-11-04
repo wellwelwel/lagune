@@ -3,7 +3,7 @@ import { delimiter, join } from 'node:path';
 import { env } from 'node:process';
 import { pathToFileURL } from 'node:url';
 import { describe, it, strict } from 'poku';
-import { ENGINE, newWorkspace, runEngine } from './__utils__.js';
+import { ENGINE, IS_WINDOWS, newWorkspace, runEngine } from './__utils__.js';
 
 const MANIFEST = JSON.stringify({
   name: 'lagune',
@@ -12,23 +12,26 @@ const MANIFEST = JSON.stringify({
   files: [],
   categories: ['owasp'],
 });
-
 const FROZEN_EXIT = 7;
-
 const FROZEN_STUB = `#!/usr/bin/env node
 process.stdout.write('frozen ' + JSON.stringify(process.argv.slice(2)) + '\\n');
 process.exitCode = ${FROZEN_EXIT};
 `;
-
 const PLANTED_NPX = `#!/usr/bin/env node
 process.stdout.write('planted\\n');
 `;
-
+const FROZEN_SHIM = '@node "%~dp0\\..\\lagune\\bin.js" %*\r\n';
+const PLANTED_NPX_SHIM = '@echo planted\r\n';
 const SELF_STUB = `#!/usr/bin/env node
 await import(${JSON.stringify(pathToFileURL(ENGINE).href)});
 `;
-
 const HANDOFF_NOTICE = 'lagune@0.15.0 answers here';
+
+/** Links the frozen bin as npm does: a symlink on POSIX, a cmd shim on Windows */
+const linkFrozenBin = (bin: string): Promise<void> =>
+  IS_WINDOWS
+    ? writeFile(join(bin, 'lagune.cmd'), FROZEN_SHIM)
+    : symlink('../lagune/bin.js', join(bin, 'lagune'));
 
 const installFrozen = async (
   workspace: string,
@@ -48,10 +51,7 @@ const installFrozen = async (
     })
   );
   await writeFile(join(stub, 'bin.js'), bin, { mode: 0o755 });
-  await symlink(
-    '../lagune/bin.js',
-    join(workspace, 'node_modules/.bin/lagune')
-  );
+  await linkFrozenBin(join(workspace, 'node_modules/.bin'));
 };
 
 const installedProject = async (bin?: string): Promise<string> => {
@@ -67,7 +67,9 @@ const installedProject = async (bin?: string): Promise<string> => {
 const plantNpx = async (workspace: string): Promise<NodeJS.ProcessEnv> => {
   const bin = join(workspace, 'node_modules/.bin');
 
-  await writeFile(join(bin, 'npx'), PLANTED_NPX, { mode: 0o755 });
+  await (IS_WINDOWS
+    ? writeFile(join(bin, 'npx.cmd'), PLANTED_NPX_SHIM)
+    : writeFile(join(bin, 'npx'), PLANTED_NPX, { mode: 0o755 }));
 
   return { ...env, PATH: [bin, env.PATH].join(delimiter) };
 };

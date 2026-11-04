@@ -35,6 +35,8 @@ if [[ -e "$bundle" ]]; then
 fi
 
 mkdir -p "$bundle"
+# Git Bash's tar opens a folder after -C only in the shell's own path form, never as a Windows path
+bundle="$(cd "$bundle" && pwd)"
 tar "${packingOptions[@]}" "${paths[@]}" | tar -xf - -C "$bundle"
 
 if [[ -d "$overlay" ]]; then

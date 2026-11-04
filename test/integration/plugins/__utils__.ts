@@ -5,7 +5,7 @@ import type {
   PluginManifest,
   TrackedFile,
 } from '../../../src/types/test.js';
-import { execFile } from 'node:child_process';
+import { exec, execFile } from 'node:child_process';
 import {
   mkdir,
   mkdtemp,
@@ -25,12 +25,12 @@ import { isRecord, isStringArray } from '../../../src/core/collections.js';
 export const packageRoot = new URL('../../../', import.meta.url);
 export const repositoryRoot = fileURLToPath(packageRoot);
 export const YAML_FILE = /\.ya?ml$/;
-
 const MANIFEST_FILE =
   /^(?:scripts\/plugins\/[a-z]+\/)?(?:\.(?:[a-z]+-)?plugin\/[^/]+\.(?:json|ya?ml)|[a-z]+-extension\.json|plugin\.ya?ml|\.agents\/plugins\/marketplace\.json)$/;
 const OVERLAYS_FOLDER = 'scripts/plugins/';
-
 const run = promisify(execFile);
+// npm is a .cmd script on Windows, which only a shell starts
+const runInShell = promisify(exec);
 const projects: string[] = [];
 
 /** Every file git tracks, the tree an agent installs, with its mode */
@@ -53,9 +53,8 @@ export const listTrackedPaths = async (): Promise<Set<string>> =>
 
 /** Every file the npm package carries, the tree the agents that install from npm receive */
 export const listPackedPaths = async (): Promise<Set<string>> => {
-  const { stdout } = await run(
-    'npm',
-    ['pack', '--dry-run', '--json', '--ignore-scripts'],
+  const { stdout } = await runInShell(
+    'npm pack --dry-run --json --ignore-scripts',
     { cwd: repositoryRoot }
   );
   // npm 12 keys the report by package name, earlier versions list it

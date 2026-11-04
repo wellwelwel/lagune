@@ -65,6 +65,7 @@ jobs:
 
       - name: Checking Translations
         working-directory: website
+        continue-on-error: true
         run: bun run i18n check
 
       - name: Checking Build

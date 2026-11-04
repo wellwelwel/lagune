@@ -1,19 +1,18 @@
 import type { PrefixedCommand } from '../../../src/types/test.js';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { mkdir, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, symlink, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:net';
 import { delimiter, join } from 'node:path';
 import { env, execPath } from 'node:process';
 import { createInterface } from 'node:readline';
 import { describe, it, strict } from 'poku';
 import { loadVersion } from '../../../src/core/version.js';
-import { ENGINE, newWorkspace, runEngine } from './__utils__.js';
+import { ENGINE, IS_WINDOWS, newWorkspace, runEngine } from './__utils__.js';
 
 const VECTOR =
   'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N';
 const FINDING = '{"entries":[{"name":"Leaked secret","paths":["config.ts"]}]}';
-
 const BEHIND_PREFIX: PrefixedCommand[] = [
   { prefix: 'read', command: 'catalog', args: [] },
   { prefix: 'read', command: 'list', args: ['--categories'] },
@@ -130,7 +129,16 @@ const quietBrowser = async (workspace: string): Promise<NodeJS.ProcessEnv> => {
     )
   );
 
-  return { ...env, PATH: [bin, env.PATH].join(delimiter), TMPDIR: workspace };
+  // Windows opens the browser through the first cmd.exe on the search path, and a link to nothing fails to start
+  if (IS_WINDOWS) await symlink(join(bin, 'nothing'), join(bin, 'cmd.exe'));
+
+  return {
+    ...env,
+    PATH: [bin, env.PATH].join(delimiter),
+    TMPDIR: workspace,
+    TEMP: workspace,
+    TMP: workspace,
+  };
 };
 
 /** Starts the dashboard as a person would and answers the status of its page */
