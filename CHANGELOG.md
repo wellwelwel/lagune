@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.17.0](https://github.com/wellwelwel/lagune/compare/v0.16.0...v0.17.0) (2026-11-04)
+
+
+### Features
+
+* **charter:** suggest an agent instruction that builds with /lagune by default ([cb5100a](https://github.com/wellwelwel/lagune/commit/cb5100a88fd25e48b0697f7156f19974862229c5))
+* **hooks:** support for custom scopes ([9d85a58](https://github.com/wellwelwel/lagune/commit/9d85a58c46458751223f38e0590314fadf16bc3f))
+* **lagune:** steer models to invoke the skill before building ([58f0b5a](https://github.com/wellwelwel/lagune/commit/58f0b5aa3e6ac24d128ec0e720d68230122382ff))
+
+
+### Bug Fixes
+
+* **engine:** harden the hooks against crafted input and runtime tampering ([803df8c](https://github.com/wellwelwel/lagune/commit/803df8c73b0a960f5e843740552368bb65e7b590))
+* **engine:** stop stalled hooks at a deadline and ignore inherited keys ([71cf1b5](https://github.com/wellwelwel/lagune/commit/71cf1b5986b7386017c936b1e5ff9511cb3f33c8))
+* **hooks:** leave out what Git ignores from default scans ([a773f1f](https://github.com/wellwelwel/lagune/commit/a773f1f542287115acc6cdb510bab1b95a7961ce))
+
 ## [0.16.0](https://github.com/wellwelwel/lagune/compare/v0.15.0...v0.16.0) (2026-11-03)
 
 
