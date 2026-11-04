@@ -1,10 +1,6 @@
 # TODO
 
-What remains of plan zero B, which puts **Lagune**'s engine inside each plugin that can carry it, and of the install pages that follow it. Each harness plan in `.plans/plugins/` holds its research and evidence.
-
-Nothing here waits for a release. The CI publishes the package, the plugin branches, and the archives on its own whenever a release ships, so a branch or archive that does not exist yet is expected, not missing work. What comes after a release, such as protecting the branches and pinning the catalog listings, is the owner's tutorial in the final plan.
-
-## 1. Watch **Copilot CLI** and **Kimi Code** upstream
+## 1. Watch **Copilot CLI** and **Kimi Code** upstream (external bug)
 
 **Problem.** Both start a plugin's server in the plugin's own folder with no way to name the project, so both keep the **npx** fallback. The `/playground` skill's `copilot` and `kimi` probes recheck each new version.
 
