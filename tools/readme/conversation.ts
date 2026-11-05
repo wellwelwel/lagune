@@ -50,8 +50,7 @@ const SCROLL_DURATION = 0.35;
 const STATE_FADE = 0.2;
 const HEADING_SIZE = 15;
 const CHEVRON_GAP = 12;
-const CLOSING_X = CONTENT_LEFT;
-const CLOSING_LABEL_X = CLOSING_X + BADGE_LABEL_OFFSET;
+const CLOSING_LABEL_X = CONTENT_LEFT + BADGE_LABEL_OFFSET;
 const WATERMARK_SIZE = 160;
 const WATERMARK_FADE_IN = 0.6;
 const WATERMARK_FADE_OUT = 2.4;
@@ -170,34 +169,23 @@ const rowView = (row: Row, placement: RowPlacement): Fragment => {
   return stepView(row, placement);
 };
 
-const badge = ({ prefix, top, at, motion }: ClosingPlacement): Fragment => {
+const closingView = (
+  closing: Closing,
+  { prefix, top, at, motion }: ClosingPlacement
+): Fragment => {
+  if (closing === 'building')
+    return fragment(`${spinner(CONTENT_LEFT + 12, top + 12)}
+      ${loadingText(top + 17, 'Building', 'sans heading strong shimmer-strong', CLOSING_LABEL_X)}`);
+
   const pop = motion.enter(`${prefix}-badge`, at + 0.05, POP);
 
   return fragment(
     `<g class="pop ${pop.name}">
-        <circle cx="${CLOSING_X + 12}" cy="${top + 12}" r="12" class="success-tile"/>
-        ${rowIcon('check', top, 'success', CLOSING_X)}
-      </g>`,
-    [pop]
-  );
-};
-
-const closingView = (
-  closing: Closing,
-  placement: ClosingPlacement
-): Fragment => {
-  const { top } = placement;
-
-  if (closing === 'building')
-    return fragment(`${spinner(CLOSING_X + 12, top + 12)}
-      ${loadingText(top + 17, 'Building', 'sans heading strong shimmer-strong', CLOSING_LABEL_X)}`);
-
-  const check = badge(placement);
-
-  return fragment(
-    `${check.markup}
+        <circle cx="${CONTENT_LEFT + 12}" cy="${top + 12}" r="12" class="success-tile"/>
+        ${rowIcon('check', top, 'success', CONTENT_LEFT)}
+      </g>
       ${rowText(top, CLOSING_MESSAGES[closing], 'sans heading strong', CLOSING_LABEL_X)}`,
-    check.animations
+    [pop]
   );
 };
 

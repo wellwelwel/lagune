@@ -20,10 +20,8 @@ import {
   TOOLBAR_HEIGHT,
 } from './layout';
 import {
-  agentLogo,
   characterOffsets,
   fittedText,
-  hairlineRectangle,
   icon,
   lineTops,
   lineWidth,
@@ -39,6 +37,9 @@ const STEP = 'steps(1,end)';
 const STAR_SIZE = 15;
 const CHIP_ROLL = 0.22;
 const SEND_STAR_SIZE = 15;
+
+const fieldShape = (top: number, height: number) =>
+  `<rect x="${FIELD.x + 0.5}" y="${top + 0.5}" width="${FIELD.width - 1}" height="${height - 1}" rx="${FIELD.radius - 0.5}" class="field field-border"/>`;
 
 const caret = (x: number, top: number) =>
   `<rect x="${x - 0.5}" y="${top}" width="1.6" height="19" rx=".8" class="caret blink"/>`;
@@ -175,7 +176,7 @@ const pastedPrompt = (
 
   return fragment(
     `<g class="pasted ${visible.name}">
-      ${hairlineRectangle(FIELD.x, top, FIELD.width, height, FIELD.radius, 'class="field field-border"')}
+      ${fieldShape(top, height)}
       ${lines.markup}
     </g>`,
     [visible, ...lines.animations]
@@ -307,7 +308,7 @@ const agentChip = (context: FlowContext): Fragment => {
 
       return fragment(
         `<g class="${index === resting ? '' : 'idle '}${roll.name}">
-      ${agentLogo(segment.agent.icon, CHIP.x + 7, TOOLBAR_CENTER - 8, 16)}
+      ${icon(segment.agent.icon, CHIP.x + 7, TOOLBAR_CENTER - 8, 16, 'agent-logo')}
       ${fittedText(segment.agent.name, CHIP.x + 28, TOOLBAR_CENTER + 4.5, labelWidth, 'chip-label')}
     </g>`,
         [roll]
@@ -326,14 +327,15 @@ const agentChip = (context: FlowContext): Fragment => {
 };
 
 const sendButton = ({ sessions, timeline, motion }: FlowContext): Fragment => {
-  const armed = motion.visibleBetween('send-armed', [
-    ...timeline.sessions.map(({ type, send }) => ({
+  const armed = motion.visibleBetween(
+    'send-armed',
+    timeline.sessions.map(({ type, send }) => ({
       from: type,
       to: send + 0.1,
       fadeIn: 0.15,
       fadeOut: 0.25,
-    })),
-  ]);
+    }))
+  );
   const starred = motion.visibleBetween('send-starred', [
     {
       from: timeline.outro.opens,
@@ -397,16 +399,11 @@ export const composer = (context: FlowContext): Fragment => {
   const { sessions, timeline, motion } = context;
   const placeholder = motion.visibleBetween('placeholder', [
     { from: 0, to: timeline.sessions[0].type },
-    ...timeline.sessions.slice(1).map((timing, index) => ({
-      from: timeline.sessions[index].send + 0.05,
-      to: timing.type,
+    ...timeline.sessions.map(({ send }, index) => ({
+      from: send + 0.05,
+      to: (timeline.sessions[index + 1] ?? timeline.outro).type,
       fadeIn: 0.2,
     })),
-    {
-      from: (timeline.sessions.at(-1)?.send ?? 0) + 0.05,
-      to: timeline.outro.type,
-      fadeIn: 0.2,
-    },
     { from: motion.fade + 0.5, to: motion.cycle, fadeIn: 0.2 },
   ]);
   const typed = join(
@@ -427,7 +424,7 @@ export const composer = (context: FlowContext): Fragment => {
   const send = sendButton(context);
 
   return fragment(
-    `${hairlineRectangle(FIELD.x, FIELD.y, FIELD.width, FIELD.height, FIELD.radius, 'class="field field-border"')}
+    `${fieldShape(FIELD.y, FIELD.height)}
   <g clip-path="url(#field-clip)">
     ${typed.markup}
     ${carets.markup}

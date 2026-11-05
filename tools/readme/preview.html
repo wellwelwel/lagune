@@ -181,7 +181,8 @@
       const time = document.querySelector('#preview-time');
       const toggle = document.querySelector('#preview-toggle');
       const live = document.querySelector('#preview-live');
-      const blobs = [];
+      const darkImage = document.querySelector('#preview-image-dark');
+      const lightImage = document.querySelector('#preview-image-light');
       let source = '';
       let cycle = 1;
       let paused = searchParameters.has('time');
@@ -194,25 +195,16 @@
           theme === 'light' ? '@media all' : '@media not all'
         );
 
-      const blobUrl = (svg) => {
-        const url = URL.createObjectURL(
-          new Blob([svg], { type: 'image/svg+xml' })
+      const showImage = (image, theme) => {
+        URL.revokeObjectURL(image.src);
+        image.src = URL.createObjectURL(
+          new Blob([forceTheme(source, theme)], { type: 'image/svg+xml' })
         );
-
-        blobs.push(url);
-
-        return url;
       };
 
       const renderImages = () => {
-        for (const url of blobs.splice(0)) URL.revokeObjectURL(url);
-
-        document.querySelector('#preview-image-dark').src = blobUrl(
-          forceTheme(source, 'dark')
-        );
-        document.querySelector('#preview-image-light').src = blobUrl(
-          forceTheme(source, 'light')
-        );
+        showImage(darkImage, 'dark');
+        showImage(lightImage, 'light');
       };
 
       const showTime = (seconds) => {

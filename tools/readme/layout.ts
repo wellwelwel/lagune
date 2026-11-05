@@ -38,19 +38,17 @@ export const HEADER_CENTER = TAB.y + TAB.height / 2;
 export const BODY_TOP = TAB.y + TAB.height;
 
 const FIELD_HEIGHT = 94;
-const FIELD_RADIUS = 15;
 
 export const FIELD = {
   x: CONTENT_LEFT,
   y: CARD.y + CARD.height - INSET - FIELD_HEIGHT,
   width: CONTENT_RIGHT - CONTENT_LEFT,
   height: FIELD_HEIGHT,
-  radius: FIELD_RADIUS,
+  radius: 15,
 };
 
 const SEND_SIZE = 32;
 const SEND_INSET = 10;
-const SEND_RADIUS = 7.5;
 
 const FIELD_INSET = SEND_INSET + SEND_SIZE / 2;
 export const FIELD_TEXT_X = FIELD.x + FIELD_INSET - 6;
@@ -61,7 +59,7 @@ export const SEND = {
   x: FIELD.x + FIELD.width - SEND_INSET - SEND_SIZE,
   y: FIELD.y + FIELD.height - SEND_INSET - SEND_SIZE,
   size: SEND_SIZE,
-  radius: SEND_RADIUS,
+  radius: 7.5,
 };
 
 export const CHIP = { x: FIELD_TEXT_X + 24, height: 26, fontSize: 12.5 };

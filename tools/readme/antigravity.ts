@@ -1,3 +1,5 @@
+import type { IconSymbol } from './types';
+
 const SHAPE =
   'M144.248 149.062C151.748 154.688 162.998 150.938 152.685 140.625C121.748 110.625 128.31 28.125 89.8727 28.125C51.4352 28.125 57.9977 110.625 27.0602 140.625C15.8102 151.875 27.9977 154.688 35.4977 149.062C64.5602 129.375 62.6852 94.6875 89.8727 94.6875C117.06 94.6875 115.185 129.375 144.248 149.062Z';
 
@@ -97,19 +99,19 @@ const GLOWS = [
   '<ellipse cx="37.848" cy="46.0346" rx="38.1008" ry="22.1575" transform="rotate(112.516 37.848 46.0346)" fill="#FFEE48"/>',
 ];
 
-export const ANTIGRAVITY_VIEW_BOX = '20.5 20.5 140 140';
-
 const blurId = (index: number) => `antigravity-blur-${index}`;
 
-export const antigravityBody = () =>
-  `<path d="${SHAPE}" fill="#3186FF"/><g mask="url(#${MASK})">${GLOWS.map(
+export const ANTIGRAVITY: IconSymbol = {
+  attributes: '',
+  viewBox: '20.5 20.5 140 140',
+  body: `<path d="${SHAPE}" fill="#3186FF"/><g mask="url(#${MASK})">${GLOWS.map(
     (glow, index) => `<g filter="url(#${blurId(index)})">${glow}</g>`
-  ).join('')}</g>`;
-
-export const antigravityDefinitions = () => [
-  `<mask id="${MASK}" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="22" y="28" width="136" height="125"><path d="${SHAPE}" fill="white"/></mask>`,
-  ...BLURS.map(
-    ({ x, y, width, height, deviation }, index) =>
-      `<filter id="${blurId(index)}" x="${x}" y="${y}" width="${width}" height="${height}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${deviation}"/></filter>`
-  ),
-];
+  ).join('')}</g>`,
+  definitions: [
+    `<mask id="${MASK}" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="22" y="28" width="136" height="125"><path d="${SHAPE}" fill="white"/></mask>`,
+    ...BLURS.map(
+      ({ x, y, width, height, deviation }, index) =>
+        `<filter id="${blurId(index)}" x="${x}" y="${y}" width="${width}" height="${height}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${deviation}"/></filter>`
+    ),
+  ],
+};

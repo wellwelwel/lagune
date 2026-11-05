@@ -27,24 +27,21 @@ const RESET_LEAD = 0.3;
 
 export const isPasted = (prompt: string[]) => prompt.length > 1;
 
-const promptLength = (prompt: string[]) => prompt.join('').length;
-
 const entryDuration = (prompt: string[]) =>
   isPasted(prompt)
     ? PASTE_DELAY + prompt.length * LINE_REVEAL + READING_PAUSE
-    : promptLength(prompt) / TYPING_SPEED;
+    : prompt.join('').length / TYPING_SPEED;
 
 const runCount = (row: Row) => (row.kind === 'step' ? row.runs.length : 1);
 
 const queueRuns = (rows: Row[]): QueuedRun[] => {
   const rounds = Math.max(0, ...rows.map(runCount));
 
-  return Array.from({ length: rounds }, (_, runIndex) => runIndex).flatMap(
-    (runIndex) =>
-      rows.flatMap((row, rowIndex) =>
-        runCount(row) > runIndex ? [{ rowIndex, runIndex }] : []
-      )
-  );
+  return Array.from({ length: rounds }, (_, runIndex) =>
+    rows.flatMap((row, rowIndex) =>
+      runCount(row) > runIndex ? [{ rowIndex, runIndex }] : []
+    )
+  ).flat();
 };
 
 const scheduleRows = (session: Session, answer: number): RunTiming[][] => {
@@ -105,17 +102,15 @@ const timeOutro = (outro: Outro, opens: number): OutroTiming => {
   const type = opens + TYPING_DELAY;
   const typed = type + outroCharacters(outro) / TYPING_SPEED;
   const click = typed + SEND_DELAY;
-  const swaps = outro.agents.map(
-    (_, index) => click + SWAP_DELAY + index * SWAP_INTERVAL
-  );
+  const swapAt = (index: number) => click + SWAP_DELAY + index * SWAP_INTERVAL;
 
   return {
     opens,
     type,
     typed,
     click,
-    swaps,
-    back: click + SWAP_DELAY + outro.agents.length * SWAP_INTERVAL,
+    swaps: outro.agents.map((_, index) => swapAt(index)),
+    back: swapAt(outro.agents.length),
   };
 };
 

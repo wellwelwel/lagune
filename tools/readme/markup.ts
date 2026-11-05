@@ -40,16 +40,6 @@ export const roundedRectangle = (
     'Z',
   ].join('');
 
-export const hairlineRectangle = (
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  radius: number,
-  attributes: string
-) =>
-  `<rect x="${x + 0.5}" y="${y + 0.5}" width="${width - 1}" height="${height - 1}" rx="${radius - 0.5}" ${attributes}/>`;
-
 export const icon = (
   name: IconName,
   x: number,
@@ -58,9 +48,6 @@ export const icon = (
   className: string
 ) =>
   `<use href="#icon-${name}" x="${x}" y="${y}" width="${size}" height="${size}" class="${className}"/>`;
-
-export const agentLogo = (name: IconName, x: number, y: number, size: number) =>
-  icon(name, x, y, size, 'agent-logo');
 
 export const fittedText = (
   text: string,
