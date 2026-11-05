@@ -1,7 +1,7 @@
 {
   "name": "lagune",
   "displayName": "Lagune",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "🪼 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
   "logo": "assets/logo.png",
   "suggestedPrompts": [

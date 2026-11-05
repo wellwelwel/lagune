@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.0](https://github.com/wellwelwel/lagune/compare/v0.17.0...v0.18.0) (2026-11-05)
+
+
+### Features
+
+* bring hook configs to the Dashboard ([299dc21](https://github.com/wellwelwel/lagune/commit/299dc2185aac66f71b3c9fe39975d6350695e2c1))
+
 ## [0.17.0](https://github.com/wellwelwel/lagune/compare/v0.16.0...v0.17.0) (2026-11-04)
 
 
