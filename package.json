@@ -50,7 +50,9 @@
     "dashboard:dev": "bash scripts/dashboard/dev.sh",
     "update": "bash scripts/update.sh",
     "website:dev": "bash scripts/website/dev.sh",
-    "website:build": "bun run --cwd website build"
+    "website:build": "bun run --cwd website build",
+    "readme:build": "tsx tools/readme/build.ts",
+    "readme:dev": "tsx watch --include tools/readme/preview.html tools/readme/preview.ts"
   },
   "devDependencies": {
     "@docusaurus/babel": "3.10.2",

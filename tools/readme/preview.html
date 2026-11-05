@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>README flow preview</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --preview-page: #010409;
+        --preview-ink: #e6edf3;
+        --preview-muted: #8d96a0;
+        --preview-line: #30363d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--preview-page);
+        color: var(--preview-ink);
+        font:
+          14px/1.5 -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          'Noto Sans',
+          Helvetica,
+          Arial,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .preview-bar {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 24px;
+        background: color-mix(in srgb, var(--preview-page) 88%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--preview-line);
+      }
+      .preview-bar h1 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .preview-live {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--preview-muted);
+        font-size: 12px;
+      }
+      .preview-live::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #3fb950;
+      }
+      .preview-live[data-state='offline']::before {
+        background: #f85149;
+      }
+      .preview-spacer {
+        flex: 1;
+      }
+      button {
+        font: inherit;
+        color: var(--preview-ink);
+        background: #21262d;
+        border: 1px solid var(--preview-line);
+        border-radius: 6px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #30363d;
+      }
+      main {
+        display: grid;
+        gap: 28px;
+        padding: 28px 24px 64px;
+        justify-items: center;
+      }
+      .preview-label {
+        width: min(100%, 880px);
+        margin: 0 0 8px;
+        color: var(--preview-muted);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .preview-readme {
+        width: min(100%, 880px);
+        padding: 32px;
+        border: 1px solid var(--preview-line);
+        border-radius: 6px;
+      }
+      .preview-readme img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .preview-dark {
+        background: #0d1117;
+      }
+      .preview-light {
+        background: #ffffff;
+        border-color: #d1d9e0;
+      }
+      .preview-scrubber {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: min(100%, 880px);
+        margin-top: 12px;
+      }
+      .preview-scrubber input {
+        flex: 1;
+      }
+      .preview-time {
+        min-width: 64px;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        color: var(--preview-muted);
+      }
+      #preview-frame svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="preview-bar">
+      <h1>README flow preview</h1>
+      <span class="preview-live" id="preview-live">live reload</span>
+      <span class="preview-spacer"></span>
+      <button type="button" id="preview-replay">Replay</button>
+    </header>
+    <main>
+      <section>
+        <p class="preview-label">GitHub dark, rendered as &lt;img&gt;</p>
+        <div class="preview-readme preview-dark">
+          <img id="preview-image-dark" alt="Flow in the dark theme" />
+        </div>
+      </section>
+      <section>
+        <p class="preview-label">GitHub light, rendered as &lt;img&gt;</p>
+        <div class="preview-readme preview-light">
+          <img id="preview-image-light" alt="Flow in the light theme" />
+        </div>
+      </section>
+      <section>
+        <p class="preview-label">Scrubber, inline</p>
+        <div class="preview-readme preview-dark">
+          <div id="preview-frame"></div>
+          <div class="preview-scrubber">
+            <button type="button" id="preview-toggle">Pause</button>
+            <input
+              type="range"
+              id="preview-range"
+              min="0"
+              step="0.05"
+              value="0"
+            />
+            <span class="preview-time" id="preview-time">0.00s</span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="module">
+      const LIGHT_QUERY = '@media (prefers-color-scheme: light)';
+      const CYCLE_PATTERN = /animation:[\w-]+ ([\d.]+)s/;
+      const searchParameters = new URLSearchParams(location.search);
+      const frame = document.querySelector('#preview-frame');
+      const range = document.querySelector('#preview-range');
+      const time = document.querySelector('#preview-time');
+      const toggle = document.querySelector('#preview-toggle');
+      const live = document.querySelector('#preview-live');
+      const blobs = [];
+      let source = '';
+      let cycle = 1;
+      let paused = searchParameters.has('time');
+      let startedAt = performance.now();
+      let loadedVersion;
+
+      const forceTheme = (svg, theme) =>
+        svg.replace(
+          LIGHT_QUERY,
+          theme === 'light' ? '@media all' : '@media not all'
+        );
+
+      const blobUrl = (svg) => {
+        const url = URL.createObjectURL(
+          new Blob([svg], { type: 'image/svg+xml' })
+        );
+
+        blobs.push(url);
+
+        return url;
+      };
+
+      const renderImages = () => {
+        for (const url of blobs.splice(0)) URL.revokeObjectURL(url);
+
+        document.querySelector('#preview-image-dark').src = blobUrl(
+          forceTheme(source, 'dark')
+        );
+        document.querySelector('#preview-image-light').src = blobUrl(
+          forceTheme(source, 'light')
+        );
+      };
+
+      const showTime = (seconds) => {
+        range.value = String(seconds);
+        time.textContent = `${seconds.toFixed(2)}s`;
+      };
+
+      const seek = (seconds) => {
+        const svg = frame.querySelector('svg');
+
+        if (!svg) return;
+
+        for (const animation of svg.getAnimations({ subtree: true })) {
+          animation.currentTime = seconds * 1000;
+          paused ? animation.pause() : animation.play();
+        }
+
+        svg.setCurrentTime(seconds);
+        paused ? svg.pauseAnimations() : svg.unpauseAnimations();
+        startedAt = performance.now() - seconds * 1000;
+        showTime(seconds);
+      };
+
+      const renderInline = () => {
+        frame.innerHTML = forceTheme(
+          source,
+          searchParameters.get('theme') ?? 'dark'
+        );
+        cycle = Number(source.match(CYCLE_PATTERN)?.[1] ?? 1);
+        range.max = String(cycle);
+        seek(Number(searchParameters.get('time') ?? range.value));
+      };
+
+      const load = async () => {
+        const response = await fetch('flow.svg', { cache: 'no-store' });
+
+        source = await response.text();
+        renderImages();
+        renderInline();
+        document.documentElement.dataset.ready = 'true';
+      };
+
+      const tick = () => {
+        if (!paused) showTime(((performance.now() - startedAt) / 1000) % cycle);
+
+        requestAnimationFrame(tick);
+      };
+
+      const setPaused = (value) => {
+        paused = value;
+        toggle.textContent = paused ? 'Play' : 'Pause';
+      };
+
+      toggle.addEventListener('click', () => {
+        setPaused(!paused);
+        seek(Number(range.value));
+      });
+      range.addEventListener('input', () => {
+        setPaused(true);
+        seek(Number(range.value));
+      });
+      document
+        .querySelector('#preview-replay')
+        .addEventListener('click', () => {
+          renderImages();
+          setPaused(false);
+          seek(0);
+        });
+
+      const events = new EventSource('/events');
+
+      events.addEventListener('open', () => (live.dataset.state = 'online'));
+      events.addEventListener('error', () => (live.dataset.state = 'offline'));
+      events.addEventListener('message', ({ data }) => {
+        if (loadedVersion && data !== loadedVersion) location.reload();
+
+        loadedVersion = data;
+      });
+
+      setPaused(paused);
+      await load();
+      requestAnimationFrame(tick);
+    </script>
+  </body>
+</html>

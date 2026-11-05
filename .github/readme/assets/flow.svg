@@ -1,0 +1,420 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="520" viewBox="0 0 820 520" role="img" aria-labelledby="title description">
+  <title id="title">Lagune in an AI chat</title>
+  <desc id="description">In a &quot;Project charter&quot; session, the user runs /lagune-charter It's a SaaS where each company manages its own users and the agent answers &quot;I found that the project uses:&quot; Rust, Database, Multi-tenant, User sign-up. In a &quot;User sign-up&quot; session, the user runs /lagune Implement user sign-up and the agent answers &quot;Matched specializations:&quot; credential-endpoint, access-control, crypto, sql, regex, rust. In a &quot;Blue Team Audit&quot; session, the user runs /lagune-detect and the agent answers &quot;Scanned the whole project and mapped 4 findings:&quot; Invoice export, Database password, Password reset, Search.</desc>
+  <defs>
+    <style>
+svg {
+  --card: #0f131c; --field: #151a26; --line: #222a38; --line-2: #2d3648;
+  --ink: #eef1f8; --ink-2: #c6ccdb; --muted: #8b93a8;
+  --accent: #4f9bff; --accent-strong: #2f7bff; --on-accent: #ffffff;
+  --bubble: #1a2b4d; --tile: #172238; --success: #2fc58f; --success-tile: #12302a;
+  --warning: #f2a93b; --warning-tile: #33270f;
+  --glow: #2f7bff; --glow-opacity: .16;
+}
+@media (prefers-color-scheme: light) {
+  svg {
+  --card: #ffffff; --field: #f4f6fa; --line: #e7eaf1; --line-2: #dbe0ea;
+  --ink: #17182b; --ink-2: #3d4058; --muted: #6f7489;
+  --accent: #005eff; --accent-strong: #005eff; --on-accent: #ffffff;
+  --bubble: #e8f0ff; --tile: #edf3ff; --success: #10b17d; --success-tile: #e2f6ef;
+  --warning: #d2780c; --warning-tile: #fdf1e2;
+  --glow: #005eff; --glow-opacity: .07;
+  }
+}
+
+text { white-space: pre; }
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
+.mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+.card { fill: var(--card); }
+.card-border { fill: none; stroke: var(--line-2); }
+.divider { stroke: var(--line); }
+.window-dot { fill: var(--line-2); }
+.title { fill: var(--ink-2); font-size: 13px; font-weight: 600; letter-spacing: .2px; }
+.glow-stop { stop-color: var(--glow); }
+.glow-start { stop-opacity: var(--glow-opacity); }
+.accent { color: var(--accent); }
+.success { color: var(--success); }
+.warning { color: var(--warning); }
+.tile { fill: var(--tile); }
+.success-tile { fill: var(--success-tile); }
+.warning-tile { fill: var(--warning-tile); }
+.bubble { fill: var(--bubble); }
+.prompt { fill: var(--ink); font-size: 14px; }
+.command { fill: var(--accent); font-weight: 600; }
+.inline-command { font-size: 14px; }
+.heading { fill: var(--ink); font-size: 15px; }
+.strong { font-weight: 600; }
+.label { fill: var(--ink-2); font-size: 14px; }
+.name { fill: var(--accent); font-size: 13px; font-weight: 600; }
+.finding { fill: var(--ink); font-size: 14px; font-weight: 600; }
+.note { fill: var(--muted); font-size: 13.5px; }
+.dot { fill: var(--muted); }
+.field { fill: var(--field); }
+.field-border { stroke: var(--line-2); }
+.placeholder { fill: var(--muted); font-size: 14px; }
+.caret { fill: var(--accent); }
+.send-idle { fill: var(--line-2); }
+.send-arrow-idle { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.send-armed { fill: var(--accent-strong); }
+.send-arrow-armed { fill: none; stroke: var(--on-accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.spinner-track { fill: none; stroke: var(--tile); stroke-width: 2.4; }
+.spinner { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 16 34.3; transform-box: fill-box; transform-origin: center; animation: spin .9s linear infinite; }
+.shimmer-base { stop-color: var(--muted); }
+.shimmer-peak { stop-color: var(--ink); }
+.ellipsis { animation: ellipsis 1.2s ease-in-out infinite; }
+.tab-background { fill: var(--field); stroke: var(--line-2); }
+.tab-icon { color: var(--muted); }
+.tab-label { fill: var(--ink); font-size: 12.5px; font-weight: 500; }
+.new-tab { fill: transparent; }
+.new-tab-plus { fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; }
+.pop { transform-box: fill-box; transform-origin: center; }
+.blink { animation: blink 1.06s steps(1) infinite; }
+.bounce { animation: bounce 1s ease-in-out infinite; }
+.typed, .thinking, .send-on, .past, .idle { opacity: 0; }
+.dim { opacity: .5; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes bounce { 0%, 60%, 100% { opacity: .35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+@keyframes ellipsis { 0%, 100% { fill-opacity: .15; } 40% { fill-opacity: 1; } }
+.shifted { transform: translateX(308px); }
+@keyframes tab-1-active{0%{opacity:1}28.671%{opacity:1}29.542%{opacity:0}96.864%{opacity:0}97.909%{opacity:1}100%{opacity:1}}
+.tab-1-active{animation:tab-1-active 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-1-label{0%{opacity:1}28.671%{opacity:1}29.542%{opacity:.5}96.864%{opacity:.5}97.909%{opacity:1}100%{opacity:1}}
+.tab-1-label{animation:tab-1-label 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-2{0%{opacity:0;transform:translateX(-10px)}29.089%{opacity:0;transform:translateX(-10px)}30.309%{opacity:1;transform:translateX(0)}96.167%{opacity:1;transform:translateX(0)}97.561%{opacity:0;transform:translateX(-10px)}100%{opacity:0;transform:translateX(-10px)}}
+.tab-2{animation:tab-2 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-2-active{0%{opacity:0}28.671%{opacity:0}28.706%{opacity:1}61.672%{opacity:1}62.544%{opacity:0}100%{opacity:0}}
+.tab-2-active{animation:tab-2-active 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-2-label{0%{opacity:1}61.672%{opacity:1}62.544%{opacity:.5}98.258%{opacity:.5}99.303%{opacity:1}100%{opacity:1}}
+.tab-2-label{animation:tab-2-label 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-3{0%{opacity:0;transform:translateX(-10px)}62.091%{opacity:0;transform:translateX(-10px)}63.31%{opacity:1;transform:translateX(0)}96.167%{opacity:1;transform:translateX(0)}97.561%{opacity:0;transform:translateX(-10px)}100%{opacity:0;transform:translateX(-10px)}}
+.tab-3{animation:tab-3 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes new-tab-move{0%{transform:translateX(0px)}28.671%{transform:translateX(0px)}29.89%{transform:translateX(154px)}61.672%{transform:translateX(154px)}62.892%{transform:translateX(308px)}96.167%{transform:translateX(308px)}97.561%{transform:translateX(0px)}100%{transform:translateX(0px)}}
+.new-tab-move{animation:new-tab-move 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes new-tab-press{0%{transform:scale(1)}27.626%{transform:scale(1)}28.148%{transform:scale(.8)}28.845%{transform:scale(1)}60.627%{transform:scale(1)}61.15%{transform:scale(.8)}61.847%{transform:scale(1)}100%{transform:scale(1)}}
+.new-tab-press{animation:new-tab-press 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1{0%{opacity:1;transform:translateY(0)}28.671%{opacity:1;transform:translateY(0)}30.065%{opacity:0;transform:translateY(-8px)}98.606%{opacity:0;transform:translateY(-8px)}98.641%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+.session-1{animation:session-1 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-bubble{0%{opacity:0;transform:translateY(6px)}12.643%{opacity:0;transform:translateY(6px)}13.863%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-bubble{animation:session-1-bubble 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-avatar{0%{opacity:0;transform:translateY(6px)}13.863%{opacity:0;transform:translateY(6px)}15.082%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-avatar{animation:session-1-avatar 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-think{0%{opacity:0}14.037%{opacity:0}14.734%{opacity:1}18.218%{opacity:1}18.741%{opacity:0}100%{opacity:0}}
+.session-1-think{animation:session-1-think 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-heading{0%{opacity:0;transform:translateY(6px)}18.566%{opacity:0;transform:translateY(6px)}19.786%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-heading{animation:session-1-heading 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-1{0%{opacity:0;transform:translateY(6px)}19.612%{opacity:0;transform:translateY(6px)}20.831%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-1{animation:session-1-row-1 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-2{0%{opacity:0;transform:translateY(6px)}20.483%{opacity:0;transform:translateY(6px)}21.702%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-2{animation:session-1-row-2 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-3{0%{opacity:0;transform:translateY(6px)}21.354%{opacity:0;transform:translateY(6px)}22.573%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-3{animation:session-1-row-3 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-4{0%{opacity:0;transform:translateY(6px)}22.225%{opacity:0;transform:translateY(6px)}23.444%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-4{animation:session-1-row-4 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-closing{0%{opacity:0;transform:translateY(6px)}24.141%{opacity:0;transform:translateY(6px)}25.361%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-closing{animation:session-1-closing 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-badge{0%{opacity:0;transform:scale(.25)}24.316%{opacity:0;transform:scale(.25)}25.535%{opacity:1;transform:scale(1)}98.258%{opacity:1;transform:scale(1)}98.293%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-1-badge{animation:session-1-badge 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2{0%{opacity:1;transform:translateY(0)}61.672%{opacity:1;transform:translateY(0)}63.066%{opacity:0;transform:translateY(-8px)}98.606%{opacity:0;transform:translateY(-8px)}98.641%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+.session-2{animation:session-2 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-bubble{0%{opacity:0;transform:translateY(6px)}36.585%{opacity:0;transform:translateY(6px)}37.805%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-bubble{animation:session-2-bubble 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-avatar{0%{opacity:0;transform:translateY(6px)}37.805%{opacity:0;transform:translateY(6px)}39.024%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-avatar{animation:session-2-avatar 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-think{0%{opacity:0}37.979%{opacity:0}38.676%{opacity:1}41.812%{opacity:1}42.334%{opacity:0}100%{opacity:0}}
+.session-2-think{animation:session-2-think 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-heading{0%{opacity:0;transform:translateY(6px)}42.16%{opacity:0;transform:translateY(6px)}43.38%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-heading{animation:session-2-heading 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-1{0%{opacity:0;transform:translateY(6px)}43.206%{opacity:0;transform:translateY(6px)}44.425%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-1{animation:session-2-row-1 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-2{0%{opacity:0;transform:translateY(6px)}44.077%{opacity:0;transform:translateY(6px)}45.296%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-2{animation:session-2-row-2 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-3{0%{opacity:0;transform:translateY(6px)}44.948%{opacity:0;transform:translateY(6px)}46.167%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-3{animation:session-2-row-3 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-4{0%{opacity:0;transform:translateY(6px)}45.819%{opacity:0;transform:translateY(6px)}47.038%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-4{animation:session-2-row-4 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-5{0%{opacity:0;transform:translateY(6px)}46.69%{opacity:0;transform:translateY(6px)}47.909%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-5{animation:session-2-row-5 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-6{0%{opacity:0;transform:translateY(6px)}47.561%{opacity:0;transform:translateY(6px)}48.78%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-6{animation:session-2-row-6 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-closing{0%{opacity:0;transform:translateY(6px)}49.477%{opacity:0;transform:translateY(6px)}50.697%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-closing{animation:session-2-closing 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3{0%{opacity:1}96.167%{opacity:1}97.909%{opacity:0}98.606%{opacity:0}99.129%{opacity:1}100%{opacity:1}}
+.session-3{animation:session-3 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-bubble{0%{opacity:0;transform:translateY(6px)}67.596%{opacity:0;transform:translateY(6px)}68.815%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-bubble{animation:session-3-bubble 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-avatar{0%{opacity:0;transform:translateY(6px)}68.815%{opacity:0;transform:translateY(6px)}70.035%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-avatar{animation:session-3-avatar 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-think{0%{opacity:0}68.99%{opacity:0}69.686%{opacity:1}74.564%{opacity:1}75.087%{opacity:0}100%{opacity:0}}
+.session-3-think{animation:session-3-think 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-heading{0%{opacity:0;transform:translateY(6px)}74.913%{opacity:0;transform:translateY(6px)}76.132%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-heading{animation:session-3-heading 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-1{0%{opacity:0;transform:translateY(6px)}75.958%{opacity:0;transform:translateY(6px)}77.178%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-1{animation:session-3-row-1 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-2{0%{opacity:0;transform:translateY(6px)}76.829%{opacity:0;transform:translateY(6px)}78.049%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-2{animation:session-3-row-2 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3{0%{opacity:0;transform:translateY(6px)}77.7%{opacity:0;transform:translateY(6px)}78.92%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-3{animation:session-3-row-3 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4{0%{opacity:0;transform:translateY(6px)}78.571%{opacity:0;transform:translateY(6px)}79.791%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-4{animation:session-3-row-4 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-closing{0%{opacity:0;transform:translateY(6px)}80.488%{opacity:0;transform:translateY(6px)}81.707%{opacity:1;transform:translateY(0)}98.258%{opacity:1;transform:translateY(0)}98.293%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-closing{animation:session-3-closing 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-badge{0%{opacity:0;transform:scale(.25)}80.662%{opacity:0;transform:scale(.25)}81.882%{opacity:1;transform:scale(1)}98.258%{opacity:1;transform:scale(1)}98.293%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-badge{animation:session-3-badge 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes placeholder{0%{opacity:1}2.787%{opacity:1}2.822%{opacity:0}12.643%{opacity:0}13.34%{opacity:1}31.458%{opacity:1}31.493%{opacity:0}36.585%{opacity:0}37.282%{opacity:1}64.46%{opacity:1}64.495%{opacity:0}67.596%{opacity:0}68.293%{opacity:1}100%{opacity:1}}
+.placeholder{animation:placeholder 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes typed-1{0%{opacity:0}2.787%{opacity:0}2.822%{opacity:1}12.469%{opacity:1}12.504%{opacity:0}100%{opacity:0}}
+.typed-1{animation:typed-1 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes typed-2{0%{opacity:0}31.458%{opacity:0}31.493%{opacity:1}36.411%{opacity:1}36.446%{opacity:0}100%{opacity:0}}
+.typed-2{animation:typed-2 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes typed-3{0%{opacity:0}64.46%{opacity:0}64.495%{opacity:1}67.422%{opacity:1}67.456%{opacity:0}100%{opacity:0}}
+.typed-3{animation:typed-3 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-1{0%{opacity:1}12.469%{opacity:1}12.504%{opacity:0}98.258%{opacity:0}98.293%{opacity:1}100%{opacity:1}}
+.cover-1{animation:cover-1 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-1-typing{0%{transform:translateX(0px)}2.787%{transform:translateX(0px);animation-timing-function:steps(68,end)}11.249%{transform:translateX(571.2px)}12.469%{transform:translateX(571.2px)}12.504%{transform:translateX(0px)}100%{transform:translateX(0px)}}
+.cover-1-typing{animation:cover-1-typing 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-2{0%{opacity:0}12.469%{opacity:0}12.504%{opacity:1}36.411%{opacity:1}36.446%{opacity:0}100%{opacity:0}}
+.cover-2{animation:cover-2 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-2-typing{0%{transform:translateX(0px)}31.458%{transform:translateX(0px);animation-timing-function:steps(30,end)}35.192%{transform:translateX(252px)}36.411%{transform:translateX(252px)}36.446%{transform:translateX(0px)}100%{transform:translateX(0px)}}
+.cover-2-typing{animation:cover-2-typing 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-3{0%{opacity:0}36.411%{opacity:0}36.446%{opacity:1}98.258%{opacity:1}98.293%{opacity:0}100%{opacity:0}}
+.cover-3{animation:cover-3 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-3-typing{0%{transform:translateX(0px)}64.46%{transform:translateX(0px);animation-timing-function:steps(14,end)}66.202%{transform:translateX(117.60000000000001px)}67.422%{transform:translateX(117.60000000000001px)}67.456%{transform:translateX(0px)}100%{transform:translateX(0px)}}
+.cover-3-typing{animation:cover-3-typing 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes send-press{0%{transform:scale(1)}12.295%{transform:scale(1)}12.713%{transform:scale(.86)}13.514%{transform:scale(1)}36.237%{transform:scale(1)}36.655%{transform:scale(.86)}37.456%{transform:scale(1)}67.247%{transform:scale(1)}67.666%{transform:scale(.86)}68.467%{transform:scale(1)}100%{transform:scale(1)}}
+.send-press{animation:send-press 28.7s cubic-bezier(.2,0,0,1) infinite}
+@keyframes send-armed{0%{opacity:0}2.787%{opacity:0}3.31%{opacity:1}12.817%{opacity:1}13.688%{opacity:0}31.458%{opacity:0}31.981%{opacity:1}36.76%{opacity:1}37.631%{opacity:0}64.46%{opacity:0}64.983%{opacity:1}67.77%{opacity:1}68.641%{opacity:0}100%{opacity:0}}
+.send-armed{animation:send-armed 28.7s cubic-bezier(.2,0,0,1) infinite}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; }
+}
+    </style>
+    <clipPath id="card-clip"><rect width="820" height="520" rx="16"/></clipPath>
+    <clipPath id="viewport"><rect x="0" y="45" width="820" height="391"/></clipPath>
+    <clipPath id="field-clip"><rect x="40" y="454" width="704" height="40"/></clipPath>
+    <radialGradient id="glow">
+      <stop offset="0" class="glow-stop glow-start"/>
+      <stop offset="1" class="glow-stop" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shimmer" x1="56" y1="0" x2="136" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" class="shimmer-base"/>
+      <stop offset=".5" class="shimmer-peak"/>
+      <stop offset="1" class="shimmer-base"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-60 0;140 0" dur="1.8s" repeatCount="indefinite"/>
+    </linearGradient>
+    <symbol id="icon-spark" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 4c.8 5.2 3.3 7.7 8.5 8.5-5.2.8-7.7 3.3-8.5 8.5-.8-5.2-3.3-7.7-8.5-8.5 5.2-.8 7.7-3.3 8.5-8.5z"/><path d="M18.5 1.5c.3 1.9 1.1 2.7 3 3-1.9.3-2.7 1.1-3 3-.3-1.9-1.1-2.7-3-3 1.9-.3 2.7-1.1 3-3z" opacity=".7"/></symbol>
+    <symbol id="icon-rust" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="8" stroke-width="2.6" stroke-dasharray="2.513 2.513"/><circle cx="12" cy="12" r="5.6" stroke-width="2.2"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icon-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="6.5" rx="7" ry="2.8"/><path d="M5 6.5v11c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8v-11"/><path d="M5 12c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8"/></symbol>
+    <symbol id="icon-tenants" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></symbol>
+    <symbol id="icon-signup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M19 8v6M16 11h6"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.5 3.5L17.5 8.5"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></symbol>
+    <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.5V17A2.5 2.5 0 0 1 4 14.5z"/></symbol>
+  </defs>
+  <rect x=".5" y=".5" width="819" height="519" rx="16" class="card"/>
+  <g clip-path="url(#card-clip)">
+    <ellipse cx="760" cy="40" rx="320" ry="190" fill="url(#glow)"/>
+  </g>
+  <rect x=".5" y=".5" width="819" height="519" rx="16" class="card-border"/>
+  <circle cx="22" cy="22" r="5" class="window-dot"/>
+  <circle cx="38" cy="22" r="5" class="window-dot"/>
+  <circle cx="54" cy="22" r="5" class="window-dot"/>
+  <rect x="76.5" y="8.5" width="147" height="27" rx="8" class="tab-background idle tab-1-active"/>
+  <g class="dim tab-1-label">
+    <use href="#icon-chat" x="88" y="15" width="14" height="14" class="tab-icon"/>
+    <text x="109" y="26.5" class="sans tab-label">Project charter</text>
+  </g>
+  <g class="tab-2">
+  <rect x="230.5" y="8.5" width="147" height="27" rx="8" class="tab-background idle tab-2-active"/>
+  <g class="dim tab-2-label">
+    <use href="#icon-chat" x="242" y="15" width="14" height="14" class="tab-icon"/>
+    <text x="263" y="26.5" class="sans tab-label">User sign-up</text>
+  </g>
+  </g>
+  <g class="tab-3">
+    <rect x="384.5" y="8.5" width="147" height="27" rx="8" class="tab-background "/>
+    <use href="#icon-chat" x="396" y="15" width="14" height="14" class="tab-icon"/>
+    <text x="417" y="26.5" class="sans tab-label">Blue Team Audit</text>
+  </g>
+  <g class="shifted new-tab-move">
+    <g class="pop new-tab-press">
+      <rect x="232" y="9" width="26" height="26" rx="8" class="new-tab"/>
+      <path d="M245 16.5v11M239.5 22h11" class="new-tab-plus"/>
+    </g>
+  </g>
+  <use href="#icon-spark" x="708" y="13" width="18" height="18" class="accent"/>
+  <text x="800" y="27" text-anchor="end" class="sans title">Your agent</text>
+  <line x1="0" y1="44.5" x2="820" y2="44.5" class="divider"/>
+  <g clip-path="url(#viewport)">
+  <g class="past session-1">
+    <g class="session-1-bubble">
+      <path d="M214.79999999999995 64H786A14 14 0 0 1 800 78V98A4 4 0 0 1 796 102H214.79999999999995A14 14 0 0 1 200.79999999999995 88V78A14 14 0 0 1 214.79999999999995 64Z" class="bubble"/>
+      <text x="214.79999999999995" y="88" class="mono prompt " textLength="571.2" lengthAdjust="spacingAndGlyphs"><tspan class="command">/lagune-charter</tspan> It's a SaaS where each company manages its own users</text>
+    </g>
+    <g class="session-1-avatar">
+      <circle cx="34" cy="132" r="14" class="tile"/>
+      <use href="#icon-spark" x="25" y="123" width="18" height="18" class="accent"/>
+    </g>
+    <g class="thinking session-1-think"><circle cx="66" cy="132" r="3.2" class="dot bounce" style="animation-delay:-1.00s"/><circle cx="77" cy="132" r="3.2" class="dot bounce" style="animation-delay:-0.84s"/><circle cx="88" cy="132" r="3.2" class="dot bounce" style="animation-delay:-0.68s"/></g>
+    <text x="62" y="137" class="sans heading session-1-heading">I found that the project uses:</text>
+    <g class="session-1-row-1">
+      <rect x="62" y="154" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-rust" x="66" y="158" width="16" height="16" class="accent"/>
+      <text x="96" y="171" class="sans label">Rust</text>
+    </g>
+    <g class="session-1-row-2">
+      <rect x="62" y="186" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-database" x="66" y="190" width="16" height="16" class="accent"/>
+      <text x="96" y="203" class="sans label">Database</text>
+    </g>
+    <g class="session-1-row-3">
+      <rect x="62" y="218" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-tenants" x="66" y="222" width="16" height="16" class="accent"/>
+      <text x="96" y="235" class="sans label">Multi-tenant</text>
+    </g>
+    <g class="session-1-row-4">
+      <rect x="62" y="250" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-signup" x="66" y="254" width="16" height="16" class="accent"/>
+      <text x="96" y="267" class="sans label">User sign-up</text>
+    </g>
+    <g class="session-1-closing">
+      <g class="pop session-1-badge">
+        <circle cx="74" cy="302" r="12" class="success-tile"/>
+        <use href="#icon-check" x="66" y="294" width="16" height="16" class="success"/>
+      </g>
+      <text x="96" y="307" class="sans heading strong">All set! You’re ready to build.</text>
+    </g>
+  </g>
+  <g class="past session-2">
+    <g class="session-2-bubble">
+      <path d="M534 64H786A14 14 0 0 1 800 78V98A4 4 0 0 1 796 102H534A14 14 0 0 1 520 88V78A14 14 0 0 1 534 64Z" class="bubble"/>
+      <text x="534" y="88" class="mono prompt " textLength="252" lengthAdjust="spacingAndGlyphs"><tspan class="command">/lagune</tspan> Implement user sign-up</text>
+    </g>
+    <g class="session-2-avatar">
+      <circle cx="34" cy="132" r="14" class="tile"/>
+      <use href="#icon-spark" x="25" y="123" width="18" height="18" class="accent"/>
+    </g>
+    <g class="thinking session-2-think"><circle cx="66" cy="132" r="3.2" class="dot bounce" style="animation-delay:-1.00s"/><circle cx="77" cy="132" r="3.2" class="dot bounce" style="animation-delay:-0.84s"/><circle cx="88" cy="132" r="3.2" class="dot bounce" style="animation-delay:-0.68s"/></g>
+    <text x="62" y="137" class="sans heading session-2-heading">Matched specializations:</text>
+    <g class="session-2-row-1">
+      <rect x="62" y="154" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-shield" x="66" y="158" width="16" height="16" class="accent"/>
+      <text x="96" y="171" class="mono name">credential-endpoint</text>
+      <text x="268" y="171" class="sans note">Rate limits and anti-automation on sign-up</text>
+    </g>
+    <g class="session-2-row-2">
+      <rect x="62" y="186" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-shield" x="66" y="190" width="16" height="16" class="accent"/>
+      <text x="96" y="203" class="mono name">access-control</text>
+      <text x="268" y="203" class="sans note">Tenant isolation and Argon2id password storage</text>
+    </g>
+    <g class="session-2-row-3">
+      <rect x="62" y="218" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-shield" x="66" y="222" width="16" height="16" class="accent"/>
+      <text x="96" y="235" class="mono name">crypto</text>
+      <text x="268" y="235" class="sans note">Unpredictable verification tokens</text>
+    </g>
+    <g class="session-2-row-4">
+      <rect x="62" y="250" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-shield" x="66" y="254" width="16" height="16" class="accent"/>
+      <text x="96" y="267" class="mono name">sql</text>
+      <text x="268" y="267" class="sans note">Parameterized, tenant-scoped queries</text>
+    </g>
+    <g class="session-2-row-5">
+      <rect x="62" y="282" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-shield" x="66" y="286" width="16" height="16" class="accent"/>
+      <text x="96" y="299" class="mono name">regex</text>
+      <text x="268" y="299" class="sans note">Input validation safe from ReDoS</text>
+    </g>
+    <g class="session-2-row-6">
+      <rect x="62" y="314" width="24" height="24" rx="7" class="tile"/>
+      <use href="#icon-shield" x="66" y="318" width="16" height="16" class="accent"/>
+      <text x="96" y="331" class="mono name">rust</text>
+      <text x="268" y="331" class="sans note">Sound unsafe code and checked integer math</text>
+    </g>
+    <g class="session-2-closing">
+      <circle cx="74" cy="366" r="8" class="spinner-track"/>
+      <circle cx="74" cy="366" r="8" class="spinner"/>
+      <text x="96" y="371" class="sans heading strong" fill="url(#shimmer)">Building<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+    </g>
+  </g>
+  <g class="session-3">
+    <g class="session-3-bubble">
+      <path d="M668.4 64H786A14 14 0 0 1 800 78V98A4 4 0 0 1 796 102H668.4A14 14 0 0 1 654.4 88V78A14 14 0 0 1 668.4 64Z" class="bubble"/>
+      <text x="668.4" y="88" class="mono prompt " textLength="117.60000000000001" lengthAdjust="spacingAndGlyphs"><tspan class="command">/lagune-detect</tspan></text>
+    </g>
+    <g class="session-3-avatar">
+      <circle cx="34" cy="132" r="14" class="tile"/>
+      <use href="#icon-spark" x="25" y="123" width="18" height="18" class="accent"/>
+    </g>
+    <g class="thinking session-3-think"><circle cx="66" cy="132" r="3.2" class="dot bounce" style="animation-delay:-1.00s"/><circle cx="77" cy="132" r="3.2" class="dot bounce" style="animation-delay:-0.84s"/><circle cx="88" cy="132" r="3.2" class="dot bounce" style="animation-delay:-0.68s"/></g>
+    <text x="62" y="137" class="sans heading session-3-heading">Scanned the whole project and mapped 4 findings:</text>
+    <g class="session-3-row-1">
+      <rect x="62" y="154" width="24" height="24" rx="7" class="warning-tile"/>
+      <use href="#icon-target" x="66" y="158" width="16" height="16" class="warning"/>
+      <text x="96" y="171" class="sans finding">Invoice export</text>
+      <text x="268" y="171" class="sans note">One company can read another company’s invoices</text>
+    </g>
+    <g class="session-3-row-2">
+      <rect x="62" y="186" width="24" height="24" rx="7" class="warning-tile"/>
+      <use href="#icon-target" x="66" y="190" width="16" height="16" class="warning"/>
+      <text x="96" y="203" class="sans finding">Database password</text>
+      <text x="268" y="203" class="sans note">Written straight into the source code</text>
+    </g>
+    <g class="session-3-row-3">
+      <rect x="62" y="218" width="24" height="24" rx="7" class="warning-tile"/>
+      <use href="#icon-target" x="66" y="222" width="16" height="16" class="warning"/>
+      <text x="96" y="235" class="sans finding">Password reset</text>
+      <text x="268" y="235" class="sans note">Reset links can be guessed</text>
+    </g>
+    <g class="session-3-row-4">
+      <rect x="62" y="250" width="24" height="24" rx="7" class="warning-tile"/>
+      <use href="#icon-target" x="66" y="254" width="16" height="16" class="warning"/>
+      <text x="96" y="267" class="sans finding">Search</text>
+      <text x="268" y="267" class="sans note">User input can rewrite the SQL query</text>
+    </g>
+    <g class="session-3-closing">
+      <g class="pop session-3-badge">
+        <circle cx="74" cy="302" r="12" class="tile"/>
+        <use href="#icon-arrow" x="66" y="294" width="16" height="16" class="accent"/>
+      </g>
+      <text x="96" y="307" class="sans heading strong">Next, <tspan class="mono command inline-command">/lagune-plan</tspan> turns them into prioritized fixes.</text>
+    </g>
+  </g>
+  </g>
+  <rect x="20.5" y="448.5" width="779" height="51" rx="14" class="field field-border"/>
+  <g clip-path="url(#field-clip)">
+    <text x="44" y="479" class="mono prompt typed typed-1" textLength="571.2" lengthAdjust="spacingAndGlyphs"><tspan class="command">/lagune-charter</tspan> It's a SaaS where each company manages its own users</text>
+    <text x="44" y="479" class="mono prompt typed typed-2" textLength="252" lengthAdjust="spacingAndGlyphs"><tspan class="command">/lagune</tspan> Implement user sign-up</text>
+    <text x="44" y="479" class="mono prompt typed typed-3" textLength="117.60000000000001" lengthAdjust="spacingAndGlyphs"><tspan class="command">/lagune-detect</tspan></text>
+    <g class="cover-1">
+      <g class="cover-1-typing">
+        <rect x="45" y="460" width="611.2" height="28" class="field"/>
+        <rect x="43.5" y="464" width="1.6" height="20" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    <g class="cover-2">
+      <g class="cover-2-typing">
+        <rect x="45" y="460" width="292" height="28" class="field"/>
+        <rect x="43.5" y="464" width="1.6" height="20" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    <g class="cover-3">
+      <g class="cover-3-typing">
+        <rect x="45" y="460" width="157.60000000000002" height="28" class="field"/>
+        <rect x="43.5" y="464" width="1.6" height="20" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+  </g>
+  <text x="48" y="479" class="sans placeholder placeholder">Message your AI agent</text>
+  <g class="pop send-press">
+    <circle cx="772" cy="474" r="16" class="send-idle"/>
+    <path d="M772 481V467M766 473L772 467L778 473" class="send-arrow-idle"/>
+    <g class="send-on send-armed">
+      <circle cx="772" cy="474" r="16" class="send-armed"/>
+      <path d="M772 481V467M766 473L772 467L778 473" class="send-arrow-armed"/>
+    </g>
+  </g>
+</svg>
