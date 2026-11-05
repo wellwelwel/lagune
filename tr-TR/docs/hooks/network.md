@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/network
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/network
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `network` hook'u, sunucu tarafındaki bir istek hedefinin **SSRF**'ye (iç servislere, bulut meta verilerine veya özel sunuculara yöneltilebilen bir istek) karşı güvenli olup olmadığına karar verir. [`network` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu kendiniz çalıştırabilirsiniz.
 

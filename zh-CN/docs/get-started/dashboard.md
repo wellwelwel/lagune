@@ -1,11 +1,13 @@
 # 仪表盘
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/get-started/dashboard)。
+
 > 一条命令就能打开本地实时视图，查看项目的安全原则、发现项和目录。
 
 规范链接: https://lagune.ai/zh-CN/docs/get-started/dashboard
 语言: zh-CN
 原文: https://lagune.ai/docs/get-started/dashboard
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 不带子命令直接运行 **Lagune**，就能获得 `.lagune/` 的交互式实时视图。它会在一个随机端口上启动仪表盘并打开它：
 

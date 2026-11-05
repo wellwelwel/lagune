@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/interpreter
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/interpreter
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 `interpreter` 훅은 데이터를 실행되는 코드로 바꾸거나 셸에 넘기는 구문, 즉 **동적 코드 실행 싱크**를 잡아냅니다. `eval` 호출부터 네이티브 역직렬화까지 모두 여기에 해당합니다. 언어를 인식해 파일마다 그 언어의 규칙으로 읽습니다. 또한 [`interpreter` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
 

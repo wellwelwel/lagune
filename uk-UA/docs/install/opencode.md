@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/opencode
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/opencode
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **OpenCode 2.x**
 
@@ -55,7 +55,7 @@ opencode reload
 Щоб оновити **Lagune**, встановіть новий реліз поверх старого, додавши `-g`, якщо ви встановлювали його для всіх своїх проєктів:
 
 ```bash
-opencode plugin lagune@0.17.0 --force
+opencode plugin lagune@0.18.0 --force
 ```
 
 ## Команди
@@ -82,7 +82,7 @@ opencode plugin lagune@0.17.0 --force
 
 ### Як оновити Lagune в OpenCode?
 
-В OpenCode 2.x виконайте opencode plugin update lagune, а потім opencode reload. В OpenCode 1.x виконайте opencode plugin lagune@0.17.0 --force.
+В OpenCode 2.x виконайте opencode plugin update lagune, а потім opencode reload. В OpenCode 1.x виконайте opencode plugin lagune@0.18.0 --force.
 
 ### Як запускати команди Lagune в OpenCode?
 

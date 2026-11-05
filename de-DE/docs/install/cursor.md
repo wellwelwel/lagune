@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/cursor
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/cursor
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 **Cursor**
 

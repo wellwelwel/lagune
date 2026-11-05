@@ -3,7 +3,7 @@
 > Install Lagune on Kimi Code as a plugin, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/kimi-code
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 Install the plugin from a **Kimi Code** session, choose **Trust and install**, then start a new session to load it:
 

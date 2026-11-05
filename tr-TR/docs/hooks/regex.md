@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/regex
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/regex
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `regex` hook'u, [`regex` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) çalıştırdığı deterministik regex güvenliği motorudur ve onu kendiniz çalıştırabilirsiniz. Tek bir komutla iki modda çalışır: kod tabanını **ReDoS**'a yatkın ve çalışma zamanında oluşturulan örüntülere karşı tarayan **scan** ve verdiğiniz tek bir örüntüyü puanlayan **check**.
 

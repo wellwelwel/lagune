@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/network
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/network
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `network` hook 会判断服务端请求的目标地址是否存在 **SSRF** 风险（SSRF 指可被引向内部服务、云元数据或私有主机的请求）。它是 [`network` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己运行它。
 

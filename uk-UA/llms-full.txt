@@ -13,7 +13,7 @@ Lagune є робочим процесом Security-Driven Hardening (SDH) з в�
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **Lagune** допомагає вашому ШІ-агенту зробити проєкт безпечнішим. Ви спрямовуєте його на свій код, агент з'ясовує, що насправді робить ваша система, а потім веде вас через роботу з безпеки, важливу саме для неї. **Lagune** є першим проєктом методології [Security-Driven Hardening (SDH)](https://lagune.ai/uk-UA/docs/references/paper).
 
@@ -43,7 +43,7 @@ Lagune є робочим процесом Security-Driven Hardening (SDH) з в�
 **Інформація**
 
 - Під капотом **Lagune** працює на **Node.js**, але ви використовуєте будь-яку мову, яку хочете.
-- Щоб працювати повністю офлайн, встановіть **Lagune** у свій проєкт командою `npm i -D lagune@0.17.0`.
+- Щоб працювати повністю офлайн, встановіть **Lagune** у свій проєкт командою `npm i -D lagune@0.18.0`.
 
 ## Категорії
 
@@ -198,7 +198,7 @@ Copyright © 2026-дотепер [Weslley Araújo](https://github.com/wellwelwel
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/antigravity-cli
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/antigravity-cli
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із термінала:
 
@@ -263,7 +263,7 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/claude-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/claude-code
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **Термінал**
 
@@ -365,7 +365,7 @@ claude plugin update lagune@lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/codex
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/codex
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із термінала:
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 Пісочниця **Codex** не має доступу до мережі. Встановіть рушій у свій проєкт із власного термінала, один раз і після кожного оновлення:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Часті запитання
@@ -412,7 +412,7 @@ npm i -D lagune@0.17.0
 
 ### Чи працює Lagune у пісочниці Codex?
 
-Так, щойно ви встановите рушій у свій проєкт командою npm i -D lagune@0.17.0 із власного термінала, один раз і після кожного оновлення.
+Так, щойно ви встановите рушій у свій проєкт командою npm i -D lagune@0.18.0 із власного термінала, один раз і після кожного оновлення.
 
 ---
 
@@ -423,7 +423,7 @@ npm i -D lagune@0.17.0
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/cursor
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/cursor
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **Cursor**
 
@@ -515,7 +515,7 @@ npm i -D lagune@0.17.0
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/devin-cli
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/devin-cli
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Увійдіть у **Devin**, а потім встановіть плагін із термінала:
 
@@ -559,7 +559,7 @@ devin plugins update lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/factory-droid
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/factory-droid
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із термінала:
 
@@ -614,7 +614,7 @@ droid plugin update lagune@lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/gemini-cli
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/gemini-cli
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть розширення з термінала:
 
@@ -687,7 +687,7 @@ priority = 100
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/github-copilot-cli
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/github-copilot-cli
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із термінала:
 
@@ -738,7 +738,7 @@ copilot plugin update lagune@lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/grok-build
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/grok-build
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із термінала:
 
@@ -798,7 +798,7 @@ allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/hermes-agent
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/hermes-agent
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із термінала:
 
@@ -844,7 +844,7 @@ hermes plugins update lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/kimi-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/kimi-code
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із сесії **Kimi Code**, виберіть **Trust and install**, а потім почніть нову сесію, щоб завантажити його:
 
@@ -889,7 +889,7 @@ hermes plugins update lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/muse-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/muse-code
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть плагін із термінала:
 
@@ -919,7 +919,7 @@ muse plugins install lagune@lagune
 Пісочниця **Muse Code** не може завантажити рушій. Встановіть його у свій проєкт із власного термінала, один раз і після кожного оновлення:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Часті запитання
@@ -938,7 +938,7 @@ npm i -D lagune@0.17.0
 
 ### Чи працює Lagune у пісочниці Muse Code?
 
-Так, щойно ви встановите рушій у свій проєкт командою npm i -D lagune@0.17.0 із власного термінала, один раз і після кожного оновлення.
+Так, щойно ви встановите рушій у свій проєкт командою npm i -D lagune@0.18.0 із власного термінала, один раз і після кожного оновлення.
 
 ---
 
@@ -949,7 +949,7 @@ npm i -D lagune@0.17.0
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/opencode
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/opencode
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **OpenCode 2.x**
 
@@ -999,7 +999,7 @@ opencode reload
 Щоб оновити **Lagune**, встановіть новий реліз поверх старого, додавши `-g`, якщо ви встановлювали його для всіх своїх проєктів:
 
 ```bash
-opencode plugin lagune@0.17.0 --force
+opencode plugin lagune@0.18.0 --force
 ```
 
 ## Команди
@@ -1026,7 +1026,7 @@ opencode plugin lagune@0.17.0 --force
 
 ### Як оновити Lagune в OpenCode?
 
-В OpenCode 2.x виконайте opencode plugin update lagune, а потім opencode reload. В OpenCode 1.x виконайте opencode plugin lagune@0.17.0 --force.
+В OpenCode 2.x виконайте opencode plugin update lagune, а потім opencode reload. В OpenCode 1.x виконайте opencode plugin lagune@0.18.0 --force.
 
 ### Як запускати команди Lagune в OpenCode?
 
@@ -1045,7 +1045,7 @@ opencode plugin lagune@0.17.0 --force
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/pi
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/pi
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **npm**
 
@@ -1110,7 +1110,7 @@ pi update git:github.com/wellwelwel/lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/qwen-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/qwen-code
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Встановіть розширення з термінала:
 
@@ -1175,7 +1175,7 @@ qwen extensions update lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/universal
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/universal
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **Термінал**
 
@@ -1219,10 +1219,10 @@ npx skills update
 
 **Дозволи**
 
-Команди запускають рушій як `npx --yes lagune@0.17.0`, а [сторінка встановлення кожного агента](https://lagune.ai/uk-UA/docs) показує правило, що дозволяє його заздалегідь. У пісочниці без доступу до мережі встановіть рушій у свій проєкт із власного термінала, один раз і після кожного оновлення:
+Команди запускають рушій як `npx --yes lagune@0.18.0`, а [сторінка встановлення кожного агента](https://lagune.ai/uk-UA/docs) показує правило, що дозволяє його заздалегідь. У пісочниці без доступу до мережі встановіть рушій у свій проєкт із власного термінала, один раз і після кожного оновлення:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Часті запитання
@@ -1248,7 +1248,7 @@ npm i -D lagune@0.17.0
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/get-started/commands
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/get-started/commands
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Щойно **Lagune** [встановлено](https://lagune.ai/uk-UA/docs), ваш **ШІ**-агент отримує набір навичок. Користуватися ними можна двома способами, і обидва підпорядковані **принципам безпеки**: захищати нову роботу під час розробки або проводити повний аудит проєкту.
 
@@ -1324,12 +1324,14 @@ npm i -D lagune@0.17.0
 
 # Дашборд
 
+> Ця сторінка застаріла порівняно з англійською версією. [Читати оригінальну версію](https://lagune.ai/docs/get-started/dashboard).
+
 > Переглядайте принципи безпеки, знахідки й каталог свого проєкту в локальному огляді наживо, що відкривається однією командою.
 
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/get-started/dashboard
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/get-started/dashboard
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Запустіть **Lagune** напряму, без підкоманди, щоб отримати інтерактивний огляд `.lagune/` наживо. Він запускає дашборд і відкриває його на випадковому порту:
 
@@ -1381,7 +1383,7 @@ npx lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/lagune
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/lagune
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 ⌨️ Виконайте роботу, яку попросили, і захистіть її ще під час написання. **`/lagune`** приймає будь-який промпт на будь-якому етапі, створює те, що ви хотіли, і посилює захист безпечними налаштуваннями за замовчуванням, перш ніж повернути результат.
 
@@ -1475,7 +1477,7 @@ npx lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/charter
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/charter
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🧬 Розкажіть **Lagune**, що являє собою ваш проєкт, і він перетворить це на ваші правила безпеки (а без опису виведе їх лише з самого проєкту).
 
@@ -1567,7 +1569,7 @@ Charter є керівним рівнем Lagune, набором принципі
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/detect
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/detect
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🔬 З'ясуйте, що насправді робить ваша система і де ризики.
 
@@ -1644,7 +1646,7 @@ Detect читає код і записує лише те, що справді з
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/plan
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/plan
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🛡️ Перетворіть те, що знайшла фаза detect, на план захисту: оцініть кожну знахідку за категорією й оцінкою CVSS v4.0, а потім підберіть до неї виправлення.
 
@@ -1720,7 +1722,7 @@ Plan працює лише з тим, що вже визначила [`/lagune-d
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/harden
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/harden
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🔧 Застосуйте виправлення з плану до свого коду, безпечно й по одному.
 
@@ -1795,7 +1797,7 @@ Harden спирається на [`/lagune-plan`](https://lagune.ai/uk-UA/docs/c
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/verify
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/verify
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 ⚖️ Доведіть, що кожне застосоване виправлення діє, прочитавши код і зіставивши його з тим, що записала harden, а потім закрийте ті, що пройшли перевірку.
 
@@ -1876,7 +1878,7 @@ Verify спирається на [`/lagune-harden`](https://lagune.ai/uk-UA/docs
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/categories
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/categories
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **Lagune** групує свої вбудовані [**спеціалізації**](https://lagune.ai/uk-UA/docs/catalog) у **категорії (13)**. Категорії, які використовує проєкт, визначають, які вбудовані спеціалізації потрапляють до його [**каталогу**](https://lagune.ai/uk-UA/docs/catalog), і поділяються на дві групи: що робить система і якою мовою вона написана.
 
@@ -1972,7 +1974,7 @@ npx lagune read list --categories
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/catalog
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/catalog
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🧠 Спеціалізації **Lagune** є цільовими модулями знань з безпеки, незалежними від мови програмування, які завантажуються лише на вимогу, а не за замовчуванням. Це не команди. Каталог вашого проєкту є набором, який він використовує: вбудовані спеціалізації його [категорій](https://lagune.ai/uk-UA/docs/categories) плюс власні. Фази detect і verify звертаються до них під час роботи, а ви можете завантажити будь-яку напряму будь-коли.
 
@@ -2105,7 +2107,7 @@ npx lagune read catalog
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/specialize
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/specialize
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🎓 Навчіть **Lagune** нової спеціалізації на основі джерела чи теми, які ви надаєте.
 
@@ -2181,7 +2183,7 @@ npx lagune read catalog
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/prove
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/prove
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🧪 Перетворіть кожну виявлену знахідку на виконуваний, суто оборонний доказ для відповідального розкриття.
 
@@ -2271,12 +2273,14 @@ Prove пише самодостатній бюлетень безпеки, як�
 
 # Налаштування хуків: виберіть, що вони перевіряють
 
+> Ця сторінка застаріла порівняно з англійською версією. [Читати оригінальну версію](https://lagune.ai/docs/hooks/configure).
+
 > Виберіть, що пропускають хуки, які перевіряють файли, для всіх одразу чи для одного з них.
 
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/configure
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/configure
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Блок `checkers` у `.lagune/configs.json` визначає, що пропускають хуки, які перевіряють файли, для всіх одразу чи для одного з них.
 
@@ -2353,7 +2357,7 @@ Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores.
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/agent
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/agent
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `agent` позначає **середовища виконання агентів, що працюють у циклі без обмеження ходів, бюджету чи часу**, тобто діру неконтрольованої автономії, через яку підроблені вхідні дані перетворюються на необмежені витрати чи ескалацію через prompt injection. Він **враховує мову** й охоплює дві екосистеми фреймворків агентів: **JavaScript** (середовище виконання `query` з агентного SDK **Claude**) і **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). Це детермінований рушій [спеціалізації `llm`](https://lagune.ai/uk-UA/docs/catalog), який ви можете запускати самі в режимі **scan** або **check**.
 
@@ -2437,7 +2441,7 @@ npx lagune write add --ignore test/fixtures --checker agent
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/cors
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/cors
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `cors` є детермінованим рушієм [спеціалізації `http-request`](https://lagune.ai/uk-UA/docs/catalog), і ви можете запускати його самі. Він працює у двох режимах однієї команди: **scan**, що перевіряє вихідний код на **allowlist джерел, який можна обійти** (регулярний вираз для перевірки хоста, повз який прослизає хост зловмисника), і **score**, що оцінює окреме значення **джерела CORS** як `wildcard`, `null` або `safe`.
 
@@ -2564,7 +2568,7 @@ Iframe у пісочниці й деякі перенаправлення над
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/crypto
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/crypto
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `crypto` позначає **слабкі криптографічні примітиви** в місці виклику: застарілий шифр, небезпечний режим або зламаний геш. Він **враховує мову** й читає кожен файл за його власними правилами, тож конструкцію Python ніколи не буде позначено у файлі Rust. Це детермінований рушій [спеціалізації `crypto`](https://lagune.ai/uk-UA/docs/catalog), який ви можете запускати самі в режимі **scan** або **check**.
 
@@ -2669,7 +2673,7 @@ npx lagune write add --ignore test/fixtures --checker crypto
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/cvss
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/cvss
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `cvss` оцінює **вектор CVSS v4.0** і виводить його оцінку й рівень критичності, тобто рейтинг, який [`/lagune-plan`](https://lagune.ai/uk-UA/docs/commands/plan) записує для кожного виправлення, а [`/lagune-prove`](https://lagune.ai/uk-UA/docs/commands/prove) для кожного бюлетеня безпеки. Це детермінований рушій цих рейтингів з тією самою арифметикою, що й [калькулятор FIRST](https://www.first.org/cvss/calculator/4.0), і ви можете запускати його самі.
 
@@ -2767,7 +2771,7 @@ npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/infra
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/infra
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `infra` позначає **помилки конфігурації інфраструктури як коду**, які можна визначити з самого файлу: мережу, відкриту для всього світу, дозвіл із wildcard, секрет у маніфесті, контейнер від root, недовірене значення в shell CI. Він читає лише файли IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). Це детермінований рушій [спеціалізації `infra`](https://lagune.ai/uk-UA/docs/catalog) у режимі **scan** або **check**.
 
@@ -2844,7 +2848,7 @@ Terraform і HCL (.tf, .tf.json, .hcl), Dockerfile, а також YAML робо�
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/interpreter
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/interpreter
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `interpreter` позначає **sinks динамічного виконання коду**: конструкції, що перетворюють дані на виконуваний код або передають їх в оболонку, від `eval` до нативної десеріалізації. Він враховує мову й читає кожен файл за його власними правилами. Це детермінований рушій [спеціалізації `interpreter`](https://lagune.ai/uk-UA/docs/catalog), який ви можете запускати самі в режимі **scan** або **check**.
 
@@ -2952,7 +2956,7 @@ npx lagune write add --ignore test/fixtures --checker interpreter
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/jwt
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/jwt
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `jwt` позначає **перевірку JWT без закріпленого алгоритму**, тобто діру плутанини алгоритмів, коли верифікатор довіряє заголовку `alg` самого токена, а також **повністю вимкнену перевірку**. Він **враховує мову** й читає кожен файл з огляду на його бібліотеку JWT. Це детермінований рушій [спеціалізації `federation`](https://lagune.ai/uk-UA/docs/catalog), який ви можете запускати самі в режимі **scan** або **check**.
 
@@ -3047,7 +3051,7 @@ npx lagune write add --ignore test/fixtures --checker jwt
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/network
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/network
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `network` вирішує, чи захищена адреса призначення серверного запиту від **SSRF** (запиту, який можна спрямувати на внутрішні сервіси, хмарні метадані чи приватні хости). Це детермінований рушій [спеціалізації `network`](https://lagune.ai/uk-UA/docs/catalog), і ви можете запускати його самі.
 
@@ -3131,7 +3135,7 @@ npx lagune read network \
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/regex
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/regex
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `regex` є детермінованим рушієм безпеки регулярних виразів, який запускає [спеціалізація `regex`](https://lagune.ai/uk-UA/docs/catalog), і ви можете запускати його самі. Він працює у двох режимах однієї команди: **scan**, що перевіряє кодову базу на шаблони, схильні до **ReDoS** або побудовані під час виконання, і **check**, що оцінює окремий шаблон, який ви йому передаєте.
 
@@ -3344,7 +3348,7 @@ npx lagune read regex --pattern 'a?a?a?' --limit 2
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/secrets
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/secrets
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `secrets` позначає **облікові дані, вкомпільовані у вихідний код**, замість того щоб читатися з оточення. Він орієнтується на **походження** (літерал проти звернення до змінної оточення), а не на вміст значення, тож не потребує вичерпного каталогу префіксів провайдерів і майже не дає хибних спрацьовувань. Це детермінований рушій [спеціалізації `secrets`](https://lagune.ai/uk-UA/docs/catalog).
 
@@ -3415,7 +3419,7 @@ npx lagune write add --ignore test/fixtures --checker secrets
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/examples/prompts
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/examples/prompts
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Готові до копіювання промпти Lagune, які можна вставити просто у ваш ШІ-агент.
 
@@ -3677,7 +3681,7 @@ npx lagune write add --categories owasp ai javascript
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/paper
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/paper
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 - **Weslley Araújo**
 - **Стаття про методологію, 2026.**
@@ -4248,7 +4252,7 @@ Lagune є доведенням, але внеском є конвенція. SDH
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/glossary
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/glossary
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Кожен ключовий термін Lagune і методології Security-Driven Hardening, визначений один раз і простою мовою.
 
@@ -4347,7 +4351,7 @@ Charter є керівним рівнем Lagune, набором принципі
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/configs-schema
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/configs-schema
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 `.lagune/configs.json` записує [**категорії**](https://lagune.ai/uk-UA/docs/categories), які використовує проєкт, індексує його власні [**спеціалізації**](https://lagune.ai/uk-UA/docs/catalog) і визначає, що пропускають [**перевіряльники**](https://lagune.ai/uk-UA/docs/hooks/configure). Його JSON Schema дає вашому редактору змогу автодоповнювати кожне поле й позначати друкарську помилку чи невідому категорію ще під час редагування файлу.
 
@@ -4406,7 +4410,7 @@ Charter є керівним рівнем Lagune, набором принципі
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/deepsec
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/deepsec
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 [Lagune](https://github.com/wellwelwel/lagune) і [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) є двома оборонними відповідями на ту саму проблему: безпеку в епоху розробки з допомогою ШІ. Їхня вихідна ідея, їхні початок, середина й кінець, а також те, як кожен подає себе користувачу, свідомо розходяться, навіть там, де їхні механізми перетинаються.
 
@@ -4571,7 +4575,7 @@ Lagune змінює: harden застосовує виправлення до в�
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/owasp-sources
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/owasp-sources
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Цей документ зіставляє кожну **атаку** (`www-community`) і кожен **Cheat Sheet** (`CheatSheetSeries`) від OWASP з категорією безпеки, і кожен пункт містить посилання на свою канонічну публічну сторінку. У межах категорії рівнозначні пункти ділять один рядок чек-листа: атаки й cheat sheet, що стосуються того самого ризику, перелічено разом через кому. Пункти без прямого відповідника стоять в окремому рядку.
 
@@ -4929,7 +4933,7 @@ Lagune змінює: harden застосовує виправлення до в�
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/repair
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/repair
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🧰 Відновіть ланцюжок, коли перейменування чи переміщений файл його заплутує.
 
@@ -4965,7 +4969,7 @@ Repair не є шостою фазою в лінійному процесі. Ї�
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/migrate
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/migrate
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🔀 Перенесіть проєкт **Lagune** на основі маніфесту на **Lagune** на основі навичок, зберігши все, що ви написали.
 

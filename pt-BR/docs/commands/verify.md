@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/commands/verify
 Idioma: pt-BR
 Original: https://lagune.ai/docs/commands/verify
-Última atualização: 2026-11-04
+Última atualização: 2026-11-05
 
 ⚖️ Comprove que cada correção aplicada se sustenta, lendo o código e confrontando-o com o que o harden registrou, e encerre as que passarem.
 

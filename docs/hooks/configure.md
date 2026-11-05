@@ -3,7 +3,7 @@
 > Choose what the hooks that scan files leave out, for all of them or for one.
 
 Canonical: https://lagune.ai/docs/hooks/configure
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 The `checkers` block of `.lagune/configs.json` sets what the hooks that scan files leave out, for all of them or for one.
 
@@ -17,7 +17,7 @@ npx lagune write add --ignore 'packages/*/dist' --checker secrets
 npx lagune write remove --ignore test/fixtures
 ```
 
-Or set them in the file:
+Or choose them in the [dashboard](https://lagune.ai/docs/get-started/dashboard)'s Settings, or set them in the file:
 
 ```json
 {

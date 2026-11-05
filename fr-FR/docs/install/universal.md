@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/universal
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/universal
-Dernière mise à jour: 2026-11-04
+Dernière mise à jour: 2026-11-05
 
 **Terminal**
 
@@ -49,10 +49,10 @@ Installez **Lagune** avec **skills.sh** ou avec son **plugin**, jamais les deux.
 
 **Autorisations**
 
-Les commandes exécutent le moteur sous la forme `npx --yes lagune@0.17.0`, et la [page d'installation de chaque agent](https://lagune.ai/fr-FR/docs) indique la règle qui l'autorise dès le départ. Dans un sandbox sans accès réseau, installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
+Les commandes exécutent le moteur sous la forme `npx --yes lagune@0.18.0`, et la [page d'installation de chaque agent](https://lagune.ai/fr-FR/docs) indique la règle qui l'autorise dès le départ. Dans un sandbox sans accès réseau, installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Questions fréquentes

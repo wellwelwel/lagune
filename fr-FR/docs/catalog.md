@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/catalog
 Langue: fr-FR
 Original: https://lagune.ai/docs/catalog
-Dernière mise à jour: 2026-11-04
+Dernière mise à jour: 2026-11-05
 
 🧠 Les spécialisations de **Lagune** sont des modules de connaissances en sécurité ciblés et indépendants du langage, qui ne se chargent qu'à la demande, jamais par défaut. Ce ne sont pas des commandes. Le catalogue de votre projet est l'ensemble qu'il utilise : les spécialisations intégrées de ses [catégories](https://lagune.ai/fr-FR/docs/categories) plus les siennes. Les phases detect et verify y font appel pendant leur exécution, et vous pouvez en charger une directement à tout moment.
 

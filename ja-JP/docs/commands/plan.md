@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/plan
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/plan
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 🛡️ detect が見つけたものを防御計画に変えます：各検出事項をカテゴリと CVSS v4.0 スコアで評価し、適用する修正を割り当てます。
 

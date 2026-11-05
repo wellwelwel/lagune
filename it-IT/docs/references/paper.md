@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/references/paper
 Lingua: it-IT
 Originale: https://lagune.ai/docs/references/paper
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 - **Weslley Araújo**
 - **Articolo sulla metodologia, 2026.**

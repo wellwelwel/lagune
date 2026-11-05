@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/paper
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/paper
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 - **Weslley Araújo**
 - **Metodoloji makalesi, 2026.**

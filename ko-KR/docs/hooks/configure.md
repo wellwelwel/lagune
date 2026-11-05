@@ -1,11 +1,13 @@
 # 훅 설정하기: 스캔 대상 선택하기
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/hooks/configure).
+
 > 파일을 스캔하는 훅이 무엇을 제외할지 모든 훅에 한꺼번에, 또는 훅마다 따로 정할 수 있습니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/configure
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/configure
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 `checkers` 블록은 `.lagune/configs.json` 파일에 있으며, 파일을 스캔하는 훅이 무엇을 제외할지 모든 훅에 한꺼번에, 또는 훅마다 따로 정합니다.
 

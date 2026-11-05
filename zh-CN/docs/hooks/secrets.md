@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/secrets
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/secrets
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `secrets` hook 会标记没有从环境中读取、而是**固化在源代码中的凭证**。它依据的是**来源**（字面量还是环境变量读取），而不是值的内容，因此不需要一份详尽的服务商前缀清单，也几乎不会产生误报。它是 [`secrets` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎。
 

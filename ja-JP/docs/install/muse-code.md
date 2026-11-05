@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/muse-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/muse-code
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 ターミナルからプラグインをインストールします：
 
@@ -35,7 +35,7 @@ muse plugins install lagune@lagune
 **Muse Code** のサンドボックスはエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## よくある質問
@@ -54,4 +54,4 @@ muse plugins marketplace update lagune を実行してから、muse plugins remo
 
 ### Muse Code のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.17.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.18.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。

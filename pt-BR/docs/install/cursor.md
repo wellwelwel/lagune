@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/install/cursor
 Idioma: pt-BR
 Original: https://lagune.ai/docs/install/cursor
-Última atualização: 2026-11-04
+Última atualização: 2026-11-05
 
 **Cursor**
 

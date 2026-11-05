@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/hooks/jwt
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/jwt
-Dernière mise à jour: 2026-11-04
+Dernière mise à jour: 2026-11-05
 
 Le hook `jwt` signale les **vérifications JWT sans algorithme épinglé**, la faille de confusion d'algorithme où le vérificateur fait confiance à l'en-tête `alg` du jeton lui-même, ainsi que la **vérification entièrement désactivée**. Il est **adapté au langage** et lit chaque fichier selon sa propre bibliothèque JWT. C'est le moteur déterministe derrière la [spécialisation `federation`](https://lagune.ai/fr-FR/docs/catalog), que vous pouvez exécuter vous-même en mode **scan** ou **check**.
 

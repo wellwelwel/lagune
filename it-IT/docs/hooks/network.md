@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/hooks/network
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/network
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 L'hook `network` decide se la destinazione di una richiesta lato server è al sicuro dalla **SSRF** (una richiesta che può essere puntata verso servizi interni, metadati del cloud o host privati). È il motore deterministico dietro la [specializzazione `network`](https://lagune.ai/it-IT/docs/catalog), e puoi eseguirlo tu stesso.
 

@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/lagune
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/lagune
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 ⌨️ Fai il lavoro che hai chiesto, protetto mentre viene scritto. **`/lagune`** accetta qualsiasi prompt in qualsiasi fase, costruisce ciò che volevi e lo mette in sicurezza con impostazioni predefinite sicure prima di restituirtelo.
 

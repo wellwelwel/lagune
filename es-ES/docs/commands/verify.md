@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/verify
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/verify
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 ⚖️ Demuestra que cada corrección aplicada se sostiene leyendo el código y contrastándolo con lo que registró harden, y cierra las que superen la prueba.
 

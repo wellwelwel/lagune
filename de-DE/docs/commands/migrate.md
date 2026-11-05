@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/migrate
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/migrate
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 🔀 Stelle ein manifestbasiertes Projekt von **Lagune** auf die auf Skills basierende Version von **Lagune** um und behalte alles, was du geschrieben hast.
 

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/configs-schema
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/configs-schema
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `.lagune/configs.json` dosyası, projenin kullandığı [**kategorileri**](https://lagune.ai/tr-TR/docs/categories) kaydeder, projenin kendi [**uzmanlıklarını**](https://lagune.ai/tr-TR/docs/catalog) dizinler ve [**denetleyicilerin**](https://lagune.ai/tr-TR/docs/hooks/configure) neleri dışarıda bırakacağını belirler. JSON Schema'sı sayesinde düzenleyiciniz siz dosyayı düzenlerken her alanı otomatik tamamlar ve bir yazım hatasını ya da bilinmeyen bir kategoriyi işaretler.
 

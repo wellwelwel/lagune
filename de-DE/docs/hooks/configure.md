@@ -1,11 +1,13 @@
 # Hooks konfigurieren: festlegen, was sie durchsuchen
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/hooks/configure).
+
 > Lege für alle Hooks, die Dateien durchsuchen, oder für einen einzelnen fest, was sie auslassen.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/configure
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/configure
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 Der Block `checkers` in `.lagune/configs.json` legt für alle Hooks, die Dateien durchsuchen, oder für einen einzelnen fest, was sie auslassen.
 

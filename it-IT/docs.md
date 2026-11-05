@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs
 Lingua: it-IT
 Originale: https://lagune.ai/docs
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 **Lagune** aiuta il tuo agente IA a rendere un progetto più sicuro. Lo punti sul tuo codice e l'agente capisce cosa fa davvero il tuo sistema, poi ti guida nel lavoro di sicurezza che conta per quel sistema. **Lagune** è il primo progetto della metodologia [Security-Driven Hardening (SDH)](https://lagune.ai/it-IT/docs/references/paper).
 
@@ -35,7 +35,7 @@ Ti piace **Lagune**? [Lasciaci una ⭐ su **GitHub**](https://github.com/wellwel
 **Info**
 
 - **Lagune** gira su **Node.js** dietro le quinte, ma tu usi il linguaggio che preferisci.
-- Per lavorare completamente offline, installa **Lagune** nel tuo progetto con `npm i -D lagune@0.17.0`.
+- Per lavorare completamente offline, installa **Lagune** nel tuo progetto con `npm i -D lagune@0.18.0`.
 
 ## Categorie
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/opencode
 言語: ja-JP
 原文: https://lagune.ai/docs/install/opencode
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 **OpenCode 2.x**
 
@@ -55,7 +55,7 @@ opencode reload
 **Lagune** を更新するには、新しいリリースを上書きインストールします。すべてのプロジェクトにインストールした場合は `-g` を付けます：
 
 ```bash
-opencode plugin lagune@0.17.0 --force
+opencode plugin lagune@0.18.0 --force
 ```
 
 ## コマンド
@@ -82,7 +82,7 @@ OpenCode 2.x では、opencode plugin add lagune を実行します。OpenCode 1
 
 ### OpenCode で Lagune を更新するにはどうすればよいですか？
 
-OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.17.0 --force を実行します。
+OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.18.0 --force を実行します。
 
 ### OpenCode で Lagune のコマンドを実行するにはどうすればよいですか？
 

@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/glossary
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/glossary
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Кожен ключовий термін Lagune і методології Security-Driven Hardening, визначений один раз і простою мовою.
 

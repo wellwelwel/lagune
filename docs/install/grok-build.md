@@ -3,7 +3,7 @@
 > Install Lagune on Grok Build as a plugin, keep it updated, and allow its engine up front.
 
 Canonical: https://lagune.ai/docs/install/grok-build
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 Install the plugin from your terminal:
 

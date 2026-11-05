@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/hooks/agent
 Idioma: es-ES
 Original: https://lagune.ai/docs/hooks/agent
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 El hook `agent` señala **runtimes de agente que iteran en bucle sin límite de turnos, de presupuesto ni de tiempo**, el agujero de autonomía descontrolada que convierte una entrada manipulada en un coste ilimitado o en una escalada por inyección de prompts. **Tiene en cuenta el lenguaje** y cubre los dos ecosistemas de frameworks de agentes: **JavaScript** (el runtime `query` del SDK de agentes de **Claude**) y **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). Es el motor determinista en el que se apoya la [especialización `llm`](https://lagune.ai/es-ES/docs/catalog), y puedes ejecutarlo tú mismo en modo **scan** o **check**.
 

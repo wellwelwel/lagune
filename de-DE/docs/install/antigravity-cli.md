@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/antigravity-cli
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/antigravity-cli
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 Installiere das Plugin über dein Terminal:
 

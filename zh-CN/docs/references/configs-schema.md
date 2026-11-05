@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/references/configs-schema
 语言: zh-CN
 原文: https://lagune.ai/docs/references/configs-schema
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `.lagune/configs.json` 记录项目使用的 [**类别**](https://lagune.ai/zh-CN/docs/categories)，为项目自己的 [**专项**](https://lagune.ai/zh-CN/docs/catalog) 建立索引，并设定 [**检查器**](https://lagune.ai/zh-CN/docs/hooks/configure) 要跳过哪些内容。有了它的 JSON Schema，你编辑这个文件时，编辑器就能自动补全每个字段，并标记拼写错误或未知的类别。
 

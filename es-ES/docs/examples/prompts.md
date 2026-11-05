@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/examples/prompts
 Idioma: es-ES
 Original: https://lagune.ai/docs/examples/prompts
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 Prompts de Lagune listos para copiar y pegar directamente en tu agente de IA.
 

@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/cvss
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/cvss
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `cvss` hook 会为 **CVSS v4.0 向量**评分，并输出评分及其严重程度区间，也就是 [`/lagune-plan`](https://lagune.ai/zh-CN/docs/commands/plan) 为每项修复、[`/lagune-prove`](https://lagune.ai/zh-CN/docs/commands/prove) 为每份安全公告写下的定级。它是这些定级背后的确定性引擎，算法与 [FIRST 计算器](https://www.first.org/cvss/calculator/4.0) 相同，你也可以自己运行它。
 

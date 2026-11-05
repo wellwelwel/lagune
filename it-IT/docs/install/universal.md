@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/universal
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/universal
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 **Terminale**
 
@@ -49,10 +49,10 @@ Installa **Lagune** tramite **skills.sh** o tramite il suo **plugin**, mai entra
 
 **Permessi**
 
-I comandi eseguono il motore come `npx --yes lagune@0.17.0`, e la [pagina di installazione di ogni agente](https://lagune.ai/it-IT/docs) mostra la regola che lo consente in anticipo. In una sandbox senza accesso alla rete, installa il motore nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
+I comandi eseguono il motore come `npx --yes lagune@0.18.0`, e la [pagina di installazione di ogni agente](https://lagune.ai/it-IT/docs) mostra la regola che lo consente in anticipo. In una sandbox senza accesso alla rete, installa il motore nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Domande frequenti

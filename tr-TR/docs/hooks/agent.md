@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/agent
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/agent
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `agent` hook'u, **tur, bütçe veya süre sınırı olmadan döngüye giren ajan çalışma ortamlarını** işaretler. Bu, özel hazırlanmış bir girdiyi sınırsız maliyete ya da prompt injection yoluyla yetki yükseltmeye dönüştüren, kontrolden çıkmış özerklik açığıdır. Hook **dile duyarlıdır** ve iki ajan çatısı ekosistemini kapsar: **JavaScript** (**Claude** ajan SDK'sının `query` çalışma ortamı) ve **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). [`llm` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 

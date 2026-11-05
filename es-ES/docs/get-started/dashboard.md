@@ -1,11 +1,13 @@
 # Dashboard
 
+> Esta página está desactualizada respecto a su versión en inglés. [Leer la versión original](https://lagune.ai/docs/get-started/dashboard).
+
 > Consulta los principios de seguridad, los hallazgos y el catálogo de tu proyecto en una vista local y en tiempo real que se abre con un solo comando.
 
 URL canónica: https://lagune.ai/es-ES/docs/get-started/dashboard
 Idioma: es-ES
 Original: https://lagune.ai/docs/get-started/dashboard
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 Ejecuta **Lagune** directamente, sin subcomando, para ver `.lagune/` en una vista interactiva y en tiempo real. Arranca un dashboard y lo abre en un puerto aleatorio:
 

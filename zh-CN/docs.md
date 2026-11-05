@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs
 语言: zh-CN
 原文: https://lagune.ai/docs
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 **Lagune** 帮助你的 AI 智能体提升项目的安全性。你把它指向自己的代码，智能体就会弄清楚你的系统实际在做什么，再带你完成对它而言真正重要的安全工作。**Lagune** 是 [Security-Driven Hardening (SDH)](https://lagune.ai/zh-CN/docs/references/paper) 方法论的第一个项目。
 
@@ -35,7 +35,7 @@
 **信息**
 
 - **Lagune** 底层基于 **Node.js** 运行，但你用什么语言都可以。
-- 如需完全离线运行，用 `npm i -D lagune@0.17.0` 把 **Lagune** 安装到你的项目中。
+- 如需完全离线运行，用 `npm i -D lagune@0.18.0` 把 **Lagune** 安装到你的项目中。
 
 ## 类别
 

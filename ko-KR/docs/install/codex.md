@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/codex
 언어: ko-KR
 원문: https://lagune.ai/docs/install/codex
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 터미널에서 플러그인을 설치하세요:
 
@@ -33,7 +33,7 @@ codex plugin marketplace upgrade lagune
 **Codex**의 샌드박스는 네트워크에 접근할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## 자주 묻는 질문
@@ -52,4 +52,4 @@ $lagune:lagune-charter 명령어처럼 $ 기호에 이어 플러그인 이름을
 
 ### Codex 샌드박스 안에서도 Lagune이 작동하나요?
 
-네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.17.0 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
+네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.0 명령어로 프로젝트에 엔진을 설치하면 작동합니다.

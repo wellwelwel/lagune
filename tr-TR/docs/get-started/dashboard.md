@@ -1,11 +1,13 @@
 # Gösterge paneli
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/get-started/dashboard).
+
 > Projenizin charter'ını, bulgularını ve kataloğunu tek komutla açılan canlı ve yerel bir görünümde izleyin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/get-started/dashboard
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/get-started/dashboard
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `.lagune/` klasörünün etkileşimli, canlı bir görünümü için **Lagune**'yi alt komut vermeden doğrudan çalıştırın. Bir gösterge paneli sunar ve onu rastgele bir portta açar:
 

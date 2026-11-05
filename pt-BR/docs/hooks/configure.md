@@ -1,11 +1,13 @@
 # Configure os hooks: escolha o que eles varrem
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/hooks/configure).
+
 > Escolha o que os hooks que varrem arquivos deixam de fora, para todos eles ou para um só.
 
 Canônica: https://lagune.ai/pt-BR/docs/hooks/configure
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/configure
-Última atualização: 2026-11-04
+Última atualização: 2026-11-05
 
 O bloco `checkers` do `.lagune/configs.json` define o que os hooks que varrem arquivos deixam de fora, para todos eles ou para um só.
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/categories
 言語: ja-JP
 原文: https://lagune.ai/docs/categories
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 **Lagune** は組み込みの [**専門知識**](https://lagune.ai/ja-JP/docs/catalog) を **13 のカテゴリ**に分類しています。プロジェクトで使うカテゴリによって、どの組み込みの専門知識がプロジェクトの [**カタログ**](https://lagune.ai/ja-JP/docs/catalog) に入るかが決まります。カテゴリは、システムが何をするかを扱うものと、何の言語で書かれているかを扱うものの 2 種類に分かれます。
 

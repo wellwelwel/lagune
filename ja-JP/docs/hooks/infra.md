@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/infra
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/infra
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 `infra` フックは、インターネット全体に開放されたネットワーク、ワイルドカードの権限、マニフェスト内のシークレット、root で動くコンテナ、CI のシェルに渡る信頼できない値といった、ファイルだけで判定できる **IaC（Infrastructure as Code）の設定ミス**を指摘します。読み取るのは IaC ファイル（`.tf`/`.tf.json`/`.hcl`、`Dockerfile*`、`.github/workflows/**`）だけです。また、[`infra` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで動作します。
 

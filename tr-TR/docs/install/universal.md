@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/universal
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/universal
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Terminal**
 
@@ -49,10 +49,10 @@ npx skills update
 
 **İzinler**
 
-Komutlar motoru `npx --yes lagune@0.17.0` olarak çalıştırır ve [her ajanın kurulum sayfası](https://lagune.ai/tr-TR/docs) buna baştan izin veren kuralı gösterir. Ağ erişimi olmayan bir korumalı alanda motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
+Komutlar motoru `npx --yes lagune@0.18.0` olarak çalıştırır ve [her ajanın kurulum sayfası](https://lagune.ai/tr-TR/docs) buna baştan izin veren kuralı gösterir. Ağ erişimi olmayan bir korumalı alanda motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Sıkça sorulan sorular

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/categories
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/categories
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Lagune**, yerleşik [**uzmanlıklarını**](https://lagune.ai/tr-TR/docs/catalog) **13 kategoride** gruplar. Bir projenin kullandığı kategoriler, hangi yerleşik uzmanlıkların projenin [**kataloğuna**](https://lagune.ai/tr-TR/docs/catalog) katılacağını belirler ve ikiye ayrılır: sistemin ne yaptığı ve hangi dille yazıldığı.
 

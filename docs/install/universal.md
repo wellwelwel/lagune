@@ -3,7 +3,7 @@
 > Install Lagune in any AI agent with the skills CLI, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/universal
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 **Terminal**
 
@@ -47,10 +47,10 @@ Install **Lagune** through the **skills.sh** or through its **plugin**, never bo
 
 **Permissions**
 
-The commands run the engine as `npx --yes lagune@0.17.0`, and each [agent's install page](https://lagune.ai/docs) shows the rule that allows it up front. In a sandbox without network access, install the engine in your project from your own terminal, once and after each update:
+The commands run the engine as `npx --yes lagune@0.18.0`, and each [agent's install page](https://lagune.ai/docs) shows the rule that allows it up front. In a sandbox without network access, install the engine in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Frequently Asked Questions

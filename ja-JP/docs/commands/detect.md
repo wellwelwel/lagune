@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/detect
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/detect
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 🔬 システムが実際に何をしているのか、どこにリスクがあるのかを突き止めます。
 

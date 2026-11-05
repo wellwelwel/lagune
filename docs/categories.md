@@ -3,7 +3,7 @@
 > The specialization categories a Lagune project can use, from OWASP to per-language hardening for JavaScript, Python, Go, and Rust, and how to change them.
 
 Canonical: https://lagune.ai/docs/categories
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 **Lagune** groups its built-in [**specializations**](https://lagune.ai/docs/catalog) into **13 categories**. The categories a project uses decide which built-ins join its [**catalog**](https://lagune.ai/docs/catalog), and they split in two: what the system does, and what it is written in.
 

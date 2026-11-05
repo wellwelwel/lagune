@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/prove
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/prove
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 🧪 Convierte cada hallazgo detectado en evidencia ejecutable y exclusivamente defensiva para la divulgación responsable.
 

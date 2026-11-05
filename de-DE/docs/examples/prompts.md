@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/examples/prompts
 Sprache: de-DE
 Original: https://lagune.ai/docs/examples/prompts
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 Prompts für Lagune zum Kopieren, die du direkt in deinen KI-Agenten einfügen kannst.
 

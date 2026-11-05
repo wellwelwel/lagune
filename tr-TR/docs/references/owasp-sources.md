@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/owasp-sources
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/owasp-sources
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Bu belge, OWASP'ın her **saldırı** (`www-community`) ve **Cheat Sheet** (`CheatSheetSeries`) sayfasını bir güvenlik kategorisiyle eşleştirir ve her birini resmi, herkese açık sayfasına bağlar. Bir kategori içinde eşdeğer öğeler tek bir liste satırını paylaşır: aynı riski ele alan saldırılar ve cheat sheet'ler virgülle ayrılarak birlikte listelenir. Doğrudan bir karşılığı olmayan öğeler kendi satırında durur.
 

@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/pi
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/pi
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 **npm**
 

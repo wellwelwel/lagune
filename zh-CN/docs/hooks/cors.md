@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/cors
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/cors
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `cors` hook 是 [`http-request` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己运行它。同一条命令有两种模式：**scan** 模式会扫描源代码，查找**可被绕过的源白名单**（攻击者的主机能够蒙混过关的主机校验正则），**score** 模式则把单个 **CORS 源**值判定为 `wildcard`、`null` 或 `safe`。
 

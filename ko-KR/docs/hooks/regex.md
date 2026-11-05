@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/regex
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/regex
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 `regex` 훅은 [`regex` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)이 실행하는 결정론적 정규식 안전성 엔진이며, 직접 실행할 수도 있습니다. 명령어 하나로 두 가지 모드를 쓸 수 있습니다: **scan** 모드는 **ReDoS**에 취약한 패턴과 런타임에 만들어지는 패턴이 있는지 코드베이스를 스캔하고, **check** 모드는 건네받은 패턴 하나에 점수를 매깁니다.
 

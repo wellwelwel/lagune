@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/kimi-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/kimi-code
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 **Kimi Code** のセッションからプラグインをインストールし、**Trust and install** を選んでから、新しいセッションを開始して読み込みます：
 

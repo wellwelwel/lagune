@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/plan
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/plan
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 🛡️ Convierte lo que ha encontrado detect en un plan de defensa: evalúa cada hallazgo con una categoría y una puntuación CVSS v4.0, y asígnale la corrección que hay que aplicar.
 

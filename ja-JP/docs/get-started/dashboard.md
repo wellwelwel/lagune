@@ -1,11 +1,13 @@
 # ダッシュボード
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/get-started/dashboard)。
+
 > コマンド 1 つで開くローカルのライブビューで、プロジェクトのセキュリティ原則、検出事項、カタログを確認できます。
 
 正規 URL: https://lagune.ai/ja-JP/docs/get-started/dashboard
 言語: ja-JP
 原文: https://lagune.ai/docs/get-started/dashboard
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 サブコマンドを付けずに **Lagune** を直接実行すると、`.lagune/` をインタラクティブなライブビューで確認できます。ランダムなポートでダッシュボードを起動して開きます：
 

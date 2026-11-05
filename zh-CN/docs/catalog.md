@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/catalog
 语言: zh-CN
 原文: https://lagune.ai/docs/catalog
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 🧠 **Lagune** 的专项是聚焦特定领域、与语言无关的安全知识模块，只会按需加载，绝不默认加载。它们不是命令。项目的目录就是它使用的专项集合：所用 [类别](https://lagune.ai/zh-CN/docs/categories) 中的内置专项，加上它自己的专项。detect 和 verify 阶段会在运行时调用它们，你也可以随时直接加载某个专项。
 

@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/verify
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/verify
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 ⚖️ 读取代码并与 harden 的记录对照，证明每项已应用的修复确实有效，再将有效的发现项结案。
 

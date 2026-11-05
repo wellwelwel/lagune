@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/antigravity-cli
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/antigravity-cli
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 

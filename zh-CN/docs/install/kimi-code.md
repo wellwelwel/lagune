@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/kimi-code
 语言: zh-CN
 原文: https://lagune.ai/docs/install/kimi-code
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 在 **Kimi Code** 会话中安装插件，选择 **Trust and install**，然后开启新会话来加载它：
 

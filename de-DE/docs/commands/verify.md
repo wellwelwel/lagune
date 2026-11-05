@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/verify
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/verify
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 ⚖️ Weise nach, dass jede umgesetzte Korrektur greift, indem du den Code liest und ihn dem gegenüberstellst, was harden festgehalten hat, und schließe dann die ab, die den Nachweis bestehen.
 

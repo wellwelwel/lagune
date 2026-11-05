@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/crypto
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/crypto
-Última atualização: 2026-11-04
+Última atualização: 2026-11-05
 
 O hook `crypto` sinaliza **primitivas criptográficas fracas** no ponto da chamada: uma cifra obsoleta, um modo inseguro ou um digest quebrado. Ele **reconhece a linguagem**, lendo cada arquivo pelas regras dela, para que uma construção de Python nunca seja sinalizada em um arquivo Rust, e é o engine determinístico por trás da [especialização `crypto`](https://lagune.ai/pt-BR/docs/catalog), que você mesmo pode executar no modo **scan** ou **check**.
 

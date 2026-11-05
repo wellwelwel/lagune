@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/charter
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/charter
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 🧬 プロジェクトがどんなものかを **Lagune** に伝えると、それをセキュリティのルールに落とし込みます（説明がなくても、プロジェクトそのものからルールを導き出します）。
 

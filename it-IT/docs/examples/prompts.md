@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/examples/prompts
 Lingua: it-IT
 Originale: https://lagune.ai/docs/examples/prompts
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 Prompt di Lagune pronti da copiare, da incollare direttamente nel tuo agente IA.
 

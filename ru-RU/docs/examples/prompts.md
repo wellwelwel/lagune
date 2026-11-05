@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/examples/prompts
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/examples/prompts
-Последнее обновление: 2026-11-04
+Последнее обновление: 2026-11-05
 
 Готовые промпты Lagune, которые можно сразу вставить в своего ИИ-агента.
 

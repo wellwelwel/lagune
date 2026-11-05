@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/cors
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/cors
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `cors` hook'u, [`http-request` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu kendiniz çalıştırabilirsiniz. Tek bir komutla iki modda çalışır: kaynak kodu **atlatılabilir bir köken izin listesine** (saldırganın sunucusunun yanından sızıp geçtiği bir sunucu doğrulama regex'ine) karşı tarayan **scan** ve tek bir **CORS köken** değerini `wildcard`, `null` veya `safe` olarak puanlayan **score**.
 

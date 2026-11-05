@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/codex
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/codex
-Dernière mise à jour: 2026-11-04
+Dernière mise à jour: 2026-11-05
 
 Installez le plugin depuis votre terminal :
 
@@ -33,7 +33,7 @@ Tapez `$` et la commande sous le nom du plugin, suivie de votre demande, comme `
 Le sandbox de **Codex** n'a pas d'accès réseau. Installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Questions fréquentes
@@ -52,4 +52,4 @@ Tapez $ et la commande sous le nom du plugin, suivie de votre demande, comme $la
 
 ### Lagune fonctionne-t-il dans le sandbox de Codex ?
 
-Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.17.0 depuis votre propre terminal, une fois puis après chaque mise à jour.
+Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.18.0 depuis votre propre terminal, une fois puis après chaque mise à jour.

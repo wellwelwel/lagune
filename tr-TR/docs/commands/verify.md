@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/verify
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/verify
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 ⚖️ Kodu okuyup harden fazının kaydettikleriyle karşılaştırarak uygulanan her düzeltmenin işe yaradığını kanıtlayın, ardından kanıtlananları kapatın.
 

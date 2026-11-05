@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/grok-build
 언어: ko-KR
 원문: https://lagune.ai/docs/install/grok-build
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 터미널에서 플러그인을 설치하세요:
 

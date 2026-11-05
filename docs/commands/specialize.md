@@ -3,7 +3,7 @@
 > Distill a security source or topic you give it into a new on-demand specialization.
 
 Canonical: https://lagune.ai/docs/commands/specialize
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 🎓 Teach **Lagune** a new specialization, from a source or topic you give it.
 

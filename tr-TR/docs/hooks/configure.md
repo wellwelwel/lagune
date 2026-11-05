@@ -1,11 +1,13 @@
 # Hook'ları yapılandırın: neleri taradıklarını seçin
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/hooks/configure).
+
 > Dosya tarayan hook'ların neleri dışarıda bırakacağını hepsi için ya da tek biri için seçin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/configure
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/configure
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `checkers` bloğu `.lagune/configs.json` içinde yer alır ve dosya tarayan hook'ların neleri dışarıda bırakacağını hepsi için ya da tek biri için belirler.
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs
 言語: ja-JP
 原文: https://lagune.ai/docs
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 **Lagune** は、AI エージェントがプロジェクトをより安全にするのを手伝います。コードに対して実行すると、エージェントはシステムが実際に何をしているかを把握したうえで、そのシステムにとって重要なセキュリティ作業を順に案内します。**Lagune** は、[Security-Driven Hardening (SDH)](https://lagune.ai/ja-JP/docs/references/paper) という方法論の最初のプロジェクトです。
 
@@ -35,7 +35,7 @@
 **備考**
 
 - **Lagune** は内部で **Node.js** を使って動作しますが、開発に使う言語は自由です。
-- 完全にオフラインで実行するには、`npm i -D lagune@0.17.0` で **Lagune** をプロジェクトにインストールします。
+- 完全にオフラインで実行するには、`npm i -D lagune@0.18.0` で **Lagune** をプロジェクトにインストールします。
 
 ## カテゴリ
 

@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/harden
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/harden
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 🔧 Applica al tuo codice le correzioni del piano, in sicurezza e una alla volta.
 

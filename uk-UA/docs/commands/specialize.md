@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/specialize
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/specialize
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 🎓 Навчіть **Lagune** нової спеціалізації на основі джерела чи теми, які ви надаєте.
 

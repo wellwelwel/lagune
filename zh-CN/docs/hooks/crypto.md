@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/crypto
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/crypto
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `crypto` hook 会在调用处标记**弱加密原语**：已弃用的密码算法、不安全的模式或已被攻破的摘要算法。它**能识别语言**，按每个文件自己的规则读取，因此绝不会在 Rust 文件上标记 Python 的写法。它也是 [`crypto` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
 

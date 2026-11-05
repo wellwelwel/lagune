@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/specialize
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/specialize
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 🎓 渡した資料やトピックから、**Lagune** に新しい専門知識を教えます。
 

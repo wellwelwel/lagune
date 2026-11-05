@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs
 Sprache: de-DE
 Original: https://lagune.ai/docs
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 **Lagune** hilft deinem KI-Agenten, ein Projekt sicherer zu machen. Du setzt es auf deinen Code an, und der Agent findet heraus, was dein System tatsächlich tut, und führt dich dann durch die Sicherheitsarbeit, die dafür zählt. **Lagune** ist das erste Projekt der Methodik [Security-Driven Hardening (SDH)](https://lagune.ai/de-DE/docs/references/paper).
 
@@ -35,7 +35,7 @@ Gefällt dir **Lagune**? [Gib uns einen ⭐ auf **GitHub**](https://github.com/w
 **Info**
 
 - **Lagune** läuft unter der Haube mit **Node.js**, aber du arbeitest in der Sprache deiner Wahl.
-- Um **Lagune** komplett offline auszuführen, installiere es mit `npm i -D lagune@0.17.0` in deinem Projekt.
+- Um **Lagune** komplett offline auszuführen, installiere es mit `npm i -D lagune@0.18.0` in deinem Projekt.
 
 ## Kategorien
 

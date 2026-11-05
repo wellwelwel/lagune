@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/hooks/secrets
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/secrets
-Dernière mise à jour: 2026-11-04
+Dernière mise à jour: 2026-11-05
 
 Le hook `secrets` signale les **identifiants compilés dans le code source** au lieu d'être lus depuis l'environnement. Il se fonde sur la **provenance** (un littéral face à une lecture de l'environnement), pas sur le contenu de la valeur, donc il n'a besoin d'aucun catalogue exhaustif de préfixes de fournisseurs et ne produit presque aucun faux positif. C'est le moteur déterministe derrière la [spécialisation `secrets`](https://lagune.ai/fr-FR/docs/catalog).
 

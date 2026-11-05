@@ -3,7 +3,7 @@
 > Establish your project's security principles, the rules every later phase respects, and record the specialization categories its reading supports.
 
 Canonical: https://lagune.ai/docs/commands/charter
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 🧬 Tell **Lagune** what your project is, and it turns that into your security rules (or, with no description, works them out from the project alone).
 

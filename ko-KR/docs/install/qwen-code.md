@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/qwen-code
 언어: ko-KR
 원문: https://lagune.ai/docs/install/qwen-code
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 터미널에서 확장 프로그램을 설치하세요:
 

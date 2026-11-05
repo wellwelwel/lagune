@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/references/glossary
 语言: zh-CN
 原文: https://lagune.ai/docs/references/glossary
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 这里用通俗的语言定义 Lagune 和 Security-Driven Hardening 方法论中的每个核心术语，每个术语只定义一次。
 

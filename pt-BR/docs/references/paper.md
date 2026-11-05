@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/references/paper
 Idioma: pt-BR
 Original: https://lagune.ai/docs/references/paper
-Última atualização: 2026-11-04
+Última atualização: 2026-11-05
 
 - **Weslley Araújo**
 - **Artigo de metodologia, 2026.**

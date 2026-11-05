@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/hooks/infra
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/infra
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 L'hook `infra` segnala le **configurazioni errate dell'infrastructure as code** che si possono stabilire dal file stesso: una rete aperta al mondo, un permesso wildcard, un segreto in un manifest, un container eseguito come root, un valore non attendibile in una shell di CI. Legge solo file IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). È il motore deterministico dietro la [specializzazione `infra`](https://lagune.ai/it-IT/docs/catalog), in modalità **scan** o **check**.
 

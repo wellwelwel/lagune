@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/interpreter
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/interpreter
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `interpreter` hook 会标记**动态代码执行 sink**：把数据变成可运行代码或交给 shell 的结构，从 `eval` 到原生反序列化都在其列。它能识别语言，按每个文件自己的规则读取，也是 [`interpreter` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
 

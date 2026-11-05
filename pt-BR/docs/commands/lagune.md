@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/commands/lagune
 Idioma: pt-BR
 Original: https://lagune.ai/docs/commands/lagune
-Última atualização: 2026-11-04
+Última atualização: 2026-11-05
 
 ⌨️ Faça o trabalho que você pediu, protegido enquanto é escrito. O **`/lagune`** aceita qualquer prompt, em qualquer etapa, constrói o que você queria e o protege com padrões seguros antes de devolvê-lo.
 

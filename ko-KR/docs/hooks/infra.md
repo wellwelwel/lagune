@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/infra
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/infra
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 `infra` 훅은 파일만 보고 판단할 수 있는 **코드형 인프라(IaC) 설정 오류**를 잡아냅니다: 전 세계에 열린 네트워크, 와일드카드 권한, 매니페스트 안의 시크릿, root로 실행되는 컨테이너, CI 셸에 들어가는 신뢰할 수 없는 값이 여기에 해당합니다. 읽는 파일은 IaC 파일(`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`)뿐입니다. 또한 [`infra` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 동작합니다.
 

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/lagune
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/lagune
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 ⌨️ İstediğiniz işi yapın, yazılırken güvenli hale gelsin. **`/lagune`** her aşamada her prompt'u kabul eder, istediğinizi geliştirir ve size geri vermeden önce güvenli varsayılanlarla sıkılaştırır.
 

@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/references/deepsec
 Idioma: es-ES
 Original: https://lagune.ai/docs/references/deepsec
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 [Lagune](https://github.com/wellwelwel/lagune) y [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) son dos respuestas defensivas al mismo problema: la seguridad en la era del desarrollo asistido por IA. Su premisa, su principio, su desarrollo y su final, y la forma en que cada uno se presenta al usuario difieren por diseño, incluso donde sus mecanismos coinciden.
 

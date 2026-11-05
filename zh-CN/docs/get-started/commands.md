@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/get-started/commands
 语言: zh-CN
 原文: https://lagune.ai/docs/get-started/commands
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 [安装](https://lagune.ai/zh-CN/docs) **Lagune** 之后，你的 **AI** 智能体就会解锁一组 Skills。它们有两种用法，都遵循**安全原则**：一边构建一边保障新代码的安全，或者对整个项目运行完整审计。
 

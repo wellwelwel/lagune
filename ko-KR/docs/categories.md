@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/categories
 언어: ko-KR
 원문: https://lagune.ai/docs/categories
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 **Lagune**은 내장 [**전문 지식**](https://lagune.ai/ko-KR/docs/catalog)을 **13개 카테고리**로 묶습니다. 프로젝트가 사용하는 카테고리에 따라 어떤 내장 전문 지식이 프로젝트의 [**카탈로그**](https://lagune.ai/ko-KR/docs/catalog)에 들어갈지 정해지며, 카테고리는 시스템이 하는 일과 시스템을 작성한 언어, 두 가지로 나뉩니다.
 

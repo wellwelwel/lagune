@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/grok-build
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/grok-build
-Последнее обновление: 2026-11-04
+Последнее обновление: 2026-11-05
 
 Установите плагин из терминала:
 

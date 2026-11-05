@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/secrets
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/secrets
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 `secrets` フックは、環境から読み込むのではなく、**ソースコードに埋め込まれている認証情報**を指摘します。判断の基準は値の中身ではなく**出どころ**（リテラルか、環境からの読み込みか）なので、プロバイダーごとのプレフィックスを網羅した一覧は必要なく、誤検知もほとんど出ません。[`secrets` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンです。
 

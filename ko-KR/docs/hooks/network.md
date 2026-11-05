@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/network
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/network
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 `network` 훅은 서버 측 요청 대상이 **SSRF**(내부 서비스나 클라우드 메타데이터, 사설 호스트를 겨냥할 수 있는 요청)로부터 안전한지 판단합니다. [`network` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, 직접 실행할 수도 있습니다.
 

@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/specialize
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/specialize
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 🎓 Bring **Lagune** eine neue Spezialisierung bei, aus einer Quelle oder einem Thema, das du vorgibst.
 

@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/hooks/cvss
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/hooks/cvss
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 Хук `cvss` оцінює **вектор CVSS v4.0** і виводить його оцінку й рівень критичності, тобто рейтинг, який [`/lagune-plan`](https://lagune.ai/uk-UA/docs/commands/plan) записує для кожного виправлення, а [`/lagune-prove`](https://lagune.ai/uk-UA/docs/commands/prove) для кожного бюлетеня безпеки. Це детермінований рушій цих рейтингів з тією самою арифметикою, що й [калькулятор FIRST](https://www.first.org/cvss/calculator/4.0), і ви можете запускати його самі.
 

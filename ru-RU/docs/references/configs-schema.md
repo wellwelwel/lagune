@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/references/configs-schema
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/references/configs-schema
-Последнее обновление: 2026-11-04
+Последнее обновление: 2026-11-05
 
 `.lagune/configs.json` фиксирует [**категории**](https://lagune.ai/ru-RU/docs/categories), которые использует проект, индексирует его собственные [**специализации**](https://lagune.ai/ru-RU/docs/catalog) и задает, что пропускают [**проверки**](https://lagune.ai/ru-RU/docs/hooks/configure). Его JSON Schema позволяет редактору автодополнять каждое поле и помечать опечатку или неизвестную категорию прямо во время правки файла.
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/crypto
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/crypto
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 `crypto` フックは、非推奨の暗号方式、安全でないモード、破られたダイジェストといった**脆弱な暗号プリミティブ**を、呼び出し箇所で指摘します。**言語を識別**して動作し、各ファイルをその言語のルールで読み取るため、Python の構文が Rust のファイルで指摘されることはありません。また、[`crypto` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 

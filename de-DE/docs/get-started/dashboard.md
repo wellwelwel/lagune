@@ -1,11 +1,13 @@
 # Dashboard
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/get-started/dashboard).
+
 > Sieh dir die Sicherheitsprinzipien, die Befunde und den Katalog deines Projekts in einer lokalen Live-Ansicht an, die sich mit einem einzigen Befehl öffnet.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/get-started/dashboard
 Sprache: de-DE
 Original: https://lagune.ai/docs/get-started/dashboard
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 Führe **Lagune** direkt und ohne Unterbefehl aus, um `.lagune/` in einer interaktiven Live-Ansicht zu sehen. Der Befehl startet ein Dashboard und öffnet es auf einem zufälligen Port:
 

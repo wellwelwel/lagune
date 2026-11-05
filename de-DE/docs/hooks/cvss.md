@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/cvss
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/cvss
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 Der Hook `cvss` bewertet einen **CVSS-v4.0-Vektor** und gibt dessen Score und Schweregradstufe aus, also die Bewertung, die [`/lagune-plan`](https://lagune.ai/de-DE/docs/commands/plan) zu jeder Korrektur und [`/lagune-prove`](https://lagune.ai/de-DE/docs/commands/prove) zu jedem Sicherheitshinweis schreibt. Er ist die deterministische Engine hinter diesen Bewertungen, nutzt dieselbe Berechnung wie der [Rechner von FIRST](https://www.first.org/cvss/calculator/4.0), und du kannst ihn selbst ausführen.
 

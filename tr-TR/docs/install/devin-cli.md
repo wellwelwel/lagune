@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/devin-cli
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/devin-cli
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Devin** hesabınıza giriş yapın, ardından eklentiyi terminalden kurun:
 

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/gemini-cli
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/gemini-cli
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Uzantıyı terminalden kurun:
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/examples/prompts
 言語: ja-JP
 原文: https://lagune.ai/docs/examples/prompts
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 AI エージェントにそのまま貼り付けて使える、コピー用の Lagune のプロンプトです。
 

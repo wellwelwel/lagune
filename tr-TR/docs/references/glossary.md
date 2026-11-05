@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/glossary
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/glossary
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Lagune'nin ve Security-Driven Hardening metodolojisinin temel taşı olan her terim, bir kez ve sade bir dille tanımlanmış hâliyle.
 

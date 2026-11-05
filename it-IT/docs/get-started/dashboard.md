@@ -1,11 +1,13 @@
 # Dashboard
 
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/get-started/dashboard).
+
 > Guarda il charter, i rilievi e il catalogo del tuo progetto in una vista locale in tempo reale che si apre con un solo comando.
 
 Canonico: https://lagune.ai/it-IT/docs/get-started/dashboard
 Lingua: it-IT
 Originale: https://lagune.ai/docs/get-started/dashboard
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 Esegui **Lagune** direttamente, senza sottocomando, per una vista interattiva e in tempo reale di `.lagune/`. Serve una dashboard e la apre su una porta casuale:
 

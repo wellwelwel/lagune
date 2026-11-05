@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/regex
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/regex
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 `regex` hook 是 [`regex` 专项](https://lagune.ai/zh-CN/docs/catalog) 运行的确定性正则安全引擎，你也可以自己运行它。同一条命令有两种模式：**scan** 会扫描代码库，找出容易引发 **ReDoS** 的模式和运行时构建的模式，**check** 则评估你传入的单个模式。
 

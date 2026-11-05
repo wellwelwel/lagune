@@ -3,7 +3,7 @@
 > See your project's charter, findings, and catalog in a live, local view that opens with one command.
 
 Canonical: https://lagune.ai/docs/get-started/dashboard
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 Run **Lagune** directly with no subcommand for an interactive live view of `.lagune/`. It serves a dashboard and opens it on a random port:
 
@@ -14,7 +14,7 @@ npx lagune
 - [x] **Live Reload**
 - [x] **Private** and **Local**
 - [x] Shows whatever `.lagune/` holds, from the first charter on
-- [x] **Manage** the project's categories directly from your browser
+- [x] **Manage** the project's categories and what its hooks scan, directly from your browser
 - [x] No `node_modules` or `package.json` is needed 📦
 
 ![Lagune dashboard charter](https://lagune.ai/img/dashboard/02.webp)
@@ -44,4 +44,4 @@ Yes. It runs only on your own machine, at a local address no other computer can 
 
 ### Can I change my project from the dashboard?
 
-Only its categories, from your browser. Everything else the dashboard shows is read-only.
+Only its categories and what its hooks leave out, from your browser. Everything else the dashboard shows is read-only.

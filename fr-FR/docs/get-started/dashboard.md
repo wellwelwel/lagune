@@ -1,11 +1,13 @@
 # Tableau de bord
 
+> Cette page n'est plus à jour par rapport à sa version anglaise. [Lire la version originale](https://lagune.ai/docs/get-started/dashboard).
+
 > Consultez les principes de sécurité, les constats et le catalogue de votre projet dans une vue locale en direct, qui s'ouvre avec une seule commande.
 
 Canonique: https://lagune.ai/fr-FR/docs/get-started/dashboard
 Langue: fr-FR
 Original: https://lagune.ai/docs/get-started/dashboard
-Dernière mise à jour: 2026-11-04
+Dernière mise à jour: 2026-11-05
 
 Exécutez **Lagune** directement, sans sous-commande, pour obtenir une vue interactive et en direct de `.lagune/`. Il sert un tableau de bord et l'ouvre sur un port aléatoire :
 

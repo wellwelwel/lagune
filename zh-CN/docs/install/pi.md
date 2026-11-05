@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/pi
 语言: zh-CN
 原文: https://lagune.ai/docs/install/pi
-最后更新: 2026-11-04
+最后更新: 2026-11-05
 
 **npm**
 

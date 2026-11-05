@@ -1,11 +1,13 @@
 # Configura los hooks: elige qué analizan
 
+> Esta página está desactualizada respecto a su versión en inglés. [Leer la versión original](https://lagune.ai/docs/hooks/configure).
+
 > Elige qué dejan fuera los hooks que analizan archivos, para todos a la vez o para uno solo.
 
 URL canónica: https://lagune.ai/es-ES/docs/hooks/configure
 Idioma: es-ES
 Original: https://lagune.ai/docs/hooks/configure
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 El bloque `checkers` de `.lagune/configs.json` define qué dejan fuera los hooks que analizan archivos, para todos a la vez o para uno solo.
 

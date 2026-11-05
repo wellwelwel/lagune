@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/prove
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/prove
-Ultimo aggiornamento: 2026-11-04
+Ultimo aggiornamento: 2026-11-05
 
 🧪 Trasforma ogni rilievo individuato in un'evidenza eseguibile ed esclusivamente difensiva per la divulgazione responsabile.
 

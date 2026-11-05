@@ -13,7 +13,7 @@ Lagune, açık kaynak ve yalnızca savunma odaklı bir Security-Driven Hardening
 Kanonik URL: https://lagune.ai/tr-TR/docs
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Lagune**, yapay zeka ajanınızın bir projeyi daha güvenli hale getirmesine yardım eder. Ona kodunuzu gösterirsiniz, ajan sisteminizin gerçekte ne yaptığını çıkarır ve ardından o sistem için önemli olan güvenlik çalışmasında size yol gösterir. **Lagune**, [Security-Driven Hardening (SDH)](https://lagune.ai/tr-TR/docs/references/paper) metodolojisinin ilk projesidir.
 
@@ -43,7 +43,7 @@ Son güncelleme: 2026-11-04
 **Bilgi**
 
 - **Lagune** arka planda **Node.js** üzerinde çalışır, ama siz istediğiniz dili kullanırsınız.
-- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.17.0` ile kurun.
+- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.18.0` ile kurun.
 
 ## Kategoriler
 
@@ -198,7 +198,7 @@ Telif hakkı © 2026-günümüz [Weslley Araújo](https://github.com/wellwelwel)
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/antigravity-cli
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/antigravity-cli
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 
@@ -263,7 +263,7 @@ Evet. Antigravity CLI ayarlarında mcp(lagune_lagune/lagune_read), mcp(lagune_la
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/claude-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/claude-code
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Terminal**
 
@@ -365,7 +365,7 @@ Evet. Claude Code ayarlarınızda mcp__plugin_lagune_lagune__lagune_read ve mcp_
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/codex
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/codex
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Sıkça sorulan sorular
@@ -412,7 +412,7 @@ $ yazın, ardından eklentinin adıyla birlikte komutu ve girdinizi yazın, örn
 
 ### Lagune, Codex korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.17.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.18.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
 
 ---
 
@@ -423,7 +423,7 @@ Evet, motoru kendi terminalinizden npm i -D lagune@0.17.0 ile projenize kurduğu
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/cursor
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/cursor
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Cursor**
 
@@ -515,7 +515,7 @@ Evet. Cursor içindeki varsayılan Auto-review modu buna zaten izin verir. Curso
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/devin-cli
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/devin-cli
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Devin** hesabınıza giriş yapın, ardından eklentiyi terminalden kurun:
 
@@ -559,7 +559,7 @@ Eklentinin adıyla birlikte yazın, örneğin /lagune:lagune-charter. / menüsü
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/factory-droid
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/factory-droid
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 
@@ -614,7 +614,7 @@ Evet. Factory Droid sorduğunda lagune_read ve lagune_write için her zaman izin
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/gemini-cli
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/gemini-cli
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Uzantıyı terminalden kurun:
 
@@ -687,7 +687,7 @@ Evet. lagune sunucusunun lagune_read ve lagune_write araçlarına izin veren bir
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/github-copilot-cli
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/github-copilot-cli
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 
@@ -738,7 +738,7 @@ Evet. VS Code veya başka bir editörde Lagune'yi eklenti yerine skills.sh ile k
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/grok-build
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/grok-build
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 
@@ -798,7 +798,7 @@ Evet. Grok Build yapılandırmasında MCPTool(lagune__lagune_read) ve MCPTool(la
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/hermes-agent
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/hermes-agent
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 
@@ -844,7 +844,7 @@ Eklentinin adıyla birlikte yazın, örneğin /lagune:lagune-charter ve /lagune:
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/kimi-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/kimi-code
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi bir **Kimi Code** oturumundan kurun, **Trust and install** seçeneğini seçin, ardından eklentiyi yüklemek için yeni bir oturum başlatın:
 
@@ -889,7 +889,7 @@ Eklentinin adıyla birlikte, örneğin /lagune:lagune-charter şeklinde ya da / 
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/muse-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/muse-code
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Eklentiyi terminalden kurun:
 
@@ -919,7 +919,7 @@ Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin ad
 **Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Sıkça sorulan sorular
@@ -938,7 +938,7 @@ Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikt
 
 ### Lagune, Muse Code korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.17.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.18.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
 
 ---
 
@@ -949,7 +949,7 @@ Evet, motoru kendi terminalinizden npm i -D lagune@0.17.0 ile projenize kurduğu
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/opencode
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/opencode
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **OpenCode 2.x**
 
@@ -999,7 +999,7 @@ opencode reload
 **Lagune**'yi güncellemek için yeni sürümü eskisinin üzerine kurun, tüm projeleriniz için kurduysanız `-g` ekleyin:
 
 ```bash
-opencode plugin lagune@0.17.0 --force
+opencode plugin lagune@0.18.0 --force
 ```
 
 ## Komutlar
@@ -1026,7 +1026,7 @@ OpenCode 2.x sürümünde opencode plugin add lagune komutunu çalıştırın. O
 
 ### OpenCode kullanırken Lagune nasıl güncellenir?
 
-OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.17.0 --force komutunu çalıştırın.
+OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.18.0 --force komutunu çalıştırın.
 
 ### OpenCode kullanırken Lagune komutları nasıl çalıştırılır?
 
@@ -1045,7 +1045,7 @@ Hayır. OpenCode, motorun iki aracı olan lagune_read ve lagune_write araçları
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/pi
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/pi
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **npm**
 
@@ -1110,7 +1110,7 @@ skill: önekiyle yazın, örneğin /skill:lagune-charter.
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/qwen-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/qwen-code
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Uzantıyı terminalden kurun:
 
@@ -1175,7 +1175,7 @@ Evet. Qwen Code ayarlarında mcp__lagune__lagune_read ve mcp__lagune__lagune_wri
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/universal
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/universal
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Terminal**
 
@@ -1219,10 +1219,10 @@ npx skills update
 
 **İzinler**
 
-Komutlar motoru `npx --yes lagune@0.17.0` olarak çalıştırır ve [her ajanın kurulum sayfası](https://lagune.ai/tr-TR/docs) buna baştan izin veren kuralı gösterir. Ağ erişimi olmayan bir korumalı alanda motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
+Komutlar motoru `npx --yes lagune@0.18.0` olarak çalıştırır ve [her ajanın kurulum sayfası](https://lagune.ai/tr-TR/docs) buna baştan izin veren kuralı gösterir. Ağ erişimi olmayan bir korumalı alanda motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.17.0
+npm i -D lagune@0.18.0
 ```
 
 ## Sıkça sorulan sorular
@@ -1248,7 +1248,7 @@ Hayır. İkisiyle birden kurulursa ajan her komutu iki kez listeler ya da bir ko
 Kanonik URL: https://lagune.ai/tr-TR/docs/get-started/commands
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/get-started/commands
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Lagune** [kurulduktan](https://lagune.ai/tr-TR/docs) sonra **yapay zeka** ajanınız bir dizi beceri kazanır. Bunları kullanmanın iki yolu vardır ve ikisi de **charter**'ın yönetimindedir: yeni işi geliştirirken güvenli hale getirmek ya da bir proje üzerinde tam denetimi çalıştırmak.
 
@@ -1324,12 +1324,14 @@ Beş fazlı bir denetim: charter (kuralları belirler), detect (riskleri çıkar
 
 # Gösterge paneli
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/get-started/dashboard).
+
 > Projenizin charter'ını, bulgularını ve kataloğunu tek komutla açılan canlı ve yerel bir görünümde izleyin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/get-started/dashboard
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/get-started/dashboard
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `.lagune/` klasörünün etkileşimli, canlı bir görünümü için **Lagune**'yi alt komut vermeden doğrudan çalıştırın. Bir gösterge paneli sunar ve onu rastgele bir portta açar:
 
@@ -1381,7 +1383,7 @@ Yalnızca kategorilerini, tarayıcınızdan. Panelin gösterdiği diğer her şe
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/lagune
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/lagune
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 ⌨️ İstediğiniz işi yapın, yazılırken güvenli hale gelsin. **`/lagune`** her aşamada her prompt'u kabul eder, istediğinizi geliştirir ve size geri vermeden önce güvenli varsayılanlarla sıkılaştırır.
 
@@ -1475,7 +1477,7 @@ Ajanınızın talimat dosyasına (AGENTS.md, CLAUDE.md, .cursorrules ve benzerle
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/charter
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/charter
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🧬 **Lagune**'ye projenizin ne olduğunu anlatın, o da bunu güvenlik kurallarınıza dönüştürsün (ya da hiçbir açıklama olmadan kuralları yalnızca projeden çıkarsın).
 
@@ -1567,7 +1569,7 @@ Yalnızca hiçbiri kayıtlı değilken. O durumda projeyi okuyarak gerekçelendi
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/detect
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/detect
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🔬 Sisteminizin gerçekte ne yaptığını ve risklerin nerede olduğunu öğrenin.
 
@@ -1644,7 +1646,7 @@ Projenizin kataloğundaki her uzmanlık, koda karşı bir karar alır. Detect, b
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/plan
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/plan
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🛡️ detect fazının bulduklarını bir savunma planına dönüştürün: her bulguyu bir kategori ve CVSS v4.0 puanıyla değerlendirin, ardından uygulanacak düzeltmeyle eşleştirin.
 
@@ -1720,7 +1722,7 @@ Hayır. Plan kodu asla okumaz, bu da her düzeltmeyi detect fazının gerçekten
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/harden
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/harden
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🔧 Plandaki düzeltmeleri kodunuza güvenli bir şekilde ve tek tek uygulayın.
 
@@ -1795,7 +1797,7 @@ Bir düzenlemenin onayınızı gerektirip gerektirmediğine Lagune değil, ajan�
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/verify
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/verify
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 ⚖️ Kodu okuyup harden fazının kaydettikleriyle karşılaştırarak uygulanan her düzeltmenin işe yaradığını kanıtlayın, ardından kanıtlananları kapatın.
 
@@ -1876,7 +1878,7 @@ Evet. SDH'de güvenlik kapatılabilir: kapandığı kanıtlanan bir bulgu takipt
 Kanonik URL: https://lagune.ai/tr-TR/docs/categories
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/categories
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 **Lagune**, yerleşik [**uzmanlıklarını**](https://lagune.ai/tr-TR/docs/catalog) **13 kategoride** gruplar. Bir projenin kullandığı kategoriler, hangi yerleşik uzmanlıkların projenin [**kataloğuna**](https://lagune.ai/tr-TR/docs/catalog) katılacağını belirler ve ikiye ayrılır: sistemin ne yaptığı ve hangi dille yazıldığı.
 
@@ -1972,7 +1974,7 @@ Varsayılan olan owasp ile başlayın, ardından dilinize ya da yığınınıza 
 Kanonik URL: https://lagune.ai/tr-TR/docs/catalog
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/catalog
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🧠 **Lagune**'nin uzmanlıkları, yalnızca talep üzerine yüklenen, asla varsayılan olarak yüklenmeyen, dilden bağımsız ve odaklı güvenlik bilgisi modülleridir. Komut değildirler. Projenizin kataloğu, projenin kullandığı kümedir: [kategorilerinin](https://lagune.ai/tr-TR/docs/categories) yerleşik uzmanlıkları ile projenin kendi uzmanlıkları. Detect ve verify fazları çalışırken onlara başvurur, siz de herhangi birini istediğiniz zaman doğrudan yükleyebilirsiniz.
 
@@ -2105,7 +2107,7 @@ Görevle aynı prompt içinde ajanınızdan npx lagune read catalog <name> komut
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/specialize
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/specialize
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🎓 Verdiğiniz bir kaynaktan ya da konudan **Lagune**'ye yeni bir uzmanlık öğretin.
 
@@ -2181,7 +2183,7 @@ Hayır. İyileştirir, asla üzerine yazmaz.
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/prove
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/prove
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🧪 Tespit edilen her bulguyu sorumlu ifşa için çalıştırılabilir, yalnızca savunma odaklı bir kanıta dönüştürün.
 
@@ -2271,12 +2273,14 @@ Prove, sorumlu ifşa ilkesine uygun olarak gizli bir GitHub Gist gibi özel bir 
 
 # Hook'ları yapılandırın: neleri taradıklarını seçin
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/hooks/configure).
+
 > Dosya tarayan hook'ların neleri dışarıda bırakacağını hepsi için ya da tek biri için seçin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/configure
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/configure
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `checkers` bloğu `.lagune/configs.json` içinde yer alır ve dosya tarayan hook'ların neleri dışarıda bırakacağını hepsi için ya da tek biri için belirler.
 
@@ -2353,7 +2357,7 @@ Depoya güvenemediğinizde, çünkü deponun kendi .gitignore dosyaları kodu gi
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/agent
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/agent
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `agent` hook'u, **tur, bütçe veya süre sınırı olmadan döngüye giren ajan çalışma ortamlarını** işaretler. Bu, özel hazırlanmış bir girdiyi sınırsız maliyete ya da prompt injection yoluyla yetki yükseltmeye dönüştüren, kontrolden çıkmış özerklik açığıdır. Hook **dile duyarlıdır** ve iki ajan çatısı ekosistemini kapsar: **JavaScript** (**Claude** ajan SDK'sının `query` çalışma ortamı) ve **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). [`llm` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -2437,7 +2441,7 @@ Sınırsız bir ajan, sonsuz özyinelemeye, sınırsız maliyete ya da prompt in
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/cors
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/cors
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `cors` hook'u, [`http-request` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu kendiniz çalıştırabilirsiniz. Tek bir komutla iki modda çalışır: kaynak kodu **atlatılabilir bir köken izin listesine** (saldırganın sunucusunun yanından sızıp geçtiği bir sunucu doğrulama regex'ine) karşı tarayan **scan** ve tek bir **CORS köken** değerini `wildcard`, `null` veya `safe` olarak puanlayan **score**.
 
@@ -2564,7 +2568,7 @@ Kod tabanı üzerinde npx lagune read cors komutunu çalıştırın. Hook, açg�
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/crypto
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/crypto
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `crypto` hook'u, **zayıf kriptografik primitifleri** çağrıldıkları yerde işaretler: kullanımdan kaldırılmış bir şifre, güvensiz bir mod ya da kırılmış bir özet algoritması. **Dile duyarlıdır**, her dosyayı kendi kurallarıyla okur, bu yüzden bir Python yapısı asla bir Rust dosyasında işaretlenmez. [`crypto` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -2669,7 +2673,7 @@ Yalnızca güvenlik bağlamında, incelenmesi gereken bir ipucu olarak işaretle
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/cvss
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/cvss
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `cvss` hook'u bir **CVSS v4.0 vektörünü** puanlar ve puanını ile önem derecesi aralığını yazdırır. Bu, [`/lagune-plan`](https://lagune.ai/tr-TR/docs/commands/plan) komutunun her düzeltmeye, [`/lagune-prove`](https://lagune.ai/tr-TR/docs/commands/prove) komutunun da her güvenlik bültenine yazdığı derecelendirmedir. Hook, bu derecelendirmelerin arkasındaki deterministik motordur, [FIRST hesaplayıcısıyla](https://www.first.org/cvss/calculator/4.0) aynı aritmetiği kullanır ve onu kendiniz çalıştırabilirsiniz.
 
@@ -2767,7 +2771,7 @@ Her metriği sade bir dille okur ve Base puanını genel puanın yanında göste
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/infra
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/infra
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `infra` hook'u, dosyanın kendisinden anlaşılabilen **kod olarak altyapı (IaC) yapılandırma hatalarını** işaretler: tüm dünyaya açık bir ağ, wildcard içeren bir izin, bir manifestteki gizli bilgi, root olarak çalışan bir konteyner, bir CI kabuğundaki güvenilmeyen bir değer. Yalnızca IaC dosyalarını okur (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). [`infra` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve **scan** veya **check** modunda çalışır.
 
@@ -2844,7 +2848,7 @@ Terraform ve HCL (.tf, .tf.json, .hcl), Dockerfile'lar ve .github/ altındaki Gi
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/interpreter
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/interpreter
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `interpreter` hook'u **dinamik kod çalıştırma sink'lerini** işaretler: `eval`'den yerel seri durumdan çıkarmaya kadar, veriyi çalışan koda dönüştüren ya da bir kabuğa aktaran yapılar. Dile duyarlıdır, her dosyayı kendi kurallarıyla okur. [`interpreter` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -2952,7 +2956,7 @@ Desteklenen diller tablosundaki dilleri dosya uzantısına göre tanıyarak okur
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/jwt
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/jwt
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `jwt` hook'u, **algoritması sabitlenmemiş JWT doğrulamasını**, yani doğrulayıcının token'ın kendi `alg` başlığına güvendiği algoritma karışıklığı açığını ve **tamamen kapatılmış doğrulamayı** işaretler. **Dile duyarlıdır**, her dosyayı kullandığı JWT kütüphanesine göre okur. [`federation` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 
@@ -3047,7 +3051,7 @@ Algoritmayı token başlığından okuyan bir doğrulayıcı, saldırganın RS25
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/network
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/network
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `network` hook'u, sunucu tarafındaki bir istek hedefinin **SSRF**'ye (iç servislere, bulut meta verilerine veya özel sunuculara yöneltilebilen bir istek) karşı güvenli olup olmadığına karar verir. [`network` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu kendiniz çalıştırabilirsiniz.
 
@@ -3131,7 +3135,7 @@ Farklı ayrıştırıcıların farklı okuduğu bir URL'dir ve klasik bir SSRF a
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/regex
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/regex
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `regex` hook'u, [`regex` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) çalıştırdığı deterministik regex güvenliği motorudur ve onu kendiniz çalıştırabilirsiniz. Tek bir komutla iki modda çalışır: kod tabanını **ReDoS**'a yatkın ve çalışma zamanında oluşturulan örüntülere karşı tarayan **scan** ve verdiğiniz tek bir örüntüyü puanlayan **check**.
 
@@ -3344,7 +3348,7 @@ regex hook'unu kod tabanı üzerinde scan modunda çalıştırın. Hook, destekl
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/secrets
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/secrets
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `secrets` hook'u, ortamdan okunmak yerine **kaynak koda gömülmüş kimlik bilgilerini** işaretler. Değerin içeriğine değil **kaynağına** (bir literal mi, yoksa ortamdan okunan bir değer mi) bakar, bu yüzden sağlayıcı öneklerinden oluşan kapsamlı bir kataloğa ihtiyaç duymaz ve neredeyse hiç yanlış pozitif üretmez. [`secrets` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur.
 
@@ -3415,7 +3419,7 @@ Değerin içeriğine değil kaynağına bakar. Yüksek güvenilirlikli biçimler
 Kanonik URL: https://lagune.ai/tr-TR/docs/examples/prompts
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/examples/prompts
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Doğrudan yapay zeka ajanınıza yapıştırabileceğiniz, kopyalamaya hazır Lagune prompt'ları.
 
@@ -3677,7 +3681,7 @@ Sonunda tüm alt ajan raporlarını tek bir nihai kararda birleştir.
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/paper
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/paper
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 - **Weslley Araújo**
 - **Metodoloji makalesi, 2026.**
@@ -4248,7 +4252,7 @@ Lagune kanıttır, ama katkı yaklaşımın kendisidir. SDH, yapay zekayla geli�
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/glossary
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/glossary
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Lagune'nin ve Security-Driven Hardening metodolojisinin temel taşı olan her terim, bir kez ve sade bir dille tanımlanmış hâliyle.
 
@@ -4347,7 +4351,7 @@ Verify bir riskin kapandığını kanıtladığında, bulgu takipten çıkarıl�
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/configs-schema
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/configs-schema
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 `.lagune/configs.json` dosyası, projenin kullandığı [**kategorileri**](https://lagune.ai/tr-TR/docs/categories) kaydeder, projenin kendi [**uzmanlıklarını**](https://lagune.ai/tr-TR/docs/catalog) dizinler ve [**denetleyicilerin**](https://lagune.ai/tr-TR/docs/hooks/configure) neleri dışarıda bırakacağını belirler. JSON Schema'sı sayesinde düzenleyiciniz siz dosyayı düzenlerken her alanı otomatik tamamlar ve bir yazım hatasını ya da bilinmeyen bir kategoriyi işaretler.
 
@@ -4406,7 +4410,7 @@ Proje belirli bir Lagune sürümüyle çalışıyorsa sabitleyin. Böylece düze
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/deepsec
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/deepsec
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 [Lagune](https://github.com/wellwelwel/lagune) ve [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`), aynı soruna verilmiş iki savunma odaklı yanıttır: yapay zeka destekli geliştirme çağında güvenlik. Çıkış noktaları, başları, ortaları ve sonları, ayrıca kullanıcıya kendilerini nasıl sundukları, mekanikleri örtüştüğü yerlerde bile bilinçli olarak ayrışır.
 
@@ -4571,7 +4575,7 @@ Lagune değiştirir: harden düzeltmeleri kodunuza uygular. Deepsec değiştirme
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/owasp-sources
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/owasp-sources
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 Bu belge, OWASP'ın her **saldırı** (`www-community`) ve **Cheat Sheet** (`CheatSheetSeries`) sayfasını bir güvenlik kategorisiyle eşleştirir ve her birini resmi, herkese açık sayfasına bağlar. Bir kategori içinde eşdeğer öğeler tek bir liste satırını paylaşır: aynı riski ele alan saldırılar ve cheat sheet'ler virgülle ayrılarak birlikte listelenir. Doğrudan bir karşılığı olmayan öğeler kendi satırında durur.
 
@@ -4929,7 +4933,7 @@ Bunlar uzmanlık alanları değildir ve onay kutusu taşımaz: yüzey başına b
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/repair
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/repair
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🧰 Bir yeniden adlandırma ya da taşınan bir dosya zinciri karıştırdığında onu onarın.
 
@@ -4965,7 +4969,7 @@ Aynı geçişte her bellek artefaktını kendi şablonuyla karşılaştırır ve
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/migrate
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/migrate
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🔀 Manifest tabanlı bir **Lagune** projesini, yazdığınız her şeyi koruyarak beceri tabanlı **Lagune**'ye taşıyın.
 

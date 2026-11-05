@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/agent
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/agent
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-05
 
 Der Hook `agent` meldet **Agent-Runtimes, die ohne Runden-, Budget- oder Zeitlimit in einer Schleife laufen**, die Lücke einer entfesselten Autonomie, durch die eine manipulierte Eingabe unbegrenzte Kosten oder eine Eskalation per Prompt Injection auslöst. Er arbeitet **sprachspezifisch** und deckt die zwei Ökosysteme der Agent-Frameworks ab: **JavaScript** (die Runtime `query` des Agent-SDK von **Claude**) und **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). Er ist die deterministische Engine hinter der [Spezialisierung `llm`](https://lagune.ai/de-DE/docs/catalog), und du kannst ihn selbst im Modus **scan** oder **check** ausführen.
 

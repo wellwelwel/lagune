@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/claude-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/claude-code
-Останнє оновлення: 2026-11-04
+Останнє оновлення: 2026-11-05
 
 **Термінал**
 

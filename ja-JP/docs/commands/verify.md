@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/verify
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/verify
-最終更新日: 2026-11-04
+最終更新日: 2026-11-05
 
 ⚖️ コードを読み、harden が記録した内容と突き合わせることで、適用した修正が実際に有効かを証明し、有効だった検出事項をクローズします。
 

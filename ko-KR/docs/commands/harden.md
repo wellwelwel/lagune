@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/harden
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/harden
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 🔧 방어 계획의 수정을 하나씩 안전하게 코드에 적용합니다.
 

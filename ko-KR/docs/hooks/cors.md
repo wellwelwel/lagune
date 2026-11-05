@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/cors
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/cors
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-05
 
 `cors` 훅은 [`http-request` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, 직접 실행할 수도 있습니다. 명령어 하나로 두 가지 모드를 쓸 수 있습니다: **scan** 모드는 소스 코드를 스캔해 **우회할 수 있는 오리진 허용 목록**(공격자 호스트가 빠져나갈 수 있는 호스트 검증 정규식)을 찾고, **score** 모드는 **CORS 오리진** 값 하나에 점수를 매겨 `wildcard`, `null`, `safe` 중 하나로 판정합니다.
 

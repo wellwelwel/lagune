@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/examples/prompts
 Langue: fr-FR
 Original: https://lagune.ai/docs/examples/prompts
-Dernière mise à jour: 2026-11-04
+Dernière mise à jour: 2026-11-05
 
 Des prompts Lagune prêts à copier, à coller directement dans votre agent IA.
 

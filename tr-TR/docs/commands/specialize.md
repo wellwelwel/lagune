@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/specialize
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/specialize
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🎓 Verdiğiniz bir kaynaktan ya da konudan **Lagune**'ye yeni bir uzmanlık öğretin.
 

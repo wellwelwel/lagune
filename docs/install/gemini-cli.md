@@ -3,7 +3,7 @@
 > Install Lagune on Gemini CLI as an extension, keep it updated, and allow its engine up front.
 
 Canonical: https://lagune.ai/docs/install/gemini-cli
-Last updated: 2026-11-04
+Last updated: 2026-11-05
 
 Install the extension from your terminal:
 

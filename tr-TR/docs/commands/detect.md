@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/detect
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/detect
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-05
 
 🔬 Sisteminizin gerçekte ne yaptığını ve risklerin nerede olduğunu öğrenin.
 

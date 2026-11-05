@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/references/owasp-sources
 Idioma: es-ES
 Original: https://lagune.ai/docs/references/owasp-sources
-Última actualización: 2026-11-04
+Última actualización: 2026-11-05
 
 Este documento relaciona cada **ataque** (`www-community`) y cada **Cheat Sheet** (`CheatSheetSeries`) de OWASP con una categoría de seguridad, cada uno enlazado a su página pública canónica. Dentro de una categoría, los elementos equivalentes comparten una única línea de la lista: los ataques y las cheat sheets que abordan el mismo riesgo aparecen juntos, separados por comas. Los elementos sin un equivalente directo ocupan su propia línea.
 
