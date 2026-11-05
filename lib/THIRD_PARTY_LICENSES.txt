@@ -1,7 +1,7 @@
 Lagune bundles the following third-party packages.
 
 --------------------------------------------------------------------------------
-@preact/signals@2.11.3 (MIT)
+@preact/signals@2.11.4 (MIT)
 --------------------------------------------------------------------------------
 
 The MIT License (MIT)
@@ -27,7 +27,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 --------------------------------------------------------------------------------
-@preact/signals-core@1.14.4 (MIT)
+@preact/signals-core@1.14.5 (MIT)
 --------------------------------------------------------------------------------
 
 The MIT License (MIT)
@@ -701,7 +701,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 --------------------------------------------------------------------------------
-preact@10.29.8 (MIT)
+preact@11.1.1 (MIT)
 --------------------------------------------------------------------------------
 
 The MIT License (MIT)

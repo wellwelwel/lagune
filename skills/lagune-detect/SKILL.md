@@ -135,4 +135,4 @@ Keep the map in plain language throughout. A non-developer should understand wha
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.17.0 read <command> <arguments>` and `npx --yes lagune@0.17.0 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.0 read <command> <arguments>` and `npx --yes lagune@0.18.0 write <command> <arguments>` as a fallback.
