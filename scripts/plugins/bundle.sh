@@ -44,15 +44,14 @@ fi
 trap 'rm -f -- "${archive:?}"' EXIT
 
 mkdir -p "$bundle"
+
 # Git Bash's tar opens a folder after -C only in the shell's own path form, never as a Windows path
 bundle="$(cd "$bundle" && pwd)"
+
 tar -cf "$archive" "${packingOptions[@]}" "${paths[@]}"
 tar -xf "$archive" -C "$bundle"
-
-if [[ -d "$overlay" ]]; then
-  tar -cf "$archive" -C "$overlay" .
-  tar -xf "$archive" -C "$bundle"
-fi
+tar -cf "$archive" -C "$overlay" .
+tar -xf "$archive" -C "$bundle"
 
 # Hermes Agent's catalog installs a plugin from its root, while the default branch keeps it one level down
 if [[ "$plugin" == hermes ]]; then

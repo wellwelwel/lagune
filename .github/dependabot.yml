@@ -1,0 +1,43 @@
+version: 2
+
+multi-ecosystem-groups:
+  dependencies:
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    multi-ecosystem-group: dependencies
+    patterns:
+      - '*'
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: npm
+    directory: /
+    multi-ecosystem-group: dependencies
+    patterns:
+      - '*'
+    cooldown:
+      default-days: 7
+    groups:
+      security:
+        applies-to: security-updates
+        patterns:
+          - '*'
+
+  - package-ecosystem: bun
+    directory: /website
+    multi-ecosystem-group: dependencies
+    patterns:
+      - '*'
+    cooldown:
+      default-days: 7
+    groups:
+      security:
+        applies-to: security-updates
+        patterns:
+          - '*'
