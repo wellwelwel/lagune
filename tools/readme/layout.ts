@@ -1,8 +1,8 @@
 export const WIDTH = 820;
-export const HEIGHT = 520;
+export const HEIGHT = 532;
 
 const INSET = 20;
-export const CARD = { x: 8, y: 6, width: 804, height: 506, radius: 30 };
+export const CARD = { x: 8, y: 6, width: 804, height: 518, radius: 30 };
 export const CONTENT_LEFT = CARD.x + INSET;
 export const CONTENT_RIGHT = CARD.x + CARD.width - INSET;
 
@@ -20,14 +20,17 @@ export const LINE_HEIGHT = 19;
 export const PARAGRAPH_GAP = 6;
 export const LINE_BASELINE = 14.5;
 
+const TAB_PADDING = 16;
+const TAB_ICON_SIZE = 16;
+
 export const TAB = {
   x: CARD.x,
   y: CARD.y,
-  height: 36,
+  height: TAB_ICON_SIZE + TAB_PADDING * 2,
   radius: 10,
   flare: 10,
-  padding: 16,
-  iconSize: 16,
+  padding: TAB_PADDING,
+  iconSize: TAB_ICON_SIZE,
   labelGap: 8,
   fontSize: 12.5,
 };

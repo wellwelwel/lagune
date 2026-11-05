@@ -55,7 +55,7 @@ const tabContent = ({ x, labelWidth }: TabGeometry, tab: TabEntry) => {
 const windowShape = ({ x, width }: TabGeometry) => {
   const left = CARD.x + 0.5;
   const right = CARD.x + CARD.width - 0.5;
-  const top = BODY_TOP + 0.5;
+  const top = BODY_TOP - 0.5;
   const bottom = CARD.y + CARD.height - 0.5;
   const corner = CARD.radius - 0.5;
   const tabLeft = x + 0.5;
