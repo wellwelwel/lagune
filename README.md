@@ -32,7 +32,7 @@ It helps more people discover the project.
 
 ---
 
-<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flow.svg" width="90%" alt="An AI agent running Lagune: a project charter, a secure user sign-up, and a Blue Team audit" />
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flow.svg" width="100%" alt="An AI agent running Lagune: a project charter, a secure user sign-up, and a Blue Team audit" />
 
 </div>
 
