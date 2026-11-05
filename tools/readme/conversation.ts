@@ -1,83 +1,94 @@
 import type {
+  AnswerLayout,
+  Autoscroll,
   Closing,
   ClosingPlacement,
   FlowContext,
   Fragment,
   IconName,
+  Motion,
+  Reveal,
   Row,
+  RowPlacement,
   Session,
+  StepRow,
+  StepRun,
+  Tone,
 } from './types';
 import {
-  BLOCK_TOP,
+  BADGE_LABEL_OFFSET,
+  BUBBLE_PADDING,
   BUBBLE_TOP,
-  GUTTER,
+  CONTENT_LEFT,
+  CONTENT_RIGHT,
+  FIELD,
+  ICON_X,
   LABEL_X,
+  LINE_HEIGHT,
   NOTE_X,
+  PROMPT_SCALE,
   ROW_PITCH,
-  ROWS_TOP,
-  TEXT_X,
-  WIDTH,
 } from './layout';
 import {
   escapeXml,
+  fittedText,
   icon,
-  promptText,
-  promptWidth,
+  promptHeight,
+  renderedPromptLines,
+  renderedPromptWidth,
   roundedRectangle,
 } from './markup';
+import { sansWidth } from './metrics';
 import { fragment, join, POP } from './motion';
 
-const tileIcon = (iconName: IconName, top: number, tone: string) =>
-  icon(iconName, TEXT_X + 4, top + 4, 16, tone);
+const ANSWER_CLEARANCE = 24;
+const CLOSING_GAP = 6;
+const LINK_GAP = 2;
+const SCROLL_LIMIT = FIELD.y - ANSWER_CLEARANCE;
+const SCROLL_DURATION = 0.35;
+const STATE_FADE = 0.2;
+const HEADING_SIZE = 15;
+const CHEVRON_GAP = 12;
+const CLOSING_X = CONTENT_LEFT;
+const CLOSING_LABEL_X = CLOSING_X + BADGE_LABEL_OFFSET;
 
-const rowTile = (
-  top: number,
-  iconName: IconName,
-  tone: string,
-  tileClass: string
-) =>
-  `<rect x="${TEXT_X}" y="${top}" width="24" height="24" rx="7" class="${tileClass}"/>
-      ${tileIcon(iconName, top, tone)}`;
+const CLOSING_MESSAGES: Record<Exclude<Closing, 'building'>, string> = {
+  principles: 'All set! 8 security principles were created.',
+  rest: 'All 4 findings closed. The cycle is at rest.',
+};
+
+const answerLayout = (session: Session): AnswerLayout => {
+  const bubbleHeight = promptHeight(session.prompt) + BUBBLE_PADDING.y * 2;
+  const blockTop = BUBBLE_TOP + bubbleHeight + 14;
+  const rowsTop = blockTop + 32;
+
+  return {
+    bubbleHeight,
+    blockTop,
+    rowTops: session.rows.map((_, index) => rowsTop + index * ROW_PITCH),
+    closingTop: rowsTop + session.rows.length * ROW_PITCH + CLOSING_GAP,
+  };
+};
+
+const rowIcon = (iconName: IconName, top: number, tone: Tone, x = ICON_X) =>
+  icon(iconName, x + 4, top + 4, 16, tone);
+
+const timelineLink = (previousTop: number, top: number) =>
+  `<path d="M${ICON_X + 12} ${previousTop + 20 + LINK_GAP}V${top + 4 - LINK_GAP}" class="timeline"/>`;
 
 const rowText = (top: number, text: string, className: string, x = LABEL_X) =>
   `<text x="${x}" y="${top + 17}" class="${className}">${escapeXml(text)}</text>`;
 
-const rowMarkup = (row: Row, top: number) => {
-  if (row.kind === 'detected')
-    return `${rowTile(top, row.icon, 'accent', 'tile')}
-      ${rowText(top, row.name, 'sans label')}`;
+const spinner = (centerX: number, centerY: number) =>
+  `<circle cx="${centerX}" cy="${centerY}" r="8" class="spinner-track"/>
+      <circle cx="${centerX}" cy="${centerY}" r="8" class="spinner"/>`;
 
-  if (row.kind === 'specialization')
-    return `${rowTile(top, 'shield', 'accent', 'tile')}
-      ${rowText(top, row.name, 'mono name')}
-      ${rowText(top, row.note, 'sans note', NOTE_X)}`;
-
-  return `${rowTile(top, 'target', 'warning', 'warning-tile')}
-      ${rowText(top, row.name, 'sans finding')}
-      ${rowText(top, row.note, 'sans note', NOTE_X)}`;
-};
-
-const badge = (
-  { prefix, top, at, motion }: ClosingPlacement,
-  iconName: IconName,
-  tone: string,
-  tileClass: string
-): Fragment => {
-  const pop = motion.enter(`${prefix}-badge`, at + 0.05, POP);
-
-  return fragment(
-    `<g class="pop ${pop.name}">
-        <circle cx="${TEXT_X + 12}" cy="${top + 12}" r="12" class="${tileClass}"/>
-        ${tileIcon(iconName, top, tone)}
-      </g>`,
-    [pop]
-  );
-};
-
-const closingText = (top: number, content: string) =>
-  `<text x="${LABEL_X}" y="${top + 17}" class="sans heading strong">${content}</text>`;
-
-const buildingIndicator = (top: number) => {
+const loadingText = (
+  baseline: number,
+  label: string,
+  className: string,
+  x: number
+) => {
   const dots = [0, 1, 2]
     .map(
       (index) =>
@@ -85,61 +96,164 @@ const buildingIndicator = (top: number) => {
     )
     .join('');
 
-  return `<circle cx="${TEXT_X + 12}" cy="${top + 12}" r="8" class="spinner-track"/>
-      <circle cx="${TEXT_X + 12}" cy="${top + 12}" r="8" class="spinner"/>
-      <text x="${LABEL_X}" y="${top + 17}" class="sans heading strong" fill="url(#shimmer)">Building${dots}</text>`;
+  return `<text x="${x}" y="${baseline}" class="${className}">${escapeXml(label)}${dots}</text>`;
+};
+
+const runView = (
+  run: StepRun,
+  runIndex: number,
+  { prefix, top, runs, motion }: RowPlacement
+): Fragment => {
+  const { start, finish } = runs[runIndex];
+  const until = runs[runIndex + 1]?.start ?? motion.reset;
+  const isLast = runIndex === runs.length - 1;
+  const name = `${prefix}-run-${runIndex + 1}`;
+  const shown = finish + STATE_FADE;
+  const loading = motion.visibleBetween(`${name}-loading`, [
+    runIndex > 0
+      ? {
+          from: start + STATE_FADE,
+          to: finish,
+          fadeIn: STATE_FADE,
+          fadeOut: STATE_FADE,
+        }
+      : { from: start, to: finish, fadeOut: STATE_FADE },
+  ]);
+  const result = motion.visibleBetween(`${name}-result`, [
+    { from: shown, to: until, fadeIn: STATE_FADE, fadeOut: STATE_FADE },
+  ]);
+  const pop = motion.enter(`${name}-pop`, shown, POP);
+
+  return fragment(
+    `<g class="idle ${loading.name}">
+        ${spinner(ICON_X + 12, top + 12)}
+        ${loadingText(top + 17, 'Running', 'sans note shimmer', NOTE_X)}
+      </g>
+      <g class="${isLast ? '' : 'idle '}${result.name}">
+        <g class="pop ${pop.name}">${rowIcon('bot', top, run.tone)}</g>
+        ${rowText(top, run.note, 'sans note', NOTE_X)}
+      </g>`,
+    [loading, result, pop]
+  );
+};
+
+const stepView = (row: StepRow, placement: RowPlacement): Fragment => {
+  const runs = join(
+    row.runs.map((run, runIndex) => runView(run, runIndex, placement)),
+    '\n      '
+  );
+
+  return fragment(
+    `${runs.markup}
+      ${rowText(placement.top, row.name, 'sans name')}`,
+    runs.animations
+  );
+};
+
+const rowView = (row: Row, placement: RowPlacement): Fragment => {
+  const { top } = placement;
+
+  if (row.kind === 'detected')
+    return fragment(`${rowIcon(row.icon, top, 'accent')}
+      ${rowText(top, row.name, 'sans label')}`);
+
+  if (row.kind === 'specialization')
+    return fragment(`${rowIcon('graduation-cap', top, 'accent')}
+      ${rowText(top, row.name, 'sans name')}
+      ${rowText(top, row.note, 'sans note', NOTE_X)}`);
+
+  return stepView(row, placement);
+};
+
+const badge = ({ prefix, top, at, motion }: ClosingPlacement): Fragment => {
+  const pop = motion.enter(`${prefix}-badge`, at + 0.05, POP);
+
+  return fragment(
+    `<g class="pop ${pop.name}">
+        <circle cx="${CLOSING_X + 12}" cy="${top + 12}" r="12" class="success-tile"/>
+        ${rowIcon('check', top, 'success', CLOSING_X)}
+      </g>`,
+    [pop]
+  );
 };
 
 const closingView = (
   closing: Closing,
   placement: ClosingPlacement
 ): Fragment => {
-  if (closing === 'building') return fragment(buildingIndicator(placement.top));
+  const { top } = placement;
 
-  if (closing === 'ready') {
-    const check = badge(placement, 'check', 'success', 'success-tile');
+  if (closing === 'building')
+    return fragment(`${spinner(CLOSING_X + 12, top + 12)}
+      ${loadingText(top + 17, 'Building', 'sans heading strong shimmer-strong', CLOSING_LABEL_X)}`);
 
-    return fragment(
-      `${check.markup}
-      ${closingText(placement.top, 'All set! You’re ready to build.')}`,
-      check.animations
-    );
-  }
-
-  const arrow = badge(placement, 'arrow', 'accent', 'tile');
+  const check = badge(placement);
 
   return fragment(
-    `${arrow.markup}
-      ${closingText(placement.top, 'Next, <tspan class="mono command inline-command">/lagune-plan</tspan> turns them into prioritized fixes.')}`,
-    arrow.animations
+    `${check.markup}
+      ${rowText(top, CLOSING_MESSAGES[closing], 'sans heading strong', CLOSING_LABEL_X)}`,
+    check.animations
   );
 };
 
-const userBubble = (session: Session, className: string) => {
-  const width = promptWidth(session.prompt) + 28;
-  const x = WIDTH - GUTTER - width;
+const userBubble = (session: Session, height: number, className: string) => {
+  const width = renderedPromptWidth(session.prompt) + BUBBLE_PADDING.x * 2;
+  const x = CONTENT_RIGHT - width;
+  const radius = height <= LINE_HEIGHT + BUBBLE_PADDING.y * 2 ? height / 2 : 16;
 
   return `<g class="${className}">
-      <path d="${roundedRectangle(x, BUBBLE_TOP, width, 38, [14, 14, 4, 14])}" class="bubble"/>
-      ${promptText(session.prompt, x + 14, BUBBLE_TOP + 24)}
+      <path d="${roundedRectangle(x, BUBBLE_TOP, width, height, radius)}" class="bubble"/>
+      ${renderedPromptLines(session.prompt, x + BUBBLE_PADDING.x, BUBBLE_TOP + BUBBLE_PADDING.y)}
     </g>`;
 };
 
-const avatar = (className: string) =>
-  `<g class="${className}">
-      <circle cx="34" cy="${BLOCK_TOP + 14}" r="14" class="tile"/>
-      ${icon('spark', 25, BLOCK_TOP + 5, 18, 'accent')}
+const thinking = (top: number, className: string) =>
+  `<g class="thinking ${className}">
+      ${spinner(CONTENT_LEFT + 8, top + 14)}
+      ${loadingText(top + 19, 'Thinking', 'sans status shimmer', CONTENT_LEFT + 24)}
     </g>`;
 
-const thinking = (className: string) => {
-  const dots = [0, 1, 2]
-    .map(
-      (index) =>
-        `<circle cx="${TEXT_X + 4 + index * 11}" cy="${BLOCK_TOP + 14}" r="3.2" class="dot bounce" style="animation-delay:${(index * 0.16 - 1).toFixed(2)}s"/>`
-    )
-    .join('');
+const headingView = (session: Session, top: number) => {
+  const width = Number(
+    (sansWidth(session.heading, HEADING_SIZE) * PROMPT_SCALE.text).toFixed(1)
+  );
+  const centerX = CONTENT_LEFT + width + CHEVRON_GAP;
+  const centerY = top + 14;
 
-  return `<g class="thinking ${className}">${dots}</g>`;
+  return `${fittedText(session.heading, CONTENT_LEFT, top + 19, width, 'heading')}
+      <path d="M${centerX - 4} ${centerY - 2}L${centerX} ${centerY + 2}L${centerX + 4} ${centerY - 2}" class="chevron"/>`;
+};
+
+const translateY = (offset: number) => `transform:translateY(${-offset}px)`;
+
+const autoscroll = (
+  name: string,
+  reveals: Reveal[],
+  motion: Motion
+): Autoscroll | null => {
+  const targets = reveals
+    .map(({ at, bottom }) => ({ at, offset: bottom - SCROLL_LIMIT }))
+    .filter(({ offset }) => offset > 0);
+  const final = targets.at(-1)?.offset;
+
+  if (!final) return null;
+
+  return {
+    rest: translateY(final),
+    animation: {
+      name,
+      stops: [
+        { at: 0, style: translateY(0) },
+        ...targets.flatMap(({ at, offset }, index) => [
+          { at, style: translateY(targets[index - 1]?.offset ?? 0) },
+          { at: at + SCROLL_DURATION, style: translateY(offset) },
+        ]),
+        { at: motion.reset, style: translateY(final) },
+        { at: motion.reset + 0.01, style: translateY(0) },
+        { at: motion.cycle, style: translateY(0) },
+      ],
+    },
+  };
 };
 
 const sessionView =
@@ -148,11 +262,12 @@ const sessionView =
     const timing = timeline.sessions[index];
     const next = timeline.sessions[index + 1];
     const prefix = `session-${index + 1}`;
-    const container = next
-      ? motion.leaveAt(prefix, next.opens)
-      : motion.fadeAtEnd(prefix);
+    const layout = answerLayout(session);
+    const container = motion.leaveAt(
+      prefix,
+      next?.opens ?? timeline.outro.opens
+    );
     const bubble = motion.enter(`${prefix}-bubble`, timing.send + 0.05);
-    const answerer = motion.enter(`${prefix}-avatar`, timing.send + 0.4);
     const pending = motion.visibleBetween(`${prefix}-think`, [
       {
         from: timing.think,
@@ -164,17 +279,28 @@ const sessionView =
     const heading = motion.enter(`${prefix}-heading`, timing.answer);
     const rows = join(
       session.rows.map((row, rowIndex) => {
-        const top = ROWS_TOP + rowIndex * ROW_PITCH;
-        const entrance = motion.enter(
-          `${prefix}-row-${rowIndex + 1}`,
-          timing.rows[rowIndex]
-        );
+        const rowPrefix = `${prefix}-row-${rowIndex + 1}`;
+        const runs = timing.rowRuns[rowIndex];
+        const entrance = motion.enter(rowPrefix, runs[0].start);
+        const content = rowView(row, {
+          prefix: rowPrefix,
+          top: layout.rowTops[rowIndex],
+          runs,
+          motion,
+        });
+        const link =
+          rowIndex > 0
+            ? timelineLink(
+                layout.rowTops[rowIndex - 1],
+                layout.rowTops[rowIndex]
+              )
+            : '';
 
         return fragment(
           `<g class="${entrance.name}">
-      ${rowMarkup(row, top)}
+      ${link}${content.markup}
     </g>`,
-          [entrance]
+          [entrance, ...content.animations]
         );
       }),
       '\n    '
@@ -182,31 +308,49 @@ const sessionView =
     const closingEntrance = motion.enter(`${prefix}-closing`, timing.closing);
     const closing = closingView(session.closing, {
       prefix,
-      top: ROWS_TOP + session.rows.length * ROW_PITCH + 8,
+      top: layout.closingTop,
       at: timing.closing,
       motion,
     });
-
-    return fragment(
-      `<g class="${next ? 'past ' : ''}${container.name}">
-    ${userBubble(session, bubble.name)}
-    ${avatar(answerer.name)}
-    ${thinking(pending.name)}
-    <text x="${TEXT_X}" y="${BLOCK_TOP + 19}" class="sans heading ${heading.name}">${escapeXml(session.heading)}</text>
+    const scroll = autoscroll(
+      `${prefix}-scroll`,
+      [
+        ...timing.rowRuns.map(([firstRun], rowIndex) => ({
+          at: firstRun.start,
+          bottom: layout.rowTops[rowIndex] + 24,
+        })),
+        { at: timing.closing, bottom: layout.closingTop + 24 },
+      ],
+      motion
+    );
+    const content = `${userBubble(session, layout.bubbleHeight, bubble.name)}
+    ${thinking(layout.blockTop, pending.name)}
+    <g class="${heading.name}">
+      ${headingView(session, layout.blockTop)}
+    </g>
     ${rows.markup}
     <g class="${closingEntrance.name}">
       ${closing.markup}
-    </g>
+    </g>`;
+    const scrolled = scroll
+      ? `<g class="${scroll.animation.name}" style="${scroll.rest}">
+    ${content}
+    </g>`
+      : content;
+
+    return fragment(
+      `<g class="${next ? 'past ' : ''}${container.name}">
+    ${scrolled}
   </g>`,
       [
         container,
         bubble,
-        answerer,
         pending,
         heading,
         ...rows.animations,
         closingEntrance,
         ...closing.animations,
+        ...(scroll ? [scroll.animation] : []),
       ]
     );
   };
@@ -215,7 +359,7 @@ export const conversation = (context: FlowContext): Fragment => {
   const sessions = join(context.sessions.map(sessionView(context)), '\n  ');
 
   return fragment(
-    `<g clip-path="url(#viewport)">
+    `<g clip-path="url(#viewport)" mask="url(#viewport-fade)">
   ${sessions.markup}
   </g>`,
     sessions.animations

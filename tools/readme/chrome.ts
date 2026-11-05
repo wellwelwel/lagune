@@ -1,43 +1,165 @@
-import type { Animation, FlowContext, Fragment, Session } from './types';
-import { GUTTER, HEIGHT, NEW_TAB_SHIFT, TAB, WIDTH } from './layout';
-import { escapeXml, icon } from './markup';
+import type {
+  Animation,
+  FlowContext,
+  Fragment,
+  Motion,
+  TabEntry,
+  TabGeometry,
+  VisibilityWindow,
+} from './types';
+import { BODY_TOP, CARD, CONTENT_RIGHT, HEADER_CENTER, TAB } from './layout';
+import { fittedText, icon } from './markup';
+import { sansWidth } from './metrics';
 import { fragment, join } from './motion';
 
+const APPEAR_DELAY = 0.12;
+const RESTORE_DELAY = 0.2;
 const RESTORE_DURATION = 0.3;
+const HEADER_ICON_SIZE = 18;
 
-const tabContent = (x: number, label: string) =>
-  `${icon('chat', x + 12, TAB.y + 7, 14, 'tab-icon')}
-    <text x="${x + 33}" y="${TAB.y + 18.5}" class="sans tab-label">${escapeXml(label)}</text>`;
+const firstTabRestore = ({ fade }: Motion) => fade + RESTORE_DELAY;
 
-const tabBackground = (x: number, className: string) =>
-  `<rect x="${x + 0.5}" y="${TAB.y + 0.5}" width="${TAB.width - 1}" height="${TAB.height - 1}" rx="8" class="tab-background ${className}"/>`;
+const tabEntries = ({ sessions, outro, timeline }: FlowContext): TabEntry[] => [
+  ...sessions.map((session, index) => ({
+    label: session.tab,
+    icon: session.agent.icon,
+    iconClass: 'agent-logo',
+    opens: timeline.sessions[index].opens,
+  })),
+  {
+    label: outro.tab,
+    icon: 'star-outline',
+    iconClass: 'star',
+    opens: timeline.outro.opens,
+  },
+];
+
+const tabGeometry = (tabs: TabEntry[]): TabGeometry[] =>
+  tabs.reduce<TabGeometry[]>((boxes, tab) => {
+    const previous = boxes.at(-1);
+    const labelWidth = sansWidth(tab.label, TAB.fontSize);
+    const x = previous ? previous.x + previous.width : TAB.x;
+    const width = TAB.padding * 2 + TAB.iconSize + TAB.labelGap + labelWidth;
+
+    return [...boxes, { x, labelWidth, width }];
+  }, []);
+
+const tabContent = ({ x, labelWidth }: TabGeometry, tab: TabEntry) => {
+  const iconX = x + TAB.padding;
+  const labelX = iconX + TAB.iconSize + TAB.labelGap;
+
+  return `${icon(tab.icon, iconX, HEADER_CENTER - TAB.iconSize / 2, TAB.iconSize, tab.iconClass)}
+    ${fittedText(tab.label, labelX, HEADER_CENTER + 4.5, labelWidth, 'tab-label')}`;
+};
+
+const windowShape = ({ x, width }: TabGeometry) => {
+  const left = CARD.x + 0.5;
+  const right = CARD.x + CARD.width - 0.5;
+  const top = BODY_TOP + 0.5;
+  const bottom = CARD.y + CARD.height - 0.5;
+  const corner = CARD.radius - 0.5;
+  const tabLeft = x + 0.5;
+  const tabRight = x + width - 0.5;
+  const tabTop = TAB.y + 0.5;
+  const tabCorner = TAB.radius - 0.5;
+  const flare = TAB.flare + 0.5;
+  const leftSide =
+    x === CARD.x
+      ? [`M${left} ${bottom - corner}`, `V${tabTop + tabCorner}`]
+      : [
+          `M${left} ${bottom - corner}`,
+          `V${top + corner}`,
+          `A${corner} ${corner} 0 0 1 ${left + corner} ${top}`,
+          `H${tabLeft - flare}`,
+          `A${flare} ${flare} 0 0 0 ${tabLeft} ${top - flare}`,
+          `V${tabTop + tabCorner}`,
+        ];
+
+  return [
+    ...leftSide,
+    `A${tabCorner} ${tabCorner} 0 0 1 ${tabLeft + tabCorner} ${tabTop}`,
+    `H${tabRight - tabCorner}`,
+    `A${tabCorner} ${tabCorner} 0 0 1 ${tabRight} ${tabTop + tabCorner}`,
+    `V${top - flare}`,
+    `A${flare} ${flare} 0 0 0 ${tabRight + flare} ${top}`,
+    `H${right - corner}`,
+    `A${corner} ${corner} 0 0 1 ${right} ${top + corner}`,
+    `V${bottom - corner}`,
+    `A${corner} ${corner} 0 0 1 ${right - corner} ${bottom}`,
+    `H${left + corner}`,
+    `A${corner} ${corner} 0 0 1 ${left} ${bottom - corner}`,
+    'Z',
+  ].join('');
+};
+
+const activeWindows = (
+  motion: Motion,
+  tabs: TabEntry[],
+  index: number
+): VisibilityWindow[] => {
+  const restore = firstTabRestore(motion);
+  const next = tabs[index + 1];
+  const until = next ? next.opens + APPEAR_DELAY : restore;
+
+  if (index === 0)
+    return [
+      { from: 0, to: until },
+      { from: restore, to: motion.cycle },
+    ];
+
+  return [{ from: tabs[index].opens + APPEAR_DELAY, to: until }];
+};
+
+const windowFrames = (
+  { motion }: FlowContext,
+  tabs: TabEntry[],
+  geometry: TabGeometry[],
+  resting: number
+): Fragment =>
+  join(
+    geometry.map((box, index) => {
+      const active = motion.visibleBetween(
+        `frame-${index + 1}`,
+        activeWindows(motion, tabs, index)
+      );
+      const shape = windowShape(box);
+
+      return fragment(
+        `<g class="${index === resting ? '' : 'idle '}${active.name}">
+    <path d="${shape}" class="card" filter="url(#card-shadow)"/>
+    <path d="${shape}" class="card-border"/>
+  </g>`,
+        [active]
+      );
+    }),
+    '\n  '
+  );
 
 const tabView =
-  ({ timeline, motion }: FlowContext) =>
-  (session: Session, index: number): Fragment => {
-    const { opens } = timeline.sessions[index];
-    const next = timeline.sessions[index + 1];
-    const x = TAB.x + index * NEW_TAB_SHIFT;
+  (
+    { motion }: FlowContext,
+    tabs: TabEntry[],
+    geometry: TabGeometry[],
+    resting: number
+  ) =>
+  (tab: TabEntry, index: number): Fragment => {
+    const next = tabs[index + 1];
+    const box = geometry[index];
     const prefix = `tab-${index + 1}`;
-    const appear = motion.enterUntilFade(prefix, opens + 0.12);
+    const appear = motion.enterUntilFade(prefix, tab.opens + APPEAR_DELAY);
+    const hiddenAtRest = index > resting ? 'idle ' : '';
 
     if (!next)
       return fragment(
-        `<g class="${appear.name}">
-    ${tabBackground(x, '')}
-    ${tabContent(x, session.tab)}
+        `<g class="${hiddenAtRest}${appear.name}">
+    ${tabContent(box, tab)}
   </g>`,
         [appear]
       );
 
     const isFirst = index === 0;
-    const restore = isFirst ? motion.fade + 0.2 : motion.reset;
-    const background = motion.visibleBetween(`${prefix}-active`, [
-      { from: opens, to: next.opens, fadeOut: 0.25 },
-      ...(isFirst
-        ? [{ from: restore, to: motion.cycle, fadeIn: RESTORE_DURATION }]
-        : []),
-    ]);
+    const isBehind = index < resting;
+    const restore = isFirst ? firstTabRestore(motion) : motion.reset;
     const label: Animation = {
       name: `${prefix}-label`,
       stops: [
@@ -49,80 +171,42 @@ const tabView =
         { at: motion.cycle, style: 'opacity:1' },
       ],
     };
-    const tab = `${tabBackground(x, `idle ${background.name}`)}
-  <g class="dim ${label.name}">
-    ${tabContent(x, session.tab)}
+    const markup = `<g class="${isBehind ? 'dim ' : ''}${label.name}">
+    ${tabContent(box, tab)}
   </g>`;
 
-    if (isFirst) return fragment(tab, [background, label]);
+    if (isFirst) return fragment(markup, [label]);
 
-    return fragment(`<g class="${appear.name}">\n  ${tab}\n  </g>`, [
-      appear,
-      background,
-      label,
-    ]);
+    return fragment(
+      `<g class="${hiddenAtRest}${appear.name}">\n  ${markup}\n  </g>`,
+      [appear, label]
+    );
   };
 
-const newTabButton = ({ timeline, motion }: FlowContext): Fragment => {
-  const openings = timeline.sessions.slice(1).map((session) => session.opens);
-  const shift = (tabs: number) =>
-    `transform:translateX(${tabs * NEW_TAB_SHIFT}px)`;
-  const move: Animation = {
-    name: 'new-tab-move',
-    stops: [
-      { at: 0, style: shift(0) },
-      ...openings.flatMap((opens, index) => [
-        { at: opens, style: shift(index) },
-        { at: opens + 0.35, style: shift(index + 1) },
-      ]),
-      { at: motion.fade, style: shift(openings.length) },
-      { at: motion.fade + 0.4, style: shift(0) },
-      { at: motion.cycle, style: shift(0) },
-    ],
-  };
-  const press: Animation = {
-    name: 'new-tab-press',
-    stops: [
-      { at: 0, style: 'transform:scale(1)' },
-      ...openings.flatMap((opens) => [
-        { at: opens - 0.3, style: 'transform:scale(1)' },
-        { at: opens - 0.15, style: 'transform:scale(.8)' },
-        { at: opens + 0.05, style: 'transform:scale(1)' },
-      ]),
-      { at: motion.cycle, style: 'transform:scale(1)' },
-    ],
-  };
-  const x = TAB.x + TAB.width + 8;
+const newChatButton = ({ motion }: FlowContext, tabs: TabEntry[]): Fragment => {
+  const press = motion.pressAt(
+    'new-chat-press',
+    tabs.slice(1).map(({ opens }) => opens),
+    { scale: '.8', start: -0.3, peak: -0.15, end: 0.05 }
+  );
+  const x = CONTENT_RIGHT - HEADER_ICON_SIZE;
+  const top = HEADER_CENTER - HEADER_ICON_SIZE / 2;
 
   return fragment(
-    `<g class="shifted ${move.name}">
-    <g class="pop ${press.name}">
-      <rect x="${x}" y="${TAB.y + 1}" width="26" height="26" rx="8" class="new-tab"/>
-      <path d="M${x + 13} ${TAB.y + 8.5}v11M${x + 7.5} ${TAB.y + 14}h11" class="new-tab-plus"/>
-    </g>
+    `<g class="pop ${press.name}">
+    ${icon('square-pen', x, top, HEADER_ICON_SIZE, 'muted')}
   </g>`,
-    [move, press]
+    [press]
   );
 };
 
 export const windowChrome = (context: FlowContext): Fragment => {
-  const tabs = join(context.sessions.map(tabView(context)), '\n  ');
-  const newTab = newTabButton(context);
+  const tabs = tabEntries(context);
+  const geometry = tabGeometry(tabs);
+  const resting = context.sessions.length - 1;
+  const frames = windowFrames(context, tabs, geometry, resting);
+  const tabViews = tabs.map(tabView(context, tabs, geometry, resting));
+  const newChat = newChatButton(context, tabs);
 
-  return fragment(
-    `<rect x=".5" y=".5" width="${WIDTH - 1}" height="${HEIGHT - 1}" rx="16" class="card"/>
-  <g clip-path="url(#card-clip)">
-    <ellipse cx="${WIDTH - 60}" cy="40" rx="320" ry="190" fill="url(#glow)"/>
-  </g>
-  <rect x=".5" y=".5" width="${WIDTH - 1}" height="${HEIGHT - 1}" rx="16" class="card-border"/>
-  <circle cx="22" cy="22" r="5" class="window-dot"/>
-  <circle cx="38" cy="22" r="5" class="window-dot"/>
-  <circle cx="54" cy="22" r="5" class="window-dot"/>
-  ${tabs.markup}
-  ${newTab.markup}
-  ${icon('spark', WIDTH - GUTTER - 92, 13, 18, 'accent')}
-  <text x="${WIDTH - GUTTER}" y="27" text-anchor="end" class="sans title">Your agent</text>
-  <line x1="0" y1="44.5" x2="${WIDTH}" y2="44.5" class="divider"/>`,
-    [...tabs.animations, ...newTab.animations]
-  );
+  return join([frames, ...tabViews, newChat], '\n  ');
 };

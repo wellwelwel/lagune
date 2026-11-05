@@ -1,0 +1,115 @@
+const SHAPE =
+  'M144.248 149.062C151.748 154.688 162.998 150.938 152.685 140.625C121.748 110.625 128.31 28.125 89.8727 28.125C51.4352 28.125 57.9977 110.625 27.0602 140.625C15.8102 151.875 27.9977 154.688 35.4977 149.062C64.5602 129.375 62.6852 94.6875 89.8727 94.6875C117.06 94.6875 115.185 129.375 144.248 149.062Z';
+
+const MASK = 'antigravity-mask';
+
+const BLURS = [
+  {
+    x: 4.09591,
+    y: -44.1761,
+    width: 111.037,
+    height: 98.4416,
+    deviation: 6.25234,
+  },
+  {
+    x: 46.2974,
+    y: -53.0009,
+    width: 217.731,
+    height: 215.86,
+    deviation: 30.2268,
+  },
+  {
+    x: -100.018,
+    y: -36.7558,
+    width: 229.238,
+    height: 204.397,
+    deviation: 25.6957,
+  },
+  {
+    x: -100.018,
+    y: -36.7558,
+    width: 229.238,
+    height: 204.397,
+    deviation: 25.6957,
+  },
+  {
+    x: -84.3985,
+    y: -35.003,
+    width: 205.042,
+    height: 204.834,
+    deviation: 25.6957,
+  },
+  {
+    x: 27.9915,
+    y: 71.5493,
+    width: 187.691,
+    height: 190.791,
+    deviation: 24.4184,
+  },
+  {
+    x: -11.8808,
+    y: -98.7085,
+    width: 201.38,
+    height: 197.45,
+    deviation: 22.1301,
+  },
+  {
+    x: -44.4432,
+    y: 19.9522,
+    width: 252.513,
+    height: 260.404,
+    deviation: 19.7631,
+  },
+  {
+    x: 81.1915,
+    y: 25.7722,
+    width: 140.46,
+    height: 134.637,
+    deviation: 17.6843,
+  },
+  {
+    x: 55.1499,
+    y: -47.2531,
+    width: 187.555,
+    height: 167.957,
+    deviation: 14.9365,
+  },
+  {
+    x: -24.2633,
+    y: -27.1515,
+    width: 124.223,
+    height: 146.372,
+    deviation: 18.4865,
+  },
+];
+
+const GLOWS = [
+  '<ellipse cx="36.6225" cy="43.0872" rx="36.6225" ry="43.0872" transform="matrix(-0.112784 0.99362 -0.99362 -0.112781 106.557 -26.4847)" fill="#FFE432"/>',
+  '<ellipse cx="155.163" cy="54.9292" rx="47.4118" ry="48.4541" transform="rotate(76.9243 155.163 54.9292)" fill="#FC413D"/>',
+  '<ellipse cx="14.6006" cy="65.4425" rx="49.5515" ry="64.192" transform="rotate(74.1257 14.6006 65.4425)" fill="#00B95C"/>',
+  '<ellipse cx="14.6006" cy="65.4425" rx="49.5515" ry="64.192" transform="rotate(74.1257 14.6006 65.4425)" fill="#00B95C"/>',
+  '<ellipse cx="18.1226" cy="67.414" rx="48.5679" ry="53.4688" transform="rotate(45.6065 18.1226 67.414)" fill="#00B95C"/>',
+  '<ellipse cx="121.837" cy="166.945" rx="46.6356" ry="44.9084" transform="rotate(76.9243 121.837 166.945)" fill="#3186FF"/>',
+  '<ellipse cx="53.9456" cy="56.8997" rx="53.9456" ry="56.8997" transform="matrix(-0.409539 0.912293 -0.912294 -0.409537 162.811 -25.895)" fill="#FBBC04"/>',
+  '<path d="M4.21557 239.063C-25.3231 227.467 25.1577 132.061 37.7105 100.085C50.2634 68.1097 84.3853 51.5888 113.924 63.1848C143.463 74.7809 178.474 138.65 165.921 170.626C153.368 202.601 33.7543 250.659 4.21557 239.063Z" fill="#3186FF"/>',
+  '<path d="M183.197 120.315C175.289 129.545 154.652 124.839 137.102 109.803C119.553 94.7668 111.738 75.0955 119.646 65.8656C127.554 56.6357 148.191 61.3423 165.74 76.3782C183.289 91.414 191.105 111.085 183.197 120.315Z" fill="#749BFF"/>',
+  '<ellipse cx="148.928" cy="36.7252" rx="71.1018" ry="44.199" transform="rotate(34.0763 148.928 36.7252)" fill="#FC413D"/>',
+  '<ellipse cx="37.848" cy="46.0346" rx="38.1008" ry="22.1575" transform="rotate(112.516 37.848 46.0346)" fill="#FFEE48"/>',
+];
+
+export const ANTIGRAVITY_VIEW_BOX = '20.5 20.5 140 140';
+
+const blurId = (index: number) => `antigravity-blur-${index}`;
+
+export const antigravityBody = () =>
+  `<path d="${SHAPE}" fill="#3186FF"/><g mask="url(#${MASK})">${GLOWS.map(
+    (glow, index) => `<g filter="url(#${blurId(index)})">${glow}</g>`
+  ).join('')}</g>`;
+
+export const antigravityDefinitions = () => [
+  `<mask id="${MASK}" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="22" y="28" width="136" height="125"><path d="${SHAPE}" fill="white"/></mask>`,
+  ...BLURS.map(
+    ({ x, y, width, height, deviation }, index) =>
+      `<filter id="${blurId(index)}" x="${x}" y="${y}" width="${width}" height="${height}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${deviation}"/></filter>`
+  ),
+];

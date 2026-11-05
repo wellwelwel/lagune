@@ -30,6 +30,10 @@ It helps more people discover the project.
 <a href="https://lagune.ai/ja-JP/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/jp.svg" alt="日本語" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/ko-KR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/kr.svg" alt="한국어" width="32" align="absmiddle" /></a>
 
+---
+
+<img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flow.svg" width="80%" alt="An AI agent running Lagune: a project charter, a secure user sign-up, and a Blue Team audit" />
+
 </div>
 
 ---
