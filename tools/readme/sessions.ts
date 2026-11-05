@@ -1,91 +1,146 @@
-import type { Session } from './types';
+import type { Outro, Session } from './types';
 
 export const SESSIONS: Session[] = [
   {
-    tab: 'Project charter',
-    prompt: {
-      command: '/lagune-charter',
-      text: " It's a SaaS where each company manages its own users",
-    },
-    heading: 'I found that the project uses:',
-    thinking: 1.3,
+    tab: 'First time using Lagune',
+    agent: { name: 'Claude Code', icon: 'claude' },
+    prompt: ["/lagune-charter It's a social media for devs"],
+    heading: 'I found that the project uses',
+    thinking: 0.95,
+    pace: 0.25,
     hold: 1.3,
-    closing: 'ready',
+    closing: 'principles',
     rows: [
       { kind: 'detected', icon: 'rust', name: 'Rust' },
       { kind: 'detected', icon: 'database', name: 'Database' },
-      { kind: 'detected', icon: 'tenants', name: 'Multi-tenant' },
+      { kind: 'detected', icon: 'image', name: 'Photo uploads' },
       { kind: 'detected', icon: 'signup', name: 'User sign-up' },
     ],
   },
   {
-    tab: 'User sign-up',
-    prompt: { command: '/lagune', text: ' Implement user sign-up' },
-    heading: 'Matched specializations:',
-    thinking: 1.2,
-    hold: 3.5,
+    tab: 'Using it for any task',
+    agent: { name: 'Codex', icon: 'codex' },
+    prompt: ['/lagune Implement user sign-up'],
+    heading: 'Matched specializations',
+    thinking: 0.9,
+    pace: 0.25,
+    hold: 0.8,
     closing: 'building',
     rows: [
       {
         kind: 'specialization',
-        name: 'credential-endpoint',
+        name: 'Credential Endpoint',
         note: 'Rate limits and anti-automation on sign-up',
       },
       {
         kind: 'specialization',
-        name: 'access-control',
-        note: 'Tenant isolation and Argon2id password storage',
+        name: 'Access Control',
+        note: 'Ownership checks and Argon2id password storage',
       },
       {
         kind: 'specialization',
-        name: 'crypto',
+        name: 'Cryptography',
         note: 'Unpredictable verification tokens',
       },
       {
         kind: 'specialization',
-        name: 'sql',
-        note: 'Parameterized, tenant-scoped queries',
+        name: 'SQL',
+        note: 'Parameterized, owner-scoped queries',
       },
       {
         kind: 'specialization',
-        name: 'regex',
+        name: 'Regex',
         note: 'Input validation safe from ReDoS',
       },
       {
         kind: 'specialization',
-        name: 'rust',
+        name: 'Rust',
         note: 'Sound unsafe code and checked integer math',
       },
     ],
   },
   {
     tab: 'Blue Team Audit',
-    prompt: { command: '/lagune-detect', text: '' },
-    heading: 'Scanned the whole project and mapped 4 findings:',
-    thinking: 1.7,
-    hold: 4.5,
-    closing: 'next',
+    agent: { name: 'Antigravity', icon: 'antigravity' },
+    prompt: [
+      'You are a cybersecurity orchestrator:',
+      '',
+      '- 1st sub-agent: /lagune-detect',
+      '- 2nd sub-agent: /lagune-plan',
+      '- 3rd sub-agent: /lagune-harden',
+      '- 4th sub-agent: /lagune-verify',
+      '',
+      'Loop: re-run harden and verify sub-agents until all findings are closed.',
+    ],
+    heading: 'Orchestrating 4 sub-agents',
+    thinking: 0.9,
+    pace: 0.9,
+    hold: 1,
+    closing: 'rest',
     rows: [
       {
-        kind: 'finding',
-        name: 'Invoice export',
-        note: 'One company can read another company’s invoices',
+        kind: 'step',
+        name: '/lagune-detect',
+        runs: [
+          {
+            tone: 'success',
+            note: 'Mapped 4 findings across the project',
+          },
+        ],
       },
       {
-        kind: 'finding',
-        name: 'Database password',
-        note: 'Written straight into the source code',
+        kind: 'step',
+        name: '/lagune-plan',
+        runs: [
+          {
+            tone: 'success',
+            note: 'Ranked 4 fixes by CVSS v4.0',
+          },
+        ],
       },
       {
-        kind: 'finding',
-        name: 'Password reset',
-        note: 'Reset links can be guessed',
+        kind: 'step',
+        name: '/lagune-harden',
+        runs: [
+          { tone: 'success', note: 'Applied the 4 fixes' },
+          {
+            tone: 'success',
+            note: 'Loop 2: reworked the rejected fix',
+          },
+        ],
       },
       {
-        kind: 'finding',
-        name: 'Search',
-        note: 'User input can rewrite the SQL query',
+        kind: 'step',
+        name: '/lagune-verify',
+        runs: [
+          {
+            tone: 'danger',
+            note: '3 proven closed, 1 rejected',
+          },
+          {
+            tone: 'success',
+            note: 'Loop 2: all 4 proven closed',
+          },
+        ],
       },
     ],
   },
 ];
+
+export const OUTRO: Outro = {
+  tab: 'Give Lagune a Star',
+  agent: { name: 'Cursor', icon: 'cursor' },
+  lead: 'Your',
+  trail: ' helps the project grow.',
+  agents: [
+    { name: 'OpenCode', icon: 'opencode' },
+    { name: 'Muse Code', icon: 'muse' },
+    { name: 'GitHub Copilot CLI', icon: 'copilot' },
+    { name: 'Devin', icon: 'devin' },
+    { name: 'Grok Build', icon: 'grok' },
+    { name: 'skills.sh', icon: 'vercel' },
+    { name: 'Pi', icon: 'pi' },
+    { name: 'Qwen Code', icon: 'qwen' },
+    { name: 'Kimi Code', icon: 'kimi' },
+  ],
+};
