@@ -1,5 +1,5 @@
 const DARK = `
-  --card: #151a26; --surface: #1d2432; --line: #222a38; --line-2: #2d3648;
+  --card: #151a26; --watermark: #121721; --surface: #1d2432; --line: #222a38; --line-2: #2d3648;
   --ink: #eef1f8; --ink-2: #c6ccdb; --muted: #8b93a8;
   --accent: #4f9bff; --accent-strong: #2f7bff; --on-accent: #ffffff;
   --track: #1c2a45; --success: #2fc58f; --success-tile: #163a31;
@@ -8,7 +8,7 @@ const DARK = `
   --shadow: #000000; --shadow-opacity: .45;`;
 
 const LIGHT = `
-  --card: #ffffff; --surface: #f2f4f9; --line: #e7eaf1; --line-2: #dbe0ea;
+  --card: #ffffff; --watermark: #f3f5f9; --surface: #f2f4f9; --line: #e7eaf1; --line-2: #dbe0ea;
   --ink: #17182b; --ink-2: #3d4058; --muted: #6f7489;
   --accent: #005eff; --accent-strong: #005eff; --on-accent: #ffffff;
   --track: #edf3ff; --success: #10b17d; --success-tile: #e2f6ef;
@@ -20,6 +20,7 @@ const BASE = `
 text { white-space: pre; }
 .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
 .card { fill: var(--card); }
+.watermark { color: var(--watermark); }
 .card-border { fill: none; stroke: var(--line); }
 .card-shadow { flood-color: var(--shadow); flood-opacity: var(--shadow-opacity); }
 .accent { color: var(--accent); }

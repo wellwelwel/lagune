@@ -29,6 +29,7 @@ const shimmerGradient = (id: string, baseClass: string) =>
 
 const describe = ({ sessions, outro }: FlowContext) =>
   [
+    'The GitHub logo fills the background of every empty chat and fades to half once a message arrives.',
     ...sessions.map(
       (session) =>
         `In a "${session.tab}" session with ${session.agent.name}, the user sends "${session.prompt.filter(Boolean).join(' ')}" and the agent answers "${session.heading}" ${session.rows.map((row) => row.name).join(', ')}.`

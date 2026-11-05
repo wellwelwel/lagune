@@ -23,6 +23,7 @@ export type IconName =
   | 'pi'
   | 'qwen'
   | 'kimi'
+  | 'github'
   | 'star-outline'
   | 'star';
 

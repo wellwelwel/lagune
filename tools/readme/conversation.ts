@@ -28,6 +28,7 @@ import {
   NOTE_X,
   PROMPT_SCALE,
   ROW_PITCH,
+  VIEWPORT,
 } from './layout';
 import {
   escapeXml,
@@ -51,6 +52,10 @@ const HEADING_SIZE = 15;
 const CHEVRON_GAP = 12;
 const CLOSING_X = CONTENT_LEFT;
 const CLOSING_LABEL_X = CLOSING_X + BADGE_LABEL_OFFSET;
+const WATERMARK_SIZE = 160;
+const WATERMARK_FADE_IN = 0.6;
+const WATERMARK_FADE_OUT = 2.4;
+const WATERMARK_DIMMED = 0.5;
 
 const CLOSING_MESSAGES: Record<Exclude<Closing, 'building'>, string> = {
   principles: 'All set! 8 security principles were created.',
@@ -355,13 +360,45 @@ const sessionView =
     );
   };
 
+const chatWatermark = ({ timeline, motion }: FlowContext): Fragment => {
+  const presence = motion.opacityBetween(
+    'chat-watermark',
+    [
+      ...timeline.sessions.map(({ opens, send }) => ({
+        from: opens,
+        to: send,
+        fadeIn: WATERMARK_FADE_IN,
+        fadeOut: WATERMARK_FADE_OUT,
+      })),
+      {
+        from: timeline.outro.opens,
+        to: motion.cycle,
+        fadeIn: WATERMARK_FADE_IN,
+      },
+    ],
+    WATERMARK_DIMMED
+  );
+  const x = (CONTENT_LEFT + CONTENT_RIGHT - WATERMARK_SIZE) / 2;
+  const y = (VIEWPORT.top + VIEWPORT.bottom - WATERMARK_SIZE) / 2;
+
+  return fragment(
+    `<g class="${presence.name}" style="opacity:${WATERMARK_DIMMED}">
+    ${icon('github', x, y, WATERMARK_SIZE, 'watermark')}
+  </g>`,
+    [presence]
+  );
+};
+
 export const conversation = (context: FlowContext): Fragment => {
-  const sessions = join(context.sessions.map(sessionView(context)), '\n  ');
+  const content = join(
+    [chatWatermark(context), ...context.sessions.map(sessionView(context))],
+    '\n  '
+  );
 
   return fragment(
     `<g clip-path="url(#viewport)" mask="url(#viewport-fade)">
-  ${sessions.markup}
+  ${content.markup}
   </g>`,
-    sessions.animations
+    content.animations
   );
 };

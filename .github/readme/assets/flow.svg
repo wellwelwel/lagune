@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="820" height="532" viewBox="0 0 820 532" role="img" aria-labelledby="title description">
   <title id="title">Lagune in an AI chat</title>
-  <desc id="description">In a &quot;First time using Lagune&quot; session with Claude Code, the user sends &quot;/lagune-charter It's a social media for devs&quot; and the agent answers &quot;I found that the project uses&quot; Rust, Database, Photo uploads, User sign-up. In a &quot;Using it for any task&quot; session with Codex, the user sends &quot;/lagune Implement user sign-up&quot; and the agent answers &quot;Matched specializations&quot; Credential Endpoint, Access Control, Cryptography, SQL, Regex, Rust. In a &quot;Blue Team Audit&quot; session with Antigravity, the user sends &quot;You are a cybersecurity orchestrator: - 1st sub-agent: /lagune-detect - 2nd sub-agent: /lagune-plan - 3rd sub-agent: /lagune-harden - 4th sub-agent: /lagune-verify Loop: re-run harden and verify sub-agents until all findings are closed.&quot; and the agent answers &quot;Orchestrating 4 sub-agents&quot; /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Finally, a &quot;Give Lagune a Star&quot; tab opens with Cursor and &quot;Your star helps the project grow.&quot; is typed while the agent switches through OpenCode, Muse Code, GitHub Copilot CLI, Devin, Grok Build, skills.sh, Pi, Qwen Code, Kimi Code.</desc>
+  <desc id="description">The GitHub logo fills the background of every empty chat and fades to half once a message arrives. In a &quot;First time using Lagune&quot; session with Claude Code, the user sends &quot;/lagune-charter It's a social media for devs&quot; and the agent answers &quot;I found that the project uses&quot; Rust, Database, Photo uploads, User sign-up. In a &quot;Using it for any task&quot; session with Codex, the user sends &quot;/lagune Implement user sign-up&quot; and the agent answers &quot;Matched specializations&quot; Credential Endpoint, Access Control, Cryptography, SQL, Regex, Rust. In a &quot;Blue Team Audit&quot; session with Antigravity, the user sends &quot;You are a cybersecurity orchestrator: - 1st sub-agent: /lagune-detect - 2nd sub-agent: /lagune-plan - 3rd sub-agent: /lagune-harden - 4th sub-agent: /lagune-verify Loop: re-run harden and verify sub-agents until all findings are closed.&quot; and the agent answers &quot;Orchestrating 4 sub-agents&quot; /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Finally, a &quot;Give Lagune a Star&quot; tab opens with Cursor and &quot;Your star helps the project grow.&quot; is typed while the agent switches through OpenCode, Muse Code, GitHub Copilot CLI, Devin, Grok Build, skills.sh, Pi, Qwen Code, Kimi Code.</desc>
   <defs>
     <style>
 svg {
-  --card: #151a26; --surface: #1d2432; --line: #222a38; --line-2: #2d3648;
+  --card: #151a26; --watermark: #121721; --surface: #1d2432; --line: #222a38; --line-2: #2d3648;
   --ink: #eef1f8; --ink-2: #c6ccdb; --muted: #8b93a8;
   --accent: #4f9bff; --accent-strong: #2f7bff; --on-accent: #ffffff;
   --track: #1c2a45; --success: #2fc58f; --success-tile: #163a31;
@@ -14,7 +14,7 @@ svg {
 }
 @media (prefers-color-scheme: light) {
   svg {
-  --card: #ffffff; --surface: #f2f4f9; --line: #e7eaf1; --line-2: #dbe0ea;
+  --card: #ffffff; --watermark: #f3f5f9; --surface: #f2f4f9; --line: #e7eaf1; --line-2: #dbe0ea;
   --ink: #17182b; --ink-2: #3d4058; --muted: #6f7489;
   --accent: #005eff; --accent-strong: #005eff; --on-accent: #ffffff;
   --track: #edf3ff; --success: #10b17d; --success-tile: #e2f6ef;
@@ -27,6 +27,7 @@ svg {
 text { white-space: pre; }
 .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
 .card { fill: var(--card); }
+.watermark { color: var(--watermark); }
 .card-border { fill: none; stroke: var(--line); }
 .card-shadow { flood-color: var(--shadow); flood-opacity: var(--shadow-opacity); }
 .accent { color: var(--accent); }
@@ -98,6 +99,8 @@ text { white-space: pre; }
 .tab-4{animation:tab-4 28.36s cubic-bezier(.2,0,0,1) infinite}
 @keyframes new-chat-press{0%{transform:scale(1)}20.832%{transform:scale(1)}21.361%{transform:scale(.8)}22.066%{transform:scale(1)}41.246%{transform:scale(1)}41.775%{transform:scale(.8)}42.48%{transform:scale(1)}79.927%{transform:scale(1)}80.456%{transform:scale(.8)}81.161%{transform:scale(1)}100%{transform:scale(1)}}
 .new-chat-press{animation:new-chat-press 28.36s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chat-watermark{0%{opacity:1}6.727%{opacity:1}15.19%{opacity:0.5}21.89%{opacity:0.5}24.005%{opacity:1}27.318%{opacity:1}35.781%{opacity:0.5}42.304%{opacity:0.5}44.419%{opacity:1}49.955%{opacity:1}58.418%{opacity:0.5}80.985%{opacity:0.5}83.101%{opacity:1}100%{opacity:1}}
+.chat-watermark{animation:chat-watermark 28.36s cubic-bezier(.2,0,0,1) infinite}
 @keyframes session-1{0%{opacity:1;transform:translateY(0)}21.89%{opacity:1;transform:translateY(0)}23.3%{opacity:0;transform:translateY(-8px)}99.295%{opacity:0;transform:translateY(-8px)}99.33%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
 .session-1{animation:session-1 28.36s cubic-bezier(.2,0,0,1) infinite}
 @keyframes session-1-bubble{0%{opacity:0;transform:translateY(6px)}6.904%{opacity:0;transform:translateY(6px)}8.138%{opacity:1;transform:translateY(0)}98.942%{opacity:1;transform:translateY(0)}98.977%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
@@ -335,6 +338,7 @@ text { white-space: pre; }
     <symbol id="icon-pi" viewBox="165.29 165.29 469.43 469.43" ><path fill="#f09082" d="M165.29 165.29H517.36V400H400V282.65H165.29Z"/><path fill="#4d9abf" d="M165.29 282.65H282.65V400H400V517.36H282.65V634.72H165.29Z"/><path fill="#f1be58" d="M517.36 400H634.72V634.72H517.36Z"/></symbol>
     <symbol id="icon-qwen" viewBox="17.5 27.7 135.6 135.6" fill="#082dff"><path d="M130.06,43.66h-33.37c0-1.42-.37-2.84-1.1-4.11l-4.47-7.74c-1.47-2.54-4.18-4.11-7.12-4.11h-8.93c-2.94,0-5.65,1.57-7.12,4.11l-13.68,23.69c-1.47,2.54-1.47,5.67,0,8.22l4.47,7.74c1.47,2.54,4.18,4.11,7.12,4.11h64.19c2.94,0,5.65-1.57,7.12-4.11l4.47-7.74c1.47-2.54,1.47-5.67,0-8.22l-4.47-7.74c-1.47-2.54-4.18-4.11-7.12-4.11Z"/><path d="M19.75,83.66l16.68,28.9c-1.23.71-2.27,1.74-3.01,3.01l-4.47,7.74c-1.47,2.54-1.47,5.67,0,8.22l4.47,7.74c1.47,2.54,4.18,4.11,7.12,4.11h27.35c2.94,0,5.65-1.57,7.12-4.11l4.47-7.74c1.47-2.54,1.47-5.67,0-8.22l-32.1-55.59c-1.47-2.54-4.18-4.11-7.12-4.11h-8.93c-2.94,0-5.65,1.57-7.12,4.11l-4.47,7.74c-1.47,2.54-1.47,5.67,0,8.22Z"/><path d="M109.55,159.19l16.68-28.9c1.23.71,2.64,1.1,4.11,1.1h8.93c2.94,0,5.65-1.57,7.12-4.11l4.47-7.74c1.47-2.54,1.47-5.67,0-8.22l-13.68-23.69c-1.47-2.54-4.18-4.11-7.12-4.11h-8.93c-2.94,0-5.65,1.57-7.12,4.11l-32.1,55.59c-1.47,2.54-1.47,5.67,0,8.22l4.47,7.74c1.47,2.54,4.18,4.11,7.12,4.11h8.93c2.94,0,5.65-1.57,7.12-4.11Z"/></symbol>
     <symbol id="icon-kimi" viewBox="3 -0.37 20.77 20.77" fill="currentColor"><path fill="#1783ff" d="M21.846 0a1.923 1.923 0 110 3.846H20.15a.226.226 0 01-.227-.226V1.923C19.923.861 20.784 0 21.846 0z"/><path d="M11.065 11.199l7.257-7.2c.137-.136.06-.41-.116-.41H14.3a.164.164 0 00-.117.051l-7.82 7.756c-.122.12-.302.013-.302-.179V3.82c0-.127-.083-.23-.185-.23H3.186c-.103 0-.186.103-.186.23V19.77c0 .128.083.23.186.23h2.69c.103 0 .186-.102.186-.23v-3.25c0-.069.025-.135.069-.178l2.424-2.406a.158.158 0 01.205-.023l6.484 4.772a7.677 7.677 0 003.453 1.283c.108.012.2-.095.2-.23v-3.06c0-.117-.07-.212-.164-.227a5.028 5.028 0 01-2.027-.807l-5.613-4.064c-.117-.078-.132-.279-.028-.381z"/></symbol>
+    <symbol id="icon-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2.2467A10.00042,10.00042,0,0,0,8.83752,21.73419c.5.08752.6875-.21247.6875-.475,0-.23749-.01251-1.025-.01251-1.86249C7,19.85919,6.35,18.78423,6.15,18.22173A3.636,3.636,0,0,0,5.125,16.8092c-.35-.1875-.85-.65-.01251-.66248A2.00117,2.00117,0,0,1,6.65,17.17169a2.13742,2.13742,0,0,0,2.91248.825A2.10376,2.10376,0,0,1,10.2,16.65923c-2.225-.25-4.55-1.11254-4.55-4.9375a3.89187,3.89187,0,0,1,1.025-2.6875,3.59373,3.59373,0,0,1,.1-2.65s.83747-.26251,2.75,1.025a9.42747,9.42747,0,0,1,5,0c1.91248-1.3,2.75-1.025,2.75-1.025a3.59323,3.59323,0,0,1,.1,2.65,3.869,3.869,0,0,1,1.025,2.6875c0,3.83747-2.33752,4.6875-4.5625,4.9375a2.36814,2.36814,0,0,1,.675,1.85c0,1.33752-.01251,2.41248-.01251,2.75,0,.26251.1875.575.6875.475A10.0053,10.0053,0,0,0,12,2.2467Z"/></symbol>
     <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M12 2.8l2.83 5.73 6.32.92-4.57 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.57-4.46 6.32-.92z"/></symbol>
     <symbol id="icon-star-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.8l2.83 5.73 6.32.92-4.57 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.57-4.46 6.32-.92z"/></symbol>
   </defs>
@@ -378,6 +382,9 @@ text { white-space: pre; }
     <use href="#icon-square-pen" x="774" y="21" width="18" height="18" class="muted"/>
   </g>
   <g clip-path="url(#viewport)" mask="url(#viewport-fade)">
+  <g class="chat-watermark" style="opacity:0.5">
+    <use href="#icon-github" x="330" y="158" width="160" height="160" class="watermark"/>
+  </g>
   <g class="past session-1">
     <g class="session-1-bubble">
       <path d="M501.8 84H773.5A18.5 18.5 0 0 1 792 102.5V102.5A18.5 18.5 0 0 1 773.5 121H501.8A18.5 18.5 0 0 1 483.3 102.5V102.5A18.5 18.5 0 0 1 501.8 84Z" class="bubble"/>

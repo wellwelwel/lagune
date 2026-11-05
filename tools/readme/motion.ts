@@ -39,8 +39,6 @@ const ROLL = {
   above: 'opacity:0;transform:translateY(-7px)',
 };
 
-const opacity = (visible: boolean) => `opacity:${visible ? 1 : 0}`;
-
 export const fragment = (
   markup: string,
   animations: Animation[] = []
@@ -76,32 +74,42 @@ export const createMotion = ({ cycle, fade, reset }: Timeline) => {
   const enterUntilFade = (name: string, at: number): Animation =>
     enterUntil(name, at, SLIDE_IN, fade, 0.4);
 
+  const opacityBetween = (
+    name: string,
+    windows: VisibilityWindow[],
+    outside: number
+  ): Animation => {
+    const opacity = (inside: boolean) => `opacity:${inside ? 1 : outside}`;
+
+    return {
+      name,
+      stops: [
+        { at: 0, style: opacity(windows[0]?.from === 0) },
+        ...windows.flatMap(
+          ({ from, to, fadeIn = INSTANT, fadeOut = INSTANT }): Stop[] => [
+            ...(from > 0
+              ? [
+                  { at: from, style: opacity(false) },
+                  { at: from + fadeIn, style: opacity(true) },
+                ]
+              : []),
+            ...(to < cycle
+              ? [
+                  { at: to, style: opacity(true) },
+                  { at: to + fadeOut, style: opacity(false) },
+                ]
+              : []),
+          ]
+        ),
+        { at: cycle, style: opacity((windows.at(-1)?.to ?? 0) >= cycle) },
+      ],
+    };
+  };
+
   const visibleBetween = (
     name: string,
     windows: VisibilityWindow[]
-  ): Animation => ({
-    name,
-    stops: [
-      { at: 0, style: opacity(windows[0]?.from === 0) },
-      ...windows.flatMap(
-        ({ from, to, fadeIn = INSTANT, fadeOut = INSTANT }): Stop[] => [
-          ...(from > 0
-            ? [
-                { at: from, style: opacity(false) },
-                { at: from + fadeIn, style: opacity(true) },
-              ]
-            : []),
-          ...(to < cycle
-            ? [
-                { at: to, style: opacity(true) },
-                { at: to + fadeOut, style: opacity(false) },
-              ]
-            : []),
-        ]
-      ),
-      { at: cycle, style: opacity((windows.at(-1)?.to ?? 0) >= cycle) },
-    ],
-  });
+  ): Animation => opacityBetween(name, windows, 0);
 
   const leaveAt = (name: string, at: number): Animation => ({
     name,
@@ -165,6 +173,7 @@ export const createMotion = ({ cycle, fade, reset }: Timeline) => {
     enter,
     rollBetween,
     enterUntilFade,
+    opacityBetween,
     visibleBetween,
     leaveAt,
     pressAt,
