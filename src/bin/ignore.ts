@@ -11,7 +11,6 @@ import {
 } from '../cli/messages.js';
 import {
   CHECKERS,
-  checkersConfigOf,
   checkersRecord,
   checkersWithOwnList,
   ignoreListOf,
@@ -19,7 +18,8 @@ import {
   MAX_IGNORE_ENTRIES,
   readIgnorePattern,
   withIgnoreList,
-} from '../core/checkers.js';
+} from '../core/checker-rules.js';
+import { checkersConfigOf } from '../core/checkers.js';
 import { changeList } from '../core/collections.js';
 import { readConfigs, recordConfigs } from '../core/configs.js';
 

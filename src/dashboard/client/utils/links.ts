@@ -8,5 +8,8 @@ export const INSTALL_DOC_HREF = LINKS.docs;
 
 export const findingHref = (id: string): string => `/findings/${id}`;
 
+export const hookDocHref = (checker: string | undefined): string =>
+  `${LINKS.docs}/hooks/${checker ?? 'configure'}`;
+
 export const commandDocHref = (key: string): string =>
   `${LINKS.docs}/commands/${key}`;

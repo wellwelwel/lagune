@@ -10,6 +10,7 @@ import { readMarkdown, readText } from '../../../../core/markdown/read';
 import { parseTracking, pathsByName } from '../tracking';
 import { buildCatalog } from './catalog';
 import { buildCharter } from './charter';
+import { buildCheckers } from './checkers';
 import { buildFindings } from './findings';
 import { buildHistory } from './history';
 import { matchProject, matchVersion } from './meta';
@@ -18,17 +19,27 @@ import { buildSideQuests } from './sidequests';
 
 export const buildData = async (laguneDir: string): Promise<DashboardData> => {
   const projectRoot = resolve(laguneDir, '..');
-  const [detect, plan, harden, charter, history, tracking, categories, own] =
-    await Promise.all([
-      readMarkdown(join(laguneDir, 'memory/detect.md')),
-      readMarkdown(join(laguneDir, 'memory/plan.md')),
-      readMarkdown(join(laguneDir, 'memory/harden.md')),
-      readMarkdown(join(laguneDir, 'memory/charter.md')),
-      readMarkdown(join(laguneDir, 'memory/history.md')),
-      readText(join(laguneDir, 'tracking.json')),
-      readProjectCategories(projectRoot).catch(() => undefined),
-      readOwnIndex(projectRoot).catch(() => []),
-    ]);
+  const [
+    detect,
+    plan,
+    harden,
+    charter,
+    history,
+    tracking,
+    categories,
+    own,
+    checkers,
+  ] = await Promise.all([
+    readMarkdown(join(laguneDir, 'memory/detect.md')),
+    readMarkdown(join(laguneDir, 'memory/plan.md')),
+    readMarkdown(join(laguneDir, 'memory/harden.md')),
+    readMarkdown(join(laguneDir, 'memory/charter.md')),
+    readMarkdown(join(laguneDir, 'memory/history.md')),
+    readText(join(laguneDir, 'tracking.json')),
+    readProjectCategories(projectRoot).catch(() => undefined),
+    readOwnIndex(projectRoot).catch(() => []),
+    buildCheckers(projectRoot),
+  ]);
   const used = usedCategories(categories);
   const entries = await resolveCatalog(projectRoot, used, own);
 
@@ -58,6 +69,7 @@ export const buildData = async (laguneDir: string): Promise<DashboardData> => {
       used,
       recorded: categories !== undefined,
     },
+    checkers,
     history: buildHistory(history).reverse(),
     artifacts: [detect, plan, harden, charter, history].some(
       (artifact) => artifact !== null

@@ -18,6 +18,9 @@ export const MICRO_LABEL =
 
 export const GROUP_HEAD = `mb-3 flex items-center gap-2.5 ${MICRO_LABEL}`;
 
+export const TOOLTIP =
+  'pointer-events-none absolute bottom-[calc(100%+0.375rem)] translate-y-1 scale-95 whitespace-nowrap rounded-sm bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ease-house group-hover/tip:translate-y-0 group-hover/tip:scale-100 group-hover/tip:opacity-100';
+
 export const LINK =
   'inline-flex items-center gap-1.5 text-[0.8rem] font-bold text-accent no-underline hover:underline';
 
@@ -37,6 +40,11 @@ export const VPILL_TONE: Record<VerdictKind, string> = {
 };
 
 export const CARD = 'rounded-lg bg-surface shadow-card';
+
+export const PANEL = 'rounded-xl bg-surface p-6 shadow-card';
+
+export const ROW_EDGES =
+  'border-t border-line px-4.5 py-3 first:border-t-0 first:pt-4.5 last:pb-4.5';
 
 export const LIST_ROW =
   'flex items-start gap-3 border-t border-line px-4.5 py-3 last:pb-4.5';

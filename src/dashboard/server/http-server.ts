@@ -1,5 +1,5 @@
 import type { IncomingMessage, Server, ServerResponse } from 'node:http';
-import type { ActionResponse } from '../../types/dashboard/api';
+import type { ActionFailure } from '../../types/dashboard/api';
 import type {
   ActionHandler,
   DashboardServerOptions,
@@ -8,6 +8,7 @@ import type {
 } from '../../types/dashboard/server';
 import { createServer } from 'node:http';
 import { extname } from 'node:path';
+import { errorMessage } from '../../core/errors';
 import { ACTIONS } from './actions';
 import { buildData } from './data/build/data';
 import { createRequestGuards, crossSiteFetch, readJsonBody } from './guards';
@@ -15,7 +16,7 @@ import { createLiveReload } from './live-reload';
 import { tokenMatches } from './session';
 import { serveStatic } from './static-files';
 
-const sendData = async (
+const dataResponse = async (
   laguneDir: string
 ): Promise<{ status: number; body: string }> => {
   try {
@@ -24,8 +25,10 @@ const sendData = async (
       body: JSON.stringify(await buildData(laguneDir)),
     };
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    return { status: 500, body: JSON.stringify({ error: message }) };
+    return {
+      status: 500,
+      body: JSON.stringify({ error: errorMessage(error) }),
+    };
   }
 };
 
@@ -76,6 +79,7 @@ const rejectCrossSite = (
   if (!crossSiteFetch(req)) return false;
 
   sendJson(res, 403, JSON.stringify({ error: 'Forbidden' }));
+
   return true;
 };
 
@@ -86,7 +90,7 @@ const sendMethodNotAllowed = (res: ServerResponse, allow: string): void => {
 
 const rejectionFor = (
   body: JsonBodyResult
-): { status: number; response: ActionResponse } | undefined => {
+): { status: number; response: ActionFailure } | undefined => {
   if (body.kind === 'unsupported-type')
     return {
       status: 415,
@@ -127,6 +131,7 @@ export const createDashboardServer = (
       !tokenMatches(token, req.headers['x-lagune-token'])
     ) {
       sendJson(res, 403, JSON.stringify({ ok: false, error: 'Forbidden' }));
+
       return;
     }
 
@@ -136,6 +141,7 @@ export const createDashboardServer = (
         409,
         JSON.stringify({ ok: false, error: 'Another action is running' })
       );
+
       return;
     }
 
@@ -171,6 +177,7 @@ export const createDashboardServer = (
 
     if (!guards.hostAllowed(req)) {
       sendJson(res, 403, JSON.stringify({ error: 'Forbidden' }));
+
       return;
     }
 
@@ -179,15 +186,18 @@ export const createDashboardServer = (
     if (handler !== undefined) {
       if (method !== 'POST') {
         sendMethodNotAllowed(res, 'POST');
+
         return;
       }
 
       await runAction(req, res, handler);
+
       return;
     }
 
     if (method !== 'GET') {
       sendMethodNotAllowed(res, 'GET');
+
       return;
     }
 
@@ -195,14 +205,17 @@ export const createDashboardServer = (
       if (rejectCrossSite(req, res)) return;
 
       sendJson(res, 200, JSON.stringify({ token }));
+
       return;
     }
 
     if (url === '/api/data') {
       if (rejectCrossSite(req, res)) return;
 
-      const { status, body } = await sendData(paths.lagune);
+      const { status, body } = await dataResponse(paths.lagune);
+
       sendJson(res, status, body);
+
       return;
     }
 
@@ -216,6 +229,7 @@ export const createDashboardServer = (
       live.add(res);
       req.on('close', () => live.remove(res));
       res.on('error', () => live.remove(res));
+
       return;
     }
 

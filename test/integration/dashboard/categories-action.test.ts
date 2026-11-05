@@ -1,45 +1,9 @@
 import type { ActionResult } from '../../../src/types/dashboard/server.js';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { afterEach, describe, it, strict } from 'poku';
-import { ACTIONS } from '../../../src/dashboard/server/actions.js';
+import { describe, it, strict } from 'poku';
+import { newProject, recorded, runAction } from './__utils__.js';
 
-const packageRoot = new URL('../../../', import.meta.url);
-const projects: string[] = [];
-
-const newProject = async (configs?: string): Promise<string> => {
-  const project = await mkdtemp(join(tmpdir(), 'lagune-action-'));
-
-  projects.push(project);
-
-  if (configs === undefined) return project;
-
-  await mkdir(join(project, '.lagune'), { recursive: true });
-  await writeFile(join(project, '.lagune/configs.json'), configs);
-
-  return project;
-};
-
-const record = (project: string, body: unknown): Promise<ActionResult> => {
-  const handler = ACTIONS.get('/api/actions/categories');
-
-  if (handler === undefined)
-    throw new Error('the categories action is missing');
-
-  return handler(body, { cwd: project, packageRoot });
-};
-
-const recorded = (project: string): Promise<string | null> =>
-  readFile(join(project, '.lagune/configs.json'), 'utf8').catch(() => null);
-
-afterEach(async () => {
-  await Promise.all(
-    projects.map((project) => rm(project, { recursive: true, force: true }))
-  );
-
-  projects.length = 0;
-});
+const record = (project: string, body: unknown): Promise<ActionResult> =>
+  runAction('/api/actions/categories', project, body);
 
 await describe('the dashboard records the chosen categories as add and remove do', async () => {
   await it('adds to the default while none is recorded', async () => {

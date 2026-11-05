@@ -1,4 +1,5 @@
 import type { CategoryKey } from '../categories.js';
+import type { CheckerName, CheckerSettings } from '../checkers.js';
 import type { Finding, PhaseName, Severity } from './dashboard.js';
 
 export type RouteScope =
@@ -91,7 +92,10 @@ export type IconName =
   | 'info'
   | 'bulb'
   | 'pencil'
-  | 'save';
+  | 'save'
+  | 'sliders'
+  | 'git'
+  | 'folderMinus';
 
 export type AdmonitionKind = 'note' | 'info' | 'tip' | 'warning' | 'danger';
 
@@ -250,20 +254,69 @@ export type TabItem = {
   icon: IconName;
 };
 
+export type SettingsTab = 'categories' | 'hooks';
+
+export type SettingsTabItem = TabItem & { key: SettingsTab };
+
+export type SegmentOption<Key extends string> = { key: Key; label: string };
+
+export type HookMeta = {
+  label: string;
+  blurb: string;
+  icon: IconName;
+};
+
+export type HookScope = CheckerName | undefined;
+
+export type GitChoice = 'shared' | 'skip' | 'scan';
+
+export type ListChoice = 'shared' | 'own';
+
+export type SettingShift = { from: string; to: string };
+
+export type ScopeChange = {
+  scope: HookScope;
+  gitignore: SettingShift | null;
+  list: SettingShift | null;
+  added: string[];
+  removed: string[];
+};
+
+export type HookSummary = CheckerSettings & {
+  customGit: boolean;
+  customList: boolean;
+};
+
 export type ActionRunState = 'idle' | 'pending' | 'success' | 'error';
 
 export type RunButton = { icon: IconName; label: string };
 
-export type ModalState = {
-  kind: 'categories';
-  run: ActionRunState;
-  added: number;
-  removed: number;
-};
+export type ModalState =
+  | {
+      kind: 'categories';
+      run: ActionRunState;
+      added: number;
+      removed: number;
+    }
+  | {
+      kind: 'checkers';
+      run: ActionRunState;
+      changed: number;
+      changes: ScopeChange[];
+    };
+
+export type ModalKind = ModalState['kind'];
 
 export type ActionModalHeader = {
-  eyebrow: string;
   icon: IconName;
   title: string;
   subtitle: string;
+};
+
+export type ActionCopy = {
+  eyebrow: string;
+  headers: Record<ActionRunState, ActionModalHeader>;
+  pending: string;
+  resultIcon: IconName;
+  doneRoute: string | null;
 };

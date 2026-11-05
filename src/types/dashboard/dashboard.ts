@@ -1,3 +1,5 @@
+import type { CheckerName, CheckerOverride } from '../checkers.js';
+
 export type Severity = 'Critical' | 'High' | 'Medium' | 'Low' | 'Unranked';
 
 export type PhaseState = 'done' | 'current' | 'todo';
@@ -77,6 +79,12 @@ export type ProjectCategories = {
   recorded: boolean;
 };
 
+export type ProjectCheckers = {
+  shared: CheckerOverride;
+  own: [CheckerName, CheckerOverride][];
+  problem: string | null;
+};
+
 export type DashboardDates = {
   mapped: string | null;
   planned: string | null;
@@ -112,6 +120,7 @@ export type DashboardData = {
   charter: Charter;
   catalog: CatalogItem[];
   categories: ProjectCategories;
+  checkers: ProjectCheckers;
   history: HistoryItem[];
   artifacts: boolean;
 };

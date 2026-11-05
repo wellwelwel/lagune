@@ -3,7 +3,7 @@ import type { VNode } from 'preact';
 import { agentThemeAt } from '@/dashboard/shared/agent-themes';
 import { AGENT_REPLY } from '@/dashboard/shared/specialization-meta';
 import { useEffect, useState } from 'preact/hooks';
-import { GLYPH_SWAP } from '../../utils/tailwind-classes';
+import { GLYPH_SWAP, TOOLTIP } from '../../utils/tailwind-classes';
 import { Icon } from '../primitives/icons';
 import { MaskIcon } from '../primitives/mask-icon';
 import { Modal } from '../primitives/modal';
@@ -44,20 +44,26 @@ export const PromptAgentModal = (
   useEffect(() => {
     if (!promptDone) {
       setReplying(false);
+
       return;
     }
+
     const timer = setTimeout(() => setReplying(true), THINKING_DOTS_HOLD_MS);
+
     return () => clearTimeout(timer);
   }, [promptDone]);
 
   useEffect(() => {
     if (!copied) return;
+
     const timer = setTimeout(() => setCopied(false), 1800);
+
     return () => clearTimeout(timer);
   }, [copied]);
 
   const copy = () => {
     const text = props.prompt.map((part) => part.text).join('');
+
     void navigator.clipboard?.writeText(text).catch(() => undefined);
     setCopied(true);
   };
@@ -182,7 +188,7 @@ export const PromptAgentModal = (
             </span>
           </span>
         </span>
-        <span class='group/copy relative flex-none'>
+        <span class='group/tip relative flex-none'>
           <button
             class='lagune-cta relative grid size-10 cursor-pointer place-items-center overflow-hidden rounded-md text-[1rem] text-white transition-shadow duration-300 ease-out [background:linear-gradient(180deg,#1f7bff_0%,var(--color-accent)_100%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.35),0_2px_6px_-2px_rgba(0,0,0,0.35)] hover:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.45),0_6px_14px_-4px_rgba(0,0,0,0.4)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2'
             type='button'
@@ -202,9 +208,7 @@ export const PromptAgentModal = (
               </span>
             </span>
           </button>
-          <span class='pointer-events-none absolute bottom-[calc(100%+0.375rem)] right-0 translate-y-1 scale-95 whitespace-nowrap rounded-sm bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ease-house group-hover/copy:translate-y-0 group-hover/copy:scale-100 group-hover/copy:opacity-100'>
-            Copy this prompt
-          </span>
+          <span class={`${TOOLTIP} right-0`}>Copy this prompt</span>
         </span>
       </div>
     </Modal>

@@ -1,6 +1,7 @@
 import type {
+  ActionCopy,
   ActionModalHeader,
-  ActionRunState,
+  ModalKind,
   ModalState,
 } from '@/types/dashboard/client';
 import type { VNode } from 'preact';
@@ -13,59 +14,131 @@ import { NextStepCard } from '../next-step-card';
 import { Admonition } from '../primitives/admonition';
 import { Icon } from '../primitives/icons';
 import { Modal } from '../primitives/modal';
+import { HookChanges } from './hook-changes';
 
-const CATEGORIES_HEADER: Record<ActionRunState, ActionModalHeader> = {
-  idle: {
+const FAILED_HEADER: ActionModalHeader = {
+  icon: 'alertTriangle',
+  title: 'Update failed',
+  subtitle: 'Nothing changed. Check the terminal and retry.',
+};
+
+const ACTION_COPY: Record<ModalKind, ActionCopy> = {
+  categories: {
     eyebrow: 'Categories',
-    icon: 'graduationCap',
-    title: 'Ready to apply',
-    subtitle: 'Recording the categories this project uses.',
+    headers: {
+      idle: {
+        icon: 'graduationCap',
+        title: 'Ready to apply',
+        subtitle: 'Recording the categories this project uses.',
+      },
+      pending: {
+        icon: 'refresh',
+        title: 'Recording categories',
+        subtitle: 'Writing them to the project catalog.',
+      },
+      success: {
+        icon: 'checkCircle',
+        title: 'Categories recorded',
+        subtitle: 'The specializations detect can draw on have changed.',
+      },
+      error: FAILED_HEADER,
+    },
+    pending: 'Recording the categories for this project…',
+    resultIcon: 'brain',
+    doneRoute: '/',
   },
-  pending: {
-    eyebrow: 'Categories',
-    icon: 'refresh',
-    title: 'Recording categories',
-    subtitle: 'Writing them to the project catalog.',
-  },
-  success: {
-    eyebrow: 'Categories',
-    icon: 'checkCircle',
-    title: 'Categories recorded',
-    subtitle: 'The specializations detect can draw on have changed.',
-  },
-  error: {
-    eyebrow: 'Categories',
-    icon: 'alertTriangle',
-    title: 'Update failed',
-    subtitle: 'Nothing changed. Check the terminal and retry.',
+  checkers: {
+    eyebrow: 'Hooks',
+    headers: {
+      idle: {
+        icon: 'sliders',
+        title: 'Ready to apply',
+        subtitle: 'Recording what the hooks scan.',
+      },
+      pending: {
+        icon: 'refresh',
+        title: 'Recording settings',
+        subtitle: 'Writing them to the project configs.',
+      },
+      success: {
+        icon: 'checkCircle',
+        title: 'Settings recorded',
+        subtitle: "The changes take effect on each hook's next scan.",
+      },
+      error: FAILED_HEADER,
+    },
+    pending: 'Recording what the hooks scan in this project…',
+    resultIcon: 'sliders',
+    doneRoute: null,
   },
 };
 
-const CategoryCount = (props: { value: number; verb: string }): VNode => (
+const SUMMARY = 'text-[0.85rem] text-muted';
+
+const Count = (props: {
+  value: number;
+  one: string;
+  many: string;
+  verb: string;
+}): VNode => (
   <>
     <span class='tabular-nums font-semibold text-ink-2'>{props.value}</span>{' '}
-    {props.value === 1 ? 'category' : 'categories'} {props.verb}
+    {props.value === 1 ? props.one : props.many} {props.verb}
   </>
 );
 
-const CategoriesSummary = (props: { state: ModalState }): VNode => {
-  const { added, removed } = props.state;
+const CategoriesSummary = (props: {
+  added: number;
+  removed: number;
+}): VNode => {
+  const { added, removed } = props;
 
   if (added === 0 && removed === 0)
-    return (
-      <span class='text-[0.85rem] text-muted'>
-        The same categories, now recorded
-      </span>
-    );
+    return <span class={SUMMARY}>The same categories, now recorded</span>;
 
   return (
-    <span class='text-[0.85rem] text-muted'>
-      {added > 0 && <CategoryCount value={added} verb='added' />}
+    <span class={SUMMARY}>
+      {added > 0 && (
+        <Count value={added} one='category' many='categories' verb='added' />
+      )}
       {added > 0 && removed > 0 && ', '}
-      {removed > 0 && <CategoryCount value={removed} verb='removed' />}
+      {removed > 0 && (
+        <Count
+          value={removed}
+          one='category'
+          many='categories'
+          verb='removed'
+        />
+      )}
     </span>
   );
 };
+
+const CheckersSummary = (props: { changed: number }): VNode => {
+  if (props.changed === 0)
+    return <span class={SUMMARY}>Every hook scans as before</span>;
+
+  return (
+    <span class={SUMMARY}>
+      <Count
+        value={props.changed}
+        one='hook'
+        many='hooks'
+        verb={props.changed === 1 ? 'scans differently' : 'scan differently'}
+      />
+    </span>
+  );
+};
+
+const Summary = (props: { state: ModalState }): VNode =>
+  props.state.kind === 'categories' ? (
+    <CategoriesSummary
+      added={props.state.added}
+      removed={props.state.removed}
+    />
+  ) : (
+    <CheckersSummary changed={props.state.changed} />
+  );
 
 const CategoriesNext = (): VNode => {
   const detect = phaseCommand('Detect') ?? PHASE_COMMANDS[1];
@@ -90,11 +163,13 @@ export const ActionModal = (): VNode | null => {
 
   if (state === null) return null;
 
-  const header = CATEGORIES_HEADER[state.run];
+  const copy = ACTION_COPY[state.kind];
+  const header = copy.headers[state.run];
   const close = () => (modal.value = null);
   const done = () => {
     close();
-    route('/');
+
+    if (copy.doneRoute !== null) route(copy.doneRoute);
   };
 
   return (
@@ -114,7 +189,7 @@ export const ActionModal = (): VNode | null => {
             >
               <Icon name={header.icon} />
             </span>
-            {header.eyebrow}
+            {copy.eyebrow}
           </span>
           <h2 class='mt-1 text-[1.25rem] font-extrabold leading-[1.15] tracking-[-0.02em]'>
             {header.title}
@@ -131,9 +206,7 @@ export const ActionModal = (): VNode | null => {
                 <Icon name='refresh' />
               </span>
             </span>
-            <span class='text-[0.85rem] text-muted'>
-              Recording the categories for this project…
-            </span>
+            <span class='text-[0.85rem] text-muted'>{copy.pending}</span>
           </div>
         )}
 
@@ -143,7 +216,7 @@ export const ActionModal = (): VNode | null => {
               <Icon name='alertTriangle' />
             </span>
             <span class='text-[0.85rem] text-muted'>
-              {actionFailed(header.eyebrow)}
+              {actionFailed(copy.eyebrow)}
             </span>
           </div>
         )}
@@ -152,12 +225,18 @@ export const ActionModal = (): VNode | null => {
           <>
             <div class='flex items-center gap-3 rounded-lg bg-surface p-4.5 shadow-card'>
               <span class={`${TILE_SM} bg-teal-soft text-teal`}>
-                <Icon name='brain' />
+                <Icon name={copy.resultIcon} />
               </span>
-              <CategoriesSummary state={state} />
+              <Summary state={state} />
             </div>
 
-            <CategoriesNext />
+            {state.kind === 'categories' ? (
+              <CategoriesNext />
+            ) : (
+              state.changes.length > 0 && (
+                <HookChanges changes={state.changes} />
+              )
+            )}
           </>
         )}
       </div>

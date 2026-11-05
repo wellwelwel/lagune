@@ -6,6 +6,7 @@ import { deepFreeze } from '../../../src/core/collections.js';
 const packageRoot = new URL('../../../', import.meta.url);
 const SHARED_SOURCES = [
   'src/bin/hooks.ts',
+  'src/core/checker-rules.ts',
   'src/core/checkers.ts',
   'src/core/git/',
   'src/core/scan/',

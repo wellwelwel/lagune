@@ -18,7 +18,12 @@ import { Icon } from '../components/primitives/icons';
 import { MaskIcon } from '../components/primitives/mask-icon';
 import { PromptPreview } from '../components/prompt/preview';
 import { useData } from '../data/state';
-import { BADGE, classes, MICRO_LABEL } from '../utils/tailwind-classes';
+import {
+  BADGE,
+  classes,
+  MICRO_LABEL,
+  TOOLTIP,
+} from '../utils/tailwind-classes';
 
 const SpecializationCard = ({
   item,
@@ -79,14 +84,14 @@ const SpecializationCard = ({
           {specializationCategories(item.name).map((category) => (
             <span
               class={classes(
-                'group/chip relative grid size-8 place-items-center rounded-sm',
+                'group/tip relative grid size-8 place-items-center rounded-sm',
                 used.has(category.key)
                   ? 'bg-accent-soft text-accent'
                   : 'bg-surface-2 text-faint'
               )}
             >
               <MaskIcon src={category.icon} class='size-4 bg-current' />
-              <span class='pointer-events-none absolute bottom-[calc(100%+0.375rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 whitespace-nowrap rounded-sm bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ease-house group-hover/chip:translate-y-0 group-hover/chip:scale-100 group-hover/chip:opacity-100'>
+              <span class={`${TOOLTIP} left-1/2 -translate-x-1/2`}>
                 {category.label}
               </span>
             </span>

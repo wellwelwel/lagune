@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { env, pid } from 'node:process';
 import { describe, it, strict } from 'poku';
-import { DEFAULT_SETTINGS } from '../../../src/core/checkers.js';
+import { DEFAULT_SETTINGS } from '../../../src/core/checker-rules.js';
 import { SOURCE_FILTER } from '../../../src/core/scan/filters.js';
 import { walkTargets } from '../../../src/core/scan/walk.js';
 import { git, newWorkspace, writeFiles } from './__utils__.js';

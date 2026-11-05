@@ -2,7 +2,7 @@ import type { ConfigsSchema } from '../../../src/types/test.js';
 import { readFile } from 'node:fs/promises';
 import { describe, it, strict } from 'poku';
 import { CATEGORIES } from '../../../src/categories/categories.js';
-import { CHECKERS } from '../../../src/core/checkers.js';
+import { CHECKERS } from '../../../src/core/checker-rules.js';
 import { listPackedPaths, packageRoot } from '../plugins/__utils__.js';
 
 const schemaFile = new URL('schemas/configs.json', packageRoot);

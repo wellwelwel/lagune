@@ -24,6 +24,7 @@ import {
   FiEdit3,
   FiFile,
   FiFileText,
+  FiFolderMinus,
   FiGithub,
   FiGitPullRequest,
   FiGlobe,
@@ -44,6 +45,7 @@ import {
   FiSearch,
   FiSettings,
   FiShield,
+  FiSliders,
   FiSquare,
   FiStar,
   FiSun,
@@ -58,6 +60,7 @@ import {
 import { LuBrain, LuGraduationCap, LuLightbulb } from 'react-icons/lu';
 import { MdOutlineWifiTethering, MdPortableWifiOff } from 'react-icons/md';
 import { RiMessageAi3Line, RiRobot2Fill } from 'react-icons/ri';
+import { SiGit } from 'react-icons/si';
 
 const registry = {
   grid: FiGrid,
@@ -120,9 +123,13 @@ const registry = {
   bulb: LuLightbulb,
   pencil: FiEdit3,
   save: FiSave,
+  sliders: FiSliders,
+  git: SiGit,
+  folderMinus: FiFolderMinus,
 } satisfies Record<IconName, IconType>;
 
 export const Icon = (props: { name: IconName }): VNode => {
   const Glyph = registry[props.name];
+
   return <Glyph aria-hidden='true' />;
 };

@@ -10,7 +10,8 @@ import type {
 } from '../../types/scan.js';
 import { readdir, stat } from 'node:fs/promises';
 import { join, relative, sep } from 'node:path';
-import { costlyPatterns, readIgnorePattern } from '../checkers.js';
+import { readIgnorePattern } from '../checker-rules.js';
+import { costlyPatterns } from '../checkers.js';
 import { deepFreeze } from '../collections.js';
 import { isIgnored, MATCH_STEPS } from '../git/pattern.js';
 import { gitIgnoresOf } from '../git/repository.js';

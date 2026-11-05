@@ -1,5 +1,9 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import type { ActionResponse } from './api.js';
+import type {
+  ActionResponse,
+  CategoriesChange,
+  CheckersChange,
+} from './api.js';
 
 export type StaticAsset = {
   status: number;
@@ -34,7 +38,7 @@ export type ActionContext = {
 
 export type ActionResult = {
   status: number;
-  body: ActionResponse;
+  body: ActionResponse<CategoriesChange | CheckersChange>;
 };
 
 export type ActionHandler = (
