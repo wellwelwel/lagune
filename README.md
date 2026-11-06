@@ -142,14 +142,49 @@ Once installed, your **AI** agent unlocks a set of commands, all governed by the
 >
 > See real-world [**Prompt Samples**](https://lagune.ai/docs/examples/prompts) 🪼
 
-#### › Build
+#### › First use
+
+Start here, before building or auditing:
+
+| Skill                                                          | What it does for you                                                           |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, the foundation every other skill builds on |
+
+##### Examples
+
+```md
+/lagune-charter
+```
+
+```md
+/lagune-charter <PRD.md>
+```
+
+```md
+/lagune-charter <describe your project and what it does>
+```
+
+#### › Build _(Universal)_
 
 Harden the work as you write it, with no flow to follow:
 
-| Skill                                                               | What it does for you                                                        |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| [**/lagune-charter**](https://lagune.ai/docs/commands/charter)      | Sets your project's security rules, the foundation `/lagune` builds against |
-| [**/lagune**](https://lagune.ai/docs/commands/lagune) _(Universal)_ | Builds what you ask and hardens it as it is written, guided by the charter  |
+| Skill                                                 | What it does for you                                                       |
+| ----------------------------------------------------- | -------------------------------------------------------------------------- |
+| [**/lagune**](https://lagune.ai/docs/commands/lagune) | Builds what you ask and hardens it as it is written, guided by the charter |
+
+##### Examples
+
+```md
+/lagune let users upload a custom photo on their profile.
+```
+
+```md
+/lagune nothing happens when the user submits the form. Look into what it might be and fix it.
+```
+
+```md
+/lagune decouple and improve the payload logic
+```
 
 #### › Audit: the Blue Team flow
 
@@ -162,6 +197,29 @@ These five run in order. Each builds on the previous, so following the list top 
 | 3   | [**/lagune-plan**](https://lagune.ai/docs/commands/plan)       | Turns what detect found into a defense plan, with a fix for each finding       |
 | 4   | [**/lagune-harden**](https://lagune.ai/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
 | 5   | [**/lagune-verify**](https://lagune.ai/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
+
+##### Examples
+
+```md
+You are a cybersecurity orchestrator:
+
+- 0th sub-agent: /lagune-charter (only if no charter exists)
+- 1st sub-agent: /lagune-detect
+- 2nd sub-agent: /lagune-plan
+- 3rd sub-agent: /lagune-harden
+- 4th sub-agent: /lagune-verify
+
+Loop: re-run harden and verify sub-agents until all findings are closed.
+```
+
+Combine them with your own skills, for example:
+
+```md
+// ...
+
+- 3rd sub-agent: /lagune-harden /engineering
+- 4th sub-agent: /lagune-verify /code-review
+```
 
 #### › Special skills
 

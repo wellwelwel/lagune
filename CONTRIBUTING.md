@@ -36,6 +36,19 @@ The final commit message will be generated from the _PR_ title by using "**Squas
 
 ---
 
+## Translations
+
+🌎 The website is written in English, and every translation is generated from it with the latest **Claude Opus** at extra high effort.
+
+- Each one is written for the language variant its locale code names, such as Brazilian Portuguese for `pt-BR`.
+- The language flags come from [**flag-icons**](https://github.com/lipis/flag-icons), under the MIT License.
+
+Corrections and requests for new languages are welcome:
+
+- Open an [**Issue**](https://github.com/wellwelwel/lagune/issues/new), or send a **Pull Request** following [Translating the website](#-translating-the-website).
+
+---
+
 ## Developing
 
 ### ⚙️ Environment
@@ -120,9 +133,13 @@ npm run website:build   # Ensuring it still builds
 
 ---
 
-### 🌎 Translations
+### 🌎 Translating the website
 
-The website is written in English, which always leads: a change starts in English and then reaches each translation. Every other language lives in its own folder, `website/i18n/<code>/`, and that folder's `GUIDE.md` holds the tone, the glossary, and the translation rules for that language. Read it before translating anything.
+A change always starts in English and then reaches each translation. Every other language lives in its own folder, `website/i18n/<code>/`, and that folder's `GUIDE.md` holds the tone, the glossary, and the translation rules for that language. Read it before translating anything.
+
+> [!NOTE]
+>
+> A translation, or the lack of one, never blocks any work. A change made in English alone is complete, and the translations can follow it later.
 
 The translation tool runs from the repository root:
 
@@ -130,7 +147,7 @@ The translation tool runs from the repository root:
 bun run --cwd website i18n check
 ```
 
-`check` reports what each language has translated, which pages fell behind English, and anything a translation changed that must stay as in English, such as a command, inline code, a code block, a token, or a link. It fails on any error, and CI runs it on every website change.
+`check` reports what each language has translated, which pages fell behind English, and anything a translation changed that must stay as in English, such as a command, inline code, a code block, a token, or a link. It fails on any error, and CI runs it on every website change as a report only for future reference.
 
 #### Adding a language
 

@@ -131,7 +131,7 @@ export const OUTRO: Outro = {
   tab: 'Give Lagune a Star',
   agent: { name: 'Cursor', icon: 'cursor' },
   lead: 'Your',
-  trail: ' helps the project grow.',
+  trail: ' helps Lagune grow.',
   agents: [
     { name: 'OpenCode', icon: 'opencode' },
     { name: 'Muse Code', icon: 'muse' },
