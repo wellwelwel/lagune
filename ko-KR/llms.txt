@@ -71,3 +71,4 @@ Lagune은 오픈 소스이자 방어 전용인 Security-Driven Hardening(SDH) �
 - [简体中文](https://lagune.ai/zh-CN/llms.txt)
 - [日本語](https://lagune.ai/ja-JP/llms.txt)
 - [हिन्दी](https://lagune.ai/hi-IN/llms.txt)
+- [Bahasa Indonesia](https://lagune.ai/id-ID/llms.txt)

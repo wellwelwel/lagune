@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/examples/prompts
 Idioma: es-ES
 Original: https://lagune.ai/docs/examples/prompts
-Última actualización: 2026-11-04
+Última actualización: 2026-11-06
 
 Prompts de Lagune listos para copiar y pegar directamente en tu agente de IA.
 
@@ -65,7 +65,7 @@ Un análisis rápido es un único prompt amplio y sin acotar, así que es más p
 
 ## 🌊 Flujo de auditoría Blue Team automático
 
-Ejecuta el [flujo completo de comandos](https://lagune.ai/es-ES/docs/get-started/commands) de principio a fin sin detenerse a pedirte nada.
+Ejecuta el [flujo completo de comandos](https://lagune.ai/es-ES/docs/get-started/commands) de principio a fin.
 
 **🪼 Predeterminado**
 
@@ -81,10 +81,6 @@ Ejecuta los siguientes comandos, uno a uno: `/lagune-charter`, `/lagune-detect`,
 ## Bucle
 
 Cuando `/lagune-verify` rechace una o más correcciones, repite `/lagune-harden` y luego `/lagune-verify` hasta que todos los hallazgos queden bien resueltos.
-
-## Importante
-
-- No te detengas ni preguntes: en caso de duda, hazlo todo en modo "full".
 ```
 
 **🐋 Multiagente (análisis profundo)**
@@ -132,10 +128,6 @@ En los comandos `/lagune-detect`, `/lagune-plan`, `/lagune-harden` y `/lagune-ve
 ## Bucle
 
 Cuando `/lagune-verify` rechace una o más correcciones, repite `/lagune-harden` y luego `/lagune-verify` hasta que todos los hallazgos queden bien resueltos.
-
-## Importante
-
-- No te detengas ni preguntes: en caso de duda, hazlo todo en modo "full".
 ````
 
 ---

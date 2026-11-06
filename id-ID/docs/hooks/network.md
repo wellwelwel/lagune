@@ -1,0 +1,81 @@
+# Hook network: nilai URL terhadap SSRF
+
+> Nilai satu atau beberapa tujuan request terhadap SSRF, langsung dari command line.
+
+Kanonis: https://lagune.ai/id-ID/docs/hooks/network
+Bahasa: id-ID
+Asli: https://lagune.ai/docs/hooks/network
+Terakhir diperbarui: 2026-11-06
+
+Hook `network` memutuskan apakah tujuan request dari sisi server aman dari **SSRF** (request yang bisa diarahkan ke layanan internal, metadata cloud, atau host privat). Hook ini adalah engine deterministik di balik [spesialisasi `network`](https://lagune.ai/id-ID/docs/catalog), dan Anda bisa menjalankannya sendiri.
+
+## Menjalankan
+
+Berikan setiap tujuan dengan `--url`. Hook ini mencetak satu kata per tujuan, yang dijelaskan di tabel di bawah.
+
+**Satu tujuan**
+
+```bash
+npx lagune read network --url 'http://example.com/'
+# => safe
+
+npx lagune read network --url 'http://0x7f000001/'
+# => private-target
+```
+
+**Beberapa tujuan**
+
+Ulangi `--url` untuk menilai seluruh daftar izin atau daftar blokir dalam satu panggilan, satu putusan per baris, sesuai urutan.
+
+```bash
+npx lagune read network \
+  --url 'http://example.com/' \
+  --url 'http://[::1]/' \
+  --url 'http://allowed.com@evil.example/'
+# => safe
+# => private-target
+# => parser-divergent
+```
+
+Hook ini meresolusi host dengan cara yang sama seperti jaringan, sehingga bentuk terenkode dari alamat internal tidak lolos: heksadesimal, oktal, desimal tanpa titik, bentuk singkat, IPv6, dan IPv4 yang dipetakan ke IPv6 semuanya terbaca `private-target`. Dan jika validator yang ceroboh dan fetcher sebenarnya akan membaca host yang berbeda, putusannya adalah `parser-divergent`.
+
+## Cara membaca putusan
+
+| Putusan            | Arti                                                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------- |
+| `safe`             | Tujuan terhubung ke host publik, dan validator yang ceroboh akan membaca host yang sama.           |
+| `private-target`   | Host diresolusi ke alamat privat, loopback, link-local, unspecified, atau metadata cloud.          |
+| `parser-divergent` | Validator teks yang ceroboh akan membaca host nyata yang berbeda dari host yang dihubungi fetcher. |
+| `invalid url`      | String tidak bisa di-parse sebagai URL, jadi tidak ada yang bisa diambil.                          |
+
+Hanya `safe` yang berarti diizinkan. Perlakukan `private-target`, `parser-divergent`, dan `invalid url` sebagai blokir.
+
+### Opsi CLI
+
+| Opsi    | Nilai         | Deskripsi                                                                       |
+| ------- | ------------- | ------------------------------------------------------------------------------- |
+| `--url` | URL atau host | Memeriksa satu tujuan. Ulangi untuk memeriksa beberapa, satu putusan per baris. |
+
+Minimal satu `--url` wajib diberikan. Tujuan tidak pernah diberikan sebagai argumen posisional polos, jadi tidak bisa dikira sebuah flag.
+
+**Kenapa nilai flag**
+
+Setiap tujuan diberikan sebagai nilai flag, tidak pernah disisipkan ke dalam perintah. Nilai yang berisi tanda kutip atau backtick tetap tidak berbahaya dan tidak bisa melakukan injeksi ke shell. Selalu apit nilainya dengan tanda kutip tunggal agar shell Anda tidak mengekspansinya lebih dulu.
+
+**Yang tidak dicakup**
+
+Hook ini murni dan tidak pernah meresolusi DNS, jadi dua celah saat runtime berada di luar cakupan: **DNS rebinding** (nama yang diresolusi ke alamat publik saat diperiksa, tetapi ke alamat internal saat diambil) dan **rantai redirect** (lompatan pertama yang lolos, lalu dialihkan ke dalam). Tutup celah itu dengan meresolusi nama sekali saja lalu terhubung ke alamat yang sudah divalidasi, serta dengan menolak redirect. Hook ini langsung menetapkan nama loopback yang dicadangkan (`localhost` dan keluarga `.localhost`) sebagai internal tanpa lookup, tetapi nama DNS lainnya terbaca `safe`, karena memastikan nama itu diresolusi ke dalam memerlukan resolusi: daftar izin yang menjaga nama tersebut, dan daftar izin itulah yang divalidasi checker ini.
+
+**Tips**
+
+Ini adalah pengecekan yang sama dengan yang dijalankan [spesialisasi `network`](https://lagune.ai/id-ID/docs/catalog) untuk membuktikan bahwa filter tujuan tetap efektif.
+
+## Pertanyaan yang sering diajukan
+
+### Bagaimana cara menguji URL terhadap SSRF?
+
+Jalankan hook network. Hook ini menilai tujuan request dan mengembalikan safe, private-target, parser-divergent, atau invalid url. Hanya safe yang berarti diizinkan.
+
+### Apa itu URL parser-divergent?
+
+URL yang dibaca secara berbeda oleh parser yang berbeda, yang merupakan cara klasik untuk menembus perlindungan SSRF. Hook network menandainya alih-alih mengizinkannya.

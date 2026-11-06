@@ -1,0 +1,74 @@
+# Lagune
+
+> Security-Driven Hardening untuk basis kode apa pun
+
+Lagune adalah alur kerja Security-Driven Hardening (SDH) yang open source dan khusus pertahanan. Lagune membantu agen AI Anda memperkuat keamanan basis kode apa pun, dalam bahasa apa pun, kapan pun: charter menetapkan aturan keamanan sebelum Anda membangun, perintah universal /lagune memperkuat pekerjaan selagi ditulis, dan alur Blue Team lima fase mendeteksi apa yang sebenarnya dilakukan sistem Anda lalu mengarahkan perbaikan yang penting untuk konteks tersebut. Anda menginstal perintahnya ke agen dengan skills CLI, tanpa perlu kunci API.
+
+Setiap tautan di bawah Docs mengarah ke versi Markdown polos dari halaman tersebut. Hapus akhiran .md untuk membuka halaman web. Seluruh korpus dalam satu file: https://lagune.ai/id-ID/llms-full.txt
+
+## Docs
+
+- [Instal: hardening keamanan untuk agen AI apa pun](https://lagune.ai/id-ID/docs.md): Instal Lagune di proyek apa pun, sebagai plugin jika agen Anda mendukungnya atau dengan skills CLI di agen lainnya, lalu pilih spesialisasi keamanan yang sesuai dengan proyek tersebut.
+- [Cara menginstal Lagune di Antigravity CLI sebagai plugin](https://lagune.ai/id-ID/docs/install/antigravity-cli.md): Instal Lagune di Antigravity CLI sebagai plugin, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+- [Cara menginstal Lagune di Claude Code sebagai plugin](https://lagune.ai/id-ID/docs/install/claude-code.md): Instal Lagune di Claude Code sebagai plugin, di terminal, ekstensi, atau aplikasi desktop, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+- [Cara menginstal Lagune di Codex CLI sebagai plugin](https://lagune.ai/id-ID/docs/install/codex.md): Instal Lagune di Codex CLI sebagai plugin, jaga agar tetap terbaru, dan jalankan engine-nya di dalam sandbox.
+- [Cara menginstal Lagune di Cursor sebagai plugin](https://lagune.ai/id-ID/docs/install/cursor.md): Instal Lagune di Cursor dan Cursor CLI sebagai plugin, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+- [Cara menginstal Lagune di Devin CLI sebagai plugin](https://lagune.ai/id-ID/docs/install/devin-cli.md): Instal Lagune di Devin CLI sebagai plugin, dan jaga agar tetap terbaru.
+- [Cara menginstal Lagune di Factory Droid sebagai plugin](https://lagune.ai/id-ID/docs/install/factory-droid.md): Instal Lagune di Factory Droid sebagai plugin, jaga agar tetap terbaru, dan izinkan tool engine-nya.
+- [Cara menginstal Lagune di Gemini CLI sebagai ekstensi](https://lagune.ai/id-ID/docs/install/gemini-cli.md): Instal Lagune di Gemini CLI sebagai ekstensi, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+- [Cara menginstal Lagune di GitHub Copilot CLI sebagai plugin](https://lagune.ai/id-ID/docs/install/github-copilot-cli.md): Instal Lagune di GitHub Copilot CLI sebagai plugin, dan jaga agar tetap terbaru.
+- [Cara menginstal Lagune di Grok Build sebagai plugin](https://lagune.ai/id-ID/docs/install/grok-build.md): Instal Lagune di Grok Build sebagai plugin, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+- [Cara menginstal Lagune di Hermes Agent sebagai plugin](https://lagune.ai/id-ID/docs/install/hermes-agent.md): Instal Lagune di Hermes Agent sebagai plugin, dan jaga agar tetap terbaru.
+- [Cara menginstal Lagune di Kimi Code sebagai plugin](https://lagune.ai/id-ID/docs/install/kimi-code.md): Instal Lagune di Kimi Code sebagai plugin, dan jaga agar tetap terbaru.
+- [Cara menginstal Lagune di Muse Code sebagai plugin](https://lagune.ai/id-ID/docs/install/muse-code.md): Instal Lagune di Muse Code sebagai plugin, jaga agar tetap terbaru, dan jalankan engine-nya di dalam sandbox.
+- [Cara menginstal Lagune di OpenCode sebagai plugin](https://lagune.ai/id-ID/docs/install/opencode.md): Instal Lagune di OpenCode 1.x dan 2.x sebagai plugin, dan jaga agar tetap terbaru.
+- [Cara menginstal Lagune di Pi sebagai paket](https://lagune.ai/id-ID/docs/install/pi.md): Instal Lagune di Pi sebagai paket, dari npm atau dari GitHub, dan jaga agar tetap terbaru.
+- [Cara menginstal Lagune di Qwen Code sebagai ekstensi](https://lagune.ai/id-ID/docs/install/qwen-code.md): Instal Lagune di Qwen Code sebagai ekstensi, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+- [Cara menginstal Lagune di agen mana pun dengan skills.sh](https://lagune.ai/id-ID/docs/install/universal.md): Instal Lagune di agen AI mana pun dengan skills CLI, dan jaga agar tetap terbaru.
+- [Skill keamanan untuk agen AI](https://lagune.ai/id-ID/docs/get-started/commands.md): Skill yang didapat agen AI Anda dengan Lagune: audit proyek yang sudah ada atau amankan pekerjaan baru selagi Anda membangunnya, semuanya diatur oleh charter.
+- [Dasbor](https://lagune.ai/id-ID/docs/get-started/dashboard.md): Lihat charter, temuan, dan katalog proyek Anda dalam tampilan langsung dan lokal yang terbuka dengan satu perintah.
+- [/lagune: kode aman sejak AI Anda menulisnya](https://lagune.ai/id-ID/docs/commands/lagune.md): Bangun apa yang Anda minta dan perkuat keamanannya saat kode ditulis, dipandu oleh charter, tanpa alur yang harus diikuti.
+- [/lagune-charter: tetapkan prinsip keamanan Anda](https://lagune.ai/id-ID/docs/commands/charter.md): Tetapkan prinsip keamanan proyek Anda, aturan yang dipatuhi semua fase berikutnya, dan catat kategori spesialisasi yang didukung oleh hasil pembacaan proyek.
+- [/lagune-detect: petakan sistem Anda dan risikonya](https://lagune.ai/id-ID/docs/commands/detect.md): Baca kode Anda lalu petakan apa yang dilakukan sistem Anda dan di mana letak risikonya.
+- [/lagune-plan: beri skor temuan dan rencanakan perbaikan](https://lagune.ai/id-ID/docs/commands/plan.md): Ubah hasil temuan detect menjadi rencana pertahanan, dengan memberi setiap temuan kategori dan skor CVSS v4.0, lalu memasangkannya dengan perbaikan.
+- [/lagune-harden: terapkan perbaikan keamanan ke kode Anda](https://lagune.ai/id-ID/docs/commands/harden.md): Terapkan perbaikan dari rencana ke kode Anda, dengan aman dan satu per satu.
+- [/lagune-verify: buktikan kontrol keamanan tetap efektif](https://lagune.ai/id-ID/docs/commands/verify.md): Buktikan bahwa setiap perbaikan yang diterapkan tetap efektif, lalu tuntaskan perbaikan yang lolos.
+- [Kategori](https://lagune.ai/id-ID/docs/categories.md): Kategori spesialisasi yang bisa dipakai proyek Lagune, dari OWASP hingga hardening per bahasa untuk JavaScript, Python, Go, dan Rust, serta cara mengubahnya.
+- [Katalog: spesialisasi keamanan yang dimuat saat dibutuhkan](https://lagune.ai/id-ID/docs/catalog.md): Cara spesialisasi di katalog proyek Anda dimuat, oleh fase hanya saat dibutuhkan, atau langsung oleh Anda.
+- [/lagune-specialize: latih spesialisasi keamanan dengan teks biasa](https://lagune.ai/id-ID/docs/commands/specialize.md): Sarikan sumber atau topik keamanan yang Anda berikan menjadi spesialisasi baru yang dimuat hanya saat dibutuhkan.
+- [/lagune-prove: proof of concept khusus pertahanan](https://lagune.ai/id-ID/docs/commands/prove.md): Ubah setiap temuan yang terdeteksi menjadi proof of concept (PoC) khusus pertahanan yang bisa dijalankan, lengkap dengan advisori keamanan untuk pengungkapan yang bertanggung jawab.
+- [Konfigurasi hook: pilih apa yang dipindai](https://lagune.ai/id-ID/docs/hooks/configure.md): Pilih apa yang dilewati oleh hook yang memindai file, untuk semuanya atau untuk satu hook saja.
+- [Hook agent: deteksi loop agen tanpa batas](https://lagune.ai/id-ID/docs/hooks/agent.md): Pindai basis kode untuk menemukan panggilan agen dan LLM tanpa batas langkah atau waktu, atau nilai satu panggilan, langsung dari command line.
+- [Hook cors: audit origin CORS](https://lagune.ai/id-ID/docs/hooks/cors.md): Pindai kode sumber untuk menemukan daftar izin origin CORS yang bisa ditembus, atau nilai apakah satu origin memberi akses yang terlalu longgar, langsung dari command line.
+- [Hook crypto: deteksi kriptografi lemah](https://lagune.ai/id-ID/docs/hooks/crypto.md): Pindai basis kode untuk menemukan primitif kriptografi yang lemah, atau nilai satu potongan kode, langsung dari command line.
+- [Hook cvss: hitung skor vektor CVSS v4.0](https://lagune.ai/id-ID/docs/hooks/cvss.md): Hitung skor satu atau beberapa vektor CVSS v4.0 dari command line, dengan aritmetika yang sama seperti kalkulator FIRST, dan baca penjelasan tiap vektor dalam bahasa sederhana.
+- [Hook infra: deteksi miskonfigurasi IaC](https://lagune.ai/id-ID/docs/hooks/infra.md): Pindai Terraform, Dockerfile, dan GitHub Actions untuk menemukan miskonfigurasi, atau nilai satu potongan kode, langsung dari command line.
+- [Hook interpreter: tandai sink eksekusi kode dinamis](https://lagune.ai/id-ID/docs/hooks/interpreter.md): Pindai basis kode untuk menemukan sink eksekusi kode dinamis di berbagai bahasa, atau nilai satu potongan kode, langsung dari command line.
+- [Hook jwt: deteksi verifikasi JWT tanpa algoritma yang dikunci](https://lagune.ai/id-ID/docs/hooks/jwt.md): Pindai basis kode untuk menemukan verifikasi JWT tanpa algoritma yang dikunci, atau nilai satu panggilan, langsung dari command line.
+- [Hook network: nilai URL terhadap SSRF](https://lagune.ai/id-ID/docs/hooks/network.md): Nilai satu atau beberapa tujuan request terhadap SSRF, langsung dari command line.
+- [Hook regex: deteksi pola ReDoS](https://lagune.ai/id-ID/docs/hooks/regex.md): Pindai basis kode untuk mencari regex yang rawan ReDoS, atau beri skor satu pola, langsung dari command line.
+- [Hook secrets: deteksi secret yang hardcoded](https://lagune.ai/id-ID/docs/hooks/secrets.md): Pindai basis kode untuk menemukan kredensial yang hardcoded, langsung dari command line.
+- [Contoh prompt Lagune: otomatiskan alur Blue Team](https://lagune.ai/id-ID/docs/examples/prompts.md): Prompt Lagune siap salin: pemindaian read-only, alur Blue Team lengkap, dan audit Zero Trust, ditambah deteksi yang cakupannya dibatasi pada sebuah commit, diff branch atau PR, atau insiden nyata.
+- [Security-Driven Hardening: konvensi untuk era pengembangan berbantuan AI](https://lagune.ai/id-ID/docs/references/paper.md): Metodologi Security-Driven Hardening (SDH): konvensi Blue Team yang peka konteks untuk mengaudit dan memperkuat keamanan perangkat lunak yang dibuat dengan bantuan AI dan vibe coding.
+- [Glosarium Lagune: SDH, charter, temuan, dan kontrol keamanan](https://lagune.ai/id-ID/docs/references/glossary.md): Definisi sederhana untuk setiap istilah Lagune dan Security-Driven Hardening: SDH, charter, detect, temuan, kontrol, harden, verify, stand down, ketertuntasan, spesialisasi, kategori, dan katalog.
+- [Skema konfigurasi](https://lagune.ai/id-ID/docs/references/configs-schema.md): JSON Schema untuk konfigurasi proyek Lagune, agar editor Anda bisa melengkapi otomatis dan memvalidasi file, mengikuti Lagune terbaru atau dikunci ke satu versi.
+- [Lagune vs. Deepsec: perbandingan dua pendekatan keamanan berbasis AI](https://lagune.ai/id-ID/docs/references/deepsec.md): Referensi yang membandingkan Lagune dan Deepsec dari Vercel dari sisi cara kerja, siklus hidup, deteksi, biaya, temuan, dan penutupan.
+- [Sumber OWASP](https://lagune.ai/id-ID/docs/references/owasp-sources.md): Asal pengetahuan spesialisasi OWASP bawaan, dipetakan ke halaman serangan dan Cheat Sheet OWASP yang kanonis.
+- [/lagune-repair: perbaiki pelacakan temuan yang rusak](https://lagune.ai/id-ID/docs/commands/repair.md): Perbaiki rantai saat file yang diganti namanya atau dipindahkan mengacaukan pelacakan Lagune.
+- [Migrate: pindahkan proyek Lagune berbasis manifest ke skill dan plugin](https://lagune.ai/id-ID/docs/commands/migrate.md): Pindahkan proyek Lagune berbasis manifest ke Lagune berbasis skill, dengan tetap mempertahankan charter, artefak, pelacakan, dan spesialisasi milik Anda sendiri.
+
+## Bahasa lain
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [한국어](https://lagune.ai/ko-KR/llms.txt)
+- [हिन्दी](https://lagune.ai/hi-IN/llms.txt)

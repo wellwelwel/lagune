@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/examples/prompts
 Idioma: pt-BR
 Original: https://lagune.ai/docs/examples/prompts
-Última atualização: 2026-11-04
+Última atualização: 2026-11-06
 
 Prompts do Lagune prontos para copiar e colar direto no seu agente de IA.
 
@@ -65,7 +65,7 @@ Uma varredura rápida é um único prompt amplo e sem escopo, então alguns agen
 
 ## 🌊 Auditoria Blue Team automática
 
-Executa o [fluxo completo de comandos](https://lagune.ai/pt-BR/docs/get-started/commands) de ponta a ponta, sem parar para pedir informações.
+Executa o [fluxo completo de comandos](https://lagune.ai/pt-BR/docs/get-started/commands) de ponta a ponta.
 
 **🪼 Padrão**
 
@@ -81,10 +81,6 @@ Execute os comandos a seguir, um por um: `/lagune-charter`, `/lagune-detect`, `/
 ## Loop
 
 Quando o `/lagune-verify` reprovar uma ou mais correções, repita o `/lagune-harden` e depois o `/lagune-verify` até que todos os achados estejam devidamente resolvidos.
-
-## Importante
-
-- Não pare e não pergunte: em caso de dúvida, faça tudo no modo "full".
 ```
 
 **🐋 Multiagentes (deep scan)**
@@ -132,10 +128,6 @@ Nos comandos `/lagune-detect`, `/lagune-plan`, `/lagune-harden` e `/lagune-verif
 ## Loop
 
 Quando o `/lagune-verify` reprovar uma ou mais correções, repita o `/lagune-harden` e depois o `/lagune-verify` até que todos os achados estejam devidamente resolvidos.
-
-## Importante
-
-- Não pare e não pergunte: em caso de dúvida, faça tudo no modo "full".
 ````
 
 ---

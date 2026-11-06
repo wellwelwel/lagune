@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/examples/prompts
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/examples/prompts
-Son güncelleme: 2026-11-04
+Son güncelleme: 2026-11-06
 
 Doğrudan yapay zeka ajanınıza yapıştırabileceğiniz, kopyalamaya hazır Lagune prompt'ları.
 
@@ -65,7 +65,7 @@ Hızlı tarama, geniş ve kapsamı daraltılmamış tek bir prompt'tur, bu yüzd
 
 ## 🌊 Otomatik Blue Team denetim akışı
 
-[Komut akışının tamamını](https://lagune.ai/tr-TR/docs/get-started/commands) girdi beklemek için durmadan baştan sona çalıştırır.
+[Komut akışının tamamını](https://lagune.ai/tr-TR/docs/get-started/commands) baştan sona çalıştırır.
 
 **🪼 Varsayılan**
 
@@ -81,10 +81,6 @@ Hızlı tarama, geniş ve kapsamı daraltılmamış tek bir prompt'tur, bu yüzd
 ## Döngü
 
 `/lagune-verify` bir ya da daha fazla düzeltmeyi reddettiğinde, tüm bulgular gerektiği gibi çözülene kadar `/lagune-harden` ve ardından `/lagune-verify` komutunu tekrarla.
-
-## Önemli
-
-- Durma, soru sorma: şüpheye düştüğünde her şeyi "full" modda yap.
 ```
 
 **🐋 Çoklu ajan (derin tarama)**
@@ -132,10 +128,6 @@ Alt ajan 5 prompt'u: `/lagune-verify`
 ## Döngü
 
 `/lagune-verify` bir ya da daha fazla düzeltmeyi reddettiğinde, tüm bulgular gerektiği gibi çözülene kadar `/lagune-harden` ve ardından `/lagune-verify` komutunu tekrarla.
-
-## Önemli
-
-- Durma, soru sorma: şüpheye düştüğünde her şeyi "full" modda yap.
 ````
 
 ---

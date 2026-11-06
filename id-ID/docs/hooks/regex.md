@@ -1,0 +1,210 @@
+# Hook regex: deteksi pola ReDoS
+
+> Pindai basis kode untuk mencari regex yang rawan ReDoS, atau beri skor satu pola, langsung dari command line.
+
+Kanonis: https://lagune.ai/id-ID/docs/hooks/regex
+Bahasa: id-ID
+Asli: https://lagune.ai/docs/hooks/regex
+Terakhir diperbarui: 2026-11-06
+
+Hook `regex` adalah engine keamanan regex deterministik yang dijalankan [spesialisasi `regex`](https://lagune.ai/id-ID/docs/catalog), dan Anda juga bisa menjalankannya sendiri. Hook ini bekerja dalam dua mode dari satu perintah: **scan** yang memindai basis kode untuk mencari pola yang rawan **ReDoS** dan pola yang dibangun saat runtime, serta **check** yang memberi skor satu pola yang Anda berikan.
+
+## Memindai basis kode
+
+Tanpa flag, hook ini memindai seluruh proyek. `--dir` membatasi pemindaian ke satu direktori, `--file` ke satu file. Keduanya bisa diulang dan digabung menjadi satu laporan, dengan setiap file dicantumkan sekali meski tercakup oleh lebih dari satu target.
+
+**Seluruh proyek**
+
+```bash
+npx lagune read regex
+```
+
+**Satu direktori**
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+**Satu file**
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+**Beberapa target**
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+**Dengan batas**
+
+`--limit` menetapkan ambang ReDoS untuk pemindaian (default 25), batas yang sama yang diterima mode check. Batas yang lebih rendah lebih ketat.
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+Output-nya berupa teks mentah, dan header-nya menjelaskan cara membaca tiap bagian. Sebuah bagian hanya ditampilkan jika ada temuan.
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+Jika tidak ada yang ditemukan, hook ini mencetak satu baris.
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### Cara membaca tiap bagian
+
+| Bagian                                                                                      | Arti                                                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Vulnerable regular expressions found`                                                      | Pola yang rawan ReDoS, dikelompokkan per file dengan setiap pola menjorok di bawahnya, diikuti dalam tanda kurung oleh alasan pola itu tidak aman serta, jika ada, cakupan dan flag-nya. Setiap baris tidak aman, jadi putusannya tidak diulang. |
+| `Regular expressions the analysis could not settle (review manually)`                       | Pola yang tidak bisa dipastikan oleh analisis dalam batas kerjanya, dicantumkan dengan cara yang sama.                                                                                                                                           |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | File yang membangun regex dari variabel, konkatenasi, atau interpolasi.                                                                                                                                                                          |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | File yang meneruskan string literal biasa ke konstruktor regex, padahal literal regex lebih sederhana dan tidak perlu dikompilasi saat runtime.                                                                                                  |
+
+Bagian pertama adalah temuan keamanan. Bagian kedua dan ketiga bukan temuan dengan sendirinya: keduanya menunjuk kode yang tidak bisa dipastikan oleh pemeriksaan statis, jadi perlu dibaca manusia. Bagian keempat adalah petunjuk kejelasan, bukan temuan keamanan.
+
+### Opsi CLI
+
+| Opsi        | Nilai                      | Deskripsi                                                                                                  |
+| ----------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `--pattern` | sumber regex               | Periksa satu pola. Ulangi untuk memeriksa beberapa pola, satu putusan per pola, sesuai urutan.             |
+| `--flags`   | flag regex                 | Periksa setiap `--pattern` dengan flag ini, seperti `im`. Hanya berlaku untuk mode check.                  |
+| `--dir`     | direktori                  | Batasi pemindaian ke satu direktori. Bisa diulang dan digabung dengan `--file`.                            |
+| `--file`    | file                       | Batasi pemindaian ke satu file. Bisa diulang dan digabung dengan `--dir`.                                  |
+| `--limit`   | bilangan bulat non-negatif | Tetapkan batas repetisi ReDoS (default 25). Berlaku untuk kedua mode. Batas yang lebih rendah lebih ketat. |
+
+Tanpa opsi, hook ini memindai seluruh proyek. `--pattern` adalah mode check dan tidak bisa digabung dengan `--dir` atau `--file`.
+
+### Pilih yang dipindai
+
+Hook ini melewati apa yang diabaikan **Git**. Untuk melewati lebih banyak, atau untuk memindai apa yang diabaikan **Git**, beri `regex` pengaturannya sendiri:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+Semua pengaturan dibahas di [Mengonfigurasi hook](https://lagune.ai/id-ID/docs/hooks/configure).
+
+### Bahasa yang didukung
+
+Pemindaian membaca bahasa berikut, dikenali dari ekstensi file, masing-masing dengan aturannya sendiri sehingga pola dari satu bahasa tidak pernah diuji dengan aturan bahasa lain. Bahasa lain dilewati, bukan dipindai dengan aturan yang salah.
+
+| #   | Bahasa                      | Ekstensi                                                                                                     |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`, `.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`, `.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`, `.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`, `.psm1`, `.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`, `.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`, `.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`, `.cljs`, `.cljc`, `.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`, `.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`, `.pm`                                                                                                 |
+
+**Upaya terbaik, tidak menyeluruh**
+
+Hook ini membaca kode sumber sebagai teks, sehingga tidak bisa menilai pola yang dirakit saat runtime, dan pola yang tersebar di beberapa baris, tersembunyi di balik alias, atau ditulis dalam bentuk yang tidak dikenalinya bisa lolos. Anggap bagian-bagian ini sebagai titik awal yang kuat, bukan inventaris lengkap, dan tetap baca kodenya untuk hal yang tidak terjangkau olehnya.
+
+## Memeriksa satu pola
+
+Berikan `--pattern` dengan sumber pola untuk memberinya skor. Hook ini mencetak satu kata: `safe`, `unsafe`, `undetermined` jika analisis mencapai batas kerjanya sebelum bisa memastikan pola, atau `invalid regex`. Ulangi `--pattern` untuk memberi skor beberapa pola sekaligus, satu putusan per pola, sesuai urutan.
+
+**Satu pola**
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+**Beberapa pola**
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+**Dengan flag**
+
+`--flags` memeriksa setiap `--pattern` dalam pemanggilan itu dengan flag yang dipakainya saat berjalan, karena flag mengubah karakter mana yang dicocokkan sebuah pola.
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+**Dengan batas**
+
+`--limit` menetapkan batas repetisi (default 25) dan berlaku untuk setiap `--pattern` dalam pemanggilan itu. Batas yang lebih rendah lebih ketat.
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+**Mengapa argumen diberi tanda kutip**
+
+Setiap pola diteruskan sebagai nilai flag, tidak pernah disisipkan ke dalam perintah. Nilai yang berisi tanda kutip atau backtick tetap tidak berbahaya dan tidak bisa melakukan injeksi ke shell. Selalu apit pola dengan tanda kutip tunggal agar shell Anda tidak mengekspansinya lebih dulu.
+
+**Tips**
+
+Ini adalah engine yang sama yang dijalankan [spesialisasi `regex`](https://lagune.ai/id-ID/docs/catalog): scan membuka pemeriksaan ReDoS, dan check memastikan pola yang ditemukannya.
+
+## Pertanyaan yang sering diajukan
+
+### Bagaimana cara memeriksa regex terhadap ReDoS dari CLI?
+
+Jalankan npx lagune read regex --pattern '<pattern>'. Hasilnya safe, unsafe, undetermined, atau invalid regex.
+
+### Bagaimana cara memindai seluruh proyek untuk mencari regex yang tidak aman?
+
+Jalankan hook regex dalam mode scan di seluruh basis kode. Hook ini melaporkan pola yang rawan ReDoS di 25 bahasa yang didukung.

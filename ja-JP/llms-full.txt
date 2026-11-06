@@ -3415,7 +3415,7 @@ npx lagune write add --ignore test/fixtures --checker secrets
 正規 URL: https://lagune.ai/ja-JP/docs/examples/prompts
 言語: ja-JP
 原文: https://lagune.ai/docs/examples/prompts
-最終更新日: 2026-11-04
+最終更新日: 2026-11-06
 
 AI エージェントにそのまま貼り付けて使える、コピー用の Lagune のプロンプトです。
 
@@ -3475,7 +3475,7 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 
 ## 🌊 Blue Team 監査フローの自動実行
 
-[コマンドのフロー全体](https://lagune.ai/ja-JP/docs/get-started/commands) を、入力のために止まることなく、最初から最後まで実行します。
+[コマンドのフロー全体](https://lagune.ai/ja-JP/docs/get-started/commands) を最初から最後まで実行します。
 
 **🪼 標準**
 
@@ -3491,10 +3491,6 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 ## ループ
 
 `/lagune-verify` が 1 つ以上の修正を不合格と判定した場合は、すべての検出事項が適切に解決されるまで、`/lagune-harden` と `/lagune-verify` を順に繰り返してください。
-
-## 重要
-
-- 途中で止まったり、質問したりしないでください。迷ったときは、すべて "full" モードで実行してください。
 ```
 
 **🐋 マルチエージェント（ディープスキャン）**
@@ -3542,10 +3538,6 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 ## ループ
 
 `/lagune-verify` が 1 つ以上の修正を不合格と判定した場合は、すべての検出事項が適切に解決されるまで、`/lagune-harden` と `/lagune-verify` を順に繰り返してください。
-
-## 重要
-
-- 途中で止まったり、質問したりしないでください。迷ったときは、すべて "full" モードで実行してください。
 ````
 
 ---

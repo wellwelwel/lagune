@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/examples/prompts
 언어: ko-KR
 원문: https://lagune.ai/docs/examples/prompts
-마지막 업데이트: 2026-11-04
+마지막 업데이트: 2026-11-06
 
 AI 에이전트에 그대로 붙여 넣어 바로 쓸 수 있는 Lagune 프롬프트입니다.
 
@@ -65,7 +65,7 @@ Blue Team 흐름을 실행하거나 Lagune의 추적에 기록하지 않고, 에
 
 ## 🌊 자동 Blue Team 감사 흐름
 
-입력을 기다리며 멈추는 일 없이 [전체 명령어 흐름](https://lagune.ai/ko-KR/docs/get-started/commands)을 처음부터 끝까지 실행합니다.
+[전체 명령어 흐름](https://lagune.ai/ko-KR/docs/get-started/commands)을 처음부터 끝까지 실행합니다.
 
 **🪼 기본**
 
@@ -81,10 +81,6 @@ Blue Team 흐름을 실행하거나 Lagune의 추적에 기록하지 않고, 에
 ## 반복
 
 `/lagune-verify` 명령어가 수정을 하나라도 거부하면, 모든 발견 사항이 제대로 해결될 때까지 `/lagune-harden` 명령어와 `/lagune-verify` 명령어를 차례로 반복해 줘.
-
-## 중요
-
-- 중간에 멈추거나 묻지 마. 애매할 때는 전부 "full" 모드로 진행해 줘.
 ```
 
 **🐋 멀티 에이전트(심층 스캔)**
@@ -132,10 +128,6 @@ Blue Team 흐름을 실행하거나 Lagune의 추적에 기록하지 않고, 에
 ## 반복
 
 `/lagune-verify` 명령어가 수정을 하나라도 거부하면, 모든 발견 사항이 제대로 해결될 때까지 `/lagune-harden` 명령어와 `/lagune-verify` 명령어를 차례로 반복해 줘.
-
-## 중요
-
-- 중간에 멈추거나 묻지 마. 애매할 때는 전부 "full" 모드로 진행해 줘.
 ````
 
 ---

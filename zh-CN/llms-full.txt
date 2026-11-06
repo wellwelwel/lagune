@@ -3415,7 +3415,7 @@ npx lagune write add --ignore test/fixtures --checker secrets
 规范链接: https://lagune.ai/zh-CN/docs/examples/prompts
 语言: zh-CN
 原文: https://lagune.ai/docs/examples/prompts
-最后更新: 2026-11-04
+最后更新: 2026-11-06
 
 复制即用的 Lagune 提示词，可以直接粘贴到你的 AI 智能体中。
 
@@ -3475,7 +3475,7 @@ npx lagune write add --ignore test/fixtures --checker secrets
 
 ## 🌊 自动 Blue Team 审计流程
 
-从头到尾运行 [完整的命令流程](https://lagune.ai/zh-CN/docs/get-started/commands)，中途不会停下来等待输入。
+从头到尾运行 [完整的命令流程](https://lagune.ai/zh-CN/docs/get-started/commands)。
 
 **🪼 默认**
 
@@ -3491,10 +3491,6 @@ npx lagune write add --ignore test/fixtures --checker secrets
 ## 循环
 
 当 `/lagune-verify` 判定一项或多项修复未通过时，重复执行 `/lagune-harden`，再执行 `/lagune-verify`，直到所有发现项都得到妥善解决。
-
-## 重要
-
-- 不要暂停，也不要提问：如有疑问，一律使用 "full" 模式。
 ```
 
 **🐋 多智能体（深度扫描）**
@@ -3542,10 +3538,6 @@ npx lagune write add --ignore test/fixtures --checker secrets
 ## 循环
 
 当 `/lagune-verify` 判定一项或多项修复未通过时，重复执行 `/lagune-harden`，再执行 `/lagune-verify`，直到所有发现项都得到妥善解决。
-
-## 重要
-
-- 不要暂停，也不要提问：如有疑问，一律使用 "full" 模式。
 ````
 
 ---

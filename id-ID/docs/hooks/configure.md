@@ -1,0 +1,74 @@
+# Konfigurasi hook: pilih apa yang dipindai
+
+> Pilih apa yang dilewati oleh hook yang memindai file, untuk semuanya atau untuk satu hook saja.
+
+Kanonis: https://lagune.ai/id-ID/docs/hooks/configure
+Bahasa: id-ID
+Asli: https://lagune.ai/docs/hooks/configure
+Terakhir diperbarui: 2026-11-06
+
+Blok `checkers` di `.lagune/configs.json` menentukan apa yang dilewati oleh hook yang memindai file, untuk semuanya atau untuk satu hook saja.
+
+## Cara mengonfigurasi
+
+Tambahkan atau hapus path dan pola dari command line, dengan mengapit pola dalam tanda kutip agar shell membiarkannya seperti yang ditulis:
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+Atau pilih di Settings pada [dasbor](https://lagune.ai/id-ID/docs/get-started/dashboard), atau tetapkan langsung di file:
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### Pengaturan
+
+| Kunci       | Nilai                           | Default | Deskripsi                                                                                               |
+| ----------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| `gitignore` | `true` atau `false`             | `true`  | Melewati apa yang diabaikan **Git**. File yang dilacak **Git** tetap dipindai.                          |
+| `ignore`    | path atau pola dari root proyek | `[]`    | Melewati apa pun yang cocok dengan tiap entri beserta seluruh isinya, bahkan file yang dilacak **Git**. |
+
+Di tingkat teratas `checkers`, sebuah kunci berlaku untuk semua checker. Di bawah nama sebuah checker, kunci itu hanya berlaku untuk checker tersebut dan menggantikan kunci bersama, jadi dalam contoh di atas `secrets` memindai apa yang diabaikan **Git** dan melewati `test/fixtures` serta `temp`. Saat `write add --ignore` memberi sebuah checker daftar pertamanya sendiri, daftar itu dimulai sebagai salinan dari daftar bersama.
+
+### Pola
+
+Pola dimulai dari root proyek, jadi `*.generated.ts` hanya menjangkau file di sana, sedangkan `**/*.generated.ts` menjangkaunya di kedalaman mana pun. Nama harus cocok persis, termasuk huruf besar dan kecilnya.
+
+| Pola                | Yang dilewati                                       |
+| ------------------- | --------------------------------------------------- |
+| `dist`              | `dist` di root proyek                               |
+| `packages/*/dist`   | `dist` di setiap folder di bawah `packages`         |
+| `**/dist`           | setiap `dist`, di kedalaman mana pun                |
+| `**/*.generated.ts` | setiap file yang namanya berakhiran `.generated.ts` |
+| `fixture-?`         | `fixture-a`, `fixture-1`, dan sejenisnya            |
+| `[ab]-cache`        | `a-cache` dan `b-cache`                             |
+| `[*]x`              | `*x`, dengan `*` harfiah                            |
+
+## Cara membaca hasilnya
+
+Laporan diakhiri dengan jumlah path yang dilewati pemindaian, dikelompokkan menurut apa yang mengabaikannya:
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+Path yang disebut dengan `--dir` atau `--file` tetap dipindai, apa pun isi pengaturannya. Pengaturan yang tidak bisa dibaca engine menghentikan checker dengan error yang menyebutkannya, misalnya pola yang diawali `!` atau spasi, keluar dari proyek, membiarkan kurung siku terbuka, atau terlalu lama dicocokkan.
+
+## Pertanyaan yang sering diajukan
+
+### Apakah Lagune mengatur ini untuk saya?
+
+Tidak. Charter mencantumkan folder yang di-commit yang, menurut pembacaannya, bukan kode Anda yang perlu dipertahankan, seperti fixture tes yang sengaja ditulis agar terlihat rentan, dan hanya mencatat yang Anda pilih berdasarkan nomornya.
+
+### Kapan checker perlu memindai apa yang diabaikan Git?
+
+Saat repositori itu bukan milik Anda sehingga tidak bisa langsung dipercaya, karena file .gitignore di dalamnya bisa menyembunyikan kode, atau saat folder build mungkin membawa kunci yang disisipkan saat build. Atur gitignore ke false untuk semua checker atau untuk satu checker saja.

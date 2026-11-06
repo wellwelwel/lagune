@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/examples/prompts
 Sprache: de-DE
 Original: https://lagune.ai/docs/examples/prompts
-Zuletzt aktualisiert: 2026-11-04
+Zuletzt aktualisiert: 2026-11-06
 
 Prompts für Lagune zum Kopieren, die du direkt in deinen KI-Agenten einfügen kannst.
 
@@ -65,7 +65,7 @@ Ein schneller Durchlauf ist ein einziger breiter Prompt ohne Eingrenzung, daher 
 
 ## 🌊 Automatischer Blue-Team-Audit-Workflow
 
-Führt den [vollständigen Befehlsablauf](https://lagune.ai/de-DE/docs/get-started/commands) von Anfang bis Ende aus, ohne für Eingaben anzuhalten.
+Führt den [vollständigen Befehlsablauf](https://lagune.ai/de-DE/docs/get-started/commands) von Anfang bis Ende aus.
 
 **🪼 Standard**
 
@@ -81,10 +81,6 @@ Führe die folgenden Befehle nacheinander aus: `/lagune-charter`, `/lagune-detec
 ## Schleife
 
 Wenn `/lagune-verify` eine oder mehrere Korrekturen zurückweist, wiederhole `/lagune-harden` und danach `/lagune-verify`, bis alle Befunde ordnungsgemäß behoben sind.
-
-## Wichtig
-
-- Halte nicht an, frag nicht nach: Im Zweifel erledige alles im Modus "full".
 ```
 
 **🐋 Multi-Agent (gründlicher Durchlauf)**
@@ -132,10 +128,6 @@ Bei den Befehlen `/lagune-detect`, `/lagune-plan`, `/lagune-harden` und `/lagune
 ## Schleife
 
 Wenn `/lagune-verify` eine oder mehrere Korrekturen zurückweist, wiederhole `/lagune-harden` und danach `/lagune-verify`, bis alle Befunde ordnungsgemäß behoben sind.
-
-## Wichtig
-
-- Halte nicht an, frag nicht nach: Im Zweifel erledige alles im Modus "full".
 ````
 
 ---
