@@ -16,7 +16,7 @@ keywords:
   - rilevamento circoscritto
   - revisione di sicurezza delle pull request
   - risposta agli incidenti
-source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -86,7 +86,7 @@ Un'analisi rapida è un unico prompt ampio e non circoscritto, quindi alcuni age
 
 ## 🌊 Flusso di audit Blue Team automatico
 
-Esegue il [flusso completo dei comandi](/docs/get-started/commands) dall'inizio alla fine senza fermarsi a chiedere input.
+Esegue il [flusso completo dei comandi](/docs/get-started/commands) dall'inizio alla fine.
 
 <Tabs>
   <TabItem value="default" label="🪼 Predefinito" default>
@@ -103,10 +103,6 @@ Esegui i seguenti comandi, uno alla volta: `/lagune-charter`, `/lagune-detect`, 
 ## Ciclo
 
 Quando `/lagune-verify` boccia una o più correzioni, ripeti `/lagune-harden` e poi `/lagune-verify` finché tutti i rilievi non sono risolti correttamente.
-
-## Importante
-
-- Non fermarti, non chiedere: in caso di dubbio, fai tutto in modalità "full".
 ```
 
   </TabItem>
@@ -155,10 +151,6 @@ Nei comandi `/lagune-detect`, `/lagune-plan`, `/lagune-harden` e `/lagune-verify
 ## Ciclo
 
 Quando `/lagune-verify` boccia una o più correzioni, ripeti `/lagune-harden` e poi `/lagune-verify` finché tutti i rilievi non sono risolti correttamente.
-
-## Importante
-
-- Non fermarti, non chiedere: in caso di dubbio, fai tutto in modalità "full".
 ````
 
   </TabItem>

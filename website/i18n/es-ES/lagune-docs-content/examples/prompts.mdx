@@ -16,7 +16,7 @@ keywords:
   - detección acotada
   - revisión de seguridad de pull requests
   - respuesta a incidentes
-source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -86,7 +86,7 @@ Un análisis rápido es un único prompt amplio y sin acotar, así que es más p
 
 ## 🌊 Flujo de auditoría Blue Team automático
 
-Ejecuta el [flujo completo de comandos](/docs/get-started/commands) de principio a fin sin detenerse a pedirte nada.
+Ejecuta el [flujo completo de comandos](/docs/get-started/commands) de principio a fin.
 
 <Tabs>
   <TabItem value="default" label="🪼 Predeterminado" default>
@@ -103,10 +103,6 @@ Ejecuta los siguientes comandos, uno a uno: `/lagune-charter`, `/lagune-detect`,
 ## Bucle
 
 Cuando `/lagune-verify` rechace una o más correcciones, repite `/lagune-harden` y luego `/lagune-verify` hasta que todos los hallazgos queden bien resueltos.
-
-## Importante
-
-- No te detengas ni preguntes: en caso de duda, hazlo todo en modo "full".
 ```
 
   </TabItem>
@@ -155,10 +151,6 @@ En los comandos `/lagune-detect`, `/lagune-plan`, `/lagune-harden` y `/lagune-ve
 ## Bucle
 
 Cuando `/lagune-verify` rechace una o más correcciones, repite `/lagune-harden` y luego `/lagune-verify` hasta que todos los hallazgos queden bien resueltos.
-
-## Importante
-
-- No te detengas ni preguntes: en caso de duda, hazlo todo en modo "full".
 ````
 
   </TabItem>

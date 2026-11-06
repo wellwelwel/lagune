@@ -16,7 +16,7 @@ keywords:
   - eingegrenzte erkennung
   - pull request sicherheitsprüfung
   - incident response
-source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -86,7 +86,7 @@ Ein schneller Durchlauf ist ein einziger breiter Prompt ohne Eingrenzung, daher 
 
 ## 🌊 Automatischer Blue-Team-Audit-Workflow
 
-Führt den [vollständigen Befehlsablauf](/docs/get-started/commands) von Anfang bis Ende aus, ohne für Eingaben anzuhalten.
+Führt den [vollständigen Befehlsablauf](/docs/get-started/commands) von Anfang bis Ende aus.
 
 <Tabs>
   <TabItem value="default" label="🪼 Standard" default>
@@ -103,10 +103,6 @@ Führe die folgenden Befehle nacheinander aus: `/lagune-charter`, `/lagune-detec
 ## Schleife
 
 Wenn `/lagune-verify` eine oder mehrere Korrekturen zurückweist, wiederhole `/lagune-harden` und danach `/lagune-verify`, bis alle Befunde ordnungsgemäß behoben sind.
-
-## Wichtig
-
-- Halte nicht an, frag nicht nach: Im Zweifel erledige alles im Modus "full".
 ```
 
   </TabItem>
@@ -155,10 +151,6 @@ Bei den Befehlen `/lagune-detect`, `/lagune-plan`, `/lagune-harden` und `/lagune
 ## Schleife
 
 Wenn `/lagune-verify` eine oder mehrere Korrekturen zurückweist, wiederhole `/lagune-harden` und danach `/lagune-verify`, bis alle Befunde ordnungsgemäß behoben sind.
-
-## Wichtig
-
-- Halte nicht an, frag nicht nach: Im Zweifel erledige alles im Modus "full".
 ````
 
   </TabItem>

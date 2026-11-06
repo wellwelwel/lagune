@@ -18,7 +18,7 @@ keywords:
   - 限定范围检测
   - pull request 安全审查
   - 安全事件响应
-source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -88,7 +88,7 @@ import Tabs from '@theme/Tabs';
 
 ## 🌊 自动 Blue Team 审计流程
 
-从头到尾运行 [完整的命令流程](/docs/get-started/commands)，中途不会停下来等待输入。
+从头到尾运行 [完整的命令流程](/docs/get-started/commands)。
 
 <Tabs>
   <TabItem value="default" label="🪼 默认" default>
@@ -105,10 +105,6 @@ import Tabs from '@theme/Tabs';
 ## 循环
 
 当 `/lagune-verify` 判定一项或多项修复未通过时，重复执行 `/lagune-harden`，再执行 `/lagune-verify`，直到所有发现项都得到妥善解决。
-
-## 重要
-
-- 不要暂停，也不要提问：如有疑问，一律使用 "full" 模式。
 ```
 
   </TabItem>
@@ -157,10 +153,6 @@ import Tabs from '@theme/Tabs';
 ## 循环
 
 当 `/lagune-verify` 判定一项或多项修复未通过时，重复执行 `/lagune-harden`，再执行 `/lagune-verify`，直到所有发现项都得到妥善解决。
-
-## 重要
-
-- 不要暂停，也不要提问：如有疑问，一律使用 "full" 模式。
 ````
 
   </TabItem>

@@ -18,7 +18,7 @@ keywords:
   - 範囲を絞った検出
   - プルリクエストのセキュリティレビュー
   - インシデント対応
-source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -88,7 +88,7 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 
 ## 🌊 Blue Team 監査フローの自動実行
 
-[コマンドのフロー全体](/docs/get-started/commands) を、入力のために止まることなく、最初から最後まで実行します。
+[コマンドのフロー全体](/docs/get-started/commands) を最初から最後まで実行します。
 
 <Tabs>
   <TabItem value="default" label="🪼 標準" default>
@@ -105,10 +105,6 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 ## ループ
 
 `/lagune-verify` が 1 つ以上の修正を不合格と判定した場合は、すべての検出事項が適切に解決されるまで、`/lagune-harden` と `/lagune-verify` を順に繰り返してください。
-
-## 重要
-
-- 途中で止まったり、質問したりしないでください。迷ったときは、すべて "full" モードで実行してください。
 ```
 
   </TabItem>
@@ -157,10 +153,6 @@ AI エージェントにそのまま貼り付けて使える、コピー用の L
 ## ループ
 
 `/lagune-verify` が 1 つ以上の修正を不合格と判定した場合は、すべての検出事項が適切に解決されるまで、`/lagune-harden` と `/lagune-verify` を順に繰り返してください。
-
-## 重要
-
-- 途中で止まったり、質問したりしないでください。迷ったときは、すべて "full" モードで実行してください。
 ````
 
   </TabItem>

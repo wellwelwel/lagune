@@ -17,7 +17,7 @@ keywords:
   - виявлення в обмеженому обсязі
   - перевірка безпеки pull request
   - реагування на інциденти
-source_hash: 'a6a2dfda6422a629948eddb3eeb83a8122ca8a3a2e8c5e41fd782eebebb8291a'
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
 ---
 
 import { Level } from '@site/src/components/docs/Level';
@@ -87,7 +87,7 @@ import Tabs from '@theme/Tabs';
 
 ## 🌊 Автоматичний аудит Blue Team
 
-Запускає [повний процес команд](/docs/get-started/commands) від початку до кінця без пауз на введення.
+Запускає [повний процес команд](/docs/get-started/commands) від початку до кінця.
 
 <Tabs>
   <TabItem value="default" label="🪼 Стандартно" default>
@@ -104,10 +104,6 @@ import Tabs from '@theme/Tabs';
 ## Цикл
 
 Коли `/lagune-verify` відхиляє одне чи кілька виправлень, повторюй `/lagune-harden`, а потім `/lagune-verify`, доки всі знахідки не буде належно розв'язано.
-
-## Важливо
-
-- Не зупиняйся й не питай: у разі сумнівів роби все в режимі "full".
 ```
 
   </TabItem>
@@ -156,10 +152,6 @@ import Tabs from '@theme/Tabs';
 ## Цикл
 
 Коли `/lagune-verify` відхиляє одне чи кілька виправлень, повторюй `/lagune-harden`, а потім `/lagune-verify`, доки всі знахідки не буде належно розв'язано.
-
-## Важливо
-
-- Не зупиняйся й не питай: у разі сумнівів роби все в режимі "full".
 ````
 
   </TabItem>
