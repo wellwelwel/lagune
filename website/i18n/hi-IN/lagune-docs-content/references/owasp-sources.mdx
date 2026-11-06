@@ -1,0 +1,356 @@
+---
+id: owasp-sources
+title: OWASP स्रोत
+sidebar_label: OWASP स्रोत
+description: बिल्ट-इन OWASP विशेषज्ञताओं का ज्ञान कहाँ से आता है, OWASP के आधिकारिक अटैक और Cheat Sheet पेजों के साथ उसका पूरा खाका।
+source_hash: 'bf4e521f8efeab57d1ff03ee6dbc488837d1992cae5f38414d590c12110d0890'
+---
+
+# OWASP स्रोतों का खाका: अटैक × Cheat Sheet
+
+यह दस्तावेज़ OWASP के हर **अटैक** (`www-community`) और हर **Cheat Sheet** (`CheatSheetSeries`) को किसी सुरक्षा श्रेणी से जोड़ता है, और हर एक को उसके आधिकारिक सार्वजनिक पेज से लिंक करता है। एक श्रेणी के भीतर, बराबर के आइटम चेकलिस्ट की एक ही लाइन में आते हैं: एक ही जोखिम से जुड़े अटैक और Cheat Sheet कॉमा से अलग करके साथ-साथ लिखे जाते हैं। जिन आइटम का कोई सीधा जोड़ीदार नहीं है, वे अपनी अलग लाइन में हैं।
+
+- इसका श्रेय OWASP को जाता है। अटैक `https://owasp.org/www-community/attacks/<attack>` पर और Cheat Sheet `https://cheatsheetseries.owasp.org/cheatsheets/<cheat>.html` पर मिलती हैं।
+
+---
+
+## 1. इंजेक्शन (सामान्य)
+
+- [x] [Code Injection](https://owasp.org/www-community/attacks/Code_Injection), [Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html), [Injection Prevention in Java](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_in_Java_Cheat_Sheet.html) (interpreter)
+- [x] [Direct Dynamic Code Evaluation (Eval Injection)](https://owasp.org/www-community/attacks/Direct_Dynamic_Code_Evaluation_Eval_Injection) (interpreter)
+- [x] [Function Injection](https://owasp.org/www-community/attacks/Function_Injection) (interpreter)
+- [x] [Resource Injection](https://owasp.org/www-community/attacks/Resource_Injection) (network)
+- [x] [Special Element Injection](https://owasp.org/www-community/attacks/Special_Element_Injection) (interpreter)
+- [x] [Custom Special Character Injection](https://owasp.org/www-community/attacks/Custom_Special_Character_Injection) (interpreter)
+- [x] [Comment Injection Attack](https://owasp.org/www-community/attacks/Comment_Injection_Attack) (interpreter)
+- [x] [Parameter Delimiter](https://owasp.org/www-community/attacks/Parameter_Delimiter) (interpreter)
+- [x] [Server-Side Includes (SSI) Injection](https://owasp.org/www-community/attacks/Server-Side_Includes_%28SSI%29_Injection) (interpreter)
+- [x] [Input Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html), [Bean Validation](https://cheatsheetseries.owasp.org/cheatsheets/Bean_Validation_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 2. SQL / डेटाबेस इंजेक्शन
+
+- [x] [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html), [Query Parameterization](https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html) (sql)
+- [x] [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection) (sql)
+- [x] [SQL Injection Bypassing WAF](https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF) (sql)
+- [x] [RSQL Injection](https://owasp.org/www-community/attacks/RSQL_Injection) (interpreter)
+- [x] [Database Security](https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html) (sql)
+- [x] [NoSQL Security](https://cheatsheetseries.owasp.org/cheatsheets/NoSQL_Security_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 3. OS / कमांड इंजेक्शन
+
+- [x] [Command Injection](https://owasp.org/www-community/attacks/Command_Injection), [OS Command Injection Defense](https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 4. LDAP / XPath / XML इंजेक्शन
+
+- [x] [LDAP Injection](https://owasp.org/www-community/attacks/LDAP_Injection), [LDAP Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LDAP_Injection_Prevention_Cheat_Sheet.html) (interpreter)
+- [x] [XPATH Injection](https://owasp.org/www-community/attacks/XPATH_Injection) (interpreter)
+- [x] [Blind XPath Injection](https://owasp.org/www-community/attacks/Blind_XPath_Injection) (interpreter)
+- [x] [XML External Entity (XXE) Prevention](https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html), [XML Security](https://cheatsheetseries.owasp.org/cheatsheets/XML_Security_Cheat_Sheet.html) (xml)
+
+---
+
+## 5. क्रॉस-साइट स्क्रिप्टिंग (XSS)
+
+- [x] [Cross Site Scripting (XSS)](https://owasp.org/www-community/attacks/Cross-site-Scripting-%28XSS%29), [Cross Site Scripting Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html), [XSS Filter Evasion](https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html) (browser)
+- [x] [DOM Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS), [DOM based XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html), [DOM Clobbering Prevention](https://cheatsheetseries.owasp.org/cheatsheets/DOM_Clobbering_Prevention_Cheat_Sheet.html) (browser)
+- [x] [Reflected DOM Injection](https://owasp.org/www-community/attacks/Reflected_DOM_Injection) (browser)
+- [x] [XSS in Converting File Content to Text](https://owasp.org/www-community/attacks/XSS_in_Converting_File_Content_to_Text) (browser)
+- [x] [XSS in subtitle](https://owasp.org/www-community/attacks/Xss_in_subtitle) (browser)
+- [x] [Cross Frame Scripting](https://owasp.org/www-community/attacks/Cross_Frame_Scripting) (browser)
+- [x] [Cross Site Tracing](https://owasp.org/www-community/attacks/Cross_Site_Tracing) (browser)
+- [x] [Content Security Policy](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html) (browser)
+
+---
+
+## 6. क्रॉस-साइट रिक्वेस्ट फ़ोर्जरी (CSRF) और क्लिकजैकिंग
+
+- [x] [Cross Site Request Forgery (CSRF)](https://owasp.org/www-community/attacks/cross-site-request-forgery), [XSRF](https://owasp.org/www-community/attacks/XSRF), [Cross-Site Request Forgery Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) (http-request)
+- [x] [Clickjacking](https://owasp.org/www-community/attacks/Clickjacking), [Clickjacking Defense](https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html) (browser)
+- [x] [Cross Site History Manipulation (XSHM)](https://owasp.org/www-community/attacks/Cross_Site_History_Manipulation_%28XSHM%29) (browser)
+- [x] [Form action hijacking](https://owasp.org/www-community/attacks/Form_action_hijacking) (network)
+- [x] [Reverse Tabnabbing](https://owasp.org/www-community/attacks/Reverse_Tabnabbing) (browser)
+
+---
+
+## 7. रीडायरेक्ट और फ़ॉरवर्ड
+
+- [x] [Open Redirect](https://owasp.org/www-community/attacks/open_redirect), [Unvalidated Redirects and Forwards](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) (network)
+- [x] [Execution After Redirect (EAR)](https://owasp.org/www-community/attacks/Execution_After_Redirect_%28EAR%29) (browser)
+
+---
+
+## 8. एक्सेस कंट्रोल और ऑथराइज़ेशन
+
+- [x] [Insecure Direct Object Reference (IDOR)](https://owasp.org/www-community/attacks/insecure_direct_object_reference), [Insecure Direct Object Reference Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html) (access-control)
+- [x] [Forced browsing](https://owasp.org/www-community/attacks/Forced_browsing) (access-control)
+- [x] [Web Parameter Tampering](https://owasp.org/www-community/attacks/Web_Parameter_Tampering) (access-control)
+- [x] [Setting Manipulation](https://owasp.org/www-community/attacks/Setting_Manipulation) (access-control)
+- [x] [Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) (access-control)
+- [x] [Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html) (access-control)
+- [x] [Mass Assignment](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html) (access-control)
+- [x] [Multi-Tenant Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Multi_Tenant_Security_Cheat_Sheet.html) (access-control)
+
+---
+
+## 9. ऑथेंटिकेशन और क्रेडेंशियल
+
+- [x] [Brute Force Attack](https://owasp.org/www-community/attacks/Brute_force_attack), [Password Spraying Attack](https://owasp.org/www-community/attacks/Password_Spraying_Attack), [Bot Management and Anti-Automation](https://cheatsheetseries.owasp.org/cheatsheets/Bot_Management_and_Anti-Automation_Cheat_Sheet.html) (credential-endpoint)
+- [x] [Credential stuffing](https://owasp.org/www-community/attacks/Credential_stuffing), [Credential Stuffing Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html) (credential-endpoint)
+- [x] [Qrljacking](https://owasp.org/www-community/attacks/Qrljacking) (federation)
+- [x] [Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html), [Multifactor Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html) (access-control)
+- [x] [Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) (access-control)
+- [x] [Forgot Password](https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html), [Choosing and Using Security Questions](https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html) (access-control)
+- [x] [Email Validation and Verification in Identity Systems](https://cheatsheetseries.owasp.org/cheatsheets/Email_Validation_and_Verification_Cheat_Sheet.html) (access-control)
+
+---
+
+## 10. सेशन मैनेजमेंट
+
+- [x] [Session fixation](https://owasp.org/www-community/attacks/Session_fixation), [Session hijacking attack](https://owasp.org/www-community/attacks/Session_hijacking_attack), [Session Prediction](https://owasp.org/www-community/attacks/Session_Prediction), [Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html) (access-control)
+- [x] [Cookie Theft Mitigation](https://cheatsheetseries.owasp.org/cheatsheets/Cookie_Theft_Mitigation_Cheat_Sheet.html) (access-control)
+
+---
+
+## 11. आइडेंटिटी फ़ेडरेशन (OAuth / SAML / JWT)
+
+- [x] [OAuth 2.0 Protocol](https://cheatsheetseries.owasp.org/cheatsheets/OAuth2_Cheat_Sheet.html) (federation)
+- [x] [SAML Security](https://cheatsheetseries.owasp.org/cheatsheets/SAML_Security_Cheat_Sheet.html) (federation)
+- [x] [JSON Web Token for Java](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html) (federation)
+
+---
+
+## 12. क्रिप्टोग्राफ़ी और ट्रांसपोर्ट सुरक्षा
+
+- [x] [Cryptanalysis](https://owasp.org/www-community/attacks/Cryptanalysis), [Cryptographic Storage](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html), [Key Management](https://cheatsheetseries.owasp.org/cheatsheets/Key_Management_Cheat_Sheet.html) (crypto)
+- [x] [Manipulator-in-the-Middle (MITM)](https://owasp.org/www-community/attacks/Man-in-the-middle_attack), [Transport Layer Security](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html) (transport)
+- [x] [HTTP Strict Transport Security](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html) (transport)
+- [x] [Pinning](https://cheatsheetseries.owasp.org/cheatsheets/Pinning_Cheat_Sheet.html) (transport)
+
+---
+
+## 13. सर्वर-साइड रिक्वेस्ट फ़ोर्जरी (SSRF)
+
+- [x] [Server Side Request Forgery](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery), [Server-Side Request Forgery Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html) (network)
+
+---
+
+## 14. पाथ ट्रैवर्सल और फ़ाइल हैंडलिंग
+
+- [x] [Path Traversal](https://owasp.org/www-community/attacks/Path_Traversal) (path)
+- [x] [Binary Planting](https://owasp.org/www-community/attacks/Binary_planting) (path)
+- [x] [Windows ::DATA Alternate Data Stream](https://owasp.org/www-community/attacks/Windows_DATA_alternate_data_stream) (path)
+- [x] [Embedding Null Code](https://owasp.org/www-community/attacks/Embedding_Null_Code) (path)
+- [x] [File Upload](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html) (upload)
+
+---
+
+## 15. HTTP प्रोटोकॉल का दुरुपयोग (हेडर, कैशिंग, स्प्लिटिंग)
+
+- [x] [HTTP Response Splitting](https://owasp.org/www-community/attacks/HTTP_Response_Splitting), [Cross-User Defacement](https://owasp.org/www-community/attacks/Cross-User_Defacement) (interpreter)
+- [x] [HTTP Security Response Headers](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html) (browser, transport, http-request और access-control में बँटा हुआ)
+- [x] [Cache Poisoning](https://owasp.org/www-community/attacks/Cache_Poisoning) (interpreter)
+- [x] [IP Spoofing via HTTP Headers](https://owasp.org/www-community/attacks/ip_spoofing_via_http_headers) (http-request)
+
+---
+
+## 16. एन्कोडिंग और कंटेंट स्पूफ़िंग
+
+- [x] [Unicode Encoding](https://owasp.org/www-community/attacks/Unicode_Encoding) (interpreter)
+- [x] [Double Encoding](https://owasp.org/www-community/Double_Encoding) (interpreter)
+- [x] [Content Spoofing](https://owasp.org/www-community/attacks/Content_Spoofing) (browser)
+
+---
+
+## 17. CSV / स्प्रेडशीट इंजेक्शन
+
+- [x] [CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection) (csv)
+
+---
+
+## 18. CORS (क्रॉस-ओरिजिन रिसोर्स शेयरिंग)
+
+- [x] [CORS OriginHeaderScrutiny](https://owasp.org/www-community/attacks/CORS_OriginHeaderScrutiny) (http-request)
+- [x] [CORS RequestPreflightScrutiny](https://owasp.org/www-community/attacks/CORS_RequestPreflightScrutiny) (http-request)
+
+---
+
+## 19. डिनायल ऑफ़ सर्विस
+
+- [x] [Regular expression Denial of Service (ReDoS)](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS) (regex)
+
+---
+
+## 20. मेमोरी सेफ़्टी और नेटिव कोड
+
+- [x] [Buffer Overflow Attack](https://owasp.org/www-community/attacks/Buffer_overflow_attack), [Buffer Overflow via Environment Variables](https://owasp.org/www-community/attacks/Buffer_Overflow_via_Environment_Variables) (c-cpp)
+- [x] [Format string attack](https://owasp.org/www-community/attacks/Format_string_attack) (c-cpp)
+
+---
+
+## 21. मोबाइल कोड और अविश्वसनीय कोड का एक्ज़ीक्यूशन
+
+- [x] [Mobile code invoking untrusted mobile code](https://owasp.org/www-community/attacks/Mobile_code_invoking_untrusted_mobile_code) (interpreter)
+- [x] [Mobile code non-final public field](https://owasp.org/www-community/attacks/Mobile_code_non-final_public_field) (java)
+- [x] [Mobile code object hijack](https://owasp.org/www-community/attacks/Mobile_code_object_hijack) (java)
+
+---
+
+## 22. डीसीरियलाइज़ेशन
+
+- [x] [Deserialization](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html) (python, ruby, php, java और dotnet में बँटा हुआ)
+
+---
+
+## 23. मैलवेयर और क्लाइंट-साइड ख़तरे
+
+- [x] [Man-in-the-browser attack](https://owasp.org/www-community/attacks/Man-in-the-browser_attack), [Browser Extension Security Vulnerabilities](https://cheatsheetseries.owasp.org/cheatsheets/Browser_Extension_Vulnerabilities_Cheat_Sheet.html) (browser)
+- [x] [Third Party JavaScript Management](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Javascript_Management_Cheat_Sheet.html) (browser)
+
+---
+
+## 24. लॉगिंग, रेप्युडिएशन और एरर हैंडलिंग
+
+- [x] [Log Injection](https://owasp.org/www-community/attacks/Log_Injection), [Logging](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), [Application Logging Vocabulary](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Vocabulary_Cheat_Sheet.html) (interpreter)
+- [x] [Repudiation Attack](https://owasp.org/www-community/attacks/Repudiation_Attack) (interpreter)
+
+---
+
+## 25. बिज़नेस लॉजिक और फ़ंक्शनैलिटी का दुरुपयोग
+
+बिज़नेस लॉजिक और फ़ंक्शनैलिटी के दुरुपयोग का कोड में कोई एक अटैक सरफ़ेस नहीं होता, जिसका बचाव किसी एक सरफ़ेस पर केंद्रित विशेषज्ञता कर सके: इसका बचाव ऐप्लिकेशन के हिसाब से किया गया डिज़ाइन है, यानी वही सोच जिसे प्रोजेक्ट की थ्रेट मॉडलिंग आगे बढ़ाती है। इसे "दायरे से बाहर" में ले जाया गया है।
+
+---
+
+## 26. AI / LLM / एजेंट सुरक्षा
+
+- [x] [Prompt Injection](https://owasp.org/www-community/attacks/prompt-injection), [LLM Prompt Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html) (llm)
+- [x] [MCP Tool Poisoning](https://owasp.org/www-community/attacks/MCP_Tool_Poisoning), [MCP (Model Context Protocol) Security](https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html) (llm)
+- [x] [HITL Dialog Forging (Lies-in-the-Loop)](https://owasp.org/www-community/attacks/lies-in-the-loop) (llm)
+- [x] [AI Agent Security](https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html), [Secure Coding with AI](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Coding_with_AI_Cheat_Sheet.html) (llm)
+- [x] [Retrieval-Augmented Generation (RAG) Security](https://cheatsheetseries.owasp.org/cheatsheets/RAG_Security_Cheat_Sheet.html) (llm)
+- [x] [Secure AI/ML Model Ops](https://cheatsheetseries.owasp.org/cheatsheets/Secure_AI_Model_Ops_Cheat_Sheet.html) (llm)
+- [x] [AML and Sanctions Compliance for AI Agent Payments](https://cheatsheetseries.owasp.org/cheatsheets/AML_Sanctions_AI_Agent_Payments_Cheat_Sheet.html) (llm)
+
+---
+
+## 27. प्रोटोटाइप पॉल्यूशन और क्रॉस-साइट लीक
+
+- [x] [Prototype Pollution Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html) (javascript)
+- [x] [Cross-site leaks (XS-Leaks)](https://cheatsheetseries.owasp.org/cheatsheets/XS_Leaks_Cheat_Sheet.html) (browser)
+
+---
+
+## 28. फ़्रेमवर्क और भाषा प्लेटफ़ॉर्म
+
+- [x] [Django Security](https://cheatsheetseries.owasp.org/cheatsheets/Django_Security_Cheat_Sheet.html), [Django REST Framework](https://cheatsheetseries.owasp.org/cheatsheets/Django_REST_Framework_Cheat_Sheet.html) (python)
+- [x] [Ruby on Rails](https://cheatsheetseries.owasp.org/cheatsheets/Ruby_on_Rails_Cheat_Sheet.html) (ruby)
+- [x] [Laravel](https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html) (php)
+- [x] [Symfony](https://cheatsheetseries.owasp.org/cheatsheets/Symfony_Cheat_Sheet.html) (php)
+- [x] [Java Security](https://cheatsheetseries.owasp.org/cheatsheets/Java_Security_Cheat_Sheet.html) (java)
+- [x] [DotNet Security](https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html) (dotnet)
+- [x] [NodeJS Security](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html) (javascript)
+- [x] [PHP Configuration](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html) (php)
+
+---
+
+## 29. वेब फ़्रंट-एंड और ब्राउज़र
+
+- [x] [HTML5 Security](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html) (browser)
+- [x] [AJAX Security](https://cheatsheetseries.owasp.org/cheatsheets/AJAX_Security_Cheat_Sheet.html) (browser)
+- [x] [Securing Cascading Style Sheets](https://cheatsheetseries.owasp.org/cheatsheets/Securing_Cascading_Style_Sheets_Cheat_Sheet.html) (access-control और browser में बँटा हुआ)
+
+---
+
+## 30. API और सर्विस
+
+- [x] [GraphQL](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html) (api-endpoint)
+- [x] [gRPC Security](https://cheatsheetseries.owasp.org/cheatsheets/gRPC_Security_Cheat_Sheet.html) (api-endpoint)
+- [x] [WebSocket Security](https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Security_Cheat_Sheet.html) (api-endpoint)
+
+---
+
+## 31. क्लाउड, कंटेनर और इन्फ़्रास्ट्रक्चर
+
+कंटेनर और वर्कलोड का कॉन्फ़िगरेशन कोड के रूप में लिखा कॉन्फ़िगरेशन है, जिसे डेवलपर ऐप के साथ ही शिप करता है (`Dockerfile`, Compose, Pod का `securityContext`)। यह एक असली सरफ़ेस है, जिसे `harden` चरण ठीक करता है और `verify` चरण साबित करता है, इसलिए यह दायरे में है। क्लस्टर एडमिनिस्ट्रेशन (RBAC, etcd, API सर्वर, एडमिशन, नेटवर्क सेगमेंटेशन) ऑपरेटर का क्षेत्र है, और दायरे से बाहर रहता है।
+
+- [x] [Docker Security](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html), [Node.js Docker](https://cheatsheetseries.owasp.org/cheatsheets/NodeJS_Docker_Cheat_Sheet.html) (container)
+- [x] [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) (container: वर्कलोड और Pod वाला हिस्सा। क्लस्टर एडमिनिस्ट्रेशन दायरे से बाहर रहता है)
+- [x] [Serverless / FaaS Security](https://cheatsheetseries.owasp.org/cheatsheets/Serverless_FaaS_Security_Cheat_Sheet.html) (serverless)
+
+---
+
+## 32. सप्लाई चेन और CI/CD
+
+- [x] [NPM Security](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html) (interpreter)
+- [x] [Dependency Graph & SBOM Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Dependency_Graph_SBOM_Cheat_Sheet.html), [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html) (interpreter)
+
+---
+
+## 33. सीक्रेट और कॉन्फ़िगरेशन
+
+सीक्रेट मैनेजमेंट ऑपरेशन से जुड़ा काम है: वॉल्ट, CI/CD, क्लाउड कॉन्फ़िगरेशन, रोटेशन। इसका कोड से जुड़ा इकलौता पहलू (सोर्स कोड में हार्डकोड किया गया सीक्रेट) एक नियतात्मक स्कैन का काम है, जोखिम पर केंद्रित किसी विशेषज्ञता का नहीं। इसे "दायरे से बाहर" में ले जाया गया है।
+
+---
+
+## 34. प्रोसेस, डिज़ाइन और गवर्नेंस
+
+यूज़र की प्राइवेसी की सुरक्षा नीति और डिज़ाइन का मामला है (डेटा मिनिमाइज़ेशन, पारदर्शिता, डेटा रखने की अवधि), कोड का ऐसा कोई सरफ़ेस नहीं जिसका बचाव कोई विशेषज्ञता करे। इसे "दायरे से बाहर" में ले जाया गया है।
+
+---
+
+## 35. पेमेंट और कंप्लायंस
+
+- [x] [Secure Integration of Third-Party Payment Gateways](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Payment_Gateway_Integration_Cheat_Sheet.html) (payment)
+
+---
+
+## 36. एम्बेडेड / IoT / विशेष क्षेत्र
+
+ऑटोमोटिव और ड्रोन सुरक्षा एम्बेडेड सिस्टम के क्षेत्र हैं (CAN बस, OTA फ़र्मवेयर, सेंसर और रेडियो की अखंडता, फ़िज़िकल एक्सेस), न कि वेब या API ऐप्लिकेशन का वह सोर्स कोड जिसका Lagune ऑडिट करता है। इसे "दायरे से बाहर" में ले जाया गया है।
+
+---
+
+## दायरे से बाहर (कोड में कोई सरफ़ेस नहीं)
+
+ये विशेषज्ञताओं के क्षेत्र नहीं हैं, इसलिए इनके साथ कोई चेकबॉक्स नहीं है: ये गवर्नेंस, प्रोसेस, ऑपरेशन से जुड़ी हार्डनिंग या फ़्रेमवर्क के इस्तेमाल के मामले हैं, जिनका कोड में कोई एक सरफ़ेस नहीं होता जिसका बचाव किसी एक सरफ़ेस पर केंद्रित विशेषज्ञता कर सके। सुरक्षा के लिहाज़ से इनकी अहमियत असली है, लेकिन वह प्रोसेस और आर्किटेक्चर में है (या किसी फ़्रेमवर्क के मामले में, उस भाषा की अपनी स्किल में), उस रक्षा में नहीं जो यह कैटलॉग देता है। ये सिर्फ़ संदर्भ के लिए दिए गए हैं, करने वाले काम के रूप में नहीं।
+
+- [Authorization Regression Testing](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Regression_Testing_Cheat_Sheet.html), [Authorization Testing Automation](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Testing_Automation_Cheat_Sheet.html)
+- [JAAS](https://cheatsheetseries.owasp.org/cheatsheets/JAAS_Cheat_Sheet.html)
+- [Denial of Service](https://owasp.org/www-community/attacks/Denial_of_Service), [Denial of Service](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)
+- [HTTP/2 Reset Attack](https://owasp.org/www-community/attacks/HTTP2_Reset_Attack)
+- [Traffic flood](https://owasp.org/www-community/attacks/Traffic_flood)
+- [Web Service Amplification Attack](https://owasp.org/www-community/attacks/web_service_amplificaiton) (SOAP/WS-Addressing एम्प्लिफ़िकेशन, DoS का ऑपरेशन से जुड़ा एक रूप, जिसका कोड में कोई सरफ़ेस नहीं)
+- [Cash Overflow](https://owasp.org/www-community/attacks/Cash_Overflow)
+- [Spyware](https://owasp.org/www-community/attacks/Spyware), [Trojan Horse](https://owasp.org/www-community/attacks/Trojan_Horse) (एंड-यूज़र को निशाना बनाने वाला मैलवेयर, ऑडिट किए जा रहे प्रोजेक्ट के कोड का कोई सरफ़ेस नहीं। ब्राउज़र के अंदर पहुँचाए जाने वाला पहलू `browser` में है)
+- [REST Security](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html), [REST Assessment](https://cheatsheetseries.owasp.org/cheatsheets/REST_Assessment_Cheat_Sheet.html)
+- [Web Service Security](https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html)
+- [Cloud Architecture Security](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Cloud_Architecture_Cheat_Sheet.html) (डिज़ाइन और उसके समझौते: IAM बनाम साइन किए गए URL, पब्लिक या प्राइवेट VPC, ट्रस्ट बाउंड्री, शेयर्ड रिस्पॉन्सिबिलिटी। `container` के उलट, इसमें कोई ठोस कॉन्फ़िगरेशन नहीं है जिसे कोई विशेषज्ञता जाँच सके)
+- [Infrastructure as Code Security](https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html) (नाम के बावजूद, यह IaC को _मैनेज करने_ के लिए SDLC प्रोसेस और टूलिंग के बारे में है: IDE प्लगइन, स्टैटिक एनालिसिस, इमेज स्कैनिंग, CI/CD, साइनिंग। यह Terraform या CloudFormation फ़ाइल में किसी असुरक्षित पैटर्न को सुरक्षित रूप में बदलने का तरीक़ा नहीं बताता)
+- [Kubernetes Security](https://cheatsheetseries.owasp.org/cheatsheets/Kubernetes_Security_Cheat_Sheet.html) (_सिर्फ़ क्लस्टर एडमिनिस्ट्रेशन वाला हिस्सा_: RBAC, etcd, API सर्वर, एडमिशन। वर्कलोड और Pod वाला हिस्सा `container` के तहत दायरे में है)
+- [Network Segmentation](https://cheatsheetseries.owasp.org/cheatsheets/Network_Segmentation_Cheat_Sheet.html) (नेटवर्क आर्किटेक्चर और फ़ायरवॉल नीति)
+- [Subdomain Takeover Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Subdomain_Takeover_Prevention_Cheat_Sheet.html) (DNS लाइफ़साइकिल और मॉनिटरिंग, कोड नहीं)
+- [Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) (वॉल्ट, CI/CD, रोटेशन। हार्डकोड किए गए सीक्रेट वाला पहलू एक नियतात्मक स्कैन का काम है, जोखिम पर केंद्रित किसी विशेषज्ञता का नहीं)
+- [C-Based Toolchain Hardening](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html) (कंपाइलर, लिंकर और बिल्ड फ़्लैग, जिनका सोर्स कोड में कोई सिंक नहीं)
+- [Microservices Security](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_Security_Cheat_Sheet.html), [Microservices based Security Arch Doc](https://cheatsheetseries.owasp.org/cheatsheets/Microservices_based_Security_Arch_Doc_Cheat_Sheet.html)
+- [Zero Trust Architecture](https://cheatsheetseries.owasp.org/cheatsheets/Zero_Trust_Architecture_Cheat_Sheet.html)
+- [CI/CD Security](https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html), [GitHub Actions Security](https://cheatsheetseries.owasp.org/cheatsheets/GitHub_Actions_Security_Cheat_Sheet.html)
+- [Software Supply Chain Security](https://cheatsheetseries.owasp.org/cheatsheets/Software_Supply_Chain_Security_Cheat_Sheet.html)
+- [Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html), [Full Path Disclosure](https://owasp.org/www-community/attacks/Full_Path_Disclosure) (हर स्टैक के लिए ग्लोबल एरर-हैंडलर का कॉन्फ़िगरेशन। यह लीक वही जानकारी उजागर होना है जिसे एरर हैंडलिंग पहले से सँभालती है)
+- [Abuse of Functionality](https://owasp.org/www-community/attacks/Abuse_of_Functionality), [Business Logic Security](https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html), [Abuse Case (_ऐतिहासिक_)](https://cheatsheetseries.owasp.org/cheatsheets/Abuse_Case_Cheat_Sheet.html) (ऐप्लिकेशन के हिसाब से किया गया डिज़ाइन, कोड में कोई एक सिंक नहीं)
+- [User Privacy Protection](https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html) (डेटा मिनिमाइज़ेशन, पारदर्शिता, डेटा रखने की नीति)
+- [Top 10 Automotive Security Vulnerabilities](https://cheatsheetseries.owasp.org/cheatsheets/Automotive_Security_Cheat_Sheet.html), [Drone Security](https://cheatsheetseries.owasp.org/cheatsheets/Drone_Security_Cheat_Sheet.html) (एम्बेडेड सिस्टम के क्षेत्र: CAN बस, OTA फ़र्मवेयर, सेंसर और रेडियो की अखंडता, वेब या API का सोर्स कोड नहीं)
+- [Mobile Application Security](https://cheatsheetseries.owasp.org/cheatsheets/Mobile_Application_Security_Cheat_Sheet.html) (Android और iOS प्लेटफ़ॉर्म की हार्डनिंग: स्टोरेज, बायोमेट्रिक्स, पिनिंग, PII। इसका कोड में कोई एक सरफ़ेस नहीं है, और अविश्वसनीय कोड लोड करने वाला पहलू `interpreter` में चला गया)
+- [Threat Modeling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html), [Threat Modeling (_कम्युनिटी पेज_)](https://owasp.org/www-community/Threat_Modeling)
+- [Attack Surface Analysis](https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html)
+- [Secure Product Design](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Product_Design_Cheat_Sheet.html)
+- [Secure Code Review](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Code_Review_Cheat_Sheet.html)
+- [Virtual Patching](https://cheatsheetseries.owasp.org/cheatsheets/Virtual_Patching_Cheat_Sheet.html)
+- [Vulnerability Disclosure](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerability_Disclosure_Cheat_Sheet.html)
+- [Legacy Application Management](https://cheatsheetseries.owasp.org/cheatsheets/Legacy_Application_Management_Cheat_Sheet.html)
+- [Security Terminology](https://cheatsheetseries.owasp.org/cheatsheets/Security_Terminology_Cheat_Sheet.html)

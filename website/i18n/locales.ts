@@ -88,6 +88,12 @@ export const LOCALES: SiteLocale[] = [
     flag: '/img/flags/kr.svg',
     status: 'published',
   },
+  {
+    code: 'hi-IN',
+    label: 'हिन्दी',
+    flag: '/img/flags/in.svg',
+    status: 'published',
+  },
 ];
 
 export const isPublished = (code: string): boolean =>

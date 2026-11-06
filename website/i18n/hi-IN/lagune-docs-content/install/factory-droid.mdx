@@ -1,0 +1,73 @@
+---
+id: factory-droid
+title: 'Factory Droid में Lagune को प्लगइन के रूप में इंस्टॉल करें'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Factory Droid में Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन के टूल को अनुमति दें।
+keywords:
+  - factory droid
+  - droid प्लगइन
+  - प्लगइन मार्केटप्लेस
+  - lagune इंस्टॉल करें
+  - सेटअप
+  - AI सुरक्षा
+  - AI एजेंट
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+अपने टर्मिनल से प्लगइन इंस्टॉल करें:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## अपडेट
+
+**Lagune** को अपडेट करने के लिए यह चलाएँ:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## कमांड
+
+कमांड उनके नाम से टाइप करें, जैसे `/lagune-charter`।
+
+---
+
+:::info[अनुमतियाँ]
+
+इंजन दो टूल के ज़रिए चलता है: `lagune_read` टूल सिर्फ़ आपका प्रोजेक्ट पढ़ता है, और `lagune_write` टूल सिर्फ़ `.lagune/` फ़ोल्डर में लिखता है। जब **Factory Droid** पूछे, तो हर टूल के लिए हमेशा अनुमति देने का विकल्प चुनें। `lagune` मार्केटप्लेस का नया कमिट सिंक करने के बाद यह फिर से पूछता है, और यह सिंक इसके शुरू होते समय भी हो सकता है।
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Factory Droid में Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'droid plugin marketplace add wellwelwel/lagune चलाएँ, फिर droid plugin install lagune@lagune चलाएँ।',
+    },
+    {
+      question: 'Factory Droid में Lagune को कैसे अपडेट करें?',
+      answer:
+        'droid plugin marketplace update lagune चलाएँ, फिर droid plugin update lagune@lagune चलाएँ।',
+    },
+    {
+      question: 'Factory Droid में Lagune की कमांड कैसे चलाएँ?',
+      answer: 'इन्हें उनके नाम से टाइप करें, जैसे /lagune-charter।',
+    },
+    {
+      question: 'क्या Factory Droid बिना अनुमति माँगे Lagune चला सकता है?',
+      answer:
+        'हाँ। जब Factory Droid पूछे, तो lagune_read और lagune_write के लिए हमेशा अनुमति देने का विकल्प चुनें। lagune मार्केटप्लेस का नया कमिट सिंक करने के बाद यह फिर से पूछता है।',
+    },
+  ]}
+/>

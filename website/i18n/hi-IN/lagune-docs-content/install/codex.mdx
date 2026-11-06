@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Codex CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Codex CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसका इंजन सैंडबॉक्स के अंदर चलाएँ।
+keywords:
+  - codex
+  - codex cli
+  - codex प्लगइन
+  - प्लगइन मार्केटप्लेस
+  - lagune इंस्टॉल करें
+  - सेटअप
+  - AI सुरक्षा
+  - AI एजेंट
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+अपने टर्मिनल से प्लगइन इंस्टॉल करें:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## अपडेट
+
+**Lagune** को अपडेट करने के लिए यह चलाएँ:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## कमांड
+
+`$` टाइप करें, फिर प्लगइन के नाम के साथ कमांड, और उसके बाद अपना इनपुट, जैसे `$lagune:lagune-charter`, जो `/lagune-charter` कमांड है। `$` टाइप करने पर कमांड की सूची दिखती है, और किसी एक को चुनने पर उसका पूरा नाम भर जाता है।
+
+---
+
+:::info[अनुमतियाँ]
+
+**Codex** के सैंडबॉक्स में नेटवर्क एक्सेस नहीं है। इंजन को अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Codex CLI में Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'codex plugin marketplace add wellwelwel/lagune चलाएँ, फिर codex plugin add lagune@lagune चलाएँ।',
+    },
+    {
+      question: 'Codex CLI में Lagune को कैसे अपडेट करें?',
+      answer: 'codex plugin marketplace upgrade lagune चलाएँ।',
+    },
+    {
+      question: 'Codex CLI में Lagune की कमांड कैसे चलाएँ?',
+      answer:
+        '$ टाइप करें, फिर प्लगइन के नाम के साथ कमांड, और उसके बाद अपना इनपुट, जैसे $lagune:lagune-charter।',
+    },
+    {
+      question: 'क्या Codex के सैंडबॉक्स के अंदर Lagune काम करता है?',
+      answer:
+        'हाँ, बशर्ते आप अपने टर्मिनल से npm i -D lagune@{{version}} चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद।',
+    },
+  ]}
+/>

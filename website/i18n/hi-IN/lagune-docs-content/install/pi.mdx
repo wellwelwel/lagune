@@ -1,0 +1,94 @@
+---
+id: pi
+title: 'Pi पर Lagune को पैकेज के रूप में इंस्टॉल करें'
+sidebar_label: Pi
+parent: get-started/install
+description: Pi पर Lagune को npm या GitHub से पैकेज के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+keywords:
+  - pi
+  - pi coding agent
+  - pi पैकेज
+  - pi install
+  - lagune इंस्टॉल करें
+  - सेटअप
+  - AI सुरक्षा
+  - AI एजेंट
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+अपने टर्मिनल से पैकेज इंस्टॉल करें:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+**GitHub** से लेटेस्ट कमिट इंस्टॉल करें, जो इंजन को **npx** के ज़रिए चलाता है:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## अपडेट
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+**Lagune** को अपडेट करने के लिए यह चलाएँ:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+**Lagune** को अपडेट करने के लिए यह चलाएँ:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` कमांड आपके इंस्टॉल किए हर पैकेज को अपडेट करती है, जबकि सिर्फ़ `pi update` चलाने पर केवल **Pi** अपडेट होता है।
+
+## कमांड
+
+कमांड `skill:` प्रीफ़िक्स के साथ टाइप करें। जैसे, `/skill:lagune-charter` टाइप करने पर `/lagune-charter` कमांड चलती है।
+
+<Faq
+  items={[
+    {
+      question: 'Pi पर Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'pi install npm:lagune चलाएँ, या GitHub से लेटेस्ट कमिट के लिए pi install git:github.com/wellwelwel/lagune चलाएँ।',
+    },
+    {
+      question: 'Pi पर Lagune को कैसे अपडेट करें?',
+      answer:
+        'pi update npm:lagune चलाएँ, या GitHub से इंस्टॉल करने पर pi update git:github.com/wellwelwel/lagune चलाएँ। pi update --extensions कमांड आपके इंस्टॉल किए हर पैकेज को अपडेट करती है।',
+    },
+    {
+      question: 'Pi पर Lagune की कमांड कैसे चलाएँ?',
+      answer:
+        'उन्हें skill: प्रीफ़िक्स के साथ टाइप करें, जैसे /skill:lagune-charter कमांड।',
+    },
+  ]}
+/>

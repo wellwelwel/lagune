@@ -1,0 +1,107 @@
+---
+id: universal
+title: 'skills.sh से किसी भी एजेंट में Lagune इंस्टॉल करें'
+sidebar_label: यूनिवर्सल
+parent: get-started/install
+description: skills CLI से किसी भी AI एजेंट में Lagune इंस्टॉल करें, और उसे अपडेट रखें।
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - lagune इंस्टॉल करें
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - सेटअप
+  - AI एजेंट
+source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='skills.sh' />
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="टर्मिनल" default>
+
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) के ज़रिए अपने टर्मिनल से **Lagune** की कमांड इंस्टॉल करें:
+
+```bash
+npx skills add wellwelwel/lagune
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="प्रॉम्प्ट">
+
+यह प्रॉम्प्ट अपने एजेंट में पेस्ट करें:
+
+```md
+`npx --yes skills add wellwelwel/lagune` चलाओ और इससे बने स्किल निर्देशों का अभी पालन करो। इसका पूरा आउटपुट पढ़ो, ज़रूरत हो तो पहले उसे किसी अस्थायी फ़ाइल में रीडायरेक्ट करो। रिलेटिव पाथ उस सपोर्टिंग-फ़ाइल डायरेक्टरी से तय करो जो यह देता है।
+```
+
+  </TabItem>
+</Tabs>
+
+## अपडेट
+
+<Tabs groupId="skills-route">
+  <TabItem value="terminal" label="टर्मिनल" default>
+
+**Lagune** को अपडेट करने के लिए यह चलाएँ:
+
+```bash
+npx skills update
+```
+
+  </TabItem>
+  <TabItem value="prompt" label="प्रॉम्प्ट">
+
+**Lagune** को अपडेट करने के लिए यह प्रॉम्प्ट अपने एजेंट में पेस्ट करें:
+
+```md
+`npx --yes skills update -y` चलाओ और इसका पूरा आउटपुट पढ़ो, ज़रूरत हो तो पहले उसे किसी अस्थायी फ़ाइल में रीडायरेक्ट करो।
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::warning[हर एजेंट में एक ही तरीका]
+**Lagune** को **skills.sh** से या उसके **प्लगइन** से इंस्टॉल करें, दोनों से कभी नहीं।
+:::
+
+:::info[अनुमतियाँ]
+
+कमांड इंजन को `npx --yes lagune@{{version}}` के रूप में चलाती हैं, और हर [एजेंट का इंस्टॉल पेज](/docs) वह नियम दिखाता है जो इसे पहले से अनुमति देता है। जिस सैंडबॉक्स में नेटवर्क एक्सेस नहीं है, उसमें इंजन को अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'किसी भी AI एजेंट में Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'अपने प्रोजेक्ट में npx skills add wellwelwel/lagune चलाएँ, या इंस्टॉल प्रॉम्प्ट अपने एजेंट में पेस्ट करें।',
+    },
+    {
+      question: 'skills CLI से इंस्टॉल किए गए Lagune को कैसे अपडेट करें?',
+      answer:
+        'npx skills update चलाएँ, या अपडेट प्रॉम्प्ट अपने एजेंट में पेस्ट करें।',
+    },
+    {
+      question:
+        'क्या मैं Lagune को skills CLI और प्लगइन, दोनों से इंस्टॉल कर सकता हूँ?',
+      answer:
+        'नहीं। दोनों से इंस्टॉल करने पर एजेंट हर कमांड दो बार दिखाता है, या एक कॉपी इस्तेमाल करता है और दूसरी छिपा देता है।',
+    },
+  ]}
+/>

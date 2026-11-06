@@ -1,0 +1,92 @@
+---
+id: gemini-cli
+title: 'Gemini CLI में Lagune को एक्सटेंशन के रूप में इंस्टॉल करें'
+sidebar_label: Gemini CLI
+parent: get-started/install
+description: Gemini CLI में Lagune को एक्सटेंशन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
+keywords:
+  - gemini cli
+  - gemini cli एक्सटेंशन
+  - gemini extensions install
+  - lagune इंस्टॉल करें
+  - सेटअप
+  - AI सुरक्षा
+  - AI एजेंट
+source_hash: '0b17bea628e41043a2b89748c61e72646000d90113cbe42e806dc00480bfe3a8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Gemini CLI' />
+
+अपने टर्मिनल से एक्सटेंशन इंस्टॉल करें:
+
+```bash
+gemini extensions install https://github.com/wellwelwel/lagune
+```
+
+## अपडेट
+
+**Lagune** को अपडेट करने के लिए यह चलाएँ:
+
+```bash
+gemini extensions update lagune
+```
+
+इसे हमेशा अपडेट रखने के लिए, इसे `--auto-update` के साथ इंस्टॉल करें।
+
+## कमांड
+
+कमांड एक्सटेंशन के नाम के साथ टाइप करें, जैसे `/lagune:lagune-charter`, जो `/lagune-charter` कमांड है।
+
+---
+
+:::info[अनुमतियाँ]
+
+इंजन दो टूल के ज़रिए चलता है: `lagune_read` टूल सिर्फ़ आपका प्रोजेक्ट पढ़ता है, और `lagune_write` टूल सिर्फ़ `.lagune/` फ़ोल्डर में लिखता है। **Gemini CLI** इन्हें सिर्फ़ भरोसेमंद फ़ोल्डर में शुरू करता है। इन्हें पहले से अनुमति देने के लिए, यह नियम `~/.gemini/policies/lagune.toml` फ़ाइल के रूप में सेव करें:
+
+```toml
+[[rule]]
+mcpName = "lagune"
+toolName = ["lagune_read", "lagune_write"]
+decision = "allow"
+priority = 100
+```
+
+जब इंजन **npx** के ज़रिए चलता है, जैसे **skills.sh** से इंस्टॉल करने पर, तो उसी फ़ाइल में यह नियम भी जोड़ें:
+
+```toml
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = 'npx --yes lagune@\d+\.\d+\.\d+\s'
+decision = "allow"
+priority = 100
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Gemini CLI में Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'gemini extensions install https://github.com/wellwelwel/lagune चलाएँ।',
+    },
+    {
+      question: 'Gemini CLI में Lagune को कैसे अपडेट करें?',
+      answer:
+        'gemini extensions update lagune चलाएँ, या एक्सटेंशन को --auto-update के साथ इंस्टॉल करें।',
+    },
+    {
+      question: 'Gemini CLI में Lagune की कमांड कैसे चलाएँ?',
+      answer:
+        'इन्हें एक्सटेंशन के नाम के साथ टाइप करें, जैसे /lagune:lagune-charter।',
+    },
+    {
+      question: 'क्या Gemini CLI बिना अनुमति माँगे Lagune चला सकता है?',
+      answer:
+        'हाँ। एक पॉलिसी नियम जोड़ें जो lagune सर्वर के lagune_read और lagune_write टूल को अनुमति दे, और साथ में run_shell_command के लिए एक नियम, जो npx --yes lagune@ और उसके बाद वर्शन वाली कमांड को अनुमति दे, जब इंजन npx के ज़रिए चलता है।',
+    },
+  ]}
+/>

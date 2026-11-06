@@ -1,0 +1,61 @@
+---
+id: kimi-code
+title: 'Kimi Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: Kimi Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+keywords:
+  - kimi code
+  - kimi code प्लगइन
+  - plugins install
+  - lagune इंस्टॉल करें
+  - सेटअप
+  - AI सुरक्षा
+  - AI एजेंट
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+**Kimi Code** सेशन में प्लगइन इंस्टॉल करें, **Trust and install** चुनें, फिर उसे लोड करने के लिए नया सेशन शुरू करें:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## अपडेट
+
+**Lagune** को अपडेट करने के लिए उसे फिर से इंस्टॉल करें:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## कमांड
+
+कमांड प्लगइन के नाम के साथ टाइप करें, जैसे `/lagune:lagune-charter`, जो `/lagune-charter` कमांड है। `/` मेन्यू में ये `/skill:lagune:lagune-charter` के रूप में दिखती हैं, और इस रूप में टाइप करने पर भी ये काम करती हैं।
+
+<Faq
+  items={[
+    {
+      question: 'Kimi Code पर Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'Kimi Code सेशन में /plugins install https://github.com/wellwelwel/lagune चलाएँ, Trust and install चुनें, फिर /new चलाएँ।',
+    },
+    {
+      question: 'Kimi Code पर Lagune को कैसे अपडेट करें?',
+      answer:
+        '/plugins install https://github.com/wellwelwel/lagune फिर से चलाएँ, उसके बाद /new चलाएँ।',
+    },
+    {
+      question: 'Kimi Code पर Lagune की कमांड कैसे चलाएँ?',
+      answer:
+        'इन्हें प्लगइन के नाम के साथ टाइप करें, जैसे /lagune:lagune-charter, या उसी रूप में जैसे / मेन्यू इन्हें दिखाता है, जैसे /skill:lagune:lagune-charter।',
+    },
+  ]}
+/>

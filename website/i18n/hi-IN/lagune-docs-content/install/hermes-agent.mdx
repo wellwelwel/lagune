@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: 'Hermes Agent पर Lagune को प्लगइन के रूप में इंस्टॉल करें'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Hermes Agent पर Lagune को प्लगइन के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+keywords:
+  - hermes agent
+  - hermes agent प्लगइन
+  - hermes plugins install
+  - lagune इंस्टॉल करें
+  - सेटअप
+  - AI सुरक्षा
+  - AI एजेंट
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+अपने टर्मिनल से प्लगइन इंस्टॉल करें:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- जब **Hermes Agent** अपने कैटलॉग से बाहर के प्लगइन की पुष्टि करने को कहे, तो **पुष्टि करें**।
+- जब वह रिपॉज़िटरी की **Node.js** डिपेंडेंसी इंस्टॉल करने की पेशकश करे, तो **मना करें**।
+
+## अपडेट
+
+**Lagune** को अपडेट करने के लिए यह चलाएँ:
+
+```bash
+hermes plugins update lagune
+```
+
+## कमांड
+
+कमांड प्लगइन के नाम के साथ टाइप करें, जैसे `/lagune:lagune-charter`, जो `/lagune-charter` कमांड है, और `/lagune:lagune`, जो `/lagune` कमांड है।
+
+<Faq
+  items={[
+    {
+      question: 'Hermes Agent पर Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'hermes plugins install wellwelwel/lagune --enable चलाएँ। पूछे जाने पर प्लगइन की पुष्टि करें, और रिपॉज़िटरी की Node.js डिपेंडेंसी इंस्टॉल करने से मना करें।',
+    },
+    {
+      question: 'Hermes Agent पर Lagune को कैसे अपडेट करें?',
+      answer: 'hermes plugins update lagune चलाएँ।',
+    },
+    {
+      question: 'Hermes Agent पर Lagune की कमांड कैसे चलाएँ?',
+      answer:
+        'इन्हें प्लगइन के नाम के साथ टाइप करें, जैसे /lagune:lagune-charter और /lagune:lagune।',
+    },
+  ]}
+/>

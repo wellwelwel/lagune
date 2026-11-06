@@ -662,6 +662,21 @@ describe('the check of inline code that holds a phrase', () => {
     );
   });
 
+  it('accepts a phrase whose words end in vowel signs', () => {
+    strict.deepStrictEqual(
+      pageParity(
+        ENGLISH_INLINE,
+        translatedInline([
+          '"डेटा कहाँ रखा है?"',
+          FAITHFUL_SPANS[1],
+          FAITHFUL_SPANS[2],
+          FAITHFUL_SPANS[3],
+        ])
+      ),
+      []
+    );
+  });
+
   for (const { name, spans } of hostileInline)
     it(`rejects a translation that ${name}`, () => {
       strict(pageParity(ENGLISH_INLINE, translatedInline(spans)).length > 0);

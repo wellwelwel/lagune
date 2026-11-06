@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Muse Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Muse Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसका इंजन सैंडबॉक्स के अंदर चलाएँ।
+keywords:
+  - muse code
+  - muse code प्लगइन
+  - प्लगइन मार्केटप्लेस
+  - lagune इंस्टॉल करें
+  - सेटअप
+  - AI सुरक्षा
+  - AI एजेंट
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+अपने टर्मिनल से प्लगइन इंस्टॉल करें:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## अपडेट
+
+**Lagune** को अपडेट करने के लिए मार्केटप्लेस को रीफ़्रेश करें और प्लगइन को दोबारा इंस्टॉल करें:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## कमांड
+
+कमांड उनके नाम से टाइप करें, जैसे `/lagune-charter`, या प्लगइन के नाम के साथ, जैसे `/lagune:lagune-charter`।
+
+---
+
+:::info[अनुमतियाँ]
+
+**Muse Code** का सैंडबॉक्स इंजन डाउनलोड नहीं कर सकता। इसे अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Muse Code पर Lagune कैसे इंस्टॉल करें?',
+      answer:
+        'muse plugins marketplace add lagune wellwelwel/lagune चलाएँ, फिर muse plugins install lagune@lagune चलाएँ।',
+    },
+    {
+      question: 'Muse Code पर Lagune को कैसे अपडेट करें?',
+      answer:
+        'muse plugins marketplace update lagune चलाएँ, फिर muse plugins remove lagune और muse plugins install lagune@lagune से प्लगइन दोबारा इंस्टॉल करें।',
+    },
+    {
+      question: 'Muse Code पर Lagune की कमांड कैसे चलाएँ?',
+      answer:
+        'इन्हें उनके नाम से टाइप करें, जैसे /lagune-charter, या प्लगइन के नाम के साथ, जैसे /lagune:lagune-charter।',
+    },
+    {
+      question: 'क्या Lagune, Muse Code के सैंडबॉक्स में काम करता है?',
+      answer:
+        'हाँ, जब आप अपने टर्मिनल से npm i -D lagune@{{version}} चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल कर लें, पहली बार और हर अपडेट के बाद।',
+    },
+  ]}
+/>
