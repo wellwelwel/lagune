@@ -12,6 +12,8 @@ const CLAUDE_BRANCH = {
   url: 'https://github.com/wellwelwel/lagune.git',
   ref: 'plugin-claude',
 };
+const PLUGIN_ROOT = '${CLAUDE_PLUGIN_ROOT}';
+const VARIABLE = /\$\{[^{}]*\}/g;
 
 const manifest = await readManifest('.claude-plugin/plugin.json');
 const marketplace = await readManifest('.claude-plugin/marketplace.json');
@@ -51,6 +53,16 @@ describe('the Claude plugin branch, which the Anthropic directory reviews', () =
     strict(
       engineServer.alwaysLoad === true,
       'the server opts out of tool search'
+    );
+  });
+
+  it("starts the engine with no variable but the plugin's own root, the only one the directory follows", () => {
+    const command = JSON.stringify([engineServer.command, engineServer.args]);
+    const variables = command.match(VARIABLE) ?? [];
+
+    strict.deepStrictEqual(
+      variables.filter((variable) => variable !== PLUGIN_ROOT),
+      []
     );
   });
 

@@ -57,11 +57,7 @@ const BUNDLES: PluginBundle[] = [
       declaration: '.mcp.json',
       server: {
         command: 'node',
-        args: [
-          '${CLAUDE_PLUGIN_ROOT}/lib/bin/index.js',
-          'mcp',
-          '${CLAUDE_PROJECT_DIR}',
-        ],
+        args: ['${CLAUDE_PLUGIN_ROOT}/lib/bin/index.js', 'mcp'],
       },
     },
   },
