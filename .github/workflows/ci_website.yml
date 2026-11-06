@@ -71,6 +71,14 @@ jobs:
         continue-on-error: true
         run: bun run i18n:check
 
+      # Saved by the website deploy on main
+      - name: Restore Docusaurus Cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: website/node_modules/.cache
+          key: docusaurus-linux-${{ github.sha }}
+          restore-keys: docusaurus-linux-
+
       - name: Checking Build
         working-directory: website
         run: bun run build
