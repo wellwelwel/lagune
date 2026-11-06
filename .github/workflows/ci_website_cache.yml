@@ -1,0 +1,25 @@
+name: '🧹 CI (Website) — Clear Docusaurus Cache'
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  clear:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    name: Clear
+    steps:
+      - name: Clear Cache
+        run: |
+          ids=$(gh cache list --key docusaurus-linux- --limit 1000 --json id --jq '.[].id')
+
+          for id in $ids; do
+            gh cache delete "$id"
+            echo "Deleted cache $id"
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
