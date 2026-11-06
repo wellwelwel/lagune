@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/network
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/network
-Última atualização: 2026-11-05
+Última atualização: 2026-11-03
 
 O hook `network` decide se um destino de requisição feita pelo servidor está protegido contra **SSRF** (uma requisição que pode ser direcionada a serviços internos, metadados da nuvem ou hosts privados). É o engine determinístico por trás da [especialização `network`](https://lagune.ai/pt-BR/docs/catalog), e você mesmo pode executá-lo.
 

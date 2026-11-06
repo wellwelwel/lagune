@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/pi
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/pi
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-03
 
 **npm**
 

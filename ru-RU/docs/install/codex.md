@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/codex
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/codex
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 

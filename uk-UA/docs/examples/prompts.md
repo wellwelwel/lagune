@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/examples/prompts
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/examples/prompts
-Останнє оновлення: 2026-11-05
+Останнє оновлення: 2026-11-04
 
 Готові до копіювання промпти Lagune, які можна вставити просто у ваш ШІ-агент.
 

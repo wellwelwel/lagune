@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/opencode
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/opencode
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 **OpenCode 2.x**
 

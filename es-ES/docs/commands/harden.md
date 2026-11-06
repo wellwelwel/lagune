@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/harden
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/harden
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 🔧 Aplica a tu código las correcciones del plan, de forma segura y de una en una.
 

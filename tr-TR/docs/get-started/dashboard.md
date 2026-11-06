@@ -1,13 +1,11 @@
 # Gösterge paneli
 
-> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/get-started/dashboard).
-
 > Projenizin charter'ını, bulgularını ve kataloğunu tek komutla açılan canlı ve yerel bir görünümde izleyin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/get-started/dashboard
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/get-started/dashboard
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-06
 
 `.lagune/` klasörünün etkileşimli, canlı bir görünümü için **Lagune**'yi alt komut vermeden doğrudan çalıştırın. Bir gösterge paneli sunar ve onu rastgele bir portta açar:
 
@@ -18,7 +16,7 @@ npx lagune
 - [x] **Live reload**
 - [x] **Özel** ve **yerel**
 - [x] İlk charter'dan itibaren `.lagune/` klasöründe ne varsa gösterir
-- [x] Projenin kategorilerini doğrudan tarayıcınızdan **yönetin**
+- [x] Projenin kategorilerini ve hook'larının neleri taradığını doğrudan tarayıcınızdan **yönetin**
 - [x] `node_modules` ya da `package.json` dosyasına gerek yoktur 📦
 
 ![Lagune gösterge panelinde charter](https://lagune.ai/img/dashboard/02.webp)
@@ -48,4 +46,4 @@ Evet. Yalnızca kendi makinenizde, başka hiçbir bilgisayarın erişemeyeceği 
 
 ### Projemi gösterge panelinden değiştirebilir miyim?
 
-Yalnızca kategorilerini, tarayıcınızdan. Panelin gösterdiği diğer her şey salt okunurdur.
+Yalnızca kategorilerini ve hook'larının neleri dışarıda bıraktığını, tarayıcınızdan. Panelin gösterdiği diğer her şey salt okunurdur.

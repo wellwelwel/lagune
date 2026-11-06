@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/commands/detect
 Idioma: pt-BR
 Original: https://lagune.ai/docs/commands/detect
-Última atualização: 2026-11-05
+Última atualização: 2026-11-03
 
 🔬 Descubra o que o seu sistema realmente faz e onde estão os riscos.
 

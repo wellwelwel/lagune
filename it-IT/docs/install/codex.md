@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/codex
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/codex
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 Installa il plugin dal terminale:
 

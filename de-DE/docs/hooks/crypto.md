@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/crypto
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/crypto
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `crypto` meldet **schwache kryptografische Primitive** direkt an der Aufrufstelle: ein veraltetes Verschlüsselungsverfahren, einen unsicheren Modus oder einen gebrochenen Hash. Er arbeitet **sprachspezifisch** und liest jede Datei nach ihren eigenen Regeln, sodass er ein Python-Konstrukt nie in einer Rust-Datei meldet. Er ist die deterministische Engine hinter der [Spezialisierung `crypto`](https://lagune.ai/de-DE/docs/catalog), und du kannst ihn selbst im Modus **scan** oder **check** ausführen.
 

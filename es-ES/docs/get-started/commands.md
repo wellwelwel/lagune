@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/get-started/commands
 Idioma: es-ES
 Original: https://lagune.ai/docs/get-started/commands
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 Una vez que [instalas](https://lagune.ai/es-ES/docs) **Lagune**, tu agente de **IA** desbloquea un conjunto de skills. Hay dos formas de usarlas, y ambas se rigen por tus **principios de seguridad**: proteger el trabajo nuevo a medida que lo desarrollas, o ejecutar la auditoría completa sobre un proyecto.
 

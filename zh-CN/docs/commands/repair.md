@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/repair
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/repair
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 🧰 文件重命名或移动让链路出错时，用它来修复链路。
 

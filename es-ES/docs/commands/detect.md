@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/detect
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/detect
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 🔬 Descubre qué hace realmente tu sistema y dónde están los riesgos.
 

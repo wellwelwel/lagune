@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/hooks/jwt
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/jwt
-最后更新: 2026-11-05
+最后更新: 2026-11-04
 
 `jwt` hook 会标记**未固定算法的 JWT 验证**，也就是验证方信任令牌自身 `alg` 头部的算法混淆漏洞，以及**完全关闭了验证**的情况。它能**识别语言**，按每个文件所用的 JWT 库来读取，也是 [`federation` 专项](https://lagune.ai/zh-CN/docs/catalog) 背后的确定性引擎，你也可以自己以 **scan** 或 **check** 模式运行它。
 

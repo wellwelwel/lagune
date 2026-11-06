@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/github-copilot-cli
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/github-copilot-cli
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 

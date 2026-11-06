@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/regex
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/regex
-Última atualização: 2026-11-05
+Última atualização: 2026-11-04
 
 O hook `regex` é o engine determinístico de segurança de regex que a [especialização `regex`](https://lagune.ai/pt-BR/docs/catalog) executa, e você mesmo pode executá-lo. Ele funciona em dois modos a partir de um único comando: um **scan**, que varre um código em busca de padrões vulneráveis a **ReDoS** e de padrões montados em tempo de execução, e um **check**, que avalia um único padrão que você passar.
 

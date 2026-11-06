@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/pi
 언어: ko-KR
 원문: https://lagune.ai/docs/install/pi
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-03
 
 **npm**
 

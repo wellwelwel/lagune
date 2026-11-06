@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/jwt
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/jwt
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-04
 
 `jwt` hook'u, **algoritması sabitlenmemiş JWT doğrulamasını**, yani doğrulayıcının token'ın kendi `alg` başlığına güvendiği algoritma karışıklığı açığını ve **tamamen kapatılmış doğrulamayı** işaretler. **Dile duyarlıdır**, her dosyayı kullandığı JWT kütüphanesine göre okur. [`federation` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 

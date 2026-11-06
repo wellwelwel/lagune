@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/github-copilot-cli
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/github-copilot-cli
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 Installa il plugin dal terminale:
 

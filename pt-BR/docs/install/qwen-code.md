@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/install/qwen-code
 Idioma: pt-BR
 Original: https://lagune.ai/docs/install/qwen-code
-Última atualização: 2026-11-05
+Última atualização: 2026-11-03
 
 Instale a extensão pelo terminal:
 

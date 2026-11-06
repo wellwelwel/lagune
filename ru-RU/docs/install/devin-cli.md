@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/devin-cli
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/devin-cli
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Войдите в **Devin**, затем установите плагин из терминала:
 

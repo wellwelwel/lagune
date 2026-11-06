@@ -3,7 +3,7 @@
 > Install Lagune on Cursor and the Cursor CLI as a plugin, keep it updated, and allow its engine up front.
 
 Canonical: https://lagune.ai/docs/install/cursor
-Last updated: 2026-11-05
+Last updated: 2026-11-03
 
 **Cursor**
 

@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/catalog
 Lingua: it-IT
 Originale: https://lagune.ai/docs/catalog
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 🧠 Le specializzazioni di **Lagune** sono moduli di conoscenza di sicurezza mirati e indipendenti dal linguaggio, che si caricano solo su richiesta, mai per impostazione predefinita. Non sono comandi. Il catalogo del tuo progetto è l'insieme che usa: le specializzazioni integrate delle sue [categorie](https://lagune.ai/it-IT/docs/categories) più le sue. Le fasi detect e verify vi attingono durante l'esecuzione, e tu puoi caricarne una direttamente in qualsiasi momento.
 

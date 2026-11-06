@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/claude-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/claude-code
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **Терминал**
 

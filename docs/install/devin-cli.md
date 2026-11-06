@@ -3,7 +3,7 @@
 > Install Lagune on Devin CLI as a plugin, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/devin-cli
-Last updated: 2026-11-05
+Last updated: 2026-11-03
 
 Sign in to **Devin**, then install the plugin from your terminal:
 

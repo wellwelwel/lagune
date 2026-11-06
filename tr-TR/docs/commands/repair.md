@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/repair
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/repair
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-03
 
 🧰 Bir yeniden adlandırma ya da taşınan bir dosya zinciri karıştırdığında onu onarın.
 

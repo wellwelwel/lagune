@@ -1,13 +1,11 @@
 # Dashboard
 
-> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/get-started/dashboard).
-
 > Sieh dir die Sicherheitsprinzipien, die Befunde und den Katalog deines Projekts in einer lokalen Live-Ansicht an, die sich mit einem einzigen Befehl öffnet.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/get-started/dashboard
 Sprache: de-DE
 Original: https://lagune.ai/docs/get-started/dashboard
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-06
 
 Führe **Lagune** direkt und ohne Unterbefehl aus, um `.lagune/` in einer interaktiven Live-Ansicht zu sehen. Der Befehl startet ein Dashboard und öffnet es auf einem zufälligen Port:
 
@@ -18,7 +16,7 @@ npx lagune
 - [x] **Live-Reload**
 - [x] **Privat** und **lokal**
 - [x] Zeigt alles, was `.lagune/` enthält, sobald die ersten Sicherheitsprinzipien stehen
-- [x] **Verwalte** die Kategorien des Projekts direkt in deinem Browser
+- [x] **Verwalte** die Kategorien des Projekts und was seine Hooks durchsuchen, direkt in deinem Browser
 - [x] Weder `node_modules` noch `package.json` nötig 📦
 
 ![Sicherheitsprinzipien im Dashboard von Lagune](https://lagune.ai/img/dashboard/02.webp)
@@ -48,4 +46,4 @@ Ja. Es läuft nur auf deinem eigenen Rechner, unter einer lokalen Adresse, die k
 
 ### Kann ich mein Projekt über das Dashboard ändern?
 
-Nur seine Kategorien, und zwar in deinem Browser. Alles andere, was das Dashboard zeigt, ist schreibgeschützt.
+Nur seine Kategorien und was seine Hooks auslassen, und zwar in deinem Browser. Alles andere, was das Dashboard zeigt, ist schreibgeschützt.

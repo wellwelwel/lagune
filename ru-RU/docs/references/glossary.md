@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/references/glossary
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/references/glossary
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Все ключевые термины Lagune и методологии Security-Driven Hardening, каждый определен один раз и простым языком.
 

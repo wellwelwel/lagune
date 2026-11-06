@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/grok-build
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/grok-build
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-03
 
 Installez le plugin depuis votre terminal :
 

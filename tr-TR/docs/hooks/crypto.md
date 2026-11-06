@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/crypto
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/crypto
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-04
 
 `crypto` hook'u, **zayıf kriptografik primitifleri** çağrıldıkları yerde işaretler: kullanımdan kaldırılmış bir şifre, güvensiz bir mod ya da kırılmış bir özet algoritması. **Dile duyarlıdır**, her dosyayı kendi kurallarıyla okur, bu yüzden bir Python yapısı asla bir Rust dosyasında işaretlenmez. [`crypto` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 

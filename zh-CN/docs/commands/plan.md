@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/plan
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/plan
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 🛡️ 把 detect 的发现转化为防御计划：用类别和 CVSS v4.0 评分为每个发现项定级，再为它配上要应用的修复。
 

@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/opencode
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/opencode
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-03
 
 **OpenCode 2.x**
 

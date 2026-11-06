@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs
 언어: ko-KR
 원문: https://lagune.ai/docs
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-03
 
 **Lagune**은 AI 에이전트가 프로젝트를 더 안전하게 만들도록 돕습니다. 코드를 대상으로 실행하면 에이전트가 시스템이 실제로 하는 일을 파악하고, 그 시스템에 중요한 보안 작업을 차근차근 안내합니다. **Lagune**은 [Security-Driven Hardening (SDH)](https://lagune.ai/ko-KR/docs/references/paper) 방법론의 첫 번째 프로젝트입니다.
 

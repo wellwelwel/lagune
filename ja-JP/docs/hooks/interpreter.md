@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/interpreter
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/interpreter
-最終更新日: 2026-11-05
+最終更新日: 2026-11-04
 
 `interpreter` フックは、**動的コード実行のシンク**を指摘します。データを実行可能なコードに変えたり、シェルに渡したりする構文のことで、`eval` からネイティブのデシリアライズまでが含まれます。言語を識別して動作し、各ファイルをその言語のルールで読み取ります。また、[`interpreter` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 

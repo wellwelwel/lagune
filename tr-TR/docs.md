@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-03
 
 **Lagune**, yapay zeka ajanınızın bir projeyi daha güvenli hale getirmesine yardım eder. Ona kodunuzu gösterirsiniz, ajan sisteminizin gerçekte ne yaptığını çıkarır ve ardından o sistem için önemli olan güvenlik çalışmasında size yol gösterir. **Lagune**, [Security-Driven Hardening (SDH)](https://lagune.ai/tr-TR/docs/references/paper) metodolojisinin ilk projesidir.
 

@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/charter
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/charter
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-04
 
 🧬 프로젝트가 무엇인지 **Lagune**에 알려 주면, 그 설명을 보안 규칙으로 바꿉니다(설명이 없으면 프로젝트만 보고 규칙을 도출합니다).
 

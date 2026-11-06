@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/claude-code
 언어: ko-KR
 원문: https://lagune.ai/docs/install/claude-code
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-03
 
 **터미널**
 

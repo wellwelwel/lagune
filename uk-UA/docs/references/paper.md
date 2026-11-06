@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/paper
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/paper
-Останнє оновлення: 2026-11-05
+Останнє оновлення: 2026-11-04
 
 - **Weslley Araújo**
 - **Стаття про методологію, 2026.**

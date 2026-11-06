@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/infra
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/infra
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `infra` meldet **Fehlkonfigurationen in Infrastructure as Code**, die sich aus der Datei selbst entscheiden lassen: ein Netzwerk, das für die ganze Welt offen ist, eine Berechtigung mit Wildcard, ein Secret in einem Manifest, ein Container, der als root läuft, ein nicht vertrauenswürdiger Wert in einer CI-Shell. Er liest nur IaC-Dateien (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). Er ist die deterministische Engine hinter der [Spezialisierung `infra`](https://lagune.ai/de-DE/docs/catalog), im Modus **scan** oder **check**.
 

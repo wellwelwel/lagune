@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/muse-code
 语言: zh-CN
 原文: https://lagune.ai/docs/install/muse-code
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 在终端中安装插件：
 

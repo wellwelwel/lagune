@@ -1,13 +1,11 @@
 # フックの設定：スキャン対象を選ぶ
 
-> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/hooks/configure)。
-
 > ファイルをスキャンするフックが何を除外するかを、すべてのフックにまとめて、または 1 つずつ選べます。
 
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/configure
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/configure
-最終更新日: 2026-11-05
+最終更新日: 2026-11-06
 
 `checkers` ブロックは `.lagune/configs.json` の中にあり、ファイルをスキャンするフックが何を除外するかを、すべてのフックにまとめて、または 1 つずつ設定します。
 
@@ -21,7 +19,7 @@ npx lagune write add --ignore 'packages/*/dist' --checker secrets
 npx lagune write remove --ignore test/fixtures
 ```
 
-ファイルに直接書くこともできます：
+[ダッシュボード](https://lagune.ai/ja-JP/docs/get-started/dashboard)の Settings で選ぶことも、ファイルに直接書くこともできます：
 
 ```json
 {

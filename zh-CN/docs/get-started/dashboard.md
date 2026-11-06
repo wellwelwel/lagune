@@ -1,13 +1,11 @@
 # 仪表盘
 
-> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/get-started/dashboard)。
-
 > 一条命令就能打开本地实时视图，查看项目的安全原则、发现项和目录。
 
 规范链接: https://lagune.ai/zh-CN/docs/get-started/dashboard
 语言: zh-CN
 原文: https://lagune.ai/docs/get-started/dashboard
-最后更新: 2026-11-05
+最后更新: 2026-11-06
 
 不带子命令直接运行 **Lagune**，就能获得 `.lagune/` 的交互式实时视图。它会在一个随机端口上启动仪表盘并打开它：
 
@@ -18,7 +16,7 @@ npx lagune
 - [x] **实时刷新**
 - [x] **私密**且**本地**
 - [x] 从首次运行 charter 起，展示 `.lagune/` 中的全部内容
-- [x] 直接在浏览器中**管理**项目的类别
+- [x] 直接在浏览器中**管理**项目的类别，以及它的 hook 扫描哪些内容
 - [x] 无需 `node_modules` 或 `package.json` 📦
 
 ![Lagune 仪表盘的安全原则页面](https://lagune.ai/img/dashboard/02.webp)
@@ -48,4 +46,4 @@ npx lagune
 
 ### 可以在仪表盘里修改项目吗？
 
-只能在浏览器中修改项目的类别。仪表盘展示的其他内容都是只读的。
+只能在浏览器中修改项目的类别，以及 hook 要跳过哪些内容。仪表盘展示的其他内容都是只读的。

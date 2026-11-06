@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/hooks/crypto
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/crypto
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-04
 
 L'hook `crypto` segnala le **primitive crittografiche deboli** nel punto della chiamata: un cifrario deprecato, una modalità non sicura o un digest compromesso. È **consapevole del linguaggio**, legge ogni file con le sue regole, così un costrutto Python non viene mai segnalato in un file Rust, ed è il motore deterministico dietro la [specializzazione `crypto`](https://lagune.ai/it-IT/docs/catalog), che puoi eseguire tu stesso in modalità **scan** o **check**.
 

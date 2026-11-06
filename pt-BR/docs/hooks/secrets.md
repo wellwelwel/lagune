@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/secrets
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/secrets
-Última atualização: 2026-11-05
+Última atualização: 2026-11-04
 
 O hook `secrets` sinaliza **credenciais embutidas no código-fonte** em vez de lidas do ambiente. Ele se baseia na **procedência** (um literal versus uma leitura do ambiente), não no conteúdo do valor, então não precisa de um catálogo exaustivo de prefixos de provedores e quase não gera falsos positivos. É o engine determinístico por trás da [especialização `secrets`](https://lagune.ai/pt-BR/docs/catalog).
 

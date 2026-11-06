@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/devin-cli
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/devin-cli
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-03
 
 Melde dich bei **Devin** an und installiere dann das Plugin über dein Terminal:
 

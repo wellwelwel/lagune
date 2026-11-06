@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/commands/charter
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/charter
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-04
 
 🧬 Dites à **Lagune** ce qu'est votre projet, et il le transforme en règles de sécurité (ou, sans description, il les déduit du projet seul).
 

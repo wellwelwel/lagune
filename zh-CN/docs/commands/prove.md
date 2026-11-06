@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/prove
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/prove
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 🧪 把检测到的每个发现项转化为可运行、仅限防御的证据，用于负责任披露。
 

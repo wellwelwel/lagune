@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/charter
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/charter
-最后更新: 2026-11-05
+最后更新: 2026-11-04
 
 🧬 告诉 **Lagune** 你的项目是做什么的，它会据此制定你的安全规则（如果你不提供描述，它也能仅凭项目本身推断出来）。
 

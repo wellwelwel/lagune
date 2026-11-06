@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/examples/prompts
 언어: ko-KR
 원문: https://lagune.ai/docs/examples/prompts
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-04
 
 AI 에이전트에 그대로 붙여 넣어 바로 쓸 수 있는 Lagune 프롬프트입니다.
 

@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/hooks/secrets
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/secrets
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-04
 
 L'hook `secrets` segnala le **credenziali compilate nel sorgente** invece che lette dall'ambiente. Si basa sulla **provenienza** (un letterale contro una lettura dall'ambiente), non sul contenuto del valore, quindi non ha bisogno di un catalogo esaustivo dei prefissi dei fornitori e non produce quasi falsi positivi. È il motore deterministico dietro la [specializzazione `secrets`](https://lagune.ai/it-IT/docs/catalog).
 

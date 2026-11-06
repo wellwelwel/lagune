@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/pi
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/pi
-Останнє оновлення: 2026-11-05
+Останнє оновлення: 2026-11-03
 
 **npm**
 

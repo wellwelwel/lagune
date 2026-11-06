@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs
 Lingua: it-IT
 Originale: https://lagune.ai/docs
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 **Lagune** aiuta il tuo agente IA a rendere un progetto più sicuro. Lo punti sul tuo codice e l'agente capisce cosa fa davvero il tuo sistema, poi ti guida nel lavoro di sicurezza che conta per quel sistema. **Lagune** è il primo progetto della metodologia [Security-Driven Hardening (SDH)](https://lagune.ai/it-IT/docs/references/paper).
 

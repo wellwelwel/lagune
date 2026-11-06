@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/universal
 语言: zh-CN
 原文: https://lagune.ai/docs/install/universal
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 **终端**
 

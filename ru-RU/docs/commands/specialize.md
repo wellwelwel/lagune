@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/specialize
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/specialize
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🎓 Обучите **Lagune** новой специализации на основе источника или темы, которые вы даете.
 

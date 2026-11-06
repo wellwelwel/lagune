@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/references/configs-schema
 Lingua: it-IT
 Originale: https://lagune.ai/docs/references/configs-schema
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-04
 
 `.lagune/configs.json` registra le [**categorie**](https://lagune.ai/it-IT/docs/categories) usate da un progetto, indicizza le sue [**specializzazioni**](https://lagune.ai/it-IT/docs/catalog) e stabilisce cosa lasciano fuori i [**checker**](https://lagune.ai/it-IT/docs/hooks/configure). Il suo JSON Schema permette al tuo editor di completare automaticamente ogni campo e di segnalare un refuso o una categoria sconosciuta mentre modifichi il file.
 

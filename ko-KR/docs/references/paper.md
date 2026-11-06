@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/references/paper
 언어: ko-KR
 원문: https://lagune.ai/docs/references/paper
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-03
 
 - **Weslley Araújo**
 - **방법론 논문, 2026년**

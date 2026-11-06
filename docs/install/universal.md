@@ -3,7 +3,7 @@
 > Install Lagune in any AI agent with the skills CLI, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/universal
-Last updated: 2026-11-05
+Last updated: 2026-11-03
 
 **Terminal**
 

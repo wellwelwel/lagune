@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/devin-cli
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/devin-cli
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-03
 
 Connectez-vous à **Devin**, puis installez le plugin depuis votre terminal :
 

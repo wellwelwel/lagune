@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/examples/prompts
 Idioma: pt-BR
 Original: https://lagune.ai/docs/examples/prompts
-Última atualização: 2026-11-05
+Última atualização: 2026-11-04
 
 Prompts do Lagune prontos para copiar e colar direto no seu agente de IA.
 

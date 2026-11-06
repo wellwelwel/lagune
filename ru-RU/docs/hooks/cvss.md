@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/cvss
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/cvss
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Хук `cvss` оценивает **вектор CVSS v4.0** и выводит его оценку и диапазон критичности, ту оценку, которую [`/lagune-plan`](https://lagune.ai/ru-RU/docs/commands/plan) пишет у каждого исправления, а [`/lagune-prove`](https://lagune.ai/ru-RU/docs/commands/prove) в каждом бюллетене. Это детерминированный движок, стоящий за этими оценками, с той же арифметикой, что и [калькулятор FIRST](https://www.first.org/cvss/calculator/4.0), и вы можете запускать его сами.
 

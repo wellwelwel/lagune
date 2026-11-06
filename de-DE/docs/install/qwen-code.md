@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/qwen-code
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/qwen-code
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-03
 
 Installiere die Erweiterung über dein Terminal:
 

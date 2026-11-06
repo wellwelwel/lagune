@@ -3,7 +3,7 @@
 > Plain-language definitions of every Lagune and Security-Driven Hardening term: SDH, charter, detect, finding, control, harden, verify, stand down, closability, specializations, categories, and the catalog.
 
 Canonical: https://lagune.ai/docs/references/glossary
-Last updated: 2026-11-05
+Last updated: 2026-11-02
 
 Every load-bearing term in Lagune and the Security-Driven Hardening methodology, defined once, in plain language.
 

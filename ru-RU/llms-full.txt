@@ -13,7 +13,7 @@ Lagune представляет собой открытый процесс Secur
 Канонический URL: https://lagune.ai/ru-RU/docs
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **Lagune** помогает вашему ИИ-агенту сделать проект безопаснее. Вы указываете на свой код, агент разбирается, что на самом деле делает ваша система, а затем ведет вас через ту работу по безопасности, которая для нее важна. **Lagune** является первым проектом методологии [Security-Driven Hardening (SDH)](https://lagune.ai/ru-RU/docs/references/paper).
 
@@ -198,7 +198,7 @@ Copyright © 2026-н. в. [Weslley Araújo](https://github.com/wellwelwel) и [�
 Канонический URL: https://lagune.ai/ru-RU/docs/install/antigravity-cli
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/antigravity-cli
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 
@@ -263,7 +263,7 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 Канонический URL: https://lagune.ai/ru-RU/docs/install/claude-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/claude-code
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **Терминал**
 
@@ -365,7 +365,7 @@ claude plugin update lagune@lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/codex
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/codex
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 
@@ -423,7 +423,7 @@ npm i -D lagune@0.18.0
 Канонический URL: https://lagune.ai/ru-RU/docs/install/cursor
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/cursor
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **Cursor**
 
@@ -515,7 +515,7 @@ npm i -D lagune@0.18.0
 Канонический URL: https://lagune.ai/ru-RU/docs/install/devin-cli
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/devin-cli
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Войдите в **Devin**, затем установите плагин из терминала:
 
@@ -559,7 +559,7 @@ devin plugins update lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/factory-droid
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/factory-droid
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 
@@ -614,7 +614,7 @@ droid plugin update lagune@lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/gemini-cli
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/gemini-cli
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите расширение из терминала:
 
@@ -687,7 +687,7 @@ priority = 100
 Канонический URL: https://lagune.ai/ru-RU/docs/install/github-copilot-cli
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/github-copilot-cli
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 
@@ -738,7 +738,7 @@ copilot plugin update lagune@lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/grok-build
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/grok-build
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 
@@ -798,7 +798,7 @@ allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
 Канонический URL: https://lagune.ai/ru-RU/docs/install/hermes-agent
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/hermes-agent
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 
@@ -844,7 +844,7 @@ hermes plugins update lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/kimi-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/kimi-code
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из сессии **Kimi Code**, выберите **Trust and install**, а затем начните новую сессию, чтобы он загрузился:
 
@@ -889,7 +889,7 @@ hermes plugins update lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/muse-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/muse-code
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из терминала:
 
@@ -949,7 +949,7 @@ npm i -D lagune@0.18.0
 Канонический URL: https://lagune.ai/ru-RU/docs/install/opencode
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/opencode
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **OpenCode 2.x**
 
@@ -1045,7 +1045,7 @@ opencode plugin lagune@0.18.0 --force
 Канонический URL: https://lagune.ai/ru-RU/docs/install/pi
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/pi
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **npm**
 
@@ -1110,7 +1110,7 @@ pi update git:github.com/wellwelwel/lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/qwen-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/qwen-code
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите расширение из терминала:
 
@@ -1175,7 +1175,7 @@ qwen extensions update lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/install/universal
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/universal
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **Терминал**
 
@@ -1248,7 +1248,7 @@ npm i -D lagune@0.18.0
 Канонический URL: https://lagune.ai/ru-RU/docs/get-started/commands
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/get-started/commands
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Когда **Lagune** [установлен](https://lagune.ai/ru-RU/docs), вашему **ИИ**-агенту становится доступен набор навыков. Пользоваться ими можно двумя способами, и оба подчиняются **принципам безопасности**: защищать новую работу прямо во время разработки или проводить полный аудит проекта.
 
@@ -1324,14 +1324,12 @@ npm i -D lagune@0.18.0
 
 # Дашборд
 
-> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/get-started/dashboard).
-
 > Смотрите принципы безопасности, находки и каталог своего проекта в локальном представлении в реальном времени, которое открывается одной командой.
 
 Канонический URL: https://lagune.ai/ru-RU/docs/get-started/dashboard
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/get-started/dashboard
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-06
 
 Запустите **Lagune** напрямую, без подкоманды, чтобы получить интерактивное представление `.lagune/` в реальном времени. Команда поднимает дашборд и открывает его на случайном порту:
 
@@ -1342,7 +1340,7 @@ npx lagune
 - [x] **Live Reload**
 - [x] **Приватно** и **локально**
 - [x] Показывает все, что есть в `.lagune/`, начиная с первых принципов безопасности
-- [x] **Управляйте** категориями проекта прямо из браузера
+- [x] **Управляйте** категориями проекта и тем, что сканируют его хуки, прямо из браузера
 - [x] Не нужны ни `node_modules`, ни `package.json` 📦
 
 ![Принципы безопасности в дашборде Lagune](https://lagune.ai/img/dashboard/02.webp)
@@ -1372,7 +1370,7 @@ npx lagune
 
 ### Можно ли менять проект из дашборда?
 
-Только его категории, из браузера. Все остальное в дашборде доступно только для чтения.
+Только его категории и то, что пропускают его хуки, из браузера. Все остальное в дашборде доступно только для чтения.
 
 ---
 
@@ -1383,7 +1381,7 @@ npx lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/lagune
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/lagune
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 ⌨️ Выполняет работу, о которой вы попросили, и защищает ее прямо во время написания. **`/lagune`** принимает любой промпт на любом этапе, создает то, что вы хотели, и защищает результат безопасными настройками по умолчанию, прежде чем вернуть его вам.
 
@@ -1477,7 +1475,7 @@ npx lagune
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/charter
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/charter
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 🧬 Расскажите **Lagune**, что представляет собой ваш проект, и он превратит это в ваши правила безопасности (а без описания выведет их из самого проекта).
 
@@ -1569,7 +1567,7 @@ npx lagune write remove --categories python
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/detect
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/detect
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🔬 Узнайте, что на самом деле делает ваша система и где находятся риски.
 
@@ -1646,7 +1644,7 @@ Detect читает код и фиксирует только то, что де�
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/plan
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/plan
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🛡️ Превратите то, что нашла фаза detect, в план защиты: присвойте каждой находке категорию и оценку CVSS v4.0, а затем подберите к ней исправление.
 
@@ -1722,7 +1720,7 @@ Plan работает только с тем, что уже выявила [`/la
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/harden
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/harden
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🔧 Примените исправления из плана к своему коду, безопасно и по одному.
 
@@ -1797,7 +1795,7 @@ Harden опирается на [`/lagune-plan`](https://lagune.ai/ru-RU/docs/com
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/verify
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/verify
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 ⚖️ Докажите, что каждое примененное исправление действует, прочитав код и сопоставив его с тем, что зафиксировала harden, а затем закройте те, что прошли проверку.
 
@@ -1878,7 +1876,7 @@ Verify опирается на [`/lagune-harden`](https://lagune.ai/ru-RU/docs/c
 Канонический URL: https://lagune.ai/ru-RU/docs/categories
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/categories
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 **Lagune** группирует свои встроенные [**специализации**](https://lagune.ai/ru-RU/docs/catalog) по категориям, всего их **13**. Категории, которые использует проект, определяют, какие встроенные специализации попадут в его [**каталог**](https://lagune.ai/ru-RU/docs/catalog), и делятся на две группы: что делает система и на чем она написана.
 
@@ -1974,7 +1972,7 @@ npx lagune read list --categories
 Канонический URL: https://lagune.ai/ru-RU/docs/catalog
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/catalog
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🧠 Специализации **Lagune** представляют собой профильные модули знаний о безопасности, независимые от языка, которые загружаются только по запросу и никогда по умолчанию. Это не команды. Каталог вашего проекта образует набор, который он использует: встроенные специализации его [категорий](https://lagune.ai/ru-RU/docs/categories) плюс собственные. Фазы detect и verify обращаются к ним во время работы, а вы можете загрузить любую напрямую в любой момент.
 
@@ -2107,7 +2105,7 @@ npx lagune read catalog
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/specialize
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/specialize
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🎓 Обучите **Lagune** новой специализации на основе источника или темы, которые вы даете.
 
@@ -2183,7 +2181,7 @@ npx lagune read catalog
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/prove
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/prove
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🧪 Превратите каждую обнаруженную находку в запускаемое свидетельство, ориентированное только на защиту, для ответственного раскрытия.
 
@@ -2273,14 +2271,12 @@ Prove пишет самодостаточный бюллетень, которы
 
 # Настройка хуков: выберите, что они сканируют
 
-> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/hooks/configure).
-
 > Выберите, что пропускают хуки, которые сканируют файлы, для всех сразу или для одного из них.
 
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/configure
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/configure
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-06
 
 Блок `checkers` в `.lagune/configs.json` задает, что пропускают хуки, которые сканируют файлы, для всех сразу или для одного из них.
 
@@ -2294,7 +2290,7 @@ npx lagune write add --ignore 'packages/*/dist' --checker secrets
 npx lagune write remove --ignore test/fixtures
 ```
 
-Или задайте их в файле:
+Или выберите их в разделе Settings [дашборда](https://lagune.ai/ru-RU/docs/get-started/dashboard), или задайте их в файле:
 
 ```json
 {
@@ -2357,7 +2353,7 @@ Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores.
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/agent
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/agent
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `agent` помечает **среды выполнения агентов, которые крутятся в цикле без ограничения ходов, бюджета или времени**, ту дыру неконтролируемой автономии, через которую специально сформированный ввод превращается в неограниченные расходы или эскалацию через prompt injection. Он **учитывает язык** и охватывает две экосистемы агентных фреймворков: **JavaScript** (среда выполнения `query` из агентного SDK **Claude**) и **Python** (**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**). Это детерминированный движок, стоящий за [специализацией `llm`](https://lagune.ai/ru-RU/docs/catalog), и вы можете запускать его сами в режиме **scan** или **check**.
 
@@ -2441,7 +2437,7 @@ npx lagune write add --ignore test/fixtures --checker agent
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/cors
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/cors
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `cors` представляет собой детерминированный движок, стоящий за [специализацией `http-request`](https://lagune.ai/ru-RU/docs/catalog), и вы можете запускать его сами. Он работает в двух режимах одной командой: **сканирование** проверяет исходный код на **обходимый список разрешенных источников** (регулярное выражение для проверки хоста, мимо которого проскальзывает хост злоумышленника), а **оценка** присваивает отдельному значению **источника CORS** вердикт `wildcard`, `null` или `safe`.
 
@@ -2568,7 +2564,7 @@ npx lagune write add --ignore test/fixtures --checker cors
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/crypto
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/crypto
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `crypto` помечает **слабые криптографические примитивы** в месте вызова: устаревший шифр, небезопасный режим или взломанную хеш-функцию. Он **учитывает язык** и читает каждый файл по его собственным правилам, поэтому конструкция Python никогда не помечается в файле Rust. Это детерминированный движок, стоящий за [специализацией `crypto`](https://lagune.ai/ru-RU/docs/catalog), и вы можете запускать его сами в режиме **scan** или **check**.
 
@@ -2673,7 +2669,7 @@ npx lagune write add --ignore test/fixtures --checker crypto
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/cvss
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/cvss
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Хук `cvss` оценивает **вектор CVSS v4.0** и выводит его оценку и диапазон критичности, ту оценку, которую [`/lagune-plan`](https://lagune.ai/ru-RU/docs/commands/plan) пишет у каждого исправления, а [`/lagune-prove`](https://lagune.ai/ru-RU/docs/commands/prove) в каждом бюллетене. Это детерминированный движок, стоящий за этими оценками, с той же арифметикой, что и [калькулятор FIRST](https://www.first.org/cvss/calculator/4.0), и вы можете запускать его сами.
 
@@ -2771,7 +2767,7 @@ npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/infra
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/infra
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `infra` помечает **ошибки конфигурации инфраструктуры как кода**, которые можно определить по самому файлу: сеть, открытую всему миру, разрешение с подстановочным знаком, секрет в манифесте, контейнер, работающий от root, недоверенное значение в оболочке CI. Он читает только файлы IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). Это детерминированный движок, стоящий за [специализацией `infra`](https://lagune.ai/ru-RU/docs/catalog), в режиме **scan** или **check**.
 
@@ -2848,7 +2844,7 @@ Terraform и HCL (.tf, .tf.json, .hcl), Dockerfile, а также YAML рабо�
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/interpreter
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/interpreter
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `interpreter` помечает **точки динамического выполнения кода** (sinks): конструкции, которые превращают данные в исполняемый код или передают их оболочке, от `eval` до нативной десериализации. Он учитывает язык и читает каждый файл по его собственным правилам. Это детерминированный движок, стоящий за [специализацией `interpreter`](https://lagune.ai/ru-RU/docs/catalog), и вы можете запускать его сами в режиме **scan** или **check**.
 
@@ -2956,7 +2952,7 @@ npx lagune write add --ignore test/fixtures --checker interpreter
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/jwt
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/jwt
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `jwt` помечает **проверку JWT без закрепленного алгоритма**, дыру подмены алгоритма (algorithm confusion), при которой проверяющий код доверяет заголовку `alg` из самого токена, а также **полностью отключенную проверку**. Он **учитывает язык** и читает каждый файл с учетом его собственной библиотеки JWT. Это детерминированный движок, стоящий за [специализацией `federation`](https://lagune.ai/ru-RU/docs/catalog), и вы можете запускать его сами в режиме **scan** или **check**.
 
@@ -3051,7 +3047,7 @@ npx lagune write add --ignore test/fixtures --checker jwt
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/network
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/network
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Хук `network` решает, защищен ли адрес серверной загрузки от **SSRF** (запроса, который можно направить на внутренние сервисы, облачные метаданные или приватные хосты). Это детерминированный движок, стоящий за [специализацией `network`](https://lagune.ai/ru-RU/docs/catalog), и вы можете запускать его сами.
 
@@ -3135,7 +3131,7 @@ URL, который разные парсеры читают по-разному
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/regex
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/regex
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `regex` представляет собой детерминированный движок проверки безопасности регулярных выражений, который запускает [специализация `regex`](https://lagune.ai/ru-RU/docs/catalog), и вы можете запускать его сами. Он работает в двух режимах одной командой: **сканирование** проверяет кодовую базу на шаблоны, уязвимые к **ReDoS** или собираемые во время выполнения, а **проверка** оценивает отдельный шаблон, который вы ему передаете.
 
@@ -3348,7 +3344,7 @@ npx lagune read regex --pattern 'a?a?a?' --limit 2
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/secrets
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/secrets
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Хук `secrets` помечает **учетные данные, вкомпилированные в исходный код**, вместо того чтобы читаться из окружения. Он ориентируется на **происхождение** значения (литерал или чтение из окружения), а не на его содержимое, поэтому ему не нужен исчерпывающий каталог префиксов провайдеров, и он почти не дает ложных срабатываний. Это детерминированный движок, стоящий за [специализацией `secrets`](https://lagune.ai/ru-RU/docs/catalog).
 
@@ -3419,7 +3415,7 @@ npx lagune write add --ignore test/fixtures --checker secrets
 Канонический URL: https://lagune.ai/ru-RU/docs/examples/prompts
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/examples/prompts
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 Готовые промпты Lagune, которые можно сразу вставить в своего ИИ-агента.
 
@@ -3681,7 +3677,7 @@ npx lagune write add --categories owasp ai javascript
 Канонический URL: https://lagune.ai/ru-RU/docs/references/paper
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/references/paper
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 - **Weslley Araújo**
 - **Статья о методологии, 2026.**
@@ -4252,7 +4248,7 @@ Lagune является доказательством, но вкладом яв
 Канонический URL: https://lagune.ai/ru-RU/docs/references/glossary
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/references/glossary
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Все ключевые термины Lagune и методологии Security-Driven Hardening, каждый определен один раз и простым языком.
 
@@ -4351,7 +4347,7 @@ SDH представляет собой методологию безопасн�
 Канонический URL: https://lagune.ai/ru-RU/docs/references/configs-schema
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/references/configs-schema
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-04
 
 `.lagune/configs.json` фиксирует [**категории**](https://lagune.ai/ru-RU/docs/categories), которые использует проект, индексирует его собственные [**специализации**](https://lagune.ai/ru-RU/docs/catalog) и задает, что пропускают [**проверки**](https://lagune.ai/ru-RU/docs/hooks/configure). Его JSON Schema позволяет редактору автодополнять каждое поле и помечать опечатку или неизвестную категорию прямо во время правки файла.
 
@@ -4410,7 +4406,7 @@ SDH представляет собой методологию безопасн�
 Канонический URL: https://lagune.ai/ru-RU/docs/references/deepsec
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/references/deepsec
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 [Lagune](https://github.com/wellwelwel/lagune) и [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) представляют собой два защитных ответа на одну и ту же проблему: безопасность в эпоху разработки с помощью ИИ. Их исходная посылка, их начало, середина и конец, а также то, как каждый из них предстает перед пользователем, расходятся намеренно, даже там, где их механизмы пересекаются.
 
@@ -4575,7 +4571,7 @@ Lagune меняет: harden применяет исправления к ваш�
 Канонический URL: https://lagune.ai/ru-RU/docs/references/owasp-sources
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/references/owasp-sources
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Этот документ относит каждую **атаку** (`www-community`) и каждый **Cheat Sheet** (`CheatSheetSeries`) от OWASP к категории безопасности, со ссылкой на каноническую публичную страницу. Внутри категории равнозначные пункты делят одну строку чек-листа: атаки и cheat sheets, которые касаются одного и того же риска, перечислены вместе через запятую. Пункты без прямого соответствия стоят на отдельной строке.
 
@@ -4933,7 +4929,7 @@ Lagune меняет: harden применяет исправления к ваш�
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/repair
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/repair
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🧰 Восстановите цепочку, когда ее сбивает переименование или перемещение файла.
 
@@ -4969,7 +4965,7 @@ Repair не является шестой фазой линейного проц
 Канонический URL: https://lagune.ai/ru-RU/docs/commands/migrate
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/commands/migrate
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 🔀 Перенесите проект **Lagune** на основе манифеста на **Lagune** на основе навыков, сохранив все, что вы написали.
 

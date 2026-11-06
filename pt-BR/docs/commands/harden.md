@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/commands/harden
 Idioma: pt-BR
 Original: https://lagune.ai/docs/commands/harden
-Última atualização: 2026-11-05
+Última atualização: 2026-11-03
 
 🔧 Aplique ao seu código as correções do plano, com segurança e uma de cada vez.
 

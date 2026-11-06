@@ -3,7 +3,7 @@
 > Install Lagune on Pi as a package, from npm or from GitHub, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/pi
-Last updated: 2026-11-05
+Last updated: 2026-11-03
 
 **npm**
 

@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/claude-code
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/claude-code
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-03
 
 **Terminal**
 

@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/migrate
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/migrate
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 🔀 Lleva un proyecto de **Lagune** basado en manifiesto a la versión de **Lagune** basada en skills, sin perder nada de lo que has escrito.
 

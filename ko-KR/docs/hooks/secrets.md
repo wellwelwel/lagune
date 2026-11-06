@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/secrets
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/secrets
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-04
 
 `secrets` 훅은 환경 변수에서 읽지 않고 **소스 코드에 박혀 있는 자격 증명**을 잡아냅니다. 값의 내용이 아니라 **출처**(리터럴인지, 환경 변수 조회인지)를 기준으로 판단하므로, 서비스 제공자별 접두사를 빠짐없이 모은 목록이 필요 없고 오탐도 거의 없습니다. [`secrets` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진입니다.
 

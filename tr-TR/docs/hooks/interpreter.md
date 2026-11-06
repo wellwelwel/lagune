@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/interpreter
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/interpreter
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-04
 
 `interpreter` hook'u **dinamik kod çalıştırma sink'lerini** işaretler: `eval`'den yerel seri durumdan çıkarmaya kadar, veriyi çalışan koda dönüştüren ya da bir kabuğa aktaran yapılar. Dile duyarlıdır, her dosyayı kendi kurallarıyla okur. [`interpreter` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve onu **scan** veya **check** modunda kendiniz çalıştırabilirsiniz.
 

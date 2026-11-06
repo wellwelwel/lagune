@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/pi
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/pi
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-03
 
 **npm**
 

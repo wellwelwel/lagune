@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/hermes-agent
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/hermes-agent
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-03
 
 Installiere das Plugin über dein Terminal:
 

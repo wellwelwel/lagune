@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/agent
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/agent
-最終更新日: 2026-11-05
+最終更新日: 2026-11-04
 
 `agent` フックは、**ターン数、予算、時間のどれにも上限を設けずにループするエージェントランタイム**を指摘します。自律動作の暴走を招くこの穴があると、細工された入力ひとつで、コストが際限なく膨らんだり、プロンプトインジェクションがエスカレートしたりします。**言語を識別**して動作し、**JavaScript**（**Claude** エージェント SDK の `query` ランタイム）と **Python**（**LangChain**、**LangGraph**、**CrewAI**、**OpenAI Agents**）という 2 つのエージェントフレームワークのエコシステムに対応しています。また、[`llm` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンでもあり、**scan** モードまたは **check** モードで自分で実行することもできます。
 

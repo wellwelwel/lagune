@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/commands/lagune
 Idioma: es-ES
 Original: https://lagune.ai/docs/commands/lagune
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 ⌨️ Hace el trabajo que pediste y lo protege a medida que se escribe. **`/lagune`** acepta cualquier prompt en cualquier etapa, crea lo que querías y lo bastiona con valores por defecto seguros antes de devolvértelo.
 

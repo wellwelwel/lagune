@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/muse-code
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/muse-code
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 Instala el plugin desde tu terminal:
 

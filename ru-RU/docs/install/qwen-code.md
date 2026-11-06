@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/qwen-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/qwen-code
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите расширение из терминала:
 

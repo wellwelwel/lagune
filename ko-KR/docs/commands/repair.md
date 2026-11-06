@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/repair
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/repair
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-03
 
 🧰 파일 이름이 바뀌거나 파일이 이동해 체인이 꼬였을 때 복구합니다.
 

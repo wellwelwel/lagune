@@ -3,7 +3,7 @@
 > Install Lagune on Codex CLI as a plugin, keep it updated, and run its engine inside the sandbox.
 
 Canonical: https://lagune.ai/docs/install/codex
-Last updated: 2026-11-05
+Last updated: 2026-11-03
 
 Install the plugin from your terminal:
 

@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/crypto
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/crypto
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-04
 
 `crypto` 훅은 **취약한 암호 알고리즘**을 호출 지점에서 잡아냅니다: 지원 중단된 암호 방식, 안전하지 않은 모드, 깨진 해시 함수가 그 대상입니다. **언어를 인식해** 파일마다 그 언어의 규칙으로 읽으므로 Rust 파일에서 Python 구문을 잡아내는 일은 없습니다. 또한 [`crypto` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
 

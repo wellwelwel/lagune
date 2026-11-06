@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/agent
 언어: ko-KR
 원문: https://lagune.ai/docs/hooks/agent
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-04
 
 `agent` 훅은 **턴 수, 예산, 시간 중 어느 것에도 상한을 두지 않고 반복 실행되는 에이전트 런타임**을 잡아냅니다. 자율 실행이 폭주할 수 있는 이 허점 때문에, 조작된 입력 하나가 끝없는 비용 증가나 프롬프트 인젝션 피해 확대로 이어집니다. **언어를 인식하며**, 두 에이전트 프레임워크 생태계를 다룹니다: **JavaScript**(**Claude** 에이전트 SDK의 `query` 런타임)와 **Python**(**LangChain**, **LangGraph**, **CrewAI**, **OpenAI Agents**)입니다. 또한 [`llm` 전문 지식](https://lagune.ai/ko-KR/docs/catalog)을 뒷받침하는 결정론적 엔진이며, **scan** 모드나 **check** 모드로 직접 실행할 수도 있습니다.
 

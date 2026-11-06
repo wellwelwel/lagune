@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/hermes-agent
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/hermes-agent
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 Installa il plugin dal terminale:
 

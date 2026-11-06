@@ -3,7 +3,7 @@
 > Move a manifest-based Lagune project to the skills-based Lagune, keeping your charter, artifacts, tracking, and own specializations.
 
 Canonical: https://lagune.ai/docs/commands/migrate
-Last updated: 2026-11-05
+Last updated: 2026-11-03
 
 🔀 Move a manifest-based **Lagune** project to the skills-based **Lagune**, keeping everything you wrote.
 

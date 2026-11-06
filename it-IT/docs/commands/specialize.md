@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/commands/specialize
 Lingua: it-IT
 Originale: https://lagune.ai/docs/commands/specialize
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 🎓 Insegna a **Lagune** una nuova specializzazione, a partire da una fonte o da un tema che gli fornisci.
 

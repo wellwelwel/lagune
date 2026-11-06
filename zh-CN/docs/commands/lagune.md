@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/lagune
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/lagune
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 ⌨️ 完成你要求的工作，并在编写过程中就保障安全。**`/lagune`** 在任何阶段都接受任何提示词，构建你想要的内容，并在交付前用安全的默认设置加固它。
 

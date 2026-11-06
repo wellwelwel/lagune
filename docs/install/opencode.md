@@ -3,7 +3,7 @@
 > Install Lagune on OpenCode 1.x and 2.x as a plugin, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/opencode
-Last updated: 2026-11-05
+Last updated: 2026-11-03
 
 **OpenCode 2.x**
 

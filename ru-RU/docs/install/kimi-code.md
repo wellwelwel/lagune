@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/kimi-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/kimi-code
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-03
 
 Установите плагин из сессии **Kimi Code**, выберите **Trust and install**, а затем начните новую сессию, чтобы он загрузился:
 

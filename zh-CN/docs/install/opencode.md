@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/opencode
 语言: zh-CN
 原文: https://lagune.ai/docs/install/opencode
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 **OpenCode 2.x**
 

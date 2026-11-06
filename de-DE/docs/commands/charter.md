@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/charter
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/charter
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-04
 
 🧬 Erzähl **Lagune**, worum es in deinem Projekt geht, und es macht daraus deine Sicherheitsregeln (ohne Beschreibung leitet es sie allein aus dem Projekt ab).
 

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/harden
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/harden
-最終更新日: 2026-11-05
+最終更新日: 2026-11-03
 
 🔧 計画の修正を、安全に 1 つずつコードへ適用します。
 

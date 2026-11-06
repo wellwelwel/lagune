@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/gemini-cli
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/gemini-cli
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 Instala la extensión desde tu terminal:
 

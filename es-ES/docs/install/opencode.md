@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/opencode
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/opencode
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 **OpenCode 2.x**
 

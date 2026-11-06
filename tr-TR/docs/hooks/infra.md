@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/infra
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/hooks/infra
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-04
 
 `infra` hook'u, dosyanın kendisinden anlaşılabilen **kod olarak altyapı (IaC) yapılandırma hatalarını** işaretler: tüm dünyaya açık bir ağ, wildcard içeren bir izin, bir manifestteki gizli bilgi, root olarak çalışan bir konteyner, bir CI kabuğundaki güvenilmeyen bir değer. Yalnızca IaC dosyalarını okur (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). [`infra` uzmanlığının](https://lagune.ai/tr-TR/docs/catalog) arkasındaki deterministik motordur ve **scan** veya **check** modunda çalışır.
 

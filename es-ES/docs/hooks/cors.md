@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/hooks/cors
 Idioma: es-ES
 Original: https://lagune.ai/docs/hooks/cors
-Última actualización: 2026-11-05
+Última actualización: 2026-11-04
 
 El hook `cors` es el motor determinista en el que se apoya la [especialización `http-request`](https://lagune.ai/es-ES/docs/catalog), y puedes ejecutarlo tú mismo. Funciona en dos modos desde un mismo comando: un **scan**, que analiza el código fuente en busca de una **lista de orígenes permitidos que se puede eludir** (una regex de validación de host que un host atacante consigue burlar), y un **score**, que califica un único valor de **origen CORS** como `wildcard`, `null` o `safe`.
 

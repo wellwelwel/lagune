@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/prove
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/prove
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-03
 
 🧪 Mach aus jedem erkannten Befund ausführbare, ausschließlich defensive Belege für Responsible Disclosure.
 

@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/kimi-code
 언어: ko-KR
 원문: https://lagune.ai/docs/install/kimi-code
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-03
 
 **Kimi Code** 세션에서 플러그인을 설치하고 **Trust and install**을 선택한 다음, 새 세션을 시작해 플러그인을 불러오세요:
 

@@ -47,3 +47,4 @@ Sitemap: https://lagune.ai/ru-RU/sitemap.xml
 Sitemap: https://lagune.ai/zh-CN/sitemap.xml
 Sitemap: https://lagune.ai/ja-JP/sitemap.xml
 Sitemap: https://lagune.ai/ko-KR/sitemap.xml
+Sitemap: https://lagune.ai/hi-IN/sitemap.xml

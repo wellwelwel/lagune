@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs
 言語: ja-JP
 原文: https://lagune.ai/docs
-最終更新日: 2026-11-05
+最終更新日: 2026-11-03
 
 **Lagune** は、AI エージェントがプロジェクトをより安全にするのを手伝います。コードに対して実行すると、エージェントはシステムが実際に何をしているかを把握したうえで、そのシステムにとって重要なセキュリティ作業を順に案内します。**Lagune** は、[Security-Driven Hardening (SDH)](https://lagune.ai/ja-JP/docs/references/paper) という方法論の最初のプロジェクトです。
 

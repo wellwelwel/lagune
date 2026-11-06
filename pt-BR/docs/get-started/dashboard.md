@@ -1,13 +1,11 @@
 # Dashboard
 
-> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/get-started/dashboard).
-
 > Veja o charter, os achados e o catálogo do seu projeto em uma visão local e ao vivo que abre com um único comando.
 
 Canônica: https://lagune.ai/pt-BR/docs/get-started/dashboard
 Idioma: pt-BR
 Original: https://lagune.ai/docs/get-started/dashboard
-Última atualização: 2026-11-05
+Última atualização: 2026-11-06
 
 Execute o **Lagune** diretamente, sem subcomando, para ter uma visão interativa e ao vivo de `.lagune/`. Ele serve um dashboard e o abre em uma porta aleatória:
 
@@ -18,7 +16,7 @@ npx lagune
 - [x] **Live reload**
 - [x] **Privado** e **local**
 - [x] Mostra tudo o que `.lagune/` contém, desde o primeiro charter
-- [x] **Gerencie** as categorias do projeto direto do seu navegador
+- [x] **Gerencie** as categorias do projeto e o que os hooks dele varrem, direto do seu navegador
 - [x] Não precisa de `node_modules` nem de `package.json` 📦
 
 ![Charter no dashboard do Lagune](https://lagune.ai/img/dashboard/02.webp)
@@ -48,4 +46,4 @@ Sim. Ele roda apenas na sua própria máquina, em um endereço local que nenhum 
 
 ### Posso alterar o meu projeto pelo dashboard?
 
-Só as categorias, pelo seu navegador. Todo o resto que o dashboard mostra é somente leitura.
+Só as categorias e o que os hooks deixam de fora, pelo seu navegador. Todo o resto que o dashboard mostra é somente leitura.

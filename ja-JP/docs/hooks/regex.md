@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/regex
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/regex
-最終更新日: 2026-11-05
+最終更新日: 2026-11-04
 
 `regex` フックは、[`regex` 専門知識](https://lagune.ai/ja-JP/docs/catalog) が実行する、正規表現の安全性を判定する決定論的なエンジンで、自分で実行することもできます。1 つのコマンドで 2 つのモードが使えます：**scan** モードはコードベースをスキャンして、**ReDoS** を起こしやすいパターンや実行時に組み立てられるパターンを探し、**check** モードは渡された 1 つのパターンを判定します。
 

@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/secrets
 Sprache: de-DE
 Original: https://lagune.ai/docs/hooks/secrets
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-04
 
 Der Hook `secrets` meldet **Zugangsdaten, die fest im Quellcode stehen**, statt aus der Umgebung gelesen zu werden. Er achtet auf die **Herkunft** (ein Literal oder ein Zugriff auf die Umgebung), nicht auf den Inhalt des Werts, deshalb braucht er keinen vollständigen Katalog von Anbieter-Präfixen und erzeugt kaum False Positives. Er ist die deterministische Engine hinter der [Spezialisierung `secrets`](https://lagune.ai/de-DE/docs/catalog).
 

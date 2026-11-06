@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs/install/kimi-code
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/kimi-code
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-03
 
 Installa il plugin da una sessione di **Kimi Code**, scegli **Trust and install**, poi avvia una nuova sessione per caricarlo:
 

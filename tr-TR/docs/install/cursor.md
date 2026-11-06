@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/cursor
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/cursor
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-03
 
 **Cursor**
 

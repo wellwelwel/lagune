@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/references/paper
 Idioma: es-ES
 Original: https://lagune.ai/docs/references/paper
-Última actualización: 2026-11-05
+Última actualización: 2026-11-04
 
 - **Weslley Araújo**
 - **Artículo de metodología, 2026.**

@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/get-started/commands
 Sprache: de-DE
 Original: https://lagune.ai/docs/get-started/commands
-Zuletzt aktualisiert: 2026-11-05
+Zuletzt aktualisiert: 2026-11-03
 
 Sobald **Lagune** [installiert](https://lagune.ai/de-DE/docs) ist, schaltet dein **KI**-Agent eine Reihe von Skills frei. Es gibt zwei Wege, sie zu nutzen, und beide folgen deinen **Sicherheitsprinzipien**: neue Arbeit schon beim Entwickeln absichern oder das vollständige Audit über ein Projekt laufen lassen.
 

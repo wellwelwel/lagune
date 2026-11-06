@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/migrate
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/migrate
-最終更新日: 2026-11-05
+最終更新日: 2026-11-03
 
 🔀 マニフェスト方式の **Lagune** プロジェクトを、書いた内容をすべて保ったまま、スキル方式の **Lagune** に移行します。
 

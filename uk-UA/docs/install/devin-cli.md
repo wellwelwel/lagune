@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/devin-cli
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/devin-cli
-Останнє оновлення: 2026-11-05
+Останнє оновлення: 2026-11-03
 
 Увійдіть у **Devin**, а потім встановіть плагін із термінала:
 

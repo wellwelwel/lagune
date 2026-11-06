@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/hooks/interpreter
 Idioma: es-ES
 Original: https://lagune.ai/docs/hooks/interpreter
-Última actualización: 2026-11-05
+Última actualización: 2026-11-04
 
 El hook `interpreter` señala **sinks de ejecución dinámica de código**: construcciones que convierten datos en código que se ejecuta o que se los pasan a una shell, desde `eval` hasta la deserialización nativa. Tiene en cuenta el lenguaje, ya que lee cada archivo según sus propias reglas. Es el motor determinista en el que se apoya la [especialización `interpreter`](https://lagune.ai/es-ES/docs/catalog), y puedes ejecutarlo tú mismo en modo **scan** o **check**.
 

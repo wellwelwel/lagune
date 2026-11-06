@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/references/glossary
 Langue: fr-FR
 Original: https://lagune.ai/docs/references/glossary
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-03
 
 Chaque terme structurant de Lagune et de la méthodologie Security-Driven Hardening, défini une seule fois, en langage courant.
 

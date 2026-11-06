@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/cors
 言語: ja-JP
 原文: https://lagune.ai/docs/hooks/cors
-最終更新日: 2026-11-05
+最終更新日: 2026-11-04
 
 `cors` フックは [`http-request` 専門知識](https://lagune.ai/ja-JP/docs/catalog) を支える決定論的なエンジンで、自分で実行することもできます。1 つのコマンドで 2 つのモードが使えます：**scan** モードはソースコードをスキャンして**回避可能なオリジン許可リスト**（攻撃者のホストがすり抜けられる、ホスト検証用の正規表現）を探し、**score** モードは 1 つの **CORS オリジン**の値を `wildcard`、`null`、`safe` のいずれかに判定します。
 

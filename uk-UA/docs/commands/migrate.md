@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/migrate
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/migrate
-Останнє оновлення: 2026-11-05
+Останнє оновлення: 2026-11-03
 
 🔀 Перенесіть проєкт **Lagune** на основі маніфесту на **Lagune** на основі навичок, зберігши все, що ви написали.
 

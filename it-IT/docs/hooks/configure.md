@@ -1,13 +1,11 @@
 # Configura gli hook: scegli cosa analizzano
 
-> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/hooks/configure).
-
 > Scegli cosa lasciano fuori gli hook che analizzano i file, per tutti o per uno solo.
 
 Canonico: https://lagune.ai/it-IT/docs/hooks/configure
 Lingua: it-IT
 Originale: https://lagune.ai/docs/hooks/configure
-Ultimo aggiornamento: 2026-11-05
+Ultimo aggiornamento: 2026-11-06
 
 Il blocco `checkers` di `.lagune/configs.json` stabilisce cosa lasciano fuori gli hook che analizzano i file, per tutti o per uno solo.
 
@@ -21,7 +19,7 @@ npx lagune write add --ignore 'packages/*/dist' --checker secrets
 npx lagune write remove --ignore test/fixtures
 ```
 
-Oppure impostali nel file:
+Oppure sceglili nella sezione Settings della [dashboard](https://lagune.ai/it-IT/docs/get-started/dashboard), o impostali nel file:
 
 ```json
 {

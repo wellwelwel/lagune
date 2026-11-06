@@ -1,13 +1,11 @@
 # Настройка хуков: выберите, что они сканируют
 
-> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/hooks/configure).
-
 > Выберите, что пропускают хуки, которые сканируют файлы, для всех сразу или для одного из них.
 
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/configure
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/hooks/configure
-Последнее обновление: 2026-11-05
+Последнее обновление: 2026-11-06
 
 Блок `checkers` в `.lagune/configs.json` задает, что пропускают хуки, которые сканируют файлы, для всех сразу или для одного из них.
 
@@ -21,7 +19,7 @@ npx lagune write add --ignore 'packages/*/dist' --checker secrets
 npx lagune write remove --ignore test/fixtures
 ```
 
-Или задайте их в файле:
+Или выберите их в разделе Settings [дашборда](https://lagune.ai/ru-RU/docs/get-started/dashboard), или задайте их в файле:
 
 ```json
 {

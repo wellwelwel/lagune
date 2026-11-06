@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/hooks/infra
 Idioma: pt-BR
 Original: https://lagune.ai/docs/hooks/infra
-Última atualização: 2026-11-05
+Última atualização: 2026-11-04
 
 O hook `infra` sinaliza **erros de configuração em infraestrutura como código** que dá para decidir só pelo arquivo: uma rede aberta para o mundo, uma permissão curinga, um segredo em um manifesto, um contêiner rodando como root, um valor não confiável em um shell de CI. Ele lê apenas arquivos de IaC (`.tf`/`.tf.json`/`.hcl`, `Dockerfile*`, `.github/workflows/**`). É o engine determinístico por trás da [especialização `infra`](https://lagune.ai/pt-BR/docs/catalog), no modo **scan** ou **check**.
 

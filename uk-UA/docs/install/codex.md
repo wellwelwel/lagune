@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/codex
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/codex
-Останнє оновлення: 2026-11-05
+Останнє оновлення: 2026-11-03
 
 Встановіть плагін із термінала:
 

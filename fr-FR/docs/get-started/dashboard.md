@@ -1,13 +1,11 @@
 # Tableau de bord
 
-> Cette page n'est plus à jour par rapport à sa version anglaise. [Lire la version originale](https://lagune.ai/docs/get-started/dashboard).
-
 > Consultez les principes de sécurité, les constats et le catalogue de votre projet dans une vue locale en direct, qui s'ouvre avec une seule commande.
 
 Canonique: https://lagune.ai/fr-FR/docs/get-started/dashboard
 Langue: fr-FR
 Original: https://lagune.ai/docs/get-started/dashboard
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-06
 
 Exécutez **Lagune** directement, sans sous-commande, pour obtenir une vue interactive et en direct de `.lagune/`. Il sert un tableau de bord et l'ouvre sur un port aléatoire :
 
@@ -18,7 +16,7 @@ npx lagune
 - [x] **Live Reload**
 - [x] **Privé** et **local**
 - [x] Affiche tout ce que contient `.lagune/`, dès les premiers principes de sécurité
-- [x] **Gérez** les catégories du projet directement depuis votre navigateur
+- [x] **Gérez** les catégories du projet et ce que ses hooks analysent, directement depuis votre navigateur
 - [x] Aucun `node_modules` ni `package.json` n'est nécessaire 📦
 
 ![Principes de sécurité dans le tableau de bord de Lagune](https://lagune.ai/img/dashboard/02.webp)
@@ -48,4 +46,4 @@ Oui. Il tourne uniquement sur votre propre machine, à une adresse locale qu'auc
 
 ### Puis-je modifier mon projet depuis le tableau de bord ?
 
-Seulement ses catégories, depuis votre navigateur. Tout le reste de ce qu'affiche le tableau de bord est en lecture seule.
+Seulement ses catégories et ce que ses hooks laissent de côté, depuis votre navigateur. Tout le reste de ce qu'affiche le tableau de bord est en lecture seule.

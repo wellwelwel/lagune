@@ -1,0 +1,73 @@
+# Lagune
+
+> किसी भी कोडबेस के लिए Security-Driven Hardening
+
+Lagune एक ओपन सोर्स Security-Driven Hardening (SDH) वर्कफ़्लो है, जो केवल रक्षा के लिए बना है। यह आपके AI एजेंट को किसी भी भाषा के किसी भी कोडबेस की सुरक्षा हर पल मज़बूत करने में मदद करता है: charter आपके बनाना शुरू करने से पहले सुरक्षा नियम तय करता है, यूनिवर्सल /lagune कमांड लिखते समय ही काम की सुरक्षा मज़बूत करती है, और पाँच चरणों वाला Blue Team फ़्लो पहचानता है कि आपका सिस्टम असल में क्या करता है और उस संदर्भ के लिए ज़रूरी सुधार आगे बढ़ाता है। इसकी कमांड skills CLI से आपके एजेंट में इंस्टॉल होती हैं, और इसके लिए किसी API कुंजी की ज़रूरत नहीं है।
+
+डॉक्स के अंतर्गत हर लिंक उस पेज के सादे Markdown संस्करण पर ले जाता है। वेब पेज के लिए .md सफ़िक्स हटा दें। पूरा कॉर्पस एक ही फ़ाइल में: https://lagune.ai/hi-IN/llms-full.txt
+
+## डॉक्स
+
+- [इंस्टॉल करें: किसी भी AI एजेंट के लिए सुरक्षा हार्डनिंग](https://lagune.ai/hi-IN/docs.md): किसी भी प्रोजेक्ट में Lagune इंस्टॉल करें, जहाँ आपका एजेंट सपोर्ट करे वहाँ प्लगइन के रूप में और बाकी जगह skills CLI से, फिर अपने प्रोजेक्ट के हिसाब से सुरक्षा विशेषज्ञताएँ चुनें।
+- [Antigravity CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/antigravity-cli.md): Antigravity CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
+- [Claude Code में Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/claude-code.md): Claude Code में Lagune को प्लगइन के रूप में इंस्टॉल करें, चाहे टर्मिनल हो, एक्सटेंशन हो या डेस्कटॉप ऐप, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
+- [Codex CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/codex.md): Codex CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसका इंजन सैंडबॉक्स के अंदर चलाएँ।
+- [Cursor में Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/cursor.md): Cursor और Cursor CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
+- [Devin CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/devin-cli.md): Devin CLI में Lagune को प्लगइन के रूप में इंस्टॉल करें, और उसे अपडेट रखें।
+- [Factory Droid में Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/factory-droid.md): Factory Droid में Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन के टूल को अनुमति दें।
+- [Gemini CLI में Lagune को एक्सटेंशन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/gemini-cli.md): Gemini CLI में Lagune को एक्सटेंशन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
+- [GitHub Copilot CLI पर Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/github-copilot-cli.md): GitHub Copilot CLI पर Lagune को प्लगइन के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+- [Grok Build पर Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/grok-build.md): Grok Build पर Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
+- [Hermes Agent पर Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/hermes-agent.md): Hermes Agent पर Lagune को प्लगइन के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+- [Kimi Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/kimi-code.md): Kimi Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+- [Muse Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/muse-code.md): Muse Code पर Lagune को प्लगइन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसका इंजन सैंडबॉक्स के अंदर चलाएँ।
+- [OpenCode पर Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/opencode.md): OpenCode 1.x और 2.x पर Lagune को प्लगइन के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+- [Pi पर Lagune को पैकेज के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/pi.md): Pi पर Lagune को npm या GitHub से पैकेज के रूप में इंस्टॉल करें और उसे अपडेट रखें।
+- [Qwen Code पर Lagune को एक्सटेंशन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/qwen-code.md): Qwen Code पर Lagune को एक्सटेंशन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
+- [skills.sh से किसी भी एजेंट में Lagune इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/universal.md): skills CLI से किसी भी AI एजेंट में Lagune इंस्टॉल करें, और उसे अपडेट रखें।
+- [AI एजेंट के लिए सुरक्षा स्किल](https://lagune.ai/hi-IN/docs/get-started/commands.md): Lagune से आपके AI एजेंट को मिलने वाली स्किल: किसी मौजूदा प्रोजेक्ट का ऑडिट करें या बनाते समय ही नए काम को सुरक्षित करें, और सब कुछ सुरक्षा सिद्धांतों के अनुसार चलता है।
+- [डैशबोर्ड](https://lagune.ai/hi-IN/docs/get-started/dashboard.md): अपने प्रोजेक्ट के सुरक्षा सिद्धांत, निष्कर्ष और कैटलॉग एक लाइव, लोकल व्यू में देखें, जो एक ही कमांड से खुलता है।
+- [/lagune: AI के कोड लिखते समय ही उसे सुरक्षित बनाएँ](https://lagune.ai/hi-IN/docs/commands/lagune.md): जो आप माँगें वह बनाएँ, और सुरक्षा सिद्धांतों के अनुसार लिखते समय ही उसकी सुरक्षा मज़बूत करें, बिना किसी फ़्लो का पालन किए।
+- [/lagune-charter: अपने सुरक्षा सिद्धांत तय करें](https://lagune.ai/hi-IN/docs/commands/charter.md): अपने प्रोजेक्ट के सुरक्षा सिद्धांत तय करें, यानी वे नियम जिनका पालन आगे का हर चरण करता है, और प्रोजेक्ट को पढ़कर जिन विशेषज्ञता श्रेणियों का आधार मिलता है उन्हें दर्ज करें।
+- [/lagune-detect: अपने सिस्टम और उसके जोखिमों का खाका बनाएँ](https://lagune.ai/hi-IN/docs/commands/detect.md): आपका कोड पढ़कर खाका बनाता है कि आपका सिस्टम क्या करता है और जोखिम कहाँ हैं।
+- [/lagune-plan: निष्कर्षों को स्कोर दें और सुधारों की योजना बनाएँ](https://lagune.ai/hi-IN/docs/commands/plan.md): detect चरण ने जो पाया उसे रक्षा योजना में बदलता है, हर निष्कर्ष को एक श्रेणी और CVSS v4.0 स्कोर देता है, और उसके साथ एक सुधार जोड़ता है।
+- [/lagune-harden: अपने कोड में सुरक्षा सुधार लागू करें](https://lagune.ai/hi-IN/docs/commands/harden.md): रक्षा योजना के सुधार एक-एक करके, सुरक्षित तरीक़े से अपने कोड में लागू करें।
+- [/lagune-verify: साबित करें कि सुरक्षा नियंत्रण कारगर हैं](https://lagune.ai/hi-IN/docs/commands/verify.md): साबित करें कि लागू किया गया हर सुधार कारगर है, फिर जो कारगर हैं उन्हें निपटाएँ।
+- [श्रेणियाँ](https://lagune.ai/hi-IN/docs/categories.md): Lagune प्रोजेक्ट किन विशेषज्ञता श्रेणियों का इस्तेमाल कर सकता है, OWASP से लेकर JavaScript, Python, Go और Rust की भाषा-विशेष हार्डनिंग तक, और उन्हें कैसे बदलें।
+- [कैटलॉग: ज़रूरत पड़ने पर ही लोड होने वाली सुरक्षा विशेषज्ञताएँ](https://lagune.ai/hi-IN/docs/catalog.md): आपके प्रोजेक्ट के कैटलॉग की विशेषज्ञताएँ कैसे लोड होती हैं, ज़रूरत पड़ने पर किसी चरण के ज़रिए और सीधे आपके ज़रिए।
+- [/lagune-specialize: सादे टेक्स्ट से नई सुरक्षा विशेषज्ञता सिखाएँ](https://lagune.ai/hi-IN/docs/commands/specialize.md): आपके दिए गए किसी सुरक्षा स्रोत या विषय का सार निकालकर एक नई विशेषज्ञता बनाएँ, जो ज़रूरत पड़ने पर ही लोड होती है।
+- [/lagune-prove: केवल रक्षा के लिए प्रूफ़ ऑफ़ कॉन्सेप्ट (PoC)](https://lagune.ai/hi-IN/docs/commands/prove.md): पहचाने गए हर निष्कर्ष को ज़िम्मेदार खुलासे के लिए, चलाया जा सकने वाला और केवल रक्षा के लिए बना प्रूफ़ ऑफ़ कॉन्सेप्ट (PoC) और सुरक्षा एडवाइज़री बनाएँ।
+- [हुक कॉन्फ़िगर करें: चुनें कि वे क्या स्कैन करें](https://lagune.ai/hi-IN/docs/hooks/configure.md): फ़ाइलें स्कैन करने वाले हुक किन चीज़ों को छोड़ें, यह सभी हुक के लिए एक साथ या किसी एक के लिए अलग से तय करें।
+- [agent हुक: बिना सीमा वाले एजेंट लूप पकड़ें](https://lagune.ai/hi-IN/docs/hooks/agent.md): कमांड लाइन से कोडबेस में ऐसी एजेंट या LLM कॉल खोजें जिन पर स्टेप या समय की कोई सीमा नहीं है, या किसी एक कॉल को स्कोर दें।
+- [cors हुक: CORS ऑरिजिन का ऑडिट करें](https://lagune.ai/hi-IN/docs/hooks/cors.md): कमांड लाइन से सोर्स कोड में ऐसी CORS ऑरिजिन अनुमति सूची खोजें जिसे बायपास किया जा सके, या किसी एक ऑरिजिन वैल्यू को स्कोर देकर देखें कि वह ज़रूरत से ज़्यादा एक्सेस तो नहीं देती।
+- [crypto हुक: कमज़ोर क्रिप्टोग्राफ़ी पकड़ें](https://lagune.ai/hi-IN/docs/hooks/crypto.md): कमांड लाइन से कोडबेस में कमज़ोर क्रिप्टोग्राफ़िक प्रिमिटिव खोजें, या कोड के किसी एक टुकड़े को स्कोर दें।
+- [cvss हुक: CVSS v4.0 वेक्टर को स्कोर दें](https://lagune.ai/hi-IN/docs/hooks/cvss.md): कमांड लाइन से एक या कई CVSS v4.0 वेक्टर को FIRST कैलकुलेटर वाले ही गणित से स्कोर दें, और हर वेक्टर का मतलब आसान शब्दों में पढ़ें।
+- [infra हुक: IaC की ग़लत कॉन्फ़िगरेशन पकड़ें](https://lagune.ai/hi-IN/docs/hooks/infra.md): कमांड लाइन से Terraform, Dockerfile और GitHub Actions में ग़लत कॉन्फ़िगरेशन खोजें, या कोड के किसी एक टुकड़े को स्कोर दें।
+- [interpreter हुक: डायनैमिक कोड एक्ज़ीक्यूशन सिंक पकड़ें](https://lagune.ai/hi-IN/docs/hooks/interpreter.md): कमांड लाइन से कोडबेस को स्कैन करके कई भाषाओं में डायनैमिक कोड एक्ज़ीक्यूशन सिंक पकड़ें, या कोड के एक टुकड़े को स्कोर दें।
+- [jwt हुक: बिना तय एल्गोरिदम वाला JWT वेरिफ़िकेशन पकड़ें](https://lagune.ai/hi-IN/docs/hooks/jwt.md): कमांड लाइन से कोडबेस को स्कैन करके बिना तय एल्गोरिदम वाला JWT वेरिफ़िकेशन खोजें, या किसी एक कॉल को स्कोर दें।
+- [network हुक: SSRF के लिए URL को स्कोर दें](https://lagune.ai/hi-IN/docs/hooks/network.md): कमांड लाइन से सीधे एक या कई फ़ेच डेस्टिनेशन को SSRF के लिहाज़ से स्कोर दें।
+- [regex हुक: ReDoS पैटर्न पकड़ें](https://lagune.ai/hi-IN/docs/hooks/regex.md): कमांड लाइन से कोडबेस को स्कैन करके ReDoS के खतरे वाले रेगेक्स खोजें, या किसी एक पैटर्न को स्कोर दें।
+- [secrets हुक: हार्डकोड किए गए सीक्रेट पकड़ें](https://lagune.ai/hi-IN/docs/hooks/secrets.md): कमांड लाइन से कोडबेस को स्कैन करके हार्डकोड किए गए क्रेडेंशियल खोजें।
+- [Lagune प्रॉम्प्ट के उदाहरण: Blue Team फ़्लो को ऑटोमेट करें](https://lagune.ai/hi-IN/docs/examples/prompts.md): कॉपी करके तुरंत इस्तेमाल करने लायक़ Lagune प्रॉम्प्ट: सिर्फ़ पढ़ने वाला स्कैन, पूरा Blue Team फ़्लो और ज़ीरो ट्रस्ट ऑडिट, साथ ही किसी कमिट, ब्रांच या PR के diff, या किसी असली सुरक्षा घटना तक सीमित पहचान।
+- [Security-Driven Hardening: AI के साथ डेवलपमेंट के दौर के लिए एक कन्वेंशन](https://lagune.ai/hi-IN/docs/references/paper.md): Security-Driven Hardening (SDH) पद्धति: AI की मदद से और वाइब कोडिंग से बने सॉफ़्टवेयर का ऑडिट करने और उसकी सुरक्षा मज़बूत करने के लिए संदर्भ को समझने वाला Blue Team कन्वेंशन।
+- [Lagune शब्दावली: SDH, Charter, निष्कर्ष और नियंत्रण](https://lagune.ai/hi-IN/docs/references/glossary.md): Lagune और Security-Driven Hardening के हर शब्द की आसान भाषा में परिभाषा: SDH, charter, detect, निष्कर्ष, नियंत्रण, harden, verify, बंद करना, बंद हो पाना, विशेषज्ञता, श्रेणियाँ और कैटलॉग।
+- [कॉन्फ़िगरेशन स्कीमा](https://lagune.ai/hi-IN/docs/references/configs-schema.md): Lagune प्रोजेक्ट के कॉन्फ़िगरेशन का JSON Schema, जो आपके एडिटर में ऑटोकम्प्लीशन और वैलिडेशन देता है, और मौजूदा Lagune के साथ चलता है या किसी वर्शन पर तय किया जा सकता है।
+- [Lagune vs. Deepsec: AI-संचालित सुरक्षा के दो तरीक़े, आमने-सामने](https://lagune.ai/hi-IN/docs/references/deepsec.md): Lagune और Vercel के Deepsec की तुलना करने वाला संदर्भ पेज: दोनों कैसे काम करते हैं, उनका जीवनचक्र, पहचान, लागत, निष्कर्ष और उन्हें बंद करना।
+- [OWASP स्रोत](https://lagune.ai/hi-IN/docs/references/owasp-sources.md): बिल्ट-इन OWASP विशेषज्ञताओं का ज्ञान कहाँ से आता है, OWASP के आधिकारिक अटैक और Cheat Sheet पेजों के साथ उसका पूरा खाका।
+- [/lagune-repair: निष्कर्षों की टूटी ट्रैकिंग ठीक करें](https://lagune.ai/hi-IN/docs/commands/repair.md): जब किसी फ़ाइल का नाम बदलने या उसे दूसरी जगह ले जाने से Lagune की ट्रैकिंग उलझ जाए, तो चेन को ठीक करें।
+- [Migrate: मैनिफ़ेस्ट पर आधारित Lagune प्रोजेक्ट को स्किल और प्लगइन पर ले जाएँ](https://lagune.ai/hi-IN/docs/commands/migrate.md): मैनिफ़ेस्ट पर आधारित Lagune प्रोजेक्ट को स्किल पर आधारित Lagune पर ले जाएँ, और अपने सुरक्षा सिद्धांत, आर्टिफ़ैक्ट, ट्रैकिंग और अपनी विशेषज्ञताएँ बनाए रखें।
+
+## दूसरी भाषाएँ
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [한국어](https://lagune.ai/ko-KR/llms.txt)

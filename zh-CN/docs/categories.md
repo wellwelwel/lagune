@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/categories
 语言: zh-CN
 原文: https://lagune.ai/docs/categories
-最后更新: 2026-11-05
+最后更新: 2026-11-03
 
 **Lagune** 把内置的 [**专项**](https://lagune.ai/zh-CN/docs/catalog) 分为 **13 个类别**。项目使用哪些类别，决定了哪些内置专项会进入它的 [**目录**](https://lagune.ai/zh-CN/docs/catalog)。这些类别分为两组：系统做什么，以及系统用什么语言编写。
 

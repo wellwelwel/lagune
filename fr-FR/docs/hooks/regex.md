@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/hooks/regex
 Langue: fr-FR
 Original: https://lagune.ai/docs/hooks/regex
-Dernière mise à jour: 2026-11-05
+Dernière mise à jour: 2026-11-04
 
 Le hook `regex` est le moteur déterministe de sûreté des regex qu'exécute la [spécialisation `regex`](https://lagune.ai/fr-FR/docs/catalog), et vous pouvez l'exécuter vous-même. Il fonctionne en deux modes depuis une seule commande : une **analyse** qui parcourt une base de code à la recherche de motifs exposés au **ReDoS** et de motifs construits à l'exécution, et une **vérification** qui évalue un seul motif que vous lui donnez.
 

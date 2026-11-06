@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/charter
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/charter
-Son güncelleme: 2026-11-05
+Son güncelleme: 2026-11-04
 
 🧬 **Lagune**'ye projenizin ne olduğunu anlatın, o da bunu güvenlik kurallarınıza dönüştürsün (ya da hiçbir açıklama olmadan kuralları yalnızca projeden çıkarsın).
 

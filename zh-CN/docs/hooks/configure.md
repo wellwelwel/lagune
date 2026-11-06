@@ -1,13 +1,11 @@
 # 配置 hook：选择扫描范围
 
-> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/hooks/configure)。
-
 > 选择扫描文件的 hook 要跳过哪些内容，可以对所有 hook 统一设置，也可以单独设置某一个。
 
 规范链接: https://lagune.ai/zh-CN/docs/hooks/configure
 语言: zh-CN
 原文: https://lagune.ai/docs/hooks/configure
-最后更新: 2026-11-05
+最后更新: 2026-11-06
 
 `checkers` 块位于 `.lagune/configs.json` 中，用来设定扫描文件的 hook 要跳过哪些内容，可以对所有 hook 统一设置，也可以单独设置某一个。
 
@@ -21,7 +19,7 @@ npx lagune write add --ignore 'packages/*/dist' --checker secrets
 npx lagune write remove --ignore test/fixtures
 ```
 
-也可以直接写在文件里：
+也可以在[仪表盘](https://lagune.ai/zh-CN/docs/get-started/dashboard)的 Settings 中选择，或者直接写在文件里：
 
 ```json
 {

@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/kimi-code
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/kimi-code
-Última actualización: 2026-11-05
+Última actualización: 2026-11-03
 
 Instala el plugin desde una sesión de **Kimi Code**, elige **Trust and install** y después inicia una sesión nueva para cargarlo:
 

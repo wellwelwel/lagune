@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/migrate
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/migrate
-마지막 업데이트: 2026-11-05
+마지막 업데이트: 2026-11-03
 
 🔀 매니페스트 기반 **Lagune** 프로젝트를 작성한 내용을 모두 유지한 채 스킬 기반 **Lagune**으로 옮깁니다.
 
