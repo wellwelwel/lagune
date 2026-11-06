@@ -13,7 +13,7 @@ keywords:
   - 发现项
   - charter
   - 目录
-source_hash: 'e3fe36f3fd68e9cd8c9c13efe05ce019161fc1421ad6e1e8e988eb94c9f8942b'
+source_hash: '09410a12dd00ea90012d879c1ce3cee96d6c9e9bba4782700392464f8f4a8516'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -27,7 +27,7 @@ npx lagune
 - [x] **实时刷新**
 - [x] **私密**且**本地**
 - [x] 从首次运行 charter 起，展示 `.lagune/` 中的全部内容
-- [x] 直接在浏览器中**管理**项目的类别
+- [x] 直接在浏览器中**管理**项目的类别，以及它的 hook 扫描哪些内容
 - [x] 无需 `node_modules` 或 `package.json` 📦
 
 <div className='lagune-docs-gallery'>
@@ -84,7 +84,8 @@ npx lagune
     },
     {
       question: '可以在仪表盘里修改项目吗？',
-      answer: '只能在浏览器中修改项目的类别。仪表盘展示的其他内容都是只读的。',
+      answer:
+        '只能在浏览器中修改项目的类别，以及 hook 要跳过哪些内容。仪表盘展示的其他内容都是只读的。',
     },
   ]}
 />

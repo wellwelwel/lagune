@@ -12,7 +12,7 @@ keywords:
   - 検出事項
   - charter
   - カタログ
-source_hash: 'e3fe36f3fd68e9cd8c9c13efe05ce019161fc1421ad6e1e8e988eb94c9f8942b'
+source_hash: '09410a12dd00ea90012d879c1ce3cee96d6c9e9bba4782700392464f8f4a8516'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -26,7 +26,7 @@ npx lagune
 - [x] **ライブリロード**
 - [x] **プライベート**かつ**ローカル**
 - [x] 最初の charter から、`.lagune/` の内容をすべて表示
-- [x] ブラウザから直接プロジェクトのカテゴリを**管理**できる
+- [x] ブラウザから直接プロジェクトのカテゴリとフックのスキャン対象を**管理**できる
 - [x] `node_modules` も `package.json` も不要 📦
 
 <div className='lagune-docs-gallery'>
@@ -84,7 +84,7 @@ npx lagune
     {
       question: 'ダッシュボードからプロジェクトを変更できますか？',
       answer:
-        'ブラウザから変更できるのはカテゴリだけです。それ以外にダッシュボードに表示される内容は、すべて読み取り専用です。',
+        'ブラウザから変更できるのはカテゴリと、フックが除外する対象だけです。それ以外にダッシュボードに表示される内容は、すべて読み取り専用です。',
     },
   ]}
 />
