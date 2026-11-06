@@ -1,0 +1,115 @@
+---
+id: glossary
+title: 'Glosarium Lagune: SDH, charter, temuan, dan kontrol keamanan'
+sidebar_label: Glosarium
+description: 'Definisi sederhana untuk setiap istilah Lagune dan Security-Driven Hardening: SDH, charter, detect, temuan, kontrol, harden, verify, stand down, ketertuntasan, spesialisasi, kategori, dan katalog.'
+keywords:
+  - Security-Driven Hardening
+  - SDH
+  - charter
+  - temuan
+  - finding
+  - kontrol keamanan
+  - stand down
+  - closability
+  - spesialisasi
+  - kategori
+  - katalog
+source_hash: '25751c63b8b74c968aef1a0170427a37921d63a1f742c2797cfb7f154e2e2bfa'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Setiap istilah penting dalam Lagune dan metodologi Security-Driven Hardening, didefinisikan sekali dengan bahasa yang sederhana.
+
+### Security-Driven Hardening (SDH)
+
+Metodologi yang diterapkan Lagune: konvensi Blue Team yang peka konteks, yang mendeteksi konteks sebuah sistem, melakukan triase atas risiko yang dibawa konteks itu, lalu memandu perbaikannya. Pengetahuan keamanannya ada di spesifikasi dan spesialisasinya yang dimuat hanya saat dibutuhkan, sehingga developer maupun bukan developer dilayani lewat alur yang sama.
+
+### Lagune
+
+Implementasi referensi SDH: sembilan perintah agen, masing-masing dengan templat yang diisinya, yang dijalankan agen AI untuk memperkuat keamanan basis kode. Setiap agen menginstalnya lewat installer plugin miliknya sendiri atau lewat [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), seperti yang ditunjukkan [halaman instalasi](/docs), dan perintah itu menjalankan engine Lagune untuk setiap langkah yang deterministik.
+
+### Charter
+
+Lapisan yang mengarahkan semua fase Lagune: sekumpulan prinsip keamanan yang wajib dipatuhi setiap fase sesudahnya. Anggap saja sebagai pemeriksaan saat kompilasi untuk postur keamanan sebuah proyek. Charter disimpan di `.lagune/memory/charter.md`.
+
+### Alur pengembangan
+
+Perintah universal `/lagune` yang memperkuat keamanan pekerjaan selagi ditulis. Perintah ini menerima prompt apa pun di tahap mana pun, membangun apa yang Anda minta, lalu memperkuatnya dengan default yang aman sebelum menyerahkannya kembali, dengan arahan charter jika sudah ada. Perintah ini tidak menulis apa pun ke pelacakan Lagune, jadi satu-satunya hasilnya adalah kode yang sudah diperkuat. Bersama charter (sebelumnya) dan alur Blue Team (sesudahnya), inilah cara Lagune melindungi selama proses membangun.
+
+### Alur Blue Team
+
+Audit lima fase yang menjadi inti Lagune: charter, detect, plan, harden, verify. Setiap fase dibangun di atas fase sebelumnya. "Blue Team" adalah tradisi keamanan para pihak bertahan, kebalikan dari Red Team yang menyerang.
+
+### Temuan
+
+Satu risiko yang terdeteksi. Setiap temuan memuat apa temuan itu, mengapa penting, dan bukti di dalam kode. Temuan adalah satu-satunya unit yang dilacak dan dibawa maju oleh plan, harden, dan verify, dikenali lewat namanya di setiap artefak.
+
+### Kontrol
+
+Langkah keamanan yang diterapkan untuk menutup suatu risiko. Harden menerapkan kontrol, verify membuktikan kontrol itu tetap efektif. Lagune tidak pernah melemahkan kontrol demi memenuhi sebuah prompt.
+
+### Detect
+
+Fase yang membaca kode dan memetakan apa yang dilakukan sistem serta di mana risikonya. Aturan yang mengarahkannya adalah mendeteksi, bukan mengarang: fase ini hanya mencatat apa yang didukung oleh kode.
+
+### Harden
+
+Satu-satunya fase yang menyentuh kode Anda. Fase ini menerapkan perbaikan dari rencana satu per satu dan mencatat masing-masing sebagai Applied, Partial, atau Blocked. Applied belum berarti sudah terbukti.
+
+### Verify
+
+Fase yang membuktikan bahwa setiap perbaikan yang diterapkan tetap efektif, dengan membaca kode dan mencocokkannya dengan apa yang dicatat harden. Fase ini mengembalikan salah satu dari tiga putusan: Risk closed, Risk not closed, atau Cannot tell from the code.
+
+### Stand down
+
+Saat verify membuktikan sebuah risiko sudah tertutup, temuan itu ditutup: dihapus dari seluruh rantai, dengan konfirmasi Anda, sehingga tidak diproses ulang lagi.
+
+### Ketertuntasan
+
+Sifat bahwa pekerjaan keamanan punya titik akhir. Karena temuan yang terbukti tuntas akan ditutup dari seluruh rantai, alurnya bisa tuntas, dan baru dibuka kembali saat kode berubah. SDH bisa dituntaskan, bukan putaran tanpa akhir.
+
+### Engine
+
+Paket `lagune` di **npm**, yang dijalankan perintah Lagune lewat `npx` untuk setiap langkah yang deterministik: hook, katalog, dan kategori.
+
+### Spesialisasi
+
+Modul pengetahuan keamanan yang terfokus dan tidak terikat bahasa pemrograman, yang dimuat hanya saat dibutuhkan, tidak pernah secara default. Spesialisasi bukan perintah. Muat satu spesialisasi ke prompt mana pun dengan `read catalog <name>` milik engine, misalnya `npx lagune read catalog regex`.
+
+### Kategori
+
+Kelompok bernama berisi spesialisasi bawaan, mulai dari `owasp` hingga kategori per bahasa seperti `javascript`, `python`, `go`, dan `rust`. Kategori yang dipakai sebuah proyek, yang dicatat di `.lagune/configs.json`, menentukan spesialisasi bawaan mana yang masuk ke katalognya. Selama belum ada yang dicatat, proyek hanya memakai `owasp`.
+
+### Katalog
+
+Kumpulan spesialisasi yang dipakai sebuah proyek: spesialisasi bawaan dari kategorinya ditambah spesialisasi miliknya sendiri, yang ditulis dengan `/lagune-specialize`. Perintah `read catalog` milik engine menampilkan daftarnya, dan setiap fase mencocokkannya dengan kode.
+
+### Prompt-on-demand
+
+Prinsip bahwa pengetahuan keamanan yang relevan dimuat sesuai dengan apa proyek itu sebenarnya, alih-alih menjalankan setiap pemeriksaan secara default.
+
+### Identitas berdasarkan nama
+
+Model pelacakan Lagune: nama setiap temuan, yang ditulis sama persis sebagai judul bagian di setiap artefak, menjadi identitasnya di sepanjang rantai. Peta pelacakan (`.lagune/tracking.json`) hanya berisi pelacakan, tidak pernah berisi teks penjelasan.
+
+<Faq
+  items={[
+    {
+      question: 'Apa itu Security-Driven Hardening (SDH)?',
+      answer:
+        'SDH adalah metodologi keamanan Blue Team yang peka konteks. SDH mendeteksi konteks sebuah sistem, melakukan triase atas risiko yang dibawa konteks itu, lalu memandu perbaikannya, dengan setiap temuan tetap ditulis dalam bahasa yang sederhana. Lagune adalah implementasi referensinya.',
+    },
+    {
+      question: 'Apa itu charter di Lagune?',
+      answer:
+        'Charter adalah lapisan yang mengarahkan semua fase Lagune, sekumpulan prinsip keamanan yang wajib dipatuhi setiap fase sesudahnya. Charter disimpan di .lagune/memory/charter.md.',
+    },
+    {
+      question: 'Apa artinya menutup sebuah temuan (stand down)?',
+      answer:
+        'Saat verify membuktikan sebuah risiko sudah tertutup, temuan itu ditutup: dihapus dari seluruh rantai dengan konfirmasi Anda, sehingga tidak diproses ulang lagi.',
+    },
+  ]}
+/>

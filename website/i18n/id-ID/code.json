@@ -1,0 +1,662 @@
+{
+  "catalog.copyPrompt": {
+    "message": "Salin prompt yang memuat {specialization}",
+    "description": "The label of the button that copies the prompt loading a specialization, where {specialization} is its name"
+  },
+  "catalog.preview.hover": {
+    "message": "Arahkan kursor ke sini",
+    "description": "Invites a reader with a mouse to open the example prompt of a specialization"
+  },
+  "catalog.preview.touch": {
+    "message": "Sentuh di sini",
+    "description": "Invites a touch-screen reader to open the example prompt of a specialization"
+  },
+  "catalog.preview.you": {
+    "message": "Anda",
+    "description": "The name over the reader's own message in the example prompt"
+  },
+  "catalog.reply.read": {
+    "message": "Read",
+    "description": "The tool step an agent shows when it reads a specialization, in the example reply"
+  },
+  "catalog.reply.text": {
+    "message": "Siap!",
+    "description": "The agent's short answer in the example reply to a prompt that loads a specialization"
+  },
+  "common.copied": {
+    "message": "Disalin",
+    "description": "Confirms that something was copied to the clipboard"
+  },
+  "common.docs": {
+    "message": "Docs",
+    "description": "The name of the documentation, in links and breadcrumbs"
+  },
+  "common.documentation": {
+    "message": "Dokumentasi",
+    "description": "The name of the documentation as a whole"
+  },
+  "common.home": {
+    "message": "Beranda",
+    "description": "The name of the home page, in links and breadcrumbs"
+  },
+  "common.language": {
+    "message": "Bahasa",
+    "description": "The accessible name of the menu that switches the site language"
+  },
+  "common.language.current": {
+    "message": "Bahasa: {language}",
+    "description": "The accessible name of the language button, where {language} is the language shown now"
+  },
+  "common.sponsor": {
+    "message": "Sponsori",
+    "description": "The link to sponsor Lagune on GitHub Sponsors"
+  },
+  "common.starOnGitHub": {
+    "message": "Beri bintang di GitHub",
+    "description": "Invites the reader to star the Lagune repository on GitHub"
+  },
+  "common.support": {
+    "message": "Dukung",
+    "description": "The link to support Lagune through GitHub Sponsors"
+  },
+  "docs.badge.copy": {
+    "message": "Salin Markdown badge \"{badge}\"",
+    "description": "The label of the button that copies a badge's Markdown, where {badge} is the badge's text"
+  },
+  "docs.categories.choose": {
+    "message": "Pilih kategori",
+    "description": "The label over the category cards a reader picks from"
+  },
+  "docs.categories.copy": {
+    "message": "Salin perintah",
+    "description": "The label of the button that copies the command adding the chosen categories"
+  },
+  "docs.categories.optional": {
+    "message": "Opsional",
+    "description": "Marks picking categories as optional"
+  },
+  "docs.categories.run": {
+    "message": "Jalankan perintah ini",
+    "description": "The label over the command that adds the chosen categories"
+  },
+  "docs.faq.title": {
+    "message": "Pertanyaan yang sering diajukan",
+    "description": "The heading of a docs page's questions and answers"
+  },
+  "docs.install.back": {
+    "message": "Kembali ke semua agen",
+    "description": "The label of the link from an agent's install page back to the list of agents"
+  },
+  "docs.level.label": {
+    "message": "{level} dari {max}",
+    "description": "The accessible reading of a 1 to 5 rating shown as dots"
+  },
+  "docs.notice.original": {
+    "message": "Baca versi aslinya",
+    "description": "The link from a stale page notice to the English page"
+  },
+  "docs.notice.stale": {
+    "message": "Halaman ini tertinggal dari versi bahasa Inggrisnya. {original}.",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
+  },
+  "docs.notice.untranslated": {
+    "message": "Halaman ini belum diterjemahkan.",
+    "description": "Tells the reader the page below is still in English, shown above the page"
+  },
+  "docs.page.imageAlt": {
+    "message": "Lagune {section}: {title}",
+    "description": "The alternative text of a docs page's link preview image, where {section} is its sidebar group and {title} is the page title"
+  },
+  "docs.pagination.label": {
+    "message": "Halaman dokumentasi",
+    "description": "The accessible name of the previous and next page links"
+  },
+  "docs.pagination.next": {
+    "message": "Selanjutnya",
+    "description": "The label over the link to the next docs page"
+  },
+  "docs.pagination.previous": {
+    "message": "Sebelumnya",
+    "description": "The label over the link to the previous docs page"
+  },
+  "docs.search.empty": {
+    "message": "Tidak ada halaman yang cocok dengan \"{query}\".",
+    "description": "Shown when a docs search finds nothing, where {query} is what the reader typed"
+  },
+  "docs.search.label": {
+    "message": "Cari di dokumentasi",
+    "description": "The accessible name of the docs search box"
+  },
+  "docs.search.placeholder": {
+    "message": "Cari di dokumentasi…",
+    "description": "The placeholder of the docs search box"
+  },
+  "docs.search.untranslatedBadge": {
+    "message": "EN",
+    "description": "The badge on a search result that is still in English"
+  },
+  "docs.shell.closeNavigation": {
+    "message": "Tutup navigasi",
+    "description": "The label of the button that closes the docs navigation drawer"
+  },
+  "docs.shell.openNavigation": {
+    "message": "Buka navigasi",
+    "description": "The label of the button that opens the docs navigation drawer"
+  },
+  "docs.shell.repository": {
+    "message": "Repositori GitHub",
+    "description": "The label of the link to Lagune's GitHub repository"
+  },
+  "docs.shell.sponsor": {
+    "message": "Sponsori Lagune",
+    "description": "The label of the link to sponsor Lagune"
+  },
+  "docs.shell.toggleTheme": {
+    "message": "Ganti tema",
+    "description": "The label of the button that switches the docs between light and dark"
+  },
+  "docs.sidebar.supportLagune": {
+    "message": "Dukung Lagune",
+    "description": "The line under the invitation to star the repository, in the docs sidebar"
+  },
+  "docs.smallPrint.contributors": {
+    "message": "kontributor",
+    "description": "The link to the people who contributed to Lagune"
+  },
+  "docs.smallPrint.copyright": {
+    "message": "Hak cipta © 2026-sekarang {author} dan {contributors}. Lagune dirilis di bawah {license}. Baca juga {policy}.",
+    "description": "The copyright and license notice under every docs page, where {author}, {contributors}, {license}, and {policy} are links"
+  },
+  "docs.smallPrint.lastUpdated": {
+    "message": "Terakhir diperbarui pada {date}.",
+    "description": "When a docs page last changed, where {date} is the date"
+  },
+  "docs.smallPrint.securityPolicy": {
+    "message": "Kebijakan keamanan",
+    "description": "The link to Lagune's security policy"
+  },
+  "docs.smallPrint.trademarks": {
+    "message": "Semua nama produk, merek dagang, dan merek dagang terdaftar yang disebutkan adalah milik pemiliknya masing-masing dan hanya digunakan untuk tujuan identifikasi.",
+    "description": "The trademark notice on pages that name other products"
+  },
+  "docs.toc.label": {
+    "message": "Daftar isi",
+    "description": "The accessible name of a docs page's table of contents"
+  },
+  "docs.toc.title": {
+    "message": "Di halaman ini",
+    "description": "The heading of a docs page's table of contents"
+  },
+  "home.agents.installOn": {
+    "message": "Instal di {agent}",
+    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
+  },
+  "home.agents.more": {
+    "message": "{count} agen lainnya",
+    "description": "The label of the link to every other supported agent, where {count} is how many"
+  },
+  "home.background.alt": {
+    "message": "Lagune {tab}",
+    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
+  },
+  "home.brand.backToTop": {
+    "message": "Lagune.ai, kembali ke atas",
+    "description": "The label of the brand button that scrolls back to the top"
+  },
+  "home.cta.install": {
+    "message": "Instal",
+    "description": "The main home button, leading to the install page"
+  },
+  "home.faq.audit.answer": {
+    "message": "Ya. Alur Blue Team lima fase mengaudit apa yang sudah ada: charter menetapkan aturan keamanan Anda, detect memetakan apa yang dilakukan sistem dan di mana risikonya, plan memberi skor setiap temuan dan memasangkannya dengan perbaikan, harden menerapkan perbaikan tersebut, dan verify membuktikan bahwa perbaikan tetap efektif lalu menuntaskannya.",
+    "description": "The answer to \"Can Lagune audit an existing project?\" in search engines' structured data"
+  },
+  "home.faq.audit.question": {
+    "message": "Apakah Lagune bisa mengaudit proyek yang sudah ada?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.build.answer": {
+    "message": "Ya. Perintah /lagune menerima prompt apa pun, membangun apa yang Anda minta, dan memperkuat keamanannya dengan default yang aman saat kode ditulis, dipandu oleh prinsip keamanan Anda. Setelah itu, alur Blue Team lima fase mengaudit apa yang sudah ada.",
+    "description": "The answer to \"Can Lagune secure code as I build it?\" in search engines' structured data"
+  },
+  "home.faq.build.question": {
+    "message": "Apakah Lagune bisa mengamankan kode selagi saya membangunnya?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.install.answer": {
+    "message": "Sebagian besar agen menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lainnya dengan npx skills add wellwelwel/lagune. Halaman instalasi menampilkan perintah untuk setiap agen. Lagune bekerja di proyek baru maupun lama, tanpa perlu kunci API.",
+    "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
+  },
+  "home.faq.install.question": {
+    "message": "Bagaimana cara menginstal Lagune?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.what.answer": {
+    "message": "Lagune adalah alur kerja keamanan open source yang khusus pertahanan dan membantu agen AI Anda memperkuat keamanan basis kode apa pun. Lagune mendeteksi apa yang sebenarnya dilakukan sistem Anda, lalu memandu perbaikan keamanan yang penting untuk konteks tersebut.",
+    "description": "The answer to \"What is Lagune?\" in search engines' structured data"
+  },
+  "home.faq.what.question": {
+    "message": "Apa itu Lagune?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.feature.overview.eyebrow": {
+    "message": "Praktiknya",
+    "description": "The small caps label over the home overview title"
+  },
+  "home.feature.overview.kicker": {
+    "message": "Bagaimana jika, alih-alih menjalankan checklist generik, keamanan sudah hadir {before}, {during}, dan {after} pengembangan?",
+    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+  },
+  "home.feature.overview.kicker.after": {
+    "message": "sesudah",
+    "description": "The emphasized \"after\" of the home overview question"
+  },
+  "home.feature.overview.kicker.before": {
+    "message": "sebelum",
+    "description": "The emphasized \"before\" of the home overview question"
+  },
+  "home.feature.overview.kicker.during": {
+    "message": "selama",
+    "description": "The emphasized \"during\" of the home overview question"
+  },
+  "home.feature.overview.title": {
+    "message": "Pertahanan{lineBreak}sejak desain",
+    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
+  },
+  "home.feature.usage.chip": {
+    "message": "Alur Blue Team",
+    "description": "The chip over the home usage tab"
+  },
+  "home.feature.usage.eyebrow": {
+    "message": "Alur Blue Team",
+    "description": "The small caps label over the home usage title"
+  },
+  "home.feature.usage.kicker": {
+    "message": "Arahkan ke kode Anda, biarkan agen yang bekerja.",
+    "description": "The sentence that opens the home usage tab"
+  },
+  "home.feature.usage.title": {
+    "message": "Perkuat{lineBreak}apa yang Anda rilis",
+    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+  },
+  "home.group.anyPrompt": {
+    "message": "Prompt apa pun, kapan pun",
+    "description": "The stage label of the universal /lagune command on the home page"
+  },
+  "home.group.defend": {
+    "message": "Lindungi",
+    "description": "The stage label of the harden and verify phases on the home page"
+  },
+  "home.group.establish": {
+    "message": "Tetapkan",
+    "description": "The stage label of the charter phase on the home page"
+  },
+  "home.group.understand": {
+    "message": "Pahami",
+    "description": "The stage label of the detect and plan phases on the home page"
+  },
+  "home.highlight.build.body": {
+    "message": "Pakai di prompt apa pun, dan agen membangun apa yang Anda minta seperti biasa, kini dengan pengetahuan keamanan yang hadir hanya saat dibutuhkan.",
+    "description": "The body of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.build.lead": {
+    "message": "Satu perintah, {command}, menghadirkan keamanan saat kode ditulis, bukan sesudahnya.",
+    "description": "The lead of the home highlight about /lagune, where {command} is the command"
+  },
+  "home.highlight.build.title": {
+    "message": "Perkuat keamanan sambil membangun",
+    "description": "The title of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.dashboard.body": {
+    "message": "Tampilan langsung keamanan proyek Anda selagi agen bekerja. Dasbor berjalan di mesin Anda dan tidak ada yang keluar darinya.",
+    "description": "The body of the home highlight about the local dashboard"
+  },
+  "home.highlight.dashboard.lead": {
+    "message": "{dashboard} memantau temuan, perbaikan, dan pembuktian Anda secara langsung.",
+    "description": "The lead of the home highlight about the dashboard, where {dashboard} is emphasized"
+  },
+  "home.highlight.dashboard.lead.dashboard": {
+    "message": "Dasbor lokal dan privat",
+    "description": "The emphasized part of the home highlight about the dashboard"
+  },
+  "home.highlight.dashboard.title": {
+    "message": "Progres di browser Anda",
+    "description": "The title of the home highlight about the local dashboard"
+  },
+  "home.highlight.flow.body": {
+    "message": "Lagune mendeteksi apa yang sebenarnya dilakukan sistem Anda, memetakan vektor serangan yang relevan, lalu menerapkan langkah keamanan yang sesuai.",
+    "description": "The body of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.flow.lead": {
+    "message": "Alur lima fase {basis}, siap dijalankan.",
+    "description": "The lead of the home highlight about the Blue Team flow, where {basis} is emphasized"
+  },
+  "home.highlight.flow.lead.basis": {
+    "message": "berbasis Blue Team",
+    "description": "The emphasized part of the home highlight about the Blue Team flow"
+  },
+  "home.highlight.flow.title": {
+    "message": "Terinspirasi dari Spec-Driven",
+    "description": "The title of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.knowledge.body": {
+    "message": "Lagune memuat modul yang sesuai dengan konteks yang ditemukannya, dari katalog yang terus beradaptasi seiring munculnya risiko baru.",
+    "description": "The body of the home highlight about on-demand specializations"
+  },
+  "home.highlight.knowledge.lead": {
+    "message": "Modul keamanan yang terfokus dimuat {scope}.",
+    "description": "The lead of the home highlight about specializations, where {scope} is emphasized"
+  },
+  "home.highlight.knowledge.lead.scope": {
+    "message": "hanya sesuai jenis proyek Anda",
+    "description": "The emphasized part of the home highlight about specializations"
+  },
+  "home.highlight.knowledge.title": {
+    "message": "Pengetahuan saat dibutuhkan",
+    "description": "The title of the home highlight about on-demand specializations"
+  },
+  "home.howTo.charter": {
+    "message": "Tetapkan prinsip keamanan proyek Anda, aturan yang dipatuhi setiap fase berikutnya.",
+    "description": "The Charter step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.description": {
+    "message": "Lagune menjalankan alur lima fase yang mengutamakan pertahanan untuk mengaudit dan memperkuat keamanan basis kode apa pun, digerakkan oleh agen AI Anda.",
+    "description": "The summary of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.detect": {
+    "message": "Baca kode, lalu petakan apa yang dilakukan sistem dan di mana risikonya.",
+    "description": "The Detect step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.harden": {
+    "message": "Terapkan perbaikan dari rencana ke kode, dengan aman dan satu per satu.",
+    "description": "The Harden step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.name": {
+    "message": "Cara memperkuat keamanan basis kode dengan Lagune (alur Blue Team)",
+    "description": "The name of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.plan": {
+    "message": "Nilai setiap temuan dengan kategori dan skor CVSS v4.0, lalu pasangkan dengan perbaikan.",
+    "description": "The Plan step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.verify": {
+    "message": "Buktikan bahwa setiap perbaikan yang diterapkan tetap efektif, lalu tutup yang lolos.",
+    "description": "The Verify step of the five-phase guide in search engines' structured data"
+  },
+  "home.meta.description": {
+    "message": "Lagune membantu agen AI Anda memperkuat keamanan basis kode apa pun: mendeteksi apa yang sebenarnya dilakukan sistem Anda, lalu menjalankan langkah pertahanan yang sesuai selagi Anda membangun.",
+    "description": "The description of the home page in search results and link previews"
+  },
+  "home.meta.title": {
+    "message": "Hardening keamanan dengan AI untuk basis kode apa pun | Lagune",
+    "description": "The title of the home page in search results and the browser tab"
+  },
+  "home.mode.bySeverity": {
+    "message": "Berdasarkan tingkat keparahan",
+    "description": "The example tab for running a phase on the most severe findings only"
+  },
+  "home.mode.recommendedFull": {
+    "message": "Disarankan (penuh)",
+    "description": "The example tab for running a phase over the whole project, the recommended way"
+  },
+  "home.nav.menu": {
+    "message": "Menu",
+    "description": "The label of the button that opens the compact home menu"
+  },
+  "home.nav.sections": {
+    "message": "Bagian",
+    "description": "The accessible name of the home side rail"
+  },
+  "home.nav.windows": {
+    "message": "Jendela",
+    "description": "The accessible name of the home tabs that switch the main window"
+  },
+  "home.phase.bannerAlt": {
+    "message": "Fase {phase}",
+    "description": "The alternative text of a phase card's banner, where {phase} is the phase"
+  },
+  "home.phase.charter.description": {
+    "message": "Menetapkan aturan keamanan proyek Anda, diusulkan untuk Anda atau dibentuk dari apa yang Anda sampaikan.",
+    "description": "What the Charter phase does"
+  },
+  "home.phase.charter.eyebrow": {
+    "message": "FASE 1",
+    "description": "The small caps label over the Charter phase card"
+  },
+  "home.phase.charter.mode.auto": {
+    "message": "Deteksi otomatis",
+    "description": "The example tab for the Charter phase: Auto Detect"
+  },
+  "home.phase.charter.mode.describe": {
+    "message": "Disarankan (jelaskan)",
+    "description": "The example tab for the Charter phase: Recommended (Describe)"
+  },
+  "home.phase.charter.mode.describe.prompt": {
+    "message": "Kami menjalankan SaaS manga: penulis mengunggah bab orisinal, pembaca membeli kredit lewat Stripe dan memakainya untuk membuka bab, dan penulis mendapat komisi setiap kali bab dibuka. Bantu kami mencegah pengguna membocorkan atau mengambil screenshot bab itu sesudahnya.",
+    "description": "An example request a user writes after /lagune-charter"
+  },
+  "home.phase.charter.title": {
+    "message": "Charter",
+    "description": "The name of the Charter phase"
+  },
+  "home.phase.copyCommand": {
+    "message": "Salin {command}",
+    "description": "The label of the button that copies a command, where {command} is the command"
+  },
+  "home.phase.detect.description": {
+    "message": "Membaca kode Anda dan memetakan apa yang dilakukan sistem Anda serta di mana risikonya.",
+    "description": "What the Detect phase does"
+  },
+  "home.phase.detect.eyebrow": {
+    "message": "FASE 2",
+    "description": "The small caps label over the Detect phase card"
+  },
+  "home.phase.detect.mode.scoped": {
+    "message": "Dengan cakupan",
+    "description": "The example tab for the Detect phase: Scoped"
+  },
+  "home.phase.detect.mode.scoped.prompt": {
+    "message": "Pindai branch anak magang sebelum saya merge.",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.mode.targeted": {
+    "message": "Terarah",
+    "description": "The example tab for the Detect phase: Targeted"
+  },
+  "home.phase.detect.mode.targeted.prompt": {
+    "message": "Selidiki setiap kemungkinan kebocoran data",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.title": {
+    "message": "Detect",
+    "description": "The name of the Detect phase"
+  },
+  "home.phase.harden.description": {
+    "message": "Menerapkan perbaikan dari rencana ke kode Anda, dengan aman dan satu per satu.",
+    "description": "What the Harden phase does"
+  },
+  "home.phase.harden.eyebrow": {
+    "message": "FASE 4",
+    "description": "The small caps label over the Harden phase card"
+  },
+  "home.phase.harden.mode.severity.prompt": {
+    "message": "Untuk sekarang, terapkan perbaikan yang kritis dan tinggi saja.",
+    "description": "An example request a user writes after /lagune-harden"
+  },
+  "home.phase.harden.title": {
+    "message": "Harden",
+    "description": "The name of the Harden phase"
+  },
+  "home.phase.plan.description": {
+    "message": "Mengubah temuan fase detect menjadi rencana pertahanan, dengan perbaikan untuk setiap temuan.",
+    "description": "What the Plan phase does"
+  },
+  "home.phase.plan.eyebrow": {
+    "message": "FASE 3",
+    "description": "The small caps label over the Plan phase card"
+  },
+  "home.phase.plan.mode.severity.prompt": {
+    "message": "Untuk sekarang, rencanakan temuan yang kritis dan tinggi saja.",
+    "description": "An example request a user writes after /lagune-plan"
+  },
+  "home.phase.plan.title": {
+    "message": "Plan",
+    "description": "The name of the Plan phase"
+  },
+  "home.phase.universal.description": {
+    "message": "Membangun apa yang diminta prompt Anda, dengan keamanan yang menjaga pekerjaan selagi berlangsung, bukan belakangan.",
+    "description": "What the universal /lagune command does"
+  },
+  "home.phase.universal.eyebrow": {
+    "message": "UNIVERSAL",
+    "description": "The small caps label over the universal /lagune command card"
+  },
+  "home.phase.universal.mode.feature": {
+    "message": "Fitur",
+    "description": "The example tab for building a new feature with /lagune"
+  },
+  "home.phase.universal.mode.feature.prompt": {
+    "message": "Buat dasbor untuk pengguna SaaS saya. Mereka harus bisa mengganti foto profil dan melihat semua konten yang bisa mereka akses.",
+    "description": "An example request a user writes after /lagune to build a feature"
+  },
+  "home.phase.universal.mode.fix": {
+    "message": "Perbaikan",
+    "description": "The example tab for fixing a bug with /lagune"
+  },
+  "home.phase.universal.mode.fix.prompt": {
+    "message": "Tidak terjadi apa-apa saat pengguna mengirim formulir. Cari tahu kemungkinan penyebabnya, lalu perbaiki.",
+    "description": "An example request a user writes after /lagune to fix a bug"
+  },
+  "home.phase.universal.mode.refactor": {
+    "message": "Refaktor",
+    "description": "The example tab for refactoring code with /lagune"
+  },
+  "home.phase.universal.mode.refactor.prompt": {
+    "message": "Decouple dan perbaiki logika payload.",
+    "description": "An example request a user writes after /lagune to refactor code"
+  },
+  "home.phase.universal.next": {
+    "message": "Lihat cara mengaudit proyek Anda yang sudah ada",
+    "description": "Leads from the universal command to the audit flow on the home page"
+  },
+  "home.phase.universal.title": {
+    "message": "Bangun",
+    "description": "The title of the universal /lagune command card"
+  },
+  "home.phase.verify.description": {
+    "message": "Membuktikan bahwa setiap perbaikan yang diterapkan tetap efektif dan menuntaskan yang lolos.",
+    "description": "What the Verify phase does"
+  },
+  "home.phase.verify.eyebrow": {
+    "message": "FASE 5",
+    "description": "The small caps label over the Verify phase card"
+  },
+  "home.phase.verify.mode.severity.prompt": {
+    "message": "Verifikasi saja perbaikan kritis dan tinggi yang sudah kita terapkan.",
+    "description": "An example request a user writes after /lagune-verify"
+  },
+  "home.phase.verify.title": {
+    "message": "Verify",
+    "description": "The name of the Verify phase"
+  },
+  "home.prompt.example": {
+    "message": "Contoh",
+    "description": "The label over the example prompt typed on the home page"
+  },
+  "home.rail.step": {
+    "message": "{phase} ({stage})",
+    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.software.feature.context": {
+    "message": "Mendeteksi apa yang sebenarnya dilakukan sebuah sistem, apa pun itu, lalu menjalankan perbaikan yang penting untuk konteks tersebut, dalam bahasa pemrograman apa pun",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.cvss": {
+    "message": "Skor CVSS v4.0 untuk setiap temuan",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.dashboard": {
+    "message": "Dasbor lokal dan privat untuk memantau temuan, perbaikan, dan pembuktian",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.defense": {
+    "message": "Khusus pertahanan: tidak pernah membuat eksploit atau alat serangan",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.flow": {
+    "message": "Alur Blue Team lima fase: charter, detect, plan, harden, verify",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.install": {
+    "message": "Diinstal ke agen Anda sebagai plugin, atau dengan skills CLI di agen lainnya, tanpa perlu kunci API",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.specializations": {
+    "message": "Spesialisasi keamanan yang dimuat hanya saat dibutuhkan, tidak bergantung pada bahasa pemrograman, dan dikelompokkan dalam kategori",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.universal": {
+    "message": "Mengamankan pekerjaan baru saat ditulis dengan perintah universal /lagune, dipandu oleh prinsip keamanan",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tab.overview": {
+    "message": "Ikhtisar",
+    "description": "The home tab that presents Lagune"
+  },
+  "home.tab.usage": {
+    "message": "Cara menggunakan",
+    "description": "The home tab that walks through the commands"
+  },
+  "home.topBar.label": {
+    "message": "Situs",
+    "description": "The accessible name of the top navigation bar"
+  },
+  "home.usage.next": {
+    "message": "Selanjutnya: {phase}",
+    "description": "Leads from one phase to the next on the home page, where {phase} is the next phase"
+  },
+  "home.usage.settled": {
+    "message": "Setelah semua terbukti, siklus pun tuntas",
+    "description": "Closes the walk through the phases on the home page"
+  },
+  "paper.reference.eyebrow": {
+    "message": "Referensi [{index}]",
+    "description": "The heading of the popover that reveals a cited reference of the paper"
+  },
+  "paper.section.eyebrow": {
+    "message": "Bagian {roman}",
+    "description": "The heading of the popover that reveals a section the paper refers to, where {roman} is its Roman numeral"
+  },
+  "share.breadcrumb": {
+    "message": "Bagikan",
+    "description": "The name of the share page in breadcrumbs"
+  },
+  "share.heading": {
+    "message": "Pindai, buka, beri {star}",
+    "description": "The heading of the share page, where {star} is a star icon read as the word star"
+  },
+  "share.heading.star": {
+    "message": "bintang",
+    "description": "The word the star icon of the share heading stands for"
+  },
+  "share.lead": {
+    "message": "Arahkan kamera ke kode ini untuk membuka Lagune di GitHub, lalu beri bintang untuk mendukung proyeknya.",
+    "description": "The instruction under the share page heading"
+  },
+  "share.meta.description": {
+    "message": "Pindai kode QR untuk membuka repositori GitHub Lagune, lalu beri bintang untuk mendukung proyek security hardening berbasis AI yang open source ini.",
+    "description": "The description of the share page in search results and link previews"
+  },
+  "share.meta.title": {
+    "message": "Bagikan Lagune | Pindai kode QR dan beri bintang repo GitHub-nya",
+    "description": "The title of the share page in search results and the browser tab"
+  },
+  "share.qr.caption": {
+    "message": "Pindai kode QR ini untuk membuka repositori GitHub Lagune di github.com/wellwelwel/lagune dan memberi bintang.",
+    "description": "The hidden caption of the QR code on the share page"
+  },
+  "share.qr.title": {
+    "message": "Kode QR yang membuka repositori GitHub Lagune di github.com/wellwelwel/lagune",
+    "description": "The accessible name of the QR code on the share page"
+  }
+}

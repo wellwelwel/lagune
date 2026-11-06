@@ -1,0 +1,91 @@
+---
+id: dashboard
+title: Dasbor
+sidebar_label: Dasbor
+description: Lihat charter, temuan, dan katalog proyek Anda dalam tampilan langsung dan lokal yang terbuka dengan satu perintah.
+keywords:
+  - dashboard
+  - dasbor
+  - lagune dashboard
+  - dasbor lagune
+  - live reload
+  - lokal
+  - temuan
+  - charter
+  - katalog
+source_hash: '09410a12dd00ea90012d879c1ce3cee96d6c9e9bba4782700392464f8f4a8516'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Jalankan **Lagune** begitu saja, tanpa subperintah, untuk mendapatkan tampilan langsung yang interaktif dari `.lagune/`. **Lagune** menyajikan dasbor dan membukanya di port acak:
+
+```bash
+npx lagune
+```
+
+- [x] **Live reload**
+- [x] **Privat** dan **lokal**
+- [x] Menampilkan apa pun isi `.lagune/`, sejak charter pertama
+- [x] **Kelola** kategori proyek dan apa yang dipindai hook-nya, langsung dari browser Anda
+- [x] Tidak perlu `node_modules` maupun `package.json` 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.webp'
+    alt='Charter di dasbor Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.webp'
+    alt='Temuan di dasbor Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.webp'
+    alt='Side quest di dasbor Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.webp'
+    alt='Detail temuan di dasbor Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.webp'
+    alt='Katalog di dasbor Lagune'
+  />
+</div>
+
+:::tip
+
+- 🚪 Gunakan `--port` untuk menentukan port kustom.
+- ⏏️ Tekan `Ctrl+C` untuk menghentikannya.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara membuka dasbor Lagune?',
+      answer:
+        'Jalankan npx lagune tanpa subperintah di root proyek Anda. Perintah ini menyajikan tampilan langsung dari .lagune/ di port acak dan membukanya di browser Anda.',
+    },
+    {
+      question: 'Apakah dasbornya privat?',
+      answer:
+        'Ya. Dasbor hanya berjalan di komputer Anda sendiri, di alamat lokal yang tidak bisa dijangkau komputer lain.',
+    },
+    {
+      question: 'Apakah saya bisa mengubah proyek dari dasbor?',
+      answer:
+        'Hanya kategorinya dan apa yang dikecualikan oleh hook-nya, dari browser Anda. Selain itu, semua yang ditampilkan dasbor hanya bisa dibaca.',
+    },
+  ]}
+/>

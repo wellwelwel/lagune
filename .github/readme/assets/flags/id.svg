@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 36">
+  <svg y="6" width="24" height="24" viewBox="0 0 28 28">
+    <clipPath id="circle">
+      <circle cx="14" cy="14" r="14"/>
+    </clipPath>
+    <g clip-path="url(#circle)">
+      <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-id" viewBox="0 0 512 512">
+        <path fill="#e70011" d="M0 0h512v256H0Z"/>
+        <path fill="#fff" d="M0 256h512v256H0Z"/>
+      </svg>
+    </g>
+    <circle cx="14" cy="14" r="13.5" fill="none" stroke="#000" stroke-opacity=".12"/>
+  </svg>
+</svg>

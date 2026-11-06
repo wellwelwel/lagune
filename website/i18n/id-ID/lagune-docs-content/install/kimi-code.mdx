@@ -1,0 +1,61 @@
+---
+id: kimi-code
+title: 'Cara menginstal Lagune di Kimi Code sebagai plugin'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: Instal Lagune di Kimi Code sebagai plugin, dan jaga agar tetap terbaru.
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+Instal plugin dari sesi **Kimi Code**, pilih **Trust and install**, lalu mulai sesi baru untuk memuatnya:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, instal ulang:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Perintah
+
+Ketik perintah dengan nama plugin di depannya, misalnya `/lagune:lagune-charter` untuk `/lagune-charter`. Menu `/` menampilkannya sebagai `/skill:lagune:lagune-charter`, yang juga bisa dipakai.
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Kimi Code?',
+      answer:
+        'Di sesi Kimi Code, jalankan /plugins install https://github.com/wellwelwel/lagune, pilih Trust and install, lalu jalankan /new.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Kimi Code?',
+      answer:
+        'Jalankan lagi /plugins install https://github.com/wellwelwel/lagune, lalu /new.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Kimi Code?',
+      answer:
+        'Ketik perintah dengan nama plugin di depannya, misalnya /lagune:lagune-charter, atau seperti yang ditampilkan menu /, misalnya /skill:lagune:lagune-charter.',
+    },
+  ]}
+/>

@@ -1,0 +1,293 @@
+---
+id: prompts
+title: 'Contoh prompt Lagune: otomatiskan alur Blue Team'
+sidebar_label: Prompts
+description: 'Prompt Lagune siap salin: pemindaian read-only, alur Blue Team lengkap, dan audit Zero Trust, ditambah deteksi yang cakupannya dibatasi pada sebuah commit, diff branch atau PR, atau insiden nyata.'
+keywords:
+  - prompt lagune
+  - contoh prompt lagune
+  - alur blue team
+  - blue team flow
+  - audit zero trust
+  - pemindaian kerentanan
+  - vulnerability scan
+  - subagen
+  - multi-agen
+  - multi-agent
+  - deep scan
+  - otomatisasi hardening keamanan
+  - automate security hardening
+  - deteksi dengan cakupan terbatas
+  - review keamanan pull request
+  - respons insiden
+  - incident response
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
+---
+
+import { Level } from '@site/src/components/docs/Level';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Prompt Lagune siap salin yang bisa langsung Anda tempel ke agen AI Anda.
+
+## 💧 Pemindaian cepat
+
+Pemindaian read-only yang membaca kode secara mandiri dan melaporkan setiap celah beserta perbaikannya, tanpa menjalankan alur Blue Team dan tanpa menulis apa pun ke pelacakan Lagune.
+
+:::tip
+Hasilnya lebih baik dalam mode perencanaan dan jika charter (`/lagune-charter`) sudah ditetapkan.
+:::
+
+<Tabs>
+  <TabItem value="default" label="🪼 Standar" default>
+
+| Aspek                | Trade-off                                                                       | Level               |
+| -------------------- | ------------------------------------------------------------------------------- | ------------------- |
+| **Upaya**            | Satu agen memindai dan melapor, tanpa subagen.                                  | <Level value={1} /> |
+| **Waktu**            | Cepat. Satu kali proses read-only, tidak ada yang diterapkan.                   | <Level value={2} /> |
+| **Penggunaan token** | Sedang, dengan konteks bersama. Seluruh pemindaian berjalan dalam satu konteks. | <Level value={2} /> |
+
+```md
+/lagune Kamu adalah peneliti keamanan siber dengan keahlian mendalam di bidang keamanan defensif, yang memakai Lagune untuk meningkatkan pengetahuan dan ketelitianmu.
+
+Pindai workspace secara mandiri dan pasangkan setiap celah yang kamu temukan dengan perbaikan yang konkret. Ini pemindaian tersendiri, bukan alur Blue Team: jangan jalankan detect, plan, harden, atau verify, dan jangan menulis apa pun ke pelacakan Lagune.
+
+Di akhir, buat daftar semua celah yang kamu temukan, masing-masing dengan tingkat keparahan dan perbaikan konkretnya.
+```
+
+  </TabItem>
+  <TabItem value="sub-agents" label="🐬 Multi-agen" >
+
+| Aspek                | Trade-off                                                                          | Level               |
+| -------------------- | ---------------------------------------------------------------------------------- | ------------------- |
+| **Upaya**            | Satu subagen per file, disesuaikan dengan ukuran basis kode Anda.                  | <Level value={2} /> |
+| **Waktu**            | Paralel per file, lalu digabung menjadi satu laporan. Tetap read-only.             | <Level value={3} /> |
+| **Penggunaan token** | Lebih tinggi, tetapi terisolasi. Setiap subagen memindai dalam konteksnya sendiri. | <Level value={3} /> |
+
+````md
+/lagune Kamu adalah orkestrator keamanan siber yang memakai Lagune untuk mendata path, mengirim satu subagen per path, dan menggabungkan laporan mereka (semua konten dibaca oleh subagen).
+
+Kamu harus mendelegasikan tugas ke subagen sesuai ukuran proyek saat ini: makin besar basis kodenya, makin banyak subagen yang harus dikirim, semuanya secara paralel, dan berikan prompt di bawah ini kepada masing-masing:
+
+```prompt
+/lagune Kamu adalah peneliti keamanan siber dengan keahlian mendalam di bidang keamanan defensif, yang memakai Lagune untuk meningkatkan pengetahuan dan ketelitianmu.
+
+Pindai <path> secara mandiri dan pasangkan setiap celah yang kamu temukan dengan perbaikan yang konkret. Ini pemindaian tersendiri, bukan alur Blue Team: jangan jalankan detect, plan, harden, atau verify, dan jangan menulis apa pun ke pelacakan Lagune.
+
+Di akhir, buat daftar semua celah di <path>, masing-masing dengan tingkat keparahan dan perbaikan konkretnya.
+```
+
+Di akhir, gabungkan semua laporan subagen menjadi satu daftar celah dan perbaikan yang diurutkan berdasarkan prioritas.
+````
+
+  </TabItem>
+</Tabs>
+
+:::warning
+Pemindaian cepat adalah satu prompt yang luas dan tanpa cakupan, sehingga sebagian agen lebih mungkin menolaknya atau menghentikannya di tengah jalan. Jika agen Anda menolak, jalankan **alur Blue Team** lengkap di bawah ini sebagai gantinya: fasenya yang terbatas cakupannya dan berjalan langkah demi langkah jauh lebih jarang diblokir.
+:::
+
+---
+
+## 🌊 Audit Blue Team otomatis
+
+Menjalankan [alur perintah lengkap](/docs/get-started/commands) dari awal sampai akhir.
+
+<Tabs>
+  <TabItem value="default" label="🪼 Standar" default>
+
+| Aspek                | Trade-off                                                                                                              | Level               |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Upaya**            | Satu agen, tanpa subagen, berapa pun ukuran basis kodenya.                                                             | <Level value={3} /> |
+| **Waktu**            | Sedang, tetapi kurang menyeluruh di basis kode besar. Setiap perintah berjalan sekali, satu per satu secara berurutan. | <Level value={4} /> |
+| **Penggunaan token** | Lebih rendah, tetapi kurang terisolasi. Semua perintah berbagi konteks yang sama.                                      | <Level value={4} /> |
+
+```md
+Jalankan perintah berikut satu per satu: `/lagune-charter`, `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, dan `/lagune-verify`.
+
+## Loop
+
+Jika `/lagune-verify` menolak satu atau beberapa perbaikan, ulangi `/lagune-harden` lalu `/lagune-verify` sampai semua temuan benar-benar terselesaikan.
+```
+
+  </TabItem>
+  <TabItem value="sub-agents" label="🐋 Multi-agen (deep scan)" >
+
+| Aspek                | Trade-off                                                                                                                                   | Level               |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Upaya**            | Jumlah subagen disesuaikan dengan ukuran basis kode Anda.                                                                                   | <Level value={5} /> |
+| **Waktu**            | Lebih lama, tetapi lebih menyeluruh. Mengirim banyak subagen untuk mendeteksi, merencanakan, dan memperkuat keamanan temuan secara paralel. | <Level value={5} /> |
+| **Penggunaan token** | Lebih tinggi, tetapi lebih aman. Setiap subagen punya konteks terisolasinya sendiri tanpa bias.                                             | <Level value={5} /> |
+
+````md
+Jalankan setiap perintah berikut di satu subagen, satu per satu (tanpa backtick, hanya perintahnya):
+
+Prompt subagen 1: `/lagune-charter`
+Prompt subagen 2: `/lagune-detect`
+Prompt subagen 3: `/lagune-plan`
+Prompt subagen 4: `/lagune-harden`
+Prompt subagen 5: `/lagune-verify`
+
+Di perintah `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, dan `/lagune-verify`, kamu harus mendelegasikan tugas ke subagen sesuai ukuran proyek saat ini: makin besar basis kodenya, makin banyak subagen yang harus dikirim. Contohnya:
+
+```prompt
+/lagune-detect <path>
+```
+
+```prompt
+/lagune-plan <finding>
+```
+
+```prompt
+/lagune-harden <finding>
+```
+
+```prompt
+/lagune-verify <finding>
+```
+
+- Beberapa agen pada perintah yang sama harus dikirim secara paralel.
+- Setelah semua subagen `/lagune-detect` selesai, jalankan:
+
+```prompt
+/lagune-detect gabungkan temuan yang setara. Jangan mencari temuan baru dan jangan memindai basis kode lagi.
+```
+
+## Loop
+
+Jika `/lagune-verify` menolak satu atau beberapa perbaikan, ulangi `/lagune-harden` lalu `/lagune-verify` sampai semua temuan benar-benar terselesaikan.
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## 🪄 Deteksi dengan cakupan terbatas
+
+Arahkan perintah [`/lagune-detect`](/docs/commands/detect) ke sebagian proyek Anda, bukan ke seluruh proyek. Jelaskan cakupannya dengan bahasa sehari-hari (sebuah commit, pull request, atau situasi nyata), dan perintah ini hanya memetakan temuan yang relevan dengan keamanan di bagian tersebut.
+
+:::tip
+Semua yang terdeteksi di sini adalah temuan biasa, jadi Anda bisa langsung membawanya ke `/lagune-plan`, `/lagune-harden`, dan `/lagune-verify`, dengan cakupan hanya pada item tersebut.
+:::
+
+<Tabs>
+  <TabItem value="commit" label="📌 Sejak sebuah commit" default>
+
+Jalankan pemeriksaan keamanan khusus untuk sekumpulan commit terbaru, hanya pada apa yang diubah commit tersebut, misalnya:
+
+```prompt
+/lagune-detect Batasi deteksi pada semua yang berubah sejak commit `a1b2c3d`.
+```
+
+  </TabItem>
+  <TabItem value="diff" label="🔀 Diff branch atau PR">
+
+Tinjau keamanan pull request sebelum di-merge, hanya pada diff-nya, misalnya:
+
+```prompt
+/lagune-detect Batasi deteksi pada perubahan yang dibawa branch ini dibandingkan dengan `main`.
+```
+
+  </TabItem>
+  <TabItem value="incident" label="⛑️ Setelah insiden">
+
+Ceritakan apa yang terjadi dengan kata-kata Anda sendiri. Lagune membaca situasinya, bukan sebuah flag, lalu mengubahnya menjadi penelusuran yang terfokus, misalnya:
+
+```prompt
+/lagune-detect Situs kami mengalami kebocoran data beberapa minggu lalu. Saya tidak tahu persis bagaimana itu terjadi, dan saya khawatir masih ada celah terbuka yang bisa membocorkan data lagi. Telusuri kodenya dengan teliti, fokus di setiap tempat data sensitif dibaca, disimpan, atau diekspos, dan petakan apa pun yang masih bisa menjadi jalan keluar bagi data. Anggap ini insiden sungguhan, bukan latihan.
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+## 🚨 Audit Zero Trust
+
+Memperlakukan seluruh workspace dan setiap dependensi sebagai sesuatu yang berbahaya: audit ini memburu interpreter, panggilan jaringan, payload yang di-encode, dan kode yang disembunyikan di tempat tak terduga agar lolos dari pemindai, lalu diakhiri dengan putusan go/no-go tentang apakah proyek tersebut aman digunakan.
+
+Prompt berikut langsung memuat spesialisasi yang diandalkan audit ini, apa pun kategori proyek Anda. Untuk bagian katalog lainnya yang dicocokkan `/lagune`, pastikan proyek memakai **OWASP**, **AI/LLM**, dan kategori stack-nya (misalnya **JavaScript**, **Python**, dan lainnya):
+
+```bash
+npx lagune write add --categories owasp ai javascript
+```
+
+File `.gitignore` dan konfigurasi milik repositori itu sendiri bisa menyembunyikan file dari checker, jadi atur blok `checkers` di `.lagune/configs.json` untuk [memindai semuanya](/docs/hooks/configure), menggantikan blok apa pun yang dibawa repositori:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
+```
+
+:::danger
+Hati-hati saat menjalankan proyek dari sumber yang tidak tepercaya di lingkungan lokal Anda. Gunakan lingkungan terisolasi, seperti **sandbox** (disarankan), **VM**, atau sejenisnya, agar kode berbahaya tidak memengaruhi sistem Anda.
+:::
+
+<Tabs>
+  <TabItem value="default" label="🪼 Standar" default>
+
+| Aspek                | Trade-off                                                                                           | Level               |
+| -------------------- | --------------------------------------------------------------------------------------------------- | ------------------- |
+| **Upaya**            | Satu agen memindai seluruh workspace, tanpa subagen.                                                | <Level value={2} /> |
+| **Waktu**            | Sedang. Satu agen menelusuri kode dan dependensinya secara berurutan.                               | <Level value={3} /> |
+| **Penggunaan token** | Sedang, tetapi berbagi konteks. Spesialisasi, kode, dan dependensi semuanya dimuat ke satu konteks. | <Level value={3} /> |
+
+```md
+/lagune Kamu adalah peneliti keamanan siber dengan keahlian mendalam di bidang keamanan defensif zero trust, yang memakai Lagune untuk meningkatkan pengetahuan dan ketelitianmu.
+
+Petakan seluruh workspace sebagai sumber yang tidak tepercaya dan cakupan yang berpotensi berbahaya. Setiap interpreter, fetch, base64, dan sejenisnya harus diperlakukan sebagai potensi ancaman.
+
+Perluas analisismu ke dependensi dan sub-dependensi: sebuah proyek bisa saja mencoba menyembunyikan kode berbahaya di tempat yang tak terduga agar lolos dari pemindai.
+
+Spesialisasi wajib (muat satu per satu dengan `npx lagune read catalog <name>`):
+
+- interpreter
+- secrets
+- llm
+- path
+
+Supaya jelas: setiap kerentanan yang terpetakan harus diperlakukan sebagai potensi ancaman, tanpa kecuali.
+
+Di akhir, berikan putusan apakah proyek ini aman dan tepercaya untuk saya gunakan atau tidak.
+```
+
+  </TabItem>
+  <TabItem value="sub-agents" label="🐋 Multi-agen (deep scan)" >
+
+| Aspek                | Trade-off                                                                                               | Level               |
+| -------------------- | ------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Upaya**            | Satu subagen per file, disesuaikan dengan ukuran basis kode Anda.                                       | <Level value={5} /> |
+| **Waktu**            | Lebih lama, tetapi lebih menyeluruh. File dipindai secara paralel, lalu digabung menjadi satu putusan.  | <Level value={4} /> |
+| **Penggunaan token** | Tertinggi, tetapi paling aman. Setiap subagen membaca spesialisasi dalam konteks terisolasinya sendiri. | <Level value={5} /> |
+
+````md
+/lagune Kamu adalah orkestrator keamanan siber yang memakai Lagune untuk mendata file, mengirim satu subagen per file, dan membuat laporan (semua konten dibaca oleh subagen).
+
+Kirim satu subagen per file, semuanya secara paralel, dan berikan prompt di bawah ini kepada masing-masing, dengan cakupan pada file masing-masing:
+
+```prompt
+/lagune Kamu adalah peneliti keamanan siber dengan keahlian mendalam di bidang keamanan defensif zero trust, yang memakai Lagune untuk meningkatkan pengetahuan dan ketelitianmu.
+
+Perlakukan <file> sebagai sumber yang tidak tepercaya dan cakupan yang berpotensi berbahaya. Setiap interpreter, fetch, base64, dan sejenisnya harus diperlakukan sebagai potensi ancaman.
+
+Perluas analisis ke apa pun yang diimpor <file>, termasuk dependensi dan sub-dependensi, tempat kode berbahaya bisa bersembunyi agar lolos dari pemindai.
+
+Spesialisasi wajib untuk setiap subagen (muat satu per satu dengan `npx lagune read catalog <name>`):
+
+- interpreter
+- secrets
+- llm
+- path
+
+Supaya jelas: setiap kerentanan yang terpetakan harus diperlakukan sebagai potensi ancaman, tanpa kecuali.
+
+Di akhir, berikan putusan apakah proyek ini aman dan tepercaya untuk saya gunakan atau tidak.
+```
+
+Di akhir, gabungkan semua laporan subagen menjadi satu putusan akhir.
+````
+
+  </TabItem>
+</Tabs>

@@ -1,0 +1,123 @@
+---
+id: cursor
+title: 'Cara menginstal Lagune di Cursor sebagai plugin'
+sidebar_label: Cursor
+parent: get-started/install
+description: Instal Lagune di Cursor dan Cursor CLI sebagai plugin, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+keywords:
+  - cursor
+  - cursor plugin
+  - cursor cli
+  - plugin marketplace
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '08c54cd98449fce87b9f38a44aef834689e3fd5ffd6a8a0aed023de7f8acdf19'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Cursor' />
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Buka **Customize**.
+- Pilih **From GitHub Repository** lalu masukkan `https://github.com/wellwelwel/lagune`.
+- Pilih **Install** pada **Lagune** lalu tentukan cakupan proyek atau pengguna.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Tambahkan marketplace dari terminal Anda:
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Ketik `/plugins` di sesi `agent`.
+- Instal **Lagune**.
+
+Jika **Lagune** sudah terinstal di **Claude Code**, **Cursor CLI** memuatnya dari sana.
+
+</TabItem>
+</Tabs>
+
+## Pembaruan
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Buka **Customize**.
+- Pilih **Refresh** pada marketplace `lagune`.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Ganti marketplace dari terminal Anda:
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Ketik `/plugins` di sesi `agent`.
+- Instal **Lagune** lagi.
+
+</TabItem>
+</Tabs>
+
+## Perintah
+
+Ketik perintah dengan namanya, misalnya `/lagune-charter`.
+
+---
+
+:::info[Izin]
+
+Di **Cursor**, setiap perintah menjalankan engine melalui **npx**, dan mode Auto-review default mengizinkannya tanpa bertanya.
+
+Di **Cursor CLI**, engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. Untuk mengizinkannya sejak awal, tambahkan aturan berikut ke `.cursor/cli.json` untuk satu proyek, atau ke `~/.cursor/cli-config.json` untuk semua proyek:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
+  }
+}
+```
+
+Saat engine berjalan melalui **npx**, seperti pada **skills.sh**, izinkan `Shell(npx:--yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Cursor?',
+      answer:
+        'Di Cursor, buka Customize, pilih From GitHub Repository, masukkan https://github.com/wellwelwel/lagune, lalu instal Lagune. Di Cursor CLI, jalankan agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor, lalu instal Lagune dari /plugins.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Cursor?',
+      answer:
+        'Di Cursor, pilih Refresh pada marketplace lagune di Customize. Di Cursor CLI, hapus marketplace lagune, tambahkan lagi, lalu instal Lagune lagi dari /plugins.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Cursor?',
+      answer: 'Ketik perintah dengan namanya, misalnya /lagune-charter.',
+    },
+    {
+      question: 'Apakah Cursor bisa menjalankan Lagune tanpa meminta izin?',
+      answer:
+        'Ya. Mode Auto-review default di Cursor sudah mengizinkannya. Di Cursor CLI, izinkan Mcp(plugin-lagune-lagune:lagune_read) dan Mcp(plugin-lagune-lagune:lagune_write), ditambah Shell(npx:--yes lagune@*) saat engine berjalan melalui npx.',
+    },
+  ]}
+/>

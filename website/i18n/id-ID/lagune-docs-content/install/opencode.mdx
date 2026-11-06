@@ -1,0 +1,132 @@
+---
+id: opencode
+title: 'Cara menginstal Lagune di OpenCode sebagai plugin'
+sidebar_label: OpenCode
+parent: get-started/install
+description: Instal Lagune di OpenCode 1.x dan 2.x sebagai plugin, dan jaga agar tetap terbaru.
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: 'f79638c10be0e2425d9690e2d98375d7739ebc1ae43d8a729cb033f5b0ca3f09'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Instal plugin dari terminal Anda:
+
+```bash
+opencode plugin add lagune
+```
+
+Atau tambahkan ke daftar `plugins` di `opencode.json`:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Instal plugin di proyek Anda dari terminal, atau tambahkan `-g` untuk menginstalnya di semua proyek Anda:
+
+```bash
+opencode plugin lagune
+```
+
+Atau tambahkan ke daftar `plugin` di `opencode.json`:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Pembaruan
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Untuk memperbarui **Lagune**, instal rilis baru di atas rilis lama, dengan menambahkan `-g` jika Anda menginstalnya di semua proyek Anda:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## Perintah
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Ketik `@` lalu pilih perintahnya, misalnya `@lagune-charter`, kemudian tulis input Anda di pesan yang sama.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Ketik perintah dengan namanya, misalnya `/lagune-charter`. Perintah ini tercantum di `/skills`, bukan di menu `/`.
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[Izin]
+
+Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. **OpenCode** menjalankannya tanpa bertanya.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di OpenCode?',
+      answer:
+        'Di OpenCode 2.x, jalankan opencode plugin add lagune. Di OpenCode 1.x, jalankan opencode plugin lagune, dengan menambahkan -g untuk menginstalnya di semua proyek Anda.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di OpenCode?',
+      answer:
+        'Di OpenCode 2.x, jalankan opencode plugin update lagune, lalu opencode reload. Di OpenCode 1.x, jalankan opencode plugin lagune@{{version}} --force.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di OpenCode?',
+      answer:
+        'Di OpenCode 2.x, ketik @ lalu pilih perintahnya, misalnya @lagune-charter, kemudian tulis input Anda di pesan yang sama. Di OpenCode 1.x, ketik perintah dengan namanya, misalnya /lagune-charter, atau temukan di /skills.',
+    },
+    {
+      question: 'Apakah OpenCode meminta izin sebelum Lagune berjalan?',
+      answer:
+        'Tidak. OpenCode menjalankan dua tool milik engine, lagune_read dan lagune_write, tanpa bertanya.',
+    },
+  ]}
+/>

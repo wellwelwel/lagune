@@ -1,0 +1,138 @@
+---
+id: claude-code
+title: 'Cara menginstal Lagune di Claude Code sebagai plugin'
+sidebar_label: Claude Code
+parent: get-started/install
+description: Instal Lagune di Claude Code sebagai plugin, di terminal, ekstensi, atau aplikasi desktop, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+keywords:
+  - claude code
+  - claude code plugin
+  - claude code vs code
+  - claude desktop
+  - plugin marketplace
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '14579b30d4f66f17f3f80f8be28ba0a6d3ca7e6dd2474fcaf8966badf4628d4a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Claude Code' />
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="Terminal" default>
+
+Instal plugin dari terminal Anda:
+
+```bash
+claude plugin install lagune --marketplace wellwelwel/lagune
+```
+
+Atau dari sesi **Claude Code**:
+
+```text
+/plugin marketplace add wellwelwel/lagune
+/plugin install lagune@lagune
+```
+
+</TabItem>
+<TabItem value="extension" label="Ekstensi">
+
+- Ketik `/plugin` lalu pilih **Manage plugins**.
+- Tambahkan `wellwelwel/lagune` di tab **Marketplaces**.
+- Instal `lagune` di tab **Plugins**.
+
+</TabItem>
+<TabItem value="desktop" label="Desktop">
+
+- Instal **Lagune** dari terminal atau ekstensi, dengan memilih **Install for you** di ekstensi.
+- Mulai sesi baru di aplikasi desktop. Aplikasi ini memuat plugin yang Anda instal untuk diri Anda sendiri.
+
+</TabItem>
+</Tabs>
+
+## Pembaruan
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="Terminal" default>
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+Agar tetap terbaru, pilih **Enable auto-update** untuk marketplace `lagune` di `/plugin`.
+
+</TabItem>
+<TabItem value="extension" label="Ekstensi">
+
+- Ketik `/plugin` lalu pilih **Manage plugins**.
+- Buka tab **Marketplaces**.
+- Pilih ikon muat ulang di `lagune`.
+
+</TabItem>
+<TabItem value="desktop" label="Desktop">
+
+- Perbarui **Lagune** dari terminal atau ekstensi.
+- Mulai sesi baru di aplikasi desktop.
+
+</TabItem>
+</Tabs>
+
+## Perintah
+
+Ketik perintah dengan namanya, misalnya `/lagune-charter`, atau dengan nama plugin di depannya, misalnya `/lagune:lagune-charter`.
+
+---
+
+:::info[Izin]
+
+Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. Untuk mengizinkannya sejak awal, tambahkan aturan berikut ke `.claude/settings.json` untuk satu proyek, atau ke `~/.claude/settings.json` untuk semua proyek:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_lagune_lagune__lagune_read",
+      "mcp__plugin_lagune_lagune__lagune_write"
+    ]
+  }
+}
+```
+
+Saat engine berjalan melalui **npx**, seperti pada **skills.sh**, izinkan `Bash(npx --yes lagune@*)`. Jika sandbox aktif, tambahkan juga `registry.npmjs.org` ke `sandbox.network.allowedDomains`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Claude Code?',
+      answer:
+        'Jalankan claude plugin install lagune --marketplace wellwelwel/lagune. Di sesi atau di ekstensi, tambahkan marketplace wellwelwel/lagune dari pengelola plugin, lalu instal lagune. Aplikasi desktop memuatnya setelah Anda menginstalnya untuk diri Anda sendiri di terminal atau ekstensi.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Claude Code?',
+      answer:
+        'Jalankan claude plugin marketplace update lagune, lalu claude plugin update lagune@lagune, atau pilih Enable auto-update untuk marketplace lagune di /plugin. Di ekstensi, buka Manage plugins dari /plugin dan pilih ikon muat ulang di marketplace lagune. Aplikasi desktop memuat pembaruan itu di sesi berikutnya.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Claude Code?',
+      answer:
+        'Ketik perintah dengan namanya, misalnya /lagune-charter, atau dengan nama plugin di depannya, misalnya /lagune:lagune-charter.',
+    },
+    {
+      question:
+        'Apakah Claude Code bisa menjalankan Lagune tanpa meminta izin?',
+      answer:
+        'Ya. Izinkan mcp__plugin_lagune_lagune__lagune_read dan mcp__plugin_lagune_lagune__lagune_write di pengaturan Claude Code Anda, ditambah Bash(npx --yes lagune@*) saat engine berjalan melalui npx.',
+    },
+  ]}
+/>

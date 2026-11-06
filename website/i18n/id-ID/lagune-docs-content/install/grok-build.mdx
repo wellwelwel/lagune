@@ -1,0 +1,78 @@
+---
+id: grok-build
+title: 'Cara menginstal Lagune di Grok Build sebagai plugin'
+sidebar_label: Grok Build
+parent: get-started/install
+description: Instal Lagune di Grok Build sebagai plugin, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+keywords:
+  - grok build
+  - grok build plugin
+  - grok plugin install
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '793de6857b4003a8fa1ab3c63bf93fe3676d72f44e0e9313ccdca394911167bd'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Grok Build' />
+
+Instal plugin dari terminal Anda:
+
+```bash
+grok plugin install wellwelwel/lagune@plugin-grok --trust
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+grok plugin update lagune
+```
+
+## Perintah
+
+Ketik perintah dengan namanya, misalnya `/lagune-charter`, atau dengan nama plugin di depannya, misalnya `/lagune:lagune-charter`.
+
+---
+
+:::info[Izin]
+
+Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. Untuk mengizinkannya sejak awal, tambahkan aturan berikut ke `~/.grok/config.toml`:
+
+```toml
+[permission]
+allow = ["MCPTool(lagune__lagune_read)", "MCPTool(lagune__lagune_write)"]
+```
+
+Saat engine berjalan melalui **npx**, seperti pada **skills.sh**, izinkan `Bash(npx --yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Grok Build?',
+      answer:
+        'Jalankan grok plugin install wellwelwel/lagune@plugin-grok --trust.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Grok Build?',
+      answer: 'Jalankan grok plugin update lagune.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Grok Build?',
+      answer:
+        'Ketik perintah dengan namanya, misalnya /lagune-charter, atau dengan nama plugin di depannya, misalnya /lagune:lagune-charter.',
+    },
+    {
+      question: 'Apakah Grok Build bisa menjalankan Lagune tanpa meminta izin?',
+      answer:
+        'Ya. Izinkan MCPTool(lagune__lagune_read) dan MCPTool(lagune__lagune_write) di konfigurasi Grok Build, ditambah Bash(npx --yes lagune@*) saat engine berjalan melalui npx.',
+    },
+  ]}
+/>

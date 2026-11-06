@@ -1,0 +1,83 @@
+---
+id: qwen-code
+title: 'Cara menginstal Lagune di Qwen Code sebagai ekstensi'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: Instal Lagune di Qwen Code sebagai ekstensi, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+Instal ekstensi dari terminal Anda:
+
+```bash
+qwen extensions install lagune
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+qwen extensions update lagune
+```
+
+Agar selalu terbaru, instal dengan `--auto-update`.
+
+## Perintah
+
+Ketik perintah dengan nama ekstensi di depannya, misalnya `/lagune:lagune-charter` untuk `/lagune-charter`.
+
+---
+
+:::info[Izin]
+
+Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. Untuk mengizinkannya sejak awal, tambahkan aturan berikut ke `.qwen/settings.json` untuk satu proyek, atau ke `~/.qwen/settings.json` untuk semua proyek:
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+Saat engine berjalan melalui **npx**, seperti pada **skills.sh**, izinkan `Shell(npx --yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Qwen Code?',
+      answer: 'Jalankan qwen extensions install lagune.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Qwen Code?',
+      answer:
+        'Jalankan qwen extensions update lagune, atau instal ekstensi dengan --auto-update.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Qwen Code?',
+      answer:
+        'Ketik perintah dengan nama ekstensi di depannya, misalnya /lagune:lagune-charter.',
+    },
+    {
+      question: 'Apakah Qwen Code bisa menjalankan Lagune tanpa meminta izin?',
+      answer:
+        'Ya. Izinkan mcp__lagune__lagune_read dan mcp__lagune__lagune_write di pengaturan Qwen Code, ditambah Shell(npx --yes lagune@*) saat engine berjalan melalui npx.',
+    },
+  ]}
+/>

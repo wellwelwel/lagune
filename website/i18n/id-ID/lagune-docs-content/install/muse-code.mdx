@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Cara menginstal Lagune di Muse Code sebagai plugin'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Instal Lagune di Muse Code sebagai plugin, jaga agar tetap terbaru, dan jalankan engine-nya di dalam sandbox.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '7252cd860f7b2c352f7d5307fdfb692ed0156092e9697e4edae2577cd3dcddf3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Instal plugin dari terminal Anda:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, segarkan marketplace lalu instal ulang plugin:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Perintah
+
+Ketik perintah dengan namanya, misalnya `/lagune-charter`, atau dengan nama plugin di depannya, misalnya `/lagune:lagune-charter`.
+
+---
+
+:::info[Izin]
+
+Sandbox **Muse Code** tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Muse Code?',
+      answer:
+        'Jalankan muse plugins marketplace add lagune wellwelwel/lagune, lalu muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Muse Code?',
+      answer:
+        'Jalankan muse plugins marketplace update lagune, lalu instal ulang dengan muse plugins remove lagune dan muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Muse Code?',
+      answer:
+        'Ketik perintah dengan namanya, misalnya /lagune-charter, atau dengan nama plugin di depannya, misalnya /lagune:lagune-charter.',
+    },
+    {
+      question: 'Apakah Lagune berfungsi di dalam sandbox Muse Code?',
+      answer:
+        'Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@{{version}} dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.',
+    },
+  ]}
+/>

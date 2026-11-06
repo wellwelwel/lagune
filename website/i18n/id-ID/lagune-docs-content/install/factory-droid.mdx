@@ -1,0 +1,74 @@
+---
+id: factory-droid
+title: 'Cara menginstal Lagune di Factory Droid sebagai plugin'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Instal Lagune di Factory Droid sebagai plugin, jaga agar tetap terbaru, dan izinkan tool engine-nya.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: 'e30a75976e7eafdabbdd9595ceabd78a77232ca57b008d8059467e7d6f15af7e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Instal plugin dari terminal Anda:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Perintah
+
+Ketik perintah dengan namanya, misalnya `/lagune-charter`.
+
+---
+
+:::info[Izin]
+
+Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. Saat **Factory Droid** meminta izin, pilih untuk selalu mengizinkan masing-masing tool. Factory Droid akan meminta lagi setelah menyinkronkan commit baru dari marketplace `lagune`, yang bisa terjadi saat ia mulai berjalan.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Factory Droid?',
+      answer:
+        'Jalankan droid plugin marketplace add wellwelwel/lagune, lalu droid plugin install lagune@lagune.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Factory Droid?',
+      answer:
+        'Jalankan droid plugin marketplace update lagune, lalu droid plugin update lagune@lagune.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Factory Droid?',
+      answer: 'Ketik perintah dengan namanya, misalnya /lagune-charter.',
+    },
+    {
+      question:
+        'Apakah Factory Droid bisa menjalankan Lagune tanpa meminta izin?',
+      answer:
+        'Ya. Pilih untuk selalu mengizinkan lagune_read dan lagune_write saat Factory Droid meminta izin. Factory Droid akan meminta lagi setelah menyinkronkan commit baru dari marketplace lagune.',
+    },
+  ]}
+/>

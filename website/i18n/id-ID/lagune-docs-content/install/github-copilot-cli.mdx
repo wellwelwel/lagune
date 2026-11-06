@@ -1,0 +1,69 @@
+---
+id: github-copilot-cli
+title: 'Cara menginstal Lagune di GitHub Copilot CLI sebagai plugin'
+sidebar_label: GitHub Copilot CLI
+parent: get-started/install
+description: Instal Lagune di GitHub Copilot CLI sebagai plugin, dan jaga agar tetap terbaru.
+keywords:
+  - github copilot cli
+  - copilot cli plugin
+  - plugin marketplace
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '1d93bbd6206e56617cb2dbc1a4c3edcc536fe20e05b3f1984ae995c3d6b58974'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='GitHub Copilot' />
+
+Instal plugin dari terminal Anda:
+
+```bash
+copilot plugin marketplace add wellwelwel/lagune
+copilot plugin install lagune@lagune
+```
+
+Di editor, instal **Lagune** untuk **GitHub Copilot** dengan [**skills.sh**](/docs/install/universal).
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+copilot plugin marketplace update lagune
+copilot plugin update lagune@lagune
+```
+
+## Perintah
+
+Ketik perintah dengan namanya, misalnya `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di GitHub Copilot CLI?',
+      answer:
+        'Jalankan copilot plugin marketplace add wellwelwel/lagune, lalu copilot plugin install lagune@lagune.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di GitHub Copilot CLI?',
+      answer:
+        'Jalankan copilot plugin marketplace update lagune, lalu copilot plugin update lagune@lagune.',
+    },
+    {
+      question:
+        'Bagaimana cara menjalankan perintah Lagune di GitHub Copilot CLI?',
+      answer: 'Ketik perintah dengan namanya, misalnya /lagune-charter.',
+    },
+    {
+      question:
+        'Apakah saya bisa memakai Lagune dengan GitHub Copilot di VS Code?',
+      answer:
+        'Ya. Di VS Code atau editor lain, instal Lagune dengan skills.sh, bukan dengan plugin.',
+    },
+  ]}
+/>

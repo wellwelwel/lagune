@@ -1,0 +1,101 @@
+---
+id: commands
+title: Skill keamanan untuk agen AI
+sidebar_label: Skills
+description: 'Skill yang didapat agen AI Anda dengan Lagune: audit proyek yang sudah ada atau amankan pekerjaan baru selagi Anda membangunnya, semuanya diatur oleh charter.'
+keywords:
+  - skill lagune
+  - charter
+  - detect
+  - plan
+  - harden
+  - verify
+  - slash commands
+  - perintah slash
+source_hash: 'e34c6589c180b121ae8e1f366ac2be88f76ff6ba219679daeb30c0bf9f3f1036'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Setelah **Lagune** [terinstal](/docs), agen **AI** Anda mendapatkan sejumlah skill. Ada dua cara memakainya, dan keduanya diatur oleh **charter**: mengamankan pekerjaan baru selagi Anda membangunnya, atau menjalankan audit penuh pada sebuah proyek.
+
+<Tabs queryString="mode">
+  <TabItem value="build" label="⌨️ Membangun / pengembangan" default>
+
+Anda tidak perlu menyelesaikan pekerjaan sebelum mengamankannya. Gunakan [**`/lagune`**](/docs/commands/lagune) untuk pekerjaan yang sedang Anda tulis **saat ini**:
+
+| Skill                                         | Apa yang dilakukannya untuk Anda                                                              |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [**/lagune-charter**](/docs/commands/charter) | Menetapkan aturan keamanan proyek Anda, fondasi yang menjadi acuan `/lagune` saat membangun   |
+| [**/lagune**](/docs/commands/lagune)          | Membangun apa yang Anda minta dan memperkuat keamanannya selagi ditulis, dipandu oleh charter |
+
+:::tip[Gunakan kapan saja]
+[**`/lagune`**](/docs/commands/lagune) mematuhi aturan charter Anda setiap kali dijalankan. Perintah ini menerima prompt apa pun, membangun apa yang Anda minta, dan memperkuatnya dengan default yang aman sambil jalan, bukan belakangan.
+:::
+
+---
+
+#### Skill khusus
+
+| Skill                                               | Fungsinya                                                                          |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Mengajari **Lagune** spesialisasi keamanan baru dari artikel, eksploit, atau topik |
+
+  </TabItem>
+  <TabItem value="audit" label="🔬 Audit: alur Blue Team">
+
+**Alur Blue Team** lengkap: membaca apa yang dilakukan sebuah proyek, memetakan risikonya, lalu menutupnya. Setiap skill dibangun di atas skill sebelumnya, jadi Anda cukup mengikuti daftar ini dari atas ke bawah:
+
+| #   | Skill                                         | Apa yang dilakukannya untuk Anda                                                             |
+| --- | --------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 1   | [**/lagune-charter**](/docs/commands/charter) | Menetapkan aturan keamanan proyek Anda, diusulkan untuk Anda atau dibentuk dari arahan Anda  |
+| 2   | [**/lagune-detect**](/docs/commands/detect)   | Membaca kode Anda dan memetakan apa yang dilakukan sistem Anda serta di mana risikonya       |
+| 3   | [**/lagune-plan**](/docs/commands/plan)       | Mengubah temuan detect menjadi rencana pertahanan, dengan satu perbaikan untuk setiap temuan |
+| 4   | [**/lagune-harden**](/docs/commands/harden)   | Menerapkan perbaikan dari rencana ke kode Anda, dengan aman dan satu per satu                |
+| 5   | [**/lagune-verify**](/docs/commands/verify)   | Membuktikan setiap perbaikan yang diterapkan tetap efektif, lalu menuntaskan yang terbukti   |
+
+---
+
+#### Skill khusus
+
+| Skill                                               | Fungsinya                                                                                                                                       |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Mengajari **Lagune** spesialisasi keamanan baru dari artikel, eksploit, atau topik                                                              |
+| [**/lagune-prove**](/docs/commands/prove)           | Mengubah setiap temuan yang terdeteksi menjadi pembuktian yang bisa dijalankan dan khusus pertahanan, untuk pengungkapan yang bertanggung jawab |
+
+---
+
+#### Skill internal
+
+| Skill                                       | Fungsinya                                 |
+| ------------------------------------------- | ----------------------------------------- |
+| [**/lagune-repair**](/docs/commands/repair) | Memperbaiki pelacakan internal **Lagune** |
+
+:::tip
+Keamanan bukan biaya, melainkan investasi: apa yang Anda tanamkan di awal akan Anda hemat berkali-kali lipat dari insiden yang tidak pernah terjadi 🙋🏻‍♂️
+:::
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'Skill apa saja yang ditambahkan Lagune?',
+      answer:
+        'Perintah /lagune untuk memperkuat keamanan pekerjaan selagi Anda membangunnya, dan alur audit Blue Team lima fase: /lagune-charter, /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Ada juga /lagune-specialize dan /lagune-prove.',
+    },
+    {
+      question: 'Apa itu alur Blue Team Lagune?',
+      answer:
+        'Audit lima fase: charter (menetapkan aturan), detect (memetakan risiko), plan (memberi skor dan merencanakan perbaikan), harden (menerapkan perbaikan), verify (membuktikan perbaikan tetap efektif lalu menuntaskannya).',
+    },
+    {
+      question: 'Apa bedanya /lagune dengan alur audit?',
+      answer:
+        'Perintah /lagune mengamankan pekerjaan baru selagi Anda menulisnya, tanpa alur yang harus diikuti. Alur audit menjalankan kelima fase secara berurutan pada proyek yang sudah ada.',
+    },
+  ]}
+/>

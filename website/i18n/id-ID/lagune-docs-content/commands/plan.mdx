@@ -1,0 +1,92 @@
+---
+id: plan
+title: '/lagune-plan: beri skor temuan dan rencanakan perbaikan'
+sidebar_label: 3. Plan
+description: Ubah hasil temuan detect menjadi rencana pertahanan, dengan memberi setiap temuan kategori dan skor CVSS v4.0, lalu memasangkannya dengan perbaikan.
+source_hash: 'adfed070d605468f2638c18806291967b8e54eb7d2a3c55405be302628740cc3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-plan
+
+🛡️ Ubah hasil temuan detect menjadi rencana pertahanan: beri setiap temuan kategori dan skor CVSS v4.0, lalu pasangkan dengan perbaikan yang perlu diterapkan.
+
+## Cara menggunakan
+
+<Tabs>
+  <TabItem value="full" label="Rencanakan semuanya" default>
+
+```prompt
+/lagune-plan
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Tunjuk path">
+
+```prompt
+/lagune-plan src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="worry" label="Fokus pada kekhawatiran">
+
+```prompt
+/lagune-plan di mana data sensitif bisa bocor
+```
+
+  </TabItem>
+</Tabs>
+
+## Cara kerjanya
+
+Fase ini melanjutkan dari detect. Detect sudah menemukan apa yang dilakukan sistem Anda dan risiko yang dibawa setiap bagiannya, jadi plan tidak mengulang risikonya, melainkan menilai seberapa serius risiko itu dan memutuskan tindakannya. Plan tidak pernah membaca kode, sehingga setiap perbaikan harus menunjuk ke sesuatu yang benar-benar terdeteksi oleh detect. Plan memberi skor setiap temuan dengan metode CVSS v4.0: sebuah kategori, sebuah vektor CVSS v4.0 yang disimpulkan dari apa yang dicatat detect dan charter lalu dihitung skornya oleh [hook `cvss`](/docs/hooks/cvss), dan rentang prioritas tempat skor itu jatuh. Setiap perbaikan juga mencantumkan prinsip charter yang ditegakkannya.
+
+Contohnya:
+
+- **Unggahan file** (Prioritas: **Kritis**)
+  - _Kategori:_ Unggahan file tanpa batasan (CWE-434).
+  - _CVSS:_ CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (9.3, kritis).
+  - _Alasan prioritas ini:_ siapa pun bisa mengakses unggahan lewat internet, dan unggahan itu berada di server yang menyimpan file pelanggan.
+  - _Menegakkan:_ III. Semua input tidak tepercaya sampai divalidasi.
+  - _Perbaikan:_ periksa jenis asli dan ukuran file, ganti namanya saat disimpan, dan simpan unggahan di tempat yang tidak bisa dijalankan sebagai kode.
+
+Dari situ, Anda memiliki daftar perbaikan yang sudah diberi skor dan diprioritaskan, masing-masing terhubung ke satu temuan dan siap diterapkan di fase berikutnya. Skornya dihitung, tidak pernah ditaksir: vektornya membawa tingkat keterpaparan proyek dan apa yang dipertaruhkan sebagai metrik Environmental, dan siapa pun bisa menempelkannya ke kalkulator FIRST atau NVD dan mendapatkan skor yang sama.
+
+:::tip
+
+- Plan sepenuhnya bertumpu pada detect. Jika sebuah file atau kekhawatiran belum pernah dipetakan, plan meminta Anda menjalankan `/lagune-detect` untuk itu terlebih dahulu.
+- Menjalankannya lagi akan memperbarui rencana: perbaikan yang sudah selesai hilang, perbaikan baru masuk.
+- Rencana pertahanan ada di `.lagune/memory/plan.md`.
+
+:::
+
+:::warning[Bergantung pada detect]
+Plan hanya bekerja dari apa yang sudah dipetakan oleh [`/lagune-detect`](/docs/commands/detect), jadi jalankan detect terlebih dahulu.
+:::
+
+## Selanjutnya
+
+Terapkan rencananya: [`/lagune-harden`](/docs/commands/harden).
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana Lagune memprioritaskan kerentanan?',
+      answer:
+        '/lagune-plan memberi setiap temuan kategori dan skor CVSS v4.0 yang dihitung oleh hook cvss, lalu memasangkannya dengan perbaikan yang perlu diterapkan.',
+    },
+    {
+      question: 'Apakah Lagune menggunakan CVSS v4.0?',
+      answer:
+        'Ya. Setiap temuan mendapat vektor dan skor CVSS v4.0, yang dihitung oleh hook cvss dengan aritmetika yang sama seperti kalkulator FIRST, sehingga siapa pun bisa menempelkan vektornya di sana dan mendapatkan skor yang sama.',
+    },
+    {
+      question: 'Apakah plan membaca kode saya?',
+      answer:
+        'Tidak. Plan tidak pernah membaca kode, sehingga setiap perbaikan harus menunjuk ke sesuatu yang benar-benar terdeteksi oleh detect.',
+    },
+  ]}
+/>

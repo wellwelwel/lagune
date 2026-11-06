@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Cara menginstal Lagune di Codex CLI sebagai plugin'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Instal Lagune di Codex CLI sebagai plugin, jaga agar tetap terbaru, dan jalankan engine-nya di dalam sandbox.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '655cb25c40da453da5bd9f39fcd8c1c510001b65fa45035680d5c389cde51d25'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Instal plugin dari terminal Anda:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Perintah
+
+Ketik `$` dan perintah dengan nama plugin di depannya, diikuti input Anda, misalnya `$lagune:lagune-charter` untuk `/lagune-charter`. Saat Anda mengetik `$`, daftar perintah muncul, dan memilih salah satunya menyisipkan nama lengkapnya.
+
+---
+
+:::info[Izin]
+
+Sandbox **Codex** tidak punya akses jaringan. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Codex CLI?',
+      answer:
+        'Jalankan codex plugin marketplace add wellwelwel/lagune, lalu codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Codex CLI?',
+      answer: 'Jalankan codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Codex CLI?',
+      answer:
+        'Ketik $ dan perintah dengan nama plugin di depannya, diikuti input Anda, misalnya $lagune:lagune-charter.',
+    },
+    {
+      question: 'Apakah Lagune berfungsi di dalam sandbox Codex?',
+      answer:
+        'Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@{{version}} dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.',
+    },
+  ]}
+/>

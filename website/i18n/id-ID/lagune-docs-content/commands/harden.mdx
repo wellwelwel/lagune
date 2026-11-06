@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: terapkan perbaikan keamanan ke kode Anda'
+sidebar_label: 4. Harden
+description: Terapkan perbaikan dari rencana ke kode Anda, dengan aman dan satu per satu.
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 Terapkan perbaikan dari rencana ke kode Anda, dengan aman dan satu per satu.
+
+## Cara menggunakan
+
+<Tabs>
+  <TabItem value="full" label="Terapkan semuanya" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Tunjuk path">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Berdasarkan prioritas">
+
+```prompt
+/lagune-harden hanya yang prioritasnya kritis dan tinggi
+```
+
+  </TabItem>
+</Tabs>
+
+## Cara kerjanya
+
+Plan sudah menentukan setiap perbaikan, jadi harden tinggal menerapkannya. Karena ini satu-satunya fase yang menyentuh kode Anda, harden bekerja dengan hati-hati: menerapkan satu perbaikan dalam satu waktu agar setiap perubahan tetap mudah ditinjau, dan tidak pernah melemahkan kontrol keamanan demi menyesuaikan perbaikan. Contohnya, perbaikan untuk unggahan:
+
+- **Unggahan file** (Status: **Applied**)
+  - _Apa yang berubah:_ memeriksa jenis asli dan ukuran file, menolak apa pun yang tidak terduga, mengganti namanya saat disimpan, dan menyimpannya di tempat yang tidak bisa dijalankan sebagai kode.
+  - _Di mana:_ fungsi `handleUpload`, ditambah helper penyimpanan yang dipanggilnya.
+
+Jika sebuah perbaikan tidak bisa diterapkan sepenuhnya, harden mengerjakan apa yang bisa dilakukan dengan aman dan menandai sisanya **Partial** atau **Blocked**, sehingga tetap terbuka.
+
+:::info[Diterapkan belum berarti terverifikasi]
+Applied belum berarti terbukti. Itulah gunanya [verify](/docs/commands/verify).
+:::
+
+:::tip
+
+- Harden sepenuhnya bertumpu pada rencana. Jika sebuah perbaikan atau file belum pernah direncanakan, harden meminta Anda menjalankan `/lagune-plan` untuk itu terlebih dahulu.
+- Menjalankannya lagi akan menyelaraskan catatan dengan kondisi terkini: perubahan yang dibatalkan hilang, perbaikan yang baru diterapkan masuk.
+- Catatan hardening ada di `.lagune/memory/harden.md`.
+
+:::
+
+:::warning[Bergantung pada plan, dan mengubah kode Anda]
+Harden bertumpu pada [`/lagune-plan`](/docs/commands/plan). Ini satu-satunya fase yang mengubah kode Anda.
+:::
+
+## Selanjutnya
+
+Buktikan bahwa setiap perbaikan tetap efektif: [`/lagune-verify`](/docs/commands/verify).
+
+<Faq
+  items={[
+    {
+      question: 'Apakah /lagune-harden mengubah kode saya?',
+      answer:
+        'Ya. Ini satu-satunya fase yang menyentuh kode Anda, dengan menerapkan perbaikan dari rencana satu per satu.',
+    },
+    {
+      question: 'Apa arti Applied, Partial, dan Blocked?',
+      answer:
+        'Ketiganya adalah status yang dicatat Lagune untuk setiap perbaikan. Applied berarti perbaikan sudah dibuat, Partial berarti baru sebagian, dan Blocked berarti perbaikan tidak bisa diterapkan. Applied belum berarti terbukti.',
+    },
+    {
+      question: 'Apakah Lagune menerapkan perbaikan tanpa bertanya?',
+      answer:
+        'Perlu atau tidaknya persetujuan Anda untuk sebuah perubahan ditentukan oleh agen Anda dan mode izin yang Anda gunakan, bukan oleh Lagune, yang tidak menambahkan langkah konfirmasi sendiri. Meski begitu, Lagune tidak pernah melemahkan kontrol keamanan demi memenuhi perbaikan, dan jika sebuah perbaikan bertentangan dengan aturan charter, Lagune berhenti dan memberi tahu Anda terlebih dahulu.',
+    },
+  ]}
+/>

@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: 'Cara menginstal Lagune di Hermes Agent sebagai plugin'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Instal Lagune di Hermes Agent sebagai plugin, dan jaga agar tetap terbaru.
+keywords:
+  - hermes agent
+  - hermes agent plugin
+  - hermes plugins install
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+Instal plugin dari terminal Anda:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- Saat **Hermes Agent** meminta Anda mengonfirmasi plugin dari luar katalognya, **konfirmasikan**.
+- Saat agen menawarkan untuk menginstal dependensi **Node.js** milik repositori, **tolak**.
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+hermes plugins update lagune
+```
+
+## Perintah
+
+Ketik perintah dengan nama plugin di depannya, misalnya `/lagune:lagune-charter` untuk `/lagune-charter` dan `/lagune:lagune` untuk `/lagune`.
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Hermes Agent?',
+      answer:
+        'Jalankan hermes plugins install wellwelwel/lagune --enable. Konfirmasikan plugin saat diminta, dan tolak instalasi dependensi Node.js milik repositori.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Hermes Agent?',
+      answer: 'Jalankan hermes plugins update lagune.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Hermes Agent?',
+      answer:
+        'Ketik perintah dengan nama plugin di depannya, misalnya /lagune:lagune-charter dan /lagune:lagune.',
+    },
+  ]}
+/>

@@ -1,0 +1,60 @@
+---
+id: devin-cli
+title: 'Cara menginstal Lagune di Devin CLI sebagai plugin'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: Instal Lagune di Devin CLI sebagai plugin, dan jaga agar tetap terbaru.
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli plugin
+  - devin plugins install
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+Masuk ke **Devin**, lalu instal plugin dari terminal Anda:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+devin plugins update lagune
+```
+
+## Perintah
+
+Ketik perintah dengan nama plugin di depannya, misalnya `/lagune:lagune-charter` untuk `/lagune-charter`. Menu `/` juga menampilkan daftarnya.
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Devin CLI?',
+      answer:
+        'Masuk dengan devin auth login, lalu jalankan devin plugins install wellwelwel/lagune.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Devin CLI?',
+      answer: 'Jalankan devin plugins update lagune.',
+    },
+    {
+      question: 'Bagaimana cara menjalankan perintah Lagune di Devin CLI?',
+      answer:
+        'Ketik perintah dengan nama plugin di depannya, misalnya /lagune:lagune-charter. Menu / juga menampilkan daftarnya.',
+    },
+  ]}
+/>

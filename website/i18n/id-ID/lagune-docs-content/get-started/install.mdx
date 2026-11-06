@@ -1,0 +1,221 @@
+---
+id: install
+title: 'Instal: hardening keamanan untuk agen AI apa pun'
+sidebar_label: Instal
+slug: /
+description: Instal Lagune di proyek apa pun, sebagai plugin jika agen Anda mendukungnya atau dengan skills CLI di agen lainnya, lalu pilih spesialisasi keamanan yang sesuai dengan proyek tersebut.
+keywords:
+  - instal lagune
+  - cara instal lagune
+  - claude code plugin
+  - copilot cli plugin
+  - muse code plugin
+  - gemini cli extension
+  - qwen code extension
+  - antigravity cli plugin
+  - kimi code plugin
+  - cursor plugin
+  - hermes agent plugin
+  - devin cli plugin
+  - grok build plugin
+  - factory droid plugin
+  - codex plugin
+  - opencode plugin
+  - pi package
+  - npx skills add
+  - skills CLI
+  - setup
+  - cara memulai
+  - spesialisasi
+  - kategori
+  - persyaratan
+  - badge
+  - security-driven hardening
+  - keamanan AI
+  - keamanan aplikasi
+  - keamanan defensif
+  - blue team
+  - secure coding
+  - agen AI
+source_hash: '1894bdce99917455abf4b24126abf64cd1cdf70530ff3f8ec6478bfe63efb932'
+---
+
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** membantu agen AI Anda membuat proyek lebih aman. Anda cukup mengarahkannya ke kode Anda, lalu agen mencari tahu apa yang sebenarnya dilakukan sistem Anda dan memandu Anda menjalankan pekerjaan keamanan yang penting bagi sistem tersebut. **Lagune** adalah proyek pertama dari metodologi [Security-Driven Hardening (SDH)](/docs/references/paper).
+
+:::tip[Dukung open source]
+Suka **Lagune**? <ArrowLink to="https://github.com/wellwelwel/lagune">Beri kami ⭐ di **GitHub**</ArrowLink>
+:::
+
+## Pilih agen Anda
+
+<AgentPicker />
+
+:::info
+
+- Di balik layar, **Lagune** berjalan di **Node.js**, tetapi Anda bebas memakai bahasa apa pun.
+- Untuk menjalankannya sepenuhnya offline, instal **Lagune** di proyek Anda dengan `npm i -D lagune@{{version}}`.
+
+:::
+
+## Kategori
+
+Pengetahuan keamanan **Lagune** hadir dalam bentuk [**spesialisasi**](/docs/catalog), yang dikelompokkan ke dalam [**kategori**](/docs/categories).
+
+<CategoryPicker />
+
+:::tip
+Setiap proyek dimulai dengan `owasp`, lalu perintah [`/lagune-charter`](/docs/commands/charter) menambahkan kategori yang didukung oleh hasil pembacaannya atas proyek tersebut.
+:::
+
+## Persyaratan
+
+[**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) harus sudah terinstal di sistem Anda.
+
+## Gunakan badge ✨
+
+Memakai **Lagune**? Tambahkan salah satunya ke **README** Anda:
+
+<Tabs>
+  <TabItem value="two-tones" label="Dua warna" default>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
+  alt='Secured By Lagune'
+  width={141}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
+  alt='Security Powered By Lagune'
+  width={193}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
+  alt='Security-Driven Hardening with Lagune'
+  width={225}
+/>
+
+  </TabItem>
+  <TabItem value="solid" label="Solid">
+
+<Badge
+  src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Secured By Lagune'
+  width={135}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security Powered By Lagune'
+  width={185}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security-Driven Hardening'
+  width={175}
+/>
+
+  </TabItem>
+</Tabs>
+
+## Selanjutnya
+
+Lihat apa yang dilakukan setiap [**skill**](/docs/get-started/commands) milik **Lagune**.
+
+<Faq
+  items={[
+    {
+      question: 'Apa itu Lagune?',
+      answer:
+        'Lagune adalah alur kerja keamanan open source yang khusus pertahanan, yang membantu agen AI Anda memperkuat keamanan basis kode apa pun. Anda mengarahkannya ke kode Anda, Lagune mendeteksi apa yang sebenarnya dilakukan sistem Anda, lalu memandu perbaikan keamanan yang penting untuk konteks tersebut.',
+    },
+    {
+      question: 'Bagaimana cara menginstal Lagune?',
+      answer:
+        'Pilih agen Anda: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, dan Hermes Agent menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lain mana pun dengan npx skills add wellwelwel/lagune. Lagune bekerja di proyek baru maupun lama.',
+    },
+    {
+      question: 'Apakah Lagune memerlukan kunci API?',
+      answer:
+        'Tidak. Lagune berjalan melalui agen AI Anda sendiri, jadi tidak perlu kunci API.',
+    },
+    {
+      question: 'Apa saja persyaratannya?',
+      answer: 'Node.js (LTS) harus sudah terinstal di sistem Anda.',
+    },
+    {
+      question: 'Bahasa pemrograman apa saja yang didukung Lagune?',
+      answer:
+        'Semua. Di balik layar, Lagune berjalan di Node.js, tetapi Lagune mengaudit dan memperkuat keamanan proyek yang ditulis dalam bahasa pemrograman apa pun.',
+    },
+    {
+      question: 'Apa yang ditambahkan Lagune ke proyek saya?',
+      answer:
+        'Direktori .lagune/ yang berisi status keamanan proyek Anda, dibuat oleh perintah pertama yang menulis sesuatu. Selain itu, skills CLI menginstal perintah slash di proyek, tempat agen Anda membacanya, sedangkan plugin menyimpannya di dalam agen.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune?',
+      answer:
+        'Sama seperti saat Anda menginstalnya. Halaman instalasi setiap agen menunjukkan cara memperbarui Lagune di agen tersebut, dan skills CLI memperbaruinya dengan npx skills update. Charter, artefak fase, dan spesialisasi milik Anda sendiri tetap utuh.',
+    },
+    {
+      question: 'Spesialisasi apa saja yang dipakai sebuah proyek?',
+      answer:
+        'Spesialisasi bawaan dari kategorinya, ditambah spesialisasi milik proyek itu sendiri. Charter mencatat kategori yang didukung oleh hasil pembacaannya atas proyek, dan npx lagune write add --categories mengubahnya.',
+    },
+    {
+      question:
+        'Apakah saya harus selesai membangun proyek sebelum mengamankannya?',
+      answer:
+        'Tidak. Perintah /lagune memperkuat keamanan pekerjaan Anda selagi ditulis: perintah ini menerima prompt apa pun, membangun apa yang Anda minta, lalu memperkuatnya dengan default yang aman, dipandu oleh charter. Alur Blue Team lima fase mengaudit apa yang sudah ada.',
+    },
+    {
+      question: 'Apakah Lagune bisa mengaudit proyek yang sudah ada?',
+      answer:
+        'Bisa. Alur Blue Team lima fase mengaudit apa yang sudah ada: charter menetapkan aturan keamanan Anda, detect memetakan apa yang dilakukan sistem dan di mana risikonya, plan memberi skor setiap temuan dan memasangkannya dengan perbaikan, harden menerapkan perbaikan, dan verify membuktikan perbaikan tersebut tetap efektif lalu menutupnya.',
+    },
+    {
+      question:
+        'Apa bedanya memakai Lagune dengan sekadar meminta agen memetakan kerentanan dan celah keamanan?',
+      answer:
+        'Agen yang membaca kode sendiri akan menemukan apa yang tampak seperti kerentanan dan melewatkan apa yang tampak seperti kontrol. Daftar alamat yang diblokir terlihat seolah risikonya sudah ditangani, sehingga tidak ada yang memeriksa bahwa daftar itu melewatkan sebagian besar alamat, dan kodenya pun dirilis. Lagune membalik kebiasaan itu: pengaman yang sudah ada di kode dianggap belum terbukti sampai diperiksa, setiap spesialisasi di katalog mendapat putusan yang eksplisit, dan verify menanyakan apakah risikonya sudah hilang, bukan apakah kontrolnya ada. Setiap temuan juga tetap menjadi satu item yang dilacak dari satu eksekusi ke eksekusi berikutnya, sehingga bisa dibuktikan tuntas lalu ditutup, sedangkan permintaan biasa memberi Anda laporan yang berbeda setiap kali tanpa ada yang bisa dibandingkan.',
+    },
+    {
+      question:
+        'Apa bedanya mengembangkan dengan Lagune dengan sekadar meminta agen menulis kode yang aman?',
+      answer:
+        'Meminta kode yang aman berarti menyerahkan arti aman kepada agen, dan mengandaikan Anda tahu apa yang harus diminta. Persyaratannya biasanya sudah ada di dalam permintaan Anda tanpa disadari oleh Anda maupun agen: meminta halaman yang menampilkan kursus yang boleh diakses seorang pengguna sudah menyatakan sebuah aturan otorisasi, dan pemeriksaan yang tidak pernah ditulis tidak meninggalkan apa pun di kode untuk disadari. Perintah /lagune memuat charter Anda dan spesialisasi yang cocok dengan apa yang akan dibangun sebelum baris pertama ditulis, lalu membaca ulang hasilnya berdasarkan pertahanan yang dipakainya. Bentuk yang aman jarang lebih mahal daripada yang tidak aman, jadi yang menentukan hasilnya adalah mengetahui mana yang harus dipilih, dan justru itulah yang tersedia sejak awal.',
+    },
+    {
+      question:
+        'Apakah Lagune menjalankan DAST (Dynamic Application Security Testing) atau mengetes aplikasi saya yang sedang berjalan?',
+      answer:
+        'Tidak. Lagune membaca kode dan tidak pernah menjalankan sistem Anda atau mengirim request yang sengaja dirancang ke sistem tersebut. Verify memastikan sebuah kontrol ada dan benar di kode sumber, dan itu pertanyaan yang berbeda dari apakah kontrol tersebut tahan terhadap serangan pada target yang sedang berjalan, sehingga "cannot tell from the code" adalah putusan yang sah, bukan sekadar diloloskan diam-diam. DAST menjawab pertanyaan saat runtime dan Lagune menjawab pertanyaan di kode sumber, jadi keduanya tidak saling menggantikan. Bahkan perintah prove yang opsional pun memegang batas ini: tesnya memastikan perilaku yang aman, tidak pernah memakai payload serangan.',
+    },
+    {
+      question: 'Apakah Lagune menggantikan pentest (penetration test)?',
+      answer:
+        'Tidak, sama sekali tidak! Pentest adalah penugasan resmi yang diizinkan, ketika seorang profesional menggunakan penilaiannya sendiri terhadap sistem Anda yang sedang berjalan, merangkai temuan dan menyelidiki logika bisnis yang tidak dijelaskan oleh aturan per permukaan serangan mana pun. Temuan dari pentest bisa masuk ke alur Blue Team Lagune sebagai kekhawatiran yang Anda serahkan ke detect, sehingga apa yang dilaporkan profesional tersebut direncanakan, diperkuat, dan diverifikasi.',
+    },
+  ]}
+/>
+
+## Kebijakan keamanan
+
+Lihat [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md).
+
+## Lisensi
+
+**Lagune** dirilis di bawah [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE).
+
+Copyright © 2026-sekarang [Weslley Araújo](https://github.com/wellwelwel) dan [kontributor](https://github.com/wellwelwel/lagune/graphs/contributors).

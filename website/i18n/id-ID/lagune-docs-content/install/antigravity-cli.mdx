@@ -1,0 +1,86 @@
+---
+id: antigravity-cli
+title: 'Cara menginstal Lagune di Antigravity CLI sebagai plugin'
+sidebar_label: Antigravity CLI
+parent: get-started/install
+description: Instal Lagune di Antigravity CLI sebagai plugin, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
+keywords:
+  - antigravity cli
+  - antigravity plugin
+  - agy plugin install
+  - instal lagune
+  - setup
+  - keamanan AI
+  - agen AI
+source_hash: 'b014e73bcbefbcecaf2c0c58c1764387c55ba91e17ba5a964b3f1105a4d4961a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Antigravity' />
+
+Instal plugin dari terminal Anda:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Pembaruan
+
+Untuk memperbarui **Lagune**, instal ulang:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Perintah
+
+Ketik perintah dengan nama plugin di depannya, misalnya `/lagune:lagune-charter` untuk `/lagune-charter`.
+
+---
+
+:::info[Izin]
+
+Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. Perintah yang dikirim sebagai pesan pertama sebuah sesi berjalan sebelum kedua tool itu dimuat, sehingga perintah tersebut memakai **npx** sebagai gantinya. Untuk mengizinkan kedua tool itu dan **npx** sejak awal, tambahkan aturan berikut ke `~/.gemini/antigravity-cli/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
+  }
+}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Bagaimana cara menginstal Lagune di Antigravity CLI?',
+      answer:
+        'Jalankan agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity.',
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di Antigravity CLI?',
+      answer:
+        'Jalankan lagi agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity.',
+    },
+    {
+      question:
+        'Bagaimana cara menjalankan perintah Lagune di Antigravity CLI?',
+      answer:
+        'Ketik perintah dengan nama plugin di depannya, misalnya /lagune:lagune-charter.',
+    },
+    {
+      question:
+        'Apakah Antigravity CLI bisa menjalankan Lagune tanpa meminta izin?',
+      answer:
+        'Ya. Izinkan mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write), dan command(regex:npx --yes lagune@[0-9.]+) di pengaturan Antigravity CLI. Aturan npx mencakup perintah yang dikirim sebagai pesan pertama sebuah sesi.',
+    },
+  ]}
+/>
