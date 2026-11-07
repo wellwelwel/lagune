@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - configuração
   - agentes de IA
-source_hash: 'bbff39d130b28da97d9db019d81399e879b8a82fef1f852156a8effec76bbdf7'
+source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -99,9 +99,9 @@ Execute `gh skill update --all` e leia a saída completa do comando, redireciona
 
 ---
 
-:::info[Permissões]
+:::info[Sandbox]
 
-Os comandos rodam o engine como `npx --yes lagune@{{version}}`, e a [página de instalação de cada agente](/docs) mostra a regra que o libera de antemão. Em um sandbox sem acesso à rede, instale o engine no seu projeto pelo seu próprio terminal, uma vez e de novo após cada atualização:
+Em um sandbox sem acesso à rede, os comandos não conseguem baixar o engine. Instale-o no seu projeto pelo seu próprio terminal, uma vez e de novo após cada atualização:
 
 ```bash
 npm i -D lagune@{{version}}

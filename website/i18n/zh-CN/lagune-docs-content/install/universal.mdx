@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - 配置
   - AI 智能体
-source_hash: 'bbff39d130b28da97d9db019d81399e879b8a82fef1f852156a8effec76bbdf7'
+source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -99,9 +99,9 @@ gh skill update --all
 
 ---
 
-:::info[权限]
+:::info[沙箱]
 
-这些命令以 `npx --yes lagune@{{version}}` 的形式运行引擎，每个 [智能体的安装页面](/docs) 都列出了预先允许它的规则。如果沙箱无法访问网络，就在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
+如果沙箱无法访问网络，这些命令就无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
 npm i -D lagune@{{version}}
