@@ -17,7 +17,8 @@
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/development/engineering/SKILL.md",
-      "computedHash": "f58474a08471e8fdbc00958ab315ae74b6a7da135d11e147bbf6096e1c09f4b0"
+      "computedHash": "6d85fe61022b14ee7c88a87da040d7832a3e1d0332932feb26852eae5ace5e6f",
+      "installMode": "copy"
     },
     "ingest": {
       "source": "wellwelwel/skills",

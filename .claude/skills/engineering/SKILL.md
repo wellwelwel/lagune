@@ -1,16 +1,16 @@
 ---
 name: engineering
-description: Authoritative engineering reference covering code conventions, comments, TypeScript type rules, testing, and commit messages. Use before writing or changing any source file, and when suggesting a commit message.
+description: Authoritative engineering reference covering code conventions, performance, comments, TypeScript type rules, testing, and commit messages. Use before writing or changing any source file, and when suggesting a commit message.
 user-invocable: true
 metadata:
   author: Weslley Araújo
-  version: '1.2.2'
+  version: '1.3.0'
   source: https://github.com/wellwelwel/skills
 ---
 
 # Engineering
 
-This skill is the specialized, authoritative description of **how code is written**: the code conventions, the comment discipline, the type rules, testing, and commit messages. Consult it before writing or changing source, and whenever you apply the code conventions.
+This skill is the specialized, authoritative description of **how code is written**: the code conventions, performance, the comment discipline, the type rules, testing, and commit messages. Consult it before writing or changing source, and whenever you apply the code conventions.
 
 Where the project already has an established convention that contradicts one below, follow the project. These rules decide whatever the project leaves open.
 
@@ -24,11 +24,12 @@ Where the project already has an established convention that contradicts one bel
 
 - **Arrow functions over `function`.** Declare with `const`. Use a `function` only when the `this` context strictly requires it.
 - **Named exports only.** Never use `default export`.
-- **Practice early return.** Handle edge cases up front and exit, rather than nesting the main logic.
+- **Practice early return.** Handle edge cases up front, and leave a path with `return`, `break`, or `continue` the moment it is decided, rather than nesting the main logic.
 - **No abbreviations.** Names are clear and explicit (for example `left`/`right`, not `a`/`b`, and `index`, not `i`).
 - **Avoid nested `if-else-else-if`.** Favor clean, well-decoupled approaches when branching grows.
 - **No duplicated logic or types.** Reuse existing logic and types whenever it is viable.
 - **No side effects inside loops or iterations.** Keep iteration pure.
+- **Make errors actionable.** An error states what went wrong, where, and what was expected, so whoever reads it knows what to fix.
 - **Prefer native capabilities over external dependencies** whenever possible.
 - **On Node.js, always prefix native imports with `node:`** (for example `node:path`, `node:fs`).
 - **Prefer the async native APIs when viable** (for example `node:fs/promises`).
@@ -38,6 +39,12 @@ Where the project already has an established convention that contradicts one bel
 - **Shared declarations live at the top of the file or scope.** Anything used by more than one block is declared before the first block that uses it, never between blocks. Order them by kind: types first, then values and fixtures, then functions.
 - **Group statements by kind, and separate the groups with one blank line.** Consecutive declarations stay together, consecutive calls stay together, and the switch from one kind to the other gets a blank line, even when a group holds a single statement. The same rule applies inside callbacks and between top-level declarations.
 
+### Performance
+
+- **Maintainability comes first.** Pursue performance in balance with readable code, never at its expense.
+- **Keep the default path lean.** An optional or uncommon feature stays behind the condition that enables it, so the default path never runs, allocates, or loads anything for it.
+- **Compute only what the path needs, and only once.** Within a function, declare each value after the guards that can leave early, in the narrowest block that uses it. A value that never changes between calls, such as a lookup table or a compiled pattern, is computed once and reused.
+
 ### Comments
 
 - **Never add obvious comments.** Assume that if code needs a comment to be understood, the implementation is poor, dirty/messy, or even rotten.
@@ -45,6 +52,7 @@ Where the project already has an established convention that contradicts one bel
 - **Don't explain the implementation in the comments:** improve the implementation (clear names, decoupled functions with clearly defined scopes, proper abstractions, etc.) over explaining it with comments.
   - **Connectives betray an explanation.** A comment that reads as reasoning ("so", "then", "because", "which means", "in order to", "this way", "otherwise", etc.) is walking the reader through the code, which is the violation above in disguise. Make the code carry the reasoning instead. The comment that survives states a fact the code cannot show on its own (an external constraint, a quirk, a team decision), plainly and without narrating the code around it.
   - **Inline comments are inline for a reason.** Never stack them into improvised multi-line comments. When one line is not enough, use a comment block, and keep it as short and direct as it can be.
+- **A public API may carry documentation.** What is exposed directly to the end user can have objective documentation comments stating what it does, never how it does it.
 
 ### Types (TypeScript)
 
@@ -65,4 +73,7 @@ Where the project already has an established convention that contradicts one bel
 ## Git
 
 - **Never infer commits.** Do not create a commit based on context or assumption. Only commit when I explicitly ask for it.
-- **When suggesting a commit message, treat it like a Pull Request title:** one clear, concise line focused on the purpose of the change, not a list of what was touched or a literal technical change. Follow **Conventional Commits** (e.g., `type: summary`, `type(scope): summary`).
+- **When suggesting a commit message, treat it like a Pull Request title:** a short line naming the behavior the change gives whoever uses the software, never the motivation behind it (a review, a deadline, a third party's requirement) nor its mechanics (the files, fields, or values touched). For a change that keeps the behavior, such as a refactor, name what a maintainer would notice instead. Follow **Conventional Commits** (e.g., `type: summary`, `type(scope): summary`):
+  - ❌ `fix(login): pass the accessibility audit` names the motivation.
+  - ❌ `fix(login): remove the paste handler` names the mechanics.
+  - ✅ `fix(login): accept pasted passwords` names the behavior.
