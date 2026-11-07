@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.1](https://github.com/wellwelwel/lagune/compare/v0.18.0...v0.18.1) (2026-11-07)
+
+
+### Bug Fixes
+
+* **plugins:** detect the project from Claude Code's session ([2f56e66](https://github.com/wellwelwel/lagune/commit/2f56e66cefd496424594e6d6b1d13d2ceb47be0a))
+
 ## [0.18.0](https://github.com/wellwelwel/lagune/compare/v0.17.0...v0.18.0) (2026-11-05)
 
 
