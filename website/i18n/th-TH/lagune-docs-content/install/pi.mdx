@@ -1,0 +1,94 @@
+---
+id: pi
+title: 'วิธีติดตั้ง Lagune บน Pi แบบแพ็กเกจ'
+sidebar_label: Pi
+parent: get-started/install
+description: ติดตั้ง Lagune บน Pi แบบแพ็กเกจ จาก npm หรือจาก GitHub และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+keywords:
+  - pi
+  - pi coding agent
+  - pi package
+  - pi install
+  - ติดตั้ง lagune
+  - install lagune
+  - setup
+  - ความปลอดภัย AI
+  - เอเจนต์ AI
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+ติดตั้งแพ็กเกจจากเทอร์มินัลของคุณ:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+ติดตั้ง commit ล่าสุดจาก **GitHub** ซึ่งรันเอนจินผ่าน **npx**:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## การอัปเดต
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+หากต้องการอัปเดต **Lagune** ให้รัน:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+หากต้องการอัปเดต **Lagune** ให้รัน:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` อัปเดตทุกแพ็กเกจที่คุณติดตั้งไว้ ส่วน `pi update` เพียงอย่างเดียวจะอัปเดตแค่ **Pi**
+
+## คำสั่ง
+
+พิมพ์คำสั่งโดยมี `skill:` นำหน้า เช่น `/skill:lagune-charter` แทน `/lagune-charter`
+
+<Faq
+  items={[
+    {
+      question: 'ติดตั้ง Lagune บน Pi ได้อย่างไร',
+      answer:
+        'รัน pi install npm:lagune หรือรัน pi install git:github.com/wellwelwel/lagune เพื่อติดตั้ง commit ล่าสุดจาก GitHub',
+    },
+    {
+      question: 'อัปเดต Lagune บน Pi ได้อย่างไร',
+      answer:
+        'รัน pi update npm:lagune หรือรัน pi update git:github.com/wellwelwel/lagune หากติดตั้งจาก GitHub ส่วน pi update --extensions จะอัปเดตทุกแพ็กเกจที่คุณติดตั้งไว้',
+    },
+    {
+      question: 'รันคำสั่งของ Lagune บน Pi ได้อย่างไร',
+      answer: 'พิมพ์คำสั่งโดยมี skill: นำหน้า เช่น /skill:lagune-charter',
+    },
+  ]}
+/>

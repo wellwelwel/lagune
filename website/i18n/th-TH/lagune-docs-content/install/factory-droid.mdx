@@ -1,0 +1,66 @@
+---
+id: factory-droid
+title: 'วิธีติดตั้ง Lagune บน Factory Droid แบบปลั๊กอิน'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: ติดตั้ง Lagune บน Factory Droid แบบปลั๊กอิน อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาต tool ของเอนจิน
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - ติดตั้ง lagune
+  - install lagune
+  - setup
+  - ความปลอดภัย AI
+  - เอเจนต์ AI
+source_hash: '7bc601c8aab5f6286ad0cec6040114f686541332672362bad80cacd47ef4b23d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+ติดตั้งปลั๊กอินจากเทอร์มินัลของคุณ:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## การอัปเดต
+
+หากต้องการอัปเดต **Lagune** ให้รัน:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## คำสั่ง
+
+พิมพ์คำสั่งตามชื่อ เช่น `/lagune-charter`
+
+<Faq
+  items={[
+    {
+      question: 'ติดตั้ง Lagune บน Factory Droid ได้อย่างไร',
+      answer:
+        'รัน droid plugin marketplace add wellwelwel/lagune แล้วรัน droid plugin install lagune@lagune',
+    },
+    {
+      question: 'อัปเดต Lagune บน Factory Droid ได้อย่างไร',
+      answer:
+        'รัน droid plugin marketplace update lagune แล้วรัน droid plugin update lagune@lagune',
+    },
+    {
+      question: 'รันคำสั่งของ Lagune บน Factory Droid ได้อย่างไร',
+      answer: 'พิมพ์คำสั่งตามชื่อ เช่น /lagune-charter',
+    },
+    {
+      question: 'Factory Droid รัน Lagune โดยไม่ต้องขออนุญาตได้ไหม',
+      answer:
+        'ได้ เมื่อ Factory Droid ขออนุญาต ให้เลือกอนุญาต lagune_read และ lagune_write เสมอ แต่ Factory Droid จะขออนุญาตอีกครั้งหลังซิงก์ commit ใหม่ของ marketplace lagune',
+    },
+  ]}
+/>

@@ -1,0 +1,118 @@
+---
+id: interpreter
+title: 'Hook interpreter: ชี้จุด sink ที่รันโค้ดแบบไดนามิก'
+sidebar_label: interpreter
+description: สแกนโค้ดเบสหา sink ที่รันโค้ดแบบไดนามิกในหลายภาษา หรือประเมินโค้ดตัวอย่างชิ้นเดียว ได้จากบรรทัดคำสั่ง
+source_hash: 'eda066803e327623c0eb256cb11d4a0cfce4ab83541036a781bbb1f88d45e1ab'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+hook `interpreter` ชี้ว่าเป็นปัญหาเมื่อพบ **sink ที่รันโค้ดแบบไดนามิก**: โครงสร้างที่เปลี่ยนข้อมูลให้กลายเป็นโค้ดที่ทำงานจริง หรือส่งข้อมูลต่อให้ shell ตั้งแต่ `eval` ไปจนถึงการ deserialize แบบเนทีฟ hook นี้เข้าใจภาษา โดยอ่านแต่ละไฟล์ตามกฎของภาษานั้นเอง และเป็นเอนจินแบบ deterministic เบื้องหลัง [ความรู้เฉพาะทาง `interpreter`](/docs/catalog) ซึ่งคุณรันเองได้ในโหมด **scan** หรือ **check**
+
+## การรัน
+
+<Tabs>
+  <TabItem value="scan" label="สแกนโค้ดเบส" default>
+
+```bash
+npx lagune read interpreter               # scans the whole project
+npx lagune read interpreter --dir src     # scans a directory
+npx lagune read interpreter --file app.py # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="ตรวจโค้ดตัวอย่าง">
+
+```bash
+npx lagune read interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+sink เหล่านี้มีทั้งการใช้งานที่ชอบธรรมและการใช้งานที่อันตราย การสแกนแบบ static ตัดสินไม่ได้ว่าอินพุตที่ผู้โจมตีควบคุมได้จะไปถึง sink หรือไม่ ทุกรายการที่ตรงจึงเป็น **ข้อควรระวังให้ตรวจทาน** ไม่ใช่ข้อตรวจพบที่ยืนยันแล้ว การสแกนพิมพ์ส่วน **Dynamic-execution sinks to review** เพียงส่วนเดียว โดยจัดกลุ่มตามไฟล์ การรันที่ไม่พบปัญหาจะพิมพ์ `no dynamic-execution sinks found`
+
+:::danger[อ่านโค้ดที่ถูกทำเครื่องหมาย ห้ามรันเด็ดขาด!]
+วิเคราะห์แต่ละ sink **แบบ static** โดยไล่ดูว่าอินพุตที่ไม่น่าเชื่อถือไปถึง sink นั้นหรือไม่ ห้ามรันหรือ `eval` โค้ดที่ถูกทำเครื่องหมาย รวมถึงโค้ดจากระยะไกลหรือโค้ดที่ดึงมาตอน runtime ซึ่งโค้ดนั้นนำเข้ามา เพื่อ "ทดสอบ" ว่าโค้ดทำอะไร
+:::
+
+## วิธีอ่านผลตัดสิน
+
+| ผลตัดสิน  | ความหมาย                                                                                     |
+| --------- | -------------------------------------------------------------------------------------------- |
+| `careful` | โค้ดตัวอย่างมี sink ที่รันโค้ดแบบไดนามิกของภาษานั้น ให้ตรวจทานด้วยการอ่าน ห้ามตรวจด้วยการรัน |
+| `safe`    | ไม่พบ sink ที่รันโค้ดแบบไดนามิกสำหรับภาษาที่ระบุ                                             |
+
+### ตัวเลือก CLI
+
+| ตัวเลือก    | ค่า          | คำอธิบาย                                                                                                           |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `--pattern` | โค้ดตัวอย่าง | ตรวจโค้ดตัวอย่างหนึ่งชิ้น ใส่ซ้ำเพื่อตรวจหลายชิ้น โดยได้ผลตัดสินบรรทัดละหนึ่งรายการ                                |
+| `--lang`    | ภาษา         | จำเป็นเมื่อใช้ `--pattern`: เลือกหนึ่งใน javascript, python, php, ruby, java, kotlin, go, rust, c, cpp หรือ csharp |
+| `--dir`     | ไดเรกทอรี    | จำกัดการสแกนไว้ที่ไดเรกทอรีเดียว ใช้ซ้ำได้และใช้ร่วมกับ `--file` ได้                                               |
+| `--file`    | ไฟล์         | จำกัดการสแกนไว้ที่ไฟล์เดียว ใช้ซ้ำได้และใช้ร่วมกับ `--dir` ได้                                                     |
+
+หากไม่ระบุตัวเลือก hook จะสแกนทั้งโปรเจกต์ `--pattern` ต้องใช้คู่กับ `--lang` และใช้ร่วมกับ `--dir` หรือ `--file` ไม่ได้
+
+### เลือกสิ่งที่จะสแกน
+
+hook นี้ข้ามสิ่งที่ **Git** ละเว้นไว้ หากต้องการข้ามมากกว่านั้น หรือต้องการสแกนสิ่งที่ **Git** ละเว้นไว้ ให้กำหนดการตั้งค่าเฉพาะของ `interpreter` เอง:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[กำหนดค่า hook](/docs/hooks/configure) อธิบายการตั้งค่าทั้งหมด
+
+### ภาษาที่รองรับ
+
+การสแกนอ่านภาษาเหล่านี้โดยแยกตามนามสกุลไฟล์ และตรวจแต่ละภาษาเทียบกับชุด sink ที่รันโค้ดแบบไดนามิกของภาษานั้นเอง
+
+| #   | ภาษา                        | นามสกุลไฟล์                                                                                                  | sink ที่ชี้ว่าเป็นปัญหา                                                                                                                                                                                                       |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` | `eval()`, Function constructor, `setTimeout`/`setInterval` ที่รับ body เป็นสตริง, โมดูล `vm`, exec ของ `child_process`, `require()` แบบไดนามิก, `import()` แบบไดนามิก                                                         |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                | `eval`/`exec`, `__import__()`, `os.system`/`os.popen`, `subprocess` ที่ใช้ `shell=True`, `pickle.load`/`loads`, `yaml.load` (แบบไม่ปลอดภัย)                                                                                   |
+| 3   | **Ruby**                    | `.rb`                                                                                                        | กลุ่ม eval (`instance_eval`/`class_eval`/`module_eval`/`eval`), `system`/`exec`, backtick หรือ `%x`, `Kernel#open` / `IO.popen`/`read`/`binread` / `Open3`, `Process.spawn`, `Marshal.load`                                   |
+| 4   | **Go**                      | `.go`                                                                                                        | `exec.Command`/`exec.CommandContext`, `plugin.Open`                                                                                                                                                                           |
+| 5   | **PHP**                     | `.php`                                                                                                       | `eval()`, `assert()` กับสตริง, `create_function()`, การรัน shell (`system`/`exec`/`shell_exec`/`passthru`/`popen`/`proc_open`), `call_user_func`/`call_user_func_array`, `include`/`require` ที่ใช้ path ซึ่งกำหนดตอน runtime |
+| 6   | **Rust**                    | `.rs`                                                                                                        | `Command::new`, `process::Command`                                                                                                                                                                                            |
+| 7   | **Java**                    | `.java`                                                                                                      | `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                                              |
+| 8   | **Kotlin**                  | `.kt`, `.kts`                                                                                                | sink ของ JVM: `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                                |
+| 9   | **C#**                      | `.cs`                                                                                                        | `Process.Start` / `new Process`, `BinaryFormatter`, `Assembly.Load`                                                                                                                                                           |
+| 10  | **C**                       | `.c`, `.h`                                                                                                   | `system()`, `popen()`, กลุ่ม `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                                         |
+| 11  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 | `system()`, `popen()`, กลุ่ม `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                                         |
+
+:::note[ตรวจให้ได้มากที่สุด แต่ไม่ครบทุกกรณี]
+hook นี้อ่านซอร์สโค้ดเป็นข้อความ ดังนั้น sink ที่ประกอบขึ้นตอน runtime ซ่อนอยู่หลัง alias หรือเขียนในรูปแบบที่ hook ไม่รู้จัก อาจหลุดรอดไปได้ ให้ถือว่าตารางนี้เป็นจุดเริ่มต้นที่หนักแน่น ไม่ใช่รายการที่ครบถ้วน
+:::
+
+:::tip
+hook รับประกันระดับพื้นฐาน (ว่า sink เหล่านี้มีอยู่และอยู่ตรงไหน): ส่วนการตัดสินว่าค่าที่ไม่น่าเชื่อถือไปถึง sink จริงหรือไม่ เป็นเรื่องที่ [ความรู้เฉพาะทาง `interpreter`](/docs/catalog) ดูแล
+:::
+
+<Faq
+  items={[
+    {
+      question: 'hook interpreter ยืนยันช่องโหว่ได้ไหม',
+      answer:
+        'ไม่ได้ hook นี้ชี้ว่า sink ที่รันโค้ดแบบไดนามิกเป็นข้อควรระวังให้ตรวจทาน ไม่ใช่ข้อตรวจพบที่ยืนยันแล้ว เพราะการสแกนแบบ static ตัดสินไม่ได้ว่าอินพุตที่ผู้โจมตีควบคุมได้จะไปถึง sink หรือไม่',
+    },
+    {
+      question: 'hook interpreter รองรับภาษาอะไรบ้าง',
+      answer:
+        'hook นี้อ่านภาษาในตาราง "ภาษาที่รองรับ" โดยแยกตามนามสกุลไฟล์ และตรวจแต่ละภาษาเทียบกับชุด sink ของภาษานั้นเอง ส่วนภาษาอื่นจะไม่พบ sink ใด ๆ',
+    },
+  ]}
+/>

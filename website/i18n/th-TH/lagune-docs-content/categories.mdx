@@ -1,0 +1,115 @@
+---
+id: categories
+title: หมวดหมู่
+sidebar_label: หมวดหมู่
+description: หมวดหมู่ความรู้เฉพาะทางที่โปรเจกต์ Lagune ใช้ได้ ตั้งแต่ OWASP ไปจนถึงการเสริมความปลอดภัยรายภาษาสำหรับ JavaScript, Python, Go และ Rust พร้อมวิธีเปลี่ยนหมวดหมู่
+keywords:
+  - specializations
+  - ความรู้เฉพาะทาง
+  - categories
+  - หมวดหมู่
+  - แคตตาล็อก
+  - OWASP
+  - add categories
+  - เพิ่มหมวดหมู่
+source_hash: '45ca55640efc44df039be3251844a3ecb80275cf2a7359d6a0862674eb1a842e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** จัด [**ความรู้เฉพาะทาง**](/docs/catalog) ในตัวเป็น **{{categories}} หมวดหมู่** หมวดหมู่ที่โปรเจกต์ใช้เป็นตัวกำหนดว่าความรู้เฉพาะทางในตัวตัวใดจะเข้าสู่ [**แคตตาล็อก**](/docs/catalog) ของโปรเจกต์ และแบ่งออกเป็น 2 กลุ่ม: สิ่งที่ระบบทำ และภาษาที่ใช้เขียนระบบ
+
+ระหว่างที่ยังไม่มีหมวดหมู่ใดถูกบันทึก โปรเจกต์จะใช้ `owasp` อย่างเดียว คำสั่ง [`/lagune-charter`](/docs/commands/charter) บันทึกทุกหมวดหมู่ที่ผลการอ่านโปรเจกต์รองรับ และคุณเปลี่ยนหมวดหมู่เองได้ทุกเมื่อ
+
+## สิ่งที่ระบบทำ
+
+| หมวดหมู่         | คีย์      | สิ่งที่เสริมความปลอดภัย                                                                                                                                               |
+| ---------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OWASP            | `owasp`   | ความเสี่ยงด้านความปลอดภัยของแอปพลิเคชันที่ OWASP ติดตาม: injection การควบคุมการเข้าถึงที่บกพร่อง (Broken Access Control) การยืนยันตัวตน และความล้มเหลวด้านการเข้ารหัส |
+| โครงสร้างพื้นฐาน | `infra`   | การตั้งค่า container, workload และ serverless: Dockerfile, Compose, ความปลอดภัยของ Pod รวมถึง IAM และ trigger ของ FaaS                                                |
+| AI / LLM         | `ai`      | การเชื่อมต่อกับ AI และ LLM เพื่อป้องกัน prompt injection และการเชื่อม tool เอเจนต์ ระบบ retrieval และ MCP อย่างไม่ปลอดภัย                                             |
+| Lovable          | `lovable` | แอป Supabase ที่ AI สร้างขึ้น (Lovable และเครื่องมือที่คล้ายกัน): ช่องโหว่ของ RLS คีย์ `service_role` ที่รั่วไหล และค่าเริ่มต้นที่ไม่ปลอดภัย                          |
+
+## ภาษาที่ใช้เขียน
+
+| หมวดหมู่   | คีย์         | สิ่งที่เสริมความปลอดภัย                                                                                          |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------- |
+| JavaScript | `javascript` | RCE ผ่าน `eval` และ `child_process`, path traversal และ prototype pollution ในทุก runtime                        |
+| Python     | `python`     | RCE จาก deserialization ของ `pickle` และ YAML, string traversal ผ่าน `str.format` และ class pollution            |
+| Rust       | `rust`       | API `unsafe` ที่ไม่ sound การใช้ `transmute` ผิดวิธี integer overflow และ undefined behavior ที่รอยต่อ FFI       |
+| C / C++    | `c-cpp`      | บั๊ก format string, buffer overflow และการเขียนนอกขอบเขตหน่วยความจำที่เปิดทางให้รันโค้ดได้                       |
+| PHP        | `php`        | การข้ามการยืนยันตัวตนด้วย type juggling, gadget chain ของ object injection และค่าเริ่มต้นการตั้งค่าที่ไม่ปลอดภัย |
+| Go         | `go`         | บั๊ก interface แบบ typed-nil, data races ระหว่าง goroutine และ concurrency ที่ไม่ปลอดภัยบนเส้นทางด้านความปลอดภัย |
+| Java       | `java`       | gadget chain จาก deserialization ของ `ObjectInputStream` ที่จบลงด้วยการรันโค้ดจากระยะไกล                         |
+| Ruby       | `ruby`       | gadget chain จาก deserialization ของ `Marshal.load` และ YAML ที่นำไปสู่การรันโค้ดจากระยะไกล                      |
+| .NET / C#  | `dotnet`     | RCE จาก deserialization ของ `BinaryFormatter` และการเลี่ยง encoder ที่นำไปสู่ XSS                                |
+
+:::tip
+**Lagune** ไม่ผูกกับภาษาโปรแกรมใด: ทั้งเวิร์กโฟลว์อ่านโปรเจกต์ของคุณได้ไม่ว่าจะเขียนด้วยภาษาอะไร และหมวดหมู่เหล่านี้เพียงเพิ่มความลึกในจุดอ่อนที่เฉพาะกับแต่ละภาษา
+:::
+
+## เพิ่มและลบได้ทุกเมื่อ
+
+หมวดหมู่เป็นจุดเริ่มต้น ไม่ใช่ข้อผูกมัด ใช้หมวดหมู่ที่เหมาะกับโปรเจกต์ในตอนนี้ และเปลี่ยนได้ทุกเมื่อตามคีย์ด้วย `write add` และ `write remove` ในเทอร์มินัล `--categories` ที่ไม่ระบุค่าจะเปิดตัวเลือกแบบโต้ตอบ (กด space เพื่อเลือกหรือยกเลิก กด enter เพื่อยืนยัน หรือเว้นว่างไว้เพื่อข้าม) นอกเทอร์มินัล ให้ระบุหมวดหมู่ต่อท้ายตัวเลือกนั้น
+
+<Tabs>
+  <TabItem value="add" label="เพิ่ม" default>
+
+```bash
+npx lagune write add --categories # interactive
+npx lagune write add --categories owasp
+npx lagune write add --categories owasp rust
+```
+
+  </TabItem>
+  <TabItem value="remove" label="ลบ">
+
+```bash
+npx lagune write remove --categories # interactive
+npx lagune write remove --categories owasp
+npx lagune write remove --categories owasp rust
+```
+
+  </TabItem>
+</Tabs>
+
+`write add` หรือ `write remove` ครั้งแรกจะเริ่มจาก `owasp` ดังนั้นการลบทุกหมวดหมู่จะได้รายการว่าง ไม่ใช่กลับไปเป็นค่าเริ่มต้น ทุกการเปลี่ยนแปลงจะบันทึกลงใน `.lagune/configs.json` ทั้งทีมจึงทำงานกับชุดเดียวกัน
+
+## ดูว่าโปรเจกต์ใช้หมวดหมู่ใด
+
+`read list --categories` แสดงทุกหมวดหมู่และบอกว่าโปรเจกต์ใช้หมวดหมู่นั้นหรือไม่:
+
+```bash
+npx lagune read list --categories
+# Categories
+#   • owasp       [used]       Harden against the application security risks OWASP tracks
+#   • javascript  [available]  Harden JavaScript and its runtimes
+#   • php         [available]  Harden PHP against type-juggling auth bypass
+#   • go          [available]  Harden Go against typed-nil interface bugs
+#   ...
+#
+# No category is recorded yet, so this project uses the default: owasp.
+```
+
+ดู [**แคตตาล็อก**](/docs/catalog) ว่าแต่ละหมวดหมู่มีความรู้เฉพาะทางอะไรบ้าง ความรู้เฉพาะทางของคุณเองที่เขียนด้วย [`/lagune-specialize`](/docs/commands/specialize) จะเข้าสู่แคตตาล็อกเสมอไม่ว่าหมวดหมู่จะเป็นอะไร
+
+<Faq
+  items={[
+    {
+      question: 'เพิ่มหมวดหมู่อย่างไร',
+      answer:
+        'ส่งคีย์ของหมวดหมู่ให้ --categories เช่น npx lagune write add --categories javascript ระหว่างที่ยังไม่มีหมวดหมู่ใดถูกบันทึก charter ก็บันทึกหมวดหมู่ที่ผลการอ่านโปรเจกต์รองรับด้วย',
+    },
+    {
+      question: 'ใช้หลายหมวดหมู่พร้อมกันได้ไหม',
+      answer: 'ได้ ระบุหมวดหมู่ทั้งหมดต่อกันในบรรทัดเดียว',
+    },
+    {
+      question: 'โปรเจกต์ควรใช้หมวดหมู่ใด',
+      answer:
+        'เริ่มจาก owasp ซึ่งเป็นค่าเริ่มต้น แล้วเพิ่มหมวดหมู่ของภาษาหรือ stack ที่คุณใช้ ความรู้เฉพาะทางโหลดเฉพาะเมื่อจำเป็น หมวดหมู่จึงไม่มีต้นทุนใด ๆ จนกว่าเฟสหนึ่งจะต้องใช้ความรู้เฉพาะทางของหมวดหมู่นั้น',
+    },
+  ]}
+/>

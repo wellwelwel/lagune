@@ -1,0 +1,222 @@
+---
+id: install
+title: 'ติดตั้ง: security hardening สำหรับเอเจนต์ AI ทุกตัว'
+sidebar_label: ติดตั้ง
+slug: /
+description: ติดตั้ง Lagune ในโปรเจกต์ใดก็ได้ เป็นปลั๊กอินเมื่อเอเจนต์ของคุณรองรับ หรือผ่าน skills CLI สำหรับเอเจนต์อื่น จากนั้นเลือกความรู้เฉพาะทางด้านความปลอดภัยที่เหมาะกับโปรเจกต์
+keywords:
+  - install lagune
+  - ติดตั้ง lagune
+  - วิธีติดตั้ง lagune
+  - claude code plugin
+  - copilot cli plugin
+  - muse code plugin
+  - gemini cli extension
+  - qwen code extension
+  - antigravity cli plugin
+  - kimi code plugin
+  - cursor plugin
+  - hermes agent plugin
+  - devin cli plugin
+  - grok build plugin
+  - factory droid plugin
+  - codex plugin
+  - opencode plugin
+  - pi package
+  - npx skills add
+  - skills CLI
+  - setup
+  - เริ่มต้นใช้งาน
+  - ความรู้เฉพาะทาง
+  - หมวดหมู่
+  - สิ่งที่ต้องมี
+  - badge
+  - security-driven hardening
+  - security hardening
+  - ความปลอดภัย AI
+  - ความปลอดภัยของแอปพลิเคชัน
+  - ความปลอดภัยเชิงป้องกัน
+  - blue team
+  - secure coding
+  - เอเจนต์ AI
+source_hash: '1894bdce99917455abf4b24126abf64cd1cdf70530ff3f8ec6478bfe63efb932'
+---
+
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** ช่วยให้เอเจนต์ AI ของคุณทำให้โปรเจกต์ปลอดภัยขึ้น คุณเพียงชี้ไปที่โค้ด แล้วเอเจนต์จะค้นหาว่าระบบของคุณทำอะไรจริง ๆ จากนั้นพาคุณทำงานด้านความปลอดภัยที่สำคัญกับระบบนั้น **Lagune** เป็นโปรเจกต์แรกของระเบียบวิธี [Security-Driven Hardening (SDH)](/docs/references/paper)
+
+:::tip[สนับสนุนโอเพนซอร์ส]
+ชอบ **Lagune** ไหม <ArrowLink to="https://github.com/wellwelwel/lagune">ให้ ⭐ เราบน **GitHub**</ArrowLink>
+:::
+
+## เลือกเอเจนต์ของคุณ
+
+<AgentPicker />
+
+:::info
+
+- เบื้องหลัง **Lagune** ทำงานบน **Node.js** แต่คุณใช้ภาษาใดก็ได้ตามต้องการ
+- หากต้องการรันแบบออฟไลน์ทั้งหมด ให้ติดตั้ง **Lagune** ในโปรเจกต์ด้วย `npm i -D lagune@{{version}}`
+
+:::
+
+## หมวดหมู่
+
+ความรู้ด้านความปลอดภัยของ **Lagune** มาในรูปแบบ [**ความรู้เฉพาะทาง**](/docs/catalog) ที่จัดกลุ่มเป็น [**หมวดหมู่**](/docs/categories)
+
+<CategoryPicker />
+
+:::tip
+ทุกโปรเจกต์เริ่มต้นด้วย `owasp` แล้วคำสั่ง [`/lagune-charter`](/docs/commands/charter) จะเพิ่มหมวดหมู่ที่ผลการอ่านโปรเจกต์รองรับ
+:::
+
+## สิ่งที่ต้องมี
+
+ระบบของคุณต้องติดตั้ง [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) ไว้แล้ว
+
+## ใช้ badge ✨
+
+ใช้ **Lagune** อยู่ใช่ไหม เพิ่ม badge สักอันลงใน **README** ของคุณ:
+
+<Tabs>
+  <TabItem value="two-tones" label="สองโทนสี" default>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
+  alt='Secured By Lagune'
+  width={141}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
+  alt='Security Powered By Lagune'
+  width={193}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
+  alt='Security-Driven Hardening with Lagune'
+  width={225}
+/>
+
+  </TabItem>
+  <TabItem value="solid" label="สีเดียว">
+
+<Badge
+  src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Secured By Lagune'
+  width={135}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security Powered By Lagune'
+  width={185}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security-Driven Hardening'
+  width={175}
+/>
+
+  </TabItem>
+</Tabs>
+
+## ถัดไป
+
+ดูว่า [**skill**](/docs/get-started/commands) แต่ละตัวของ **Lagune** ทำอะไรได้บ้าง
+
+<Faq
+  items={[
+    {
+      question: 'Lagune คืออะไร',
+      answer:
+        'Lagune คือเวิร์กโฟลว์ด้านความปลอดภัยแบบโอเพนซอร์สที่ใช้เพื่อการป้องกันเท่านั้น ช่วยให้เอเจนต์ AI ของคุณเสริมความปลอดภัยให้โค้ดเบสใดก็ได้ คุณชี้ไปที่โค้ด Lagune จะตรวจจับว่าระบบของคุณทำอะไรจริง ๆ แล้วนำทางการแก้ไขด้านความปลอดภัยที่สำคัญกับบริบทนั้น',
+    },
+    {
+      question: 'ติดตั้ง Lagune อย่างไร',
+      answer:
+        'เลือกเอเจนต์ของคุณ: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI และ Hermes Agent ติดตั้ง Lagune เป็นปลั๊กอิน Gemini CLI และ Qwen Code ติดตั้งเป็นส่วนขยาย Pi ติดตั้งเป็นแพ็กเกจ ส่วนเอเจนต์อื่นติดตั้งด้วย npx skills add wellwelwel/lagune โดย Lagune ใช้ได้ทั้งกับโปรเจกต์ใหม่และโปรเจกต์เดิม',
+    },
+    {
+      question: 'Lagune ต้องใช้คีย์ API ไหม',
+      answer:
+        'ไม่ต้อง Lagune ทำงานผ่านเอเจนต์ AI ของคุณเอง จึงไม่ต้องใช้คีย์ API',
+    },
+    {
+      question: 'ต้องมีอะไรบ้าง',
+      answer: 'ระบบของคุณต้องติดตั้ง Node.js (LTS) ไว้แล้ว',
+    },
+    {
+      question: 'Lagune รองรับภาษาโปรแกรมอะไรบ้าง',
+      answer:
+        'ทุกภาษา เบื้องหลัง Lagune ทำงานบน Node.js แต่ตรวจสอบและเสริมความปลอดภัยให้โปรเจกต์ที่เขียนด้วยภาษาโปรแกรมใดก็ได้',
+    },
+    {
+      question: 'Lagune เพิ่มอะไรลงในโปรเจกต์ของฉัน',
+      answer:
+        'ไดเรกทอรี .lagune/ ที่เก็บสถานะความปลอดภัยของโปรเจกต์ ซึ่งคำสั่งแรกที่เขียนข้อมูลจะสร้างขึ้น นอกจากนี้ skills CLI ยังติดตั้งคำสั่ง slash ไว้ในโปรเจกต์ให้เอเจนต์อ่าน ส่วนปลั๊กอินจะเก็บคำสั่งเหล่านั้นไว้ภายในเอเจนต์',
+    },
+    {
+      question: 'อัปเดต Lagune อย่างไร',
+      answer:
+        'ทำแบบเดียวกับตอนติดตั้ง หน้าการติดตั้งของแต่ละเอเจนต์บอกวิธีอัปเดต Lagune ในเอเจนต์นั้น ส่วน skills CLI อัปเดตด้วย npx skills update โดย charter อาร์ติแฟกต์ของแต่ละเฟส และความรู้เฉพาะทางของคุณเองจะไม่ถูกแตะต้อง',
+    },
+    {
+      question: 'โปรเจกต์หนึ่งใช้ความรู้เฉพาะทางอะไรบ้าง',
+      answer:
+        'ความรู้เฉพาะทางในตัวของหมวดหมู่ที่โปรเจกต์บันทึกไว้ รวมกับความรู้เฉพาะทางของโปรเจกต์เอง charter บันทึกหมวดหมู่ที่ผลการอ่านโปรเจกต์รองรับ และคุณเปลี่ยนหมวดหมู่ได้ด้วย npx lagune write add --categories',
+    },
+    {
+      question: 'ต้องสร้างโปรเจกต์ให้เสร็จก่อนจึงจะเสริมความปลอดภัยได้ไหม',
+      answer:
+        'ไม่ต้อง คำสั่ง /lagune เสริมความปลอดภัยให้งานไปพร้อมกับที่เขียน โดยรับ prompt ใดก็ได้ สร้างสิ่งที่คุณขอ และเสริมความปลอดภัยด้วยค่าเริ่มต้นที่ปลอดภัยตามแนวทางของ charter ส่วนขั้นตอนแบบ Blue Team ทั้ง 5 เฟสใช้ตรวจสอบสิ่งที่มีอยู่แล้ว',
+    },
+    {
+      question: 'Lagune ตรวจสอบโปรเจกต์ที่มีอยู่แล้วได้ไหม',
+      answer:
+        'ได้ ขั้นตอนแบบ Blue Team ทั้ง 5 เฟสตรวจสอบสิ่งที่มีอยู่แล้ว: charter กำหนดกฎความปลอดภัยของคุณ detect ทำแผนผังว่าระบบทำอะไรและความเสี่ยงอยู่ตรงไหน plan ให้คะแนนข้อตรวจพบแต่ละข้อและจับคู่กับการแก้ไข harden นำการแก้ไขไปใช้ และ verify พิสูจน์ว่าการแก้ไขใช้ได้จริงแล้วปิดให้จบ',
+    },
+    {
+      question:
+        'การใช้ Lagune ต่างจากการสั่งให้เอเจนต์หาช่องโหว่และจุดบกพร่องด้านความปลอดภัยเองอย่างไร',
+      answer:
+        'เอเจนต์ที่อ่านโค้ดเองจะเจอสิ่งที่ดูเหมือนช่องโหว่ และข้ามสิ่งที่ดูเหมือนมาตรการควบคุม รายการที่อยู่ที่ถูกบล็อกดูเหมือนมีคนจัดการความเสี่ยงไว้แล้ว จึงไม่มีใครตรวจว่ารายการนั้นพลาดที่อยู่ส่วนใหญ่ไป แล้วโค้ดก็ถูกปล่อยออกไป Lagune กลับค่าเริ่มต้นนั้น: กลไกป้องกันที่มีอยู่ในโค้ดถือว่ายังไม่ได้พิสูจน์จนกว่าจะได้ตรวจสอบ ความรู้เฉพาะทางทุกตัวในแคตตาล็อกได้รับผลตัดสินที่ชัดเจน และ verify ถามว่าความเสี่ยงหมดไปแล้วหรือยัง ไม่ใช่ถามว่ามีมาตรการควบคุมอยู่หรือไม่ ข้อตรวจพบแต่ละข้อยังคงเป็นรายการที่ติดตามรายการเดียวตลอดทุกการรัน จึงพิสูจน์ได้ว่าปิดแล้วและปิดออกจากห่วงโซ่ได้ ขณะที่คำขอธรรมดาให้รายงานที่ต่างกันทุกครั้งโดยไม่มีอะไรให้เทียบ',
+    },
+    {
+      question:
+        'การพัฒนาด้วย Lagune ต่างจากการสั่งให้เอเจนต์เขียนโค้ดที่ปลอดภัยอย่างไร',
+      answer:
+        'การขอโค้ดที่ปลอดภัยเป็นการปล่อยให้เอเจนต์นิยามคำว่าปลอดภัยเอง และถือว่าคุณรู้ว่าต้องขออะไร ข้อกำหนดมักแฝงอยู่ในคำขอของคุณแล้วโดยที่ทั้งคุณและเอเจนต์ไม่ทันเห็น: การขอหน้าที่แสดงคอร์สที่ผู้ใช้มีสิทธิ์เข้าถึงคือการระบุกฎการตรวจสอบสิทธิ์ และการตรวจที่ไม่เคยถูกเขียนก็ไม่ทิ้งอะไรไว้ในโค้ดให้สังเกตเห็น คำสั่ง /lagune โหลด charter ของคุณและความรู้เฉพาะทางที่ตรงกับสิ่งที่กำลังจะสร้างก่อนเขียนโค้ดบรรทัดแรก แล้วอ่านผลลัพธ์ซ้ำเทียบกับการป้องกันที่ใช้ รูปแบบที่ปลอดภัยแทบไม่เคยมีต้นทุนสูงกว่ารูปแบบที่ไม่ปลอดภัย สิ่งที่ตัดสินผลลัพธ์จึงอยู่ที่การรู้ว่าควรเลือกแบบไหน และนั่นคือสิ่งที่มาถึงตั้งแต่ต้น',
+    },
+    {
+      question:
+        'Lagune รัน DAST (Dynamic Application Security Testing) หรือทดสอบแอปพลิเคชันที่กำลังทำงานอยู่ได้ไหม',
+      answer:
+        'ไม่ได้ Lagune อ่านโค้ดและไม่เคยรันระบบของคุณหรือส่ง request ที่จงใจสร้างขึ้นไปยังระบบ ส่วนเฟส verify ยืนยันว่ามาตรการควบคุมมีอยู่และถูกต้องในซอร์สโค้ด ซึ่งเป็นคนละคำถามกับว่ามาตรการนั้นทนการโจมตีบนระบบที่กำลังทำงานได้หรือไม่ ดังนั้น "cannot tell from the code" จึงเป็นผลตัดสินที่ชอบธรรม ไม่ใช่การปล่อยผ่านอย่างเงียบ ๆ DAST ตอบคำถามขณะรันไทม์ ส่วน Lagune ตอบคำถามในซอร์สโค้ด จึงไม่มีฝ่ายใดแทนอีกฝ่ายได้ แม้แต่คำสั่ง prove ที่เป็นตัวเลือกเสริมก็ยึดเส้นนี้: การทดสอบของคำสั่งนี้ยืนยันพฤติกรรมที่ปลอดภัย และไม่เคยใช้ payload โจมตี',
+    },
+    {
+      question: 'Lagune ใช้แทน Pentest (penetration test) ได้ไหม',
+      answer:
+        'ไม่ได้อย่างแน่นอน! Pentest คือการทดสอบที่ได้รับอนุญาต ซึ่งผู้เชี่ยวชาญใช้วิจารณญาณของตนกับระบบที่กำลังทำงานจริงของคุณ ร้อยเรียงข้อตรวจพบเข้าด้วยกัน และเจาะลึกตรรกะทางธุรกิจที่ไม่มีกฎรายพื้นผิวการโจมตีข้อใดอธิบายไว้ ข้อตรวจพบจาก pentest เข้าสู่ขั้นตอนแบบ Blue Team ของ Lagune ได้ในฐานะข้อกังวลที่คุณส่งให้ detect เพื่อให้สิ่งที่ผู้เชี่ยวชาญรายงานได้รับการวางแผน เสริมความปลอดภัย และตรวจยืนยัน',
+    },
+  ]}
+/>
+
+## นโยบายความปลอดภัย
+
+ดู [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md)
+
+## สัญญาอนุญาต
+
+**Lagune** เผยแพร่ภายใต้ [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE)
+
+Copyright © 2026-ปัจจุบัน [Weslley Araújo](https://github.com/wellwelwel) และ [ผู้ร่วมพัฒนา](https://github.com/wellwelwel/lagune/graphs/contributors)

@@ -1,0 +1,38 @@
+{
+  "category.development-flow": {
+    "message": "ขั้นตอนการพัฒนา",
+    "description": "The sidebar label of the Development Flow group of pages"
+  },
+  "category.examples": {
+    "message": "ตัวอย่าง",
+    "description": "The sidebar label of the Examples group of pages"
+  },
+  "category.get-started": {
+    "message": "เริ่มต้นใช้งาน",
+    "description": "The sidebar label of the Get Started group of pages"
+  },
+  "category.hooks": {
+    "message": "Hook",
+    "description": "The sidebar label of the Hooks group of pages"
+  },
+  "category.maintenance": {
+    "message": "การบำรุงรักษา",
+    "description": "The sidebar label of the Maintenance group of pages"
+  },
+  "category.references-sources": {
+    "message": "เอกสารอ้างอิงและแหล่งที่มา",
+    "description": "The sidebar label of the References & Sources group of pages"
+  },
+  "category.specializations": {
+    "message": "ความรู้เฉพาะทาง",
+    "description": "The sidebar label of the Specializations group of pages"
+  },
+  "category.the-blue-team-flow": {
+    "message": "ขั้นตอนแบบ Blue Team",
+    "description": "The sidebar label of the The Blue Team Flow group of pages"
+  },
+  "category.tools": {
+    "message": "เครื่องมือ",
+    "description": "The sidebar label of the Tools group of pages"
+  }
+}

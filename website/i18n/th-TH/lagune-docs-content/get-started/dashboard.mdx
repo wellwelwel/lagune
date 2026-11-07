@@ -1,0 +1,92 @@
+---
+id: dashboard
+title: แดชบอร์ด
+sidebar_label: แดชบอร์ด
+description: ดู charter ข้อตรวจพบ และแคตตาล็อกของโปรเจกต์ในมุมมองแบบเรียลไทม์บนเครื่องของคุณ ซึ่งเปิดได้ด้วยคำสั่งเดียว
+keywords:
+  - dashboard
+  - แดชบอร์ด
+  - lagune dashboard
+  - แดชบอร์ด lagune
+  - live reload
+  - local
+  - ข้อตรวจพบ
+  - charter
+  - catalog
+  - แคตตาล็อก
+source_hash: '09410a12dd00ea90012d879c1ce3cee96d6c9e9bba4782700392464f8f4a8516'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+รัน **Lagune** โดยตรงโดยไม่ระบุคำสั่งย่อย เพื่อเปิดมุมมองแบบเรียลไทม์ที่โต้ตอบได้ของ `.lagune/` **Lagune** จะรันแดชบอร์ดบนพอร์ตแบบสุ่มแล้วเปิดให้คุณ:
+
+```bash
+npx lagune
+```
+
+- [x] **Live Reload**
+- [x] **เป็นส่วนตัว** และ **ทำงานบนเครื่อง**
+- [x] แสดงทุกอย่างที่อยู่ใน `.lagune/` ตั้งแต่ charter แรกเป็นต้นไป
+- [x] **จัดการ** หมวดหมู่ของโปรเจกต์และสิ่งที่ hook จะสแกน ผ่านเบราว์เซอร์ได้โดยตรง
+- [x] ไม่ต้องมี `node_modules` หรือ `package.json` 📦
+
+<div className='lagune-docs-gallery'>
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/02.webp'
+    alt='charter ในแดชบอร์ด Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/03.webp'
+    alt='ข้อตรวจพบในแดชบอร์ด Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/04.webp'
+    alt='side quest ในแดชบอร์ด Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/05.webp'
+    alt='รายละเอียดข้อตรวจพบในแดชบอร์ด Lagune'
+  />
+  <img
+    loading='lazy'
+    decoding='async'
+    src='/img/dashboard/06.webp'
+    alt='แคตตาล็อกในแดชบอร์ด Lagune'
+  />
+</div>
+
+:::tip
+
+- 🚪 ใช้ `--port` เพื่อกำหนดพอร์ตเอง
+- ⏏️ กด `Ctrl+C` เพื่อหยุด
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'เปิดแดชบอร์ดของ Lagune อย่างไร',
+      answer:
+        'รัน npx lagune โดยไม่ระบุคำสั่งย่อยที่รากของโปรเจกต์ คำสั่งนี้จะรันมุมมองแบบเรียลไทม์ของ .lagune/ บนพอร์ตแบบสุ่ม แล้วเปิดในเบราว์เซอร์ของคุณ',
+    },
+    {
+      question: 'แดชบอร์ดเป็นส่วนตัวไหม',
+      answer:
+        'ใช่ แดชบอร์ดทำงานบนเครื่องของคุณเท่านั้น โดยใช้ที่อยู่ภายในเครื่องที่คอมพิวเตอร์เครื่องอื่นเข้าถึงไม่ได้',
+    },
+    {
+      question: 'แก้ไขโปรเจกต์จากแดชบอร์ดได้ไหม',
+      answer:
+        'ได้เฉพาะหมวดหมู่ของโปรเจกต์และสิ่งที่ hook ละเว้น ผ่านเบราว์เซอร์ของคุณ ส่วนข้อมูลอื่นทั้งหมดที่แดชบอร์ดแสดงเป็นแบบอ่านอย่างเดียว',
+    },
+  ]}
+/>

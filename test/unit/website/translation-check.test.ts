@@ -662,6 +662,21 @@ describe('the check of inline code that holds a phrase', () => {
     );
   });
 
+  it('accepts a phrase in an alphabet written without spaces between words', () => {
+    strict.deepStrictEqual(
+      pageParity(
+        ENGLISH_INLINE,
+        translatedInline([
+          '"ข้อมูลเก็บไว้ที่ไหน?"',
+          FAITHFUL_SPANS[1],
+          FAITHFUL_SPANS[2],
+          FAITHFUL_SPANS[3],
+        ])
+      ),
+      []
+    );
+  });
+
   it('accepts a phrase whose words end in vowel signs', () => {
     strict.deepStrictEqual(
       pageParity(

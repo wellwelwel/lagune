@@ -1,0 +1,124 @@
+---
+id: opencode
+title: 'วิธีติดตั้ง Lagune บน OpenCode แบบปลั๊กอิน'
+sidebar_label: OpenCode
+parent: get-started/install
+description: ติดตั้ง Lagune บน OpenCode 1.x และ 2.x แบบปลั๊กอิน และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - ติดตั้ง lagune
+  - setup
+  - ความปลอดภัย AI
+  - เอเจนต์ AI
+source_hash: 'c22f9be8b73bd4a2354928903c625fb892217aabeaef68e7c16ea9652fd95f40'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+ติดตั้งปลั๊กอินจากเทอร์มินัลของคุณ:
+
+```bash
+opencode plugin add lagune
+```
+
+หรือเพิ่มลงในรายการ `plugins` ของ `opencode.json`:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+ติดตั้งปลั๊กอินในโปรเจกต์ของคุณจากเทอร์มินัล หรือเพิ่ม `-g` เพื่อติดตั้งให้ทุกโปรเจกต์ของคุณ:
+
+```bash
+opencode plugin lagune
+```
+
+หรือเพิ่มลงในรายการ `plugin` ของ `opencode.json`:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## การอัปเดต
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+หากต้องการอัปเดต **Lagune** ให้รัน:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+หากต้องการอัปเดต **Lagune** ให้ติดตั้งรีลีสใหม่ทับรีลีสเดิม โดยเพิ่ม `-g` หากคุณติดตั้งไว้ให้ทุกโปรเจกต์:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## คำสั่ง
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+พิมพ์ `@` แล้วเลือกคำสั่ง เช่น `@lagune-charter` จากนั้นพิมพ์อินพุตของคุณในข้อความเดียวกัน
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+พิมพ์คำสั่งตามชื่อ เช่น `/lagune-charter` คำสั่งเหล่านี้แสดงอยู่ใน `/skills` ไม่ได้อยู่ในเมนู `/`
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'ติดตั้ง Lagune บน OpenCode ได้อย่างไร',
+      answer:
+        'ใน OpenCode 2.x ให้รัน opencode plugin add lagune ส่วนใน OpenCode 1.x ให้รัน opencode plugin lagune โดยเพิ่ม -g เพื่อติดตั้งให้ทุกโปรเจกต์ของคุณ',
+    },
+    {
+      question: 'อัปเดต Lagune บน OpenCode ได้อย่างไร',
+      answer:
+        'ใน OpenCode 2.x ให้รัน opencode plugin update lagune แล้วรัน opencode reload ส่วนใน OpenCode 1.x ให้รัน opencode plugin lagune@{{version}} --force',
+    },
+    {
+      question: 'รันคำสั่งของ Lagune บน OpenCode ได้อย่างไร',
+      answer:
+        'ใน OpenCode 2.x ให้พิมพ์ @ แล้วเลือกคำสั่ง เช่น @lagune-charter จากนั้นพิมพ์อินพุตของคุณในข้อความเดียวกัน ส่วนใน OpenCode 1.x ให้พิมพ์คำสั่งตามชื่อ เช่น /lagune-charter หรือหาคำสั่งได้ใน /skills',
+    },
+    {
+      question: 'OpenCode ขออนุญาตก่อนรัน Lagune ไหม',
+      answer:
+        'ไม่ขอ OpenCode รัน tool 2 ตัวของเอนจิน คือ lagune_read และ lagune_write โดยไม่ถาม',
+    },
+  ]}
+/>

@@ -1,0 +1,83 @@
+---
+id: qwen-code
+title: 'วิธีติดตั้ง Lagune บน Qwen Code แบบส่วนขยาย'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: ติดตั้ง Lagune บน Qwen Code แบบส่วนขยาย อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - ติดตั้ง lagune
+  - install lagune
+  - setup
+  - ความปลอดภัย AI
+  - เอเจนต์ AI
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+ติดตั้งส่วนขยายจากเทอร์มินัลของคุณ:
+
+```bash
+qwen extensions install lagune
+```
+
+## การอัปเดต
+
+หากต้องการอัปเดต **Lagune** ให้รัน:
+
+```bash
+qwen extensions update lagune
+```
+
+หากต้องการให้เป็นเวอร์ชันล่าสุดอยู่เสมอ ให้ติดตั้งด้วย `--auto-update`
+
+## คำสั่ง
+
+พิมพ์คำสั่งโดยมีชื่อส่วนขยายนำหน้า เช่น `/lagune:lagune-charter` แทน `/lagune-charter`
+
+---
+
+:::info[สิทธิ์]
+
+เอนจินทำงานผ่าน tool 2 ตัว: `lagune_read` อ่านโปรเจกต์ของคุณเท่านั้น และ `lagune_write` เขียนลงใน `.lagune/` เท่านั้น หากต้องการอนุญาต tool ทั้งสองไว้ล่วงหน้า ให้เพิ่มกฎเหล่านี้ลงใน `.qwen/settings.json` สำหรับโปรเจกต์เดียว หรือใน `~/.qwen/settings.json` สำหรับทุกโปรเจกต์:
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+เมื่อเอนจินทำงานผ่าน **npx** เช่นเมื่อติดตั้งด้วย **skills.sh** ให้อนุญาต `Shell(npx --yes lagune@*)`
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'ติดตั้ง Lagune บน Qwen Code ได้อย่างไร',
+      answer: 'รัน qwen extensions install lagune',
+    },
+    {
+      question: 'อัปเดต Lagune บน Qwen Code ได้อย่างไร',
+      answer:
+        'รัน qwen extensions update lagune หรือติดตั้งส่วนขยายด้วย --auto-update',
+    },
+    {
+      question: 'รันคำสั่งของ Lagune บน Qwen Code ได้อย่างไร',
+      answer: 'พิมพ์คำสั่งโดยมีชื่อส่วนขยายนำหน้า เช่น /lagune:lagune-charter',
+    },
+    {
+      question: 'Qwen Code รัน Lagune โดยไม่ต้องขออนุญาตได้ไหม',
+      answer:
+        'ได้ อนุญาต mcp__lagune__lagune_read และ mcp__lagune__lagune_write ในการตั้งค่าของ Qwen Code และอนุญาต Shell(npx --yes lagune@*) ด้วยเมื่อเอนจินทำงานผ่าน npx',
+    },
+  ]}
+/>

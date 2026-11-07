@@ -1,0 +1,234 @@
+---
+id: regex
+title: 'Hook regex: ตรวจหา pattern ที่เสี่ยงต่อ ReDoS'
+sidebar_label: regex
+description: สแกนโค้ดเบสหา regex ที่เสี่ยงต่อ ReDoS หรือประเมิน pattern เดียว ได้จากบรรทัดคำสั่ง
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+hook `regex` คือเอนจินตรวจความปลอดภัยของ regex แบบ deterministic ที่ [ความรู้เฉพาะทาง `regex`](/docs/catalog) ใช้ และคุณรันเองได้ hook นี้ทำงานได้สองโหมดจากคำสั่งเดียว: โหมด **scan** ที่สแกนโค้ดเบสหา pattern ที่เสี่ยงต่อ **ReDoS** และ pattern ที่สร้างขึ้นตอน runtime และโหมด **check** ที่ประเมิน pattern เดียวที่คุณส่งให้
+
+## สแกนโค้ดเบส
+
+หากไม่ใส่ flag hook จะสแกนทั้งโปรเจกต์ `--dir` จำกัดการสแกนไว้ที่ไดเรกทอรีเดียว และ `--file` จำกัดไว้ที่ไฟล์เดียว ทั้งสองตัวเลือกใส่ซ้ำได้และรวมผลเป็นรายงานเดียว โดยแต่ละไฟล์จะแสดงเพียงครั้งเดียวแม้มีเป้าหมายมากกว่าหนึ่งรายการครอบคลุมไฟล์นั้น
+
+<Tabs>
+  <TabItem value="all" label="ทั้งโปรเจกต์" default>
+
+```bash
+npx lagune read regex
+```
+
+  </TabItem>
+  <TabItem value="dir" label="ไดเรกทอรีเดียว">
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+  </TabItem>
+  <TabItem value="file" label="ไฟล์เดียว">
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+  </TabItem>
+  <TabItem value="many" label="หลายเป้าหมาย">
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+  </TabItem>
+  <TabItem value="limit" label="กำหนดขีดจำกัด">
+
+`--limit` กำหนดเกณฑ์ ReDoS สำหรับการสแกน (ค่าเริ่มต้น 25) ซึ่งเป็นขีดจำกัดเดียวกับที่โหมด check ใช้ ขีดจำกัดที่ต่ำกว่าจะเข้มงวดกว่า
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+  </TabItem>
+</Tabs>
+
+ผลลัพธ์เป็นข้อความดิบที่หัวข้อของแต่ละส่วนบอกวิธีอ่านส่วนนั้น และจะแสดงส่วนใดก็ต่อเมื่อส่วนนั้นมีข้อตรวจพบเท่านั้น
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+เมื่อไม่พบอะไร hook จะพิมพ์ออกมาเพียงบรรทัดเดียว
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### วิธีอ่านแต่ละส่วน
+
+| ส่วน                                                                                        | ความหมาย                                                                                                                                                                                            |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                                                      | pattern ที่เสี่ยงต่อ ReDoS จัดกลุ่มตามไฟล์ โดยแต่ละ pattern เยื้องอยู่ด้านล่าง ตามด้วยเหตุผลที่ไม่ปลอดภัยในวงเล็บ และขอบเขตกับ flag ของ pattern นั้นหากมี ทุกบรรทัดไม่ปลอดภัย จึงไม่แสดงผลตัดสินซ้ำ |
+| `Regular expressions the analysis could not settle (review manually)`                       | pattern ที่การวิเคราะห์สรุปไม่ได้ภายในขีดจำกัดการทำงาน แสดงในรูปแบบเดียวกัน                                                                                                                         |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | ไฟล์ที่สร้าง regex จากตัวแปร การต่อสตริง หรือการแทรกค่า (interpolation)                                                                                                                             |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | ไฟล์ที่ส่งสตริง literal ธรรมดาให้ constructor ของ regex ในกรณีที่ regex literal เรียบง่ายกว่าและไม่ต้องคอมไพล์ตอน runtime                                                                           |
+
+ส่วนแรกคือข้อตรวจพบด้านความปลอดภัย ส่วนที่สองและสามไม่ใช่ข้อตรวจพบในตัวเอง: ทั้งสองส่วนชี้ไปยังโค้ดที่การตรวจแบบ static สรุปไม่ได้ จึงต้องให้คนอ่าน ส่วนที่สี่เป็นคำแนะนำเพื่อให้โค้ดชัดเจนขึ้น ไม่ใช่ข้อตรวจพบด้านความปลอดภัย
+
+### ตัวเลือก CLI
+
+| ตัวเลือก    | ค่า                  | คำอธิบาย                                                                                          |
+| ----------- | -------------------- | ------------------------------------------------------------------------------------------------- |
+| `--pattern` | ซอร์สของ regex       | ตรวจ pattern เดียว ใส่ซ้ำเพื่อตรวจหลาย pattern โดยได้ผลตัดสิน pattern ละหนึ่งรายการตามลำดับ       |
+| `--flags`   | flag ของ regex       | ตรวจทุก `--pattern` ด้วย flag เหล่านี้ เช่น `im` ใช้กับโหมด check เท่านั้น                        |
+| `--dir`     | ไดเรกทอรี            | จำกัดการสแกนไว้ที่ไดเรกทอรีเดียว ใช้ซ้ำได้และใช้ร่วมกับ `--file` ได้                              |
+| `--file`    | ไฟล์                 | จำกัดการสแกนไว้ที่ไฟล์เดียว ใช้ซ้ำได้และใช้ร่วมกับ `--dir` ได้                                    |
+| `--limit`   | จำนวนเต็มที่ไม่ติดลบ | กำหนดขีดจำกัดการทำซ้ำของ ReDoS (ค่าเริ่มต้น 25) ใช้กับทั้งสองโหมด ขีดจำกัดที่ต่ำกว่าจะเข้มงวดกว่า |
+
+หากไม่ระบุตัวเลือก hook จะสแกนทั้งโปรเจกต์ `--pattern` คือโหมด check และใช้ร่วมกับ `--dir` หรือ `--file` ไม่ได้
+
+### เลือกสิ่งที่จะสแกน
+
+hook นี้ข้ามสิ่งที่ **Git** ละเว้นไว้ หากต้องการข้ามมากกว่านั้น หรือต้องการสแกนสิ่งที่ **Git** ละเว้นไว้ ให้กำหนดการตั้งค่าเฉพาะของ `regex` เอง:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[กำหนดค่า hook](/docs/hooks/configure) อธิบายการตั้งค่าทั้งหมด
+
+### ภาษาที่รองรับ
+
+การสแกนอ่านภาษาเหล่านี้โดยแยกตามนามสกุลไฟล์ และอ่านแต่ละภาษาตามกฎของภาษานั้นเอง hook จึงไม่มีวันทดสอบ pattern จากภาษาหนึ่งด้วยกฎของอีกภาษา และข้ามไฟล์อื่นทั้งหมดแทนที่จะสแกนด้วยกฎที่ผิด
+
+| #   | ภาษา                        | นามสกุลไฟล์                                                                                                  |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`, `.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`, `.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`, `.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`, `.psm1`, `.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`, `.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`, `.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`, `.cljs`, `.cljc`, `.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`, `.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`, `.pm`                                                                                                 |
+
+:::note[ตรวจให้ได้มากที่สุด แต่ไม่ครบทุกกรณี]
+hook นี้อ่านซอร์สโค้ดเป็นข้อความ จึงตัดสิน pattern ที่ประกอบขึ้นตอน runtime ไม่ได้ และ pattern ที่เขียนแยกหลายบรรทัด ซ่อนอยู่หลัง alias หรือเขียนในรูปแบบที่ hook ไม่รู้จัก อาจหลุดรอดไปได้ ให้ถือว่าส่วนต่าง ๆ เหล่านี้เป็นจุดเริ่มต้นที่หนักแน่น ไม่ใช่รายการที่ครบถ้วน และอ่านโค้ดต่อในจุดที่ส่วนเหล่านี้เข้าไม่ถึง
+:::
+
+## ตรวจ pattern เดียว
+
+ส่ง `--pattern` พร้อมซอร์สของ pattern เพื่อประเมิน hook จะพิมพ์คำเดียว: `safe`, `unsafe`, `undetermined` เมื่อการวิเคราะห์ถึงขีดจำกัดการทำงานก่อนสรุป pattern ได้ หรือ `invalid regex` ใส่ `--pattern` ซ้ำเพื่อประเมินหลาย pattern พร้อมกัน โดยได้ผลตัดสิน pattern ละหนึ่งรายการตามลำดับ
+
+<Tabs>
+  <TabItem value="one" label="pattern เดียว" default>
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="many" label="หลาย pattern">
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="flags" label="ใส่ flag">
+
+`--flags` ตรวจทุก `--pattern` ในการเรียกครั้งนั้นด้วย flag ที่ pattern ใช้จริงตอนทำงาน เพราะ flag เปลี่ยนว่า pattern จะจับคู่อักขระใดบ้าง
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+  </TabItem>
+  <TabItem value="limit" label="กำหนดขีดจำกัด">
+
+`--limit` กำหนดขีดจำกัดการทำซ้ำ (ค่าเริ่มต้น 25) และใช้กับทุก `--pattern` ในการเรียกครั้งนั้น ขีดจำกัดที่ต่ำกว่าจะเข้มงวดกว่า
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[ทำไมต้องครอบอาร์กิวเมนต์ด้วยเครื่องหมายคำพูด]
+
+pattern แต่ละรายการส่งเข้าไปเป็นค่าของ flag และไม่เคยนำไปแทรกลงในคำสั่งโดยตรง ค่าที่มีเครื่องหมายคำพูดหรือ backtick จึงไม่มีผลใด ๆ และ inject เข้า shell ไม่ได้ ครอบ pattern ด้วยเครื่องหมายคำพูดเดี่ยวเสมอ เพื่อไม่ให้ shell ของคุณขยายค่านั้นก่อน
+:::
+
+:::tip
+นี่คือเอนจินเดียวกับที่ [ความรู้เฉพาะทาง `regex`](/docs/catalog) ใช้: การสแกนเปิดรอบการตรวจ ReDoS และการตรวจแบบ check ยืนยัน pattern ที่การสแกนพบ
+:::
+
+<Faq
+  items={[
+    {
+      question: 'ตรวจ regex ว่าเสี่ยงต่อ ReDoS จาก CLI ได้อย่างไร',
+      answer:
+        "รัน npx lagune read regex --pattern '<pattern>' แล้ว hook จะคืนค่าเป็น safe, unsafe, undetermined หรือ invalid regex",
+    },
+    {
+      question: 'สแกนทั้งโปรเจกต์หา regex ที่ไม่ปลอดภัยได้อย่างไร',
+      answer:
+        'รัน hook regex ในโหมด scan กับโค้ดเบส แล้ว hook จะรายงาน pattern ที่เสี่ยงต่อ ReDoS ในภาษาที่รองรับทั้ง 25 ภาษา',
+    },
+  ]}
+/>

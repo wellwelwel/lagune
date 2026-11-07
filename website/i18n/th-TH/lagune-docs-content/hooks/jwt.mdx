@@ -1,0 +1,104 @@
+---
+id: jwt
+title: 'Hook jwt: ตรวจหาการตรวจสอบ JWT ที่ไม่ได้ตรึงอัลกอริทึม'
+sidebar_label: jwt
+description: สแกนโค้ดเบสหาการตรวจสอบ JWT ที่ไม่ได้ตรึงอัลกอริทึม หรือประเมินการเรียกใช้ครั้งเดียว ได้จากบรรทัดคำสั่ง
+source_hash: '086650f69077e3f35c8507d308bd2a345027896fdb897f1d012617fd3d7917ee'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+hook `jwt` ชี้ว่าเป็นปัญหาเมื่อพบ **การตรวจสอบ JWT ที่ไม่ได้ตรึงอัลกอริทึม** ซึ่งเป็นช่องโหว่ algorithm confusion ที่ตัวตรวจสอบเชื่อ header `alg` ของโทเค็นเอง และเมื่อพบ **การปิดการตรวจสอบไปทั้งหมด** hook นี้ **เข้าใจภาษา** โดยอ่านแต่ละไฟล์ตามไลบรารี JWT ที่ไฟล์นั้นใช้ และเป็นเอนจินแบบ deterministic เบื้องหลัง [ความรู้เฉพาะทาง `federation`](/docs/catalog) ซึ่งคุณรันเองได้ในโหมด **scan** หรือ **check**
+
+## การรัน
+
+<Tabs>
+  <TabItem value="scan" label="สแกนโค้ดเบส" default>
+
+```bash
+npx lagune read jwt                # scans the whole project
+npx lagune read jwt --dir src      # scans a directory
+npx lagune read jwt --file auth.ts # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="ตรวจการเรียกใช้หนึ่งครั้ง">
+
+```bash
+npx lagune read jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+ทุกบรรทัดใต้ **Unpinned JWT verification found** คือการเรียก verify ที่ไม่ได้กำหนดรายการที่อนุญาต `algorithms` (ในกรณีที่ไลบรารีต้องการ) ยอมรับรายการที่ไม่ปลอดภัย (`none` หรืออัลกอริทึมแบบอสมมาตรที่ปนกับ HMAC) หรือปิดการตรวจลายเซ็นไปเลย จึงเชื่อ `alg` ของโทเค็นเอง นี่คือช่องโหว่ที่ยืนยันแล้ว hook จึงจบการทำงานด้วย exit code ที่ไม่ใช่ศูนย์ การรันที่ไม่พบปัญหาจะพิมพ์ `no unpinned JWT verification found`
+
+## วิธีอ่านผลตัดสิน
+
+| ผลตัดสิน   | ความหมาย                                                                                                       |
+| ---------- | -------------------------------------------------------------------------------------------------------------- |
+| `unpinned` | การเรียก verify ที่ไม่มีรายการอัลกอริทึมที่อนุญาต (ในกรณีที่จำเป็น) มีรายการที่ไม่ปลอดภัย หรือปิดการตรวจสอบไว้ |
+| `safe`     | การเรียก verify ที่ตรึงรายการอัลกอริทึมที่อนุญาตไว้อย่างเหมาะสม หรือไลบรารีตรึงให้โดยปริยาย                    |
+| `invalid`  | โค้ดตัวอย่างไม่มีการเรียก verify ที่ระบุได้ให้ตัดสิน                                                           |
+
+### ตัวเลือก CLI
+
+| ตัวเลือก    | ค่า          | คำอธิบาย                                                                                                   |
+| ----------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| `--pattern` | โค้ดตัวอย่าง | ตรวจการเรียกใช้หนึ่งครั้ง ใส่ซ้ำเพื่อตรวจหลายครั้ง โดยได้ผลตัดสินบรรทัดละหนึ่งรายการ                       |
+| `--lang`    | ภาษา         | จำเป็นเมื่อใช้ `--pattern`: เลือกหนึ่งใน javascript, python, go, java, kotlin, php, ruby, rust หรือ csharp |
+| `--dir`     | ไดเรกทอรี    | จำกัดการสแกนไว้ที่ไดเรกทอรีเดียว ใช้ซ้ำได้และใช้ร่วมกับ `--file` ได้                                       |
+| `--file`    | ไฟล์         | จำกัดการสแกนไว้ที่ไฟล์เดียว ใช้ซ้ำได้และใช้ร่วมกับ `--dir` ได้                                             |
+
+หากไม่ระบุตัวเลือก hook จะสแกนทั้งโปรเจกต์ `--pattern` ต้องใช้คู่กับ `--lang` และใช้ร่วมกับ `--dir` หรือ `--file` ไม่ได้
+
+### เลือกสิ่งที่จะสแกน
+
+hook นี้ข้ามสิ่งที่ **Git** ละเว้นไว้ หากต้องการข้ามมากกว่านั้น หรือต้องการสแกนสิ่งที่ **Git** ละเว้นไว้ ให้กำหนดการตั้งค่าเฉพาะของ `jwt` เอง:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[กำหนดค่า hook](/docs/hooks/configure) อธิบายการตั้งค่าทั้งหมด
+
+### ภาษาที่รองรับ
+
+การสแกนอ่านไลบรารีเหล่านี้โดยแยกตามนามสกุลไฟล์ เนื่องจากบางไลบรารีตรึงอัลกอริทึมให้โดยปริยาย (การไม่มีรายการที่ระบุชัดก็ยังปลอดภัย) กฎ "ไม่มีรายการที่อนุญาต ⇒ unpinned" จึงใช้เฉพาะเมื่อไลบรารีคาดหวังรายการที่ระบุชัด hook จึงไม่มีวันชี้ว่าการเรียกที่ตั้งค่าถูกต้องเป็นปัญหา
+
+| ภาษา                        | ไลบรารี                 | ถือว่าการไม่มีรายการที่อนุญาตเป็น unpinned ไหม                              | ชี้ว่าเป็นปัญหาเสมอ                             |
+| --------------------------- | ----------------------- | --------------------------------------------------------------------------- | ----------------------------------------------- |
+| **JavaScript / TypeScript** | jsonwebtoken, jose      | ใช่                                                                         | `none`, การปนกันของอัลกอริทึมแบบอสมมาตรกับ HMAC |
+| **Python**                  | PyJWT, python-jose      | ใช่ (PyJWT บังคับให้ระบุ ส่วน python-jose ใช้ค่าเริ่มต้น `algorithms=None`) | `none`, `verify_signature: False`               |
+| **Go**                      | golang-jwt              | ใช่ (ไม่มี `WithValidMethods`)                                              | `none`, `ParseUnverified`                       |
+| **Ruby**                    | ruby-jwt                | ใช่                                                                         | `none`, `verify = false`                        |
+| **Java / Kotlin**           | jjwt, nimbus            | ไม่ (อนุมานจากคีย์)                                                         | `none`, parser แบบไม่ลงนามหรือแบบ `unsecured`   |
+| **PHP**                     | firebase/php-jwt        | ไม่ (`Key` ระบุ alg ไว้แล้ว)                                                | `none`                                          |
+| **Rust**                    | jsonwebtoken            | ไม่ (`Validation` บังคับให้ระบุอัลกอริทึม)                                  | `none`, `insecure_disable_signature_validation` |
+| **C#**                      | Microsoft.IdentityModel | ไม่ (พารามิเตอร์เขียนแยกหลายบรรทัด)                                         | `none`, `RequireSignedTokens = false`           |
+
+:::tip
+hook ตัดสินเฉพาะเรื่องการตรึงอัลกอริทึม: การตรวจ claim คีย์ และ flow เป็นเรื่องที่ต้องใช้วิจารณญาณ ซึ่ง [ความรู้เฉพาะทาง `federation`](/docs/catalog) ยังคงดูแลอยู่
+:::
+
+<Faq
+  items={[
+    {
+      question: 'algorithm confusion ของ JWT คืออะไร',
+      answer:
+        'ตัวตรวจสอบที่อ่านอัลกอริทึมจาก header ของโทเค็นเปิดช่องให้ผู้โจมตีสลับ RS256 เป็น HS256 แล้วลงนามด้วย public key การตรึงรายการอัลกอริทึมที่อนุญาตอย่างเหมาะสมไว้ในโค้ดช่วยป้องกันได้ และ hook jwt จะชี้ว่าการเรียก verify ที่ไม่ได้กำหนดรายการไว้ หรือกำหนดรายการที่ไม่ปลอดภัย เป็นปัญหา',
+    },
+  ]}
+/>

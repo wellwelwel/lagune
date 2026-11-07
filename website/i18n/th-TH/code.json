@@ -1,0 +1,670 @@
+{
+  "catalog.copyPrompt": {
+    "message": "คัดลอก prompt ที่โหลด {specialization}",
+    "description": "The label of the button that copies the prompt loading a specialization, where {specialization} is its name"
+  },
+  "catalog.preview.hover": {
+    "message": "วางเมาส์ที่นี่",
+    "description": "Invites a reader with a mouse to open the example prompt of a specialization"
+  },
+  "catalog.preview.touch": {
+    "message": "แตะที่นี่",
+    "description": "Invites a touch-screen reader to open the example prompt of a specialization"
+  },
+  "catalog.preview.you": {
+    "message": "คุณ",
+    "description": "The name over the reader's own message in the example prompt"
+  },
+  "catalog.reply.read": {
+    "message": "Read",
+    "description": "The tool step an agent shows when it reads a specialization, in the example reply"
+  },
+  "catalog.reply.text": {
+    "message": "ได้เลย!",
+    "description": "The agent's short answer in the example reply to a prompt that loads a specialization"
+  },
+  "common.copied": {
+    "message": "คัดลอกแล้ว",
+    "description": "Confirms that something was copied to the clipboard"
+  },
+  "common.docs": {
+    "message": "เอกสาร",
+    "description": "The name of the documentation, in links and breadcrumbs"
+  },
+  "common.documentation": {
+    "message": "เอกสารประกอบ",
+    "description": "The name of the documentation as a whole"
+  },
+  "common.home": {
+    "message": "หน้าแรก",
+    "description": "The name of the home page, in links and breadcrumbs"
+  },
+  "common.language": {
+    "message": "ภาษา",
+    "description": "The accessible name of the menu that switches the site language"
+  },
+  "common.language.current": {
+    "message": "ภาษา: {language}",
+    "description": "The accessible name of the language button, where {language} is the language shown now"
+  },
+  "common.sponsor": {
+    "message": "เป็นสปอนเซอร์",
+    "description": "The link to sponsor Lagune on GitHub Sponsors"
+  },
+  "common.starOnGitHub": {
+    "message": "ให้ดาวบน GitHub",
+    "description": "Invites the reader to star the Lagune repository on GitHub"
+  },
+  "common.support": {
+    "message": "สนับสนุน",
+    "description": "The link to support Lagune through GitHub Sponsors"
+  },
+  "docs.badge.copy": {
+    "message": "คัดลอก Markdown ของ badge \"{badge}\"",
+    "description": "The label of the button that copies a badge's Markdown, where {badge} is the badge's text"
+  },
+  "docs.categories.choose": {
+    "message": "เลือกหมวดหมู่",
+    "description": "The label over the category cards a reader picks from"
+  },
+  "docs.categories.copy": {
+    "message": "คัดลอกคำสั่ง",
+    "description": "The label of the button that copies the command adding the chosen categories"
+  },
+  "docs.categories.optional": {
+    "message": "ไม่บังคับ",
+    "description": "Marks picking categories as optional"
+  },
+  "docs.categories.run": {
+    "message": "รันคำสั่งนี้",
+    "description": "The label over the command that adds the chosen categories"
+  },
+  "docs.faq.title": {
+    "message": "คำถามที่พบบ่อย",
+    "description": "The heading of a docs page's questions and answers"
+  },
+  "docs.install.back": {
+    "message": "กลับไปยังรายชื่อเอเจนต์ทั้งหมด",
+    "description": "The label of the link from an agent's install page back to the list of agents"
+  },
+  "docs.level.label": {
+    "message": "{level} จาก {max}",
+    "description": "The accessible reading of a 1 to 5 rating shown as dots"
+  },
+  "docs.notice.original": {
+    "message": "อ่านฉบับต้นฉบับ",
+    "description": "The link from a stale page notice to the English page"
+  },
+  "docs.notice.stale": {
+    "message": "หน้านี้ยังไม่ได้อัปเดตตามฉบับภาษาอังกฤษ {original}",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
+  },
+  "docs.notice.untranslated": {
+    "message": "หน้านี้ยังไม่ได้แปล",
+    "description": "Tells the reader the page below is still in English, shown above the page"
+  },
+  "docs.page.imageAlt": {
+    "message": "Lagune {section}: {title}",
+    "description": "The alternative text of a docs page's link preview image, where {section} is its sidebar group and {title} is the page title"
+  },
+  "docs.pagination.label": {
+    "message": "หน้าเอกสาร",
+    "description": "The accessible name of the previous and next page links"
+  },
+  "docs.pagination.next": {
+    "message": "ถัดไป",
+    "description": "The label over the link to the next docs page"
+  },
+  "docs.pagination.previous": {
+    "message": "ก่อนหน้า",
+    "description": "The label over the link to the previous docs page"
+  },
+  "docs.search.empty": {
+    "message": "ไม่พบหน้าที่ตรงกับ \"{query}\"",
+    "description": "Shown when a docs search finds nothing, where {query} is what the reader typed"
+  },
+  "docs.search.label": {
+    "message": "ค้นหาในเอกสาร",
+    "description": "The accessible name of the docs search box"
+  },
+  "docs.search.placeholder": {
+    "message": "ค้นหาในเอกสาร…",
+    "description": "The placeholder of the docs search box"
+  },
+  "docs.search.untranslatedBadge": {
+    "message": "EN",
+    "description": "The badge on a search result that is still in English"
+  },
+  "docs.shell.closeNavigation": {
+    "message": "ปิดเมนูนำทาง",
+    "description": "The label of the button that closes the docs navigation drawer"
+  },
+  "docs.shell.openNavigation": {
+    "message": "เปิดเมนูนำทาง",
+    "description": "The label of the button that opens the docs navigation drawer"
+  },
+  "docs.shell.repository": {
+    "message": "repository บน GitHub",
+    "description": "The label of the link to Lagune's GitHub repository"
+  },
+  "docs.shell.sponsor": {
+    "message": "เป็นสปอนเซอร์ให้ Lagune",
+    "description": "The label of the link to sponsor Lagune"
+  },
+  "docs.shell.toggleTheme": {
+    "message": "สลับธีม",
+    "description": "The label of the button that switches the docs between light and dark"
+  },
+  "docs.sidebar.supportLagune": {
+    "message": "สนับสนุน Lagune",
+    "description": "The line under the invitation to star the repository, in the docs sidebar"
+  },
+  "docs.smallPrint.contributors": {
+    "message": "ผู้ร่วมพัฒนา",
+    "description": "The link to the people who contributed to Lagune"
+  },
+  "docs.smallPrint.copyright": {
+    "message": "ลิขสิทธิ์ © 2026-ปัจจุบัน {author} และ {contributors} Lagune เผยแพร่ภายใต้ {license} อ่าน {policy} ประกอบด้วย",
+    "description": "The copyright and license notice under every docs page, where {author}, {contributors}, {license}, and {policy} are links"
+  },
+  "docs.smallPrint.lastUpdated": {
+    "message": "อัปเดตล่าสุดเมื่อ {date}",
+    "description": "When a docs page last changed, where {date} is the date"
+  },
+  "docs.smallPrint.securityPolicy": {
+    "message": "นโยบายความปลอดภัย",
+    "description": "The link to Lagune's security policy"
+  },
+  "docs.smallPrint.trademarks": {
+    "message": "ชื่อผลิตภัณฑ์ เครื่องหมายการค้า และเครื่องหมายการค้าจดทะเบียนทั้งหมดที่กล่าวถึงเป็นทรัพย์สินของเจ้าของแต่ละราย และใช้เพื่อการระบุถึงเท่านั้น",
+    "description": "The trademark notice on pages that name other products"
+  },
+  "docs.toc.label": {
+    "message": "สารบัญ",
+    "description": "The accessible name of a docs page's table of contents"
+  },
+  "docs.toc.title": {
+    "message": "ในหน้านี้",
+    "description": "The heading of a docs page's table of contents"
+  },
+  "home.brand.backToTop": {
+    "message": "Lagune.ai กลับขึ้นด้านบน",
+    "description": "The label of the brand button that scrolls back to the top"
+  },
+  "home.cta.install": {
+    "message": "ติดตั้ง",
+    "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "เข้าสู่โหมดเต็มหน้าจอ",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "ออกจากโหมดเต็มหน้าจอ",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "เอเจนต์ AI ที่รัน Lagune: หลักการด้านความปลอดภัยของโปรเจกต์ ระบบสมัครสมาชิกที่ปลอดภัย และการตรวจสอบแบบ Blue Team",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "หยุดแอนิเมชันชั่วคราว",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "เล่นแอนิเมชัน",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "ตำแหน่งของแอนิเมชัน",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "ความเร็วในการเล่น",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "ปกติ",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
+  },
+  "home.faq.audit.answer": {
+    "message": "ได้ ขั้นตอนแบบ Blue Team 5 เฟสจะตรวจสอบสิ่งที่มีอยู่แล้ว: charter กำหนดกฎด้านความปลอดภัยของคุณ detect ระบุให้ครบว่าระบบทำอะไรและความเสี่ยงอยู่ตรงไหน plan ให้คะแนนข้อตรวจพบแต่ละรายการและจับคู่กับการแก้ไข harden นำการแก้ไขไปใช้ และ verify พิสูจน์ว่าการแก้ไขยังได้ผลแล้วปิดให้จบ",
+    "description": "The answer to \"Can Lagune audit an existing project?\" in search engines' structured data"
+  },
+  "home.faq.audit.question": {
+    "message": "Lagune ตรวจสอบโปรเจกต์ที่มีอยู่แล้วได้ไหม",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.build.answer": {
+    "message": "ได้ คำสั่ง /lagune รับ prompt ใดก็ได้ สร้างสิ่งที่คุณขอ และเสริมความปลอดภัยด้วยค่าเริ่มต้นที่ปลอดภัยไปพร้อมกับการเขียนโค้ด โดยมีหลักการด้านความปลอดภัยของคุณเป็นแนวทาง จากนั้นขั้นตอนแบบ Blue Team 5 เฟสจะตรวจสอบสิ่งที่มีอยู่แล้ว",
+    "description": "The answer to \"Can Lagune secure code as I build it?\" in search engines' structured data"
+  },
+  "home.faq.build.question": {
+    "message": "Lagune ทำให้โค้ดปลอดภัยตั้งแต่ตอนที่กำลังเขียนได้ไหม",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.install.answer": {
+    "message": "เอเจนต์ส่วนใหญ่ติดตั้ง Lagune เป็นปลั๊กอิน Gemini CLI และ Qwen Code ติดตั้งเป็นส่วนขยาย Pi ติดตั้งเป็นแพ็กเกจ และเอเจนต์อื่นใดก็ติดตั้งได้ด้วย npx skills add wellwelwel/lagune หน้าติดตั้งแสดงคำสั่งของแต่ละเอเจนต์ Lagune ใช้ได้ทั้งกับโปรเจกต์ใหม่และโปรเจกต์เดิม โดยไม่ต้องใช้คีย์ API",
+    "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
+  },
+  "home.faq.install.question": {
+    "message": "ติดตั้ง Lagune อย่างไร",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.what.answer": {
+    "message": "Lagune คือเวิร์กโฟลว์ด้านความปลอดภัยแบบโอเพนซอร์สที่ทำเพื่อการป้องกันเท่านั้น ช่วยให้เอเจนต์ AI ของคุณเสริมความปลอดภัยให้โค้ดเบสใดก็ได้ โดยตรวจจับว่าระบบของคุณทำอะไรจริง ๆ แล้วนำทางการแก้ไขด้านความปลอดภัยที่สำคัญสำหรับบริบทนั้น",
+    "description": "The answer to \"What is Lagune?\" in search engines' structured data"
+  },
+  "home.faq.what.question": {
+    "message": "Lagune คืออะไร",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.feature.overview.kicker": {
+    "message": "แทนที่จะไล่ทำ checklist ทั่วไป จะเป็นอย่างไรถ้าความปลอดภัยมีอยู่ทั้ง{before} {during} และ{after}การพัฒนา",
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
+  },
+  "home.feature.overview.kicker.after": {
+    "message": "หลัง",
+    "description": "The emphasized \"after\" of the home overview question"
+  },
+  "home.feature.overview.kicker.before": {
+    "message": "ก่อน",
+    "description": "The emphasized \"before\" of the home overview question"
+  },
+  "home.feature.overview.kicker.during": {
+    "message": "ระหว่าง",
+    "description": "The emphasized \"during\" of the home overview question"
+  },
+  "home.group.anyPrompt": {
+    "message": "ทุก prompt ทุกเวลา",
+    "description": "The stage label of the universal /lagune command on the home page"
+  },
+  "home.group.defend": {
+    "message": "ป้องกัน",
+    "description": "The stage label of the harden and verify phases on the home page"
+  },
+  "home.group.establish": {
+    "message": "กำหนด",
+    "description": "The stage label of the charter phase on the home page"
+  },
+  "home.group.understand": {
+    "message": "ทำความเข้าใจ",
+    "description": "The stage label of the detect and plan phases on the home page"
+  },
+  "home.highlight.build.body": {
+    "message": "ใส่ไว้ใน prompt ใดก็ได้ แล้วเอเจนต์จะสร้างสิ่งที่คุณขอเหมือนเดิม แต่ตอนนี้มีความรู้ด้านความปลอดภัยเข้ามาเฉพาะเมื่อจำเป็น",
+    "description": "The body of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.build.lead": {
+    "message": "คำสั่งเดียว {command} นำความปลอดภัยเข้ามาตั้งแต่ตอนเขียนโค้ด ไม่ใช่หลังจากนั้น",
+    "description": "The lead of the home highlight about /lagune, where {command} is the command"
+  },
+  "home.highlight.build.title": {
+    "message": "เสริมความปลอดภัยไปพร้อมกับการสร้าง",
+    "description": "The title of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.dashboard.body": {
+    "message": "ดูความปลอดภัยของโปรเจกต์แบบเรียลไทม์ขณะที่เอเจนต์ทำงาน แดชบอร์ดรันบนเครื่องของคุณ และไม่มีข้อมูลใดออกจากเครื่อง",
+    "description": "The body of the home highlight about the local dashboard"
+  },
+  "home.highlight.dashboard.lead": {
+    "message": "{dashboard}คอยติดตามข้อตรวจพบ การแก้ไข และการพิสูจน์ของคุณแบบเรียลไทม์",
+    "description": "The lead of the home highlight about the dashboard, where {dashboard} is emphasized"
+  },
+  "home.highlight.dashboard.lead.dashboard": {
+    "message": "แดชบอร์ดส่วนตัวที่รันในเครื่อง",
+    "description": "The emphasized part of the home highlight about the dashboard"
+  },
+  "home.highlight.dashboard.title": {
+    "message": "ดูความคืบหน้าในเบราว์เซอร์",
+    "description": "The title of the home highlight about the local dashboard"
+  },
+  "home.highlight.flow.body": {
+    "message": "Lagune ตรวจจับว่าระบบของคุณทำอะไรจริง ๆ ทำแผนผังช่องทางการโจมตีที่เกี่ยวข้อง แล้วลงมือเสริมความปลอดภัยในส่วนที่เหมาะสม",
+    "description": "The body of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.flow.lead": {
+    "message": "ขั้นตอน 5 เฟส{basis} พร้อมรันได้ทันที",
+    "description": "The lead of the home highlight about the Blue Team flow, where {basis} is emphasized"
+  },
+  "home.highlight.flow.lead.basis": {
+    "message": "ที่อิงแนวทาง Blue Team",
+    "description": "The emphasized part of the home highlight about the Blue Team flow"
+  },
+  "home.highlight.flow.title": {
+    "message": "ได้แรงบันดาลใจจาก Spec-Driven",
+    "description": "The title of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.knowledge.body": {
+    "message": "Lagune ดึงโมดูลที่เข้ากับบริบทที่พบ จากแคตตาล็อกที่ปรับตัวอยู่เสมอเมื่อมีความเสี่ยงใหม่เกิดขึ้น",
+    "description": "The body of the home highlight about on-demand specializations"
+  },
+  "home.highlight.knowledge.lead": {
+    "message": "โมดูลความปลอดภัยเฉพาะด้านจะโหลด{scope}",
+    "description": "The lead of the home highlight about specializations, where {scope} is emphasized"
+  },
+  "home.highlight.knowledge.lead.scope": {
+    "message": "เฉพาะส่วนที่ตรงกับโปรเจกต์ของคุณ",
+    "description": "The emphasized part of the home highlight about specializations"
+  },
+  "home.highlight.knowledge.title": {
+    "message": "ความรู้เฉพาะเมื่อจำเป็น",
+    "description": "The title of the home highlight about on-demand specializations"
+  },
+  "home.howTo.charter": {
+    "message": "กำหนดหลักการด้านความปลอดภัยของโปรเจกต์ให้เป็นกฎที่ทุกเฟสถัดไปยึดถือ",
+    "description": "The Charter step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.description": {
+    "message": "Lagune รันขั้นตอน 5 เฟสที่ยึดการป้องกันเป็นหลัก เพื่อตรวจสอบและเสริมความปลอดภัยให้โค้ดเบสใดก็ได้ โดยมีเอเจนต์ AI ของคุณเป็นผู้ขับเคลื่อน",
+    "description": "The summary of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.detect": {
+    "message": "อ่านโค้ด แล้วระบุให้ครบว่าระบบทำอะไรและความเสี่ยงอยู่ตรงไหน",
+    "description": "The Detect step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.harden": {
+    "message": "นำการแก้ไขในแผนไปใช้กับโค้ดอย่างปลอดภัยทีละรายการ",
+    "description": "The Harden step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.name": {
+    "message": "วิธีเสริมความปลอดภัยให้โค้ดเบสด้วย Lagune (ขั้นตอนแบบ Blue Team)",
+    "description": "The name of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.plan": {
+    "message": "ให้คะแนนข้อตรวจพบแต่ละรายการด้วยหมวดหมู่และคะแนน CVSS v4.0 แล้วจับคู่กับการแก้ไข",
+    "description": "The Plan step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.verify": {
+    "message": "พิสูจน์ว่าการแก้ไขแต่ละรายการที่นำไปใช้ยังได้ผล แล้วปิดรายการที่ผ่าน",
+    "description": "The Verify step of the five-phase guide in search engines' structured data"
+  },
+  "home.install.copy": {
+    "message": "คัดลอกคำสั่งติดตั้งสำหรับ {agent}",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "คำสั่งติดตั้ง",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
+  "home.meta.description": {
+    "message": "Lagune ช่วยให้เอเจนต์ AI ของคุณเสริมความปลอดภัยให้โค้ดเบสใดก็ได้: ตรวจจับว่าระบบของคุณทำอะไรจริง ๆ แล้วขับเคลื่อนงานด้านการป้องกันที่เหมาะสมไปพร้อมกับที่คุณพัฒนา",
+    "description": "The description of the home page in search results and link previews"
+  },
+  "home.meta.title": {
+    "message": "Security Hardening ด้วย AI สำหรับทุกโค้ดเบส | Lagune",
+    "description": "The title of the home page in search results and the browser tab"
+  },
+  "home.mode.bySeverity": {
+    "message": "ตามระดับความรุนแรง",
+    "description": "The example tab for running a phase on the most severe findings only"
+  },
+  "home.mode.recommendedFull": {
+    "message": "แนะนำ (ทั้งโปรเจกต์)",
+    "description": "The example tab for running a phase over the whole project, the recommended way"
+  },
+  "home.nav.menu": {
+    "message": "เมนู",
+    "description": "The label of the button that opens the compact home menu"
+  },
+  "home.nav.phases": {
+    "message": "เฟส",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
+  },
+  "home.phase.bannerAlt": {
+    "message": "เฟส {phase}",
+    "description": "The alternative text of a phase card's banner, where {phase} is the phase"
+  },
+  "home.phase.charter.description": {
+    "message": "กำหนดกฎด้านความปลอดภัยของโปรเจกต์ โดยเสนอให้คุณเอง หรือปรับตามสิ่งที่คุณบอก",
+    "description": "What the Charter phase does"
+  },
+  "home.phase.charter.eyebrow": {
+    "message": "เฟส 1",
+    "description": "The small caps label over the Charter phase card"
+  },
+  "home.phase.charter.mode.auto": {
+    "message": "ตรวจจับอัตโนมัติ",
+    "description": "The example tab for the Charter phase: Auto Detect"
+  },
+  "home.phase.charter.mode.describe": {
+    "message": "แนะนำ (อธิบายเอง)",
+    "description": "The example tab for the Charter phase: Recommended (Describe)"
+  },
+  "home.phase.charter.mode.describe.prompt": {
+    "message": "เราทำ SaaS มังงะ: นักเขียนอัปโหลดตอนต้นฉบับ ผู้อ่านซื้อเครดิตผ่าน Stripe แล้วใช้เครดิตปลดล็อกตอน และนักเขียนได้ค่าคอมมิชชันทุกครั้งที่มีการปลดล็อก ช่วยเราป้องกันไม่ให้ผู้ใช้นำตอนที่ปลดล็อกแล้วไปเผยแพร่ต่อหรือแคปหน้าจอ",
+    "description": "An example request a user writes after /lagune-charter"
+  },
+  "home.phase.charter.title": {
+    "message": "Charter",
+    "description": "The name of the Charter phase"
+  },
+  "home.phase.copyCommand": {
+    "message": "คัดลอก {command}",
+    "description": "The label of the button that copies a command, where {command} is the command"
+  },
+  "home.phase.detect.description": {
+    "message": "อ่านโค้ดของคุณ แล้วระบุให้ครบว่าระบบทำอะไรและความเสี่ยงอยู่ตรงไหน",
+    "description": "What the Detect phase does"
+  },
+  "home.phase.detect.eyebrow": {
+    "message": "เฟส 2",
+    "description": "The small caps label over the Detect phase card"
+  },
+  "home.phase.detect.mode.scoped": {
+    "message": "กำหนดขอบเขต",
+    "description": "The example tab for the Detect phase: Scoped"
+  },
+  "home.phase.detect.mode.scoped.prompt": {
+    "message": "สแกน branch ของเด็กฝึกงานก่อนที่จะ merge",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.mode.targeted": {
+    "message": "เจาะจงประเด็น",
+    "description": "The example tab for the Detect phase: Targeted"
+  },
+  "home.phase.detect.mode.targeted.prompt": {
+    "message": "ตรวจหาทุกจุดที่อาจทำให้ข้อมูลรั่วไหล",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.title": {
+    "message": "Detect",
+    "description": "The name of the Detect phase"
+  },
+  "home.phase.harden.description": {
+    "message": "นำการแก้ไขในแผนไปใช้กับโค้ดของคุณอย่างปลอดภัยทีละรายการ",
+    "description": "What the Harden phase does"
+  },
+  "home.phase.harden.eyebrow": {
+    "message": "เฟส 4",
+    "description": "The small caps label over the Harden phase card"
+  },
+  "home.phase.harden.mode.severity.prompt": {
+    "message": "ตอนนี้นำไปใช้เฉพาะการแก้ไขระดับวิกฤตและระดับสูงก่อน",
+    "description": "An example request a user writes after /lagune-harden"
+  },
+  "home.phase.harden.title": {
+    "message": "Harden",
+    "description": "The name of the Harden phase"
+  },
+  "home.phase.plan.description": {
+    "message": "เปลี่ยนสิ่งที่ detect พบให้เป็นแผนการป้องกัน พร้อมการแก้ไขสำหรับข้อตรวจพบแต่ละรายการ",
+    "description": "What the Plan phase does"
+  },
+  "home.phase.plan.eyebrow": {
+    "message": "เฟส 3",
+    "description": "The small caps label over the Plan phase card"
+  },
+  "home.phase.plan.mode.severity.prompt": {
+    "message": "ตอนนี้วางแผนเฉพาะข้อตรวจพบระดับวิกฤตและระดับสูงก่อน",
+    "description": "An example request a user writes after /lagune-plan"
+  },
+  "home.phase.plan.title": {
+    "message": "Plan",
+    "description": "The name of the Plan phase"
+  },
+  "home.phase.universal.description": {
+    "message": "สร้างสิ่งที่ prompt ของคุณขอ โดยมีความปลอดภัยคอยคุ้มกันงานไปพร้อมกัน ไม่ใช่ทีหลัง",
+    "description": "What the universal /lagune command does"
+  },
+  "home.phase.universal.eyebrow": {
+    "message": "UNIVERSAL",
+    "description": "The small caps label over the universal /lagune command card"
+  },
+  "home.phase.universal.mode.feature": {
+    "message": "ฟีเจอร์",
+    "description": "The example tab for building a new feature with /lagune"
+  },
+  "home.phase.universal.mode.feature.prompt": {
+    "message": "สร้างแดชบอร์ดสำหรับผู้ใช้ SaaS ของฉัน ผู้ใช้ต้องเปลี่ยนรูปโปรไฟล์ได้ และดูเนื้อหาทั้งหมดที่ตัวเองมีสิทธิ์เข้าถึงได้",
+    "description": "An example request a user writes after /lagune to build a feature"
+  },
+  "home.phase.universal.mode.fix": {
+    "message": "แก้บั๊ก",
+    "description": "The example tab for fixing a bug with /lagune"
+  },
+  "home.phase.universal.mode.fix.prompt": {
+    "message": "ผู้ใช้กดส่งฟอร์มแล้วไม่มีอะไรเกิดขึ้น ตรวจดูว่าน่าจะเกิดจากอะไร แล้วแก้ไข",
+    "description": "An example request a user writes after /lagune to fix a bug"
+  },
+  "home.phase.universal.mode.refactor": {
+    "message": "รีแฟกเตอร์",
+    "description": "The example tab for refactoring code with /lagune"
+  },
+  "home.phase.universal.mode.refactor.prompt": {
+    "message": "decouple และปรับปรุง logic ของ payload",
+    "description": "An example request a user writes after /lagune to refactor code"
+  },
+  "home.phase.universal.next": {
+    "message": "ดูวิธีตรวจสอบโปรเจกต์ที่คุณมีอยู่แล้ว",
+    "description": "Leads from the universal command to the audit flow on the home page"
+  },
+  "home.phase.universal.title": {
+    "message": "สร้าง",
+    "description": "The title of the universal /lagune command card"
+  },
+  "home.phase.verify.description": {
+    "message": "พิสูจน์ว่าการแก้ไขแต่ละรายการที่นำไปใช้ยังได้ผล และปิดรายการที่ผ่านให้จบ",
+    "description": "What the Verify phase does"
+  },
+  "home.phase.verify.eyebrow": {
+    "message": "เฟส 5",
+    "description": "The small caps label over the Verify phase card"
+  },
+  "home.phase.verify.mode.severity.prompt": {
+    "message": "ตรวจยืนยันเฉพาะการแก้ไขระดับวิกฤตและระดับสูงที่เรานำไปใช้แล้ว",
+    "description": "An example request a user writes after /lagune-verify"
+  },
+  "home.phase.verify.title": {
+    "message": "Verify",
+    "description": "The name of the Verify phase"
+  },
+  "home.prompt.example": {
+    "message": "ตัวอย่าง",
+    "description": "The label over the example prompt typed on the home page"
+  },
+  "home.rail.step": {
+    "message": "{phase} ({stage})",
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "ภาพรวม",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "วิธีใช้",
+    "description": "The name of the home section that walks through the commands"
+  },
+  "home.software.feature.context": {
+    "message": "ตรวจจับว่าระบบทำอะไรจริง ๆ ไม่ว่าจะเป็นระบบแบบไหน แล้วขับเคลื่อนการแก้ไขที่สำคัญสำหรับบริบทนั้น ในทุกภาษาโปรแกรม",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.cvss": {
+    "message": "การให้คะแนน CVSS v4.0 สำหรับข้อตรวจพบแต่ละรายการ",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.dashboard": {
+    "message": "แดชบอร์ดส่วนตัวที่รันในเครื่อง สำหรับติดตามข้อตรวจพบ การแก้ไข และการพิสูจน์",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.defense": {
+    "message": "เพื่อการป้องกันเท่านั้น: ไม่สร้าง exploit หรือเครื่องมือโจมตีเด็ดขาด",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.flow": {
+    "message": "ขั้นตอนแบบ Blue Team 5 เฟส: charter, detect, plan, harden, verify",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.install": {
+    "message": "ติดตั้งในเอเจนต์ของคุณเป็นปลั๊กอิน หรือติดตั้งด้วย skills CLI ในเอเจนต์อื่น ๆ โดยไม่ต้องใช้คีย์ API",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.specializations": {
+    "message": "ความรู้เฉพาะทางด้านความปลอดภัยที่โหลดเฉพาะเมื่อจำเป็น ใช้ได้กับทุกภาษา และจัดกลุ่มตามหมวดหมู่",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.universal": {
+    "message": "ทำให้งานใหม่ปลอดภัยตั้งแต่ตอนเขียนด้วยคำสั่ง universal /lagune โดยมีหลักการด้านความปลอดภัยเป็นแนวทาง",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tagline.audience": {
+    "message": "ไม่ว่าคุณจะเป็นนักพัฒนาหรือไม่ก็ตาม",
+    "description": "The small line under the headline above the chat demo on the home page"
+  },
+  "home.tagline.title": {
+    "message": "Lagune คือ copilot ด้านความปลอดภัยระหว่างที่คุณพัฒนา และเป็น Blue Team ของคุณเมื่อตรวจสอบ",
+    "description": "The headline above the chat demo on the home page, where \"Blue Team\" stays in English since the page sets it in italics"
+  },
+  "home.topBar.label": {
+    "message": "เว็บไซต์",
+    "description": "The accessible name of the top navigation bar"
+  },
+  "home.usage.next": {
+    "message": "ถัดไป: {phase}",
+    "description": "Leads from one phase to the next on the home page, where {phase} is the next phase"
+  },
+  "home.usage.settled": {
+    "message": "เมื่อพิสูจน์ครบทุกรายการ รอบการทำงานก็สิ้นสุดลง",
+    "description": "Closes the walk through the phases on the home page"
+  },
+  "paper.reference.eyebrow": {
+    "message": "เอกสารอ้างอิง [{index}]",
+    "description": "The heading of the popover that reveals a cited reference of the paper"
+  },
+  "paper.section.eyebrow": {
+    "message": "ส่วนที่ {roman}",
+    "description": "The heading of the popover that reveals a section the paper refers to, where {roman} is its Roman numeral"
+  },
+  "share.breadcrumb": {
+    "message": "แชร์",
+    "description": "The name of the share page in breadcrumbs"
+  },
+  "share.heading": {
+    "message": "สแกน เปิด แล้วให้{star}",
+    "description": "The heading of the share page, where {star} is a star icon read as the word star"
+  },
+  "share.heading.star": {
+    "message": "ดาว",
+    "description": "The word the star icon of the share heading stands for"
+  },
+  "share.lead": {
+    "message": "หันกล้องไปที่โค้ดเพื่อเปิด Lagune บน GitHub แล้วให้ดาวเพื่อสนับสนุนโปรเจกต์",
+    "description": "The instruction under the share page heading"
+  },
+  "share.meta.description": {
+    "message": "สแกน QR code เพื่อเปิด repository ของ Lagune บน GitHub แล้วให้ดาวเพื่อสนับสนุนโปรเจกต์ security hardening ด้วย AI ที่เป็นโอเพนซอร์สนี้",
+    "description": "The description of the share page in search results and link previews"
+  },
+  "share.meta.title": {
+    "message": "แชร์ Lagune | สแกน QR code แล้วให้ดาว repository บน GitHub",
+    "description": "The title of the share page in search results and the browser tab"
+  },
+  "share.qr.caption": {
+    "message": "สแกน QR code นี้เพื่อเปิด repository ของ Lagune บน GitHub ที่ github.com/wellwelwel/lagune แล้วให้ดาว",
+    "description": "The hidden caption of the QR code on the share page"
+  },
+  "share.qr.title": {
+    "message": "QR code ที่เปิด repository ของ Lagune บน GitHub ที่ github.com/wellwelwel/lagune",
+    "description": "The accessible name of the QR code on the share page"
+  }
+}

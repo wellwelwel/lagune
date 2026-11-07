@@ -1,0 +1,115 @@
+---
+id: crypto
+title: 'Hook crypto: ตรวจหาการเข้ารหัสที่อ่อนแอ'
+sidebar_label: crypto
+description: สแกนโค้ดเบสหา primitive การเข้ารหัสที่อ่อนแอ หรือประเมินโค้ดตัวอย่างชิ้นเดียว ได้จากบรรทัดคำสั่ง
+source_hash: 'd48d3cc15e73810012b8e5e089ce975d1a36aec245f5aaab79a13fa92fbf1a5b'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+hook `crypto` ชี้ว่าเป็นปัญหาเมื่อพบ **primitive การเข้ารหัสที่อ่อนแอ** ตรงจุดที่เรียกใช้: cipher ที่เลิกใช้แล้ว โหมดที่ไม่ปลอดภัย หรือ digest ที่ถูกเจาะได้แล้ว hook นี้ **เข้าใจภาษา** โดยอ่านแต่ละไฟล์ตามกฎของภาษานั้นเอง จึงไม่มีวันชี้ว่าโครงสร้างของ Python เป็นปัญหาในไฟล์ Rust และเป็นเอนจินแบบ deterministic เบื้องหลัง [ความรู้เฉพาะทาง `crypto`](/docs/catalog) ซึ่งคุณรันเองได้ในโหมด **scan** หรือ **check**
+
+## การรัน
+
+<Tabs>
+  <TabItem value="scan" label="สแกนโค้ดเบส" default>
+
+```bash
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="ตรวจโค้ดตัวอย่าง">
+
+```bash
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+การสแกนพิมพ์ผลออกมาได้สูงสุดสองส่วน **Weak cryptography found** คือชุดข้อตรวจพบ (DES/3DES/RC4/Blowfish/RC2 และโหมด ECB) ซึ่งแต่ละรายการเป็น primitive ของ cipher ที่ถูกเจาะได้แล้ว hook จึงจบการทำงานด้วย exit code ที่ไม่ใช่ศูนย์ ส่วน **Cryptography to review manually** คือชุดเบาะแสที่ hook ตัดสินเองไม่ได้: digest แบบ MD5/SHA-1 (ไม่ปลอดภัยสำหรับงานด้านความปลอดภัย แต่ใช้เป็น checksum ธรรมดาได้ เจตนาของการใช้งานจึงเป็นตัวตัดสิน) RNG ที่ไม่ใช่แบบ cryptographic ในบริบทด้านความปลอดภัย หรือการเปรียบเทียบค่าที่ไม่ปลอดภัยต่อ timing attack การรันที่ไม่พบปัญหาจะพิมพ์ `no weak cryptography found`
+
+## วิธีอ่านผลตัดสิน
+
+| ผลตัดสิน  | ความหมาย                                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------------------- |
+| `weak`    | โค้ดตัวอย่างใช้ primitive ของ cipher ที่ถูกเจาะได้แล้ว (DES/3DES, RC4, Blowfish, RC2 หรือโหมด ECB)                  |
+| `review`  | primitive ที่ขึ้นกับเจตนาการใช้งาน: digest แบบ MD5/SHA-1 หรือ RNG ที่ไม่ใช่แบบ cryptographic ในบริบทด้านความปลอดภัย |
+| `safe`    | โค้ดตัวอย่างใช้การเข้ารหัส และไม่พบ primitive ที่อ่อนแอ                                                             |
+| `invalid` | โค้ดตัวอย่างไม่มีโครงสร้างการเข้ารหัสที่ระบุได้ให้ตัดสิน                                                            |
+
+### ตัวเลือก CLI
+
+| ตัวเลือก    | ค่า          | คำอธิบาย                                                                                                           |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `--pattern` | โค้ดตัวอย่าง | ตรวจโค้ดตัวอย่างหนึ่งชิ้น ใส่ซ้ำเพื่อตรวจหลายชิ้น โดยได้ผลตัดสินบรรทัดละหนึ่งรายการ                                |
+| `--lang`    | ภาษา         | จำเป็นเมื่อใช้ `--pattern`: เลือกหนึ่งใน javascript, python, go, java, kotlin, php, ruby, rust, csharp, c หรือ cpp |
+| `--dir`     | ไดเรกทอรี    | จำกัดการสแกนไว้ที่ไดเรกทอรีเดียว ใช้ซ้ำได้และใช้ร่วมกับ `--file` ได้                                               |
+| `--file`    | ไฟล์         | จำกัดการสแกนไว้ที่ไฟล์เดียว ใช้ซ้ำได้และใช้ร่วมกับ `--dir` ได้                                                     |
+
+หากไม่ระบุตัวเลือก hook จะสแกนทั้งโปรเจกต์ `--pattern` ต้องใช้คู่กับ `--lang` และใช้ร่วมกับ `--dir` หรือ `--file` ไม่ได้
+
+### เลือกสิ่งที่จะสแกน
+
+hook นี้ข้ามสิ่งที่ **Git** ละเว้นไว้ หากต้องการข้ามมากกว่านั้น หรือต้องการสแกนสิ่งที่ **Git** ละเว้นไว้ ให้กำหนดการตั้งค่าเฉพาะของ `crypto` เอง:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[กำหนดค่า hook](/docs/hooks/configure) อธิบายการตั้งค่าทั้งหมด
+
+### ภาษาที่รองรับ
+
+การสแกนอ่านภาษาเหล่านี้โดยแยกตามนามสกุลไฟล์ และตรวจแต่ละภาษาเทียบกับ API การเข้ารหัสของภาษานั้นเอง
+
+| ภาษา                        | cipher ที่อ่อนแอ (ข้อตรวจพบ) และ digest หรือ RNG (ตรวจทาน)                                                              |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **JavaScript / TypeScript** | `createCipher`, `CryptoJS.DES/RC4`, `*-ecb` ในเครื่องหมายคำพูด; MD5/SHA-1 `createHash`/`subtle.digest`; `Math.random()` |
+| **Python**                  | pycryptodome `DES/ARC4/Blowfish.new`, `algorithms.TripleDES`, `MODE_ECB`; `hashlib.md5/sha1`; `random.*`                |
+| **Go**                      | `des.NewCipher`, `rc4.NewCipher`, `blowfish.NewCipher`, `NewECBEncrypter`; `md5/sha1.Sum`; `math/rand`                  |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`; `MessageDigest.getInstance("MD5")`, `HmacMD5`; `java.util.Random`                   |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`                |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`, `:ECB`; `Digest::MD5/SHA1`; `rand()`/`Random`                                           |
+| **Rust**                    | `Rc4::`, `Blowfish::`, `des::`, `ecb::`; `Md5::`, `Sha1::`, `Hmac<Md5>`; `SmallRng`/`XorShiftRng`                       |
+| **C#**                      | `DES/TripleDES/RC2.Create`, `CipherMode.ECB`; `MD5/SHA1.Create`, `HMACMD5`; `new Random()`                              |
+| **C / C++**                 | OpenSSL `DES_*`/`RC4`/`EVP_des_*`, `EVP_*_ecb`; `MD5()`/`SHA1()`, `EVP_md5`; `rand()`/`random()`                        |
+
+:::note[ตรวจให้ได้มากที่สุด แต่ไม่ครบทุกกรณี]
+hook นี้อ่านซอร์สโค้ดเป็นข้อความ ดังนั้น primitive ที่ประกอบขึ้นตอน runtime ซ่อนอยู่หลัง alias หรือเขียนในรูปแบบที่ hook ไม่รู้จัก อาจหลุดรอดไปได้ ให้ถือว่าตารางนี้เป็นจุดเริ่มต้นที่หนักแน่น ไม่ใช่รายการที่ครบถ้วน
+:::
+
+:::tip
+hook รับประกันระดับพื้นฐาน (ว่าโครงสร้างเหล่านี้มีอยู่จริง): การจัดการคีย์ การใช้ IV ซ้ำ และ RSA padding เป็นเรื่องที่ต้องใช้วิจารณญาณ ซึ่ง [ความรู้เฉพาะทาง `crypto`](/docs/catalog) ยังคงดูแลอยู่
+:::
+
+<Faq
+  items={[
+    {
+      question: 'สแกนโค้ดเบสหาการเข้ารหัสที่อ่อนแอได้อย่างไร',
+      answer:
+        'รัน hook crypto โดยไม่ใส่ flag ใด ๆ cipher ที่ถูกเจาะได้แล้วและโหมด ECB เป็นข้อตรวจพบที่ทำให้จบการทำงานด้วย exit code ที่ไม่ใช่ศูนย์ ส่วน digest แบบ MD5/SHA-1 เป็นเบาะแสให้ตรวจทาน เพราะไม่ปลอดภัยสำหรับงานด้านความปลอดภัย แต่ใช้เป็น checksum ธรรมดาได้',
+    },
+    {
+      question: 'hook crypto ชี้ว่า Math.random() เป็นปัญหาไหม',
+      answer:
+        'ชี้เฉพาะในบริบทด้านความปลอดภัย และเป็นเพียงเบาะแสให้ตรวจทาน ไม่เคยเป็นข้อตรวจพบอัตโนมัติ เพราะการสุ่มค่าเป็นเรื่องปกติสำหรับ jitter หรือการจัดลำดับใน UI',
+    },
+  ]}
+/>

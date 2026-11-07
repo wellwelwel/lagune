@@ -1,0 +1,61 @@
+---
+id: devin-cli
+title: 'วิธีติดตั้ง Lagune บน Devin CLI แบบปลั๊กอิน'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: ติดตั้ง Lagune บน Devin CLI แบบปลั๊กอิน และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli plugin
+  - devin plugins install
+  - ติดตั้ง lagune
+  - install lagune
+  - setup
+  - ความปลอดภัย AI
+  - เอเจนต์ AI
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+ลงชื่อเข้าใช้ **Devin** แล้วติดตั้งปลั๊กอินจากเทอร์มินัลของคุณ:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## การอัปเดต
+
+หากต้องการอัปเดต **Lagune** ให้รัน:
+
+```bash
+devin plugins update lagune
+```
+
+## คำสั่ง
+
+พิมพ์คำสั่งโดยมีชื่อปลั๊กอินนำหน้า เช่น `/lagune:lagune-charter` แทน `/lagune-charter` และเมนู `/` ก็แสดงรายการคำสั่งเหล่านี้ด้วย
+
+<Faq
+  items={[
+    {
+      question: 'ติดตั้ง Lagune บน Devin CLI ได้อย่างไร',
+      answer:
+        'ลงชื่อเข้าใช้ด้วย devin auth login แล้วรัน devin plugins install wellwelwel/lagune',
+    },
+    {
+      question: 'อัปเดต Lagune บน Devin CLI ได้อย่างไร',
+      answer: 'รัน devin plugins update lagune',
+    },
+    {
+      question: 'รันคำสั่งของ Lagune บน Devin CLI ได้อย่างไร',
+      answer:
+        'พิมพ์คำสั่งโดยมีชื่อปลั๊กอินนำหน้า เช่น /lagune:lagune-charter และเมนู / ก็แสดงรายการคำสั่งเหล่านี้ด้วย',
+    },
+  ]}
+/>
