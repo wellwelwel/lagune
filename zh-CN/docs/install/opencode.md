@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/opencode
 语言: zh-CN
 原文: https://lagune.ai/docs/install/opencode
-最后更新: 2026-11-03
+最后更新: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 直接输入命令名，例如 `/lagune-charter`。这些命令列在 `/skills` 中，而不是 `/` 菜单里。
-
----
-
-**权限**
-
-引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。**OpenCode** 运行它们时不会询问。
 
 ## 常见问题
 

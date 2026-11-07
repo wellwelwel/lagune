@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/opencode
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/opencode
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ Gib `@` ein, wähle den Befehl, etwa `@lagune-charter`, und schreibe deine Einga
 **OpenCode 1.x**
 
 Gib die Befehle mit ihrem Namen ein, etwa `/lagune-charter`. Sie stehen unter `/skills`, nicht im Menü `/`.
-
----
-
-**Berechtigungen**
-
-Die Engine läuft über zwei Tools: `lagune_read` liest nur dein Projekt und `lagune_write` schreibt nur in `.lagune/`. **OpenCode** führt sie ohne Rückfrage aus.
 
 ## Häufige Fragen
 

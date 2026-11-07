@@ -5,7 +5,7 @@
 Canônica: https://lagune.ai/pt-BR/docs/install/opencode
 Idioma: pt-BR
 Original: https://lagune.ai/docs/install/opencode
-Última atualização: 2026-11-03
+Última atualização: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ Digite `@` e escolha o comando, como `@lagune-charter`, depois escreva o seu ped
 **OpenCode 1.x**
 
 Digite os comandos pelo nome, como `/lagune-charter`. Eles aparecem em `/skills`, e não no menu `/`.
-
----
-
-**Permissões**
-
-O engine roda por meio de duas ferramentas: `lagune_read` só lê o seu projeto, e `lagune_write` só grava em `.lagune/`. O **OpenCode** as executa sem perguntar.
 
 ## Perguntas frequentes
 

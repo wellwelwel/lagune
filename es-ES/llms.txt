@@ -24,7 +24,7 @@ Cada enlace de la sección Documentación apunta a la versión en Markdown plano
 - [Instalar Lagune en OpenCode como plugin](https://lagune.ai/es-ES/docs/install/opencode.md): Instala Lagune en OpenCode 1.x y 2.x como plugin y mantenlo actualizado.
 - [Instalar Lagune en Pi como paquete](https://lagune.ai/es-ES/docs/install/pi.md): Instala Lagune en Pi como paquete, desde npm o desde GitHub, y mantenlo actualizado.
 - [Instalar Lagune en Qwen Code como extensión](https://lagune.ai/es-ES/docs/install/qwen-code.md): Instala Lagune en Qwen Code como extensión, mantenlo actualizado y permite su motor de antemano.
-- [Instalar Lagune en cualquier agente con skills.sh](https://lagune.ai/es-ES/docs/install/universal.md): Instala Lagune en cualquier agente de IA con la CLI de skills y mantenlo actualizado.
+- [Instalar Lagune en cualquier agente con skills.sh o GitHub CLI](https://lagune.ai/es-ES/docs/install/universal.md): Instala Lagune en cualquier agente de IA con la CLI de skills o con GitHub CLI y mantenlo actualizado.
 - [Skills de seguridad para agentes de IA](https://lagune.ai/es-ES/docs/get-started/commands.md): Las skills que tu agente de IA desbloquea con Lagune: audita un proyecto que ya existe o protege el trabajo nuevo mientras desarrollas, todo ello regido por tus principios de seguridad.
 - [Dashboard](https://lagune.ai/es-ES/docs/get-started/dashboard.md): Consulta los principios de seguridad, los hallazgos y el catálogo de tu proyecto en una vista local y en tiempo real que se abre con un solo comando.
 - [/lagune: código seguro mientras tu IA lo escribe](https://lagune.ai/es-ES/docs/commands/lagune.md): Crea lo que pides y lo bastiona a medida que se escribe, guiado por tus principios de seguridad y sin ningún flujo que seguir.

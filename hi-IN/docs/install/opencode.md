@@ -5,7 +5,7 @@
 कैनोनिकल: https://lagune.ai/hi-IN/docs/install/opencode
 भाषा: hi-IN
 मूल: https://lagune.ai/docs/install/opencode
-आख़िरी अपडेट: 2026-11-06
+आख़िरी अपडेट: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 कमांड उनके नाम से टाइप करें, जैसे `/lagune-charter`। ये `/skills` के अंदर दिखती हैं, `/` मेन्यू में नहीं।
-
----
-
-**अनुमतियाँ**
-
-इंजन दो टूल के ज़रिए चलता है: `lagune_read` टूल सिर्फ़ आपका प्रोजेक्ट पढ़ता है, और `lagune_write` टूल सिर्फ़ `.lagune/` फ़ोल्डर में लिखता है। **OpenCode** इन्हें बिना पूछे चलाता है।
 
 ## अक्सर पूछे जाने वाले सवाल
 

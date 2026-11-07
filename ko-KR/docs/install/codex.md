@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/codex
 언어: ko-KR
 원문: https://lagune.ai/docs/install/codex
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-07
 
 터미널에서 플러그인을 설치하세요:
 
@@ -28,7 +28,7 @@ codex plugin marketplace upgrade lagune
 
 ---
 
-**권한**
+**샌드박스**
 
 **Codex**의 샌드박스는 네트워크에 접근할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 

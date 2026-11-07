@@ -3,7 +3,7 @@
 > Install Lagune on OpenCode 1.x and 2.x as a plugin, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/opencode
-Last updated: 2026-11-03
+Last updated: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -65,12 +65,6 @@ Type `@` and pick the command, such as `@lagune-charter`, then write your input 
 **OpenCode 1.x**
 
 Type the commands by name, such as `/lagune-charter`. They are listed under `/skills`, not in the `/` menu.
-
----
-
-**Permissions**
-
-The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. **OpenCode** runs them without asking.
 
 ## Frequently Asked Questions
 

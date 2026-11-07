@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs/install/factory-droid
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/factory-droid
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-07
 
 Instal plugin dari terminal Anda:
 
@@ -26,12 +26,6 @@ droid plugin update lagune@lagune
 ## Perintah
 
 Ketik perintah dengan namanya, misalnya `/lagune-charter`.
-
----
-
-**Izin**
-
-Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. Saat **Factory Droid** meminta izin, pilih untuk selalu mengizinkan masing-masing tool. Factory Droid akan meminta lagi setelah menyinkronkan commit baru dari marketplace `lagune`, yang bisa terjadi saat ia mulai berjalan.
 
 ## Pertanyaan yang sering diajukan
 

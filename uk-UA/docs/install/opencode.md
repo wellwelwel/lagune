@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/opencode
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/opencode
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 Вводьте команди за назвою, як-от `/lagune-charter`. Вони перелічені в `/skills`, а не в меню `/`.
-
----
-
-**Дозволи**
-
-Рушій працює через два інструменти: `lagune_read` лише читає ваш проєкт, а `lagune_write` лише записує в `.lagune/`. **OpenCode** запускає їх, не питаючи.
 
 ## Часті запитання
 

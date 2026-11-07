@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/codex
 言語: ja-JP
 原文: https://lagune.ai/docs/install/codex
-最終更新日: 2026-11-03
+最終更新日: 2026-11-07
 
 ターミナルからプラグインをインストールします：
 
@@ -28,7 +28,7 @@ codex plugin marketplace upgrade lagune
 
 ---
 
-**権限**
+**サンドボックス**
 
 **Codex** のサンドボックスはネットワークにアクセスできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 

@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs/install/codex
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/codex
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-07
 
 Instal plugin dari terminal Anda:
 
@@ -28,7 +28,7 @@ Ketik `$` dan perintah dengan nama plugin di depannya, diikuti input Anda, misal
 
 ---
 
-**Izin**
+**Sandbox**
 
 Sandbox **Codex** tidak punya akses jaringan. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 

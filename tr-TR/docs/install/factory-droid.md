@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/factory-droid
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/factory-droid
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 Eklentiyi terminalden kurun:
 
@@ -26,12 +26,6 @@ droid plugin update lagune@lagune
 ## Komutlar
 
 Komutları adlarıyla yazın, örneğin `/lagune-charter`.
-
----
-
-**İzinler**
-
-Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. **Factory Droid** sorduğunda her biri için her zaman izin vermeyi seçin. `lagune` pazar yerinin yeni bir commit'ini eşitledikten sonra (bunu açılışta yapabilir) yeniden sorar.
 
 ## Sıkça sorulan sorular
 

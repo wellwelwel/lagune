@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/muse-code
 语言: zh-CN
 原文: https://lagune.ai/docs/install/muse-code
-最后更新: 2026-11-03
+最后更新: 2026-11-07
 
 在终端中安装插件：
 
@@ -30,7 +30,7 @@ muse plugins install lagune@lagune
 
 ---
 
-**权限**
+**沙箱**
 
 **Muse Code** 的沙箱无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
 

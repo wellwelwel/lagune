@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/factory-droid
 语言: zh-CN
 原文: https://lagune.ai/docs/install/factory-droid
-最后更新: 2026-11-03
+最后更新: 2026-11-07
 
 在终端中安装插件：
 
@@ -26,12 +26,6 @@ droid plugin update lagune@lagune
 ## 命令
 
 直接输入命令名，例如 `/lagune-charter`。
-
----
-
-**权限**
-
-引擎通过两个工具运行：`lagune_read` 只读取你的项目，`lagune_write` 只写入 `.lagune/`。**Factory Droid** 询问时，为每个工具选择始终允许。它同步 `lagune` 插件市场的新提交后会再次询问，而这种同步可能在它启动时发生。
 
 ## 常见问题
 

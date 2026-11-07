@@ -3,7 +3,7 @@
 > Install Lagune on Factory Droid as a plugin, keep it updated, and allow its engine's tools.
 
 Canonical: https://lagune.ai/docs/install/factory-droid
-Last updated: 2026-11-03
+Last updated: 2026-11-07
 
 Install the plugin from your terminal:
 
@@ -24,12 +24,6 @@ droid plugin update lagune@lagune
 ## Commands
 
 Type the commands by name, such as `/lagune-charter`.
-
----
-
-**Permissions**
-
-The engine runs through two tools: `lagune_read` only reads your project, and `lagune_write` only writes to `.lagune/`. When **Factory Droid** asks, choose to always allow each one. It asks again after syncing a new commit of the `lagune` marketplace, which it can do when it starts.
 
 ## Frequently Asked Questions
 

@@ -24,7 +24,7 @@ Setiap tautan di bawah Docs mengarah ke versi Markdown polos dari halaman terseb
 - [Cara menginstal Lagune di OpenCode sebagai plugin](https://lagune.ai/id-ID/docs/install/opencode.md): Instal Lagune di OpenCode 1.x dan 2.x sebagai plugin, dan jaga agar tetap terbaru.
 - [Cara menginstal Lagune di Pi sebagai paket](https://lagune.ai/id-ID/docs/install/pi.md): Instal Lagune di Pi sebagai paket, dari npm atau dari GitHub, dan jaga agar tetap terbaru.
 - [Cara menginstal Lagune di Qwen Code sebagai ekstensi](https://lagune.ai/id-ID/docs/install/qwen-code.md): Instal Lagune di Qwen Code sebagai ekstensi, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
-- [Cara menginstal Lagune di agen mana pun dengan skills.sh](https://lagune.ai/id-ID/docs/install/universal.md): Instal Lagune di agen AI mana pun dengan skills CLI, dan jaga agar tetap terbaru.
+- [Cara menginstal Lagune di agen mana pun dengan skills.sh atau GitHub CLI](https://lagune.ai/id-ID/docs/install/universal.md): Instal Lagune di agen AI mana pun dengan skills CLI atau GitHub CLI, dan jaga agar tetap terbaru.
 - [Skill keamanan untuk agen AI](https://lagune.ai/id-ID/docs/get-started/commands.md): Skill yang didapat agen AI Anda dengan Lagune: audit proyek yang sudah ada atau amankan pekerjaan baru selagi Anda membangunnya, semuanya diatur oleh charter.
 - [Dasbor](https://lagune.ai/id-ID/docs/get-started/dashboard.md): Lihat charter, temuan, dan katalog proyek Anda dalam tampilan langsung dan lokal yang terbuka dengan satu perintah.
 - [/lagune: kode aman sejak AI Anda menulisnya](https://lagune.ai/id-ID/docs/commands/lagune.md): Bangun apa yang Anda minta dan perkuat keamanannya saat kode ditulis, dipandu oleh charter, tanpa alur yang harus diikuti.

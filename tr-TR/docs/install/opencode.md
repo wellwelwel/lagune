@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/opencode
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/opencode
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 Komutları adlarıyla yazın, örneğin `/lagune-charter`. Komutlar `/skills` altında listelenir, `/` menüsünde değil.
-
----
-
-**İzinler**
-
-Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. **OpenCode** bunları sormadan çalıştırır.
 
 ## Sıkça sorulan sorular
 

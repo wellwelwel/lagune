@@ -1,31 +1,43 @@
-# Installa Lagune in qualsiasi agente con skills.sh
+# Installa Lagune in qualsiasi agente con skills.sh o GitHub CLI
 
-> Installa Lagune in qualsiasi agente IA con la CLI di skills e tienilo aggiornato.
+> Installa Lagune in qualsiasi agente IA con la CLI di skills o con GitHub CLI e tienilo aggiornato.
 
 Canonico: https://lagune.ai/it-IT/docs/install/universal
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/universal
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-07
 
-**Terminale**
+**skills.sh**
 
-Installa i comandi di **Lagune** dal terminale con [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+Installa i comandi di **Lagune** nel tuo progetto dal terminale con [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), mantenendo **Project** come ambito di installazione:
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-**Prompt**
-
-Incolla questo prompt nel tuo agente:
+Oppure incolla questo prompt nel tuo agente:
 
 ```md
 Esegui `npx --yes skills add wellwelwel/lagune` e segui subito le istruzioni della skill generate. Leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario. Risolvi i percorsi relativi partendo dalla directory dei file di supporto che indica.
 ```
 
+**GitHub CLI**
+
+Installa i comandi di **Lagune** nel tuo progetto dal terminale con [**GitHub CLI**](https://cli.github.com/) 2.90.0 o versioni successive:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Oppure incolla questo prompt nel tuo agente:
+
+```md
+Esegui `gh skill install wellwelwel/lagune --all --scope project` e leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario.
+```
+
 ## Aggiornamento
 
-**Terminale**
+**skills.sh**
 
 Per aggiornare **Lagune**, esegui:
 
@@ -33,23 +45,31 @@ Per aggiornare **Lagune**, esegui:
 npx skills update
 ```
 
-**Prompt**
-
-Per aggiornare **Lagune**, incolla questo prompt nel tuo agente:
+Oppure incolla questo prompt nel tuo agente:
 
 ```md
 Esegui `npx --yes skills update -y` e leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario.
 ```
 
+**GitHub CLI**
+
+Per aggiornare **Lagune**, esegui:
+
+```bash
+gh skill update --all
+```
+
+Oppure incolla questo prompt nel tuo agente:
+
+```md
+Esegui `gh skill update --all` e leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario.
+```
+
 ---
 
-**Una sola via per agente**
+**Sandbox**
 
-Installa **Lagune** tramite **skills.sh** o tramite il suo **plugin**, mai entrambi.
-
-**Permessi**
-
-I comandi eseguono il motore come `npx --yes lagune@0.18.0`, e la [pagina di installazione di ogni agente](https://lagune.ai/it-IT/docs) mostra la regola che lo consente in anticipo. In una sandbox senza accesso alla rete, installa il motore nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
+In una sandbox senza accesso alla rete, i comandi non possono scaricare il motore. Installalo nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
 ```bash
 npm i -D lagune@0.18.0
@@ -59,12 +79,12 @@ npm i -D lagune@0.18.0
 
 ### Come installo Lagune in qualsiasi agente IA?
 
-Esegui npx skills add wellwelwel/lagune nel tuo progetto, oppure incolla il prompt di installazione nel tuo agente.
+Esegui npx skills add wellwelwel/lagune --skill '*' o gh skill install wellwelwel/lagune --all --scope project nel tuo progetto, oppure incolla il prompt di installazione nel tuo agente.
 
-### Come aggiorno Lagune installato con la CLI di skills?
+### Come aggiorno Lagune in qualsiasi agente IA?
 
-Esegui npx skills update, oppure incolla il prompt di aggiornamento nel tuo agente.
+Esegui npx skills update se l'hai installato con skills.sh, oppure gh skill update --all se l'hai installato con GitHub CLI. Puoi anche incollare il prompt di aggiornamento nel tuo agente.
 
-### Posso installare Lagune sia con la CLI di skills sia con un plugin?
+### Posso installare Lagune in più di un modo?
 
-No. Con entrambi, l'agente elenca ogni comando due volte, oppure usa una copia e nasconde l'altra.
+No. Con due, l'agente elenca ogni comando due volte, oppure usa una copia e nasconde l'altra.

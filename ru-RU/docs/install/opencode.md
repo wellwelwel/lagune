@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/opencode
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/opencode
-Последнее обновление: 2026-11-03
+Последнее обновление: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 Вводите команды по имени, например `/lagune-charter`. Они перечислены в `/skills`, а не в меню `/`.
-
----
-
-**Разрешения**
-
-Движок работает через два инструмента: `lagune_read` только читает ваш проект, а `lagune_write` только пишет в `.lagune/`. **OpenCode** запускает их без вопросов.
 
 ## Частые вопросы
 

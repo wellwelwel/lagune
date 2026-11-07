@@ -24,7 +24,7 @@ Lagune은 오픈 소스이자 방어 전용인 Security-Driven Hardening(SDH) �
 - [OpenCode에 Lagune 플러그인 설치하기](https://lagune.ai/ko-KR/docs/install/opencode.md): OpenCode 1.x와 2.x에 Lagune을 플러그인으로 설치하고 최신 상태로 유지하세요.
 - [Pi에 Lagune 패키지 설치하기](https://lagune.ai/ko-KR/docs/install/pi.md): Pi에 Lagune을 npm 또는 GitHub에서 패키지로 설치하고 최신 상태로 유지하세요.
 - [Qwen Code에 Lagune 확장 프로그램 설치하기](https://lagune.ai/ko-KR/docs/install/qwen-code.md): Qwen Code에 Lagune을 확장 프로그램으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
-- [skills.sh로 어떤 에이전트에든 Lagune 설치하기](https://lagune.ai/ko-KR/docs/install/universal.md): skills CLI로 어떤 AI 에이전트에든 Lagune을 설치하고 최신 상태로 유지하세요.
+- [skills.sh 또는 GitHub CLI로 어떤 에이전트에든 Lagune 설치하기](https://lagune.ai/ko-KR/docs/install/universal.md): skills CLI 또는 GitHub CLI로 어떤 AI 에이전트에든 Lagune을 설치하고 최신 상태로 유지하세요.
 - [AI 에이전트를 위한 보안 스킬](https://lagune.ai/ko-KR/docs/get-started/commands.md): Lagune으로 AI 에이전트가 얻는 스킬: 기존 프로젝트를 점검하거나, 개발하는 동안 새 작업을 안전하게 만들 수 있으며, 모두 보안 원칙을 따릅니다.
 - [대시보드](https://lagune.ai/ko-KR/docs/get-started/dashboard.md): 명령어 하나로 열리는 로컬 실시간 뷰에서 프로젝트의 보안 원칙, 발견 사항, 카탈로그를 확인하세요.
 - [/lagune: AI가 작성하는 동안 코드 보안 강화](https://lagune.ai/ko-KR/docs/commands/lagune.md): 요청한 작업을 만들고, 보안 원칙에 따라 작성하는 즉시 보안을 강화합니다. 따로 따라야 할 흐름은 없습니다.

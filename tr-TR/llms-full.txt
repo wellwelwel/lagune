@@ -365,7 +365,7 @@ Evet. Claude Code ayarlarınızda mcp__plugin_lagune_lagune__lagune_read ve mcp_
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/codex
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/codex
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 Eklentiyi terminalden kurun:
 
@@ -388,7 +388,7 @@ codex plugin marketplace upgrade lagune
 
 ---
 
-**İzinler**
+**Korumalı alan**
 
 **Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
@@ -559,7 +559,7 @@ Eklentinin adıyla birlikte yazın, örneğin /lagune:lagune-charter. / menüsü
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/factory-droid
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/factory-droid
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 Eklentiyi terminalden kurun:
 
@@ -580,12 +580,6 @@ droid plugin update lagune@lagune
 ## Komutlar
 
 Komutları adlarıyla yazın, örneğin `/lagune-charter`.
-
----
-
-**İzinler**
-
-Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. **Factory Droid** sorduğunda her biri için her zaman izin vermeyi seçin. `lagune` pazar yerinin yeni bir commit'ini eşitledikten sonra (bunu açılışta yapabilir) yeniden sorar.
 
 ## Sıkça sorulan sorular
 
@@ -889,7 +883,7 @@ Eklentinin adıyla birlikte, örneğin /lagune:lagune-charter şeklinde ya da / 
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/muse-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/muse-code
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 Eklentiyi terminalden kurun:
 
@@ -914,7 +908,7 @@ Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin ad
 
 ---
 
-**İzinler**
+**Korumalı alan**
 
 **Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
@@ -949,7 +943,7 @@ Evet, motoru kendi terminalinizden npm i -D lagune@0.18.0 ile projenize kurduğu
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/opencode
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/opencode
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -1011,12 +1005,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 Komutları adlarıyla yazın, örneğin `/lagune-charter`. Komutlar `/skills` altında listelenir, `/` menüsünde değil.
-
----
-
-**İzinler**
-
-Motor iki araçla çalışır: `lagune_read` yalnızca projenizi okur, `lagune_write` ise yalnızca `.lagune/` klasörüne yazar. **OpenCode** bunları sormadan çalıştırır.
 
 ## Sıkça sorulan sorular
 
@@ -1168,34 +1156,46 @@ Evet. Qwen Code ayarlarında mcp__lagune__lagune_read ve mcp__lagune__lagune_wri
 
 ---
 
-# skills.sh ile her ajana Lagune kurulumu
+# skills.sh veya GitHub CLI ile her ajana Lagune kurulumu
 
-> Lagune'yi skills CLI aracıyla her yapay zeka ajanına kurun ve güncel tutun.
+> Lagune'yi skills CLI aracı veya GitHub CLI ile her yapay zeka ajanına kurun ve güncel tutun.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/universal
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/universal
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
-**Terminal**
+**skills.sh**
 
-**Lagune** komutlarını [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) ile terminalden kurun:
+**Lagune** komutlarını [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) ile terminalden projenize kurun ve kurulum kapsamını **Project** olarak bırakın:
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-**Prompt**
-
-Bu prompt'u ajanınıza yapıştırın:
+Ya da bu prompt'u ajanınıza yapıştırın:
 
 ```md
 `npx --yes skills add wellwelwel/lagune` komutunu çalıştır ve oluşturulan beceri talimatlarını hemen uygula. Çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir. Göreli yolları, sağladığı destek dosyaları dizinine göre çözümle.
 ```
 
+**GitHub CLI**
+
+**Lagune** komutlarını [**GitHub CLI**](https://cli.github.com/) 2.90.0 veya üzeri ile terminalden projenize kurun:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Ya da bu prompt'u ajanınıza yapıştırın:
+
+```md
+`gh skill install wellwelwel/lagune --all --scope project` komutunu çalıştır ve çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir.
+```
+
 ## Güncelleme
 
-**Terminal**
+**skills.sh**
 
 **Lagune**'yi güncellemek için şunu çalıştırın:
 
@@ -1203,23 +1203,31 @@ Bu prompt'u ajanınıza yapıştırın:
 npx skills update
 ```
 
-**Prompt**
-
-**Lagune**'yi güncellemek için bu prompt'u ajanınıza yapıştırın:
+Ya da bu prompt'u ajanınıza yapıştırın:
 
 ```md
 `npx --yes skills update -y` komutunu çalıştır ve çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir.
 ```
 
+**GitHub CLI**
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+gh skill update --all
+```
+
+Ya da bu prompt'u ajanınıza yapıştırın:
+
+```md
+`gh skill update --all` komutunu çalıştır ve çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir.
+```
+
 ---
 
-**Her ajan için tek yol**
+**Korumalı alan**
 
-**Lagune**'yi ya **skills.sh** ile ya da **eklentisiyle** kurun, asla ikisiyle birden kurmayın.
-
-**İzinler**
-
-Komutlar motoru `npx --yes lagune@0.18.0` olarak çalıştırır ve [her ajanın kurulum sayfası](https://lagune.ai/tr-TR/docs) buna baştan izin veren kuralı gösterir. Ağ erişimi olmayan bir korumalı alanda motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
+Ağ erişimi olmayan bir korumalı alanda komutlar motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
 npm i -D lagune@0.18.0
@@ -1229,15 +1237,15 @@ npm i -D lagune@0.18.0
 
 ### Her yapay zeka ajanına Lagune nasıl kurulur?
 
-Projenizde npx skills add wellwelwel/lagune komutunu çalıştırın ya da kurulum prompt'unu ajanınıza yapıştırın.
+Projenizde npx skills add wellwelwel/lagune --skill '*' ya da gh skill install wellwelwel/lagune --all --scope project komutunu çalıştırın veya kurulum prompt'unu ajanınıza yapıştırın.
 
-### skills CLI ile kurulan Lagune nasıl güncellenir?
+### Her yapay zeka ajanında Lagune nasıl güncellenir?
 
-npx skills update komutunu çalıştırın ya da güncelleme prompt'unu ajanınıza yapıştırın.
+Lagune'yi skills.sh ile kurduysanız npx skills update, GitHub CLI ile kurduysanız gh skill update --all komutunu çalıştırın. Ayrıca güncelleme prompt'unu ajanınıza yapıştırabilirsiniz.
 
-### Lagune hem skills CLI hem de bir eklentiyle kurulabilir mi?
+### Lagune aynı anda birden fazla yolla kurulabilir mi?
 
-Hayır. İkisiyle birden kurulursa ajan her komutu iki kez listeler ya da bir kopyayı kullanıp diğerini gizler.
+Hayır. İki yolla kurulursa ajan her komutu iki kez listeler ya da bir kopyayı kullanıp diğerini gizler.
 
 ---
 

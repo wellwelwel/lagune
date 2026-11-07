@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/muse-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/muse-code
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 Eklentiyi terminalden kurun:
 
@@ -30,7 +30,7 @@ Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin ad
 
 ---
 
-**İzinler**
+**Korumalı alan**
 
 **Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 

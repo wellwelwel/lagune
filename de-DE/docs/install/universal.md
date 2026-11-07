@@ -1,31 +1,43 @@
-# Lagune mit skills.sh in jedem Agenten installieren
+# Lagune mit skills.sh oder der GitHub CLI in jedem Agenten installieren
 
-> Installiere und aktualisiere Lagune in jedem KI-Agenten mit der CLI von skills.
+> Installiere Lagune in jedem KI-Agenten mit der CLI von skills oder der GitHub CLI und halte es aktuell.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/install/universal
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/universal
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-07
 
-**Terminal**
+**skills.sh**
 
-Installiere die Befehle von **Lagune** über dein Terminal mit [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+Installiere die Befehle von **Lagune** über dein Terminal in deinem Projekt mit [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) und behalte **Project** als Installationsbereich bei:
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-**Prompt**
-
-Füge diesen Prompt in deinen Agenten ein:
+Oder füge diesen Prompt in deinen Agenten ein:
 
 ```md
 Führe `npx --yes skills add wellwelwel/lagune` aus und folge jetzt den generierten Skill-Anweisungen. Lies die vollständige Ausgabe, die du bei Bedarf zuerst in eine temporäre Datei umleitest. Löse relative Pfade ausgehend vom Verzeichnis der Begleitdateien auf, das die Ausgabe nennt.
 ```
 
+**GitHub CLI**
+
+Installiere die Befehle von **Lagune** über dein Terminal in deinem Projekt mit der [**GitHub CLI**](https://cli.github.com/) ab Version 2.90.0:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Oder füge diesen Prompt in deinen Agenten ein:
+
+```md
+Führe `gh skill install wellwelwel/lagune --all --scope project` aus und lies die vollständige Ausgabe, die du bei Bedarf zuerst in eine temporäre Datei umleitest.
+```
+
 ## Aktualisierung
 
-**Terminal**
+**skills.sh**
 
 Um **Lagune** zu aktualisieren, führe Folgendes aus:
 
@@ -33,23 +45,31 @@ Um **Lagune** zu aktualisieren, führe Folgendes aus:
 npx skills update
 ```
 
-**Prompt**
-
-Um **Lagune** zu aktualisieren, füge diesen Prompt in deinen Agenten ein:
+Oder füge diesen Prompt in deinen Agenten ein:
 
 ```md
 Führe `npx --yes skills update -y` aus und lies die vollständige Ausgabe, die du bei Bedarf zuerst in eine temporäre Datei umleitest.
 ```
 
+**GitHub CLI**
+
+Um **Lagune** zu aktualisieren, führe Folgendes aus:
+
+```bash
+gh skill update --all
+```
+
+Oder füge diesen Prompt in deinen Agenten ein:
+
+```md
+Führe `gh skill update --all` aus und lies die vollständige Ausgabe, die du bei Bedarf zuerst in eine temporäre Datei umleitest.
+```
+
 ---
 
-**Ein Installationsweg pro Agent**
+**Sandbox**
 
-Installiere **Lagune** entweder über **skills.sh** oder über das **Plugin**, nie über beides.
-
-**Berechtigungen**
-
-Die Befehle starten die Engine als `npx --yes lagune@0.18.0`, und die [Installationsseite jedes Agenten](https://lagune.ai/de-DE/docs) zeigt die Regel, die das vorab erlaubt. Hat deine Sandbox keinen Netzwerkzugriff, installiere die Engine über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
+In einer Sandbox ohne Netzwerkzugriff können die Befehle die Engine nicht herunterladen. Installiere sie über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 
 ```bash
 npm i -D lagune@0.18.0
@@ -59,12 +79,12 @@ npm i -D lagune@0.18.0
 
 ### Wie installiere ich Lagune in einem beliebigen KI-Agenten?
 
-Führe npx skills add wellwelwel/lagune in deinem Projekt aus oder füge den Prompt zur Installation in deinen Agenten ein.
+Führe in deinem Projekt npx skills add wellwelwel/lagune --skill '*' oder gh skill install wellwelwel/lagune --all --scope project aus, oder füge den Prompt zur Installation in deinen Agenten ein.
 
-### Wie aktualisiere ich Lagune nach der Installation mit der CLI von skills?
+### Wie aktualisiere ich Lagune in einem beliebigen KI-Agenten?
 
-Führe npx skills update aus oder füge den Prompt zur Aktualisierung in deinen Agenten ein.
+Führe npx skills update aus, wenn du es mit skills.sh installiert hast, oder gh skill update --all, wenn du es mit der GitHub CLI installiert hast. Du kannst auch den Prompt zur Aktualisierung in deinen Agenten einfügen.
 
-### Kann ich Lagune gleichzeitig mit der CLI von skills und als Plugin installieren?
+### Kann ich Lagune gleichzeitig über mehrere Wege installieren?
 
-Nein. Mit beiden Wegen listet der Agent jeden Befehl doppelt auf oder nutzt eine Kopie und blendet die andere aus.
+Nein. Mit zwei Wegen listet der Agent jeden Befehl doppelt auf oder nutzt eine Kopie und blendet die andere aus.

@@ -24,7 +24,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 - [OpenCode に Lagune をプラグインとしてインストール](https://lagune.ai/ja-JP/docs/install/opencode.md): OpenCode 1.x と 2.x に Lagune をプラグインとしてインストールし、最新の状態に保ちます。
 - [Pi に Lagune をパッケージとしてインストール](https://lagune.ai/ja-JP/docs/install/pi.md): npm または GitHub から、Pi に Lagune をパッケージとしてインストールし、最新の状態に保ちます。
 - [Qwen Code に Lagune を拡張機能としてインストール](https://lagune.ai/ja-JP/docs/install/qwen-code.md): Qwen Code に Lagune を拡張機能としてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
-- [skills.sh であらゆるエージェントに Lagune をインストール](https://lagune.ai/ja-JP/docs/install/universal.md): skills CLI で、あらゆる AI エージェントに Lagune をインストールし、最新の状態に保ちます。
+- [skills.sh または GitHub CLI であらゆるエージェントに Lagune をインストール](https://lagune.ai/ja-JP/docs/install/universal.md): skills CLI または GitHub CLI で、あらゆる AI エージェントに Lagune をインストールし、最新の状態に保ちます。
 - [AI エージェントのためのセキュリティスキル](https://lagune.ai/ja-JP/docs/get-started/commands.md): Lagune で AI エージェントが使えるようになるスキル：既存のプロジェクトを監査することも、開発しながら新しいコードを安全にすることもでき、どちらもセキュリティ原則に従います。
 - [ダッシュボード](https://lagune.ai/ja-JP/docs/get-started/dashboard.md): コマンド 1 つで開くローカルのライブビューで、プロジェクトのセキュリティ原則、検出事項、カタログを確認できます。
 - [/lagune: AI が書くそばからコードを安全に](https://lagune.ai/ja-JP/docs/commands/lagune.md): 依頼したものを構築し、セキュリティ原則に沿って書きながら堅牢化します。決まったフローに従う必要はありません。

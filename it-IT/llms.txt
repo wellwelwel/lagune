@@ -24,7 +24,7 @@ Ogni link sotto Documentazione punta alla versione in Markdown semplice di quell
 - [Installa Lagune su OpenCode come plugin](https://lagune.ai/it-IT/docs/install/opencode.md): Installa Lagune su OpenCode 1.x e 2.x come plugin e tienilo aggiornato.
 - [Installa Lagune su Pi come pacchetto](https://lagune.ai/it-IT/docs/install/pi.md): Installa Lagune su Pi come pacchetto, da npm o da GitHub, e tienilo aggiornato.
 - [Installa Lagune su Qwen Code come estensione](https://lagune.ai/it-IT/docs/install/qwen-code.md): Installa Lagune su Qwen Code come estensione, tienilo aggiornato e consenti il suo motore in anticipo.
-- [Installa Lagune in qualsiasi agente con skills.sh](https://lagune.ai/it-IT/docs/install/universal.md): Installa Lagune in qualsiasi agente IA con la CLI di skills e tienilo aggiornato.
+- [Installa Lagune in qualsiasi agente con skills.sh o GitHub CLI](https://lagune.ai/it-IT/docs/install/universal.md): Installa Lagune in qualsiasi agente IA con la CLI di skills o con GitHub CLI e tienilo aggiornato.
 - [Skill di sicurezza per agenti IA](https://lagune.ai/it-IT/docs/get-started/commands.md): Le skill che il tuo agente IA sblocca con Lagune: fai l'audit di un progetto esistente o proteggi il nuovo lavoro mentre sviluppi, sempre sotto il governo del charter.
 - [Dashboard](https://lagune.ai/it-IT/docs/get-started/dashboard.md): Guarda il charter, i rilievi e il catalogo del tuo progetto in una vista locale in tempo reale che si apre con un solo comando.
 - [/lagune: codice sicuro mentre la tua IA lo scrive](https://lagune.ai/it-IT/docs/commands/lagune.md): Costruisce ciò che chiedi e lo mette in sicurezza mentre viene scritto, guidato dal charter, senza alcun flusso da seguire.

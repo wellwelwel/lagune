@@ -24,7 +24,7 @@ Lagune є робочим процесом Security-Driven Hardening (SDH) з в�
 - [Встановлення Lagune в OpenCode як плагіна](https://lagune.ai/uk-UA/docs/install/opencode.md): Встановіть Lagune в OpenCode 1.x і 2.x як плагін і підтримуйте його оновленим.
 - [Встановлення Lagune у Pi як пакета](https://lagune.ai/uk-UA/docs/install/pi.md): Встановіть Lagune у Pi як пакет з npm чи GitHub і підтримуйте його оновленим.
 - [Встановлення Lagune у Qwen Code як розширення](https://lagune.ai/uk-UA/docs/install/qwen-code.md): Встановіть Lagune у Qwen Code як розширення, підтримуйте його оновленим і заздалегідь дозвольте роботу його рушія.
-- [Встановлення Lagune у будь-який агент через skills.sh](https://lagune.ai/uk-UA/docs/install/universal.md): Встановіть Lagune у будь-який ШІ-агент через CLI skills і підтримуйте його оновленим.
+- [Встановлення Lagune у будь-який агент через skills.sh або GitHub CLI](https://lagune.ai/uk-UA/docs/install/universal.md): Встановіть Lagune у будь-який ШІ-агент через CLI skills або GitHub CLI і підтримуйте його оновленим.
 - [Навички безпеки для ШІ-агентів](https://lagune.ai/uk-UA/docs/get-started/commands.md): Навички, які ваш ШІ-агент отримує з Lagune: перевірка наявного проєкту або захист нової роботи під час розробки, і все це за принципами безпеки.
 - [Дашборд](https://lagune.ai/uk-UA/docs/get-started/dashboard.md): Переглядайте принципи безпеки, знахідки й каталог свого проєкту в локальному огляді наживо, що відкривається однією командою.
 - [/lagune: захищайте код, поки його пише ваш ШІ](https://lagune.ai/uk-UA/docs/commands/lagune.md): Створюйте те, що просите, і посилюйте захист під час написання коду, за принципами безпеки, без жодного процесу, якого треба дотримуватися.

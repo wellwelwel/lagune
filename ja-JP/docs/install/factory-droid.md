@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/factory-droid
 言語: ja-JP
 原文: https://lagune.ai/docs/install/factory-droid
-最終更新日: 2026-11-03
+最終更新日: 2026-11-07
 
 ターミナルからプラグインをインストールします：
 
@@ -26,12 +26,6 @@ droid plugin update lagune@lagune
 ## コマンド
 
 `/lagune-charter` のように、コマンド名をそのまま入力します。
-
----
-
-**権限**
-
-エンジンは 2 つのツールで動作します。`lagune_read` はプロジェクトを読み取るだけで、`lagune_write` は `.lagune/` に書き込むだけです。**Factory Droid** が確認を求めてきたら、それぞれを常に許可するよう選びます。`lagune` マーケットプレイスの新しいコミットを同期すると、もう一度確認を求めてきます。この同期は起動時に行われることがあります。
 
 ## よくある質問
 

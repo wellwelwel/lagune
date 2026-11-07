@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/install/codex
 Langue: fr-FR
 Original: https://lagune.ai/docs/install/codex
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-07
 
 Installez le plugin depuis votre terminal :
 
@@ -28,7 +28,7 @@ Tapez `$` et la commande sous le nom du plugin, suivie de votre demande, comme `
 
 ---
 
-**Autorisations**
+**Sandbox**
 
 Le sandbox de **Codex** n'a pas d'accès réseau. Installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 

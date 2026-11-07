@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/muse-code
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/muse-code
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-07
 
 Installiere das Plugin über dein Terminal:
 
@@ -30,7 +30,7 @@ Gib die Befehle mit ihrem Namen ein, etwa `/lagune-charter`, oder mit vorangeste
 
 ---
 
-**Berechtigungen**
+**Sandbox**
 
 Die Sandbox von **Muse Code** kann die Engine nicht herunterladen. Installiere sie über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 

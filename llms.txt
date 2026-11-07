@@ -24,7 +24,7 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 - [Install Lagune on OpenCode as a Plugin](https://lagune.ai/docs/install/opencode.md): Install Lagune on OpenCode 1.x and 2.x as a plugin, and keep it updated.
 - [Install Lagune on Pi as a Package](https://lagune.ai/docs/install/pi.md): Install Lagune on Pi as a package, from npm or from GitHub, and keep it updated.
 - [Install Lagune on Qwen Code as an Extension](https://lagune.ai/docs/install/qwen-code.md): Install Lagune on Qwen Code as an extension, keep it updated, and allow its engine up front.
-- [Install Lagune in Any Agent with skills.sh](https://lagune.ai/docs/install/universal.md): Install Lagune in any AI agent with the skills CLI, and keep it updated.
+- [Install Lagune in Any Agent with skills.sh or GitHub CLI](https://lagune.ai/docs/install/universal.md): Install Lagune in any AI agent with the skills CLI or the GitHub CLI, and keep it updated.
 - [Security Skills for AI Agents](https://lagune.ai/docs/get-started/commands.md): The skills your AI agent unlocks with Lagune: audit an existing project or secure new work as you build, all governed by the charter.
 - [Dashboard](https://lagune.ai/docs/get-started/dashboard.md): See your project's charter, findings, and catalog in a live, local view that opens with one command.
 - [/lagune: Secure Code as Your AI Writes It](https://lagune.ai/docs/commands/lagune.md): Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.

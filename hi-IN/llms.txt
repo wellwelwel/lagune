@@ -24,7 +24,7 @@ Lagune एक ओपन सोर्स Security-Driven Hardening (SDH) वर�
 - [OpenCode पर Lagune को प्लगइन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/opencode.md): OpenCode 1.x और 2.x पर Lagune को प्लगइन के रूप में इंस्टॉल करें और उसे अपडेट रखें।
 - [Pi पर Lagune को पैकेज के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/pi.md): Pi पर Lagune को npm या GitHub से पैकेज के रूप में इंस्टॉल करें और उसे अपडेट रखें।
 - [Qwen Code पर Lagune को एक्सटेंशन के रूप में इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/qwen-code.md): Qwen Code पर Lagune को एक्सटेंशन के रूप में इंस्टॉल करें, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
-- [skills.sh से किसी भी एजेंट में Lagune इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/universal.md): skills CLI से किसी भी AI एजेंट में Lagune इंस्टॉल करें, और उसे अपडेट रखें।
+- [skills.sh या GitHub CLI से किसी भी एजेंट में Lagune इंस्टॉल करें](https://lagune.ai/hi-IN/docs/install/universal.md): skills CLI या GitHub CLI से किसी भी AI एजेंट में Lagune इंस्टॉल करें, और उसे अपडेट रखें।
 - [AI एजेंट के लिए सुरक्षा स्किल](https://lagune.ai/hi-IN/docs/get-started/commands.md): Lagune से आपके AI एजेंट को मिलने वाली स्किल: किसी मौजूदा प्रोजेक्ट का ऑडिट करें या बनाते समय ही नए काम को सुरक्षित करें, और सब कुछ सुरक्षा सिद्धांतों के अनुसार चलता है।
 - [डैशबोर्ड](https://lagune.ai/hi-IN/docs/get-started/dashboard.md): अपने प्रोजेक्ट के सुरक्षा सिद्धांत, निष्कर्ष और कैटलॉग एक लाइव, लोकल व्यू में देखें, जो एक ही कमांड से खुलता है।
 - [/lagune: AI के कोड लिखते समय ही उसे सुरक्षित बनाएँ](https://lagune.ai/hi-IN/docs/commands/lagune.md): जो आप माँगें वह बनाएँ, और सुरक्षा सिद्धांतों के अनुसार लिखते समय ही उसकी सुरक्षा मज़बूत करें, बिना किसी फ़्लो का पालन किए।

@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/muse-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/muse-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-07
 
 ターミナルからプラグインをインストールします：
 
@@ -30,7 +30,7 @@ muse plugins install lagune@lagune
 
 ---
 
-**権限**
+**サンドボックス**
 
 **Muse Code** のサンドボックスはエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 

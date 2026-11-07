@@ -24,7 +24,7 @@ Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工�
 - [在 OpenCode 中以插件形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/opencode.md): 在 OpenCode 1.x 和 2.x 中以插件形式安装 Lagune，并保持更新。
 - [在 Pi 中以包的形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/pi.md): 从 npm 或 GitHub 在 Pi 中以包的形式安装 Lagune，并保持更新。
 - [在 Qwen Code 中以扩展形式安装 Lagune](https://lagune.ai/zh-CN/docs/install/qwen-code.md): 在 Qwen Code 中以扩展形式安装 Lagune，保持更新，并预先允许引擎运行。
-- [用 skills.sh 在任意智能体中安装 Lagune](https://lagune.ai/zh-CN/docs/install/universal.md): 用 skills CLI 在任意 AI 智能体中安装 Lagune，并保持更新。
+- [用 skills.sh 或 GitHub CLI 在任意智能体中安装 Lagune](https://lagune.ai/zh-CN/docs/install/universal.md): 用 skills CLI 或 GitHub CLI 在任意 AI 智能体中安装 Lagune，并保持更新。
 - [AI 智能体的安全 Skills](https://lagune.ai/zh-CN/docs/get-started/commands.md): Lagune 为你的 AI 智能体解锁的 Skills：审计现有项目，或在构建时保障新代码的安全，全部遵循 charter 设定的安全原则。
 - [仪表盘](https://lagune.ai/zh-CN/docs/get-started/dashboard.md): 一条命令就能打开本地实时视图，查看项目的安全原则、发现项和目录。
 - [/lagune: 在 AI 编写代码的同时保障安全](https://lagune.ai/zh-CN/docs/commands/lagune.md): 按你的要求构建，并在安全原则的指引下边写边加固，无需遵循任何流程。

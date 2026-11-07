@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/opencode
 언어: ko-KR
 원문: https://lagune.ai/docs/install/opencode
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 명령어는 `/lagune-charter` 명령어처럼 이름 그대로 입력하세요. 명령어는 `/skills` 목록에 표시되며, `/` 메뉴에는 표시되지 않습니다.
-
----
-
-**권한**
-
-엔진은 두 도구를 통해 실행됩니다: `lagune_read` 도구는 프로젝트를 읽기만 하고, `lagune_write` 도구는 `.lagune/` 폴더에만 씁니다. **OpenCode**는 두 도구를 권한 요청 없이 실행합니다.
 
 ## 자주 묻는 질문
 

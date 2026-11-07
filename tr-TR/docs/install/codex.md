@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/codex
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/codex
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-07
 
 Eklentiyi terminalden kurun:
 
@@ -28,7 +28,7 @@ codex plugin marketplace upgrade lagune
 
 ---
 
-**İzinler**
+**Korumalı alan**
 
 **Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 

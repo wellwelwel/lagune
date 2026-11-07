@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs/install/opencode
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/opencode
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ Ketik `@` lalu pilih perintahnya, misalnya `@lagune-charter`, kemudian tulis inp
 **OpenCode 1.x**
 
 Ketik perintah dengan namanya, misalnya `/lagune-charter`. Perintah ini tercantum di `/skills`, bukan di menu `/`.
-
----
-
-**Izin**
-
-Engine berjalan melalui dua tool: `lagune_read` hanya membaca proyek Anda, dan `lagune_write` hanya menulis ke `.lagune/`. **OpenCode** menjalankannya tanpa bertanya.
 
 ## Pertanyaan yang sering diajukan
 

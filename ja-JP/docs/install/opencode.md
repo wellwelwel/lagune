@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/opencode
 言語: ja-JP
 原文: https://lagune.ai/docs/install/opencode
-最終更新日: 2026-11-03
+最終更新日: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -67,12 +67,6 @@ opencode plugin lagune@0.18.0 --force
 **OpenCode 1.x**
 
 `/lagune-charter` のように、コマンド名をそのまま入力します。コマンドは `/skills` に一覧表示され、`/` メニューには表示されません。
-
----
-
-**権限**
-
-エンジンは 2 つのツールで動作します。`lagune_read` はプロジェクトを読み取るだけで、`lagune_write` は `.lagune/` に書き込むだけです。**OpenCode** は確認なしでこれらを実行します。
 
 ## よくある質問
 

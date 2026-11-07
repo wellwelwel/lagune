@@ -24,7 +24,7 @@ Belgeler altındaki her bağlantı, o sayfanın düz Markdown sürümüne gider.
 - [OpenCode için Lagune eklentisi kurulumu](https://lagune.ai/tr-TR/docs/install/opencode.md): Lagune'yi OpenCode 1.x ve 2.x için eklenti olarak kurun ve güncel tutun.
 - [Pi için Lagune paketi kurulumu](https://lagune.ai/tr-TR/docs/install/pi.md): Lagune'yi Pi için npm'den veya GitHub'dan paket olarak kurun ve güncel tutun.
 - [Qwen Code için Lagune uzantısı kurulumu](https://lagune.ai/tr-TR/docs/install/qwen-code.md): Lagune'yi Qwen Code için uzantı olarak kurun, güncel tutun ve motoruna baştan izin verin.
-- [skills.sh ile her ajana Lagune kurulumu](https://lagune.ai/tr-TR/docs/install/universal.md): Lagune'yi skills CLI aracıyla her yapay zeka ajanına kurun ve güncel tutun.
+- [skills.sh veya GitHub CLI ile her ajana Lagune kurulumu](https://lagune.ai/tr-TR/docs/install/universal.md): Lagune'yi skills CLI aracı veya GitHub CLI ile her yapay zeka ajanına kurun ve güncel tutun.
 - [Yapay zeka ajanları için güvenlik becerileri](https://lagune.ai/tr-TR/docs/get-started/commands.md): Yapay zeka ajanınızın Lagune ile kazandığı beceriler: mevcut bir projeyi denetleyin ya da yeni işi geliştirirken güvenli hale getirin, hepsi charter'ın yönetiminde.
 - [Gösterge paneli](https://lagune.ai/tr-TR/docs/get-started/dashboard.md): Projenizin charter'ını, bulgularını ve kataloğunu tek komutla açılan canlı ve yerel bir görünümde izleyin.
 - [/lagune: yapay zeka yazarken kodu güvenli hale getirin](https://lagune.ai/tr-TR/docs/commands/lagune.md): İstediğinizi geliştirir ve charter rehberliğinde, izlenecek bir akış olmadan, yazılırken sıkılaştırır.

@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs/install/muse-code
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/muse-code
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-07
 
 Instal plugin dari terminal Anda:
 
@@ -30,7 +30,7 @@ Ketik perintah dengan namanya, misalnya `/lagune-charter`, atau dengan nama plug
 
 ---
 
-**Izin**
+**Sandbox**
 
 Sandbox **Muse Code** tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 

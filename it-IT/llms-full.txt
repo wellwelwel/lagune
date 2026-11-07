@@ -365,7 +365,7 @@ Sì. Consenti mcp__plugin_lagune_lagune__lagune_read e mcp__plugin_lagune_lagune
 Canonico: https://lagune.ai/it-IT/docs/install/codex
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/codex
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-07
 
 Installa il plugin dal terminale:
 
@@ -388,7 +388,7 @@ Digita `$` e il comando con il nome del plugin, seguito dal tuo input, come `$la
 
 ---
 
-**Permessi**
+**Sandbox**
 
 La sandbox di **Codex** non ha accesso alla rete. Installa il motore nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
@@ -559,7 +559,7 @@ Digitali con il nome del plugin, come /lagune:lagune-charter. Li elenca anche il
 Canonico: https://lagune.ai/it-IT/docs/install/factory-droid
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/factory-droid
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-07
 
 Installa il plugin dal terminale:
 
@@ -580,12 +580,6 @@ droid plugin update lagune@lagune
 ## Comandi
 
 Digita i comandi per nome, come `/lagune-charter`.
-
----
-
-**Permessi**
-
-Il motore funziona tramite due strumenti: `lagune_read` legge soltanto il tuo progetto e `lagune_write` scrive soltanto in `.lagune/`. Quando **Factory Droid** lo chiede, scegli di consentire sempre ciascuno dei due. Lo chiede di nuovo dopo aver sincronizzato un nuovo commit del marketplace `lagune`, cosa che può fare all'avvio.
 
 ## Domande frequenti
 
@@ -889,7 +883,7 @@ Digitali con il nome del plugin, come /lagune:lagune-charter, oppure come li ele
 Canonico: https://lagune.ai/it-IT/docs/install/muse-code
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/muse-code
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-07
 
 Installa il plugin dal terminale:
 
@@ -914,7 +908,7 @@ Digita i comandi per nome, come `/lagune-charter`, oppure con il nome del plugin
 
 ---
 
-**Permessi**
+**Sandbox**
 
 La sandbox di **Muse Code** non può scaricare il motore. Installalo nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
@@ -949,7 +943,7 @@ Sì, una volta installato il motore nel tuo progetto con npm i -D lagune@0.18.0 
 Canonico: https://lagune.ai/it-IT/docs/install/opencode
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/opencode
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-07
 
 **OpenCode 2.x**
 
@@ -1011,12 +1005,6 @@ Digita `@` e scegli il comando, come `@lagune-charter`, poi scrivi il tuo input 
 **OpenCode 1.x**
 
 Digita i comandi per nome, come `/lagune-charter`. Sono elencati sotto `/skills`, non nel menu `/`.
-
----
-
-**Permessi**
-
-Il motore funziona tramite due strumenti: `lagune_read` legge soltanto il tuo progetto e `lagune_write` scrive soltanto in `.lagune/`. **OpenCode** li esegue senza chiedere.
 
 ## Domande frequenti
 
@@ -1168,34 +1156,46 @@ Sì. Consenti mcp__lagune__lagune_read e mcp__lagune__lagune_write nelle imposta
 
 ---
 
-# Installa Lagune in qualsiasi agente con skills.sh
+# Installa Lagune in qualsiasi agente con skills.sh o GitHub CLI
 
-> Installa Lagune in qualsiasi agente IA con la CLI di skills e tienilo aggiornato.
+> Installa Lagune in qualsiasi agente IA con la CLI di skills o con GitHub CLI e tienilo aggiornato.
 
 Canonico: https://lagune.ai/it-IT/docs/install/universal
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/universal
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-07
 
-**Terminale**
+**skills.sh**
 
-Installa i comandi di **Lagune** dal terminale con [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+Installa i comandi di **Lagune** nel tuo progetto dal terminale con [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), mantenendo **Project** come ambito di installazione:
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-**Prompt**
-
-Incolla questo prompt nel tuo agente:
+Oppure incolla questo prompt nel tuo agente:
 
 ```md
 Esegui `npx --yes skills add wellwelwel/lagune` e segui subito le istruzioni della skill generate. Leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario. Risolvi i percorsi relativi partendo dalla directory dei file di supporto che indica.
 ```
 
+**GitHub CLI**
+
+Installa i comandi di **Lagune** nel tuo progetto dal terminale con [**GitHub CLI**](https://cli.github.com/) 2.90.0 o versioni successive:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Oppure incolla questo prompt nel tuo agente:
+
+```md
+Esegui `gh skill install wellwelwel/lagune --all --scope project` e leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario.
+```
+
 ## Aggiornamento
 
-**Terminale**
+**skills.sh**
 
 Per aggiornare **Lagune**, esegui:
 
@@ -1203,23 +1203,31 @@ Per aggiornare **Lagune**, esegui:
 npx skills update
 ```
 
-**Prompt**
-
-Per aggiornare **Lagune**, incolla questo prompt nel tuo agente:
+Oppure incolla questo prompt nel tuo agente:
 
 ```md
 Esegui `npx --yes skills update -y` e leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario.
 ```
 
+**GitHub CLI**
+
+Per aggiornare **Lagune**, esegui:
+
+```bash
+gh skill update --all
+```
+
+Oppure incolla questo prompt nel tuo agente:
+
+```md
+Esegui `gh skill update --all` e leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario.
+```
+
 ---
 
-**Una sola via per agente**
+**Sandbox**
 
-Installa **Lagune** tramite **skills.sh** o tramite il suo **plugin**, mai entrambi.
-
-**Permessi**
-
-I comandi eseguono il motore come `npx --yes lagune@0.18.0`, e la [pagina di installazione di ogni agente](https://lagune.ai/it-IT/docs) mostra la regola che lo consente in anticipo. In una sandbox senza accesso alla rete, installa il motore nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
+In una sandbox senza accesso alla rete, i comandi non possono scaricare il motore. Installalo nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
 ```bash
 npm i -D lagune@0.18.0
@@ -1229,15 +1237,15 @@ npm i -D lagune@0.18.0
 
 ### Come installo Lagune in qualsiasi agente IA?
 
-Esegui npx skills add wellwelwel/lagune nel tuo progetto, oppure incolla il prompt di installazione nel tuo agente.
+Esegui npx skills add wellwelwel/lagune --skill '*' o gh skill install wellwelwel/lagune --all --scope project nel tuo progetto, oppure incolla il prompt di installazione nel tuo agente.
 
-### Come aggiorno Lagune installato con la CLI di skills?
+### Come aggiorno Lagune in qualsiasi agente IA?
 
-Esegui npx skills update, oppure incolla il prompt di aggiornamento nel tuo agente.
+Esegui npx skills update se l'hai installato con skills.sh, oppure gh skill update --all se l'hai installato con GitHub CLI. Puoi anche incollare il prompt di aggiornamento nel tuo agente.
 
-### Posso installare Lagune sia con la CLI di skills sia con un plugin?
+### Posso installare Lagune in più di un modo?
 
-No. Con entrambi, l'agente elenca ogni comando due volte, oppure usa una copia e nasconde l'altra.
+No. Con due, l'agente elenca ogni comando due volte, oppure usa una copia e nasconde l'altra.
 
 ---
 

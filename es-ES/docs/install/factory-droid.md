@@ -5,7 +5,7 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/factory-droid
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/factory-droid
-Última actualización: 2026-11-03
+Última actualización: 2026-11-07
 
 Instala el plugin desde tu terminal:
 
@@ -26,12 +26,6 @@ droid plugin update lagune@lagune
 ## Comandos
 
 Escribe los comandos por su nombre, como `/lagune-charter`.
-
----
-
-**Permisos**
-
-El motor se ejecuta mediante dos herramientas: `lagune_read` solo lee tu proyecto y `lagune_write` solo escribe en `.lagune/`. Cuando **Factory Droid** pregunte, elige permitir siempre cada una. Vuelve a preguntar tras sincronizar un commit nuevo del marketplace `lagune`, algo que puede hacer al arrancar.
 
 ## Preguntas frecuentes
 
