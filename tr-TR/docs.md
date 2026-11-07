@@ -35,7 +35,7 @@ Son güncelleme: 2026-11-03
 **Bilgi**
 
 - **Lagune** arka planda **Node.js** üzerinde çalışır, ama siz istediğiniz dili kullanırsınız.
-- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.18.0` ile kurun.
+- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.18.1` ile kurun.
 
 ## Kategoriler
 

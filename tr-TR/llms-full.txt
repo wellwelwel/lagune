@@ -43,7 +43,7 @@ Son güncelleme: 2026-11-03
 **Bilgi**
 
 - **Lagune** arka planda **Node.js** üzerinde çalışır, ama siz istediğiniz dili kullanırsınız.
-- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.18.0` ile kurun.
+- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.18.1` ile kurun.
 
 ## Kategoriler
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## Sıkça sorulan sorular
@@ -412,7 +412,7 @@ $ yazın, ardından eklentinin adıyla birlikte komutu ve girdinizi yazın, örn
 
 ### Lagune, Codex korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.18.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.18.1 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
 
 ---
 
@@ -913,7 +913,7 @@ Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin ad
 **Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## Sıkça sorulan sorular
@@ -932,7 +932,7 @@ Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikt
 
 ### Lagune, Muse Code korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.18.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.18.1 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 **Lagune**'yi güncellemek için yeni sürümü eskisinin üzerine kurun, tüm projeleriniz için kurduysanız `-g` ekleyin:
 
 ```bash
-opencode plugin lagune@0.18.0 --force
+opencode plugin lagune@0.18.1 --force
 ```
 
 ## Komutlar
@@ -1014,7 +1014,7 @@ OpenCode 2.x sürümünde opencode plugin add lagune komutunu çalıştırın. O
 
 ### OpenCode kullanırken Lagune nasıl güncellenir?
 
-OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.18.0 --force komutunu çalıştırın.
+OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.18.1 --force komutunu çalıştırın.
 
 ### OpenCode kullanırken Lagune komutları nasıl çalıştırılır?
 
@@ -1230,7 +1230,7 @@ Ya da bu prompt'u ajanınıza yapıştırın:
 Ağ erişimi olmayan bir korumalı alanda komutlar motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## Sıkça sorulan sorular

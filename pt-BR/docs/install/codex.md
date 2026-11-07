@@ -33,7 +33,7 @@ Digite `$` e o comando com o nome do plugin na frente, seguido do seu pedido, co
 O sandbox do **Codex** não tem acesso à rede. Instale o engine no seu projeto pelo seu próprio terminal, uma vez e de novo após cada atualização:
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## Perguntas frequentes
@@ -52,4 +52,4 @@ Digite $ e o comando com o nome do plugin na frente, seguido do seu pedido, como
 
 ### O Lagune funciona dentro do sandbox do Codex?
 
-Sim, depois que você instala o engine no seu projeto com npm i -D lagune@0.18.0 pelo seu próprio terminal, uma vez e de novo após cada atualização.
+Sim, depois que você instala o engine no seu projeto com npm i -D lagune@0.18.1 pelo seu próprio terminal, uma vez e de novo após cada atualização.

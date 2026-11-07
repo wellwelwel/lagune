@@ -43,7 +43,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 **備考**
 
 - **Lagune** は内部で **Node.js** を使って動作しますが、開発に使う言語は自由です。
-- 完全にオフラインで実行するには、`npm i -D lagune@0.18.0` で **Lagune** をプロジェクトにインストールします。
+- 完全にオフラインで実行するには、`npm i -D lagune@0.18.1` で **Lagune** をプロジェクトにインストールします。
 
 ## カテゴリ
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** のサンドボックスはネットワークにアクセスできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## よくある質問
@@ -412,7 +412,7 @@ $lagune:lagune-charter のように、$ に続けてプラグイン名付きの�
 
 ### Codex のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.18.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.18.1 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 **Muse Code** のサンドボックスはエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## よくある質問
@@ -932,7 +932,7 @@ muse plugins marketplace update lagune を実行してから、muse plugins remo
 
 ### Muse Code のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.18.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.18.1 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 **Lagune** を更新するには、新しいリリースを上書きインストールします。すべてのプロジェクトにインストールした場合は `-g` を付けます：
 
 ```bash
-opencode plugin lagune@0.18.0 --force
+opencode plugin lagune@0.18.1 --force
 ```
 
 ## コマンド
@@ -1014,7 +1014,7 @@ OpenCode 2.x では、opencode plugin add lagune を実行します。OpenCode 1
 
 ### OpenCode で Lagune を更新するにはどうすればよいですか？
 
-OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.18.0 --force を実行します。
+OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.18.1 --force を実行します。
 
 ### OpenCode で Lagune のコマンドを実行するにはどうすればよいですか？
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 ネットワークにアクセスできないサンドボックスでは、コマンドがエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## よくある質問

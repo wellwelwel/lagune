@@ -35,7 +35,7 @@ Original: https://lagune.ai/docs
 **Información**
 
 - **Lagune** funciona con **Node.js** por debajo, pero tú usas el lenguaje que quieras.
-- Para ejecutarlo totalmente sin conexión, instala **Lagune** en tu proyecto con `npm i -D lagune@0.18.0`.
+- Para ejecutarlo totalmente sin conexión, instala **Lagune** en tu proyecto con `npm i -D lagune@0.18.1`.
 
 ## Categorías
 

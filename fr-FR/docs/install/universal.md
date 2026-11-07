@@ -72,7 +72,7 @@ Exécute `gh skill update --all` et lis toute la sortie, en la redirigeant d'abo
 Dans un sandbox sans accès réseau, les commandes ne peuvent pas télécharger le moteur. Installez-le dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## Questions fréquentes

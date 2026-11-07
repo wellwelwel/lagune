@@ -70,7 +70,7 @@ Run `gh skill update --all` and read its complete output, redirecting it to a te
 In a sandbox without network access, the commands cannot download the engine. Install it in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## Frequently Asked Questions

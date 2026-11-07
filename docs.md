@@ -33,7 +33,7 @@ Love **Lagune**? [Give us a ⭐ on **GitHub**](https://github.com/wellwelwel/lag
 **Info**
 
 - **Lagune** runs on **Node.js** under the hood, but you use whatever language you want.
-- To run completely offline, install **Lagune** in your project with `npm i -D lagune@0.18.0`.
+- To run completely offline, install **Lagune** in your project with `npm i -D lagune@0.18.1`.
 
 ## Categories
 

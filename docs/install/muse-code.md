@@ -33,7 +33,7 @@ Type the commands by name, such as `/lagune-charter`, or under the plugin's name
 **Muse Code**'s sandbox cannot download the engine. Install it in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.18.0
+npm i -D lagune@0.18.1
 ```
 
 ## Frequently Asked Questions
@@ -52,4 +52,4 @@ Type them by name, such as /lagune-charter, or under the plugin's name, such as 
 
 ### Does Lagune work inside Muse Code's sandbox?
 
-Yes, once you install the engine in your project with npm i -D lagune@0.18.0 from your own terminal, once and after each update.
+Yes, once you install the engine in your project with npm i -D lagune@0.18.1 from your own terminal, once and after each update.
