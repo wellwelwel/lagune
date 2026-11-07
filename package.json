@@ -1,6 +1,6 @@
 {
   "name": "lagune",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "🪼 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
   "license": "Apache-2.0",
   "type": "module",
@@ -49,6 +49,7 @@
     "dashboard:build": "bash scripts/dashboard/build.sh",
     "dashboard:dev": "bash scripts/dashboard/dev.sh",
     "update": "bash scripts/update.sh",
+    "update:skills": "skills add wellwelwel/skills --agent claude-code --copy -y --skill blind-review cdp engineering ingest refine testing ui writer",
     "website:dev": "bash scripts/website/dev.sh",
     "website:build": "bun run --cwd website build",
     "readme:build": "tsx tools/readme/build.ts",
@@ -77,12 +78,13 @@
     "remark-directive": "^4.0.0",
     "remark-mdx": "^3.1.1",
     "remark-parse": "^11.0.0",
+    "skills": "^1.7.6",
     "tailwindcss": "^4.3.4",
     "tiktoken": "^1.0.22",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "unified": "^11.0.5",
-    "vite": "^8.3.5",
+    "vite": "^8.3.6",
     "yaml.min": "^1.0.0"
   },
   "keywords": [
