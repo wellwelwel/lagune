@@ -9,6 +9,7 @@ import type {
   Session,
   Target,
   TypingSpan,
+  VisibilityWindow,
 } from './types';
 import {
   CHIP,
@@ -33,12 +34,11 @@ import {
   promptLine,
 } from './markup';
 import { sansWidth } from './metrics';
-import { fragment, join } from './motion';
+import { fragment, join, spanOf, STEP } from './motion';
 import { isPasted } from './timeline';
 
 const PANEL_PADDING = FIELD_LINE_TOP - FIELD.y;
 const COVER_REGION = `x="0" y="0" width="${WIDTH}" height="${HEIGHT}"`;
-const STEP = 'steps(1,end)';
 const STAR_SIZE = 15;
 const CHIP_ROLL = 0.22;
 const SEND_STAR_SIZE = 15;
@@ -46,8 +46,8 @@ const SEND_STAR_SIZE = 15;
 const fieldShape = (top: number, height: number) =>
   `<rect x="${FIELD.x + 0.5}" y="${top + 0.5}" width="${FIELD.width - 1}" height="${height - 1}" rx="${FIELD.radius - 0.5}" class="field field-border"/>`;
 
-const caret = (x: number, top: number) =>
-  `<rect x="${x - 0.5}" y="${top}" width="1.6" height="19" rx=".8" class="caret blink"/>`;
+const caret = (x: number, top: number, blink: Fragment) =>
+  `<rect x="${x - 0.5}" y="${top}" width="1.6" height="19" rx=".8" ${blink.markup}/>`;
 
 const translateX = (pixels: number) =>
   `transform:translateX(${Number(pixels.toFixed(1))}px)`;
@@ -77,31 +77,33 @@ const typingAnimation = (
   };
 };
 
-const typingCover = (className: string, width: number) =>
+const typingCover = (className: string, width: number, blink: Fragment) =>
   `<g class="${className}">
         <rect x="${FIELD_TEXT_X}" y="${FIELD_LINE_TOP - 3}" width="${width + 40}" height="25" class="field"/>
-        ${caret(FIELD_TEXT_X - 1, FIELD_LINE_TOP)}
+        ${caret(FIELD_TEXT_X - 1, FIELD_LINE_TOP, blink)}
       </g>`;
 
 const fieldCaret =
-  ({ timeline, motion }: FlowContext) =>
+  ({ timeline, motion, loops }: FlowContext) =>
   (session: Session, index: number): Fragment => {
     const timing = timeline.sessions[index];
     const previous = timeline.sessions[index - 1];
     const isLast = index === timeline.sessions.length - 1;
     const name = `cover-${index + 1}`;
-    const visible = motion.visibleBetween(name, [
+    const windows: VisibilityWindow[] = [
       {
         from: previous?.send ?? 0,
         to: isLast ? timeline.outro.type : timing.send,
       },
       ...(previous ? [] : [{ from: motion.reset, to: motion.cycle }]),
-    ]);
+    ];
+    const visible = motion.visibleBetween(name, windows);
+    const blink = loops.caret(`${name}-caret`, windows.map(spanOf));
 
     if (isPasted(session.prompt))
       return fragment(
-        `<g class="${visible.name}">${caret(FIELD_TEXT_X - 1, FIELD_LINE_TOP)}</g>`,
-        [visible]
+        `<g class="${visible.name}">${caret(FIELD_TEXT_X - 1, FIELD_LINE_TOP, blink)}</g>`,
+        [visible, ...blink.animations]
       );
 
     const offsets = characterOffsets(session.prompt.join(''));
@@ -114,9 +116,9 @@ const fieldCaret =
 
     return fragment(
       `<g class="${visible.name}">
-      ${typingCover(typing.name, offsets.at(-1) ?? 0)}
+      ${typingCover(typing.name, offsets.at(-1) ?? 0, blink)}
     </g>`,
-      [visible, typing]
+      [visible, typing, ...blink.animations]
     );
   };
 
@@ -142,7 +144,7 @@ const typedPrompt = (
 };
 
 const pastedPrompt = (
-  { timeline, motion }: FlowContext,
+  { timeline, motion, loops }: FlowContext,
   session: Session,
   index: number
 ): Fragment => {
@@ -151,9 +153,13 @@ const pastedPrompt = (
   const height = promptHeight(session.prompt) + PANEL_PADDING + TOOLBAR_HEIGHT;
   const top = FIELD.y + FIELD.height - height;
   const tops = lineTops(session.prompt, top + PANEL_PADDING);
-  const visible = motion.visibleBetween(prefix, [
-    { from: timing.type, to: timing.send + 0.05, fadeIn: 0.15, fadeOut: 0.15 },
-  ]);
+  const pasteWindow: VisibilityWindow = {
+    from: timing.type,
+    to: timing.send + 0.05,
+    fadeIn: 0.15,
+    fadeOut: 0.15,
+  };
+  const visible = motion.visibleBetween(prefix, [pasteWindow]);
   const lines = join(
     session.prompt.flatMap((line, lineIndex) => {
       if (!line) return [];
@@ -163,8 +169,13 @@ const pastedPrompt = (
         timing.lines[lineIndex]
       );
       const isLastLine = lineIndex === session.prompt.length - 1;
+      const blink = isLastLine
+        ? loops.caret(`${prefix}-caret`, [
+            { from: timing.lines[lineIndex], to: spanOf(pasteWindow).to },
+          ])
+        : fragment('');
       const endCaret = isLastLine
-        ? caret(FIELD_TEXT_X + lineWidth(line) + 2, tops[lineIndex])
+        ? caret(FIELD_TEXT_X + lineWidth(line) + 2, tops[lineIndex], blink)
         : '';
 
       return [
@@ -172,7 +183,7 @@ const pastedPrompt = (
           `<g class="${entrance.name}">
         ${promptLine(line, FIELD_TEXT_X, tops[lineIndex])}${endCaret}
       </g>`,
-          [entrance]
+          [entrance, ...blink.animations]
         ),
       ];
     }),
@@ -206,12 +217,21 @@ const callToActionLayout = (outro: Outro) => {
   };
 };
 
-const callToAction = ({ outro, timeline, motion }: FlowContext): Fragment => {
+const callToAction = ({
+  outro,
+  timeline,
+  motion,
+  loops,
+}: FlowContext): Fragment => {
   const { type, typed } = timeline.outro;
   const layout = callToActionLayout(outro);
-  const visible = motion.visibleBetween('outro', [
-    { from: type, to: motion.fade, fadeOut: 0.4 },
-  ]);
+  const outroWindow: VisibilityWindow = {
+    from: type,
+    to: motion.fade,
+    fadeOut: 0.4,
+  };
+  const visible = motion.visibleBetween('outro', [outroWindow]);
+  const blink = loops.caret('outro-caret', [spanOf(outroWindow)]);
   const typing = typingAnimation(
     'outro-typing',
     layout.offsets,
@@ -224,9 +244,9 @@ const callToAction = ({ outro, timeline, motion }: FlowContext): Fragment => {
       ${promptLine(layout.lead, FIELD_TEXT_X, FIELD_LINE_TOP)}
       ${icon('star', FIELD_TEXT_X + layout.starX, FIELD_LINE_TOP + (LINE_HEIGHT - STAR_SIZE) / 2, STAR_SIZE, 'star')}
       ${promptLine(outro.trail, FIELD_TEXT_X + layout.trailX, FIELD_LINE_TOP)}
-      ${typingCover(typing.name, layout.offsets.at(-1) ?? 0)}
+      ${typingCover(typing.name, layout.offsets.at(-1) ?? 0, blink)}
     </g>`,
-    [visible, typing]
+    [visible, typing, ...blink.animations]
   );
 };
 

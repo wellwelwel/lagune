@@ -597,6 +597,10 @@ html.lagune-canvas-html body.lagune-canvas-body {
   animation: lagune-caret 0.7s infinite;
 }
 
+.lagune-offscreen .lagune-typed > span {
+  animation-play-state: paused;
+}
+
 @keyframes lagune-caret {
   50% {
     --lagune-caret-alpha: 0;

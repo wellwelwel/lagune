@@ -10,8 +10,9 @@ import {
   VIEWPORT,
   WIDTH,
 } from './layout';
+import { createLoops } from './loops';
 import { escapeXml } from './markup';
-import { animationRules, createMotion, join } from './motion';
+import { createMotion, fragment, join, TIMELINE_RENDERERS } from './motion';
 import { OUTRO, SESSIONS } from './sessions';
 import { stylesheet } from './style';
 import { symbolDefinitions } from './symbols';
@@ -39,20 +40,28 @@ const describe = ({ sessions, outro }: FlowContext) =>
 
 export const renderFlow = (target: Target) => {
   const timeline = createTimeline(SESSIONS, OUTRO);
+  const motion = createMotion(timeline);
+  const renderer = TIMELINE_RENDERERS[target];
   const context: FlowContext = {
     target,
     sessions: SESSIONS,
     outro: OUTRO,
     timeline,
-    motion: createMotion(timeline),
+    motion,
+    loops: createLoops(target, motion),
   };
   const body = join(
-    [windowChrome(context), conversation(context), composer(context)],
+    [
+      windowChrome(context),
+      conversation(context),
+      composer(context),
+      ...renderer.markers.map((marker) => fragment(marker)),
+    ],
     '\n  '
   );
   const styles = stylesheet(
     target,
-    animationRules(body.animations, timeline.cycle)
+    renderer.rules(body.animations, timeline.cycle)
   );
   const viewportHeight = VIEWPORT.bottom - VIEWPORT.top;
   const fieldClipWidth = CONTENT_RIGHT - 16 - (FIELD_TEXT_X - 4);

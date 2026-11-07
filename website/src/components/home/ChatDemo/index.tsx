@@ -11,6 +11,9 @@ import { TbPlayerPauseFilled, TbPlayerPlayFilled } from 'react-icons/tb';
 
 const SEEK_STEP = 0.05;
 
+/* flow.svg ends this animation once per cycle, see tools/readme/motion.ts. */
+const CYCLE_CLOCK = 'cycle-clock';
+
 /* flow.svg draws its card 8 of its 820 units in from each side. */
 const CARD_INSET = 'mx-[calc(100%*8/820)]';
 
@@ -21,15 +24,13 @@ const CLOCK = 'w-10 shrink-0 text-[13px] font-medium text-ink/80 tabular-nums';
 
 const secondsOf = (time: Animation['currentTime']) => Number(time ?? 0) / 1000;
 
-const durationOf = (animation: Animation) =>
-  Number(animation.effect?.getComputedTiming().duration ?? 0);
+const endOf = (animation: Animation) =>
+  Number(animation.effect?.getComputedTiming().endTime ?? 0);
 
 const cycleAnimation = (animations: Animation[]) =>
   animations.reduce<Animation | null>(
     (longest, animation) =>
-      longest && durationOf(longest) >= durationOf(animation)
-        ? longest
-        : animation,
+      longest && endOf(longest) >= endOf(animation) ? longest : animation,
     null
   );
 
@@ -60,23 +61,32 @@ const clockOf = (seconds: number): string => {
   return `${minutes}:${String(whole % 60).padStart(2, '0')}`;
 };
 
+const restartAtCycleEnd = (flow: Document) => (event: AnimationEvent) => {
+  if (event.animationName === CYCLE_CLOCK) seekFlow(flow, 0);
+};
+
 const showPosition = (
   range: HTMLInputElement | null,
   clock: HTMLElement | null,
   seconds: number
 ) => {
   const text = clockOf(seconds);
+  const position = Number(
+    (Math.round(seconds / SEEK_STEP) * SEEK_STEP).toFixed(2)
+  );
 
   if (range) {
     const max = Number(range.max);
+    const share = String(max > 0 ? position / max : 0);
 
-    range.value = String(seconds);
-    range.style.setProperty(
-      '--lagune-share',
-      String(max > 0 ? seconds / max : 0)
-    );
-    range.setAttribute('aria-valuetext', text);
+    if (range.style.getPropertyValue('--lagune-share') !== share) {
+      range.value = String(position);
+      range.style.setProperty('--lagune-share', share);
+    }
   }
+
+  if (range && range.getAttribute('aria-valuetext') !== text)
+    range.setAttribute('aria-valuetext', text);
 
   if (clock && clock.textContent !== text) clock.textContent = text;
 };
@@ -118,7 +128,7 @@ export const ChatDemo = (): ReactNode => {
 
     if (!running || !reference) return;
 
-    let frame = 0;
+    let timer = 0;
 
     const follow = () => {
       showPosition(
@@ -126,12 +136,15 @@ export const ChatDemo = (): ReactNode => {
         clockRef.current,
         secondsOf(reference.currentTime) % cycle
       );
-      frame = requestAnimationFrame(follow);
+      timer = window.setTimeout(
+        follow,
+        (SEEK_STEP * 1000) / reference.playbackRate
+      );
     };
 
-    frame = requestAnimationFrame(follow);
+    follow();
 
-    return () => cancelAnimationFrame(frame);
+    return () => window.clearTimeout(timer);
   }, [running, cycle]);
 
   const applySpeed = (value: number) => {
@@ -160,10 +173,11 @@ export const ChatDemo = (): ReactNode => {
     if (!flow || !reference) return;
 
     cycleRef.current = reference;
+    flow.addEventListener('animationend', restartAtCycleEnd(flow));
     pauseFlow(flow, !running);
     rateFlow(flow, speed);
     showPosition(rangeRef.current, clockRef.current, 0);
-    setCycle(durationOf(reference) / 1000);
+    setCycle(endOf(reference) / 1000);
   };
 
   return (

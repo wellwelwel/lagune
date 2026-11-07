@@ -2,9 +2,17 @@ import type { createMotion } from './motion';
 
 export type Target = 'readme' | 'website';
 
+export type EndlessLoops = {
+  spinner: string;
+  ellipsis: string;
+  blink: string;
+  keyframes: string[];
+};
+
 export type TargetStyle = {
   theme: string[];
   overrides: string[];
+  loops: EndlessLoops | null;
 };
 
 export type FieldLayers = {
@@ -150,11 +158,48 @@ export type MotionStates = {
   shown: string;
 };
 
-export type VisibilityWindow = {
+export type Span = {
   from: number;
   to: number;
+};
+
+export type VisibilityWindow = Span & {
   fadeIn?: number;
   fadeOut?: number;
+};
+
+export type Change = Span & {
+  first: number;
+  last: number;
+};
+
+export type Segment = Span & {
+  keyframes: string;
+  fill: string;
+};
+
+export type TimelineRenderer = {
+  rules: (animations: Animation[], cycle: number) => string[];
+  markers: string[];
+};
+
+export type PendingLoops = {
+  spin: Fragment;
+  text: Fragment;
+  dots: Fragment[];
+  animations: Animation[];
+};
+
+export type Loops = {
+  spinner: (name: string, span: Span) => Fragment;
+  ellipsis: (name: string, span: Span, index: number) => Fragment;
+  caret: (name: string, spans: Span[]) => Fragment;
+  shimmer: (
+    name: string,
+    span: Span,
+    textClass: string,
+    gradient: string
+  ) => Fragment;
 };
 
 export type Press = {
@@ -172,13 +217,16 @@ export type FlowContext = {
   outro: Outro;
   timeline: Timeline;
   motion: Motion;
+  loops: Loops;
 };
 
 export type ClosingPlacement = {
   prefix: string;
   top: number;
   at: number;
+  until: number;
   motion: Motion;
+  loops: Loops;
 };
 
 export type TabEntry = {
@@ -199,6 +247,7 @@ export type RowPlacement = {
   top: number;
   runs: RunTiming[];
   motion: Motion;
+  loops: Loops;
 };
 
 export type ChipSegment = {
@@ -221,6 +270,11 @@ export type Reveal = {
 export type Autoscroll = {
   animation: Animation;
   rest: string;
+  from: number;
+};
+
+export type SessionView = Fragment & {
+  band: Span;
 };
 
 export type AnswerLayout = {

@@ -1,4 +1,5 @@
-import type { Target, TargetStyle } from './types';
+import type { EndlessLoops, Target, TargetStyle } from './types';
+import { ENDLESS_LOOPS } from './loops';
 
 const DARK = `
   --card: #151a26; --watermark: #121721; --surface: #1d2432; --line: #222a38; --line-2: #2d3648;
@@ -41,14 +42,19 @@ const TARGET_STYLES: Record<Target, TargetStyle> = {
       `@media (prefers-color-scheme: light) {\n  svg {${LIGHT}\n  }\n}`,
     ],
     overrides: [],
+    loops: ENDLESS_LOOPS,
   },
   website: {
     theme: [`svg {${DARK}\n}`, `svg {${CANVAS}\n}`, DARK_ONLY],
     overrides: [UNFILTERED_CARD, PAUSABLE, UNPAINTED_FIELD, COVER_MASKS],
+    loops: null,
   },
 };
 
-const BASE = `
+const ruleLines = (rules: string[]) =>
+  rules.map((rule) => `\n${rule}`).join('');
+
+const base = (loops: EndlessLoops | null) => `
 text { white-space: pre; }
 .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
 .card { fill: var(--card); }
@@ -87,28 +93,23 @@ text { white-space: pre; }
 .send-active { fill: var(--accent-strong); }
 .send-icon-active { fill: var(--on-accent); stroke: var(--on-accent); stroke-width: 1.5; stroke-linejoin: round; }
 .spinner-track { fill: none; stroke: var(--track); stroke-width: 2.4; }
-.spinner { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 16 34.3; transform-box: fill-box; transform-origin: center; animation: spin .9s linear infinite; }
+.spinner { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 16 34.3; transform-box: fill-box; transform-origin: center;${loops?.spinner ?? ''} }
 .shimmer-base { stop-color: var(--muted); }
 .shimmer-strong-base { stop-color: var(--ink-2); }
-.shimmer-peak { stop-color: var(--ink); }
-.ellipsis { animation: ellipsis 1.2s ease-in-out infinite; }
+.shimmer-peak { stop-color: var(--ink); }${ruleLines(loops ? [loops.ellipsis] : [])}
 .shimmer { fill: url(#shimmer); }
 .shimmer-strong { fill: url(#shimmer-strong); }
 .tab-label { fill: var(--ink); font-size: 12.5px; font-weight: 500; }
-.pop { transform-box: fill-box; transform-origin: center; }
-.blink { animation: blink 1.06s steps(1) infinite; }
+.pop { transform-box: fill-box; transform-origin: center; }${ruleLines(loops ? [loops.blink] : [])}
 .typed, .pasted, .thinking, .send-on, .past, .idle { opacity: 0; }
-.dim { opacity: .5; }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes blink { 50% { opacity: 0; } }
-@keyframes ellipsis { 0%, 100% { fill-opacity: .15; } 40% { fill-opacity: 1; } }`;
+.dim { opacity: .5; }${ruleLines(loops?.keyframes ?? [])}`;
 
 export const stylesheet = (target: Target, animationRules: string[]) => {
-  const { theme, overrides } = TARGET_STYLES[target];
+  const { theme, overrides, loops } = TARGET_STYLES[target];
 
   return [
     ...theme,
-    BASE,
+    base(loops),
     ...overrides,
     ...animationRules,
     '@media (prefers-reduced-motion: reduce) {\n  * { animation: none !important; }\n}',

@@ -1,17 +1,26 @@
 import type {
   Animation,
+  Change,
   Fragment,
   MotionStates,
   Press,
+  Segment,
+  Span,
   Stop,
+  Target,
   Timeline,
+  TimelineRenderer,
   VisibilityWindow,
 } from './types';
 
 const ENTER_DURATION = 0.35;
-const INSTANT = 0.01;
+export const INSTANT = 0.01;
+export const LEAVE_DURATION = 0.4;
+export const STEP = 'steps(1,end)';
 const EASE_OUT = 'cubic-bezier(.2,0,0,1)';
 const RELEASED = 'transform:scale(1)';
+const BURST_GAP = 0.1;
+const CYCLE_CLOCK = 'cycle-clock';
 
 const SLIDE_UP: MotionStates = {
   hidden: 'opacity:0;transform:translateY(6px)',
@@ -48,6 +57,12 @@ export const join = (fragments: Fragment[], separator: string): Fragment => ({
   markup: fragments.map((part) => part.markup).join(separator),
   animations: fragments.flatMap((part) => part.animations),
 });
+
+export const spanOf = ({
+  from,
+  to,
+  fadeOut = INSTANT,
+}: VisibilityWindow): Span => ({ from, to: to + fadeOut });
 
 export const createMotion = ({ cycle, fade, reset }: Timeline) => {
   const enterUntil = (
@@ -111,12 +126,43 @@ export const createMotion = ({ cycle, fade, reset }: Timeline) => {
     windows: VisibilityWindow[]
   ): Animation => opacityBetween(name, windows, 0);
 
+  const switchBetween = (
+    name: string,
+    spans: Span[],
+    inside: string,
+    outside: string
+  ): Animation => {
+    const style = (open: boolean) => (open ? inside : outside);
+
+    return {
+      name,
+      stops: [
+        { at: 0, style: style(spans[0]?.from === 0) },
+        ...spans.flatMap(({ from, to }): Stop[] => [
+          ...(from > 0
+            ? [
+                { at: from - INSTANT, style: outside, easing: STEP },
+                { at: from, style: inside },
+              ]
+            : []),
+          ...(to < cycle
+            ? [
+                { at: to, style: inside, easing: STEP },
+                { at: to + INSTANT, style: outside },
+              ]
+            : []),
+        ]),
+        { at: cycle, style: style((spans.at(-1)?.to ?? 0) >= cycle) },
+      ],
+    };
+  };
+
   const leaveAt = (name: string, at: number): Animation => ({
     name,
     stops: [
       { at: 0, style: LEAVE_UP.shown },
       { at, style: LEAVE_UP.shown },
-      { at: at + 0.4, style: LEAVE_UP.hidden },
+      { at: at + LEAVE_DURATION, style: LEAVE_UP.hidden },
       { at: reset + 0.1, style: LEAVE_UP.hidden },
       { at: reset + 0.11, style: LEAVE_UP.shown },
       { at: cycle, style: LEAVE_UP.shown },
@@ -175,6 +221,7 @@ export const createMotion = ({ cycle, fade, reset }: Timeline) => {
     enterUntilFade,
     opacityBetween,
     visibleBetween,
+    switchBetween,
     leaveAt,
     pressAt,
   };
@@ -193,4 +240,116 @@ export const animationRules = (
     `@keyframes ${name}{${stops.map(frame).join('')}}`,
     `.${name}{animation:${name} ${cycle}s ${EASE_OUT} infinite}`,
   ]);
+};
+
+const timeOf = (seconds: number) => `${Number(seconds.toFixed(4))}s`;
+
+const changesOf = (stops: Stop[]): Change[] =>
+  stops.slice(1).flatMap((stop, index) => {
+    const previous = stops[index];
+
+    if (stop.style === previous.style) return [];
+
+    const jumps = previous.easing === STEP || stop.at === previous.at;
+
+    return [
+      {
+        from: jumps ? stop.at : previous.at,
+        to: stop.at,
+        first: jumps ? index + 1 : index,
+        last: index + 1,
+      },
+    ];
+  });
+
+const burstsOf = (changes: Change[]): Change[] =>
+  changes.reduce<Change[]>((bursts, change) => {
+    const current = bursts.at(-1);
+
+    if (!current || change.from - current.to > BURST_GAP)
+      return [...bursts, change];
+
+    return [
+      ...bursts.slice(0, -1),
+      { ...current, to: change.to, last: change.last },
+    ];
+  }, []);
+
+const stillFrames = (style: string) => `0%{${style}}100%{${style}}`;
+
+const burstFrames = (stops: Stop[], { from, to, first, last }: Change) => {
+  if (to === from) return stillFrames(stops[last].style);
+
+  return stops
+    .slice(first, last + 1)
+    .map(({ at, style, easing }, index) => {
+      const offset = Number((((at - from) / (to - from)) * 100).toFixed(3));
+      const timing =
+        easing && first + index < last
+          ? `;animation-timing-function:${easing}`
+          : '';
+
+      return `${offset}%{${style}${timing}}`;
+    })
+    .join('');
+};
+
+const segmentsOf = (stops: Stop[]): Segment[] => {
+  const bursts = burstsOf(changesOf(stops));
+  const opening = bursts[0];
+  const opensSettled =
+    opening !== undefined && stops[opening.first].style === stops[0].style;
+  const hold = opensSettled
+    ? []
+    : [{ from: 0, to: 0, keyframes: stillFrames(stops[0].style) }];
+
+  return [
+    ...hold,
+    ...bursts.map((burst) => ({
+      from: burst.from,
+      to: burst.to,
+      keyframes: burstFrames(stops, burst),
+    })),
+  ].map((segment, index) => ({
+    ...segment,
+    fill: index === 0 ? 'both' : 'forwards',
+  }));
+};
+
+const keyframesNameOf = (names: Map<string, string>, keyframes: string) => {
+  const name = names.get(keyframes);
+
+  if (name === undefined)
+    throw new Error(`[readme] no keyframes name was assigned to ${keyframes}`);
+
+  return name;
+};
+
+const burstRules = (animations: Animation[], cycle: number): string[] => {
+  const segments = animations.map(({ stops }) => segmentsOf(stops));
+  const keyframes = [
+    ...new Set(segments.flat().map((segment) => segment.keyframes)),
+  ];
+  const names = new Map(
+    keyframes.map((frames, index) => [frames, `burst-${index + 1}`])
+  );
+  const entry = ({ from, to, keyframes: frames, fill }: Segment) =>
+    `${keyframesNameOf(names, frames)} ${timeOf(to - from)} ${to > from ? EASE_OUT : 'linear'} ${timeOf(from)} 1 ${fill}`;
+
+  return [
+    ...keyframes.map(
+      (frames) => `@keyframes ${keyframesNameOf(names, frames)}{${frames}}`
+    ),
+    ...animations.map(
+      ({ name }, index) =>
+        `.${name}{animation:${segments[index].map(entry).join(',')}}`
+    ),
+    `@keyframes ${CYCLE_CLOCK}{to{opacity:1}}`,
+    `.${CYCLE_CLOCK}{animation:${CYCLE_CLOCK} 0s linear ${timeOf(cycle)} 1 forwards}`,
+  ];
+};
+
+export const TIMELINE_RENDERERS: Record<Target, TimelineRenderer> = {
+  readme: { rules: animationRules, markers: [] },
+  website: { rules: burstRules, markers: [`<g class="${CYCLE_CLOCK}"/>`] },
 };

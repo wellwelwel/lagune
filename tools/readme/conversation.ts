@@ -6,14 +6,20 @@ import type {
   FlowContext,
   Fragment,
   IconName,
+  Loops,
   Motion,
+  PendingLoops,
   Reveal,
   Row,
   RowPlacement,
   Session,
+  SessionView,
+  Span,
   StepRow,
   StepRun,
+  Target,
   Tone,
+  VisibilityWindow,
 } from './types';
 import {
   BADGE_LABEL_OFFSET,
@@ -40,7 +46,7 @@ import {
   roundedRectangle,
 } from './markup';
 import { sansWidth } from './metrics';
-import { fragment, join, POP } from './motion';
+import { fragment, join, LEAVE_DURATION, POP, spanOf } from './motion';
 
 const ANSWER_CLEARANCE = 24;
 const CLOSING_GAP = 6;
@@ -55,6 +61,7 @@ const WATERMARK_SIZE = 160;
 const WATERMARK_FADE_IN = 0.6;
 const WATERMARK_FADE_OUT = 2.4;
 const WATERMARK_DIMMED = 0.5;
+const FADE_MASK = 'url(#viewport-fade)';
 
 const CLOSING_MESSAGES: Record<Exclude<Closing, 'building'>, string> = {
   principles: 'All set! 8 security principles were created.',
@@ -83,37 +90,52 @@ const timelineLink = (previousTop: number, top: number) =>
 const rowText = (top: number, text: string, className: string, x = LABEL_X) =>
   `<text x="${x}" y="${top + 17}" class="${className}">${escapeXml(text)}</text>`;
 
-const spinner = (centerX: number, centerY: number) =>
+const pendingLoops = (
+  loops: Loops,
+  name: string,
+  span: Span,
+  textClass: string,
+  gradient: string
+): PendingLoops => {
+  const spin = loops.spinner(`${name}-spin`, span);
+  const text = loops.shimmer(`${name}-label`, span, textClass, gradient);
+  const dots = [0, 1, 2].map((index) =>
+    loops.ellipsis(`${name}-dot-${index + 1}`, span, index)
+  );
+
+  return {
+    spin,
+    text,
+    dots,
+    animations: [spin, text, ...dots].flatMap((loop) => loop.animations),
+  };
+};
+
+const spinner = (centerX: number, centerY: number, { spin }: PendingLoops) =>
   `<circle cx="${centerX}" cy="${centerY}" r="8" class="spinner-track"/>
-      <circle cx="${centerX}" cy="${centerY}" r="8" class="spinner"/>`;
+      <circle cx="${centerX}" cy="${centerY}" r="8" ${spin.markup}/>`;
 
 const loadingText = (
   baseline: number,
   label: string,
-  className: string,
-  x: number
-) => {
-  const dots = [0, 1, 2]
-    .map(
-      (index) =>
-        `<tspan class="ellipsis" style="animation-delay:${(index * 0.2 - 1.2).toFixed(2)}s">.</tspan>`
-    )
-    .join('');
-
-  return `<text x="${x}" y="${baseline}" class="${className}">${escapeXml(label)}${dots}</text>`;
-};
+  x: number,
+  { text, dots }: PendingLoops
+) =>
+  `<text x="${x}" y="${baseline}" ${text.markup}>${escapeXml(label)}${dots
+    .map((dot) => `<tspan ${dot.markup}>.</tspan>`)
+    .join('')}</text>`;
 
 const runView = (
   run: StepRun,
   runIndex: number,
-  { prefix, top, runs, motion }: RowPlacement
+  { prefix, top, runs, motion, loops }: RowPlacement
 ): Fragment => {
   const { start, finish } = runs[runIndex];
   const until = runs[runIndex + 1]?.start ?? motion.reset;
   const isLast = runIndex === runs.length - 1;
   const name = `${prefix}-run-${runIndex + 1}`;
   const shown = finish + STATE_FADE;
-  const loading = motion.visibleBetween(`${name}-loading`, [
+  const loadingWindow: VisibilityWindow =
     runIndex > 0
       ? {
           from: start + STATE_FADE,
@@ -121,8 +143,15 @@ const runView = (
           fadeIn: STATE_FADE,
           fadeOut: STATE_FADE,
         }
-      : { from: start, to: finish, fadeOut: STATE_FADE },
-  ]);
+      : { from: start, to: finish, fadeOut: STATE_FADE };
+  const loading = motion.visibleBetween(`${name}-loading`, [loadingWindow]);
+  const pending = pendingLoops(
+    loops,
+    loading.name,
+    spanOf(loadingWindow),
+    'sans note',
+    'shimmer'
+  );
   const result = motion.visibleBetween(`${name}-result`, [
     { from: shown, to: until, fadeIn: STATE_FADE, fadeOut: STATE_FADE },
   ]);
@@ -130,14 +159,14 @@ const runView = (
 
   return fragment(
     `<g class="idle ${loading.name}">
-        ${spinner(ICON_X + 12, top + 12)}
-        ${loadingText(top + 17, 'Running', 'sans note shimmer', NOTE_X)}
+        ${spinner(ICON_X + 12, top + 12, pending)}
+        ${loadingText(top + 17, 'Running', NOTE_X, pending)}
       </g>
       <g class="${isLast ? '' : 'idle '}${result.name}">
         <g class="pop ${pop.name}">${rowIcon('bot', top, run.tone)}</g>
         ${rowText(top, run.note, 'sans note', NOTE_X)}
       </g>`,
-    [loading, result, pop]
+    [loading, ...pending.animations, result, pop]
   );
 };
 
@@ -171,11 +200,23 @@ const rowView = (row: Row, placement: RowPlacement): Fragment => {
 
 const closingView = (
   closing: Closing,
-  { prefix, top, at, motion }: ClosingPlacement
+  { prefix, top, at, until, motion, loops }: ClosingPlacement
 ): Fragment => {
-  if (closing === 'building')
-    return fragment(`${spinner(CONTENT_LEFT + 12, top + 12)}
-      ${loadingText(top + 17, 'Building', 'sans heading strong shimmer-strong', CLOSING_LABEL_X)}`);
+  if (closing === 'building') {
+    const pending = pendingLoops(
+      loops,
+      `${prefix}-building`,
+      { from: at, to: until },
+      'sans heading strong',
+      'shimmer-strong'
+    );
+
+    return fragment(
+      `${spinner(CONTENT_LEFT + 12, top + 12, pending)}
+      ${loadingText(top + 17, 'Building', CLOSING_LABEL_X, pending)}`,
+      pending.animations
+    );
+  }
 
   const pop = motion.enter(`${prefix}-badge`, at + 0.05, POP);
 
@@ -200,10 +241,10 @@ const userBubble = (session: Session, height: number, className: string) => {
     </g>`;
 };
 
-const thinking = (top: number, className: string) =>
+const thinking = (top: number, className: string, pending: PendingLoops) =>
   `<g class="thinking ${className}">
-      ${spinner(CONTENT_LEFT + 8, top + 14)}
-      ${loadingText(top + 19, 'Thinking', 'sans status shimmer', CONTENT_LEFT + 24)}
+      ${spinner(CONTENT_LEFT + 8, top + 14, pending)}
+      ${loadingText(top + 19, 'Thinking', CONTENT_LEFT + 24, pending)}
     </g>`;
 
 const headingView = (session: Session, top: number) => {
@@ -233,6 +274,7 @@ const autoscroll = (
 
   return {
     rest: translateY(final),
+    from: targets[0].at,
     animation: {
       name,
       stops: [
@@ -250,25 +292,30 @@ const autoscroll = (
 };
 
 const sessionView =
-  ({ timeline, motion }: FlowContext) =>
-  (session: Session, index: number): Fragment => {
+  ({ timeline, motion, loops }: FlowContext) =>
+  (session: Session, index: number): SessionView => {
     const timing = timeline.sessions[index];
     const next = timeline.sessions[index + 1];
     const prefix = `session-${index + 1}`;
     const layout = answerLayout(session);
-    const container = motion.leaveAt(
-      prefix,
-      next?.opens ?? timeline.outro.opens
-    );
+    const leaves = next?.opens ?? timeline.outro.opens;
+    const hidden = leaves + LEAVE_DURATION;
+    const container = motion.leaveAt(prefix, leaves);
     const bubble = motion.enter(`${prefix}-bubble`, timing.send + 0.05);
-    const pending = motion.visibleBetween(`${prefix}-think`, [
-      {
-        from: timing.think,
-        to: timing.answer - 0.1,
-        fadeIn: 0.2,
-        fadeOut: 0.15,
-      },
-    ]);
+    const thinkingWindow: VisibilityWindow = {
+      from: timing.think,
+      to: timing.answer - 0.1,
+      fadeIn: 0.2,
+      fadeOut: 0.15,
+    };
+    const pending = motion.visibleBetween(`${prefix}-think`, [thinkingWindow]);
+    const thinkingLoops = pendingLoops(
+      loops,
+      pending.name,
+      spanOf(thinkingWindow),
+      'sans status',
+      'shimmer'
+    );
     const heading = motion.enter(`${prefix}-heading`, timing.answer);
     const rows = join(
       session.rows.map((row, rowIndex) => {
@@ -280,6 +327,7 @@ const sessionView =
           top: layout.rowTops[rowIndex],
           runs,
           motion,
+          loops,
         });
         const link =
           rowIndex > 0
@@ -303,7 +351,9 @@ const sessionView =
       prefix,
       top: layout.closingTop,
       at: timing.closing,
+      until: hidden,
       motion,
+      loops,
     });
     const scroll = autoscroll(
       `${prefix}-scroll`,
@@ -317,7 +367,7 @@ const sessionView =
       motion
     );
     const content = `${userBubble(session, layout.bubbleHeight, bubble.name)}
-    ${thinking(layout.blockTop, pending.name)}
+    ${thinking(layout.blockTop, pending.name, thinkingLoops)}
     <g class="${heading.name}">
       ${headingView(session, layout.blockTop)}
     </g>
@@ -331,21 +381,25 @@ const sessionView =
     </g>`
       : content;
 
-    return fragment(
-      `<g class="${next ? 'past ' : ''}${container.name}">
+    return {
+      ...fragment(
+        `<g class="${next ? 'past ' : ''}${container.name}">
     ${scrolled}
   </g>`,
-      [
-        container,
-        bubble,
-        pending,
-        heading,
-        ...rows.animations,
-        closingEntrance,
-        ...closing.animations,
-        ...(scroll ? [scroll.animation] : []),
-      ]
-    );
+        [
+          container,
+          bubble,
+          pending,
+          ...thinkingLoops.animations,
+          heading,
+          ...rows.animations,
+          closingEntrance,
+          ...closing.animations,
+          ...(scroll ? [scroll.animation] : []),
+        ]
+      ),
+      band: { from: scroll?.from ?? leaves, to: hidden },
+    };
   };
 
 const chatWatermark = ({ timeline, motion }: FlowContext): Fragment => {
@@ -377,16 +431,35 @@ const chatWatermark = ({ timeline, motion }: FlowContext): Fragment => {
   );
 };
 
+const VIEWPORT_MASKS: Record<
+  Target,
+  (motion: Motion, bands: Span[]) => Fragment
+> = {
+  readme: () => fragment(''),
+  website: (motion, bands) => {
+    const toggle = motion.switchBetween(
+      'viewport-mask',
+      bands,
+      `mask:${FADE_MASK}`,
+      'mask:none'
+    );
+
+    return fragment(` class="${toggle.name}"`, [toggle]);
+  },
+};
+
 export const conversation = (context: FlowContext): Fragment => {
-  const content = join(
-    [chatWatermark(context), ...context.sessions.map(sessionView(context))],
-    '\n  '
+  const sessions = context.sessions.map(sessionView(context));
+  const content = join([chatWatermark(context), ...sessions], '\n  ');
+  const mask = VIEWPORT_MASKS[context.target](
+    context.motion,
+    sessions.map(({ band }) => band)
   );
 
   return fragment(
-    `<g clip-path="url(#viewport)" mask="url(#viewport-fade)">
+    `<g clip-path="url(#viewport)" mask="${FADE_MASK}"${mask.markup}>
   ${content.markup}
   </g>`,
-    content.animations
+    [...content.animations, ...mask.animations]
   );
 };

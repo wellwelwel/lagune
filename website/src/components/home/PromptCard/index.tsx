@@ -9,6 +9,8 @@ import { LuTerminal } from 'react-icons/lu';
 
 const CURSOR = '▍';
 
+const ON_SCREEN = '0px';
+
 export const TERMINAL_SURFACE =
   'rounded-2xl border border-white/[0.07] bg-[#040406] overflow-hidden [box-shadow:inset_0_1px_0_0_rgba(255,255,255,0.06),0_18px_40px_-24px_rgba(0,0,0,0.9)]';
 
@@ -36,7 +38,9 @@ export const PromptCard = memo(
     onDone: () => void;
   }) => {
     const cardRef = useRef<HTMLDivElement | null>(null);
+    const lineRef = useRef<HTMLParagraphElement | null>(null);
     const visible = useVisible(cardRef);
+    const onScreen = useVisible(lineRef, ON_SCREEN);
     const body = mode.prompt ? ` ${typedText(mode.prompt)}` : '';
 
     return (
@@ -56,7 +60,10 @@ export const PromptCard = memo(
           variants={PROMPTS}
           className='px-[18px] pt-1 pb-[18px] font-mono text-[13.5px] leading-[1.65] text-ink text-justify'
         >
-          <p className='m-0'>
+          <p
+            ref={lineRef}
+            className={onScreen ? 'm-0' : 'm-0 lagune-offscreen'}
+          >
             {(typed || visible) && (
               <Suspense fallback={null}>
                 <Typed
