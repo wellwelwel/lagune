@@ -5,50 +5,57 @@
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/development/blind-review/SKILL.md",
-      "computedHash": "ca4e97c6bad42120dc37b72ea6727000e86609cb0d297fec9f30dbc388506c2b"
+      "computedHash": "ca4e97c6bad42120dc37b72ea6727000e86609cb0d297fec9f30dbc388506c2b",
+      "installMode": "copy"
     },
     "cdp": {
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/frontend/cdp/SKILL.md",
-      "computedHash": "32e59c05d49c93972ac0644a03197561123aac4da49f2901163741fcd615cf3b"
+      "computedHash": "32e59c05d49c93972ac0644a03197561123aac4da49f2901163741fcd615cf3b",
+      "installMode": "copy"
     },
     "engineering": {
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/development/engineering/SKILL.md",
-      "computedHash": "6d85fe61022b14ee7c88a87da040d7832a3e1d0332932feb26852eae5ace5e6f",
+      "computedHash": "40e2899cca3a264be9706ee5f5e71ac99d5abd8d3e8721c1ba16e0b6907e8604",
       "installMode": "copy"
     },
     "ingest": {
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/development/ingest/SKILL.md",
-      "computedHash": "023b856c85e9011fb67d48e5a79fe95e212944604288eea17545bf75e43054f4"
+      "computedHash": "023b856c85e9011fb67d48e5a79fe95e212944604288eea17545bf75e43054f4",
+      "installMode": "copy"
     },
     "refine": {
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/development/refine/SKILL.md",
-      "computedHash": "d5197a7c2dec680a3d939b414ac160a32500271bef38f53c6e84360ae61ab55a"
+      "computedHash": "d5197a7c2dec680a3d939b414ac160a32500271bef38f53c6e84360ae61ab55a",
+      "installMode": "copy"
     },
     "testing": {
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/development/testing/SKILL.md",
-      "computedHash": "fedab54bc835e4b1a3f7fc2ce91fae053adf946f2ec6360bbd065e45eac744aa"
+      "computedHash": "fedab54bc835e4b1a3f7fc2ce91fae053adf946f2ec6360bbd065e45eac744aa",
+      "installMode": "copy"
     },
     "ui": {
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/frontend/ui/SKILL.md",
-      "computedHash": "e3a6b5afdba06aae2e4e7b3018f6052c8b706925658e550e76e999d528ab2294"
+      "computedHash": "e3a6b5afdba06aae2e4e7b3018f6052c8b706925658e550e76e999d528ab2294",
+      "installMode": "copy"
     },
     "writer": {
       "source": "wellwelwel/skills",
       "sourceType": "github",
       "skillPath": "skills/texts/writer/SKILL.md",
-      "computedHash": "9c145f6b619de88503d1505a322aa7a981ed4e241eca2601e1994bbc6092ab7e"
+      "computedHash": "9c145f6b619de88503d1505a322aa7a981ed4e241eca2601e1994bbc6092ab7e",
+      "installMode": "copy"
     }
   }
 }

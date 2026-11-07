@@ -4,7 +4,7 @@ description: Authoritative engineering reference covering code conventions, perf
 user-invocable: true
 metadata:
   author: Weslley Araújo
-  version: '1.3.0'
+  version: '1.4.0'
   source: https://github.com/wellwelwel/skills
 ---
 
@@ -24,7 +24,6 @@ Where the project already has an established convention that contradicts one bel
 
 - **Arrow functions over `function`.** Declare with `const`. Use a `function` only when the `this` context strictly requires it.
 - **Named exports only.** Never use `default export`.
-- **Practice early return.** Handle edge cases up front, and leave a path with `return`, `break`, or `continue` the moment it is decided, rather than nesting the main logic.
 - **No abbreviations.** Names are clear and explicit (for example `left`/`right`, not `a`/`b`, and `index`, not `i`).
 - **Avoid nested `if-else-else-if`.** Favor clean, well-decoupled approaches when branching grows.
 - **No duplicated logic or types.** Reuse existing logic and types whenever it is viable.
@@ -42,8 +41,14 @@ Where the project already has an established convention that contradicts one bel
 ### Performance
 
 - **Maintainability comes first.** Pursue performance in balance with readable code, never at its expense.
-- **Keep the default path lean.** An optional or uncommon feature stays behind the condition that enables it, so the default path never runs, allocates, or loads anything for it.
-- **Compute only what the path needs, and only once.** Within a function, declare each value after the guards that can leave early, in the narrowest block that uses it. A value that never changes between calls, such as a lookup table or a compiled pattern, is computed once and reused.
+- **Keep the default path lean.** An optional or uncommon feature stays behind the condition that enables it, so the default path never runs, allocates, or loads anything for it. A rare branch lives in a function of its own, so the hot function stays small enough for the engine to inline.
+- **Practice early return.** Handle edge cases up front, and leave a path with `return`, `break`, or `continue` the moment it is decided. Within a function, declare each value after the guards that can leave early, in the narrowest block that uses it, so nothing is computed or allocated for a path that never reaches it.
+- **Allocate nothing a hot path can avoid.** Write each value once, in place, instead of building a temporary to copy from, and allocate a collection at its final size when that size is known. A large collection lives in parallel arrays instead of one object per item, with its numbers in typed arrays.
+- **Compute once.** A value that cannot change between calls or iterations, such as a lookup table or a compiled pattern, is computed once, outside the function or the loop that uses it.
+- **Keep shapes stable.** An object a hot path touches is created with every property it will ever have, always in the same order, and never gains or loses one afterwards. Keys that change at runtime can belong in a `Map`.
+- **Release what leaves.** A structure that outlives its items drops every reference it holds to an item as soon as the item is removed, so the memory is reclaimed while the structure lives on.
+- **Look up in constant time, and once.** Find items through a `Map` or a `Set` instead of scanning a list inside a loop. When no stored value can be `undefined`, read once and test the result instead of checking for the key first.
+- **Prove every optimization.** A change made for performance alone is kept only when a benchmark of realistic use shows the gain over the previous version, on every runtime the project supports.
 
 ### Comments
 

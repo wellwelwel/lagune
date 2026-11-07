@@ -76,6 +76,10 @@ jobs:
         with:
           check-latest: true
           node-version: lts/*
+          cache: 'npm'
+
+      - name: 📦 Installing Dependencies
+        run: npm ci
 
       - name: 🧩 Listing the published skills
         run: bash scripts/skills/discovery.sh
