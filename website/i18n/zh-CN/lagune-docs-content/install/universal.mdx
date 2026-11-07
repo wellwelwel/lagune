@@ -1,13 +1,15 @@
 ---
 id: universal
-title: '用 skills.sh 在任意智能体中安装 Lagune'
+title: '用 skills.sh 或 GitHub CLI 在任意智能体中安装 Lagune'
 sidebar_label: 通用
 parent: get-started/install
-description: 用 skills CLI 在任意 AI 智能体中安装 Lagune，并保持更新。
+description: 用 skills CLI 或 GitHub CLI 在任意 AI 智能体中安装 Lagune，并保持更新。
 keywords:
   - skills.sh
   - npx skills add
   - skills CLI
+  - gh skill install
+  - GitHub CLI
   - 安装 lagune
   - codex
   - cursor
@@ -15,7 +17,7 @@ keywords:
   - gemini cli
   - 配置
   - AI 智能体
-source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+source_hash: '10bc5381630dd071e78acaf28ae541e98762068c8fca6951e832e08b023c3f85'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -23,24 +25,38 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
+
 <InstallHeader name='skills.sh' />
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="终端" default>
-
-在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 安装 **Lagune** 的命令：
+在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 把 **Lagune** 的命令安装到你的项目中，安装作用域保持 **Project** 不变：
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="提示词">
-
-把这段提示词粘贴到你的智能体中：
+或者把这段提示词粘贴到你的智能体中：
 
 ```md
 运行 `npx --yes skills add wellwelwel/lagune`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+<InstallHeader name='GitHub CLI' />
+
+在终端中用 [**GitHub CLI**](https://cli.github.com/) 2.90.0 或更高版本把 **Lagune** 的命令安装到你的项目中：
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+或者把这段提示词粘贴到你的智能体中：
+
+```md
+运行 `gh skill install wellwelwel/lagune --all --scope project`，并完整阅读它的输出，必要时先把输出重定向到临时文件。
 ```
 
   </TabItem>
@@ -48,8 +64,8 @@ npx skills add wellwelwel/lagune
 
 ## 更新
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="终端" default>
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
 
 运行以下命令更新 **Lagune**：
 
@@ -57,13 +73,25 @@ npx skills add wellwelwel/lagune
 npx skills update
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="提示词">
-
-把这段提示词粘贴到你的智能体中来更新 **Lagune**：
+或者把这段提示词粘贴到你的智能体中：
 
 ```md
 运行 `npx --yes skills update -y`，并完整阅读它的输出，必要时先把输出重定向到临时文件。
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+运行以下命令更新 **Lagune**：
+
+```bash
+gh skill update --all
+```
+
+或者把这段提示词粘贴到你的智能体中：
+
+```md
+运行 `gh skill update --all`，并完整阅读它的输出，必要时先把输出重定向到临时文件。
 ```
 
   </TabItem>
@@ -72,7 +100,7 @@ npx skills update
 ---
 
 :::warning[每个智能体只用一种安装方式]
-安装 **Lagune** 时，要么用 **skills.sh**，要么用它的**插件**，不要两者同时使用。
+只通过一种方式安装 **Lagune**：**skills.sh**、**GitHub CLI** 或它的**插件**。
 :::
 
 :::info[权限]
@@ -90,16 +118,17 @@ npm i -D lagune@{{version}}
     {
       question: '如何在任意 AI 智能体中安装 Lagune？',
       answer:
-        '在项目中运行 npx skills add wellwelwel/lagune，或者把安装提示词粘贴到你的智能体中。',
+        "在项目中运行 npx skills add wellwelwel/lagune --skill '*' 或 gh skill install wellwelwel/lagune --all --scope project，或者把安装提示词粘贴到你的智能体中。",
     },
     {
-      question: '用 skills CLI 安装的 Lagune 如何更新？',
-      answer: '运行 npx skills update，或者把更新提示词粘贴到你的智能体中。',
-    },
-    {
-      question: '可以同时用 skills CLI 和插件安装 Lagune 吗？',
+      question: '如何在任意 AI 智能体中更新 Lagune？',
       answer:
-        '不可以。两者都装的话，智能体会把每个命令列出两次，或者只用其中一份而隐藏另一份。',
+        '如果你是用 skills.sh 安装的，就运行 npx skills update，如果是用 GitHub CLI 安装的，就运行 gh skill update --all。你也可以把更新提示词粘贴到你的智能体中。',
+    },
+    {
+      question: '可以同时用多种方式安装 Lagune 吗？',
+      answer:
+        '不可以。用两种方式安装的话，智能体会把每个命令列出两次，或者只用其中一份而隐藏另一份。',
     },
   ]}
 />

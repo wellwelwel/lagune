@@ -44,7 +44,7 @@ This is why developers and non-developers are served equally: the deep security 
 
 - **Development language: TypeScript.** All source is authored in strict TypeScript.
 - **Execution / distribution language: JavaScript.** End users never run TypeScript. The project is **built/compiled to JavaScript** and that build is what ships.
-- **Distribution: the skills CLI, native plugins, and npm.** The commands install with `npx skills add wellwelwel/lagune`, the route that works in any agent, and update with `npx skills update`. An agent with a plugin installer of its own installs the same `skills/` through it, from one thin manifest or plugin entry per agent. The engine ships on **npm**, carrying `skills/` for the agents that install from there, and inside each plugin that has a branch of its own. Every command calls it through the engine's own two tools where a plugin carries it, served over MCP or registered by the plugin's own entry, and otherwise through `npx --yes lagune@<version>`, pinned at the package version, so nothing is generated in the project. This is the friendliest path for the AI / vibe-coder audience and the native idiom of the JS/TS ecosystem.
+- **Distribution: the skills CLI, the GitHub CLI, native plugins, and npm.** An agent with a plugin installer of its own installs the same `skills/` through it, from one thin manifest or plugin entry per agent. The engine ships on **npm**, carrying `skills/` for the agents that install from there, and inside each plugin that has a branch of its own. Every command calls it through the engine's own two tools where a plugin carries it, served over MCP or registered by the plugin's own entry, and otherwise through `npx --yes lagune@<version>`, pinned at the package version, so nothing is generated in the project. This is the friendliest path for the AI / vibe-coder audience and the native idiom of the JS/TS ecosystem.
 
 ---
 
@@ -98,3 +98,4 @@ These are binding instructions for any agent or contributor working here.
 ## Others
 
 - The `/architecture` skill records decisions only: each states a structural choice and why it holds, never how something works or what exists, which the code and its tests already carry. A decision covers a whole kind, such as the plugins, and names a single member only as an unavoidable or intentional exception. Edit the skill only when a decision is made, changed, or dropped.
+- Do not translate the documentation, update its translations, or suggest doing so unless the user explicitly asks. A stale or untranslated page does not block development.

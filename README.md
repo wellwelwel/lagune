@@ -125,7 +125,7 @@ codex plugin marketplace upgrade lagune
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> [**OpenCode**](https://lagune.ai/docs/install/opencode)
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> [**Pi**](https://lagune.ai/docs/install/pi)
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> [**Qwen Code**](https://lagune.ai/docs/install/qwen-code)
-- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh)**](https://lagune.ai/docs/install/universal)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh or** <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/github.svg" width="20" align="absmiddle" /></picture> **GitHub CLI)**](https://lagune.ai/docs/install/universal)
 
 > [!NOTE]
 >

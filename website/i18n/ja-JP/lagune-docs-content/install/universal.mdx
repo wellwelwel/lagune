@@ -1,13 +1,15 @@
 ---
 id: universal
-title: 'skills.sh であらゆるエージェントに Lagune をインストール'
+title: 'skills.sh または GitHub CLI であらゆるエージェントに Lagune をインストール'
 sidebar_label: 汎用
 parent: get-started/install
-description: skills CLI で、あらゆる AI エージェントに Lagune をインストールし、最新の状態に保ちます。
+description: skills CLI または GitHub CLI で、あらゆる AI エージェントに Lagune をインストールし、最新の状態に保ちます。
 keywords:
   - skills.sh
   - npx skills add
   - skills CLI
+  - gh skill install
+  - GitHub CLI
   - lagune インストール
   - codex
   - cursor
@@ -15,7 +17,7 @@ keywords:
   - gemini cli
   - セットアップ
   - AI エージェント
-source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+source_hash: '10bc5381630dd071e78acaf28ae541e98762068c8fca6951e832e08b023c3f85'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -23,24 +25,38 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
+
 <InstallHeader name='skills.sh' />
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="ターミナル" default>
-
-[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) を使って、ターミナルから **Lagune** のコマンドをインストールします：
+インストールスコープは **Project** のままにして、[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) でターミナルからプロジェクトに **Lagune** のコマンドをインストールします：
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
+```
+
+または、次のプロンプトをエージェントに貼り付けます：
+
+```md
+`npx --yes skills add wellwelwel/lagune` を実行し、生成されたスキルの指示に今すぐ従ってください。必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。相対パスは、出力に示されたサポートファイルのディレクトリを基準に解決してください。
 ```
 
   </TabItem>
-  <TabItem value="prompt" label="プロンプト">
+  <TabItem value="github-cli" label="GitHub CLI">
 
-次のプロンプトをエージェントに貼り付けます：
+<InstallHeader name='GitHub CLI' />
+
+[**GitHub CLI**](https://cli.github.com/) 2.90.0 以降を使って、ターミナルからプロジェクトに **Lagune** のコマンドをインストールします：
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+または、次のプロンプトをエージェントに貼り付けます：
 
 ```md
-`npx --yes skills add wellwelwel/lagune` を実行し、生成されたスキルの指示に今すぐ従ってください。出力全体を読んでください。必要なら、先に一時ファイルへリダイレクトしてください。相対パスは、出力に示されたサポートファイルのディレクトリを基準に解決してください。
+`gh skill install wellwelwel/lagune --all --scope project` を実行し、必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。
 ```
 
   </TabItem>
@@ -48,8 +64,8 @@ npx skills add wellwelwel/lagune
 
 ## 更新
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="ターミナル" default>
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
 
 **Lagune** を更新するには、次のコマンドを実行します：
 
@@ -57,13 +73,25 @@ npx skills add wellwelwel/lagune
 npx skills update
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="プロンプト">
-
-**Lagune** を更新するには、次のプロンプトをエージェントに貼り付けます：
+または、次のプロンプトをエージェントに貼り付けます：
 
 ```md
-`npx --yes skills update -y` を実行し、出力全体を読んでください。必要なら、先に一時ファイルへリダイレクトしてください。
+`npx --yes skills update -y` を実行し、必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+**Lagune** を更新するには、次のコマンドを実行します：
+
+```bash
+gh skill update --all
+```
+
+または、次のプロンプトをエージェントに貼り付けます：
+
+```md
+`gh skill update --all` を実行し、必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。
 ```
 
   </TabItem>
@@ -72,7 +100,7 @@ npx skills update
 ---
 
 :::warning[インストール方法はエージェントごとにひとつ]
-**Lagune** は **skills.sh** か**プラグイン**のどちらか一方でインストールし、両方を併用しないでください。
+**Lagune** は、**skills.sh**、**GitHub CLI**、**プラグイン**のいずれかひとつの方法だけでインストールしてください。
 :::
 
 :::info[権限]
@@ -91,19 +119,18 @@ npm i -D lagune@{{version}}
       question:
         'あらゆる AI エージェントに Lagune をインストールするにはどうすればよいですか？',
       answer:
-        'プロジェクトで npx skills add wellwelwel/lagune を実行するか、インストール用のプロンプトをエージェントに貼り付けます。',
+        "プロジェクトで npx skills add wellwelwel/lagune --skill '*' または gh skill install wellwelwel/lagune --all --scope project を実行するか、インストール用のプロンプトをエージェントに貼り付けます。",
     },
     {
       question:
-        'skills CLI でインストールした Lagune を更新するにはどうすればよいですか？',
+        'あらゆる AI エージェントで Lagune を更新するにはどうすればよいですか？',
       answer:
-        'npx skills update を実行するか、更新用のプロンプトをエージェントに貼り付けます。',
+        'skills.sh でインストールした場合は npx skills update を、GitHub CLI でインストールした場合は gh skill update --all を実行します。更新用のプロンプトをエージェントに貼り付けることもできます。',
     },
     {
-      question:
-        'skills CLI とプラグインの両方で Lagune をインストールできますか？',
+      question: '複数の方法で Lagune をインストールできますか？',
       answer:
-        'いいえ。両方でインストールすると、エージェントがすべてのコマンドを重複して表示するか、片方だけを使ってもう片方を隠してしまいます。',
+        'いいえ。2 つの方法でインストールすると、エージェントがすべてのコマンドを重複して表示するか、片方だけを使ってもう片方を隠してしまいます。',
     },
   ]}
 />

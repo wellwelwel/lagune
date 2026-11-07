@@ -1,13 +1,15 @@
 ---
 id: universal
-title: 'Como instalar o Lagune em qualquer agente com o skills.sh'
+title: 'Como instalar o Lagune em qualquer agente com o skills.sh ou o GitHub CLI'
 sidebar_label: Universal
 parent: get-started/install
-description: Instale o Lagune em qualquer agente de IA com o skills CLI e mantenha-o atualizado.
+description: Instale o Lagune em qualquer agente de IA com o skills CLI ou o GitHub CLI e mantenha-o atualizado.
 keywords:
   - skills.sh
   - npx skills add
   - skills CLI
+  - gh skill install
+  - GitHub CLI
   - instalar lagune
   - codex
   - cursor
@@ -15,7 +17,7 @@ keywords:
   - gemini cli
   - configuração
   - agentes de IA
-source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+source_hash: '10bc5381630dd071e78acaf28ae541e98762068c8fca6951e832e08b023c3f85'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -23,24 +25,38 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
+
 <InstallHeader name='skills.sh' />
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="Terminal" default>
-
-Instale os comandos do **Lagune** pelo terminal com o [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+Instale os comandos do **Lagune** no seu projeto pelo terminal com o [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), mantendo **Project** como escopo de instalação:
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="Prompt">
-
-Cole este prompt no seu agente:
+Ou cole este prompt no seu agente:
 
 ```md
 Execute `npx --yes skills add wellwelwel/lagune` e siga agora as instruções da skill geradas. Leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso. Resolva os caminhos relativos a partir do diretório de arquivos de apoio que ele indicar.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+<InstallHeader name='GitHub CLI' />
+
+Instale os comandos do **Lagune** no seu projeto pelo terminal com o [**GitHub CLI**](https://cli.github.com/) 2.90.0 ou mais recente:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Ou cole este prompt no seu agente:
+
+```md
+Execute `gh skill install wellwelwel/lagune --all --scope project` e leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso.
 ```
 
   </TabItem>
@@ -48,8 +64,8 @@ Execute `npx --yes skills add wellwelwel/lagune` e siga agora as instruções da
 
 ## Atualização
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="Terminal" default>
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
 
 Para atualizar o **Lagune**, execute:
 
@@ -57,13 +73,25 @@ Para atualizar o **Lagune**, execute:
 npx skills update
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="Prompt">
-
-Para atualizar o **Lagune**, cole este prompt no seu agente:
+Ou cole este prompt no seu agente:
 
 ```md
 Execute `npx --yes skills update -y` e leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+Para atualizar o **Lagune**, execute:
+
+```bash
+gh skill update --all
+```
+
+Ou cole este prompt no seu agente:
+
+```md
+Execute `gh skill update --all` e leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso.
 ```
 
   </TabItem>
@@ -72,7 +100,7 @@ Execute `npx --yes skills update -y` e leia a saída completa do comando, redire
 ---
 
 :::warning[Uma forma de instalação por agente]
-Instale o **Lagune** pelo **skills.sh** ou pelo **plugin** dele, nunca pelos dois.
+Instale o **Lagune** de uma só forma: pelo **skills.sh**, pelo **GitHub CLI** ou pelo **plugin** dele.
 :::
 
 :::info[Permissões]
@@ -90,18 +118,17 @@ npm i -D lagune@{{version}}
     {
       question: 'Como instalar o Lagune em qualquer agente de IA?',
       answer:
-        'Execute npx skills add wellwelwel/lagune no seu projeto, ou cole o prompt de instalação no seu agente.',
+        "Execute npx skills add wellwelwel/lagune --skill '*' ou gh skill install wellwelwel/lagune --all --scope project no seu projeto, ou cole o prompt de instalação no seu agente.",
     },
     {
-      question: 'Como atualizar o Lagune instalado com o skills CLI?',
+      question: 'Como atualizar o Lagune em qualquer agente de IA?',
       answer:
-        'Execute npx skills update, ou cole o prompt de atualização no seu agente.',
+        'Execute npx skills update se você o instalou com o skills.sh, ou gh skill update --all se o instalou com o GitHub CLI. Você também pode colar o prompt de atualização no seu agente.',
     },
     {
-      question:
-        'Posso instalar o Lagune com o skills CLI e com um plugin ao mesmo tempo?',
+      question: 'Posso instalar o Lagune de mais de uma forma?',
       answer:
-        'Não. Com os dois, o agente lista cada comando duas vezes, ou usa uma cópia e esconde a outra.',
+        'Não. Com duas, o agente lista cada comando duas vezes, ou usa uma cópia e esconde a outra.',
     },
   ]}
 />

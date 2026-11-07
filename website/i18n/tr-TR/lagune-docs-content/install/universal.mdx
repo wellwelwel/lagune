@@ -1,13 +1,15 @@
 ---
 id: universal
-title: 'skills.sh ile her ajana Lagune kurulumu'
+title: 'skills.sh veya GitHub CLI ile her ajana Lagune kurulumu'
 sidebar_label: Evrensel
 parent: get-started/install
-description: "Lagune'yi skills CLI aracıyla her yapay zeka ajanına kurun ve güncel tutun."
+description: "Lagune'yi skills CLI aracı veya GitHub CLI ile her yapay zeka ajanına kurun ve güncel tutun."
 keywords:
   - skills.sh
   - npx skills add
   - skills CLI
+  - gh skill install
+  - GitHub CLI
   - lagune kurulumu
   - codex
   - cursor
@@ -15,7 +17,7 @@ keywords:
   - gemini cli
   - yapılandırma
   - yapay zeka ajanları
-source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+source_hash: '10bc5381630dd071e78acaf28ae541e98762068c8fca6951e832e08b023c3f85'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -23,24 +25,38 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
+
 <InstallHeader name='skills.sh' />
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="Terminal" default>
-
-**Lagune** komutlarını [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) ile terminalden kurun:
+**Lagune** komutlarını [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) ile terminalden projenize kurun ve kurulum kapsamını **Project** olarak bırakın:
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="Prompt">
-
-Bu prompt'u ajanınıza yapıştırın:
+Ya da bu prompt'u ajanınıza yapıştırın:
 
 ```md
 `npx --yes skills add wellwelwel/lagune` komutunu çalıştır ve oluşturulan beceri talimatlarını hemen uygula. Çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir. Göreli yolları, sağladığı destek dosyaları dizinine göre çözümle.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+<InstallHeader name='GitHub CLI' />
+
+**Lagune** komutlarını [**GitHub CLI**](https://cli.github.com/) 2.90.0 veya üzeri ile terminalden projenize kurun:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Ya da bu prompt'u ajanınıza yapıştırın:
+
+```md
+`gh skill install wellwelwel/lagune --all --scope project` komutunu çalıştır ve çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir.
 ```
 
   </TabItem>
@@ -48,8 +64,8 @@ Bu prompt'u ajanınıza yapıştırın:
 
 ## Güncelleme
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="Terminal" default>
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
 
 **Lagune**'yi güncellemek için şunu çalıştırın:
 
@@ -57,13 +73,25 @@ Bu prompt'u ajanınıza yapıştırın:
 npx skills update
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="Prompt">
-
-**Lagune**'yi güncellemek için bu prompt'u ajanınıza yapıştırın:
+Ya da bu prompt'u ajanınıza yapıştırın:
 
 ```md
 `npx --yes skills update -y` komutunu çalıştır ve çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+**Lagune**'yi güncellemek için şunu çalıştırın:
+
+```bash
+gh skill update --all
+```
+
+Ya da bu prompt'u ajanınıza yapıştırın:
+
+```md
+`gh skill update --all` komutunu çalıştır ve çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir.
 ```
 
   </TabItem>
@@ -72,7 +100,7 @@ npx skills update
 ---
 
 :::warning[Her ajan için tek yol]
-**Lagune**'yi ya **skills.sh** ile ya da **eklentisiyle** kurun, asla ikisiyle birden kurmayın.
+**Lagune**'yi tek bir yolla kurun: **skills.sh** ile, **GitHub CLI** ile ya da **eklenti** olarak.
 :::
 
 :::info[İzinler]
@@ -90,17 +118,17 @@ npm i -D lagune@{{version}}
     {
       question: 'Her yapay zeka ajanına Lagune nasıl kurulur?',
       answer:
-        "Projenizde npx skills add wellwelwel/lagune komutunu çalıştırın ya da kurulum prompt'unu ajanınıza yapıştırın.",
+        "Projenizde npx skills add wellwelwel/lagune --skill '*' ya da gh skill install wellwelwel/lagune --all --scope project komutunu çalıştırın veya kurulum prompt'unu ajanınıza yapıştırın.",
     },
     {
-      question: 'skills CLI ile kurulan Lagune nasıl güncellenir?',
+      question: 'Her yapay zeka ajanında Lagune nasıl güncellenir?',
       answer:
-        "npx skills update komutunu çalıştırın ya da güncelleme prompt'unu ajanınıza yapıştırın.",
+        "Lagune'yi skills.sh ile kurduysanız npx skills update, GitHub CLI ile kurduysanız gh skill update --all komutunu çalıştırın. Ayrıca güncelleme prompt'unu ajanınıza yapıştırabilirsiniz.",
     },
     {
-      question: 'Lagune hem skills CLI hem de bir eklentiyle kurulabilir mi?',
+      question: 'Lagune aynı anda birden fazla yolla kurulabilir mi?',
       answer:
-        'Hayır. İkisiyle birden kurulursa ajan her komutu iki kez listeler ya da bir kopyayı kullanıp diğerini gizler.',
+        'Hayır. İki yolla kurulursa ajan her komutu iki kez listeler ya da bir kopyayı kullanıp diğerini gizler.',
     },
   ]}
 />

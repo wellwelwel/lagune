@@ -27,6 +27,12 @@ export const SKILLS_SH: LinkedAgent = {
   homepage: 'https://www.skills.sh/',
 };
 
+export const GITHUB_CLI: LinkedAgent = {
+  name: 'GitHub CLI',
+  icon: '/img/icons/github.svg',
+  homepage: 'https://cli.github.com/',
+};
+
 export const FEATURED_AGENTS: FeaturedAgent[] = [
   {
     name: 'Claude Code',

@@ -12,18 +12,18 @@ This skill records **Lagune**'s architecture decisions: each states a structural
 
 ## The three owners
 
-| Owner                     | What it holds                                                                          | Where it lives                                                                            |
-| ------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| The project               | the charter, the phase artifacts, the tracking map, its categories and its own catalog | `.lagune/`, committed with the project                                                    |
-| **Lagune**'s instructions | the nine commands, each beside the template it fills                                   | the skill folders the **skills** CLI or an agent's plugin installer copies from `skills/` |
-| **Lagune**'s engine       | the hooks, validation, the built-in specializations and their categories               | the `lagune` package on **npm** and the plugin branches that carry its build              |
+| Owner                     | What it holds                                                                          | Where it lives                                                                                                 |
+| ------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| The project               | the charter, the phase artifacts, the tracking map, its categories and its own catalog | `.lagune/`, committed with the project                                                                         |
+| **Lagune**'s instructions | the nine commands, each beside the template it fills                                   | the skill folders the **skills** CLI, the **GitHub CLI**, or an agent's plugin installer copies from `skills/` |
+| **Lagune**'s engine       | the hooks, validation, the built-in specializations and their categories               | the `lagune` package on **npm** and the plugin branches that carry its build                                   |
 
-Installing and updating the commands belongs to the **skills** CLI and to each agent's own plugin installer. The engine never inspects how its skills were installed: it applies wherever its artifacts exist.
+Installing and updating the commands belongs to the **skills** CLI, the **GitHub CLI**, and each agent's own plugin installer. The engine never inspects how its skills were installed: it applies wherever its artifacts exist.
 
 ## What ships
 
 - **The package carries no runtime dependency.** Everything it runs is bundled at build time, so running the engine installs nothing on the user's machine, and `src/` is never published.
-- **Whatever lands on the default branch reaches users.** The **skills** CLI and the plugins that install from the default branch take the skills from it as it stands, while the plugin branches and the **npm** package take them at each release.
+- **Whatever lands on the default branch reaches users.** The **skills** CLI and the plugins that install from the default branch take the skills from it as it stands, while the **GitHub CLI**, the plugin branches, and the **npm** package take them at each release.
 - **One version across the package, every plugin manifest, and the npx fallback.** The release moves them together, and no release goes out while a pinned call on the default branch disagrees with the package version.
 
 ## The engine

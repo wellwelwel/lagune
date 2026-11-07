@@ -1,13 +1,15 @@
 ---
 id: universal
-title: 'Cara menginstal Lagune di agen mana pun dengan skills.sh'
+title: 'Cara menginstal Lagune di agen mana pun dengan skills.sh atau GitHub CLI'
 sidebar_label: Universal
 parent: get-started/install
-description: Instal Lagune di agen AI mana pun dengan skills CLI, dan jaga agar tetap terbaru.
+description: Instal Lagune di agen AI mana pun dengan skills CLI atau GitHub CLI, dan jaga agar tetap terbaru.
 keywords:
   - skills.sh
   - npx skills add
   - skills CLI
+  - gh skill install
+  - GitHub CLI
   - instal lagune
   - codex
   - cursor
@@ -15,7 +17,7 @@ keywords:
   - gemini cli
   - setup
   - agen AI
-source_hash: '3f63d1437b46552c5a329a624b9b376aeaa6d35b541b7596f58c852912411c33'
+source_hash: '10bc5381630dd071e78acaf28ae541e98762068c8fca6951e832e08b023c3f85'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -23,24 +25,38 @@ import { InstallHeader } from '@site/src/components/docs/InstallHeader';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
+
 <InstallHeader name='skills.sh' />
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="Terminal" default>
-
-Instal perintah **Lagune** dari terminal Anda dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
+Instal perintah **Lagune** di proyek Anda dari terminal dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), dan biarkan cakupan instalasinya tetap **Project**:
 
 ```bash
-npx skills add wellwelwel/lagune
+npx skills add wellwelwel/lagune --skill '*'
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="Prompt">
-
-Tempel prompt ini ke agen Anda:
+Atau tempel prompt ini ke agen Anda:
 
 ```md
 Jalankan `npx --yes skills add wellwelwel/lagune` dan ikuti sekarang juga instruksi skill yang dihasilkannya. Baca seluruh output-nya, alihkan dulu ke file sementara jika perlu. Tentukan path relatif berdasarkan direktori file pendukung yang diberikannya.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+<InstallHeader name='GitHub CLI' />
+
+Instal perintah **Lagune** di proyek Anda dari terminal dengan [**GitHub CLI**](https://cli.github.com/) 2.90.0 atau yang lebih baru:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Atau tempel prompt ini ke agen Anda:
+
+```md
+Jalankan `gh skill install wellwelwel/lagune --all --scope project` dan baca seluruh output-nya, alihkan dulu ke file sementara jika perlu.
 ```
 
   </TabItem>
@@ -48,8 +64,8 @@ Jalankan `npx --yes skills add wellwelwel/lagune` dan ikuti sekarang juga instru
 
 ## Pembaruan
 
-<Tabs groupId="skills-route">
-  <TabItem value="terminal" label="Terminal" default>
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
 
 Untuk memperbarui **Lagune**, jalankan:
 
@@ -57,13 +73,25 @@ Untuk memperbarui **Lagune**, jalankan:
 npx skills update
 ```
 
-  </TabItem>
-  <TabItem value="prompt" label="Prompt">
-
-Untuk memperbarui **Lagune**, tempel prompt ini ke agen Anda:
+Atau tempel prompt ini ke agen Anda:
 
 ```md
 Jalankan `npx --yes skills update -y` dan baca seluruh output-nya, alihkan dulu ke file sementara jika perlu.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+Untuk memperbarui **Lagune**, jalankan:
+
+```bash
+gh skill update --all
+```
+
+Atau tempel prompt ini ke agen Anda:
+
+```md
+Jalankan `gh skill update --all` dan baca seluruh output-nya, alihkan dulu ke file sementara jika perlu.
 ```
 
   </TabItem>
@@ -72,7 +100,7 @@ Jalankan `npx --yes skills update -y` dan baca seluruh output-nya, alihkan dulu 
 ---
 
 :::warning[Satu jalur instalasi per agen]
-Instal **Lagune** melalui **skills.sh** atau melalui **plugin**-nya, jangan keduanya.
+Instal **Lagune** melalui satu jalur saja: **skills.sh**, **GitHub CLI**, atau **plugin**-nya.
 :::
 
 :::info[Izin]
@@ -90,19 +118,18 @@ npm i -D lagune@{{version}}
     {
       question: 'Bagaimana cara menginstal Lagune di agen AI mana pun?',
       answer:
-        'Jalankan npx skills add wellwelwel/lagune di proyek Anda, atau tempel prompt instalasi ke agen Anda.',
+        "Jalankan npx skills add wellwelwel/lagune --skill '*' atau gh skill install wellwelwel/lagune --all --scope project di proyek Anda, atau tempel prompt instalasi ke agen Anda.",
+    },
+    {
+      question: 'Bagaimana cara memperbarui Lagune di agen AI mana pun?',
+      answer:
+        'Jalankan npx skills update jika Anda menginstalnya dengan skills.sh, atau gh skill update --all jika Anda menginstalnya dengan GitHub CLI. Anda juga bisa menempelkan prompt pembaruan ke agen Anda.',
     },
     {
       question:
-        'Bagaimana cara memperbarui Lagune yang diinstal dengan skills CLI?',
+        'Apakah saya bisa menginstal Lagune melalui lebih dari satu jalur?',
       answer:
-        'Jalankan npx skills update, atau tempel prompt pembaruan ke agen Anda.',
-    },
-    {
-      question:
-        'Apakah saya bisa menginstal Lagune dengan skills CLI sekaligus plugin?',
-      answer:
-        'Tidak. Jika keduanya terpasang, agen menampilkan setiap perintah dua kali, atau memakai satu salinan dan menyembunyikan yang lain.',
+        'Tidak. Jika Anda menginstalnya melalui dua jalur, agen menampilkan setiap perintah dua kali, atau memakai satu salinan dan menyembunyikan yang lain.',
     },
   ]}
 />
