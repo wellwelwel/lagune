@@ -72,3 +72,4 @@ Lagune एक ओपन सोर्स Security-Driven Hardening (SDH) वर�
 - [日本語](https://lagune.ai/ja-JP/llms.txt)
 - [한국어](https://lagune.ai/ko-KR/llms.txt)
 - [Bahasa Indonesia](https://lagune.ai/id-ID/llms.txt)
+- [ไทย](https://lagune.ai/th-TH/llms.txt)

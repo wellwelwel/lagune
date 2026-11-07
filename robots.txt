@@ -49,3 +49,4 @@ Sitemap: https://lagune.ai/ja-JP/sitemap.xml
 Sitemap: https://lagune.ai/ko-KR/sitemap.xml
 Sitemap: https://lagune.ai/hi-IN/sitemap.xml
 Sitemap: https://lagune.ai/id-ID/sitemap.xml
+Sitemap: https://lagune.ai/th-TH/sitemap.xml

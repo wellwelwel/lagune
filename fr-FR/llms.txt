@@ -72,3 +72,4 @@ Chaque lien sous Docs pointe vers la version Markdown brute de la page. Retirez 
 - [한국어](https://lagune.ai/ko-KR/llms.txt)
 - [हिन्दी](https://lagune.ai/hi-IN/llms.txt)
 - [Bahasa Indonesia](https://lagune.ai/id-ID/llms.txt)
+- [ไทย](https://lagune.ai/th-TH/llms.txt)

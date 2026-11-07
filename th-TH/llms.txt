@@ -1,0 +1,75 @@
+# Lagune
+
+> Security-Driven Hardening สำหรับทุกโค้ดเบส
+
+Lagune คือเวิร์กโฟลว์ Security-Driven Hardening (SDH) แบบโอเพนซอร์สที่มีไว้เพื่อการป้องกันเท่านั้น ช่วยให้เอเจนต์ AI ของคุณเสริมความปลอดภัยให้โค้ดเบสใดก็ได้ ในภาษาใดก็ได้ และในทุกช่วงของงาน: charter กำหนดกฎด้านความปลอดภัยก่อนที่คุณจะเริ่มสร้าง คำสั่ง universal /lagune เสริมความปลอดภัยให้งานขณะที่เขียน และขั้นตอนแบบ Blue Team 5 เฟสตรวจจับว่าระบบของคุณทำอะไรจริง ๆ แล้วนำไปสู่การแก้ไขที่สำคัญสำหรับบริบทนั้น คุณติดตั้งคำสั่งของ Lagune ลงในเอเจนต์ได้ด้วย skills CLI และไม่ต้องใช้คีย์ API
+
+ทุกลิงก์ใต้หัวข้อเอกสารชี้ไปยังหน้านั้นในเวอร์ชัน Markdown ล้วน ตัด .md ที่ท้ายลิงก์ออกเพื่อเปิดหน้าเว็บ คลังเนื้อหาทั้งหมดในไฟล์เดียว: https://lagune.ai/th-TH/llms-full.txt
+
+## เอกสาร
+
+- [ติดตั้ง: security hardening สำหรับเอเจนต์ AI ทุกตัว](https://lagune.ai/th-TH/docs.md): ติดตั้ง Lagune ในโปรเจกต์ใดก็ได้ เป็นปลั๊กอินเมื่อเอเจนต์ของคุณรองรับ หรือผ่าน skills CLI สำหรับเอเจนต์อื่น จากนั้นเลือกความรู้เฉพาะทางด้านความปลอดภัยที่เหมาะกับโปรเจกต์
+- [วิธีติดตั้ง Lagune บน Antigravity CLI แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/antigravity-cli.md): ติดตั้ง Lagune บน Antigravity CLI แบบปลั๊กอิน อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
+- [วิธีติดตั้ง Lagune บน Claude Code แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/claude-code.md): ติดตั้ง Lagune บน Claude Code แบบปลั๊กอิน ทั้งในเทอร์มินัล ส่วนขยาย และแอปเดสก์ท็อป อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
+- [วิธีติดตั้ง Lagune บน Codex CLI แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/codex.md): ติดตั้ง Lagune บน Codex CLI แบบปลั๊กอิน อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และรันเอนจินภายใน sandbox
+- [วิธีติดตั้ง Lagune บน Cursor แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/cursor.md): ติดตั้ง Lagune บน Cursor และ Cursor CLI แบบปลั๊กอิน อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
+- [วิธีติดตั้ง Lagune บน Devin CLI แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/devin-cli.md): ติดตั้ง Lagune บน Devin CLI แบบปลั๊กอิน และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+- [วิธีติดตั้ง Lagune บน Factory Droid แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/factory-droid.md): ติดตั้ง Lagune บน Factory Droid แบบปลั๊กอิน อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาต tool ของเอนจิน
+- [วิธีติดตั้ง Lagune บน Gemini CLI แบบส่วนขยาย](https://lagune.ai/th-TH/docs/install/gemini-cli.md): ติดตั้ง Lagune บน Gemini CLI แบบส่วนขยาย อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
+- [วิธีติดตั้ง Lagune บน GitHub Copilot CLI แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/github-copilot-cli.md): ติดตั้ง Lagune บน GitHub Copilot CLI แบบปลั๊กอิน และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+- [วิธีติดตั้ง Lagune บน Grok Build แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/grok-build.md): ติดตั้ง Lagune บน Grok Build แบบปลั๊กอิน อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
+- [วิธีติดตั้ง Lagune บน Hermes Agent แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/hermes-agent.md): ติดตั้ง Lagune บน Hermes Agent แบบปลั๊กอิน และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+- [วิธีติดตั้ง Lagune บน Kimi Code แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/kimi-code.md): ติดตั้ง Lagune บน Kimi Code แบบปลั๊กอิน และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+- [วิธีติดตั้ง Lagune บน Muse Code แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/muse-code.md): ติดตั้ง Lagune บน Muse Code แบบปลั๊กอิน อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และรันเอนจินภายใน sandbox
+- [วิธีติดตั้ง Lagune บน OpenCode แบบปลั๊กอิน](https://lagune.ai/th-TH/docs/install/opencode.md): ติดตั้ง Lagune บน OpenCode 1.x และ 2.x แบบปลั๊กอิน และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+- [วิธีติดตั้ง Lagune บน Pi แบบแพ็กเกจ](https://lagune.ai/th-TH/docs/install/pi.md): ติดตั้ง Lagune บน Pi แบบแพ็กเกจ จาก npm หรือจาก GitHub และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+- [วิธีติดตั้ง Lagune บน Qwen Code แบบส่วนขยาย](https://lagune.ai/th-TH/docs/install/qwen-code.md): ติดตั้ง Lagune บน Qwen Code แบบส่วนขยาย อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
+- [วิธีติดตั้ง Lagune ในเอเจนต์ใดก็ได้ด้วย skills.sh หรือ GitHub CLI](https://lagune.ai/th-TH/docs/install/universal.md): ติดตั้ง Lagune ในเอเจนต์ AI ใดก็ได้ด้วย skills CLI หรือ GitHub CLI และอัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ
+- [Skill ด้านความปลอดภัยสำหรับเอเจนต์ AI](https://lagune.ai/th-TH/docs/get-started/commands.md): Skill ที่เอเจนต์ AI ของคุณได้รับจาก Lagune: ตรวจสอบโปรเจกต์ที่มีอยู่แล้ว หรือทำให้งานใหม่ปลอดภัยไปพร้อมกับที่สร้าง ทั้งหมดอยู่ภายใต้ charter
+- [แดชบอร์ด](https://lagune.ai/th-TH/docs/get-started/dashboard.md): ดู charter ข้อตรวจพบ และแคตตาล็อกของโปรเจกต์ในมุมมองแบบเรียลไทม์บนเครื่องของคุณ ซึ่งเปิดได้ด้วยคำสั่งเดียว
+- [/lagune: โค้ดปลอดภัยตั้งแต่ตอนที่ AI เขียน](https://lagune.ai/th-TH/docs/commands/lagune.md): สร้างสิ่งที่คุณขอและเสริมความปลอดภัยไปพร้อมกับตอนเขียนโค้ด โดยมี charter เป็นแนวทาง และไม่ต้องทำตามเวิร์กโฟลว์ใด
+- [/lagune-charter: กำหนดหลักการด้านความปลอดภัยของคุณ](https://lagune.ai/th-TH/docs/commands/charter.md): กำหนดหลักการด้านความปลอดภัยของโปรเจกต์ ซึ่งเป็นกฎที่ทุกเฟสถัดไปต้องเคารพ และบันทึกหมวดหมู่ความรู้เฉพาะทางที่การอ่านโปรเจกต์รองรับ
+- [/lagune-detect: ทำแผนผังระบบและความเสี่ยงของคุณ](https://lagune.ai/th-TH/docs/commands/detect.md): อ่านโค้ดของคุณ แล้วทำแผนผังว่าระบบทำอะไรบ้างและความเสี่ยงอยู่ตรงไหน
+- [/lagune-plan: ให้คะแนนข้อตรวจพบและวางแผนการแก้ไข](https://lagune.ai/th-TH/docs/commands/plan.md): เปลี่ยนสิ่งที่ detect พบให้เป็นแผนการป้องกัน โดยให้คะแนนข้อตรวจพบแต่ละรายการด้วยหมวดหมู่และคะแนน CVSS v4.0 แล้วจับคู่กับการแก้ไข
+- [/lagune-harden: นำการแก้ไขด้านความปลอดภัยไปใช้กับโค้ดของคุณ](https://lagune.ai/th-TH/docs/commands/harden.md): นำการแก้ไขจากแผนไปใช้กับโค้ดของคุณอย่างปลอดภัย ทีละรายการ
+- [/lagune-verify: พิสูจน์ว่ามาตรการควบคุมความปลอดภัยใช้ได้จริง](https://lagune.ai/th-TH/docs/commands/verify.md): พิสูจน์ว่าการแก้ไขแต่ละรายการที่นำไปใช้แล้วได้ผลจริง แล้วปิดรายการที่ผ่านให้จบ
+- [หมวดหมู่](https://lagune.ai/th-TH/docs/categories.md): หมวดหมู่ความรู้เฉพาะทางที่โปรเจกต์ Lagune ใช้ได้ ตั้งแต่ OWASP ไปจนถึงการเสริมความปลอดภัยรายภาษาสำหรับ JavaScript, Python, Go และ Rust พร้อมวิธีเปลี่ยนหมวดหมู่
+- [แคตตาล็อก: ความรู้เฉพาะทางด้านความปลอดภัยที่โหลดเฉพาะเมื่อจำเป็น](https://lagune.ai/th-TH/docs/catalog.md): วิธีที่ความรู้เฉพาะทางในแคตตาล็อกของโปรเจกต์ถูกโหลด ทั้งโดยเฟสต่าง ๆ เฉพาะเมื่อจำเป็น และโดยคุณเองโดยตรง
+- [/lagune-specialize: สร้างความรู้เฉพาะทางด้านความปลอดภัยด้วยข้อความธรรมดา](https://lagune.ai/th-TH/docs/commands/specialize.md): กลั่นกรองแหล่งข้อมูลหรือหัวข้อด้านความปลอดภัยที่คุณให้มา ให้เป็นความรู้เฉพาะทางใหม่ที่โหลดเฉพาะเมื่อจำเป็น
+- [/lagune-prove: proof of concept เพื่อการป้องกันเท่านั้น](https://lagune.ai/th-TH/docs/commands/prove.md): เปลี่ยนข้อตรวจพบแต่ละรายการให้เป็น proof of concept (PoC) ที่รันได้และใช้เพื่อการป้องกันเท่านั้น พร้อมประกาศแจ้งเตือนด้านความปลอดภัยสำหรับการเปิดเผยช่องโหว่อย่างรับผิดชอบ
+- [กำหนดค่า hook: เลือกสิ่งที่จะสแกน](https://lagune.ai/th-TH/docs/hooks/configure.md): เลือกว่า hook ที่สแกนไฟล์จะข้ามอะไรบ้าง ใช้กับทุก hook หรือเฉพาะ hook เดียวก็ได้
+- [Hook agent: ตรวจหา loop ของเอเจนต์ที่ไม่มีขีดจำกัด](https://lagune.ai/th-TH/docs/hooks/agent.md): สแกนโค้ดเบสหาการเรียกเอเจนต์และ LLM ที่ไม่มีขีดจำกัดจำนวนขั้นหรือเวลา หรือประเมินการเรียกใช้ครั้งเดียว ได้จากบรรทัดคำสั่ง
+- [Hook cors: ตรวจสอบ origin ของ CORS](https://lagune.ai/th-TH/docs/hooks/cors.md): สแกนซอร์สโค้ดหารายการ origin ที่อนุญาตของ CORS ที่ถูกเลี่ยงได้ หรือประเมินว่าค่า origin หนึ่งค่าเปิดสิทธิ์กว้างเกินไปหรือไม่ ได้จากบรรทัดคำสั่ง
+- [Hook crypto: ตรวจหาการเข้ารหัสที่อ่อนแอ](https://lagune.ai/th-TH/docs/hooks/crypto.md): สแกนโค้ดเบสหา primitive การเข้ารหัสที่อ่อนแอ หรือประเมินโค้ดตัวอย่างชิ้นเดียว ได้จากบรรทัดคำสั่ง
+- [Hook cvss: ให้คะแนนเวกเตอร์ CVSS v4.0](https://lagune.ai/th-TH/docs/hooks/cvss.md): ให้คะแนนเวกเตอร์ CVSS v4.0 หนึ่งหรือหลายรายการจากบรรทัดคำสั่ง ด้วยวิธีคำนวณเดียวกับเครื่องคำนวณของ FIRST และอ่านคำอธิบายของแต่ละเวกเตอร์เป็นภาษาที่เข้าใจง่าย
+- [Hook infra: ตรวจหาการตั้งค่า IaC ที่ผิดพลาด](https://lagune.ai/th-TH/docs/hooks/infra.md): สแกน Terraform, Dockerfile และ GitHub Actions หาการตั้งค่าที่ผิดพลาด หรือประเมินโค้ดตัวอย่างชิ้นเดียว ได้จากบรรทัดคำสั่ง
+- [Hook interpreter: ชี้จุด sink ที่รันโค้ดแบบไดนามิก](https://lagune.ai/th-TH/docs/hooks/interpreter.md): สแกนโค้ดเบสหา sink ที่รันโค้ดแบบไดนามิกในหลายภาษา หรือประเมินโค้ดตัวอย่างชิ้นเดียว ได้จากบรรทัดคำสั่ง
+- [Hook jwt: ตรวจหาการตรวจสอบ JWT ที่ไม่ได้ตรึงอัลกอริทึม](https://lagune.ai/th-TH/docs/hooks/jwt.md): สแกนโค้ดเบสหาการตรวจสอบ JWT ที่ไม่ได้ตรึงอัลกอริทึม หรือประเมินการเรียกใช้ครั้งเดียว ได้จากบรรทัดคำสั่ง
+- [Hook network: ประเมินความเสี่ยง SSRF ของ URL](https://lagune.ai/th-TH/docs/hooks/network.md): ประเมินความเสี่ยง SSRF ของปลายทางการ fetch หนึ่งหรือหลายรายการได้จากบรรทัดคำสั่งโดยตรง
+- [Hook regex: ตรวจหา pattern ที่เสี่ยงต่อ ReDoS](https://lagune.ai/th-TH/docs/hooks/regex.md): สแกนโค้ดเบสหา regex ที่เสี่ยงต่อ ReDoS หรือประเมิน pattern เดียว ได้จากบรรทัดคำสั่ง
+- [Hook secrets: ตรวจหา secret ที่ฮาร์ดโค้ดไว้](https://lagune.ai/th-TH/docs/hooks/secrets.md): สแกนโค้ดเบสหาข้อมูลรับรองที่ฮาร์ดโค้ดไว้ได้จากบรรทัดคำสั่ง
+- [ตัวอย่าง prompt ของ Lagune: ทำขั้นตอนแบบ Blue Team ให้เป็นอัตโนมัติ](https://lagune.ai/th-TH/docs/examples/prompts.md): Prompt ของ Lagune ที่พร้อมคัดลอก: การสแกนแบบอ่านอย่างเดียว ขั้นตอนแบบ Blue Team เต็มรูปแบบ และการตรวจสอบแบบ Zero Trust รวมถึงการตรวจจับที่จำกัดขอบเขตไว้ที่ commit, diff ของ branch หรือ PR หรือเหตุการณ์จริง
+- [Security-Driven Hardening: แนวปฏิบัติสำหรับยุคการพัฒนาที่มี AI ช่วย](https://lagune.ai/th-TH/docs/references/paper.md): ระเบียบวิธี Security-Driven Hardening (SDH): แนวปฏิบัติแบบ Blue Team ที่เข้าใจบริบท สำหรับตรวจสอบและเสริมความปลอดภัยให้ซอฟต์แวร์ที่เขียนด้วย AI และ vibe coding
+- [อภิธานศัพท์ Lagune: SDH, charter, ข้อตรวจพบ และมาตรการควบคุม](https://lagune.ai/th-TH/docs/references/glossary.md): คำอธิบายด้วยภาษาที่เข้าใจง่ายของทุกคำศัพท์ใน Lagune และ Security-Driven Hardening: SDH, charter, detect, harden, verify และ stand down รวมถึงข้อตรวจพบ มาตรการควบคุม การปิดให้จบได้ ความรู้เฉพาะทาง หมวดหมู่ และแคตตาล็อก
+- [สคีมาของ configs](https://lagune.ai/th-TH/docs/references/configs-schema.md): JSON Schema สำหรับ configs ของโปรเจกต์ Lagune ให้ editor เติมคำอัตโนมัติและตรวจความถูกต้องของไฟล์ได้ โดยอ้างอิง Lagune เวอร์ชันล่าสุดหรือตรึงไว้ที่เวอร์ชันใดเวอร์ชันหนึ่ง
+- [Lagune vs. Deepsec: เปรียบเทียบแนวทางความปลอดภัยที่ขับเคลื่อนด้วย AI สองแบบ](https://lagune.ai/th-TH/docs/references/deepsec.md): เอกสารอ้างอิงที่เปรียบเทียบ Lagune กับ Deepsec ของ Vercel ทั้งด้านหลักการทำงาน วงจรชีวิต การตรวจจับ ค่าใช้จ่าย ข้อตรวจพบ และการปิดข้อตรวจพบ
+- [แหล่งที่มาจาก OWASP](https://lagune.ai/th-TH/docs/references/owasp-sources.md): ที่มาของความรู้ในความรู้เฉพาะทาง OWASP ในตัว โดยจับคู่กับหน้าการโจมตีและหน้า Cheat Sheet ต้นฉบับของ OWASP
+- [/lagune-repair: ซ่อมการติดตามข้อตรวจพบที่เสียหาย](https://lagune.ai/th-TH/docs/commands/repair.md): ซ่อมห่วงโซ่เมื่อการเปลี่ยนชื่อหรือย้ายไฟล์ทำให้การติดตามของ Lagune สับสน
+- [Migrate: ย้ายโปรเจกต์ Lagune แบบ manifest ไปใช้ skill และปลั๊กอิน](https://lagune.ai/th-TH/docs/commands/migrate.md): ย้ายโปรเจกต์ Lagune แบบ manifest ไปใช้ Lagune แบบ skill โดยเก็บ charter อาร์ติแฟกต์ การติดตาม และความรู้เฉพาะทางของคุณเองไว้ครบ
+
+## ภาษาอื่น ๆ
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [한국어](https://lagune.ai/ko-KR/llms.txt)
+- [हिन्दी](https://lagune.ai/hi-IN/llms.txt)
+- [Bahasa Indonesia](https://lagune.ai/id-ID/llms.txt)
