@@ -9,7 +9,10 @@
         ".claude",
         ".github",
         ".vscode",
-        "scripts",
+        "scripts/dashboard",
+        "scripts/playground",
+        "scripts/skills",
+        "scripts/website",
         "test",
         "tools",
         "website"
