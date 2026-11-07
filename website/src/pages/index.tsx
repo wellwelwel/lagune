@@ -1,6 +1,5 @@
 import type { TopBarLink } from '@site/src/components/home/TopBar';
 import type { LocalePage } from '@site/src/components/LocaleHead';
-import type { WindowId } from '@site/src/data/home';
 import type { ReactNode } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import Head from '@docusaurus/Head';
@@ -8,12 +7,17 @@ import Link from '@docusaurus/Link';
 import { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useDataMessages } from '@site/src/components/docs/data';
-import { frameResizeObserver } from '@site/src/components/frameResizeObserver';
-import { AgentStack } from '@site/src/components/home/AgentStack';
 import { Brand } from '@site/src/components/home/Brand';
-import { OverviewPanel } from '@site/src/components/home/OverviewPanel';
-import { RailTip } from '@site/src/components/home/RailTip';
+import { CallToAction } from '@site/src/components/home/CallToAction';
+import { ChatDemo } from '@site/src/components/home/ChatDemo';
+import { Hero } from '@site/src/components/home/Hero';
+import { Highlights } from '@site/src/components/home/Highlights';
+import { InstallTabs } from '@site/src/components/home/InstallTabs';
+import { SiteFooter } from '@site/src/components/home/SiteFooter';
+import { StepRail } from '@site/src/components/home/StepRail';
+import { Tagline } from '@site/src/components/home/Tagline';
 import { TopBar } from '@site/src/components/home/TopBar';
+import { UsagePanel } from '@site/src/components/home/UsagePanel';
 import {
   LanguageLinks,
   useLanguageOptions,
@@ -24,37 +28,47 @@ import {
   useLocalePage,
   usePublishedAlternates,
 } from '@site/src/components/LocaleHead';
-import { MaskIcon } from '@site/src/components/MaskIcon';
-import {
-  BACKGROUND_SIZES,
-  BACKGROUNDS,
-  FEATURE,
-  OVERVIEW_RAIL,
-  PHASE_STEPS,
-  STEP_RAIL_ICONS,
-  TABS,
-} from '@site/src/data/home';
+import { useDismiss } from '@site/src/components/useDismiss';
+import { SECTION_LABELS } from '@site/src/data/home';
 import { jsonLd } from '@site/src/seo/jsonLd';
-import { siteDescriptionIn } from '@site/src/seo/site';
 import {
-  lazy,
-  Suspense,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
-import { FaStar } from 'react-icons/fa6';
-import { GoHeartFill } from 'react-icons/go';
+  NPM_URL,
+  OG_IMAGE,
+  REPOSITORY_URL,
+  SITE_URL,
+  siteDescriptionIn,
+} from '@site/src/seo/site';
+import { lazy, Suspense, useCallback, useRef, useState } from 'react';
+import { FaBookOpen, FaGithub } from 'react-icons/fa6';
 import { LuMenu, LuX } from 'react-icons/lu';
 
-const SITE_URL = 'https://lagune.ai';
 const SITE_HOME = `${SITE_URL}/`;
-const REPO_URL = 'https://github.com/wellwelwel/lagune';
-const SPONSOR_URL = 'https://github.com/sponsors/wellwelwel';
-const NPM_URL = 'https://www.npmjs.com/package/lagune';
-const OG_IMAGE = 'https://lagune.ai/img/og.png';
+const SIDE_BY_SIDE = 'grid gap-[clamp(56px,7vw,96px)] xl:grid-cols-2';
+
+const SECONDARY_LINK =
+  'relative inline-flex items-center gap-1.5 font-medium text-muted no-underline transition-colors duration-200 ease-out hover:text-ink after:absolute after:-inset-x-2 after:top-1/2 after:h-10 after:-translate-y-1/2';
+
+const DOCS_LABEL = translate({
+  id: 'common.docs',
+  message: 'Docs',
+  description: 'The name of the documentation, in links and breadcrumbs',
+});
+
+const STAR_LABEL = translate({
+  id: 'common.starOnGitHub',
+  message: 'Star on GitHub',
+  description: 'Invites the reader to star the Lagune repository on GitHub',
+});
+
+const headerLinks: TopBarLink[] = [
+  { label: STAR_LABEL, Icon: FaGithub, href: REPOSITORY_URL, iconOnly: true },
+];
+
+const WaterField = lazy(() =>
+  import('@site/src/components/WaterField').then((module) => ({
+    default: module.WaterField,
+  }))
+);
 
 const howToStep = (
   page: LocalePage,
@@ -81,17 +95,17 @@ const homeStructuredData = (page: LocalePage, summary: string) => ({
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://lagune.ai/#website',
+      '@id': `${SITE_URL}/#website`,
       name: 'Lagune',
       alternateName: ['Lagune AI', 'lagune'],
       url: SITE_HOME,
       inLanguage: page.htmlLang,
       description: summary,
-      publisher: { '@id': 'https://lagune.ai/#organization' },
+      publisher: { '@id': `${SITE_URL}/#organization` },
     },
     {
       '@type': 'SoftwareApplication',
-      '@id': 'https://lagune.ai/#software',
+      '@id': `${SITE_URL}/#software`,
       name: 'Lagune',
       alternateName: ['Lagune AI', 'Lagune Security'],
       applicationCategory: 'DeveloperApplication',
@@ -101,9 +115,9 @@ const homeStructuredData = (page: LocalePage, summary: string) => ({
       description: summary,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       screenshot: OG_IMAGE,
-      license: `${REPO_URL}/blob/main/LICENSE`,
-      publisher: { '@id': 'https://lagune.ai/#organization' },
-      author: { '@id': 'https://lagune.ai/#author' },
+      license: `${REPOSITORY_URL}/blob/main/LICENSE`,
+      publisher: { '@id': `${SITE_URL}/#organization` },
+      author: { '@id': `${SITE_URL}/#author` },
       downloadUrl: NPM_URL,
       softwareHelp: `${SITE_URL}${page.baseUrl}docs`,
       featureList: [
@@ -154,7 +168,7 @@ const homeStructuredData = (page: LocalePage, summary: string) => ({
           description: "A feature of Lagune in search engines' structured data",
         }),
       ],
-      sameAs: [REPO_URL, NPM_URL],
+      sameAs: [REPOSITORY_URL, NPM_URL],
     },
     {
       '@type': 'HowTo',
@@ -331,70 +345,9 @@ const homeStructuredData = (page: LocalePage, summary: string) => ({
   ],
 });
 
-const WaterField = lazy(() =>
-  import('@site/src/components/WaterField').then((module) => ({
-    default: module.WaterField,
-  }))
-);
-
-const UsagePanel = lazy(() =>
-  import('@site/src/components/home/UsagePanel').then((module) => ({
-    default: module.UsagePanel,
-  }))
-);
-
-const WaveIcon = (): ReactNode => (
-  <span className='relative inline-block size-4 shrink-0'>
-    <img
-      src='/img/icons/wave.svg'
-      className='absolute inset-0 size-full transition-opacity duration-200 ease-out group-hover:opacity-0'
-      alt='Lagune'
-      aria-hidden
-    />
-    <MaskIcon
-      src='/img/icons/wave.svg'
-      className='absolute inset-0 size-full bg-accent opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100'
-    />
-  </span>
-);
-
-const headerLinks: TopBarLink[] = [
-  {
-    label: translate({
-      id: 'common.docs',
-      message: 'Docs',
-      description: 'The name of the documentation, in links and breadcrumbs',
-    }),
-    Icon: WaveIcon,
-    href: '/docs',
-  },
-  {
-    label: translate({
-      id: 'common.starOnGitHub',
-      message: 'Star on GitHub',
-      description: 'Invites the reader to star the Lagune repository on GitHub',
-    }),
-    Icon: FaStar,
-    href: REPO_URL,
-  },
-  {
-    label: translate({
-      id: 'common.support',
-      message: 'Support',
-      description: 'The link to support Lagune through GitHub Sponsors',
-    }),
-    Icon: GoHeartFill,
-    href: SPONSOR_URL,
-  },
-];
-
-const railItemClass = (current: boolean): string =>
-  `relative flex items-center justify-center size-[22px] border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-[19px] hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
-    current ? 'lagune-rail__item--active text-ink' : 'text-[#515664]'
-  }`;
-
 const measureMenuBounds = (menu: HTMLDivElement | null) => {
   const anchor = menu?.offsetParent;
+
   if (!menu || !anchor) return;
 
   const { top, right } = anchor.getBoundingClientRect();
@@ -406,7 +359,7 @@ const measureMenuBounds = (menu: HTMLDivElement | null) => {
 let glideId = 0;
 
 /**
- * Native smooth scrolling is unreliable on touch browsers: the tab-swap reflow, Safari's toolbar animation, or a leftover fling abort it partway.
+ * Native smooth scrolling is unreliable on touch browsers: Safari's toolbar animation or a leftover fling aborts it partway.
  */
 const glideToTop = () => {
   const id = ++glideId;
@@ -432,6 +385,7 @@ const glideToTop = () => {
   const frame = () => {
     if (id !== glideId) {
       detach();
+
       return;
     }
 
@@ -448,99 +402,48 @@ const glideToTop = () => {
   frame();
 };
 
+const scrollToTop = () => {
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+    glideToTop();
+
+    return;
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
 const Home = (): ReactNode => {
-  const [active, setActive] = useState<WindowId>('overview');
   const [usageStep, setUsageStep] = useState(0);
   const [modeIndex, setModeIndex] = useState(0);
   const [typedDone, setTypedDone] = useState(false);
-  const [hoveredTab, setHoveredTab] = useState<WindowId | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const navRef = useRef<HTMLElement | null>(null);
-  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>(
-    Object.create(null)
-  );
-  const [pill, setPill] = useState<{ left: number; width: number } | null>(
-    null
-  );
-  const pillTabRef = useRef<WindowId>(active);
 
-  pillTabRef.current = hoveredTab ?? active;
+  useDismiss(menuOpen, menuRef, setMenuOpen);
 
-  const measurePill = useCallback(() => {
-    const tab = tabRefs.current[pillTabRef.current];
+  const goToStep = useCallback(
+    (index: number) => {
+      if (index === usageStep && modeIndex === 0) return;
 
-    if (tab) setPill({ left: tab.offsetLeft, width: tab.offsetWidth });
-  }, []);
-
-  useLayoutEffect(measurePill, [hoveredTab, active, measurePill]);
-
-  useEffect(() => {
-    const nav = navRef.current;
-    if (!nav) return;
-
-    const observer = frameResizeObserver(measurePill);
-
-    observer.observe(nav);
-    nav.addEventListener('scroll', measurePill, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      nav.removeEventListener('scroll', measurePill);
-    };
-  }, [measurePill]);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
-    };
-
-    const onPointer = (event: PointerEvent) => {
-      if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false);
-    };
-
-    window.addEventListener('keydown', onKey);
-    window.addEventListener('pointerdown', onPointer);
-
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      window.removeEventListener('pointerdown', onPointer);
-    };
-  }, [menuOpen]);
-
-  const goToStep = useCallback((index: number) => {
-    setTypedDone(false);
-    setModeIndex(0);
-    setUsageStep(index);
-  }, []);
-
-  const selectMode = useCallback((index: number) => {
-    setTypedDone(false);
-    setModeIndex(index);
-  }, []);
-
-  const goToTab = (id: WindowId) => {
-    if (id === 'usage') {
       setTypedDone(false);
-      setUsageStep(0);
       setModeIndex(0);
-    }
+      setUsageStep(index);
+    },
+    [usageStep, modeIndex]
+  );
 
-    setActive(id);
+  const selectMode = useCallback(
+    (index: number) => {
+      if (index === modeIndex) return;
 
-    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
-      glideToTop();
-      return;
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+      setTypedDone(false);
+      setModeIndex(index);
+    },
+    [modeIndex]
+  );
 
   const markTyped = useCallback(() => setTypedDone(true), []);
 
-  const feature = FEATURE[active];
   const summary = siteDescriptionIn(useDataMessages());
   const page = useLocalePage();
   const {
@@ -600,304 +503,136 @@ const Home = (): ReactNode => {
         <div className='absolute inset-0 z-[2] [background:radial-gradient(120%_120%_at_50%_40%,transparent_30%,rgba(4,8,22,0.85)_100%)]' />
       </div>
 
-      <TopBar links={headerLinks} />
+      <TopBar links={headerLinks} onBrand={scrollToTop} />
 
-      <main className='relative z-[2] min-h-screen flex items-center justify-center p-[clamp(16px,4vw,64px)] min-[921px]:pt-[calc(clamp(16px,4vw,64px)+64px)] max-[600px]:p-0 max-[600px]:items-stretch'>
-        <section className='w-full max-w-[1240px] rounded-[28px] border border-[#05092a] bg-glass overflow-hidden [backdrop-filter:blur(40px)_saturate(120%)] [-webkit-backdrop-filter:blur(40px)_saturate(120%)] [box-shadow:inset_0_1px_0_0_rgba(255,255,255,0.08),0_40px_120px_-40px_rgba(10,11,13,0.75)] max-[600px]:max-w-none max-[600px]:min-h-screen max-[600px]:[min-height:100dvh] max-[600px]:rounded-none max-[600px]:border-0 max-[600px]:flex max-[600px]:flex-col max-[600px]:overflow-visible max-[600px]:[backdrop-filter:none] max-[600px]:[-webkit-backdrop-filter:none]'>
-          <header className='grid grid-cols-[1fr_auto_1fr] items-center gap-2.5 px-[clamp(22px,3vw,38px)] py-[clamp(18px,2.4vw,28px)] border-b border-[#0c155c] max-[920px]:flex max-[920px]:flex-wrap max-[920px]:justify-between max-[920px]:pb-3.5 max-[600px]:sticky max-[600px]:top-0 max-[600px]:z-30 max-[600px]:border-none max-[600px]:bg-[rgba(13,18,31,0.85)] max-[600px]:[backdrop-filter:blur(16px)_saturate(140%)] max-[600px]:[-webkit-backdrop-filter:blur(10px)_saturate(140%)] max-[600px]:[box-shadow:0_16px_20px_-8px_#0d121f]'>
-            <div className='flex items-center gap-[18px] min-w-0'>
-              <span
-                className='flex items-center gap-2 max-[920px]:hidden'
-                aria-hidden
-              >
-                <span className='size-3 rounded-full bg-accent' />
-                <span className='size-3 rounded-full bg-accent opacity-55' />
-                <span className='size-3 rounded-full bg-accent opacity-25' />
-              </span>
-              <Brand
-                onClick={() => goToTab('overview')}
-                className='min-[921px]:hidden'
+      <header className='sticky top-0 z-30 hidden h-16 items-center justify-between px-[clamp(22px,4vw,64px)] bg-[rgba(5,10,24,0.82)] [backdrop-filter:blur(16px)_saturate(140%)] [-webkit-backdrop-filter:blur(16px)_saturate(140%)] [box-shadow:0_16px_20px_-8px_#050a18] max-[920px]:flex'>
+        <Brand logo onClick={scrollToTop} />
+
+        <div ref={menuRef} className='relative flex items-center'>
+          <button
+            type='button'
+            aria-label={translate({
+              id: 'home.nav.menu',
+              message: 'Menu',
+              description:
+                'The label of the button that opens the compact home menu',
+            })}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+            className='relative inline-flex size-10 items-center justify-center rounded-xl border border-line bg-card text-ink transition-[background-color,border-color] duration-200 ease-out hover:bg-card-hover hover:border-accent/50'
+          >
+            <LuMenu
+              aria-hidden
+              className={`absolute size-[18px] transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
+                menuOpen
+                  ? 'opacity-0 scale-[0.25] blur-[4px]'
+                  : 'opacity-100 scale-100 blur-0'
+              }`}
+            />
+            <LuX
+              aria-hidden
+              className={`absolute size-[18px] transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
+                menuOpen
+                  ? 'opacity-100 scale-100 blur-0'
+                  : 'opacity-0 scale-[0.25] blur-[4px]'
+              }`}
+            />
+          </button>
+
+          {menuOpen && (
+            <div
+              ref={measureMenuBounds}
+              className='lagune-menu-pop lagune-flow absolute top-[calc(100%+8px)] right-0 z-[20] flex max-h-[calc(100dvh-var(--lagune-menu-top)-16px-env(safe-area-inset-bottom))] w-max max-w-[calc(var(--lagune-menu-right)-16px)] min-w-50 flex-col gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)]'
+            >
+              {headerLinks.map(({ label, Icon, href }) => (
+                <Link
+                  key={label}
+                  className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] no-underline text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
+                  to={href}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <Icon aria-hidden />
+                  {label}
+                </Link>
+              ))}
+              {languages.length > 1 && (
+                <nav
+                  aria-label={translate({
+                    id: 'common.language',
+                    message: 'Language',
+                    description:
+                      'The accessible name of the menu that switches the site language',
+                  })}
+                  className='mt-1 flex flex-col gap-1 border-t border-line pt-1.5'
+                >
+                  <LanguageLinks
+                    options={languages}
+                    tone='canvas'
+                    onSelect={() => setMenuOpen(false)}
+                  />
+                </nav>
+              )}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <main className='relative z-[2] mx-auto box-content flex max-w-384 flex-col gap-[clamp(56px,7vw,96px)] px-[clamp(22px,4vw,64px)] pt-[calc(64px+clamp(16px,4vw,64px))] pb-[clamp(56px,7vw,96px)] max-[920px]:pt-8'>
+        <div className={SIDE_BY_SIDE}>
+          <section
+            aria-label={SECTION_LABELS.overview}
+            className='flex min-w-0 flex-col gap-10'
+          >
+            <Hero />
+            <InstallTabs />
+            <div className='flex flex-col gap-3'>
+              <CallToAction />
+              <div className='flex items-center gap-5 pl-2.5 text-[12.5px] tracking-[-0.01em]'>
+                <Link className={SECONDARY_LINK} to='/docs'>
+                  <FaBookOpen
+                    className='size-3.5 shrink-0 -translate-y-px'
+                    aria-hidden
+                  />
+                  {DOCS_LABEL}
+                </Link>
+                <Link className={SECONDARY_LINK} to={REPOSITORY_URL}>
+                  <FaGithub
+                    className='size-3.5 shrink-0 -translate-y-px'
+                    aria-hidden
+                  />
+                  {STAR_LABEL}
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          <section
+            aria-label={SECTION_LABELS.usage}
+            className='flex min-w-0 flex-col gap-5'
+          >
+            <StepRail current={usageStep} onStep={goToStep} />
+            <div className='flex min-w-0 flex-1 flex-col'>
+              <UsagePanel
+                usageStep={usageStep}
+                modeIndex={modeIndex}
+                typedDone={typedDone}
+                onSelectMode={selectMode}
+                onStep={goToStep}
+                onTyped={markTyped}
               />
             </div>
+          </section>
+        </div>
 
-            <nav
-              ref={navRef}
-              className='relative flex items-center gap-1 rounded-xl p-1 max-[920px]:order-3 max-[920px]:w-full'
-              aria-label={translate({
-                id: 'home.nav.windows',
-                message: 'Windows',
-                description:
-                  'The accessible name of the home tabs that switch the main window',
-              })}
-              onMouseLeave={() => setHoveredTab(null)}
-            >
-              {pill && (
-                <span
-                  className='absolute top-1 bottom-1 left-0 rounded-lg border border-accent/50 bg-accent/15 transition-[transform,width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none'
-                  style={{
-                    transform: `translateX(${pill.left}px)`,
-                    width: pill.width,
-                  }}
-                  aria-hidden
-                />
-              )}
-              {TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  ref={(element) => {
-                    tabRefs.current[tab.id] = element;
-                  }}
-                  type='button'
-                  aria-current={active === tab.id ? 'page' : undefined}
-                  onClick={() => goToTab(tab.id)}
-                  onMouseEnter={() => setHoveredTab(tab.id)}
-                  className={`relative z-[1] inline-flex items-center justify-center gap-1.5 px-3.5 py-[7px] rounded-lg text-[14px] font-bold tracking-[-0.01em] whitespace-nowrap cursor-pointer transition-colors duration-200 hover:text-ink max-[920px]:flex-1 ${
-                    active === tab.id
-                      ? 'text-ink'
-                      : 'text-[rgba(233,237,247,0.7)]'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </nav>
+        <Tagline />
 
-            <div
-              ref={menuRef}
-              className='relative flex items-center justify-end gap-1.5 max-[920px]:justify-center'
-            >
-              <button
-                type='button'
-                aria-label={translate({
-                  id: 'home.nav.menu',
-                  message: 'Menu',
-                  description:
-                    'The label of the button that opens the compact home menu',
-                })}
-                aria-expanded={menuOpen}
-                onClick={() => setMenuOpen((open) => !open)}
-                className='relative hidden size-10 items-center justify-center rounded-xl border border-line bg-card text-ink transition-[background-color,border-color] duration-200 ease-out hover:bg-card-hover hover:border-accent/50 max-[920px]:inline-flex'
-              >
-                <LuMenu
-                  aria-hidden
-                  className={`absolute size-[18px] transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
-                    menuOpen
-                      ? 'opacity-0 scale-[0.25] blur-[4px]'
-                      : 'opacity-100 scale-100 blur-0'
-                  }`}
-                />
-                <LuX
-                  aria-hidden
-                  className={`absolute size-[18px] transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
-                    menuOpen
-                      ? 'opacity-100 scale-100 blur-0'
-                      : 'opacity-0 scale-[0.25] blur-[4px]'
-                  }`}
-                />
-              </button>
-
-              {menuOpen && (
-                <div
-                  ref={measureMenuBounds}
-                  className='lagune-menu-pop lagune-flow absolute top-[calc(100%+8px)] right-0 z-[20] flex max-h-[calc(100dvh-var(--lagune-menu-top)-16px-env(safe-area-inset-bottom))] w-max max-w-[calc(var(--lagune-menu-right)-16px)] min-w-50 flex-col gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)] min-[921px]:hidden'
-                >
-                  {headerLinks.map(({ label, Icon, href }) => (
-                    <Link
-                      key={label}
-                      className='inline-flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] no-underline text-ink transition-colors duration-200 ease-out hover:bg-white/[0.06] [&>svg]:size-[18px] [&>svg]:text-[#0088ff]'
-                      to={href}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      <Icon aria-hidden />
-                      {label}
-                    </Link>
-                  ))}
-                  {languages.length > 1 && (
-                    <nav
-                      aria-label={translate({
-                        id: 'common.language',
-                        message: 'Language',
-                        description:
-                          'The accessible name of the menu that switches the site language',
-                      })}
-                      className='mt-1 flex flex-col gap-1 border-t border-line pt-1.5'
-                    >
-                      <LanguageLinks
-                        options={languages}
-                        tone='canvas'
-                        onSelect={() => setMenuOpen(false)}
-                      />
-                    </nav>
-                  )}
-                </div>
-              )}
-            </div>
-          </header>
-
-          <div className='grid grid-cols-[56px_1fr] max-[600px]:grid-cols-[1fr] max-[600px]:flex-1'>
-            <nav
-              className='relative z-20 border-r border-[#0c155c] max-[600px]:border-r-0 max-[600px]:border max-[600px]:border-[#0c155c] max-[600px]:order-3 max-[600px]:fixed max-[600px]:bottom-[calc(16px+env(safe-area-inset-bottom))] max-[600px]:left-1/2 max-[600px]:-translate-x-1/2 max-[600px]:z-20 max-[600px]:w-auto max-[600px]:rounded-full max-[600px]:bg-[rgba(12,16,28,0.42)] max-[600px]:[backdrop-filter:blur(10px)_saturate(140%)] max-[600px]:[-webkit-backdrop-filter:blur(10px)_saturate(140%)] max-[600px]:[box-shadow:0_8px_30px_-6px_rgba(0,0,0,0.55)]'
-              aria-label={translate({
-                id: 'home.nav.sections',
-                message: 'Sections',
-                description: 'The accessible name of the home side rail',
-              })}
-            >
-              <div
-                key={active}
-                className='lagune-fade-in flex flex-col items-center gap-[26px] py-[clamp(24px,3vw,36px)] max-[600px]:flex-row max-[600px]:justify-center max-[600px]:gap-9 max-[600px]:px-7 max-[600px]:py-3.5'
-              >
-                {active === 'usage'
-                  ? PHASE_STEPS.map((step, index) => {
-                      const Icon = STEP_RAIL_ICONS[index];
-
-                      return (
-                        <RailTip key={step.phase.title} tip={step.phase.title}>
-                          <button
-                            type='button'
-                            onClick={() => goToStep(index)}
-                            className={railItemClass(index === usageStep)}
-                            aria-label={translate(
-                              {
-                                id: 'home.rail.step',
-                                message: '{phase} ({stage})',
-                                description:
-                                  'The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label',
-                              },
-                              {
-                                phase: step.phase.title,
-                                stage: step.phase.eyebrow,
-                              }
-                            )}
-                            aria-current={
-                              index === usageStep ? 'step' : undefined
-                            }
-                          >
-                            <Icon aria-hidden />
-                          </button>
-                        </RailTip>
-                      );
-                    })
-                  : OVERVIEW_RAIL.map((item) => {
-                      if (item.href)
-                        return (
-                          <RailTip key={item.label} tip={item.tip}>
-                            <Link
-                              to={item.href}
-                              className={railItemClass(item.active)}
-                              aria-label={item.label}
-                            >
-                              <item.Icon aria-hidden />
-                            </Link>
-                          </RailTip>
-                        );
-
-                      return (
-                        <RailTip key={item.label} tip={item.tip}>
-                          <button
-                            type='button'
-                            className={railItemClass(item.active)}
-                            aria-label={item.label}
-                            aria-current={item.active ? 'page' : undefined}
-                          >
-                            <item.Icon aria-hidden />
-                          </button>
-                        </RailTip>
-                      );
-                    })}
-              </div>
-            </nav>
-
-            <div className='grid grid-cols-[1.15fr_0.85fr] gap-[clamp(20px,2.6vw,38px)] p-[clamp(22px,3vw,38px)] max-[920px]:grid-cols-[1fr] max-[600px]:pt-3 max-[600px]:pb-[calc(104px+env(safe-area-inset-bottom))]'>
-              <div className='relative grid min-w-0 min-h-[var(--lagune-window-h)] max-[920px]:min-h-0'>
-                <div
-                  className={`flex flex-col min-w-0 ${
-                    active === 'overview'
-                      ? 'lagune-fade-in-soft'
-                      : 'invisible max-[920px]:hidden'
-                  }`}
-                  inert={active !== 'overview'}
-                >
-                  <OverviewPanel />
-                </div>
-
-                {active === 'usage' && (
-                  <div className='lagune-flow lagune-fade-in-soft absolute inset-0 flex flex-col min-w-0 overflow-y-auto max-[920px]:static max-[920px]:overflow-visible'>
-                    <Suspense fallback={null}>
-                      <UsagePanel
-                        usageStep={usageStep}
-                        modeIndex={modeIndex}
-                        typedDone={typedDone}
-                        onSelectMode={selectMode}
-                        onStep={goToStep}
-                        onTyped={markTyped}
-                      />
-                    </Suspense>
-                  </div>
-                )}
-              </div>
-
-              <aside className='relative flex flex-col justify-between gap-10 min-h-[var(--lagune-window-h)] rounded-[20px] overflow-hidden p-[clamp(22px,2.4vw,32px)] isolate max-[920px]:min-h-[420px] max-[920px]:order-first max-[600px]:min-h-[300px]'>
-                {TABS.map((tab) => (
-                  <img
-                    key={tab.id}
-                    className={`absolute inset-0 -z-[2] w-full h-full object-cover object-[50%_70%] [filter:contrast(1.04)_saturate(1.08)] transition-opacity duration-700 ease-out ${
-                      active === tab.id ? 'opacity-25' : 'opacity-0'
-                    }`}
-                    src={BACKGROUNDS[tab.id].src}
-                    srcSet={BACKGROUNDS[tab.id].srcSet}
-                    sizes={BACKGROUND_SIZES}
-                    alt={translate(
-                      {
-                        id: 'home.background.alt',
-                        message: 'Lagune {tab}',
-                        description:
-                          "The alternative text of a home tab's background image, where {tab} is the tab",
-                      },
-                      { tab: tab.label }
-                    )}
-                    aria-hidden
-                    decoding='async'
-                    loading={active === tab.id ? 'eager' : 'lazy'}
-                    fetchPriority={active === tab.id ? 'high' : 'low'}
-                  />
-                ))}
-                <div className='absolute inset-0 -z-[3] [background:linear-gradient(180deg,#0a1a4a_0%,#050d2c_60%,#03081c_100%)]' />
-                <div className='absolute inset-0 -z-[1] [background:linear-gradient(180deg,rgba(4,9,28,0.42)_0%,rgba(4,9,28,0.05)_32%,rgba(4,9,28,0.2)_58%,rgba(3,7,22,0.82)_100%)]' />
-
-                <div
-                  key={`top-${active}`}
-                  className='lagune-fade-in flex flex-col items-start gap-3.5'
-                >
-                  <span className='inline-flex items-center px-3.5 py-[7px] rounded-md bg-accent font-mono text-[14px]! tracking-[0.075em] uppercase text-ink max-[600px]:text-[12px]!'>
-                    <span className='size-[6px] rounded-full bg-white mr-[9px]' />
-                    {feature.chip}
-                  </span>
-                  <p className='text-[clamp(14px,1.35vw,16px)] font-normal leading-[1.55] tracking-[-0.01em] text-[rgba(233, 237, 247,0.92)] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]'>
-                    {feature.kicker}
-                  </p>
-                  {active === 'overview' && <AgentStack />}
-                </div>
-
-                <div
-                  key={`title-${active}`}
-                  className='lagune-fade-in flex flex-col gap-[8px]'
-                >
-                  <span className='font-mono text-[14px]! tracking-[0.18em] uppercase text-[rgba(233, 237, 247,0.62)] max-[600px]:text-[12px]!'>
-                    {feature.eyebrow}
-                  </span>
-                  <h2 className='font-display font-black text-[clamp(32px,4.4vw,34px)] leading-[1.5] tracking-[-0.02em] m-0 max-[600px]:text-[24px]'>
-                    <span className='text-accent mr-2 [-webkit-text-stroke:0.04em_var(--color-accent)]'>
-                      /
-                    </span>
-                    {feature.title}
-                  </h2>
-                </div>
-              </aside>
-            </div>
-          </div>
-        </section>
+        <div className={SIDE_BY_SIDE}>
+          <ChatDemo />
+          <Highlights />
+        </div>
       </main>
+
+      <SiteFooter onBrand={scrollToTop} />
     </div>
   );
 };

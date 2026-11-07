@@ -2,10 +2,12 @@ import type {
   Agent,
   Animation,
   ChipSegment,
+  FieldLayers,
   FlowContext,
   Fragment,
   Outro,
   Session,
+  Target,
   TypingSpan,
 } from './types';
 import {
@@ -13,11 +15,13 @@ import {
   FIELD,
   FIELD_LINE_TOP,
   FIELD_TEXT_X,
+  HEIGHT,
   LINE_BASELINE,
   LINE_HEIGHT,
   SEND,
   TOOLBAR_CENTER,
   TOOLBAR_HEIGHT,
+  WIDTH,
 } from './layout';
 import {
   characterOffsets,
@@ -33,6 +37,7 @@ import { fragment, join } from './motion';
 import { isPasted } from './timeline';
 
 const PANEL_PADDING = FIELD_LINE_TOP - FIELD.y;
+const COVER_REGION = `x="0" y="0" width="${WIDTH}" height="${HEIGHT}"`;
 const STEP = 'steps(1,end)';
 const STAR_SIZE = 15;
 const CHIP_ROLL = 0.22;
@@ -395,6 +400,41 @@ const sendButton = ({ sessions, timeline, motion }: FlowContext): Fragment => {
   );
 };
 
+const coverMask = (id: string, covers: string) =>
+  `<mask id="${id}" maskUnits="userSpaceOnUse" ${COVER_REGION} class="cover-mask">
+      <rect ${COVER_REGION} fill="#fff" class="cover-backdrop"/>
+      ${covers}
+    </mask>`;
+
+const paintedCovers = ({ typing, placeholder, pasted }: FieldLayers) =>
+  `${fieldShape(FIELD.y, FIELD.height)}
+  <g clip-path="url(#field-clip)">
+    ${typing}
+  </g>
+  ${placeholder}
+  ${pasted}`;
+
+const maskedCovers = ({ typing, covers, placeholder, pasted }: FieldLayers) =>
+  `<defs>
+    ${coverMask('typing-cover', covers)}
+    ${coverMask('paste-cover', pasted)}
+  </defs>
+  <g mask="url(#paste-cover)">
+    ${fieldShape(FIELD.y, FIELD.height)}
+    <g clip-path="url(#field-clip)">
+      <g mask="url(#typing-cover)">
+    ${typing}
+      </g>
+    </g>
+    ${placeholder}
+  </g>
+  ${pasted}`;
+
+const FIELD_LAYERS: Record<Target, (layers: FieldLayers) => string> = {
+  readme: paintedCovers,
+  website: maskedCovers,
+};
+
 export const composer = (context: FlowContext): Fragment => {
   const { sessions, timeline, motion } = context;
   const placeholder = motion.visibleBetween('placeholder', [
@@ -422,16 +462,18 @@ export const composer = (context: FlowContext): Fragment => {
   const starRequest = callToAction(context);
   const chip = agentChip(context);
   const send = sendButton(context);
+  const covers = `${carets.markup}
+    ${starRequest.markup}`;
+  const layers: FieldLayers = {
+    typing: `${typed.markup}
+    ${covers}`,
+    covers,
+    placeholder: `<text x="${FIELD_TEXT_X}" y="${FIELD_LINE_TOP + LINE_BASELINE}" class="sans placeholder ${placeholder.name}">Message your AI agent</text>`,
+    pasted: pasted.markup,
+  };
 
   return fragment(
-    `${fieldShape(FIELD.y, FIELD.height)}
-  <g clip-path="url(#field-clip)">
-    ${typed.markup}
-    ${carets.markup}
-    ${starRequest.markup}
-  </g>
-  <text x="${FIELD_TEXT_X}" y="${FIELD_LINE_TOP + LINE_BASELINE}" class="sans placeholder ${placeholder.name}">Message your AI agent</text>
-  ${pasted.markup}
+    `${FIELD_LAYERS[context.target](layers)}
   ${icon('paperclip', FIELD_TEXT_X - 2, TOOLBAR_CENTER - 8, 16, 'muted')}
   ${chip.markup}
   ${send.markup}`,

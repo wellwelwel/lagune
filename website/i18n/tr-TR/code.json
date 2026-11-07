@@ -187,18 +187,6 @@
     "message": "Bu sayfada",
     "description": "The heading of a docs page's table of contents"
   },
-  "home.agents.installOn": {
-    "message": "{agent} için kur",
-    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
-  },
-  "home.agents.more": {
-    "message": "{count} ajan daha",
-    "description": "The label of the link to every other supported agent, where {count} is how many"
-  },
-  "home.background.alt": {
-    "message": "Lagune {tab}",
-    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
-  },
   "home.brand.backToTop": {
     "message": "Lagune.ai, başa dön",
     "description": "The label of the brand button that scrolls back to the top"
@@ -206,6 +194,38 @@
   "home.cta.install": {
     "message": "Kur",
     "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "Tam ekrana geç",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "Tam ekrandan çık",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "Lagune'yi çalıştıran bir yapay zeka ajanı: bir projenin güvenlik ilkeleri, güvenli bir kullanıcı kaydı ve bir Blue Team denetimi",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "Animasyonu duraklat",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "Animasyonu oynat",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "Animasyon konumu",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "Oynatma hızı",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "Normal",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
   },
   "home.faq.audit.answer": {
     "message": "Evet. Beş fazlı Blue Team akışı var olanı denetler: charter güvenlik kurallarınızı belirler, detect sistemin ne yaptığını ve risklerin nerede olduğunu belirler, plan her bulguyu puanlayıp bir düzeltmeyle eşleştirir, harden düzeltmeleri uygular, verify ise işe yaradıklarını kanıtlayıp onları kapatır.",
@@ -239,13 +259,9 @@
     "message": "Lagune nedir?",
     "description": "A question of the home page in search engines' structured data"
   },
-  "home.feature.overview.eyebrow": {
-    "message": "Pratik",
-    "description": "The small caps label over the home overview title"
-  },
   "home.feature.overview.kicker": {
     "message": "Genel bir kontrol listesi uygulamak yerine güvenlik, geliştirmenin {before}, {during} ve {after} var olsaydı nasıl olurdu?",
-    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
   },
   "home.feature.overview.kicker.after": {
     "message": "sonrasında",
@@ -260,24 +276,8 @@
     "description": "The emphasized \"during\" of the home overview question"
   },
   "home.feature.overview.title": {
-    "message": "Tasarım gereği{lineBreak}savunma",
-    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
-  },
-  "home.feature.usage.chip": {
-    "message": "Blue Team akışı",
-    "description": "The chip over the home usage tab"
-  },
-  "home.feature.usage.eyebrow": {
-    "message": "Blue Team akışı",
-    "description": "The small caps label over the home usage title"
-  },
-  "home.feature.usage.kicker": {
-    "message": "Kodunuzu gösterin, gerisini ajan halletsin.",
-    "description": "The sentence that opens the home usage tab"
-  },
-  "home.feature.usage.title": {
-    "message": "Yayına aldığınızı{lineBreak}sıkılaştırın",
-    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+    "message": "Tasarım gereği savunma",
+    "description": "The large title of the home overview"
   },
   "home.group.anyPrompt": {
     "message": "Her prompt, her an",
@@ -383,6 +383,14 @@
     "message": "Uygulanan her düzeltmenin işe yaradığını kanıtlayın, ardından kanıtlananları takipten çıkarın.",
     "description": "The Verify step of the five-phase guide in search engines' structured data"
   },
+  "home.install.copy": {
+    "message": "{agent} kurulum komutunu kopyala",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "Kurulum komutları",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
   "home.meta.description": {
     "message": "Lagune, yapay zeka ajanınızın her kod tabanını sıkılaştırmasına yardımcı olur: sisteminizin gerçekte ne yaptığını tespit eder, ardından siz geliştirirken uygun savunma çalışmasını yürütür.",
     "description": "The description of the home page in search results and link previews"
@@ -403,13 +411,9 @@
     "message": "Menü",
     "description": "The label of the button that opens the compact home menu"
   },
-  "home.nav.sections": {
-    "message": "Bölümler",
-    "description": "The accessible name of the home side rail"
-  },
-  "home.nav.windows": {
-    "message": "Pencereler",
-    "description": "The accessible name of the home tabs that switch the main window"
+  "home.nav.phases": {
+    "message": "Fazlar",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
   },
   "home.phase.bannerAlt": {
     "message": "{phase} fazı",
@@ -565,7 +569,15 @@
   },
   "home.rail.step": {
     "message": "{phase} ({stage})",
-    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "Genel bakış",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "Nasıl kullanılır",
+    "description": "The name of the home section that walks through the commands"
   },
   "home.software.feature.context": {
     "message": "Bir sistemin gerçekte ne yaptığını, ne olursa olsun tespit eder, ardından her dilde o bağlam için önemli olan düzeltmeleri yürütür",
@@ -598,14 +610,6 @@
   "home.software.feature.universal": {
     "message": "Evrensel /lagune komutuyla yeni işi, güvenlik ilkelerinin rehberliğinde, yazılırken güvenceye alır",
     "description": "A feature of Lagune in search engines' structured data"
-  },
-  "home.tab.overview": {
-    "message": "Genel bakış",
-    "description": "The home tab that presents Lagune"
-  },
-  "home.tab.usage": {
-    "message": "Nasıl kullanılır",
-    "description": "The home tab that walks through the commands"
   },
   "home.topBar.label": {
     "message": "Site",

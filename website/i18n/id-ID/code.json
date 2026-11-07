@@ -187,18 +187,6 @@
     "message": "Di halaman ini",
     "description": "The heading of a docs page's table of contents"
   },
-  "home.agents.installOn": {
-    "message": "Instal di {agent}",
-    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
-  },
-  "home.agents.more": {
-    "message": "{count} agen lainnya",
-    "description": "The label of the link to every other supported agent, where {count} is how many"
-  },
-  "home.background.alt": {
-    "message": "Lagune {tab}",
-    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
-  },
   "home.brand.backToTop": {
     "message": "Lagune.ai, kembali ke atas",
     "description": "The label of the brand button that scrolls back to the top"
@@ -206,6 +194,38 @@
   "home.cta.install": {
     "message": "Instal",
     "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "Layar penuh",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "Keluar dari layar penuh",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "Agen AI yang menjalankan Lagune: prinsip keamanan sebuah proyek, pendaftaran pengguna yang aman, dan audit Blue Team",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "Jeda animasi",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "Putar animasi",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "Posisi animasi",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "Kecepatan pemutaran",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "Normal",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
   },
   "home.faq.audit.answer": {
     "message": "Ya. Alur Blue Team lima fase mengaudit apa yang sudah ada: charter menetapkan aturan keamanan Anda, detect memetakan apa yang dilakukan sistem dan di mana risikonya, plan memberi skor setiap temuan dan memasangkannya dengan perbaikan, harden menerapkan perbaikan tersebut, dan verify membuktikan bahwa perbaikan tetap efektif lalu menuntaskannya.",
@@ -239,13 +259,9 @@
     "message": "Apa itu Lagune?",
     "description": "A question of the home page in search engines' structured data"
   },
-  "home.feature.overview.eyebrow": {
-    "message": "Praktiknya",
-    "description": "The small caps label over the home overview title"
-  },
   "home.feature.overview.kicker": {
     "message": "Bagaimana jika, alih-alih menjalankan checklist generik, keamanan sudah hadir {before}, {during}, dan {after} pengembangan?",
-    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
   },
   "home.feature.overview.kicker.after": {
     "message": "sesudah",
@@ -260,24 +276,8 @@
     "description": "The emphasized \"during\" of the home overview question"
   },
   "home.feature.overview.title": {
-    "message": "Pertahanan{lineBreak}sejak desain",
-    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
-  },
-  "home.feature.usage.chip": {
-    "message": "Alur Blue Team",
-    "description": "The chip over the home usage tab"
-  },
-  "home.feature.usage.eyebrow": {
-    "message": "Alur Blue Team",
-    "description": "The small caps label over the home usage title"
-  },
-  "home.feature.usage.kicker": {
-    "message": "Arahkan ke kode Anda, biarkan agen yang bekerja.",
-    "description": "The sentence that opens the home usage tab"
-  },
-  "home.feature.usage.title": {
-    "message": "Perkuat{lineBreak}apa yang Anda rilis",
-    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+    "message": "Pertahanan sejak desain",
+    "description": "The large title of the home overview"
   },
   "home.group.anyPrompt": {
     "message": "Prompt apa pun, kapan pun",
@@ -383,6 +383,14 @@
     "message": "Buktikan bahwa setiap perbaikan yang diterapkan tetap efektif, lalu tutup yang lolos.",
     "description": "The Verify step of the five-phase guide in search engines' structured data"
   },
+  "home.install.copy": {
+    "message": "Salin perintah instalasi {agent}",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "Perintah instalasi",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
   "home.meta.description": {
     "message": "Lagune membantu agen AI Anda memperkuat keamanan basis kode apa pun: mendeteksi apa yang sebenarnya dilakukan sistem Anda, lalu menjalankan langkah pertahanan yang sesuai selagi Anda membangun.",
     "description": "The description of the home page in search results and link previews"
@@ -403,13 +411,9 @@
     "message": "Menu",
     "description": "The label of the button that opens the compact home menu"
   },
-  "home.nav.sections": {
-    "message": "Bagian",
-    "description": "The accessible name of the home side rail"
-  },
-  "home.nav.windows": {
-    "message": "Jendela",
-    "description": "The accessible name of the home tabs that switch the main window"
+  "home.nav.phases": {
+    "message": "Fase",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
   },
   "home.phase.bannerAlt": {
     "message": "Fase {phase}",
@@ -565,7 +569,15 @@
   },
   "home.rail.step": {
     "message": "{phase} ({stage})",
-    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "Ikhtisar",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "Cara menggunakan",
+    "description": "The name of the home section that walks through the commands"
   },
   "home.software.feature.context": {
     "message": "Mendeteksi apa yang sebenarnya dilakukan sebuah sistem, apa pun itu, lalu menjalankan perbaikan yang penting untuk konteks tersebut, dalam bahasa pemrograman apa pun",
@@ -598,14 +610,6 @@
   "home.software.feature.universal": {
     "message": "Mengamankan pekerjaan baru saat ditulis dengan perintah universal /lagune, dipandu oleh prinsip keamanan",
     "description": "A feature of Lagune in search engines' structured data"
-  },
-  "home.tab.overview": {
-    "message": "Ikhtisar",
-    "description": "The home tab that presents Lagune"
-  },
-  "home.tab.usage": {
-    "message": "Cara menggunakan",
-    "description": "The home tab that walks through the commands"
   },
   "home.topBar.label": {
     "message": "Situs",

@@ -35,6 +35,10 @@ import {
 import { LuBrain, LuUndo2 } from 'react-icons/lu';
 import { RiMessageAi3Line } from 'react-icons/ri';
 
+export type DocsIconName = keyof typeof registry;
+
+type IconProps = IconBaseProps & { name: DocsIconName };
+
 const registry = {
   activity: FiActivity,
   alert: FiAlertTriangle,
@@ -70,11 +74,22 @@ const registry = {
   x: FiX,
 } satisfies Record<string, IconType> & Record<SpecializationIconName, IconType>;
 
-export type DocsIconName = keyof typeof registry;
+const SIDEBAR_GROUP_ICONS: Partial<Record<string, DocsIconName>> = {
+  'get-started': 'play',
+  'the-blue-team-flow': 'activity',
+  'development-flow': 'code',
+  specializations: 'brain',
+  tools: 'grid',
+  hooks: 'cpu',
+  'references-sources': 'file',
+  maintenance: 'refresh',
+};
 
-type IconProps = IconBaseProps & { name: DocsIconName };
+export const sidebarGroupIcon = (key: string): DocsIconName =>
+  SIDEBAR_GROUP_ICONS[key] ?? 'layers';
 
 export const Icon = ({ name, ...glyphProps }: IconProps): ReactNode => {
   const Glyph = registry[name];
+
   return <Glyph aria-hidden='true' {...glyphProps} />;
 };

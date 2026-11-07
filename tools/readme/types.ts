@@ -1,5 +1,19 @@
 import type { createMotion } from './motion';
 
+export type Target = 'readme' | 'website';
+
+export type TargetStyle = {
+  theme: string[];
+  overrides: string[];
+};
+
+export type FieldLayers = {
+  typing: string;
+  covers: string;
+  placeholder: string;
+  pasted: string;
+};
+
 export type IconName =
   | 'rust'
   | 'database'
@@ -153,6 +167,7 @@ export type Press = {
 export type Motion = ReturnType<typeof createMotion>;
 
 export type FlowContext = {
+  target: Target;
   sessions: Session[];
   outro: Outro;
   timeline: Timeline;

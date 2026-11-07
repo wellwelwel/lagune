@@ -3,8 +3,9 @@ import { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { LOCALES } from '@site/i18n/locales';
 import { useLocaleUrl } from '@site/src/components/LocaleHead';
+import { useDismiss } from '@site/src/components/useDismiss';
 import clsx from 'clsx';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 
 export type LanguageOption = {
   locale: string;
@@ -134,9 +135,11 @@ export const LanguageLinks = ({
 export const LanguageSwitcher = ({
   tone,
   className,
+  flagClassName,
 }: {
   tone: Tone;
   className?: string;
+  flagClassName?: string;
 }): ReactNode => {
   const options = useLanguageOptions();
   const [open, setOpen] = useState(false);
@@ -151,29 +154,7 @@ export const LanguageSwitcher = ({
     setOpen(hovering);
   };
 
-  useEffect(() => {
-    if (!open) return;
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
-    };
-
-    const onPointer = (event: PointerEvent) => {
-      if (
-        event.target instanceof Node &&
-        !rootRef.current?.contains(event.target)
-      )
-        setOpen(false);
-    };
-
-    window.addEventListener('keydown', onKey);
-    window.addEventListener('pointerdown', onPointer);
-
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      window.removeEventListener('pointerdown', onPointer);
-    };
-  }, [open]);
+  useDismiss(open, rootRef, setOpen);
 
   if (options.length < 2 || current === undefined) return null;
 
@@ -200,7 +181,10 @@ export const LanguageSwitcher = ({
         aria-controls={menuId}
         onClick={() => setOpen((value) => hoveringRef.current || !value)}
       >
-        <FlagIcon src={current.flag} className={TONES[tone].flag} />
+        <FlagIcon
+          src={current.flag}
+          className={flagClassName ?? TONES[tone].flag}
+        />
         <span className={clsx(tone === 'docs' && 'max-sm:hidden')}>
           {shortName(current.htmlLang)}
         </span>

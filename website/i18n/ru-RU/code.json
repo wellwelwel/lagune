@@ -187,18 +187,6 @@
     "message": "На этой странице",
     "description": "The heading of a docs page's table of contents"
   },
-  "home.agents.installOn": {
-    "message": "Установить в {agent}",
-    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
-  },
-  "home.agents.more": {
-    "message": "Еще агенты: {count}",
-    "description": "The label of the link to every other supported agent, where {count} is how many"
-  },
-  "home.background.alt": {
-    "message": "Lagune {tab}",
-    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
-  },
   "home.brand.backToTop": {
     "message": "Lagune.ai, наверх",
     "description": "The label of the brand button that scrolls back to the top"
@@ -206,6 +194,38 @@
   "home.cta.install": {
     "message": "Установить",
     "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "Во весь экран",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "Выйти из полноэкранного режима",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "ИИ-агент, работающий с Lagune: принципы безопасности проекта, безопасная регистрация пользователей и аудит Blue Team",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "Приостановить анимацию",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "Воспроизвести анимацию",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "Позиция анимации",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "Скорость воспроизведения",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "Обычная",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
   },
   "home.faq.audit.answer": {
     "message": "Да. Пятифазный процесс Blue Team проводит аудит того, что уже есть: charter задает ваши правила безопасности, detect выявляет, что делает система и где находятся риски, plan оценивает каждую находку и подбирает к ней исправление, harden применяет исправления, а verify доказывает, что они действуют, и закрывает их.",
@@ -239,13 +259,9 @@
     "message": "Что такое Lagune?",
     "description": "A question of the home page in search engines' structured data"
   },
-  "home.feature.overview.eyebrow": {
-    "message": "Практика",
-    "description": "The small caps label over the home overview title"
-  },
   "home.feature.overview.kicker": {
     "message": "Что, если вместо проверки по общему чек-листу безопасность существовала бы {before}, {during} и {after} разработки?",
-    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
   },
   "home.feature.overview.kicker.after": {
     "message": "после",
@@ -260,24 +276,8 @@
     "description": "The emphasized \"during\" of the home overview question"
   },
   "home.feature.overview.title": {
-    "message": "Защита,{lineBreak}заложенная в основу",
-    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
-  },
-  "home.feature.usage.chip": {
-    "message": "Процесс Blue Team",
-    "description": "The chip over the home usage tab"
-  },
-  "home.feature.usage.eyebrow": {
-    "message": "Процесс Blue Team",
-    "description": "The small caps label over the home usage title"
-  },
-  "home.feature.usage.kicker": {
-    "message": "Укажите на свой код, а работу сделает агент.",
-    "description": "The sentence that opens the home usage tab"
-  },
-  "home.feature.usage.title": {
-    "message": "Защитите{lineBreak}то, что выпускаете",
-    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+    "message": "Защита, заложенная в основу",
+    "description": "The large title of the home overview"
   },
   "home.group.anyPrompt": {
     "message": "Любой промпт, в любой момент",
@@ -383,6 +383,14 @@
     "message": "Докажите, что каждое примененное исправление действует, и снимите с учета те, что прошли проверку.",
     "description": "The Verify step of the five-phase guide in search engines' structured data"
   },
+  "home.install.copy": {
+    "message": "Скопировать команду установки для {agent}",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "Команды установки",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
   "home.meta.description": {
     "message": "Lagune помогает вашему ИИ-агенту усилить защиту любой кодовой базы: он выявляет, что на самом деле делает ваша система, и ведет подходящую защитную работу прямо во время разработки.",
     "description": "The description of the home page in search results and link previews"
@@ -403,13 +411,9 @@
     "message": "Меню",
     "description": "The label of the button that opens the compact home menu"
   },
-  "home.nav.sections": {
-    "message": "Разделы",
-    "description": "The accessible name of the home side rail"
-  },
-  "home.nav.windows": {
-    "message": "Окна",
-    "description": "The accessible name of the home tabs that switch the main window"
+  "home.nav.phases": {
+    "message": "Фазы",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
   },
   "home.phase.bannerAlt": {
     "message": "Фаза {phase}",
@@ -565,7 +569,15 @@
   },
   "home.rail.step": {
     "message": "{phase} ({stage})",
-    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "Обзор",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "Как пользоваться",
+    "description": "The name of the home section that walks through the commands"
   },
   "home.software.feature.context": {
     "message": "Выявляет, что на самом деле делает система, какой бы она ни была, и ведет исправления, важные в этом контексте, на любом языке",
@@ -598,14 +610,6 @@
   "home.software.feature.universal": {
     "message": "Защищает новую работу прямо во время написания с помощью универсальной команды /lagune, следуя принципам безопасности",
     "description": "A feature of Lagune in search engines' structured data"
-  },
-  "home.tab.overview": {
-    "message": "Обзор",
-    "description": "The home tab that presents Lagune"
-  },
-  "home.tab.usage": {
-    "message": "Как пользоваться",
-    "description": "The home tab that walks through the commands"
   },
   "home.topBar.label": {
     "message": "Сайт",

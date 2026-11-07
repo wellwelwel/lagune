@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Translate from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { REPOSITORY_URL } from '@site/src/seo/site';
 
 const SMALL_PRINT_LINK = 'font-semibold text-ink-2 hover:text-accent';
 
@@ -16,12 +17,16 @@ const ExternalLink = ({
   </a>
 );
 
-export const DocsSmallPrint = ({
+export const SmallPrint = ({
   dateModified,
   mentionsTrademarks,
+  className,
+  as: Root = 'footer',
 }: {
   dateModified?: string;
   mentionsTrademarks: boolean;
+  className: string;
+  as?: 'footer' | 'div';
 }): ReactNode => {
   const {
     i18n: { currentLocale, localeConfigs },
@@ -29,7 +34,9 @@ export const DocsSmallPrint = ({
   const dateLocale = localeConfigs[currentLocale]?.htmlLang ?? currentLocale;
 
   return (
-    <footer className='mt-10 flex flex-col gap-1.5 px-1 text-[0.75rem] leading-relaxed text-[color-mix(in_srgb,var(--muted),var(--ink-2))]'>
+    <Root
+      className={`flex flex-col gap-1.5 text-[0.75rem] leading-relaxed text-[color-mix(in_srgb,var(--muted),var(--ink-2))] ${className}`}
+    >
       {dateModified && (
         <p className='m-0'>
           <Translate
@@ -58,7 +65,7 @@ export const DocsSmallPrint = ({
               </ExternalLink>
             ),
             contributors: (
-              <ExternalLink href='https://github.com/wellwelwel/lagune/graphs/contributors'>
+              <ExternalLink href={`${REPOSITORY_URL}/graphs/contributors`}>
                 <Translate
                   id='docs.smallPrint.contributors'
                   description='The link to the people who contributed to Lagune'
@@ -68,12 +75,12 @@ export const DocsSmallPrint = ({
               </ExternalLink>
             ),
             license: (
-              <ExternalLink href='https://github.com/wellwelwel/lagune/blob/main/LICENSE'>
+              <ExternalLink href={`${REPOSITORY_URL}/blob/main/LICENSE`}>
                 Apache License 2.0
               </ExternalLink>
             ),
             policy: (
-              <ExternalLink href='https://github.com/wellwelwel/lagune/blob/main/SECURITY.md'>
+              <ExternalLink href={`${REPOSITORY_URL}/blob/main/SECURITY.md`}>
                 <Translate
                   id='docs.smallPrint.securityPolicy'
                   description="The link to Lagune's security policy"
@@ -101,6 +108,6 @@ export const DocsSmallPrint = ({
           </Translate>
         </p>
       )}
-    </footer>
+    </Root>
   );
 };

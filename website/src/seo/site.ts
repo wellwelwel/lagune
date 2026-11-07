@@ -14,6 +14,12 @@ export const SITE_URL = 'https://lagune.ai';
 
 export const SITE_TAGLINE = 'Security-Driven Hardening for any codebase';
 
+export const REPOSITORY_URL = 'https://github.com/wellwelwel/lagune';
+
+export const NPM_URL = 'https://www.npmjs.com/package/lagune';
+
+export const SPONSOR_URL = 'https://github.com/sponsors/wellwelwel';
+
 const AUTHOR_NAME = 'Weslley Araújo';
 
 export const OG_IMAGE = `${SITE_URL}/img/og.png`;
@@ -153,9 +159,6 @@ export const siteHeadTags = (messages: Messages): SiteHeadTag[] => [
     knowsAbout: ORGANIZATION_EXPERTISE.map((topic) =>
       text(messages, expertiseId('organization', topic))
     ),
-    sameAs: [
-      'https://github.com/wellwelwel/lagune',
-      'https://www.npmjs.com/package/lagune',
-    ],
+    sameAs: [REPOSITORY_URL, NPM_URL],
   }),
 ];

@@ -6,14 +6,15 @@ import { PageMetadata } from '@docusaurus/theme-common';
 import { translate } from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { LocaleHead } from '@site/src/components/LocaleHead';
+import { SmallPrint } from '@site/src/components/SmallPrint';
 import { jsonLd } from '@site/src/seo/jsonLd';
+import { OG_IMAGE, SITE_URL } from '@site/src/seo/site';
 import MDXContent from '@theme/MDXContent';
 import { findDocContext, useDocsData } from '../data';
 import { DocsNotice } from '../Notice';
 import { DocsPagination } from '../Pagination';
 import { Paper } from '../Paper';
 import { DocsShell } from '../Shell';
-import { DocsSmallPrint } from '../SmallPrint';
 import { DocsToc } from '../Toc';
 
 type DocContent = ComponentType<Record<string, unknown>> & {
@@ -25,11 +26,9 @@ type DocPageProps = {
   content: DocContent;
 };
 
-const SITE_URL = 'https://lagune.ai';
-
 const INSTALL_DOC_ID = 'get-started/install';
 
-export default function DocPage({ content: Content }: DocPageProps): ReactNode {
+const DocPage = ({ content: Content }: DocPageProps): ReactNode => {
   const { metadata } = Content;
   const { sidebar } = useDocsData();
   const {
@@ -76,7 +75,6 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
       ? []
       : [{ name: metadata.title, url: pageUrl }]),
   ];
-
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -88,7 +86,6 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
       item: crumb.url,
     })),
   };
-
   const imageAlt = translate(
     {
       id: 'docs.page.imageAlt',
@@ -101,7 +98,6 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
   const isPaper = metadata.docId === 'references/paper';
   const activeDocId = metadata.parent ?? metadata.docId;
   const mentionsTrademarks = activeDocId === INSTALL_DOC_ID;
-
   const article = {
     '@context': 'https://schema.org',
     '@type': isPaper ? 'ScholarlyArticle' : 'TechArticle',
@@ -111,7 +107,7 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
     description: metadata.description,
     inLanguage: contentLang,
     url: pageUrl,
-    image: `${SITE_URL}/img/og.png`,
+    image: OG_IMAGE,
     author: { '@id': `${SITE_URL}/#author` },
     publisher: { '@id': `${SITE_URL}/#organization` },
     isPartOf: { '@id': `${SITE_URL}/#website` },
@@ -192,10 +188,13 @@ export default function DocPage({ content: Content }: DocPageProps): ReactNode {
         </MDXContent>
       </article>
       <DocsPagination previous={context.previous} next={context.next} />
-      <DocsSmallPrint
+      <SmallPrint
         dateModified={metadata.dateModified}
         mentionsTrademarks={mentionsTrademarks}
+        className='mt-10 px-1'
       />
     </DocsShell>
   );
-}
+};
+
+export default DocPage;

@@ -187,18 +187,6 @@
     "message": "이 페이지 내용",
     "description": "The heading of a docs page's table of contents"
   },
-  "home.agents.installOn": {
-    "message": "{agent}에 설치",
-    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
-  },
-  "home.agents.more": {
-    "message": "그 밖의 에이전트 {count}개",
-    "description": "The label of the link to every other supported agent, where {count} is how many"
-  },
-  "home.background.alt": {
-    "message": "Lagune {tab}",
-    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
-  },
   "home.brand.backToTop": {
     "message": "Lagune.ai, 맨 위로 이동",
     "description": "The label of the brand button that scrolls back to the top"
@@ -206,6 +194,38 @@
   "home.cta.install": {
     "message": "설치",
     "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "전체 화면",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "전체 화면 종료",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "Lagune을 실행하는 AI 에이전트: 프로젝트의 보안 원칙, 안전한 사용자 가입, Blue Team 점검",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "애니메이션 일시 정지",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "애니메이션 재생",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "애니메이션 위치",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "재생 속도",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "보통",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
   },
   "home.faq.audit.answer": {
     "message": "네. 5단계 Blue Team 흐름이 이미 있는 코드를 점검합니다: charter 단계에서 보안 규칙을 정하고, detect 단계에서 시스템이 하는 일과 위험이 있는 곳을 파악하고, plan 단계에서 발견 사항마다 점수를 매겨 수정과 짝짓고, harden 단계에서 수정을 적용하며, verify 단계에서 수정이 실제로 효과가 있는지 증명하고 종결합니다.",
@@ -239,13 +259,9 @@
     "message": "Lagune은 무엇인가요?",
     "description": "A question of the home page in search engines' structured data"
   },
-  "home.feature.overview.eyebrow": {
-    "message": "방법론",
-    "description": "The small caps label over the home overview title"
-  },
   "home.feature.overview.kicker": {
     "message": "일반적인 체크리스트를 실행하는 대신, 보안이 개발 {before}, {during}, {after}에 함께한다면 어떨까요?",
-    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
   },
   "home.feature.overview.kicker.after": {
     "message": "후",
@@ -260,24 +276,8 @@
     "description": "The emphasized \"during\" of the home overview question"
   },
   "home.feature.overview.title": {
-    "message": "설계부터 시작하는{lineBreak}방어",
-    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
-  },
-  "home.feature.usage.chip": {
-    "message": "Blue Team 흐름",
-    "description": "The chip over the home usage tab"
-  },
-  "home.feature.usage.eyebrow": {
-    "message": "Blue Team 흐름",
-    "description": "The small caps label over the home usage title"
-  },
-  "home.feature.usage.kicker": {
-    "message": "코드를 지정하고, 나머지는 에이전트에게 맡기세요.",
-    "description": "The sentence that opens the home usage tab"
-  },
-  "home.feature.usage.title": {
-    "message": "배포하는 코드의{lineBreak}보안 강화",
-    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+    "message": "설계부터 시작하는 방어",
+    "description": "The large title of the home overview"
   },
   "home.group.anyPrompt": {
     "message": "어떤 프롬프트든, 언제든",
@@ -383,6 +383,14 @@
     "message": "적용한 수정이 실제로 효과가 있는지 증명하고, 증명된 발견 사항을 종결하세요.",
     "description": "The Verify step of the five-phase guide in search engines' structured data"
   },
+  "home.install.copy": {
+    "message": "{agent} 설치 명령어 복사",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "설치 명령어",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
   "home.meta.description": {
     "message": "Lagune은 시스템이 실제로 하는 일을 탐지하고 개발하는 동안 그에 맞는 방어 작업을 이끌어, AI 에이전트가 어떤 코드베이스든 보안을 강화하도록 돕습니다.",
     "description": "The description of the home page in search results and link previews"
@@ -403,13 +411,9 @@
     "message": "메뉴",
     "description": "The label of the button that opens the compact home menu"
   },
-  "home.nav.sections": {
-    "message": "섹션",
-    "description": "The accessible name of the home side rail"
-  },
-  "home.nav.windows": {
-    "message": "창",
-    "description": "The accessible name of the home tabs that switch the main window"
+  "home.nav.phases": {
+    "message": "단계",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
   },
   "home.phase.bannerAlt": {
     "message": "{phase} 단계",
@@ -565,7 +569,15 @@
   },
   "home.rail.step": {
     "message": "{phase}({stage})",
-    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "개요",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "사용법",
+    "description": "The name of the home section that walks through the commands"
   },
   "home.software.feature.context": {
     "message": "어떤 시스템이든 실제로 하는 일을 탐지하고, 언어와 관계없이 그 컨텍스트에 중요한 수정을 진행함",
@@ -598,14 +610,6 @@
   "home.software.feature.universal": {
     "message": "범용 /lagune 명령어로 새 작업을 작성하는 동안 보안 원칙에 따라 보호함",
     "description": "A feature of Lagune in search engines' structured data"
-  },
-  "home.tab.overview": {
-    "message": "개요",
-    "description": "The home tab that presents Lagune"
-  },
-  "home.tab.usage": {
-    "message": "사용법",
-    "description": "The home tab that walks through the commands"
   },
   "home.topBar.label": {
     "message": "사이트",

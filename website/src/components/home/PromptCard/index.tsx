@@ -1,24 +1,46 @@
 import type { PromptMode } from '@site/src/data/home';
 import { translate } from '@docusaurus/Translate';
+import { Tallest } from '@site/src/components/Tallest';
 import { typedText } from '@site/src/components/typedText';
-import { memo } from 'react';
+import { useVisible } from '@site/src/components/useVisible';
+import { PHASE_STEPS } from '@site/src/data/home';
+import { lazy, memo, Suspense, useRef } from 'react';
 import { LuTerminal } from 'react-icons/lu';
-import { ReactTyped } from 'react-typed';
+
+const CURSOR = '▍';
+
+export const TERMINAL_SURFACE =
+  'rounded-2xl border border-white/[0.07] bg-[#040406] overflow-hidden [box-shadow:inset_0_1px_0_0_rgba(255,255,255,0.06),0_18px_40px_-24px_rgba(0,0,0,0.9)]';
+
+const Typed = lazy(() =>
+  import('react-typed').then((module) => ({ default: module.ReactTyped }))
+);
+
+const typedLine = (command: string, prompt: string) =>
+  prompt ? `${command} ${prompt}` : command;
+
+const PROMPTS = PHASE_STEPS.flatMap(({ phase }) =>
+  phase.modes.map((mode) => `${typedLine(phase.command, mode.prompt)}${CURSOR}`)
+);
 
 export const PromptCard = memo(
   ({
     command,
     mode,
+    typed,
     onDone,
   }: {
     command: string;
     mode: PromptMode;
+    typed: boolean;
     onDone: () => void;
   }) => {
+    const cardRef = useRef<HTMLDivElement | null>(null);
+    const visible = useVisible(cardRef);
     const body = mode.prompt ? ` ${typedText(mode.prompt)}` : '';
 
     return (
-      <div className='relative mt-3 rounded-2xl border border-white/[0.07] bg-[#040406] overflow-hidden [box-shadow:inset_0_1px_0_0_rgba(255,255,255,0.06),0_18px_40px_-24px_rgba(0,0,0,0.9)]'>
+      <div ref={cardRef} className={`relative mt-3 ${TERMINAL_SURFACE}`}>
         <div className='flex items-center gap-3 px-[18px] pt-3.5 pb-1'>
           <span className='inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.06em] uppercase text-faint [&>svg]:size-3.5 [&>svg]:text-[#5fb4ff]'>
             <LuTerminal />
@@ -30,20 +52,29 @@ export const PromptCard = memo(
             })}
           </span>
         </div>
-        <p className='m-0 px-[18px] pt-1 pb-[18px] font-mono text-[13.5px] leading-[1.65] text-ink text-justify [&_.typed-cursor]:text-[#5fb4ff]'>
-          <ReactTyped
-            key={`${command}${body}`}
-            strings={[
-              `<span style="color:#5fb4ff">${typedText(command)}</span>${body}`,
-            ]}
-            typeSpeed={12.5}
-            startDelay={250}
-            showCursor
-            cursorChar='▍'
-            loop={false}
-            onComplete={onDone}
-          />
-        </p>
+        <Tallest
+          variants={PROMPTS}
+          className='px-[18px] pt-1 pb-[18px] font-mono text-[13.5px] leading-[1.65] text-ink text-justify'
+        >
+          <p className='m-0'>
+            {(typed || visible) && (
+              <Suspense fallback={null}>
+                <Typed
+                  key={`${command}${body}`}
+                  strings={[
+                    `<span style="color:#5fb4ff">${typedText(command)}</span>${body}`,
+                  ]}
+                  typeSpeed={12.5}
+                  startDelay={250}
+                  showCursor={false}
+                  className='lagune-typed'
+                  loop={false}
+                  onComplete={onDone}
+                />
+              </Suspense>
+            )}
+          </p>
+        </Tallest>
       </div>
     );
   }

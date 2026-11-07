@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { exit, stderr, stdout } from 'node:process';
-import { writeFlow } from './asset';
+import { writeFlows } from './asset';
 
 const HOST = '127.0.0.1';
 const PORT = 4789;
@@ -13,7 +13,7 @@ const SECURITY_HEADERS = {
   'x-content-type-options': 'nosniff',
 };
 
-const svg = await writeFlow();
+const { readme: svg } = await writeFlows();
 const page = await readFile(new URL('./preview.html', import.meta.url));
 const version = createHash('sha256')
   .update(svg)

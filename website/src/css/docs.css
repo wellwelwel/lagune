@@ -140,7 +140,8 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   --ifm-hr-background-color: var(--line);
   --ifm-heading-font-family:
     'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --ifm-font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --ifm-font-family-base:
+    'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
   --ifm-font-family-monospace:
     'Fira Code', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
     monospace;
@@ -148,7 +149,7 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
 
   /* Jakarta carries the chrome and headings, Inter carries the long-form
      reading text. */
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
   font-size: 0.925rem;
   line-height: 1.7;
   color: var(--ink-2);

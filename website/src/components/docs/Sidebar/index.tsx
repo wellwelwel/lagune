@@ -4,12 +4,12 @@ import type {
   DocsSidebarLink,
 } from '@site/plugins/docs-content';
 import type { ReactNode } from 'react';
-import type { DocsIconName } from '../icons';
 import Link from '@docusaurus/Link';
 import { translate } from '@docusaurus/Translate';
+import { REPOSITORY_URL, SPONSOR_URL } from '@site/src/seo/site';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import { Icon } from '../icons';
+import { Icon, sidebarGroupIcon } from '../icons';
 
 const GROUP =
   'px-2.5 pt-4 pb-2 text-[0.7rem] font-bold uppercase tracking-[0.09em] text-faint';
@@ -18,17 +18,6 @@ const NAV_LINK =
   'flex items-center gap-3 rounded-field px-3 py-2.25 text-[0.79rem] font-semibold no-underline transition-colors';
 
 const FOOT_LINK = `${NAV_LINK} text-muted hover:bg-canvas hover:text-ink-2 hover:no-underline`;
-
-const GROUP_ICONS: Partial<Record<string, DocsIconName>> = {
-  'get-started': 'play',
-  'the-blue-team-flow': 'activity',
-  'development-flow': 'code',
-  specializations: 'brain',
-  tools: 'grid',
-  hooks: 'cpu',
-  'references-sources': 'file',
-  maintenance: 'refresh',
-};
 
 /* Docusaurus remounts the route tree on every navigation, resetting each
    category's local state. */
@@ -73,7 +62,7 @@ const SidebarCategory = ({
           (persistedOpenGroups.get(category.key) ?? !category.collapsed)
   );
   const listId = `lagune-docs-group-${category.key}`;
-  const icon = GROUP_ICONS[category.key] ?? 'layers';
+  const icon = sidebarGroupIcon(category.key);
 
   useEffect(() => {
     if (!startCollapsed && containsActive) setOpen(true);
@@ -201,7 +190,7 @@ export const DocsSidebar = ({
       </nav>
       <a
         className='group mt-auto mb-4 flex items-center gap-2 pt-8 no-underline hover:no-underline'
-        href='https://github.com/wellwelwel/lagune'
+        href={REPOSITORY_URL}
         target='_blank'
         rel='noreferrer'
       >
@@ -256,7 +245,7 @@ export const DocsSidebar = ({
       <div className='flex flex-col gap-0.5 border-t border-line pt-3'>
         <a
           className={FOOT_LINK}
-          href='https://github.com/wellwelwel/lagune'
+          href={REPOSITORY_URL}
           target='_blank'
           rel='noreferrer'
         >
@@ -270,7 +259,7 @@ export const DocsSidebar = ({
         </a>
         <a
           className={FOOT_LINK}
-          href='https://github.com/sponsors/wellwelwel'
+          href={SPONSOR_URL}
           target='_blank'
           rel='noreferrer'
         >

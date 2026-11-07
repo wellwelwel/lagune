@@ -1,23 +1,13 @@
 import type { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import { translate } from '@docusaurus/Translate';
-import {
-  FEATURED_AGENTS,
-  GITHUB_CLI,
-  INSTALL_INDEX,
-  SKILLS_SH,
-} from '@site/src/data/agents';
+import { INSTALL_INDEX, installRouteNamed } from '@site/src/data/agents';
 import { AgentTile } from '../AgentPicker';
 import { ArrowLink } from '../ArrowLink';
 import { Icon } from '../icons';
 
-const INSTALL_ROUTES = [SKILLS_SH, GITHUB_CLI, ...FEATURED_AGENTS];
-
 export const InstallHeader = ({ name }: { name: string }): ReactNode => {
-  const route = INSTALL_ROUTES.find((entry) => entry.name === name);
-
-  if (!route) throw new Error(`No install route is named "${name}".`);
-
+  const route = installRouteNamed(name);
   const backLabel = translate({
     id: 'docs.install.back',
     message: 'Back to all agents',

@@ -1,18 +1,16 @@
 import type { ComponentType, ReactNode } from 'react';
+import type { LinkedAgent } from './agents';
 import Translate, { translate } from '@docusaurus/Translate';
 import {
   LuBadgeCheck,
-  LuBookOpen,
   LuBrain,
   LuChrome,
-  LuHouse,
   LuListChecks,
   LuScanSearch,
   LuShieldCheck,
   LuShieldPlus,
   LuSparkle,
   LuSquareSlash,
-  LuStar,
 } from 'react-icons/lu';
 import {
   TbCircleNumber1,
@@ -21,8 +19,9 @@ import {
   TbCircleNumber4,
   TbCircleNumber5,
 } from 'react-icons/tb';
+import { GITHUB_CLI, installRouteNamed, SKILLS_SH } from './agents';
 
-export type WindowId = 'overview' | 'usage';
+export type SectionId = 'overview' | 'usage';
 
 export type PromptMode = {
   label: string;
@@ -43,6 +42,30 @@ export type Group = {
   label: string;
   phases: Phase[];
 };
+
+export type InstallTab = {
+  agent: LinkedAgent;
+  logo: string;
+  label?: string;
+  command: string;
+};
+
+const RECOMMENDED_FULL_MODE: PromptMode = {
+  label: translate({
+    id: 'home.mode.recommendedFull',
+    message: 'Recommended (Full)',
+    description:
+      'The example tab for running a phase over the whole project, the recommended way',
+  }),
+  prompt: '',
+};
+
+const BY_SEVERITY_LABEL = translate({
+  id: 'home.mode.bySeverity',
+  message: 'By Severity',
+  description:
+    'The example tab for running a phase on the most severe findings only',
+});
 
 const PHASE_GROUPS: Group[] = [
   {
@@ -208,15 +231,7 @@ const PHASE_GROUPS: Group[] = [
         }),
         banner: '/img/docs/banner-5.webp',
         modes: [
-          {
-            label: translate({
-              id: 'home.mode.recommendedFull',
-              message: 'Recommended (Full)',
-              description:
-                'The example tab for running a phase over the whole project, the recommended way',
-            }),
-            prompt: '',
-          },
+          RECOMMENDED_FULL_MODE,
           {
             label: translate({
               id: 'home.phase.detect.mode.scoped',
@@ -265,22 +280,9 @@ const PHASE_GROUPS: Group[] = [
         }),
         banner: '/img/docs/banner-3.webp',
         modes: [
+          RECOMMENDED_FULL_MODE,
           {
-            label: translate({
-              id: 'home.mode.recommendedFull',
-              message: 'Recommended (Full)',
-              description:
-                'The example tab for running a phase over the whole project, the recommended way',
-            }),
-            prompt: '',
-          },
-          {
-            label: translate({
-              id: 'home.mode.bySeverity',
-              message: 'By Severity',
-              description:
-                'The example tab for running a phase on the most severe findings only',
-            }),
+            label: BY_SEVERITY_LABEL,
             prompt: translate({
               id: 'home.phase.plan.mode.severity.prompt',
               message: 'Only plan the Critical and High findings for now.',
@@ -320,22 +322,9 @@ const PHASE_GROUPS: Group[] = [
         }),
         banner: '/img/docs/banner-2.webp',
         modes: [
+          RECOMMENDED_FULL_MODE,
           {
-            label: translate({
-              id: 'home.mode.recommendedFull',
-              message: 'Recommended (Full)',
-              description:
-                'The example tab for running a phase over the whole project, the recommended way',
-            }),
-            prompt: '',
-          },
-          {
-            label: translate({
-              id: 'home.mode.bySeverity',
-              message: 'By Severity',
-              description:
-                'The example tab for running a phase on the most severe findings only',
-            }),
+            label: BY_SEVERITY_LABEL,
             prompt: translate({
               id: 'home.phase.harden.mode.severity.prompt',
               message: 'Apply only the Critical and High fixes for now.',
@@ -365,22 +354,9 @@ const PHASE_GROUPS: Group[] = [
         }),
         banner: '/img/docs/banner-4.webp',
         modes: [
+          RECOMMENDED_FULL_MODE,
           {
-            label: translate({
-              id: 'home.mode.recommendedFull',
-              message: 'Recommended (Full)',
-              description:
-                'The example tab for running a phase over the whole project, the recommended way',
-            }),
-            prompt: '',
-          },
-          {
-            label: translate({
-              id: 'home.mode.bySeverity',
-              message: 'By Severity',
-              description:
-                'The example tab for running a phase on the most severe findings only',
-            }),
+            label: BY_SEVERITY_LABEL,
             prompt: translate({
               id: 'home.phase.verify.mode.severity.prompt',
               message: 'Just verify the Critical and High fixes we applied.',
@@ -574,187 +550,101 @@ export const HIGHLIGHTS: {
   },
 ];
 
-export type RailItem = {
-  label: string;
-  tip: string;
-  active: boolean;
-  Icon: ComponentType;
-  href?: string;
+export const SECTION_LABELS: Record<SectionId, string> = {
+  overview: translate({
+    id: 'home.section.overview',
+    message: 'Overview',
+    description: 'The name of the home section that presents Lagune',
+  }),
+  usage: translate({
+    id: 'home.section.usage',
+    message: 'How to Use',
+    description: 'The name of the home section that walks through the commands',
+  }),
 };
-
-const DocsRailIcon = (): ReactNode => (
-  <>
-    <LuBookOpen className='max-[600px]:hidden' aria-hidden />
-    <img
-      src='/img/icons/wave.svg'
-      className='hidden size-[19px] max-[600px]:block'
-      alt='Lagune'
-      aria-hidden
-    />
-  </>
-);
-
-const OVERVIEW_TAB = translate({
-  id: 'home.tab.overview',
-  message: 'Overview',
-  description: 'The home tab that presents Lagune',
-});
-
-const DOCS_LINK = translate({
-  id: 'common.docs',
-  message: 'Docs',
-  description: 'The name of the documentation, in links and breadcrumbs',
-});
-
-const STAR_ON_GITHUB = translate({
-  id: 'common.starOnGitHub',
-  message: 'Star on GitHub',
-  description: 'Invites the reader to star the Lagune repository on GitHub',
-});
-
-export const OVERVIEW_RAIL: RailItem[] = [
-  {
-    label: translate({
-      id: 'common.home',
-      message: 'Home',
-      description: 'The name of the home page, in links and breadcrumbs',
-    }),
-    tip: OVERVIEW_TAB,
-    active: true,
-    Icon: LuHouse,
-  },
-  {
-    label: DOCS_LINK,
-    tip: DOCS_LINK,
-    active: false,
-    Icon: DocsRailIcon,
-    href: '/docs',
-  },
-  {
-    label: STAR_ON_GITHUB,
-    tip: STAR_ON_GITHUB,
-    active: false,
-    Icon: LuStar,
-    href: 'https://github.com/wellwelwel/lagune',
-  },
-];
-
-export const TABS: { id: WindowId; label: string }[] = [
-  { id: 'overview', label: OVERVIEW_TAB },
-  {
-    id: 'usage',
-    label: translate({
-      id: 'home.tab.usage',
-      message: 'How to Use',
-      description: 'The home tab that walks through the commands',
-    }),
-  },
-];
-
-const backgroundImage = (name: string) => ({
-  src: `/img/${name}.webp`,
-  srcSet: `/img/${name}-480.webp 480w, /img/${name}-720.webp 720w, /img/${name}-912.webp 912w, /img/${name}.webp 1380w`,
-});
-
-export const BACKGROUNDS: Record<WindowId, { src: string; srcSet: string }> = {
-  overview: backgroundImage('bg-1'),
-  usage: backgroundImage('bg-3'),
-};
-
-export const BACKGROUND_SIZES =
-  '(max-width: 600px) calc(100vw - 40px), (max-width: 920px) calc(100vw - 130px), 456px';
 
 const Strong = ({ children }: { children: ReactNode }): ReactNode => (
   <span className='font-semibold'>{children}</span>
 );
 
-export const FEATURE: Record<
-  WindowId,
-  { kicker: ReactNode; chip: string; eyebrow: string; title: ReactNode }
-> = {
-  overview: {
-    kicker: (
-      <Translate
-        id='home.feature.overview.kicker'
-        description='The question that opens the home overview, where {before}, {during}, and {after} are emphasized'
-        values={{
-          before: (
-            <Strong>
-              <Translate
-                id='home.feature.overview.kicker.before'
-                description='The emphasized "before" of the home overview question'
-              >
-                before
-              </Translate>
-            </Strong>
-          ),
-          during: (
-            <Strong>
-              <Translate
-                id='home.feature.overview.kicker.during'
-                description='The emphasized "during" of the home overview question'
-              >
-                during
-              </Translate>
-            </Strong>
-          ),
-          after: (
-            <Strong>
-              <Translate
-                id='home.feature.overview.kicker.after'
-                description='The emphasized "after" of the home overview question'
-              >
-                after
-              </Translate>
-            </Strong>
-          ),
-        }}
-      >
-        {
-          'Instead of running a generic checklist, what if security existed {before}, {during}, and {after} development?'
-        }
-      </Translate>
-    ),
-    chip: 'Security-Driven Hardening',
-    eyebrow: translate({
-      id: 'home.feature.overview.eyebrow',
-      message: 'The practice',
-      description: 'The small caps label over the home overview title',
-    }),
-    title: (
-      <Translate
-        id='home.feature.overview.title'
-        description='The large title of the home overview, where {lineBreak} splits it in two lines'
-        values={{ lineBreak: <br /> }}
-      >
-        {'Defense{lineBreak}by design'}
-      </Translate>
-    ),
-  },
-  usage: {
-    kicker: translate({
-      id: 'home.feature.usage.kicker',
-      message: 'Point it at your code, let the agent do the work.',
-      description: 'The sentence that opens the home usage tab',
-    }),
-    chip: translate({
-      id: 'home.feature.usage.chip',
-      message: 'The Blue Team flow',
-      description: 'The chip over the home usage tab',
-    }),
-    eyebrow: translate({
-      id: 'home.feature.usage.eyebrow',
-      message: 'Blue Team flow',
-      description: 'The small caps label over the home usage title',
-    }),
-    title: (
-      <Translate
-        id='home.feature.usage.title'
-        description='The large title of the home usage tab, where {lineBreak} splits it in two lines'
-        values={{ lineBreak: <br /> }}
-      >
-        {'Harden{lineBreak}what you ship'}
-      </Translate>
-    ),
-  },
+export const HERO: { kicker: ReactNode; chip: string } = {
+  kicker: (
+    <Translate
+      id='home.feature.overview.kicker'
+      description='The question under the home overview title, where {before}, {during}, and {after} are emphasized'
+      values={{
+        before: (
+          <Strong>
+            <Translate
+              id='home.feature.overview.kicker.before'
+              description='The emphasized "before" of the home overview question'
+            >
+              before
+            </Translate>
+          </Strong>
+        ),
+        during: (
+          <Strong>
+            <Translate
+              id='home.feature.overview.kicker.during'
+              description='The emphasized "during" of the home overview question'
+            >
+              during
+            </Translate>
+          </Strong>
+        ),
+        after: (
+          <Strong>
+            <Translate
+              id='home.feature.overview.kicker.after'
+              description='The emphasized "after" of the home overview question'
+            >
+              after
+            </Translate>
+          </Strong>
+        ),
+      }}
+    >
+      {
+        'Instead of running a generic checklist, what if security existed {before}, {during}, and {after} development?'
+      }
+    </Translate>
+  ),
+  chip: 'Security-Driven Hardening',
 };
+
+export const INSTALL_TABS: InstallTab[] = [
+  {
+    agent: installRouteNamed('Claude Code'),
+    logo: '/img/logos/claude.svg',
+    command: 'claude plugin install lagune --marketplace wellwelwel/lagune',
+  },
+  {
+    agent: installRouteNamed('Codex'),
+    logo: '/img/logos/codex.svg',
+    command:
+      'codex plugin marketplace add wellwelwel/lagune\ncodex plugin add lagune@lagune',
+  },
+  {
+    agent: installRouteNamed('Antigravity'),
+    logo: '/img/icons/antigravity.svg',
+    command:
+      'agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity',
+  },
+  {
+    agent: installRouteNamed('OpenCode'),
+    logo: '/img/logos/opencode.svg',
+    command: 'opencode plugin add lagune',
+  },
+  {
+    agent: SKILLS_SH,
+    logo: '/img/logos/skills.svg',
+    command: "npx skills add wellwelwel/lagune --skill '*'",
+  },
+  {
+    agent: GITHUB_CLI,
+    logo: '/img/logos/github.svg',
+    label: 'GitHub',
+    command: 'gh skill install wellwelwel/lagune --all --scope project',
+  },
+];

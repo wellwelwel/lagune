@@ -18,13 +18,15 @@ export type DocContext = {
 
 export const useDocsData = (): DocsGlobalData => {
   const data = usePluginData('lagune-docs-content');
+
   return data as DocsGlobalData;
 };
 
 export const useDataMessages = (): Messages => useDocsData().data;
 
-const isCategory = (entry: DocsSidebarEntry): entry is DocsSidebarCategory =>
-  entry.type === 'category';
+export const isCategory = (
+  entry: DocsSidebarEntry
+): entry is DocsSidebarCategory => entry.type === 'category';
 
 export const flattenSidebar = (
   sidebar: DocsSidebarEntry[]
@@ -40,7 +42,6 @@ export const findDocContext = (
   const docId = doc.parent ?? doc.docId;
   const links = flattenSidebar(sidebar);
   const position = links.findIndex((link) => link.docId === docId);
-
   const owner = sidebar.findIndex((entry) =>
     isCategory(entry)
       ? entry.items.some((link) => link.docId === docId)

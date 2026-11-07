@@ -141,6 +141,12 @@ export const FEATURED_AGENTS: FeaturedAgent[] = [
   },
 ];
 
+const INSTALL_ROUTES: LinkedAgent[] = [
+  SKILLS_SH,
+  GITHUB_CLI,
+  ...FEATURED_AGENTS,
+];
+
 const UNIVERSAL_AGENTS: Agent[] = [
   { name: 'AdaL', icon: '/img/icons/adal.svg' },
   { name: 'AiderDesk', icon: '/img/icons/aiderdesk.svg' },
@@ -264,6 +270,14 @@ export const universalIn = (
     count: UNIVERSAL_AGENTS.length - UNIVERSAL_HIGHLIGHTS.length,
   }),
 });
+
+export const installRouteNamed = (name: string): LinkedAgent => {
+  const route = INSTALL_ROUTES.find((entry) => entry.name === name);
+
+  if (!route) throw new Error(`No install route is named "${name}".`);
+
+  return route;
+};
 
 const MAIN_NAMES = [
   'Claude Code',

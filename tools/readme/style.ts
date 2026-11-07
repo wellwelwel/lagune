@@ -1,3 +1,5 @@
+import type { Target, TargetStyle } from './types';
+
 const DARK = `
   --card: #151a26; --watermark: #121721; --surface: #1d2432; --line: #222a38; --line-2: #2d3648;
   --ink: #eef1f8; --ink-2: #c6ccdb; --muted: #8b93a8;
@@ -15,6 +17,36 @@ const LIGHT = `
   --danger: #e5484d;
   --star: #f5a300;
   --shadow: #12162d; --shadow-opacity: .1;`;
+
+const CANVAS = `
+  --card: #00000075; --watermark: #16307625; --surface: #07112e; --line: #171c2a; --line-2: #202533;
+  --track: #0e1b34; --success-tile: #0b2429;`;
+
+/* WebKit filters shift the hue of colors as dark as the canvas. */
+const UNFILTERED_CARD = '.card { filter: none; }';
+
+const PAUSABLE = '.paused * { animation-play-state: paused !important; }';
+
+const DARK_ONLY = 'svg { color-scheme: dark; }';
+
+const UNPAINTED_FIELD = '.field { fill: none; }';
+
+const COVER_MASKS = `.cover-mask .field { fill: #000; stroke: none; }
+.cover-mask :not(g, .field, .cover-backdrop) { display: none; }`;
+
+const TARGET_STYLES: Record<Target, TargetStyle> = {
+  readme: {
+    theme: [
+      `svg {${DARK}\n}`,
+      `@media (prefers-color-scheme: light) {\n  svg {${LIGHT}\n  }\n}`,
+    ],
+    overrides: [],
+  },
+  website: {
+    theme: [`svg {${DARK}\n}`, `svg {${CANVAS}\n}`, DARK_ONLY],
+    overrides: [UNFILTERED_CARD, PAUSABLE, UNPAINTED_FIELD, COVER_MASKS],
+  },
+};
 
 const BASE = `
 text { white-space: pre; }
@@ -71,11 +103,14 @@ text { white-space: pre; }
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes ellipsis { 0%, 100% { fill-opacity: .15; } 40% { fill-opacity: 1; } }`;
 
-export const stylesheet = (animationRules: string[]) =>
-  [
-    `svg {${DARK}\n}`,
-    `@media (prefers-color-scheme: light) {\n  svg {${LIGHT}\n  }\n}`,
+export const stylesheet = (target: Target, animationRules: string[]) => {
+  const { theme, overrides } = TARGET_STYLES[target];
+
+  return [
+    ...theme,
     BASE,
+    ...overrides,
     ...animationRules,
     '@media (prefers-reduced-motion: reduce) {\n  * { animation: none !important; }\n}',
   ].join('\n');
+};

@@ -85,7 +85,6 @@ const useMediaQuery = (query: string) => {
 };
 
 const WaterFieldComponent = ({ className }: { className?: string }) => {
-  const isMobile = useMediaQuery(MOBILE_QUERY);
   const prefersReducedMotion = useMediaQuery(REDUCED_MOTION_QUERY);
   const [revealed, setRevealed] = useState(false);
   const [active, setActive] = useState(false);
@@ -103,8 +102,6 @@ const WaterFieldComponent = ({ className }: { className?: string }) => {
   }, [mounted]);
 
   useEffect(() => {
-    if (isMobile) return;
-
     const start = () => {
       setMounted(true);
       setActive(true);
@@ -124,13 +121,11 @@ const WaterFieldComponent = ({ className }: { className?: string }) => {
       for (const event of ACTIVATION_EVENTS)
         window.removeEventListener(event, start);
     };
-  }, [isMobile]);
+  }, []);
 
   const animatedSpeed = prefersReducedMotion ? SPEED_REDUCED : SPEED;
   const speed = active ? animatedSpeed : SPEED_INITIAL;
   const offscreen = !workerFailed && canRenderOffscreen();
-
-  if (isMobile) return null;
 
   return (
     <div

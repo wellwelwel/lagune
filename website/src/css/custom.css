@@ -13,6 +13,101 @@
 @import '@fontsource/archivo/latin-900.css';
 @import '@fontsource/ubuntu-mono/latin-400.css';
 @import '@fontsource/ubuntu-mono/latin-700.css';
+@import '@fontsource/fraunces/latin-400.css';
+@import '@fontsource/fraunces/latin-400-italic.css';
+
+/* Arial, Courier New, and Georgia sized to match Inter, Ubuntu Mono, and Fraunces, holding every line break in place until the web fonts load. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src:
+    local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo');
+  font-weight: 400;
+  size-adjust: 107.81%;
+  ascent-override: 89.97%;
+  descent-override: 22.26%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src:
+    local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo');
+  font-weight: 500;
+  size-adjust: 108.59%;
+  ascent-override: 89.33%;
+  descent-override: 22.1%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'),
+    local('Arimo Bold');
+  font-weight: 600;
+  size-adjust: 100.81%;
+  ascent-override: 96.22%;
+  descent-override: 23.81%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'),
+    local('Arimo Bold');
+  font-weight: 700;
+  size-adjust: 102.88%;
+  ascent-override: 94.29%;
+  descent-override: 23.33%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Ubuntu Mono Fallback';
+  src:
+    local('Courier New'), local('CourierNewPSMT'), local('Liberation Mono'),
+    local('Cousine');
+  font-weight: 400;
+  size-adjust: 83.32%;
+  ascent-override: 99.62%;
+  descent-override: 20.4%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Ubuntu Mono Fallback';
+  src:
+    local('Courier New Bold'), local('CourierNewPS-BoldMT'),
+    local('Liberation Mono Bold'), local('Cousine Bold');
+  font-weight: 700;
+  size-adjust: 83.32%;
+  ascent-override: 99.62%;
+  descent-override: 20.4%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Fraunces Fallback';
+  src: local('Georgia'), local('Gelasio');
+  font-weight: 400;
+  size-adjust: 105.28%;
+  ascent-override: 92.89%;
+  descent-override: 24.22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Fraunces Fallback';
+  src:
+    local('Georgia Italic'), local('Georgia-Italic'), local('Gelasio Italic');
+  font-style: italic;
+  font-weight: 400;
+  size-adjust: 97.3%;
+  ascent-override: 100.51%;
+  descent-override: 26.21%;
+  line-gap-override: 0%;
+}
 
 @source '../pages';
 @source '../../../src/dashboard/shared/*.ts';
@@ -112,9 +207,12 @@
   --color-card: rgba(4, 8, 22, 0.35);
   --color-card-hover: rgba(4, 8, 22, 0.52);
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Ubuntu Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif: 'Fraunces', 'Fraunces Fallback', ui-serif, Georgia, serif;
+  --font-mono:
+    'Ubuntu Mono', 'Ubuntu Mono Fallback', ui-monospace, 'SF Mono', Menlo,
+    monospace;
   --font-jakarta:
     'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
@@ -122,6 +220,8 @@
   --radius-panel: 14px;
   --radius-field: 10px;
   --radius-chip: 8px;
+
+  --aspect-flow: 820 / 532;
 }
 
 /*
@@ -170,17 +270,16 @@
 :root {
   --accent: #005eff;
   --ink: #e9edf7;
+  --ink-2: rgba(233, 237, 247, 0.78);
   --muted: rgba(233, 237, 247, 0.5);
   --faint: rgba(233, 237, 247, 0.32);
   --line: rgba(233, 237, 247, 0.08);
   --dark: #0a0b12;
 }
 
-.lagune-canvas {
-  --lagune-window-h: 580px;
-}
-
 html.lagune-canvas-html body.lagune-canvas-body {
+  margin: 0;
+  line-height: 1.65;
   background: #050a18;
 }
 
@@ -221,29 +320,100 @@ html.lagune-canvas-html body.lagune-canvas-body {
 .lagune-rail__item--active::before {
   content: '';
   position: absolute;
-  left: -18px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2px;
-  height: 18px;
+  left: 50%;
+  bottom: -14px;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 2px;
   border-radius: 2px;
   background: var(--color-accent);
-}
-
-@media (max-width: 600px) {
-  .lagune-rail__item--active::before {
-    left: 50%;
-    top: auto;
-    bottom: -14px;
-    transform: translateX(-50%);
-    width: 18px;
-    height: 2px;
-  }
 }
 
 .lagune-img-outline {
   outline: 1px solid rgba(0, 0, 0, 0.4);
   outline-offset: -1px;
+}
+
+/* The fill ends where the browser centers the thumb, inset by half its width at each end. */
+.lagune-scrubber {
+  --lagune-share: 0;
+  --lagune-fill: calc(6px + (100% - 12px) * var(--lagune-share));
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.lagune-scrubber:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.lagune-scrubber::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(
+    to right,
+    var(--ink) var(--lagune-fill),
+    rgba(233, 237, 247, 0.16) var(--lagune-fill)
+  );
+}
+
+.lagune-scrubber::-moz-range-track {
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(233, 237, 247, 0.16);
+}
+
+.lagune-scrubber::-moz-range-progress {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--ink);
+}
+
+.lagune-scrubber::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--ink);
+  scale: 0;
+  transition-property: scale, box-shadow;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-out;
+}
+
+.lagune-scrubber::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  scale: 0;
+  transition-property: scale, box-shadow;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-out;
+}
+
+.lagune-scrubber:is(:hover, :active, :focus-visible):not(
+    :disabled
+  )::-webkit-slider-thumb {
+  scale: 1;
+}
+
+.lagune-scrubber:is(:hover, :active, :focus-visible):not(
+    :disabled
+  )::-moz-range-thumb {
+  scale: 1;
+}
+
+.lagune-scrubber:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--accent);
+}
+
+.lagune-scrubber:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--accent);
 }
 
 .lagune-cta::after {
@@ -282,19 +452,43 @@ html.lagune-canvas-html body.lagune-canvas-body {
   }
 }
 
-/* Opacity-only variant for full-height containers, where a translateY would
-   extend past a fixed-height scroller and trigger a phantom scrollbar. */
-.lagune-fade-in-soft {
-  opacity: 0;
-  animation: lagune-fade-in-soft 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+.lagune-word-rise {
+  animation: lagune-word-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes lagune-fade-in-soft {
+.lagune-word-leave {
+  animation: lagune-word-leave 0.26s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes lagune-word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(90%);
+    filter: blur(4px);
+  }
+}
+
+@keyframes lagune-word-leave {
+  to {
+    opacity: 0;
+    transform: translateY(-35%);
+    filter: blur(4px);
+  }
+}
+
+@keyframes lagune-word-fade {
   from {
     opacity: 0;
   }
-  to {
-    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lagune-word-rise {
+    animation: lagune-word-fade 0.3s ease-out both;
+  }
+
+  .lagune-word-leave {
+    animation: lagune-word-fade 0.2s ease-in reverse both;
   }
 }
 
@@ -386,6 +580,29 @@ html.lagune-canvas-html body.lagune-canvas-body {
   }
 }
 
+@property --lagune-caret-alpha {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
+/* Drawn as a background: a caret element moving along the typed line counts as a layout shift. */
+.lagune-typed > span {
+  padding-right: 1ch;
+  background: linear-gradient(
+      rgb(95 180 255 / var(--lagune-caret-alpha)),
+      rgb(95 180 255 / var(--lagune-caret-alpha))
+    )
+    right 0.625ch top 0 / 0.375ch 100% no-repeat;
+  animation: lagune-caret 0.7s infinite;
+}
+
+@keyframes lagune-caret {
+  50% {
+    --lagune-caret-alpha: 0;
+  }
+}
+
 @property --lagune-scroll-fade {
   syntax: '<length>';
   inherits: false;
@@ -454,10 +671,12 @@ html.lagune-canvas-html body.lagune-canvas-body {
   --ifm-link-color: var(--lagune-accent-soft);
   --ifm-link-hover-color: #8ec8ff;
 
-  --ifm-font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --ifm-font-family-base:
+    'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
   --ifm-heading-font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
   --ifm-font-family-monospace:
-    'Ubuntu Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    'Ubuntu Mono', 'Ubuntu Mono Fallback', ui-monospace, 'SF Mono', Menlo,
+    monospace;
   --ifm-heading-font-weight: 800;
   --ifm-heading-letter-spacing: -0.02em;
 

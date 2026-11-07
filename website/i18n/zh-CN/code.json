@@ -187,18 +187,6 @@
     "message": "本页内容",
     "description": "The heading of a docs page's table of contents"
   },
-  "home.agents.installOn": {
-    "message": "在 {agent} 中安装",
-    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
-  },
-  "home.agents.more": {
-    "message": "其他 {count} 个智能体",
-    "description": "The label of the link to every other supported agent, where {count} is how many"
-  },
-  "home.background.alt": {
-    "message": "Lagune {tab}",
-    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
-  },
   "home.brand.backToTop": {
     "message": "Lagune.ai，返回顶部",
     "description": "The label of the brand button that scrolls back to the top"
@@ -206,6 +194,38 @@
   "home.cta.install": {
     "message": "安装",
     "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "全屏",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "退出全屏",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "运行 Lagune 的 AI 智能体：项目的安全原则、安全的用户注册，以及 Blue Team 审计",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "暂停动画",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "播放动画",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "动画进度",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "播放速度",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "正常",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
   },
   "home.faq.audit.answer": {
     "message": "能。五阶段的 Blue Team 流程会审计已有的代码：charter 设定你的安全规则，detect 梳理系统做了什么、风险在哪里，plan 为每个发现项打分并配上修复，harden 应用这些修复，verify 证明它们确实有效并将其结案。",
@@ -239,13 +259,9 @@
     "message": "Lagune 是什么？",
     "description": "A question of the home page in search engines' structured data"
   },
-  "home.feature.overview.eyebrow": {
-    "message": "实践",
-    "description": "The small caps label over the home overview title"
-  },
   "home.feature.overview.kicker": {
     "message": "与其套用一份通用的检查清单，何不让安全存在于开发{before}、{during}和{after}？",
-    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
   },
   "home.feature.overview.kicker.after": {
     "message": "之后",
@@ -260,24 +276,8 @@
     "description": "The emphasized \"during\" of the home overview question"
   },
   "home.feature.overview.title": {
-    "message": "防御{lineBreak}始于设计",
-    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
-  },
-  "home.feature.usage.chip": {
-    "message": "Blue Team 流程",
-    "description": "The chip over the home usage tab"
-  },
-  "home.feature.usage.eyebrow": {
-    "message": "Blue Team 流程",
-    "description": "The small caps label over the home usage title"
-  },
-  "home.feature.usage.kicker": {
-    "message": "对准你的代码，剩下的交给智能体。",
-    "description": "The sentence that opens the home usage tab"
-  },
-  "home.feature.usage.title": {
-    "message": "加固{lineBreak}你交付的代码",
-    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+    "message": "防御始于设计",
+    "description": "The large title of the home overview"
   },
   "home.group.anyPrompt": {
     "message": "任何提示词，随时可用",
@@ -383,6 +383,14 @@
     "message": "证明每项已应用的修复确实有效，并将有效的发现项结案。",
     "description": "The Verify step of the five-phase guide in search engines' structured data"
   },
+  "home.install.copy": {
+    "message": "复制 {agent} 的安装命令",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "安装命令",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
   "home.meta.description": {
     "message": "Lagune 帮助你的 AI 智能体加固任何代码库：它会检测系统实际在做什么，并在你开发的同时推进相应的防御工作。",
     "description": "The description of the home page in search results and link previews"
@@ -403,13 +411,9 @@
     "message": "菜单",
     "description": "The label of the button that opens the compact home menu"
   },
-  "home.nav.sections": {
-    "message": "分区",
-    "description": "The accessible name of the home side rail"
-  },
-  "home.nav.windows": {
-    "message": "窗口",
-    "description": "The accessible name of the home tabs that switch the main window"
+  "home.nav.phases": {
+    "message": "阶段",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
   },
   "home.phase.bannerAlt": {
     "message": "{phase} 阶段",
@@ -565,7 +569,15 @@
   },
   "home.rail.step": {
     "message": "{phase}（{stage}）",
-    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "概览",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "使用方法",
+    "description": "The name of the home section that walks through the commands"
   },
   "home.software.feature.context": {
     "message": "不论系统做什么，都能检测出它的实际行为，再针对这一场景推动真正重要的修复，适用于任何编程语言",
@@ -598,14 +610,6 @@
   "home.software.feature.universal": {
     "message": "借助通用的 /lagune 命令，在编写新代码时同步保障安全，并以安全原则为指引",
     "description": "A feature of Lagune in search engines' structured data"
-  },
-  "home.tab.overview": {
-    "message": "概览",
-    "description": "The home tab that presents Lagune"
-  },
-  "home.tab.usage": {
-    "message": "使用方法",
-    "description": "The home tab that walks through the commands"
   },
   "home.topBar.label": {
     "message": "网站",

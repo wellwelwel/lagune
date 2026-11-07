@@ -1,4 +1,4 @@
-import type { FlowContext } from './types';
+import type { FlowContext, Target } from './types';
 import { windowChrome } from './chrome';
 import { composer } from './composer';
 import { conversation } from './conversation';
@@ -37,9 +37,10 @@ const describe = ({ sessions, outro }: FlowContext) =>
     `Finally, a "${outro.tab}" tab opens with ${outro.agent.name} and "${outro.lead} star${outro.trail}" is typed while the agent switches through ${outro.agents.map((agent) => agent.name).join(', ')}.`,
   ].join(' ');
 
-export const renderFlow = () => {
+export const renderFlow = (target: Target) => {
   const timeline = createTimeline(SESSIONS, OUTRO);
   const context: FlowContext = {
+    target,
     sessions: SESSIONS,
     outro: OUTRO,
     timeline,
@@ -49,7 +50,10 @@ export const renderFlow = () => {
     [windowChrome(context), conversation(context), composer(context)],
     '\n  '
   );
-  const styles = stylesheet(animationRules(body.animations, timeline.cycle));
+  const styles = stylesheet(
+    target,
+    animationRules(body.animations, timeline.cycle)
+  );
   const viewportHeight = VIEWPORT.bottom - VIEWPORT.top;
   const fieldClipWidth = CONTENT_RIGHT - 16 - (FIELD_TEXT_X - 4);
 

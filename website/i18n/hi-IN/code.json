@@ -187,18 +187,6 @@
     "message": "इस पेज पर",
     "description": "The heading of a docs page's table of contents"
   },
-  "home.agents.installOn": {
-    "message": "{agent} में इंस्टॉल करें",
-    "description": "The label of an agent's icon on the home page, where {agent} is the agent"
-  },
-  "home.agents.more": {
-    "message": "{count} और एजेंट",
-    "description": "The label of the link to every other supported agent, where {count} is how many"
-  },
-  "home.background.alt": {
-    "message": "Lagune {tab}",
-    "description": "The alternative text of a home tab's background image, where {tab} is the tab"
-  },
   "home.brand.backToTop": {
     "message": "Lagune.ai, ऊपर जाएँ",
     "description": "The label of the brand button that scrolls back to the top"
@@ -206,6 +194,38 @@
   "home.cta.install": {
     "message": "इंस्टॉल करें",
     "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "फ़ुल स्क्रीन करें",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "फ़ुल स्क्रीन से बाहर निकलें",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "Lagune चलाता हुआ एक AI एजेंट: प्रोजेक्ट के सुरक्षा सिद्धांत, सुरक्षित यूज़र साइन-अप और Blue Team ऑडिट",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "एनिमेशन रोकें",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "एनिमेशन चलाएँ",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "एनिमेशन की स्थिति",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "प्लेबैक स्पीड",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "सामान्य",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
   },
   "home.faq.audit.answer": {
     "message": "हाँ। पाँच चरणों वाला Blue Team फ़्लो पहले से मौजूद कोड का ऑडिट करता है: charter आपके सुरक्षा नियम तय करता है, detect पहचानता है कि सिस्टम क्या करता है और जोखिम कहाँ हैं, plan हर निष्कर्ष को स्कोर देकर उसके साथ एक सुधार जोड़ता है, harden सुधार लागू करता है, और verify साबित करता है कि सुधार कारगर हैं और उन्हें बंद करता है।",
@@ -239,13 +259,9 @@
     "message": "Lagune क्या है?",
     "description": "A question of the home page in search engines' structured data"
   },
-  "home.feature.overview.eyebrow": {
-    "message": "पद्धति",
-    "description": "The small caps label over the home overview title"
-  },
   "home.feature.overview.kicker": {
     "message": "किसी आम चेकलिस्ट को चलाने के बजाय, क्या हो अगर सुरक्षा डेवलपमेंट से {before}, उसके {during} और उसके {after} भी मौजूद रहे?",
-    "description": "The question that opens the home overview, where {before}, {during}, and {after} are emphasized"
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
   },
   "home.feature.overview.kicker.after": {
     "message": "बाद",
@@ -260,24 +276,8 @@
     "description": "The emphasized \"during\" of the home overview question"
   },
   "home.feature.overview.title": {
-    "message": "डिज़ाइन से ही{lineBreak}रक्षा",
-    "description": "The large title of the home overview, where {lineBreak} splits it in two lines"
-  },
-  "home.feature.usage.chip": {
-    "message": "Blue Team फ़्लो",
-    "description": "The chip over the home usage tab"
-  },
-  "home.feature.usage.eyebrow": {
-    "message": "Blue Team फ़्लो",
-    "description": "The small caps label over the home usage title"
-  },
-  "home.feature.usage.kicker": {
-    "message": "अपना कोड बताएँ, बाक़ी काम एजेंट पर छोड़ दें।",
-    "description": "The sentence that opens the home usage tab"
-  },
-  "home.feature.usage.title": {
-    "message": "जो भी शिप करें{lineBreak}उसे मज़बूत बनाएँ",
-    "description": "The large title of the home usage tab, where {lineBreak} splits it in two lines"
+    "message": "डिज़ाइन से ही रक्षा",
+    "description": "The large title of the home overview"
   },
   "home.group.anyPrompt": {
     "message": "कोई भी प्रॉम्प्ट, कभी भी",
@@ -383,6 +383,14 @@
     "message": "साबित करें कि लागू किया गया हर सुधार कारगर है, फिर जो कारगर हैं उन्हें बंद करें।",
     "description": "The Verify step of the five-phase guide in search engines' structured data"
   },
+  "home.install.copy": {
+    "message": "{agent} का इंस्टॉल कमांड कॉपी करें",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "इंस्टॉल कमांड",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
   "home.meta.description": {
     "message": "Lagune आपके AI एजेंट को किसी भी कोडबेस की सुरक्षा मज़बूत करने में मदद करता है: यह पहचानता है कि आपका सिस्टम असल में क्या करता है, फिर आपके बनाते समय ही उसके हिसाब से रक्षात्मक काम आगे बढ़ाता है।",
     "description": "The description of the home page in search results and link previews"
@@ -403,13 +411,9 @@
     "message": "मेन्यू",
     "description": "The label of the button that opens the compact home menu"
   },
-  "home.nav.sections": {
-    "message": "सेक्शन",
-    "description": "The accessible name of the home side rail"
-  },
-  "home.nav.windows": {
-    "message": "विंडो",
-    "description": "The accessible name of the home tabs that switch the main window"
+  "home.nav.phases": {
+    "message": "चरण",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
   },
   "home.phase.bannerAlt": {
     "message": "{phase} चरण",
@@ -565,7 +569,15 @@
   },
   "home.rail.step": {
     "message": "{phase} ({stage})",
-    "description": "The label of a phase button in the home side rail, where {phase} is the phase and {stage} its small caps label"
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "परिचय",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "इस्तेमाल कैसे करें",
+    "description": "The name of the home section that walks through the commands"
   },
   "home.software.feature.context": {
     "message": "पहचानता है कि कोई सिस्टम असल में क्या करता है, चाहे वह कुछ भी हो, फिर किसी भी भाषा में उस संदर्भ के लिए ज़रूरी सुधार आगे बढ़ाता है",
@@ -598,14 +610,6 @@
   "home.software.feature.universal": {
     "message": "यूनिवर्सल /lagune कमांड से नया काम लिखते समय ही सुरक्षित करता है, सुरक्षा सिद्धांतों के मार्गदर्शन में",
     "description": "A feature of Lagune in search engines' structured data"
-  },
-  "home.tab.overview": {
-    "message": "परिचय",
-    "description": "The home tab that presents Lagune"
-  },
-  "home.tab.usage": {
-    "message": "इस्तेमाल कैसे करें",
-    "description": "The home tab that walks through the commands"
   },
   "home.topBar.label": {
     "message": "साइट",

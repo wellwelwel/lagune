@@ -1,6 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import { translate } from '@docusaurus/Translate';
+import { Brand } from '@site/src/components/home/Brand';
 import { LanguageSwitcher } from '@site/src/components/LanguageSwitcher';
 import { useEffect, useState } from 'react';
 
@@ -8,20 +9,35 @@ export type TopBarLink = {
   label: string;
   Icon: ComponentType;
   href: string;
+  iconOnly?: boolean;
 };
 
 type TopBarProps = {
   links: TopBarLink[];
+  onBrand?: () => void;
 };
 
 const TOP_LINK =
-  'group inline-flex items-center gap-[10px] py-[9px] rounded-xl text-[#a1b1e7] text-[12.75px] font-semibold tracking-[-0.01em] no-underline cursor-pointer [&_svg]:size-4 [&_svg]:text-[#6db4e2] [&_svg]:transition-colors [&_svg]:duration-200 [&_svg]:ease-out hover:[&_svg]:text-accent';
+  'group inline-flex items-center gap-[10px] py-[9px] rounded-xl text-[#a1b1e7] text-[12.75px] font-semibold tracking-[-0.01em] no-underline cursor-pointer [&_svg]:transition-colors [&_svg]:duration-200 [&_svg]:ease-out hover:[&_svg]:text-accent';
+
+const LABELED = '[&_svg]:size-4 [&_svg]:text-[#6db4e2]';
+
+const ICON_ONLY =
+  'relative [&_svg]:size-5 [&_svg]:text-white after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2';
 
 const SLIDE =
   'col-start-1 row-start-1 inline-flex transition-transform duration-300 ease-[cubic-bezier(0.2,0,0,1)]';
 
-const IconSlide = ({ Icon }: { Icon: ComponentType }): ReactNode => (
-  <span className='relative inline-grid size-4 shrink-0 place-items-center overflow-hidden'>
+const IconSlide = ({
+  Icon,
+  large,
+}: {
+  Icon: ComponentType;
+  large: boolean;
+}): ReactNode => (
+  <span
+    className={`relative inline-grid shrink-0 place-items-center overflow-hidden ${large ? 'size-5' : 'size-4'}`}
+  >
     <span className={`${SLIDE} group-hover:-translate-y-[150%]`}>
       <Icon aria-hidden />
     </span>
@@ -31,13 +47,14 @@ const IconSlide = ({ Icon }: { Icon: ComponentType }): ReactNode => (
   </span>
 );
 
-/* Desktop chrome only: below 921px the card header keeps the brand and
-   collapses these links into its hamburger menu. */
-export const TopBar = ({ links }: TopBarProps): ReactNode => {
+/* Desktop chrome only: below 921px, each page brings its own compact header. */
+export const TopBar = ({ links, onBrand }: TopBarProps): ReactNode => {
   const [scrolled, setScrolled] = useState(false);
+  const iconBar = links.every(({ iconOnly }) => iconOnly);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
+
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -52,6 +69,7 @@ export const TopBar = ({ links }: TopBarProps): ReactNode => {
           : 'border-b border-transparent bg-transparent'
       }`}
     >
+      {onBrand && <Brand logo compact onClick={onBrand} className='mr-auto' />}
       <nav
         aria-label={translate({
           id: 'home.topBar.label',
@@ -60,13 +78,21 @@ export const TopBar = ({ links }: TopBarProps): ReactNode => {
         })}
         className='flex items-center gap-4'
       >
-        {links.map(({ label, Icon, href }) => (
-          <Link key={label} className={TOP_LINK} to={href}>
-            <IconSlide Icon={Icon} />
-            {label}
+        {links.map(({ label, Icon, href, iconOnly }) => (
+          <Link
+            key={label}
+            className={`${TOP_LINK} ${iconOnly ? ICON_ONLY : LABELED}`}
+            to={href}
+            title={iconOnly ? label : undefined}
+          >
+            <IconSlide Icon={Icon} large={Boolean(iconOnly)} />
+            <span className={iconOnly ? 'sr-only' : undefined}>{label}</span>
           </Link>
         ))}
-        <LanguageSwitcher tone='canvas' />
+        <LanguageSwitcher
+          tone='canvas'
+          flagClassName={iconBar ? 'size-5' : undefined}
+        />
       </nav>
     </header>
   );
