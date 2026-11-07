@@ -29,6 +29,8 @@ It helps more people discover the project.
 <a href="https://lagune.ai/zh-CN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/cn.svg" alt="简体中文" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/ja-JP/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/jp.svg" alt="日本語" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/ko-KR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/kr.svg" alt="한국어" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/hi-IN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/in.svg" alt="हिन्दी" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/id-ID/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/id.svg" alt="Bahasa Indonesia" width="32" align="absmiddle" /></a>
 
 ---
 
@@ -123,7 +125,7 @@ codex plugin marketplace upgrade lagune
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> [**OpenCode**](https://lagune.ai/docs/install/opencode)
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> [**Pi**](https://lagune.ai/docs/install/pi)
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> [**Qwen Code**](https://lagune.ai/docs/install/qwen-code)
-- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh)**](https://lagune.ai/docs/install/universal)
+- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh or** <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/github.svg" width="20" align="absmiddle" /></picture> **GitHub CLI)**](https://lagune.ai/docs/install/universal)
 
 > [!NOTE]
 >
@@ -140,14 +142,49 @@ Once installed, your **AI** agent unlocks a set of commands, all governed by the
 >
 > See real-world [**Prompt Samples**](https://lagune.ai/docs/examples/prompts) 🪼
 
-#### › Build
+#### › First use
+
+Start here, before building or auditing:
+
+| Skill                                                          | What it does for you                                                           |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [**/lagune-charter**](https://lagune.ai/docs/commands/charter) | Sets your project's security rules, the foundation every other skill builds on |
+
+##### Examples
+
+```md
+/lagune-charter
+```
+
+```md
+/lagune-charter <PRD.md>
+```
+
+```md
+/lagune-charter <describe your project and what it does>
+```
+
+#### › Build _(Universal)_
 
 Harden the work as you write it, with no flow to follow:
 
-| Skill                                                               | What it does for you                                                        |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| [**/lagune-charter**](https://lagune.ai/docs/commands/charter)      | Sets your project's security rules, the foundation `/lagune` builds against |
-| [**/lagune**](https://lagune.ai/docs/commands/lagune) _(Universal)_ | Builds what you ask and hardens it as it is written, guided by the charter  |
+| Skill                                                 | What it does for you                                                       |
+| ----------------------------------------------------- | -------------------------------------------------------------------------- |
+| [**/lagune**](https://lagune.ai/docs/commands/lagune) | Builds what you ask and hardens it as it is written, guided by the charter |
+
+##### Examples
+
+```md
+/lagune let users upload a custom photo on their profile.
+```
+
+```md
+/lagune nothing happens when the user submits the form. Look into what it might be and fix it.
+```
+
+```md
+/lagune decouple and improve the payload logic
+```
 
 #### › Audit: the Blue Team flow
 
@@ -160,6 +197,29 @@ These five run in order. Each builds on the previous, so following the list top 
 | 3   | [**/lagune-plan**](https://lagune.ai/docs/commands/plan)       | Turns what detect found into a defense plan, with a fix for each finding       |
 | 4   | [**/lagune-harden**](https://lagune.ai/docs/commands/harden)   | Applies the plan's fixes to your code, safely and one at a time                |
 | 5   | [**/lagune-verify**](https://lagune.ai/docs/commands/verify)   | Proves each applied fix holds and closes out the ones that do                  |
+
+##### Examples
+
+```md
+You are a cybersecurity orchestrator:
+
+- 0th sub-agent: /lagune-charter (only if no charter exists)
+- 1st sub-agent: /lagune-detect
+- 2nd sub-agent: /lagune-plan
+- 3rd sub-agent: /lagune-harden
+- 4th sub-agent: /lagune-verify
+
+Loop: re-run harden and verify sub-agents until all findings are closed.
+```
+
+Combine them with your own skills, for example:
+
+```md
+// ...
+
+- 3rd sub-agent: /lagune-harden /engineering
+- 4th sub-agent: /lagune-verify /code-review
+```
 
 #### › Special skills
 
