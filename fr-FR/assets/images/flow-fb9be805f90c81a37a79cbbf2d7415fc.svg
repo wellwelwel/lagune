@@ -1,0 +1,751 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="532" viewBox="0 0 820 532" role="img" aria-labelledby="title description">
+  <title id="title">Lagune in an AI chat</title>
+  <desc id="description">The GitHub logo fills the background of every empty chat and fades to half once a message arrives. In a &quot;First time using Lagune&quot; session with Claude Code, the user sends &quot;/lagune-charter It's a social media for devs&quot; and the agent answers &quot;I found that the project uses&quot; Rust, Database, Photo uploads, User sign-up. In a &quot;Using it for any task&quot; session with Codex, the user sends &quot;/lagune Implement user sign-up&quot; and the agent answers &quot;Matched specializations&quot; Credential Endpoint, Access Control, Cryptography, SQL, Regex, Rust. In a &quot;Blue Team Audit&quot; session with Antigravity, the user sends &quot;You are a cybersecurity orchestrator: - 1st sub-agent: /lagune-detect - 2nd sub-agent: /lagune-plan - 3rd sub-agent: /lagune-harden - 4th sub-agent: /lagune-verify Loop: re-run harden and verify sub-agents until all findings are closed.&quot; and the agent answers &quot;Orchestrating 4 sub-agents&quot; /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Finally, a &quot;Give Lagune a Star&quot; tab opens with Cursor and &quot;Your star helps Lagune grow.&quot; is typed while the agent switches through OpenCode, Muse Code, GitHub Copilot CLI, Devin, Grok Build, skills.sh, Pi, Qwen Code, Kimi Code.</desc>
+  <defs>
+    <style>
+svg {
+  --card: #151a26; --watermark: #121721; --surface: #1d2432; --line: #222a38; --line-2: #2d3648;
+  --ink: #eef1f8; --ink-2: #c6ccdb; --muted: #8b93a8;
+  --accent: #4f9bff; --accent-strong: #2f7bff; --on-accent: #ffffff;
+  --track: #1c2a45; --success: #2fc58f; --success-tile: #163a31;
+  --danger: #ff6369;
+  --star: #ffb000;
+  --shadow: #000000; --shadow-opacity: .45;
+}
+svg {
+  --card: #00000075; --watermark: #16307625; --surface: #07112e; --line: #171c2a; --line-2: #202533;
+  --track: #0e1b34; --success-tile: #0b2429;
+}
+svg { color-scheme: dark; }
+
+text { white-space: pre; }
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
+.card { fill: var(--card); }
+.watermark { color: var(--watermark); }
+.card-border { fill: none; stroke: var(--line); }
+.card-shadow { flood-color: var(--shadow); flood-opacity: var(--shadow-opacity); }
+.accent { color: var(--accent); }
+.success { color: var(--success); }
+.danger { color: var(--danger); }
+.muted { color: var(--muted); }
+.success-tile { fill: var(--success-tile); }
+.agent-logo { color: var(--ink); }
+.star { color: var(--star); }
+.send-gold { fill: var(--star); }
+.send-star { color: var(--on-accent); }
+.bubble, .chip { fill: var(--surface); }
+.chip-stretch { transform-box: fill-box; transform-origin: left center; }
+.prompt { fill: var(--ink); font-size: 14px; }
+.bullet { fill: var(--ink-2); }
+.command { fill: var(--accent); font-weight: 600; }
+.heading { fill: var(--ink); font-size: 15px; }
+.strong { font-weight: 600; }
+.label { fill: var(--ink-2); font-size: 13px; }
+.name { fill: var(--accent); font-size: 13px; font-weight: 600; }
+.note { fill: var(--muted); font-size: 12.5px; }
+.status { fill: var(--muted); font-size: 13.5px; }
+.timeline { fill: none; stroke: var(--line-2); stroke-width: 1; stroke-linecap: round; }
+.chip-label { fill: var(--ink); font-size: 12.5px; font-weight: 500; }
+.field { fill: var(--card); }
+.field-border { stroke: var(--line-2); }
+.placeholder { fill: var(--muted); font-size: 14px; }
+.caret { fill: var(--accent); }
+.chevron { fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.send-idle { fill: var(--line-2); }
+.send-icon-idle { fill: var(--muted); stroke: var(--muted); stroke-width: 1.5; stroke-linejoin: round; }
+.send-active { fill: var(--accent-strong); }
+.send-icon-active { fill: var(--on-accent); stroke: var(--on-accent); stroke-width: 1.5; stroke-linejoin: round; }
+.spinner-track { fill: none; stroke: var(--track); stroke-width: 2.4; }
+.spinner { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 16 34.3; transform-box: fill-box; transform-origin: center; animation: spin .9s linear infinite; }
+.shimmer-base { stop-color: var(--muted); }
+.shimmer-strong-base { stop-color: var(--ink-2); }
+.shimmer-peak { stop-color: var(--ink); }
+.ellipsis { animation: ellipsis 1.2s ease-in-out infinite; }
+.shimmer { fill: url(#shimmer); }
+.shimmer-strong { fill: url(#shimmer-strong); }
+.tab-label { fill: var(--ink); font-size: 12.5px; font-weight: 500; }
+.pop { transform-box: fill-box; transform-origin: center; }
+.blink { animation: blink 1.06s steps(1) infinite; }
+.typed, .pasted, .thinking, .send-on, .past, .idle { opacity: 0; }
+.dim { opacity: .5; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes ellipsis { 0%, 100% { fill-opacity: .15; } 40% { fill-opacity: 1; } }
+.card { filter: none; }
+.paused * { animation-play-state: paused !important; }
+.field { fill: none; }
+.cover-mask .field { fill: #000; stroke: none; }
+.cover-mask :not(g, .field, .cover-backdrop) { display: none; }
+@keyframes frame-1{0%{opacity:1}22.415%{opacity:1}22.451%{opacity:0}97.858%{opacity:0}97.893%{opacity:1}100%{opacity:1}}
+.frame-1{animation:frame-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes frame-2{0%{opacity:0}22.415%{opacity:0}22.451%{opacity:1}42.924%{opacity:1}42.959%{opacity:0}100%{opacity:0}}
+.frame-2{animation:frame-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes frame-3{0%{opacity:0}42.924%{opacity:0}42.959%{opacity:1}81.783%{opacity:1}81.819%{opacity:0}100%{opacity:0}}
+.frame-3{animation:frame-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes frame-4{0%{opacity:0}81.783%{opacity:0}81.819%{opacity:1}97.858%{opacity:1}97.893%{opacity:0}100%{opacity:0}}
+.frame-4{animation:frame-4 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-1-label{0%{opacity:1}21.99%{opacity:1}22.876%{opacity:.5}97.858%{opacity:.5}98.921%{opacity:1}100%{opacity:1}}
+.tab-1-label{animation:tab-1-label 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-2{0%{opacity:0;transform:translateX(-10px)}22.415%{opacity:0;transform:translateX(-10px)}23.655%{opacity:1;transform:translateX(0)}97.149%{opacity:1;transform:translateX(0)}98.566%{opacity:0;transform:translateX(-10px)}100%{opacity:0;transform:translateX(-10px)}}
+.tab-2{animation:tab-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-2-label{0%{opacity:1}42.499%{opacity:1}43.384%{opacity:.5}98.937%{opacity:.5}100%{opacity:1}100%{opacity:1}}
+.tab-2-label{animation:tab-2-label 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-3{0%{opacity:0;transform:translateX(-10px)}42.924%{opacity:0;transform:translateX(-10px)}44.164%{opacity:1;transform:translateX(0)}97.149%{opacity:1;transform:translateX(0)}98.566%{opacity:0;transform:translateX(-10px)}100%{opacity:0;transform:translateX(-10px)}}
+.tab-3{animation:tab-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-3-label{0%{opacity:1}81.358%{opacity:1}82.244%{opacity:.5}98.937%{opacity:.5}100%{opacity:1}100%{opacity:1}}
+.tab-3-label{animation:tab-3-label 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes tab-4{0%{opacity:0;transform:translateX(-10px)}81.783%{opacity:0;transform:translateX(-10px)}83.023%{opacity:1;transform:translateX(0)}97.149%{opacity:1;transform:translateX(0)}98.566%{opacity:0;transform:translateX(-10px)}100%{opacity:0;transform:translateX(-10px)}}
+.tab-4{animation:tab-4 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes new-chat-press{0%{transform:scale(1)}20.928%{transform:scale(1)}21.459%{transform:scale(.8)}22.168%{transform:scale(1)}41.436%{transform:scale(1)}41.967%{transform:scale(.8)}42.676%{transform:scale(1)}80.295%{transform:scale(1)}80.827%{transform:scale(.8)}81.535%{transform:scale(1)}100%{transform:scale(1)}}
+.new-chat-press{animation:new-chat-press 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chat-watermark{0%{opacity:1}6.758%{opacity:1}15.26%{opacity:0.5}21.99%{opacity:0.5}24.116%{opacity:1}27.444%{opacity:1}35.945%{opacity:0.5}42.499%{opacity:0.5}44.624%{opacity:1}50.186%{opacity:1}58.687%{opacity:0.5}81.358%{opacity:0.5}83.483%{opacity:1}100%{opacity:1}}
+.chat-watermark{animation:chat-watermark 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1{0%{opacity:1;transform:translateY(0)}21.99%{opacity:1;transform:translateY(0)}23.407%{opacity:0;transform:translateY(-8px)}99.292%{opacity:0;transform:translateY(-8px)}99.327%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+.session-1{animation:session-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-bubble{0%{opacity:0;transform:translateY(6px)}6.936%{opacity:0;transform:translateY(6px)}8.175%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-bubble{animation:session-1-bubble 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-think{0%{opacity:0}8.352%{opacity:0}9.061%{opacity:1}11.363%{opacity:1}11.895%{opacity:0}100%{opacity:0}}
+.session-1-think{animation:session-1-think 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-heading{0%{opacity:0;transform:translateY(6px)}11.718%{opacity:0;transform:translateY(6px)}12.957%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-heading{animation:session-1-heading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-1{0%{opacity:0;transform:translateY(6px)}12.78%{opacity:0;transform:translateY(6px)}14.02%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-1{animation:session-1-row-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-2{0%{opacity:0;transform:translateY(6px)}13.666%{opacity:0;transform:translateY(6px)}14.906%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-2{animation:session-1-row-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-3{0%{opacity:0;transform:translateY(6px)}14.552%{opacity:0;transform:translateY(6px)}15.791%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-3{animation:session-1-row-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-row-4{0%{opacity:0;transform:translateY(6px)}15.437%{opacity:0;transform:translateY(6px)}16.677%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-row-4{animation:session-1-row-4 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-closing{0%{opacity:0;transform:translateY(6px)}17.385%{opacity:0;transform:translateY(6px)}18.625%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-1-closing{animation:session-1-closing 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-1-badge{0%{opacity:0;transform:scale(.25)}17.563%{opacity:0;transform:scale(.25)}18.802%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-1-badge{animation:session-1-badge 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2{0%{opacity:1;transform:translateY(0)}42.499%{opacity:1;transform:translateY(0)}43.916%{opacity:0;transform:translateY(-8px)}99.292%{opacity:0;transform:translateY(-8px)}99.327%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+.session-2{animation:session-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-bubble{0%{opacity:0;transform:translateY(6px)}27.621%{opacity:0;transform:translateY(6px)}28.861%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-bubble{animation:session-2-bubble 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-think{0%{opacity:0}29.038%{opacity:0}29.746%{opacity:1}31.872%{opacity:1}32.403%{opacity:0}100%{opacity:0}}
+.session-2-think{animation:session-2-think 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-heading{0%{opacity:0;transform:translateY(6px)}32.226%{opacity:0;transform:translateY(6px)}33.466%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-heading{animation:session-2-heading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-1{0%{opacity:0;transform:translateY(6px)}33.289%{opacity:0;transform:translateY(6px)}34.528%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-1{animation:session-2-row-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-2{0%{opacity:0;transform:translateY(6px)}34.174%{opacity:0;transform:translateY(6px)}35.414%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-2{animation:session-2-row-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-3{0%{opacity:0;transform:translateY(6px)}35.06%{opacity:0;transform:translateY(6px)}36.3%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-3{animation:session-2-row-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-4{0%{opacity:0;transform:translateY(6px)}35.945%{opacity:0;transform:translateY(6px)}37.185%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-4{animation:session-2-row-4 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-5{0%{opacity:0;transform:translateY(6px)}36.831%{opacity:0;transform:translateY(6px)}38.071%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-5{animation:session-2-row-5 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-row-6{0%{opacity:0;transform:translateY(6px)}37.717%{opacity:0;transform:translateY(6px)}38.956%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-row-6{animation:session-2-row-6 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-2-closing{0%{opacity:0;transform:translateY(6px)}39.665%{opacity:0;transform:translateY(6px)}40.905%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-2-closing{animation:session-2-closing 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3{0%{opacity:1;transform:translateY(0)}81.358%{opacity:1;transform:translateY(0)}82.775%{opacity:0;transform:translateY(-8px)}99.292%{opacity:0;transform:translateY(-8px)}99.327%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+.session-3{animation:session-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-bubble{0%{opacity:0;transform:translateY(6px)}50.363%{opacity:0;transform:translateY(6px)}51.602%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-bubble{animation:session-3-bubble 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-think{0%{opacity:0}51.78%{opacity:0}52.488%{opacity:1}54.613%{opacity:1}55.145%{opacity:0}100%{opacity:0}}
+.session-3-think{animation:session-3-think 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-heading{0%{opacity:0;transform:translateY(6px)}54.968%{opacity:0;transform:translateY(6px)}56.207%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-heading{animation:session-3-heading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-1{0%{opacity:0;transform:translateY(6px)}56.03%{opacity:0;transform:translateY(6px)}57.27%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-1{animation:session-3-row-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-1-run-1-loading{0%{opacity:0}56.03%{opacity:0}56.066%{opacity:1}58.51%{opacity:1}59.218%{opacity:0}100%{opacity:0}}
+.session-3-row-1-run-1-loading{animation:session-3-row-1-run-1-loading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-1-run-1-result{0%{opacity:0}59.218%{opacity:0}59.927%{opacity:1}98.937%{opacity:1}99.646%{opacity:0}100%{opacity:0}}
+.session-3-row-1-run-1-result{animation:session-3-row-1-run-1-result 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-1-run-1-pop{0%{opacity:0;transform:scale(.25)}59.218%{opacity:0;transform:scale(.25)}60.458%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-row-1-run-1-pop{animation:session-3-row-1-run-1-pop 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-2{0%{opacity:0;transform:translateY(6px)}59.218%{opacity:0;transform:translateY(6px)}60.458%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-2{animation:session-3-row-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-2-run-1-loading{0%{opacity:0}59.218%{opacity:0}59.254%{opacity:1}61.698%{opacity:1}62.407%{opacity:0}100%{opacity:0}}
+.session-3-row-2-run-1-loading{animation:session-3-row-2-run-1-loading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-2-run-1-result{0%{opacity:0}62.407%{opacity:0}63.115%{opacity:1}98.937%{opacity:1}99.646%{opacity:0}100%{opacity:0}}
+.session-3-row-2-run-1-result{animation:session-3-row-2-run-1-result 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-2-run-1-pop{0%{opacity:0;transform:scale(.25)}62.407%{opacity:0;transform:scale(.25)}63.646%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-row-2-run-1-pop{animation:session-3-row-2-run-1-pop 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3{0%{opacity:0;transform:translateY(6px)}62.407%{opacity:0;transform:translateY(6px)}63.646%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-3{animation:session-3-row-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3-run-1-loading{0%{opacity:0}62.407%{opacity:0}62.442%{opacity:1}64.886%{opacity:1}65.595%{opacity:0}100%{opacity:0}}
+.session-3-row-3-run-1-loading{animation:session-3-row-3-run-1-loading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3-run-1-result{0%{opacity:0}65.595%{opacity:0}66.303%{opacity:1}70.2%{opacity:1}70.908%{opacity:0}100%{opacity:0}}
+.session-3-row-3-run-1-result{animation:session-3-row-3-run-1-result 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3-run-1-pop{0%{opacity:0;transform:scale(.25)}65.595%{opacity:0;transform:scale(.25)}66.834%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-row-3-run-1-pop{animation:session-3-row-3-run-1-pop 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3-run-2-loading{0%{opacity:0}70.908%{opacity:0}71.617%{opacity:1}72.679%{opacity:1}73.388%{opacity:0}100%{opacity:0}}
+.session-3-row-3-run-2-loading{animation:session-3-row-3-run-2-loading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3-run-2-result{0%{opacity:0}73.388%{opacity:0}74.096%{opacity:1}98.937%{opacity:1}99.646%{opacity:0}100%{opacity:0}}
+.session-3-row-3-run-2-result{animation:session-3-row-3-run-2-result 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-3-run-2-pop{0%{opacity:0;transform:scale(.25)}73.388%{opacity:0;transform:scale(.25)}74.628%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-row-3-run-2-pop{animation:session-3-row-3-run-2-pop 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4{0%{opacity:0;transform:translateY(6px)}65.595%{opacity:0;transform:translateY(6px)}66.834%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-row-4{animation:session-3-row-4 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4-run-1-loading{0%{opacity:0}65.595%{opacity:0}65.63%{opacity:1}68.074%{opacity:1}68.783%{opacity:0}100%{opacity:0}}
+.session-3-row-4-run-1-loading{animation:session-3-row-4-run-1-loading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4-run-1-result{0%{opacity:0}68.783%{opacity:0}69.491%{opacity:1}73.388%{opacity:1}74.096%{opacity:0}100%{opacity:0}}
+.session-3-row-4-run-1-result{animation:session-3-row-4-run-1-result 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4-run-1-pop{0%{opacity:0;transform:scale(.25)}68.783%{opacity:0;transform:scale(.25)}70.023%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-row-4-run-1-pop{animation:session-3-row-4-run-1-pop 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4-run-2-loading{0%{opacity:0}74.096%{opacity:0}74.805%{opacity:1}75.867%{opacity:1}76.576%{opacity:0}100%{opacity:0}}
+.session-3-row-4-run-2-loading{animation:session-3-row-4-run-2-loading 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4-run-2-result{0%{opacity:0}76.576%{opacity:0}77.284%{opacity:1}98.937%{opacity:1}99.646%{opacity:0}100%{opacity:0}}
+.session-3-row-4-run-2-result{animation:session-3-row-4-run-2-result 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-row-4-run-2-pop{0%{opacity:0;transform:scale(.25)}76.576%{opacity:0;transform:scale(.25)}77.816%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-row-4-run-2-pop{animation:session-3-row-4-run-2-pop 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-closing{0%{opacity:0;transform:translateY(6px)}77.816%{opacity:0;transform:translateY(6px)}79.056%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.session-3-closing{animation:session-3-closing 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-badge{0%{opacity:0;transform:scale(.25)}77.993%{opacity:0;transform:scale(.25)}79.233%{opacity:1;transform:scale(1)}98.937%{opacity:1;transform:scale(1)}98.973%{opacity:0;transform:scale(.25)}100%{opacity:0;transform:scale(.25)}}
+.session-3-badge{animation:session-3-badge 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes session-3-scroll{0%{transform:translateY(0px)}77.816%{transform:translateY(0px)}79.056%{transform:translateY(-18px)}98.937%{transform:translateY(-18px)}98.973%{transform:translateY(0px)}100%{transform:translateY(0px)}}
+.session-3-scroll{animation:session-3-scroll 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes placeholder{0%{opacity:1}1.417%{opacity:1}1.452%{opacity:0}6.936%{opacity:0}7.644%{opacity:1}23.407%{opacity:1}23.443%{opacity:0}27.621%{opacity:0}28.329%{opacity:1}43.916%{opacity:1}43.951%{opacity:0}50.363%{opacity:0}51.071%{opacity:1}82.775%{opacity:1}82.81%{opacity:0}98.921%{opacity:0}99.629%{opacity:1}100%{opacity:1}}
+.placeholder{animation:placeholder 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes typed-1{0%{opacity:0}1.417%{opacity:0}1.452%{opacity:1}6.758%{opacity:1}6.794%{opacity:0}100%{opacity:0}}
+.typed-1{animation:typed-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes typed-2{0%{opacity:0}23.407%{opacity:0}23.443%{opacity:1}27.444%{opacity:1}27.479%{opacity:0}100%{opacity:0}}
+.typed-2{animation:typed-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-1{0%{opacity:1}6.758%{opacity:1}6.794%{opacity:0}98.937%{opacity:0}98.973%{opacity:1}100%{opacity:1}}
+.cover-1{animation:cover-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-1-typing{0%{transform:translateX(0px)}1.417%{transform:translateX(0px);animation-timing-function:steps(1,end)}1.51%{transform:translateX(4.4px);animation-timing-function:steps(1,end)}1.603%{transform:translateX(7.9px);animation-timing-function:steps(1,end)}1.697%{transform:translateX(16.8px);animation-timing-function:steps(1,end)}1.79%{transform:translateX(25.6px);animation-timing-function:steps(1,end)}1.883%{transform:translateX(34.4px);animation-timing-function:steps(1,end)}1.976%{transform:translateX(43.3px);animation-timing-function:steps(1,end)}2.069%{transform:translateX(52.1px);animation-timing-function:steps(1,end)}2.163%{transform:translateX(57.4px);animation-timing-function:steps(1,end)}2.256%{transform:translateX(65.3px);animation-timing-function:steps(1,end)}2.349%{transform:translateX(74.1px);animation-timing-function:steps(1,end)}2.442%{transform:translateX(83px);animation-timing-function:steps(1,end)}2.536%{transform:translateX(88.3px);animation-timing-function:steps(1,end)}2.629%{transform:translateX(92.7px);animation-timing-function:steps(1,end)}2.722%{transform:translateX(101.5px);animation-timing-function:steps(1,end)}2.815%{transform:translateX(106.8px);animation-timing-function:steps(1,end)}2.908%{transform:translateX(110.8px);animation-timing-function:steps(1,end)}3.002%{transform:translateX(114.8px);animation-timing-function:steps(1,end)}3.095%{transform:translateX(118.8px);animation-timing-function:steps(1,end)}3.188%{transform:translateX(121.6px);animation-timing-function:steps(1,end)}3.281%{transform:translateX(128.8px);animation-timing-function:steps(1,end)}3.375%{transform:translateX(132.8px);animation-timing-function:steps(1,end)}3.468%{transform:translateX(140.9px);animation-timing-function:steps(1,end)}3.561%{transform:translateX(144.9px);animation-timing-function:steps(1,end)}3.654%{transform:translateX(152.1px);animation-timing-function:steps(1,end)}3.747%{transform:translateX(160.2px);animation-timing-function:steps(1,end)}3.841%{transform:translateX(167.4px);animation-timing-function:steps(1,end)}3.934%{transform:translateX(170.6px);animation-timing-function:steps(1,end)}4.027%{transform:translateX(178.6px);animation-timing-function:steps(1,end)}4.12%{transform:translateX(181.9px);animation-timing-function:steps(1,end)}4.214%{transform:translateX(185.9px);animation-timing-function:steps(1,end)}4.307%{transform:translateX(197.9px);animation-timing-function:steps(1,end)}4.4%{transform:translateX(206px);animation-timing-function:steps(1,end)}4.493%{transform:translateX(214px);animation-timing-function:steps(1,end)}4.586%{transform:translateX(217.2px);animation-timing-function:steps(1,end)}4.68%{transform:translateX(225.2px);animation-timing-function:steps(1,end)}4.773%{transform:translateX(229.3px);animation-timing-function:steps(1,end)}4.866%{transform:translateX(233.3px);animation-timing-function:steps(1,end)}4.959%{transform:translateX(241.3px);animation-timing-function:steps(1,end)}5.052%{transform:translateX(246.1px);animation-timing-function:steps(1,end)}5.146%{transform:translateX(250.1px);animation-timing-function:steps(1,end)}5.239%{transform:translateX(258.2px);animation-timing-function:steps(1,end)}5.332%{transform:translateX(266.2px);animation-timing-function:steps(1,end)}5.425%{transform:translateX(273.4px);animation-timing-function:steps(1,end)}5.519%{transform:translateX(280.7px);animation-timing-function:steps(1,end)}6.758%{transform:translateX(280.7px)}6.794%{transform:translateX(0px)}100%{transform:translateX(0px)}}
+.cover-1-typing{animation:cover-1-typing 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-2{0%{opacity:0}6.758%{opacity:0}6.794%{opacity:1}27.444%{opacity:1}27.479%{opacity:0}100%{opacity:0}}
+.cover-2{animation:cover-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-2-typing{0%{transform:translateX(0px)}23.407%{transform:translateX(0px);animation-timing-function:steps(1,end)}23.501%{transform:translateX(4.4px);animation-timing-function:steps(1,end)}23.594%{transform:translateX(7.9px);animation-timing-function:steps(1,end)}23.687%{transform:translateX(16.8px);animation-timing-function:steps(1,end)}23.78%{transform:translateX(25.6px);animation-timing-function:steps(1,end)}23.873%{transform:translateX(34.4px);animation-timing-function:steps(1,end)}23.967%{transform:translateX(43.3px);animation-timing-function:steps(1,end)}24.06%{transform:translateX(52.1px);animation-timing-function:steps(1,end)}24.153%{transform:translateX(56.1px);animation-timing-function:steps(1,end)}24.246%{transform:translateX(60.1px);animation-timing-function:steps(1,end)}24.34%{transform:translateX(72.2px);animation-timing-function:steps(1,end)}24.433%{transform:translateX(80.2px);animation-timing-function:steps(1,end)}24.526%{transform:translateX(83.4px);animation-timing-function:steps(1,end)}24.619%{transform:translateX(91.4px);animation-timing-function:steps(1,end)}24.712%{transform:translateX(103.5px);animation-timing-function:steps(1,end)}24.806%{transform:translateX(111.5px);animation-timing-function:steps(1,end)}24.899%{transform:translateX(119.6px);animation-timing-function:steps(1,end)}24.992%{transform:translateX(123.6px);animation-timing-function:steps(1,end)}25.085%{transform:translateX(127.6px);animation-timing-function:steps(1,end)}25.179%{transform:translateX(135.6px);animation-timing-function:steps(1,end)}25.272%{transform:translateX(142.9px);animation-timing-function:steps(1,end)}25.365%{transform:translateX(150.9px);animation-timing-function:steps(1,end)}25.458%{transform:translateX(155.7px);animation-timing-function:steps(1,end)}25.551%{transform:translateX(159.7px);animation-timing-function:steps(1,end)}25.645%{transform:translateX(167px);animation-timing-function:steps(1,end)}25.738%{transform:translateX(170.2px);animation-timing-function:steps(1,end)}25.831%{transform:translateX(178.2px);animation-timing-function:steps(1,end)}25.924%{transform:translateX(186.2px);animation-timing-function:steps(1,end)}26.017%{transform:translateX(191.1px);animation-timing-function:steps(1,end)}26.111%{transform:translateX(199.1px);animation-timing-function:steps(1,end)}26.204%{transform:translateX(207.1px);animation-timing-function:steps(1,end)}27.444%{transform:translateX(207.1px)}27.479%{transform:translateX(0px)}100%{transform:translateX(0px)}}
+.cover-2-typing{animation:cover-2-typing 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes cover-3{0%{opacity:0}27.444%{opacity:0}27.479%{opacity:1}82.775%{opacity:1}82.81%{opacity:0}100%{opacity:0}}
+.cover-3{animation:cover-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes outro{0%{opacity:0}82.775%{opacity:0}82.81%{opacity:1}97.149%{opacity:1}98.566%{opacity:0}100%{opacity:0}}
+.outro{animation:outro 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes outro-typing{0%{transform:translateX(0px)}82.775%{transform:translateX(0px);animation-timing-function:steps(1,end)}82.868%{transform:translateX(9.6px);animation-timing-function:steps(1,end)}82.961%{transform:translateX(17.7px);animation-timing-function:steps(1,end)}83.055%{transform:translateX(25.7px);animation-timing-function:steps(1,end)}83.148%{transform:translateX(30.5px);animation-timing-function:steps(1,end)}83.241%{transform:translateX(34.5px);animation-timing-function:steps(1,end)}83.334%{transform:translateX(50.5px);animation-timing-function:steps(1,end)}83.427%{transform:translateX(55.6px);animation-timing-function:steps(1,end)}83.521%{transform:translateX(63.6px);animation-timing-function:steps(1,end)}83.614%{transform:translateX(71.6px);animation-timing-function:steps(1,end)}83.707%{transform:translateX(74.9px);animation-timing-function:steps(1,end)}83.8%{transform:translateX(82.9px);animation-timing-function:steps(1,end)}83.894%{transform:translateX(90.1px);animation-timing-function:steps(1,end)}83.987%{transform:translateX(94.1px);animation-timing-function:steps(1,end)}84.08%{transform:translateX(102.2px);animation-timing-function:steps(1,end)}84.173%{transform:translateX(110.2px);animation-timing-function:steps(1,end)}84.266%{transform:translateX(118.2px);animation-timing-function:steps(1,end)}84.36%{transform:translateX(126.3px);animation-timing-function:steps(1,end)}84.453%{transform:translateX(134.3px);animation-timing-function:steps(1,end)}84.546%{transform:translateX(142.4px);animation-timing-function:steps(1,end)}84.639%{transform:translateX(146.4px);animation-timing-function:steps(1,end)}84.733%{transform:translateX(154.4px);animation-timing-function:steps(1,end)}84.826%{transform:translateX(159.2px);animation-timing-function:steps(1,end)}84.919%{transform:translateX(167.3px);animation-timing-function:steps(1,end)}85.012%{transform:translateX(177.7px);animation-timing-function:steps(1,end)}85.105%{transform:translateX(181.7px);animation-timing-function:steps(1,end)}98.743%{transform:translateX(181.7px)}98.779%{transform:translateX(0px)}100%{transform:translateX(0px)}}
+.outro-typing{animation:outro-typing 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes paste-3{0%{opacity:0}43.916%{opacity:0}44.447%{opacity:1}50.363%{opacity:1}50.894%{opacity:0}100%{opacity:0}}
+.paste-3{animation:paste-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes paste-3-line-1{0%{opacity:0;transform:translateY(6px)}44.27%{opacity:0;transform:translateY(6px)}45.51%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.paste-3-line-1{animation:paste-3-line-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes paste-3-line-3{0%{opacity:0;transform:translateY(6px)}44.907%{opacity:0;transform:translateY(6px)}46.147%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.paste-3-line-3{animation:paste-3-line-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes paste-3-line-4{0%{opacity:0;transform:translateY(6px)}45.226%{opacity:0;transform:translateY(6px)}46.466%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.paste-3-line-4{animation:paste-3-line-4 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes paste-3-line-5{0%{opacity:0;transform:translateY(6px)}45.545%{opacity:0;transform:translateY(6px)}46.785%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.paste-3-line-5{animation:paste-3-line-5 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes paste-3-line-6{0%{opacity:0;transform:translateY(6px)}45.864%{opacity:0;transform:translateY(6px)}47.104%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.paste-3-line-6{animation:paste-3-line-6 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes paste-3-line-8{0%{opacity:0;transform:translateY(6px)}46.501%{opacity:0;transform:translateY(6px)}47.741%{opacity:1;transform:translateY(0)}98.937%{opacity:1;transform:translateY(0)}98.973%{opacity:0;transform:translateY(6px)}100%{opacity:0;transform:translateY(6px)}}
+.paste-3-line-8{animation:paste-3-line-8 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-stretch{0%{transform:scaleX(1.2055)}21.99%{transform:scaleX(1.2055)}22.77%{transform:scaleX(0.6898)}42.499%{transform:scaleX(0.6898)}43.278%{transform:scaleX(1)}81.358%{transform:scaleX(1)}82.137%{transform:scaleX(0.7081)}87.585%{transform:scaleX(0.7081)}88.364%{transform:scaleX(1.0301)}88.648%{transform:scaleX(1.0301)}89.427%{transform:scaleX(1.0785)}89.71%{transform:scaleX(1.0785)}90.49%{transform:scaleX(1.6427)}90.773%{transform:scaleX(1.6427)}91.552%{transform:scaleX(0.6309)}91.836%{transform:scaleX(0.6309)}92.615%{transform:scaleX(1)}92.899%{transform:scaleX(1)}93.678%{transform:scaleX(0.7958)}93.961%{transform:scaleX(0.7958)}94.741%{transform:scaleX(0.339)}95.024%{transform:scaleX(0.339)}95.803%{transform:scaleX(1.1073)}96.087%{transform:scaleX(1.1073)}96.866%{transform:scaleX(0.9908)}97.149%{transform:scaleX(0.9908)}97.929%{transform:scaleX(1.2055)}100%{transform:scaleX(1.2055)}}
+.chip-stretch{animation:chip-stretch 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-edge{0%{transform:translateX(15.7px)}21.99%{transform:translateX(15.7px)}22.77%{transform:translateX(-23.7px)}42.499%{transform:translateX(-23.7px)}43.278%{transform:translateX(0px)}81.358%{transform:translateX(0px)}82.137%{transform:translateX(-22.3px)}87.585%{transform:translateX(-22.3px)}88.364%{transform:translateX(2.3px)}88.648%{transform:translateX(2.3px)}89.427%{transform:translateX(6px)}89.71%{transform:translateX(6px)}90.49%{transform:translateX(49.1px)}90.773%{transform:translateX(49.1px)}91.552%{transform:translateX(-28.2px)}91.836%{transform:translateX(-28.2px)}92.615%{transform:translateX(0px)}92.899%{transform:translateX(0px)}93.678%{transform:translateX(-15.6px)}93.961%{transform:translateX(-15.6px)}94.741%{transform:translateX(-50.5px)}95.024%{transform:translateX(-50.5px)}95.803%{transform:translateX(8.2px)}96.087%{transform:translateX(8.2px)}96.866%{transform:translateX(-0.7px)}97.149%{transform:translateX(-0.7px)}97.929%{transform:translateX(15.7px)}100%{transform:translateX(15.7px)}}
+.chip-edge{animation:chip-edge 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-1{0%{opacity:1;transform:translateY(0)}21.99%{opacity:1;transform:translateY(0)}22.77%{opacity:0;transform:translateY(-7px)}22.805%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-1{animation:chip-1 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-2{0%{opacity:0;transform:translateY(7px)}21.99%{opacity:0;transform:translateY(7px)}22.77%{opacity:1;transform:translateY(0)}42.499%{opacity:1;transform:translateY(0)}43.278%{opacity:0;transform:translateY(-7px)}43.313%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-2{animation:chip-2 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-3{0%{opacity:0;transform:translateY(7px)}42.499%{opacity:0;transform:translateY(7px)}43.278%{opacity:1;transform:translateY(0)}81.358%{opacity:1;transform:translateY(0)}82.137%{opacity:0;transform:translateY(-7px)}82.173%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-3{animation:chip-3 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-4{0%{opacity:0;transform:translateY(7px)}81.358%{opacity:0;transform:translateY(7px)}82.137%{opacity:1;transform:translateY(0)}87.585%{opacity:1;transform:translateY(0)}88.364%{opacity:0;transform:translateY(-7px)}88.4%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-4{animation:chip-4 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-5{0%{opacity:0;transform:translateY(7px)}87.585%{opacity:0;transform:translateY(7px)}88.364%{opacity:1;transform:translateY(0)}88.648%{opacity:1;transform:translateY(0)}89.427%{opacity:0;transform:translateY(-7px)}89.462%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-5{animation:chip-5 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-6{0%{opacity:0;transform:translateY(7px)}88.648%{opacity:0;transform:translateY(7px)}89.427%{opacity:1;transform:translateY(0)}89.71%{opacity:1;transform:translateY(0)}90.49%{opacity:0;transform:translateY(-7px)}90.525%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-6{animation:chip-6 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-7{0%{opacity:0;transform:translateY(7px)}89.71%{opacity:0;transform:translateY(7px)}90.49%{opacity:1;transform:translateY(0)}90.773%{opacity:1;transform:translateY(0)}91.552%{opacity:0;transform:translateY(-7px)}91.588%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-7{animation:chip-7 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-8{0%{opacity:0;transform:translateY(7px)}90.773%{opacity:0;transform:translateY(7px)}91.552%{opacity:1;transform:translateY(0)}91.836%{opacity:1;transform:translateY(0)}92.615%{opacity:0;transform:translateY(-7px)}92.651%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-8{animation:chip-8 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-9{0%{opacity:0;transform:translateY(7px)}91.836%{opacity:0;transform:translateY(7px)}92.615%{opacity:1;transform:translateY(0)}92.899%{opacity:1;transform:translateY(0)}93.678%{opacity:0;transform:translateY(-7px)}93.713%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-9{animation:chip-9 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-10{0%{opacity:0;transform:translateY(7px)}92.899%{opacity:0;transform:translateY(7px)}93.678%{opacity:1;transform:translateY(0)}93.961%{opacity:1;transform:translateY(0)}94.741%{opacity:0;transform:translateY(-7px)}94.776%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-10{animation:chip-10 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-11{0%{opacity:0;transform:translateY(7px)}93.961%{opacity:0;transform:translateY(7px)}94.741%{opacity:1;transform:translateY(0)}95.024%{opacity:1;transform:translateY(0)}95.803%{opacity:0;transform:translateY(-7px)}95.839%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-11{animation:chip-11 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-12{0%{opacity:0;transform:translateY(7px)}95.024%{opacity:0;transform:translateY(7px)}95.803%{opacity:1;transform:translateY(0)}96.087%{opacity:1;transform:translateY(0)}96.866%{opacity:0;transform:translateY(-7px)}96.901%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-12{animation:chip-12 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-13{0%{opacity:0;transform:translateY(7px)}96.087%{opacity:0;transform:translateY(7px)}96.866%{opacity:1;transform:translateY(0)}97.149%{opacity:1;transform:translateY(0)}97.929%{opacity:0;transform:translateY(-7px)}97.964%{opacity:0;transform:translateY(7px)}100%{opacity:0;transform:translateY(7px)}}
+.chip-13{animation:chip-13 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes chip-14{0%{opacity:0;transform:translateY(7px)}97.149%{opacity:0;transform:translateY(7px)}97.929%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+.chip-14{animation:chip-14 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes send-press{0%{transform:scale(1)}6.581%{transform:scale(1)}7.006%{transform:scale(.86)}7.821%{transform:scale(1)}27.267%{transform:scale(1)}27.692%{transform:scale(.86)}28.506%{transform:scale(1)}50.008%{transform:scale(1)}50.433%{transform:scale(.86)}51.248%{transform:scale(1)}86.168%{transform:scale(1)}86.593%{transform:scale(.86)}87.408%{transform:scale(1)}100%{transform:scale(1)}}
+.send-press{animation:send-press 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes send-armed{0%{opacity:0}1.417%{opacity:0}1.948%{opacity:1}7.113%{opacity:1}7.998%{opacity:0}23.407%{opacity:0}23.939%{opacity:1}27.798%{opacity:1}28.684%{opacity:0}43.916%{opacity:0}44.447%{opacity:1}50.54%{opacity:1}51.425%{opacity:0}100%{opacity:0}}
+.send-armed{animation:send-armed 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes send-working{0%{opacity:0}6.758%{opacity:0}7.467%{opacity:1}17.385%{opacity:1}18.271%{opacity:0}27.444%{opacity:0}28.152%{opacity:1}42.499%{opacity:1}43.384%{opacity:0}50.186%{opacity:0}50.894%{opacity:1}77.816%{opacity:1}78.701%{opacity:0}100%{opacity:0}}
+.send-working{animation:send-working 28.23s cubic-bezier(.2,0,0,1) infinite}
+@keyframes send-starred{0%{opacity:0}81.358%{opacity:0}82.066%{opacity:1}97.149%{opacity:1}98.566%{opacity:0}100%{opacity:0}}
+.send-starred{animation:send-starred 28.23s cubic-bezier(.2,0,0,1) infinite}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; }
+}
+    </style>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="114%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" class="card-shadow"/>
+    </filter>
+    <clipPath id="viewport"><rect x="0" y="74" width="820" height="328"/></clipPath>
+    <clipPath id="field-clip"><rect x="44" y="414" width="732" height="36"/></clipPath>
+    <linearGradient id="viewport-fade-gradient" x1="0" y1="74" x2="0" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <mask id="viewport-fade" maskUnits="userSpaceOnUse" x="0" y="74" width="820" height="328">
+      <rect x="0" y="74" width="820" height="328" fill="url(#viewport-fade-gradient)"/>
+    </mask>
+    <linearGradient id="shimmer" x1="0" y1="0" x2="1" y2="0">
+      <stop offset=".3" class="shimmer-base"/>
+      <stop offset=".5" class="shimmer-peak"/>
+      <stop offset=".7" class="shimmer-base"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-.8 0;.8 0" dur="1.6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <linearGradient id="shimmer-strong" x1="0" y1="0" x2="1" y2="0">
+      <stop offset=".3" class="shimmer-strong-base"/>
+      <stop offset=".5" class="shimmer-peak"/>
+      <stop offset=".7" class="shimmer-strong-base"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-.8 0;.8 0" dur="1.6s" repeatCount="indefinite"/>
+    </linearGradient>
+    <symbol id="icon-rust" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="8" stroke-width="2.6" stroke-dasharray="2.513 2.513"/><circle cx="12" cy="12" r="5.6" stroke-width="2.2"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icon-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="6.5" rx="7" ry="2.8"/><path d="M5 6.5v11c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8v-11"/><path d="M5 12c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8"/></symbol>
+    <symbol id="icon-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2.5"/><circle cx="9.5" cy="10" r="1.5"/><path d="M4.5 17l4.5-4.5 3.5 3.5 2.5-2.5 4.5 4.5"/></symbol>
+    <symbol id="icon-signup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M19 8v6M16 11h6"/></symbol>
+    <symbol id="icon-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
+    <symbol id="icon-graduation-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.5 3.5L17.5 8.5"/></symbol>
+    <symbol id="icon-paperclip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></symbol>
+    <symbol id="icon-square-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></symbol>
+    <symbol id="icon-claude" viewBox="0 0 16 16" fill="#d97757"><path d="m3.127 10.604 3.135-1.76.053-.153-.053-.085H6.11l-.525-.032-1.791-.048-1.554-.065-1.505-.08-.38-.081L0 7.832l.036-.234.32-.214.455.04 1.009.069 1.513.105 1.097.064 1.626.17h.259l.036-.105-.089-.065-.068-.064-1.566-1.062-1.695-1.121-.887-.646-.48-.327-.243-.306-.104-.67.435-.48.585.04.15.04.593.456 1.267.981 1.654 1.218.242.202.097-.068.012-.049-.109-.181-.9-1.626-.96-1.655-.428-.686-.113-.411a2 2 0 0 1-.068-.484l.496-.674L4.446 0l.662.089.279.242.411.94.666 1.48 1.033 2.014.302.597.162.553.06.17h.105v-.097l.085-1.134.157-1.392.154-1.792.052-.504.25-.605.497-.327.387.186.319.456-.045.294-.19 1.23-.37 1.93-.243 1.29h.142l.161-.16.654-.868 1.097-1.372.484-.545.565-.601.363-.287h.686l.505.751-.226.775-.707.895-.585.759-.839 1.13-.524.904.048.072.125-.012 1.897-.403 1.024-.186 1.223-.21.553.258.06.263-.218.536-1.307.323-1.533.307-2.284.54-.028.02.032.04 1.029.098.44.024h1.077l2.005.15.525.346.315.424-.053.323-.807.411-3.631-.863-.872-.218h-.12v.073l.726.71 1.331 1.202 1.667 1.55.084.383-.214.302-.226-.032-1.464-1.101-.565-.497-1.28-1.077h-.084v.113l.295.432 1.557 2.34.08.718-.112.234-.404.141-.444-.08-.911-1.28-.94-1.44-.759-1.291-.093.053-.448 4.821-.21.246-.484.186-.403-.307-.214-.496.214-.98.258-1.28.21-1.016.19-1.263.112-.42-.008-.028-.092.012-.953 1.307-1.448 1.957-1.146 1.227-.274.109-.477-.247.045-.44.266-.39 1.586-2.018.956-1.25.617-.723-.004-.105h-.036l-4.212 2.736-.75.096-.324-.302.04-.496.154-.162 1.267-.871z"/></symbol>
+    <symbol id="icon-codex" viewBox="0 0 16 16" fill="currentColor"><path d="M14.949 6.547a3.94 3.94 0 0 0-.348-3.273 4.11 4.11 0 0 0-4.4-1.934A4.1 4.1 0 0 0 8.423.2 4.15 4.15 0 0 0 6.305.086a4.1 4.1 0 0 0-1.891.948 4.04 4.04 0 0 0-1.158 1.753 4.1 4.1 0 0 0-1.563.679A4 4 0 0 0 .554 4.72a3.99 3.99 0 0 0 .502 4.731 3.94 3.94 0 0 0 .346 3.274 4.11 4.11 0 0 0 4.402 1.933c.382.425.852.764 1.377.995.526.231 1.095.35 1.67.346 1.78.002 3.358-1.132 3.901-2.804a4.1 4.1 0 0 0 1.563-.68 4 4 0 0 0 1.14-1.253 3.99 3.99 0 0 0-.506-4.716m-6.097 8.406a3.05 3.05 0 0 1-1.945-.694l.096-.054 3.23-1.838a.53.53 0 0 0 .265-.455v-4.49l1.366.778q.02.011.025.035v3.722c-.003 1.653-1.361 2.992-3.037 2.996m-6.53-2.75a2.95 2.95 0 0 1-.36-2.01l.095.057L5.29 12.09a.53.53 0 0 0 .527 0l3.949-2.246v1.555a.05.05 0 0 1-.022.041L6.473 13.3c-1.454.826-3.311.335-4.15-1.098m-.85-6.94A3.02 3.02 0 0 1 3.07 3.949v3.785a.51.51 0 0 0 .262.451l3.93 2.237-1.366.779a.05.05 0 0 1-.048 0L2.585 9.342a2.98 2.98 0 0 1-1.113-4.094zm11.216 2.571L8.747 5.576l1.362-.776a.05.05 0 0 1 .048 0l3.265 1.86a3 3 0 0 1 1.173 1.207 2.96 2.96 0 0 1-.27 3.2 3.05 3.05 0 0 1-1.36.997V8.279a.52.52 0 0 0-.276-.445m1.36-2.015-.097-.057-3.226-1.855a.53.53 0 0 0-.53 0L6.249 6.153V4.598a.04.04 0 0 1 .019-.04L9.533 2.7a3.07 3.07 0 0 1 3.257.139c.474.325.843.778 1.066 1.303.223.526.289 1.103.191 1.664zM5.503 8.575 4.139 7.8a.05.05 0 0 1-.026-.037V4.049c0-.57.166-1.127.476-1.607s.752-.864 1.275-1.105a3.08 3.08 0 0 1 3.234.41l-.096.054-3.23 1.838a.53.53 0 0 0-.265.455zm.742-1.577 1.758-1 1.762 1v2l-1.755 1-1.762-1z"/></symbol>
+    <mask id="antigravity-mask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="22" y="28" width="136" height="125"><path d="M144.248 149.062C151.748 154.688 162.998 150.938 152.685 140.625C121.748 110.625 128.31 28.125 89.8727 28.125C51.4352 28.125 57.9977 110.625 27.0602 140.625C15.8102 151.875 27.9977 154.688 35.4977 149.062C64.5602 129.375 62.6852 94.6875 89.8727 94.6875C117.06 94.6875 115.185 129.375 144.248 149.062Z" fill="white"/></mask>
+    <filter id="antigravity-blur-0" x="4.09591" y="-44.1761" width="111.037" height="98.4416" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="6.25234"/></filter>
+    <filter id="antigravity-blur-1" x="46.2974" y="-53.0009" width="217.731" height="215.86" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="30.2268"/></filter>
+    <filter id="antigravity-blur-2" x="-100.018" y="-36.7558" width="229.238" height="204.397" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="25.6957"/></filter>
+    <filter id="antigravity-blur-3" x="-100.018" y="-36.7558" width="229.238" height="204.397" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="25.6957"/></filter>
+    <filter id="antigravity-blur-4" x="-84.3985" y="-35.003" width="205.042" height="204.834" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="25.6957"/></filter>
+    <filter id="antigravity-blur-5" x="27.9915" y="71.5493" width="187.691" height="190.791" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="24.4184"/></filter>
+    <filter id="antigravity-blur-6" x="-11.8808" y="-98.7085" width="201.38" height="197.45" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="22.1301"/></filter>
+    <filter id="antigravity-blur-7" x="-44.4432" y="19.9522" width="252.513" height="260.404" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="19.7631"/></filter>
+    <filter id="antigravity-blur-8" x="81.1915" y="25.7722" width="140.46" height="134.637" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="17.6843"/></filter>
+    <filter id="antigravity-blur-9" x="55.1499" y="-47.2531" width="187.555" height="167.957" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="14.9365"/></filter>
+    <filter id="antigravity-blur-10" x="-24.2633" y="-27.1515" width="124.223" height="146.372" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="18.4865"/></filter>
+    <symbol id="icon-antigravity" viewBox="20.5 20.5 140 140" ><path d="M144.248 149.062C151.748 154.688 162.998 150.938 152.685 140.625C121.748 110.625 128.31 28.125 89.8727 28.125C51.4352 28.125 57.9977 110.625 27.0602 140.625C15.8102 151.875 27.9977 154.688 35.4977 149.062C64.5602 129.375 62.6852 94.6875 89.8727 94.6875C117.06 94.6875 115.185 129.375 144.248 149.062Z" fill="#3186FF"/><g mask="url(#antigravity-mask)"><g filter="url(#antigravity-blur-0)"><ellipse cx="36.6225" cy="43.0872" rx="36.6225" ry="43.0872" transform="matrix(-0.112784 0.99362 -0.99362 -0.112781 106.557 -26.4847)" fill="#FFE432"/></g><g filter="url(#antigravity-blur-1)"><ellipse cx="155.163" cy="54.9292" rx="47.4118" ry="48.4541" transform="rotate(76.9243 155.163 54.9292)" fill="#FC413D"/></g><g filter="url(#antigravity-blur-2)"><ellipse cx="14.6006" cy="65.4425" rx="49.5515" ry="64.192" transform="rotate(74.1257 14.6006 65.4425)" fill="#00B95C"/></g><g filter="url(#antigravity-blur-3)"><ellipse cx="14.6006" cy="65.4425" rx="49.5515" ry="64.192" transform="rotate(74.1257 14.6006 65.4425)" fill="#00B95C"/></g><g filter="url(#antigravity-blur-4)"><ellipse cx="18.1226" cy="67.414" rx="48.5679" ry="53.4688" transform="rotate(45.6065 18.1226 67.414)" fill="#00B95C"/></g><g filter="url(#antigravity-blur-5)"><ellipse cx="121.837" cy="166.945" rx="46.6356" ry="44.9084" transform="rotate(76.9243 121.837 166.945)" fill="#3186FF"/></g><g filter="url(#antigravity-blur-6)"><ellipse cx="53.9456" cy="56.8997" rx="53.9456" ry="56.8997" transform="matrix(-0.409539 0.912293 -0.912294 -0.409537 162.811 -25.895)" fill="#FBBC04"/></g><g filter="url(#antigravity-blur-7)"><path d="M4.21557 239.063C-25.3231 227.467 25.1577 132.061 37.7105 100.085C50.2634 68.1097 84.3853 51.5888 113.924 63.1848C143.463 74.7809 178.474 138.65 165.921 170.626C153.368 202.601 33.7543 250.659 4.21557 239.063Z" fill="#3186FF"/></g><g filter="url(#antigravity-blur-8)"><path d="M183.197 120.315C175.289 129.545 154.652 124.839 137.102 109.803C119.553 94.7668 111.738 75.0955 119.646 65.8656C127.554 56.6357 148.191 61.3423 165.74 76.3782C183.289 91.414 191.105 111.085 183.197 120.315Z" fill="#749BFF"/></g><g filter="url(#antigravity-blur-9)"><ellipse cx="148.928" cy="36.7252" rx="71.1018" ry="44.199" transform="rotate(34.0763 148.928 36.7252)" fill="#FC413D"/></g><g filter="url(#antigravity-blur-10)"><ellipse cx="37.848" cy="46.0346" rx="38.1008" ry="22.1575" transform="rotate(112.516 37.848 46.0346)" fill="#FFEE48"/></g></g></symbol>
+    <symbol id="icon-cursor" viewBox="0 0 24 24" fill="currentColor"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></symbol>
+    <symbol id="icon-opencode" viewBox="0 0 240 300" fill="currentColor"><path d="M180 240H60V120H180V240Z" fill-opacity="0.6"/><path d="M180 60H60V240H180V60ZM240 300H0V0H240V300Z"/></symbol>
+    <linearGradient id="muse-gradient" gradientUnits="userSpaceOnUse" x1="31.979" y1="26.171" x2="5.981" y2="-3.014"><stop offset=".255" stop-color="#0082fb"/><stop offset=".697" stop-color="#0064e0"/><stop offset="1" stop-color="#0040dc"/></linearGradient>
+    <symbol id="icon-muse" viewBox="0 0 24 24" fill="url(#muse-gradient)"><path d="M5.91 3.869C6.777 3.869 7.396 4.546 7.396 5.607 7.396 6.669 7.225 7.626 6.941 9.659 6.738 11.084 6.389 13.258 6.243 14.162 6.523 13.628 7.178 12.378 7.294 12.144 8.666 9.375 10.096 6.901 10.508 6.246 11.054 5.372 11.535 5.021 12.278 5.021 12.664 5.022 13.124 5.217 13.352 5.477 13.66 5.829 13.725 6.398 13.714 7.019 13.698 7.97 13.574 9.486 13.405 11.177 13.33 11.929 13.185 13.466 13.087 14.496 13.965 12.925 15.591 10.035 16.246 9.025 16.817 8.146 17.392 7.579 18.164 7.579 18.83 7.579 19.651 8.05 19.603 9.302 19.531 11.149 19.264 15.174 19.143 16.979 19.96 15.79 21.033 14.029 21.436 13.367 21.842 12.698 22.26 12.157 22.894 12.139 23.544 12.12 23.979 12.562 23.999 13.244 24.019 13.927 23.612 14.694 23.072 15.565 22.486 16.511 21.831 17.523 21.033 18.468 20.236 19.413 19.502 20.131 18.384 20.131 17.382 20.131 16.677 19.465 16.628 18.246 16.602 17.607 16.723 16.234 16.814 15.16 16.92 13.917 17.048 12.717 17.137 11.923 16.256 13.535 14.402 16.912 13.568 18.23 12.752 19.52 12.355 19.974 11.493 19.975 10.631 19.975 10.253 19.354 10.241 18.42 10.227 17.407 10.988 11.324 11.246 9.297 10.828 10.191 9.801 12.385 9.157 13.69 8.534 14.953 7.489 17.135 6.73 18.393 6.184 19.298 5.57 19.975 4.66 19.975 3.75 19.975 3.236 19.363 3.236 18.379 3.236 17.395 3.521 15.756 3.827 13.723 3.98 12.739 4.155 11.667 4.352 10.53 4.496 9.708 4.746 8.26 4.9 7.371 4.2 8.461 2.941 10.423 2.558 11.014 2.131 11.671 1.749 12.15 1.115 12.15 0.416 12.15 0 11.605 0 10.971 0 10.337 0.322 9.848 0.846 8.988 1.518 7.883 2.726 6.377 3.388 5.586 4.168 4.654 4.947 3.869 5.91 3.869Z"/></symbol>
+    <symbol id="icon-copilot" viewBox="33 35.806 34 28.39" fill="none"><path fill="currentColor" d="M66.89 57.08c-1.22 2.118-8.3 7.116-16.89 7.116s-15.67-4.998-16.89-7.116a.9.9 0 0 1-.11-.363v-4.064q.018-.161.075-.312c.527-1.325 1.908-3.247 3.69-3.763.237-.607.587-1.494.913-2.149a14 14 0 0 1-.074-1.538c0-1.886.4-3.54 1.604-4.772.562-.575 1.26-1.015 2.088-1.348 1.982-1.61 4.805-2.965 8.673-2.965s6.753 1.355 8.735 2.965c.827.333 1.526.773 2.088 1.348 1.204 1.232 1.604 2.886 1.604 4.772 0 .521-.02 1.038-.074 1.538.326.655.676 1.542.912 2.15 1.783.515 3.164 2.437 3.69 3.762q.06.15.076.312v4.064a.9.9 0 0 1-.11.363m-16.646-8.49h-.488q-.225.378-.503.72c-1.09 1.341-2.717 2.114-4.97 2.114-2.443 0-4.234-.51-5.357-1.784a3 3 0 0 1-.12-.147l-.14.147v9.329C40.7 60.073 45.063 62.057 50 62.057s9.3-1.984 11.333-3.087v-9.33l-.138-.146s-.047.063-.12.147c-1.124 1.275-2.915 1.784-5.359 1.784-2.252 0-3.879-.773-4.97-2.114a6 6 0 0 1-.502-.72m3.298 4.604c.777 0 1.416.64 1.416 1.417v2.833c0 .778-.639 1.417-1.416 1.417a1.423 1.423 0 0 1-1.417-1.417v-2.833c0-.778.639-1.417 1.417-1.417m-7.084 0c.778 0 1.417.64 1.417 1.417v2.833c0 .778-.639 1.417-1.417 1.417a1.423 1.423 0 0 1-1.416-1.417v-2.833c0-.778.639-1.417 1.416-1.417m4.694-8.762c.192 1.498.57 2.71 1.244 3.538.626.77 1.606 1.329 3.32 1.329 2.229 0 3.247-.478 3.764-1.064.544-.617.79-1.63.79-3.345 0-1.615-.343-2.617-.998-3.285-.676-.692-1.868-1.222-4-1.452-2.107-.229-3.106.195-3.589.749-.381.435-.62 1.145-.62 2.235v.03q0 .563.089 1.265m-2.304 0q.09-.703.09-1.266v-.029c-.002-1.09-.24-1.8-.621-2.235-.483-.554-1.482-.978-3.588-.75-2.132.231-3.325.761-4.001 1.453-.655.668-.999 1.67-.999 3.285 0 1.715.248 2.728.79 3.345.518.586 1.536 1.064 3.765 1.064 1.714 0 2.694-.559 3.32-1.33.673-.827 1.052-2.04 1.244-3.537"/></symbol>
+    <symbol id="icon-devin" viewBox="0 0 24 24" ><path d="M2.033 9.867l2.554 1.483a.589.589 0 00.592 0l2.554-1.483.01-.008a.608.608 0 00.11-.084l.013-.015a.631.631 0 00.076-.1c.003-.005.008-.01.01-.016a.558.558 0 00.052-.125l.007-.028a.611.611 0 00.019-.14V7.868c0-.572.307-1.105.8-1.392a1.595 1.595 0 011.598 0l1.277.742a.54.54 0 00.129.053l.028.01c.044.01.088.015.133.016h.006l.013-.002a.587.587 0 00.27-.074l.011-.004 2.554-1.483a.596.596 0 00.297-.516V2.253a.595.595 0 00-.297-.516L12.293.257a.587.587 0 00-.591 0L9.148 1.737l-.01.01a.609.609 0 00-.109.083l-.014.015a.632.632 0 00-.076.1c-.003.005-.008.01-.01.016a.57.57 0 00-.052.124l-.007.028a.612.612 0 00-.018.14v1.483c0 .572-.307 1.105-.8 1.393a1.597 1.597 0 01-1.599 0l-1.276-.742a.603.603 0 00-.13-.053l-.028-.008a.658.658 0 00-.133-.018h-.02a.57.57 0 00-.269.074c-.003.002-.008.002-.012.005L2.033 5.872a.596.596 0 00-.297.515v2.966c0 .213.113.41.297.515z" fill="#3969ca"/><path d="M15.943 10.607a1.596 1.596 0 011.599 0l1.276.74c.041.025.085.04.13.055l.028.008c.043.01.088.016.133.018h.005c.005 0 .01-.002.014-.003a.474.474 0 00.122-.016l.021-.005a.616.616 0 00.126-.052c.004-.002.009-.002.013-.005l2.554-1.482a.597.597 0 00.297-.516V6.383a.596.596 0 00-.297-.515l-2.552-1.483a.587.587 0 00-.592 0l-2.553 1.482-.011.008a.61.61 0 00-.108.084l-.014.016a.637.637 0 00-.076.1c-.003.005-.008.01-.01.016a.57.57 0 00-.052.124l-.007.029a.612.612 0 00-.018.14v1.482c0 .572-.307 1.105-.8 1.393a1.597 1.597 0 01-1.599 0l-1.276-.742a.584.584 0 00-.13-.053l-.028-.008a.62.62 0 00-.133-.018h-.02a.587.587 0 00-.269.074l-.012.004L9.15 10a.596.596 0 00-.296.516v2.966c0 .212.112.409.296.515l2.554 1.483s.008.002.012.005c.04.022.082.04.126.052l.02.004a.57.57 0 00.123.017l.014.002h.006c.054 0 .108-.01.16-.025a.587.587 0 00.13-.054l1.277-.741a1.597 1.597 0 012.398 1.392v1.482c0 .049.007.095.019.14l.007.028a.619.619 0 00.051.125c.004.006.008.01.01.016a.6.6 0 00.076.1l.014.015c.033.032.069.06.108.084.004.002.006.006.011.008l2.554 1.483a.59.59 0 00.593 0l2.554-1.483a.597.597 0 00.296-.516v-2.965a.595.595 0 00-.296-.516l-2.554-1.483s-.008-.002-.012-.005a.54.54 0 00-.126-.051c-.007-.003-.013-.003-.02-.005a.635.635 0 00-.125-.017h-.018a.557.557 0 00-.16.026.588.588 0 00-.13.053l-1.276.742a1.595 1.595 0 01-1.598 0 1.615 1.615 0 010-2.785l-.005-.001z" fill="#21c19a"/><path d="M14.848 18.265l-2.554-1.482-.012-.005a.526.526 0 00-.126-.052c-.007-.002-.014-.002-.02-.005a.64.64 0 00-.124-.017h-.02a.56.56 0 00-.16.026.588.588 0 00-.13.053l-1.276.742a1.594 1.594 0 01-1.598 0c-.493-.286-.8-.82-.8-1.393V14.65a.563.563 0 00-.018-.14l-.008-.028a.604.604 0 00-.051-.124l-.01-.017a.603.603 0 00-.076-.1l-.014-.015a.596.596 0 00-.109-.084c-.003-.002-.005-.006-.01-.008L5.178 12.65a.587.587 0 00-.591 0l-2.554 1.483a.596.596 0 00-.297.516v2.965c0 .213.113.41.297.516l2.554 1.483.012.004a.618.618 0 00.267.074l.016.002h.007a.55.55 0 00.16-.026.584.584 0 00.129-.053l1.277-.742a1.597 1.597 0 012.398 1.393v1.482c0 .05.007.095.019.14l.007.028c.013.044.03.085.051.125l.01.016c.022.036.047.07.076.1l.014.015c.032.032.069.06.109.084l.01.008 2.554 1.483a.587.587 0 00.593 0l2.554-1.483a.596.596 0 00.296-.515v-2.966a.596.596 0 00-.296-.516h-.002z" fill="#0294de"/></symbol>
+    <symbol id="icon-grok" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="m9.27 15.29 7.978-5.897c.391-.29.95-.177 1.137.272.98 2.369.542 5.215-1.41 7.169s-4.667 2.382-7.149 1.406l-2.711 1.257c3.889 2.661 8.611 2.003 11.562-.953 2.341-2.344 3.066-5.539 2.388-8.42l.006.007c-.983-4.232.242-5.924 2.75-9.383Q23.911.625 24 .5l-3.301 3.305v-.01L9.267 15.292m-1.644 1.431c-2.792-2.67-2.31-6.801.071-9.184 1.761-1.763 4.647-2.483 7.166-1.425l2.705-1.25a7.8 7.8 0 0 0-1.829-1A8.975 8.975 0 0 0 5.984 5.83c-2.533 2.536-3.33 6.436-1.962 9.764 1.022 2.487-.653 4.246-2.34 6.022-.599.63-1.199 1.259-1.682 1.925l7.62-6.815"/></symbol>
+    <symbol id="icon-vercel" viewBox="0 -5.03 75.06 75.06" fill="currentColor"><path d="M37.527 0 75.055 65H0Z"/></symbol>
+    <symbol id="icon-pi" viewBox="165.29 165.29 469.43 469.43" ><path fill="#f09082" d="M165.29 165.29H517.36V400H400V282.65H165.29Z"/><path fill="#4d9abf" d="M165.29 282.65H282.65V400H400V517.36H282.65V634.72H165.29Z"/><path fill="#f1be58" d="M517.36 400H634.72V634.72H517.36Z"/></symbol>
+    <symbol id="icon-qwen" viewBox="17.5 27.7 135.6 135.6" fill="#082dff"><path d="M130.06,43.66h-33.37c0-1.42-.37-2.84-1.1-4.11l-4.47-7.74c-1.47-2.54-4.18-4.11-7.12-4.11h-8.93c-2.94,0-5.65,1.57-7.12,4.11l-13.68,23.69c-1.47,2.54-1.47,5.67,0,8.22l4.47,7.74c1.47,2.54,4.18,4.11,7.12,4.11h64.19c2.94,0,5.65-1.57,7.12-4.11l4.47-7.74c1.47-2.54,1.47-5.67,0-8.22l-4.47-7.74c-1.47-2.54-4.18-4.11-7.12-4.11Z"/><path d="M19.75,83.66l16.68,28.9c-1.23.71-2.27,1.74-3.01,3.01l-4.47,7.74c-1.47,2.54-1.47,5.67,0,8.22l4.47,7.74c1.47,2.54,4.18,4.11,7.12,4.11h27.35c2.94,0,5.65-1.57,7.12-4.11l4.47-7.74c1.47-2.54,1.47-5.67,0-8.22l-32.1-55.59c-1.47-2.54-4.18-4.11-7.12-4.11h-8.93c-2.94,0-5.65,1.57-7.12,4.11l-4.47,7.74c-1.47,2.54-1.47,5.67,0,8.22Z"/><path d="M109.55,159.19l16.68-28.9c1.23.71,2.64,1.1,4.11,1.1h8.93c2.94,0,5.65-1.57,7.12-4.11l4.47-7.74c1.47-2.54,1.47-5.67,0-8.22l-13.68-23.69c-1.47-2.54-4.18-4.11-7.12-4.11h-8.93c-2.94,0-5.65,1.57-7.12,4.11l-32.1,55.59c-1.47,2.54-1.47,5.67,0,8.22l4.47,7.74c1.47,2.54,4.18,4.11,7.12,4.11h8.93c2.94,0,5.65-1.57,7.12-4.11Z"/></symbol>
+    <symbol id="icon-kimi" viewBox="3 -0.37 20.77 20.77" fill="currentColor"><path fill="#1783ff" d="M21.846 0a1.923 1.923 0 110 3.846H20.15a.226.226 0 01-.227-.226V1.923C19.923.861 20.784 0 21.846 0z"/><path d="M11.065 11.199l7.257-7.2c.137-.136.06-.41-.116-.41H14.3a.164.164 0 00-.117.051l-7.82 7.756c-.122.12-.302.013-.302-.179V3.82c0-.127-.083-.23-.185-.23H3.186c-.103 0-.186.103-.186.23V19.77c0 .128.083.23.186.23h2.69c.103 0 .186-.102.186-.23v-3.25c0-.069.025-.135.069-.178l2.424-2.406a.158.158 0 01.205-.023l6.484 4.772a7.677 7.677 0 003.453 1.283c.108.012.2-.095.2-.23v-3.06c0-.117-.07-.212-.164-.227a5.028 5.028 0 01-2.027-.807l-5.613-4.064c-.117-.078-.132-.279-.028-.381z"/></symbol>
+    <symbol id="icon-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2.2467A10.00042,10.00042,0,0,0,8.83752,21.73419c.5.08752.6875-.21247.6875-.475,0-.23749-.01251-1.025-.01251-1.86249C7,19.85919,6.35,18.78423,6.15,18.22173A3.636,3.636,0,0,0,5.125,16.8092c-.35-.1875-.85-.65-.01251-.66248A2.00117,2.00117,0,0,1,6.65,17.17169a2.13742,2.13742,0,0,0,2.91248.825A2.10376,2.10376,0,0,1,10.2,16.65923c-2.225-.25-4.55-1.11254-4.55-4.9375a3.89187,3.89187,0,0,1,1.025-2.6875,3.59373,3.59373,0,0,1,.1-2.65s.83747-.26251,2.75,1.025a9.42747,9.42747,0,0,1,5,0c1.91248-1.3,2.75-1.025,2.75-1.025a3.59323,3.59323,0,0,1,.1,2.65,3.869,3.869,0,0,1,1.025,2.6875c0,3.83747-2.33752,4.6875-4.5625,4.9375a2.36814,2.36814,0,0,1,.675,1.85c0,1.33752-.01251,2.41248-.01251,2.75,0,.26251.1875.575.6875.475A10.0053,10.0053,0,0,0,12,2.2467Z"/></symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M12 2.8l2.83 5.73 6.32.92-4.57 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.57-4.46 6.32-.92z"/></symbol>
+    <symbol id="icon-star-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.8l2.83 5.73 6.32.92-4.57 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.57-4.46 6.32-.92z"/></symbol>
+  </defs>
+  <g class="idle frame-1">
+    <path d="M8.5 494V16A9.5 9.5 0 0 1 18 6.5H193A9.5 9.5 0 0 1 202.5 16V43A10.5 10.5 0 0 0 213 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card" filter="url(#card-shadow)"/>
+    <path d="M8.5 494V16A9.5 9.5 0 0 1 18 6.5H193A9.5 9.5 0 0 1 202.5 16V43A10.5 10.5 0 0 0 213 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card-border"/>
+  </g>
+  <g class="idle frame-2">
+    <path d="M8.5 494V83A29.5 29.5 0 0 1 38 53.5H193A10.5 10.5 0 0 0 203.5 43V16A9.5 9.5 0 0 1 213 6.5H366.4A9.5 9.5 0 0 1 375.9 16V43A10.5 10.5 0 0 0 386.4 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card" filter="url(#card-shadow)"/>
+    <path d="M8.5 494V83A29.5 29.5 0 0 1 38 53.5H193A10.5 10.5 0 0 0 203.5 43V16A9.5 9.5 0 0 1 213 6.5H366.4A9.5 9.5 0 0 1 375.9 16V43A10.5 10.5 0 0 0 386.4 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card-border"/>
+  </g>
+  <g class="frame-3">
+    <path d="M8.5 494V83A29.5 29.5 0 0 1 38 53.5H366.4A10.5 10.5 0 0 0 376.9 43V16A9.5 9.5 0 0 1 386.4 6.5H521.3A9.5 9.5 0 0 1 530.8 16V43A10.5 10.5 0 0 0 541.3 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card" filter="url(#card-shadow)"/>
+    <path d="M8.5 494V83A29.5 29.5 0 0 1 38 53.5H366.4A10.5 10.5 0 0 0 376.9 43V16A9.5 9.5 0 0 1 386.4 6.5H521.3A9.5 9.5 0 0 1 530.8 16V43A10.5 10.5 0 0 0 541.3 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card-border"/>
+  </g>
+  <g class="idle frame-4">
+    <path d="M8.5 494V83A29.5 29.5 0 0 1 38 53.5H521.3A10.5 10.5 0 0 0 531.8 43V16A9.5 9.5 0 0 1 541.3 6.5H692.5A9.5 9.5 0 0 1 702 16V43A10.5 10.5 0 0 0 712.5 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card" filter="url(#card-shadow)"/>
+    <path d="M8.5 494V83A29.5 29.5 0 0 1 38 53.5H521.3A10.5 10.5 0 0 0 531.8 43V16A9.5 9.5 0 0 1 541.3 6.5H692.5A9.5 9.5 0 0 1 702 16V43A10.5 10.5 0 0 0 712.5 53.5H782A29.5 29.5 0 0 1 811.5 83V494A29.5 29.5 0 0 1 782 523.5H38A29.5 29.5 0 0 1 8.5 494Z" class="card-border"/>
+  </g>
+  <g class="dim tab-1-label">
+    <use href="#icon-claude" x="24" y="22" width="16" height="16" class="agent-logo"/>
+    <text x="48" y="34.5" class="sans tab-label" textLength="139" lengthAdjust="spacing">First time using Lagune</text>
+  </g>
+  <g class="tab-2">
+  <g class="dim tab-2-label">
+    <use href="#icon-codex" x="219" y="22" width="16" height="16" class="agent-logo"/>
+    <text x="243" y="34.5" class="sans tab-label" textLength="117.4" lengthAdjust="spacing">Using it for any task</text>
+  </g>
+  </g>
+  <g class="tab-3">
+  <g class="tab-3-label">
+    <use href="#icon-antigravity" x="392.4" y="22" width="16" height="16" class="agent-logo"/>
+    <text x="416.4" y="34.5" class="sans tab-label" textLength="98.9" lengthAdjust="spacing">Blue Team Audit</text>
+  </g>
+  </g>
+  <g class="idle tab-4">
+    <use href="#icon-star-outline" x="547.3" y="22" width="16" height="16" class="star"/>
+    <text x="571.3" y="34.5" class="sans tab-label" textLength="115.2" lengthAdjust="spacing">Give Lagune a Star</text>
+  </g>
+  <g class="pop new-chat-press">
+    <use href="#icon-square-pen" x="774" y="21" width="18" height="18" class="muted"/>
+  </g>
+  <g clip-path="url(#viewport)" mask="url(#viewport-fade)">
+  <g class="chat-watermark" style="opacity:0.5">
+    <use href="#icon-github" x="330" y="158" width="160" height="160" class="watermark"/>
+  </g>
+  <g class="past session-1">
+    <g class="session-1-bubble">
+      <path d="M501.8 84H773.5A18.5 18.5 0 0 1 792 102.5V102.5A18.5 18.5 0 0 1 773.5 121H501.8A18.5 18.5 0 0 1 483.3 102.5V102.5A18.5 18.5 0 0 1 501.8 84Z" class="bubble"/>
+      <text x="497.3 501.7 505.2 514.1 522.9 531.7 540.6 549.4 554.7 562.6 571.4 580.3 585.6 590 598.8 604.1 608.1 612.1 616.1 618.9 626.1 630.1 638.2 642.2 649.4 657.5 664.7 667.9 675.9 679.2 683.2 695.2 703.3 711.3 714.5 722.5 726.6 730.6 738.6 743.4 747.4 755.5 763.5 770.7" y="107.5" class="sans prompt "><tspan class="command">/lagune-charter</tspan> It's a social media for devs</text>
+    </g>
+    <g class="thinking session-1-think">
+      <circle cx="36" cy="149" r="8" class="spinner-track"/>
+      <circle cx="36" cy="149" r="8" class="spinner"/>
+      <text x="52" y="154" class="sans status shimmer">Thinking<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+    </g>
+    <g class="session-1-heading">
+      <text x="28" y="154" class="sans heading" textLength="191.2" lengthAdjust="spacing">I found that the project uses</text>
+      <path d="M227.2 147L231.2 151L235.2 147" class="chevron"/>
+    </g>
+    <g class="session-1-row-1">
+      <use href="#icon-rust" x="48" y="171" width="16" height="16" class="accent"/>
+      <text x="72" y="184" class="sans label">Rust</text>
+    </g>
+    <g class="session-1-row-2">
+      <path d="M56 189V194" class="timeline"/><use href="#icon-database" x="48" y="196" width="16" height="16" class="accent"/>
+      <text x="72" y="209" class="sans label">Database</text>
+    </g>
+    <g class="session-1-row-3">
+      <path d="M56 214V219" class="timeline"/><use href="#icon-image" x="48" y="221" width="16" height="16" class="accent"/>
+      <text x="72" y="234" class="sans label">Photo uploads</text>
+    </g>
+    <g class="session-1-row-4">
+      <path d="M56 239V244" class="timeline"/><use href="#icon-signup" x="48" y="246" width="16" height="16" class="accent"/>
+      <text x="72" y="259" class="sans label">User sign-up</text>
+    </g>
+    <g class="session-1-closing">
+      <g class="pop session-1-badge">
+        <circle cx="40" cy="285" r="12" class="success-tile"/>
+        <use href="#icon-check" x="32" y="277" width="16" height="16" class="success"/>
+      </g>
+      <text x="62" y="290" class="sans heading strong">All set! 8 security principles were created.</text>
+    </g>
+  </g>
+  <g class="past session-2">
+    <g class="session-2-bubble">
+      <path d="M575.4 84H773.5A18.5 18.5 0 0 1 792 102.5V102.5A18.5 18.5 0 0 1 773.5 121H575.4A18.5 18.5 0 0 1 556.9 102.5V102.5A18.5 18.5 0 0 1 575.4 84Z" class="bubble"/>
+      <text x="570.9 575.3 578.8 587.7 596.5 605.3 614.2 623 627 631 643.1 651.1 654.3 662.3 674.4 682.4 690.5 694.5 698.5 706.5 713.8 721.8 726.6 730.6 737.9 741.1 749.1 757.1 762 770" y="107.5" class="sans prompt "><tspan class="command">/lagune</tspan> Implement user sign-up</text>
+    </g>
+    <g class="thinking session-2-think">
+      <circle cx="36" cy="149" r="8" class="spinner-track"/>
+      <circle cx="36" cy="149" r="8" class="spinner"/>
+      <text x="52" y="154" class="sans status shimmer">Thinking<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+    </g>
+    <g class="session-2-heading">
+      <text x="28" y="154" class="sans heading" textLength="164.4" lengthAdjust="spacing">Matched specializations</text>
+      <path d="M200.4 147L204.4 151L208.4 147" class="chevron"/>
+    </g>
+    <g class="session-2-row-1">
+      <use href="#icon-graduation-cap" x="48" y="171" width="16" height="16" class="accent"/>
+      <text x="72" y="184" class="sans name">Credential Endpoint</text>
+      <text x="244" y="184" class="sans note">Rate limits and anti-automation on sign-up</text>
+    </g>
+    <g class="session-2-row-2">
+      <path d="M56 189V194" class="timeline"/><use href="#icon-graduation-cap" x="48" y="196" width="16" height="16" class="accent"/>
+      <text x="72" y="209" class="sans name">Access Control</text>
+      <text x="244" y="209" class="sans note">Ownership checks and Argon2id password storage</text>
+    </g>
+    <g class="session-2-row-3">
+      <path d="M56 214V219" class="timeline"/><use href="#icon-graduation-cap" x="48" y="221" width="16" height="16" class="accent"/>
+      <text x="72" y="234" class="sans name">Cryptography</text>
+      <text x="244" y="234" class="sans note">Unpredictable verification tokens</text>
+    </g>
+    <g class="session-2-row-4">
+      <path d="M56 239V244" class="timeline"/><use href="#icon-graduation-cap" x="48" y="246" width="16" height="16" class="accent"/>
+      <text x="72" y="259" class="sans name">SQL</text>
+      <text x="244" y="259" class="sans note">Parameterized, owner-scoped queries</text>
+    </g>
+    <g class="session-2-row-5">
+      <path d="M56 264V269" class="timeline"/><use href="#icon-graduation-cap" x="48" y="271" width="16" height="16" class="accent"/>
+      <text x="72" y="284" class="sans name">Regex</text>
+      <text x="244" y="284" class="sans note">Input validation safe from ReDoS</text>
+    </g>
+    <g class="session-2-row-6">
+      <path d="M56 289V294" class="timeline"/><use href="#icon-graduation-cap" x="48" y="296" width="16" height="16" class="accent"/>
+      <text x="72" y="309" class="sans name">Rust</text>
+      <text x="244" y="309" class="sans note">Sound unsafe code and checked integer math</text>
+    </g>
+    <g class="session-2-closing">
+      <circle cx="40" cy="335" r="8" class="spinner-track"/>
+      <circle cx="40" cy="335" r="8" class="spinner"/>
+      <text x="62" y="340" class="sans heading strong shimmer-strong">Building<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+    </g>
+  </g>
+  <g class="session-3">
+    <g class="session-3-scroll" style="transform:translateY(-18px)">
+    <g class="session-3-bubble">
+      <path d="M332.5 84H776A16 16 0 0 1 792 100V212A16 16 0 0 1 776 228H332.5A16 16 0 0 1 316.5 212V100A16 16 0 0 1 332.5 84Z" class="bubble"/>
+      <text x="330.5 340.1 348.2 356.2 360.2 368.3 373.1 381.1 385.1 393.2 397.2 404.4 411.7 419.7 427.7 432.5 439.8 447.8 455 463.1 467.9 471.1 475.1 482.3 486.4 494.4 499.2 506.4 514.5 522.5 529.7 533.8 538.6 546.6 550.6 558.7 563.5" y="107.5" class="sans prompt ">You are a cybersecurity orchestrator:</text>
+      <circle cx="344.5" cy="128" r="2" class="bullet"/><text x="356.5 364.5 371.8 375.8 379.8 387 395.1 403.1 407.9 416 424 432 440.1 444.1 448.1 452.1 456.5 460.1 468.9 477.7 486.5 495.4 504.2 509.5 518.3 527.2 531.6 540.4 548.3" y="132.5" class="sans prompt ">1st sub-agent: <tspan class="command">/lagune-detect</tspan></text>
+      <circle cx="344.5" cy="147" r="2" class="bullet"/><text x="356.5 364.5 372.6 380.6 384.6 391.9 399.9 407.9 412.7 420.8 428.8 436.9 444.9 448.9 452.9 457 461.4 464.9 473.7 482.5 491.4 500.2 509 514.3 523.2 526.7 535.5" y="151.5" class="sans prompt ">2nd sub-agent: <tspan class="command">/lagune-plan</tspan></text>
+      <circle cx="344.5" cy="166" r="2" class="bullet"/><text x="356.5 364.5 369.4 377.4 381.4 388.6 396.7 404.7 409.5 417.6 425.6 433.6 441.7 445.7 449.7 453.7 458.1 461.7 470.5 479.3 488.2 497 505.8 511.1 519.9 528.8 534 542.9 551.7" y="170.5" class="sans prompt ">3rd sub-agent: <tspan class="command">/lagune-harden</tspan></text>
+      <circle cx="344.5" cy="185" r="2" class="bullet"/><text x="356.5 364.5 368.6 376.6 380.6 387.8 395.9 403.9 408.7 416.8 424.8 432.8 440.9 444.9 448.9 452.9 457.3 460.9 469.7 478.5 487.4 496.2 505 510.3 518.2 527.1 532.4 535.9 540.3" y="189.5" class="sans prompt ">4th sub-agent: <tspan class="command">/lagune-verify</tspan></text>
+      <text x="330.5 338.5 346.6 354.6 362.6 366.7 370.7 375.5 383.5 388.4 393.2 401.2 409.2 413.3 421.3 429.3 434.1 442.2 450.2 458.3 462.3 470.3 478.4 486.4 490.4 497.6 505.7 510.5 513.7 517.7 524.9 529 536.2 544.2 552.3 557.1 565.1 573.2 581.2 589.2 593.2 600.5 604.5 612.5 620.6 624.6 627.8 631 635 643.1 646.3 649.5 653.5 657.5 660.7 668.8 676.8 680 688 696.1 703.3 707.3 715.4 720.2 728.2 732.2 739.5 742.7 750.7 757.9 766 774" y="214.5" class="sans prompt ">Loop: re-run harden and verify sub-agents until all findings are closed.</text>
+    </g>
+    <g class="thinking session-3-think">
+      <circle cx="36" cy="256" r="8" class="spinner-track"/>
+      <circle cx="36" cy="256" r="8" class="spinner"/>
+      <text x="52" y="261" class="sans status shimmer">Thinking<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+    </g>
+    <g class="session-3-heading">
+      <text x="28" y="261" class="sans heading" textLength="186.8" lengthAdjust="spacing">Orchestrating 4 sub-agents</text>
+      <path d="M222.8 254L226.8 258L230.8 254" class="chevron"/>
+    </g>
+    <g class="session-3-row-1">
+      <g class="idle session-3-row-1-run-1-loading">
+        <circle cx="56" cy="286" r="8" class="spinner-track"/>
+      <circle cx="56" cy="286" r="8" class="spinner"/>
+        <text x="244" y="291" class="sans note shimmer">Running<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+      </g>
+      <g class="session-3-row-1-run-1-result">
+        <g class="pop session-3-row-1-run-1-pop"><use href="#icon-bot" x="48" y="278" width="16" height="16" class="success"/></g>
+        <text x="244" y="291" class="sans note">Mapped 4 findings across the project</text>
+      </g>
+      <text x="72" y="291" class="sans name">/lagune-detect</text>
+    </g>
+    <g class="session-3-row-2">
+      <path d="M56 296V301" class="timeline"/><g class="idle session-3-row-2-run-1-loading">
+        <circle cx="56" cy="311" r="8" class="spinner-track"/>
+      <circle cx="56" cy="311" r="8" class="spinner"/>
+        <text x="244" y="316" class="sans note shimmer">Running<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+      </g>
+      <g class="session-3-row-2-run-1-result">
+        <g class="pop session-3-row-2-run-1-pop"><use href="#icon-bot" x="48" y="303" width="16" height="16" class="success"/></g>
+        <text x="244" y="316" class="sans note">Ranked 4 fixes by CVSS v4.0</text>
+      </g>
+      <text x="72" y="316" class="sans name">/lagune-plan</text>
+    </g>
+    <g class="session-3-row-3">
+      <path d="M56 321V326" class="timeline"/><g class="idle session-3-row-3-run-1-loading">
+        <circle cx="56" cy="336" r="8" class="spinner-track"/>
+      <circle cx="56" cy="336" r="8" class="spinner"/>
+        <text x="244" y="341" class="sans note shimmer">Running<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+      </g>
+      <g class="idle session-3-row-3-run-1-result">
+        <g class="pop session-3-row-3-run-1-pop"><use href="#icon-bot" x="48" y="328" width="16" height="16" class="success"/></g>
+        <text x="244" y="341" class="sans note">Applied the 4 fixes</text>
+      </g>
+      <g class="idle session-3-row-3-run-2-loading">
+        <circle cx="56" cy="336" r="8" class="spinner-track"/>
+      <circle cx="56" cy="336" r="8" class="spinner"/>
+        <text x="244" y="341" class="sans note shimmer">Running<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+      </g>
+      <g class="session-3-row-3-run-2-result">
+        <g class="pop session-3-row-3-run-2-pop"><use href="#icon-bot" x="48" y="328" width="16" height="16" class="success"/></g>
+        <text x="244" y="341" class="sans note">Loop 2: reworked the rejected fix</text>
+      </g>
+      <text x="72" y="341" class="sans name">/lagune-harden</text>
+    </g>
+    <g class="session-3-row-4">
+      <path d="M56 346V351" class="timeline"/><g class="idle session-3-row-4-run-1-loading">
+        <circle cx="56" cy="361" r="8" class="spinner-track"/>
+      <circle cx="56" cy="361" r="8" class="spinner"/>
+        <text x="244" y="366" class="sans note shimmer">Running<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+      </g>
+      <g class="idle session-3-row-4-run-1-result">
+        <g class="pop session-3-row-4-run-1-pop"><use href="#icon-bot" x="48" y="353" width="16" height="16" class="danger"/></g>
+        <text x="244" y="366" class="sans note">3 proven closed, 1 rejected</text>
+      </g>
+      <g class="idle session-3-row-4-run-2-loading">
+        <circle cx="56" cy="361" r="8" class="spinner-track"/>
+      <circle cx="56" cy="361" r="8" class="spinner"/>
+        <text x="244" y="366" class="sans note shimmer">Running<tspan class="ellipsis" style="animation-delay:-1.20s">.</tspan><tspan class="ellipsis" style="animation-delay:-1.00s">.</tspan><tspan class="ellipsis" style="animation-delay:-0.80s">.</tspan></text>
+      </g>
+      <g class="session-3-row-4-run-2-result">
+        <g class="pop session-3-row-4-run-2-pop"><use href="#icon-bot" x="48" y="353" width="16" height="16" class="success"/></g>
+        <text x="244" y="366" class="sans note">Loop 2: all 4 proven closed</text>
+      </g>
+      <text x="72" y="366" class="sans name">/lagune-verify</text>
+    </g>
+    <g class="session-3-closing">
+      <g class="pop session-3-badge">
+        <circle cx="40" cy="392" r="12" class="success-tile"/>
+        <use href="#icon-check" x="32" y="384" width="16" height="16" class="success"/>
+      </g>
+      <text x="62" y="397" class="sans heading strong">All 4 findings closed. The cycle is at rest.</text>
+    </g>
+    </g>
+  </g>
+  </g>
+  <defs>
+    <mask id="typing-cover" maskUnits="userSpaceOnUse" x="0" y="0" width="820" height="532" class="cover-mask">
+      <rect x="0" y="0" width="820" height="532" fill="#fff" class="cover-backdrop"/>
+      <g class="cover-1">
+      <g class="cover-1-typing">
+        <rect x="48" y="423.5" width="320.67254529999997" height="25" class="field"/>
+        <rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    <g class="cover-2">
+      <g class="cover-2-typing">
+        <rect x="48" y="423.5" width="247.13430219999998" height="25" class="field"/>
+        <rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    <g class="cover-3"><rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/></g>
+    <g class="typed outro">
+      <text x="48 57.6 65.7 73.7 78.5" y="441" class="sans prompt ">Your </text>
+      <use href="#icon-star" x="83.54912300000001" y="428.5" width="15" height="15" class="star"/>
+      <text x="99.5 103.6 111.6 119.6 122.9 130.9 138.1 142.1 150.2 158.2 166.2 174.3 182.3 190.4 194.4 202.4 207.2 215.3 225.7" y="441" class="sans prompt "> helps Lagune grow.</text>
+      <g class="outro-typing">
+        <rect x="48" y="423.5" width="221.72270150000003" height="25" class="field"/>
+        <rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    </mask>
+    <mask id="paste-cover" maskUnits="userSpaceOnUse" x="0" y="0" width="820" height="532" class="cover-mask">
+      <rect x="0" y="0" width="820" height="532" fill="#fff" class="cover-backdrop"/>
+      <g class="pasted paste-3">
+      <rect x="28.5" y="303.5" width="763" height="200" rx="14.5" class="field field-border"/>
+      <g class="paste-3-line-1">
+        <text x="48 57.6 65.7 73.7 77.7 85.8 90.6 98.6 102.6 110.7 114.7 121.9 129.2 137.2 145.2 150 157.3 165.3 172.5 180.6 185.4 188.6 192.6 199.8 203.9 211.9 216.7 223.9 232 240 247.2 251.3 256.1 264.1 268.1 276.2 281" y="334" class="sans prompt ">You are a cybersecurity orchestrator:</text>
+      </g>
+      <g class="paste-3-line-3">
+        <text x="48 52.8 56.8 64.9 72.1 76.1 80.1 87.4 95.4 103.4 108.3 116.3 124.3 132.4 140.4 144.4 148.4 152.5 156.9 160.4 169.2 178.1 186.9 195.7 204.5 209.8 218.7 227.5 231.9 240.7 248.7" y="359" class="sans prompt ">- 1st sub-agent: <tspan class="command">/lagune-detect</tspan></text>
+      </g>
+      <g class="paste-3-line-4">
+        <text x="48 52.8 56.8 64.9 72.9 80.9 85 92.2 100.2 108.3 113.1 121.1 129.2 137.2 145.2 149.2 153.3 157.3 161.7 165.2 174.1 182.9 191.7 200.5 209.4 214.7 223.5 227 235.8" y="378" class="sans prompt ">- 2nd sub-agent: <tspan class="command">/lagune-plan</tspan></text>
+      </g>
+      <g class="paste-3-line-5">
+        <text x="48 52.8 56.8 64.9 69.7 77.7 81.7 89 97 105 109.9 117.9 125.9 134 142 146 150 154.1 158.5 162 170.8 179.7 188.5 197.3 206.1 211.4 220.3 229.1 234.4 243.2 252" y="397" class="sans prompt ">- 3rd sub-agent: <tspan class="command">/lagune-harden</tspan></text>
+      </g>
+      <g class="paste-3-line-6">
+        <text x="48 52.8 56.8 64.9 68.9 76.9 80.9 88.2 96.2 104.2 109.1 117.1 125.1 133.2 141.2 145.2 149.2 153.3 157.7 161.2 170 178.9 187.7 196.5 205.3 210.6 218.6 227.4 232.7 236.2 240.6" y="416" class="sans prompt ">- 4th sub-agent: <tspan class="command">/lagune-verify</tspan></text>
+      </g>
+      <g class="paste-3-line-8">
+        <text x="48 56 64.1 72.1 80.1 84.2 88.2 93 101 105.9 110.7 118.7 126.7 130.8 138.8 146.8 151.6 159.7 167.7 175.8 179.8 187.8 195.9 203.9 207.9 215.1 223.2 228 231.2 235.2 242.4 246.5 253.7 261.7 269.8 274.6 282.6 290.7 298.7 306.7 310.7 318 322 330 338.1 342.1 345.3 348.5 352.5 360.6 363.8 367 371 375 378.2 386.3 394.3 397.5 405.5 413.6 420.8 424.8 432.9 437.7 445.7 449.7 457 460.2 468.2 475.4 483.5 491.5" y="441" class="sans prompt ">Loop: re-run harden and verify sub-agents until all findings are closed.</text><rect x="497" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    </mask>
+  </defs>
+  <g mask="url(#paste-cover)">
+    <rect x="28.5" y="410.5" width="763" height="93" rx="14.5" class="field field-border"/>
+    <g clip-path="url(#field-clip)">
+      <g mask="url(#typing-cover)">
+    <text x="48 52.4 55.9 64.8 73.6 82.4 91.3 100.1 105.4 113.3 122.1 131 136.3 140.7 149.5 154.8 158.8 162.8 166.8 169.6 176.8 180.8 188.9 192.9 200.1 208.2 215.4 218.6 226.6 229.9 233.9 245.9 254 262 265.2 273.2 277.3 281.3 289.3 294.1 298.1 306.2 314.2 321.4" y="441" class="sans prompt typed typed-1"><tspan class="command">/lagune-charter</tspan> It's a social media for devs</text>
+    <text x="48 52.4 55.9 64.8 73.6 82.4 91.3 100.1 104.1 108.1 120.2 128.2 131.4 139.4 151.5 159.5 167.6 171.6 175.6 183.6 190.9 198.9 203.7 207.7 215 218.2 226.2 234.2 239.1 247.1" y="441" class="sans prompt typed typed-2"><tspan class="command">/lagune</tspan> Implement user sign-up</text>
+    <g class="cover-1">
+      <g class="cover-1-typing">
+        <rect x="48" y="423.5" width="320.67254529999997" height="25" class="field"/>
+        <rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    <g class="cover-2">
+      <g class="cover-2-typing">
+        <rect x="48" y="423.5" width="247.13430219999998" height="25" class="field"/>
+        <rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+    <g class="cover-3"><rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/></g>
+    <g class="typed outro">
+      <text x="48 57.6 65.7 73.7 78.5" y="441" class="sans prompt ">Your </text>
+      <use href="#icon-star" x="83.54912300000001" y="428.5" width="15" height="15" class="star"/>
+      <text x="99.5 103.6 111.6 119.6 122.9 130.9 138.1 142.1 150.2 158.2 166.2 174.3 182.3 190.4 194.4 202.4 207.2 215.3 225.7" y="441" class="sans prompt "> helps Lagune grow.</text>
+      <g class="outro-typing">
+        <rect x="48" y="423.5" width="221.72270150000003" height="25" class="field"/>
+        <rect x="46.5" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+      </g>
+    </g>
+    <text x="48" y="441" class="sans placeholder placeholder">Message your AI agent</text>
+  </g>
+  <g class="pasted paste-3">
+      <rect x="28.5" y="303.5" width="763" height="200" rx="14.5" class="field field-border"/>
+      <g class="paste-3-line-1">
+        <text x="48 57.6 65.7 73.7 77.7 85.8 90.6 98.6 102.6 110.7 114.7 121.9 129.2 137.2 145.2 150 157.3 165.3 172.5 180.6 185.4 188.6 192.6 199.8 203.9 211.9 216.7 223.9 232 240 247.2 251.3 256.1 264.1 268.1 276.2 281" y="334" class="sans prompt ">You are a cybersecurity orchestrator:</text>
+      </g>
+      <g class="paste-3-line-3">
+        <text x="48 52.8 56.8 64.9 72.1 76.1 80.1 87.4 95.4 103.4 108.3 116.3 124.3 132.4 140.4 144.4 148.4 152.5 156.9 160.4 169.2 178.1 186.9 195.7 204.5 209.8 218.7 227.5 231.9 240.7 248.7" y="359" class="sans prompt ">- 1st sub-agent: <tspan class="command">/lagune-detect</tspan></text>
+      </g>
+      <g class="paste-3-line-4">
+        <text x="48 52.8 56.8 64.9 72.9 80.9 85 92.2 100.2 108.3 113.1 121.1 129.2 137.2 145.2 149.2 153.3 157.3 161.7 165.2 174.1 182.9 191.7 200.5 209.4 214.7 223.5 227 235.8" y="378" class="sans prompt ">- 2nd sub-agent: <tspan class="command">/lagune-plan</tspan></text>
+      </g>
+      <g class="paste-3-line-5">
+        <text x="48 52.8 56.8 64.9 69.7 77.7 81.7 89 97 105 109.9 117.9 125.9 134 142 146 150 154.1 158.5 162 170.8 179.7 188.5 197.3 206.1 211.4 220.3 229.1 234.4 243.2 252" y="397" class="sans prompt ">- 3rd sub-agent: <tspan class="command">/lagune-harden</tspan></text>
+      </g>
+      <g class="paste-3-line-6">
+        <text x="48 52.8 56.8 64.9 68.9 76.9 80.9 88.2 96.2 104.2 109.1 117.1 125.1 133.2 141.2 145.2 149.2 153.3 157.7 161.2 170 178.9 187.7 196.5 205.3 210.6 218.6 227.4 232.7 236.2 240.6" y="416" class="sans prompt ">- 4th sub-agent: <tspan class="command">/lagune-verify</tspan></text>
+      </g>
+      <g class="paste-3-line-8">
+        <text x="48 56 64.1 72.1 80.1 84.2 88.2 93 101 105.9 110.7 118.7 126.7 130.8 138.8 146.8 151.6 159.7 167.7 175.8 179.8 187.8 195.9 203.9 207.9 215.1 223.2 228 231.2 235.2 242.4 246.5 253.7 261.7 269.8 274.6 282.6 290.7 298.7 306.7 310.7 318 322 330 338.1 342.1 345.3 348.5 352.5 360.6 363.8 367 371 375 378.2 386.3 394.3 397.5 405.5 413.6 420.8 424.8 432.9 437.7 445.7 449.7 457 460.2 468.2 475.4 483.5 491.5" y="441" class="sans prompt ">Loop: re-run harden and verify sub-agents until all findings are closed.</text><rect x="497" y="426.5" width="1.6" height="19" rx=".8" class="caret blink"/>
+      </g>
+    </g>
+  <use href="#icon-paperclip" x="46" y="470" width="16" height="16" class="muted"/>
+  <circle cx="85" cy="478" r="13" class="chip"/>
+  <rect x="85" y="465" width="76.4" height="26" class="chip chip-stretch chip-stretch"/>
+  <circle cx="161.4" cy="478" r="13" class="chip chip-edge"/>
+  <g class="idle chip-1">
+      <use href="#icon-claude" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="78.1" lengthAdjust="spacing">Claude Code</text>
+    </g>
+  <g class="idle chip-2">
+      <use href="#icon-codex" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="38.7" lengthAdjust="spacing">Codex</text>
+    </g>
+  <g class="chip-3">
+      <use href="#icon-antigravity" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="62.4" lengthAdjust="spacing">Antigravity</text>
+    </g>
+  <g class="idle chip-4">
+      <use href="#icon-cursor" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="40.1" lengthAdjust="spacing">Cursor</text>
+    </g>
+  <g class="idle chip-5">
+      <use href="#icon-opencode" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="64.7" lengthAdjust="spacing">OpenCode</text>
+    </g>
+  <g class="idle chip-6">
+      <use href="#icon-muse" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="68.4" lengthAdjust="spacing">Muse Code</text>
+    </g>
+  <g class="idle chip-7">
+      <use href="#icon-copilot" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="111.5" lengthAdjust="spacing">GitHub Copilot CLI</text>
+    </g>
+  <g class="idle chip-8">
+      <use href="#icon-devin" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="34.2" lengthAdjust="spacing">Devin</text>
+    </g>
+  <g class="idle chip-9">
+      <use href="#icon-grok" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="62.4" lengthAdjust="spacing">Grok Build</text>
+    </g>
+  <g class="idle chip-10">
+      <use href="#icon-vercel" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="46.8" lengthAdjust="spacing">skills.sh</text>
+    </g>
+  <g class="idle chip-11">
+      <use href="#icon-pi" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="11.9" lengthAdjust="spacing">Pi</text>
+    </g>
+  <g class="idle chip-12">
+      <use href="#icon-qwen" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="70.6" lengthAdjust="spacing">Qwen Code</text>
+    </g>
+  <g class="idle chip-13">
+      <use href="#icon-kimi" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="61.7" lengthAdjust="spacing">Kimi Code</text>
+    </g>
+  <g class="idle chip-14">
+      <use href="#icon-claude" x="79" y="470" width="16" height="16" class="agent-logo"/>
+      <text x="100" y="482.5" class="sans chip-label" textLength="78.1" lengthAdjust="spacing">Claude Code</text>
+    </g>
+  <g class="pop send-press">
+    <rect x="750" y="462" width="32" height="32" rx="7.5" class="send-idle"/>
+    <path d="M762.5 471.5L772.5 478L762.5 484.5Z" class="send-icon-idle"/>
+    <g class="send-on send-armed">
+      <rect x="750" y="462" width="32" height="32" rx="7.5" class="send-active"/>
+      <path d="M762.5 471.5L772.5 478L762.5 484.5Z" class="send-icon-active"/>
+    </g>
+    <g class="send-on send-working">
+      <rect x="750" y="462" width="32" height="32" rx="7.5" class="send-active"/>
+      <rect x="761" y="473" width="10" height="10" rx="2" class="send-icon-active"/>
+    </g>
+    <g class="send-on send-starred">
+      <rect x="750" y="462" width="32" height="32" rx="7.5" class="send-gold"/>
+      <use href="#icon-star" x="758.5" y="470.5" width="15" height="15" class="send-star"/>
+    </g>
+  </g>
+</svg>
