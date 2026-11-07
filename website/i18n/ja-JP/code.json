@@ -275,10 +275,6 @@
     "message": "最中",
     "description": "The emphasized \"during\" of the home overview question"
   },
-  "home.feature.overview.title": {
-    "message": "設計から始まる防御",
-    "description": "The large title of the home overview"
-  },
   "home.group.anyPrompt": {
     "message": "どんなプロンプトでも、いつでも",
     "description": "The stage label of the universal /lagune command on the home page"
@@ -610,6 +606,14 @@
   "home.software.feature.universal": {
     "message": "汎用の /lagune コマンドで、新しく書くコードをその場でセキュリティ原則に沿って保護",
     "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tagline.audience": {
+    "message": "開発者かどうかは問いません。",
+    "description": "The small line under the headline above the chat demo on the home page"
+  },
+  "home.tagline.title": {
+    "message": "Lagune は、開発中はセキュリティの相棒として、監査では Blue Team として支えます。",
+    "description": "The headline above the chat demo on the home page, where \"Blue Team\" stays in English since the page sets it in italics"
   },
   "home.topBar.label": {
     "message": "サイト",

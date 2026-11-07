@@ -275,10 +275,6 @@
     "message": "sırasında",
     "description": "The emphasized \"during\" of the home overview question"
   },
-  "home.feature.overview.title": {
-    "message": "Tasarım gereği savunma",
-    "description": "The large title of the home overview"
-  },
   "home.group.anyPrompt": {
     "message": "Her prompt, her an",
     "description": "The stage label of the universal /lagune command on the home page"
@@ -610,6 +606,14 @@
   "home.software.feature.universal": {
     "message": "Evrensel /lagune komutuyla yeni işi, güvenlik ilkelerinin rehberliğinde, yazılırken güvenceye alır",
     "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tagline.audience": {
+    "message": "İster geliştirici olun ister olmayın.",
+    "description": "The small line under the headline above the chat demo on the home page"
+  },
+  "home.tagline.title": {
+    "message": "Lagune, siz geliştirirken güvenlik yardımcı pilotunuz olur, denetim yaparken de Blue Team rolünü üstlenir.",
+    "description": "The headline above the chat demo on the home page, where \"Blue Team\" stays in English since the page sets it in italics"
   },
   "home.topBar.label": {
     "message": "Site",

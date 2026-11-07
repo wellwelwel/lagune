@@ -275,10 +275,6 @@
     "message": "दौरान",
     "description": "The emphasized \"during\" of the home overview question"
   },
-  "home.feature.overview.title": {
-    "message": "डिज़ाइन से ही रक्षा",
-    "description": "The large title of the home overview"
-  },
   "home.group.anyPrompt": {
     "message": "कोई भी प्रॉम्प्ट, कभी भी",
     "description": "The stage label of the universal /lagune command on the home page"
@@ -610,6 +606,14 @@
   "home.software.feature.universal": {
     "message": "यूनिवर्सल /lagune कमांड से नया काम लिखते समय ही सुरक्षित करता है, सुरक्षा सिद्धांतों के मार्गदर्शन में",
     "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tagline.audience": {
+    "message": "चाहे आप डेवलपर हों या नहीं।",
+    "description": "The small line under the headline above the chat demo on the home page"
+  },
+  "home.tagline.title": {
+    "message": "Lagune बनाते समय आपका सुरक्षा कोपायलट है और ऑडिट करते समय आपकी Blue Team।",
+    "description": "The headline above the chat demo on the home page, where \"Blue Team\" stays in English since the page sets it in italics"
   },
   "home.topBar.label": {
     "message": "साइट",

@@ -275,10 +275,6 @@
     "message": "durante",
     "description": "The emphasized \"during\" of the home overview question"
   },
-  "home.feature.overview.title": {
-    "message": "Defesa desde a concepção",
-    "description": "The large title of the home overview"
-  },
   "home.group.anyPrompt": {
     "message": "Qualquer prompt, a qualquer hora",
     "description": "The stage label of the universal /lagune command on the home page"
@@ -610,6 +606,14 @@
   "home.software.feature.universal": {
     "message": "Protege o trabalho novo enquanto ele é escrito com o comando universal /lagune, guiado pelo charter",
     "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tagline.audience": {
+    "message": "Seja você desenvolvedor ou não.",
+    "description": "The small line under the headline above the chat demo on the home page"
+  },
+  "home.tagline.title": {
+    "message": "O Lagune é seu copiloto de segurança enquanto você desenvolve e seu Blue Team quando você audita.",
+    "description": "The headline above the chat demo on the home page, where \"Blue Team\" stays in English since the page sets it in italics"
   },
   "home.topBar.label": {
     "message": "Site",
