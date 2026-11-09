@@ -1,0 +1,124 @@
+---
+id: cursor
+title: 'ثبّت Lagune على Cursor كإضافة'
+sidebar_label: Cursor
+parent: get-started/install
+description: ثبّت Lagune على Cursor و Cursor CLI كإضافة، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+keywords:
+  - cursor
+  - cursor plugin
+  - cursor cli
+  - plugin marketplace
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: '08c54cd98449fce87b9f38a44aef834689e3fd5ffd6a8a0aed023de7f8acdf19'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Cursor' />
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- افتح **Customize**.
+- اختر **From GitHub Repository** وأدخل `https://github.com/wellwelwel/lagune`.
+- اختر **Install** على **Lagune** وحدد نطاق المشروع أو المستخدم.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- أضف السوق من الطرفية:
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- اكتب `/plugins` في جلسة `agent`.
+- ثبّت **Lagune**.
+
+إن كان **Lagune** مثبّتًا بالفعل في **Claude Code**، يحمّله **Cursor CLI** من هناك.
+
+</TabItem>
+</Tabs>
+
+## التحديث
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- افتح **Customize**.
+- اختر **Refresh** على السوق `lagune`.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- استبدل السوق من الطرفية:
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- اكتب `/plugins` في جلسة `agent`.
+- ثبّت **Lagune** مجددًا.
+
+</TabItem>
+</Tabs>
+
+## الأوامر
+
+اكتب الأوامر بأسمائها، مثل `/lagune-charter`.
+
+---
+
+:::info[الأذونات]
+
+في **Cursor**، تشغّل الأوامر المحرك عبر **npx**، ويسمح به وضع Auto-review الافتراضي دون أن يسأل.
+
+في **Cursor CLI**، يعمل المحرك عبر أداتين: `lagune_read` تقرأ مشروعك فقط، و `lagune_write` تكتب في `.lagune/` فقط. وللسماح بهما مسبقًا، أضف هذه القواعد إلى `.cursor/cli.json` لمشروع واحد، أو إلى `~/.cursor/cli-config.json` لكل المشاريع:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
+  }
+}
+```
+
+حين يعمل المحرك عبر **npx**، كما مع **skills.sh**، اسمح بـ `Shell(npx:--yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Cursor؟',
+      answer:
+        'في Cursor، افتح Customize، واختر From GitHub Repository، وأدخل https://github.com/wellwelwel/lagune ثم ثبّت Lagune. وفي Cursor CLI، شغّل agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor، ثم ثبّت Lagune من ‎/plugins.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Cursor؟',
+      answer:
+        'في Cursor، اختر Refresh على السوق lagune في Customize. وفي Cursor CLI، أزل السوق lagune، وأضفه مجددًا، ثم ثبّت Lagune مجددًا من ‎/plugins.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Cursor؟',
+      answer: 'اكتبها بأسمائها، مثل /lagune-charter.',
+    },
+    {
+      question: 'هل يمكن لـ Cursor تشغيل Lagune دون طلب إذن؟',
+      answer:
+        'نعم. يسمح به وضع Auto-review الافتراضي في Cursor بالفعل. وفي Cursor CLI، اسمح بـ Mcp(plugin-lagune-lagune:lagune_read) و Mcp(plugin-lagune-lagune:lagune_write)، إضافة إلى Shell(npx:--yes lagune@*) حين يعمل المحرك عبر npx.',
+    },
+  ]}
+/>

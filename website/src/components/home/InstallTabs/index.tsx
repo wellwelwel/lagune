@@ -26,6 +26,7 @@ const tabClass = (selected: boolean, resting: boolean): string =>
     selected ? 'text-ink' : 'text-faint hover:text-ink'
   } ${resting ? RESTING_BAR : ''}`;
 
+/* The offsets are physical, while the RTL build mirrors the sides set by class. */
 const barUnder = (tab: HTMLElement): Bar => {
   const { paddingLeft, paddingRight } = getComputedStyle(tab);
   const left = tab.offsetLeft + parseFloat(paddingLeft);
@@ -150,8 +151,10 @@ const InstallTabsComponent = () => {
           ))}
           {bar && (
             <span
-              className='pointer-events-none absolute bottom-0 left-0 h-0.5 origin-left rounded-full bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none'
+              className='pointer-events-none absolute bottom-0 h-0.5 rounded-full bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none'
               style={{
+                left: 0,
+                transformOrigin: 'left',
                 width: BAR_BASE,
                 transform: `translateX(${bar.left}px) scaleX(${bar.width / BAR_BASE})`,
               }}

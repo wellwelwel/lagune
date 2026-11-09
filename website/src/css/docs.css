@@ -143,8 +143,8 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   --ifm-font-family-base:
     'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
   --ifm-font-family-monospace:
-    'Fira Code', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
-    monospace;
+    'Fira Code', 'Arabic Fallback', ui-monospace, 'SF Mono', SFMono-Regular,
+    Menlo, Consolas, monospace;
   --ifm-code-font-size: 0.85em;
 
   /* Jakarta carries the chrome and headings, Inter carries the long-form

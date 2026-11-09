@@ -19,6 +19,8 @@ const NAV_LINK =
 
 const FOOT_LINK = `${NAV_LINK} text-muted hover:bg-canvas hover:text-ink-2 hover:no-underline`;
 
+const JOINED_SCRIPT = /\p{Script=Arabic}/u;
+
 /* Docusaurus remounts the route tree on every navigation, resetting each
    category's local state. */
 const persistedOpenGroups = new Map<string, boolean>();
@@ -39,7 +41,7 @@ const SidebarItem = ({
     )}
     to={item.permalink}
   >
-    {item.label}
+    <bdi>{item.label}</bdi>
   </Link>
 );
 
@@ -164,9 +166,13 @@ export const DocsSidebar = ({
             aria-hidden
             className='flex justify-between text-[0.75rem] font-semibold leading-none tracking-normal text-muted'
           >
-            {[...documentation].map((letter, index) => (
-              <span key={index}>{letter}</span>
-            ))}
+            {JOINED_SCRIPT.test(documentation) ? (
+              <span>{documentation}</span>
+            ) : (
+              [...documentation].map((letter, index) => (
+                <span key={index}>{letter}</span>
+              ))
+            )}
           </span>
         </span>
       </Link>

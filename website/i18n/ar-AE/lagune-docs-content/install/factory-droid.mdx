@@ -1,0 +1,66 @@
+---
+id: factory-droid
+title: 'ثبّت Lagune على Factory Droid كإضافة'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: ثبّت Lagune على Factory Droid كإضافة، وحافظ على تحديثه، واسمح بأدوات محركه.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: '7bc601c8aab5f6286ad0cec6040114f686541332672362bad80cacd47ef4b23d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+ثبّت الإضافة من الطرفية:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## التحديث
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## الأوامر
+
+اكتب الأوامر بأسمائها، مثل `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Factory Droid؟',
+      answer:
+        'شغّل droid plugin marketplace add wellwelwel/lagune، ثم droid plugin install lagune@lagune.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Factory Droid؟',
+      answer:
+        'شغّل droid plugin marketplace update lagune، ثم droid plugin update lagune@lagune.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Factory Droid؟',
+      answer: 'اكتبها بأسمائها، مثل /lagune-charter.',
+    },
+    {
+      question: 'هل يمكن لـ Factory Droid تشغيل Lagune دون طلب إذن؟',
+      answer:
+        'نعم. اختر السماح الدائم بـ lagune_read و lagune_write حين يسألك Factory Droid. ويسأل مجددًا بعد مزامنة commit جديد من السوق lagune.',
+    },
+  ]}
+/>

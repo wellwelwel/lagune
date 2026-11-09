@@ -1,0 +1,156 @@
+---
+id: catalog
+title: 'الكتالوج: تخصصات أمنية عند الحاجة'
+sidebar_label: الكتالوج
+description: كيف تُحمَّل التخصصات في كتالوج مشروعك، من مرحلة عند الحاجة، ومنك مباشرة.
+keywords:
+  - catalog
+  - specializations
+  - categories
+  - security knowledge
+  - owasp
+  - الكتالوج
+  - التخصصات
+  - المعرفة الأمنية
+source_hash: 'd0a894bd96d8a50b0dda4b6abc7a252358865a7cdf721db966b4c6b2ff4c1c36'
+---
+
+import { CatalogOverview } from '@site/src/components/docs/CatalogOverview';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# الكتالوج
+
+🧠 تخصصات **Lagune** وحدات معرفة أمنية مركّزة ومستقلة عن لغة البرمجة، لا تُحمَّل إلا عند الحاجة، ولا تُحمَّل افتراضيًا أبدًا. وهي ليست أوامر. وكتالوج مشروعك هو المجموعة التي يستخدمها: التخصصات المدمجة في [فئاته](/docs/categories) إضافة إلى تخصصاته الخاصة. تلجأ إليها مرحلتا detect و verify أثناء عملهما، ويمكنك تحميل أي منها مباشرة في أي وقت.
+
+<Tabs>
+  <TabItem value="overview" label="نظرة عامة" default>
+    <CatalogOverview />
+  </TabItem>
+  <TabItem value="how-it-works" label="آلية العمل">
+
+## الاستخدام بنفسك
+
+لاستخدام تخصص مباشرة، اطلب من وكيلك تحميله عبر `read catalog <name>` واكتب المهمة في الموجّه نفسه. فتعمل المعرفة على ما طلبته. ويعمل هذا في أي موجّه، حتى لو لم يكن له علاقة بمسار **Lagune**.
+
+على سبيل المثال، موجّه حر ومباشر لإنشاء مجموعة **RegExp** آمنة باستخدام **Python**:
+
+```prompt
+حمّل التخصص regex عبر `npx lagune read catalog regex`، ثم أنشئ مجموعة من التعابير النمطية في @src/utils/regex.py للتحقق من عناوين البريد الإلكتروني وأسماء المستخدمين.
+```
+
+يستخدم هذا hook حتميًا لاختبار كل **RegExp** ضد **ReDoS**، ويُبقي الآمنة منها، وينتج شيئًا مثل:
+
+```python
+import re
+
+EMAIL = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+USERNAME = re.compile(r"^[a-zA-Z0-9_]{3,20}$")
+
+def is_email(value: str) -> bool:
+    return EMAIL.match(value) is not None
+
+def is_username(value: str) -> bool:
+    return USERNAME.match(value) is not None
+```
+
+:::tip[جرّب فاحص ReDoS]
+اختبر نمطًا بنفسك في [**devina.io/redos-checker**](https://devina.io/redos-checker).
+:::
+
+## التخصصات المدمجة
+
+التخصصات المدمجة مجمّعة في [**فئات**](/docs/categories). وهذه هي المجموعة التي تأتي مع **Lagune**:
+
+| التخصص                | الفئة                       | التركيز                                                                                                      |
+| --------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `regex`               | `owasp`                     | **ReDoS:** أنماط تنفجر مع المدخلات المُصاغة عمدًا.                                                           |
+| `network`             | `owasp`                     | **SSRF وإعادة التوجيه:** وجهات جلب أو إعادة توجيه يحددها المستخدم.                                           |
+| `interpreter`         | `owasp`, `lovable`          | **حقن الكود:** `eval`، والتضمين الديناميكي، والاستدعاء بالاسم.                                               |
+| `sql`                 | `owasp`                     | **قواعد البيانات العلائقية:** الحقن، واستدعاءات ORM الخام، والصلاحيات، ومدى وصول المحرك.                     |
+| `path`                | `owasp`                     | **مسارات نظام الملفات:** traversal، والبايت الصفري، وتدفقات NTFS، وزرع الملفات.                              |
+| `upload`              | `owasp`                     | **رفع الملفات:** النوع والتوقيع، والمحتوى الخبيث، والتخزين، والحدود.                                         |
+| `access-control`      | `owasp`, `lovable`          | **المصادقة والتفويض والجلسات:** IDOR، والإسناد الجماعي، والمستأجرون، والجلسات.                               |
+| `credential-endpoint` | `owasp`, `lovable`          | **التخمين والروبوتات:** القوة الغاشمة، ورش كلمات المرور، وحشو بيانات الاعتماد، وتحديد المعدل.                |
+| `federation`          | `owasp`                     | **الثقة في الرموز:** OAuth و OIDC، و SAML، والتحقق من JWT، وتسجيل الدخول برمز QR.                            |
+| `http-request`        | `owasp`                     | **مصدر الطلب:** CSRF، وأخطاء إعداد CORS، وانتحال IP العميل.                                                  |
+| `transport`           | `owasp`                     | **أمان القناة:** إعداد TLS، و HTTPS مقابل النص الصريح، و HSTS، والتثبيت.                                     |
+| `crypto`              | `owasp`, `lovable`          | **التشفير أثناء التخزين:** الخوارزميات الضعيفة أو المخصصة، و CSPRNG، وإدارة المفاتيح.                        |
+| `secrets`             | `owasp`, `lovable`          | **بيانات الاعتماد المكتوبة في الكود:** مفاتيح ورموز وكلمات مرور حرفية في المصدر.                             |
+| `api-endpoint`        | `owasp`                     | **الواجهات غير REST:** GraphQL و gRPC وتفويض WebSocket، و DoS، والمخطط.                                      |
+| `payment`             | `owasp`, `lovable`          | **مسار الدفع:** التحقق من البوابة على الخادم، والاستدعاءات الموقّعة، و idempotency.                          |
+| `xml`                 | `owasp`                     | **تحليل XML:** XXE، والكيانات الخارجية، وتوسّع billion-laughs.                                               |
+| `csv`                 | `owasp`                     | **حقن الصيغ:** خلايا جداول بيانات تبدأ بـ `=`/`+`/`-`/`@`.                                                   |
+| `container`           | `owasp`, `infra`            | **إعداد الحاويات:** root، و capabilities، وربط socket، وتحصين الصورة.                                        |
+| `infra`               | `infra`                     | **البنية التحتية ككود:** Terraform و Dockerfile و GitHub Actions.                                            |
+| `serverless`          | `owasp`, `infra`, `lovable` | **دوال FaaS:** أقل صلاحيات IAM، ومدخلات الأحداث، والسياق، والأسرار.                                          |
+| `llm`                 | `ai`, `lovable`             | **مخاطر الذكاء الاصطناعي و LLM:** prompt injection، والصلاحيات الذاتية، و RAG، و MCP، والمخرجات.             |
+| `supabase`            | `lovable`                   | **الخادم الخلفي على Supabase:** RLS معطّل افتراضيًا، وسياسات يولّدها الذكاء الاصطناعي خطأً، ونموذج المفاتيح. |
+| `browser`             | `javascript`, `lovable`     | **مخاطر جهة العميل:** XSS، و CSP، والتأطير، والتخزين، وغيرها.                                                |
+| `javascript`          | `javascript`                | **مخاطر على مستوى اللغة:** RCE، و prototype pollution، وغيرها.                                               |
+| `python`              | `python`                    | **مخاطر على مستوى اللغة:** RCE عبر `pickle`، و class pollution، و `-O`، وغيرها.                              |
+| `rust`                | `rust`                      | **سلامة `unsafe`:** سلوك غير معرّف من مستدعين آمنين، و `transmute`، والتجاوز.                                |
+| `java`                | `java`                      | **إلغاء التسلسل والكود المتنقل:** سلاسل `readObject`، واختطاف الكائنات.                                      |
+| `ruby`                | `ruby`                      | **إلغاء التسلسل و `open`:** إحياء `Marshal`/YAML، وخاصية الأنابيب.                                           |
+| `php`                 | `php`                       | **type juggling و `unserialize`:** التجزئات السحرية، وسلاسل POP.                                             |
+| `go`                  | `go`                        | **typed-nil و data races:** `nil != nil`، و goroutines بذاكرة مشتركة.                                        |
+| `c-cpp`               | `c-cpp`                     | **سلاسل التنسيق:** `printf(user_input)`، والكتابة في أي موقع عبر `%n`.                                       |
+| `dotnet`              | `dotnet`                    | **مخاطر على مستوى المنصة:** RCE عبر `BinaryFormatter`، و `@Html.Raw`، وثغرات enum.                           |
+
+معظم المعرفة المدمجة مستخلصة من OWASP. اطّلع على [**مصادر OWASP**](/docs/references/owasp-sources) للربط الكامل بين كل تخصص وصفحات هجوم OWASP و Cheat Sheet المرجعية الخاصة به. وتستمد بعض الوحدات الخاصة بتقنيات معينة معرفتها من إرشادات الجهة المطوّرة نفسها بدلًا من ذلك: فالتخصص `supabase`، مثلًا، مأخوذ من توثيق Supabase ومن CVE-2025-48757.
+
+## تخصصاتك الخاصة
+
+تنمو التخصصات المدمجة بإضافة ملف معرفة واحد وصف فهرس واحد، لا بأمر جديد أبدًا. وتضيف تخصصاتك الخاصة بالطريقة نفسها، عبر [`/lagune-specialize`](/docs/commands/specialize): وجّهه إلى مقال أو موضوع، فيستخلص تخصصًا جديدًا في مشروعك، يتمثل في الملف تحت `.lagune/catalog/` ومدخله في `.lagune/configs.json`. وتخصصاتك موجودة دائمًا في الكتالوج، أيًا كانت فئاته، وأي تخصص منها يحل محل التخصص المدمج الذي يحمل الاسم نفسه.
+
+:::note[داخليًا، يحمّل Lagune التخصصات تلقائيًا عند الحاجة]
+
+حين تصادف مرحلة detect أو verify سياقًا يغطيه تخصص ما، تحمّل ذلك التخصص بنفسها عبر `read catalog <name>`. ويحدث هذا تلقائيًا، كجزء من المرحلة. ولا تحتاج إلى فعله يدويًا ليعمل.
+
+:::
+
+## اكتشف ما هو متاح
+
+لسرد كتالوج مشروعك من الطرفية، تخصص واحد في كل سطر مع وسومه:
+
+```bash
+npx lagune read catalog
+# regex: Regular Expression [required]
+# network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
+# interpreter: Evaluator, Sink, Shell, Dynamic Execution
+# ...
+```
+
+التخصص المعلَّم بـ `[required]` يُطبَّق دائمًا، أيًا كان العمل. وتعتمد التخصصات المدمجة التي تتضمنها القائمة على [**فئات**](/docs/categories) مشروعك.
+
+:::note[لا تُحمَّل التخصصات افتراضيًا]
+تُجلب المعرفة ذات الصلة لما يكونه المشروع فعلًا، بدلًا من تشغيل كل فحص افتراضيًا.
+:::
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'ما هو التخصص في Lagune؟',
+      answer:
+        'وحدة معرفة أمنية مركّزة ومستقلة عن لغة البرمجة، لا تُحمَّل إلا عند الحاجة، ولا تُحمَّل افتراضيًا أبدًا. وليست أمرًا مثل مهارات الوكيل.',
+    },
+    {
+      question: 'ما هو كتالوج المشروع؟',
+      answer:
+        'التخصصات التي يستخدمها المشروع: التخصصات المدمجة في فئاته إضافة إلى تخصصاته الخاصة. وما دامت لا توجد فئة مسجّلة، يستخدم OWASP وحده.',
+    },
+    {
+      question: 'هل تُحمَّل التخصصات افتراضيًا؟',
+      answer: 'لا. لا تُحمَّل إلا عند الحاجة، لما يكونه المشروع فعلًا.',
+    },
+    {
+      question: 'كيف أحمّل تخصصًا مباشرة؟',
+      answer:
+        'في الموجّه نفسه الذي يحمل المهمة، اطلب من وكيلك تشغيل npx lagune read catalog <name>.',
+    },
+  ]}
+/>

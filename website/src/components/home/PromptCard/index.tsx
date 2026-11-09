@@ -62,6 +62,7 @@ export const PromptCard = memo(
         >
           <p
             ref={lineRef}
+            dir='auto'
             className={onScreen ? 'm-0' : 'm-0 lagune-offscreen'}
           >
             {(typed || visible) && (

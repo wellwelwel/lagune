@@ -1,0 +1,86 @@
+---
+id: infra
+title: 'hook infra: اكتشف أخطاء إعداد IaC'
+sidebar_label: infra
+description: افحص ملفات Terraform و Dockerfiles و GitHub Actions بحثًا عن أخطاء الإعداد، أو قيّم مقتطفًا واحدًا، من سطر الأوامر.
+source_hash: 'e6a556c30f366efef83f794c865528430ab4717e4e80ddf5951d645a87afa651'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+ينبّه hook `infra` إلى **أخطاء إعداد البنية التحتية ككود** التي يمكن الحسم فيها من الملف نفسه: شبكة مفتوحة للعالم، أو صلاحية wildcard، أو سر في ملف manifest، أو حاوية تعمل بصلاحيات root، أو قيمة غير موثوقة في صدفة CI. ولا يقرأ إلا ملفات IaC (`.tf`/`.tf.json`/`.hcl`، و `Dockerfile*`، و `.github/workflows/**`). وهو المحرك الحتمي خلف [التخصص `infra`](/docs/catalog)، في وضع **scan** أو **check**.
+
+## التشغيل
+
+<Tabs>
+  <TabItem value="scan" label="افحص قاعدة الكود" default>
+
+```bash
+npx lagune read infra                   # scans every IaC file
+npx lagune read infra --dir infra       # scans a directory
+npx lagune read infra --file Dockerfile # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="تحقق من مقتطف">
+
+مرّر المقتطف عبر `--pattern` ونوعه عبر `--kind` (`terraform` أو `dockerfile` أو `github-actions`).
+
+```bash
+npx lagune read infra --kind terraform  --pattern 'actions = ["*"]' # => iam-wildcard
+npx lagune read infra --kind dockerfile --pattern 'FROM node:20'    # => mutable-tag
+```
+
+  </TabItem>
+</Tabs>
+
+يطبع الفحص قسمين على الأكثر. **Infrastructure risks found** ينتهي برمز خروج غير صفري ويضم العيوب التي يمكن الحسم فيها (دخول `0.0.0.0/0` على منفذ حساس، أو عبارة IAM بصلاحية wildcard، أو سر في manifest، أو `encrypted = false`، أو وحدة git غير مثبّتة الإصدار، أو صورة تعمل صراحة بصلاحيات root، أو `curl | sh`، أو حقن في سكربت CI، أو `permissions: write-all`). أما **Infrastructure hardening advisories** فلا يغيّر رمز الخروج (وسم أساس قابل للتغيير، أو action مثبّت بوسم). والتشغيل النظيف يطبع `no infrastructure risks found`.
+
+## كيف تقرأ الحكم
+
+يطبع وضع check الوسم الأعلى خطورة الذي طابقه (مثل `public-ingress` و `iam-wildcard` و `root-user` و `curl-pipe` و `script-injection` و `write-all`)، أو وسمًا استشاريًا (`mutable-tag` و `unpinned-action`)، أو `safe`. ولا ينتهي برمز خروج غير صفري إلا الوسم الذي بمستوى ملاحظة.
+
+### خيارات CLI
+
+| الخيار      | القيمة                                          | الوصف                                                   |
+| ----------- | ----------------------------------------------- | ------------------------------------------------------- |
+| `--pattern` | مقتطف                                           | تحقق من مقتطف واحد. يتطلب `--kind`. كرّره لعدة مقتطفات. |
+| `--kind`    | `terraform` \| `dockerfile` \| `github-actions` | النوع الذي يُحكم على المقتطف بناءً عليه.                |
+| `--dir`     | دليل                                            | يحصر الفحص في دليل. يتكرر ويُجمع مع `--file`.           |
+| `--file`    | ملف                                             | يحصر الفحص في ملف واحد. يتكرر ويُجمع مع `--dir`.        |
+
+دون أي خيار، يفحص كل ملفات IaC في المشروع. ولا يمكن جمع `--pattern` مع `--dir` أو `--file`.
+
+### اختر ما يفحصه
+
+يستثني ما يتجاهله **Git**. ولاستثناء المزيد، أو لفحص ما يتجاهله **Git**، امنح `infra` إعدادات خاصة به:
+
+```bash
+npx lagune write add --ignore examples --checker infra
+```
+
+```json
+{
+  "checkers": {
+    "infra": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+تشرح صفحة [إعداد hooks](/docs/hooks/configure) كل إعداد.
+
+:::tip
+يلتقط hook الحالات الصريحة التي يمكن الحسم فيها: أما غياب التشفير، والانكشاف عبر `pull_request_target`، والنطاق الصحيح لصلاحيات IAM، فهي أحكام يظل [التخصص `infra`](/docs/catalog) يغطيها.
+:::
+
+<Faq
+  items={[
+    {
+      question: 'ما ملفات البنية التحتية التي يقرؤها hook infra؟',
+      answer:
+        'ملفات Terraform/HCL (‎.tf و ‎.tf.json و ‎.hcl)، و Dockerfiles، وملفات YAML الخاصة بسير عمل GitHub Actions والـ actions تحت ‎.github/‎. ويصل إلى هذه الملفات رغم أن فاحصات الكود المصدري تتخطاها.',
+    },
+  ]}
+/>

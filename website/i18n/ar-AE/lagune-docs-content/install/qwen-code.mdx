@@ -1,0 +1,83 @@
+---
+id: qwen-code
+title: 'ثبّت Lagune على Qwen Code كامتداد'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: ثبّت Lagune على Qwen Code كامتداد، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+ثبّت الامتداد من الطرفية:
+
+```bash
+qwen extensions install lagune
+```
+
+## التحديث
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+qwen extensions update lagune
+```
+
+لإبقائه محدّثًا، ثبّته مع `--auto-update`.
+
+## الأوامر
+
+اكتب الأوامر تحت اسم الامتداد، مثل `/lagune:lagune-charter` بدلًا من `/lagune-charter`.
+
+---
+
+:::info[الأذونات]
+
+يعمل المحرك عبر أداتين: `lagune_read` تقرأ مشروعك فقط، و `lagune_write` تكتب في `.lagune/` فقط. وللسماح بهما مسبقًا، أضف هذه القواعد إلى `.qwen/settings.json` لمشروع واحد، أو إلى `~/.qwen/settings.json` لكل المشاريع:
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+حين يعمل المحرك عبر **npx**، كما مع **skills.sh**، اسمح بـ `Shell(npx --yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Qwen Code؟',
+      answer: 'شغّل qwen extensions install lagune.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Qwen Code؟',
+      answer:
+        'شغّل qwen extensions update lagune، أو ثبّت الامتداد مع ‎--auto-update.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Qwen Code؟',
+      answer: 'اكتبها تحت اسم الامتداد، مثل ‎/lagune:lagune-charter.',
+    },
+    {
+      question: 'هل يمكن لـ Qwen Code تشغيل Lagune دون طلب إذن؟',
+      answer:
+        'نعم. اسمح بـ mcp__lagune__lagune_read و mcp__lagune__lagune_write في إعدادات Qwen Code، إضافة إلى Shell(npx --yes lagune@*) حين يعمل المحرك عبر npx.',
+    },
+  ]}
+/>

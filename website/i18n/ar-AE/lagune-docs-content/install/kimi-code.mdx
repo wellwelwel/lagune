@@ -1,0 +1,62 @@
+---
+id: kimi-code
+title: 'ثبّت Lagune على Kimi Code كإضافة'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: ثبّت Lagune على Kimi Code كإضافة، وحافظ على تحديثه.
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+ثبّت الإضافة من جلسة **Kimi Code**، واختر **Trust and install**، ثم ابدأ جلسة جديدة لتحميلها:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## التحديث
+
+لتحديث **Lagune**، ثبّته مجددًا:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## الأوامر
+
+اكتب الأوامر تحت اسم الإضافة، مثل `/lagune:lagune-charter` بدلًا من `/lagune-charter`. وتسردها قائمة `/` بالصيغة `/skill:lagune:lagune-charter`، وهي تعمل أيضًا.
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Kimi Code؟',
+      answer:
+        'في جلسة Kimi Code، شغّل ‎/plugins install https://github.com/wellwelwel/lagune ثم اختر Trust and install، ثم شغّل ‎/new.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Kimi Code؟',
+      answer:
+        'شغّل ‎/plugins install https://github.com/wellwelwel/lagune مجددًا، ثم ‎/new.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Kimi Code؟',
+      answer:
+        'اكتبها تحت اسم الإضافة، مثل ‎/lagune:lagune-charter، أو كما تسردها قائمة ‎/‎، مثل ‎/skill:lagune:lagune-charter.',
+    },
+  ]}
+/>

@@ -1,0 +1,78 @@
+---
+id: codex
+title: 'ثبّت Lagune على Codex CLI كإضافة'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: ثبّت Lagune على Codex CLI كإضافة، وحافظ على تحديثه، وشغّل محركه داخل بيئة العزل.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: 'b9d60814068ac19348a7a3e5e889057c6cb9d5f2c13aa0d7d1475d65722a2ad8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+ثبّت الإضافة من الطرفية:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## التحديث
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## الأوامر
+
+اكتب `$` ثم الأمر تحت اسم الإضافة، متبوعًا بمدخلك، مثل `$lagune:lagune-charter` بدلًا من `/lagune-charter`. وكتابة `$` تسرد الأوامر، واختيار أحدها يُدرج اسمه الكامل.
+
+---
+
+:::info[بيئة العزل]
+
+لا تملك بيئة العزل في **Codex** وصولًا إلى الشبكة. ثبّت المحرك في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Codex CLI؟',
+      answer:
+        'شغّل codex plugin marketplace add wellwelwel/lagune، ثم codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Codex CLI؟',
+      answer: 'شغّل codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Codex CLI؟',
+      answer:
+        'اكتب ‎$ ثم الأمر تحت اسم الإضافة، متبوعًا بمدخلك، مثل ‎$lagune:lagune-charter.',
+    },
+    {
+      question: 'هل يعمل Lagune داخل بيئة العزل في Codex؟',
+      answer:
+        'نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@{{version}} من طرفيتك، مرة واحدة وبعد كل تحديث.',
+    },
+  ]}
+/>

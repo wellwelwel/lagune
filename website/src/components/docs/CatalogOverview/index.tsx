@@ -514,7 +514,7 @@ const SpecializationCard = ({
           >
             <MaskIcon src={category.icon} className='size-4 bg-current' />
             <span
-              className={`pointer-events-none absolute bottom-[calc(100%+0.375rem)] left-1/2 -translate-x-1/2 translate-y-1 scale-95 whitespace-nowrap rounded-chip bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ${EASE} group-hover/chip:translate-y-0 group-hover/chip:scale-100 group-hover/chip:opacity-100`}
+              className={`pointer-events-none absolute bottom-[calc(100%+0.375rem)] left-1/2 -translate-x-1/2 rtl:translate-x-1/2 translate-y-1 scale-95 whitespace-nowrap rounded-chip bg-dark px-2 py-1 text-[0.68rem] font-bold text-white opacity-0 transition-[opacity,scale,translate] duration-200 ${EASE} group-hover/chip:translate-y-0 group-hover/chip:scale-100 group-hover/chip:opacity-100`}
             >
               {category.label}
             </span>

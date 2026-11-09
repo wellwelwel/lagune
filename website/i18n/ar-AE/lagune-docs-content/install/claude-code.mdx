@@ -1,0 +1,138 @@
+---
+id: claude-code
+title: 'ثبّت Lagune على Claude Code كإضافة'
+sidebar_label: Claude Code
+parent: get-started/install
+description: ثبّت Lagune على Claude Code كإضافة، في الطرفية أو الامتداد أو تطبيق سطح المكتب، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+keywords:
+  - claude code
+  - claude code plugin
+  - claude code vs code
+  - claude desktop
+  - plugin marketplace
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: '14579b30d4f66f17f3f80f8be28ba0a6d3ca7e6dd2474fcaf8966badf4628d4a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Claude Code' />
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="الطرفية" default>
+
+ثبّت الإضافة من الطرفية:
+
+```bash
+claude plugin install lagune --marketplace wellwelwel/lagune
+```
+
+أو من جلسة **Claude Code**:
+
+```text
+/plugin marketplace add wellwelwel/lagune
+/plugin install lagune@lagune
+```
+
+</TabItem>
+<TabItem value="extension" label="الامتداد">
+
+- اكتب `/plugin` واختر **Manage plugins**.
+- أضف `wellwelwel/lagune` في تبويب **Marketplaces**.
+- ثبّت `lagune` في تبويب **Plugins**.
+
+</TabItem>
+<TabItem value="desktop" label="سطح المكتب">
+
+- ثبّت **Lagune** من الطرفية أو الامتداد، مع اختيار **Install for you** في الامتداد.
+- ابدأ جلسة جديدة في تطبيق سطح المكتب، الذي يحمّل الإضافات التي تثبّتها لنفسك.
+
+</TabItem>
+</Tabs>
+
+## التحديث
+
+<Tabs groupId="claude-surface">
+<TabItem value="terminal" label="الطرفية" default>
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+claude plugin marketplace update lagune
+claude plugin update lagune@lagune
+```
+
+لإبقائه محدّثًا، اختر **Enable auto-update** للسوق `lagune` تحت `/plugin`.
+
+</TabItem>
+<TabItem value="extension" label="الامتداد">
+
+- اكتب `/plugin` واختر **Manage plugins**.
+- افتح تبويب **Marketplaces**.
+- اختر أيقونة التحديث على `lagune`.
+
+</TabItem>
+<TabItem value="desktop" label="سطح المكتب">
+
+- حدّث **Lagune** من الطرفية أو الامتداد.
+- ابدأ جلسة جديدة في تطبيق سطح المكتب.
+
+</TabItem>
+</Tabs>
+
+## الأوامر
+
+اكتب الأوامر بأسمائها، مثل `/lagune-charter`، أو تحت اسم الإضافة، مثل `/lagune:lagune-charter`.
+
+---
+
+:::info[الأذونات]
+
+يعمل المحرك عبر أداتين: `lagune_read` تقرأ مشروعك فقط، و `lagune_write` تكتب في `.lagune/` فقط. وللسماح بهما مسبقًا، أضف هذه القواعد إلى `.claude/settings.json` لمشروع واحد، أو إلى `~/.claude/settings.json` لكل المشاريع:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_lagune_lagune__lagune_read",
+      "mcp__plugin_lagune_lagune__lagune_write"
+    ]
+  }
+}
+```
+
+حين يعمل المحرك عبر **npx**، كما مع **skills.sh**، اسمح بـ `Bash(npx --yes lagune@*)`. ومع تفعيل بيئة العزل، أضف أيضًا `registry.npmjs.org` إلى `sandbox.network.allowedDomains`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Claude Code؟',
+      answer:
+        'شغّل claude plugin install lagune --marketplace wellwelwel/lagune. وفي الجلسة أو الامتداد، أضف السوق wellwelwel/lagune من مدير الإضافات وثبّت lagune. ويحمّله تطبيق سطح المكتب بعد أن تثبّته لنفسك في الطرفية أو الامتداد.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Claude Code؟',
+      answer:
+        'شغّل claude plugin marketplace update lagune، ثم claude plugin update lagune@lagune، أو اختر Enable auto-update للسوق lagune تحت ‎/plugin. وفي الامتداد، افتح Manage plugins من ‎/plugin واختر أيقونة التحديث على السوق lagune. ويحمّل تطبيق سطح المكتب التحديث في جلسته التالية.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Claude Code؟',
+      answer:
+        'اكتبها بأسمائها، مثل ‎/lagune-charter، أو تحت اسم الإضافة، مثل ‎/lagune:lagune-charter.',
+    },
+    {
+      question: 'هل يمكن لـ Claude Code تشغيل Lagune دون طلب إذن؟',
+      answer:
+        'نعم. اسمح بـ mcp__plugin_lagune_lagune__lagune_read و mcp__plugin_lagune_lagune__lagune_write في إعدادات Claude Code، إضافة إلى Bash(npx --yes lagune@*) حين يعمل المحرك عبر npx.',
+    },
+  ]}
+/>

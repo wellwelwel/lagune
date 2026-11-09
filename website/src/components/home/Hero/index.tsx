@@ -9,8 +9,11 @@ export const Hero = (): ReactNode => (
       <TbShieldLockFilled className='mr-2 size-4 shrink-0 text-white max-[600px]:size-3.5' />
       {HERO.chip}
     </span>
-    <p className='font-display font-bold text-[clamp(32px,4.4vw,34px)] leading-[1.5] tracking-[-0.02em] whitespace-nowrap m-0 max-[600px]:text-[24px]'>
-      <span className='text-accent mr-2 [-webkit-text-stroke:0.015em_var(--color-accent)]'>
+    <p
+      dir='ltr'
+      className='font-display font-bold text-[clamp(32px,4.4vw,34px)] leading-[1.5] tracking-[-0.02em] whitespace-nowrap m-0 max-[600px]:text-[24px]'
+    >
+      <span className='text-accent me-2 [-webkit-text-stroke:0.015em_var(--color-accent)]'>
         /
       </span>
       Lagune

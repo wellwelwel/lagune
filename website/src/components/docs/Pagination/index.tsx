@@ -40,7 +40,7 @@ const PaginationCard = ({
             })}
       </span>
       <span className='truncate text-[0.9rem] font-extrabold text-ink transition-colors group-hover:text-accent'>
-        {link.label}
+        <bdi>{link.label}</bdi>
       </span>
     </span>
   </Link>

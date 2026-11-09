@@ -106,7 +106,7 @@ const FooterSection = ({
             {category.items.map((item) => (
               <li key={item.docId}>
                 <Link className={DOC_LINK} to={item.permalink}>
-                  {item.label}
+                  <bdi>{item.label}</bdi>
                 </Link>
               </li>
             ))}

@@ -1,16 +1,22 @@
 export type LocaleStatus = 'published' | 'draft';
 
+export type TextDirection = 'ltr' | 'rtl';
+
 export type SiteLocale = {
   code: string;
   label: string;
   flag: string;
   status: LocaleStatus;
+  direction?: TextDirection;
 };
 
 export type LocaleBuild = {
   defaultLocale: string;
   locales: [string, ...string[]];
-  localeConfigs: Record<string, { label: string; htmlLang: string }>;
+  localeConfigs: Record<
+    string,
+    { label: string; htmlLang: string; direction: TextDirection }
+  >;
 };
 
 export const DEFAULT_LOCALE = 'en';
@@ -124,6 +130,13 @@ export const LOCALES: SiteLocale[] = [
     flag: '/img/flags/pl.svg',
     status: 'published',
   },
+  {
+    code: 'ar-AE',
+    label: 'العربية',
+    flag: '/img/flags/ae.svg',
+    status: 'published',
+    direction: 'rtl',
+  },
 ];
 
 export const isPublished = (code: string): boolean =>
@@ -161,7 +174,11 @@ export const localeBuild = ({
     localeConfigs: Object.fromEntries(
       built.map((locale) => [
         locale.code,
-        { label: locale.label, htmlLang: locale.code },
+        {
+          label: locale.label,
+          htmlLang: locale.code,
+          direction: locale.direction ?? 'ltr',
+        },
       ])
     ),
   };

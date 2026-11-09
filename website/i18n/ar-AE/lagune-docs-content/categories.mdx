@@ -1,0 +1,114 @@
+---
+id: categories
+title: الفئات
+sidebar_label: الفئات
+description: فئات التخصصات التي يمكن لمشروع Lagune استخدامها، من OWASP إلى التحصين الخاص بكل لغة مثل JavaScript و Python و Go و Rust، وطريقة تغييرها.
+keywords:
+  - specializations
+  - categories
+  - catalog
+  - OWASP
+  - add categories
+  - الفئات
+  - التخصصات
+source_hash: '45ca55640efc44df039be3251844a3ecb80275cf2a7359d6a0862674eb1a842e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+يجمع **Lagune** [**تخصصاته**](/docs/catalog) المدمجة في **{{categories}} فئة**. وتحدد الفئات التي يستخدمها المشروع أي التخصصات المدمجة تنضم إلى [**كتالوجه**](/docs/catalog)، وهي تنقسم قسمين: ما يفعله النظام، واللغة المكتوب بها.
+
+ما دامت لا توجد فئة مسجّلة، يستخدم المشروع `owasp` وحدها. ويسجّل [`/lagune-charter`](/docs/commands/charter) كل فئة تدعمها قراءته للمشروع، ويمكنك تغييرها بنفسك في أي وقت.
+
+## ما يفعله النظام
+
+| الفئة          | المفتاح   | ما تحصّنه                                                                                                                                      |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| OWASP          | `owasp`   | مخاطر أمان التطبيقات التي يتتبعها OWASP: الحقن، وخلل التحكم في الوصول، والمصادقة، وإخفاقات التشفير                                             |
+| البنية التحتية | `infra`   | إعدادات الحاويات وأحمال العمل والحوسبة بلا خادم: Dockerfile و Compose وأمان Pod وصلاحيات IAM ومشغّلات FaaS                                     |
+| AI / LLM       | `ai`      | تكاملات الذكاء الاصطناعي و LLM، ضد prompt injection والربط غير الآمن للأدوات والوكلاء والاسترجاع و MCP                                         |
+| Lovable        | `lovable` | تطبيقات Supabase المولّدة بالذكاء الاصطناعي (Lovable وما يشبهها): ثغرات RLS، ومفاتيح `service_role` المسرّبة، والإعدادات الافتراضية غير الآمنة |
+
+## اللغة المكتوب بها
+
+| الفئة      | المفتاح      | ما تحصّنه                                                                                                           |
+| ---------- | ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| JavaScript | `javascript` | تنفيذ الكود عن بُعد عبر `eval` و `child_process`، و path traversal، و prototype pollution، في كل بيئات تشغيلها      |
+| Python     | `python`     | تنفيذ الكود عن بُعد عبر إلغاء تسلسل `pickle` و YAML، والتنقل عبر سلاسل `str.format`، و class pollution              |
+| Rust       | `rust`       | واجهات `unsafe` غير السليمة، وسوء استخدام `transmute`، وتجاوز سعة الأعداد الصحيحة، والسلوك غير المعرّف عند حدود FFI |
+| C / C++    | `c-cpp`      | أخطاء سلاسل التنسيق، وتجاوز سعة المخزن المؤقت، والكتابة خارج الحدود التي تتيح تنفيذ الكود                           |
+| PHP        | `php`        | تجاوز المصادقة عبر type juggling، وسلاسل gadget في حقن الكائنات، والإعدادات الافتراضية غير الآمنة                   |
+| Go         | `go`         | أخطاء الواجهات ذات قيمة nil المحددة النوع، و data races بين goroutines، والتزامن غير الآمن في المسارات الأمنية      |
+| Java       | `java`       | سلاسل gadget في إلغاء تسلسل `ObjectInputStream` التي تنتهي بتنفيذ الكود عن بُعد                                     |
+| Ruby       | `ruby`       | سلاسل gadget في إلغاء تسلسل `Marshal.load` و YAML التي تصل إلى تنفيذ الكود عن بُعد                                  |
+| .NET / C#  | `dotnet`     | تنفيذ الكود عن بُعد عبر إلغاء تسلسل `BinaryFormatter`، وتجاوزات الترميز التي تصل إلى XSS                            |
+
+:::tip
+**Lagune** مستقل عن لغة البرمجة: يقرأ المسار كله مشروعك أيًا كانت لغته، وهذه الفئات تضيف فقط عمقًا في المزالق الخاصة بلغة واحدة.
+:::
+
+## أضف وأزل في أي وقت
+
+الفئة نقطة بداية، لا التزام. استخدم ما يناسب المشروع الآن وغيّره في أي وقت بالمفتاح، عبر `write add` و `write remove`. ويفتح `--categories` دون قيمة أداة اختيار تفاعلية في الطرفية (المسافة للتبديل، و Enter للتأكيد، والترك فارغًا للتخطي). وخارج الطرفية، مرّر الفئات بعده.
+
+<Tabs>
+  <TabItem value="add" label="إضافة" default>
+
+```bash
+npx lagune write add --categories # interactive
+npx lagune write add --categories owasp
+npx lagune write add --categories owasp rust
+```
+
+  </TabItem>
+  <TabItem value="remove" label="إزالة">
+
+```bash
+npx lagune write remove --categories # interactive
+npx lagune write remove --categories owasp
+npx lagune write remove --categories owasp rust
+```
+
+  </TabItem>
+</Tabs>
+
+يبدأ أول `write add` أو `write remove` من `owasp`، لذلك تترك إزالة كل الفئات قائمة فارغة، لا القائمة الافتراضية أبدًا. ويُحفظ كل تغيير في `.lagune/configs.json`، فيعمل الفريق كله بالمجموعة نفسها.
+
+## اطّلع على ما يستخدمه المشروع
+
+يعرض `read list --categories` كل فئة وما إذا كان المشروع يستخدمها:
+
+```bash
+npx lagune read list --categories
+# Categories
+#   • owasp       [used]       Harden against the application security risks OWASP tracks
+#   • javascript  [available]  Harden JavaScript and its runtimes
+#   • php         [available]  Harden PHP against type-juggling auth bypass
+#   • go          [available]  Harden Go against typed-nil interface bugs
+#   ...
+#
+# No category is recorded yet, so this project uses the default: owasp.
+```
+
+اطّلع على [**الكتالوج**](/docs/catalog) لمعرفة التخصصات التي تحملها كل فئة. وتخصصاتك الخاصة، المكتوبة عبر [`/lagune-specialize`](/docs/commands/specialize)، تنضم إلى الكتالوج أيًا كانت الفئات.
+
+<Faq
+  items={[
+    {
+      question: 'كيف أضيف فئة؟',
+      answer:
+        'مرّر مفتاح الفئة إلى ‎--categories، مثل npx lagune write add --categories javascript. ويسجّل ميثاق الأمان أيضًا الفئات التي تدعمها قراءته للمشروع ما دامت لا توجد فئة مسجّلة.',
+    },
+    {
+      question: 'هل يمكنني استخدام أكثر من فئة؟',
+      answer: 'نعم. اسردها في السطر نفسه، واحدة تلو الأخرى.',
+    },
+    {
+      question: 'ما الفئة التي يجب أن يستخدمها المشروع؟',
+      answer:
+        'ابدأ بـ owasp، الفئة الافتراضية، ثم أضف فئة لغتك أو تقنياتك. لا تُحمَّل التخصصات إلا عند الحاجة، لذلك لا تكلّف الفئة شيئًا حتى تحتاج مرحلة ما إلى أحد تخصصاتها.',
+    },
+  ]}
+/>

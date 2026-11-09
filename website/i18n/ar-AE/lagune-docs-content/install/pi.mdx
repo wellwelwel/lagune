@@ -1,0 +1,94 @@
+---
+id: pi
+title: 'ثبّت Lagune على Pi كحزمة'
+sidebar_label: Pi
+parent: get-started/install
+description: ثبّت Lagune على Pi كحزمة، من npm أو من GitHub، وحافظ على تحديثه.
+keywords:
+  - pi
+  - pi coding agent
+  - pi package
+  - pi install
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+ثبّت الحزمة من الطرفية:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+ثبّت أحدث commit من **GitHub**، وهو يشغّل المحرك عبر **npx**:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## التحديث
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+يحدّث `pi update --extensions` كل حزمة ثبّتها، بينما لا يحدّث `pi update` وحده إلا **Pi**.
+
+## الأوامر
+
+اكتب الأوامر مع البادئة `skill:`، مثل `/skill:lagune-charter` بدلًا من `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Pi؟',
+      answer:
+        'شغّل pi install npm:lagune، أو pi install git:github.com/wellwelwel/lagune للحصول على أحدث commit من GitHub.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Pi؟',
+      answer:
+        'شغّل pi update npm:lagune، أو pi update git:github.com/wellwelwel/lagune لتثبيت من GitHub. ويحدّث pi update --extensions كل حزمة ثبّتها.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Pi؟',
+      answer: 'اكتبها مع البادئة skill:، مثل ‎/skill:lagune-charter.',
+    },
+  ]}
+/>

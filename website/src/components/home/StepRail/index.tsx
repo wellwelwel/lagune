@@ -9,7 +9,7 @@ type StepRailProps = {
 };
 
 const railItemClass = (current: boolean): string =>
-  `relative flex items-center justify-center size-5.5 border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-4.75 hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2 ${
+  `relative flex items-center justify-center size-5.5 border-0 bg-none cursor-pointer transition-colors duration-200 ease-out [&>svg]:size-4.75 hover:text-ink after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 rtl:after:translate-x-1/2 after:-translate-y-1/2 ${
     current ? 'lagune-rail__item--active text-ink' : 'text-[#515664]'
   }`;
 

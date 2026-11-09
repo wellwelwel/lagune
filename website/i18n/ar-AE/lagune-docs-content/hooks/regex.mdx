@@ -1,0 +1,234 @@
+---
+id: regex
+title: 'hook regex: اكتشف أنماط ReDoS'
+sidebar_label: regex
+description: افحص قاعدة الكود بحثًا عن التعابير النمطية المعرّضة لـ ReDoS، أو قيّم نمطًا واحدًا، من سطر الأوامر.
+source_hash: '3edac50c371702d79fbc4d439850d197eac35257ed77fb4890a00dc0ce03f918'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+hook `regex` هو المحرك الحتمي لأمان التعابير النمطية الذي يشغّله [التخصص `regex`](/docs/catalog)، ويمكنك تشغيله بنفسك. ويعمل بوضعين من أمر واحد: **scan** يفحص قاعدة الكود بحثًا عن الأنماط المعرّضة لـ **ReDoS** والأنماط المبنية وقت التشغيل، و **check** يقيّم نمطًا واحدًا تسلّمه له.
+
+## افحص قاعدة كود
+
+دون أي خيار، يفحص المشروع كله. ويحصر `--dir` الفحص في دليل، و `--file` في ملف واحد. ويتكرر كلاهما ويُجمعان في تقرير واحد، ويُذكر كل ملف مرة واحدة حتى لو غطّاه أكثر من هدف.
+
+<Tabs>
+  <TabItem value="all" label="المشروع كله" default>
+
+```bash
+npx lagune read regex
+```
+
+  </TabItem>
+  <TabItem value="dir" label="دليل">
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+  </TabItem>
+  <TabItem value="file" label="ملف واحد">
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+  </TabItem>
+  <TabItem value="many" label="عدة أهداف">
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+  </TabItem>
+  <TabItem value="limit" label="مع حد">
+
+يحدد `--limit` عتبة ReDoS للفحص (القيمة الافتراضية 25)، وهو الحد نفسه الذي يأخذه وضع check. وكلما انخفض الحد زادت الصرامة.
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+  </TabItem>
+</Tabs>
+
+المُخرج نص خام تبيّن عناوينه طريقة قراءة كل قسم. ولا يظهر القسم إلا إن كانت فيه ملاحظات.
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+وحين لا يُعثر على شيء، يطبع سطرًا واحدًا.
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### كيف تقرأ الأقسام
+
+| القسم                                                                                       | المعنى                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                                                      | أنماط معرّضة لـ ReDoS، مجمّعة حسب الملف مع إزاحة كل نمط تحته، يليه بين قوسين سبب عدم أمانه، ونطاقه وخياراته إن وُجدت. وكل سطر غير آمن، لذلك لا يتكرر الحكم. |
+| `Regular expressions the analysis could not settle (review manually)`                       | أنماط لم يستطع التحليل الحسم فيها ضمن حد العمل الخاص به، مسرودة بالطريقة نفسها.                                                                             |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | ملفات تبني تعبيرًا نمطيًا من متغير، أو من دمج نصوص، أو من استيفاء.                                                                                          |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | ملفات تمرّر نصًا حرفيًا عاديًا إلى مُنشئ تعبير نمطي حيث تكون صيغة التعبير النمطي الحرفية أبسط وتتجنب الترجمة وقت التشغيل.                                   |
+
+القسم الأول ملاحظة أمنية. أما الثاني والثالث فليسا ملاحظتين بحد ذاتهما: يشيران إلى كود لا يستطيع الفحص الثابت الحسم فيه، لذلك يطلبان قراءة بشرية. والرابع تلميح للوضوح، لا ملاحظة أمنية.
+
+### خيارات CLI
+
+| الخيار      | القيمة                | الوصف                                                                                              |
+| ----------- | --------------------- | -------------------------------------------------------------------------------------------------- |
+| `--pattern` | مصدر تعبير نمطي       | تحقق من نمط واحد. كرّره للتحقق من عدة أنماط، بحكم لكل نمط، بالترتيب.                               |
+| `--flags`   | خيارات التعبير النمطي | تحقق من كل `--pattern` بهذه الخيارات، مثل `im`. ينطبق على وضع check فقط.                           |
+| `--dir`     | دليل                  | يحصر الفحص في دليل. يتكرر ويُجمع مع `--file`.                                                      |
+| `--file`    | ملف                   | يحصر الفحص في ملف واحد. يتكرر ويُجمع مع `--dir`.                                                   |
+| `--limit`   | عدد صحيح غير سالب     | يحدد حد التكرار لـ ReDoS (القيمة الافتراضية 25). ينطبق على الوضعين. وكلما انخفض الحد زادت الصرامة. |
+
+دون أي خيار، يفحص المشروع كله. و `--pattern` هو وضع check ولا يمكن جمعه مع `--dir` أو `--file`.
+
+### اختر ما يفحصه
+
+يستثني ما يتجاهله **Git**. ولاستثناء المزيد، أو لفحص ما يتجاهله **Git**، امنح `regex` إعدادات خاصة به:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+تشرح صفحة [إعداد hooks](/docs/hooks/configure) كل إعداد.
+
+### اللغات المدعومة
+
+يقرأ الفحص هذه اللغات، بحسب امتداد الملف، كل منها بقواعده الخاصة فلا يُختبر نمط من لغة أبدًا وفق قواعد لغة أخرى. وكل ما عداها يُتخطى بدلًا من فحصه بقواعد خاطئة.
+
+| #   | اللغة                       | الامتدادات                                                                                                   |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`, `.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`, `.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`, `.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`, `.psm1`, `.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`, `.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`, `.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`, `.cljs`, `.cljc`, `.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`, `.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`, `.pm`                                                                                                 |
+
+:::note[أفضل جهد، لا تغطية شاملة]
+يقرأ الكود المصدري كنص، لذلك لا يستطيع الحكم على نمط يُجمَّع وقت التشغيل، وقد يفلت منه نمط موزّع على عدة أسطر، أو مختبئ خلف اسم بديل، أو مكتوب بصيغة لا يتعرف عليها. تعامل مع الأقسام كنقطة بداية قوية، لا كجرد كامل، وواصل قراءة الكود بحثًا عما لا تصل إليه.
+:::
+
+## تحقق من نمط واحد
+
+مرّر `--pattern` مع مصدر النمط لتقييمه. يطبع hook كلمة واحدة: `safe` أو `unsafe` أو `undetermined` حين يبلغ التحليل حد العمل الخاص به قبل الحسم في النمط، أو `invalid regex`. كرّر `--pattern` لتقييم عدة أنماط دفعة واحدة، بحكم لكل نمط، بالترتيب.
+
+<Tabs>
+  <TabItem value="one" label="نمط واحد" default>
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="many" label="عدة أنماط">
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+  </TabItem>
+  <TabItem value="flags" label="مع خيارات">
+
+يتحقق `--flags` من كل `--pattern` في الاستدعاء بالخيارات التي يعمل بها، لأن الخيار يغيّر الأحرف التي يطابقها النمط.
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+  </TabItem>
+  <TabItem value="limit" label="مع حد">
+
+يحدد `--limit` حد التكرار (القيمة الافتراضية 25) وينطبق على كل `--pattern` في الاستدعاء. وكلما انخفض الحد زادت الصرامة.
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[لماذا وسيط بين علامتي اقتباس]
+
+يُمرَّر كل نمط كقيمة خيار، ولا يُدمج في الأمر أبدًا. فالقيمة التي تحتوي على علامات اقتباس أو backticks تبقى خاملة ولا يمكنها الحقن في الصدفة. ضع النمط دائمًا بين علامتي اقتباس مفردتين حتى لا توسّعه الصدفة أولًا.
+:::
+
+:::tip
+هذا هو المحرك نفسه الذي يشغّله [التخصص `regex`](/docs/catalog): يفتح الفحص جولة ReDoS، ويؤكد التحقق نمطًا يكشفه الفحص.
+:::
+
+<Faq
+  items={[
+    {
+      question: 'كيف أتحقق من تعبير نمطي ضد ReDoS من CLI؟',
+      answer:
+        "شغّل npx lagune read regex --pattern '<pattern>'. يعيد safe أو unsafe أو undetermined أو invalid regex.",
+    },
+    {
+      question: 'كيف أفحص مشروعًا كاملًا بحثًا عن تعابير نمطية غير آمنة؟',
+      answer:
+        'شغّل hook regex في وضع scan على قاعدة الكود. يبلّغ عن الأنماط المعرّضة لـ ReDoS في 25 لغة مدعومة.',
+    },
+  ]}
+/>

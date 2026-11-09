@@ -1,0 +1,125 @@
+---
+id: opencode
+title: 'ثبّت Lagune على OpenCode كإضافة'
+sidebar_label: OpenCode
+parent: get-started/install
+description: ثبّت Lagune على OpenCode 1.x و 2.x كإضافة، وحافظ على تحديثه.
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: 'c22f9be8b73bd4a2354928903c625fb892217aabeaef68e7c16ea9652fd95f40'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+ثبّت الإضافة من الطرفية:
+
+```bash
+opencode plugin add lagune
+```
+
+أو أضفها إلى القائمة `plugins` في `opencode.json`:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+ثبّت الإضافة في مشروعك من الطرفية، أو أضف `-g` لتثبيتها لكل مشاريعك:
+
+```bash
+opencode plugin lagune
+```
+
+أو أضفها إلى القائمة `plugin` في `opencode.json`:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## التحديث
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+لتحديث **Lagune**، ثبّت الإصدار الجديد فوق القديم، مع إضافة `-g` إن كنت ثبّته لكل مشاريعك:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## الأوامر
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+اكتب `@` واختر الأمر، مثل `@lagune-charter`، ثم اكتب مدخلك في الرسالة نفسها.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+اكتب الأوامر بأسمائها، مثل `/lagune-charter`. وهي مسرودة تحت `/skills`، لا في قائمة `/`.
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على OpenCode؟',
+      answer:
+        'في OpenCode 2.x، شغّل opencode plugin add lagune. وفي OpenCode 1.x، شغّل opencode plugin lagune، مع إضافة ‎-g لتثبيته لكل مشاريعك.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على OpenCode؟',
+      answer:
+        'في OpenCode 2.x، شغّل opencode plugin update lagune، ثم opencode reload. وفي OpenCode 1.x، شغّل opencode plugin lagune@{{version}} --force.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على OpenCode؟',
+      answer:
+        'في OpenCode 2.x، اكتب ‎@ واختر الأمر، مثل ‎@lagune-charter، ثم اكتب مدخلك في الرسالة نفسها. وفي OpenCode 1.x، اكتبها بأسمائها، مثل ‎/lagune-charter، أو ابحث عنها تحت ‎/skills.',
+    },
+    {
+      question: 'هل يطلب OpenCode إذنًا قبل تشغيل Lagune؟',
+      answer:
+        'لا. يشغّل OpenCode أداتي المحرك، lagune_read و lagune_write، دون أن يسأل.',
+    },
+  ]}
+/>

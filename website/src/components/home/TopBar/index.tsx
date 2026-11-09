@@ -23,7 +23,7 @@ const TOP_LINK =
 const LABELED = '[&_svg]:size-4 [&_svg]:text-[#6db4e2]';
 
 const ICON_ONLY =
-  'relative [&_svg]:size-5 [&_svg]:text-white after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 after:-translate-y-1/2';
+  'relative [&_svg]:size-5 [&_svg]:text-white after:absolute after:top-1/2 after:left-1/2 after:size-10 after:-translate-x-1/2 rtl:after:translate-x-1/2 after:-translate-y-1/2';
 
 const SLIDE =
   'col-start-1 row-start-1 inline-flex transition-transform duration-300 ease-[cubic-bezier(0.2,0,0,1)]';

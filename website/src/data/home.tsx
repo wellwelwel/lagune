@@ -418,7 +418,13 @@ export const HIGHLIGHTS: {
       <Translate
         id='home.highlight.build.lead'
         description='The lead of the home highlight about /lagune, where {command} is the command'
-        values={{ command: <Emphasis>/lagune</Emphasis> }}
+        values={{
+          command: (
+            <Emphasis>
+              <bdi>/lagune</bdi>
+            </Emphasis>
+          ),
+        }}
       >
         {
           'One command, {command}, brings security while the code is written, not after.'

@@ -1,0 +1,62 @@
+---
+id: hermes-agent
+title: 'ثبّت Lagune على Hermes Agent كإضافة'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: ثبّت Lagune على Hermes Agent كإضافة، وحافظ على تحديثه.
+keywords:
+  - hermes agent
+  - hermes agent plugin
+  - hermes plugins install
+  - install lagune
+  - تثبيت lagune
+  - setup
+  - AI security
+  - AI agents
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+ثبّت الإضافة من الطرفية:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- حين يطلب منك **Hermes Agent** تأكيد إضافة من خارج كتالوجه، **أكّدها**.
+- حين يعرض تثبيت اعتماديات **Node.js** الخاصة بالمستودع، **ارفض**.
+
+## التحديث
+
+لتحديث **Lagune**، شغّل:
+
+```bash
+hermes plugins update lagune
+```
+
+## الأوامر
+
+اكتب الأوامر تحت اسم الإضافة، مثل `/lagune:lagune-charter` بدلًا من `/lagune-charter` و `/lagune:lagune` بدلًا من `/lagune`.
+
+<Faq
+  items={[
+    {
+      question: 'كيف أثبّت Lagune على Hermes Agent؟',
+      answer:
+        'شغّل hermes plugins install wellwelwel/lagune --enable. أكّد الإضافة حين يُطلب منك ذلك، وارفض تثبيت اعتماديات Node.js الخاصة بالمستودع.',
+    },
+    {
+      question: 'كيف أحدّث Lagune على Hermes Agent؟',
+      answer: 'شغّل hermes plugins update lagune.',
+    },
+    {
+      question: 'كيف أشغّل أوامر Lagune على Hermes Agent؟',
+      answer:
+        'اكتبها تحت اسم الإضافة، مثل ‎/lagune:lagune-charter و ‎/lagune:lagune.',
+    },
+  ]}
+/>

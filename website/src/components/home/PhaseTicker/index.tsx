@@ -12,7 +12,7 @@ const WORDS = [
   ).map(({ phase }) => phase.title),
 ];
 
-const WORD = '[grid-area:1/1] pl-[0.25em]';
+const WORD = '[grid-area:1/1] ps-[0.25em]';
 
 export const PhaseTicker = (): ReactNode => {
   const slotRef = useRef<HTMLSpanElement | null>(null);
