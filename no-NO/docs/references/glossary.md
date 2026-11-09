@@ -1,0 +1,96 @@
+# Ordliste for Lagune: SDH, charter, funn og sikringstiltak
+
+> Alle begrepene i Lagune og Security-Driven Hardening forklart i et enkelt språk: SDH, charter, detect, funn, sikringstiltak, harden, verify, ta ut, lukkbarhet, spesialiseringer, kategorier og katalogen.
+
+Kanonisk URL: https://lagune.ai/no-NO/docs/references/glossary
+Språk: no-NO
+Original: https://lagune.ai/docs/references/glossary
+Sist oppdatert: 2026-11-09
+
+Hvert sentralt begrep i Lagune og metodikken Security-Driven Hardening, definert én gang, i et enkelt språk.
+
+### Security-Driven Hardening (SDH)
+
+Metodikken Lagune implementerer: en kontekstbevisst Blue Team-konvensjon som oppdager konteksten til et system, prioriterer risikoene den konteksten fører med seg og veileder utbedringene. Sikkerhetskunnskapen ligger i spesifikasjonen og spesialiseringene som lastes ved behov, så utviklere og ikke-utviklere bruker den samme flyten.
+
+### Lagune
+
+Referanseimplementasjonen av SDH: ni agentkommandoer, hver med malen den fyller ut, som en KI-agent kjører for å herde en kodebase. Hver agent installerer dem gjennom sitt eget plugininstallasjonsprogram eller gjennom [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), slik [installasjonssiden](https://lagune.ai/no-NO/docs) viser, og de kjører motoren i Lagune for hvert deterministiske steg.
+
+### Charter
+
+Det overordnede laget i Lagune: et sett med prinsipper der sikkerheten kommer først, og som hver senere fase må respektere. Tenk på det som en kompileringstidskontroll for sikkerhetsnivået i et prosjekt. Det lagres i `.lagune/memory/charter.md`.
+
+### Utviklingsflyt
+
+Den universelle kommandoen `/lagune`, som herder arbeidet mens det skrives. Den tar imot en hvilken som helst prompt på et hvilket som helst stadium, bygger det du ba om og herder det med sikre standardinnstillinger før den leverer det tilbake, styrt av sikkerhetsprinsippene når de finnes. Den skriver ingenting til sporingen i Lagune, så det eneste den produserer, er den herdede koden. Sammen med fasen charter (før) og Blue Team-flyten (etter) er det slik Lagune beskytter mens du bygger.
+
+### Blue Team-flyt
+
+Revisjonen i fem faser i kjernen av Lagune: charter, detect, plan, harden, verify. Hver fase bygger på den forrige. "Blue Team" er sikkerhetstradisjonen til forsvarerne, i motsetning til det offensive Red Team.
+
+### Funn
+
+Én oppdaget risiko. Hvert funn beskriver hva det er, hvorfor det betyr noe og belegget i koden. Et funn er den ene sporede enheten som plan, harden og verify fører videre, identifisert ved navn i hver artefakt.
+
+### Sikringstiltak
+
+Et sikkerhetstiltak som tas i bruk for å lukke en risiko. Fasen harden tar i bruk sikringstiltak, og verify beviser at de holder. Lagune svekker aldri et sikringstiltak for å etterkomme en prompt.
+
+### Detect
+
+Fasen som leser koden og kartlegger hva systemet gjør og hvor risikoene ligger. Den overordnede regelen er å oppdage, ikke finne på: den registrerer bare det koden underbygger.
+
+### Harden
+
+Den eneste fasen som rører koden din. Den tar i bruk utbedringene fra forsvarsplanen én om gangen og registrerer hver som Applied, Partial eller Blocked. Applied betyr ikke at den er bevist ennå.
+
+### Verify
+
+Fasen som beviser at hver utbedring som er tatt i bruk, holder, ved å lese koden og holde den opp mot det harden registrerte. Den gir én av tre konklusjoner: Risk closed, Risk not closed eller Cannot tell from the code.
+
+### Ta ut
+
+Når verify beviser at en risiko er lukket, tas funnet ut: det fjernes fra hele kjeden, med din bekreftelse, slik at det ikke behandles på nytt.
+
+### Lukkbarhet
+
+Egenskapen at sikkerhetsarbeid har en sluttilstand. Fordi et funn som er bevist lukket, tas ut, kan flyten komme til ro og åpnes igjen først når koden endres. SDH er lukkbar, ikke en endeløs løkke.
+
+### Motor
+
+Pakken `lagune` på **npm**, som kommandoene kjører gjennom `npx` for hvert deterministiske steg: hookene, katalogen og kategoriene.
+
+### Spesialisering
+
+En fokusert, språkuavhengig modul med sikkerhetskunnskap som bare lastes ved behov, aldri som standard. En spesialisering er ikke en kommando. Last en inn i en hvilken som helst prompt med `read catalog <name>` fra motoren, for eksempel `npx lagune read catalog regex`.
+
+### Kategori
+
+En navngitt gruppe innebygde spesialiseringer, fra `owasp` til språkspesifikke som `javascript`, `python`, `go` og `rust`. Kategoriene et prosjekt bruker, registrert i `.lagune/configs.json`, avgjør hvilke innebygde spesialiseringer som blir med i katalogen. Så lenge ingen er registrert, bruker prosjektet bare `owasp`.
+
+### Katalog
+
+Settet med spesialiseringer et prosjekt bruker: de innebygde fra kategoriene pluss prosjektets egne, skrevet med `/lagune-specialize`. Motoren lister den med `read catalog`, og fasene sammenligner den med koden.
+
+### Prompt-on-demand
+
+Prinsippet om at den relevante sikkerhetskunnskapen hentes inn ut fra hva prosjektet faktisk er, i stedet for at hver kontroll kjører som standard.
+
+### Identitet etter navn
+
+Sporingsmodellen i Lagune: navnet på hvert funn, skrevet likt som seksjonstittel i hver artefakt, er identiteten gjennom hele kjeden. Sporingskartet (`.lagune/tracking.json`) inneholder bare sporing, aldri løpende tekst.
+
+## Vanlige spørsmål
+
+### Hva er Security-Driven Hardening (SDH)?
+
+SDH er en kontekstbevisst Blue Team-metodikk for sikkerhet. Den oppdager konteksten til et system, prioriterer risikoene den konteksten fører med seg og veileder utbedringene, med hvert funn i et enkelt språk. Lagune er referanseimplementasjonen.
+
+### Hva er sikkerhetsprinsippene (charter) i Lagune?
+
+Sikkerhetsprinsippene er det overordnede laget i Lagune, et sett med prinsipper der sikkerheten kommer først, og som hver senere fase må respektere. De lagres i .lagune/memory/charter.md.
+
+### Hva betyr det å ta ut et funn?
+
+Når verify beviser at en risiko er lukket, tas funnet ut: det fjernes fra hele kjeden med din bekreftelse, slik at det ikke behandles på nytt.

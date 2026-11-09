@@ -73,3 +73,7 @@ Lagune คือเวิร์กโฟลว์ Security-Driven Hardening (SDH
 - [한국어](https://lagune.ai/ko-KR/llms.txt)
 - [हिन्दी](https://lagune.ai/hi-IN/llms.txt)
 - [Bahasa Indonesia](https://lagune.ai/id-ID/llms.txt)
+- [Dansk](https://lagune.ai/da-DK/llms.txt)
+- [Norsk](https://lagune.ai/no-NO/llms.txt)
+- [Polski](https://lagune.ai/pl-PL/llms.txt)
+- [العربية](https://lagune.ai/ar-AE/llms.txt)

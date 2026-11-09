@@ -1,0 +1,79 @@
+# Lagune
+
+> Security-Driven Hardening لأي قاعدة كود
+
+Lagune سير عمل Security-Driven Hardening (SDH) مفتوح المصدر، للدفاع فقط. يساعد وكيل الذكاء الاصطناعي على تحصين أي قاعدة كود، بأي لغة برمجة، وفي كل مرحلة: يضع charter قواعد الأمان قبل أن تبدأ البناء، ويحصّن الأمر الشامل /lagune العمل أثناء كتابته، ويرصد مسار الفريق الأزرق ذو المراحل الخمس ما يفعله نظامك فعلًا ويقود الإصلاحات المهمة في هذا السياق. تُثبَّت أوامره في وكيلك عبر skills CLI، ولا يحتاج إلى مفتاح API.
+
+كل رابط تحت التوثيق يشير إلى نسخة Markdown الخام من تلك الصفحة. احذف اللاحقة .md للوصول إلى صفحة الويب. المحتوى كله في ملف واحد: https://lagune.ai/ar-AE/llms-full.txt
+
+## التوثيق
+
+- [التثبيت: التحصين الأمني لأي وكيل ذكاء اصطناعي](https://lagune.ai/ar-AE/docs.md): ثبّت Lagune في أي مشروع، كإضافة حين يدعمها وكيلك أو عبر skills CLI في غيره، ثم اختر تخصصات الأمان المناسبة له.
+- [ثبّت Lagune على Antigravity CLI كإضافة](https://lagune.ai/ar-AE/docs/install/antigravity-cli.md): ثبّت Lagune على Antigravity CLI كإضافة، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+- [ثبّت Lagune على Claude Code كإضافة](https://lagune.ai/ar-AE/docs/install/claude-code.md): ثبّت Lagune على Claude Code كإضافة، في الطرفية أو الامتداد أو تطبيق سطح المكتب، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+- [ثبّت Lagune على Codex CLI كإضافة](https://lagune.ai/ar-AE/docs/install/codex.md): ثبّت Lagune على Codex CLI كإضافة، وحافظ على تحديثه، وشغّل محركه داخل بيئة العزل.
+- [ثبّت Lagune على Cursor كإضافة](https://lagune.ai/ar-AE/docs/install/cursor.md): ثبّت Lagune على Cursor و Cursor CLI كإضافة، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+- [ثبّت Lagune على Devin CLI كإضافة](https://lagune.ai/ar-AE/docs/install/devin-cli.md): ثبّت Lagune على Devin CLI كإضافة، وحافظ على تحديثه.
+- [ثبّت Lagune على Factory Droid كإضافة](https://lagune.ai/ar-AE/docs/install/factory-droid.md): ثبّت Lagune على Factory Droid كإضافة، وحافظ على تحديثه، واسمح بأدوات محركه.
+- [ثبّت Lagune على Gemini CLI كامتداد](https://lagune.ai/ar-AE/docs/install/gemini-cli.md): ثبّت Lagune على Gemini CLI كامتداد، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+- [ثبّت Lagune على GitHub Copilot CLI كإضافة](https://lagune.ai/ar-AE/docs/install/github-copilot-cli.md): ثبّت Lagune على GitHub Copilot CLI كإضافة، وحافظ على تحديثه.
+- [ثبّت Lagune على Grok Build كإضافة](https://lagune.ai/ar-AE/docs/install/grok-build.md): ثبّت Lagune على Grok Build كإضافة، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+- [ثبّت Lagune على Hermes Agent كإضافة](https://lagune.ai/ar-AE/docs/install/hermes-agent.md): ثبّت Lagune على Hermes Agent كإضافة، وحافظ على تحديثه.
+- [ثبّت Lagune على Kimi Code كإضافة](https://lagune.ai/ar-AE/docs/install/kimi-code.md): ثبّت Lagune على Kimi Code كإضافة، وحافظ على تحديثه.
+- [ثبّت Lagune على Muse Code كإضافة](https://lagune.ai/ar-AE/docs/install/muse-code.md): ثبّت Lagune على Muse Code كإضافة، وحافظ على تحديثه، وشغّل محركه داخل بيئة العزل.
+- [ثبّت Lagune على OpenCode كإضافة](https://lagune.ai/ar-AE/docs/install/opencode.md): ثبّت Lagune على OpenCode 1.x و 2.x كإضافة، وحافظ على تحديثه.
+- [ثبّت Lagune على Pi كحزمة](https://lagune.ai/ar-AE/docs/install/pi.md): ثبّت Lagune على Pi كحزمة، من npm أو من GitHub، وحافظ على تحديثه.
+- [ثبّت Lagune على Qwen Code كامتداد](https://lagune.ai/ar-AE/docs/install/qwen-code.md): ثبّت Lagune على Qwen Code كامتداد، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
+- [ثبّت Lagune في أي وكيل عبر skills.sh أو GitHub CLI](https://lagune.ai/ar-AE/docs/install/universal.md): ثبّت Lagune في أي وكيل ذكاء اصطناعي عبر skills CLI أو GitHub CLI، وحافظ على تحديثه.
+- [مهارات الأمان لوكلاء الذكاء الاصطناعي](https://lagune.ai/ar-AE/docs/get-started/commands.md): المهارات التي يحصل عليها وكيل الذكاء الاصطناعي مع Lagune: دقّق مشروعًا قائمًا أو أمّن العمل الجديد أثناء البناء، وكل ذلك يحكمه ميثاق الأمان.
+- [لوحة التحكم](https://lagune.ai/ar-AE/docs/get-started/dashboard.md): اطّلع على ميثاق الأمان والملاحظات والكتالوج الخاصة بمشروعك في عرض مباشر ومحلي يُفتح بأمر واحد.
+- [‎/lagune: كود آمن أثناء كتابة الذكاء الاصطناعي له](https://lagune.ai/ar-AE/docs/commands/lagune.md): ابنِ ما تطلبه وحصّنه أثناء كتابته، مسترشدًا بميثاق الأمان، دون مسار يجب اتباعه.
+- [‎/lagune-charter: ضع مبادئ الأمان الخاصة بك](https://lagune.ai/ar-AE/docs/commands/charter.md): ضع مبادئ الأمان لمشروعك، وهي القواعد التي تحترمها كل مرحلة لاحقة، وسجّل فئات التخصصات التي تدعمها قراءة المشروع.
+- [‎/lagune-detect: ارصد نظامك ومخاطره](https://lagune.ai/ar-AE/docs/commands/detect.md): اقرأ الكود وارصد ما يفعله نظامك وأين تكمن المخاطر.
+- [‎/lagune-plan: قيّم الملاحظات وخطط للإصلاحات](https://lagune.ai/ar-AE/docs/commands/plan.md): حوّل ما وجدته مرحلة detect إلى خطة دفاع، بتقييم كل ملاحظة بفئة ودرجة CVSS v4.0، وقرنها بإصلاح.
+- [‎/lagune-harden: طبّق إصلاحات الأمان على الكود](https://lagune.ai/ar-AE/docs/commands/harden.md): طبّق إصلاحات الخطة على الكود، بأمان وواحدًا تلو الآخر.
+- [‎/lagune-verify: أثبت أن الضوابط الأمنية تصمد](https://lagune.ai/ar-AE/docs/commands/verify.md): أثبت أن كل إصلاح مطبّق يصمد، ثم أغلق نهائيًا ما يصمد منها.
+- [الفئات](https://lagune.ai/ar-AE/docs/categories.md): فئات التخصصات التي يمكن لمشروع Lagune استخدامها، من OWASP إلى التحصين الخاص بكل لغة مثل JavaScript و Python و Go و Rust، وطريقة تغييرها.
+- [الكتالوج: تخصصات أمنية عند الحاجة](https://lagune.ai/ar-AE/docs/catalog.md): كيف تُحمَّل التخصصات في كتالوج مشروعك، من مرحلة عند الحاجة، ومنك مباشرة.
+- [‎/lagune-specialize: درّب تخصصًا أمنيًا بنص عادي](https://lagune.ai/ar-AE/docs/commands/specialize.md): استخلص من مصدر أو موضوع أمني تقدّمه تخصصًا جديدًا يُحمَّل عند الحاجة.
+- [‎/lagune-prove: إثبات مفهوم للدفاع فقط](https://lagune.ai/ar-AE/docs/commands/prove.md): حوّل كل ملاحظة مكتشفة إلى إثبات مفهوم (PoC) قابل للتشغيل، للدفاع فقط، مع نشرة أمنية من أجل الإفصاح المسؤول.
+- [إعداد hooks: اختر ما تفحصه](https://lagune.ai/ar-AE/docs/hooks/configure.md): اختر ما تستثنيه hooks التي تفحص الملفات، لها جميعًا أو لواحد منها.
+- [hook agent: اكتشف حلقات الوكلاء غير المقيّدة](https://lagune.ai/ar-AE/docs/hooks/agent.md): افحص قاعدة الكود بحثًا عن استدعاءات الوكلاء و LLM التي لا حد لخطواتها أو وقتها، أو قيّم استدعاءً واحدًا، من سطر الأوامر.
+- [hook cors: دقّق مصادر CORS](https://lagune.ai/ar-AE/docs/hooks/cors.md): افحص الكود المصدري بحثًا عن قائمة سماح لمصادر CORS يمكن تجاوزها، أو قيّم قيمة مصدر واحدة بحثًا عن وصول متساهل أكثر من اللازم، من سطر الأوامر.
+- [hook crypto: اكتشف التشفير الضعيف](https://lagune.ai/ar-AE/docs/hooks/crypto.md): افحص قاعدة الكود بحثًا عن عناصر التشفير الضعيفة، أو قيّم مقتطفًا واحدًا، من سطر الأوامر.
+- [hook cvss: قيّم متجه CVSS v4.0](https://lagune.ai/ar-AE/docs/hooks/cvss.md): قيّم متجه CVSS v4.0 واحدًا أو أكثر من سطر الأوامر، بالحساب نفسه الذي تستخدمه حاسبة FIRST، واقرأ كلًا منها بكلمات بسيطة.
+- [hook infra: اكتشف أخطاء إعداد IaC](https://lagune.ai/ar-AE/docs/hooks/infra.md): افحص ملفات Terraform و Dockerfiles و GitHub Actions بحثًا عن أخطاء الإعداد، أو قيّم مقتطفًا واحدًا، من سطر الأوامر.
+- [hook interpreter: نبّه إلى نقاط sink لتنفيذ الكود الديناميكي](https://lagune.ai/ar-AE/docs/hooks/interpreter.md): افحص قاعدة الكود بحثًا عن نقاط sink لتنفيذ الكود الديناميكي في لغات مختلفة، أو قيّم مقتطفًا واحدًا، من سطر الأوامر.
+- [hook jwt: اكتشف التحقق من JWT دون تثبيت الخوارزمية](https://lagune.ai/ar-AE/docs/hooks/jwt.md): افحص قاعدة الكود بحثًا عن التحقق من JWT دون تثبيت الخوارزمية، أو قيّم استدعاءً واحدًا، من سطر الأوامر.
+- [hook network: قيّم عناوين URL ضد SSRF](https://lagune.ai/ar-AE/docs/hooks/network.md): قيّم وجهة جلب واحدة أو أكثر ضد SSRF، مباشرة من سطر الأوامر.
+- [hook regex: اكتشف أنماط ReDoS](https://lagune.ai/ar-AE/docs/hooks/regex.md): افحص قاعدة الكود بحثًا عن التعابير النمطية المعرّضة لـ ReDoS، أو قيّم نمطًا واحدًا، من سطر الأوامر.
+- [hook secrets: اكتشف الأسرار المكتوبة مباشرة في الكود](https://lagune.ai/ar-AE/docs/hooks/secrets.md): افحص قاعدة الكود بحثًا عن بيانات الاعتماد المكتوبة مباشرة فيه، من سطر الأوامر.
+- [أمثلة موجّهات Lagune: أتمت مسار الفريق الأزرق](https://lagune.ai/ar-AE/docs/examples/prompts.md): موجّهات Lagune جاهزة للنسخ: فحص للقراءة فقط، ومسار الفريق الأزرق الكامل، وتدقيق Zero Trust، إضافة إلى اكتشاف محصور في commit، أو في diff لفرع أو pull request، أو في حادثة حقيقية.
+- [Security-Driven Hardening: منهجية لعصر التطوير بمساعدة الذكاء الاصطناعي](https://lagune.ai/ar-AE/docs/references/paper.md): منهجية Security-Driven Hardening (SDH): منهجية دفاعية على طريقة الفريق الأزرق ومدركة للسياق لتدقيق البرمجيات المكتوبة بمساعدة الذكاء الاصطناعي أو عبر vibe coding وتحصينها.
+- [مسرد Lagune: SDH، وميثاق الأمان، والملاحظات، والضوابط](https://lagune.ai/ar-AE/docs/references/glossary.md): تعريفات بلغة بسيطة لكل مصطلح في Lagune و Security-Driven Hardening: SDH، وميثاق الأمان، و detect، والملاحظة، والضابط، و harden، و verify، والإخراج من السلسلة، وقابلية الإغلاق، والتخصصات، والفئات، والكتالوج.
+- [مخطط الإعدادات](https://lagune.ai/ar-AE/docs/references/configs-schema.md): مخطط JSON Schema لإعدادات مشروع Lagune، للإكمال التلقائي والتحقق في محررك، يتبع Lagune الحالي أو مثبّتًا على إصدار.
+- [Lagune مقابل Deepsec: نهجان أمنيان بالذكاء الاصطناعي جنبًا إلى جنب](https://lagune.ai/ar-AE/docs/references/deepsec.md): مرجع يقارن بين Lagune و Deepsec من Vercel في آلية العمل، ودورة الحياة، والاكتشاف، والتكلفة، والملاحظات، والإغلاق.
+- [مصادر OWASP](https://lagune.ai/ar-AE/docs/references/owasp-sources.md): مصدر معرفة تخصصات OWASP المدمجة، مربوطة بصفحات الهجمات و Cheat Sheet المرجعية من OWASP.
+- [‎/lagune-repair: أصلح تتبع الملاحظات المعطّل](https://lagune.ai/ar-AE/docs/commands/repair.md): أصلح السلسلة حين تُربك إعادة تسمية ملف أو نقله التتبع في Lagune.
+- [Migrate: انقل مشروع Lagune القائم على manifest إلى المهارات والإضافات](https://lagune.ai/ar-AE/docs/commands/migrate.md): انقل مشروع Lagune القائم على manifest إلى Lagune القائم على المهارات، مع الحفاظ على ميثاق الأمان والمُخرَجات والتتبع وتخصصاتك الخاصة.
+
+## لغات أخرى
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [한국어](https://lagune.ai/ko-KR/llms.txt)
+- [हिन्दी](https://lagune.ai/hi-IN/llms.txt)
+- [Bahasa Indonesia](https://lagune.ai/id-ID/llms.txt)
+- [ไทย](https://lagune.ai/th-TH/llms.txt)
+- [Dansk](https://lagune.ai/da-DK/llms.txt)
+- [Norsk](https://lagune.ai/no-NO/llms.txt)
+- [Polski](https://lagune.ai/pl-PL/llms.txt)

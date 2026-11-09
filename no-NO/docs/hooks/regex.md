@@ -1,0 +1,210 @@
+# Hook regex: Oppdag ReDoS-mønstre
+
+> Skann en kodebase for regex som er utsatt for ReDoS, eller vurder ett enkelt mønster, rett fra kommandolinjen.
+
+Kanonisk URL: https://lagune.ai/no-NO/docs/hooks/regex
+Språk: no-NO
+Original: https://lagune.ai/docs/hooks/regex
+Sist oppdatert: 2026-11-09
+
+Hooken `regex` er den deterministiske motoren for trygge regex som [spesialiseringen `regex`](https://lagune.ai/no-NO/docs/catalog) kjører, og du kan kjøre den selv. Den har to moduser i én kommando: modusen **scan** skanner en kodebase for mønstre som er utsatt for **ReDoS** eller bygges under kjøring, og modusen **check** vurderer ett enkelt mønster du gir den.
+
+## Skann en kodebase
+
+Uten flagg skanner den hele prosjektet. `--dir` avgrenser gjennomgangen til en mappe, `--file` til én enkelt fil. Begge kan gjentas og slås sammen til én rapport, der hver fil står én gang, selv når flere mål dekker den.
+
+**Hele prosjektet**
+
+```bash
+npx lagune read regex
+```
+
+**En mappe**
+
+```bash
+npx lagune read regex --dir src/services
+```
+
+**Én enkelt fil**
+
+```bash
+npx lagune read regex --file bin/import.pl
+```
+
+**Flere mål**
+
+```bash
+npx lagune read regex --dir core --dir workers --file Sources/App/Router.swift
+```
+
+**Med en grense**
+
+`--limit` setter ReDoS-terskelen for gjennomgangen (standard 25), den samme grensen som modusen check tar. En lavere grense er strengere.
+
+```bash
+npx lagune read regex --dir src/services --limit 15
+```
+
+Utdataene er ren tekst, og overskriftene forteller hvordan hver seksjon skal leses. En seksjon vises bare når den har funn.
+
+```text
+Vulnerable regular expressions found:
+
+cmd/server/main.go
+  ([a-z]+)+$ (exponential, search)
+
+Dynamically built regular expressions (review manually by simulating a constructed regex):
+
+app/payments.php
+crates/parser/lexer.rs
+lib/validate.py
+
+Static regex wrapped in a constructor (use a literal instead):
+
+config/token.rb
+```
+
+Når den ikke finner noe, skriver den ut én enkelt linje.
+
+```bash
+npx lagune read regex --dir src/clean
+# => no unsafe patterns found
+```
+
+### Slik leser du seksjonene
+
+| Seksjon                                                                                     | Betydning                                                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Vulnerable regular expressions found`                                                      | Mønstre som er utsatt for ReDoS, gruppert etter fil med hvert mønster innrykket under, fulgt i parentes av hvorfor det er utrygt og, når det har dem, omfanget og flaggene. Hver linje er utrygg, så konklusjonen gjentas ikke. |
+| `Regular expressions the analysis could not settle (review manually)`                       | Mønstre analysen ikke kunne avgjøre innenfor arbeidsgrensen sin, listet opp på samme måte.                                                                                                                                      |
+| `Dynamically built regular expressions (review manually by simulating a constructed regex)` | Filer som bygger en regex fra en variabel, en sammenslåing eller en interpolering.                                                                                                                                              |
+| `Static regex wrapped in a constructor (use a literal instead)`                             | Filer som sender en vanlig strengliteral til en regex-konstruktør der en regex-literal er enklere og sparer en kompilering under kjøring.                                                                                       |
+
+Den første seksjonen er et sikkerhetsfunn. Den andre og tredje er ikke funn i seg selv: de peker på kode en statisk kontroll ikke kan avgjøre, og ber derfor om at et menneske leser den. Den fjerde er et hint om lesbarhet, ikke et sikkerhetsfunn.
+
+### CLI-alternativer
+
+| Alternativ  | Verdi                     | Beskrivelse                                                                                               |
+| ----------- | ------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `--pattern` | kildeteksten til en regex | Sjekk ett mønster. Gjenta for å sjekke flere, én konklusjon per mønster, i samme rekkefølge.              |
+| `--flags`   | regex-flagg               | Sjekk hvert `--pattern` med disse flaggene, for eksempel `im`. Gjelder bare modusen check.                |
+| `--dir`     | en mappe                  | Avgrens en gjennomgang til en mappe. Kan gjentas og kombineres med `--file`.                              |
+| `--file`    | en fil                    | Avgrens en gjennomgang til én enkelt fil. Kan gjentas og kombineres med `--dir`.                          |
+| `--limit`   | et ikke-negativt heltall  | Sett ReDoS-grensen for repetisjoner (standard 25). Gjelder begge modusene. En lavere grense er strengere. |
+
+Uten alternativ skanner den hele prosjektet. `--pattern` er modusen check og kan ikke kombineres med `--dir` eller `--file`.
+
+### Velg hva den skanner
+
+Den utelater det **Git** ignorerer. For å utelate mer, eller for å skanne det **Git** ignorerer, gi `regex` egne innstillinger:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker regex
+```
+
+```json
+{
+  "checkers": {
+    "regex": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Konfigurer hookene](https://lagune.ai/no-NO/docs/hooks/configure) beskriver hver innstilling.
+
+### Støttede språk
+
+Gjennomgangen leser disse språkene, gjenkjent på filendelsen, hvert etter sine egne regler, slik at et mønster fra ett språk aldri testes etter et annet språks regler. Alt annet hoppes over i stedet for å skannes med feil regler.
+
+| #   | Språk                       | Filendelser                                                                                                  |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        |
+| 4   | **Go**                      | `.go`                                                                                                        |
+| 5   | **PHP**                     | `.php`                                                                                                       |
+| 6   | **Rust**                    | `.rs`                                                                                                        |
+| 7   | **Java**                    | `.java`                                                                                                      |
+| 8   | **C#**                      | `.cs`                                                                                                        |
+| 9   | **C**                       | `.c`, `.h`                                                                                                   |
+| 10  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 |
+| 11  | **Kotlin**                  | `.kt`, `.kts`                                                                                                |
+| 12  | **Swift**                   | `.swift`                                                                                                     |
+| 13  | **Scala**                   | `.scala`, `.sc`                                                                                              |
+| 14  | **Dart**                    | `.dart`                                                                                                      |
+| 15  | **PowerShell**              | `.ps1`, `.psm1`, `.psd1`                                                                                     |
+| 16  | **Elixir**                  | `.ex`, `.exs`                                                                                                |
+| 17  | **Objective-C**             | `.m`, `.mm`                                                                                                  |
+| 18  | **R**                       | `.r`                                                                                                         |
+| 19  | **Julia**                   | `.jl`                                                                                                        |
+| 20  | **Clojure**                 | `.clj`, `.cljs`, `.cljc`, `.edn`                                                                             |
+| 21  | **Crystal**                 | `.cr`                                                                                                        |
+| 22  | **Nim**                     | `.nim`, `.nims`                                                                                              |
+| 23  | **V**                       | `.v`                                                                                                         |
+| 24  | **D**                       | `.d`                                                                                                         |
+| 25  | **Perl**                    | `.pl`, `.pm`                                                                                                 |
+
+**Etter beste evne, ikke uttømmende**
+
+Den leser kildekoden som tekst, så den kan ikke vurdere et mønster som settes sammen under kjøring, og et mønster som er spredt over flere linjer, skjult bak et alias eller skrevet i en form den ikke gjenkjenner, kan slippe gjennom. Se på seksjonene som et solid utgangspunkt, ikke en fullstendig oversikt, og fortsett å lese koden for det de ikke når.
+
+## Sjekk ett enkelt mønster
+
+Send `--pattern` med kildeteksten til mønsteret for å vurdere det. Hooken skriver ut ett ord: `safe`, `unsafe`, `undetermined` når analysen når arbeidsgrensen sin før den har avgjort mønsteret, eller `invalid regex`. Gjenta `--pattern` for å vurdere flere samtidig, én konklusjon per mønster, i samme rekkefølge.
+
+**Ett mønster**
+
+```bash
+npx lagune read regex --pattern '(a+)+$'
+# => unsafe
+
+npx lagune read regex --pattern '^[a-z0-9_]{3,20}$'
+# => safe
+```
+
+**Flere mønstre**
+
+```bash
+npx lagune read regex --pattern '(a+)+$' --pattern '^[a-z]+$'
+# => unsafe
+# => safe
+```
+
+**Med flagg**
+
+`--flags` sjekker hvert `--pattern` i kallet med flaggene det kjøres med, siden et flagg endrer hvilke tegn et mønster treffer.
+
+```bash
+npx lagune read regex --pattern '^(?:a|A)+$'
+# => safe
+
+npx lagune read regex --pattern '^(?:a|A)+$' --flags 'i'
+# => unsafe
+```
+
+**Med en grense**
+
+`--limit` setter grensen for repetisjoner (standard 25) og gjelder hvert `--pattern` i kallet. En lavere grense er strengere.
+
+```bash
+npx lagune read regex --pattern 'a?a?a?' --limit 2
+# => unsafe
+```
+
+**Hvorfor et argument i anførselstegn**
+
+Hvert mønster sendes som verdien til et flagg og interpoleres aldri inn i kommandoen. En verdi med anførselstegn eller backticks forblir uvirksom og kan ikke injisere noe i skallet. Sett alltid mønsteret i enkle anførselstegn, så skallet ditt ikke ekspanderer det først.
+
+**Tips**
+
+Dette er den samme motoren som [spesialiseringen `regex`](https://lagune.ai/no-NO/docs/catalog) kjører: modusen scan åpner en ReDoS-gjennomgang, og modusen check bekrefter et mønster den finner.
+
+## Vanlige spørsmål
+
+### Hvordan sjekker jeg en regex for ReDoS fra CLI-en?
+
+Kjør npx lagune read regex --pattern '<pattern>'. Den returnerer safe, unsafe, undetermined eller invalid regex.
+
+### Hvordan skanner jeg et helt prosjekt for utrygge regex?
+
+Kjør hooken regex i modusen scan over kodebasen. Den rapporterer mønstre som er utsatt for ReDoS, i 25 støttede språk.

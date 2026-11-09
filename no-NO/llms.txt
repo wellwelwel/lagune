@@ -1,0 +1,79 @@
+# Lagune
+
+> Security-Driven Hardening for enhver kodebase
+
+Lagune er en kun defensiv arbeidsflyt med åpen kildekode for Security-Driven Hardening (SDH). Den hjelper KI-agenten din med å herde enhver kodebase, i alle språk, til enhver tid: fasen charter fastsetter sikkerhetsreglene før du bygger, den universelle kommandoen /lagune herder arbeidet mens det skrives, og Blue Team-flyten i fem faser oppdager hva systemet ditt faktisk gjør og driver frem utbedringene som betyr noe i den konteksten. Du installerer kommandoene i agenten din med CLI-en til skills, og det trengs ingen API-nøkkel.
+
+Hver lenke under Dokumentasjon går til den rene Markdown-versjonen av siden. Fjern endelsen .md for å åpne nettsiden. Hele korpuset i én fil: https://lagune.ai/no-NO/llms-full.txt
+
+## Dokumentasjon
+
+- [Installasjon: sikkerhetsherding for alle KI-agenter](https://lagune.ai/no-NO/docs.md): Installer Lagune i ethvert prosjekt, som plugin der agenten din støtter det og ellers med CLI-en til skills, og velg deretter sikkerhetsspesialiseringene som passer prosjektet.
+- [Installer Lagune som plugin i Antigravity CLI](https://lagune.ai/no-NO/docs/install/antigravity-cli.md): Installer Lagune som plugin i Antigravity CLI, hold den oppdatert og tillat motoren på forhånd.
+- [Installer Lagune som plugin i Claude Code](https://lagune.ai/no-NO/docs/install/claude-code.md): Installer Lagune som plugin i Claude Code, i terminalen, utvidelsen eller skrivebordsappen, hold den oppdatert og tillat motoren på forhånd.
+- [Installer Lagune som plugin i Codex CLI](https://lagune.ai/no-NO/docs/install/codex.md): Installer Lagune som plugin i Codex CLI, hold den oppdatert og kjør motoren i sandkassen.
+- [Installer Lagune som plugin i Cursor](https://lagune.ai/no-NO/docs/install/cursor.md): Installer Lagune som plugin i Cursor og Cursor CLI, hold den oppdatert og tillat motoren på forhånd.
+- [Installer Lagune som plugin i Devin CLI](https://lagune.ai/no-NO/docs/install/devin-cli.md): Installer Lagune som plugin i Devin CLI og hold den oppdatert.
+- [Installer Lagune som plugin i Factory Droid](https://lagune.ai/no-NO/docs/install/factory-droid.md): Installer Lagune som plugin i Factory Droid, hold den oppdatert og tillat verktøyene til motoren.
+- [Installer Lagune som utvidelse i Gemini CLI](https://lagune.ai/no-NO/docs/install/gemini-cli.md): Installer Lagune som utvidelse i Gemini CLI, hold den oppdatert og tillat motoren på forhånd.
+- [Installer Lagune som plugin i GitHub Copilot CLI](https://lagune.ai/no-NO/docs/install/github-copilot-cli.md): Installer Lagune som plugin i GitHub Copilot CLI og hold det oppdatert.
+- [Installer Lagune som plugin i Grok Build](https://lagune.ai/no-NO/docs/install/grok-build.md): Installer Lagune som plugin i Grok Build, hold det oppdatert og gi motoren tillatelse på forhånd.
+- [Installer Lagune som plugin i Hermes Agent](https://lagune.ai/no-NO/docs/install/hermes-agent.md): Installer Lagune som plugin i Hermes Agent og hold det oppdatert.
+- [Installer Lagune som plugin i Kimi Code](https://lagune.ai/no-NO/docs/install/kimi-code.md): Installer Lagune som plugin i Kimi Code og hold det oppdatert.
+- [Installer Lagune som plugin i Muse Code](https://lagune.ai/no-NO/docs/install/muse-code.md): Installer Lagune som plugin i Muse Code, hold det oppdatert og kjør motoren i sandkassen.
+- [Installer Lagune som plugin i OpenCode](https://lagune.ai/no-NO/docs/install/opencode.md): Installer Lagune som plugin i OpenCode 1.x og 2.x og hold det oppdatert.
+- [Installer Lagune som pakke i Pi](https://lagune.ai/no-NO/docs/install/pi.md): Installer Lagune som pakke i Pi, fra npm eller GitHub, og hold det oppdatert.
+- [Installer Lagune som utvidelse i Qwen Code](https://lagune.ai/no-NO/docs/install/qwen-code.md): Installer Lagune som utvidelse i Qwen Code, hold det oppdatert og gi motoren tillatelse på forhånd.
+- [Installer Lagune i enhver agent med skills.sh eller GitHub CLI](https://lagune.ai/no-NO/docs/install/universal.md): Installer Lagune i enhver KI-agent med CLI-en til skills eller med GitHub CLI, og hold det oppdatert.
+- [Skills for sikkerhet med KI-agenter](https://lagune.ai/no-NO/docs/get-started/commands.md): Skillene KI-agenten din låser opp med Lagune: å revidere et eksisterende prosjekt eller sikre nytt arbeid mens du bygger, alltid styrt av sikkerhetsprinsippene.
+- [Dashbord](https://lagune.ai/no-NO/docs/get-started/dashboard.md): Se sikkerhetsprinsippene, funnene og katalogen til prosjektet ditt i en lokal live-visning som åpnes med én kommando.
+- [/lagune: sikker kode mens KI-en din skriver den](https://lagune.ai/no-NO/docs/commands/lagune.md): Bygg det du ber om, og herd det mens det skrives, styrt av sikkerhetsprinsippene dine og uten noen flyt å følge.
+- [/lagune-charter: Fastsett sikkerhetsprinsippene dine](https://lagune.ai/no-NO/docs/commands/charter.md): Fastsett sikkerhetsprinsippene for prosjektet ditt, reglene hver senere fase følger, og registrer spesialiseringskategoriene som gjennomgangen av prosjektet støtter.
+- [/lagune-detect: Kartlegg systemet ditt og risikoene](https://lagune.ai/no-NO/docs/commands/detect.md): Les koden din og kartlegg hva systemet gjør og hvor risikoene ligger.
+- [/lagune-plan: Vurder funn og planlegg utbedringer](https://lagune.ai/no-NO/docs/commands/plan.md): Gjør det detect fant, om til en forsvarsplan som vurderer hvert funn med en kategori og en CVSS v4.0-score, og knytter en utbedring til det.
+- [/lagune-harden: Ta i bruk sikkerhetsutbedringer i koden din](https://lagune.ai/no-NO/docs/commands/harden.md): Ta i bruk utbedringene fra planen i koden din, trygt og én om gangen.
+- [/lagune-verify: Bevis at sikringstiltakene holder](https://lagune.ai/no-NO/docs/commands/verify.md): Bevis at hver utbedring som er tatt i bruk, holder, og lukk deretter de som gjør det.
+- [Kategorier](https://lagune.ai/no-NO/docs/categories.md): Spesialiseringskategoriene et Lagune-prosjekt kan bruke, fra OWASP til språkspesifikk herding for JavaScript, Python, Go og Rust, og hvordan du endrer dem.
+- [Katalog: sikkerhetsspesialiseringer ved behov](https://lagune.ai/no-NO/docs/catalog.md): Slik lastes spesialiseringene i katalogen til prosjektet ditt: av en fase ved behov, og av deg direkte.
+- [/lagune-specialize: Tren en sikkerhetsspesialisering med vanlig tekst](https://lagune.ai/no-NO/docs/commands/specialize.md): Destiller en sikkerhetskilde eller et sikkerhetstema du gir den, til en ny spesialisering som lastes inn ved behov.
+- [/lagune-prove: kun defensiv proof of concept](https://lagune.ai/no-NO/docs/commands/prove.md): Gjør hvert oppdaget funn om til en kjørbar, kun defensiv proof of concept (PoC) og et sikkerhetsvarsel for ansvarlig varsling.
+- [Konfigurer hookene: Velg hva de skanner](https://lagune.ai/no-NO/docs/hooks/configure.md): Velg hva hookene som skanner filer, utelater, for alle eller for én av dem.
+- [Hook agent: Oppdag agentløkker uten grense](https://lagune.ai/no-NO/docs/hooks/agent.md): Skann en kodebase for agent- og LLM-kall uten grense for steg eller tid, eller vurder ett enkelt kall, rett fra kommandolinjen.
+- [Hook cors: Revider CORS-origins](https://lagune.ai/no-NO/docs/hooks/cors.md): Skann kildekoden for en tillatelsesliste for CORS-origins som kan omgås, eller vurder om én enkelt origin-verdi gir for vid tilgang, rett fra kommandolinjen.
+- [Hook crypto: Oppdag svak kryptografi](https://lagune.ai/no-NO/docs/hooks/crypto.md): Skann en kodebase for svake kryptografiske primitiver, eller vurder ett enkelt kodeutdrag, rett fra kommandolinjen.
+- [Hook cvss: Vurder en CVSS v4.0-vektor](https://lagune.ai/no-NO/docs/hooks/cvss.md): Vurder én eller flere CVSS v4.0-vektorer fra kommandolinjen, med samme beregning som kalkulatoren til FIRST, og få hver av dem forklart med enkle ord.
+- [Hook infra: Oppdag feilkonfigurasjon i IaC](https://lagune.ai/no-NO/docs/hooks/infra.md): Skann Terraform, Dockerfiles og GitHub Actions etter feilkonfigurasjon, eller vurder ett enkelt kodeutdrag, rett fra kommandolinjen.
+- [Hook interpreter: Flagg sinks for dynamisk kodekjøring](https://lagune.ai/no-NO/docs/hooks/interpreter.md): Skann en kodebase etter sinks for dynamisk kodekjøring på tvers av språk, eller vurder ett enkelt kodeutdrag, rett fra kommandolinjen.
+- [Hook jwt: Oppdag JWT-verifisering uten låst algoritme](https://lagune.ai/no-NO/docs/hooks/jwt.md): Skann en kodebase etter JWT-verifisering uten låst algoritme, eller vurder ett enkelt kall, rett fra kommandolinjen.
+- [Hook network: Vurder URL-er for SSRF](https://lagune.ai/no-NO/docs/hooks/network.md): Vurder SSRF-risikoen for én eller flere destinasjoner for forespørsler, rett fra kommandolinjen.
+- [Hook regex: Oppdag ReDoS-mønstre](https://lagune.ai/no-NO/docs/hooks/regex.md): Skann en kodebase for regex som er utsatt for ReDoS, eller vurder ett enkelt mønster, rett fra kommandolinjen.
+- [Hook secrets: Oppdag hardkodede hemmeligheter](https://lagune.ai/no-NO/docs/hooks/secrets.md): Skann en kodebase etter hardkodede påloggingsdetaljer rett fra kommandolinjen.
+- [Prompteksempler for Lagune: Automatiser Blue Team-flyten](https://lagune.ai/no-NO/docs/examples/prompts.md): Prompter for Lagune, klare til å kopieres: en gjennomgang med kun lesetilgang, hele Blue Team-flyten og en Zero Trust-revisjon, pluss kartlegging avgrenset til en commit, en diff fra en branch eller PR, eller en reell hendelse.
+- [Security-Driven Hardening: en konvensjon for tiden med KI-assistert utvikling](https://lagune.ai/no-NO/docs/references/paper.md): Metodikken Security-Driven Hardening (SDH): en kontekstbevisst Blue Team-konvensjon for revisjon og herding av programvare som er KI-assistert eller vibe-kodet.
+- [Ordliste for Lagune: SDH, charter, funn og sikringstiltak](https://lagune.ai/no-NO/docs/references/glossary.md): Alle begrepene i Lagune og Security-Driven Hardening forklart i et enkelt språk: SDH, charter, detect, funn, sikringstiltak, harden, verify, ta ut, lukkbarhet, spesialiseringer, kategorier og katalogen.
+- [Konfigurasjonsskjema](https://lagune.ai/no-NO/docs/references/configs-schema.md): JSON Schema for konfigurasjonen i et prosjekt med Lagune, for autofullføring og validering i editoren din, enten det følger gjeldende versjon av Lagune eller er låst til en bestemt versjon.
+- [Lagune vs. Deepsec: to KI-drevne sikkerhetstilnærminger side om side](https://lagune.ai/no-NO/docs/references/deepsec.md): En referanse som sammenligner Lagune og Deepsec fra Vercel: hvordan de fungerer, livssyklus, deteksjon, kostnad, funn og lukking.
+- [OWASP-kilder](https://lagune.ai/no-NO/docs/references/owasp-sources.md): Hvor kunnskapen i de innebygde OWASP-spesialiseringene kommer fra, koblet til de kanoniske OWASP-sidene om angrep og Cheat Sheets.
+- [/lagune-repair: Reparer ødelagt sporing av funn](https://lagune.ai/no-NO/docs/commands/repair.md): Reparer kjeden når et nytt filnavn eller en flyttet fil forvirrer sporingen i Lagune.
+- [Migrate: Flytt et prosjekt fra manifestbasert Lagune til skills og plugins](https://lagune.ai/no-NO/docs/commands/migrate.md): Flytt et prosjekt fra den manifestbaserte versjonen av Lagune til versjonen basert på skills, og behold sikkerhetsprinsippene, artefaktene, sporingen og dine egne spesialiseringer.
+
+## Andre språk
+
+- [English](https://lagune.ai/llms.txt)
+- [Português (Brasil)](https://lagune.ai/pt-BR/llms.txt)
+- [Español (España)](https://lagune.ai/es-ES/llms.txt)
+- [Deutsch](https://lagune.ai/de-DE/llms.txt)
+- [Français](https://lagune.ai/fr-FR/llms.txt)
+- [Italiano](https://lagune.ai/it-IT/llms.txt)
+- [Türkçe](https://lagune.ai/tr-TR/llms.txt)
+- [Українська](https://lagune.ai/uk-UA/llms.txt)
+- [Русский](https://lagune.ai/ru-RU/llms.txt)
+- [简体中文](https://lagune.ai/zh-CN/llms.txt)
+- [日本語](https://lagune.ai/ja-JP/llms.txt)
+- [한국어](https://lagune.ai/ko-KR/llms.txt)
+- [हिन्दी](https://lagune.ai/hi-IN/llms.txt)
+- [Bahasa Indonesia](https://lagune.ai/id-ID/llms.txt)
+- [ไทย](https://lagune.ai/th-TH/llms.txt)
+- [Dansk](https://lagune.ai/da-DK/llms.txt)
+- [Polski](https://lagune.ai/pl-PL/llms.txt)
+- [العربية](https://lagune.ai/ar-AE/llms.txt)

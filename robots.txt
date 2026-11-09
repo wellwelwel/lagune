@@ -50,3 +50,7 @@ Sitemap: https://lagune.ai/ko-KR/sitemap.xml
 Sitemap: https://lagune.ai/hi-IN/sitemap.xml
 Sitemap: https://lagune.ai/id-ID/sitemap.xml
 Sitemap: https://lagune.ai/th-TH/sitemap.xml
+Sitemap: https://lagune.ai/da-DK/sitemap.xml
+Sitemap: https://lagune.ai/no-NO/sitemap.xml
+Sitemap: https://lagune.ai/pl-PL/sitemap.xml
+Sitemap: https://lagune.ai/ar-AE/sitemap.xml

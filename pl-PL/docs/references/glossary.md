@@ -1,0 +1,96 @@
+# Słownik pojęć Lagune: SDH, charter, ustalenia i zabezpieczenia
+
+> Proste definicje wszystkich pojęć Lagune i metodologii Security-Driven Hardening: SDH, charter, detect, ustalenie, zabezpieczenie, harden, verify, wycofanie, zamykalność, specjalizacje, kategorie i katalog.
+
+Adres kanoniczny: https://lagune.ai/pl-PL/docs/references/glossary
+Język: pl-PL
+Oryginał: https://lagune.ai/docs/references/glossary
+Ostatnia aktualizacja: 2026-11-09
+
+Wszystkie kluczowe pojęcia Lagune i metodologii Security-Driven Hardening, każde zdefiniowane raz, prostym językiem.
+
+### Security-Driven Hardening (SDH)
+
+Metodologia, którą realizuje Lagune: dopasowana do kontekstu konwencja Blue Team, która wykrywa kontekst systemu, ustala priorytety ryzyk, jakie ten kontekst niesie, i prowadzi przez poprawki. Wiedza o bezpieczeństwie znajduje się w specyfikacji i jej specjalizacjach ładowanych na żądanie, więc programista i osoba, która nie programuje, korzystają z tego samego przepływu pracy.
+
+### Lagune
+
+Referencyjna implementacja SDH: dziewięć poleceń, każde z szablonem, który wypełnia, za pomocą których agent AI utwardza bazę kodu. Każdy agent instaluje je własnym instalatorem wtyczek lub przez [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), jak pokazuje [strona instalacji](https://lagune.ai/pl-PL/docs), a każdy deterministyczny krok wykonują za pomocą silnika Lagune.
+
+### Charter
+
+Warstwa nadrzędna Lagune: zestaw reguł stawiających bezpieczeństwo na pierwszym miejscu, których musi przestrzegać każda kolejna faza. Traktuj je jak kontrolę na etapie kompilacji, która pilnuje poziomu bezpieczeństwa projektu. Są zapisane w pliku `.lagune/memory/charter.md`.
+
+### Proces deweloperski
+
+Uniwersalne polecenie `/lagune`, które utwardza kod już w trakcie pisania. Przyjmuje dowolny prompt na dowolnym etapie, buduje to, o co prosisz, i zanim odda wynik, utwardza go bezpiecznymi ustawieniami domyślnymi, kierując się zasadami bezpieczeństwa, jeśli istnieją. Niczego nie zapisuje w śledzeniu Lagune, więc jego jedynym produktem jest utwardzony kod. Razem z fazą charter (przed nim) i przepływem pracy Blue Team (po nim) tworzy sposób, w jaki Lagune chroni projekt podczas jego budowania.
+
+### Przepływ pracy Blue Team
+
+Pięciofazowy audyt stanowiący rdzeń Lagune: charter, detect, plan, harden, verify. Każda faza opiera się na poprzedniej. "Blue Team" to w bezpieczeństwie tradycja obrońców, w przeciwieństwie do ofensywnego zespołu Red Team.
+
+### Ustalenie
+
+Jedno wykryte ryzyko. Każde ustalenie mówi, czego dotyczy, dlaczego ma znaczenie i na jakim dowodzie w kodzie się opiera. Ustalenie to pojedyncza śledzona jednostka, którą dalej przejmują fazy plan, harden i verify, rozpoznawana po nazwie w każdym artefakcie.
+
+### Zabezpieczenie
+
+Środek bezpieczeństwa wdrożony, aby zamknąć ryzyko. Faza harden wdraża zabezpieczenia, a verify wykazuje, że działają. Lagune nigdy nie osłabia zabezpieczenia tylko dlatego, że prosi o to prompt.
+
+### Detect
+
+Faza, która czyta kod i mapuje, co robi system oraz gdzie kryją się ryzyka. Jej nadrzędna zasada brzmi: wykrywać, nie wymyślać. Zapisuje tylko to, co znajduje potwierdzenie w kodzie.
+
+### Harden
+
+Jedyna faza, która zmienia twój kod. Wdraża poprawki z planu po jednej i zapisuje każdą jako Applied, Partial lub Blocked. Applied nie oznacza jeszcze, że działanie poprawki wykazano.
+
+### Verify
+
+Faza, która wykazuje, że każda wdrożona poprawka działa, czytając kod i zestawiając go z tym, co zapisała faza harden. Zwraca jeden z trzech werdyktów: Risk closed, Risk not closed albo Cannot tell from the code.
+
+### Wycofanie
+
+Gdy verify wykaże, że ryzyko jest zamknięte, ustalenie zostaje wycofane: za twoim potwierdzeniem znika z całego łańcucha, więc nie jest już przetwarzane od nowa.
+
+### Zamykalność
+
+Właściwość, dzięki której praca nad bezpieczeństwem ma stan końcowy. Ponieważ ustalenie, którego zamknięcie wykazano, zostaje wycofane, przepływ pracy może przejść w stan spoczynku i otwiera się ponownie dopiero wtedy, gdy zmieni się kod. W SDH bezpieczeństwo jest możliwe do zamknięcia, a nie stanowi nieskończonej pętli.
+
+### Silnik
+
+Pakiet `lagune` w **npm**, za pomocą którego polecenia wykonują przez `npx` każdy deterministyczny krok: hooki, katalog i kategorie.
+
+### Specjalizacja
+
+Skoncentrowany, niezależny od języka moduł wiedzy o bezpieczeństwie, ładowany tylko na żądanie, nigdy domyślnie. Specjalizacja nie jest poleceniem. Załaduj ją do dowolnego promptu poleceniem silnika `read catalog <name>`, na przykład `npx lagune read catalog regex`.
+
+### Kategoria
+
+Nazwana grupa wbudowanych specjalizacji, od `owasp` po te dla konkretnych języków, takie jak `javascript`, `python`, `go` i `rust`. Kategorie, z których korzysta projekt, zapisane w pliku `.lagune/configs.json`, decydują o tym, które wbudowane specjalizacje trafiają do jego katalogu. Dopóki żadna nie jest zapisana, projekt korzysta tylko z kategorii `owasp`.
+
+### Katalog
+
+Zbiór specjalizacji, z których korzysta projekt: wbudowane specjalizacje jego kategorii oraz jego własne, napisane za pomocą polecenia `/lagune-specialize`. Polecenie silnika `read catalog` je wypisuje, a fazy dopasowują je do kodu.
+
+### Prompt na żądanie
+
+Zasada, zgodnie z którą odpowiednią wiedzę o bezpieczeństwie dobiera się do tego, czym projekt faktycznie jest, zamiast domyślnie uruchamiać każdą kontrolę.
+
+### Tożsamość oparta na nazwie
+
+Model śledzenia w Lagune: nazwa każdego ustalenia, zapisana identycznie jako tytuł sekcji w każdym artefakcie, jest jego tożsamością w całym łańcuchu. Mapa śledzenia (`.lagune/tracking.json`) przechowuje wyłącznie dane śledzenia, nigdy tekst opisowy.
+
+## Najczęściej zadawane pytania
+
+### Czym jest Security-Driven Hardening (SDH)?
+
+SDH to dopasowana do kontekstu metodologia bezpieczeństwa w duchu Blue Team. Wykrywa kontekst systemu, ustala priorytety ryzyk, jakie ten kontekst niesie, i prowadzi przez poprawki, opisując każde ustalenie prostym językiem. Lagune jest jej referencyjną implementacją.
+
+### Czym są zasady bezpieczeństwa (charter) w Lagune?
+
+Zasady bezpieczeństwa (charter) to warstwa nadrzędna Lagune: reguły stawiające bezpieczeństwo na pierwszym miejscu, których musi przestrzegać każda kolejna faza. Są zapisane w pliku .lagune/memory/charter.md.
+
+### Co oznacza wycofanie ustalenia?
+
+Gdy verify wykaże, że ryzyko jest zamknięte, ustalenie zostaje wycofane: za twoim potwierdzeniem znika z całego łańcucha, więc nie jest już przetwarzane od nowa.

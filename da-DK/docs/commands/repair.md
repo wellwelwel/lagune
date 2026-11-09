@@ -1,0 +1,33 @@
+# /lagune-repair: Ret ødelagt sporing af fund
+
+> Reparér kæden, når en omdøbning eller en flyttet fil forvirrer sporingen i Lagune.
+
+Kanonisk URL: https://lagune.ai/da-DK/docs/commands/repair
+Sprog: da-DK
+Original: https://lagune.ai/docs/commands/repair
+Sidst opdateret: 2026-11-09
+
+🧰 Reparér kæden, når en omdøbning eller en flyttet fil forvirrer den.
+
+**Intern vedligeholdelse, ikke en sikkerhedsfase**
+
+Repair er ikke en sjette fase i det lineære workflow. Dens opgave er at holde sporingen sammenhængende.
+
+```prompt
+# Den tager intet input: den reparerer altid hele kæden
+/lagune-repair
+```
+
+## Sådan virker det
+
+Hvert fund fra detect er ét sporet punkt, som plan, harden og verify fører videre, og hver af dem handler på det og rapporterer det igen ved navn. Det navn, skrevet ens som afsnitstitel i hvert artefakt, er dets identitet hele vejen igennem.
+
+Det eneste foranderlige, sporingen gemmer, er de filstier, punktet peger på. De stier findes ingen andre steder, så en omdøbning eller en flyttet fil kan kun bryde forbindelsen dér, aldrig i to kopier, der glider fra hinanden. Når det sker, retter repair kortet (`.lagune/tracking.json`), så identiteten overlever omdøbningen. Den læser artefakterne og sporingskortet, læser kun din kildekode for at finde en omdøbt fils nye sti og skriver aldrig sikkerhedsindhold.
+
+I samme gennemløb tjekker den hvert hukommelsesartefakt op mod dets skabelon og rapporterer, hvad der har flyttet sig, og peger hvert punkt mod den fase, der retter det.
+
+**Tip**
+
+- Den rører hverken din kode eller tekstartefakterne, kun sporingen.
+- Du kører den sjældent manuelt. Når en fase opdager, at kæden er inkonsistent, kører den repair for dig og fortsætter.
+- Den sporing, den vedligeholder, ligger i `.lagune/tracking.json`, en intern tilstand, du aldrig redigerer manuelt.

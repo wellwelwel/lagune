@@ -1,0 +1,89 @@
+# /lagune-charter: Ustal swoje zasady bezpieczeństwa
+
+> Ustal zasady bezpieczeństwa projektu, czyli reguły, których przestrzega każda kolejna faza, i zapisz kategorie specjalizacji, za którymi przemawia analiza projektu.
+
+Adres kanoniczny: https://lagune.ai/pl-PL/docs/commands/charter
+Język: pl-PL
+Oryginał: https://lagune.ai/docs/commands/charter
+Ostatnia aktualizacja: 2026-11-09
+
+🧬 Opisz swój projekt, a **Lagune** zamieni ten opis w twoje reguły bezpieczeństwa (a jeśli go nie podasz, wywnioskuje je z samego projektu).
+
+Zasady bezpieczeństwa tworzą warstwę nadrzędną: zestaw reguł stawiających bezpieczeństwo na pierwszym miejscu, których musi przestrzegać każda kolejna faza. Traktuj je jak kontrolę na etapie kompilacji, która pilnuje poziomu bezpieczeństwa twojego projektu.
+
+## Użycie
+
+**Opisz projekt**
+
+```prompt
+/lagune-charter Mój projekt to sklep internetowy z grami wideo. Klienci dodają produkty do koszyka i płacą kartą kredytową lub przelewem. Widzą swoje zamówienia i status każdego z nich.
+```
+
+**Niech Lagune zaproponuje**
+
+```prompt
+/lagune-charter
+```
+
+> _Widzę bibliotekę płatności, konfigurację logowania i model zamówienia powiązany z klientem. Wygląda to na sklep internetowy, który coś sprzedaje. Klienci płacą i śledzą własne zamówienia..._ ☁️
+
+## Jakie wnioski wyciąga
+
+**Lagune** traktuje twój opis lub dokument **PRD** jako kierunek, ustala, co z niego wynika dla bezpieczeństwa, a potem czyta projekt, aby wyjść poza to, co podajesz. Na przykład:
+
+- Koszyk przechowujący zamówienia oznacza, że istnieje **baza danych**:
+  - np. `"Gdzie są przechowywane dane?"`, `"Kto ma do nich dostęp?"`, `"Czy dane wyciekają?"`.
+- To, że klienci widzą własne zamówienia, oznacza, że istnieje jakiś rodzaj **logowania lub kontroli dostępu**:
+  - np. `"Czy jeden klient może dostać się do zamówień innego?"`, `"Czy sesje są chronione?"`.
+- Przyjmowanie płatności kartą i przelewem oznacza, że **w grę wchodzą pieniądze i dane wrażliwe**:
+  - np. `"Czy dane kart są przechowywane?"`, `"Czy płatności są weryfikowane?"`.
+
+Twój opis i projekt się uzupełniają: opis wyznacza intencję, a lektura zależności, pliku README i konfiguracji ujawnia to, o czym opis milczy. Jeśli coś ważnego nadal jest niejasne, **Lagune** zadaje krótkie, proste pytanie, zamiast zgadywać.
+
+Na tej podstawie **Lagune** tworzy zestaw reguł bezpieczeństwa dopasowanych do projektu, które możesz przejrzeć i zmienić, kiedy tylko potrzebujesz.
+
+**Jak wycisnąć z tego maksimum**
+
+- Możesz też zdefiniować własne reguły bezpieczeństwa dla projektu.
+- Im więcej istotnych szczegółów podasz, tym lepszy będzie raport końcowy:
+  - Wyjaśnij, czym jest projekt, jak działa i co dzieje się pod maską.
+  - Kto jest użytkownikiem końcowym? Co użytkownicy mogą robić, a czego nie?
+  - Szczegóły dotyczące zachowania są równie cenne jak szczegóły techniczne.
+- Pamięć fazy charter znajduje się w pliku `.lagune/memory/charter.md`.
+
+## Zapisywane kategorie
+
+Specjalizacje, czyli wiedza o bezpieczeństwie, którą kolejne fazy wczytują na żądanie, trafiają do [katalogu](https://lagune.ai/pl-PL/docs/catalog) twojego projektu według [kategorii](https://lagune.ai/pl-PL/docs/categories). Dopóki twój projekt nie ma zapisanej żadnej kategorii, faza charter zapisuje każdą, za którą przemawia jej analiza, na przykład język twojego projektu, wywołania modelu LLM czy kontenery, i wymienia je w swoim podsumowaniu.
+
+Gdy kategorie są już zapisane, faza charter zostawia je bez zmian i wymienia tylko te kategorie, których twój projekt jeszcze nie używa. Możesz je zmienić samodzielnie w każdej chwili:
+
+```bash
+npx lagune write add --categories python
+npx lagune write remove --categories python
+```
+
+## Foldery, które proponuje pominąć
+
+Gdy analiza fazy charter znajdzie w repozytorium foldery, które nie są kodem twojego projektu do obrony, na przykład fixtury testowe celowo napisane tak, by wyglądały na podatne, wymienia je z numerami na końcu podsumowania. Nigdy nie pomija żadnego z nich samodzielnie, bo złośliwe repozytorium może upodobnić swój kod do fixtur, więc zapisywane są tylko numery, które podasz w odpowiedzi. [Konfiguracja hooków](https://lagune.ai/pl-PL/docs/hooks/configure) pokazuje, jak zmienić je samodzielnie.
+
+## Co dalej
+
+Gdy reguły są już ustalone, zmapuj, co twój system faktycznie robi: [`/lagune-detect`](https://lagune.ai/pl-PL/docs/commands/detect).
+
+## Najczęściej zadawane pytania
+
+### Czym są zasady bezpieczeństwa (charter) w Lagune?
+
+Zasady bezpieczeństwa to warstwa nadrzędna Lagune: zestaw reguł stawiających bezpieczeństwo na pierwszym miejscu, których musi przestrzegać każda kolejna faza. Traktuj je jak kontrolę na etapie kompilacji, która pilnuje poziomu bezpieczeństwa twojego projektu.
+
+### Gdzie są przechowywane zasady bezpieczeństwa?
+
+W pliku .lagune/memory/charter.md.
+
+### Czy mogę napisać własne zasady bezpieczeństwa?
+
+Tak. Lagune proponuje reguły na podstawie twojego opisu i kodu, a ty możesz je przeformułować, usunąć, dodać nowe lub zawęzić ich zakres.
+
+### Czy faza charter wybiera za mnie kategorie specjalizacji?
+
+Tylko dopóki żadna nie jest zapisana. Wtedy zapisuje każdą kategorię, za którą przemawia jej analiza, na przykład twój język programowania albo wywołania modelu LLM. Gdy kategorie są już zapisane, nigdy ich nie zmienia.

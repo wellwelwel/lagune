@@ -1,0 +1,130 @@
+# Katalog: sikkerhetsspesialiseringer ved behov
+
+> Slik lastes spesialiseringene i katalogen til prosjektet ditt: av en fase ved behov, og av deg direkte.
+
+Kanonisk URL: https://lagune.ai/no-NO/docs/catalog
+Språk: no-NO
+Original: https://lagune.ai/docs/catalog
+Sist oppdatert: 2026-11-09
+
+🧠 Spesialiseringene i **Lagune** er fokuserte, språkuavhengige kunnskapsmoduler for sikkerhet som bare lastes ved behov, aldri som standard. De er ikke kommandoer. Katalogen til prosjektet ditt er utvalget det bruker: de innebygde spesialiseringene fra [kategoriene](https://lagune.ai/no-NO/docs/categories) til prosjektet, pluss prosjektets egne. Fasene detect og verify henter dem inn mens de kjører, og du kan når som helst laste en direkte.
+
+**Oversikt**
+
+*Den interaktive katalogoversikten finner du på nettsiden. Alle innebygde spesialiseringer står i tabellen nedenfor.*
+
+**Slik fungerer det**
+
+## Bruk den selv
+
+Vil du bruke en spesialisering direkte, ber du agenten laste den med `read catalog <name>` og skriver oppgaven i samme prompt. Kunnskapen virker da på det du ba om. Dette fungerer i alle prompter, også i en som ikke har noe med flyten i **Lagune** å gjøre.
+
+Her er for eksempel en direkte, fritt formulert prompt som lager en sikker samling **RegExp** i **Python**:
+
+```prompt
+Last inn spesialiseringen regex med `npx lagune read catalog regex`, og lag deretter en samling regulære uttrykk i @src/utils/regex.py som validerer e-postadresser og brukernavn.
+```
+
+Dette bruker en deterministisk hook til å teste hver **RegExp** mot **ReDoS**, beholder de trygge og gir omtrent dette:
+
+```python
+import re
+
+EMAIL = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+USERNAME = re.compile(r"^[a-zA-Z0-9_]{3,20}$")
+
+def is_email(value: str) -> bool:
+    return EMAIL.match(value) is not None
+
+def is_username(value: str) -> bool:
+    return USERNAME.match(value) is not None
+```
+
+**Prøv ReDoS-kontrollen**
+
+Test et mønster selv på [**devina.io/redos-checker**](https://devina.io/redos-checker).
+
+## De innebygde spesialiseringene
+
+De innebygde spesialiseringene er gruppert i [**kategorier**](https://lagune.ai/no-NO/docs/categories). Dette er utvalget som følger med **Lagune**:
+
+| Spesialisering        | Kategori                    | Fokus                                                                                                  |
+| --------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `regex`               | `owasp`                     | **ReDoS:** mønstre som eksploderer ved manipulert inndata.                                             |
+| `network`             | `owasp`                     | **SSRF og omdirigeringer:** brukeroppgitte mål for henting eller omdirigering.                         |
+| `interpreter`         | `owasp`, `lovable`          | **Kodeinjeksjon:** `eval`, dynamisk inkludering, dispatch via navn.                                    |
+| `sql`                 | `owasp`                     | **Relasjonsdatabaser:** injeksjon, rå ORM-kall, privilegier, rekkevidden til databasemotoren.          |
+| `path`                | `owasp`                     | **Filsystemstier:** traversal, null-byte, NTFS-strømmer, planting.                                     |
+| `upload`              | `owasp`                     | **Filopplasting:** type/signatur, ondsinnet innhold, lagring, grenser.                                 |
+| `access-control`      | `owasp`, `lovable`          | **Autentisering, autorisasjon og økter:** IDOR, mass assignment, leietakere, økter.                    |
+| `credential-endpoint` | `owasp`, `lovable`          | **Gjetting og boter:** brute force, password spraying, credential stuffing, hastighetsbegrensning.     |
+| `federation`          | `owasp`                     | **Tillit til tokens:** OAuth/OIDC, SAML, JWT-validering, QR-innlogging.                                |
+| `http-request`        | `owasp`                     | **Opprinnelsen til forespørsler:** CSRF, feilkonfigurert CORS, forfalsket klient-IP.                   |
+| `transport`           | `owasp`                     | **Kanalsikkerhet:** TLS-konfigurasjon, HTTPS/klartekst, HSTS, pinning.                                 |
+| `crypto`              | `owasp`, `lovable`          | **Kryptografi for lagrede data:** svake eller hjemmelagde algoritmer, CSPRNG, nøkkelhåndtering.        |
+| `secrets`             | `owasp`, `lovable`          | **Hardkodede påloggingsdetaljer:** nøkler, tokens og passord skrevet rett inn i kildekoden.            |
+| `api-endpoint`        | `owasp`                     | **Grensesnitt utenom REST:** GraphQL, gRPC, autorisasjon for WebSocket, DoS, skjema.                   |
+| `payment`             | `owasp`, `lovable`          | **Betalingsflyt:** verifisering mot betalingsløsningen på serversiden, signerte callbacks, idempotens. |
+| `xml`                 | `owasp`                     | **XML-parsing:** XXE, eksterne entiteter, billion laughs-ekspansjon.                                   |
+| `csv`                 | `owasp`                     | **Formelinjeksjon:** regnearkceller som starter med `=`/`+`/`-`/`@`.                                   |
+| `container`           | `owasp`, `infra`            | **Containerkonfigurasjon:** root, capabilities, socket-montering, herding av imaget.                   |
+| `infra`               | `infra`                     | **Infrastruktur som kode:** Terraform, Dockerfile, GitHub Actions.                                     |
+| `serverless`          | `owasp`, `infra`, `lovable` | **FaaS-funksjoner:** IAM med minste privilegium, hendelsesinndata, kontekst, hemmeligheter.            |
+| `llm`                 | `ai`, `lovable`             | **KI- og LLM-risikoer:** prompt injection, agency, RAG, MCP, utdata.                                   |
+| `supabase`            | `lovable`                   | **Backend med Supabase:** RLS av som standard, policyer som KI genererer feil, nøkkelmodell.           |
+| `browser`             | `javascript`, `lovable`     | **Risikoer på klientsiden:** XSS, CSP, framing, lagring osv.                                           |
+| `javascript`          | `javascript`                | **Risikoer på språknivå:** RCE, prototype pollution osv.                                               |
+| `python`              | `python`                    | **Risikoer på språknivå:** RCE via `pickle`, class pollution, `-O` osv.                                |
+| `rust`                | `rust`                      | **Soundness i `unsafe`:** UB utløst fra trygg kode, `transmute`, overflyt.                             |
+| `java`                | `java`                      | **Deserialisering og mobil kode:** kjeder via `readObject`, kapring av objekter.                       |
+| `ruby`                | `ruby`                      | **Deserialisering og `open`:** gjenoppliving av objekter via `Marshal`/YAML, pipe-særhet.              |
+| `php`                 | `php`                       | **Type juggling og `unserialize`:** magiske hasher, POP-kjeder.                                        |
+| `go`                  | `go`                        | **Typed nil og data races:** `nil != nil`, goroutiner med delt minne.                                  |
+| `c-cpp`               | `c-cpp`                     | **Formatstrenger:** `printf(user_input)`, write-what-where via `%n`.                                   |
+| `dotnet`              | `dotnet`                    | **Risikoer på plattformnivå:** RCE via `BinaryFormatter`, `@Html.Raw`, hull i enums.                   |
+
+Mesteparten av den innebygde kunnskapen er destillert fra OWASP. Under [**OWASP-kilder**](https://lagune.ai/no-NO/docs/references/owasp-sources) finner du hele koblingen mellom hver spesialisering og de kanoniske OWASP-sidene om angrep og Cheat Sheets. Noen få stakkspesifikke moduler bygger i stedet på leverandørens egne anbefalinger: `supabase` kommer for eksempel fra dokumentasjonen til Supabase og CVE-2025-48757.
+
+## Dine egne spesialiseringer
+
+De innebygde vokser med én kunnskapsfil og én indeksrad om gangen, aldri med en ny kommando. Du legger til dine egne på samme måte, med [`/lagune-specialize`](https://lagune.ai/no-NO/docs/commands/specialize): Gi kommandoen en artikkel eller et tema, så destillerer den en ny spesialisering inn i prosjektet ditt, filen under `.lagune/catalog/` og oppføringen i `.lagune/configs.json`. Dine egne er alltid med i katalogen, uansett kategorier, og en av dine overstyrer en innebygd med samme navn.
+
+**Internt laster Lagune spesialiseringer automatisk, ved behov**
+
+Når fasen detect eller verify støter på en kontekst som en spesialisering dekker, laster den selv inn spesialiseringen med `read catalog <name>`. Dette skjer automatisk, som en del av fasen. Du trenger ikke gjøre noe for hånd for at det skal fungere.
+
+## Se hva som er tilgjengelig
+
+Slik lister du opp katalogen til prosjektet ditt i terminalen, én spesialisering per linje med taggene sine:
+
+```bash
+npx lagune read catalog
+# regex: Regular Expression [required]
+# network: Requests, Webhook, URL Fetch, Socket, IMDS, Redirect
+# interpreter: Evaluator, Sink, Shell, Dynamic Execution
+# ...
+```
+
+En spesialisering merket `[required]` gjelder alltid, uansett hva arbeidet er. Hvilke innebygde listen inneholder, avhenger av [**kategoriene**](https://lagune.ai/no-NO/docs/categories) til prosjektet ditt.
+
+**Spesialiseringer lastes ikke som standard**
+
+Den relevante kunnskapen hentes inn ut fra hva prosjektet faktisk er, i stedet for at alle kontroller kjører som standard.
+
+## Vanlige spørsmål
+
+### Hva er en spesialisering i Lagune?
+
+En fokusert, språkuavhengig kunnskapsmodul for sikkerhet som bare lastes ved behov, aldri som standard. Den er ikke en kommando, slik skillene til agenten er.
+
+### Hva er katalogen til et prosjekt?
+
+Spesialiseringene prosjektet bruker: de innebygde fra kategoriene til prosjektet, pluss prosjektets egne. Så lenge ingen kategori er registrert, bruker det bare OWASP.
+
+### Lastes spesialiseringer som standard?
+
+Nei. De lastes bare ved behov, ut fra hva prosjektet faktisk er.
+
+### Hvordan laster jeg en spesialisering direkte?
+
+Be agenten kjøre npx lagune read catalog <name> i samme prompt som oppgaven.

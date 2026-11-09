@@ -1,0 +1,105 @@
+# Hook interpreter: Zgłaszanie sinków dynamicznego wykonywania kodu
+
+> Przeszukuj bazę kodu w wielu językach pod kątem sinków dynamicznego wykonywania kodu albo oceniaj pojedynczy fragment kodu z wiersza poleceń.
+
+Adres kanoniczny: https://lagune.ai/pl-PL/docs/hooks/interpreter
+Język: pl-PL
+Oryginał: https://lagune.ai/docs/hooks/interpreter
+Ostatnia aktualizacja: 2026-11-09
+
+Hook `interpreter` zgłasza **sinki dynamicznego wykonywania kodu**: konstrukcje, które zamieniają dane w uruchamiany kod albo przekazują je do powłoki, od `eval` po natywną deserializację. Rozpoznaje język i czyta każdy plik według jego własnych reguł. To deterministyczny silnik stojący za [specjalizacją `interpreter`](https://lagune.ai/pl-PL/docs/catalog), który możesz uruchomić samodzielnie w trybie **scan** lub **check**.
+
+## Uruchamianie
+
+**Przeszukaj bazę kodu**
+
+```bash
+npx lagune read interpreter               # scans the whole project
+npx lagune read interpreter --dir src     # scans a directory
+npx lagune read interpreter --file app.py # scans a single file
+```
+
+**Sprawdź fragment kodu**
+
+```bash
+npx lagune read interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
+```
+
+Te sinki mają podwójne zastosowanie: statyczne skanowanie nie rozstrzygnie, czy docierają do nich dane wejściowe zależne od atakującego, więc każde dopasowanie jest **ostrzeżeniem do przejrzenia**, nigdy potwierdzonym ustaleniem. Skanowanie wypisuje jedną sekcję **Dynamic-execution sinks to review**, pogrupowaną według plików. Gdy nic nie znajdzie, hook wypisuje `no dynamic-execution sinks found`.
+
+**Czytaj zgłoszony kod, nigdy go nie uruchamiaj!**
+
+Analizuj każdy sink **statycznie**, śledząc, czy docierają do niego niezaufane dane wejściowe. Nigdy nie uruchamiaj zgłoszonego kodu, nie przekazuj go do `eval` i nie uruchamiaj żadnego zdalnego ani pobieranego w czasie działania kodu, który on dociąga, tylko po to, aby "przetestować", co robi.
+
+## Jak odczytać werdykt
+
+| Werdykt   | Znaczenie                                                                                                                             |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `careful` | Fragment kodu zawiera sink dynamicznego wykonywania typowy dla swojego języka. Przejrzyj go, czytając kod, nigdy go nie uruchamiając. |
+| `safe`    | Nie znaleziono sinka dynamicznego wykonywania dla podanego języka.                                                                    |
+
+### Opcje CLI
+
+| Opcja       | Wartość       | Opis                                                                                                                 |
+| ----------- | ------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `--pattern` | fragment kodu | Sprawdza jeden fragment kodu. Powtórz, aby sprawdzić kilka, po jednym werdykcie w linii.                             |
+| `--lang`    | język         | Wymagana razem z `--pattern`: jeden z języków javascript, python, php, ruby, java, kotlin, go, rust, c, cpp, csharp. |
+| `--dir`     | folder        | Ogranicza skanowanie do folderu. Można powtarzać i łączyć z `--file`.                                                |
+| `--file`    | plik          | Ogranicza skanowanie do jednego pliku. Można powtarzać i łączyć z `--dir`.                                           |
+
+Bez żadnej opcji hook przeszukuje cały projekt. Opcja `--pattern` wymaga `--lang` i nie można jej łączyć z `--dir` ani `--file`.
+
+### Wybierz, co hook przeszukuje
+
+Hook pomija to, co ignoruje **Git**. Aby pominąć więcej albo przeszukać to, co ignoruje **Git**, nadaj hookowi `interpreter` własne ustawienia:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Konfiguracja hooków](https://lagune.ai/pl-PL/docs/hooks/configure) opisuje każde ustawienie.
+
+### Obsługiwane języki
+
+Skanowanie czyta poniższe języki, rozpoznając je po rozszerzeniu pliku, i każdy sprawdza pod kątem jego własnego zestawu sinków dynamicznego wykonywania.
+
+| #   | Język                       | Rozszerzenia                                                                                                 | Zgłaszane sinki                                                                                                                                                                                                                                     |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` | `eval()`, konstruktor Function, `setTimeout`/`setInterval` z ciałem w postaci ciągu znaków, moduł `vm`, exec z `child_process`, dynamiczne `require()`, dynamiczny `import()`                                                                       |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                | `eval`/`exec`, `__import__()`, `os.system`/`os.popen`, `subprocess` `shell=True`, `pickle.load`/`loads`, `yaml.load` (niebezpieczne)                                                                                                                |
+| 3   | **Ruby**                    | `.rb`                                                                                                        | rodzina eval (`instance_eval`/`class_eval`/`module_eval`/`eval`), `system`/`exec`, backticki lub `%x`, `Kernel#open` / `IO.popen`/`read`/`binread` / `Open3`, `Process.spawn`, `Marshal.load`                                                       |
+| 4   | **Go**                      | `.go`                                                                                                        | `exec.Command`/`exec.CommandContext`, `plugin.Open`                                                                                                                                                                                                 |
+| 5   | **PHP**                     | `.php`                                                                                                       | `eval()`, `assert()` na ciągu znaków, `create_function()`, wykonywanie w powłoce (`system`/`exec`/`shell_exec`/`passthru`/`popen`/`proc_open`), `call_user_func`/`call_user_func_array`, `include`/`require` ze ścieżką ustalaną w czasie działania |
+| 6   | **Rust**                    | `.rs`                                                                                                        | `Command::new`, `process::Command`                                                                                                                                                                                                                  |
+| 7   | **Java**                    | `.java`                                                                                                      | `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                                                                    |
+| 8   | **Kotlin**                  | `.kt`, `.kts`                                                                                                | Sinki JVM: `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                                                         |
+| 9   | **C#**                      | `.cs`                                                                                                        | `Process.Start` / `new Process`, `BinaryFormatter`, `Assembly.Load`                                                                                                                                                                                 |
+| 10  | **C**                       | `.c`, `.h`                                                                                                   | `system()`, `popen()`, rodzina `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                                                             |
+| 11  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 | `system()`, `popen()`, rodzina `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                                                             |
+
+**Staranny, ale niewyczerpujący**
+
+Hook czyta kod źródłowy jako tekst, więc może przeoczyć sink składany w czasie działania, ukryty za aliasem lub zapisany w formie, której nie rozpoznaje. Traktuj tabelę jako solidny punkt wyjścia, a nie pełny spis.
+
+**Wskazówka**
+
+Hook gwarantuje minimum (że te sinki istnieją i gdzie są): to, czy niezaufana wartość faktycznie do któregoś z nich dociera, wymaga oceny, którą zapewnia [specjalizacja `interpreter`](https://lagune.ai/pl-PL/docs/catalog).
+
+## Najczęściej zadawane pytania
+
+### Czy hook interpreter potwierdza podatność?
+
+Nie. Zgłasza sinki dynamicznego wykonywania jako ostrzeżenie do przejrzenia, nigdy jako potwierdzone ustalenie, bo statyczne skanowanie nie rozstrzygnie, czy dane wejściowe zależne od atakującego docierają do sinka.
+
+### Jakie języki obsługuje hook interpreter?
+
+Czyta języki z tabeli "Obsługiwane języki", rozpoznając je po rozszerzeniu pliku, i każdy sprawdza pod kątem jego własnego zestawu sinków. W innych językach nie zgłasza żadnych sinków.

@@ -73,3 +73,7 @@ Setiap tautan di bawah Docs mengarah ke versi Markdown polos dari halaman terseb
 - [한국어](https://lagune.ai/ko-KR/llms.txt)
 - [हिन्दी](https://lagune.ai/hi-IN/llms.txt)
 - [ไทย](https://lagune.ai/th-TH/llms.txt)
+- [Dansk](https://lagune.ai/da-DK/llms.txt)
+- [Norsk](https://lagune.ai/no-NO/llms.txt)
+- [Polski](https://lagune.ai/pl-PL/llms.txt)
+- [العربية](https://lagune.ai/ar-AE/llms.txt)

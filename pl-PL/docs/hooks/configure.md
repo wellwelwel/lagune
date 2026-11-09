@@ -1,0 +1,74 @@
+# Konfiguracja hooków: Wybierz, co przeszukują
+
+> Wybierz, co pomijają hooki przeszukujące pliki, wszystkie naraz albo pojedynczy hook.
+
+Adres kanoniczny: https://lagune.ai/pl-PL/docs/hooks/configure
+Język: pl-PL
+Oryginał: https://lagune.ai/docs/hooks/configure
+Ostatnia aktualizacja: 2026-11-09
+
+Blok `checkers` w pliku `.lagune/configs.json` określa, co pomijają hooki przeszukujące pliki, wszystkie naraz albo pojedynczy hook.
+
+## Konfiguracja
+
+Dodawaj i usuwaj ścieżki oraz wzorce z wiersza poleceń, a wzorzec ujmuj w cudzysłów, żeby powłoka zostawiła go bez zmian:
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+Możesz też wybrać je w sekcji Settings [dashboardu](https://lagune.ai/pl-PL/docs/get-started/dashboard) albo ustawić w pliku:
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### Ustawienia
+
+| Klucz       | Wartość                                               | Domyślnie | Opis                                                                                               |
+| ----------- | ----------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------- |
+| `gitignore` | `true` lub `false`                                    | `true`    | Pomija to, co **Git** ignoruje. Plik, który **Git** śledzi, jest przeszukiwany w każdym przypadku. |
+| `ignore`    | ścieżki lub wzorce względem głównego folderu projektu | `[]`      | Pomija to, do czego pasuje każdy wpis, wraz z całą zawartością, nawet plik, który **Git** śledzi.  |
+
+Na najwyższym poziomie bloku `checkers` klucz dotyczy wszystkich narzędzi sprawdzających. Pod nazwą konkretnego narzędzia dotyczy tylko jego i zastępuje klucz wspólny, więc w przykładzie narzędzie `secrets` przeszukuje to, co **Git** ignoruje, i pomija `test/fixtures` oraz `temp`. Gdy polecenie `write add --ignore` nadaje narzędziu pierwszą własną listę, lista ta powstaje jako kopia listy wspólnej.
+
+### Wzorce
+
+Wzorzec zaczyna się od głównego folderu projektu, więc `*.generated.ts` obejmuje tylko pliki w tym folderze, a `**/*.generated.ts` obejmuje je na dowolnej głębokości. Nazwy muszą pasować dokładnie, łącznie z wielkością liter.
+
+| Wzorzec             | Pomija                                                  |
+| ------------------- | ------------------------------------------------------- |
+| `dist`              | `dist` w głównym folderze projektu                      |
+| `packages/*/dist`   | `dist` w każdym folderze wewnątrz `packages`            |
+| `**/dist`           | każdy `dist`, na dowolnej głębokości                    |
+| `**/*.generated.ts` | każdy plik, którego nazwa kończy się na `.generated.ts` |
+| `fixture-?`         | `fixture-a`, `fixture-1` i podobne                      |
+| `[ab]-cache`        | `a-cache` i `b-cache`                                   |
+| `[*]x`              | `*x`, z dosłowną gwiazdką `*`                           |
+
+## Jak czytać wynik
+
+Raport kończy się informacją, ile ścieżek pominęło skanowanie, z podziałem według tego, co je ignoruje:
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+Ścieżka wskazana opcją `--dir` lub `--file` jest przeszukiwana bez względu na ustawienia. Ustawienie, którego silnik nie potrafi odczytać, zatrzymuje narzędzie sprawdzające z błędem, który je wskazuje, na przykład wzorzec, który zaczyna się od `!` lub spacji, wychodzi poza projekt, zostawia otwarty nawias albo dopasowuje się zbyt długo.
+
+## Najczęściej zadawane pytania
+
+### Czy Lagune ustawia to za mnie?
+
+Nie. Faza charter wymienia foldery obecne w repozytorium, które według jej analizy nie należą do kodu, którego musisz bronić, na przykład fixtury testowe napisane tak, żeby wyglądały na podatne, i zapisuje tylko te, które wybierzesz numerem.
+
+### Kiedy narzędzie sprawdzające powinno przeszukiwać to, co ignoruje Git?
+
+Gdy nie możesz ufać repozytorium, bo jego własne pliki .gitignore mogą ukrywać kod, albo gdy folder z buildem może zawierać klucz wstawiony podczas budowania. Ustaw gitignore na false dla wszystkich narzędzi sprawdzających albo dla jednego z nich.

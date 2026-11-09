@@ -1,0 +1,105 @@
+# Hook interpreter: markér sinks til dynamisk kodeafvikling
+
+> Gennemsøg en kodebase for sinks til dynamisk kodeafvikling på tværs af sprog, eller vurdér et enkelt kodeuddrag, fra kommandolinjen.
+
+Kanonisk URL: https://lagune.ai/da-DK/docs/hooks/interpreter
+Sprog: da-DK
+Original: https://lagune.ai/docs/hooks/interpreter
+Sidst opdateret: 2026-11-09
+
+Hooken `interpreter` markerer **sinks til dynamisk kodeafvikling**: konstruktioner, der gør data til kørende kode eller giver dem videre til en shell, fra `eval` til indbygget deserialisering. Den er sprogbevidst og læser hver fil efter dens egne regler, og den er den deterministiske motor bag [specialiseringen `interpreter`](https://lagune.ai/da-DK/docs/catalog), som du selv kan køre i tilstanden **scan** eller **check**.
+
+## Kørsel
+
+**Scan kodebasen**
+
+```bash
+npx lagune read interpreter               # scans the whole project
+npx lagune read interpreter --dir src     # scans a directory
+npx lagune read interpreter --file app.py # scans a single file
+```
+
+**Tjek et kodeuddrag**
+
+```bash
+npx lagune read interpreter --lang javascript --pattern 'eval(x)'   # => careful
+npx lagune read interpreter --lang python --pattern 'json.loads(x)' # => safe
+```
+
+Disse sinks har dobbelt anvendelse: om input, som en angriber kan påvirke, når frem til en af dem, kan ikke afgøres af en statisk scanning, så hvert match er en **advarsel at gennemgå**, aldrig et bekræftet fund. Scanningen udskriver et enkelt afsnit, **Dynamic-execution sinks to review**, grupperet efter fil. En ren kørsel udskriver `no dynamic-execution sinks found`.
+
+**Læs den markerede kode, kør den aldrig!**
+
+Ræsonnér om hver sink **statisk**, og følg, om ikke-betroet input når frem til den. Kør aldrig den markerede kode, og brug aldrig `eval` på den eller på kode, den henter eksternt eller under kørslen, for at "teste", hvad den gør.
+
+## Sådan læser du afgørelsen
+
+| Afgørelse | Betydning                                                                                                                   |
+| --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `careful` | Kodeuddraget indeholder en sink til dynamisk afvikling for sit sprog. Gennemgå den ved at læse den, aldrig ved at køre den. |
+| `safe`    | Der blev ikke fundet nogen sink til dynamisk afvikling for det angivne sprog.                                               |
+
+### CLI-indstillinger
+
+| Indstilling | Værdi         | Beskrivelse                                                                                            |
+| ----------- | ------------- | ------------------------------------------------------------------------------------------------------ |
+| `--pattern` | et kodeuddrag | Tjek ét kodeuddrag. Gentag for at tjekke flere, én afgørelse pr. linje.                                |
+| `--lang`    | et sprog      | Påkrævet med `--pattern`: et af javascript, python, php, ruby, java, kotlin, go, rust, c, cpp, csharp. |
+| `--dir`     | en mappe      | Afgræns en scanning til en mappe. Kan gentages og kombineres med `--file`.                             |
+| `--file`    | en fil        | Afgræns en scanning til en enkelt fil. Kan gentages og kombineres med `--dir`.                         |
+
+Uden indstillinger scanner den hele projektet. `--pattern` kræver `--lang` og kan ikke kombineres med `--dir` eller `--file`.
+
+### Vælg, hvad den scanner
+
+Den udelader det, **Git** ignorerer. For at udelade mere, eller for at scanne det, **Git** ignorerer, så giv `interpreter` sine egne indstillinger:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker interpreter
+```
+
+```json
+{
+  "checkers": {
+    "interpreter": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Konfigurér hooks](https://lagune.ai/da-DK/docs/hooks/configure) beskriver alle indstillinger.
+
+### Understøttede sprog
+
+Scanningen læser disse sprog, bestemt ud fra filendelsen, og hvert sprog tjekkes mod sit eget sæt af sinks til dynamisk afvikling.
+
+| #   | Sprog                       | Filendelser                                                                                                  | Sinks, den markerer                                                                                                                                                                                                   |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **JavaScript / TypeScript** | `.js`, `.jsx`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.mts`, `.cts`, `.astro`, `.vue`, `.svelte`, `.marko`, `.riot` | `eval()`, Function-konstruktøren, `setTimeout`/`setInterval` med en streng som krop, modulet `vm`, exec fra `child_process`, dynamisk `require()`, dynamisk `import()`                                                |
+| 2   | **Python**                  | `.py`, `.pyi`                                                                                                | `eval`/`exec`, `__import__()`, `os.system`/`os.popen`, `subprocess` `shell=True`, `pickle.load`/`loads`, `yaml.load` (usikker)                                                                                        |
+| 3   | **Ruby**                    | `.rb`                                                                                                        | eval-familien (`instance_eval`/`class_eval`/`module_eval`/`eval`), `system`/`exec`, backticks eller `%x`, `Kernel#open` / `IO.popen`/`read`/`binread` / `Open3`, `Process.spawn`, `Marshal.load`                      |
+| 4   | **Go**                      | `.go`                                                                                                        | `exec.Command`/`exec.CommandContext`, `plugin.Open`                                                                                                                                                                   |
+| 5   | **PHP**                     | `.php`                                                                                                       | `eval()`, `assert()` på en streng, `create_function()`, shell-exec (`system`/`exec`/`shell_exec`/`passthru`/`popen`/`proc_open`), `call_user_func`/`call_user_func_array`, `include`/`require` med en sti fra kørslen |
+| 6   | **Rust**                    | `.rs`                                                                                                        | `Command::new`, `process::Command`                                                                                                                                                                                    |
+| 7   | **Java**                    | `.java`                                                                                                      | `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                                      |
+| 8   | **Kotlin**                  | `.kt`, `.kts`                                                                                                | JVM-sinks: `Runtime.exec`, `ProcessBuilder`, `ScriptEngine`, `ObjectInputStream.readObject`                                                                                                                           |
+| 9   | **C#**                      | `.cs`                                                                                                        | `Process.Start` / `new Process`, `BinaryFormatter`, `Assembly.Load`                                                                                                                                                   |
+| 10  | **C**                       | `.c`, `.h`                                                                                                   | `system()`, `popen()`, familien `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                              |
+| 11  | **C++**                     | `.cc`, `.cpp`, `.cxx`, `.hpp`, `.hh`, `.hxx`                                                                 | `system()`, `popen()`, familien `exec*` (`execl`, `execve`, `execvp`, …)                                                                                                                                              |
+
+**Efter bedste evne, ikke udtømmende**
+
+Den læser kildekoden som tekst, så en sink, der sættes sammen under kørslen, skjules bag et alias eller skrives i en form, den ikke genkender, kan slippe forbi. Betragt tabellen som et solidt udgangspunkt, ikke en komplet oversigt.
+
+**Tip**
+
+Hooken garanterer minimummet (at disse sinks findes, og hvor): om en ikke-betroet værdi faktisk når frem til en af dem, er den vurdering, som [specialiseringen `interpreter`](https://lagune.ai/da-DK/docs/catalog) dækker.
+
+## Ofte stillede spørgsmål
+
+### Bekræfter hooken interpreter en sårbarhed?
+
+Nej. Den markerer sinks til dynamisk afvikling som en advarsel at gennemgå, aldrig et bekræftet fund, fordi en statisk scanning ikke kan afgøre, om input, som en angriber kan påvirke, når frem til sinken.
+
+### Hvilke sprog dækker hooken interpreter?
+
+Den læser sprogene i tabellen Understøttede sprog, bestemt ud fra filendelsen, og hvert sprog tjekkes mod sit eget sæt af sinks. Andre sprog giver ingen sinks.

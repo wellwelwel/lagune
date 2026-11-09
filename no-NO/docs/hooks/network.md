@@ -1,0 +1,81 @@
+# Hook network: Vurder URL-er for SSRF
+
+> Vurder SSRF-risikoen for én eller flere destinasjoner for forespørsler, rett fra kommandolinjen.
+
+Kanonisk URL: https://lagune.ai/no-NO/docs/hooks/network
+Språk: no-NO
+Original: https://lagune.ai/docs/hooks/network
+Sist oppdatert: 2026-11-09
+
+Hooken `network` avgjør om destinasjonen for en forespørsel fra serversiden er trygg mot **SSRF** (en forespørsel som kan rettes mot interne tjenester, metadata i skyen eller private verter). Den er den deterministiske motoren bak [spesialiseringen `network`](https://lagune.ai/no-NO/docs/catalog), og du kan kjøre den selv.
+
+## Kjør
+
+Oppgi hver destinasjon med `--url`. Hooken skriver ut ett ord per destinasjon, forklart i tabellen nedenfor.
+
+**Én destinasjon**
+
+```bash
+npx lagune read network --url 'http://example.com/'
+# => safe
+
+npx lagune read network --url 'http://0x7f000001/'
+# => private-target
+```
+
+**Flere destinasjoner**
+
+Gjenta `--url` for å vurdere en hel tillatelsesliste eller blokkeringsliste i ett kall, én konklusjon per linje, i samme rekkefølge.
+
+```bash
+npx lagune read network \
+  --url 'http://example.com/' \
+  --url 'http://[::1]/' \
+  --url 'http://allowed.com@evil.example/'
+# => safe
+# => private-target
+# => parser-divergent
+```
+
+Den tolker verten slik nettverket gjør, så kodede former av en intern adresse slipper ikke gjennom: Heksadesimal, oktal, desimal uten punktum, forkortet, IPv6 og IPv4-mappet form gir alle `private-target`. Og der en slurvete validator og klienten som faktisk henter, ville lest ulike verter, er konklusjonen `parser-divergent`.
+
+## Slik leser du konklusjonen
+
+| Konklusjon         | Betydning                                                                                                                                 |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `safe`             | Destinasjonen kobler til en offentlig vert, og en slurvete validator ville lest den samme verten.                                         |
+| `private-target`   | Verten peker til en privat adresse, en loopback-adresse, en link-local-adresse, en uspesifisert adresse eller en metadataadresse i skyen. |
+| `parser-divergent` | En slurvete tekstvalidator ville lest en annen reell vert enn den klienten kobler til.                                                    |
+| `invalid url`      | Strengen kan ikke tolkes som en URL, så det finnes ingenting å hente.                                                                     |
+
+Bare `safe` betyr tillat. Behandle `private-target`, `parser-divergent` og `invalid url` alle som blokkering.
+
+### CLI-alternativer
+
+| Alternativ | Verdi             | Beskrivelse                                                               |
+| ---------- | ----------------- | ------------------------------------------------------------------------- |
+| `--url`    | en URL eller vert | Sjekk én destinasjon. Gjenta for å sjekke flere, én konklusjon per linje. |
+
+Minst én `--url` er påkrevd. Destinasjonen er aldri et frittstående posisjonsargument, så den kan ikke forveksles med et flagg.
+
+**Hvorfor som verdi til et flagg**
+
+Hver destinasjon sendes som verdien til et flagg og blir aldri interpolert inn i kommandoen. En verdi med anførselstegn eller backticks forblir uvirksom og kan ikke injisere noe i skallet. Sett den alltid i enkle anførselstegn, så skallet ditt ikke ekspanderer den først.
+
+**Hva den ikke dekker**
+
+Hooken er ren og slår aldri opp i DNS, så to hull som oppstår under kjøring, er utenfor omfanget: **DNS rebinding** (et navn som peker til en offentlig adresse når det sjekkes, og til en intern når det hentes) og **omdirigeringskjeder** (et første hopp som består sjekken, og deretter omdirigerer innover). Lukk dem ved å slå opp én gang og koble til den validerte adressen, og ved å avvise omdirigeringer. Den låser de reserverte loopback-navnene (`localhost` og familien `.localhost`) til internt uten oppslag, men alle andre DNS-navn gir `safe`, fordi det å fastslå at et navn peker innover, ville krevd et oppslag: Tillatelseslisten beskytter disse navnene, og det er den denne kontrollen validerer.
+
+**Tips**
+
+Dette er den samme sjekken som [spesialiseringen `network`](https://lagune.ai/no-NO/docs/catalog) kjører for å bevise at et destinasjonsfilter holder.
+
+## Vanlige spørsmål
+
+### Hvordan tester jeg en URL for SSRF?
+
+Kjør hooken network. Den vurderer destinasjonen for en forespørsel og returnerer safe, private-target, parser-divergent eller invalid url. Bare safe betyr tillat.
+
+### Hva er en URL av typen parser-divergent?
+
+En URL som ulike parsere leser forskjellig, en klassisk måte å omgå SSRF-beskyttelse på. Hooken network flagger den i stedet for å tillate den.

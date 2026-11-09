@@ -1,0 +1,102 @@
+# Hook crypto: find svag kryptografi
+
+> Gennemsøg en kodebase for svage kryptografiske primitiver, eller vurdér et enkelt kodeuddrag, fra kommandolinjen.
+
+Kanonisk URL: https://lagune.ai/da-DK/docs/hooks/crypto
+Sprog: da-DK
+Original: https://lagune.ai/docs/hooks/crypto
+Sidst opdateret: 2026-11-09
+
+Hooken `crypto` markerer **svage kryptografiske primitiver** på kaldstedet: en udfaset cipher, en usikker tilstand eller en brudt digest. Den er **sprogbevidst** og læser hver fil efter dens egne regler, så en Python-konstruktion aldrig bliver markeret i en Rust-fil, og den er den deterministiske motor bag [specialiseringen `crypto`](https://lagune.ai/da-DK/docs/catalog), som du selv kan køre i tilstanden **scan** eller **check**.
+
+## Kørsel
+
+**Scan kodebasen**
+
+```bash
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
+```
+
+**Tjek et kodeuddrag**
+
+```bash
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+```
+
+Scanningen udskriver op til to afsnit. **Weak cryptography found** er sættet af fund (DES/3DES/RC4/Blowfish/RC2, tilstanden ECB): hver er en brudt cipher-primitiv, så hooken afslutter med en kode forskellig fra nul. **Cryptography to review manually** er et sæt spor, den ikke kan vurdere alene: en MD5/SHA-1-digest (brudt til sikkerhedsbrug, men legitim som almindelig checksum, så hensigten afgør det), en ikke-kryptografisk RNG i en sikkerhedskontekst eller en sammenligning, der ikke er sikker mod timingangreb. En ren kørsel udskriver `no weak cryptography found`.
+
+## Sådan læser du afgørelsen
+
+| Afgørelse | Betydning                                                                                                            |
+| --------- | -------------------------------------------------------------------------------------------------------------------- |
+| `weak`    | Kodeuddraget bruger en brudt cipher-primitiv (DES/3DES, RC4, Blowfish, RC2 eller tilstanden ECB).                    |
+| `review`  | En primitiv, der afhænger af hensigten: en MD5/SHA-1-digest eller en ikke-kryptografisk RNG i en sikkerhedskontekst. |
+| `safe`    | Kodeuddraget bruger kryptografi, og der blev ikke fundet nogen svag primitiv.                                        |
+| `invalid` | Kodeuddraget indeholder ingen genkendelig kryptografisk konstruktion at vurdere.                                     |
+
+### CLI-indstillinger
+
+| Indstilling | Værdi         | Beskrivelse                                                                                            |
+| ----------- | ------------- | ------------------------------------------------------------------------------------------------------ |
+| `--pattern` | et kodeuddrag | Tjek ét kodeuddrag. Gentag for at tjekke flere, én afgørelse pr. linje.                                |
+| `--lang`    | et sprog      | Påkrævet med `--pattern`: et af javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp. |
+| `--dir`     | en mappe      | Afgræns en scanning til en mappe. Kan gentages og kombineres med `--file`.                             |
+| `--file`    | en fil        | Afgræns en scanning til en enkelt fil. Kan gentages og kombineres med `--dir`.                         |
+
+Uden indstillinger scanner den hele projektet. `--pattern` kræver `--lang` og kan ikke kombineres med `--dir` eller `--file`.
+
+### Vælg, hvad den scanner
+
+Den udelader det, **Git** ignorerer. For at udelade mere, eller for at scanne det, **Git** ignorerer, så giv `crypto` sine egne indstillinger:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Konfigurér hooks](https://lagune.ai/da-DK/docs/hooks/configure) beskriver alle indstillinger.
+
+### Understøttede sprog
+
+Scanningen læser disse sprog, bestemt ud fra filendelsen, og hvert sprog tjekkes mod sine egne kryptografiske API'er.
+
+| Sprog                       | Svage ciphers (fund) og digests eller RNG (gennemgang)                                                               |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **JavaScript / TypeScript** | `createCipher`, `CryptoJS.DES/RC4`, `*-ecb` i anførselstegn; MD5/SHA-1 `createHash`/`subtle.digest`; `Math.random()` |
+| **Python**                  | pycryptodome `DES/ARC4/Blowfish.new`, `algorithms.TripleDES`, `MODE_ECB`; `hashlib.md5/sha1`; `random.*`             |
+| **Go**                      | `des.NewCipher`, `rc4.NewCipher`, `blowfish.NewCipher`, `NewECBEncrypter`; `md5/sha1.Sum`; `math/rand`               |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`; `MessageDigest.getInstance("MD5")`, `HmacMD5`; `java.util.Random`                |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`             |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`, `:ECB`; `Digest::MD5/SHA1`; `rand()`/`Random`                                        |
+| **Rust**                    | `Rc4::`, `Blowfish::`, `des::`, `ecb::`; `Md5::`, `Sha1::`, `Hmac<Md5>`; `SmallRng`/`XorShiftRng`                    |
+| **C#**                      | `DES/TripleDES/RC2.Create`, `CipherMode.ECB`; `MD5/SHA1.Create`, `HMACMD5`; `new Random()`                           |
+| **C / C++**                 | OpenSSL `DES_*`/`RC4`/`EVP_des_*`, `EVP_*_ecb`; `MD5()`/`SHA1()`, `EVP_md5`; `rand()`/`random()`                     |
+
+**Efter bedste evne, ikke udtømmende**
+
+Den læser kildekoden som tekst, så en primitiv, der sættes sammen under kørslen, skjules bag et alias eller skrives i en form, den ikke genkender, kan slippe forbi. Betragt tabellen som et solidt udgangspunkt, ikke en komplet oversigt.
+
+**Tip**
+
+Hooken garanterer minimummet (at disse konstruktioner findes): nøglehåndtering, genbrug af IV og RSA-padding er vurderinger, som [specialiseringen `crypto`](https://lagune.ai/da-DK/docs/catalog) stadig dækker.
+
+## Ofte stillede spørgsmål
+
+### Hvordan scanner jeg en kodebase for svag kryptografi?
+
+Kør hooken crypto uden flag. Brudte ciphers og tilstanden ECB er fund, der afslutter med en kode forskellig fra nul. En MD5/SHA-1-digest er et spor til gennemgang, da den er brudt til sikkerhedsbrug, men legitim som almindelig checksum.
+
+### Markerer hooken crypto Math.random()?
+
+Kun som et spor til gennemgang i en sikkerhedskontekst, aldrig som et automatisk fund, da tilfældighed er legitim til jitter eller rækkefølge i brugerfladen.
