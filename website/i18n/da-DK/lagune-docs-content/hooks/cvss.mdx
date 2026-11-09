@@ -1,0 +1,113 @@
+---
+id: cvss
+title: 'Hook cvss: beregn scoren for en CVSS v4.0-vektor'
+sidebar_label: cvss
+description: Beregn scoren for en eller flere CVSS v4.0-vektorer fra kommandolinjen med samme aritmetik som lommeregneren fra FIRST, og få hver af dem forklaret i almindelige ord.
+source_hash: 'fa4469a734f29f7b7a54349fceb29d66a8efb995fa89292ca56c1be741dae2f5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Hooken `cvss` beregner scoren for en **CVSS v4.0-vektor** og udskriver dens score og alvorlighedsniveau, den vurdering, som [`/lagune-plan`](/docs/commands/plan) skriver på hver rettelse og [`/lagune-prove`](/docs/commands/prove) på hver sikkerhedsmeddelelse. Den er den deterministiske motor bag de vurderinger, med samme aritmetik som [lommeregneren fra FIRST](https://www.first.org/cvss/calculator/4.0), og du kan selv køre den.
+
+## Kørsel
+
+Angiv hver vektor med `--vector`. Hooken udskriver én linje pr. vektor: dens score og niveau.
+
+<Tabs>
+  <TabItem value="one" label="Én vektor" default>
+
+```bash
+npx lagune read cvss --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+# => 9.3, Critical
+```
+
+  </TabItem>
+  <TabItem value="many" label="Flere vektorer">
+
+Gentag `--vector` for at beregne flere på én gang, én linje hver, i rækkefølge.
+
+```bash
+npx lagune read cvss \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N' \
+  --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 9.3, Critical
+# => 8.7, High
+```
+
+  </TabItem>
+  <TabItem value="explain" label="I almindelige ord">
+
+Tilføj `--explain` for at få hver metrik forklaret i almindelige ord. Når Threat- eller Environmental-metrikker flytter scoren, kommer Base-scoren alene først.
+
+```bash
+npx lagune read cvss --explain --vector 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A'
+# => 8.7, High
+# =>   Base metrics alone: 9.3, Critical
+# =>   Attack Vector: Network, modified to Adjacent
+# =>   Attack Complexity: Low
+# =>   ...
+```
+
+  </TabItem>
+</Tabs>
+
+## Sådan læser du resultatet
+
+| Niveau     | Score        |
+| ---------- | ------------ |
+| `None`     | 0.0          |
+| `Low`      | 0.1 til 3.9  |
+| `Medium`   | 4.0 til 6.9  |
+| `High`     | 7.0 til 8.9  |
+| `Critical` | 9.0 til 10.0 |
+
+En vektor med kun Base-metrikker vurderer selve fejlen og antager det værste: alle sikkerhedskrav sat til High, og fejlen angrebet i praksis. Environmental-metrikker (`MAV` og de andre modificerede metrikker samt `CR`, `IR` og `AR`) afgør den for én bestemt udrulning, og Threat-metrikken (`E`) ud fra, hvad der vides om udnyttelse.
+
+En ugyldig vektor udskriver `invalid vector:` og hvad der er galt, og hooken afslutter med en kode forskellig fra nul.
+
+### CLI-indstillinger
+
+| Indstilling | Værdi                | Beskrivelse                                                                                  |
+| ----------- | -------------------- | -------------------------------------------------------------------------------------------- |
+| `--vector`  | en `CVSS:4.0`-vektor | Beregn scoren for én vektor. Gentag for at beregne flere, én linje pr. vektor, i rækkefølge. |
+| `--explain` |                      | Tilføj hver metrik i almindelige ord under hver linje med en vurdering.                      |
+
+Mindst én `--vector` er påkrævet. Vektoren er aldrig et bart positionelt argument, så den kan ikke forveksles med et flag.
+
+:::note[Hvorfor en værdi til et flag]
+
+Hver vektor angives som værdi til et flag og indsættes aldrig i selve kommandoen. En værdi med anførselstegn eller backticks forbliver uskadelig og kan ikke injicere noget i shellen. Sæt den altid i enkelte anførselstegn, så din shell ikke ekspanderer den først.
+:::
+
+:::note[Hvad den ikke dækker]
+
+Kun CVSS v4.0: en vektor i v2.0, v3.0 eller v3.1 bliver afvist i stedet for at blive vurderet, da **Lagune** vurderer hvert fund i v4.0.
+:::
+
+:::tip
+
+Valideringen i fasen plan kører den samme aritmetik igen på hver CVSS-linje, så en score, der er gledet væk fra sin vektor, bliver fanget, før planen godkendes.
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan beregner Lagune en CVSS-score?',
+      answer:
+        'Hooken cvss følger referencelommeregneren fra FIRST til CVSS v4.0, så en vektor får præcis samme score som på webstedet for FIRST.',
+    },
+    {
+      question: 'Kan jeg beregne scoren for en CVSS v3.1-vektor med den?',
+      answer:
+        'Nej. Lagune vurderer hvert fund i CVSS v4.0, og hooken afviser enhver anden version i stedet for at vurdere den.',
+    },
+    {
+      question: 'Hvad gør flaget --explain?',
+      answer:
+        'Det forklarer hver metrik i almindelige ord og viser Base-scoren ved siden af den samlede, så alle kan se, hvad vektoren siger, og hvordan projektets kontekst flyttede den.',
+    },
+  ]}
+/>

@@ -1,0 +1,65 @@
+---
+id: factory-droid
+title: 'Installér Lagune i Factory Droid som et plugin'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Installér Lagune i Factory Droid som et plugin, hold det opdateret, og giv dets motors værktøjer tilladelse.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - installér lagune
+  - opsætning
+  - AI-sikkerhed
+  - AI-agenter
+source_hash: '7bc601c8aab5f6286ad0cec6040114f686541332672362bad80cacd47ef4b23d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Installér pluginnet fra din terminal:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Opdatering
+
+Kør følgende for at opdatere **Lagune**:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Kommandoer
+
+Skriv kommandoerne ved deres navn, såsom `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Factory Droid?',
+      answer:
+        'Kør droid plugin marketplace add wellwelwel/lagune og derefter droid plugin install lagune@lagune.',
+    },
+    {
+      question: 'Hvordan opdaterer jeg Lagune i Factory Droid?',
+      answer:
+        'Kør droid plugin marketplace update lagune og derefter droid plugin update lagune@lagune.',
+    },
+    {
+      question: 'Hvordan kører jeg kommandoerne i Lagune i Factory Droid?',
+      answer: 'Skriv dem ved deres navn, såsom /lagune-charter.',
+    },
+    {
+      question: 'Kan Factory Droid køre Lagune uden at bede om tilladelse?',
+      answer:
+        'Ja. Vælg altid at tillade lagune_read og lagune_write, når Factory Droid spørger. Den spørger igen, efter at den har synkroniseret et nyt commit fra markedspladsen lagune.',
+    },
+  ]}
+/>

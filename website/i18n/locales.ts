@@ -107,6 +107,12 @@ export const LOCALES: SiteLocale[] = [
     status: 'published',
   },
   {
+    code: 'da-DK',
+    label: 'Dansk',
+    flag: '/img/flags/dk.svg',
+    status: 'published',
+  },
+  {
     code: 'no-NO',
     label: 'Norsk',
     flag: '/img/flags/no.svg',

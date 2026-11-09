@@ -1,0 +1,93 @@
+---
+id: detect
+title: '/lagune-detect: Kortlæg dit system og dets risici'
+sidebar_label: 2. Detect
+description: Læs din kode, og kortlæg, hvad dit system gør, og hvor risiciene er.
+source_hash: 'c6b18e96f6fccb85b362fd7a7af5576c5cc332d8fdf2b8ef3dff04dac3d647c5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-detect
+
+🔬 Find ud af, hvad dit system virkelig gør, og hvor risiciene er.
+
+Detect læser koden og registrerer kun det, den faktisk finder, med det belæg, de senere faser har brug for. Dens styrende instruks er at opdage, ikke at opfinde.
+
+## Brug
+
+<Tabs>
+  <TabItem value="full" label="Fuld scanning" default>
+
+```prompt
+/lagune-detect
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Angiv stier">
+
+```prompt
+/lagune-detect src/routes/ src/auth.ts
+```
+
+  </TabItem>
+  <TabItem value="concern" label="Beskriv en bekymring">
+
+```prompt
+/lagune-detect sørg for, at kundedata aldrig bliver eksponeret
+```
+
+  </TabItem>
+</Tabs>
+
+## Hvad den kortlægger
+
+**Lagune** læser koden og kortlægger det, den finder. Hvert fund indeholder, hvad det er, hvorfor det betyder noget, og belægget. For eksempel:
+
+- **Filupload**, systemet tager imod filer fra brugerne:
+  - _Hvorfor det betyder noget:_ en fil forklædt som et billede kan skjule ondsindet kode.
+  - _Belæg:_ handleren til `POST /upload` stoler på den MIME-type, klienten sender, uden at tjekke filens reelle type.
+- **Login og sessioner**, brugerne logger ind for at nå deres konto:
+  - _Hvorfor det betyder noget:_ svag håndtering af sessioner gør det muligt for én konto at blive overtaget af en anden.
+  - _Belæg:_ logikken, der udsteder sessioner, hvor sessionerne udstedes uden udløbstid.
+
+Undervejs giver detect hver specialisering i dit projekts [katalog](/docs/catalog) en afgørelse op mod koden, anvender dem, hvis kontekst er til stede, og registrerer dem under **Applied specializations**, den liste, harden og verify genbruger.
+
+Derfra har du et klart kort over, hvad dit system gør, og hvor risiciene ligger, klar til at de næste trin kan handle på det.
+
+:::tip
+
+- Når du kører den igen, bliver kortlægningen opdateret: løste fund forsvinder, og nye kommer til.
+- Kortlægningen ligger i `.lagune/memory/detect.md`.
+
+:::
+
+## Næste trin
+
+Gør kortlægningen til en plan: [`/lagune-plan`](/docs/commands/plan).
+
+<Faq
+  items={[
+    {
+      question: 'Hvad gør /lagune-detect?',
+      answer:
+        'Den læser din kode og kortlægger, hvad dit system gør, og hvor risiciene er, og registrerer kun det, den faktisk finder. Dens regel er at opdage, ikke at opfinde.',
+    },
+    {
+      question: 'Hvad er et fund i Lagune?',
+      answer:
+        'Et fund er én opdaget risiko med det, den er, hvorfor den betyder noget, og belægget i koden. Det er den sporede enhed, som plan, harden og verify fører videre.',
+    },
+    {
+      question: 'Hvor bliver kortlægningen gemt?',
+      answer: 'I .lagune/memory/detect.md.',
+    },
+    {
+      question: 'Hvilke specialiseringer bruger detect?',
+      answer:
+        'Hver specialisering i dit projekts katalog får en afgørelse op mod koden. Detect anvender dem, hvis kontekst er til stede, og registrerer dem under Applied specializations.',
+    },
+  ]}
+/>

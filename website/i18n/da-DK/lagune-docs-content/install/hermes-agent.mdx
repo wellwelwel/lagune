@@ -1,0 +1,61 @@
+---
+id: hermes-agent
+title: 'Installér Lagune i Hermes Agent som et plugin'
+sidebar_label: Hermes Agent
+parent: get-started/install
+description: Installér Lagune i Hermes Agent som et plugin, og hold det opdateret.
+keywords:
+  - hermes agent
+  - hermes agent plugin
+  - hermes plugins install
+  - installér lagune
+  - opsætning
+  - AI-sikkerhed
+  - AI-agenter
+source_hash: 'c2da08029486a570edc42b7186c4d9425ee289f41c28dcaf901cc7e2228c768d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Hermes Agent' />
+
+Installér pluginnet fra din terminal:
+
+```bash
+hermes plugins install wellwelwel/lagune --enable
+```
+
+- Når **Hermes Agent** beder dig bekræfte et plugin uden for sit katalog, så **bekræft det**.
+- Når den tilbyder at installere repositoriets afhængigheder til **Node.js**, så **afvis**.
+
+## Opdatering
+
+Kør følgende for at opdatere **Lagune**:
+
+```bash
+hermes plugins update lagune
+```
+
+## Kommandoer
+
+Skriv kommandoerne under pluginnets navn, såsom `/lagune:lagune-charter` for `/lagune-charter` og `/lagune:lagune` for `/lagune`.
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Hermes Agent?',
+      answer:
+        'Kør hermes plugins install wellwelwel/lagune --enable. Bekræft pluginnet, når du bliver spurgt, og afvis at installere repositoriets afhængigheder til Node.js.',
+    },
+    {
+      question: 'Hvordan opdaterer jeg Lagune i Hermes Agent?',
+      answer: 'Kør hermes plugins update lagune.',
+    },
+    {
+      question: 'Hvordan kører jeg kommandoerne i Lagune i Hermes Agent?',
+      answer:
+        'Skriv dem under pluginnets navn, såsom /lagune:lagune-charter og /lagune:lagune.',
+    },
+  ]}
+/>

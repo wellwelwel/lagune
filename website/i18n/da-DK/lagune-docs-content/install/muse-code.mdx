@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Installér Lagune i Muse Code som et plugin'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Installér Lagune i Muse Code som et plugin, hold det opdateret, og kør dets motor inde i sandboxen.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - installér lagune
+  - opsætning
+  - AI-sikkerhed
+  - AI-agenter
+source_hash: '2f84bb375632514539891d0f792fb420dd91b7eda8aeb0cc3e30320e43cf43b3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Installér pluginnet fra din terminal:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Opdatering
+
+Opdatér markedspladsen, og geninstallér pluginnet for at opdatere **Lagune**:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Kommandoer
+
+Skriv kommandoerne ved deres navn, såsom `/lagune-charter`, eller under pluginnets navn, såsom `/lagune:lagune-charter`.
+
+---
+
+:::info[Sandbox]
+
+Sandboxen i **Muse Code** kan ikke downloade motoren. Installér den i dit projekt fra din egen terminal, én gang og efter hver opdatering:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Muse Code?',
+      answer:
+        'Kør muse plugins marketplace add lagune wellwelwel/lagune og derefter muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Hvordan opdaterer jeg Lagune i Muse Code?',
+      answer:
+        'Kør muse plugins marketplace update lagune, og geninstallér derefter med muse plugins remove lagune og muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Hvordan kører jeg kommandoerne i Lagune i Muse Code?',
+      answer:
+        'Skriv dem ved deres navn, såsom /lagune-charter, eller under pluginnets navn, såsom /lagune:lagune-charter.',
+    },
+    {
+      question: 'Virker Lagune inde i sandboxen i Muse Code?',
+      answer:
+        'Ja, når du har installeret motoren i dit projekt med npm i -D lagune@{{version}} fra din egen terminal, én gang og efter hver opdatering.',
+    },
+  ]}
+/>

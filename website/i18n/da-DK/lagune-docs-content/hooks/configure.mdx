@@ -1,0 +1,80 @@
+---
+id: configure
+title: 'Konfigurér hooks: vælg, hvad de scanner'
+sidebar_label: Konfigurér
+description: Vælg, hvad de hooks, der scanner filer, udelader, for dem alle eller for én.
+source_hash: 'd5146d06a2ef8c1f194b5c01c45c802015cd3008c5ab86360167410340d2b181'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Blokken `checkers` i `.lagune/configs.json` bestemmer, hvad de hooks, der scanner filer, udelader, for dem alle eller for én.
+
+## Konfigurér det
+
+Tilføj eller fjern stier og mønstre fra kommandolinjen, og sæt et mønster i anførselstegn, så shellen lader det stå, som det er skrevet:
+
+```bash
+npx lagune write add --ignore test/fixtures
+npx lagune write add --ignore 'packages/*/dist' --checker secrets
+npx lagune write remove --ignore test/fixtures
+```
+
+Eller vælg dem under Settings i [dashboardet](/docs/get-started/dashboard), eller angiv dem i filen:
+
+```json
+{
+  "checkers": {
+    "ignore": ["test/fixtures"],
+    "secrets": { "gitignore": false, "ignore": ["test/fixtures", "temp"] }
+  }
+}
+```
+
+### Indstillinger
+
+| Nøgle       | Værdi                                  | Standard | Beskrivelse                                                                                          |
+| ----------- | -------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| `gitignore` | `true` eller `false`                   | `true`   | Udelad det, **Git** ignorerer. En fil, som **Git** sporer, bliver scannet under alle omstændigheder. |
+| `ignore`    | stier eller mønstre fra projektets rod | `[]`     | Udelad det, hver enkelt matcher, og alt derunder, selv en fil, som **Git** sporer.                   |
+
+Øverst i `checkers` gælder en nøgle for alle tjek. Under et tjeks navn gælder den kun for det tjek og erstatter den fælles, så i eksemplet scanner `secrets` det, **Git** ignorerer, og udelader `test/fixtures` og `temp`. Når `write add --ignore` giver et tjek dets første egen liste, starter den liste som en kopi af den fælles.
+
+### Mønstre
+
+Et mønster starter i projektets rod, så `*.generated.ts` kun rammer filerne dér, og `**/*.generated.ts` rammer dem i enhver dybde. Navne matcher præcist, inklusive store og små bogstaver.
+
+| Mønster             | Udelader                                     |
+| ------------------- | -------------------------------------------- |
+| `dist`              | `dist` i projektets rod                      |
+| `packages/*/dist`   | `dist` i hver mappe under `packages`         |
+| `**/dist`           | hver `dist`, i enhver dybde                  |
+| `**/*.generated.ts` | hver fil, hvis navn ender på `.generated.ts` |
+| `fixture-?`         | `fixture-a`, `fixture-1` og lignende         |
+| `[ab]-cache`        | `a-cache` og `b-cache`                       |
+| `[*]x`              | `*x`, med en bogstavelig `*`                 |
+
+## Sådan læser du resultatet
+
+Rapporten slutter med, hvor mange stier scanningen udelod, efter hvad der ignorerer dem:
+
+```text
+Skipped 25 paths that Git ignores and 3 paths that .lagune/configs.json ignores. Name one with --dir or --file to scan it.
+```
+
+En sti, der angives med `--dir` eller `--file`, bliver scannet, uanset hvad indstillingerne siger. En indstilling, motoren ikke kan læse, stopper tjekket med en fejl, der navngiver den, for eksempel et mønster, der starter med `!` eller et mellemrum, kravler ud af projektet, efterlader en klamme åben eller tager for lang tid at matche.
+
+<Faq
+  items={[
+    {
+      question: 'Indstiller Lagune dem for mig?',
+      answer:
+        'Nej. Charter oplister de committede mapper, som læsningen viser ikke er din kode at forsvare, såsom testfixtures skrevet til at se sårbare ud, og registrerer kun dem, du vælger med numre.',
+    },
+    {
+      question: 'Hvornår skal et tjek scanne det, Git ignorerer?',
+      answer:
+        'Når repositoriet ikke er dit at stole på, da dets egne .gitignore-filer kan skjule kode, eller når en build-mappe kan indeholde en nøgle, der er indsat ved build. Sæt gitignore til false for alle tjek eller for ét.',
+    },
+  ]}
+/>

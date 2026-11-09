@@ -1,0 +1,179 @@
+---
+id: deepsec
+title: 'Lagune vs. Deepsec: to AI-drevne tilgange til sikkerhed side om side'
+sidebar_label: Lagune vs. Deepsec
+description: En reference, der sammenligner Lagune og Deepsec fra Vercel ud fra, hvordan de virker, livscyklus, detektion, omkostninger, fund og afslutning.
+keywords:
+  - deepsec
+  - vercel-labs deepsec
+  - sårbarhedsscanner
+  - Security-Driven Hardening
+  - SDH
+  - Lagune sammenligning
+  - AI-sikkerhedsværktøjer
+source_hash: '72774eb4230e28365f5cda81a0606acbe64b9310f7723a5cc401a0ebab5b8f03'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+# Lagune vs. Deepsec
+
+[Lagune](https://github.com/wellwelwel/lagune) og [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) er to defensive svar på det samme problem: sikkerhed i en tid med AI-assisteret udvikling. Deres præmis, deres begyndelse, midte og slutning, og hvordan hver af dem præsenterer sig for en bruger, er bevidst forskellige, selv hvor deres mekanik overlapper.
+
+:::tip
+Er Lagune inspireret af Deepsec? Nej, Lagune er skrevet fra bunden og er inspireret af Spec-Driven Development og Security Hardening. De to projekter er udviklet uafhængigt af hinanden, og sammenligningen her skal hjælpe brugerne med at forstå forskellene.
+:::
+
+## Overblik
+
+| Aspekt              | Lagune                                                                                                                | Deepsec                                                                               |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Type                | En metode (SDH) med en referenceimplementering                                                                        | Et produkt: en sårbarhedsscanner drevet af agenter                                    |
+| Tyngdepunkt         | Sikkerhedsprincipper og viden efter behov styrer agenten, forankret i deterministiske hooks                           | Et bredt regex-net fodrer en obligatorisk AI-undersøgelse                             |
+| Hvad den producerer | Hærdet kode, beviser og en sporet kæde af fund                                                                        | En triageret rapport over fund, rangeret efter alvorlighed                            |
+| Rører din kode      | Ja: `harden` redigerer din kode                                                                                       | Nej: kun statisk analyse, udsender fund og anbefalingstekst                           |
+| Kørsel              | Kører på den agent og model, du allerede bruger, på ethvert niveau                                                    | Kører sin egen modelpipeline, som standard på et frontier-niveau                      |
+| Kom i gang          | Én plugininstallation eller `npx skills add`, og styr den derefter med almindelige ord, intet nyt værktøj at sætte op | Sæt et arbejdsområde `.deepsec/` op, installér afhængigheder, og tilføj en modelnøgle |
+
+## Sådan virker det
+
+Lagune er agent-først: agenten styrer, henter viden efter behov ud fra, hvad koden er, og uddelegerer en del, der kan afgøres, til de deterministiske hooks.
+
+Deepsec er deterministisk-først: en bred scanning markerer kandidater, der peger en obligatorisk model mod, hvad den skal undersøge og vurdere.
+
+| Aspekt               | Lagune                                                                                                       | Deepsec                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| Rækkefølge           | Sikkerhedsprincipperne og den matchede viden styrer agenten, som uddelegerer til hooks og vurderer resten    | Matchers markerer kandidater, og modellen undersøger og vurderer hver enkelt |
+| Deterministisk rolle | Hooks til flere sprog, der returnerer en afgørelse eller retter agenten, kombineret med viden fra kategorier | Matchers, der markerer kandidater, som den obligatoriske model skal vurdere  |
+| Udviklingsworkflow   | `/lagune` bygger sikkert undervejs, mens du koder                                                            | Den gennemgår kode, den skriver den ikke                                     |
+| Gennemgang           | `charter` → `detect` → `plan` → `harden` → `verify`                                                          | `scan` → `process` → `triage` → `revalidate` → `report`                      |
+| AI'ens opgave        | Ræsonnere ud fra viden, anvende rettelsen og påvise, at den holder                                           | Undersøge hver kandidat og rapportere fundene                                |
+
+## Livscyklus
+
+Lagune virker før, under og efter, at koden bliver skrevet. Deepsec gennemgår et repository, når koden findes.
+
+| Tidspunkt            | Lagune                                                                        | Deepsec                                                      |
+| -------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Før koden findes     | `charter` skaber en sikkerhedspolitik ud fra den erklærede hensigt            | Starter fra eksisterende kode: `init` kræver en mappe        |
+| Mens der bygges      | `/lagune` bygger sikkert som standard undervejs, uden at efterlade artefakter | Gennemgår efter opbygningen, ikke under den                  |
+| På eksisterende kode | `detect` → `plan` → `harden` → `verify`                                       | `scan` → `process`, kerneforløbet                            |
+| Løbende gennemgang   | Kør faserne igen pr. omfang, ingen færdigpakket CI-gate                       | Inkrementel genscanning, `process --diff` som exit-gate i CI |
+
+## Detektionslag
+
+De to deterministiske lag er modsatte af natur: det ene afgør, det andet markerer.
+
+| Aspekt           | Lagune                                                                               | Deepsec                                                                |
+| ---------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| Gruppering       | Hooks og specialiseringer, grupperet i kategorier                                    | Matchers pr. mønster eller framework                                   |
+| Output           | Bogstavelig afgørelse (fund / gennemgang / anbefaling) plus en klassifikationsetiket | Kandidat uden afgørelse (slug, linjer, kodeuddrag, matchet mønster)    |
+| Tuning           | Præcision: kender kommentarer, værn mod pladsholdere og vinduer                      | Recall: brede net, AI'en beskærer falske positiver bagefter            |
+| Dybde            | Dybere på fælles klasser                                                             | Bredere, mindre dyb på fælles klasser                                  |
+| Falske positiver | Holdes lave ved kilden og vurderes derefter i kontekst                               | Overgenereres med vilje og skæres ned af et gennemløb med `revalidate` |
+
+## Viden og vurdering
+
+Begge bærer sikkerhedsviden, som regex ikke kan. De adskiller sig i, hvor den ligger, og hvem der kan forme den.
+
+| Aspekt                  | Lagune                                                                            | Deepsec                                                                            |
+| ----------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Form                    | Redigerbare markdown-moduler, flere af dem understøttet af en deterministisk hook | En kort prompt og fremhævninger pr. teknologi, der trækker på modellens egen viden |
+| Udvælgelse              | Matchet til koden, kun indlæst når dens kontekst er til stede                     | Indsat i hver AI-batch plus fremhævninger for den opdagede teknologi               |
+| Hvem skriver den        | Brugeren redigerer moduler og tilføjer nye med `specialize`                       | Vedligeholderen ejer prompten, brugeren udfylder en `INFO.md`                      |
+| Hvor vurderingen ligger | Hooks afgør deres minimum, agenten vurderer resten ud fra viden                   | Centraliseret: én AI-processor vurderer hver kandidat                              |
+| Genbrug                 | Ét modul guider både `detect` og `verify`                                         | Én prompt driver det ene trin `process`                                            |
+
+## Fund og afslutning
+
+De adskiller sig mest i, hvad et fund bliver til, når det er løst.
+
+| Aspekt                | Lagune                                                              | Deepsec                                                                                   |
+| --------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Alvorlighed           | En CVSS v4.0-score, justeret for eksponering og indsats             | En alvorlighed fra AI'en plus en triage efter P0 / P1 / P2 af udnyttelighed og konsekvens |
+| Afgørelser            | Risk closed, not closed eller cannot tell from the code             | true-positive, false-positive, fixed, uncertain, accepted-risk, duplicate                 |
+| Persistens            | Den aktive kæde afstemmes, lukkede fund destilleres til en historik | Poster pr. fil, der kun tilføjes til, intet fjernes                                       |
+| Sluttilstand          | Kan afsluttes: et påvist fund bliver taget ud, og kæden kan hvile   | Hvert fund beholdes for altid og skjules fra visninger, når det er løst                   |
+| Historikkens detaljer | Et kompakt resumé af, hvad risikoen var                             | Hele sporet af afgørelser, inklusive hvordan det blev rettet                              |
+
+## Omkostninger
+
+| Aspekt                 | Lagune                                                                                                                                                  | Deepsec                                                                                                                                                                                                             |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Deterministisk minimum | Gratis: hooks kører uden AI og uden nøgle og udsender allerede afgørelser                                                                               | Gratis: `scan` kører uden AI, men udsender ingen afgørelser af sig selv                                                                                                                                             |
+| Typisk regning         | Indeholdt i en agent, du allerede bruger, ned til $0 med en lokal model, den abonnementspris, du allerede betaler, eller pr. iteration ved brug via API | [Cirka $25 til $1.200 pr. kørsel for 100 til 2.000 filer, mere i stor skala](https://github.com/vercel-labs/deepsec/blob/f75a16803ec5250938bacfe41571d929e8564f45/docs/getting-started.md#run-the-ai-investigation) |
+| Billigste vej          | Enhver model, også en gratis lokal model, afslutter cyklussen                                                                                           | Der findes billigere betalte niveauer, men fund kræver det betalte AI-trin                                                                                                                                          |
+
+## Udvidelse og styring
+
+Hver af dem åbner det lag, den anden holder lukket.
+
+| Aspekt                 | Lagune                                                     | Deepsec                                                    |
+| ---------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| Hvad du udvider        | Redigér moduler, eller tilføj nye via `specialize`         | Tilføj matchers, agenter, notifikatorer og ejerskab        |
+| Politiklag             | Sikkerhedsprincipperne styrer hver fase og er versionerede | Konfigurationen er operationel (matchers, modeller, stier) |
+| Overskrivning ved navn | Et forfinet modul overskygger det indbyggede               | Ved en kollision mellem matcher-slugs vinder din matcher   |
+
+## Brugerflader
+
+Deepsec udsender leverancer til en sikkerhedsorganisation. Lagune viser en livevisning for den, der kører det.
+
+| Aspekt                  | Lagune                                                                        | Deepsec                                                                      |
+| ----------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Menneskelig brugerflade | Et lokalt livedashboard over hele kæden, i almindelige ord                    | Filer til rapport, eksport, metrikker og PR-kommentarer plus et docs-websted |
+| Ansvarlighed            | Viser filer og de specialiseringer, der blev anvendt                          | Foreslår en ansvarlig: vagthavende, leder eller den, der committede          |
+| Reproducerbart bevis    | `prove` skriver kørbare tests og en sikkerhedsmeddelelse til offentliggørelse | Forbliver statisk af design og kører aldrig målet                            |
+| Værktøjets selvforsvar  | Hærder et lokalt skrive-API i dashboardet                                     | Hærder sin egen AI-kørsel mod ikke-betroet målkode                           |
+
+## Skala og udrulning
+
+| Aspekt            | Lagune                                                                          | Deepsec                                                               |
+| ----------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Installation      | Ni kommandoer fra din agents plugin eller CLI'en fra skills, intet stilladseret | Et arbejdsområde `.deepsec/` med sin egen pakke og egne afhængigheder |
+| Skaleringsretning | Afgrænses til enhver del, en kontekst, fra én fil til hele projektet            | Gennemsøger hele repositories, op til store monorepos                 |
+| Distribution      | Kun lokalt, den ene server binder til loopback                                  | Valgfri fordeling på tværs af worker-VM'er i Vercel Sandbox           |
+
+## Brugeroplevelse
+
+Hvordan hver af dem møder den person, der kører den: hvad den første kørsel kræver, og hvordan operatøren styrer den.
+
+### Kom i gang
+
+Lagune kører gennem den agent, der allerede er åben. Deepsec opretter først sit eget arbejdsområde og sin egen modeladgang.
+
+| Aspekt                      | Lagune                                                                                          | Deepsec                                                                                                      |
+| --------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Første kommando             | Plugininstallationen eller `npx skills add wellwelwel/lagune` og derefter `/lagune-*` i agenten | `npx deepsec init`, derefter `cd .deepsec`, `pnpm install`, `scan`, `process`                                |
+| Loginoplysninger til kørsel | Ingen separat nøgle, den bruger din nuværende agent                                             | En modelnøgle (f.eks. AI Gateway, et Vercel OIDC-token, der gælder i 12 timer, eller et token fra Anthropic) |
+
+### Styring
+
+Begge tager imod retning. Lagune læser inputtets form pr. fase. Deepsec indsnævrer det sæt filer, den samme undersøgelse kører over.
+
+| Aspekt              | Lagune                                                                              | Deepsec                                                     |
+| ------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Hele projektet      | En fase uden input scanner hele omfanget                                            | `scan` og `process` gennemsøger repositoriet                |
+| En del              | Enhver fase kan afgrænses til angivne filer eller mapper                            | `--files`, `--files-from` eller `--diff` indsnævrer kørslen |
+| En bekymring        | En fase kan afgrænses til en beskrevet bekymring                                    | Undersøgelsens prompt er fast                               |
+| Et prioritetsniveau | `harden` og `verify` kan afgrænses til Critical, High, Medium eller Low             | Fundene får etiketter efter kørslen                         |
+| En enkelt værdi     | En hook vurderer ét kodeuddrag, mønster eller én URL direkte (`--pattern`, `--url`) | Arbejdsenheden er en fil                                    |
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan adskiller Lagune sig fra Deepsec?',
+      answer:
+        'Lagune er agent-først og virker før, under og efter, at koden bliver skrevet: det fastlægger en politik før koden, hærder undervejs, mens der bygges, og gennemgår, hærder og verificerer kode, der allerede er skrevet. Deepsec er deterministisk-først: en bred regex-scanning fodrer en obligatorisk undersøgelse med en frontier-model, der gennemgår eksisterende kode og rapporterer fund uden at ændre den.',
+    },
+    {
+      question: 'Kan jeg køre en af dem gratis?',
+      answer:
+        'Hele workflowet i Lagune kan køre for $0 med en gratis lokal model, og dets deterministiske hooks udsender afgørelser helt uden AI. Scanningen i Deepsec er gratis, men udsender ingen afgørelser, så ethvert fund kræver dets betalte AI-trin.',
+    },
+    {
+      question: 'Ændrer nogen af dem min kode?',
+      answer:
+        'Lagune gør: harden gennemfører rettelser i din kode. Deepsec gør ikke: det er kun statisk analyse, der udsender fund og anbefalingstekst, som en person eller agent anvender separat.',
+    },
+  ]}
+/>

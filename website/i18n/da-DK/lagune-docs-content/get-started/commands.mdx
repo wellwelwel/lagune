@@ -1,0 +1,100 @@
+---
+id: commands
+title: Sikkerhedsskills til AI-agenter
+sidebar_label: Skills
+description: 'De skills, din AI-agent får med Lagune: gennemgå et eksisterende projekt, eller sikr nyt arbejde, mens du bygger, altid styret af sikkerhedsprincipperne.'
+keywords:
+  - lagune skills
+  - charter
+  - detect
+  - plan
+  - harden
+  - verify
+  - slash-kommandoer
+source_hash: 'e34c6589c180b121ae8e1f366ac2be88f76ff6ba219679daeb30c0bf9f3f1036'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Når **Lagune** er [installeret](/docs), får din **AI**-agent en række skills. Der er to måder at bruge dem på, og begge styres af **charter**: sikr nyt arbejde, mens du bygger det, eller kør hele gennemgangen af et projekt.
+
+<Tabs queryString="mode">
+  <TabItem value="build" label="⌨️ Byg / udvikling" default>
+
+Du behøver ikke at gøre dit arbejde færdigt, før du sikrer det. Brug [**`/lagune`**](/docs/commands/lagune) til det arbejde, du skriver **lige nu**:
+
+| Skill                                         | Hvad den gør for dig                                                               |
+| --------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [**/lagune-charter**](/docs/commands/charter) | Fastlægger dit projekts sikkerhedsregler, det fundament `/lagune` bygger ud fra    |
+| [**/lagune**](/docs/commands/lagune)          | Bygger det, du beder om, og hærder det, mens det bliver skrevet, styret af charter |
+
+:::tip[Brug den når som helst]
+[**`/lagune`**](/docs/commands/lagune) overholder dine regler fra charter, hver gang den kører. Den tager imod enhver prompt, bygger det, du bad om, og hærder det med sikre standardindstillinger undervejs, ikke senere.
+:::
+
+---
+
+#### Særlige skills
+
+| Skill                                               | Hvad den gør                                                                          |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Lærer **Lagune** en ny sikkerhedsspecialisering ud fra artikler, exploits eller emner |
+
+  </TabItem>
+  <TabItem value="audit" label="🔬 Gennemgang: Blue Team-workflow">
+
+Hele **Blue Team-workflowet**: læs, hvad et projekt gør, kortlæg dets risici, og luk dem. Hvert trin bygger på det forrige, så du skal blot følge listen oppefra og ned:
+
+| #   | Skill                                         | Hvad den gør for dig                                                                         |
+| --- | --------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 1   | [**/lagune-charter**](/docs/commands/charter) | Fastlægger dit projekts sikkerhedsregler, foreslået for dig eller formet efter det, du siger |
+| 2   | [**/lagune-detect**](/docs/commands/detect)   | Læser din kode og kortlægger, hvad dit system gør, og hvor risiciene er                      |
+| 3   | [**/lagune-plan**](/docs/commands/plan)       | Gør det, detect fandt, til en forsvarsplan med en rettelse til hvert fund                    |
+| 4   | [**/lagune-harden**](/docs/commands/harden)   | Gennemfører planens rettelser i din kode, sikkert og én ad gangen                            |
+| 5   | [**/lagune-verify**](/docs/commands/verify)   | Påviser, at hver gennemført rettelse holder, og afslutter dem, der gør                       |
+
+---
+
+#### Særlige skills
+
+| Skill                                               | Hvad den gør                                                                                         |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [**/lagune-specialize**](/docs/commands/specialize) | Lærer **Lagune** en ny sikkerhedsspecialisering ud fra artikler, exploits eller emner                |
+| [**/lagune-prove**](/docs/commands/prove)           | Gør hvert fund fra detect til et kørbart, udelukkende defensivt bevis til ansvarlig offentliggørelse |
+
+---
+
+#### Interne skills
+
+| Skill                                       | Hvad den gør                               |
+| ------------------------------------------- | ------------------------------------------ |
+| [**/lagune-repair**](/docs/commands/repair) | Reparerer den interne sporing i **Lagune** |
+
+:::tip
+Sikkerhed er ikke en udgift, men en investering: det, du lægger i fra starten, sparer du mange gange igen i de hændelser, du aldrig får 🙋🏻‍♂️
+:::
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'Hvilke skills tilføjer Lagune?',
+      answer:
+        '/lagune til at hærde arbejdet, mens du bygger det, og Blue Team-gennemgangen i fem faser: /lagune-charter, /lagune-detect, /lagune-plan, /lagune-harden, /lagune-verify. Derudover /lagune-specialize og /lagune-prove.',
+    },
+    {
+      question: 'Hvad er Blue Team-workflowet i Lagune?',
+      answer:
+        'En gennemgang i fem faser: charter (fastlæg regler), detect (kortlæg risici), plan (vurdér og planlæg rettelser), harden (gennemfør rettelser), verify (påvis, at de holder, og afslut dem).',
+    },
+    {
+      question: 'Hvad er forskellen på /lagune og gennemgangen?',
+      answer:
+        '/lagune sikrer nyt arbejde, mens du skriver det, uden et workflow at følge. Gennemgangen kører de fem faser i rækkefølge over et eksisterende projekt.',
+    },
+  ]}
+/>

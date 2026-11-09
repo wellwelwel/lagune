@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: Gennemfør sikkerhedsrettelser i din kode'
+sidebar_label: 4. Harden
+description: Gennemfør planens rettelser i din kode, sikkert og én ad gangen.
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 Gennemfør planens rettelser i din kode, sikkert og én ad gangen.
+
+## Brug
+
+<Tabs>
+  <TabItem value="full" label="Gennemfør alt" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Angiv stier">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Efter prioritet">
+
+```prompt
+/lagune-harden Critical og High
+```
+
+  </TabItem>
+</Tabs>
+
+## Sådan virker det
+
+Planen har allerede besluttet hver rettelse, så harden gennemfører den blot. Da det er den eneste fase, der rører din kode, går den forsigtigt frem: den gennemfører én rettelse ad gangen, så hver ændring forbliver nem at gennemse, og den svækker aldrig en kontrol for at få en rettelse til at passe. For eksempel rettelsen af uploaden:
+
+- **Filupload** (status: **Applied**)
+  - _Hvad der ændrede sig:_ tjekker filens reelle type og størrelse, afviser alt uventet, omdøber den ved lagring og gemmer den et sted, hvor den ikke kan køres som kode.
+  - _Hvor:_ funktionen `handleUpload` samt den lagringshjælper, den kalder.
+
+Hvis en rettelse ikke kan gennemføres fuldt ud, gør harden det, den sikkert kan, og markerer resten som **Partial** eller **Blocked**, så den forbliver åben.
+
+:::info[Applied er ikke verificeret]
+Applied betyder ikke, at den er påvist endnu. Det er, hvad [verify](/docs/commands/verify) er til.
+:::
+
+:::tip
+
+- Den bygger udelukkende på planen. Hvis en rettelse eller en fil aldrig er blevet planlagt, beder den dig om først at køre `/lagune-plan` på den.
+- Når du kører den igen, bliver hærdningsloggen afstemt: tilbagerullede ændringer forsvinder, og nyligt gennemførte rettelser kommer til.
+- Hærdningsloggen ligger i `.lagune/memory/harden.md`.
+
+:::
+
+:::warning[Afhænger af plan og ændrer din kode]
+Harden bygger på [`/lagune-plan`](/docs/commands/plan). Det er den eneste fase, der ændrer din kode.
+:::
+
+## Næste trin
+
+Påvis, at hver rettelse holder: [`/lagune-verify`](/docs/commands/verify).
+
+<Faq
+  items={[
+    {
+      question: 'Ændrer /lagune-harden min kode?',
+      answer:
+        'Ja. Det er den eneste fase, der rører din kode, og den gennemfører planens rettelser én ad gangen.',
+    },
+    {
+      question: 'Hvad betyder Applied, Partial og Blocked?',
+      answer:
+        'Det er den status, Lagune registrerer for hver rettelse. Applied betyder, at rettelsen er gennemført, Partial, at kun en del af den er, og Blocked, at den ikke kunne gennemføres. Applied betyder ikke, at den er påvist endnu.',
+    },
+    {
+      question: 'Gennemfører Lagune rettelser uden at spørge?',
+      answer:
+        'Om en ændring kræver din godkendelse, afgøres af din agent og den tilladelsestilstand, du kører den i, ikke af Lagune, som ikke tilføjer nogen bekræftelse af sin egen. Den svækker dog aldrig en kontrol for at opfylde en rettelse, og hvis en rettelse ville komme i konflikt med en regel i charter, stopper den og fortæller dig det først.',
+    },
+  ]}
+/>

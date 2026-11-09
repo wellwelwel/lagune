@@ -1,0 +1,93 @@
+---
+id: pi
+title: 'Installér Lagune i Pi som en pakke'
+sidebar_label: Pi
+parent: get-started/install
+description: Installér Lagune i Pi som en pakke, fra npm eller fra GitHub, og hold det opdateret.
+keywords:
+  - pi
+  - pi coding agent
+  - pi package
+  - pi install
+  - installér lagune
+  - opsætning
+  - AI-sikkerhed
+  - AI-agenter
+source_hash: 'd60352d0f487c97e583858513792dd9aa81d1cc9c249674fdfe6abe4ec011be8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Pi' />
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+Installér pakken fra din terminal:
+
+```bash
+pi install npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+Installér det seneste commit fra **GitHub**, som kører motoren gennem **npx**:
+
+```bash
+pi install git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+## Opdatering
+
+<Tabs groupId="pi-source">
+  <TabItem value="npm" label="npm" default>
+
+Kør følgende for at opdatere **Lagune**:
+
+```bash
+pi update npm:lagune
+```
+
+  </TabItem>
+  <TabItem value="github" label="GitHub">
+
+Kør følgende for at opdatere **Lagune**:
+
+```bash
+pi update git:github.com/wellwelwel/lagune
+```
+
+  </TabItem>
+</Tabs>
+
+`pi update --extensions` opdaterer alle de pakker, du har installeret, mens `pi update` alene kun opdaterer **Pi**.
+
+## Kommandoer
+
+Skriv kommandoerne med præfikset `skill:`, såsom `/skill:lagune-charter` for `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Pi?',
+      answer:
+        'Kør pi install npm:lagune, eller pi install git:github.com/wellwelwel/lagune for at få det seneste commit fra GitHub.',
+    },
+    {
+      question: 'Hvordan opdaterer jeg Lagune i Pi?',
+      answer:
+        'Kør pi update npm:lagune, eller pi update git:github.com/wellwelwel/lagune for en installation fra GitHub. pi update --extensions opdaterer alle de pakker, du har installeret.',
+    },
+    {
+      question: 'Hvordan kører jeg kommandoerne i Lagune i Pi?',
+      answer: 'Skriv dem med præfikset skill:, såsom /skill:lagune-charter.',
+    },
+  ]}
+/>
