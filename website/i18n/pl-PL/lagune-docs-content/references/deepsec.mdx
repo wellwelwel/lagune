@@ -12,7 +12,7 @@ keywords:
   - SDH
   - porównanie Lagune
   - narzędzia bezpieczeństwa AI
-source_hash: '72774eb4230e28365f5cda81a0606acbe64b9310f7723a5cc401a0ebab5b8f03'
+source_hash: 'fefde6f13fe0a74060035d20e5b49a7d1c57954c51dc267e6e9c438db447acd3'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -142,10 +142,10 @@ Jak każde z nich traktuje osobę, która z niego korzysta: czego wymaga pierwsz
 
 Lagune działa przez agenta, którego masz już otwartego. Deepsec najpierw przygotowuje własny obszar roboczy i dostęp do modelu.
 
-| Aspekt                 | Lagune                                                                                   | Deepsec                                                                              |
-| ---------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Pierwsze polecenie     | Instalacja wtyczki lub `npx skills add wellwelwel/lagune`, a potem `/lagune-*` w agencie | `npx deepsec init`, potem `cd .deepsec`, `pnpm install`, `scan`, `process`           |
-| Dane uwierzytelniające | Bez osobnego klucza, korzysta z twojego obecnego agenta                                  | Klucz do modelu (np. AI Gateway, 12-godzinny token OIDC Vercel albo token Anthropic) |
+| Aspekt                 | Lagune                                                                                      | Deepsec                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Pierwsze polecenie     | Instalacja wtyczki lub `npx skills add wellwelwel/lagune -y`, a potem `/lagune-*` w agencie | `npx deepsec init`, potem `cd .deepsec`, `pnpm install`, `scan`, `process`           |
+| Dane uwierzytelniające | Bez osobnego klucza, korzysta z twojego obecnego agenta                                     | Klucz do modelu (np. AI Gateway, 12-godzinny token OIDC Vercel albo token Anthropic) |
 
 ### Sterowanie
 

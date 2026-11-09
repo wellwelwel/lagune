@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - configuração
   - agentes de IA
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-Instale os comandos do **Lagune** no seu projeto pelo terminal com o [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), mantendo **Project** como escopo de instalação:
+Instale os comandos do **Lagune** no seu projeto pelo terminal com o [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Ou cole este prompt no seu agente:
 
 ```md
-Execute `npx --yes skills add wellwelwel/lagune` e siga agora as instruções da skill geradas. Leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso. Resolva os caminhos relativos a partir do diretório de arquivos de apoio que ele indicar.
+Execute `npx --yes skills add wellwelwel/lagune --yes` e siga agora as instruções da skill geradas. Leia a saída completa do comando, redirecionando-a antes para um arquivo temporário se for preciso. Resolva os caminhos relativos a partir do diretório de arquivos de apoio que ele indicar.
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: 'Como instalar o Lagune em qualquer agente de IA?',
       answer:
-        "Execute npx skills add wellwelwel/lagune --skill '*' ou gh skill install wellwelwel/lagune --all --scope project no seu projeto, ou cole o prompt de instalação no seu agente.",
+        'Execute npx skills add wellwelwel/lagune -y ou gh skill install wellwelwel/lagune --all --scope project no seu projeto, ou cole o prompt de instalação no seu agente.',
     },
     {
       question: 'Como atualizar o Lagune em qualquer agente de IA?',

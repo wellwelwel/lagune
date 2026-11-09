@@ -191,6 +191,10 @@
     "message": "Lagune.ai, voltar ao topo",
     "description": "The label of the brand button that scrolls back to the top"
   },
+  "home.companions.title": {
+    "message": "Combine o Lagune com tudo o que você já usa",
+    "description": "The heading over the home tiles of popular agent skills and plugins that work alongside Lagune"
+  },
   "home.cta.install": {
     "message": "Instalar",
     "description": "The main home button, leading to the install page"
@@ -244,7 +248,7 @@
     "description": "A question of the home page in search engines' structured data"
   },
   "home.faq.install.answer": {
-    "message": "A maioria dos agentes instala o Lagune como plugin, o Gemini CLI e o Qwen Code como extensão, o Pi como pacote e qualquer outro agente com npx skills add wellwelwel/lagune. A página de instalação mostra o comando de cada agente. Funciona tanto em projetos novos quanto em existentes e não precisa de chave de API.",
+    "message": "A maioria dos agentes instala o Lagune como plugin, o Gemini CLI e o Qwen Code como extensão, o Pi como pacote e qualquer outro agente com npx skills add wellwelwel/lagune -y. A página de instalação mostra o comando de cada agente. Funciona tanto em projetos novos quanto em existentes e não precisa de chave de API.",
     "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
   },
   "home.faq.install.question": {
@@ -562,6 +566,66 @@
   "home.prompt.example": {
     "message": "Exemplo",
     "description": "The label over the example prompt typed on the home page"
+  },
+  "home.prompts.agents.instruction": {
+    "message": "## Segurança\n\n- Sempre que criar ou alterar código, use a skill `/lagune` (chamada `/lagune:lagune` quando instalada como plugin) para tornar o resultado mais seguro por padrão.",
+    "description": "The section a user adds to the instructions file their agent reads, written in Markdown, where `/lagune` and `/lagune:lagune` stay unchanged"
+  },
+  "home.prompts.agents.lead": {
+    "message": "Adicione isto ao arquivo de instruções do seu agente, por exemplo AGENTS.md ou CLAUDE.md, entre as primeiras instruções:",
+    "description": "The request that opens the home prompt example for the instructions file an agent reads, followed by the section to add, where the file names stay unchanged"
+  },
+  "home.prompts.audit": {
+    "message": "Auditoria: fluxo Blue Team",
+    "description": "The tab of the home prompt examples that run the five-phase Blue Team flow"
+  },
+  "home.prompts.audit.orchestrator": {
+    "message": "Você é um orquestrador de cibersegurança:\n\n- Subagente 0: /lagune-charter (só se ainda não existir um charter)\n- Subagente 1: /lagune-detect\n- Subagente 2: /lagune-plan\n- Subagente 3: {harden}\n- Subagente 4: {verify}\n\nLoop: execute de novo os subagentes de harden e verify até que todos os achados estejam fechados.\n\n- Escopo: todo o código-fonte e a configuração dele.\n- Fora do escopo: tudo o que o Git ignora, código gerado, dependências de desenvolvimento e testes, incluindo as fixtures e os snapshots deles.",
+    "description": "An example prompt that runs the Blue Team flow with one sub-agent per command, where {harden} and {verify} are the harden and verify commands, and every /lagune-* command and Git stay unchanged"
+  },
+  "home.prompts.audit.orchestratorTab": {
+    "message": "Orquestrador",
+    "description": "The name of the home prompt example that runs the Blue Team flow with one sub-agent per command, read in the label of its copy button"
+  },
+  "home.prompts.copyNamed": {
+    "message": "Copiar o exemplo {name}",
+    "description": "The label of the button that copies a prompt example on the home page, where {name} is the name of its tab"
+  },
+  "home.prompts.copyPrompt": {
+    "message": "Copiar o prompt {position} do exemplo {name}",
+    "description": "The label of the button that copies one prompt of a home prompt example made of several prompts, where {position} is its order and {name} is the name of its tab"
+  },
+  "home.prompts.firstUse": {
+    "message": "Primeiro uso",
+    "description": "The tab of the home prompt examples for the first steps: /lagune-charter, the command to run before any other, and the instructions file an agent reads"
+  },
+  "home.prompts.firstUse.note": {
+    "message": "Depois, use a skill {command} em qualquer prompt, a qualquer momento, para construir com mais segurança.",
+    "description": "The line that closes the first steps of the home prompt examples, where {command} is the /lagune command"
+  },
+  "home.prompts.lead": {
+    "message": "Cole um deles no seu agente ou adapte-o ao seu projeto.",
+    "description": "The line under the heading of the home section with prompt examples"
+  },
+  "home.prompts.more": {
+    "message": "Veja mais exemplos de prompts",
+    "description": "The link from the home prompt examples to the documentation page with every prompt example"
+  },
+  "home.prompts.schedule": {
+    "message": "Veja como agendar auditorias automáticas",
+    "description": "The link from the home prompt examples to the documentation page on scheduling recurring audits"
+  },
+  "home.prompts.sdd": {
+    "message": "Veja exemplos de Spec-Driven Development",
+    "description": "The link from the home prompt examples to the documentation page on using Lagune with Spec-Driven Development tools"
+  },
+  "home.prompts.tabs": {
+    "message": "Exemplos de prompts por uso",
+    "description": "The accessible name of the tabs that switch the prompt examples shown on the home page, one tab per use"
+  },
+  "home.prompts.title": {
+    "message": "Exemplos de prompts",
+    "description": "The heading of the home section with prompt examples to paste into an AI agent"
   },
   "home.rail.step": {
     "message": "{phase} ({stage})",

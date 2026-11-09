@@ -1,0 +1,102 @@
+---
+id: spec-driven-development
+title: 'Spec-Driven Development: Sikre det som spesifikasjonen din bygger'
+sidebar_label: Spec-Driven Development
+description: 'Kombiner Lagune med Superpowers, Spec Kit eller OpenSpec: fastsett sikkerhetsprinsippene ut fra spesifikasjonen, og implementer den deretter med /lagune, slik at hver oppgave herdes mens koden skrives.'
+keywords:
+  - spec-driven development
+  - sdd
+  - superpowers
+  - spec kit
+  - openspec
+  - sikkerhetsprinsipper fra spesifikasjon
+  - sikker som standard
+  - sikker funksjonsutvikling
+  - arbeidsflyt for ki-koding
+source_hash: '31fdc5193427d17e587fe5296aaf213be14ddba0abfa6f82fbf5375d6e82a7c8'
+---
+
+import { CompanionTabLabel } from '@site/src/components/docs/CompanionTabLabel';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Kombiner **Lagune** med et verktøy for Spec-Driven Development, som [**Superpowers**](https://github.com/obra/superpowers), [**Spec Kit**](https://github.com/github/spec-kit) eller [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): verktøyet ditt bestemmer hva som skal bygges, og **Lagune** bestemmer hvordan det forblir sikkert.
+
+## Slik passer det inn
+
+**Lagune** kobler seg på flyten i verktøyet ditt på to punkter og lar resten være uendret:
+
+1. Når verktøyet ditt har skrevet spesifikasjonen, leser [`/lagune-charter`](/docs/commands/charter) den og fastsetter sikkerhetsprinsippene funksjonen krever, før det finnes noe kode.
+2. Når du merker implementeringskommandoen i verktøyet ditt med [`/lagune`](/docs/commands/lagune), herder den hver oppgave etter disse prinsippene mens koden skrives.
+
+:::tip
+Erstatt stien til spesifikasjonen i hvert eksempel med filen verktøyet ditt skrev. Når prosjektet allerede har sikkerhetsprinsipper, oppdaterer det samme steget dem med det den nye funksjonen trenger.
+:::
+
+## Prompteksempler
+
+Send promptene i rekkefølge, hver først når den forrige er ferdig.
+
+<Tabs>
+  <TabItem value="superpowers" label={<CompanionTabLabel name='Superpowers' />} default>
+
+```prompt
+/superpowers:brainstorming Kjøp som gjest med kortbetaling.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+  </TabItem>
+  <TabItem value="spec-kit" label={<CompanionTabLabel name='Spec Kit' />}>
+
+```prompt
+/speckit.specify Kjøp som gjest med kortbetaling.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+  </TabItem>
+  <TabItem value="openspec" label={<CompanionTabLabel name='OpenSpec' />}>
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+  </TabItem>
+</Tabs>

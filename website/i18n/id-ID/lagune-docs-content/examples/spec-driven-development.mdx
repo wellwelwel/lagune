@@ -1,0 +1,105 @@
+---
+id: spec-driven-development
+title: 'Spec-Driven Development: amankan apa yang dibangun dari spesifikasi Anda'
+sidebar_label: Spec-Driven Development
+description: 'Pasangkan Lagune dengan Superpowers, Spec Kit, atau OpenSpec: tetapkan charter dari spesifikasi Anda, lalu implementasikan dengan /lagune agar keamanan setiap tugas diperkuat saat kodenya ditulis.'
+keywords:
+  - spec-driven development
+  - sdd
+  - superpowers
+  - spec kit
+  - openspec
+  - charter dari spesifikasi
+  - charter from spec
+  - aman secara bawaan
+  - secure by default
+  - pengembangan fitur yang aman
+  - alur kerja coding ai
+  - ai coding workflow
+source_hash: '31fdc5193427d17e587fe5296aaf213be14ddba0abfa6f82fbf5375d6e82a7c8'
+---
+
+import { CompanionTabLabel } from '@site/src/components/docs/CompanionTabLabel';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Pasangkan **Lagune** dengan tool Spec-Driven Development, seperti [**Superpowers**](https://github.com/obra/superpowers), [**Spec Kit**](https://github.com/github/spec-kit), atau [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): tool Anda menentukan apa yang dibangun, dan **Lagune** menentukan cara menjaganya tetap aman.
+
+## Cara memadukannya
+
+**Lagune** masuk ke alur tool Anda di dua titik, tanpa mengubah bagian lainnya:
+
+1. Setelah tool Anda menulis spesifikasi, [`/lagune-charter`](/docs/commands/charter) membacanya dan menetapkan prinsip keamanan yang dibutuhkan fitur tersebut, sebelum ada kode apa pun.
+2. Saat ditambahkan ke perintah implementasi tool Anda, [`/lagune`](/docs/commands/lagune) memperkuat keamanan setiap tugas sesuai prinsip tersebut seiring kodenya ditulis.
+
+:::tip
+Ganti path spesifikasi di setiap contoh dengan file yang ditulis tool Anda. Jika proyek sudah memiliki charter, langkah yang sama memperbaruinya dengan apa yang dibutuhkan fitur baru.
+:::
+
+## Contoh prompt
+
+Kirim prompt secara berurutan, masing-masing setelah prompt sebelumnya selesai.
+
+<Tabs>
+  <TabItem value="superpowers" label={<CompanionTabLabel name='Superpowers' />} default>
+
+```prompt
+/superpowers:brainstorming Checkout sebagai tamu dengan pembayaran kartu.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+  </TabItem>
+  <TabItem value="spec-kit" label={<CompanionTabLabel name='Spec Kit' />}>
+
+```prompt
+/speckit.specify Checkout sebagai tamu dengan pembayaran kartu.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+  </TabItem>
+  <TabItem value="openspec" label={<CompanionTabLabel name='OpenSpec' />}>
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+  </TabItem>
+</Tabs>

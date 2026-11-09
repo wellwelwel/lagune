@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - setup
   - agen AI
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-Instal perintah **Lagune** di proyek Anda dari terminal dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), dan biarkan cakupan instalasinya tetap **Project**:
+Instal perintah **Lagune** di proyek Anda dari terminal dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Atau tempel prompt ini ke agen Anda:
 
 ```md
-Jalankan `npx --yes skills add wellwelwel/lagune` dan ikuti sekarang juga instruksi skill yang dihasilkannya. Baca seluruh output-nya, alihkan dulu ke file sementara jika perlu. Tentukan path relatif berdasarkan direktori file pendukung yang diberikannya.
+Jalankan `npx --yes skills add wellwelwel/lagune --yes` dan ikuti sekarang juga instruksi skill yang dihasilkannya. Baca seluruh output-nya, alihkan dulu ke file sementara jika perlu. Tentukan path relatif berdasarkan direktori file pendukung yang diberikannya.
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: 'Bagaimana cara menginstal Lagune di agen AI mana pun?',
       answer:
-        "Jalankan npx skills add wellwelwel/lagune --skill '*' atau gh skill install wellwelwel/lagune --all --scope project di proyek Anda, atau tempel prompt instalasi ke agen Anda.",
+        'Jalankan npx skills add wellwelwel/lagune -y atau gh skill install wellwelwel/lagune --all --scope project di proyek Anda, atau tempel prompt instalasi ke agen Anda.',
     },
     {
       question: 'Bagaimana cara memperbarui Lagune di agen AI mana pun?',

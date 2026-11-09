@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - 설정
   - AI 에이전트
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-[**skills.sh**](https://www.skills.sh/wellwelwel/lagune)로 터미널에서 프로젝트에 **Lagune** 명령어를 설치하되, 설치 범위는 **Project**로 유지하세요:
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune)로 터미널에서 프로젝트에 **Lagune** 명령어를 설치하세요:
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 또는 에이전트에 다음 프롬프트를 붙여 넣으세요:
 
 ```md
-`npx --yes skills add wellwelwel/lagune` 명령어를 실행하고, 생성된 스킬 지침을 지금 바로 따라 줘. 필요하면 먼저 임시 파일로 리디렉션해서 출력 전체를 읽어 줘. 상대 경로는 출력에 표시된 지원 파일 디렉터리를 기준으로 해석해 줘.
+`npx --yes skills add wellwelwel/lagune --yes` 명령어를 실행하고, 생성된 스킬 지침을 지금 바로 따라 줘. 필요하면 먼저 임시 파일로 리디렉션해서 출력 전체를 읽어 줘. 상대 경로는 출력에 표시된 지원 파일 디렉터리를 기준으로 해석해 줘.
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: '어떤 AI 에이전트에든 Lagune을 설치하려면 어떻게 하나요?',
       answer:
-        "프로젝트에서 npx skills add wellwelwel/lagune --skill '*' 명령어나 gh skill install wellwelwel/lagune --all --scope project 명령어를 실행하거나, 설치 프롬프트를 에이전트에 붙여 넣으세요.",
+        '프로젝트에서 npx skills add wellwelwel/lagune -y 명령어나 gh skill install wellwelwel/lagune --all --scope project 명령어를 실행하거나, 설치 프롬프트를 에이전트에 붙여 넣으세요.',
     },
     {
       question: '어떤 AI 에이전트에서든 Lagune을 업데이트하려면 어떻게 하나요?',

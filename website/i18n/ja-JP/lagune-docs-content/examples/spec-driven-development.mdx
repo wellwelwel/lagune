@@ -1,0 +1,103 @@
+---
+id: spec-driven-development
+title: 'Spec-Driven Development：仕様から作るコードを安全に'
+sidebar_label: Spec-Driven Development
+description: 'Lagune を Superpowers、Spec Kit、OpenSpec と組み合わせて使います。仕様からセキュリティ原則を定め、/lagune で実装すれば、コードを書く段階で各タスクが堅牢化されます。'
+keywords:
+  - spec-driven development
+  - 仕様駆動開発
+  - sdd
+  - superpowers
+  - spec kit
+  - openspec
+  - 仕様からセキュリティ原則
+  - デフォルトで安全
+  - 安全な機能開発
+  - ai コーディング ワークフロー
+source_hash: '31fdc5193427d17e587fe5296aaf213be14ddba0abfa6f82fbf5375d6e82a7c8'
+---
+
+import { CompanionTabLabel } from '@site/src/components/docs/CompanionTabLabel';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** を [**Superpowers**](https://github.com/obra/superpowers)、[**Spec Kit**](https://github.com/github/spec-kit)、[**OpenSpec**](https://github.com/Fission-AI/OpenSpec) などの Spec-Driven Development ツールと組み合わせて使います：何を作るかはツールが決め、それをどう安全に保つかは **Lagune** が決めます。
+
+## 組み合わせ方
+
+**Lagune** はツールのフローの 2 か所に加わり、それ以外は変えません：
+
+1. ツールが仕様を書き上げたら、[`/lagune-charter`](/docs/commands/charter) がそれを読み、コードがまだ存在しないうちに、その機能に必要なセキュリティ原則を定めます。
+2. ツールの実装コマンドに [`/lagune`](/docs/commands/lagune) を付けると、コードを書くそばから、それらの原則に沿って各タスクを堅牢化します。
+
+:::tip
+各例の仕様のパスは、ツールが書き出したファイルに置き換えてください。プロジェクトにすでにセキュリティ原則がある場合は、同じ手順で新しい機能に必要な内容に更新されます。
+:::
+
+## プロンプト例
+
+プロンプトは順番に、前のプロンプトが終わるのを待ってから 1 つずつ送ってください。
+
+<Tabs>
+  <TabItem value="superpowers" label={<CompanionTabLabel name='Superpowers' />} default>
+
+```prompt
+/superpowers:brainstorming カード決済に対応したゲスト購入。
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+  </TabItem>
+  <TabItem value="spec-kit" label={<CompanionTabLabel name='Spec Kit' />}>
+
+```prompt
+/speckit.specify カード決済に対応したゲスト購入。
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+  </TabItem>
+  <TabItem value="openspec" label={<CompanionTabLabel name='OpenSpec' />}>
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+  </TabItem>
+</Tabs>

@@ -1,0 +1,103 @@
+---
+id: spec-driven-development
+title: 'Spec-Driven Development：保护规范构建出的代码'
+sidebar_label: Spec-Driven Development
+description: '把 Lagune 与 Superpowers、Spec Kit 或 OpenSpec 搭配使用：根据你的规范设定安全原则，再用 /lagune 实现它，让每项任务在编写代码的同时得到加固。'
+keywords:
+  - spec-driven development
+  - 规范驱动开发
+  - sdd
+  - superpowers
+  - spec kit
+  - openspec
+  - 根据规范设定安全原则
+  - 默认安全
+  - 安全的功能开发
+  - ai 编程工作流
+source_hash: '31fdc5193427d17e587fe5296aaf213be14ddba0abfa6f82fbf5375d6e82a7c8'
+---
+
+import { CompanionTabLabel } from '@site/src/components/docs/CompanionTabLabel';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+把 **Lagune** 与 Spec-Driven Development 工具搭配使用，例如 [**Superpowers**](https://github.com/obra/superpowers)、[**Spec Kit**](https://github.com/github/spec-kit) 或 [**OpenSpec**](https://github.com/Fission-AI/OpenSpec)：由你的工具决定构建什么，由 **Lagune** 决定如何保证它的安全。
+
+## 搭配方式
+
+**Lagune** 在两个环节加入你的工具流程，其余部分保持不变：
+
+1. 你的工具写好规范后，[`/lagune-charter`](/docs/commands/charter) 会读取它，在还没有任何代码之前，就设定好该功能所需的安全原则。
+2. 把 [`/lagune`](/docs/commands/lagune) 标记在你的工具的实现命令上，它会在编写代码的同时，按照这些原则加固每项任务。
+
+:::tip
+把每个示例中的规范路径替换为你的工具写出的文件。如果项目已经有安全原则，同一步骤会按新功能的需要更新它们。
+:::
+
+## 提示词示例
+
+按顺序发送这些提示词，每条都等上一条完成后再发送。
+
+<Tabs>
+  <TabItem value="superpowers" label={<CompanionTabLabel name='Superpowers' />} default>
+
+```prompt
+/superpowers:brainstorming 支持银行卡支付的访客结账。
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+  </TabItem>
+  <TabItem value="spec-kit" label={<CompanionTabLabel name='Spec Kit' />}>
+
+```prompt
+/speckit.specify 支持银行卡支付的访客结账。
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+  </TabItem>
+  <TabItem value="openspec" label={<CompanionTabLabel name='OpenSpec' />}>
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+  </TabItem>
+</Tabs>

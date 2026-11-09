@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - налаштування
   - ШІ-агенти
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-Встановіть команди **Lagune** у свій проєкт із термінала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), залишивши **Project** як область встановлення:
+Встановіть команди **Lagune** у свій проєкт із термінала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Або вставте цей промпт у свій агент:
 
 ```md
-Виконай `npx --yes skills add wellwelwel/lagune` і одразу дотримуйся згенерованих інструкцій навички. Прочитай увесь вивід команди, за потреби спершу перенаправивши його в тимчасовий файл. Розв'язуй відносні шляхи від каталогу допоміжних файлів, який вона надає.
+Виконай `npx --yes skills add wellwelwel/lagune --yes` і одразу дотримуйся згенерованих інструкцій навички. Прочитай увесь вивід команди, за потреби спершу перенаправивши його в тимчасовий файл. Розв'язуй відносні шляхи від каталогу допоміжних файлів, який вона надає.
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: 'Як встановити Lagune у будь-який ШІ-агент?',
       answer:
-        "Виконайте у своєму проєкті npx skills add wellwelwel/lagune --skill '*' чи gh skill install wellwelwel/lagune --all --scope project або вставте промпт для встановлення у свій агент.",
+        'Виконайте у своєму проєкті npx skills add wellwelwel/lagune -y чи gh skill install wellwelwel/lagune --all --scope project або вставте промпт для встановлення у свій агент.',
     },
     {
       question: 'Як оновити Lagune у будь-якому ШІ-агенті?',

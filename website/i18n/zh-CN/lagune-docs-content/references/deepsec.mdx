@@ -12,7 +12,7 @@ keywords:
   - SDH
   - Lagune 对比
   - AI 安全工具
-source_hash: '72774eb4230e28365f5cda81a0606acbe64b9310f7723a5cc401a0ebab5b8f03'
+source_hash: 'fefde6f13fe0a74060035d20e5b49a7d1c57954c51dc267e6e9c438db447acd3'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -142,10 +142,10 @@ Deepsec 为安全团队产出交付物。Lagune 则为运行它的人呈现实�
 
 Lagune 直接通过已经打开的智能体运行。Deepsec 则要先准备好自己的工作区和模型访问权限。
 
-| 方面         | Lagune                                                                            | Deepsec                                                                             |
-| ------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| 第一条命令   | 安装插件或运行 `npx skills add wellwelwel/lagune`，然后在智能体中使用 `/lagune-*` | `npx deepsec init`，然后依次执行 `cd .deepsec`、`pnpm install`、`scan`、`process`   |
-| 运行所需凭证 | 不需要额外的密钥，直接使用你当前的智能体                                          | 一个模型密钥（例如 AI Gateway、有效期 12 小时的 Vercel OIDC 令牌或 Anthropic 令牌） |
+| 方面         | Lagune                                                                               | Deepsec                                                                             |
+| ------------ | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| 第一条命令   | 安装插件或运行 `npx skills add wellwelwel/lagune -y`，然后在智能体中使用 `/lagune-*` | `npx deepsec init`，然后依次执行 `cd .deepsec`、`pnpm install`、`scan`、`process`   |
+| 运行所需凭证 | 不需要额外的密钥，直接使用你当前的智能体                                             | 一个模型密钥（例如 AI Gateway、有效期 12 小时的 Vercel OIDC 令牌或 Anthropic 令牌） |
 
 ### 如何驱动
 

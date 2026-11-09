@@ -191,6 +191,10 @@
     "message": "Lagune.ai，返回顶部",
     "description": "The label of the brand button that scrolls back to the top"
   },
+  "home.companions.title": {
+    "message": "把 Lagune 和你已在使用的一切结合起来",
+    "description": "The heading over the home tiles of popular agent skills and plugins that work alongside Lagune"
+  },
   "home.cta.install": {
     "message": "安装",
     "description": "The main home button, leading to the install page"
@@ -244,7 +248,7 @@
     "description": "A question of the home page in search engines' structured data"
   },
   "home.faq.install.answer": {
-    "message": "大多数智能体以插件形式安装 Lagune，Gemini CLI 和 Qwen Code 以扩展形式安装，Pi 以包的形式安装，其他智能体则使用 npx skills add wellwelwel/lagune 安装。安装页面列出了每个智能体的安装命令。新项目和现有项目都能用，也不需要 API 密钥。",
+    "message": "大多数智能体以插件形式安装 Lagune，Gemini CLI 和 Qwen Code 以扩展形式安装，Pi 以包的形式安装，其他智能体则使用 npx skills add wellwelwel/lagune -y 安装。安装页面列出了每个智能体的安装命令。新项目和现有项目都能用，也不需要 API 密钥。",
     "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
   },
   "home.faq.install.question": {
@@ -562,6 +566,66 @@
   "home.prompt.example": {
     "message": "示例",
     "description": "The label over the example prompt typed on the home page"
+  },
+  "home.prompts.agents.instruction": {
+    "message": "## 安全\n\n- 每当你构建或修改代码时，都使用 `/lagune` skill（以插件形式安装时名为 `/lagune:lagune`），让它默认提升安全性。",
+    "description": "The section a user adds to the instructions file their agent reads, written in Markdown, where `/lagune` and `/lagune:lagune` stay unchanged"
+  },
+  "home.prompts.agents.lead": {
+    "message": "把这段内容加到你的智能体指令文件中（例如 AGENTS.md 或 CLAUDE.md），作为最前面的指令之一：",
+    "description": "The request that opens the home prompt example for the instructions file an agent reads, followed by the section to add, where the file names stay unchanged"
+  },
+  "home.prompts.audit": {
+    "message": "审计：Blue Team 流程",
+    "description": "The tab of the home prompt examples that run the five-phase Blue Team flow"
+  },
+  "home.prompts.audit.orchestrator": {
+    "message": "你是一名网络安全编排者：\n\n- 第 0 个子智能体：/lagune-charter（仅在还没有安全原则时）\n- 第 1 个子智能体：/lagune-detect\n- 第 2 个子智能体：/lagune-plan\n- 第 3 个子智能体：{harden}\n- 第 4 个子智能体：{verify}\n\n循环：重新运行 harden 和 verify 子智能体，直到所有发现项都已解决。\n\n- 范围：所有源代码及其配置。\n- 范围之外：Git 忽略的所有内容、生成的代码、开发依赖，以及测试（包括它们的 fixture 和快照）。",
+    "description": "An example prompt that runs the Blue Team flow with one sub-agent per command, where {harden} and {verify} are the harden and verify commands, and every /lagune-* command and Git stay unchanged"
+  },
+  "home.prompts.audit.orchestratorTab": {
+    "message": "编排者",
+    "description": "The name of the home prompt example that runs the Blue Team flow with one sub-agent per command, read in the label of its copy button"
+  },
+  "home.prompts.copyNamed": {
+    "message": "复制 {name} 示例",
+    "description": "The label of the button that copies a prompt example on the home page, where {name} is the name of its tab"
+  },
+  "home.prompts.copyPrompt": {
+    "message": "复制 {name} 示例的第 {position} 条提示词",
+    "description": "The label of the button that copies one prompt of a home prompt example made of several prompts, where {position} is its order and {name} is the name of its tab"
+  },
+  "home.prompts.firstUse": {
+    "message": "首次使用",
+    "description": "The tab of the home prompt examples for the first steps: /lagune-charter, the command to run before any other, and the instructions file an agent reads"
+  },
+  "home.prompts.firstUse.note": {
+    "message": "之后，随时都可以在任何提示词中使用 {command} skill，让构建更安全。",
+    "description": "The line that closes the first steps of the home prompt examples, where {command} is the /lagune command"
+  },
+  "home.prompts.lead": {
+    "message": "把其中一条粘贴到你的智能体中，或根据你的项目调整它。",
+    "description": "The line under the heading of the home section with prompt examples"
+  },
+  "home.prompts.more": {
+    "message": "查看更多提示词示例",
+    "description": "The link from the home prompt examples to the documentation page with every prompt example"
+  },
+  "home.prompts.schedule": {
+    "message": "了解如何设置定时自动审计",
+    "description": "The link from the home prompt examples to the documentation page on scheduling recurring audits"
+  },
+  "home.prompts.sdd": {
+    "message": "查看 Spec-Driven Development 示例",
+    "description": "The link from the home prompt examples to the documentation page on using Lagune with Spec-Driven Development tools"
+  },
+  "home.prompts.tabs": {
+    "message": "按用途分类的提示词示例",
+    "description": "The accessible name of the tabs that switch the prompt examples shown on the home page, one tab per use"
+  },
+  "home.prompts.title": {
+    "message": "提示词示例",
+    "description": "The heading of the home section with prompt examples to paste into an AI agent"
   },
   "home.rail.step": {
     "message": "{phase}（{stage}）",

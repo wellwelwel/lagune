@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - konfiguracja
   - agenci AI
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-Zainstaluj polecenia **Lagune** w swoim projekcie z terminala za pomocą [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), pozostawiając **Project** jako zakres instalacji:
+Zainstaluj polecenia **Lagune** w swoim projekcie z terminala za pomocą [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Albo wklej ten prompt swojemu agentowi:
 
 ```md
-Uruchom `npx --yes skills add wellwelwel/lagune` i od razu wykonaj wygenerowane instrukcje skilla. Przeczytaj cały wynik polecenia, w razie potrzeby najpierw przekierowując go do pliku tymczasowego. Ścieżki względne rozwiązuj od folderu z plikami pomocniczymi wskazanego w tym wyniku.
+Uruchom `npx --yes skills add wellwelwel/lagune --yes` i od razu wykonaj wygenerowane instrukcje skilla. Przeczytaj cały wynik polecenia, w razie potrzeby najpierw przekierowując go do pliku tymczasowego. Ścieżki względne rozwiązuj od folderu z plikami pomocniczymi wskazanego w tym wyniku.
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: 'Jak zainstalować polecenia Lagune w dowolnym agencie AI?',
       answer:
-        "W swoim projekcie uruchom npx skills add wellwelwel/lagune --skill '*' lub gh skill install wellwelwel/lagune --all --scope project albo wklej agentowi prompt instalacyjny.",
+        'W swoim projekcie uruchom npx skills add wellwelwel/lagune -y lub gh skill install wellwelwel/lagune --all --scope project albo wklej agentowi prompt instalacyjny.',
     },
     {
       question: 'Jak zaktualizować polecenia Lagune w dowolnym agencie AI?',

@@ -191,6 +191,10 @@
     "message": "Lagune.ai, kembali ke atas",
     "description": "The label of the brand button that scrolls back to the top"
   },
+  "home.companions.title": {
+    "message": "Padukan Lagune dengan semua yang sudah Anda pakai",
+    "description": "The heading over the home tiles of popular agent skills and plugins that work alongside Lagune"
+  },
   "home.cta.install": {
     "message": "Instal",
     "description": "The main home button, leading to the install page"
@@ -244,7 +248,7 @@
     "description": "A question of the home page in search engines' structured data"
   },
   "home.faq.install.answer": {
-    "message": "Sebagian besar agen menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lainnya dengan npx skills add wellwelwel/lagune. Halaman instalasi menampilkan perintah untuk setiap agen. Lagune bekerja di proyek baru maupun lama, tanpa perlu kunci API.",
+    "message": "Sebagian besar agen menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lainnya dengan npx skills add wellwelwel/lagune -y. Halaman instalasi menampilkan perintah untuk setiap agen. Lagune bekerja di proyek baru maupun lama, tanpa perlu kunci API.",
     "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
   },
   "home.faq.install.question": {
@@ -562,6 +566,66 @@
   "home.prompt.example": {
     "message": "Contoh",
     "description": "The label over the example prompt typed on the home page"
+  },
+  "home.prompts.agents.instruction": {
+    "message": "## Keamanan\n\n- Setiap kali kamu membangun atau mengubah kode, gunakan skill `/lagune` (bernama `/lagune:lagune` jika diinstal sebagai plugin) agar keamanannya meningkat secara bawaan.",
+    "description": "The section a user adds to the instructions file their agent reads, written in Markdown, where `/lagune` and `/lagune:lagune` stay unchanged"
+  },
+  "home.prompts.agents.lead": {
+    "message": "Tambahkan ini ke file instruksi agen Anda, seperti AGENTS.md atau CLAUDE.md, sebagai salah satu instruksi pertamanya:",
+    "description": "The request that opens the home prompt example for the instructions file an agent reads, followed by the section to add, where the file names stay unchanged"
+  },
+  "home.prompts.audit": {
+    "message": "Audit: alur Blue Team",
+    "description": "The tab of the home prompt examples that run the five-phase Blue Team flow"
+  },
+  "home.prompts.audit.orchestrator": {
+    "message": "Kamu adalah orkestrator keamanan siber:\n\n- Subagen ke-0: /lagune-charter (hanya jika belum ada charter)\n- Subagen ke-1: /lagune-detect\n- Subagen ke-2: /lagune-plan\n- Subagen ke-3: {harden}\n- Subagen ke-4: {verify}\n\nPerulangan: jalankan ulang subagen harden dan verify sampai semua temuan tuntas.\n\n- Cakupan: semua kode sumber beserta konfigurasinya.\n- Di luar cakupan: semua yang diabaikan Git, kode yang dihasilkan, dependensi pengembangan, dan tes, termasuk fixture dan snapshot-nya.",
+    "description": "An example prompt that runs the Blue Team flow with one sub-agent per command, where {harden} and {verify} are the harden and verify commands, and every /lagune-* command and Git stay unchanged"
+  },
+  "home.prompts.audit.orchestratorTab": {
+    "message": "Orkestrator",
+    "description": "The name of the home prompt example that runs the Blue Team flow with one sub-agent per command, read in the label of its copy button"
+  },
+  "home.prompts.copyNamed": {
+    "message": "Salin contoh {name}",
+    "description": "The label of the button that copies a prompt example on the home page, where {name} is the name of its tab"
+  },
+  "home.prompts.copyPrompt": {
+    "message": "Salin prompt {position} dari contoh {name}",
+    "description": "The label of the button that copies one prompt of a home prompt example made of several prompts, where {position} is its order and {name} is the name of its tab"
+  },
+  "home.prompts.firstUse": {
+    "message": "Penggunaan pertama",
+    "description": "The tab of the home prompt examples for the first steps: /lagune-charter, the command to run before any other, and the instructions file an agent reads"
+  },
+  "home.prompts.firstUse.note": {
+    "message": "Setelah itu, gunakan skill {command} di prompt apa pun, kapan saja, untuk membangun dengan lebih aman.",
+    "description": "The line that closes the first steps of the home prompt examples, where {command} is the /lagune command"
+  },
+  "home.prompts.lead": {
+    "message": "Tempel salah satunya ke agen Anda atau sesuaikan dengan proyek Anda.",
+    "description": "The line under the heading of the home section with prompt examples"
+  },
+  "home.prompts.more": {
+    "message": "Lihat contoh prompt lainnya",
+    "description": "The link from the home prompt examples to the documentation page with every prompt example"
+  },
+  "home.prompts.schedule": {
+    "message": "Lihat cara menjadwalkan audit otomatis",
+    "description": "The link from the home prompt examples to the documentation page on scheduling recurring audits"
+  },
+  "home.prompts.sdd": {
+    "message": "Lihat contoh Spec-Driven Development",
+    "description": "The link from the home prompt examples to the documentation page on using Lagune with Spec-Driven Development tools"
+  },
+  "home.prompts.tabs": {
+    "message": "Contoh prompt per penggunaan",
+    "description": "The accessible name of the tabs that switch the prompt examples shown on the home page, one tab per use"
+  },
+  "home.prompts.title": {
+    "message": "Contoh prompt",
+    "description": "The heading of the home section with prompt examples to paste into an AI agent"
   },
   "home.rail.step": {
     "message": "{phase} ({stage})",

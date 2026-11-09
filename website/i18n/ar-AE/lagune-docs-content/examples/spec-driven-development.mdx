@@ -1,0 +1,105 @@
+---
+id: spec-driven-development
+title: 'Spec-Driven Development: أمّن ما تبنيه مواصفتك'
+sidebar_label: Spec-Driven Development
+description: 'اجمع Lagune مع Superpowers أو Spec Kit أو OpenSpec: ضع ميثاق الأمان انطلاقًا من مواصفتك، ثم نفّذها عبر ‎/lagune الذي يحصّن كل مهمة أثناء كتابة الكود.'
+keywords:
+  - spec-driven development
+  - sdd
+  - superpowers
+  - spec kit
+  - openspec
+  - charter from spec
+  - secure by default
+  - secure feature development
+  - ai coding workflow
+  - التطوير الموجّه بالمواصفات
+  - ميثاق الأمان
+  - تطوير آمن افتراضيًا
+source_hash: '31fdc5193427d17e587fe5296aaf213be14ddba0abfa6f82fbf5375d6e82a7c8'
+---
+
+import { CompanionTabLabel } from '@site/src/components/docs/CompanionTabLabel';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+اجمع **Lagune** مع أداة Spec-Driven Development، مثل [**Superpowers**](https://github.com/obra/superpowers) أو [**Spec Kit**](https://github.com/github/spec-kit) أو [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): تقرّر أداتك ما الذي تبنيه، ويقرّر **Lagune** كيف يبقى آمنًا.
+
+## كيف يندمج مع أداتك
+
+ينضم **Lagune** إلى مسار أداتك في موضعين، ويترك الباقي دون تغيير:
+
+1. بعد أن تكتب أداتك المواصفة، يقرأها الأمر [`/lagune-charter`](/docs/commands/charter) ويضع مبادئ الأمان التي تتطلبها الميزة، قبل وجود أي كود.
+2. عند إضافة الأمر [`/lagune`](/docs/commands/lagune) إلى أمر التنفيذ في أداتك، يحصّن كل مهمة وفق تلك المبادئ أثناء كتابة الكود.
+
+:::tip
+استبدل مسار المواصفة في كل مثال بالملف الذي كتبته أداتك. وإن كان للمشروع ميثاق أمان بالفعل، فإن الخطوة نفسها تحدّثه بما تحتاجه الميزة الجديدة.
+:::
+
+## أمثلة الموجّهات
+
+أرسل الموجّهات بالترتيب، وكل موجّه بعد انتهاء الذي قبله.
+
+<Tabs>
+  <TabItem value="superpowers" label={<CompanionTabLabel name='Superpowers' />} default>
+
+```prompt
+/superpowers:brainstorming إتمام الشراء كضيف مع الدفع بالبطاقة.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+  </TabItem>
+  <TabItem value="spec-kit" label={<CompanionTabLabel name='Spec Kit' />}>
+
+```prompt
+/speckit.specify إتمام الشراء كضيف مع الدفع بالبطاقة.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+  </TabItem>
+  <TabItem value="openspec" label={<CompanionTabLabel name='OpenSpec' />}>
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+  </TabItem>
+</Tabs>

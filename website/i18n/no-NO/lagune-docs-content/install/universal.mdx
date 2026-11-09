@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - oppsett
   - KI-agenter
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-Installer kommandoene til **Lagune** i prosjektet ditt fra terminalen med [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), og behold **Project** som installasjonsomfang:
+Installer kommandoene til **Lagune** i prosjektet ditt fra terminalen med [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Eller lim inn denne prompten i agenten din:
 
 ```md
-Kjør `npx --yes skills add wellwelwel/lagune` og følg de genererte skill-instruksjonene nå. Les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først. Løs opp relative stier ut fra mappen for støttefiler som utdataene oppgir.
+Kjør `npx --yes skills add wellwelwel/lagune --yes` og følg de genererte skill-instruksjonene nå. Les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først. Løs opp relative stier ut fra mappen for støttefiler som utdataene oppgir.
 ```
 
   </TabItem>
@@ -115,7 +115,7 @@ npm i -D lagune@{{version}}
       question:
         'Hvordan installerer jeg Lagune i en hvilken som helst KI-agent?',
       answer:
-        "Kjør npx skills add wellwelwel/lagune --skill '*' eller gh skill install wellwelwel/lagune --all --scope project i prosjektet ditt, eller lim inn installasjonsprompten i agenten din.",
+        'Kjør npx skills add wellwelwel/lagune -y eller gh skill install wellwelwel/lagune --all --scope project i prosjektet ditt, eller lim inn installasjonsprompten i agenten din.',
     },
     {
       question:

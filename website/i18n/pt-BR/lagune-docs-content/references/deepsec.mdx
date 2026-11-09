@@ -12,7 +12,7 @@ keywords:
   - SDH
   - comparação Lagune
   - ferramentas de segurança com IA
-source_hash: '72774eb4230e28365f5cda81a0606acbe64b9310f7723a5cc401a0ebab5b8f03'
+source_hash: 'fefde6f13fe0a74060035d20e5b49a7d1c57954c51dc267e6e9c438db447acd3'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -142,10 +142,10 @@ Como cada um recebe quem o executa: o que a primeira execução exige e como o o
 
 O Lagune roda pelo agente que já está aberto. O Deepsec primeiro provisiona o próprio workspace e o acesso ao modelo.
 
-| Aspecto                | Lagune                                                                                       | Deepsec                                                                                                     |
-| ---------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Primeiro comando       | A instalação do plugin ou `npx skills add wellwelwel/lagune`, e depois `/lagune-*` no agente | `npx deepsec init`, depois `cd .deepsec`, `pnpm install`, `scan` e `process`                                |
-| Credenciais para rodar | Nenhuma chave à parte, ele usa o seu agente atual                                            | Uma chave de modelo (por exemplo, AI Gateway, um token OIDC da Vercel de 12 horas ou um token da Anthropic) |
+| Aspecto                | Lagune                                                                                          | Deepsec                                                                                                     |
+| ---------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Primeiro comando       | A instalação do plugin ou `npx skills add wellwelwel/lagune -y`, e depois `/lagune-*` no agente | `npx deepsec init`, depois `cd .deepsec`, `pnpm install`, `scan` e `process`                                |
+| Credenciais para rodar | Nenhuma chave à parte, ele usa o seu agente atual                                               | Uma chave de modelo (por exemplo, AI Gateway, um token OIDC da Vercel de 12 horas ou um token da Anthropic) |
 
 ### Como conduzir
 

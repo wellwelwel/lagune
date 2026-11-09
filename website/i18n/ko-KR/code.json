@@ -191,6 +191,10 @@
     "message": "Lagune.ai, 맨 위로 이동",
     "description": "The label of the brand button that scrolls back to the top"
   },
+  "home.companions.title": {
+    "message": "이미 쓰고 있는 모든 도구와 Lagune을 함께 쓰기",
+    "description": "The heading over the home tiles of popular agent skills and plugins that work alongside Lagune"
+  },
   "home.cta.install": {
     "message": "설치",
     "description": "The main home button, leading to the install page"
@@ -244,7 +248,7 @@
     "description": "A question of the home page in search engines' structured data"
   },
   "home.faq.install.answer": {
-    "message": "대부분의 에이전트에서는 Lagune을 플러그인으로, Gemini CLI와 Qwen Code에서는 확장 프로그램으로, Pi에서는 패키지로 설치하며, 그 밖의 에이전트에서는 npx skills add wellwelwel/lagune 명령어로 설치합니다. 에이전트별 명령어는 설치 페이지에서 확인할 수 있습니다. Lagune은 새 프로젝트에서도 기존 프로젝트에서도 작동하며, API 키가 필요 없습니다.",
+    "message": "대부분의 에이전트에서는 Lagune을 플러그인으로, Gemini CLI와 Qwen Code에서는 확장 프로그램으로, Pi에서는 패키지로 설치하며, 그 밖의 에이전트에서는 npx skills add wellwelwel/lagune -y 명령어로 설치합니다. 에이전트별 명령어는 설치 페이지에서 확인할 수 있습니다. Lagune은 새 프로젝트에서도 기존 프로젝트에서도 작동하며, API 키가 필요 없습니다.",
     "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
   },
   "home.faq.install.question": {
@@ -562,6 +566,66 @@
   "home.prompt.example": {
     "message": "예시",
     "description": "The label over the example prompt typed on the home page"
+  },
+  "home.prompts.agents.instruction": {
+    "message": "## 보안\n\n- 코드를 만들거나 수정할 때마다 `/lagune` 스킬(플러그인으로 설치했다면 `/lagune:lagune` 스킬)을 사용해서 기본적으로 안전성을 높여 줘.",
+    "description": "The section a user adds to the instructions file their agent reads, written in Markdown, where `/lagune` and `/lagune:lagune` stay unchanged"
+  },
+  "home.prompts.agents.lead": {
+    "message": "에이전트 지침 파일(예: AGENTS.md 또는 CLAUDE.md)에 다음 내용을 첫 지침 중 하나로 추가해 줘:",
+    "description": "The request that opens the home prompt example for the instructions file an agent reads, followed by the section to add, where the file names stay unchanged"
+  },
+  "home.prompts.audit": {
+    "message": "감사: Blue Team 흐름",
+    "description": "The tab of the home prompt examples that run the five-phase Blue Team flow"
+  },
+  "home.prompts.audit.orchestrator": {
+    "message": "너는 사이버 보안 오케스트레이터야:\n\n- 0번 서브에이전트: /lagune-charter (보안 원칙이 아직 없을 때만)\n- 1번 서브에이전트: /lagune-detect\n- 2번 서브에이전트: /lagune-plan\n- 3번 서브에이전트: {harden}\n- 4번 서브에이전트: {verify}\n\n반복: 모든 발견 사항이 해결될 때까지 harden 서브에이전트와 verify 서브에이전트를 다시 실행해 줘.\n\n- 범위: 모든 소스 코드와 그 설정.\n- 범위 밖: Git이 무시하는 모든 것, 생성된 코드, 개발 의존성, 그리고 테스트(테스트의 픽스처와 스냅숏 포함).",
+    "description": "An example prompt that runs the Blue Team flow with one sub-agent per command, where {harden} and {verify} are the harden and verify commands, and every /lagune-* command and Git stay unchanged"
+  },
+  "home.prompts.audit.orchestratorTab": {
+    "message": "오케스트레이터",
+    "description": "The name of the home prompt example that runs the Blue Team flow with one sub-agent per command, read in the label of its copy button"
+  },
+  "home.prompts.copyNamed": {
+    "message": "{name} 예시 복사",
+    "description": "The label of the button that copies a prompt example on the home page, where {name} is the name of its tab"
+  },
+  "home.prompts.copyPrompt": {
+    "message": "{name} 예시의 {position}번째 프롬프트 복사",
+    "description": "The label of the button that copies one prompt of a home prompt example made of several prompts, where {position} is its order and {name} is the name of its tab"
+  },
+  "home.prompts.firstUse": {
+    "message": "처음 사용하기",
+    "description": "The tab of the home prompt examples for the first steps: /lagune-charter, the command to run before any other, and the instructions file an agent reads"
+  },
+  "home.prompts.firstUse.note": {
+    "message": "그다음에는 언제든 어떤 프롬프트에서든 {command} 스킬을 사용해 더 안전하게 개발하세요.",
+    "description": "The line that closes the first steps of the home prompt examples, where {command} is the /lagune command"
+  },
+  "home.prompts.lead": {
+    "message": "하나를 골라 에이전트에 붙여 넣거나, 프로젝트에 맞게 고쳐 쓰세요.",
+    "description": "The line under the heading of the home section with prompt examples"
+  },
+  "home.prompts.more": {
+    "message": "프롬프트 예시 더 보기",
+    "description": "The link from the home prompt examples to the documentation page with every prompt example"
+  },
+  "home.prompts.schedule": {
+    "message": "자동 감사를 예약하는 방법 보기",
+    "description": "The link from the home prompt examples to the documentation page on scheduling recurring audits"
+  },
+  "home.prompts.sdd": {
+    "message": "Spec-Driven Development 예시 보기",
+    "description": "The link from the home prompt examples to the documentation page on using Lagune with Spec-Driven Development tools"
+  },
+  "home.prompts.tabs": {
+    "message": "용도별 프롬프트 예시",
+    "description": "The accessible name of the tabs that switch the prompt examples shown on the home page, one tab per use"
+  },
+  "home.prompts.title": {
+    "message": "프롬프트 예시",
+    "description": "The heading of the home section with prompt examples to paste into an AI agent"
   },
   "home.rail.step": {
     "message": "{phase}({stage})",

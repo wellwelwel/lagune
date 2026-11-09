@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - सेटअप
   - AI एजेंट
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) के ज़रिए अपने टर्मिनल से **Lagune** की कमांड अपने प्रोजेक्ट में इंस्टॉल करें, और इंस्टॉलेशन का दायरा **Project** ही रहने दें:
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) के ज़रिए अपने टर्मिनल से **Lagune** की कमांड अपने प्रोजेक्ट में इंस्टॉल करें:
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 या यह प्रॉम्प्ट अपने एजेंट में पेस्ट करें:
 
 ```md
-`npx --yes skills add wellwelwel/lagune` चलाओ और इससे बने स्किल निर्देशों का अभी पालन करो। इसका पूरा आउटपुट पढ़ो, ज़रूरत हो तो पहले उसे किसी अस्थायी फ़ाइल में रीडायरेक्ट करो। रिलेटिव पाथ उस सपोर्टिंग-फ़ाइल डायरेक्टरी से तय करो जो यह देता है।
+`npx --yes skills add wellwelwel/lagune --yes` चलाओ और इससे बने स्किल निर्देशों का अभी पालन करो। इसका पूरा आउटपुट पढ़ो, ज़रूरत हो तो पहले उसे किसी अस्थायी फ़ाइल में रीडायरेक्ट करो। रिलेटिव पाथ उस सपोर्टिंग-फ़ाइल डायरेक्टरी से तय करो जो यह देता है।
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: 'किसी भी AI एजेंट में Lagune कैसे इंस्टॉल करें?',
       answer:
-        "अपने प्रोजेक्ट में npx skills add wellwelwel/lagune --skill '*' या gh skill install wellwelwel/lagune --all --scope project चलाएँ, या इंस्टॉल प्रॉम्प्ट अपने एजेंट में पेस्ट करें।",
+        'अपने प्रोजेक्ट में npx skills add wellwelwel/lagune -y या gh skill install wellwelwel/lagune --all --scope project चलाएँ, या इंस्टॉल प्रॉम्प्ट अपने एजेंट में पेस्ट करें।',
     },
     {
       question: 'किसी भी AI एजेंट में Lagune को कैसे अपडेट करें?',

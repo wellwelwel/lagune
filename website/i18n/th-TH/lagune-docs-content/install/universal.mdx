@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - setup
   - เอเจนต์ AI
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-ติดตั้งคำสั่งของ **Lagune** ในโปรเจกต์ของคุณจากเทอร์มินัลด้วย [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) โดยคงขอบเขตการติดตั้งไว้ที่ **Project**:
+ติดตั้งคำสั่งของ **Lagune** ในโปรเจกต์ของคุณจากเทอร์มินัลด้วย [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 หรือวาง prompt นี้ในเอเจนต์ของคุณ:
 
 ```md
-รัน `npx --yes skills add wellwelwel/lagune` แล้วเริ่มทำตามคำแนะนำของ skill ที่คำสั่งสร้างขึ้นทันที อ่านผลลัพธ์ให้ครบถ้วน หากจำเป็นให้ redirect ผลลัพธ์ไปยังไฟล์ชั่วคราวก่อน หา relative path โดยอิงจากไดเรกทอรีไฟล์ประกอบที่คำสั่งระบุไว้
+รัน `npx --yes skills add wellwelwel/lagune --yes` แล้วเริ่มทำตามคำแนะนำของ skill ที่คำสั่งสร้างขึ้นทันที อ่านผลลัพธ์ให้ครบถ้วน หากจำเป็นให้ redirect ผลลัพธ์ไปยังไฟล์ชั่วคราวก่อน หา relative path โดยอิงจากไดเรกทอรีไฟล์ประกอบที่คำสั่งระบุไว้
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: 'จะติดตั้ง Lagune ในเอเจนต์ AI ตัวไหนก็ได้ ต้องทำอย่างไร',
       answer:
-        "รัน npx skills add wellwelwel/lagune --skill '*' หรือ gh skill install wellwelwel/lagune --all --scope project ในโปรเจกต์ของคุณ หรือวาง prompt สำหรับติดตั้งในเอเจนต์ของคุณ",
+        'รัน npx skills add wellwelwel/lagune -y หรือ gh skill install wellwelwel/lagune --all --scope project ในโปรเจกต์ของคุณ หรือวาง prompt สำหรับติดตั้งในเอเจนต์ของคุณ',
     },
     {
       question: 'จะอัปเดต Lagune ในเอเจนต์ AI ตัวไหนก็ได้ ต้องทำอย่างไร',

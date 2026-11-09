@@ -12,7 +12,7 @@ keywords:
   - SDH
   - perbandingan Lagune
   - tool keamanan AI
-source_hash: '72774eb4230e28365f5cda81a0606acbe64b9310f7723a5cc401a0ebab5b8f03'
+source_hash: 'fefde6f13fe0a74060035d20e5b49a7d1c57954c51dc267e6e9c438db447acd3'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -142,10 +142,10 @@ Cara masing-masing menyambut orang yang menjalankannya: apa yang dibutuhkan saat
 
 Lagune berjalan lewat agen yang sudah terbuka. Deepsec lebih dulu menyiapkan workspace dan akses model miliknya sendiri.
 
-| Aspek                        | Lagune                                                                          | Deepsec                                                                           |
-| ---------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Perintah pertama             | Instal plugin atau `npx skills add wellwelwel/lagune`, lalu `/lagune-*` di agen | `npx deepsec init`, lalu `cd .deepsec`, `pnpm install`, `scan`, `process`         |
-| Kredensial untuk menjalankan | Tanpa kunci terpisah, memakai agen Anda saat ini                                | Kunci model (misalnya AI Gateway, token OIDC Vercel 12 jam, atau token Anthropic) |
+| Aspek                        | Lagune                                                                             | Deepsec                                                                           |
+| ---------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Perintah pertama             | Instal plugin atau `npx skills add wellwelwel/lagune -y`, lalu `/lagune-*` di agen | `npx deepsec init`, lalu `cd .deepsec`, `pnpm install`, `scan`, `process`         |
+| Kredensial untuk menjalankan | Tanpa kunci terpisah, memakai agen Anda saat ini                                   | Kunci model (misalnya AI Gateway, token OIDC Vercel 12 jam, atau token Anthropic) |
 
 ### Mengarahkannya
 

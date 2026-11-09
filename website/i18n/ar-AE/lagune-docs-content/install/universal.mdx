@@ -18,7 +18,7 @@ keywords:
   - gemini cli
   - setup
   - AI agents
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -31,16 +31,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-ثبّت أوامر **Lagune** في مشروعك من الطرفية عبر [**skills.sh**](https://www.skills.sh/wellwelwel/lagune)، مع إبقاء **Project** نطاقًا للتثبيت:
+ثبّت أوامر **Lagune** في مشروعك من الطرفية عبر [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 أو الصق هذا الموجّه في وكيلك:
 
 ```md
-شغّل `npx --yes skills add wellwelwel/lagune` واتبع تعليمات المهارة التي يولّدها الآن. اقرأ مخرجاته كاملة، مع إعادة توجيهها إلى ملف مؤقت أولًا إن لزم الأمر. وحلّ المسارات النسبية انطلاقًا من دليل الملفات المساندة الذي يوفّره.
+شغّل `npx --yes skills add wellwelwel/lagune --yes` واتبع تعليمات المهارة التي يولّدها الآن. اقرأ مخرجاته كاملة، مع إعادة توجيهها إلى ملف مؤقت أولًا إن لزم الأمر. وحلّ المسارات النسبية انطلاقًا من دليل الملفات المساندة الذي يوفّره.
 ```
 
   </TabItem>
@@ -115,7 +115,7 @@ npm i -D lagune@{{version}}
     {
       question: 'كيف أثبّت Lagune في أي وكيل ذكاء اصطناعي؟',
       answer:
-        "شغّل npx skills add wellwelwel/lagune --skill '*' أو gh skill install wellwelwel/lagune --all --scope project في مشروعك، أو الصق موجّه التثبيت في وكيلك.",
+        'شغّل npx skills add wellwelwel/lagune -y أو gh skill install wellwelwel/lagune --all --scope project في مشروعك، أو الصق موجّه التثبيت في وكيلك.',
     },
     {
       question: 'كيف أحدّث Lagune في أي وكيل ذكاء اصطناعي؟',

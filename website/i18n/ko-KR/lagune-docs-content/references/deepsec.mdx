@@ -12,7 +12,7 @@ keywords:
   - SDH
   - Lagune 비교
   - AI 보안 도구
-source_hash: '72774eb4230e28365f5cda81a0606acbe64b9310f7723a5cc401a0ebab5b8f03'
+source_hash: 'fefde6f13fe0a74060035d20e5b49a7d1c57954c51dc267e6e9c438db447acd3'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -142,10 +142,10 @@ Deepsec은 보안 조직에 전달할 결과물을 만들어 냅니다. Lagune�
 
 Lagune은 이미 열려 있는 에이전트를 통해 실행됩니다. Deepsec은 먼저 자체 워크스페이스와 모델 접근 권한을 준비합니다.
 
-| 항목                    | Lagune                                                                                    | Deepsec                                                                      |
-| ----------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| 첫 명령어               | 플러그인 설치 또는 `npx skills add wellwelwel/lagune`, 이후 에이전트에서 `/lagune-*` 실행 | `npx deepsec init` 실행 후 `cd .deepsec`, `pnpm install`, `scan`, `process`  |
-| 실행에 필요한 자격 증명 | 별도 키 없음, 지금 쓰는 에이전트를 그대로 사용                                            | 모델 키(예: AI Gateway, 유효 시간 12시간인 Vercel OIDC 토큰, Anthropic 토큰) |
+| 항목                    | Lagune                                                                                       | Deepsec                                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 첫 명령어               | 플러그인 설치 또는 `npx skills add wellwelwel/lagune -y`, 이후 에이전트에서 `/lagune-*` 실행 | `npx deepsec init` 실행 후 `cd .deepsec`, `pnpm install`, `scan`, `process`  |
+| 실행에 필요한 자격 증명 | 별도 키 없음, 지금 쓰는 에이전트를 그대로 사용                                               | 모델 키(예: AI Gateway, 유효 시간 12시간인 Vercel OIDC 토큰, Anthropic 토큰) |
 
 ### 지시하기
 

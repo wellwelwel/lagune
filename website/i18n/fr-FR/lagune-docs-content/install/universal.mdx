@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - installation
   - agents IA
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-Installez les commandes de **Lagune** dans votre projet depuis votre terminal avec [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), en conservant **Project** comme portée d'installation :
+Installez les commandes de **Lagune** dans votre projet depuis votre terminal avec [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) :
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Ou collez ce prompt dans votre agent :
 
 ```md
-Exécute `npx --yes skills add wellwelwel/lagune` et suis dès maintenant les instructions du skill généré. Lis toute la sortie, en la redirigeant d'abord vers un fichier temporaire si nécessaire. Résous les chemins relatifs à partir du répertoire de fichiers annexes qu'elle indique.
+Exécute `npx --yes skills add wellwelwel/lagune --yes` et suis dès maintenant les instructions du skill généré. Lis toute la sortie, en la redirigeant d'abord vers un fichier temporaire si nécessaire. Résous les chemins relatifs à partir du répertoire de fichiers annexes qu'elle indique.
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: "Comment installer Lagune dans n'importe quel agent IA ?",
       answer:
-        "Exécutez npx skills add wellwelwel/lagune --skill '*' ou gh skill install wellwelwel/lagune --all --scope project dans votre projet, ou collez le prompt d'installation dans votre agent.",
+        "Exécutez npx skills add wellwelwel/lagune -y ou gh skill install wellwelwel/lagune --all --scope project dans votre projet, ou collez le prompt d'installation dans votre agent.",
     },
     {
       question: "Comment mettre à jour Lagune dans n'importe quel agent IA ?",

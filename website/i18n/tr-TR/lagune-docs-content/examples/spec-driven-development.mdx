@@ -1,0 +1,103 @@
+---
+id: spec-driven-development
+title: 'Spec-Driven Development: spesifikasyonunuzla geliştirilen kodu güvenli hale getirin'
+sidebar_label: Spec-Driven Development
+description: "Lagune'yi Superpowers, Spec Kit veya OpenSpec ile birlikte kullanın: Güvenlik ilkelerini spesifikasyonunuzdan belirleyin, ardından spesifikasyonu /lagune ile uygulayın, böylece her görev kod yazılırken sıkılaştırılsın."
+keywords:
+  - spec-driven development
+  - spesifikasyon odaklı geliştirme
+  - sdd
+  - superpowers
+  - spec kit
+  - openspec
+  - spesifikasyondan güvenlik ilkeleri
+  - varsayılan olarak güvenli
+  - güvenli özellik geliştirme
+  - yapay zeka ile kodlama iş akışı
+source_hash: '31fdc5193427d17e587fe5296aaf213be14ddba0abfa6f82fbf5375d6e82a7c8'
+---
+
+import { CompanionTabLabel } from '@site/src/components/docs/CompanionTabLabel';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune**'yi [**Superpowers**](https://github.com/obra/superpowers), [**Spec Kit**](https://github.com/github/spec-kit) veya [**OpenSpec**](https://github.com/Fission-AI/OpenSpec) gibi bir Spec-Driven Development aracıyla birlikte kullanın: Neyin geliştirileceğine aracınız, bunun nasıl güvenli kalacağına **Lagune** karar verir.
+
+## Nasıl uyum sağlar
+
+**Lagune**, aracınızın akışına iki noktada katılır ve geri kalanını değiştirmez:
+
+1. Aracınız spesifikasyonu yazdıktan sonra [`/lagune-charter`](/docs/commands/charter) onu okur ve daha hiç kod yokken özelliğin gerektirdiği güvenlik ilkelerini belirler.
+2. Aracınızın uygulama komutuna eklendiğinde [`/lagune`](/docs/commands/lagune), kod yazılırken her görevi bu ilkelere göre sıkılaştırır.
+
+:::tip
+Her örnekteki spesifikasyon yolunu aracınızın yazdığı dosyayla değiştirin. Projenin güvenlik ilkeleri zaten varsa aynı adım, bu ilkeleri yeni özelliğin gerektirdikleriyle günceller.
+:::
+
+## Prompt örnekleri
+
+Prompt'ları sırayla gönderin, her birini bir önceki bittikten sonra.
+
+<Tabs>
+  <TabItem value="superpowers" label={<CompanionTabLabel name='Superpowers' />} default>
+
+```prompt
+/superpowers:brainstorming Kartla ödeme destekli misafir alışverişi.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+  </TabItem>
+  <TabItem value="spec-kit" label={<CompanionTabLabel name='Spec Kit' />}>
+
+```prompt
+/speckit.specify Kartla ödeme destekli misafir alışverişi.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+  </TabItem>
+  <TabItem value="openspec" label={<CompanionTabLabel name='OpenSpec' />}>
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+  </TabItem>
+</Tabs>

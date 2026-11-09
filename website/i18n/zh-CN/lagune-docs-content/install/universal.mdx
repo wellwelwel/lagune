@@ -17,7 +17,7 @@ keywords:
   - gemini cli
   - 配置
   - AI 智能体
-source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+source_hash: 'f33b72248515fe2a6c1e58e72ea172482268755bc600e2f47562bd153e9b02b9'
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
@@ -30,16 +30,16 @@ import Tabs from '@theme/Tabs';
 
 <InstallHeader name='skills.sh' />
 
-在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 把 **Lagune** 的命令安装到你的项目中，安装作用域保持 **Project** 不变：
+在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 把 **Lagune** 的命令安装到你的项目中：
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 或者把这段提示词粘贴到你的智能体中：
 
 ```md
-运行 `npx --yes skills add wellwelwel/lagune`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
+运行 `npx --yes skills add wellwelwel/lagune --yes`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
 ```
 
   </TabItem>
@@ -114,7 +114,7 @@ npm i -D lagune@{{version}}
     {
       question: '如何在任意 AI 智能体中安装 Lagune？',
       answer:
-        "在项目中运行 npx skills add wellwelwel/lagune --skill '*' 或 gh skill install wellwelwel/lagune --all --scope project，或者把安装提示词粘贴到你的智能体中。",
+        '在项目中运行 npx skills add wellwelwel/lagune -y 或 gh skill install wellwelwel/lagune --all --scope project，或者把安装提示词粘贴到你的智能体中。',
     },
     {
       question: '如何在任意 AI 智能体中更新 Lagune？',

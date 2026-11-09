@@ -1,0 +1,102 @@
+---
+id: spec-driven-development
+title: 'Spec-Driven Development: Zabezpiecz to, co buduje twoja specyfikacja'
+sidebar_label: Spec-Driven Development
+description: 'Połącz Lagune z Superpowers, Spec Kit lub OpenSpec: ustal zasady bezpieczeństwa na podstawie specyfikacji, a potem wdrażaj ją z /lagune, aby każde zadanie było utwardzane już w trakcie pisania kodu.'
+keywords:
+  - spec-driven development
+  - sdd
+  - superpowers
+  - spec kit
+  - openspec
+  - zasady bezpieczeństwa ze specyfikacji
+  - domyślnie bezpieczny kod
+  - bezpieczne tworzenie funkcji
+  - przepływ pracy z agentem AI
+source_hash: '31fdc5193427d17e587fe5296aaf213be14ddba0abfa6f82fbf5375d6e82a7c8'
+---
+
+import { CompanionTabLabel } from '@site/src/components/docs/CompanionTabLabel';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Połącz **Lagune** z narzędziem do Spec-Driven Development, takim jak [**Superpowers**](https://github.com/obra/superpowers), [**Spec Kit**](https://github.com/github/spec-kit) lub [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): twoje narzędzie decyduje, co zbudować, a **Lagune** decyduje, jak to zabezpieczyć.
+
+## Jak to współgra
+
+**Lagune** włącza się w przepływ pracy twojego narzędzia w dwóch miejscach, a resztę zostawia bez zmian:
+
+1. Gdy twoje narzędzie zapisze specyfikację, polecenie [`/lagune-charter`](/docs/commands/charter) ją czyta i ustala zasady bezpieczeństwa, których wymaga dana funkcja, zanim powstanie jakikolwiek kod.
+2. Polecenie [`/lagune`](/docs/commands/lagune), którym oznaczysz polecenie implementacji swojego narzędzia, utwardza każde zadanie zgodnie z tymi zasadami już w trakcie pisania kodu.
+
+:::tip
+W każdym przykładzie zastąp ścieżkę do specyfikacji plikiem, który zapisało twoje narzędzie. Jeśli projekt ma już zasady bezpieczeństwa, ten sam krok uzupełnia je o to, czego wymaga nowa funkcja.
+:::
+
+## Przykładowe prompty
+
+Wysyłaj prompty po kolei, każdy dopiero wtedy, gdy poprzedni się zakończy.
+
+<Tabs>
+  <TabItem value="superpowers" label={<CompanionTabLabel name='Superpowers' />} default>
+
+```prompt
+/superpowers:brainstorming Zakupy bez zakładania konta z płatnością kartą.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+  </TabItem>
+  <TabItem value="spec-kit" label={<CompanionTabLabel name='Spec Kit' />}>
+
+```prompt
+/speckit.specify Zakupy bez zakładania konta z płatnością kartą.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+  </TabItem>
+  <TabItem value="openspec" label={<CompanionTabLabel name='OpenSpec' />}>
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+  </TabItem>
+</Tabs>
