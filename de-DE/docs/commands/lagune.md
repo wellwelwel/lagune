@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/lagune
 Sprache: de-DE
 Original: https://lagune.ai/docs/commands/lagune
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-09
 
 ⌨️ Lass die gewünschte Arbeit erledigen und schon beim Schreiben absichern. **`/lagune`** nimmt jeden Prompt in jedem Stadium deines Projekts an, baut, was du wolltest, und härtet es mit sicheren Standardwerten, bevor du es zurückbekommst.
 
@@ -22,7 +22,7 @@ Versieh einen beliebigen Prompt mit **`/lagune`** und beschreibe die Arbeit wie 
 
 ## Sicherheit
 
-- Verwende den Skill `/lagune`, wann immer du Code erstellst oder änderst, damit er standardmäßig für mehr Sicherheit sorgt.
+- Wann immer du Code erstellst oder änderst, verwende den Skill `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)), der als Plugin installiert `/lagune:lagune` heißt, um standardmäßig für mehr Sicherheit zu sorgen.
 ```
 
     - Zum Beispiel: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** usw.

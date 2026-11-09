@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs/install/claude-code
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/claude-code
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 **Terminal**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Atau dari sesi **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

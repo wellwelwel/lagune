@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/commands/lagune
 언어: ko-KR
 원문: https://lagune.ai/docs/commands/lagune
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-09
 
 ⌨️ 요청한 작업을, 작성하는 순간부터 안전하게 완성합니다. **`/lagune`** 명령어는 어느 단계에서든 어떤 프롬프트든 받아 원하는 것을 만들고, 결과를 돌려주기 전에 안전한 기본값으로 보안을 강화합니다.
 
@@ -22,7 +22,7 @@
 
 ## 보안
 
-- 코드를 만들거나 수정할 때마다 `/lagune` 스킬을 사용해서 기본적으로 안전성을 높여 줘.
+- 코드를 만들거나 수정할 때마다 `/lagune` 스킬([**lagune.ai**](https://lagune.ai/llms.txt), 플러그인으로 설치했다면 `/lagune:lagune` 스킬)을 사용해서 기본적으로 안전성을 높여 줘.
 ```
 
     - 예: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** 등

@@ -5,20 +5,20 @@
 Canonico: https://lagune.ai/it-IT/docs/install/universal
 Lingua: it-IT
 Originale: https://lagune.ai/docs/install/universal
-Ultimo aggiornamento: 2026-11-07
+Ultimo aggiornamento: 2026-11-09
 
 **skills.sh**
 
-Installa i comandi di **Lagune** nel tuo progetto dal terminale con [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), mantenendo **Project** come ambito di installazione:
+Installa i comandi di **Lagune** nel tuo progetto dal terminale con [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Oppure incolla questo prompt nel tuo agente:
 
 ```md
-Esegui `npx --yes skills add wellwelwel/lagune` e segui subito le istruzioni della skill generate. Leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario. Risolvi i percorsi relativi partendo dalla directory dei file di supporto che indica.
+Esegui `npx --yes skills add wellwelwel/lagune --yes` e segui subito le istruzioni della skill generate. Leggi il suo output completo, reindirizzandolo prima a un file temporaneo se necessario. Risolvi i percorsi relativi partendo dalla directory dei file di supporto che indica.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Come installo Lagune in qualsiasi agente IA?
 
-Esegui npx skills add wellwelwel/lagune --skill '*' o gh skill install wellwelwel/lagune --all --scope project nel tuo progetto, oppure incolla il prompt di installazione nel tuo agente.
+Esegui npx skills add wellwelwel/lagune -y o gh skill install wellwelwel/lagune --all --scope project nel tuo progetto, oppure incolla il prompt di installazione nel tuo agente.
 
 ### Come aggiorno Lagune in qualsiasi agente IA?
 

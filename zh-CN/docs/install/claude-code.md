@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/claude-code
 语言: zh-CN
 原文: https://lagune.ai/docs/install/claude-code
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 **终端**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 或者在 **Claude Code** 会话中安装：
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

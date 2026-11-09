@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs
 言語: ja-JP
 原文: https://lagune.ai/docs
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 **Lagune** は、AI エージェントがプロジェクトをより安全にするのを手伝います。コードに対して実行すると、エージェントはシステムが実際に何をしているかを把握したうえで、そのシステムにとって重要なセキュリティ作業を順に案内します。**Lagune** は、[Security-Driven Hardening (SDH)](https://lagune.ai/ja-JP/docs/references/paper) という方法論の最初のプロジェクトです。
 
@@ -121,7 +121,7 @@ Lagune は、AI エージェントがあらゆるコードベースを堅牢化�
 
 ### Lagune はどうやってインストールしますか？
 
-エージェントを選んでください：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI、Hermes Agent ではプラグインとして、Gemini CLI と Qwen Code では拡張機能として、Pi ではパッケージとして Lagune をインストールし、それ以外のエージェントでは npx skills add wellwelwel/lagune でインストールします。新規プロジェクトでも既存のプロジェクトでも使えます。
+エージェントを選んでください：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI、Hermes Agent ではプラグインとして、Gemini CLI と Qwen Code では拡張機能として、Pi ではパッケージとして Lagune をインストールし、それ以外のエージェントでは npx skills add wellwelwel/lagune -y でインストールします。新規プロジェクトでも既存のプロジェクトでも使えます。
 
 ### Lagune に API キーは必要ですか？
 

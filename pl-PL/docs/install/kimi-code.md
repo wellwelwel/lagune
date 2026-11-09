@@ -9,7 +9,7 @@ Ostatnia aktualizacja: 2026-11-09
 
 Zainstaluj wtyczkę w sesji **Kimi Code**, wybierz **Trust and install**, a następnie rozpocznij nową sesję, aby wczytać wtyczkę:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@ Zainstaluj wtyczkę w sesji **Kimi Code**, wybierz **Trust and install**, a nast
 
 Aby zaktualizować wtyczkę **Lagune**, zainstaluj ją ponownie:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

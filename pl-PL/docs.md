@@ -121,7 +121,7 @@ Lagune to przepływ pracy open source nastawiony wyłącznie na bezpieczeństwo 
 
 ### Jak zainstalować Lagune?
 
-Wybierz swojego agenta: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI i Hermes Agent instalują Lagune jako wtyczkę, Gemini CLI i Qwen Code jako rozszerzenie, Pi jako pakiet, a każdy inny agent poleceniem npx skills add wellwelwel/lagune. Działa zarówno w nowych, jak i w istniejących projektach.
+Wybierz swojego agenta: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI i Hermes Agent instalują Lagune jako wtyczkę, Gemini CLI i Qwen Code jako rozszerzenie, Pi jako pakiet, a każdy inny agent poleceniem npx skills add wellwelwel/lagune -y. Działa zarówno w nowych, jak i w istniejących projektach.
 
 ### Czy Lagune potrzebuje klucza API?
 

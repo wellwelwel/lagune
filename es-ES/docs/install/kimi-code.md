@@ -5,11 +5,11 @@
 URL canónica: https://lagune.ai/es-ES/docs/install/kimi-code
 Idioma: es-ES
 Original: https://lagune.ai/docs/install/kimi-code
-Última actualización: 2026-11-03
+Última actualización: 2026-11-09
 
 Instala el plugin desde una sesión de **Kimi Code**, elige **Trust and install** y después inicia una sesión nueva para cargarlo:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@ Instala el plugin desde una sesión de **Kimi Code**, elige **Trust and install*
 
 Para actualizar **Lagune**, vuelve a instalarlo:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

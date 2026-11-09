@@ -5,7 +5,7 @@
 Canonico: https://lagune.ai/it-IT/docs
 Lingua: it-IT
 Originale: https://lagune.ai/docs
-Ultimo aggiornamento: 2026-11-03
+Ultimo aggiornamento: 2026-11-09
 
 **Lagune** aiuta il tuo agente IA a rendere un progetto più sicuro. Lo punti sul tuo codice e l'agente capisce cosa fa davvero il tuo sistema, poi ti guida nel lavoro di sicurezza che conta per quel sistema. **Lagune** è il primo progetto della metodologia [Security-Driven Hardening (SDH)](https://lagune.ai/it-IT/docs/references/paper).
 
@@ -121,7 +121,7 @@ Lagune è un flusso di sicurezza open source ed esclusivamente difensivo che aiu
 
 ### Come si installa Lagune?
 
-Scegli il tuo agente: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI e Hermes Agent installano Lagune come plugin, Gemini CLI e Qwen Code come estensione, Pi come pacchetto e qualsiasi altro agente con npx skills add wellwelwel/lagune. Funziona sia nei progetti nuovi sia in quelli esistenti.
+Scegli il tuo agente: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI e Hermes Agent installano Lagune come plugin, Gemini CLI e Qwen Code come estensione, Pi come pacchetto e qualsiasi altro agente con npx skills add wellwelwel/lagune -y. Funziona sia nei progetti nuovi sia in quelli esistenti.
 
 ### Lagune ha bisogno di una chiave API?
 

@@ -3,20 +3,20 @@
 > Install Lagune in any AI agent with the skills CLI or the GitHub CLI, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/universal
-Last updated: 2026-11-07
+Last updated: 2026-11-09
 
 **skills.sh**
 
-Install **Lagune**'s commands in your project from your terminal with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), keeping **Project** as the installation scope:
+Install **Lagune**'s commands in your project from your terminal with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Or paste this prompt into your agent:
 
 ```md
-Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
+Run `npx --yes skills add wellwelwel/lagune --yes` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
 ```
 
 **GitHub CLI**
@@ -77,7 +77,7 @@ npm i -D lagune@0.18.1
 
 ### How do I install Lagune in any AI agent?
 
-Run npx skills add wellwelwel/lagune --skill '*' or gh skill install wellwelwel/lagune --all --scope project in your project, or paste the install prompt into your agent.
+Run npx skills add wellwelwel/lagune -y or gh skill install wellwelwel/lagune --all --scope project in your project, or paste the install prompt into your agent.
 
 ### How do I update Lagune in any AI agent?
 

@@ -49,6 +49,8 @@ Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工�
 - [regex hook：检测有 ReDoS 风险的正则](https://lagune.ai/zh-CN/docs/hooks/regex.md): 在命令行中扫描代码库里容易引发 ReDoS 的正则表达式，或评估单个正则模式。
 - [secrets hook：检测硬编码的密钥](https://lagune.ai/zh-CN/docs/hooks/secrets.md): 在命令行中扫描代码库里硬编码的凭证。
 - [Lagune 提示词示例：自动化 Blue Team 流程](https://lagune.ai/zh-CN/docs/examples/prompts.md): 复制即用的 Lagune 提示词：只读扫描、完整的 Blue Team 流程和零信任审计，以及限定在某个 commit、分支或 PR diff，或真实安全事件上的检测。
+- [Spec-Driven Development：保护规范构建出的代码](https://lagune.ai/zh-CN/docs/examples/spec-driven-development.md): 把 Lagune 与 Superpowers、Spec Kit 或 OpenSpec 搭配使用：根据你的规范设定安全原则，再用 /lagune 实现它，让每项任务在编写代码的同时得到加固。
+- [定时审计：按计划自动运行 Lagune](https://lagune.ai/zh-CN/docs/examples/scheduled-audits.md): 用你自己的密钥在 GitHub Actions 中，或在 Claude Code、Codex、Cursor、Antigravity 或 OpenCode 中，为 Lagune 设置定期审计，可以只报告新风险，也可以运行完整的 Blue Team 流程。
 - [Security-Driven Hardening：面向 AI 辅助开发时代的约定](https://lagune.ai/zh-CN/docs/references/paper.md): Security-Driven Hardening（SDH）方法论：一种场景感知的 Blue Team 约定，用于审计和加固 AI 辅助开发与 vibe coding 写出的软件。
 - [Lagune 术语表：SDH、charter、发现项与控制措施](https://lagune.ai/zh-CN/docs/references/glossary.md): Lagune 与 Security-Driven Hardening 全部术语的通俗定义：SDH、charter、detect、发现项、控制措施、harden、verify、结案、可结案性、专项、类别与目录。
 - [配置 Schema](https://lagune.ai/zh-CN/docs/references/configs-schema.md): Lagune 项目配置文件的 JSON Schema，让编辑器提供自动补全和校验，可以跟随当前版本的 Lagune，也可以固定到某个版本。

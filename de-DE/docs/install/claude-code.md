@@ -5,7 +5,7 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/claude-code
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/claude-code
-Zuletzt aktualisiert: 2026-11-03
+Zuletzt aktualisiert: 2026-11-09
 
 **Terminal**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Oder in einer Sitzung von **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

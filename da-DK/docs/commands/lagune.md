@@ -22,7 +22,7 @@ Tilføj **`/lagune`** til en hvilken som helst prompt, og beskriv arbejdet, som 
 
 ## Sikkerhed
 
-- Brug skillen `/lagune`, hver gang du bygger eller ændrer kode, så den forbedrer sikkerheden som standard.
+- Hver gang du bygger eller ændrer kode, skal du bruge skillen `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)), der hedder `/lagune:lagune`, når den er installeret som plugin, for at forbedre sikkerheden som standard.
 ```
 
     - For eksempel: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** osv.

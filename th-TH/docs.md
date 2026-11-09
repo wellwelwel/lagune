@@ -5,7 +5,7 @@
 Canonical: https://lagune.ai/th-TH/docs
 ภาษา: th-TH
 ต้นฉบับ: https://lagune.ai/docs
-อัปเดตล่าสุด: 2026-11-07
+อัปเดตล่าสุด: 2026-11-09
 
 **Lagune** ช่วยให้เอเจนต์ AI ของคุณทำให้โปรเจกต์ปลอดภัยขึ้น คุณเพียงชี้ไปที่โค้ด แล้วเอเจนต์จะค้นหาว่าระบบของคุณทำอะไรจริง ๆ จากนั้นพาคุณทำงานด้านความปลอดภัยที่สำคัญกับระบบนั้น **Lagune** เป็นโปรเจกต์แรกของระเบียบวิธี [Security-Driven Hardening (SDH)](https://lagune.ai/th-TH/docs/references/paper)
 
@@ -121,7 +121,7 @@ Lagune คือเวิร์กโฟลว์ด้านความปล�
 
 ### ติดตั้ง Lagune อย่างไร
 
-เลือกเอเจนต์ของคุณ: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI และ Hermes Agent ติดตั้ง Lagune เป็นปลั๊กอิน Gemini CLI และ Qwen Code ติดตั้งเป็นส่วนขยาย Pi ติดตั้งเป็นแพ็กเกจ ส่วนเอเจนต์อื่นติดตั้งด้วย npx skills add wellwelwel/lagune โดย Lagune ใช้ได้ทั้งกับโปรเจกต์ใหม่และโปรเจกต์เดิม
+เลือกเอเจนต์ของคุณ: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI และ Hermes Agent ติดตั้ง Lagune เป็นปลั๊กอิน Gemini CLI และ Qwen Code ติดตั้งเป็นส่วนขยาย Pi ติดตั้งเป็นแพ็กเกจ ส่วนเอเจนต์อื่นติดตั้งด้วย npx skills add wellwelwel/lagune -y โดย Lagune ใช้ได้ทั้งกับโปรเจกต์ใหม่และโปรเจกต์เดิม
 
 ### Lagune ต้องใช้คีย์ API ไหม
 

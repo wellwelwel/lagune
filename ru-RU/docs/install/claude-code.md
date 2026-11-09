@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/claude-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/claude-code
-Последнее обновление: 2026-11-03
+Последнее обновление: 2026-11-09
 
 **Терминал**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Или из сессии **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

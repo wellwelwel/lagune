@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs/commands/lagune
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/commands/lagune
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 ⌨️ Kerjakan apa yang Anda minta, dengan keamanan yang dibangun saat kodenya ditulis. **`/lagune`** menerima prompt apa pun di tahap mana pun, membangun apa yang Anda inginkan, dan memperkuat keamanannya dengan default yang aman sebelum menyerahkannya kembali.
 
@@ -22,7 +22,7 @@ Tambahkan **`/lagune`** ke prompt apa pun, lalu jelaskan pekerjaannya seperti bi
 
 ## Keamanan
 
-- Gunakan skill `/lagune` setiap kali kamu membangun atau mengubah kode, agar keamanannya meningkat secara bawaan.
+- Setiap kali kamu membangun atau mengubah kode, gunakan skill `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)), yang bernama `/lagune:lagune` jika diinstal sebagai plugin, agar keamanannya meningkat secara bawaan.
 ```
 
     - Contohnya: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules**, dan sebagainya.

@@ -5,20 +5,20 @@
 Canonical: https://lagune.ai/th-TH/docs/install/universal
 ภาษา: th-TH
 ต้นฉบับ: https://lagune.ai/docs/install/universal
-อัปเดตล่าสุด: 2026-11-07
+อัปเดตล่าสุด: 2026-11-09
 
 **skills.sh**
 
-ติดตั้งคำสั่งของ **Lagune** ในโปรเจกต์ของคุณจากเทอร์มินัลด้วย [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) โดยคงขอบเขตการติดตั้งไว้ที่ **Project**:
+ติดตั้งคำสั่งของ **Lagune** ในโปรเจกต์ของคุณจากเทอร์มินัลด้วย [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 หรือวาง prompt นี้ในเอเจนต์ของคุณ:
 
 ```md
-รัน `npx --yes skills add wellwelwel/lagune` แล้วเริ่มทำตามคำแนะนำของ skill ที่คำสั่งสร้างขึ้นทันที อ่านผลลัพธ์ให้ครบถ้วน หากจำเป็นให้ redirect ผลลัพธ์ไปยังไฟล์ชั่วคราวก่อน หา relative path โดยอิงจากไดเรกทอรีไฟล์ประกอบที่คำสั่งระบุไว้
+รัน `npx --yes skills add wellwelwel/lagune --yes` แล้วเริ่มทำตามคำแนะนำของ skill ที่คำสั่งสร้างขึ้นทันที อ่านผลลัพธ์ให้ครบถ้วน หากจำเป็นให้ redirect ผลลัพธ์ไปยังไฟล์ชั่วคราวก่อน หา relative path โดยอิงจากไดเรกทอรีไฟล์ประกอบที่คำสั่งระบุไว้
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### จะติดตั้ง Lagune ในเอเจนต์ AI ตัวไหนก็ได้ ต้องทำอย่างไร
 
-รัน npx skills add wellwelwel/lagune --skill '*' หรือ gh skill install wellwelwel/lagune --all --scope project ในโปรเจกต์ของคุณ หรือวาง prompt สำหรับติดตั้งในเอเจนต์ของคุณ
+รัน npx skills add wellwelwel/lagune -y หรือ gh skill install wellwelwel/lagune --all --scope project ในโปรเจกต์ของคุณ หรือวาง prompt สำหรับติดตั้งในเอเจนต์ของคุณ
 
 ### จะอัปเดต Lagune ในเอเจนต์ AI ตัวไหนก็ได้ ต้องทำอย่างไร
 

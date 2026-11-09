@@ -11,7 +11,7 @@ Lagune is an open-source, defense-only Security-Driven Hardening (SDH) workflow.
 > Install Lagune in any project, as a plugin where your agent supports one or with the skills CLI elsewhere, then choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs
-Last updated: 2026-11-03
+Last updated: 2026-11-09
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it. **Lagune** is the first project of the [Security-Driven Hardening (SDH)](https://lagune.ai/docs/references/paper) methodology.
 
@@ -127,7 +127,7 @@ Lagune is an open-source, defense-only security workflow that helps your AI agen
 
 ### How do I install Lagune?
 
-Pick your agent: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, and Hermes Agent install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. It works in both new and existing projects.
+Pick your agent: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, and Hermes Agent install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune -y. It works in both new and existing projects.
 
 ### Does Lagune need an API key?
 
@@ -257,7 +257,7 @@ Yes. Allow mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write), and 
 > Install Lagune on Claude Code as a plugin, in the terminal, the extension, or the desktop app, keep it updated, and allow its engine up front.
 
 Canonical: https://lagune.ai/docs/install/claude-code
-Last updated: 2026-11-03
+Last updated: 2026-11-09
 
 **Terminal**
 
@@ -269,7 +269,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Or from a **Claude Code** session:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```
@@ -814,11 +814,11 @@ Type them under the plugin's name, such as /lagune:lagune-charter and /lagune:la
 > Install Lagune on Kimi Code as a plugin, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/kimi-code
-Last updated: 2026-11-03
+Last updated: 2026-11-09
 
 Install the plugin from a **Kimi Code** session, choose **Trust and install**, then start a new session to load it:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -827,7 +827,7 @@ Install the plugin from a **Kimi Code** session, choose **Trust and install**, t
 
 To update **Lagune**, install it again:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -1129,20 +1129,20 @@ Yes. Allow mcp__lagune__lagune_read and mcp__lagune__lagune_write in Qwen Code's
 > Install Lagune in any AI agent with the skills CLI or the GitHub CLI, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/universal
-Last updated: 2026-11-07
+Last updated: 2026-11-09
 
 **skills.sh**
 
-Install **Lagune**'s commands in your project from your terminal with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), keeping **Project** as the installation scope:
+Install **Lagune**'s commands in your project from your terminal with the [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Or paste this prompt into your agent:
 
 ```md
-Run `npx --yes skills add wellwelwel/lagune` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
+Run `npx --yes skills add wellwelwel/lagune --yes` and follow the generated skill instructions now. Read its complete output, redirecting it to a temporary file first if necessary. Resolve relative paths from the supporting-files directory it provides.
 ```
 
 **GitHub CLI**
@@ -1203,7 +1203,7 @@ npm i -D lagune@0.18.1
 
 ### How do I install Lagune in any AI agent?
 
-Run npx skills add wellwelwel/lagune --skill '*' or gh skill install wellwelwel/lagune --all --scope project in your project, or paste the install prompt into your agent.
+Run npx skills add wellwelwel/lagune -y or gh skill install wellwelwel/lagune --all --scope project in your project, or paste the install prompt into your agent.
 
 ### How do I update Lagune in any AI agent?
 
@@ -1349,7 +1349,7 @@ Only its categories and what its hooks leave out, from your browser. Everything 
 > Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 
 Canonical: https://lagune.ai/docs/commands/lagune
-Last updated: 2026-10-31
+Last updated: 2026-11-09
 
 ⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
 
@@ -1366,7 +1366,7 @@ Mark **`/lagune`** on any prompt, and describe the work as you always would.
 
 ## Security
 
-- Use the `/lagune` skill whenever you build or change code, so it improves safety by default.
+- Whenever you build or change code, use the `/lagune` skill ([**lagune.ai**](https://lagune.ai/llms.txt)), named `/lagune:lagune` when installed as a plugin, to improve safety by default.
 ```
 
     - For example: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules**, etc.
@@ -3588,6 +3588,231 @@ At the end, merge all sub-agent reports into one final verdict.
 
 ---
 
+# Spec-Driven Development: Secure What Your Spec Builds
+
+> Pair Lagune with Superpowers, Spec Kit, or OpenSpec: set the charter from your spec, then implement it with /lagune so every task is hardened as the code is written.
+
+Canonical: https://lagune.ai/docs/examples/spec-driven-development
+Last updated: 2026-11-09
+
+Pair **Lagune** with a Spec-Driven Development tool, such as [**Superpowers**](https://github.com/obra/superpowers), [**Spec Kit**](https://github.com/github/spec-kit), or [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): your tool decides what to build, and **Lagune** decides how it stays safe.
+
+## How It Fits
+
+**Lagune** joins your tool's flow at two points, leaving the rest unchanged:
+
+1. Once your tool writes the spec, [`/lagune-charter`](https://lagune.ai/docs/commands/charter) reads it and sets the security principles the feature calls for, before any code exists.
+2. Marked on your tool's implementation command, [`/lagune`](https://lagune.ai/docs/commands/lagune) hardens each task under those principles as the code is written.
+
+**Tip**
+
+Replace the spec path in each example with the file your tool wrote. When the project already has a charter, the same step updates it with what the new feature needs.
+
+## Prompt Examples
+
+Send the prompts in order, each once the previous one finishes.
+
+```prompt
+/superpowers:brainstorming Guest checkout with card payments.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+```prompt
+/speckit.specify Guest checkout with card payments.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+---
+
+# Scheduled Audits: Run Lagune on a Recurring Schedule
+
+> Schedule a recurring Lagune audit in GitHub Actions with your own key, or in Claude Code, Codex, Cursor, Antigravity, or OpenCode, that either reports new risks or runs the whole Blue Team flow.
+
+Canonical: https://lagune.ai/docs/examples/scheduled-audits
+Last updated: 2026-11-09
+
+Schedule **Lagune** to audit your project on its own, either reporting what it finds or running the whole Blue Team flow.
+
+## Schedule
+
+**Universal**
+
+**GitHub Actions** runs the audit in the cloud with [**GitHub Agentic Workflows**](https://github.github.com/gh-aw/). Its **Copilot CLI** engine calls the model provider you choose with your own key, so it needs no agent subscription:
+
+- Install the extension with `gh extension install github/gh-aw`.
+- Store your provider's key as a repository secret with `gh secret set PROVIDER_API_KEY`.
+- Save this workflow as `.github/workflows/lagune-audit.md`, replacing `<model>` with one of your provider's models that supports tool calling, and `<your-prompt>` with one of the [prompt examples](#prompt-examples):
+
+  ```md
+  ---
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+  permissions:
+    contents: read
+  engine:
+    id: copilot
+    model: <model>
+    env:
+      COPILOT_PROVIDER_TYPE: <type>
+      COPILOT_PROVIDER_BASE_URL: <url>
+      COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
+  skills:
+    - wellwelwel/lagune@v0.18.1
+  network:
+    allowed:
+      - defaults
+      - node
+  tools:
+    edit:
+    bash: [npx]
+  safe-outputs:
+    create-pull-request:
+  ---
+
+  <your-prompt>
+
+  Then open a pull request with your changes.
+  ```
+
+  | Provider                                              | `<type>`    | `<url>`                                              |
+  | ----------------------------------------------------- | ----------- | ---------------------------------------------------- |
+  | **OpenAI**                                            | `openai`    | `https://api.openai.com/v1`                          |
+  | **Anthropic**                                         | `anthropic` | `https://api.anthropic.com`                          |
+  | Any **OpenAI**-compatible API, such as **OpenRouter** | `openai`    | Its base URL, such as `https://openrouter.ai/api/v1` |
+
+- Run `gh aw compile` and commit the workflow together with the `.lock.yml` file it generates.
+
+**In the cloud**, the audit runs even with your computer off:
+
+- Commit **Lagune** with the [universal install](https://lagune.ai/docs/install/universal) instead of the plugin.
+- Type `/schedule` in a **Claude Code** session and describe the audit, or create it at [claude.ai/code/routines](https://claude.ai/code/routines).
+
+**On your computer**, the audit uses the plugin you installed for yourself:
+
+- Create a local task on the desktop app's **Scheduled tasks** page.
+- Allow the engine up front, as the [install page](https://lagune.ai/docs/install/claude-code) shows, since no one is there to approve its tools.
+- The task runs only while the app is open and your computer is awake.
+
+Scheduled tasks are created in the **ChatGPT** desktop app, not in the **Codex CLI**, and run on your computer:
+
+- In a **Codex** chat, describe the audit, when it should run, and that each run starts a new chat. Its results land in **Scheduled**.
+- In the prompt, name each command with `$`, such as `$lagune:lagune-detect`, so the run invokes it explicitly.
+- Choose your local project rather than a new worktree, which starts without the engine you [installed in your project](https://lagune.ai/docs/install/codex).
+- The task runs only while the app is open, your computer is on, and the project is on disk.
+
+**Cursor**'s Automations run in the cloud, even with your computer off:
+
+- Commit **Lagune** with the [universal install](https://lagune.ai/docs/install/universal) instead of the plugin.
+- Create an automation at [cursor.com/automations](https://cursor.com/automations), or describe it with `/automate` in an agent session, giving it a scheduled trigger.
+- Select your repository, since a scheduled trigger starts without one.
+
+**Antigravity**'s Automations run on your computer, each in a fresh conversation:
+
+- Open the **Automations** tab in the **Antigravity** app and create a scheduled automation for your project, or ask the agent to set it up.
+- Allow the engine up front, as the [install page](https://lagune.ai/docs/install/antigravity-cli) shows, since no one is there to approve its tools.
+- Use an automation rather than `/schedule`, which lasts only as long as its conversation.
+- The automation runs only while **Antigravity** is running.
+
+**OpenCode** has no scheduler of its own, so the audit runs from **GitHub Actions**, in the cloud:
+
+- Commit **Lagune** in the repository's `opencode.json`, as the [install page](https://lagune.ai/docs/install/opencode) shows.
+- Run `opencode github install` to connect the **OpenCode** GitHub app and store your model provider's key.
+- Add a workflow that passes the prompt to **OpenCode** on a schedule, here every Monday at 09:00 UTC, filling `<KEY>` and `<provider>/<model>` as in the workflow `opencode github install` created, and `<your-prompt>` with one of the [prompt examples](#prompt-examples):
+
+  ```yaml
+  name: Lagune Audit
+
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+
+  jobs:
+    audit:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+      steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - uses: anomalyco/opencode/github@latest
+          env:
+            <KEY>: ${{ secrets.<KEY> }}
+          with:
+            model: <provider>/<model>
+            prompt: |
+              <your-prompt>
+  ```
+
+### Prompt Examples
+
+**💧 Report Only**
+
+Maps new risks, plans their fixes, and rechecks the controls already applied, without changing your code:
+
+```md
+Execute the following commands, one by one: `/lagune-detect` and `/lagune-plan`. If the project has a hardening record, also execute `/lagune-verify`.
+
+Do not change the project's code. At the end, summarize the new findings and any applied control that no longer holds.
+```
+
+**🌊 Full Cycle**
+
+Also applies the planned fixes and proves each one holds, so review its changes before they reach your main branch:
+
+```md
+Execute the following commands, one by one: `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, and `/lagune-verify`.
+
+At the end, summarize the fixes applied and any finding still open.
+```
+
+---
+
 # Security-Driven Hardening: A Convention for the AI-Assisted Development Age
 
 > The Security-Driven Hardening (SDH) methodology: a context-aware, blue-team convention for auditing and hardening AI-assisted and vibe-coded software.
@@ -4316,7 +4541,7 @@ When the project runs a specific Lagune version, so your editor validates the fi
 > A reference comparing Lagune and Vercel's Deepsec across how they work, lifecycle, detection, cost, findings, and closure.
 
 Canonical: https://lagune.ai/docs/references/deepsec
-Last updated: 2026-11-02
+Last updated: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) and [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) are two defensive answers to the same problem: security in the age of AI-assisted development. Their premise, their beginning, middle, and end, and how each presents itself to a user diverge by design, even where their mechanics overlap.
 
@@ -4441,10 +4666,10 @@ How each meets the person running it: what the first run takes, and how the oper
 
 Lagune runs through the agent already open. Deepsec provisions its own workspace and model access first.
 
-| Aspect             | Lagune                                                                                  | Deepsec                                                                            |
-| ------------------ | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| First command      | The plugin install or `npx skills add wellwelwel/lagune`, then `/lagune-*` in the agent | `npx deepsec init`, then `cd .deepsec`, `pnpm install`, `scan`, `process`          |
-| Credentials to run | No separate key, it uses your current agent                                             | A model key (e.g., AI Gateway, a 12-hour Vercel OIDC token, or an Anthropic token) |
+| Aspect             | Lagune                                                                                     | Deepsec                                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| First command      | The plugin install or `npx skills add wellwelwel/lagune -y`, then `/lagune-*` in the agent | `npx deepsec init`, then `cd .deepsec`, `pnpm install`, `scan`, `process`          |
+| Credentials to run | No separate key, it uses your current agent                                                | A model key (e.g., AI Gateway, a 12-hour Vercel OIDC token, or an Anthropic token) |
 
 ### Driving it
 

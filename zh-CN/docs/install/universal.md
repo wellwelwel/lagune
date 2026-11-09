@@ -5,20 +5,20 @@
 规范链接: https://lagune.ai/zh-CN/docs/install/universal
 语言: zh-CN
 原文: https://lagune.ai/docs/install/universal
-最后更新: 2026-11-07
+最后更新: 2026-11-09
 
 **skills.sh**
 
-在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 把 **Lagune** 的命令安装到你的项目中，安装作用域保持 **Project** 不变：
+在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 把 **Lagune** 的命令安装到你的项目中：
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 或者把这段提示词粘贴到你的智能体中：
 
 ```md
-运行 `npx --yes skills add wellwelwel/lagune`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
+运行 `npx --yes skills add wellwelwel/lagune --yes`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### 如何在任意 AI 智能体中安装 Lagune？
 
-在项目中运行 npx skills add wellwelwel/lagune --skill '*' 或 gh skill install wellwelwel/lagune --all --scope project，或者把安装提示词粘贴到你的智能体中。
+在项目中运行 npx skills add wellwelwel/lagune -y 或 gh skill install wellwelwel/lagune --all --scope project，或者把安装提示词粘贴到你的智能体中。
 
 ### 如何在任意 AI 智能体中更新 Lagune？
 

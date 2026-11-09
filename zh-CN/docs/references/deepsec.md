@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/references/deepsec
 语言: zh-CN
 原文: https://lagune.ai/docs/references/deepsec
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) 和 [Deepsec](https://github.com/vercel-labs/deepsec)（`v2.2.1`）是两种防御性方案，针对的是同一个问题：AI 辅助开发时代的安全。即使在机制上有重叠，两者的前提、从开始到结束的整个过程，以及在用户面前的呈现方式，都是有意设计得不同的。
 
@@ -130,10 +130,10 @@ Deepsec 为安全团队产出交付物。Lagune 则为运行它的人呈现实�
 
 Lagune 直接通过已经打开的智能体运行。Deepsec 则要先准备好自己的工作区和模型访问权限。
 
-| 方面         | Lagune                                                                            | Deepsec                                                                             |
-| ------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| 第一条命令   | 安装插件或运行 `npx skills add wellwelwel/lagune`，然后在智能体中使用 `/lagune-*` | `npx deepsec init`，然后依次执行 `cd .deepsec`、`pnpm install`、`scan`、`process`   |
-| 运行所需凭证 | 不需要额外的密钥，直接使用你当前的智能体                                          | 一个模型密钥（例如 AI Gateway、有效期 12 小时的 Vercel OIDC 令牌或 Anthropic 令牌） |
+| 方面         | Lagune                                                                               | Deepsec                                                                             |
+| ------------ | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| 第一条命令   | 安装插件或运行 `npx skills add wellwelwel/lagune -y`，然后在智能体中使用 `/lagune-*` | `npx deepsec init`，然后依次执行 `cd .deepsec`、`pnpm install`、`scan`、`process`   |
+| 运行所需凭证 | 不需要额外的密钥，直接使用你当前的智能体                                             | 一个模型密钥（例如 AI Gateway、有效期 12 小时的 Vercel OIDC 令牌或 Anthropic 令牌） |
 
 ### 如何驱动
 

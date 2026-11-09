@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs/references/deepsec
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/references/deepsec
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) dan [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) adalah dua jawaban defensif untuk masalah yang sama: keamanan di era pengembangan yang dibantu AI. Premis keduanya, awal, tengah, dan akhirnya, serta cara masing-masing tampil di hadapan pengguna sengaja dibuat berbeda, bahkan ketika mekanismenya beririsan.
 
@@ -130,10 +130,10 @@ Cara masing-masing menyambut orang yang menjalankannya: apa yang dibutuhkan saat
 
 Lagune berjalan lewat agen yang sudah terbuka. Deepsec lebih dulu menyiapkan workspace dan akses model miliknya sendiri.
 
-| Aspek                        | Lagune                                                                          | Deepsec                                                                           |
-| ---------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Perintah pertama             | Instal plugin atau `npx skills add wellwelwel/lagune`, lalu `/lagune-*` di agen | `npx deepsec init`, lalu `cd .deepsec`, `pnpm install`, `scan`, `process`         |
-| Kredensial untuk menjalankan | Tanpa kunci terpisah, memakai agen Anda saat ini                                | Kunci model (misalnya AI Gateway, token OIDC Vercel 12 jam, atau token Anthropic) |
+| Aspek                        | Lagune                                                                             | Deepsec                                                                           |
+| ---------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Perintah pertama             | Instal plugin atau `npx skills add wellwelwel/lagune -y`, lalu `/lagune-*` di agen | `npx deepsec init`, lalu `cd .deepsec`, `pnpm install`, `scan`, `process`         |
+| Kredensial untuk menjalankan | Tanpa kunci terpisah, memakai agen Anda saat ini                                   | Kunci model (misalnya AI Gateway, token OIDC Vercel 12 jam, atau token Anthropic) |
 
 ### Mengarahkannya
 

@@ -13,7 +13,7 @@ Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工�
 规范链接: https://lagune.ai/zh-CN/docs
 语言: zh-CN
 原文: https://lagune.ai/docs
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 **Lagune** 帮助你的 AI 智能体提升项目的安全性。你把它指向自己的代码，智能体就会弄清楚你的系统实际在做什么，再带你完成对它而言真正重要的安全工作。**Lagune** 是 [Security-Driven Hardening (SDH)](https://lagune.ai/zh-CN/docs/references/paper) 方法论的第一个项目。
 
@@ -129,7 +129,7 @@ Lagune 是一个开源、仅限防御的安全工作流，帮助你的 AI 智能
 
 ### 怎么安装 Lagune？
 
-先选择你的智能体：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI 和 Hermes Agent 以插件形式安装 Lagune，Gemini CLI 和 Qwen Code 以扩展形式安装，Pi 以包的形式安装，其他任何智能体都可以用 npx skills add wellwelwel/lagune 安装。新项目和现有项目都能用。
+先选择你的智能体：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI 和 Hermes Agent 以插件形式安装 Lagune，Gemini CLI 和 Qwen Code 以扩展形式安装，Pi 以包的形式安装，其他任何智能体都可以用 npx skills add wellwelwel/lagune -y 安装。新项目和现有项目都能用。
 
 ### Lagune 需要 API 密钥吗？
 
@@ -263,7 +263,7 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 规范链接: https://lagune.ai/zh-CN/docs/install/claude-code
 语言: zh-CN
 原文: https://lagune.ai/docs/install/claude-code
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 **终端**
 
@@ -275,7 +275,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 或者在 **Claude Code** 会话中安装：
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```
@@ -838,11 +838,11 @@ hermes plugins update lagune
 规范链接: https://lagune.ai/zh-CN/docs/install/kimi-code
 语言: zh-CN
 原文: https://lagune.ai/docs/install/kimi-code
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 在 **Kimi Code** 会话中安装插件，选择 **Trust and install**，然后开启新会话来加载它：
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -851,7 +851,7 @@ hermes plugins update lagune
 
 重新安装即可更新 **Lagune**：
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -1163,20 +1163,20 @@ qwen extensions update lagune
 规范链接: https://lagune.ai/zh-CN/docs/install/universal
 语言: zh-CN
 原文: https://lagune.ai/docs/install/universal
-最后更新: 2026-11-07
+最后更新: 2026-11-09
 
 **skills.sh**
 
-在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 把 **Lagune** 的命令安装到你的项目中，安装作用域保持 **Project** 不变：
+在终端中用 [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) 把 **Lagune** 的命令安装到你的项目中：
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 或者把这段提示词粘贴到你的智能体中：
 
 ```md
-运行 `npx --yes skills add wellwelwel/lagune`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
+运行 `npx --yes skills add wellwelwel/lagune --yes`，然后立即按照生成的 skill 指令操作。完整阅读它的输出，必要时先把输出重定向到临时文件。相对路径以它提供的支持文件目录为基准解析。
 ```
 
 **GitHub CLI**
@@ -1237,7 +1237,7 @@ npm i -D lagune@0.18.1
 
 ### 如何在任意 AI 智能体中安装 Lagune？
 
-在项目中运行 npx skills add wellwelwel/lagune --skill '*' 或 gh skill install wellwelwel/lagune --all --scope project，或者把安装提示词粘贴到你的智能体中。
+在项目中运行 npx skills add wellwelwel/lagune -y 或 gh skill install wellwelwel/lagune --all --scope project，或者把安装提示词粘贴到你的智能体中。
 
 ### 如何在任意 AI 智能体中更新 Lagune？
 
@@ -1389,7 +1389,7 @@ npx lagune
 规范链接: https://lagune.ai/zh-CN/docs/commands/lagune
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/lagune
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 ⌨️ 完成你要求的工作，并在编写过程中就保障安全。**`/lagune`** 在任何阶段都接受任何提示词，构建你想要的内容，并在交付前用安全的默认设置加固它。
 
@@ -1406,7 +1406,7 @@ npx lagune
 
 ## 安全
 
-- 每当你构建或修改代码时，都使用 `/lagune` skill，让它默认提升安全性。
+- 每当你构建或修改代码时，都使用 `/lagune` skill（[**lagune.ai**](https://lagune.ai/llms.txt)），以插件形式安装时它名为 `/lagune:lagune`，让它默认提升安全性。
 ```
 
     - 例如：**AGENTS.md**、**CLAUDE.md**、**.github/copilot-instructions.md**、**.cursorrules** 等。
@@ -3670,6 +3670,235 @@ npx lagune write add --categories owasp ai javascript
 
 ---
 
+# Spec-Driven Development：保护规范构建出的代码
+
+> 把 Lagune 与 Superpowers、Spec Kit 或 OpenSpec 搭配使用：根据你的规范设定安全原则，再用 /lagune 实现它，让每项任务在编写代码的同时得到加固。
+
+规范链接: https://lagune.ai/zh-CN/docs/examples/spec-driven-development
+语言: zh-CN
+原文: https://lagune.ai/docs/examples/spec-driven-development
+最后更新: 2026-11-09
+
+把 **Lagune** 与 Spec-Driven Development 工具搭配使用，例如 [**Superpowers**](https://github.com/obra/superpowers)、[**Spec Kit**](https://github.com/github/spec-kit) 或 [**OpenSpec**](https://github.com/Fission-AI/OpenSpec)：由你的工具决定构建什么，由 **Lagune** 决定如何保证它的安全。
+
+## 搭配方式
+
+**Lagune** 在两个环节加入你的工具流程，其余部分保持不变：
+
+1. 你的工具写好规范后，[`/lagune-charter`](https://lagune.ai/zh-CN/docs/commands/charter) 会读取它，在还没有任何代码之前，就设定好该功能所需的安全原则。
+2. 把 [`/lagune`](https://lagune.ai/zh-CN/docs/commands/lagune) 标记在你的工具的实现命令上，它会在编写代码的同时，按照这些原则加固每项任务。
+
+**提示**
+
+把每个示例中的规范路径替换为你的工具写出的文件。如果项目已经有安全原则，同一步骤会按新功能的需要更新它们。
+
+## 提示词示例
+
+按顺序发送这些提示词，每条都等上一条完成后再发送。
+
+```prompt
+/superpowers:brainstorming 支持银行卡支付的访客结账。
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+```prompt
+/speckit.specify 支持银行卡支付的访客结账。
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+---
+
+# 定时审计：按计划自动运行 Lagune
+
+> 用你自己的密钥在 GitHub Actions 中，或在 Claude Code、Codex、Cursor、Antigravity 或 OpenCode 中，为 Lagune 设置定期审计，可以只报告新风险，也可以运行完整的 Blue Team 流程。
+
+规范链接: https://lagune.ai/zh-CN/docs/examples/scheduled-audits
+语言: zh-CN
+原文: https://lagune.ai/docs/examples/scheduled-audits
+最后更新: 2026-11-09
+
+让 **Lagune** 按计划自动审计你的项目，可以只报告发现的问题，也可以运行完整的 Blue Team 流程。
+
+## 设置定时任务
+
+**Universal**
+
+**GitHub Actions** 借助 [**GitHub Agentic Workflows**](https://github.github.com/gh-aw/) 在云端运行审计。它的 **Copilot CLI** 引擎会用你自己的密钥调用你选择的模型提供商，因此不需要订阅任何智能体：
+
+- 用 `gh extension install github/gh-aw` 安装扩展。
+- 用 `gh secret set PROVIDER_API_KEY` 把提供商的密钥保存为仓库机密。
+- 把这个工作流保存为 `.github/workflows/lagune-audit.md`，将 `<model>` 替换为你的提供商中支持工具调用的某个模型，将 `<your-prompt>` 替换为某个 [提示词示例](#prompt-examples)：
+
+  ```md
+  ---
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+  permissions:
+    contents: read
+  engine:
+    id: copilot
+    model: <model>
+    env:
+      COPILOT_PROVIDER_TYPE: <type>
+      COPILOT_PROVIDER_BASE_URL: <url>
+      COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
+  skills:
+    - wellwelwel/lagune@v0.18.1
+  network:
+    allowed:
+      - defaults
+      - node
+  tools:
+    edit:
+    bash: [npx]
+  safe-outputs:
+    create-pull-request:
+  ---
+
+  <your-prompt>
+
+  然后用你的修改创建一个 pull request。
+  ```
+
+  | 提供商                                          | `<type>`    | `<url>`                                            |
+  | ----------------------------------------------- | ----------- | -------------------------------------------------- |
+  | **OpenAI**                                      | `openai`    | `https://api.openai.com/v1`                        |
+  | **Anthropic**                                   | `anthropic` | `https://api.anthropic.com`                        |
+  | 任何兼容 **OpenAI** 的 API，例如 **OpenRouter** | `openai`    | 它的 base URL，例如 `https://openrouter.ai/api/v1` |
+
+- 运行 `gh aw compile`，然后把工作流和它生成的 `.lock.yml` 文件一起提交。
+
+**在云端**，即使电脑关机，审计也会照常运行：
+
+- 改用 [通用安装](https://lagune.ai/zh-CN/docs/install/universal) 代替插件，并把 **Lagune** 提交到仓库。
+- 在 **Claude Code** 会话中输入 `/schedule` 并描述这次审计，或者在 [claude.ai/code/routines](https://claude.ai/code/routines) 创建它。
+
+**在你的电脑上**，审计会使用你为自己安装的插件：
+
+- 在桌面应用的 **Scheduled tasks** 页面创建一个本地任务。
+- 按照 [安装页面](https://lagune.ai/zh-CN/docs/install/claude-code) 的说明，提前允许引擎，因为运行时没有人在场批准它的工具。
+- 只有在应用打开且电脑处于唤醒状态时，任务才会运行。
+
+定时任务要在 **ChatGPT** 桌面应用中创建，而不是在 **Codex CLI** 中，并在你的电脑上运行：
+
+- 在 **Codex** 聊天中描述这次审计、运行时间，并说明每次运行都开启一个新聊天。结果会出现在 **Scheduled** 中。
+- 在提示词中用 `$` 写出每条命令，例如 `$lagune:lagune-detect`，让每次运行都显式调用它。
+- 选择你的本地项目，而不是新的 worktree，因为新的 worktree 启动时没有你 [安装在项目中](https://lagune.ai/zh-CN/docs/install/codex) 的引擎。
+- 只有在应用打开、电脑开机且项目在磁盘上时，任务才会运行。
+
+**Cursor** 的 Automations 在云端运行，即使电脑关机也不受影响：
+
+- 改用 [通用安装](https://lagune.ai/zh-CN/docs/install/universal) 代替插件，并把 **Lagune** 提交到仓库。
+- 在 [cursor.com/automations](https://cursor.com/automations) 创建一个 automation，或者在智能体会话中用 `/automate` 描述它，并为它设置定时触发器。
+- 选择你的仓库，因为定时触发器启动时不带任何仓库。
+
+**Antigravity** 的 Automations 在你的电脑上运行，每次都在一个新对话中进行：
+
+- 在 **Antigravity** 应用中打开 **Automations** 标签页，为你的项目创建一个定时 automation，或者让智能体帮你设置。
+- 按照 [安装页面](https://lagune.ai/zh-CN/docs/install/antigravity-cli) 的说明，提前允许引擎，因为运行时没有人在场批准它的工具。
+- 使用 automation，而不是 `/schedule`，因为后者只在所属对话存续期间有效。
+- 只有在 **Antigravity** 运行时，automation 才会运行。
+
+**OpenCode** 没有自己的调度器，所以审计通过 **GitHub Actions** 在云端运行：
+
+- 按照 [安装页面](https://lagune.ai/zh-CN/docs/install/opencode) 的说明，在仓库的 `opencode.json` 中提交 **Lagune**。
+- 运行 `opencode github install`，连接 **OpenCode** 的 GitHub 应用并保存你的模型提供商密钥。
+- 添加一个工作流，按计划把提示词传给 **OpenCode**（这里是每周一 09:00 UTC）。`<KEY>` 和 `<provider>/<model>` 按 `opencode github install` 所创建工作流中的值填写，`<your-prompt>` 替换为某个 [提示词示例](#prompt-examples)：
+
+  ```yaml
+  name: Lagune Audit
+
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+
+  jobs:
+    audit:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+      steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - uses: anomalyco/opencode/github@latest
+          env:
+            <KEY>: ${{ secrets.<KEY> }}
+          with:
+            model: <provider>/<model>
+            prompt: |
+              <your-prompt>
+  ```
+
+### 提示词示例 \{#prompt-examples}
+
+**💧 仅报告**
+
+梳理新风险、规划修复，并重新检查已应用的控制措施，不会修改你的代码：
+
+```md
+依次执行以下命令：`/lagune-detect` 和 `/lagune-plan`。如果项目已有加固记录，再执行 `/lagune-verify`。
+
+不要修改项目的代码。最后，总结新的发现项，以及所有不再有效的已应用控制措施。
+```
+
+**🌊 完整循环**
+
+还会应用规划好的修复并证明每项修复都有效，所以请在这些修改进入主分支之前先审查它们：
+
+```md
+依次执行以下命令：`/lagune-detect`、`/lagune-plan`、`/lagune-harden` 和 `/lagune-verify`。
+
+最后，总结已应用的修复以及仍未解决的发现项。
+```
+
+---
+
 # Security-Driven Hardening：面向 AI 辅助开发时代的约定
 
 > Security-Driven Hardening（SDH）方法论：一种场景感知的 Blue Team 约定，用于审计和加固 AI 辅助开发与 vibe coding 写出的软件。
@@ -4406,7 +4635,7 @@ charter 是 Lagune 的治理层，即一组安全优先的原则，之后的每�
 规范链接: https://lagune.ai/zh-CN/docs/references/deepsec
 语言: zh-CN
 原文: https://lagune.ai/docs/references/deepsec
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) 和 [Deepsec](https://github.com/vercel-labs/deepsec)（`v2.2.1`）是两种防御性方案，针对的是同一个问题：AI 辅助开发时代的安全。即使在机制上有重叠，两者的前提、从开始到结束的整个过程，以及在用户面前的呈现方式，都是有意设计得不同的。
 
@@ -4531,10 +4760,10 @@ Deepsec 为安全团队产出交付物。Lagune 则为运行它的人呈现实�
 
 Lagune 直接通过已经打开的智能体运行。Deepsec 则要先准备好自己的工作区和模型访问权限。
 
-| 方面         | Lagune                                                                            | Deepsec                                                                             |
-| ------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| 第一条命令   | 安装插件或运行 `npx skills add wellwelwel/lagune`，然后在智能体中使用 `/lagune-*` | `npx deepsec init`，然后依次执行 `cd .deepsec`、`pnpm install`、`scan`、`process`   |
-| 运行所需凭证 | 不需要额外的密钥，直接使用你当前的智能体                                          | 一个模型密钥（例如 AI Gateway、有效期 12 小时的 Vercel OIDC 令牌或 Anthropic 令牌） |
+| 方面         | Lagune                                                                               | Deepsec                                                                             |
+| ------------ | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| 第一条命令   | 安装插件或运行 `npx skills add wellwelwel/lagune -y`，然后在智能体中使用 `/lagune-*` | `npx deepsec init`，然后依次执行 `cd .deepsec`、`pnpm install`、`scan`、`process`   |
+| 运行所需凭证 | 不需要额外的密钥，直接使用你当前的智能体                                             | 一个模型密钥（例如 AI Gateway、有效期 12 小时的 Vercel OIDC 令牌或 Anthropic 令牌） |
 
 ### 如何驱动
 

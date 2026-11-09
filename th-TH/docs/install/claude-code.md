@@ -5,7 +5,7 @@
 Canonical: https://lagune.ai/th-TH/docs/install/claude-code
 ภาษา: th-TH
 ต้นฉบับ: https://lagune.ai/docs/install/claude-code
-อัปเดตล่าสุด: 2026-11-07
+อัปเดตล่าสุด: 2026-11-09
 
 **เทอร์มินัล**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 หรือติดตั้งจากเซสชัน **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

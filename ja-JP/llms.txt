@@ -49,6 +49,8 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 - [regex フック：ReDoS パターンを検出する](https://lagune.ai/ja-JP/docs/hooks/regex.md): コマンドラインから、ReDoS を起こしやすい正規表現をコードベース全体でスキャンしたり、1 つのパターンを判定したりできます。
 - [secrets フック：ハードコードされたシークレットを検出する](https://lagune.ai/ja-JP/docs/hooks/secrets.md): コマンドラインから、ハードコードされた認証情報をコードベース全体でスキャンできます。
 - [Lagune のプロンプト例：Blue Team フローを自動化する](https://lagune.ai/ja-JP/docs/examples/prompts.md): コピーしてすぐ使える Lagune のプロンプト集です。読み取り専用のスキャン、Blue Team フロー全体の実行、ゼロトラスト監査に加え、特定のコミット、ブランチや PR の差分、実際のインシデントに範囲を絞った検出も紹介します。
+- [Spec-Driven Development：仕様から作るコードを安全に](https://lagune.ai/ja-JP/docs/examples/spec-driven-development.md): Lagune を Superpowers、Spec Kit、OpenSpec と組み合わせて使います。仕様からセキュリティ原則を定め、/lagune で実装すれば、コードを書く段階で各タスクが堅牢化されます。
+- [定期監査：Lagune をスケジュールで自動実行する](https://lagune.ai/ja-JP/docs/examples/scheduled-audits.md): 自分のキーを使う GitHub Actions、または Claude Code、Codex、Cursor、Antigravity、OpenCode で Lagune の定期監査を設定します。新たなリスクを報告するだけにすることも、Blue Team フロー全体を実行することもできます。
 - [Security-Driven Hardening：AI 支援開発時代のための規約](https://lagune.ai/ja-JP/docs/references/paper.md): Security-Driven Hardening（SDH）の方法論：AI 支援開発やバイブコーディングで作られたソフトウェアを監査し、堅牢化するための、コンテキストを踏まえた Blue Team の規約。
 - [Lagune 用語集：SDH、charter、検出事項、対策](https://lagune.ai/ja-JP/docs/references/glossary.md): Lagune と Security-Driven Hardening のすべての用語を、わかりやすい言葉で定義します。SDH、charter、detect、検出事項、対策、harden、verify、クローズ、クローズ可能性、専門知識、カテゴリ、カタログを収録しています。
 - [設定スキーマ](https://lagune.ai/ja-JP/docs/references/configs-schema.md): Lagune プロジェクトの設定ファイルに使う JSON Schema です。エディターでの自動補完と検証に使え、最新の Lagune に追従させることも、特定のバージョンに固定することもできます。

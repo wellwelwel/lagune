@@ -22,7 +22,7 @@ Canonical: https://lagune.ai/ar-AE/docs/commands/lagune
 
 ## الأمان
 
-- استخدم المهارة `/lagune` كلما بنيت كودًا أو غيّرته، لتحسين الأمان افتراضيًا.
+- كلما بنيت كودًا أو غيّرته، استخدم المهارة `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt))، واسمها `/lagune:lagune` عند تثبيتها كإضافة، لتحسين الأمان افتراضيًا.
 ```
 
     - على سبيل المثال: **AGENTS.md** و **CLAUDE.md** و **‎.github/copilot-instructions.md** و **‎.cursorrules** وغيرها.

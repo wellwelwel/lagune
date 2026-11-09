@@ -9,16 +9,16 @@ Canonical: https://lagune.ai/ar-AE/docs/install/universal
 
 **skills.sh**
 
-ثبّت أوامر **Lagune** في مشروعك من الطرفية عبر [**skills.sh**](https://www.skills.sh/wellwelwel/lagune)، مع إبقاء **Project** نطاقًا للتثبيت:
+ثبّت أوامر **Lagune** في مشروعك من الطرفية عبر [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 أو الصق هذا الموجّه في وكيلك:
 
 ```md
-شغّل `npx --yes skills add wellwelwel/lagune` واتبع تعليمات المهارة التي يولّدها الآن. اقرأ مخرجاته كاملة، مع إعادة توجيهها إلى ملف مؤقت أولًا إن لزم الأمر. وحلّ المسارات النسبية انطلاقًا من دليل الملفات المساندة الذي يوفّره.
+شغّل `npx --yes skills add wellwelwel/lagune --yes` واتبع تعليمات المهارة التي يولّدها الآن. اقرأ مخرجاته كاملة، مع إعادة توجيهها إلى ملف مؤقت أولًا إن لزم الأمر. وحلّ المسارات النسبية انطلاقًا من دليل الملفات المساندة الذي يوفّره.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### كيف أثبّت Lagune في أي وكيل ذكاء اصطناعي؟
 
-شغّل npx skills add wellwelwel/lagune --skill '*' أو gh skill install wellwelwel/lagune --all --scope project في مشروعك، أو الصق موجّه التثبيت في وكيلك.
+شغّل npx skills add wellwelwel/lagune -y أو gh skill install wellwelwel/lagune --all --scope project في مشروعك، أو الصق موجّه التثبيت في وكيلك.
 
 ### كيف أحدّث Lagune في أي وكيل ذكاء اصطناعي؟
 

@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs/commands/lagune
 语言: zh-CN
 原文: https://lagune.ai/docs/commands/lagune
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 ⌨️ 完成你要求的工作，并在编写过程中就保障安全。**`/lagune`** 在任何阶段都接受任何提示词，构建你想要的内容，并在交付前用安全的默认设置加固它。
 
@@ -22,7 +22,7 @@
 
 ## 安全
 
-- 每当你构建或修改代码时，都使用 `/lagune` skill，让它默认提升安全性。
+- 每当你构建或修改代码时，都使用 `/lagune` skill（[**lagune.ai**](https://lagune.ai/llms.txt)），以插件形式安装时它名为 `/lagune:lagune`，让它默认提升安全性。
 ```
 
     - 例如：**AGENTS.md**、**CLAUDE.md**、**.github/copilot-instructions.md**、**.cursorrules** 等。

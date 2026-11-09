@@ -5,20 +5,20 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/universal
 言語: ja-JP
 原文: https://lagune.ai/docs/install/universal
-最終更新日: 2026-11-07
+最終更新日: 2026-11-09
 
 **skills.sh**
 
-インストールスコープは **Project** のままにして、[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) でターミナルからプロジェクトに **Lagune** のコマンドをインストールします：
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) でターミナルからプロジェクトに **Lagune** のコマンドをインストールします：
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 または、次のプロンプトをエージェントに貼り付けます：
 
 ```md
-`npx --yes skills add wellwelwel/lagune` を実行し、生成されたスキルの指示に今すぐ従ってください。必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。相対パスは、出力に示されたサポートファイルのディレクトリを基準に解決してください。
+`npx --yes skills add wellwelwel/lagune --yes` を実行し、生成されたスキルの指示に今すぐ従ってください。必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。相対パスは、出力に示されたサポートファイルのディレクトリを基準に解決してください。
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### あらゆる AI エージェントに Lagune をインストールするにはどうすればよいですか？
 
-プロジェクトで npx skills add wellwelwel/lagune --skill '*' または gh skill install wellwelwel/lagune --all --scope project を実行するか、インストール用のプロンプトをエージェントに貼り付けます。
+プロジェクトで npx skills add wellwelwel/lagune -y または gh skill install wellwelwel/lagune --all --scope project を実行するか、インストール用のプロンプトをエージェントに貼り付けます。
 
 ### あらゆる AI エージェントで Lagune を更新するにはどうすればよいですか？
 

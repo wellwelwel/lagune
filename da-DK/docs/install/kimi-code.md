@@ -9,7 +9,7 @@ Sidst opdateret: 2026-11-09
 
 Installér pluginnet fra en session i **Kimi Code**, vælg **Trust and install**, og start derefter en ny session for at indlæse det:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@ Installér pluginnet fra en session i **Kimi Code**, vælg **Trust and install**
 
 Installér **Lagune** igen for at opdatere det:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

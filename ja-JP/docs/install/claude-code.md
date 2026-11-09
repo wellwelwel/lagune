@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/claude-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/claude-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 **ターミナル**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 **Claude Code** のセッションからもインストールできます：
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

@@ -5,7 +5,7 @@
 Канонический URL: https://lagune.ai/ru-RU/docs
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs
-Последнее обновление: 2026-11-03
+Последнее обновление: 2026-11-09
 
 **Lagune** помогает вашему ИИ-агенту сделать проект безопаснее. Вы указываете на свой код, агент разбирается, что на самом деле делает ваша система, а затем ведет вас через ту работу по безопасности, которая для нее важна. **Lagune** является первым проектом методологии [Security-Driven Hardening (SDH)](https://lagune.ai/ru-RU/docs/references/paper).
 
@@ -121,7 +121,7 @@ Lagune представляет собой открытый процесс бе�
 
 ### Как установить Lagune?
 
-Выберите своего агента: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI и Hermes Agent устанавливают Lagune как плагин, Gemini CLI и Qwen Code как расширение, Pi как пакет, а любой другой агент через npx skills add wellwelwel/lagune. Lagune работает и в новых, и в существующих проектах.
+Выберите своего агента: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI и Hermes Agent устанавливают Lagune как плагин, Gemini CLI и Qwen Code как расширение, Pi как пакет, а любой другой агент через npx skills add wellwelwel/lagune -y. Lagune работает и в новых, и в существующих проектах.
 
 ### Нужен ли Lagune API-ключ?
 

@@ -9,16 +9,16 @@ Sist oppdatert: 2026-11-09
 
 **skills.sh**
 
-Installer kommandoene til **Lagune** i prosjektet ditt fra terminalen med [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), og behold **Project** som installasjonsomfang:
+Installer kommandoene til **Lagune** i prosjektet ditt fra terminalen med [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Eller lim inn denne prompten i agenten din:
 
 ```md
-Kjør `npx --yes skills add wellwelwel/lagune` og følg de genererte skill-instruksjonene nå. Les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først. Løs opp relative stier ut fra mappen for støttefiler som utdataene oppgir.
+Kjør `npx --yes skills add wellwelwel/lagune --yes` og følg de genererte skill-instruksjonene nå. Les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først. Løs opp relative stier ut fra mappen for støttefiler som utdataene oppgir.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Hvordan installerer jeg Lagune i en hvilken som helst KI-agent?
 
-Kjør npx skills add wellwelwel/lagune --skill '*' eller gh skill install wellwelwel/lagune --all --scope project i prosjektet ditt, eller lim inn installasjonsprompten i agenten din.
+Kjør npx skills add wellwelwel/lagune -y eller gh skill install wellwelwel/lagune --all --scope project i prosjektet ditt, eller lim inn installasjonsprompten i agenten din.
 
 ### Hvordan oppdaterer jeg Lagune i en hvilken som helst KI-agent?
 

@@ -5,20 +5,20 @@
 Kanonis: https://lagune.ai/id-ID/docs/install/universal
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/universal
-Terakhir diperbarui: 2026-11-07
+Terakhir diperbarui: 2026-11-09
 
 **skills.sh**
 
-Instal perintah **Lagune** di proyek Anda dari terminal dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), dan biarkan cakupan instalasinya tetap **Project**:
+Instal perintah **Lagune** di proyek Anda dari terminal dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Atau tempel prompt ini ke agen Anda:
 
 ```md
-Jalankan `npx --yes skills add wellwelwel/lagune` dan ikuti sekarang juga instruksi skill yang dihasilkannya. Baca seluruh output-nya, alihkan dulu ke file sementara jika perlu. Tentukan path relatif berdasarkan direktori file pendukung yang diberikannya.
+Jalankan `npx --yes skills add wellwelwel/lagune --yes` dan ikuti sekarang juga instruksi skill yang dihasilkannya. Baca seluruh output-nya, alihkan dulu ke file sementara jika perlu. Tentukan path relatif berdasarkan direktori file pendukung yang diberikannya.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Bagaimana cara menginstal Lagune di agen AI mana pun?
 
-Jalankan npx skills add wellwelwel/lagune --skill '*' atau gh skill install wellwelwel/lagune --all --scope project di proyek Anda, atau tempel prompt instalasi ke agen Anda.
+Jalankan npx skills add wellwelwel/lagune -y atau gh skill install wellwelwel/lagune --all --scope project di proyek Anda, atau tempel prompt instalasi ke agen Anda.
 
 ### Bagaimana cara memperbarui Lagune di agen AI mana pun?
 

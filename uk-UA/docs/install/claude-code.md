@@ -5,7 +5,7 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/claude-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/claude-code
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-09
 
 **Термінал**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Або із сесії **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

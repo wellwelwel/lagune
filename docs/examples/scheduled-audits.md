@@ -1,0 +1,144 @@
+# Scheduled Audits: Run Lagune on a Recurring Schedule
+
+> Schedule a recurring Lagune audit in GitHub Actions with your own key, or in Claude Code, Codex, Cursor, Antigravity, or OpenCode, that either reports new risks or runs the whole Blue Team flow.
+
+Canonical: https://lagune.ai/docs/examples/scheduled-audits
+Last updated: 2026-11-09
+
+Schedule **Lagune** to audit your project on its own, either reporting what it finds or running the whole Blue Team flow.
+
+## Schedule
+
+**Universal**
+
+**GitHub Actions** runs the audit in the cloud with [**GitHub Agentic Workflows**](https://github.github.com/gh-aw/). Its **Copilot CLI** engine calls the model provider you choose with your own key, so it needs no agent subscription:
+
+- Install the extension with `gh extension install github/gh-aw`.
+- Store your provider's key as a repository secret with `gh secret set PROVIDER_API_KEY`.
+- Save this workflow as `.github/workflows/lagune-audit.md`, replacing `<model>` with one of your provider's models that supports tool calling, and `<your-prompt>` with one of the [prompt examples](#prompt-examples):
+
+  ```md
+  ---
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+  permissions:
+    contents: read
+  engine:
+    id: copilot
+    model: <model>
+    env:
+      COPILOT_PROVIDER_TYPE: <type>
+      COPILOT_PROVIDER_BASE_URL: <url>
+      COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
+  skills:
+    - wellwelwel/lagune@v0.18.1
+  network:
+    allowed:
+      - defaults
+      - node
+  tools:
+    edit:
+    bash: [npx]
+  safe-outputs:
+    create-pull-request:
+  ---
+
+  <your-prompt>
+
+  Then open a pull request with your changes.
+  ```
+
+  | Provider                                              | `<type>`    | `<url>`                                              |
+  | ----------------------------------------------------- | ----------- | ---------------------------------------------------- |
+  | **OpenAI**                                            | `openai`    | `https://api.openai.com/v1`                          |
+  | **Anthropic**                                         | `anthropic` | `https://api.anthropic.com`                          |
+  | Any **OpenAI**-compatible API, such as **OpenRouter** | `openai`    | Its base URL, such as `https://openrouter.ai/api/v1` |
+
+- Run `gh aw compile` and commit the workflow together with the `.lock.yml` file it generates.
+
+**In the cloud**, the audit runs even with your computer off:
+
+- Commit **Lagune** with the [universal install](https://lagune.ai/docs/install/universal) instead of the plugin.
+- Type `/schedule` in a **Claude Code** session and describe the audit, or create it at [claude.ai/code/routines](https://claude.ai/code/routines).
+
+**On your computer**, the audit uses the plugin you installed for yourself:
+
+- Create a local task on the desktop app's **Scheduled tasks** page.
+- Allow the engine up front, as the [install page](https://lagune.ai/docs/install/claude-code) shows, since no one is there to approve its tools.
+- The task runs only while the app is open and your computer is awake.
+
+Scheduled tasks are created in the **ChatGPT** desktop app, not in the **Codex CLI**, and run on your computer:
+
+- In a **Codex** chat, describe the audit, when it should run, and that each run starts a new chat. Its results land in **Scheduled**.
+- In the prompt, name each command with `$`, such as `$lagune:lagune-detect`, so the run invokes it explicitly.
+- Choose your local project rather than a new worktree, which starts without the engine you [installed in your project](https://lagune.ai/docs/install/codex).
+- The task runs only while the app is open, your computer is on, and the project is on disk.
+
+**Cursor**'s Automations run in the cloud, even with your computer off:
+
+- Commit **Lagune** with the [universal install](https://lagune.ai/docs/install/universal) instead of the plugin.
+- Create an automation at [cursor.com/automations](https://cursor.com/automations), or describe it with `/automate` in an agent session, giving it a scheduled trigger.
+- Select your repository, since a scheduled trigger starts without one.
+
+**Antigravity**'s Automations run on your computer, each in a fresh conversation:
+
+- Open the **Automations** tab in the **Antigravity** app and create a scheduled automation for your project, or ask the agent to set it up.
+- Allow the engine up front, as the [install page](https://lagune.ai/docs/install/antigravity-cli) shows, since no one is there to approve its tools.
+- Use an automation rather than `/schedule`, which lasts only as long as its conversation.
+- The automation runs only while **Antigravity** is running.
+
+**OpenCode** has no scheduler of its own, so the audit runs from **GitHub Actions**, in the cloud:
+
+- Commit **Lagune** in the repository's `opencode.json`, as the [install page](https://lagune.ai/docs/install/opencode) shows.
+- Run `opencode github install` to connect the **OpenCode** GitHub app and store your model provider's key.
+- Add a workflow that passes the prompt to **OpenCode** on a schedule, here every Monday at 09:00 UTC, filling `<KEY>` and `<provider>/<model>` as in the workflow `opencode github install` created, and `<your-prompt>` with one of the [prompt examples](#prompt-examples):
+
+  ```yaml
+  name: Lagune Audit
+
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+
+  jobs:
+    audit:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+      steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - uses: anomalyco/opencode/github@latest
+          env:
+            <KEY>: ${{ secrets.<KEY> }}
+          with:
+            model: <provider>/<model>
+            prompt: |
+              <your-prompt>
+  ```
+
+### Prompt Examples
+
+**💧 Report Only**
+
+Maps new risks, plans their fixes, and rechecks the controls already applied, without changing your code:
+
+```md
+Execute the following commands, one by one: `/lagune-detect` and `/lagune-plan`. If the project has a hardening record, also execute `/lagune-verify`.
+
+Do not change the project's code. At the end, summarize the new findings and any applied control that no longer holds.
+```
+
+**🌊 Full Cycle**
+
+Also applies the planned fixes and proves each one holds, so review its changes before they reach your main branch:
+
+```md
+Execute the following commands, one by one: `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, and `/lagune-verify`.
+
+At the end, summarize the fixes applied and any finding still open.
+```

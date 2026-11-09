@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/claude-code
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/claude-code
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-09
 
 **Terminal**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Ya da bir **Claude Code** oturumundan kurun:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

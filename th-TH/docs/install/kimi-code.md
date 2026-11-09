@@ -5,11 +5,11 @@
 Canonical: https://lagune.ai/th-TH/docs/install/kimi-code
 ภาษา: th-TH
 ต้นฉบับ: https://lagune.ai/docs/install/kimi-code
-อัปเดตล่าสุด: 2026-11-07
+อัปเดตล่าสุด: 2026-11-09
 
 ติดตั้งปลั๊กอินจากเซสชัน **Kimi Code** เลือก **Trust and install** แล้วเริ่มเซสชันใหม่เพื่อโหลดปลั๊กอิน:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@ Canonical: https://lagune.ai/th-TH/docs/install/kimi-code
 
 หากต้องการอัปเดต **Lagune** ให้ติดตั้งใหม่อีกครั้ง:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

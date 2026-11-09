@@ -5,7 +5,7 @@
 Canonique: https://lagune.ai/fr-FR/docs/commands/lagune
 Langue: fr-FR
 Original: https://lagune.ai/docs/commands/lagune
-Dernière mise à jour: 2026-11-03
+Dernière mise à jour: 2026-11-09
 
 ⌨️ Faites le travail demandé, sécurisé au fil de l'écriture. **`/lagune`** accepte n'importe quel prompt, à n'importe quelle étape, construit ce que vous vouliez et le durcit avec des valeurs par défaut sûres avant de vous le rendre.
 
@@ -22,7 +22,7 @@ Ajoutez **`/lagune`** à n'importe quel prompt, et décrivez le travail comme vo
 
 ## Sécurité
 
-- Utilise le skill `/lagune` chaque fois que tu construis ou modifies du code, pour renforcer la sécurité par défaut.
+- Chaque fois que tu construis ou modifies du code, utilise le skill `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)), nommé `/lagune:lagune` quand il est installé comme plugin, pour renforcer la sécurité par défaut.
 ```
 
     - Par exemple : **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules**, etc.

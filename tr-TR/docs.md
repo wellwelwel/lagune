@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-09
 
 **Lagune**, yapay zeka ajanınızın bir projeyi daha güvenli hale getirmesine yardım eder. Ona kodunuzu gösterirsiniz, ajan sisteminizin gerçekte ne yaptığını çıkarır ve ardından o sistem için önemli olan güvenlik çalışmasında size yol gösterir. **Lagune**, [Security-Driven Hardening (SDH)](https://lagune.ai/tr-TR/docs/references/paper) metodolojisinin ilk projesidir.
 
@@ -121,7 +121,7 @@ Lagune, yapay zeka ajanınızın her kod tabanını sıkılaştırmasına yardı
 
 ### Lagune nasıl kurulur?
 
-Ajanınızı seçin: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI ve Hermes Agent, Lagune'yi eklenti olarak kurar, Gemini CLI ve Qwen Code uzantı olarak, Pi paket olarak kurar, diğer tüm ajanlar ise npx skills add wellwelwel/lagune ile kurar. Lagune yeni projelerde de mevcut projelerde de çalışır.
+Ajanınızı seçin: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI ve Hermes Agent, Lagune'yi eklenti olarak kurar, Gemini CLI ve Qwen Code uzantı olarak, Pi paket olarak kurar, diğer tüm ajanlar ise npx skills add wellwelwel/lagune -y ile kurar. Lagune yeni projelerde de mevcut projelerde de çalışır.
 
 ### Lagune için API anahtarı gerekir mi?
 

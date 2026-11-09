@@ -5,11 +5,11 @@
 Kanonis: https://lagune.ai/id-ID/docs/install/kimi-code
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/kimi-code
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 Instal plugin dari sesi **Kimi Code**, pilih **Trust and install**, lalu mulai sesi baru untuk memuatnya:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@ Instal plugin dari sesi **Kimi Code**, pilih **Trust and install**, lalu mulai s
 
 Untuk memperbarui **Lagune**, instal ulang:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

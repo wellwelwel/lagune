@@ -3,7 +3,7 @@
 > Build what you ask and harden it as it is written, guided by the charter, with no flow to follow.
 
 Canonical: https://lagune.ai/docs/commands/lagune
-Last updated: 2026-10-31
+Last updated: 2026-11-09
 
 ⌨️ Do the work you asked for, secured as it is written. **`/lagune`** takes any prompt at any stage, builds what you wanted, and hardens it with safe defaults before handing it back.
 
@@ -20,7 +20,7 @@ Mark **`/lagune`** on any prompt, and describe the work as you always would.
 
 ## Security
 
-- Use the `/lagune` skill whenever you build or change code, so it improves safety by default.
+- Whenever you build or change code, use the `/lagune` skill ([**lagune.ai**](https://lagune.ai/llms.txt)), named `/lagune:lagune` when installed as a plugin, to improve safety by default.
 ```
 
     - For example: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules**, etc.

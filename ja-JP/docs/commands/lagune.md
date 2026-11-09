@@ -5,7 +5,7 @@
 正規 URL: https://lagune.ai/ja-JP/docs/commands/lagune
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/lagune
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 ⌨️ 依頼した作業を、書くそばから安全な形で仕上げます。**`/lagune`** はどの段階でもどんなプロンプトでも受け付け、求められたものを構築し、引き渡す前に安全なデフォルト設定で堅牢化します。
 
@@ -22,7 +22,7 @@
 
 ## セキュリティ
 
-- コードを作成または変更するときは、必ず `/lagune` スキルを使い、デフォルトで安全性が高まるようにしてください。
+- コードを作成または変更するときは、必ず `/lagune` スキル（[**lagune.ai**](https://lagune.ai/llms.txt)、プラグインとしてインストールした場合は `/lagune:lagune`）を使い、デフォルトで安全性が高まるようにしてください。
 ```
 
     - 例：**AGENTS.md**、**CLAUDE.md**、**.github/copilot-instructions.md**、**.cursorrules** など。

@@ -5,7 +5,7 @@
 कैनोनिकल: https://lagune.ai/hi-IN/docs/install/claude-code
 भाषा: hi-IN
 मूल: https://lagune.ai/docs/install/claude-code
-आख़िरी अपडेट: 2026-11-06
+आख़िरी अपडेट: 2026-11-09
 
 **टर्मिनल**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 या किसी **Claude Code** सेशन से:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

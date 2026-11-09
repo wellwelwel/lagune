@@ -129,7 +129,7 @@ Lagune سير عمل أمني مفتوح المصدر، للدفاع فقط، ي
 
 ### كيف أثبّت Lagune؟
 
-اختر وكيلك: يثبّت Claude Code و GitHub Copilot CLI و Muse Code و Antigravity CLI و Cursor و Kimi Code و OpenCode و Codex CLI و Factory Droid و Grok Build و Devin CLI و Hermes Agent أداة Lagune كإضافة، ويثبّته Gemini CLI و Qwen Code كامتداد، و Pi كحزمة، وأي وكيل آخر عبر npx skills add wellwelwel/lagune. يعمل مع المشاريع الجديدة والقائمة.
+اختر وكيلك: يثبّت Claude Code و GitHub Copilot CLI و Muse Code و Antigravity CLI و Cursor و Kimi Code و OpenCode و Codex CLI و Factory Droid و Grok Build و Devin CLI و Hermes Agent أداة Lagune كإضافة، ويثبّته Gemini CLI و Qwen Code كامتداد، و Pi كحزمة، وأي وكيل آخر عبر npx skills add wellwelwel/lagune -y. يعمل مع المشاريع الجديدة والقائمة.
 
 ### هل يحتاج Lagune إلى مفتاح API؟
 
@@ -275,7 +275,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 أو من جلسة **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```
@@ -842,7 +842,7 @@ Canonical: https://lagune.ai/ar-AE/docs/install/kimi-code
 
 ثبّت الإضافة من جلسة **Kimi Code**، واختر **Trust and install**، ثم ابدأ جلسة جديدة لتحميلها:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -851,7 +851,7 @@ Canonical: https://lagune.ai/ar-AE/docs/install/kimi-code
 
 لتحديث **Lagune**، ثبّته مجددًا:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -1167,16 +1167,16 @@ Canonical: https://lagune.ai/ar-AE/docs/install/universal
 
 **skills.sh**
 
-ثبّت أوامر **Lagune** في مشروعك من الطرفية عبر [**skills.sh**](https://www.skills.sh/wellwelwel/lagune)، مع إبقاء **Project** نطاقًا للتثبيت:
+ثبّت أوامر **Lagune** في مشروعك من الطرفية عبر [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 أو الصق هذا الموجّه في وكيلك:
 
 ```md
-شغّل `npx --yes skills add wellwelwel/lagune` واتبع تعليمات المهارة التي يولّدها الآن. اقرأ مخرجاته كاملة، مع إعادة توجيهها إلى ملف مؤقت أولًا إن لزم الأمر. وحلّ المسارات النسبية انطلاقًا من دليل الملفات المساندة الذي يوفّره.
+شغّل `npx --yes skills add wellwelwel/lagune --yes` واتبع تعليمات المهارة التي يولّدها الآن. اقرأ مخرجاته كاملة، مع إعادة توجيهها إلى ملف مؤقت أولًا إن لزم الأمر. وحلّ المسارات النسبية انطلاقًا من دليل الملفات المساندة الذي يوفّره.
 ```
 
 **GitHub CLI**
@@ -1237,7 +1237,7 @@ npm i -D lagune@0.18.1
 
 ### كيف أثبّت Lagune في أي وكيل ذكاء اصطناعي؟
 
-شغّل npx skills add wellwelwel/lagune --skill '*' أو gh skill install wellwelwel/lagune --all --scope project في مشروعك، أو الصق موجّه التثبيت في وكيلك.
+شغّل npx skills add wellwelwel/lagune -y أو gh skill install wellwelwel/lagune --all --scope project في مشروعك، أو الصق موجّه التثبيت في وكيلك.
 
 ### كيف أحدّث Lagune في أي وكيل ذكاء اصطناعي؟
 
@@ -1406,7 +1406,7 @@ Canonical: https://lagune.ai/ar-AE/docs/commands/lagune
 
 ## الأمان
 
-- استخدم المهارة `/lagune` كلما بنيت كودًا أو غيّرته، لتحسين الأمان افتراضيًا.
+- كلما بنيت كودًا أو غيّرته، استخدم المهارة `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt))، واسمها `/lagune:lagune` عند تثبيتها كإضافة، لتحسين الأمان افتراضيًا.
 ```
 
     - على سبيل المثال: **AGENTS.md** و **CLAUDE.md** و **‎.github/copilot-instructions.md** و **‎.cursorrules** وغيرها.
@@ -3670,6 +3670,235 @@ npx lagune write add --categories owasp ai javascript
 
 ---
 
+# Spec-Driven Development: أمّن ما تبنيه مواصفتك
+
+> اجمع Lagune مع Superpowers أو Spec Kit أو OpenSpec: ضع ميثاق الأمان انطلاقًا من مواصفتك، ثم نفّذها عبر ‎/lagune الذي يحصّن كل مهمة أثناء كتابة الكود.
+
+Canonical: https://lagune.ai/ar-AE/docs/examples/spec-driven-development
+اللغة: ar-AE
+الأصل: https://lagune.ai/docs/examples/spec-driven-development
+آخر تحديث: 2026-11-09
+
+اجمع **Lagune** مع أداة Spec-Driven Development، مثل [**Superpowers**](https://github.com/obra/superpowers) أو [**Spec Kit**](https://github.com/github/spec-kit) أو [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): تقرّر أداتك ما الذي تبنيه، ويقرّر **Lagune** كيف يبقى آمنًا.
+
+## كيف يندمج مع أداتك
+
+ينضم **Lagune** إلى مسار أداتك في موضعين، ويترك الباقي دون تغيير:
+
+1. بعد أن تكتب أداتك المواصفة، يقرأها الأمر [`/lagune-charter`](https://lagune.ai/ar-AE/docs/commands/charter) ويضع مبادئ الأمان التي تتطلبها الميزة، قبل وجود أي كود.
+2. عند إضافة الأمر [`/lagune`](https://lagune.ai/ar-AE/docs/commands/lagune) إلى أمر التنفيذ في أداتك، يحصّن كل مهمة وفق تلك المبادئ أثناء كتابة الكود.
+
+**نصيحة**
+
+استبدل مسار المواصفة في كل مثال بالملف الذي كتبته أداتك. وإن كان للمشروع ميثاق أمان بالفعل، فإن الخطوة نفسها تحدّثه بما تحتاجه الميزة الجديدة.
+
+## أمثلة الموجّهات
+
+أرسل الموجّهات بالترتيب، وكل موجّه بعد انتهاء الذي قبله.
+
+```prompt
+/superpowers:brainstorming إتمام الشراء كضيف مع الدفع بالبطاقة.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+```prompt
+/speckit.specify إتمام الشراء كضيف مع الدفع بالبطاقة.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+---
+
+# التدقيق المجدول: شغّل Lagune وفق جدول متكرر
+
+> جدول تدقيقًا متكررًا عبر Lagune في GitHub Actions بمفتاحك الخاص، أو في Claude Code أو Codex أو Cursor أو Antigravity أو OpenCode، ليبلّغ عن المخاطر الجديدة أو يشغّل مسار الفريق الأزرق كاملًا.
+
+Canonical: https://lagune.ai/ar-AE/docs/examples/scheduled-audits
+اللغة: ar-AE
+الأصل: https://lagune.ai/docs/examples/scheduled-audits
+آخر تحديث: 2026-11-09
+
+جدول **Lagune** ليدقّق مشروعك تلقائيًا، فإما أن يبلّغ عمّا يجده أو يشغّل مسار الفريق الأزرق كاملًا.
+
+## الجدولة
+
+**Universal**
+
+يشغّل **GitHub Actions** التدقيق في السحابة عبر [**GitHub Agentic Workflows**](https://github.github.com/gh-aw/). ويستدعي محركه **Copilot CLI** مزوّد النماذج الذي تختاره بمفتاحك الخاص، لذا لا يحتاج إلى أي اشتراك في وكيل:
+
+- ثبّت الامتداد عبر `gh extension install github/gh-aw`.
+- خزّن مفتاح المزوّد كسرّ في المستودع عبر `gh secret set PROVIDER_API_KEY`.
+- احفظ سير العمل هذا باسم `.github/workflows/lagune-audit.md`، مع استبدال `<model>` بأحد نماذج مزوّدك التي تدعم استدعاء الأدوات، و `<your-prompt>` بأحد [أمثلة الموجّهات](#prompt-examples):
+
+  ```md
+  ---
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+  permissions:
+    contents: read
+  engine:
+    id: copilot
+    model: <model>
+    env:
+      COPILOT_PROVIDER_TYPE: <type>
+      COPILOT_PROVIDER_BASE_URL: <url>
+      COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
+  skills:
+    - wellwelwel/lagune@v0.18.1
+  network:
+    allowed:
+      - defaults
+      - node
+  tools:
+    edit:
+    bash: [npx]
+  safe-outputs:
+    create-pull-request:
+  ---
+
+  <your-prompt>
+
+  ثم افتح pull request بتغييراتك.
+  ```
+
+  | المزوّد                                                | `<type>`    | `<url>`                                             |
+  | ------------------------------------------------------ | ----------- | --------------------------------------------------- |
+  | **OpenAI**                                             | `openai`    | `https://api.openai.com/v1`                         |
+  | **Anthropic**                                          | `anthropic` | `https://api.anthropic.com`                         |
+  | أي واجهة API متوافقة مع **OpenAI**، مثل **OpenRouter** | `openai`    | عنوانها الأساسي، مثل `https://openrouter.ai/api/v1` |
+
+- شغّل `gh aw compile`، ثم أجرِ commit لسير العمل مع ملف `.lock.yml` الذي يولّده.
+
+**في السحابة**، يعمل التدقيق حتى وجهازك مطفأ:
+
+- ثبّت **Lagune** عبر [التثبيت الشامل](https://lagune.ai/ar-AE/docs/install/universal) بدلًا من الإضافة، وأجرِ commit له في المستودع.
+- اكتب `/schedule` في جلسة **Claude Code** وصِف التدقيق، أو أنشئه من [claude.ai/code/routines](https://claude.ai/code/routines).
+
+**على جهازك**، يستخدم التدقيق الإضافة التي ثبّتها لنفسك:
+
+- أنشئ مهمة محلية في صفحة **Scheduled tasks** في تطبيق سطح المكتب.
+- اسمح للمحرك مسبقًا، كما توضح [صفحة التثبيت](https://lagune.ai/ar-AE/docs/install/claude-code)، إذ لن يكون أحد حاضرًا للموافقة على أدواته.
+- لا تعمل المهمة إلا عندما يكون التطبيق مفتوحًا وجهازك غير نائم.
+
+تُنشأ المهام المجدولة في تطبيق **ChatGPT** لسطح المكتب، لا في **Codex CLI**، وتعمل على جهازك:
+
+- في محادثة **Codex**، صِف التدقيق، ومتى يجب أن يعمل، وأن كل تشغيل يبدأ محادثة جديدة. وتظهر نتائجه في **Scheduled**.
+- في الموجّه، اكتب اسم كل أمر بعد الرمز `$`، مثل `$lagune:lagune-detect`، ليستدعيه التشغيل صراحةً.
+- اختر مشروعك المحلي بدلًا من worktree جديدة، لأنها تبدأ دون المحرك الذي [ثبّته في مشروعك](https://lagune.ai/ar-AE/docs/install/codex).
+- لا تعمل المهمة إلا عندما يكون التطبيق مفتوحًا، وجهازك قيد التشغيل، والمشروع موجودًا على القرص.
+
+تعمل Automations في **Cursor** في السحابة، حتى وجهازك مطفأ:
+
+- ثبّت **Lagune** عبر [التثبيت الشامل](https://lagune.ai/ar-AE/docs/install/universal) بدلًا من الإضافة، وأجرِ commit له في المستودع.
+- أنشئ أتمتة من [cursor.com/automations](https://cursor.com/automations)، أو صِفها عبر `/automate` في جلسة وكيل، مع منحها مشغّلًا مجدولًا.
+- اختر مستودعك، لأن المشغّل المجدول يبدأ دون مستودع.
+
+تعمل Automations في **Antigravity** على جهازك، وكل منها في محادثة جديدة:
+
+- افتح تبويب **Automations** في تطبيق **Antigravity** وأنشئ أتمتة مجدولة لمشروعك، أو اطلب من الوكيل إعدادها.
+- اسمح للمحرك مسبقًا، كما توضح [صفحة التثبيت](https://lagune.ai/ar-AE/docs/install/antigravity-cli)، إذ لن يكون أحد حاضرًا للموافقة على أدواته.
+- استخدم أتمتة بدلًا من الأمر `/schedule`، الذي لا يدوم إلا ما دامت محادثته.
+- لا تعمل الأتمتة إلا أثناء تشغيل **Antigravity**.
+
+لا يملك **OpenCode** أداة جدولة خاصة به، لذا يعمل التدقيق من **GitHub Actions** في السحابة:
+
+- أضف **Lagune** إلى ملف `opencode.json` في المستودع وأجرِ commit له، كما توضح [صفحة التثبيت](https://lagune.ai/ar-AE/docs/install/opencode).
+- شغّل `opencode github install` لربط تطبيق **OpenCode** على GitHub وتخزين مفتاح مزوّد النماذج.
+- أضف سير عمل يمرّر الموجّه إلى **OpenCode** وفق جدول، هنا كل يوم اثنين الساعة 09:00 UTC، مع ملء `<KEY>` و `<provider>/<model>` كما في سير العمل الذي أنشأه `opencode github install`، و `<your-prompt>` بأحد [أمثلة الموجّهات](#prompt-examples):
+
+  ```yaml
+  name: Lagune Audit
+
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+
+  jobs:
+    audit:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+      steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - uses: anomalyco/opencode/github@latest
+          env:
+            <KEY>: ${{ secrets.<KEY> }}
+          with:
+            model: <provider>/<model>
+            prompt: |
+              <your-prompt>
+  ```
+
+### أمثلة الموجّهات \{#prompt-examples}
+
+**💧 تقرير فقط**
+
+يرصد المخاطر الجديدة، ويخطط لإصلاحاتها، ويعيد فحص الضوابط الأمنية المطبقة بالفعل، دون تغيير الكود الخاص بك:
+
+```md
+نفّذ الأوامر التالية واحدًا تلو الآخر: `/lagune-detect` و `/lagune-plan`. وإن كان للمشروع سجل تحصين، فنفّذ `/lagune-verify` أيضًا.
+
+لا تغيّر كود المشروع. في النهاية، لخّص الملاحظات الجديدة وأي ضابط أمني مطبق لم يعد يصمد.
+```
+
+**🌊 دورة كاملة**
+
+يطبّق أيضًا الإصلاحات المخطط لها ويثبت أن كل إصلاح منها يصمد، لذا راجع تغييراته قبل أن تصل إلى فرعك الرئيسي:
+
+```md
+نفّذ الأوامر التالية واحدًا تلو الآخر: `/lagune-detect` و `/lagune-plan` و `/lagune-harden` و `/lagune-verify`.
+
+في النهاية، لخّص الإصلاحات المطبقة وأي ملاحظة لا تزال مفتوحة.
+```
+
+---
+
 # Security-Driven Hardening: منهجية لعصر التطوير بمساعدة الذكاء الاصطناعي
 
 > منهجية Security-Driven Hardening (SDH): منهجية دفاعية على طريقة الفريق الأزرق ومدركة للسياق لتدقيق البرمجيات المكتوبة بمساعدة الذكاء الاصطناعي أو عبر vibe coding وتحصينها.
@@ -4531,10 +4760,10 @@ Deepsec يضع الحتمية أولًا: فحص واسع ينبّه إلى مر
 
 يعمل Lagune عبر الوكيل المفتوح بالفعل. أما Deepsec فيجهّز أولًا مساحة عمله والوصول إلى النموذج.
 
-| الجانب                | Lagune                                                                        | Deepsec                                                                              |
-| --------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| أول أمر               | تثبيت الإضافة أو `npx skills add wellwelwel/lagune`، ثم `/lagune-*` في الوكيل | `npx deepsec init`، ثم `cd .deepsec` و `pnpm install` و `scan` و `process`           |
-| بيانات اعتماد التشغيل | لا مفتاح منفصل، يستخدم وكيلك الحالي                                           | مفتاح نموذج (مثل AI Gateway، أو رمز Vercel OIDC صالح لمدة 12 ساعة، أو رمز Anthropic) |
+| الجانب                | Lagune                                                                           | Deepsec                                                                              |
+| --------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| أول أمر               | تثبيت الإضافة أو `npx skills add wellwelwel/lagune -y`، ثم `/lagune-*` في الوكيل | `npx deepsec init`، ثم `cd .deepsec` و `pnpm install` و `scan` و `process`           |
+| بيانات اعتماد التشغيل | لا مفتاح منفصل، يستخدم وكيلك الحالي                                              | مفتاح نموذج (مثل AI Gateway، أو رمز Vercel OIDC صالح لمدة 12 ساعة، أو رمز Anthropic) |
 
 ### توجيهه
 

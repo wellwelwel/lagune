@@ -5,7 +5,7 @@
 规范链接: https://lagune.ai/zh-CN/docs
 语言: zh-CN
 原文: https://lagune.ai/docs
-最后更新: 2026-11-03
+最后更新: 2026-11-09
 
 **Lagune** 帮助你的 AI 智能体提升项目的安全性。你把它指向自己的代码，智能体就会弄清楚你的系统实际在做什么，再带你完成对它而言真正重要的安全工作。**Lagune** 是 [Security-Driven Hardening (SDH)](https://lagune.ai/zh-CN/docs/references/paper) 方法论的第一个项目。
 
@@ -121,7 +121,7 @@ Lagune 是一个开源、仅限防御的安全工作流，帮助你的 AI 智能
 
 ### 怎么安装 Lagune？
 
-先选择你的智能体：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI 和 Hermes Agent 以插件形式安装 Lagune，Gemini CLI 和 Qwen Code 以扩展形式安装，Pi 以包的形式安装，其他任何智能体都可以用 npx skills add wellwelwel/lagune 安装。新项目和现有项目都能用。
+先选择你的智能体：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI 和 Hermes Agent 以插件形式安装 Lagune，Gemini CLI 和 Qwen Code 以扩展形式安装，Pi 以包的形式安装，其他任何智能体都可以用 npx skills add wellwelwel/lagune -y 安装。新项目和现有项目都能用。
 
 ### Lagune 需要 API 密钥吗？
 

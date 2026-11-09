@@ -13,7 +13,7 @@ Lagune є робочим процесом Security-Driven Hardening (SDH) з в�
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-09
 
 **Lagune** допомагає вашому ШІ-агенту зробити проєкт безпечнішим. Ви спрямовуєте його на свій код, агент з'ясовує, що насправді робить ваша система, а потім веде вас через роботу з безпеки, важливу саме для неї. **Lagune** є першим проєктом методології [Security-Driven Hardening (SDH)](https://lagune.ai/uk-UA/docs/references/paper).
 
@@ -129,7 +129,7 @@ Lagune є робочим процесом безпеки з відкритим �
 
 ### Як встановити Lagune?
 
-Оберіть свій агент: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI і Hermes Agent встановлюють Lagune як плагін, Gemini CLI і Qwen Code як розширення, Pi як пакет, а будь-який інший агент через npx skills add wellwelwel/lagune. Lagune працює як у нових, так і в наявних проєктах.
+Оберіть свій агент: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI і Hermes Agent встановлюють Lagune як плагін, Gemini CLI і Qwen Code як розширення, Pi як пакет, а будь-який інший агент через npx skills add wellwelwel/lagune -y. Lagune працює як у нових, так і в наявних проєктах.
 
 ### Чи потрібен Lagune API-ключ?
 
@@ -263,7 +263,7 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/claude-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/claude-code
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-09
 
 **Термінал**
 
@@ -275,7 +275,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Або із сесії **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```
@@ -838,11 +838,11 @@ hermes plugins update lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/kimi-code
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/kimi-code
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-09
 
 Встановіть плагін із сесії **Kimi Code**, виберіть **Trust and install**, а потім почніть нову сесію, щоб завантажити його:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -851,7 +851,7 @@ hermes plugins update lagune
 
 Щоб оновити **Lagune**, встановіть його знову:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -1163,20 +1163,20 @@ qwen extensions update lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/universal
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/universal
-Останнє оновлення: 2026-11-07
+Останнє оновлення: 2026-11-09
 
 **skills.sh**
 
-Встановіть команди **Lagune** у свій проєкт із термінала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), залишивши **Project** як область встановлення:
+Встановіть команди **Lagune** у свій проєкт із термінала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Або вставте цей промпт у свій агент:
 
 ```md
-Виконай `npx --yes skills add wellwelwel/lagune` і одразу дотримуйся згенерованих інструкцій навички. Прочитай увесь вивід команди, за потреби спершу перенаправивши його в тимчасовий файл. Розв'язуй відносні шляхи від каталогу допоміжних файлів, який вона надає.
+Виконай `npx --yes skills add wellwelwel/lagune --yes` і одразу дотримуйся згенерованих інструкцій навички. Прочитай увесь вивід команди, за потреби спершу перенаправивши його в тимчасовий файл. Розв'язуй відносні шляхи від каталогу допоміжних файлів, який вона надає.
 ```
 
 **GitHub CLI**
@@ -1237,7 +1237,7 @@ npm i -D lagune@0.18.1
 
 ### Як встановити Lagune у будь-який ШІ-агент?
 
-Виконайте у своєму проєкті npx skills add wellwelwel/lagune --skill '*' чи gh skill install wellwelwel/lagune --all --scope project або вставте промпт для встановлення у свій агент.
+Виконайте у своєму проєкті npx skills add wellwelwel/lagune -y чи gh skill install wellwelwel/lagune --all --scope project або вставте промпт для встановлення у свій агент.
 
 ### Як оновити Lagune у будь-якому ШІ-агенті?
 
@@ -1389,7 +1389,7 @@ npx lagune
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/commands/lagune
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/commands/lagune
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-09
 
 ⌨️ Виконайте роботу, яку попросили, і захистіть її ще під час написання. **`/lagune`** приймає будь-який промпт на будь-якому етапі, створює те, що ви хотіли, і посилює захист безпечними налаштуваннями за замовчуванням, перш ніж повернути результат.
 
@@ -1406,7 +1406,7 @@ npx lagune
 
 ## Безпека
 
-- Використовуй навичку `/lagune` щоразу, коли створюєш або змінюєш код, щоб вона підвищувала безпеку за замовчуванням.
+- Щоразу, коли створюєш або змінюєш код, використовуй навичку `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)), яка називається `/lagune:lagune`, якщо її встановлено як плагін, щоб підвищити безпеку за замовчуванням.
 ```
 
     - Наприклад: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** тощо.
@@ -3670,6 +3670,235 @@ npx lagune write add --categories owasp ai javascript
 
 ---
 
+# Spec-Driven Development: захистіть те, що будує ваша специфікація
+
+> Поєднайте Lagune із Superpowers, Spec Kit чи OpenSpec: визначте принципи безпеки на основі своєї специфікації, а потім реалізуйте її з /lagune, щоб захист кожного завдання посилювався ще під час написання коду.
+
+Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/examples/spec-driven-development
+Мова: uk-UA
+Оригінал: https://lagune.ai/docs/examples/spec-driven-development
+Останнє оновлення: 2026-11-09
+
+Поєднайте **Lagune** з інструментом Spec-Driven Development, таким як [**Superpowers**](https://github.com/obra/superpowers), [**Spec Kit**](https://github.com/github/spec-kit) чи [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): ваш інструмент вирішує, що будувати, а **Lagune** вирішує, як зберегти це безпечним.
+
+## Як це вписується в процес
+
+**Lagune** долучається до процесу вашого інструмента у двох точках і не змінює решту:
+
+1. Щойно ваш інструмент напише специфікацію, [`/lagune-charter`](https://lagune.ai/uk-UA/docs/commands/charter) читає її та визначає принципи безпеки, яких потребує функція, ще до появи будь-якого коду.
+2. Якщо додати [`/lagune`](https://lagune.ai/uk-UA/docs/commands/lagune) до команди реалізації вашого інструмента, вона посилює захист кожного завдання відповідно до цих принципів ще під час написання коду.
+
+**Порада**
+
+Замініть шлях до специфікації в кожному прикладі на файл, який написав ваш інструмент. Якщо в проєкті вже є принципи безпеки, цей самий крок оновить їх тим, чого потребує нова функція.
+
+## Приклади промптів
+
+Надсилайте промпти по черзі, кожен після завершення попереднього.
+
+```prompt
+/superpowers:brainstorming Оформлення замовлення без реєстрації з оплатою карткою.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+```prompt
+/speckit.specify Оформлення замовлення без реєстрації з оплатою карткою.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+---
+
+# Аудит за розкладом: запускайте Lagune регулярно
+
+> Налаштуйте регулярний аудит Lagune у GitHub Actions із власним ключем або в Claude Code, Codex, Cursor, Antigravity чи OpenCode, щоб він повідомляв про нові ризики або запускав увесь процес Blue Team.
+
+Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/examples/scheduled-audits
+Мова: uk-UA
+Оригінал: https://lagune.ai/docs/examples/scheduled-audits
+Останнє оновлення: 2026-11-09
+
+Налаштуйте **Lagune** так, щоб він сам перевіряв ваш проєкт за розкладом і або повідомляв про знайдене, або запускав увесь процес Blue Team.
+
+## Розклад
+
+**Universal**
+
+**GitHub Actions** запускає аудит у хмарі через [**GitHub Agentic Workflows**](https://github.github.com/gh-aw/). Його рушій **Copilot CLI** звертається до вибраного вами постачальника моделей із вашим власним ключем, тож підписка на агента не потрібна:
+
+- Встановіть розширення командою `gh extension install github/gh-aw`.
+- Збережіть ключ свого постачальника як секрет репозиторію командою `gh secret set PROVIDER_API_KEY`.
+- Збережіть цей робочий процес як `.github/workflows/lagune-audit.md`, замінивши `<model>` на одну з моделей вашого постачальника з підтримкою викликів інструментів, а `<your-prompt>` на один із [прикладів промптів](#prompt-examples):
+
+  ```md
+  ---
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+  permissions:
+    contents: read
+  engine:
+    id: copilot
+    model: <model>
+    env:
+      COPILOT_PROVIDER_TYPE: <type>
+      COPILOT_PROVIDER_BASE_URL: <url>
+      COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
+  skills:
+    - wellwelwel/lagune@v0.18.1
+  network:
+    allowed:
+      - defaults
+      - node
+  tools:
+    edit:
+    bash: [npx]
+  safe-outputs:
+    create-pull-request:
+  ---
+
+  <your-prompt>
+
+  Потім відкрий pull request зі своїми змінами.
+  ```
+
+  | Постачальник                                                   | `<type>`    | `<url>`                                                          |
+  | -------------------------------------------------------------- | ----------- | ---------------------------------------------------------------- |
+  | **OpenAI**                                                     | `openai`    | `https://api.openai.com/v1`                                      |
+  | **Anthropic**                                                  | `anthropic` | `https://api.anthropic.com`                                      |
+  | Будь-який API, сумісний з **OpenAI**, наприклад **OpenRouter** | `openai`    | Його базова URL-адреса, наприклад `https://openrouter.ai/api/v1` |
+
+- Виконайте `gh aw compile` і закомітьте робочий процес разом із файлом `.lock.yml`, який згенерує ця команда.
+
+**У хмарі** аудит виконується, навіть коли ваш комп'ютер вимкнено:
+
+- Закомітьте **Lagune** через [універсальне встановлення](https://lagune.ai/uk-UA/docs/install/universal) замість плагіна.
+- Введіть `/schedule` у сесії **Claude Code** і опишіть аудит або створіть його на [claude.ai/code/routines](https://claude.ai/code/routines).
+
+**На вашому комп'ютері** аудит використовує плагін, який ви встановили для себе:
+
+- Створіть локальне завдання на сторінці **Scheduled tasks** у десктопному застосунку.
+- Заздалегідь дозвольте рушій, як показано на [сторінці встановлення](https://lagune.ai/uk-UA/docs/install/claude-code), бо поруч не буде нікого, хто схвалить його інструменти.
+- Завдання виконується, лише поки застосунок відкритий, а комп'ютер не перебуває в режимі сну.
+
+Завдання за розкладом створюються в десктопному застосунку **ChatGPT**, а не в **Codex CLI**, і виконуються на вашому комп'ютері:
+
+- У чаті **Codex** опишіть аудит, коли він має запускатися і що кожен запуск починає новий чат. Його результати з'являтимуться в **Scheduled**.
+- У промпті називайте кожну команду через `$`, наприклад `$lagune:lagune-detect`, щоб запуск викликав її явно.
+- Виберіть свій локальний проєкт, а не новий worktree, який стартує без рушія, [встановленого у вашому проєкті](https://lagune.ai/uk-UA/docs/install/codex).
+- Завдання виконується, лише поки застосунок відкритий, комп'ютер увімкнено, а проєкт є на диску.
+
+Automations у **Cursor** виконуються в хмарі, навіть коли ваш комп'ютер вимкнено:
+
+- Закомітьте **Lagune** через [універсальне встановлення](https://lagune.ai/uk-UA/docs/install/universal) замість плагіна.
+- Створіть автоматизацію на [cursor.com/automations](https://cursor.com/automations) або опишіть її через `/automate` у сесії агента, задавши їй тригер за розкладом.
+- Виберіть свій репозиторій, бо тригер за розкладом запускається без нього.
+
+Automations в **Antigravity** виконуються на вашому комп'ютері, кожна в новій розмові:
+
+- Відкрийте вкладку **Automations** у застосунку **Antigravity** і створіть автоматизацію за розкладом для свого проєкту або попросіть агента налаштувати її.
+- Заздалегідь дозвольте рушій, як показано на [сторінці встановлення](https://lagune.ai/uk-UA/docs/install/antigravity-cli), бо поруч не буде нікого, хто схвалить його інструменти.
+- Використовуйте автоматизацію, а не `/schedule`, який діє лише доти, доки триває його розмова.
+- Автоматизація виконується, лише поки **Antigravity** запущено.
+
+**OpenCode** не має власного планувальника, тому аудит запускається з **GitHub Actions** у хмарі:
+
+- Закомітьте **Lagune** в `opencode.json` репозиторію, як показано на [сторінці встановлення](https://lagune.ai/uk-UA/docs/install/opencode).
+- Виконайте `opencode github install`, щоб підключити застосунок **OpenCode** для GitHub і зберегти ключ свого постачальника моделей.
+- Додайте робочий процес, який передає промпт **OpenCode** за розкладом, тут щопонеділка о 09:00 UTC, заповнивши `<KEY>` і `<provider>/<model>` так, як у робочому процесі, що його створила `opencode github install`, а `<your-prompt>` одним із [прикладів промптів](#prompt-examples):
+
+  ```yaml
+  name: Lagune Audit
+
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+
+  jobs:
+    audit:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+      steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - uses: anomalyco/opencode/github@latest
+          env:
+            <KEY>: ${{ secrets.<KEY> }}
+          with:
+            model: <provider>/<model>
+            prompt: |
+              <your-prompt>
+  ```
+
+### Приклади промптів \{#prompt-examples}
+
+**💧 Лише звіт**
+
+Визначає нові ризики, планує їх виправлення й повторно перевіряє вже застосовані засоби захисту, не змінюючи ваш код:
+
+```md
+Виконай такі команди по черзі: `/lagune-detect` і `/lagune-plan`. Якщо в проєкті є журнал посилення захисту, також виконай `/lagune-verify`.
+
+Не змінюй код проєкту. Наприкінці підсумуй нові знахідки й кожен застосований засіб захисту, який більше не діє.
+```
+
+**🌊 Повний цикл**
+
+Також застосовує заплановані виправлення й доводить, що кожне з них діє, тож перегляньте його зміни, перш ніж вони потраплять у вашу основну гілку:
+
+```md
+Виконай такі команди по черзі: `/lagune-detect`, `/lagune-plan`, `/lagune-harden` і `/lagune-verify`.
+
+Наприкінці підсумуй застосовані виправлення й кожну знахідку, яка ще залишається відкритою.
+```
+
+---
+
 # Security-Driven Hardening: конвенція для епохи розробки з допомогою ШІ
 
 > Методологія Security-Driven Hardening (SDH): конвенція Blue Team з урахуванням контексту для аудиту й посилення захисту програм, створених з допомогою ШІ та у стилі vibe coding.
@@ -4406,7 +4635,7 @@ Charter є керівним рівнем Lagune, набором принципі
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/references/deepsec
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/references/deepsec
-Останнє оновлення: 2026-11-03
+Останнє оновлення: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) і [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) є двома оборонними відповідями на ту саму проблему: безпеку в епоху розробки з допомогою ШІ. Їхня вихідна ідея, їхні початок, середина й кінець, а також те, як кожен подає себе користувачу, свідомо розходяться, навіть там, де їхні механізми перетинаються.
 
@@ -4531,10 +4760,10 @@ Deepsec видає результати для організації з без�
 
 Lagune працює через уже відкритого агента. Deepsec спершу готує власний робочий простір і доступ до моделі.
 
-| Аспект                    | Lagune                                                                                   | Deepsec                                                                               |
-| ------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Перша команда             | Встановлення плагіна чи `npx skills add wellwelwel/lagune`, а потім `/lagune-*` в агенті | `npx deepsec init`, потім `cd .deepsec`, `pnpm install`, `scan`, `process`            |
-| Облікові дані для запуску | Окремий ключ не потрібен, використовується ваш поточний агент                            | Ключ моделі (наприклад, AI Gateway, 12-годинний токен Vercel OIDC чи токен Anthropic) |
+| Аспект                    | Lagune                                                                                      | Deepsec                                                                               |
+| ------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Перша команда             | Встановлення плагіна чи `npx skills add wellwelwel/lagune -y`, а потім `/lagune-*` в агенті | `npx deepsec init`, потім `cd .deepsec`, `pnpm install`, `scan`, `process`            |
+| Облікові дані для запуску | Окремий ключ не потрібен, використовується ваш поточний агент                               | Ключ моделі (наприклад, AI Gateway, 12-годинний токен Vercel OIDC чи токен Anthropic) |
 
 ### Керування
 

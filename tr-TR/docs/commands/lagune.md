@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/lagune
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/commands/lagune
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-09
 
 ⌨️ İstediğiniz işi yapın, yazılırken güvenli hale gelsin. **`/lagune`** her aşamada her prompt'u kabul eder, istediğinizi geliştirir ve size geri vermeden önce güvenli varsayılanlarla sıkılaştırır.
 
@@ -22,7 +22,7 @@ Herhangi bir prompt'ta **`/lagune`** komutunu belirtin ve işi her zamanki gibi 
 
 ## Güvenlik
 
-- Kod geliştirdiğinde ya da değiştirdiğinde her seferinde `/lagune` becerisini kullan, böylece güvenliği varsayılan olarak iyileştirsin.
+- Kod geliştirdiğinde ya da değiştirdiğinde her seferinde, güvenliği varsayılan olarak iyileştirmek için `/lagune` becerisini ([**lagune.ai**](https://lagune.ai/llms.txt)) kullan. Eklenti olarak kurulduğunda bu becerinin adı `/lagune:lagune` olur.
 ```
 
     - Örneğin: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** vb.

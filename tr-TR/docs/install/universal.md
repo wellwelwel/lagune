@@ -5,20 +5,20 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/universal
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/install/universal
-Son güncelleme: 2026-11-07
+Son güncelleme: 2026-11-09
 
 **skills.sh**
 
-**Lagune** komutlarını [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) ile terminalden projenize kurun ve kurulum kapsamını **Project** olarak bırakın:
+**Lagune** komutlarını [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) ile terminalden projenize kurun:
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Ya da bu prompt'u ajanınıza yapıştırın:
 
 ```md
-`npx --yes skills add wellwelwel/lagune` komutunu çalıştır ve oluşturulan beceri talimatlarını hemen uygula. Çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir. Göreli yolları, sağladığı destek dosyaları dizinine göre çözümle.
+`npx --yes skills add wellwelwel/lagune --yes` komutunu çalıştır ve oluşturulan beceri talimatlarını hemen uygula. Çıktının tamamını oku, gerekirse önce geçici bir dosyaya yönlendir. Göreli yolları, sağladığı destek dosyaları dizinine göre çözümle.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Her yapay zeka ajanına Lagune nasıl kurulur?
 
-Projenizde npx skills add wellwelwel/lagune --skill '*' ya da gh skill install wellwelwel/lagune --all --scope project komutunu çalıştırın veya kurulum prompt'unu ajanınıza yapıştırın.
+Projenizde npx skills add wellwelwel/lagune -y ya da gh skill install wellwelwel/lagune --all --scope project komutunu çalıştırın veya kurulum prompt'unu ajanınıza yapıştırın.
 
 ### Her yapay zeka ajanında Lagune nasıl güncellenir?
 

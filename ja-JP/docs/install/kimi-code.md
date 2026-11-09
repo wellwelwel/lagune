@@ -5,11 +5,11 @@
 正規 URL: https://lagune.ai/ja-JP/docs/install/kimi-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/kimi-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 **Kimi Code** のセッションからプラグインをインストールし、**Trust and install** を選んでから、新しいセッションを開始して読み込みます：
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@
 
 **Lagune** を更新するには、もう一度インストールします：
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

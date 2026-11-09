@@ -22,7 +22,7 @@ Oznacz dowolny prompt poleceniem **`/lagune`** i opisz zadanie tak jak zawsze.
 
 ## Bezpieczeństwo
 
-- Używaj skilla `/lagune` zawsze, gdy tworzysz lub zmieniasz kod, aby domyślnie zwiększał bezpieczeństwo.
+- Zawsze, gdy tworzysz lub zmieniasz kod, używaj skilla `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)), nazwanego `/lagune:lagune` po zainstalowaniu jako wtyczka, aby domyślnie zwiększać bezpieczeństwo.
 ```
 
     - Na przykład: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** itp.

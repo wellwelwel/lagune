@@ -130,10 +130,10 @@ Hvordan hver av dem møter den som kjører dem: hva den første kjøringen kreve
 
 Lagune kjører gjennom agenten som allerede er åpen. Deepsec setter først opp sitt eget arbeidsområde og tilgang til modellen.
 
-| Aspekt                         | Lagune                                                                                        | Deepsec                                                                                                          |
-| ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Første kommando                | Plugininstallasjonen eller `npx skills add wellwelwel/lagune`, deretter `/lagune-*` i agenten | `npx deepsec init`, deretter `cd .deepsec`, `pnpm install`, `scan`, `process`                                    |
-| Påloggingsdetaljer for å kjøre | Ingen egen nøkkel, det bruker agenten du har nå                                               | En modellnøkkel (f.eks. AI Gateway, et OIDC-token fra Vercel som varer i 12 timer, eller et token fra Anthropic) |
+| Aspekt                         | Lagune                                                                                           | Deepsec                                                                                                          |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Første kommando                | Plugininstallasjonen eller `npx skills add wellwelwel/lagune -y`, deretter `/lagune-*` i agenten | `npx deepsec init`, deretter `cd .deepsec`, `pnpm install`, `scan`, `process`                                    |
+| Påloggingsdetaljer for å kjøre | Ingen egen nøkkel, det bruker agenten du har nå                                                  | En modellnøkkel (f.eks. AI Gateway, et OIDC-token fra Vercel som varer i 12 timer, eller et token fra Anthropic) |
 
 ### Styring
 

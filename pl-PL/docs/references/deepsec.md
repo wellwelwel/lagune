@@ -130,10 +130,10 @@ Jak każde z nich traktuje osobę, która z niego korzysta: czego wymaga pierwsz
 
 Lagune działa przez agenta, którego masz już otwartego. Deepsec najpierw przygotowuje własny obszar roboczy i dostęp do modelu.
 
-| Aspekt                 | Lagune                                                                                   | Deepsec                                                                              |
-| ---------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Pierwsze polecenie     | Instalacja wtyczki lub `npx skills add wellwelwel/lagune`, a potem `/lagune-*` w agencie | `npx deepsec init`, potem `cd .deepsec`, `pnpm install`, `scan`, `process`           |
-| Dane uwierzytelniające | Bez osobnego klucza, korzysta z twojego obecnego agenta                                  | Klucz do modelu (np. AI Gateway, 12-godzinny token OIDC Vercel albo token Anthropic) |
+| Aspekt                 | Lagune                                                                                      | Deepsec                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Pierwsze polecenie     | Instalacja wtyczki lub `npx skills add wellwelwel/lagune -y`, a potem `/lagune-*` w agencie | `npx deepsec init`, potem `cd .deepsec`, `pnpm install`, `scan`, `process`           |
+| Dane uwierzytelniające | Bez osobnego klucza, korzysta z twojego obecnego agenta                                     | Klucz do modelu (np. AI Gateway, 12-godzinny token OIDC Vercel albo token Anthropic) |
 
 ### Sterowanie
 

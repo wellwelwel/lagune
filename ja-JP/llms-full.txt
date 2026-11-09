@@ -13,7 +13,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 正規 URL: https://lagune.ai/ja-JP/docs
 言語: ja-JP
 原文: https://lagune.ai/docs
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 **Lagune** は、AI エージェントがプロジェクトをより安全にするのを手伝います。コードに対して実行すると、エージェントはシステムが実際に何をしているかを把握したうえで、そのシステムにとって重要なセキュリティ作業を順に案内します。**Lagune** は、[Security-Driven Hardening (SDH)](https://lagune.ai/ja-JP/docs/references/paper) という方法論の最初のプロジェクトです。
 
@@ -129,7 +129,7 @@ Lagune は、AI エージェントがあらゆるコードベースを堅牢化�
 
 ### Lagune はどうやってインストールしますか？
 
-エージェントを選んでください：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI、Hermes Agent ではプラグインとして、Gemini CLI と Qwen Code では拡張機能として、Pi ではパッケージとして Lagune をインストールし、それ以外のエージェントでは npx skills add wellwelwel/lagune でインストールします。新規プロジェクトでも既存のプロジェクトでも使えます。
+エージェントを選んでください：Claude Code、GitHub Copilot CLI、Muse Code、Antigravity CLI、Cursor、Kimi Code、OpenCode、Codex CLI、Factory Droid、Grok Build、Devin CLI、Hermes Agent ではプラグインとして、Gemini CLI と Qwen Code では拡張機能として、Pi ではパッケージとして Lagune をインストールし、それ以外のエージェントでは npx skills add wellwelwel/lagune -y でインストールします。新規プロジェクトでも既存のプロジェクトでも使えます。
 
 ### Lagune に API キーは必要ですか？
 
@@ -263,7 +263,7 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 
 正規 URL: https://lagune.ai/ja-JP/docs/install/claude-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/claude-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 **ターミナル**
 
@@ -275,7 +275,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 **Claude Code** のセッションからもインストールできます：
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```
@@ -838,11 +838,11 @@ hermes plugins update lagune を実行します。
 正規 URL: https://lagune.ai/ja-JP/docs/install/kimi-code
 言語: ja-JP
 原文: https://lagune.ai/docs/install/kimi-code
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 **Kimi Code** のセッションからプラグインをインストールし、**Trust and install** を選んでから、新しいセッションを開始して読み込みます：
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -851,7 +851,7 @@ hermes plugins update lagune を実行します。
 
 **Lagune** を更新するには、もう一度インストールします：
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -1163,20 +1163,20 @@ qwen extensions update lagune を実行するか、--auto-update を付けて拡
 正規 URL: https://lagune.ai/ja-JP/docs/install/universal
 言語: ja-JP
 原文: https://lagune.ai/docs/install/universal
-最終更新日: 2026-11-07
+最終更新日: 2026-11-09
 
 **skills.sh**
 
-インストールスコープは **Project** のままにして、[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) でターミナルからプロジェクトに **Lagune** のコマンドをインストールします：
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) でターミナルからプロジェクトに **Lagune** のコマンドをインストールします：
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 または、次のプロンプトをエージェントに貼り付けます：
 
 ```md
-`npx --yes skills add wellwelwel/lagune` を実行し、生成されたスキルの指示に今すぐ従ってください。必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。相対パスは、出力に示されたサポートファイルのディレクトリを基準に解決してください。
+`npx --yes skills add wellwelwel/lagune --yes` を実行し、生成されたスキルの指示に今すぐ従ってください。必要なら先に一時ファイルへリダイレクトして、出力全体を読んでください。相対パスは、出力に示されたサポートファイルのディレクトリを基準に解決してください。
 ```
 
 **GitHub CLI**
@@ -1237,7 +1237,7 @@ npm i -D lagune@0.18.1
 
 ### あらゆる AI エージェントに Lagune をインストールするにはどうすればよいですか？
 
-プロジェクトで npx skills add wellwelwel/lagune --skill '*' または gh skill install wellwelwel/lagune --all --scope project を実行するか、インストール用のプロンプトをエージェントに貼り付けます。
+プロジェクトで npx skills add wellwelwel/lagune -y または gh skill install wellwelwel/lagune --all --scope project を実行するか、インストール用のプロンプトをエージェントに貼り付けます。
 
 ### あらゆる AI エージェントで Lagune を更新するにはどうすればよいですか？
 
@@ -1389,7 +1389,7 @@ npx lagune
 正規 URL: https://lagune.ai/ja-JP/docs/commands/lagune
 言語: ja-JP
 原文: https://lagune.ai/docs/commands/lagune
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 ⌨️ 依頼した作業を、書くそばから安全な形で仕上げます。**`/lagune`** はどの段階でもどんなプロンプトでも受け付け、求められたものを構築し、引き渡す前に安全なデフォルト設定で堅牢化します。
 
@@ -1406,7 +1406,7 @@ npx lagune
 
 ## セキュリティ
 
-- コードを作成または変更するときは、必ず `/lagune` スキルを使い、デフォルトで安全性が高まるようにしてください。
+- コードを作成または変更するときは、必ず `/lagune` スキル（[**lagune.ai**](https://lagune.ai/llms.txt)、プラグインとしてインストールした場合は `/lagune:lagune`）を使い、デフォルトで安全性が高まるようにしてください。
 ```
 
     - 例：**AGENTS.md**、**CLAUDE.md**、**.github/copilot-instructions.md**、**.cursorrules** など。
@@ -3670,6 +3670,235 @@ npx lagune write add --categories owasp ai javascript
 
 ---
 
+# Spec-Driven Development：仕様から作るコードを安全に
+
+> Lagune を Superpowers、Spec Kit、OpenSpec と組み合わせて使います。仕様からセキュリティ原則を定め、/lagune で実装すれば、コードを書く段階で各タスクが堅牢化されます。
+
+正規 URL: https://lagune.ai/ja-JP/docs/examples/spec-driven-development
+言語: ja-JP
+原文: https://lagune.ai/docs/examples/spec-driven-development
+最終更新日: 2026-11-09
+
+**Lagune** を [**Superpowers**](https://github.com/obra/superpowers)、[**Spec Kit**](https://github.com/github/spec-kit)、[**OpenSpec**](https://github.com/Fission-AI/OpenSpec) などの Spec-Driven Development ツールと組み合わせて使います：何を作るかはツールが決め、それをどう安全に保つかは **Lagune** が決めます。
+
+## 組み合わせ方
+
+**Lagune** はツールのフローの 2 か所に加わり、それ以外は変えません：
+
+1. ツールが仕様を書き上げたら、[`/lagune-charter`](https://lagune.ai/ja-JP/docs/commands/charter) がそれを読み、コードがまだ存在しないうちに、その機能に必要なセキュリティ原則を定めます。
+2. ツールの実装コマンドに [`/lagune`](https://lagune.ai/ja-JP/docs/commands/lagune) を付けると、コードを書くそばから、それらの原則に沿って各タスクを堅牢化します。
+
+**ヒント**
+
+各例の仕様のパスは、ツールが書き出したファイルに置き換えてください。プロジェクトにすでにセキュリティ原則がある場合は、同じ手順で新しい機能に必要な内容に更新されます。
+
+## プロンプト例
+
+プロンプトは順番に、前のプロンプトが終わるのを待ってから 1 つずつ送ってください。
+
+```prompt
+/superpowers:brainstorming カード決済に対応したゲスト購入。
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+```prompt
+/speckit.specify カード決済に対応したゲスト購入。
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+---
+
+# 定期監査：Lagune をスケジュールで自動実行する
+
+> 自分のキーを使う GitHub Actions、または Claude Code、Codex、Cursor、Antigravity、OpenCode で Lagune の定期監査を設定します。新たなリスクを報告するだけにすることも、Blue Team フロー全体を実行することもできます。
+
+正規 URL: https://lagune.ai/ja-JP/docs/examples/scheduled-audits
+言語: ja-JP
+原文: https://lagune.ai/docs/examples/scheduled-audits
+最終更新日: 2026-11-09
+
+**Lagune** がスケジュールに沿ってプロジェクトを自動で監査するように設定します。見つかった内容を報告するだけにすることも、Blue Team フロー全体を実行することもできます。
+
+## スケジュールの設定
+
+**Universal**
+
+**GitHub Actions** は [**GitHub Agentic Workflows**](https://github.github.com/gh-aw/) を使ってクラウドで監査を実行します。**Copilot CLI** エンジンが、選んだモデルプロバイダーを自分のキーで呼び出すため、エージェントのサブスクリプションは不要です：
+
+- `gh extension install github/gh-aw` で拡張機能をインストールします。
+- `gh secret set PROVIDER_API_KEY` で、プロバイダーのキーをリポジトリのシークレットとして保存します。
+- このワークフローを `.github/workflows/lagune-audit.md` として保存し、`<model>` をツール呼び出しに対応したプロバイダーのモデルに、`<your-prompt>` を [プロンプト例](#prompt-examples) のいずれかに置き換えます：
+
+  ```md
+  ---
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+  permissions:
+    contents: read
+  engine:
+    id: copilot
+    model: <model>
+    env:
+      COPILOT_PROVIDER_TYPE: <type>
+      COPILOT_PROVIDER_BASE_URL: <url>
+      COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
+  skills:
+    - wellwelwel/lagune@v0.18.1
+  network:
+    allowed:
+      - defaults
+      - node
+  tools:
+    edit:
+    bash: [npx]
+  safe-outputs:
+    create-pull-request:
+  ---
+
+  <your-prompt>
+
+  そのあと、変更内容でプルリクエストを作成してください。
+  ```
+
+  | プロバイダー                                     | `<type>`    | `<url>`                                               |
+  | ------------------------------------------------ | ----------- | ----------------------------------------------------- |
+  | **OpenAI**                                       | `openai`    | `https://api.openai.com/v1`                           |
+  | **Anthropic**                                    | `anthropic` | `https://api.anthropic.com`                           |
+  | **OpenRouter** など、**OpenAI** 互換の任意の API | `openai`    | そのベース URL（`https://openrouter.ai/api/v1` など） |
+
+- `gh aw compile` を実行し、生成された `.lock.yml` ファイルと一緒にワークフローをコミットします。
+
+**クラウド**では、コンピューターの電源が切れていても監査が実行されます：
+
+- プラグインではなく [汎用インストール](https://lagune.ai/ja-JP/docs/install/universal) で **Lagune** をリポジトリにコミットします。
+- **Claude Code** のセッションで `/schedule` と入力して監査の内容を伝えるか、[claude.ai/code/routines](https://claude.ai/code/routines) で作成します。
+
+**自分のコンピューター**では、自分用にインストールしたプラグインで監査します：
+
+- デスクトップアプリの **Scheduled tasks** ページでローカルタスクを作成します。
+- ツールを承認する人がその場にいないため、[インストールページ](https://lagune.ai/ja-JP/docs/install/claude-code) にあるとおり、あらかじめエンジンを許可しておきます。
+- タスクは、アプリが開いていて、コンピューターがスリープしていない間だけ実行されます。
+
+スケジュールされたタスクは **ChatGPT** デスクトップアプリで作成し（**Codex CLI** ではありません）、自分のコンピューターで実行されます：
+
+- **Codex** のチャットで、監査の内容と実行タイミング、そして実行のたびに新しいチャットを始めることを伝えます。結果は **Scheduled** に表示されます。
+- プロンプトでは各コマンドを `$` 付きで指定し（`$lagune:lagune-detect` など）、実行時に明示的に呼び出されるようにします。
+- 新しい worktree ではなく、ローカルのプロジェクトを選びます。新しい worktree には、[プロジェクトにインストールした](https://lagune.ai/ja-JP/docs/install/codex) エンジンがないためです。
+- タスクは、アプリが開いていて、コンピューターの電源が入っており、プロジェクトがディスク上にある間だけ実行されます。
+
+**Cursor** の Automations はクラウドで実行され、コンピューターの電源が切れていても動きます：
+
+- プラグインではなく [汎用インストール](https://lagune.ai/ja-JP/docs/install/universal) で **Lagune** をリポジトリにコミットします。
+- [cursor.com/automations](https://cursor.com/automations) で automation を作成するか、エージェントのセッションで `/automate` を使って内容を伝え、スケジュールトリガーを設定します。
+- スケジュールトリガーはリポジトリなしで始まるため、リポジトリを選択します。
+
+**Antigravity** の Automations は自分のコンピューターで、毎回新しい会話として実行されます：
+
+- **Antigravity** アプリで **Automations** タブを開き、プロジェクト用にスケジュール実行の automation を作成するか、エージェントに設定を頼みます。
+- ツールを承認する人がその場にいないため、[インストールページ](https://lagune.ai/ja-JP/docs/install/antigravity-cli) にあるとおり、あらかじめエンジンを許可しておきます。
+- `/schedule` はその会話が続く間しか有効でないため、代わりに automation を使います。
+- automation は **Antigravity** が起動している間だけ実行されます。
+
+**OpenCode** には独自のスケジューラーがないため、監査はクラウドの **GitHub Actions** から実行します：
+
+- [インストールページ](https://lagune.ai/ja-JP/docs/install/opencode) にあるとおり、リポジトリの `opencode.json` で **Lagune** をコミットします。
+- `opencode github install` を実行して **OpenCode** の GitHub アプリを接続し、モデルプロバイダーのキーを保存します。
+- スケジュールに沿ってプロンプトを **OpenCode** に渡すワークフローを追加します（ここでは毎週月曜 09:00 UTC）。`<KEY>` と `<provider>/<model>` は `opencode github install` が作成したワークフローと同じ値にし、`<your-prompt>` は [プロンプト例](#prompt-examples) のいずれかに置き換えます：
+
+  ```yaml
+  name: Lagune Audit
+
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+
+  jobs:
+    audit:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+      steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - uses: anomalyco/opencode/github@latest
+          env:
+            <KEY>: ${{ secrets.<KEY> }}
+          with:
+            model: <provider>/<model>
+            prompt: |
+              <your-prompt>
+  ```
+
+### プロンプト例 \{#prompt-examples}
+
+**💧 報告のみ**
+
+コードは変更せずに、新たなリスクを洗い出し、その修正を計画し、適用済みの対策を再確認します：
+
+```md
+次のコマンドを 1 つずつ実行してください：`/lagune-detect`、`/lagune-plan`。プロジェクトに堅牢化の記録がある場合は、`/lagune-verify` も実行してください。
+
+プロジェクトのコードは変更しないでください。最後に、新しい検出事項と、有効でなくなった適用済みの対策をまとめてください。
+```
+
+**🌊 フルサイクル**
+
+計画した修正の適用と、それぞれが有効であることの証明まで行うため、変更がメインブランチに入る前にレビューしてください：
+
+```md
+次のコマンドを 1 つずつ実行してください：`/lagune-detect`、`/lagune-plan`、`/lagune-harden`、`/lagune-verify`。
+
+最後に、適用した修正と、まだ解決していない検出事項をまとめてください。
+```
+
+---
+
 # Security-Driven Hardening：AI 支援開発時代のための規約
 
 > Security-Driven Hardening（SDH）の方法論：AI 支援開発やバイブコーディングで作られたソフトウェアを監査し、堅牢化するための、コンテキストを踏まえた Blue Team の規約。
@@ -4406,7 +4635,7 @@ verify がリスクの解消を証明すると、その検出事項をクロー�
 正規 URL: https://lagune.ai/ja-JP/docs/references/deepsec
 言語: ja-JP
 原文: https://lagune.ai/docs/references/deepsec
-最終更新日: 2026-11-03
+最終更新日: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) と [Deepsec](https://github.com/vercel-labs/deepsec)（`v2.2.1`）は、AI 支援開発の時代のセキュリティという同じ課題に対する、2 つの防御的な答えです。仕組みが重なる部分はあっても、前提も、始まりから終わりまでの流れも、ユーザーへの見せ方も、意図して異なるように作られています。
 
@@ -4531,10 +4760,10 @@ Deepsec は、セキュリティ組織向けのアウトプットを生成しま
 
 Lagune は、すでに開いているエージェントを通じて動きます。Deepsec は、まず独自のワークスペースとモデルへのアクセスを用意します。
 
-| 観点                 | Lagune                                                                                            | Deepsec                                                                                       |
-| -------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| 最初のコマンド       | プラグインのインストールか `npx skills add wellwelwel/lagune`、そのあとエージェントで `/lagune-*` | `npx deepsec init`、続いて `cd .deepsec`、`pnpm install`、`scan`、`process`                   |
-| 実行に必要な認証情報 | 別途キーは不要で、今使っているエージェントをそのまま使う                                          | モデルのキー（例：AI Gateway、有効期限 12 時間の Vercel OIDC トークン、Anthropic のトークン） |
+| 観点                 | Lagune                                                                                               | Deepsec                                                                                       |
+| -------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| 最初のコマンド       | プラグインのインストールか `npx skills add wellwelwel/lagune -y`、そのあとエージェントで `/lagune-*` | `npx deepsec init`、続いて `cd .deepsec`、`pnpm install`、`scan`、`process`                   |
+| 実行に必要な認証情報 | 別途キーは不要で、今使っているエージェントをそのまま使う                                             | モデルのキー（例：AI Gateway、有効期限 12 時間の Vercel OIDC トークン、Anthropic のトークン） |
 
 ### 操作のしかた
 

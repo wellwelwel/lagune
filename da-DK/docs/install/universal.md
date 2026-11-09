@@ -9,16 +9,16 @@ Sidst opdateret: 2026-11-09
 
 **skills.sh**
 
-Installér kommandoerne i **Lagune** i dit projekt fra din terminal med [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), og behold **Project** som installationsomfang:
+Installér kommandoerne i **Lagune** i dit projekt fra din terminal med [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Eller indsæt denne prompt i din agent:
 
 ```md
-Kør `npx --yes skills add wellwelwel/lagune`, og følg de genererede instruktioner til skillen nu. Læs hele outputtet, og omdirigér det først til en midlertidig fil, hvis det er nødvendigt. Opløs relative stier ud fra den mappe med supportfiler, som outputtet angiver.
+Kør `npx --yes skills add wellwelwel/lagune --yes`, og følg de genererede instruktioner til skillen nu. Læs hele outputtet, og omdirigér det først til en midlertidig fil, hvis det er nødvendigt. Opløs relative stier ud fra den mappe med supportfiler, som outputtet angiver.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Hvordan installerer jeg Lagune i en hvilken som helst AI-agent?
 
-Kør npx skills add wellwelwel/lagune --skill '*' eller gh skill install wellwelwel/lagune --all --scope project i dit projekt, eller indsæt installationsprompten i din agent.
+Kør npx skills add wellwelwel/lagune -y eller gh skill install wellwelwel/lagune --all --scope project i dit projekt, eller indsæt installationsprompten i din agent.
 
 ### Hvordan opdaterer jeg Lagune i en hvilken som helst AI-agent?
 

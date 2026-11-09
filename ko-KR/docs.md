@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs
 언어: ko-KR
 원문: https://lagune.ai/docs
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-09
 
 **Lagune**은 AI 에이전트가 프로젝트를 더 안전하게 만들도록 돕습니다. 코드를 대상으로 실행하면 에이전트가 시스템이 실제로 하는 일을 파악하고, 그 시스템에 중요한 보안 작업을 차근차근 안내합니다. **Lagune**은 [Security-Driven Hardening (SDH)](https://lagune.ai/ko-KR/docs/references/paper) 방법론의 첫 번째 프로젝트입니다.
 
@@ -121,7 +121,7 @@ Lagune은 AI 에이전트가 어떤 코드베이스든 보안을 강화하도록
 
 ### Lagune은 어떻게 설치하나요?
 
-사용하는 에이전트를 고르세요: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, Hermes Agent에서는 플러그인으로, Gemini CLI와 Qwen Code에서는 확장 프로그램으로, Pi에서는 패키지로 Lagune을 설치하고, 그 밖의 에이전트에서는 npx skills add wellwelwel/lagune 명령어로 설치합니다. 새 프로젝트에서도 기존 프로젝트에서도 작동합니다.
+사용하는 에이전트를 고르세요: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, Hermes Agent에서는 플러그인으로, Gemini CLI와 Qwen Code에서는 확장 프로그램으로, Pi에서는 패키지로 Lagune을 설치하고, 그 밖의 에이전트에서는 npx skills add wellwelwel/lagune -y 명령어로 설치합니다. 새 프로젝트에서도 기존 프로젝트에서도 작동합니다.
 
 ### Lagune을 쓰려면 API 키가 필요한가요?
 

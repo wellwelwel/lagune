@@ -9,16 +9,16 @@ Ostatnia aktualizacja: 2026-11-09
 
 **skills.sh**
 
-Zainstaluj polecenia **Lagune** w swoim projekcie z terminala za pomocą [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), pozostawiając **Project** jako zakres instalacji:
+Zainstaluj polecenia **Lagune** w swoim projekcie z terminala za pomocą [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Albo wklej ten prompt swojemu agentowi:
 
 ```md
-Uruchom `npx --yes skills add wellwelwel/lagune` i od razu wykonaj wygenerowane instrukcje skilla. Przeczytaj cały wynik polecenia, w razie potrzeby najpierw przekierowując go do pliku tymczasowego. Ścieżki względne rozwiązuj od folderu z plikami pomocniczymi wskazanego w tym wyniku.
+Uruchom `npx --yes skills add wellwelwel/lagune --yes` i od razu wykonaj wygenerowane instrukcje skilla. Przeczytaj cały wynik polecenia, w razie potrzeby najpierw przekierowując go do pliku tymczasowego. Ścieżki względne rozwiązuj od folderu z plikami pomocniczymi wskazanego w tym wyniku.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Jak zainstalować polecenia Lagune w dowolnym agencie AI?
 
-W swoim projekcie uruchom npx skills add wellwelwel/lagune --skill '*' lub gh skill install wellwelwel/lagune --all --scope project albo wklej agentowi prompt instalacyjny.
+W swoim projekcie uruchom npx skills add wellwelwel/lagune -y lub gh skill install wellwelwel/lagune --all --scope project albo wklej agentowi prompt instalacyjny.
 
 ### Jak zaktualizować polecenia Lagune w dowolnym agencie AI?
 

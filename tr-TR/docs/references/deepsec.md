@@ -5,7 +5,7 @@
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/deepsec
 Dil: tr-TR
 Orijinal: https://lagune.ai/docs/references/deepsec
-Son güncelleme: 2026-11-03
+Son güncelleme: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) ve [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`), aynı soruna verilmiş iki savunma odaklı yanıttır: yapay zeka destekli geliştirme çağında güvenlik. Çıkış noktaları, başları, ortaları ve sonları, ayrıca kullanıcıya kendilerini nasıl sundukları, mekanikleri örtüştüğü yerlerde bile bilinçli olarak ayrışır.
 
@@ -130,10 +130,10 @@ Her birinin, onu çalıştıran kişiyle nasıl buluştuğu: ilk çalıştırman
 
 Lagune zaten açık olan ajan üzerinden çalışır. Deepsec ise önce kendi çalışma alanını ve model erişimini hazırlar.
 
-| Yön                             | Lagune                                                                                 | Deepsec                                                                                                 |
-| ------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| İlk komut                       | Eklenti kurulumu ya da `npx skills add wellwelwel/lagune`, ardından ajanda `/lagune-*` | `npx deepsec init`, ardından `cd .deepsec`, `pnpm install`, `scan`, `process`                           |
-| Çalıştırmak için kimlik bilgisi | Ayrı bir anahtar yok, mevcut ajanınızı kullanır                                        | Bir model anahtarı (örneğin AI Gateway, 12 saatlik bir Vercel OIDC token'ı ya da bir Anthropic token'ı) |
+| Yön                             | Lagune                                                                                    | Deepsec                                                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| İlk komut                       | Eklenti kurulumu ya da `npx skills add wellwelwel/lagune -y`, ardından ajanda `/lagune-*` | `npx deepsec init`, ardından `cd .deepsec`, `pnpm install`, `scan`, `process`                           |
+| Çalıştırmak için kimlik bilgisi | Ayrı bir anahtar yok, mevcut ajanınızı kullanır                                           | Bir model anahtarı (örneğin AI Gateway, 12 saatlik bir Vercel OIDC token'ı ya da bir Anthropic token'ı) |
 
 ### Yönlendirme
 

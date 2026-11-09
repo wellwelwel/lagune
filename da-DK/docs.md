@@ -121,7 +121,7 @@ Lagune er et open source og udelukkende defensivt sikkerhedsworkflow, der hjælp
 
 ### Hvordan installerer jeg Lagune?
 
-Vælg din agent: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI og Hermes Agent installerer Lagune som et plugin, Gemini CLI og Qwen Code som en udvidelse, Pi som en pakke og alle andre agenter med npx skills add wellwelwel/lagune. Det virker i nye såvel som eksisterende projekter.
+Vælg din agent: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI og Hermes Agent installerer Lagune som et plugin, Gemini CLI og Qwen Code som en udvidelse, Pi som en pakke og alle andre agenter med npx skills add wellwelwel/lagune -y. Det virker i nye såvel som eksisterende projekter.
 
 ### Kræver Lagune en API-nøgle?
 

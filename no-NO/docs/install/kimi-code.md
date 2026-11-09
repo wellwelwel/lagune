@@ -9,7 +9,7 @@ Sist oppdatert: 2026-11-09
 
 Installer pluginen fra en økt i **Kimi Code**, velg **Trust and install**, og start deretter en ny økt for å laste den inn:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@ Installer pluginen fra en økt i **Kimi Code**, velg **Trust and install**, og s
 
 Installer **Lagune** på nytt for å oppdatere det:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

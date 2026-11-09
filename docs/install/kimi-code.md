@@ -3,11 +3,11 @@
 > Install Lagune on Kimi Code as a plugin, and keep it updated.
 
 Canonical: https://lagune.ai/docs/install/kimi-code
-Last updated: 2026-11-03
+Last updated: 2026-11-09
 
 Install the plugin from a **Kimi Code** session, choose **Trust and install**, then start a new session to load it:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -16,7 +16,7 @@ Install the plugin from a **Kimi Code** session, choose **Trust and install**, t
 
 To update **Lagune**, install it again:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

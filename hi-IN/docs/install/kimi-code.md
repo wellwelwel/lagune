@@ -5,11 +5,11 @@
 कैनोनिकल: https://lagune.ai/hi-IN/docs/install/kimi-code
 भाषा: hi-IN
 मूल: https://lagune.ai/docs/install/kimi-code
-आख़िरी अपडेट: 2026-11-06
+आख़िरी अपडेट: 2026-11-09
 
 **Kimi Code** सेशन में प्लगइन इंस्टॉल करें, **Trust and install** चुनें, फिर उसे लोड करने के लिए नया सेशन शुरू करें:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@
 
 **Lagune** को अपडेट करने के लिए उसे फिर से इंस्टॉल करें:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

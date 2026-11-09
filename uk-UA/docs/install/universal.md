@@ -5,20 +5,20 @@
 Канонічна URL-адреса: https://lagune.ai/uk-UA/docs/install/universal
 Мова: uk-UA
 Оригінал: https://lagune.ai/docs/install/universal
-Останнє оновлення: 2026-11-07
+Останнє оновлення: 2026-11-09
 
 **skills.sh**
 
-Встановіть команди **Lagune** у свій проєкт із термінала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), залишивши **Project** як область встановлення:
+Встановіть команди **Lagune** у свій проєкт із термінала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Або вставте цей промпт у свій агент:
 
 ```md
-Виконай `npx --yes skills add wellwelwel/lagune` і одразу дотримуйся згенерованих інструкцій навички. Прочитай увесь вивід команди, за потреби спершу перенаправивши його в тимчасовий файл. Розв'язуй відносні шляхи від каталогу допоміжних файлів, який вона надає.
+Виконай `npx --yes skills add wellwelwel/lagune --yes` і одразу дотримуйся згенерованих інструкцій навички. Прочитай увесь вивід команди, за потреби спершу перенаправивши його в тимчасовий файл. Розв'язуй відносні шляхи від каталогу допоміжних файлів, який вона надає.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Як встановити Lagune у будь-який ШІ-агент?
 
-Виконайте у своєму проєкті npx skills add wellwelwel/lagune --skill '*' чи gh skill install wellwelwel/lagune --all --scope project або вставте промпт для встановлення у свій агент.
+Виконайте у своєму проєкті npx skills add wellwelwel/lagune -y чи gh skill install wellwelwel/lagune --all --scope project або вставте промпт для встановлення у свій агент.
 
 ### Як оновити Lagune у будь-якому ШІ-агенті?
 

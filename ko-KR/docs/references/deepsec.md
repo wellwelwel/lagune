@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/references/deepsec
 언어: ko-KR
 원문: https://lagune.ai/docs/references/deepsec
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune)과 [Deepsec](https://github.com/vercel-labs/deepsec)(`v2.2.1`)은 AI를 활용한 개발 시대의 보안이라는 같은 문제에 대한 두 가지 방어적 해답입니다. 메커니즘이 겹치는 부분이 있더라도, 두 프로젝트는 전제도, 처음과 중간과 끝도, 사용자에게 드러나는 모습도 의도적으로 다르게 설계되었습니다.
 
@@ -130,10 +130,10 @@ Deepsec은 보안 조직에 전달할 결과물을 만들어 냅니다. Lagune�
 
 Lagune은 이미 열려 있는 에이전트를 통해 실행됩니다. Deepsec은 먼저 자체 워크스페이스와 모델 접근 권한을 준비합니다.
 
-| 항목                    | Lagune                                                                                    | Deepsec                                                                      |
-| ----------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| 첫 명령어               | 플러그인 설치 또는 `npx skills add wellwelwel/lagune`, 이후 에이전트에서 `/lagune-*` 실행 | `npx deepsec init` 실행 후 `cd .deepsec`, `pnpm install`, `scan`, `process`  |
-| 실행에 필요한 자격 증명 | 별도 키 없음, 지금 쓰는 에이전트를 그대로 사용                                            | 모델 키(예: AI Gateway, 유효 시간 12시간인 Vercel OIDC 토큰, Anthropic 토큰) |
+| 항목                    | Lagune                                                                                       | Deepsec                                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 첫 명령어               | 플러그인 설치 또는 `npx skills add wellwelwel/lagune -y`, 이후 에이전트에서 `/lagune-*` 실행 | `npx deepsec init` 실행 후 `cd .deepsec`, `pnpm install`, `scan`, `process`  |
+| 실행에 필요한 자격 증명 | 별도 키 없음, 지금 쓰는 에이전트를 그대로 사용                                               | 모델 키(예: AI Gateway, 유효 시간 12시간인 Vercel OIDC 토큰, Anthropic 토큰) |
 
 ### 지시하기
 

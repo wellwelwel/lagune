@@ -3,7 +3,7 @@
 > Install Lagune in any project, as a plugin where your agent supports one or with the skills CLI elsewhere, then choose the security specializations that fit it.
 
 Canonical: https://lagune.ai/docs
-Last updated: 2026-11-03
+Last updated: 2026-11-09
 
 **Lagune** helps your AI agent make a project more secure. You point it at your code, and the agent figures out what your system actually does, then guides you through the security work that matters for it. **Lagune** is the first project of the [Security-Driven Hardening (SDH)](https://lagune.ai/docs/references/paper) methodology.
 
@@ -119,7 +119,7 @@ Lagune is an open-source, defense-only security workflow that helps your AI agen
 
 ### How do I install Lagune?
 
-Pick your agent: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, and Hermes Agent install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. It works in both new and existing projects.
+Pick your agent: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, and Hermes Agent install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune -y. It works in both new and existing projects.
 
 ### Does Lagune need an API key?
 

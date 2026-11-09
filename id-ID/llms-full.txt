@@ -13,7 +13,7 @@ Lagune adalah alur kerja Security-Driven Hardening (SDH) yang open source dan kh
 Kanonis: https://lagune.ai/id-ID/docs
 Bahasa: id-ID
 Asli: https://lagune.ai/docs
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 **Lagune** membantu agen AI Anda membuat proyek lebih aman. Anda cukup mengarahkannya ke kode Anda, lalu agen mencari tahu apa yang sebenarnya dilakukan sistem Anda dan memandu Anda menjalankan pekerjaan keamanan yang penting bagi sistem tersebut. **Lagune** adalah proyek pertama dari metodologi [Security-Driven Hardening (SDH)](https://lagune.ai/id-ID/docs/references/paper).
 
@@ -129,7 +129,7 @@ Lagune adalah alur kerja keamanan open source yang khusus pertahanan, yang memba
 
 ### Bagaimana cara menginstal Lagune?
 
-Pilih agen Anda: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, dan Hermes Agent menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lain mana pun dengan npx skills add wellwelwel/lagune. Lagune bekerja di proyek baru maupun lama.
+Pilih agen Anda: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, dan Hermes Agent menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lain mana pun dengan npx skills add wellwelwel/lagune -y. Lagune bekerja di proyek baru maupun lama.
 
 ### Apakah Lagune memerlukan kunci API?
 
@@ -263,7 +263,7 @@ Ya. Izinkan mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write), dan
 Kanonis: https://lagune.ai/id-ID/docs/install/claude-code
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/claude-code
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 **Terminal**
 
@@ -275,7 +275,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 Atau dari sesi **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```
@@ -838,11 +838,11 @@ Ketik perintah dengan nama plugin di depannya, misalnya /lagune:lagune-charter d
 Kanonis: https://lagune.ai/id-ID/docs/install/kimi-code
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/kimi-code
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 Instal plugin dari sesi **Kimi Code**, pilih **Trust and install**, lalu mulai sesi baru untuk memuatnya:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -851,7 +851,7 @@ Instal plugin dari sesi **Kimi Code**, pilih **Trust and install**, lalu mulai s
 
 Untuk memperbarui **Lagune**, instal ulang:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -1163,20 +1163,20 @@ Ya. Izinkan mcp__lagune__lagune_read dan mcp__lagune__lagune_write di pengaturan
 Kanonis: https://lagune.ai/id-ID/docs/install/universal
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/install/universal
-Terakhir diperbarui: 2026-11-07
+Terakhir diperbarui: 2026-11-09
 
 **skills.sh**
 
-Instal perintah **Lagune** di proyek Anda dari terminal dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), dan biarkan cakupan instalasinya tetap **Project**:
+Instal perintah **Lagune** di proyek Anda dari terminal dengan [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Atau tempel prompt ini ke agen Anda:
 
 ```md
-Jalankan `npx --yes skills add wellwelwel/lagune` dan ikuti sekarang juga instruksi skill yang dihasilkannya. Baca seluruh output-nya, alihkan dulu ke file sementara jika perlu. Tentukan path relatif berdasarkan direktori file pendukung yang diberikannya.
+Jalankan `npx --yes skills add wellwelwel/lagune --yes` dan ikuti sekarang juga instruksi skill yang dihasilkannya. Baca seluruh output-nya, alihkan dulu ke file sementara jika perlu. Tentukan path relatif berdasarkan direktori file pendukung yang diberikannya.
 ```
 
 **GitHub CLI**
@@ -1237,7 +1237,7 @@ npm i -D lagune@0.18.1
 
 ### Bagaimana cara menginstal Lagune di agen AI mana pun?
 
-Jalankan npx skills add wellwelwel/lagune --skill '*' atau gh skill install wellwelwel/lagune --all --scope project di proyek Anda, atau tempel prompt instalasi ke agen Anda.
+Jalankan npx skills add wellwelwel/lagune -y atau gh skill install wellwelwel/lagune --all --scope project di proyek Anda, atau tempel prompt instalasi ke agen Anda.
 
 ### Bagaimana cara memperbarui Lagune di agen AI mana pun?
 
@@ -1389,7 +1389,7 @@ Hanya kategorinya dan apa yang dikecualikan oleh hook-nya, dari browser Anda. Se
 Kanonis: https://lagune.ai/id-ID/docs/commands/lagune
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/commands/lagune
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 ⌨️ Kerjakan apa yang Anda minta, dengan keamanan yang dibangun saat kodenya ditulis. **`/lagune`** menerima prompt apa pun di tahap mana pun, membangun apa yang Anda inginkan, dan memperkuat keamanannya dengan default yang aman sebelum menyerahkannya kembali.
 
@@ -1406,7 +1406,7 @@ Tambahkan **`/lagune`** ke prompt apa pun, lalu jelaskan pekerjaannya seperti bi
 
 ## Keamanan
 
-- Gunakan skill `/lagune` setiap kali kamu membangun atau mengubah kode, agar keamanannya meningkat secara bawaan.
+- Setiap kali kamu membangun atau mengubah kode, gunakan skill `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)), yang bernama `/lagune:lagune` jika diinstal sebagai plugin, agar keamanannya meningkat secara bawaan.
 ```
 
     - Contohnya: **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules**, dan sebagainya.
@@ -3670,6 +3670,235 @@ Di akhir, gabungkan semua laporan subagen menjadi satu putusan akhir.
 
 ---
 
+# Spec-Driven Development: amankan apa yang dibangun dari spesifikasi Anda
+
+> Pasangkan Lagune dengan Superpowers, Spec Kit, atau OpenSpec: tetapkan charter dari spesifikasi Anda, lalu implementasikan dengan /lagune agar keamanan setiap tugas diperkuat saat kodenya ditulis.
+
+Kanonis: https://lagune.ai/id-ID/docs/examples/spec-driven-development
+Bahasa: id-ID
+Asli: https://lagune.ai/docs/examples/spec-driven-development
+Terakhir diperbarui: 2026-11-09
+
+Pasangkan **Lagune** dengan tool Spec-Driven Development, seperti [**Superpowers**](https://github.com/obra/superpowers), [**Spec Kit**](https://github.com/github/spec-kit), atau [**OpenSpec**](https://github.com/Fission-AI/OpenSpec): tool Anda menentukan apa yang dibangun, dan **Lagune** menentukan cara menjaganya tetap aman.
+
+## Cara memadukannya
+
+**Lagune** masuk ke alur tool Anda di dua titik, tanpa mengubah bagian lainnya:
+
+1. Setelah tool Anda menulis spesifikasi, [`/lagune-charter`](https://lagune.ai/id-ID/docs/commands/charter) membacanya dan menetapkan prinsip keamanan yang dibutuhkan fitur tersebut, sebelum ada kode apa pun.
+2. Saat ditambahkan ke perintah implementasi tool Anda, [`/lagune`](https://lagune.ai/id-ID/docs/commands/lagune) memperkuat keamanan setiap tugas sesuai prinsip tersebut seiring kodenya ditulis.
+
+**Tips**
+
+Ganti path spesifikasi di setiap contoh dengan file yang ditulis tool Anda. Jika proyek sudah memiliki charter, langkah yang sama memperbaruinya dengan apa yang dibutuhkan fitur baru.
+
+## Contoh prompt
+
+Kirim prompt secara berurutan, masing-masing setelah prompt sebelumnya selesai.
+
+```prompt
+/superpowers:brainstorming Checkout sebagai tamu dengan pembayaran kartu.
+```
+
+```prompt
+/lagune-charter docs/superpowers/specs/2026-11-09-guest-checkout-design.md
+```
+
+```prompt
+/superpowers:writing-plans
+```
+
+```prompt
+/superpowers:executing-plans /lagune
+```
+
+```prompt
+/speckit.specify Checkout sebagai tamu dengan pembayaran kartu.
+```
+
+```prompt
+/lagune-charter specs/001-guest-checkout/spec.md
+```
+
+```prompt
+/speckit.plan
+```
+
+```prompt
+/speckit.tasks
+```
+
+```prompt
+/speckit.implement /lagune
+```
+
+```prompt
+/opsx:propose add-guest-checkout
+```
+
+```prompt
+/lagune-charter openspec/changes/add-guest-checkout/proposal.md
+```
+
+```prompt
+/opsx:apply /lagune
+```
+
+```prompt
+/opsx:archive
+```
+
+---
+
+# Audit terjadwal: jalankan Lagune secara berkala
+
+> Jadwalkan audit Lagune berkala di GitHub Actions dengan kunci Anda sendiri, atau di Claude Code, Codex, Cursor, Antigravity, atau OpenCode, yang melaporkan risiko baru atau menjalankan seluruh alur Blue Team.
+
+Kanonis: https://lagune.ai/id-ID/docs/examples/scheduled-audits
+Bahasa: id-ID
+Asli: https://lagune.ai/docs/examples/scheduled-audits
+Terakhir diperbarui: 2026-11-09
+
+Jadwalkan **Lagune** untuk mengaudit proyek Anda secara mandiri, entah hanya melaporkan temuannya atau menjalankan seluruh alur Blue Team.
+
+## Menjadwalkan
+
+**Universal**
+
+**GitHub Actions** menjalankan audit di cloud dengan [**GitHub Agentic Workflows**](https://github.github.com/gh-aw/). Engine **Copilot CLI** miliknya memanggil penyedia model pilihan Anda dengan kunci Anda sendiri, sehingga tidak perlu langganan agen apa pun:
+
+- Instal ekstensinya dengan `gh extension install github/gh-aw`.
+- Simpan kunci penyedia Anda sebagai secret repositori dengan `gh secret set PROVIDER_API_KEY`.
+- Simpan workflow ini sebagai `.github/workflows/lagune-audit.md`, dengan mengganti `<model>` dengan salah satu model penyedia Anda yang mendukung tool calling, dan `<your-prompt>` dengan salah satu [contoh prompt](#prompt-examples):
+
+  ```md
+  ---
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+  permissions:
+    contents: read
+  engine:
+    id: copilot
+    model: <model>
+    env:
+      COPILOT_PROVIDER_TYPE: <type>
+      COPILOT_PROVIDER_BASE_URL: <url>
+      COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
+  skills:
+    - wellwelwel/lagune@v0.18.1
+  network:
+    allowed:
+      - defaults
+      - node
+  tools:
+    edit:
+    bash: [npx]
+  safe-outputs:
+    create-pull-request:
+  ---
+
+  <your-prompt>
+
+  Lalu buka pull request berisi perubahanmu.
+  ```
+
+  | Penyedia                                                              | `<type>`    | `<url>`                                              |
+  | --------------------------------------------------------------------- | ----------- | ---------------------------------------------------- |
+  | **OpenAI**                                                            | `openai`    | `https://api.openai.com/v1`                          |
+  | **Anthropic**                                                         | `anthropic` | `https://api.anthropic.com`                          |
+  | API apa pun yang kompatibel dengan **OpenAI**, seperti **OpenRouter** | `openai`    | URL dasarnya, seperti `https://openrouter.ai/api/v1` |
+
+- Jalankan `gh aw compile` lalu commit workflow tersebut bersama file `.lock.yml` yang dihasilkannya.
+
+**Di cloud**, audit tetap berjalan meski komputer Anda mati:
+
+- Commit **Lagune** dengan [instalasi universal](https://lagune.ai/id-ID/docs/install/universal), bukan dengan plugin.
+- Ketik `/schedule` di sesi **Claude Code** lalu jelaskan auditnya, atau buat di [claude.ai/code/routines](https://claude.ai/code/routines).
+
+**Di komputer Anda**, audit memakai plugin yang Anda instal untuk diri sendiri:
+
+- Buat tugas lokal di halaman **Scheduled tasks** pada aplikasi desktop.
+- Izinkan engine sejak awal, seperti yang ditunjukkan [halaman instalasi](https://lagune.ai/id-ID/docs/install/claude-code), karena tidak ada orang yang bisa menyetujui tool-nya saat tugas berjalan.
+- Tugas hanya berjalan selama aplikasi terbuka dan komputer Anda tidak dalam mode tidur.
+
+Tugas terjadwal dibuat di aplikasi desktop **ChatGPT**, bukan di **Codex CLI**, dan berjalan di komputer Anda:
+
+- Di chat **Codex**, jelaskan auditnya, kapan harus berjalan, dan bahwa setiap eksekusi memulai chat baru. Hasilnya masuk ke **Scheduled**.
+- Di prompt, sebut setiap perintah dengan `$`, seperti `$lagune:lagune-detect`, agar setiap eksekusi memanggilnya secara eksplisit.
+- Pilih proyek lokal Anda, bukan worktree baru, karena worktree baru dimulai tanpa engine yang Anda [instal di proyek Anda](https://lagune.ai/id-ID/docs/install/codex).
+- Tugas hanya berjalan selama aplikasi terbuka, komputer Anda menyala, dan proyeknya ada di disk.
+
+Automations di **Cursor** berjalan di cloud, bahkan saat komputer Anda mati:
+
+- Commit **Lagune** dengan [instalasi universal](https://lagune.ai/id-ID/docs/install/universal), bukan dengan plugin.
+- Buat automation di [cursor.com/automations](https://cursor.com/automations), atau jelaskan dengan `/automate` di sesi agen, lalu beri trigger terjadwal.
+- Pilih repositori Anda, karena trigger terjadwal dimulai tanpa repositori.
+
+Automations di **Antigravity** berjalan di komputer Anda, masing-masing dalam percakapan baru:
+
+- Buka tab **Automations** di aplikasi **Antigravity** dan buat automation terjadwal untuk proyek Anda, atau minta agen menyiapkannya.
+- Izinkan engine sejak awal, seperti yang ditunjukkan [halaman instalasi](https://lagune.ai/id-ID/docs/install/antigravity-cli), karena tidak ada orang yang bisa menyetujui tool-nya saat automation berjalan.
+- Gunakan automation, bukan `/schedule`, yang hanya bertahan selama percakapannya berlangsung.
+- Automation hanya berjalan selama **Antigravity** berjalan.
+
+**OpenCode** tidak punya penjadwal sendiri, jadi audit berjalan dari **GitHub Actions**, di cloud:
+
+- Commit **Lagune** di `opencode.json` milik repositori, seperti yang ditunjukkan [halaman instalasi](https://lagune.ai/id-ID/docs/install/opencode).
+- Jalankan `opencode github install` untuk menghubungkan aplikasi GitHub **OpenCode** dan menyimpan kunci penyedia model Anda.
+- Tambahkan workflow yang meneruskan prompt ke **OpenCode** sesuai jadwal, di sini setiap Senin pukul 09.00 UTC, dengan mengisi `<KEY>` dan `<provider>/<model>` seperti di workflow yang dibuat `opencode github install`, serta `<your-prompt>` dengan salah satu [contoh prompt](#prompt-examples):
+
+  ```yaml
+  name: Lagune Audit
+
+  on:
+    schedule:
+      - cron: '0 9 * * 1'
+
+  jobs:
+    audit:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: read
+      steps:
+        - uses: actions/checkout@v6
+          with:
+            persist-credentials: false
+
+        - uses: anomalyco/opencode/github@latest
+          env:
+            <KEY>: ${{ secrets.<KEY> }}
+          with:
+            model: <provider>/<model>
+            prompt: |
+              <your-prompt>
+  ```
+
+### Contoh prompt \{#prompt-examples}
+
+**💧 Hanya laporan**
+
+Memetakan risiko baru, merencanakan perbaikannya, dan memeriksa ulang kontrol yang sudah diterapkan, tanpa mengubah kode Anda:
+
+```md
+Jalankan perintah berikut satu per satu: `/lagune-detect` dan `/lagune-plan`. Jika proyek memiliki catatan hardening, jalankan juga `/lagune-verify`.
+
+Jangan ubah kode proyek. Di akhir, rangkum temuan baru dan setiap kontrol yang sudah diterapkan tetapi tidak lagi bertahan.
+```
+
+**🌊 Siklus penuh**
+
+Juga menerapkan perbaikan yang direncanakan dan membuktikan bahwa masing-masing bertahan, jadi tinjau perubahannya sebelum masuk ke branch utama Anda:
+
+```md
+Jalankan perintah berikut satu per satu: `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, dan `/lagune-verify`.
+
+Di akhir, rangkum perbaikan yang diterapkan dan temuan yang masih terbuka.
+```
+
+---
+
 # Security-Driven Hardening: konvensi untuk era pengembangan berbantuan AI
 
 > Metodologi Security-Driven Hardening (SDH): konvensi Blue Team yang peka konteks untuk mengaudit dan memperkuat keamanan perangkat lunak yang dibuat dengan bantuan AI dan vibe coding.
@@ -4406,7 +4635,7 @@ Saat proyek menjalankan versi Lagune tertentu, agar editor Anda memvalidasi file
 Kanonis: https://lagune.ai/id-ID/docs/references/deepsec
 Bahasa: id-ID
 Asli: https://lagune.ai/docs/references/deepsec
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 [Lagune](https://github.com/wellwelwel/lagune) dan [Deepsec](https://github.com/vercel-labs/deepsec) (`v2.2.1`) adalah dua jawaban defensif untuk masalah yang sama: keamanan di era pengembangan yang dibantu AI. Premis keduanya, awal, tengah, dan akhirnya, serta cara masing-masing tampil di hadapan pengguna sengaja dibuat berbeda, bahkan ketika mekanismenya beririsan.
 
@@ -4531,10 +4760,10 @@ Cara masing-masing menyambut orang yang menjalankannya: apa yang dibutuhkan saat
 
 Lagune berjalan lewat agen yang sudah terbuka. Deepsec lebih dulu menyiapkan workspace dan akses model miliknya sendiri.
 
-| Aspek                        | Lagune                                                                          | Deepsec                                                                           |
-| ---------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Perintah pertama             | Instal plugin atau `npx skills add wellwelwel/lagune`, lalu `/lagune-*` di agen | `npx deepsec init`, lalu `cd .deepsec`, `pnpm install`, `scan`, `process`         |
-| Kredensial untuk menjalankan | Tanpa kunci terpisah, memakai agen Anda saat ini                                | Kunci model (misalnya AI Gateway, token OIDC Vercel 12 jam, atau token Anthropic) |
+| Aspek                        | Lagune                                                                             | Deepsec                                                                           |
+| ---------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Perintah pertama             | Instal plugin atau `npx skills add wellwelwel/lagune -y`, lalu `/lagune-*` di agen | `npx deepsec init`, lalu `cd .deepsec`, `pnpm install`, `scan`, `process`         |
+| Kredensial untuk menjalankan | Tanpa kunci terpisah, memakai agen Anda saat ini                                   | Kunci model (misalnya AI Gateway, token OIDC Vercel 12 jam, atau token Anthropic) |
 
 ### Mengarahkannya
 

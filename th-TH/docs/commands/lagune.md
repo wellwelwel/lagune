@@ -5,7 +5,7 @@
 Canonical: https://lagune.ai/th-TH/docs/commands/lagune
 ภาษา: th-TH
 ต้นฉบับ: https://lagune.ai/docs/commands/lagune
-อัปเดตล่าสุด: 2026-11-07
+อัปเดตล่าสุด: 2026-11-09
 
 ⌨️ ทำงานที่คุณขอ โดยเสริมความปลอดภัยไปพร้อมกับตอนเขียน **`/lagune`** รับ prompt ใดก็ได้ในทุกช่วงของงาน สร้างสิ่งที่คุณต้องการ และเสริมความปลอดภัยด้วยค่าเริ่มต้นที่ปลอดภัยก่อนส่งงานคืนให้คุณ
 
@@ -22,7 +22,7 @@ Canonical: https://lagune.ai/th-TH/docs/commands/lagune
 
 ## ความปลอดภัย
 
-- ใช้ skill `/lagune` ทุกครั้งที่คุณสร้างหรือแก้ไขโค้ด เพื่อให้ความปลอดภัยดีขึ้นตั้งแต่ค่าเริ่มต้น
+- ทุกครั้งที่คุณสร้างหรือแก้ไขโค้ด ให้ใช้ skill `/lagune` ([**lagune.ai**](https://lagune.ai/llms.txt)) ซึ่งมีชื่อว่า `/lagune:lagune` เมื่อติดตั้งเป็นปลั๊กอิน เพื่อให้ความปลอดภัยดีขึ้นตั้งแต่ค่าเริ่มต้น
 ```
 
     - ตัวอย่างเช่น **AGENTS.md**, **CLAUDE.md**, **.github/copilot-instructions.md**, **.cursorrules** และอื่น ๆ

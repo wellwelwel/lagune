@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 أو من جلسة **Claude Code**:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

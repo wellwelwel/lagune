@@ -5,11 +5,11 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/kimi-code
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/kimi-code
-Последнее обновление: 2026-11-03
+Последнее обновление: 2026-11-09
 
 Установите плагин из сессии **Kimi Code**, выберите **Trust and install**, а затем начните новую сессию, чтобы он загрузился:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@
 
 Чтобы обновить **Lagune**, установите его снова:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

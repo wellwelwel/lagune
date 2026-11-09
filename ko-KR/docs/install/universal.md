@@ -5,20 +5,20 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/universal
 언어: ko-KR
 원문: https://lagune.ai/docs/install/universal
-마지막 업데이트: 2026-11-07
+마지막 업데이트: 2026-11-09
 
 **skills.sh**
 
-[**skills.sh**](https://www.skills.sh/wellwelwel/lagune)로 터미널에서 프로젝트에 **Lagune** 명령어를 설치하되, 설치 범위는 **Project**로 유지하세요:
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune)로 터미널에서 프로젝트에 **Lagune** 명령어를 설치하세요:
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 또는 에이전트에 다음 프롬프트를 붙여 넣으세요:
 
 ```md
-`npx --yes skills add wellwelwel/lagune` 명령어를 실행하고, 생성된 스킬 지침을 지금 바로 따라 줘. 필요하면 먼저 임시 파일로 리디렉션해서 출력 전체를 읽어 줘. 상대 경로는 출력에 표시된 지원 파일 디렉터리를 기준으로 해석해 줘.
+`npx --yes skills add wellwelwel/lagune --yes` 명령어를 실행하고, 생성된 스킬 지침을 지금 바로 따라 줘. 필요하면 먼저 임시 파일로 리디렉션해서 출력 전체를 읽어 줘. 상대 경로는 출력에 표시된 지원 파일 디렉터리를 기준으로 해석해 줘.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### 어떤 AI 에이전트에든 Lagune을 설치하려면 어떻게 하나요?
 
-프로젝트에서 npx skills add wellwelwel/lagune --skill '*' 명령어나 gh skill install wellwelwel/lagune --all --scope project 명령어를 실행하거나, 설치 프롬프트를 에이전트에 붙여 넣으세요.
+프로젝트에서 npx skills add wellwelwel/lagune -y 명령어나 gh skill install wellwelwel/lagune --all --scope project 명령어를 실행하거나, 설치 프롬프트를 에이전트에 붙여 넣으세요.
 
 ### 어떤 AI 에이전트에서든 Lagune을 업데이트하려면 어떻게 하나요?
 

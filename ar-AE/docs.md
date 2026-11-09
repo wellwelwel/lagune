@@ -121,7 +121,7 @@ Lagune سير عمل أمني مفتوح المصدر، للدفاع فقط، ي
 
 ### كيف أثبّت Lagune؟
 
-اختر وكيلك: يثبّت Claude Code و GitHub Copilot CLI و Muse Code و Antigravity CLI و Cursor و Kimi Code و OpenCode و Codex CLI و Factory Droid و Grok Build و Devin CLI و Hermes Agent أداة Lagune كإضافة، ويثبّته Gemini CLI و Qwen Code كامتداد، و Pi كحزمة، وأي وكيل آخر عبر npx skills add wellwelwel/lagune. يعمل مع المشاريع الجديدة والقائمة.
+اختر وكيلك: يثبّت Claude Code و GitHub Copilot CLI و Muse Code و Antigravity CLI و Cursor و Kimi Code و OpenCode و Codex CLI و Factory Droid و Grok Build و Devin CLI و Hermes Agent أداة Lagune كإضافة، ويثبّته Gemini CLI و Qwen Code كامتداد، و Pi كحزمة، وأي وكيل آخر عبر npx skills add wellwelwel/lagune -y. يعمل مع المشاريع الجديدة والقائمة.
 
 ### هل يحتاج Lagune إلى مفتاح API؟
 

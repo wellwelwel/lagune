@@ -9,7 +9,7 @@ Canonical: https://lagune.ai/ar-AE/docs/install/kimi-code
 
 ثبّت الإضافة من جلسة **Kimi Code**، واختر **Trust and install**، ثم ابدأ جلسة جديدة لتحميلها:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```
@@ -18,7 +18,7 @@ Canonical: https://lagune.ai/ar-AE/docs/install/kimi-code
 
 لتحديث **Lagune**، ثبّته مجددًا:
 
-```text
+```prompt
 /plugins install https://github.com/wellwelwel/lagune
 /new
 ```

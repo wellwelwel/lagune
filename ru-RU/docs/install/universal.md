@@ -5,20 +5,20 @@
 Канонический URL: https://lagune.ai/ru-RU/docs/install/universal
 Язык: ru-RU
 Оригинал: https://lagune.ai/docs/install/universal
-Последнее обновление: 2026-11-07
+Последнее обновление: 2026-11-09
 
 **skills.sh**
 
-Установите команды **Lagune** в свой проект из терминала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), оставив **Project** в качестве области установки:
+Установите команды **Lagune** в свой проект из терминала через [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Или вставьте этот промпт в своего агента:
 
 ```md
-Выполни `npx --yes skills add wellwelwel/lagune` и сразу следуй сгенерированным инструкциям навыка. Прочитай весь вывод, при необходимости сначала перенаправив его во временный файл. Разрешай относительные пути от директории со вспомогательными файлами, которую он указывает.
+Выполни `npx --yes skills add wellwelwel/lagune --yes` и сразу следуй сгенерированным инструкциям навыка. Прочитай весь вывод, при необходимости сначала перенаправив его во временный файл. Разрешай относительные пути от директории со вспомогательными файлами, которую он указывает.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Как установить Lagune в любой ИИ-агент?
 
-Выполните в своем проекте npx skills add wellwelwel/lagune --skill '*' или gh skill install wellwelwel/lagune --all --scope project либо вставьте промпт установки в своего агента.
+Выполните в своем проекте npx skills add wellwelwel/lagune -y или gh skill install wellwelwel/lagune --all --scope project либо вставьте промпт установки в своего агента.
 
 ### Как обновить Lagune в любом ИИ-агенте?
 

@@ -49,6 +49,8 @@ Lagune은 오픈 소스이자 방어 전용인 Security-Driven Hardening(SDH) �
 - [regex 훅: ReDoS 패턴 탐지하기](https://lagune.ai/ko-KR/docs/hooks/regex.md): 명령줄에서 코드베이스를 스캔해 ReDoS에 취약한 정규식을 찾거나, 패턴 하나에 점수를 매길 수 있습니다.
 - [secrets 훅: 하드코딩된 시크릿 탐지하기](https://lagune.ai/ko-KR/docs/hooks/secrets.md): 명령줄에서 코드베이스를 스캔해 하드코딩된 자격 증명을 찾을 수 있습니다.
 - [Lagune 프롬프트 예시: Blue Team 흐름 자동화](https://lagune.ai/ko-KR/docs/examples/prompts.md): 바로 복사해 쓸 수 있는 Lagune 프롬프트 모음입니다. 읽기 전용 스캔, 전체 Blue Team 흐름, 제로 트러스트 감사는 물론, 커밋, 브랜치나 PR의 diff, 실제 보안 사고로 범위를 좁힌 탐지까지 담았습니다.
+- [Spec-Driven Development: 명세로 만드는 기능을 안전하게 지키기](https://lagune.ai/ko-KR/docs/examples/spec-driven-development.md): Lagune을 Superpowers, Spec Kit, OpenSpec과 함께 사용하세요. 명세를 바탕으로 보안 원칙을 정한 뒤 /lagune 명령어로 구현하면, 코드를 작성하는 동안 모든 작업의 보안이 강화됩니다.
+- [예약 감사: Lagune을 정해진 일정에 따라 반복 실행하기](https://lagune.ai/ko-KR/docs/examples/scheduled-audits.md): GitHub Actions에서 본인 키로, 또는 Claude Code, Codex, Cursor, Antigravity, OpenCode에서 Lagune 감사를 정기적으로 예약하세요. 새로운 위험을 보고하거나 Blue Team 흐름 전체를 실행합니다.
 - [Security-Driven Hardening: AI 지원 개발 시대를 위한 컨벤션](https://lagune.ai/ko-KR/docs/references/paper.md): Security-Driven Hardening(SDH) 방법론: AI 지원 개발과 바이브 코딩으로 만든 소프트웨어를 점검하고 보안을 강화하는, 컨텍스트를 인식하는 Blue Team 컨벤션입니다.
 - [Lagune 용어집: SDH, Charter, 발견 사항, 보안 통제](https://lagune.ai/ko-KR/docs/references/glossary.md): Lagune과 Security-Driven Hardening의 모든 용어를 쉬운 말로 정의합니다. SDH, charter, detect, 발견 사항, 보안 통제, harden, verify, 종결, 종결 가능성, 전문 지식, 카테고리, 카탈로그를 다룹니다.
 - [설정 스키마](https://lagune.ai/ko-KR/docs/references/configs-schema.md): Lagune 프로젝트 설정 파일의 JSON Schema입니다. 에디터에서 자동 완성과 유효성 검사를 제공하며, 최신 Lagune을 따르게 하거나 특정 버전에 고정할 수 있습니다.

@@ -5,20 +5,20 @@
 कैनोनिकल: https://lagune.ai/hi-IN/docs/install/universal
 भाषा: hi-IN
 मूल: https://lagune.ai/docs/install/universal
-आख़िरी अपडेट: 2026-11-07
+आख़िरी अपडेट: 2026-11-09
 
 **skills.sh**
 
-[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) के ज़रिए अपने टर्मिनल से **Lagune** की कमांड अपने प्रोजेक्ट में इंस्टॉल करें, और इंस्टॉलेशन का दायरा **Project** ही रहने दें:
+[**skills.sh**](https://www.skills.sh/wellwelwel/lagune) के ज़रिए अपने टर्मिनल से **Lagune** की कमांड अपने प्रोजेक्ट में इंस्टॉल करें:
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 या यह प्रॉम्प्ट अपने एजेंट में पेस्ट करें:
 
 ```md
-`npx --yes skills add wellwelwel/lagune` चलाओ और इससे बने स्किल निर्देशों का अभी पालन करो। इसका पूरा आउटपुट पढ़ो, ज़रूरत हो तो पहले उसे किसी अस्थायी फ़ाइल में रीडायरेक्ट करो। रिलेटिव पाथ उस सपोर्टिंग-फ़ाइल डायरेक्टरी से तय करो जो यह देता है।
+`npx --yes skills add wellwelwel/lagune --yes` चलाओ और इससे बने स्किल निर्देशों का अभी पालन करो। इसका पूरा आउटपुट पढ़ो, ज़रूरत हो तो पहले उसे किसी अस्थायी फ़ाइल में रीडायरेक्ट करो। रिलेटिव पाथ उस सपोर्टिंग-फ़ाइल डायरेक्टरी से तय करो जो यह देता है।
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### किसी भी AI एजेंट में Lagune कैसे इंस्टॉल करें?
 
-अपने प्रोजेक्ट में npx skills add wellwelwel/lagune --skill '*' या gh skill install wellwelwel/lagune --all --scope project चलाएँ, या इंस्टॉल प्रॉम्प्ट अपने एजेंट में पेस्ट करें।
+अपने प्रोजेक्ट में npx skills add wellwelwel/lagune -y या gh skill install wellwelwel/lagune --all --scope project चलाएँ, या इंस्टॉल प्रॉम्प्ट अपने एजेंट में पेस्ट करें।
 
 ### किसी भी AI एजेंट में Lagune को कैसे अपडेट करें?
 

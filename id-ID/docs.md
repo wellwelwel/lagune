@@ -5,7 +5,7 @@
 Kanonis: https://lagune.ai/id-ID/docs
 Bahasa: id-ID
 Asli: https://lagune.ai/docs
-Terakhir diperbarui: 2026-11-06
+Terakhir diperbarui: 2026-11-09
 
 **Lagune** membantu agen AI Anda membuat proyek lebih aman. Anda cukup mengarahkannya ke kode Anda, lalu agen mencari tahu apa yang sebenarnya dilakukan sistem Anda dan memandu Anda menjalankan pekerjaan keamanan yang penting bagi sistem tersebut. **Lagune** adalah proyek pertama dari metodologi [Security-Driven Hardening (SDH)](https://lagune.ai/id-ID/docs/references/paper).
 
@@ -121,7 +121,7 @@ Lagune adalah alur kerja keamanan open source yang khusus pertahanan, yang memba
 
 ### Bagaimana cara menginstal Lagune?
 
-Pilih agen Anda: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, dan Hermes Agent menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lain mana pun dengan npx skills add wellwelwel/lagune. Lagune bekerja di proyek baru maupun lama.
+Pilih agen Anda: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI, dan Hermes Agent menginstal Lagune sebagai plugin, Gemini CLI dan Qwen Code sebagai ekstensi, Pi sebagai paket, dan agen lain mana pun dengan npx skills add wellwelwel/lagune -y. Lagune bekerja di proyek baru maupun lama.
 
 ### Apakah Lagune memerlukan kunci API?
 

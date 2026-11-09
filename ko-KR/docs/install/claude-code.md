@@ -5,7 +5,7 @@
 표준 URL: https://lagune.ai/ko-KR/docs/install/claude-code
 언어: ko-KR
 원문: https://lagune.ai/docs/install/claude-code
-마지막 업데이트: 2026-11-03
+마지막 업데이트: 2026-11-09
 
 **터미널**
 
@@ -17,7 +17,7 @@ claude plugin install lagune --marketplace wellwelwel/lagune
 
 또는 **Claude Code** 세션에서 설치하세요:
 
-```text
+```prompt
 /plugin marketplace add wellwelwel/lagune
 /plugin install lagune@lagune
 ```

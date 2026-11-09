@@ -5,20 +5,20 @@
 Kanonische URL: https://lagune.ai/de-DE/docs/install/universal
 Sprache: de-DE
 Original: https://lagune.ai/docs/install/universal
-Zuletzt aktualisiert: 2026-11-07
+Zuletzt aktualisiert: 2026-11-09
 
 **skills.sh**
 
-Installiere die Befehle von **Lagune** über dein Terminal in deinem Projekt mit [**skills.sh**](https://www.skills.sh/wellwelwel/lagune) und behalte **Project** als Installationsbereich bei:
+Installiere die Befehle von **Lagune** über dein Terminal in deinem Projekt mit [**skills.sh**](https://www.skills.sh/wellwelwel/lagune):
 
 ```bash
-npx skills add wellwelwel/lagune --skill '*'
+npx skills add wellwelwel/lagune -y
 ```
 
 Oder füge diesen Prompt in deinen Agenten ein:
 
 ```md
-Führe `npx --yes skills add wellwelwel/lagune` aus und folge jetzt den generierten Skill-Anweisungen. Lies die vollständige Ausgabe, die du bei Bedarf zuerst in eine temporäre Datei umleitest. Löse relative Pfade ausgehend vom Verzeichnis der Begleitdateien auf, das die Ausgabe nennt.
+Führe `npx --yes skills add wellwelwel/lagune --yes` aus und folge jetzt den generierten Skill-Anweisungen. Lies die vollständige Ausgabe, die du bei Bedarf zuerst in eine temporäre Datei umleitest. Löse relative Pfade ausgehend vom Verzeichnis der Begleitdateien auf, das die Ausgabe nennt.
 ```
 
 **GitHub CLI**
@@ -79,7 +79,7 @@ npm i -D lagune@0.18.1
 
 ### Wie installiere ich Lagune in einem beliebigen KI-Agenten?
 
-Führe in deinem Projekt npx skills add wellwelwel/lagune --skill '*' oder gh skill install wellwelwel/lagune --all --scope project aus, oder füge den Prompt zur Installation in deinen Agenten ein.
+Führe in deinem Projekt npx skills add wellwelwel/lagune -y oder gh skill install wellwelwel/lagune --all --scope project aus, oder füge den Prompt zur Installation in deinen Agenten ein.
 
 ### Wie aktualisiere ich Lagune in einem beliebigen KI-Agenten?
 
