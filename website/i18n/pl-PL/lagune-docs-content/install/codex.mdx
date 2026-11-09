@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Instalacja wtyczki Lagune w Codex CLI'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Zainstaluj wtyczkę Lagune w Codex CLI, aktualizuj ją i uruchamiaj jej silnik w sandboxie.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - instalacja lagune
+  - konfiguracja
+  - bezpieczeństwo AI
+  - agenci AI
+source_hash: 'b9d60814068ac19348a7a3e5e889057c6cb9d5f2c13aa0d7d1475d65722a2ad8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Zainstaluj wtyczkę z terminala:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Aktualizacja
+
+Aby zaktualizować wtyczkę **Lagune**, uruchom:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Polecenia
+
+Wpisz `$` i polecenie poprzedzone nazwą wtyczki, a po nim własny tekst, na przykład `$lagune:lagune-charter` zamiast `/lagune-charter`. Po wpisaniu `$` pojawia się lista poleceń, a wybranie jednego z nich wstawia jego pełną nazwę.
+
+---
+
+:::info[Sandbox]
+
+Sandbox agenta **Codex** nie ma dostępu do sieci. Zainstaluj silnik w projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Jak zainstalować wtyczkę Lagune w Codex CLI?',
+      answer:
+        'Uruchom codex plugin marketplace add wellwelwel/lagune, a następnie codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'Jak zaktualizować wtyczkę Lagune w Codex CLI?',
+      answer: 'Uruchom codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: 'Jak uruchamiać polecenia Lagune w Codex CLI?',
+      answer:
+        'Wpisz $ i polecenie poprzedzone nazwą wtyczki, a po nim własny tekst, na przykład $lagune:lagune-charter.',
+    },
+    {
+      question: 'Czy Lagune działa w sandboxie agenta Codex?',
+      answer:
+        'Tak, gdy zainstalujesz silnik w projekcie poleceniem npm i -D lagune@{{version}} z własnego terminala, raz, a potem po każdej aktualizacji.',
+    },
+  ]}
+/>

@@ -1,0 +1,61 @@
+---
+id: kimi-code
+title: 'Instalacja wtyczki Lagune w Kimi Code'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: Zainstaluj wtyczkę Lagune w Kimi Code i aktualizuj ją.
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - instalacja lagune
+  - konfiguracja
+  - bezpieczeństwo AI
+  - agenci AI
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+Zainstaluj wtyczkę w sesji **Kimi Code**, wybierz **Trust and install**, a następnie rozpocznij nową sesję, aby wczytać wtyczkę:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Aktualizacja
+
+Aby zaktualizować wtyczkę **Lagune**, zainstaluj ją ponownie:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Polecenia
+
+Wpisuj polecenia poprzedzone nazwą wtyczki, na przykład `/lagune:lagune-charter` zamiast `/lagune-charter`. Menu `/` pokazuje je jako `/skill:lagune:lagune-charter` i ta forma również działa.
+
+<Faq
+  items={[
+    {
+      question: 'Jak zainstalować wtyczkę Lagune w Kimi Code?',
+      answer:
+        'W sesji Kimi Code uruchom /plugins install https://github.com/wellwelwel/lagune, wybierz Trust and install, a następnie uruchom /new.',
+    },
+    {
+      question: 'Jak zaktualizować wtyczkę Lagune w Kimi Code?',
+      answer:
+        'Ponownie uruchom /plugins install https://github.com/wellwelwel/lagune, a następnie /new.',
+    },
+    {
+      question: 'Jak uruchamiać polecenia Lagune w Kimi Code?',
+      answer:
+        'Wpisuj je poprzedzone nazwą wtyczki, na przykład /lagune:lagune-charter, albo tak, jak pokazuje je menu /, na przykład /skill:lagune:lagune-charter.',
+    },
+  ]}
+/>

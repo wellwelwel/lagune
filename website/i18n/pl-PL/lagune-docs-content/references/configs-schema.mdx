@@ -1,0 +1,69 @@
+---
+id: configs-schema
+title: Schemat konfiguracji
+sidebar_label: Schemat konfiguracji
+description: JSON Schema konfiguracji projektu Lagune do autouzupełniania i walidacji w edytorze, zgodny z aktualną wersją Lagune albo przypięty do konkretnej wersji.
+keywords:
+  - configs
+  - configs.json
+  - JSON Schema
+  - $schema
+  - walidacja
+source_hash: 'dcceae6231b804ac81122ae9c2b08a0cf4500e89d05ee50a45bf8c35bcc6b3b4'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+
+Plik `.lagune/configs.json` zapisuje [**kategorie**](/docs/categories), z których korzysta projekt, indeksuje jego własne [**specjalizacje**](/docs/catalog) i określa, co pomijają [**narzędzia sprawdzające**](/docs/hooks/configure). Dzięki jego schematowi JSON Schema edytor podpowiada każde pole i zgłasza literówkę lub nieznaną kategorię, gdy edytujesz plik.
+
+## Aktualny schemat
+
+Za każdym razem, gdy **Lagune** zapisuje plik i nie znajduje w nim `$schema`, ustawia w nim adres aktualnego schematu:
+
+```json
+{
+  "$schema": "https://lagune.ai/schemas/configs.json",
+  "categories": ["owasp", "javascript"]
+}
+```
+
+Ten adres zawsze odpowiada aktualnej wersji **Lagune**. Plik zapisany przed wersją **Lagune** 0.16.0 dostanie go przy najbliższej zmianie, a do tego czasu każda faza zwraca na to uwagę.
+
+## Przypinanie wersji
+
+Każde wydanie **Lagune** od wersji 0.16.0 zawiera schemat w takiej postaci, jaką miał w tej wersji, opublikowany w **npm** i udostępniany przez **jsDelivr**. Aby przypiąć wersję, wpisz ją po `lagune@` w adresie `$schema`:
+
+```json
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/lagune@0.16.0/schemas/configs.json"
+}
+```
+
+Jako wersję możesz podać dowolny zakres semver:
+
+| Wersja              | Schemat                          |
+| ------------------- | -------------------------------- |
+| `0.16.0`            | Z wersji 0.16.0                  |
+| `0.16.x` lub `0.16` | Z najnowszego wydania serii 0.16 |
+| `0.x` lub `0`       | Z najnowszego wydania serii 0.x  |
+| `latest`            | Z najnowszego wydania            |
+
+<Faq
+  items={[
+    {
+      question: 'Czy Lagune potrzebuje schematu?',
+      answer:
+        'Nie. Schemat pomaga tylko edytorowi, a Lagune czyta plik tak samo z $schema i bez niego.',
+    },
+    {
+      question: 'Czy Lagune nadpisze przypięty schemat?',
+      answer:
+        'Nie. Lagune zapisuje $schema tylko wtedy, gdy plik go nie zawiera, i zachowuje każdy adres, który ustawisz.',
+    },
+    {
+      question: 'Kiedy warto przypiąć wersję?',
+      answer:
+        'Gdy projekt korzysta z konkretnej wersji Lagune, aby edytor walidował plik zgodnie z tym, co akceptuje ta wersja.',
+    },
+  ]}
+/>

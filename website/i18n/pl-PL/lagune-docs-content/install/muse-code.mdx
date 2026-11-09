@@ -1,0 +1,79 @@
+---
+id: muse-code
+title: 'Instalacja wtyczki Lagune w Muse Code'
+sidebar_label: Muse Code
+parent: get-started/install
+description: Zainstaluj wtyczkę Lagune w Muse Code, aktualizuj ją i uruchamiaj jej silnik w sandboxie.
+keywords:
+  - muse code
+  - muse code plugin
+  - plugin marketplace
+  - instalacja lagune
+  - konfiguracja
+  - bezpieczeństwo AI
+  - agenci AI
+source_hash: '2f84bb375632514539891d0f792fb420dd91b7eda8aeb0cc3e30320e43cf43b3'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Muse Code' />
+
+Zainstaluj wtyczkę z terminala:
+
+```bash
+muse plugins marketplace add lagune wellwelwel/lagune
+muse plugins install lagune@lagune
+```
+
+## Aktualizacja
+
+Aby zaktualizować wtyczkę **Lagune**, odśwież marketplace i zainstaluj ją ponownie:
+
+```bash
+muse plugins marketplace update lagune
+muse plugins remove lagune
+muse plugins install lagune@lagune
+```
+
+## Polecenia
+
+Wpisuj nazwy poleceń, na przykład `/lagune-charter`, albo poprzedzaj je nazwą wtyczki, na przykład `/lagune:lagune-charter`.
+
+---
+
+:::info[Sandbox]
+
+Sandbox **Muse Code** nie może pobrać silnika. Zainstaluj go w swoim projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Jak zainstalować wtyczkę Lagune w Muse Code?',
+      answer:
+        'Uruchom muse plugins marketplace add lagune wellwelwel/lagune, a następnie muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Jak zaktualizować wtyczkę Lagune w Muse Code?',
+      answer:
+        'Uruchom muse plugins marketplace update lagune, a następnie zainstaluj wtyczkę ponownie poleceniami muse plugins remove lagune i muse plugins install lagune@lagune.',
+    },
+    {
+      question: 'Jak uruchamiać polecenia Lagune w Muse Code?',
+      answer:
+        'Wpisuj ich nazwy, na przykład /lagune-charter, albo poprzedzaj je nazwą wtyczki, na przykład /lagune:lagune-charter.',
+    },
+    {
+      question: 'Czy Lagune działa w sandboxie Muse Code?',
+      answer:
+        'Tak, gdy zainstalujesz silnik w swoim projekcie poleceniem npm i -D lagune@{{version}} z własnego terminala, raz, a potem po każdej aktualizacji.',
+    },
+  ]}
+/>

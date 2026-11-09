@@ -1,0 +1,124 @@
+---
+id: cursor
+title: 'Instalacja wtyczki Lagune w edytorze Cursor'
+sidebar_label: Cursor
+parent: get-started/install
+description: Zainstaluj wtyczkę Lagune w edytorze Cursor i w Cursor CLI, aktualizuj ją i z góry zezwól na działanie jej silnika.
+keywords:
+  - cursor
+  - cursor plugin
+  - cursor cli
+  - plugin marketplace
+  - instalacja lagune
+  - konfiguracja
+  - bezpieczeństwo AI
+  - agenci AI
+source_hash: '08c54cd98449fce87b9f38a44aef834689e3fd5ffd6a8a0aed023de7f8acdf19'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Cursor' />
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Otwórz **Customize**.
+- Wybierz **From GitHub Repository** i wpisz `https://github.com/wellwelwel/lagune`.
+- Przy **Lagune** wybierz **Install** i wskaż zakres: projekt lub użytkownik.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Dodaj marketplace z terminala:
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Wpisz `/plugins` w sesji `agent`.
+- Zainstaluj wtyczkę **Lagune**.
+
+Jeśli wtyczka **Lagune** jest już zainstalowana w **Claude Code**, **Cursor CLI** wczyta ją stamtąd.
+
+</TabItem>
+</Tabs>
+
+## Aktualizacja
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Otwórz **Customize**.
+- Dla marketplace'u `lagune` wybierz **Refresh**.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Podmień marketplace z terminala:
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Wpisz `/plugins` w sesji `agent`.
+- Ponownie zainstaluj wtyczkę **Lagune**.
+
+</TabItem>
+</Tabs>
+
+## Polecenia
+
+Wpisuj nazwy poleceń, na przykład `/lagune-charter`.
+
+---
+
+:::info[Uprawnienia]
+
+W edytorze **Cursor** polecenia uruchamiają silnik przez **npx**, na co domyślny tryb Auto-review zezwala bez pytania.
+
+W **Cursor CLI** silnik korzysta z dwóch narzędzi: `lagune_read` tylko odczytuje projekt, a `lagune_write` tylko zapisuje w folderze `.lagune/`. Aby z góry zezwolić na ich użycie, dodaj te reguły do pliku `.cursor/cli.json` dla jednego projektu albo do pliku `~/.cursor/cli-config.json` dla wszystkich projektów:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
+  }
+}
+```
+
+Gdy silnik działa przez **npx**, jak w przypadku **skills.sh**, zezwól na `Shell(npx:--yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Jak zainstalować wtyczkę Lagune w edytorze Cursor?',
+      answer:
+        'W edytorze Cursor otwórz Customize, wybierz From GitHub Repository, wpisz https://github.com/wellwelwel/lagune i zainstaluj wtyczkę Lagune. W Cursor CLI uruchom agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor, a następnie zainstaluj wtyczkę Lagune w /plugins.',
+    },
+    {
+      question: 'Jak zaktualizować wtyczkę Lagune w edytorze Cursor?',
+      answer:
+        "W edytorze Cursor wybierz w Customize opcję Refresh dla marketplace'u lagune. W Cursor CLI usuń marketplace lagune, dodaj go ponownie, a następnie ponownie zainstaluj wtyczkę Lagune w /plugins.",
+    },
+    {
+      question: 'Jak uruchamiać polecenia Lagune w edytorze Cursor?',
+      answer: 'Wpisuj ich nazwy, na przykład /lagune-charter.',
+    },
+    {
+      question:
+        'Czy Cursor może uruchamiać polecenia Lagune bez pytania o zgodę?',
+      answer:
+        'Tak. Domyślny tryb Auto-review w edytorze Cursor już na to zezwala. W Cursor CLI zezwól na Mcp(plugin-lagune-lagune:lagune_read) i Mcp(plugin-lagune-lagune:lagune_write), a gdy silnik działa przez npx, także na Shell(npx:--yes lagune@*).',
+    },
+  ]}
+/>

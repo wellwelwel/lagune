@@ -1,0 +1,104 @@
+---
+id: jwt
+title: 'Hook jwt: Wykrywanie weryfikacji JWT bez przypiętego algorytmu'
+sidebar_label: jwt
+description: Przeszukuj bazę kodu pod kątem weryfikacji JWT bez przypiętego algorytmu albo oceniaj pojedyncze wywołanie z wiersza poleceń.
+source_hash: '086650f69077e3f35c8507d308bd2a345027896fdb897f1d012617fd3d7917ee'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Hook `jwt` zgłasza **weryfikację JWT bez przypiętego algorytmu**, czyli lukę typu algorithm confusion, w której weryfikator ufa nagłówkowi `alg` samego tokena, oraz **całkowicie wyłączoną weryfikację**. **Rozpoznaje język** i czyta każdy plik zgodnie z regułami jego biblioteki JWT. To deterministyczny silnik stojący za [specjalizacją `federation`](/docs/catalog), który możesz uruchomić samodzielnie w trybie **scan** lub **check**.
+
+## Uruchamianie
+
+<Tabs>
+  <TabItem value="scan" label="Przeszukaj bazę kodu" default>
+
+```bash
+npx lagune read jwt                # scans the whole project
+npx lagune read jwt --dir src      # scans a directory
+npx lagune read jwt --file auth.ts # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="Sprawdź wywołanie">
+
+```bash
+npx lagune read jwt --lang javascript --pattern 'jwt.verify(token, secret)'                         # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, options={"verify_signature": False})' # => unpinned
+npx lagune read jwt --lang python --pattern 'jwt.decode(t, k, algorithms=["HS256"])'                # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+Każda linia w sekcji **Unpinned JWT verification found** to wywołanie weryfikujące, które nie ustawia listy dozwolonych `algorithms` (tam, gdzie biblioteka jej wymaga), akceptuje niebezpieczną listę (`none` albo algorytm asymetryczny zmieszany z HMAC) lub całkowicie wyłącza sprawdzanie podpisu, przez co ufa polu `alg` samego tokena. To potwierdzona ekspozycja, więc hook kończy działanie z niezerowym kodem wyjścia. Gdy nic nie znajdzie, wypisuje `no unpinned JWT verification found`.
+
+## Jak odczytać werdykt
+
+| Werdykt    | Znaczenie                                                                                                                                |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `unpinned` | Wywołanie weryfikujące bez listy dozwolonych algorytmów (tam, gdzie jest potrzebna), z niebezpieczną listą albo z wyłączoną weryfikacją. |
+| `safe`     | Wywołanie weryfikujące, które przypina bezpieczną listę dozwolonych algorytmów lub którego biblioteka przypina ją niejawnie.             |
+| `invalid`  | Fragment kodu nie zawiera rozpoznawalnego wywołania weryfikującego, które można by ocenić.                                               |
+
+### Opcje CLI
+
+| Opcja       | Wartość       | Opis                                                                                                         |
+| ----------- | ------------- | ------------------------------------------------------------------------------------------------------------ |
+| `--pattern` | fragment kodu | Sprawdza jedno wywołanie. Powtórz, aby sprawdzić kilka, po jednym werdykcie w linii.                         |
+| `--lang`    | język         | Wymagana razem z `--pattern`: jeden z języków javascript, python, go, java, kotlin, php, ruby, rust, csharp. |
+| `--dir`     | folder        | Ogranicza skanowanie do folderu. Można powtarzać i łączyć z `--file`.                                        |
+| `--file`    | plik          | Ogranicza skanowanie do jednego pliku. Można powtarzać i łączyć z `--dir`.                                   |
+
+Bez żadnej opcji hook przeszukuje cały projekt. Opcja `--pattern` wymaga `--lang` i nie można jej łączyć z `--dir` ani `--file`.
+
+### Wybierz, co hook przeszukuje
+
+Hook pomija to, co ignoruje **Git**. Aby pominąć więcej albo przeszukać to, co ignoruje **Git**, nadaj hookowi `jwt` własne ustawienia:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker jwt
+```
+
+```json
+{
+  "checkers": {
+    "jwt": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Konfiguracja hooków](/docs/hooks/configure) opisuje każde ustawienie.
+
+### Obsługiwane języki
+
+Skanowanie czyta poniższe biblioteki, rozpoznając je po rozszerzeniu pliku. Ponieważ niektóre przypinają algorytm niejawnie (brak jawnej listy jest wtedy poprawny), reguła "brak listy dozwolonych ⇒ unpinned" obowiązuje tylko tam, gdzie biblioteka oczekuje jawnej listy, więc hook nigdy nie zgłasza poprawnie skonfigurowanego wywołania.
+
+| Język                       | Biblioteka              | Czy brak listy dozwolonych to unpinned?                                 | Zawsze zgłasza                                    |
+| --------------------------- | ----------------------- | ----------------------------------------------------------------------- | ------------------------------------------------- |
+| **JavaScript / TypeScript** | jsonwebtoken, jose      | Tak                                                                     | `none`, mieszankę algorytmu asymetrycznego i HMAC |
+| **Python**                  | PyJWT, python-jose      | Tak (PyJWT jej wymaga, python-jose domyślnie ustawia `algorithms=None`) | `none`, `verify_signature: False`                 |
+| **Go**                      | golang-jwt              | Tak (brak `WithValidMethods`)                                           | `none`, `ParseUnverified`                         |
+| **Ruby**                    | ruby-jwt                | Tak                                                                     | `none`, `verify = false`                          |
+| **Java / Kotlin**           | jjwt, nimbus            | Nie (algorytm wynika z klucza)                                          | `none`, parser bez podpisu lub `unsecured`        |
+| **PHP**                     | firebase/php-jwt        | Nie (`Key` określa algorytm)                                            | `none`                                            |
+| **Rust**                    | jsonwebtoken            | Nie (`Validation` wymaga algorytmu)                                     | `none`, `insecure_disable_signature_validation`   |
+| **C#**                      | Microsoft.IdentityModel | Nie (parametry w wielu liniach)                                         | `none`, `RequireSignedTokens = false`             |
+
+:::tip
+Hook rozstrzyga tylko o przypięciu algorytmu: sprawdzanie claimów, kluczy i przepływów wymaga oceny, którą nadal zapewnia [specjalizacja `federation`](/docs/catalog).
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Czym jest algorithm confusion w JWT?',
+      answer:
+        'Weryfikator, który odczytuje algorytm z nagłówka tokena, pozwala atakującemu zamienić RS256 na HS256 i podpisać token kluczem publicznym. Zapobiega temu przypięta w kodzie bezpieczna lista dozwolonych algorytmów, a hook jwt zgłasza wywołanie weryfikujące, które nie ustawia żadnej listy albo ustawia niebezpieczną.',
+    },
+  ]}
+/>

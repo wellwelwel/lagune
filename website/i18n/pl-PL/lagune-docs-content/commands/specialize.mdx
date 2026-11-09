@@ -1,0 +1,93 @@
+---
+id: specialize
+title: '/lagune-specialize: Wytrenuj specjalizację bezpieczeństwa zwykłym tekstem'
+sidebar_label: Specialize
+description: Destyluj wskazane źródło lub temat z zakresu bezpieczeństwa do postaci nowej specjalizacji ładowanej na żądanie.
+source_hash: '21aac2265799d6380a207b5496085f0da053ec72e67884a7e382012992951833'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-specialize
+
+🎓 Niech **Lagune** nauczy się nowej specjalizacji ze źródła lub tematu, które wskażesz.
+
+Polecenie czyta materiał i destyluje go do postaci ukierunkowanej, wyłącznie defensywnej specjalizacji o dokładnie takiej samej budowie jak [wbudowane](/docs/catalog), dzięki czemu fazy detect i verify ładują ją potem jak każdą inną. Wyłącznie audytuje i wyjaśnia: nigdy nie pisze danych wejściowych do ataku ani exploitów i nigdy nie zmienia twojego kodu.
+
+<Tabs>
+  <TabItem value="article" label="Z artykułu" default>
+
+```prompt
+# Link lub odwołanie: Lagune destyluje z niego obronę
+/lagune-specialize https://owasp.org/www-community/attacks/SQL_Injection
+```
+
+  </TabItem>
+  <TabItem value="exploit" label="Z exploita">
+
+```prompt
+# Atak jako źródło: specjalizacja i tak opisuje obronę
+/lagune-specialize "' OR 1=1 -- dokleja SQL do treści zapytania"
+```
+
+  </TabItem>
+  <TabItem value="topic" label="Z tematu">
+
+```prompt
+# Albo po prostu nazwij, co ma objąć
+/lagune-specialize SQL injection
+```
+
+  </TabItem>
+</Tabs>
+
+:::note[Atak może być źródłem, nigdy wynikiem]
+Wskazanie ataku jest w porządku, gdy celem jest obrona przed nim: opis exploita to materiał do nauki, z którego polecenie destyluje obronę. Specjalizacja, którą tworzy, zawsze audytuje i wyjaśnia, nigdy nie dostarcza działającego exploita, payloadu ani sposobu na obejście zabezpieczeń.
+:::
+
+## Co zapisuje
+
+Wynikiem są dwa pliki w twoim projekcie, które trafiają do commita razem z twoim kodem i można je przejrzeć:
+
+- Specjalizacja w pliku `.lagune/catalog/<name>.md`, zbudowana tak jak [wbudowane](/docs/catalog).
+- Jej wpis w pliku `.lagune/configs.json`, w którym projekt indeksuje własne specjalizacje, aby katalog mógł połączyć je z wbudowanymi.
+
+Następnie polecenie wyświetla katalog, aby potwierdzić, że nowy wpis się w nim znalazł. Twoje własne specjalizacje zawsze są w katalogu, niezależnie od jego kategorii. Nigdy nie dodajesz polecenia ani nie zmieniasz pakietu: nowa specjalność to jeden plik z wiedzą i jeden wpis w indeksie, zapisane w twoim własnym projekcie.
+
+## Udoskonalaj, nigdy nie nadpisuj
+
+Gdy specjalizujesz nazwę, która już istnieje, czy to wbudowaną, taką jak `regex`, czy własną, utworzoną wcześniej, polecenie **uzgadnia** bieżący plik zamiast go zastępować. Czyta to, co w nim jest, wplata nową wiedzę, zachowuje to, co nadal obowiązuje, i przepisuje to, co się zmieniło. Nic nie zostaje odrzucone bez przejrzenia. Twoja specjalizacja przesłania wbudowaną o tej samej nazwie, więc możesz dopracować wbudowaną specjalizację na potrzeby swojego projektu, nie tracąc jej.
+
+:::tip
+
+- Nowa specjalizacja ładuje się dokładnie tak jak wbudowana: fazy detect i verify sięgają po nią na żądanie, możesz też załadować ją samodzielnie poleceniem `npx lagune read catalog <name>` i zlecić jej zadanie.
+- Gdy materiał ma rozpoznawalne pochodzenie (artykuł, autor, link, standard), specjalizacja podaje je jako źródło. Sam temat nie ma źródła.
+
+:::
+
+:::important
+
+**Działa tylko wtedy, gdy je wywołasz:** agent nigdy nie uruchamia go z własnej inicjatywy.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Jak dodać własną specjalizację bezpieczeństwa?',
+      answer:
+        'Uruchom /lagune-specialize ze źródłem lub tematem. Polecenie destyluje je do postaci wyłącznie defensywnej specjalizacji, zapisanej w .lagune/catalog/<name>.md, i dodaje jej wpis w .lagune/configs.json.',
+    },
+    {
+      question: 'Czy Lagune może się uczyć z opisu exploita?',
+      answer:
+        'Tak, jako źródło, nigdy jako wynik. Atak może być źródłem, nigdy produktem. Specialize nigdy nie pisze danych wejściowych do ataku ani exploitów.',
+    },
+    {
+      question: 'Czy specialize nadpisuje wbudowane specjalizacje?',
+      answer: 'Nie. Udoskonala je, nigdy nie nadpisuje.',
+    },
+  ]}
+/>

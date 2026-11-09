@@ -1,0 +1,60 @@
+---
+id: devin-cli
+title: 'Instalacja wtyczki Lagune w Devin CLI'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: Zainstaluj wtyczkę Lagune w Devin CLI i aktualizuj ją.
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli plugin
+  - devin plugins install
+  - instalacja lagune
+  - konfiguracja
+  - bezpieczeństwo AI
+  - agenci AI
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+Zaloguj się na konto **Devin**, a następnie zainstaluj wtyczkę z terminala:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## Aktualizacja
+
+Aby zaktualizować wtyczkę **Lagune**, uruchom:
+
+```bash
+devin plugins update lagune
+```
+
+## Polecenia
+
+Wpisuj polecenia poprzedzone nazwą wtyczki, na przykład `/lagune:lagune-charter` zamiast `/lagune-charter`. Wyświetla je też menu `/`.
+
+<Faq
+  items={[
+    {
+      question: 'Jak zainstalować wtyczkę Lagune w Devin CLI?',
+      answer:
+        'Zaloguj się poleceniem devin auth login, a następnie uruchom devin plugins install wellwelwel/lagune.',
+    },
+    {
+      question: 'Jak zaktualizować wtyczkę Lagune w Devin CLI?',
+      answer: 'Uruchom devin plugins update lagune.',
+    },
+    {
+      question: 'Jak uruchamiać polecenia Lagune w Devin CLI?',
+      answer:
+        'Wpisuj je poprzedzone nazwą wtyczki, na przykład /lagune:lagune-charter. Wyświetla je też menu /.',
+    },
+  ]}
+/>

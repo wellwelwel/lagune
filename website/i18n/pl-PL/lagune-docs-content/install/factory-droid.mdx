@@ -1,0 +1,66 @@
+---
+id: factory-droid
+title: 'Instalacja wtyczki Lagune w Factory Droid'
+sidebar_label: Factory Droid
+parent: get-started/install
+description: Zainstaluj wtyczkę Lagune w Factory Droid, aktualizuj ją i zezwól na użycie narzędzi jej silnika.
+keywords:
+  - factory droid
+  - droid plugin
+  - plugin marketplace
+  - instalacja lagune
+  - konfiguracja
+  - bezpieczeństwo AI
+  - agenci AI
+source_hash: '7bc601c8aab5f6286ad0cec6040114f686541332672362bad80cacd47ef4b23d'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Factory Droid' />
+
+Zainstaluj wtyczkę z terminala:
+
+```bash
+droid plugin marketplace add wellwelwel/lagune
+droid plugin install lagune@lagune
+```
+
+## Aktualizacja
+
+Aby zaktualizować wtyczkę **Lagune**, uruchom:
+
+```bash
+droid plugin marketplace update lagune
+droid plugin update lagune@lagune
+```
+
+## Polecenia
+
+Wpisuj nazwy poleceń, na przykład `/lagune-charter`.
+
+<Faq
+  items={[
+    {
+      question: 'Jak zainstalować wtyczkę Lagune w Factory Droid?',
+      answer:
+        'Uruchom droid plugin marketplace add wellwelwel/lagune, a następnie droid plugin install lagune@lagune.',
+    },
+    {
+      question: 'Jak zaktualizować wtyczkę Lagune w Factory Droid?',
+      answer:
+        'Uruchom droid plugin marketplace update lagune, a następnie droid plugin update lagune@lagune.',
+    },
+    {
+      question: 'Jak uruchamiać polecenia Lagune w Factory Droid?',
+      answer: 'Wpisuj ich nazwy, na przykład /lagune-charter.',
+    },
+    {
+      question:
+        'Czy Factory Droid może uruchamiać polecenia Lagune bez pytania o zgodę?',
+      answer:
+        "Tak. Gdy Factory Droid zapyta o zgodę, wybierz stałe zezwolenie na lagune_read i lagune_write. Zapyta ponownie po zsynchronizowaniu nowego commita marketplace'u lagune.",
+    },
+  ]}
+/>

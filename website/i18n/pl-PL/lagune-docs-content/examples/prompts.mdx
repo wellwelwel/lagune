@@ -1,0 +1,288 @@
+---
+id: prompts
+title: 'Przykładowe prompty Lagune: Automatyzacja przepływu pracy Blue Team'
+sidebar_label: Prompty
+description: 'Gotowe do skopiowania prompty Lagune: skanowanie tylko do odczytu, pełny przepływ pracy Blue Team i audyt Zero Trust, a także wykrywanie ograniczone do commita, diffu gałęzi lub PR albo rzeczywistego incydentu.'
+keywords:
+  - lagune prompt
+  - przykładowe prompty lagune
+  - przepływ pracy blue team
+  - audyt zero trust
+  - skanowanie podatności
+  - subagenci
+  - multi-agent
+  - deep scan
+  - automatyzacja hardeningu
+  - wykrywanie w wybranym zakresie
+  - przegląd bezpieczeństwa pull requesta
+  - reagowanie na incydenty
+source_hash: '23a48e3f5d3e938b8905e41b9357c77b27191ba0dd4f6fa55eac30b907ef6768'
+---
+
+import { Level } from '@site/src/components/docs/Level';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Gotowe do skopiowania prompty Lagune, które możesz wkleić prosto do swojego agenta AI.
+
+## 💧 Płytkie skanowanie
+
+Skanowanie tylko do odczytu, w którym agent samodzielnie czyta kod i zgłasza każdą lukę razem z poprawką, bez uruchamiania przepływu pracy Blue Team i bez zapisywania czegokolwiek w śledzeniu Lagune.
+
+:::tip
+Działa lepiej w trybie planowania i ze zdefiniowanymi zasadami bezpieczeństwa (`/lagune-charter`).
+:::
+
+<Tabs>
+  <TabItem value="default" label="🪼 Domyślnie" default>
+
+| Aspekt              | Kompromis                                                             | Poziom              |
+| ------------------- | --------------------------------------------------------------------- | ------------------- |
+| **Nakład pracy**    | Jeden agent skanuje i raportuje, bez subagentów.                      | <Level value={1} /> |
+| **Czas**            | Krótki. Jedno przejście tylko do odczytu, niczego nie wdraża.         | <Level value={2} /> |
+| **Zużycie tokenów** | Umiarkowane, wspólne. Całe skanowanie odbywa się w jednym kontekście. | <Level value={2} /> |
+
+```md
+/lagune Jesteś badaczem cyberbezpieczeństwa z głęboką wiedzą z zakresu bezpieczeństwa defensywnego i korzystasz z Lagune, aby poszerzyć swoją wiedzę i zwiększyć precyzję.
+
+Samodzielnie przeskanuj obszar roboczy i do każdej znalezionej luki dobierz konkretną poprawkę. To osobne skanowanie, a nie przepływ pracy Blue Team: nie uruchamiaj faz detect, plan, harden ani verify i niczego nie zapisuj w śledzeniu Lagune.
+
+Na koniec wypisz wszystkie znalezione luki, każdą z jej poziomem zagrożenia i konkretną poprawką.
+```
+
+  </TabItem>
+  <TabItem value="sub-agents" label="🐬 Wiele agentów" >
+
+| Aspekt              | Kompromis                                                                            | Poziom              |
+| ------------------- | ------------------------------------------------------------------------------------ | ------------------- |
+| **Nakład pracy**    | Jeden subagent na plik, w liczbie dopasowanej do rozmiaru bazy kodu.                 | <Level value={2} /> |
+| **Czas**            | Równolegle dla każdego pliku, potem scalanie w jeden raport. Nadal tylko do odczytu. | <Level value={3} /> |
+| **Zużycie tokenów** | Wyższe, ale izolowane. Każdy subagent skanuje we własnym kontekście.                 | <Level value={3} /> |
+
+````md
+/lagune Jesteś orkiestratorem cyberbezpieczeństwa i korzystasz z Lagune, aby wyliczyć ścieżki, uruchomić po jednym subagencie na ścieżkę i scalić ich raporty (całą treść czytają subagenci).
+
+Musisz przekazać zadanie subagentom w zależności od rozmiaru bieżącego projektu: im większa baza kodu, tym więcej subagentów należy uruchomić, wszystkich równolegle, i każdemu przekazać poniższy prompt:
+
+```prompt
+/lagune Jesteś badaczem cyberbezpieczeństwa z głęboką wiedzą z zakresu bezpieczeństwa defensywnego i korzystasz z Lagune, aby poszerzyć swoją wiedzę i zwiększyć precyzję.
+
+Samodzielnie przeskanuj <path> i do każdej znalezionej luki dobierz konkretną poprawkę. To osobne skanowanie, a nie przepływ pracy Blue Team: nie uruchamiaj faz detect, plan, harden ani verify i niczego nie zapisuj w śledzeniu Lagune.
+
+Na koniec wypisz wszystkie luki w <path>, każdą z jej poziomem zagrożenia i konkretną poprawką.
+```
+
+Na koniec scal raporty wszystkich subagentów w jedną listę luk i poprawek uporządkowaną według priorytetu.
+````
+
+  </TabItem>
+</Tabs>
+
+:::warning
+Szybkie skanowanie to jeden szeroki prompt bez zawężonego zakresu, więc niektórzy agenci częściej go odrzucają lub przerywają przed czasem. Jeśli twój agent się opiera, uruchom zamiast tego pełny **przepływ pracy Blue Team** opisany niżej: jego fazy, o wąskim zakresie i wykonywane krok po kroku, znacznie rzadziej są blokowane.
+:::
+
+---
+
+## 🌊 Automatyczny audyt w przepływie pracy Blue Team
+
+Uruchamia [pełny przepływ poleceń](/docs/get-started/commands) od początku do końca.
+
+<Tabs>
+  <TabItem value="default" label="🪼 Domyślnie" default>
+
+| Aspekt              | Kompromis                                                                                            | Poziom              |
+| ------------------- | ---------------------------------------------------------------------------------------------------- | ------------------- |
+| **Nakład pracy**    | Jeden agent, bez subagentów, niezależnie od rozmiaru bazy kodu.                                      | <Level value={3} /> |
+| **Czas**            | Średni, ale w dużych bazach kodu mniej dokładny. Każde polecenie uruchamia się raz, jedno po drugim. | <Level value={4} /> |
+| **Zużycie tokenów** | Niższe, ale z mniejszą izolacją. Wszystkie polecenia dzielą ten sam kontekst.                        | <Level value={4} /> |
+
+```md
+Uruchom po kolei następujące polecenia: `/lagune-charter`, `/lagune-detect`, `/lagune-plan`, `/lagune-harden` i `/lagune-verify`.
+
+## Pętla
+
+Gdy polecenie `/lagune-verify` odrzuci jedną lub więcej poprawek, powtarzaj `/lagune-harden`, a potem `/lagune-verify`, aż wszystkie ustalenia zostaną prawidłowo rozwiązane.
+```
+
+  </TabItem>
+  <TabItem value="sub-agents" label="🐋 Wiele agentów (głębokie skanowanie)" >
+
+| Aspekt              | Kompromis                                                                                                            | Poziom              |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Nakład pracy**    | Liczba subagentów zależy od rozmiaru bazy kodu.                                                                      | <Level value={5} /> |
+| **Czas**            | Dłuższy, ale dokładniejszy. Uruchamia wielu subagentów, którzy równolegle wykrywają, planują i utwardzają ustalenia. | <Level value={5} /> |
+| **Zużycie tokenów** | Wyższe, ale bezpieczniejsze. Każdy subagent ma własny, izolowany kontekst, wolny od stronniczości.                   | <Level value={5} /> |
+
+````md
+Przekaż każde z poniższych poleceń osobnemu subagentowi, po jednym naraz (bez backticków, samo polecenie):
+
+Prompt subagenta 1: `/lagune-charter`
+Prompt subagenta 2: `/lagune-detect`
+Prompt subagenta 3: `/lagune-plan`
+Prompt subagenta 4: `/lagune-harden`
+Prompt subagenta 5: `/lagune-verify`
+
+W poleceniach `/lagune-detect`, `/lagune-plan`, `/lagune-harden` i `/lagune-verify` musisz przekazywać zadanie subagentom w zależności od rozmiaru bieżącego projektu: im większa baza kodu, tym więcej subagentów należy uruchomić. Na przykład:
+
+```prompt
+/lagune-detect <path>
+```
+
+```prompt
+/lagune-plan <finding>
+```
+
+```prompt
+/lagune-harden <finding>
+```
+
+```prompt
+/lagune-verify <finding>
+```
+
+- Wielu agentów dla tego samego polecenia uruchamiaj równolegle.
+- Gdy wszyscy subagenci polecenia `/lagune-detect` skończą pracę, wykonaj:
+
+```prompt
+/lagune-detect scal równoważne ustalenia. Nie szukaj nowych ustaleń i nie skanuj ponownie bazy kodu.
+```
+
+## Pętla
+
+Gdy polecenie `/lagune-verify` odrzuci jedną lub więcej poprawek, powtarzaj `/lagune-harden`, a potem `/lagune-verify`, aż wszystkie ustalenia zostaną prawidłowo rozwiązane.
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## 🪄 Wykrywanie w wybranym zakresie
+
+Skieruj polecenie [`/lagune-detect`](/docs/commands/detect) na wybrany fragment projektu zamiast na całość. Opisz zakres zwykłymi słowami (commit, pull request albo rzeczywistą sytuację), a polecenie zmapuje tylko ustalenia istotne dla bezpieczeństwa w tym zakresie.
+
+:::tip
+Wszystko, co tu wykryje, to zwykłe ustalenia, więc możesz przekazać je prosto do poleceń `/lagune-plan`, `/lagune-harden` i `/lagune-verify`, ograniczając zakres tylko do tych elementów.
+:::
+
+<Tabs>
+  <TabItem value="commit" label="📌 Od commita" default>
+
+Poddaj świeżą partię commitów osobnemu przeglądowi bezpieczeństwa, ograniczonemu do tego, co zmieniły, na przykład:
+
+```prompt
+/lagune-detect Ogranicz wykrywanie do wszystkiego, co zmieniło się od commita `a1b2c3d`.
+```
+
+  </TabItem>
+  <TabItem value="diff" label="🔀 Diff gałęzi lub PR">
+
+Sprawdź bezpieczeństwo pull requesta przed scaleniem, ograniczając się do jego diffu, na przykład:
+
+```prompt
+/lagune-detect Ogranicz wykrywanie do zmian, które ta gałąź wprowadza względem `main`.
+```
+
+  </TabItem>
+  <TabItem value="incident" label="⛑️ Po incydencie">
+
+Opisz własnymi słowami, co się stało. Lagune odczytuje sytuację, a nie flagę, i zamienia ją w ukierunkowane poszukiwania, na przykład:
+
+```prompt
+/lagune-detect Kilka tygodni temu na naszej stronie doszło do wycieku danych. Nie wiem dokładnie, jak to się stało, i obawiam się, że wciąż jest otwarta jakaś furtka, przez którą dane mogą znowu wyciec. Dokładnie przejrzyj kod, skup się na wszystkich miejscach, w których wrażliwe dane są odczytywane, przechowywane lub ujawniane, i zmapuj wszystko, co wciąż może być drogą wycieku. Potraktuj to jak prawdziwy incydent, a nie ćwiczenia.
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+## 🚨 Audyt Zero Trust
+
+Traktuje cały obszar roboczy i każdą zależność jako wrogie: szuka interpreterów, wywołań sieciowych, zakodowanych payloadów i kodu ukrytego w nieoczywistych miejscach tak, by umknął skanerom, a na koniec wydaje werdykt go/no-go, czy projekt jest bezpieczny w użyciu.
+
+Prompty ładują bezpośrednio specjalizacje, na których opiera się ten audyt, niezależnie od kategorii projektu. Aby polecenie `/lagune` dopasowało też resztę katalogu, upewnij się, że projekt korzysta z kategorii **OWASP**, **AI/LLM** oraz z kategorii swojego stosu technologicznego (np. **JavaScript**, **Python** itp.):
+
+```bash
+npx lagune write add --categories owasp ai javascript
+```
+
+Własne pliki `.gitignore` i konfiguracje repozytorium mogą ukryć pliki przed narzędziami sprawdzającymi, dlatego ustaw blok `checkers` w pliku `.lagune/configs.json` tak, aby [skanować wszystko](/docs/hooks/configure), zastępując każdy blok dostarczony z repozytorium:
+
+```json
+{
+  "checkers": { "gitignore": false }
+}
+```
+
+:::danger
+Zachowaj ostrożność, gdy uruchamiasz w środowisku lokalnym projekty z niezaufanych źródeł. Korzystaj z izolowanego środowiska, takiego jak **sandbox** (zalecane), **maszyna wirtualna** lub podobne, aby złośliwy kod nie zaszkodził twojemu systemowi.
+:::
+
+<Tabs>
+  <TabItem value="default" label="🪼 Domyślnie" default>
+
+| Aspekt              | Kompromis                                                                                | Poziom              |
+| ------------------- | ---------------------------------------------------------------------------------------- | ------------------- |
+| **Nakład pracy**    | Jeden agent przeszukuje cały obszar roboczy, bez subagentów.                             | <Level value={2} /> |
+| **Czas**            | Średni. Jeden agent przechodzi po kolei przez kod i jego zależności.                     | <Level value={3} /> |
+| **Zużycie tokenów** | Umiarkowane, ale wspólne. Specjalizacje, kod i zależności trafiają do jednego kontekstu. | <Level value={3} /> |
+
+```md
+/lagune Jesteś badaczem cyberbezpieczeństwa z głęboką wiedzą z zakresu bezpieczeństwa defensywnego w modelu zero trust i korzystasz z Lagune, aby poszerzyć swoją wiedzę i zwiększyć precyzję.
+
+Zmapuj cały obszar roboczy jako niezaufane źródło i potencjalnie złośliwy zakres. Każdy interpreter, fetch, base64 i tym podobne uznaj za potencjalne zagrożenie.
+
+Rozszerz analizę na zależności i zależności podrzędne: projekt może próbować ukryć złośliwy kod w nieoczywistym miejscu, aby umknął skanerom.
+
+Obowiązkowe specjalizacje (ładuj je po jednej za pomocą `npx lagune read catalog <name>`):
+
+- interpreter
+- secrets
+- llm
+- path
+
+Dla jasności: każdą zmapowaną podatność traktuj jako potencjalne zagrożenie, bez wyjątku.
+
+Na koniec wydaj werdykt, czy projekt jest na tyle bezpieczny i godny zaufania, że mogę z niego korzystać, czy nie.
+```
+
+  </TabItem>
+  <TabItem value="sub-agents" label="🐋 Wiele agentów (głębokie skanowanie)" >
+
+| Aspekt              | Kompromis                                                                                                | Poziom              |
+| ------------------- | -------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Nakład pracy**    | Jeden subagent na plik, w liczbie dopasowanej do rozmiaru bazy kodu.                                     | <Level value={5} /> |
+| **Czas**            | Dłuższy, ale dokładniejszy. Pliki są przeszukiwane równolegle, a wyniki scalane w jeden werdykt.         | <Level value={4} /> |
+| **Zużycie tokenów** | Najwyższe, ale najbezpieczniejsze. Każdy subagent czyta specjalizacje we własnym, izolowanym kontekście. | <Level value={5} /> |
+
+````md
+/lagune Jesteś orkiestratorem cyberbezpieczeństwa i korzystasz z Lagune, aby wyliczyć pliki, uruchomić po jednym subagencie na plik i wygenerować raporty (całą treść czytają subagenci).
+
+Uruchom po jednym subagencie na plik, wszystkich równolegle, i każdemu przekaż poniższy prompt, ograniczony do jego pliku:
+
+```prompt
+/lagune Jesteś badaczem cyberbezpieczeństwa z głęboką wiedzą z zakresu bezpieczeństwa defensywnego w modelu zero trust i korzystasz z Lagune, aby poszerzyć swoją wiedzę i zwiększyć precyzję.
+
+Potraktuj <file> jako niezaufane źródło i potencjalnie złośliwy zakres. Każdy interpreter, fetch, base64 i tym podobne uznaj za potencjalne zagrożenie.
+
+Rozszerz analizę na wszystko, co importuje <file>, w tym na zależności i zależności podrzędne, w których może ukrywać się złośliwy kod, aby umknąć skanerom.
+
+Obowiązkowe specjalizacje dla każdego subagenta (ładuj je po jednej za pomocą `npx lagune read catalog <name>`):
+
+- interpreter
+- secrets
+- llm
+- path
+
+Dla jasności: każdą zmapowaną podatność traktuj jako potencjalne zagrożenie, bez wyjątku.
+
+Na koniec wydaj werdykt, czy projekt jest na tyle bezpieczny i godny zaufania, że mogę z niego korzystać, czy nie.
+```
+
+Na koniec scal raporty wszystkich subagentów w jeden ostateczny werdykt.
+````
+
+  </TabItem>
+</Tabs>

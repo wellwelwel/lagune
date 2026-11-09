@@ -1,0 +1,91 @@
+---
+id: harden
+title: '/lagune-harden: Wdróż poprawki bezpieczeństwa w swoim kodzie'
+sidebar_label: 4. Harden
+description: Wdróż poprawki z planu w swoim kodzie, bezpiecznie i po jednej naraz.
+source_hash: 'e7b1c6b933d4399c73b18a63893003ade926d10803cc2ee234a04051b9f3d523'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-harden
+
+🔧 Wdróż poprawki z planu w swoim kodzie, bezpiecznie i po jednej naraz.
+
+## Użycie
+
+<Tabs>
+  <TabItem value="full" label="Wdróż wszystko" default>
+
+```prompt
+/lagune-harden
+```
+
+  </TabItem>
+  <TabItem value="paths" label="Wskaż ścieżki">
+
+```prompt
+/lagune-harden src/routes/upload.ts
+```
+
+  </TabItem>
+  <TabItem value="priority" label="Według priorytetu">
+
+```prompt
+/lagune-harden priorytet krytyczny i wysoki
+```
+
+  </TabItem>
+</Tabs>
+
+## Jak to działa
+
+Plan rozstrzygnął już każdą poprawkę, więc harden po prostu ją wdraża. Ponieważ to jedyna faza, która zmienia twój kod, działa ostrożnie: wdraża jedną poprawkę naraz, aby każdą zmianę dało się łatwo przejrzeć, i nigdy nie osłabia zabezpieczenia tylko po to, żeby poprawka pasowała. Na przykład poprawka przesyłania plików:
+
+- **Przesyłanie plików** (status: **Applied**)
+  - _Co się zmieniło:_ sprawdza rzeczywisty typ i rozmiar pliku, odrzuca wszystko, co nieoczekiwane, zmienia nazwę pliku przy zapisie i przechowuje go tam, gdzie nie da się go uruchomić jako kodu.
+  - _Gdzie:_ funkcja `handleUpload` oraz wywoływana przez nią funkcja pomocnicza do zapisu.
+
+Jeśli poprawki nie da się wdrożyć w całości, harden robi to, co może bezpiecznie zrobić, a resztę oznacza jako **Partial** lub **Blocked** i zostawia otwartą.
+
+:::info[Wdrożona nie znaczy zweryfikowana]
+Applied nie oznacza jeszcze, że działanie poprawki zostało wykazane. Od tego jest faza [verify](/docs/commands/verify).
+:::
+
+:::tip
+
+- Faza opiera się w całości na planie. Jeśli wskażesz poprawkę lub plik, których nigdy nie zaplanowano, każe ci najpierw uruchomić dla nich polecenie `/lagune-plan`.
+- Ponowne uruchomienie uzgadnia rejestr: wycofane zmiany znikają, nowo wdrożone poprawki się pojawiają.
+- Rejestr utwardzania znajduje się w pliku `.lagune/memory/harden.md`.
+
+:::
+
+:::warning[Zależy od fazy plan i zmienia twój kod]
+Harden opiera się na poleceniu [`/lagune-plan`](/docs/commands/plan). To jedyna faza, która zmienia twój kod.
+:::
+
+## Co dalej
+
+Wykaż, że każda poprawka działa: [`/lagune-verify`](/docs/commands/verify).
+
+<Faq
+  items={[
+    {
+      question: 'Czy /lagune-harden zmienia mój kod?',
+      answer:
+        'Tak. To jedyna faza, która zmienia twój kod, wdrażając poprawki z planu po jednej naraz.',
+    },
+    {
+      question: 'Co oznaczają statusy Applied, Partial i Blocked?',
+      answer:
+        'To status, który Lagune zapisuje dla każdej poprawki. Applied oznacza, że poprawkę wdrożono, Partial, że wdrożono tylko jej część, a Blocked, że nie dało się jej wdrożyć. Applied nie oznacza jeszcze, że działanie poprawki zostało wykazane.',
+    },
+    {
+      question: 'Czy Lagune wdraża poprawki bez pytania?',
+      answer:
+        'O tym, czy zmiana wymaga twojej zgody, decyduje twój agent i tryb uprawnień, w którym go uruchamiasz, a nie Lagune: Lagune nie dodaje własnego etapu potwierdzania. Mimo to nigdy nie osłabia zabezpieczenia na potrzeby poprawki, a jeśli poprawka naruszałaby którąś z zasad bezpieczeństwa, najpierw się zatrzymuje i ci o tym mówi.',
+    },
+  ]}
+/>

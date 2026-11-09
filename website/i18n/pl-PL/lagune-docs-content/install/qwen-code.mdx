@@ -1,0 +1,84 @@
+---
+id: qwen-code
+title: 'Instalacja rozszerzenia Lagune w Qwen Code'
+sidebar_label: Qwen Code
+parent: get-started/install
+description: Zainstaluj rozszerzenie Lagune w Qwen Code, aktualizuj je i z góry zezwól na działanie jego silnika.
+keywords:
+  - qwen code
+  - qwen code extension
+  - qwen extensions install
+  - instalacja lagune
+  - konfiguracja
+  - bezpieczeństwo AI
+  - agenci AI
+source_hash: 'e3e5ebca7de5820cc77f9cdf055d87b7cf4782d77f1310a049914be6e489829e'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Qwen Code' />
+
+Zainstaluj rozszerzenie z terminala:
+
+```bash
+qwen extensions install lagune
+```
+
+## Aktualizacja
+
+Aby zaktualizować rozszerzenie **Lagune**, uruchom:
+
+```bash
+qwen extensions update lagune
+```
+
+Aby rozszerzenie aktualizowało się automatycznie, zainstaluj je z opcją `--auto-update`.
+
+## Polecenia
+
+Wpisuj polecenia poprzedzone nazwą rozszerzenia, na przykład `/lagune:lagune-charter` zamiast `/lagune-charter`.
+
+---
+
+:::info[Uprawnienia]
+
+Silnik korzysta z dwóch narzędzi: `lagune_read` tylko odczytuje projekt, a `lagune_write` tylko zapisuje w folderze `.lagune/`. Aby z góry zezwolić na ich użycie, dodaj te reguły do pliku `.qwen/settings.json` dla jednego projektu albo do pliku `~/.qwen/settings.json` dla wszystkich projektów:
+
+```json
+{
+  "permissions": {
+    "allow": ["mcp__lagune__lagune_read", "mcp__lagune__lagune_write"]
+  }
+}
+```
+
+Gdy silnik działa przez **npx**, jak w przypadku **skills.sh**, zezwól na `Shell(npx --yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Jak zainstalować rozszerzenie Lagune w Qwen Code?',
+      answer: 'Uruchom qwen extensions install lagune.',
+    },
+    {
+      question: 'Jak zaktualizować rozszerzenie Lagune w Qwen Code?',
+      answer:
+        'Uruchom qwen extensions update lagune albo zainstaluj rozszerzenie z opcją --auto-update.',
+    },
+    {
+      question: 'Jak uruchamiać polecenia Lagune w Qwen Code?',
+      answer:
+        'Wpisuj je poprzedzone nazwą rozszerzenia, na przykład /lagune:lagune-charter.',
+    },
+    {
+      question:
+        'Czy Qwen Code może uruchamiać polecenia Lagune bez pytania o zgodę?',
+      answer:
+        'Tak. W ustawieniach Qwen Code zezwól na mcp__lagune__lagune_read i mcp__lagune__lagune_write, a gdy silnik działa przez npx, także na Shell(npx --yes lagune@*).',
+    },
+  ]}
+/>
