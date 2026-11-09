@@ -11,7 +11,7 @@ export const Hero = (): ReactNode => (
     </span>
     <p
       dir='ltr'
-      className='font-display font-bold text-[clamp(32px,4.4vw,34px)] leading-[1.5] tracking-[-0.02em] whitespace-nowrap m-0 max-[600px]:text-[24px]'
+      className='font-serif font-normal text-[clamp(32px,4.4vw,34px)] leading-[1.5] tracking-[-0.015em] whitespace-nowrap m-0 max-[600px]:text-[24px]'
     >
       <span className='text-accent me-2 [-webkit-text-stroke:0.015em_var(--color-accent)]'>
         /

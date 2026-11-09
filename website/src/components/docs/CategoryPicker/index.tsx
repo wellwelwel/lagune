@@ -3,9 +3,10 @@ import type { ReactNode } from 'react';
 import { translate } from '@docusaurus/Translate';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { IconSwap, SWAP_TIMING } from '@site/src/components/IconSwap';
+import { useScrollFade } from '@site/src/components/useScrollFade';
 import { CATEGORIES_ADD, categoriesIn } from '@site/src/data/categories';
 import clsx from 'clsx';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { LuCheck } from 'react-icons/lu';
 import {
   AgentTile,
@@ -68,7 +69,10 @@ const CategoryCard = ({
 
 export const CategoryPicker = (): ReactNode => {
   const [chosen, setChosen] = useState<string[]>(['owasp']);
+  const commandRef = useRef<HTMLElement | null>(null);
   const categories = categoriesIn(useDataMessages());
+
+  useScrollFade(commandRef);
 
   const toggle = useCallback(
     (key: string) =>
@@ -121,7 +125,10 @@ export const CategoryPicker = (): ReactNode => {
         <span className='select-none text-accent' aria-hidden>
           $
         </span>
-        <code className='lagune-scroll-fade min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+        <code
+          ref={commandRef}
+          className='lagune-scroll-fade min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+        >
           {CATEGORIES_ADD}{' '}
           <span className='lagune-token-in text-muted'>--categories</span>
           {chosen.map((key) => (

@@ -11,10 +11,12 @@ type StepOutroProps = {
   onStep: (index: number) => void;
 };
 
-const ignoreStep = () => {};
+export const OUTRO_INSET = 'mx-1 pl-2.5';
 
-const OUTRO_TEXT =
-  '[font-family:var(--font-mono)] text-[14px] font-bold tracking-[0.04em] uppercase text-[color-mix(in_srgb,var(--muted),var(--ink-2))]';
+export const OUTRO_TEXT =
+  '[font-family:var(--font-mono)] text-[14px] font-bold tracking-[0.04em] uppercase text-[color-mix(in_srgb,var(--muted),var(--ink-2))] max-[600px]:text-[13px]';
+
+const ignoreStep = () => {};
 
 const StepOutro = ({ index, onStep }: StepOutroProps) => {
   const { phase } = PHASE_STEPS[index];
@@ -71,8 +73,10 @@ const StepOutro = ({ index, onStep }: StepOutroProps) => {
           {'Next: {phase}'}
         </Translate>
       )}
-      {'\u00A0'}
-      <LuArrowRight className='ml-0.5 inline-block size-4 align-[-4px] text-accent transition-transform duration-200 group-hover:translate-x-0.5' />
+      <span className='whitespace-nowrap'>
+        {'\u00A0'}
+        <LuArrowRight className='ml-0.5 inline-block size-4 align-[-4px] text-accent transition-transform duration-200 group-hover:translate-x-0.5' />
+      </span>
     </button>
   );
 };
@@ -113,7 +117,7 @@ const UsagePanelComponent = ({
         typed={typedDone}
         onDone={onTyped}
       />
-      <Tallest variants={OUTROS} className='mt-5 mx-1 pl-2.5'>
+      <Tallest variants={OUTROS} className={`mt-5 ${OUTRO_INSET}`}>
         <div className={typedDone ? 'lagune-fade-in' : 'invisible'}>
           <StepOutro index={usageStep} onStep={onStep} />
         </div>

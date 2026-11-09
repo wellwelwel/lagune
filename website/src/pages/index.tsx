@@ -13,9 +13,10 @@ import { ChatDemo } from '@site/src/components/home/ChatDemo';
 import { Hero } from '@site/src/components/home/Hero';
 import { Highlights } from '@site/src/components/home/Highlights';
 import { InstallTabs } from '@site/src/components/home/InstallTabs';
+import { PromptExamples } from '@site/src/components/home/PromptExamples';
 import { SiteFooter } from '@site/src/components/home/SiteFooter';
 import { StepRail } from '@site/src/components/home/StepRail';
-import { Tagline } from '@site/src/components/home/Tagline';
+import { SECTION_OPENING, Tagline } from '@site/src/components/home/Tagline';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { UsagePanel } from '@site/src/components/home/UsagePanel';
 import {
@@ -29,7 +30,7 @@ import {
   usePublishedAlternates,
 } from '@site/src/components/LocaleHead';
 import { useDismiss } from '@site/src/components/useDismiss';
-import { SECTION_LABELS } from '@site/src/data/home';
+import { PROMPT_AGENT_ICONS, SECTION_LABELS } from '@site/src/data/home';
 import { jsonLd } from '@site/src/seo/jsonLd';
 import {
   NPM_URL,
@@ -335,7 +336,7 @@ const homeStructuredData = (page: LocalePage, summary: string) => ({
           translate({
             id: 'home.faq.install.answer',
             message:
-              'Most agents install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune. The install page shows the command for each agent. It works in both new and existing projects and needs no API key.',
+              'Most agents install Lagune as a plugin, Gemini CLI and Qwen Code as an extension, Pi as a package, and any other agent with npx skills add wellwelwel/lagune -y. The install page shows the command for each agent. It works in both new and existing projects and needs no API key.',
             description:
               'The answer to "How do I install Lagune?" in search engines\' structured data',
           })
@@ -417,6 +418,7 @@ const Home = (): ReactNode => {
   const [modeIndex, setModeIndex] = useState(0);
   const [typedDone, setTypedDone] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [installPick, setInstallPick] = useState<number | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   useDismiss(menuOpen, menuRef, setMenuOpen);
@@ -584,7 +586,7 @@ const Home = (): ReactNode => {
             className='flex min-w-0 flex-col gap-10'
           >
             <Hero />
-            <InstallTabs />
+            <InstallTabs picked={installPick} onPick={setInstallPick} />
             <div className='flex flex-col gap-3'>
               <CallToAction />
               <div className='flex items-center gap-5 pl-2.5 text-[12.5px] tracking-[-0.01em]'>
@@ -630,6 +632,11 @@ const Home = (): ReactNode => {
           <ChatDemo />
           <Highlights />
         </div>
+
+        <PromptExamples
+          className={`${SIDE_BY_SIDE} ${SECTION_OPENING}`}
+          agentIcon={PROMPT_AGENT_ICONS[installPick ?? 0]}
+        />
       </main>
 
       <SiteFooter onBrand={scrollToTop} />

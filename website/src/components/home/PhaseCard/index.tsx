@@ -86,7 +86,7 @@ export const PhaseCard = ({
           { phase: phase.title }
         )}
         decoding='async'
-        className='lagune-img-outline absolute inset-0 size-full object-cover'
+        className='lagune-image-outline absolute inset-0 size-full object-cover'
         aria-hidden
       />
       <div

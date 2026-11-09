@@ -7,12 +7,12 @@ const ARROW_COPY =
 
 /* The diagonal slide the docs links share: on hover the arrow leaves top-right
    and a second copy arrives from bottom-left. The parent must carry `group`.
-   Inside an admonition it inherits that box's accent (--lagune-adm); everywhere
+   Inside an admonition it inherits that box's accent (--lagune-admonition-accent); everywhere
    else it falls back to the page accent. */
 export const LinkArrow = (): ReactNode => (
   <span
     aria-hidden
-    className='relative ml-0.5 inline-grid size-[1em] place-items-center overflow-hidden align-[-0.125em] text-[var(--lagune-adm,var(--accent))]'
+    className='relative ml-0.5 inline-grid size-[1em] place-items-center overflow-hidden align-[-0.125em] text-[var(--lagune-admonition-accent,var(--accent))]'
   >
     <span
       className={`${ARROW_COPY} group-hover:translate-x-[120%] group-hover:translate-y-[-120%]`}

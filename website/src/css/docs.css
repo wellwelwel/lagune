@@ -6,13 +6,7 @@
 @import '@fontsource/fira-code/latin-400.css';
 @import '@fontsource/fira-code/latin-600.css';
 
-/*
- * Docs skin: the documentation's own design system, scoped under .lagune-docs
- * as the token set every docs utility (bg-surface, text-ink…) resolves to.
- * The docs theme is independent from Docusaurus' color mode (locked to dark
- * for the landing page): it keys off the html attribute data-lagune-docs-theme,
- * set pre-paint by a script the docs plugin injects.
- */
+/* The docs theme follows data-lagune-docs-theme, which the docs plugin sets before paint, never Docusaurus' color mode. */
 
 .lagune-docs {
   --canvas: #eaedf5;
@@ -167,9 +161,7 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   font-weight: 800;
 }
 
-/* The page banner already renders the title, so the leading Markdown h1
-   (which MDX wraps in a <header>, kept in the files for GitHub readers)
-   stays out of the page. */
+/* The page banner renders the title. The Markdown h1, wrapped in a <header> by MDX, stays in the files for GitHub readers. */
 .lagune-docs .markdown > header:first-child {
   display: none;
 }
@@ -210,8 +202,7 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   color: var(--muted);
 }
 
-/* Task-list checkboxes: the native disabled control ignores the theme, so
-   it is redrawn on the tokens (opacity: 1 undoes the disabled graying). */
+/* The native disabled checkbox ignores the theme and grays itself out. */
 .lagune-docs .markdown input[type='checkbox'] {
   appearance: none;
   width: 1rem;
@@ -307,8 +298,7 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   line-height: 1.55;
 }
 
-/* The categories terminal keeps the landing page's look in both docs themes,
-   so its command reads as plain terminal text instead of inline code. */
+/* The categories terminal keeps the landing page's look in both docs themes. */
 .lagune-docs .markdown .lagune-terminal code {
   background: transparent;
   border: 0;
@@ -321,16 +311,13 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   white-space: nowrap;
 }
 
-/* Code blocks live on a dark surface regardless of the docs theme, so their
-   selection keeps a light foreground instead of the page ink. */
 .lagune-docs .theme-code-block ::selection,
 .lagune-docs div[class*='codeBlockContainer'] ::selection {
   background: color-mix(in srgb, var(--accent) 45%, transparent);
   color: #ffffff;
 }
 
-/* Copy button: interruptible icon cross-fade (opacity, scale, blur) in
-   place of the theme's transition: all, plus a 40px hit area. */
+/* The theme's copy button transitions every property. */
 .lagune-docs .theme-code-block [class*='buttonGroup'] {
   column-gap: 0.5rem;
 }
@@ -411,9 +398,7 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   overflow: hidden;
 }
 
-/* Below the sidebar breakpoint a wide table scrolls inside the card
-   instead of bleeding past it. width: max-content keeps the border
-   hugging the content when the table is narrower than the card. */
+/* 1023px is the sidebar breakpoint. */
 @media (max-width: 1023px) {
   .lagune-docs .markdown table {
     display: block;
@@ -455,25 +440,23 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   background: transparent;
 }
 
-/* Admonitions: every internal color (surface, border, heading, icon, and
-   inline code) derives from one accent per variant, --lagune-adm, following
-   the dashboard's soft chip palette. */
+/* Follows the dashboard's soft chip palette. */
 .lagune-docs .theme-admonition {
-  --lagune-adm: var(--muted);
+  --lagune-admonition-accent: var(--muted);
   --ifm-alert-background-color: color-mix(
     in srgb,
-    var(--lagune-adm) 12%,
+    var(--lagune-admonition-accent) 12%,
     var(--surface)
   );
   --ifm-alert-background-color-highlight: transparent;
   --ifm-alert-border-color: color-mix(
     in srgb,
-    var(--lagune-adm) 32%,
+    var(--lagune-admonition-accent) 32%,
     transparent
   );
   --ifm-alert-foreground-color: color-mix(
     in srgb,
-    var(--lagune-adm) 34%,
+    var(--lagune-admonition-accent) 34%,
     var(--ink-2)
   );
   border-radius: var(--radius-panel);
@@ -484,26 +467,26 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
 
 .lagune-docs .theme-admonition-tip,
 .lagune-docs .alert--success {
-  --lagune-adm: var(--teal);
+  --lagune-admonition-accent: var(--teal);
 }
 
 .lagune-docs .theme-admonition-info,
 .lagune-docs .alert--info {
-  --lagune-adm: var(--blue);
+  --lagune-admonition-accent: var(--blue);
 }
 
 .lagune-docs :is(.theme-admonition-warning, .theme-admonition-caution),
 .lagune-docs .alert--warning {
-  --lagune-adm: var(--amber);
+  --lagune-admonition-accent: var(--amber);
 }
 
 .lagune-docs .theme-admonition-danger,
 .lagune-docs .alert--danger {
-  --lagune-adm: var(--red);
+  --lagune-admonition-accent: var(--red);
 }
 
 .lagune-docs .theme-admonition [class*='admonitionHeading'] {
-  color: var(--lagune-adm);
+  color: var(--lagune-admonition-accent);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -516,31 +499,37 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
 }
 
 .lagune-docs .theme-admonition :not(pre) > code {
-  background: color-mix(in srgb, var(--lagune-adm) 9%, var(--surface));
-  border-color: color-mix(in srgb, var(--lagune-adm) 30%, transparent);
-  color: color-mix(in srgb, var(--lagune-adm) 45%, var(--ink));
+  background: color-mix(
+    in srgb,
+    var(--lagune-admonition-accent) 9%,
+    var(--surface)
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--lagune-admonition-accent) 30%,
+    transparent
+  );
+  color: color-mix(in srgb, var(--lagune-admonition-accent) 45%, var(--ink));
 }
 
 .lagune-docs .theme-admonition strong {
-  color: color-mix(in srgb, var(--lagune-adm) 45%, var(--ink));
+  color: color-mix(in srgb, var(--lagune-admonition-accent) 45%, var(--ink));
 }
 
-/* Text selection: a soft tint of the site accent, on-brand instead of the
-   browser default. Each admonition overrides it with its own accent, so a
-   highlight inside a note reads teal, a warning amber, and so on. */
 .lagune-docs ::selection {
   background: color-mix(in srgb, var(--accent) 22%, transparent);
   color: var(--ink);
 }
 
 .lagune-docs .theme-admonition ::selection {
-  background: color-mix(in srgb, var(--lagune-adm) 24%, transparent);
-  color: color-mix(in srgb, var(--lagune-adm) 55%, var(--ink));
+  background: color-mix(
+    in srgb,
+    var(--lagune-admonition-accent) 24%,
+    transparent
+  );
+  color: color-mix(in srgb, var(--lagune-admonition-accent) 55%, var(--ink));
 }
 
-/* Tabs as a segmented control: a recessed track where the active segment
-   rises as a small card. Track radius 11px = chip radius 8px + 3px padding,
-   keeping the corners concentric. */
 .lagune-docs .tabs {
   display: inline-flex;
   max-width: 100%;
@@ -551,7 +540,7 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   padding: 3px;
   background: var(--surface-2);
   border: 1px solid var(--line);
-  border-radius: 11px;
+  border-radius: calc(var(--radius-chip) + 3px);
   margin-bottom: 0.5rem;
 }
 
@@ -583,8 +572,16 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   box-shadow: var(--shadow-card-half);
 }
 
-/* Re-runs whenever a panel stops being [hidden], so switching tabs enters
-   with the page rise at half the travel. */
+.lagune-docs .tabs__item:not(.tabs__item--active) .lagune-docs-agent-tab-name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* A panel replays its animation each time it stops being [hidden]. */
 @keyframes lagune-docs-tab-rise {
   from {
     opacity: 0;

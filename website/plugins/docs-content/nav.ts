@@ -66,7 +66,11 @@ export const docsNav: DocsNavEntry[] = [
   {
     key: 'examples',
     label: 'Examples',
-    items: ['examples/prompts'],
+    items: [
+      'examples/prompts',
+      'examples/spec-driven-development',
+      'examples/scheduled-audits',
+    ],
   },
   {
     key: 'references-sources',

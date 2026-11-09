@@ -1,9 +1,7 @@
 import type * as PrismNamespace from 'prismjs';
 import siteConfig from '@generated/docusaurus.config';
 
-export default function prismIncludeLanguages(
-  PrismObject: typeof PrismNamespace
-): void {
+const prismIncludeLanguages = (PrismObject: typeof PrismNamespace): void => {
   const {
     themeConfig: { prism },
   } = siteConfig;
@@ -12,13 +10,13 @@ export default function prismIncludeLanguages(
 
   globalThis.Prism = PrismObject;
 
-  additionalLanguages.forEach((lang) => {
-    if (lang === 'php')
+  additionalLanguages.forEach((language) => {
+    if (language === 'php')
       require('prismjs/components/prism-markup-templating.js');
-    require(`prismjs/components/prism-${lang}`);
+    require(`prismjs/components/prism-${language}`);
   });
 
-  /* `prompt` blocks show what a user types into the agent. Comments come first so a #-led line wins the whole line before command/at-mark run. */
+  /* Prism matches the tokens in declaration order. */
   PrismObject.languages.prompt = {
     comment: {
       pattern: /(^|\s)#.*/m,
@@ -26,7 +24,7 @@ export default function prismIncludeLanguages(
       greedy: true,
     },
     command: {
-      pattern: /(^|\s)\/[a-z][\w-]*/im,
+      pattern: /(^|\s)\/[a-z][\w-]*(?:[.:][a-z][\w-]*)*/im,
       lookbehind: true,
       greedy: true,
     },
@@ -43,4 +41,6 @@ export default function prismIncludeLanguages(
   delete globalWithPrism.Prism;
 
   if (typeof PrismBefore !== 'undefined') globalThis.Prism = PrismObject;
-}
+};
+
+export default prismIncludeLanguages;

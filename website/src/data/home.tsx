@@ -1,6 +1,8 @@
 import type { ComponentType, ReactNode } from 'react';
+import type { IconType } from 'react-icons';
 import type { LinkedAgent } from './agents';
 import Translate, { translate } from '@docusaurus/Translate';
+import { IoIosWater } from 'react-icons/io';
 import {
   LuBadgeCheck,
   LuBrain,
@@ -12,6 +14,7 @@ import {
   LuSparkle,
   LuSquareSlash,
 } from 'react-icons/lu';
+import { RiSearchAi2Fill } from 'react-icons/ri';
 import {
   TbCircleNumber1,
   TbCircleNumber2,
@@ -48,6 +51,22 @@ export type InstallTab = {
   logo: string;
   label?: string;
   command: string;
+  promptAgent?: LinkedAgent;
+};
+
+export type PromptItem = {
+  name: string;
+} & ({ prompts: string[] } | { markdown: string });
+
+export type PromptNote = {
+  Icon: IconType;
+  text: ReactNode;
+};
+
+export type PromptExampleGroup = {
+  label: string;
+  Icon: IconType;
+  sequence: (PromptItem | PromptNote)[];
 };
 
 const RECOMMENDED_FULL_MODE: PromptMode = {
@@ -66,6 +85,31 @@ const BY_SEVERITY_LABEL = translate({
   description:
     'The example tab for running a phase on the most severe findings only',
 });
+
+const AUTO_DETECT_LABEL = translate({
+  id: 'home.phase.charter.mode.auto',
+  message: 'Auto Detect',
+  description: 'The example tab for the Charter phase: Auto Detect',
+});
+
+const CHARTER_TITLE = translate({
+  id: 'home.phase.charter.title',
+  message: 'Charter',
+  description: 'The name of the Charter phase',
+});
+
+const UNIVERSAL_ICON = LuSparkle;
+
+const ORCHESTRATOR_PROMPT = translate(
+  {
+    id: 'home.prompts.audit.orchestrator',
+    message:
+      'You are a cybersecurity orchestrator:\n\n- 0th sub-agent: /lagune-charter (only if no charter exists)\n- 1st sub-agent: /lagune-detect\n- 2nd sub-agent: /lagune-plan\n- 3rd sub-agent: {harden}\n- 4th sub-agent: {verify}\n\nLoop: re-run harden and verify sub-agents until all findings are closed.\n\n- Scope: All source code and its configuration.\n- Out of scope: Everything Git ignores, generated code, development dependencies, and tests, including their fixtures and snapshots.',
+    description:
+      'An example prompt that runs the Blue Team flow with one sub-agent per command, where {harden} and {verify} are the harden and verify commands, and every /lagune-* command and Git stay unchanged',
+  },
+  { harden: '/lagune-harden', verify: '/lagune-verify' }
+);
 
 const PHASE_GROUPS: Group[] = [
   {
@@ -162,11 +206,7 @@ const PHASE_GROUPS: Group[] = [
           message: 'PHASE 1',
           description: 'The small caps label over the Charter phase card',
         }),
-        title: translate({
-          id: 'home.phase.charter.title',
-          message: 'Charter',
-          description: 'The name of the Charter phase',
-        }),
+        title: CHARTER_TITLE,
         command: '/lagune-charter',
         description: translate({
           id: 'home.phase.charter.description',
@@ -192,11 +232,7 @@ const PHASE_GROUPS: Group[] = [
             }),
           },
           {
-            label: translate({
-              id: 'home.phase.charter.mode.auto',
-              message: 'Auto Detect',
-              description: 'The example tab for the Charter phase: Auto Detect',
-            }),
+            label: AUTO_DETECT_LABEL,
             prompt: '',
           },
         ],
@@ -379,8 +415,8 @@ export const STEP_RAIL_ICONS: ComponentType[] = [
   TbCircleNumber5,
 ];
 
-export const STEP_CARD_ICONS: ComponentType<{ className?: string }>[] = [
-  LuSparkle,
+export const STEP_CARD_ICONS: IconType[] = [
+  UNIVERSAL_ICON,
   LuShieldCheck,
   LuScanSearch,
   LuListChecks,
@@ -400,8 +436,14 @@ const Emphasis = ({ children }: { children: ReactNode }): ReactNode => (
   <strong className='text-ink font-semibold'>{children}</strong>
 );
 
+const UNIVERSAL_COMMAND = (
+  <Emphasis>
+    <bdi>/lagune</bdi>
+  </Emphasis>
+);
+
 export const HIGHLIGHTS: {
-  Icon: ComponentType<{ className?: string }>;
+  Icon: IconType;
   title: string;
   lead: ReactNode;
   body: ReactNode;
@@ -419,11 +461,7 @@ export const HIGHLIGHTS: {
         id='home.highlight.build.lead'
         description='The lead of the home highlight about /lagune, where {command} is the command'
         values={{
-          command: (
-            <Emphasis>
-              <bdi>/lagune</bdi>
-            </Emphasis>
-          ),
+          command: UNIVERSAL_COMMAND,
         }}
       >
         {
@@ -645,12 +683,88 @@ export const INSTALL_TABS: InstallTab[] = [
   {
     agent: SKILLS_SH,
     logo: '/img/logos/skills.svg',
-    command: "npx skills add wellwelwel/lagune --skill '*'",
+    command: 'npx skills add wellwelwel/lagune -y',
+    promptAgent: installRouteNamed('Cursor'),
   },
   {
     agent: GITHUB_CLI,
     logo: '/img/logos/github.svg',
     label: 'GitHub',
     command: 'gh skill install wellwelwel/lagune --all --scope project',
+    promptAgent: installRouteNamed('GitHub Copilot'),
+  },
+];
+
+export const PROMPT_AGENT_ICONS = INSTALL_TABS.map(
+  ({ agent, promptAgent }) => (promptAgent ?? agent).icon
+);
+
+export const PROMPT_EXAMPLE_GROUPS: PromptExampleGroup[] = [
+  {
+    label: translate({
+      id: 'home.prompts.firstUse',
+      message: 'First use',
+      description:
+        'The tab of the home prompt examples for the first steps: /lagune-charter, the command to run before any other, and the instructions file an agent reads',
+    }),
+    Icon: IoIosWater,
+    sequence: [
+      {
+        name: CHARTER_TITLE,
+        prompts: ['/lagune-charter'],
+      },
+      {
+        name: 'AGENTS.md',
+        markdown: `${translate({
+          id: 'home.prompts.agents.lead',
+          message:
+            "Add this to your agent's instructions file, such as AGENTS.md or CLAUDE.md, as one of its first instructions:",
+          description:
+            'The request that opens the home prompt example for the instructions file an agent reads, followed by the section to add, where the file names stay unchanged',
+        })}\n\n${translate({
+          id: 'home.prompts.agents.instruction',
+          message:
+            '## Security\n\n- Whenever you build or change code, use the `/lagune` skill (named `/lagune:lagune` when installed as a plugin), to improve safety by default.',
+          description:
+            'The section a user adds to the instructions file their agent reads, written in Markdown, where `/lagune` and `/lagune:lagune` stay unchanged',
+        })}`,
+      },
+      {
+        Icon: UNIVERSAL_ICON,
+        text: (
+          <Translate
+            id='home.prompts.firstUse.note'
+            description='The line that closes the first steps of the home prompt examples, where {command} is the /lagune command'
+            values={{
+              command: UNIVERSAL_COMMAND,
+            }}
+          >
+            {
+              'Then, use the {command} skill on any prompt, at any time, to build more securely.'
+            }
+          </Translate>
+        ),
+      },
+    ],
+  },
+  {
+    label: translate({
+      id: 'home.prompts.audit',
+      message: 'Audit: Blue Team Flow',
+      description:
+        'The tab of the home prompt examples that run the five-phase Blue Team flow',
+    }),
+    Icon: RiSearchAi2Fill,
+    sequence: [
+      {
+        name: translate({
+          id: 'home.prompts.audit.orchestratorTab',
+          message: 'Orchestrator',
+          description:
+            'The name of the home prompt example that runs the Blue Team flow with one sub-agent per command, read in the label of its copy button',
+        }),
+        prompts: [ORCHESTRATOR_PROMPT],
+      },
+    ],
   },
 ];

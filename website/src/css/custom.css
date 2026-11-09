@@ -188,12 +188,7 @@
   }
 }
 
-/*
- * Interactive chrome is not text: keep links, buttons, tabs, diagrams, and
- * images out of text selections (and images out of drags). Links inside
- * readable prose (the docs markdown, the paper) stay selectable, so copying
- * a passage keeps its linked words.
- */
+/* Interactive chrome is not text, except links in prose. */
 @layer base {
   a,
   button,
@@ -235,12 +230,7 @@
   --aspect-flow: 820 / 532;
 }
 
-/*
- * Shared tokens resolve through CSS variables so one utility (text-ink,
- * bg-surface…) themes per subtree: the landing page reads the :root values
- * below, the docs shell re-declares the same variables under .lagune-docs
- * (see docs.css), with its own light and dark values.
- */
+/* The landing page sets these variables on :root, and the docs shell under .lagune-docs (docs.css). */
 @theme inline {
   --color-accent: var(--accent);
   --color-ink: var(--ink);
@@ -294,7 +284,7 @@ html.lagune-canvas-html body.lagune-canvas-body {
   background: #050a18;
 }
 
-/* Infima styles every <code> with a light pill; neutralize it on this page. */
+/* Infima styles every <code> as a light pill. */
 .lagune-canvas code {
   background: transparent;
   border: 0;
@@ -340,7 +330,7 @@ html.lagune-canvas-html body.lagune-canvas-body {
   background: var(--color-accent);
 }
 
-.lagune-img-outline {
+.lagune-image-outline {
   outline: 1px solid rgba(0, 0, 0, 0.4);
   outline-offset: -1px;
 }
@@ -525,7 +515,6 @@ html.lagune-canvas-html body.lagune-canvas-body {
   }
 }
 
-/* Two slightly off-balance hops for the little robot when its card is hovered. */
 .lagune-robot-hop {
   transform-origin: 50% 100%;
   will-change: transform;
@@ -559,8 +548,7 @@ html.lagune-canvas-html body.lagune-canvas-body {
   }
 }
 
-/* Mermaid edge labels: drop the default pill, match the panel, and follow the
-   docs ink so they stay legible in both docs themes. */
+/* Mermaid's default edge labels ignore the docs themes. */
 .lagune-mermaid .edgeLabel,
 .lagune-mermaid .edgeLabel p,
 .lagune-mermaid .edgeLabel rect,
@@ -618,7 +606,13 @@ html.lagune-canvas-html body.lagune-canvas-body {
   }
 }
 
-@property --lagune-scroll-fade {
+@property --lagune-fade-start {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --lagune-fade-end {
   syntax: '<length>';
   inherits: false;
   initial-value: 0px;
@@ -627,21 +621,24 @@ html.lagune-canvas-html body.lagune-canvas-body {
 .lagune-scroll-fade {
   mask-image: linear-gradient(
     to right,
-    #000 calc(100% - var(--lagune-scroll-fade)),
+    transparent,
+    rgb(0 0 0 / 0.2) calc(var(--lagune-fade-start) * 0.5),
+    #000 var(--lagune-fade-start),
+    #000 calc(100% - var(--lagune-fade-end)),
+    rgb(0 0 0 / 0.2) calc(100% - var(--lagune-fade-end) * 0.5),
     transparent
   );
-  animation: lagune-scroll-fade linear both;
-  animation-timeline: scroll(self inline);
-  animation-range: calc(100% - 2rem) 100%;
+  transition:
+    --lagune-fade-start 0.2s ease-out,
+    --lagune-fade-end 0.2s ease-out;
 }
 
-@keyframes lagune-scroll-fade {
-  from {
-    --lagune-scroll-fade: 2rem;
-  }
-  to {
-    --lagune-scroll-fade: 0px;
-  }
+.lagune-scroll-fade[data-hidden-start] {
+  --lagune-fade-start: 2rem;
+}
+
+.lagune-scroll-fade[data-hidden-end] {
+  --lagune-fade-end: 2rem;
 }
 
 .lagune-cite-pop {
@@ -662,8 +659,8 @@ html.lagune-canvas-html body.lagune-canvas-body {
 
 /* Docs theme: maps the landing page's identity onto Infima's variables. */
 :root {
-  --lagune-bg: #050a18;
-  --lagune-bg-elevated: #0a0f1f;
+  --lagune-background: #050a18;
+  --lagune-background-elevated: #0a0f1f;
   --lagune-accent: #005eff;
   --lagune-accent-soft: #5fb4ff;
   --lagune-ink: #e9edf7;
@@ -673,8 +670,8 @@ html.lagune-canvas-html body.lagune-canvas-body {
   --lagune-panel-line: #0c155c;
   --lagune-card: rgba(255, 255, 255, 0.03);
 
-  --ifm-background-color: var(--lagune-bg);
-  --ifm-background-surface-color: var(--lagune-bg-elevated);
+  --ifm-background-color: var(--lagune-background);
+  --ifm-background-surface-color: var(--lagune-background-elevated);
 
   --ifm-color-primary: #2f7bff;
   --ifm-color-primary-dark: #0f63ff;
@@ -705,7 +702,7 @@ html.lagune-canvas-html body.lagune-canvas-body {
 
   --ifm-navbar-background-color: rgba(5, 10, 24, 0.82);
   --ifm-navbar-shadow: inset 0 -1px 0 0 var(--lagune-panel-line);
-  --ifm-footer-background-color: var(--lagune-bg-elevated);
+  --ifm-footer-background-color: var(--lagune-background-elevated);
   --ifm-footer-color: var(--lagune-muted);
   --ifm-footer-link-color: var(--lagune-muted);
   --ifm-footer-title-color: var(--lagune-ink);
@@ -725,8 +722,8 @@ html.lagune-canvas-html body.lagune-canvas-body {
 }
 
 html[data-theme='dark'] {
-  --ifm-background-color: var(--lagune-bg);
-  --ifm-background-surface-color: var(--lagune-bg-elevated);
+  --ifm-background-color: var(--lagune-background);
+  --ifm-background-surface-color: var(--lagune-background-elevated);
 }
 
 html[data-theme='dark'] body {
@@ -736,7 +733,7 @@ html[data-theme='dark'] body {
       rgba(10, 26, 74, 0.4) 0%,
       transparent 55%
     ),
-    var(--lagune-bg);
+    var(--lagune-background);
 }
 
 html {
@@ -774,12 +771,12 @@ body {
 
 .footer,
 .footer--dark {
-  --ifm-footer-background-color: var(--lagune-bg-elevated);
+  --ifm-footer-background-color: var(--lagune-background-elevated);
   --ifm-footer-color: var(--lagune-muted);
   --ifm-footer-link-color: var(--lagune-muted);
   --ifm-footer-title-color: var(--lagune-ink);
   --ifm-footer-link-hover-color: var(--lagune-accent-soft);
-  background: var(--lagune-bg-elevated);
+  background: var(--lagune-background-elevated);
   border-top: 1px solid var(--lagune-panel-line);
 }
 

@@ -11,8 +11,10 @@ const CURSOR = '▍';
 
 const ON_SCREEN = '0px';
 
-export const TERMINAL_SURFACE =
-  'rounded-2xl border border-white/[0.07] bg-[#040406] overflow-hidden [box-shadow:inset_0_1px_0_0_rgba(255,255,255,0.06),0_18px_40px_-24px_rgba(0,0,0,0.9)]';
+export const TERMINAL_FRAME =
+  'rounded-2xl border border-white/[0.07] overflow-hidden [box-shadow:inset_0_1px_0_0_rgba(255,255,255,0.06),0_18px_40px_-24px_rgba(0,0,0,0.9)]';
+
+export const TERMINAL_SURFACE = `${TERMINAL_FRAME} bg-[#040406]`;
 
 const Typed = lazy(() =>
   import('react-typed').then((module) => ({ default: module.ReactTyped }))
@@ -44,7 +46,10 @@ export const PromptCard = memo(
     const body = mode.prompt ? ` ${typedText(mode.prompt)}` : '';
 
     return (
-      <div ref={cardRef} className={`relative mt-3 ${TERMINAL_SURFACE}`}>
+      <div
+        ref={cardRef}
+        className={`relative mt-3 ${TERMINAL_SURFACE} max-[600px]:text-[15px]`}
+      >
         <div className='flex items-center gap-3 px-[18px] pt-3.5 pb-1'>
           <span className='inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.06em] uppercase text-faint [&>svg]:size-3.5 [&>svg]:text-[#5fb4ff]'>
             <LuTerminal />

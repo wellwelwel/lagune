@@ -140,10 +140,10 @@ How each meets the person running it: what the first run takes, and how the oper
 
 Lagune runs through the agent already open. Deepsec provisions its own workspace and model access first.
 
-| Aspect             | Lagune                                                                                  | Deepsec                                                                            |
-| ------------------ | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| First command      | The plugin install or `npx skills add wellwelwel/lagune`, then `/lagune-*` in the agent | `npx deepsec init`, then `cd .deepsec`, `pnpm install`, `scan`, `process`          |
-| Credentials to run | No separate key, it uses your current agent                                             | A model key (e.g., AI Gateway, a 12-hour Vercel OIDC token, or an Anthropic token) |
+| Aspect             | Lagune                                                                                     | Deepsec                                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| First command      | The plugin install or `npx skills add wellwelwel/lagune -y`, then `/lagune-*` in the agent | `npx deepsec init`, then `cd .deepsec`, `pnpm install`, `scan`, `process`          |
+| Credentials to run | No separate key, it uses your current agent                                                | A model key (e.g., AI Gateway, a 12-hour Vercel OIDC token, or an Anthropic token) |
 
 ### Driving it
 

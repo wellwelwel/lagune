@@ -5,6 +5,9 @@ import { TbLockFilled, TbShieldCheckFilled } from 'react-icons/tb';
 /* Every locale keeps this term untranslated. */
 const EMPHASIS = 'Blue Team';
 
+export const SECTION_OPENING =
+  'mt-[calc(clamp(12px,1.6vw,24px)+var(--section-drop))] max-[600px]:-mt-3.5 [--section-drop:clamp(29px,3.6vw,50px)]';
+
 const TILE =
   'absolute grid size-[0.88em] place-items-center rounded-[28%] [&>svg]:size-[54%]';
 
@@ -61,7 +64,9 @@ export const Tagline = (): ReactNode => {
   });
 
   return (
-    <div className='mt-[calc(clamp(12px,1.6vw,24px)+var(--tagline-drop))] mb-[calc(var(--title-ink-inset)-var(--tagline-drop))] flex min-w-0 flex-col gap-[clamp(10px,1.1vw,16px)] max-xl:text-center max-[600px]:-mt-3.5 [--tagline-drop:clamp(29px,3.6vw,50px)] [--title-ink-inset:calc(var(--title-size)*0.18)] [--title-size:clamp(24px,3.6vw,52px)]'>
+    <div
+      className={`${SECTION_OPENING} mb-[calc(var(--title-ink-inset)-var(--section-drop))] flex min-w-0 flex-col gap-[clamp(10px,1.1vw,16px)] max-xl:text-center [--title-ink-inset:calc(var(--title-size)*0.18)] [--title-size:clamp(24px,3.6vw,52px)]`}
+    >
       <h1 className='m-0 font-serif text-(length:--title-size) leading-[1.12] font-normal tracking-[-0.015em] text-balance text-ink'>
         {emphasized(title)}
       </h1>

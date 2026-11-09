@@ -1,5 +1,6 @@
 import Link from '@docusaurus/Link';
 import { translate } from '@docusaurus/Translate';
+import { ArrowSlide } from '@site/src/components/home/ArrowSlide';
 import { MaskIcon } from '@site/src/components/MaskIcon';
 import {
   INSTALL_INDEX,
@@ -7,10 +8,6 @@ import {
   OTHER_AGENTS_COUNT,
 } from '@site/src/data/agents';
 import { memo } from 'react';
-import { LuArrowRight } from 'react-icons/lu';
-
-const ARROW_SLIDE =
-  'col-start-1 row-start-1 inline-flex transition-transform duration-300 ease-[cubic-bezier(0.2,0,0,1)] [&>svg]:size-4.5';
 
 const CallToActionComponent = () => (
   <Link
@@ -44,16 +41,7 @@ const CallToActionComponent = () => (
     </span>
     <span className='w-px bg-white/25' aria-hidden />
     <span className='flex items-center px-4 max-[380px]:px-3' aria-hidden>
-      <span className='grid size-4.5 overflow-hidden'>
-        <span className={`${ARROW_SLIDE} group-hover:translate-x-[120%]`}>
-          <LuArrowRight />
-        </span>
-        <span
-          className={`${ARROW_SLIDE} -translate-x-[120%] group-hover:translate-x-0`}
-        >
-          <LuArrowRight />
-        </span>
-      </span>
+      <ArrowSlide className='size-4.5' />
     </span>
   </Link>
 );

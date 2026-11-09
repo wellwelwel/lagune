@@ -1,17 +1,12 @@
 import type { PrismTheme } from 'prism-react-renderer';
 
-/*
- * Lagune code theme: a blue-family scheme over the dashboard's dark
- * canvas token, so code blocks read as native Lagune terminals in both
- * docs themes. Three blue tones carry the structure (keywords, strings,
- * constants), pink marks the call sites, red is reserved for deletions.
- */
-
+/* The dashboard's dark --canvas token. */
 const canvas = '#0b0e17';
 const ink = '#e6ebf5';
 const muted = '#8b93a8';
 const faint = '#69718a';
 const blue = '#5fa1ff';
+const azure = '#5fb4ff';
 const sky = '#86d3ff';
 const periwinkle = '#a8b4ff';
 const pink = '#ef83b6';
@@ -25,7 +20,7 @@ export const laguneCode: PrismTheme = {
   styles: [
     {
       types: ['command'],
-      style: { color: sky, fontWeight: 'bold' },
+      style: { color: azure, fontWeight: 'bold' },
     },
     {
       types: ['comment', 'prolog', 'doctype', 'cdata'],
