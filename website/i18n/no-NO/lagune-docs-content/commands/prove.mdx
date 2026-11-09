@@ -1,0 +1,129 @@
+---
+id: prove
+title: '/lagune-prove: kun defensiv proof of concept'
+sidebar_label: Prove
+description: Gjør hvert oppdaget funn om til en kjørbar, kun defensiv proof of concept (PoC) og et sikkerhetsvarsel for ansvarlig varsling.
+keywords:
+  - proof of concept
+  - PoC
+  - sikkerhetsvarsel
+  - security advisory
+  - ansvarlig varsling
+  - responsible disclosure
+  - varsling av sårbarheter
+  - regresjonstest
+  - CVE
+  - CWE
+  - OWASP
+  - GitHub Gist
+  - defensiv sikkerhet
+  - sårbarhetsrapport
+  - Snyk
+source_hash: '277c99c6438cff41e1055d1d3d7ad2f413af224f1f2e33a1be5aa1c55b16ecba'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# /lagune-prove
+
+🧪 Gjør hvert oppdaget funn om til kjørbart, kun defensivt belegg for ansvarlig varsling.
+
+For hvert funn i kartleggingen fra detect skriver kommandoen et selvstendig sikkerhetsvarsel og en test som bekrefter den **sikre veien**, slik at testen feiler så lenge problemet finnes, og går gjennom når koden er utbedret.
+
+:::tip
+Testene fra **Lagune** ligger isolert under `.lagune/`, atskilt fra din egen testsuite.
+:::
+
+## Bruk
+
+<Tabs>
+  <TabItem value="full" label="Hvert funn" default>
+
+```prompt
+/lagune-prove
+```
+
+  </TabItem>
+  <TabItem value="named" label="Et navngitt funn">
+
+Se funnene som allerede er sporet, med navn:
+
+```prompt
+npx lagune read list --findings
+
+# Findings
+#   ...
+#   • SQL injection i brukeroppslag
+#   ...
+```
+
+```prompt
+# Bevis deretter ett av dem
+/lagune-prove SQL injection i brukeroppslag
+```
+
+  </TabItem>
+</Tabs>
+
+## Slik fungerer det
+
+Kommandoen leser kildekoden hvert funn peker på, og skriver én mappe per bevist funn under `.lagune/proofs/`, med nøyaktig to filer:
+
+| Fil                              | Hva den er                                                                                                                                            |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report.test.mjs` (eller `.cjs`) | Testen. Den kjører med Poku når prosjektet ditt allerede bruker Poku, ellers med den innebygde testkjøreren i Node.js, så ingenting må installeres.   |
+| `report.md`                      | Et selvstendig sikkerhetsvarsel: alvorlighetsgrad, konsekvens, hvordan problemet reproduseres og kommandoen for å kjøre testen, lesbart på egen hånd. |
+
+Bevisene er alltid i JavaScript, så de er portable uansett hvilket språk prosjektet ditt er skrevet i. En indeks i `README.md` lenker til hvert bevis og gir én enkelt kommando for å kjøre alle.
+
+:::tip
+
+- Den er **valgfri og selvstendig**: ikke en av de fem fasene, og ikke en del av sporingskjeden.
+- Den skriver bare i `.lagune/proofs/` og rører aldri fasenes artefakter eller koden din, som den bare leser.
+- Et funn der testen ikke reproduserer problemet, får ikke noe bevis, og kommandoen ber deg kjøre [`/lagune-detect`](/docs/commands/detect) på det stedet for å avstemme.
+- Kjører du den på nytt, blir bevisene avstemt: Et funn som er borte eller ikke lenger lar seg reprodusere, får mappen sin fjernet.
+
+:::
+
+:::important
+
+**Den kjører bare når du kaller den:** Agenten starter den aldri på egen hånd.
+
+:::
+
+:::warning[Bygger på detect]
+Prove leser kartleggingen fra [`/lagune-detect`](/docs/commands/detect), så kjør detect først.
+:::
+
+## Kun defensiv og autorisert
+
+Før kommandoen genererer noe, bekrefter den at du har tillatelse til å teste målet, og den avviser enhver forespørsel om en fungerende exploit, en payload for angrep eller omgåelse av deteksjon. Et bevis demonstrerer den sikre oppførselen, det sender aldri ut angrepsinndata.
+
+## Fra bevis til varsling
+
+De to filene for hvert bevist funn hører sammen i en **privat GitHub Gist** når du skal rapportere sårbarheten. De er belegg for et aktivt problem som ikke er offentliggjort, så en `.gitignore` i `.lagune/proofs/` holder dem utenfor hver commit: Del dem bare gjennom den Gisten til vedlikeholderne har løst problemet.
+
+Å lukke et funn i kjeden i **Lagune** er fortsatt jobben til [`/lagune-harden`](/docs/commands/harden) og [`/lagune-verify`](/docs/commands/verify): Prove produserer belegg, den lukker ingenting.
+
+<Faq
+  items={[
+    {
+      question: 'Lager Lagune exploits?',
+      answer:
+        'Nei. /lagune-prove skriver kun defensivt belegg: en test som bekrefter den sikre veien, slik at den feiler så lenge problemet finnes, og går gjennom når koden er utbedret, pluss et sikkerhetsvarsel for ansvarlig varsling.',
+    },
+    {
+      question: 'Hva lager prove?',
+      answer:
+        'To filer per funn: en test (report.test.mjs eller .cjs) og et sikkerhetsvarsel (report.md).',
+    },
+    {
+      question:
+        'Hvordan varsler jeg ansvarlig om en sårbarhet Lagune har funnet?',
+      answer:
+        'Prove skriver et selvstendig sikkerhetsvarsel du kan dele gjennom en privat kanal, for eksempel en privat GitHub Gist, i tråd med ansvarlig varsling.',
+    },
+  ]}
+/>

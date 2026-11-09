@@ -1,0 +1,84 @@
+---
+id: antigravity-cli
+title: 'Installer Lagune som plugin i Antigravity CLI'
+sidebar_label: Antigravity CLI
+parent: get-started/install
+description: Installer Lagune som plugin i Antigravity CLI, hold den oppdatert og tillat motoren på forhånd.
+keywords:
+  - antigravity cli
+  - antigravity plugin
+  - agy plugin install
+  - installere lagune
+  - oppsett
+  - KI-sikkerhet
+  - KI-agenter
+source_hash: 'b014e73bcbefbcecaf2c0c58c1764387c55ba91e17ba5a964b3f1105a4d4961a'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Antigravity' />
+
+Installer pluginen fra terminalen:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Oppdatering
+
+Oppdater **Lagune** ved å installere den på nytt:
+
+```bash
+agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
+```
+
+## Kommandoer
+
+Skriv kommandoene med navnet på pluginen foran, for eksempel `/lagune:lagune-charter` for `/lagune-charter`.
+
+---
+
+:::info[Tillatelser]
+
+Motoren kjører via to verktøy: `lagune_read` leser bare prosjektet ditt, og `lagune_write` skriver bare til `.lagune/`. En kommando som sendes som første melding i en økt, kjører før verktøyene er lastet inn, og bruker derfor **npx** i stedet. Du tillater verktøyene og **npx** på forhånd ved å legge til disse reglene i `~/.gemini/antigravity-cli/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "mcp(lagune_lagune/lagune_read)",
+      "mcp(lagune_lagune/lagune_write)",
+      "command(regex:npx --yes lagune@[0-9.]+)"
+    ]
+  }
+}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Antigravity CLI?',
+      answer:
+        'Kjør agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity.',
+    },
+    {
+      question: 'Hvordan oppdaterer jeg Lagune i Antigravity CLI?',
+      answer:
+        'Kjør agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity på nytt.',
+    },
+    {
+      question: 'Hvordan kjører jeg kommandoene til Lagune i Antigravity CLI?',
+      answer:
+        'Skriv dem med navnet på pluginen foran, for eksempel /lagune:lagune-charter.',
+    },
+    {
+      question: 'Kan Antigravity CLI kjøre Lagune uten å be om tillatelse?',
+      answer:
+        'Ja. Tillat mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write) og command(regex:npx --yes lagune@[0-9.]+) i innstillingene for Antigravity CLI. Regelen for npx dekker en kommando som sendes som første melding i en økt.',
+    },
+  ]}
+/>

@@ -1,0 +1,219 @@
+---
+id: install
+title: 'Installasjon: sikkerhetsherding for alle KI-agenter'
+sidebar_label: Installasjon
+slug: /
+description: Installer Lagune i ethvert prosjekt, som plugin der agenten din støtter det og ellers med CLI-en til skills, og velg deretter sikkerhetsspesialiseringene som passer prosjektet.
+keywords:
+  - installere lagune
+  - claude code plugin
+  - copilot cli plugin
+  - muse code plugin
+  - gemini cli extension
+  - qwen code extension
+  - antigravity cli plugin
+  - kimi code plugin
+  - cursor plugin
+  - hermes agent plugin
+  - devin cli plugin
+  - grok build plugin
+  - factory droid plugin
+  - codex plugin
+  - opencode plugin
+  - pi package
+  - npx skills add
+  - skills CLI
+  - oppsett
+  - kom i gang
+  - spesialiseringer
+  - kategorier
+  - krav
+  - merke
+  - security-driven hardening
+  - KI-sikkerhet
+  - applikasjonssikkerhet
+  - defensiv sikkerhet
+  - blue team
+  - sikker koding
+  - KI-agenter
+source_hash: '1894bdce99917455abf4b24126abf64cd1cdf70530ff3f8ec6478bfe63efb932'
+---
+
+import { AgentPicker } from '@site/src/components/docs/AgentPicker';
+import { ArrowLink } from '@site/src/components/docs/ArrowLink';
+import { Badge } from '@site/src/components/docs/Badge';
+import { CategoryPicker } from '@site/src/components/docs/CategoryPicker';
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+**Lagune** hjelper KI-agenten din med å gjøre et prosjekt sikrere. Du peker det mot koden din, og agenten finner ut hva systemet ditt faktisk gjør, og leder deg deretter gjennom sikkerhetsarbeidet som betyr noe for det. **Lagune** er det første prosjektet i metodikken [Security-Driven Hardening (SDH)](/docs/references/paper).
+
+:::tip[Støtt åpen kildekode]
+Liker du **Lagune**? <ArrowLink to="https://github.com/wellwelwel/lagune">Gi oss en ⭐ på **GitHub**</ArrowLink>
+:::
+
+## Velg agenten din
+
+<AgentPicker />
+
+:::info
+
+- **Lagune** kjører på **Node.js** i bakgrunnen, men du bruker det språket du vil.
+- Vil du kjøre helt offline, installerer du **Lagune** i prosjektet ditt med `npm i -D lagune@{{version}}`.
+
+:::
+
+## Kategorier
+
+Sikkerhetskunnskapen i **Lagune** kommer som [**spesialiseringer**](/docs/catalog), gruppert i [**kategorier**](/docs/categories).
+
+<CategoryPicker />
+
+:::tip
+Et prosjekt starter med `owasp`, og [`/lagune-charter`](/docs/commands/charter) legger til kategoriene som vurderingen av prosjektet gir grunnlag for.
+:::
+
+## Krav
+
+Du trenger [**Node.js (LTS)**](https://nodejs.org/en/download/package-manager) installert på systemet ditt.
+
+## Bruk et merke ✨
+
+Bruker du **Lagune**? Legg til et merke i **README**:
+
+<Tabs>
+  <TabItem value="two-tones" label="To farger" default>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952'
+  alt='Secured By Lagune'
+  width={141}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security%20Powered%20By&labelColor=303952'
+  alt='Security Powered By Lagune'
+  width={193}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Security-Driven%20Hardening&labelColor=303952'
+  alt='Security-Driven Hardening with Lagune'
+  width={225}
+/>
+
+  </TabItem>
+  <TabItem value="solid" label="Ensfarget">
+
+<Badge
+  src='https://img.shields.io/badge/Secured%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Secured By Lagune'
+  width={135}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security%20Powered%20By%20Lagune-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security Powered By Lagune'
+  width={185}
+/>
+
+<Badge
+  src='https://img.shields.io/badge/Security--Driven%20Hardening-2f7bff?logo=springsecurity&logoColor=white'
+  alt='Security-Driven Hardening'
+  width={175}
+/>
+
+  </TabItem>
+</Tabs>
+
+## Neste steg
+
+Se hva hver av [**skillene**](/docs/get-started/commands) i **Lagune** gjør.
+
+<Faq
+  items={[
+    {
+      question: 'Hva er Lagune?',
+      answer:
+        'Lagune er en arbeidsflyt med åpen kildekode for kun defensiv sikkerhet, som hjelper KI-agenten din med å herde enhver kodebase. Du peker det mot koden din, det oppdager hva systemet ditt faktisk gjør, og deretter leder det deg gjennom sikkerhetsutbedringene som betyr noe i den konteksten.',
+    },
+    {
+      question: 'Hvordan installerer jeg Lagune?',
+      answer:
+        'Velg agenten din: Claude Code, GitHub Copilot CLI, Muse Code, Antigravity CLI, Cursor, Kimi Code, OpenCode, Codex CLI, Factory Droid, Grok Build, Devin CLI og Hermes Agent installerer Lagune som plugin, Gemini CLI og Qwen Code som utvidelse, Pi som pakke, og alle andre agenter med npx skills add wellwelwel/lagune. Det fungerer i nye og eksisterende prosjekter.',
+    },
+    {
+      question: 'Trenger Lagune en API-nøkkel?',
+      answer:
+        'Nei. Det kjører gjennom din egen KI-agent, så du trenger ingen API-nøkler.',
+    },
+    {
+      question: 'Hvilke krav er det?',
+      answer: 'Du trenger Node.js (LTS) installert på systemet ditt.',
+    },
+    {
+      question: 'Hvilke programmeringsspråk støtter Lagune?',
+      answer:
+        'Alle. Lagune kjører på Node.js i bakgrunnen, men reviderer og herder prosjekter skrevet i alle programmeringsspråk.',
+    },
+    {
+      question: 'Hva legger Lagune til i prosjektet mitt?',
+      answer:
+        'En mappe .lagune/ med sikkerhetstilstanden til prosjektet ditt, som den første kommandoen som skriver noe, oppretter. CLI-en til skills installerer også skråstrekkommandoene i prosjektet, der agenten din leser dem, mens en plugin holder dem inne i agenten.',
+    },
+    {
+      question: 'Hvordan oppdaterer jeg Lagune?',
+      answer:
+        'På samme måte som du installerte det. Installasjonssiden for hver agent viser hvordan du oppdaterer Lagune der, og CLI-en til skills oppdaterer det med npx skills update. Sikkerhetsprinsippene dine, artefaktene fra fasene og dine egne spesialiseringer forblir urørt.',
+    },
+    {
+      question: 'Hvilke spesialiseringer bruker et prosjekt?',
+      answer:
+        'De innebygde i kategoriene prosjektet har, pluss sine egne. Fasen charter registrerer kategoriene som vurderingen av prosjektet gir grunnlag for, og npx lagune write add --categories endrer dem.',
+    },
+    {
+      question: 'Må jeg bli ferdig med å bygge før jeg sikrer prosjektet mitt?',
+      answer:
+        'Nei. Kommandoen /lagune herder arbeidet mens det skrives: Den tar imot en hvilken som helst prompt, bygger det du ba om, og herder det med sikre standardinnstillinger, veiledet av sikkerhetsprinsippene. Blue Team-flyten i fem faser reviderer det som allerede finnes.',
+    },
+    {
+      question: 'Kan Lagune revidere et eksisterende prosjekt?',
+      answer:
+        'Ja. Blue Team-flyten i fem faser reviderer det som allerede finnes: charter fastsetter sikkerhetsreglene dine, detect kartlegger hva systemet gjør og hvor risikoene ligger, plan vurderer hvert funn og kobler det til en utbedring, harden tar i bruk utbedringene, og verify beviser at de holder, og lukker dem.',
+    },
+    {
+      question:
+        'Hva er forskjellen på å bruke Lagune og å bare be agenten kartlegge sårbarheter og sikkerhetshull?',
+      answer:
+        'En agent som leser på egen hånd, finner det som ser ut som en sårbarhet, og hopper over det som ser ut som et sikringstiltak. En liste over blokkerte adresser ser ut som om noen allerede har håndtert risikoen, så ingen sjekker at den mangler de fleste av dem, og koden går i produksjon. Lagune snur denne standarden: Et vern som allerede finnes i koden, regnes som ubevist til det er sjekket, hver spesialisering i katalogen får en eksplisitt konklusjon, og verify spør om risikoen er borte, ikke om et sikringstiltak er der. Hvert funn forblir dessuten ett sporet element på tvers av kjøringer, slik at det kan bevises lukket og tas ut, mens en vanlig forespørsel gir deg en ny rapport hver gang, uten noe å sammenligne med.',
+    },
+    {
+      question:
+        'Hva er forskjellen på å utvikle med Lagune og å bare be agenten skrive sikker kode?',
+      answer:
+        'Ber du om sikker kode, overlater du til agenten å avgjøre hva sikker betyr, og det forutsetter at du vet hva du skal be om. Kravet ligger som regel allerede i forespørselen din uten at noen av dere ser det: Ber du om en side som viser kursene en bruker har tilgang til, uttrykker du en autorisasjonsregel, og en sjekk som aldri blir skrevet, etterlater ingenting i koden som kan legges merke til. Kommandoen /lagune laster inn sikkerhetsprinsippene dine og spesialiseringene som passer til det som skal bygges, før den første linjen er skrevet, og leser deretter resultatet på nytt opp mot forsvaret den brukte. Den sikre løsningen koster sjelden mer enn den usikre, så det som avgjør utfallet, er å vite hvilken du skal velge, og nettopp det får du på forhånd.',
+    },
+    {
+      question:
+        'Kjører Lagune DAST (Dynamic Application Security Testing) eller tester det applikasjonen min mens den kjører?',
+      answer:
+        'Nei. Lagune leser kode og kjører aldri systemet ditt eller sender det manipulerte forespørsler. Fasen verify bekrefter at et sikringstiltak finnes og er riktig i kildekoden, og det er et annet spørsmål enn om det tåler et angrep mot et live mål, så "cannot tell from the code" er en legitim konklusjon i stedet for en stille godkjenning. DAST besvarer spørsmålet om kjøretiden og Lagune spørsmålet om kildekoden, så ingen av dem erstatter den andre. Selv den valgfrie kommandoen prove holder seg innenfor denne grensen: Testene dens bekrefter den sikre oppførselen, aldri en angreps-payload.',
+    },
+    {
+      question: 'Erstatter Lagune en pentest (penetrasjonstest)?',
+      answer:
+        'Nei, absolutt ikke! En pentest er et autorisert oppdrag der en fagperson bruker eget skjønn mot det kjørende systemet ditt, kobler sammen funn og undersøker forretningslogikken som ingen regel per angrepsflate beskriver. Funn fra en pentest kan gå inn i Blue Team-flyten i Lagune som problemstillinger du gir til detect, slik at det en fagperson rapporterer, blir planlagt, herdet og verifisert.',
+    },
+  ]}
+/>
+
+## Sikkerhetspolicy
+
+Se [SECURITY.md](https://github.com/wellwelwel/lagune/blob/main/SECURITY.md).
+
+## Lisens
+
+**Lagune** er lisensiert under [Apache License 2.0](https://github.com/wellwelwel/lagune/blob/main/LICENSE).
+
+Copyright © 2026-i dag [Weslley Araújo](https://github.com/wellwelwel) og [bidragsytere](https://github.com/wellwelwel/lagune/graphs/contributors).

@@ -32,6 +32,7 @@ It helps more people discover the project.
 <a href="https://lagune.ai/hi-IN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/in.svg" alt="हिन्दी" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/id-ID/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/id.svg" alt="Bahasa Indonesia" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/th-TH/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/th.svg" alt="ไทย" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/no-NO/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/no.svg" alt="Norsk" width="32" align="absmiddle" /></a>
 
 ---
 

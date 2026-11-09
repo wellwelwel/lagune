@@ -1,0 +1,124 @@
+---
+id: opencode
+title: 'Installer Lagune som plugin i OpenCode'
+sidebar_label: OpenCode
+parent: get-started/install
+description: Installer Lagune som plugin i OpenCode 1.x og 2.x og hold det oppdatert.
+keywords:
+  - opencode
+  - opencode plugin
+  - opencode plugin add
+  - installere lagune
+  - oppsett
+  - KI-sikkerhet
+  - KI-agenter
+source_hash: 'c22f9be8b73bd4a2354928903c625fb892217aabeaef68e7c16ea9652fd95f40'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='OpenCode' />
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Installer pluginen fra terminalen:
+
+```bash
+opencode plugin add lagune
+```
+
+Eller legg den til i listen `plugins` i `opencode.json`:
+
+```json
+{
+  "plugins": ["lagune"]
+}
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Installer pluginen i prosjektet ditt fra terminalen, eller legg til `-g` for å installere den for alle prosjektene dine:
+
+```bash
+opencode plugin lagune
+```
+
+Eller legg den til i listen `plugin` i `opencode.json`:
+
+```json
+{
+  "plugin": ["lagune"]
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Oppdatering
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Kjør følgende for å oppdatere **Lagune**:
+
+```bash
+opencode plugin update lagune
+opencode reload
+```
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Installer den nye versjonen over den gamle for å oppdatere **Lagune**, og legg til `-g` hvis du installerte den for alle prosjektene dine:
+
+```bash
+opencode plugin lagune@{{version}} --force
+```
+
+  </TabItem>
+</Tabs>
+
+## Kommandoer
+
+<Tabs groupId="opencode-version">
+  <TabItem value="v2" label="OpenCode 2.x" default>
+
+Skriv `@` og velg kommandoen, for eksempel `@lagune-charter`, og skriv deretter teksten din i samme melding.
+
+  </TabItem>
+  <TabItem value="v1" label="OpenCode 1.x">
+
+Skriv inn kommandoene med navn, for eksempel `/lagune-charter`. De står oppført under `/skills`, ikke i menyen `/`.
+
+  </TabItem>
+</Tabs>
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i OpenCode?',
+      answer:
+        'I OpenCode 2.x kjører du opencode plugin add lagune. I OpenCode 1.x kjører du opencode plugin lagune, og legger til -g for å installere den for alle prosjektene dine.',
+    },
+    {
+      question: 'Hvordan oppdaterer jeg Lagune i OpenCode?',
+      answer:
+        'I OpenCode 2.x kjører du opencode plugin update lagune, deretter opencode reload. I OpenCode 1.x kjører du opencode plugin lagune@{{version}} --force.',
+    },
+    {
+      question: 'Hvordan kjører jeg kommandoene til Lagune i OpenCode?',
+      answer:
+        'I OpenCode 2.x skriver du @ og velger kommandoen, for eksempel @lagune-charter, og skriver deretter teksten din i samme melding. I OpenCode 1.x skriver du dem inn med navn, for eksempel /lagune-charter, eller finner dem under /skills.',
+    },
+    {
+      question: 'Ber OpenCode om tillatelse før Lagune kjører?',
+      answer:
+        'Nei. OpenCode kjører de to verktøyene til motoren, lagune_read og lagune_write, uten å spørre.',
+    },
+  ]}
+/>

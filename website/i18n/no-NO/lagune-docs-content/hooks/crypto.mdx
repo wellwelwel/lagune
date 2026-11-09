@@ -1,0 +1,115 @@
+---
+id: crypto
+title: 'Hook crypto: Oppdag svak kryptografi'
+sidebar_label: crypto
+description: Skann en kodebase for svake kryptografiske primitiver, eller vurder ett enkelt kodeutdrag, rett fra kommandolinjen.
+source_hash: 'd48d3cc15e73810012b8e5e089ce975d1a36aec245f5aaab79a13fa92fbf1a5b'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+Hooken `crypto` flagger **svake kryptografiske primitiver** der de kalles: et utfaset chiffer, en usikker modus eller en knekt hashfunksjon. Den er **språkbevisst** og leser hver fil etter sine egne regler, så en Python-konstruksjon aldri flagges i en Rust-fil, og den er den deterministiske motoren bak [spesialiseringen `crypto`](/docs/catalog), som du kan kjøre selv i modusen **scan** eller **check**.
+
+## Kjør
+
+<Tabs>
+  <TabItem value="scan" label="Skann kodebasen" default>
+
+```bash
+npx lagune read crypto                # scans the whole project
+npx lagune read crypto --dir src      # scans a directory
+npx lagune read crypto --file hash.ts # scans a single file
+```
+
+  </TabItem>
+  <TabItem value="check" label="Sjekk et kodeutdrag">
+
+```bash
+npx lagune read crypto --lang javascript --pattern 'createCipher("aes-256-cbc", k)' # => weak
+npx lagune read crypto --lang python --pattern 'hashlib.md5(data)'                  # => review
+npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                    # => safe
+```
+
+  </TabItem>
+</Tabs>
+
+Gjennomgangen skriver ut opptil to seksjoner. **Weak cryptography found** inneholder funnene (DES/3DES/RC4/Blowfish/RC2, ECB-modus): hvert er et knekt chifferprimitiv, så hooken avslutter med en kode som ikke er null. **Cryptography to review manually** inneholder spor den ikke kan vurdere alene: en MD5- eller SHA-1-hash (knekt for sikkerhetsbruk, men legitim som en enkel kontrollsum, så det er hensikten som avgjør), en ikke-kryptografisk tilfeldighetsgenerator i en sikkerhetskontekst, eller en sammenligning som er sårbar for tidsangrep. En gjennomgang uten funn skriver ut `no weak cryptography found`.
+
+## Slik leser du konklusjonen
+
+| Konklusjon | Betydning                                                                                                                               |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `weak`     | Kodeutdraget bruker et knekt chifferprimitiv (DES/3DES, RC4, Blowfish, RC2 eller ECB-modus).                                            |
+| `review`   | Et primitiv der hensikten avgjør: en MD5- eller SHA-1-hash, eller en ikke-kryptografisk tilfeldighetsgenerator i en sikkerhetskontekst. |
+| `safe`     | Kodeutdraget bruker kryptografi, og ingen svake primitiver ble funnet.                                                                  |
+| `invalid`  | Kodeutdraget inneholder ingen gjenkjennelig kryptografisk konstruksjon å vurdere.                                                       |
+
+### CLI-alternativer
+
+| Alternativ  | Verdi         | Beskrivelse                                                                                            |
+| ----------- | ------------- | ------------------------------------------------------------------------------------------------------ |
+| `--pattern` | et kodeutdrag | Sjekk ett kodeutdrag. Gjenta for å sjekke flere, én konklusjon per linje.                              |
+| `--lang`    | et språk      | Påkrevd med `--pattern`: ett av javascript, python, go, java, kotlin, php, ruby, rust, csharp, c, cpp. |
+| `--dir`     | en mappe      | Avgrens en gjennomgang til en mappe. Kan gjentas og kombineres med `--file`.                           |
+| `--file`    | en fil        | Avgrens en gjennomgang til én enkelt fil. Kan gjentas og kombineres med `--dir`.                       |
+
+Uten alternativ skanner den hele prosjektet. `--pattern` krever `--lang` og kan ikke kombineres med `--dir` eller `--file`.
+
+### Velg hva den skanner
+
+Den utelater det **Git** ignorerer. For å utelate mer, eller for å skanne det **Git** ignorerer, gi `crypto` egne innstillinger:
+
+```bash
+npx lagune write add --ignore test/fixtures --checker crypto
+```
+
+```json
+{
+  "checkers": {
+    "crypto": { "gitignore": false, "ignore": ["test/fixtures"] }
+  }
+}
+```
+
+[Konfigurer hookene](/docs/hooks/configure) beskriver hver innstilling.
+
+### Støttede språk
+
+Gjennomgangen leser disse språkene, gjenkjent på filendelsen, og sjekker hvert mot sine egne kryptografiske API-er.
+
+| Språk                       | Svake chiffer (funn), hashfunksjoner og tilfeldighetsgeneratorer (gjennomgang)                                       |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **JavaScript / TypeScript** | `createCipher`, `CryptoJS.DES/RC4`, `*-ecb` i anførselstegn; MD5/SHA-1 `createHash`/`subtle.digest`; `Math.random()` |
+| **Python**                  | pycryptodome `DES/ARC4/Blowfish.new`, `algorithms.TripleDES`, `MODE_ECB`; `hashlib.md5/sha1`; `random.*`             |
+| **Go**                      | `des.NewCipher`, `rc4.NewCipher`, `blowfish.NewCipher`, `NewECBEncrypter`; `md5/sha1.Sum`; `math/rand`               |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`; `MessageDigest.getInstance("MD5")`, `HmacMD5`; `java.util.Random`                |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`             |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`, `:ECB`; `Digest::MD5/SHA1`; `rand()`/`Random`                                        |
+| **Rust**                    | `Rc4::`, `Blowfish::`, `des::`, `ecb::`; `Md5::`, `Sha1::`, `Hmac<Md5>`; `SmallRng`/`XorShiftRng`                    |
+| **C#**                      | `DES/TripleDES/RC2.Create`, `CipherMode.ECB`; `MD5/SHA1.Create`, `HMACMD5`; `new Random()`                           |
+| **C / C++**                 | OpenSSL `DES_*`/`RC4`/`EVP_des_*`, `EVP_*_ecb`; `MD5()`/`SHA1()`, `EVP_md5`; `rand()`/`random()`                     |
+
+:::note[Etter beste evne, ikke uttømmende]
+Den leser kildekoden som tekst, så et primitiv som settes sammen under kjøring, er skjult bak et alias eller er skrevet i en form den ikke gjenkjenner, kan slippe gjennom. Se på tabellen som et solid utgangspunkt, ikke en fullstendig oversikt.
+:::
+
+:::tip
+Hooken garanterer minimumet (at disse konstruksjonene finnes): nøkkelhåndtering, gjenbruk av IV-er og RSA-padding er skjønnsvurderinger som [spesialiseringen `crypto`](/docs/catalog) fortsatt dekker.
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan skanner jeg en kodebase for svak kryptografi?',
+      answer:
+        'Kjør hooken crypto uten flagg. Knekte chiffer og ECB-modus er funn som avslutter med en kode som ikke er null. En MD5- eller SHA-1-hash er et spor å gjennomgå, siden den er knekt for sikkerhetsbruk, men legitim som en enkel kontrollsum.',
+    },
+    {
+      question: 'Flagger hooken crypto Math.random()?',
+      answer:
+        'Bare som et spor å gjennomgå i en sikkerhetskontekst, aldri som et automatisk funn, siden tilfeldighet er legitimt for jitter eller rekkefølge i brukergrensesnittet.',
+    },
+  ]}
+/>

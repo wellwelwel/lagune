@@ -1,0 +1,61 @@
+---
+id: kimi-code
+title: 'Installer Lagune som plugin i Kimi Code'
+sidebar_label: Kimi Code
+parent: get-started/install
+description: Installer Lagune som plugin i Kimi Code og hold det oppdatert.
+keywords:
+  - kimi code
+  - kimi code plugin
+  - plugins install
+  - installere lagune
+  - oppsett
+  - KI-sikkerhet
+  - KI-agenter
+source_hash: '3002cca6ec3194e6ee12589e2ddcb72317179cd4b878d0aab31a7b2a9fab4ac5'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Kimi Code' />
+
+Installer pluginen fra en økt i **Kimi Code**, velg **Trust and install**, og start deretter en ny økt for å laste den inn:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Oppdatering
+
+Installer **Lagune** på nytt for å oppdatere det:
+
+```text
+/plugins install https://github.com/wellwelwel/lagune
+/new
+```
+
+## Kommandoer
+
+Skriv inn kommandoene med navnet på pluginen foran, for eksempel `/lagune:lagune-charter` for `/lagune-charter`. Menyen `/` viser dem som `/skill:lagune:lagune-charter`, og det fungerer også.
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Kimi Code?',
+      answer:
+        'Kjør /plugins install https://github.com/wellwelwel/lagune i en økt i Kimi Code, velg Trust and install, og kjør deretter /new.',
+    },
+    {
+      question: 'Hvordan oppdaterer jeg Lagune i Kimi Code?',
+      answer:
+        'Kjør /plugins install https://github.com/wellwelwel/lagune på nytt, deretter /new.',
+    },
+    {
+      question: 'Hvordan kjører jeg kommandoene til Lagune i Kimi Code?',
+      answer:
+        'Skriv dem inn med navnet på pluginen foran, for eksempel /lagune:lagune-charter, eller slik menyen / viser dem, for eksempel /skill:lagune:lagune-charter.',
+    },
+  ]}
+/>

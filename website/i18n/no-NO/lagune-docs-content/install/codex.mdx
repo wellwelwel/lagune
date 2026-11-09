@@ -1,0 +1,77 @@
+---
+id: codex
+title: 'Installer Lagune som plugin i Codex CLI'
+sidebar_label: Codex CLI
+parent: get-started/install
+description: Installer Lagune som plugin i Codex CLI, hold den oppdatert og kjør motoren i sandkassen.
+keywords:
+  - codex
+  - codex cli
+  - codex plugin
+  - plugin marketplace
+  - installere lagune
+  - oppsett
+  - KI-sikkerhet
+  - KI-agenter
+source_hash: 'b9d60814068ac19348a7a3e5e889057c6cb9d5f2c13aa0d7d1475d65722a2ad8'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Codex' />
+
+Installer pluginen fra terminalen:
+
+```bash
+codex plugin marketplace add wellwelwel/lagune
+codex plugin add lagune@lagune
+```
+
+## Oppdatering
+
+Oppdater **Lagune** ved å kjøre:
+
+```bash
+codex plugin marketplace upgrade lagune
+```
+
+## Kommandoer
+
+Skriv `$` og kommandoen med navnet på pluginen foran, etterfulgt av teksten din, for eksempel `$lagune:lagune-charter` for `/lagune-charter`. Når du skriver `$`, vises en liste over kommandoene, og velger du én, settes hele navnet inn.
+
+---
+
+:::info[Sandkasse]
+
+Sandkassen i **Codex** har ingen nettverkstilgang. Installer motoren i prosjektet ditt fra din egen terminal, én gang og etter hver oppdatering:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Codex CLI?',
+      answer:
+        'Kjør codex plugin marketplace add wellwelwel/lagune og deretter codex plugin add lagune@lagune.',
+    },
+    {
+      question: 'Hvordan oppdaterer jeg Lagune i Codex CLI?',
+      answer: 'Kjør codex plugin marketplace upgrade lagune.',
+    },
+    {
+      question: 'Hvordan kjører jeg kommandoene til Lagune i Codex CLI?',
+      answer:
+        'Skriv $ og kommandoen med navnet på pluginen foran, etterfulgt av teksten din, for eksempel $lagune:lagune-charter.',
+    },
+    {
+      question: 'Fungerer Lagune i sandkassen til Codex?',
+      answer:
+        'Ja, når du har installert motoren i prosjektet ditt med npm i -D lagune@{{version}} fra din egen terminal, én gang og etter hver oppdatering.',
+    },
+  ]}
+/>

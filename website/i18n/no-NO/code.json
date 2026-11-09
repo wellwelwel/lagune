@@ -1,0 +1,670 @@
+{
+  "catalog.copyPrompt": {
+    "message": "Kopier prompten som laster {specialization}",
+    "description": "The label of the button that copies the prompt loading a specialization, where {specialization} is its name"
+  },
+  "catalog.preview.hover": {
+    "message": "Hold musen over meg",
+    "description": "Invites a reader with a mouse to open the example prompt of a specialization"
+  },
+  "catalog.preview.touch": {
+    "message": "Trykk på meg",
+    "description": "Invites a touch-screen reader to open the example prompt of a specialization"
+  },
+  "catalog.preview.you": {
+    "message": "Du",
+    "description": "The name over the reader's own message in the example prompt"
+  },
+  "catalog.reply.read": {
+    "message": "Read",
+    "description": "The tool step an agent shows when it reads a specialization, in the example reply"
+  },
+  "catalog.reply.text": {
+    "message": "Skal bli!",
+    "description": "The agent's short answer in the example reply to a prompt that loads a specialization"
+  },
+  "common.copied": {
+    "message": "Kopiert",
+    "description": "Confirms that something was copied to the clipboard"
+  },
+  "common.docs": {
+    "message": "Dokumentasjon",
+    "description": "The name of the documentation, in links and breadcrumbs"
+  },
+  "common.documentation": {
+    "message": "Dokumentasjon",
+    "description": "The name of the documentation as a whole"
+  },
+  "common.home": {
+    "message": "Forside",
+    "description": "The name of the home page, in links and breadcrumbs"
+  },
+  "common.language": {
+    "message": "Språk",
+    "description": "The accessible name of the menu that switches the site language"
+  },
+  "common.language.current": {
+    "message": "Språk: {language}",
+    "description": "The accessible name of the language button, where {language} is the language shown now"
+  },
+  "common.sponsor": {
+    "message": "Spons",
+    "description": "The link to sponsor Lagune on GitHub Sponsors"
+  },
+  "common.starOnGitHub": {
+    "message": "Gi en stjerne på GitHub",
+    "description": "Invites the reader to star the Lagune repository on GitHub"
+  },
+  "common.support": {
+    "message": "Støtt",
+    "description": "The link to support Lagune through GitHub Sponsors"
+  },
+  "docs.badge.copy": {
+    "message": "Kopier Markdown for merket \"{badge}\"",
+    "description": "The label of the button that copies a badge's Markdown, where {badge} is the badge's text"
+  },
+  "docs.categories.choose": {
+    "message": "Velg kategorier",
+    "description": "The label over the category cards a reader picks from"
+  },
+  "docs.categories.copy": {
+    "message": "Kopier kommandoen",
+    "description": "The label of the button that copies the command adding the chosen categories"
+  },
+  "docs.categories.optional": {
+    "message": "Valgfritt",
+    "description": "Marks picking categories as optional"
+  },
+  "docs.categories.run": {
+    "message": "Kjør denne kommandoen",
+    "description": "The label over the command that adds the chosen categories"
+  },
+  "docs.faq.title": {
+    "message": "Vanlige spørsmål",
+    "description": "The heading of a docs page's questions and answers"
+  },
+  "docs.install.back": {
+    "message": "Tilbake til alle agenter",
+    "description": "The label of the link from an agent's install page back to the list of agents"
+  },
+  "docs.level.label": {
+    "message": "{level} av {max}",
+    "description": "The accessible reading of a 1 to 5 rating shown as dots"
+  },
+  "docs.notice.original": {
+    "message": "Les originalversjonen",
+    "description": "The link from a stale page notice to the English page"
+  },
+  "docs.notice.stale": {
+    "message": "Denne siden er utdatert sammenlignet med den engelske versjonen. {original}.",
+    "description": "Tells the reader a translated page fell behind its English source, shown above the page, where {original} is the link to the English page"
+  },
+  "docs.notice.untranslated": {
+    "message": "Denne siden er ikke oversatt ennå.",
+    "description": "Tells the reader the page below is still in English, shown above the page"
+  },
+  "docs.page.imageAlt": {
+    "message": "Lagune {section}: {title}",
+    "description": "The alternative text of a docs page's link preview image, where {section} is its sidebar group and {title} is the page title"
+  },
+  "docs.pagination.label": {
+    "message": "Dokumentasjonssider",
+    "description": "The accessible name of the previous and next page links"
+  },
+  "docs.pagination.next": {
+    "message": "Neste",
+    "description": "The label over the link to the next docs page"
+  },
+  "docs.pagination.previous": {
+    "message": "Forrige",
+    "description": "The label over the link to the previous docs page"
+  },
+  "docs.search.empty": {
+    "message": "Ingen sider samsvarer med \"{query}\".",
+    "description": "Shown when a docs search finds nothing, where {query} is what the reader typed"
+  },
+  "docs.search.label": {
+    "message": "Søk i dokumentasjonen",
+    "description": "The accessible name of the docs search box"
+  },
+  "docs.search.placeholder": {
+    "message": "Søk i dokumentasjonen…",
+    "description": "The placeholder of the docs search box"
+  },
+  "docs.search.untranslatedBadge": {
+    "message": "EN",
+    "description": "The badge on a search result that is still in English"
+  },
+  "docs.shell.closeNavigation": {
+    "message": "Lukk navigasjonen",
+    "description": "The label of the button that closes the docs navigation drawer"
+  },
+  "docs.shell.openNavigation": {
+    "message": "Åpne navigasjonen",
+    "description": "The label of the button that opens the docs navigation drawer"
+  },
+  "docs.shell.repository": {
+    "message": "Repository på GitHub",
+    "description": "The label of the link to Lagune's GitHub repository"
+  },
+  "docs.shell.sponsor": {
+    "message": "Spons Lagune",
+    "description": "The label of the link to sponsor Lagune"
+  },
+  "docs.shell.toggleTheme": {
+    "message": "Bytt tema",
+    "description": "The label of the button that switches the docs between light and dark"
+  },
+  "docs.sidebar.supportLagune": {
+    "message": "Støtt Lagune",
+    "description": "The line under the invitation to star the repository, in the docs sidebar"
+  },
+  "docs.smallPrint.contributors": {
+    "message": "bidragsytere",
+    "description": "The link to the people who contributed to Lagune"
+  },
+  "docs.smallPrint.copyright": {
+    "message": "Copyright © 2026-i dag {author} og {contributors}. Lagune er lisensiert under {license}. Se gjennom {policy}.",
+    "description": "The copyright and license notice under every docs page, where {author}, {contributors}, {license}, and {policy} are links"
+  },
+  "docs.smallPrint.lastUpdated": {
+    "message": "Sist oppdatert {date}.",
+    "description": "When a docs page last changed, where {date} is the date"
+  },
+  "docs.smallPrint.securityPolicy": {
+    "message": "sikkerhetspolicyen",
+    "description": "The link to Lagune's security policy"
+  },
+  "docs.smallPrint.trademarks": {
+    "message": "Alle produktnavn, varemerker og registrerte varemerker som nevnes, tilhører sine respektive eiere og brukes kun til identifikasjon.",
+    "description": "The trademark notice on pages that name other products"
+  },
+  "docs.toc.label": {
+    "message": "Innholdsfortegnelse",
+    "description": "The accessible name of a docs page's table of contents"
+  },
+  "docs.toc.title": {
+    "message": "På denne siden",
+    "description": "The heading of a docs page's table of contents"
+  },
+  "home.brand.backToTop": {
+    "message": "Lagune.ai, tilbake til toppen",
+    "description": "The label of the brand button that scrolls back to the top"
+  },
+  "home.cta.install": {
+    "message": "Installer",
+    "description": "The main home button, leading to the install page"
+  },
+  "home.demo.fullscreen.enter": {
+    "message": "Vis i fullskjerm",
+    "description": "The accessible name of the button that shows the animated AI chat on the home page in full screen"
+  },
+  "home.demo.fullscreen.exit": {
+    "message": "Avslutt fullskjerm",
+    "description": "The accessible name of the button that leaves full screen for the animated AI chat on the home page"
+  },
+  "home.demo.label": {
+    "message": "En KI-agent som kjører Lagune: sikkerhetsprinsippene for et prosjekt, en sikker brukerregistrering og en Blue Team-revisjon",
+    "description": "The accessible description of the animated AI chat at the end of the home page"
+  },
+  "home.demo.pause": {
+    "message": "Sett animasjonen på pause",
+    "description": "The accessible name of the button that pauses the animated AI chat on the home page"
+  },
+  "home.demo.play": {
+    "message": "Spill av animasjonen",
+    "description": "The accessible name of the button that resumes the animated AI chat on the home page"
+  },
+  "home.demo.seek": {
+    "message": "Posisjon i animasjonen",
+    "description": "The accessible name of the slider that moves the animated AI chat on the home page forward or back"
+  },
+  "home.demo.speed": {
+    "message": "Avspillingshastighet",
+    "description": "The accessible name of the button and menu that change how fast the animated AI chat plays on the home page"
+  },
+  "home.demo.speed.normal": {
+    "message": "Normal",
+    "description": "The playback speed option that plays the animated AI chat on the home page at its own pace"
+  },
+  "home.faq.audit.answer": {
+    "message": "Ja. Blue Team-flyten i fem faser reviderer det som allerede finnes: charter fastsetter sikkerhetsreglene dine, detect kartlegger hva systemet gjør og hvor risikoene ligger, plan vurderer hvert funn og kobler det til en utbedring, harden tar i bruk utbedringene, og verify beviser at de holder, og lukker dem.",
+    "description": "The answer to \"Can Lagune audit an existing project?\" in search engines' structured data"
+  },
+  "home.faq.audit.question": {
+    "message": "Kan Lagune revidere et eksisterende prosjekt?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.build.answer": {
+    "message": "Ja. Kommandoen /lagune tar imot hvilken som helst prompt, bygger det du ba om og herder det med sikre standardinnstillinger mens det skrives, veiledet av sikkerhetsprinsippene dine. Deretter reviderer Blue Team-flyten i fem faser det som allerede finnes.",
+    "description": "The answer to \"Can Lagune secure code as I build it?\" in search engines' structured data"
+  },
+  "home.faq.build.question": {
+    "message": "Kan Lagune sikre koden min mens jeg bygger den?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.install.answer": {
+    "message": "De fleste agenter installerer Lagune som plugin, Gemini CLI og Qwen Code som utvidelse, Pi som pakke og alle andre agenter med npx skills add wellwelwel/lagune. Installasjonssiden viser kommandoen for hver agent. Det fungerer i nye og eksisterende prosjekter, uten API-nøkkel.",
+    "description": "The answer to \"How do I install Lagune?\" in search engines' structured data"
+  },
+  "home.faq.install.question": {
+    "message": "Hvordan installerer jeg Lagune?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.faq.what.answer": {
+    "message": "Lagune er en arbeidsflyt med åpen kildekode for kun defensiv sikkerhet, som hjelper KI-agenten din med å herde enhver kodebase. Den oppdager hva systemet ditt faktisk gjør, og leder deretter sikkerhetsutbedringene som betyr noe i den konteksten.",
+    "description": "The answer to \"What is Lagune?\" in search engines' structured data"
+  },
+  "home.faq.what.question": {
+    "message": "Hva er Lagune?",
+    "description": "A question of the home page in search engines' structured data"
+  },
+  "home.feature.overview.kicker": {
+    "message": "Hva om sikkerheten var der {before}, {during} og {after} utviklingen, i stedet for en generisk sjekkliste?",
+    "description": "The question under the home overview title, where {before}, {during}, and {after} are emphasized"
+  },
+  "home.feature.overview.kicker.after": {
+    "message": "etter",
+    "description": "The emphasized \"after\" of the home overview question"
+  },
+  "home.feature.overview.kicker.before": {
+    "message": "før",
+    "description": "The emphasized \"before\" of the home overview question"
+  },
+  "home.feature.overview.kicker.during": {
+    "message": "under",
+    "description": "The emphasized \"during\" of the home overview question"
+  },
+  "home.group.anyPrompt": {
+    "message": "Hvilken som helst prompt, når som helst",
+    "description": "The stage label of the universal /lagune command on the home page"
+  },
+  "home.group.defend": {
+    "message": "Forsvar",
+    "description": "The stage label of the harden and verify phases on the home page"
+  },
+  "home.group.establish": {
+    "message": "Fastsett",
+    "description": "The stage label of the charter phase on the home page"
+  },
+  "home.group.understand": {
+    "message": "Forstå",
+    "description": "The stage label of the detect and plan phases on the home page"
+  },
+  "home.highlight.build.body": {
+    "message": "Legg den til i hvilken som helst prompt, så bygger agenten det du ba om som vanlig, nå med sikkerhetskunnskap ved behov.",
+    "description": "The body of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.build.lead": {
+    "message": "Én kommando, {command}, gir sikkerhet mens koden skrives, ikke etterpå.",
+    "description": "The lead of the home highlight about /lagune, where {command} is the command"
+  },
+  "home.highlight.build.title": {
+    "message": "Herd mens du bygger",
+    "description": "The title of the home highlight about the universal /lagune command"
+  },
+  "home.highlight.dashboard.body": {
+    "message": "En live-visning av sikkerheten i prosjektet ditt mens agenten jobber. Den kjører på maskinen din, og ingenting forlater den.",
+    "description": "The body of the home highlight about the local dashboard"
+  },
+  "home.highlight.dashboard.lead": {
+    "message": "Et {dashboard} følger funnene, utbedringene og bevisene dine live.",
+    "description": "The lead of the home highlight about the dashboard, where {dashboard} is emphasized"
+  },
+  "home.highlight.dashboard.lead.dashboard": {
+    "message": "lokalt, privat dashbord",
+    "description": "The emphasized part of the home highlight about the dashboard"
+  },
+  "home.highlight.dashboard.title": {
+    "message": "Fremdriften i nettleseren din",
+    "description": "The title of the home highlight about the local dashboard"
+  },
+  "home.highlight.flow.body": {
+    "message": "Den oppdager hva systemet ditt faktisk gjør, kartlegger de tilhørende angrepsvektorene og tar deretter i bruk sikkerhetsarbeidet som passer.",
+    "description": "The body of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.flow.lead": {
+    "message": "En {basis} flyt i fem faser, klar til å kjøres.",
+    "description": "The lead of the home highlight about the Blue Team flow, where {basis} is emphasized"
+  },
+  "home.highlight.flow.lead.basis": {
+    "message": "Blue Team-basert",
+    "description": "The emphasized part of the home highlight about the Blue Team flow"
+  },
+  "home.highlight.flow.title": {
+    "message": "Inspirert av Spec-Driven",
+    "description": "The title of the home highlight about the five-phase Blue Team flow"
+  },
+  "home.highlight.knowledge.body": {
+    "message": "Den henter inn modulen som passer konteksten den finner, fra en katalog som stadig tilpasser seg etter hvert som nye risikoer dukker opp.",
+    "description": "The body of the home highlight about on-demand specializations"
+  },
+  "home.highlight.knowledge.lead": {
+    "message": "Fokuserte sikkerhetsmoduler lastes inn {scope}.",
+    "description": "The lead of the home highlight about specializations, where {scope} is emphasized"
+  },
+  "home.highlight.knowledge.lead.scope": {
+    "message": "bare for det prosjektet ditt er",
+    "description": "The emphasized part of the home highlight about specializations"
+  },
+  "home.highlight.knowledge.title": {
+    "message": "Kunnskap ved behov",
+    "description": "The title of the home highlight about on-demand specializations"
+  },
+  "home.howTo.charter": {
+    "message": "Fastsett sikkerhetsprinsippene for prosjektet ditt, reglene som hver senere fase respekterer.",
+    "description": "The Charter step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.description": {
+    "message": "Lagune kjører en forsvarsorientert flyt i fem faser som reviderer og herder enhver kodebase, drevet av KI-agenten din.",
+    "description": "The summary of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.detect": {
+    "message": "Les koden og kartlegg hva systemet gjør og hvor risikoene ligger.",
+    "description": "The Detect step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.harden": {
+    "message": "Ta i bruk utbedringene fra planen i koden, trygt og én om gangen.",
+    "description": "The Harden step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.name": {
+    "message": "Slik herder du en kodebase med Lagune (Blue Team-flyten)",
+    "description": "The name of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.plan": {
+    "message": "Vurder hvert funn med en kategori og en score etter CVSS v4.0, og koble det deretter til en utbedring.",
+    "description": "The Plan step of the five-phase guide in search engines' structured data"
+  },
+  "home.howTo.verify": {
+    "message": "Bevis at hver utbedring som er tatt i bruk, holder, og ta ut dem som gjør det.",
+    "description": "The Verify step of the five-phase guide in search engines' structured data"
+  },
+  "home.install.copy": {
+    "message": "Kopier installasjonskommandoen for {agent}",
+    "description": "The label of the button that copies the install command shown on the home page, where {agent} is the agent"
+  },
+  "home.install.tabs": {
+    "message": "Installasjonskommandoer",
+    "description": "The accessible name of the tabs that switch the install command shown on the home page, one tab per agent"
+  },
+  "home.meta.description": {
+    "message": "Lagune hjelper KI-agenten din med å herde enhver kodebase: den oppdager hva systemet ditt faktisk gjør, og driver deretter det defensive arbeidet som passer, mens du bygger.",
+    "description": "The description of the home page in search results and link previews"
+  },
+  "home.meta.title": {
+    "message": "KI-drevet sikkerhetsherding for enhver kodebase | Lagune",
+    "description": "The title of the home page in search results and the browser tab"
+  },
+  "home.mode.bySeverity": {
+    "message": "Etter alvorlighetsgrad",
+    "description": "The example tab for running a phase on the most severe findings only"
+  },
+  "home.mode.recommendedFull": {
+    "message": "Anbefalt (fullstendig)",
+    "description": "The example tab for running a phase over the whole project, the recommended way"
+  },
+  "home.nav.menu": {
+    "message": "Meny",
+    "description": "The label of the button that opens the compact home menu"
+  },
+  "home.nav.phases": {
+    "message": "Faser",
+    "description": "The accessible name of the rail that switches the phase shown in the home usage section"
+  },
+  "home.phase.bannerAlt": {
+    "message": "Fasen {phase}",
+    "description": "The alternative text of a phase card's banner, where {phase} is the phase"
+  },
+  "home.phase.charter.description": {
+    "message": "Fastsetter sikkerhetsreglene for prosjektet ditt, foreslått for deg eller formet etter det du sier.",
+    "description": "What the Charter phase does"
+  },
+  "home.phase.charter.eyebrow": {
+    "message": "FASE 1",
+    "description": "The small caps label over the Charter phase card"
+  },
+  "home.phase.charter.mode.auto": {
+    "message": "Oppdag automatisk",
+    "description": "The example tab for the Charter phase: Auto Detect"
+  },
+  "home.phase.charter.mode.describe": {
+    "message": "Anbefalt (beskriv)",
+    "description": "The example tab for the Charter phase: Recommended (Describe)"
+  },
+  "home.phase.charter.mode.describe.prompt": {
+    "message": "Vi driver en manga-SaaS: forfattere laster opp originale kapitler, lesere kjøper kreditter med Stripe og bruker dem til å låse opp kapitler, og forfatterne tjener en provisjon per opplåsing. Hjelp oss å hindre at brukerne lekker kapitlene eller tar skjermbilder av dem etterpå.",
+    "description": "An example request a user writes after /lagune-charter"
+  },
+  "home.phase.charter.title": {
+    "message": "Charter",
+    "description": "The name of the Charter phase"
+  },
+  "home.phase.copyCommand": {
+    "message": "Kopier {command}",
+    "description": "The label of the button that copies a command, where {command} is the command"
+  },
+  "home.phase.detect.description": {
+    "message": "Leser koden din og kartlegger hva systemet ditt gjør og hvor risikoene ligger.",
+    "description": "What the Detect phase does"
+  },
+  "home.phase.detect.eyebrow": {
+    "message": "FASE 2",
+    "description": "The small caps label over the Detect phase card"
+  },
+  "home.phase.detect.mode.scoped": {
+    "message": "Avgrenset",
+    "description": "The example tab for the Detect phase: Scoped"
+  },
+  "home.phase.detect.mode.scoped.prompt": {
+    "message": "Skann branchen til praktikanten før jeg merger den.",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.mode.targeted": {
+    "message": "Målrettet",
+    "description": "The example tab for the Detect phase: Targeted"
+  },
+  "home.phase.detect.mode.targeted.prompt": {
+    "message": "Undersøk alle mulige datalekkasjer",
+    "description": "An example request a user writes after /lagune-detect"
+  },
+  "home.phase.detect.title": {
+    "message": "Detect",
+    "description": "The name of the Detect phase"
+  },
+  "home.phase.harden.description": {
+    "message": "Tar i bruk utbedringene fra planen i koden din, trygt og én om gangen.",
+    "description": "What the Harden phase does"
+  },
+  "home.phase.harden.eyebrow": {
+    "message": "FASE 4",
+    "description": "The small caps label over the Harden phase card"
+  },
+  "home.phase.harden.mode.severity.prompt": {
+    "message": "Ta bare i bruk utbedringene med kritisk og høy alvorlighetsgrad inntil videre.",
+    "description": "An example request a user writes after /lagune-harden"
+  },
+  "home.phase.harden.title": {
+    "message": "Harden",
+    "description": "The name of the Harden phase"
+  },
+  "home.phase.plan.description": {
+    "message": "Gjør det detect fant, om til en forsvarsplan, med én utbedring for hvert funn.",
+    "description": "What the Plan phase does"
+  },
+  "home.phase.plan.eyebrow": {
+    "message": "FASE 3",
+    "description": "The small caps label over the Plan phase card"
+  },
+  "home.phase.plan.mode.severity.prompt": {
+    "message": "Planlegg bare funnene med kritisk og høy alvorlighetsgrad inntil videre.",
+    "description": "An example request a user writes after /lagune-plan"
+  },
+  "home.phase.plan.title": {
+    "message": "Plan",
+    "description": "The name of the Plan phase"
+  },
+  "home.phase.universal.description": {
+    "message": "Bygger det prompten din ber om, med sikkerheten som vokter arbeidet mens det skjer, ikke senere.",
+    "description": "What the universal /lagune command does"
+  },
+  "home.phase.universal.eyebrow": {
+    "message": "UNIVERSELL",
+    "description": "The small caps label over the universal /lagune command card"
+  },
+  "home.phase.universal.mode.feature": {
+    "message": "Funksjon",
+    "description": "The example tab for building a new feature with /lagune"
+  },
+  "home.phase.universal.mode.feature.prompt": {
+    "message": "Lag et dashbord for brukerne av SaaS-en min. De skal kunne endre profilbildet sitt og se alt innholdet de har tilgang til.",
+    "description": "An example request a user writes after /lagune to build a feature"
+  },
+  "home.phase.universal.mode.fix": {
+    "message": "Feilretting",
+    "description": "The example tab for fixing a bug with /lagune"
+  },
+  "home.phase.universal.mode.fix.prompt": {
+    "message": "Ingenting skjer når brukeren sender inn skjemaet. Finn ut hva det kan være, og rett det.",
+    "description": "An example request a user writes after /lagune to fix a bug"
+  },
+  "home.phase.universal.mode.refactor": {
+    "message": "Refaktorering",
+    "description": "The example tab for refactoring code with /lagune"
+  },
+  "home.phase.universal.mode.refactor.prompt": {
+    "message": "Frikoble og forbedre payload-logikken.",
+    "description": "An example request a user writes after /lagune to refactor code"
+  },
+  "home.phase.universal.next": {
+    "message": "Se hvordan du reviderer det eksisterende prosjektet ditt",
+    "description": "Leads from the universal command to the audit flow on the home page"
+  },
+  "home.phase.universal.title": {
+    "message": "Bygg",
+    "description": "The title of the universal /lagune command card"
+  },
+  "home.phase.verify.description": {
+    "message": "Beviser at hver utbedring som er tatt i bruk, holder, og lukker dem som gjør det.",
+    "description": "What the Verify phase does"
+  },
+  "home.phase.verify.eyebrow": {
+    "message": "FASE 5",
+    "description": "The small caps label over the Verify phase card"
+  },
+  "home.phase.verify.mode.severity.prompt": {
+    "message": "Verifiser bare utbedringene med kritisk og høy alvorlighetsgrad som vi har tatt i bruk.",
+    "description": "An example request a user writes after /lagune-verify"
+  },
+  "home.phase.verify.title": {
+    "message": "Verify",
+    "description": "The name of the Verify phase"
+  },
+  "home.prompt.example": {
+    "message": "Eksempel",
+    "description": "The label over the example prompt typed on the home page"
+  },
+  "home.rail.step": {
+    "message": "{phase} ({stage})",
+    "description": "The label of a phase button in the home phase rail, where {phase} is the phase and {stage} its small caps label"
+  },
+  "home.section.overview": {
+    "message": "Oversikt",
+    "description": "The name of the home section that presents Lagune"
+  },
+  "home.section.usage": {
+    "message": "Slik bruker du det",
+    "description": "The name of the home section that walks through the commands"
+  },
+  "home.software.feature.context": {
+    "message": "Oppdager hva et system faktisk gjør, uansett hva det er, og driver deretter utbedringene som betyr noe i den konteksten, i alle programmeringsspråk",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.cvss": {
+    "message": "Vurdering etter CVSS v4.0 for hvert funn",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.dashboard": {
+    "message": "Lokalt, privat dashbord for å følge funn, utbedringer og bevis",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.defense": {
+    "message": "Kun defensiv: genererer aldri exploits eller angrepsverktøy",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.flow": {
+    "message": "Blue Team-flyt i fem faser: charter, detect, plan, harden, verify",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.install": {
+    "message": "Installeres i agenten din som plugin, eller med CLI-en til skills i alle andre agenter, uten API-nøkkel",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.specializations": {
+    "message": "Språkuavhengige sikkerhetsspesialiseringer ved behov, gruppert i kategorier",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.software.feature.universal": {
+    "message": "Sikrer nytt arbeid mens det skrives, med den universelle kommandoen /lagune, veiledet av sikkerhetsprinsippene",
+    "description": "A feature of Lagune in search engines' structured data"
+  },
+  "home.tagline.audience": {
+    "message": "Enten du er utvikler eller ikke.",
+    "description": "The small line under the headline above the chat demo on the home page"
+  },
+  "home.tagline.title": {
+    "message": "Lagune er sikkerhetscopiloten din når du bygger, og ditt Blue Team når du reviderer.",
+    "description": "The headline above the chat demo on the home page, where \"Blue Team\" stays in English since the page sets it in italics"
+  },
+  "home.topBar.label": {
+    "message": "Nettsted",
+    "description": "The accessible name of the top navigation bar"
+  },
+  "home.usage.next": {
+    "message": "Neste: {phase}",
+    "description": "Leads from one phase to the next on the home page, where {phase} is the next phase"
+  },
+  "home.usage.settled": {
+    "message": "Når alt er bevist, er syklusen i ro",
+    "description": "Closes the walk through the phases on the home page"
+  },
+  "paper.reference.eyebrow": {
+    "message": "Referanse [{index}]",
+    "description": "The heading of the popover that reveals a cited reference of the paper"
+  },
+  "paper.section.eyebrow": {
+    "message": "Seksjon {roman}",
+    "description": "The heading of the popover that reveals a section the paper refers to, where {roman} is its Roman numeral"
+  },
+  "share.breadcrumb": {
+    "message": "Del",
+    "description": "The name of the share page in breadcrumbs"
+  },
+  "share.heading": {
+    "message": "Skann, åpne, gi en {star}",
+    "description": "The heading of the share page, where {star} is a star icon read as the word star"
+  },
+  "share.heading.star": {
+    "message": "stjerne",
+    "description": "The word the star icon of the share heading stands for"
+  },
+  "share.lead": {
+    "message": "Rett kameraet mot koden for å åpne Lagune på GitHub, og gi deretter en stjerne for å støtte prosjektet.",
+    "description": "The instruction under the share page heading"
+  },
+  "share.meta.description": {
+    "message": "Skann QR-koden for å åpne repositoryet til Lagune på GitHub, og gi deretter en stjerne for å støtte dette prosjektet med åpen kildekode for KI-drevet sikkerhetsherding.",
+    "description": "The description of the share page in search results and link previews"
+  },
+  "share.meta.title": {
+    "message": "Del Lagune | Skann QR-koden og gi repoet på GitHub en stjerne",
+    "description": "The title of the share page in search results and the browser tab"
+  },
+  "share.qr.caption": {
+    "message": "Skann denne QR-koden for å åpne repositoryet til Lagune på GitHub (github.com/wellwelwel/lagune) og gi en stjerne.",
+    "description": "The hidden caption of the QR code on the share page"
+  },
+  "share.qr.title": {
+    "message": "QR-kode som åpner repositoryet til Lagune på GitHub (github.com/wellwelwel/lagune)",
+    "description": "The accessible name of the QR code on the share page"
+  }
+}

@@ -1,0 +1,60 @@
+---
+id: devin-cli
+title: 'Installer Lagune som plugin i Devin CLI'
+sidebar_label: Devin CLI
+parent: get-started/install
+description: Installer Lagune som plugin i Devin CLI og hold den oppdatert.
+keywords:
+  - devin cli
+  - devin for terminal
+  - devin cli plugin
+  - devin plugins install
+  - installere lagune
+  - oppsett
+  - KI-sikkerhet
+  - KI-agenter
+source_hash: '06eeb109f2b3685082fc3f2aa66ebf2d9fdc4c435e15d6a258e2fcbd498792a1'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+
+<InstallHeader name='Devin for Terminal' />
+
+Logg inn på **Devin**, og installer deretter pluginen fra terminalen:
+
+```bash
+devin auth login
+devin plugins install wellwelwel/lagune
+```
+
+## Oppdatering
+
+Oppdater **Lagune** ved å kjøre:
+
+```bash
+devin plugins update lagune
+```
+
+## Kommandoer
+
+Skriv kommandoene med navnet på pluginen foran, for eksempel `/lagune:lagune-charter` for `/lagune-charter`. Menyen `/` viser dem også.
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Devin CLI?',
+      answer:
+        'Logg inn med devin auth login, og kjør deretter devin plugins install wellwelwel/lagune.',
+    },
+    {
+      question: 'Hvordan oppdaterer jeg Lagune i Devin CLI?',
+      answer: 'Kjør devin plugins update lagune.',
+    },
+    {
+      question: 'Hvordan kjører jeg kommandoene til Lagune i Devin CLI?',
+      answer:
+        'Skriv dem med navnet på pluginen foran, for eksempel /lagune:lagune-charter. Menyen / viser dem også.',
+    },
+  ]}
+/>

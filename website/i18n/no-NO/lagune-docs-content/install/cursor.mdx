@@ -1,0 +1,123 @@
+---
+id: cursor
+title: 'Installer Lagune som plugin i Cursor'
+sidebar_label: Cursor
+parent: get-started/install
+description: Installer Lagune som plugin i Cursor og Cursor CLI, hold den oppdatert og tillat motoren på forhånd.
+keywords:
+  - cursor
+  - cursor plugin
+  - cursor cli
+  - plugin marketplace
+  - installere lagune
+  - oppsett
+  - KI-sikkerhet
+  - KI-agenter
+source_hash: '08c54cd98449fce87b9f38a44aef834689e3fd5ffd6a8a0aed023de7f8acdf19'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<InstallHeader name='Cursor' />
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Åpne **Customize**.
+- Velg **From GitHub Repository** og skriv inn `https://github.com/wellwelwel/lagune`.
+- Velg **Install** på **Lagune**, og velg prosjekt- eller brukeromfang.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Legg til markedsplassen fra terminalen:
+
+  ```bash
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Skriv `/plugins` i en økt med `agent`.
+- Installer **Lagune**.
+
+Er **Lagune** allerede installert i **Claude Code**, laster **Cursor CLI** den inn derfra.
+
+</TabItem>
+</Tabs>
+
+## Oppdatering
+
+<Tabs groupId="cursor-surface">
+<TabItem value="editor" label="Cursor" default>
+
+- Åpne **Customize**.
+- Velg **Refresh** på markedsplassen `lagune`.
+
+</TabItem>
+<TabItem value="cli" label="Cursor CLI">
+
+- Bytt ut markedsplassen fra terminalen:
+
+  ```bash
+  agent plugin marketplace remove lagune
+  agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor
+  ```
+
+- Skriv `/plugins` i en økt med `agent`.
+- Installer **Lagune** på nytt.
+
+</TabItem>
+</Tabs>
+
+## Kommandoer
+
+Skriv kommandoene med navnet deres, for eksempel `/lagune-charter`.
+
+---
+
+:::info[Tillatelser]
+
+I **Cursor** kjører kommandoene motoren via **npx**, noe standardmodusen Auto-review tillater uten å spørre.
+
+I **Cursor CLI** kjører motoren via to verktøy: `lagune_read` leser bare prosjektet ditt, og `lagune_write` skriver bare til `.lagune/`. Du tillater dem på forhånd ved å legge til disse reglene i `.cursor/cli.json` for ett prosjekt, eller i `~/.cursor/cli-config.json` for alle prosjektene:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-lagune-lagune:lagune_read)",
+      "Mcp(plugin-lagune-lagune:lagune_write)"
+    ]
+  }
+}
+```
+
+Når motoren kjører via **npx**, som med **skills.sh**, tillater du `Shell(npx:--yes lagune@*)`.
+
+:::
+
+<Faq
+  items={[
+    {
+      question: 'Hvordan installerer jeg Lagune i Cursor?',
+      answer:
+        'Åpne Customize i Cursor, velg From GitHub Repository, skriv inn https://github.com/wellwelwel/lagune og installer Lagune. I Cursor CLI kjører du agent plugin marketplace add https://github.com/wellwelwel/lagune --git-ref plugin-cursor og installerer deretter Lagune fra /plugins.',
+    },
+    {
+      question: 'Hvordan oppdaterer jeg Lagune i Cursor?',
+      answer:
+        'Velg Refresh på markedsplassen lagune under Customize i Cursor. I Cursor CLI fjerner du markedsplassen lagune, legger den til på nytt og installerer deretter Lagune på nytt fra /plugins.',
+    },
+    {
+      question: 'Hvordan kjører jeg kommandoene til Lagune i Cursor?',
+      answer: 'Skriv dem med navnet deres, for eksempel /lagune-charter.',
+    },
+    {
+      question: 'Kan Cursor kjøre Lagune uten å be om tillatelse?',
+      answer:
+        'Ja. Standardmodusen Auto-review i Cursor tillater det allerede. I Cursor CLI tillater du Mcp(plugin-lagune-lagune:lagune_read) og Mcp(plugin-lagune-lagune:lagune_write), og i tillegg Shell(npx:--yes lagune@*) når motoren kjører via npx.',
+    },
+  ]}
+/>

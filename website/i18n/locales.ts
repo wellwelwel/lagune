@@ -106,6 +106,12 @@ export const LOCALES: SiteLocale[] = [
     flag: '/img/flags/th.svg',
     status: 'published',
   },
+  {
+    code: 'no-NO',
+    label: 'Norsk',
+    flag: '/img/flags/no.svg',
+    status: 'published',
+  },
 ];
 
 export const isPublished = (code: string): boolean =>

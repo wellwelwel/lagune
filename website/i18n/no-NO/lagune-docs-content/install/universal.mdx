@@ -1,0 +1,132 @@
+---
+id: universal
+title: 'Installer Lagune i enhver agent med skills.sh eller GitHub CLI'
+sidebar_label: Universell
+parent: get-started/install
+description: Installer Lagune i enhver KI-agent med CLI-en til skills eller med GitHub CLI, og hold det oppdatert.
+keywords:
+  - skills.sh
+  - npx skills add
+  - skills CLI
+  - gh skill install
+  - GitHub CLI
+  - installere lagune
+  - codex
+  - cursor
+  - github copilot
+  - gemini cli
+  - oppsett
+  - KI-agenter
+source_hash: '8aa167fbbeefbc31836be2462cb6d6fe1945bea510ca48a300e7e491245a1b45'
+---
+
+import { Faq } from '@site/src/components/docs/Faq';
+import { InstallHeader } from '@site/src/components/docs/InstallHeader';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
+
+<InstallHeader name='skills.sh' />
+
+Installer kommandoene til **Lagune** i prosjektet ditt fra terminalen med [**skills.sh**](https://www.skills.sh/wellwelwel/lagune), og behold **Project** som installasjonsomfang:
+
+```bash
+npx skills add wellwelwel/lagune --skill '*'
+```
+
+Eller lim inn denne prompten i agenten din:
+
+```md
+Kjør `npx --yes skills add wellwelwel/lagune` og følg de genererte skill-instruksjonene nå. Les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først. Løs opp relative stier ut fra mappen for støttefiler som utdataene oppgir.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+<InstallHeader name='GitHub CLI' />
+
+Installer kommandoene til **Lagune** i prosjektet ditt fra terminalen med [**GitHub CLI**](https://cli.github.com/) 2.90.0 eller nyere:
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+Eller lim inn denne prompten i agenten din:
+
+```md
+Kjør `gh skill install wellwelwel/lagune --all --scope project` og les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først.
+```
+
+  </TabItem>
+</Tabs>
+
+## Oppdatering
+
+<Tabs groupId="skills-installer">
+  <TabItem value="skills-sh" label="skills.sh" default>
+
+Kjør følgende for å oppdatere **Lagune**:
+
+```bash
+npx skills update
+```
+
+Eller lim inn denne prompten i agenten din:
+
+```md
+Kjør `npx --yes skills update -y` og les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først.
+```
+
+  </TabItem>
+  <TabItem value="github-cli" label="GitHub CLI">
+
+Kjør følgende for å oppdatere **Lagune**:
+
+```bash
+gh skill update --all
+```
+
+Eller lim inn denne prompten i agenten din:
+
+```md
+Kjør `gh skill update --all` og les alle utdataene, om nødvendig etter å ha omdirigert dem til en midlertidig fil først.
+```
+
+  </TabItem>
+</Tabs>
+
+---
+
+:::info[Sandkasse]
+
+I en sandkasse uten nettverkstilgang kan ikke kommandoene laste ned motoren. Installer den i prosjektet ditt fra din egen terminal, først én gang og deretter etter hver oppdatering:
+
+```bash
+npm i -D lagune@{{version}}
+```
+
+:::
+
+<Faq
+  items={[
+    {
+      question:
+        'Hvordan installerer jeg Lagune i en hvilken som helst KI-agent?',
+      answer:
+        "Kjør npx skills add wellwelwel/lagune --skill '*' eller gh skill install wellwelwel/lagune --all --scope project i prosjektet ditt, eller lim inn installasjonsprompten i agenten din.",
+    },
+    {
+      question:
+        'Hvordan oppdaterer jeg Lagune i en hvilken som helst KI-agent?',
+      answer:
+        'Kjør npx skills update hvis du installerte det med skills.sh, eller gh skill update --all hvis du installerte det med GitHub CLI. Du kan også lime inn oppdateringsprompten i agenten din.',
+    },
+    {
+      question: 'Kan jeg installere Lagune på mer enn én måte?',
+      answer:
+        'Nei. Med to måter viser agenten hver kommando to ganger, eller den bruker én kopi og skjuler den andre.',
+    },
+  ]}
+/>
