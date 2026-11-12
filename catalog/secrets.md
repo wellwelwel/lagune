@@ -1,7 +1,7 @@
 # Hardcoded-secret vulnerabilities
 
 > - This knowledge extends your judgment. Apply what fits the project and keep reasoning beyond the list.
-> - Source: OWASP, <https://cheatsheetseries.owasp.org/>.
+> - Source: OWASP, <https://cheatsheetseries.owasp.org/>, with GitHub Docs, "Removing sensitive data from a repository".
 
 ## Rules
 
@@ -28,11 +28,11 @@ Flagging a committed secret by its format is standard defensive tooling (gitleak
 - **Secrets in the wrong file:** a `.env` committed to the repo, a credential in a checked-in config, or a key beside the data it protects. The hook skips `.env` and config formats by design (they are expected to be gitignored). Confirm they actually are.
 - **A secret that reached a client bundle:** a key inlined into front-end code is public the moment it ships. A `NEXT_PUBLIC_`/`VITE_`-prefixed secret is exposed on purpose and must never be a real credential.
 
-Safer shape: keep every credential out of source, config, and version control. Read it from the environment or a secrets manager at runtime, and if a literal ever reached a commit, rotate it, it is already burned.
+Safer shape: keep every credential out of source, config, and version control, and read it from the environment or a secrets manager at runtime. A credential that ever reached a commit stays burned after that fix, and only rotating it where it was issued ends the exposure. Purging it from the history is the user's decision, never part of a fix: the purge rewrites the commit that leaked it and every one after, forces every collaborator to rebase or re-clone, and still misses every clone, fork, and mirror already taken.
 
-Does not close it: deleting the literal from the working tree. The value stays in the history, and in every clone, fork, and mirror already taken, so the credential is burned from the moment it was pushed and only rotation ends it. Moving it into a committed `.env` is the same finding in a new file.
+Does not close it: moving the literal into a committed `.env` or a checked-in config, or keeping it as the hardcoded fallback of an environment lookup. Either way the working tree still holds the literal.
 
 ## How to act on the result
 
-- **In detect (detection):** each provider token, environment fallback, and connection-string credential the hook reports is a finding. Record what it is (a committed credential), why it matters (anyone with repo or history access holds the secret), and the evidence (the file and the identifier). A bare literal bound to a secret-named identifier, and a secret flowing into a sink, are leads to confirm, not automatic findings. Confirmed leads flow through detect's normal steps and are tracked like any other finding.
-- **In verify (proof):** the control holds only when the credential is gone from the working tree **and** from history, and the code reads it from the environment or a secret store instead. A removed literal that still sits in an old commit is not closed (the secret must be rotated), and a value moved from a literal into a committed `.env` is not closed either. If any credential can still be recovered from the repository or its history, the risk is not closed: record it as such and point back to harden.
+- **In detect (detection):** each provider token, environment fallback, and connection-string credential the hook reports is a finding. Record what it is (a committed credential), why it matters (anyone who can read the code holds the secret), and the evidence (the file and the identifier). A bare literal bound to a secret-named identifier, and a secret flowing into a sink, are leads to confirm, not automatic findings. Confirmed leads flow through detect's normal steps and are tracked like any other finding. For each credential finding, also record a side quest under Not determined asking whether that credential has been rotated: name it by what it unlocks, never by its value or the finding's name, so the side quest outlives the finding.
+- **In verify (proof):** the control holds once the code reads the credential from the environment or a secret store and the working tree no longer holds the literal in any form, except in a gitignored `.env`. Neither the history nor the credential's rotation keeps the finding open, not even as inconclusive, since both lie outside the working tree. Instead, point the summary at detect's rotation side quest, so the user never mistakes a closed finding for a safe credential. If the risk is not closed, record it as such and point back to harden.
