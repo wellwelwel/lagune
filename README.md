@@ -4,6 +4,7 @@
 
 [![Secured By Lagune](https://img.shields.io/badge/Lagune-2f7bff?logo=springsecurity&logoColor=white&label=Secured%20By&labelColor=303952)](https://lagune.ai)
 [![Version](https://img.shields.io/npm/v/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
+[![Monthly Downloads](https://img.shields.io/npm/dt/lagune?label=&color=2f7bff&logo=npm&logoColor=white)](https://www.npmjs.com/package/lagune)
 [![No API Key Needed](https://img.shields.io/badge/No%20API%20Key%20Needed-2f7bff?logo=claudecode&logoColor=white)](https://lagune.ai/docs)
 
 Instead of running a generic checklist, what if security existed **before**, **during**, and **after** development?
@@ -31,6 +32,11 @@ It helps more people discover the project.
 <a href="https://lagune.ai/ko-KR/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/kr.svg" alt="한국어" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/hi-IN/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/in.svg" alt="हिन्दी" width="32" align="absmiddle" /></a>
 <a href="https://lagune.ai/id-ID/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/id.svg" alt="Bahasa Indonesia" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/th-TH/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/th.svg" alt="ไทย" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/da-DK/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/dk.svg" alt="Dansk" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/no-NO/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/no.svg" alt="Norsk" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/pl-PL/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/pl.svg" alt="Polski" width="32" align="absmiddle" /></a>
+<a href="https://lagune.ai/ar-AE/docs"><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/flags/ae.svg" alt="العربية" width="32" align="absmiddle" /></a>
 
 ---
 
@@ -157,7 +163,7 @@ Start here, before building or auditing:
 ```
 
 ```md
-/lagune-charter <PRD.md>
+/lagune-charter @<PRD.md>
 ```
 
 ```md
