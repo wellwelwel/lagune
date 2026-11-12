@@ -67,8 +67,8 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 
 ### Step 8: Summarize
 
-In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune@0.18.1 read catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
+In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune@0.18.2 read catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.1 read <command> <arguments>` and `npx --yes lagune@0.18.1 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.2 read <command> <arguments>` and `npx --yes lagune@0.18.2 write <command> <arguments>` as a fallback.

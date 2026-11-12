@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.18.2](https://github.com/wellwelwel/lagune/compare/v0.18.1...v0.18.2) (2026-11-12)
+
+
+### Bug Fixes
+
+* close a secret finding once the code no longer holds it ([7f1cf16](https://github.com/wellwelwel/lagune/commit/7f1cf163832af6e04efadc380e8280e10f435b0a))
+* **credential-endpoint:** close guessing findings on the limits the code enforces ([c960e33](https://github.com/wellwelwel/lagune/commit/c960e33dc112254471f31bdf35d9107c9d2ef8be))
+* **engine:** keep every finding and setting when phases write at once ([83ec193](https://github.com/wellwelwel/lagune/commit/83ec193b19ee43c6d12136b6252353a342e18c20))
+* **llm:** close AI findings on the controls the code enforces ([cbee34b](https://github.com/wellwelwel/lagune/commit/cbee34b3d9087991bdbd19c9fafa0fc428e0f2ef))
+* **specialize:** keep verify guidance to what the code can show ([c2e63ba](https://github.com/wellwelwel/lagune/commit/c2e63baff96c799d543fb5500fd5bb3309bb00d9))
+* **supabase:** close RLS findings on what the policies and code show ([70c073d](https://github.com/wellwelwel/lagune/commit/70c073dc2ff7cd51116fdae0c148ddbb067806fb))
+* **transport:** close TLS findings on what the repository configures ([d3aa896](https://github.com/wellwelwel/lagune/commit/d3aa89618ffb7f7388894380bdf57f0bc51ead12))
+
 ## [0.18.1](https://github.com/wellwelwel/lagune/compare/v0.18.0...v0.18.1) (2026-11-07)
 
 
