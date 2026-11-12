@@ -29,7 +29,7 @@ Currently, security updates will be applied to the following versions of **Lagun
 | Version | Supported          | Stage           |
 | ------- | ------------------ | --------------- |
 | 1.x.x   | :white_check_mark: | 🚧 Soon         |
-| 0.x.x   | :x:                | 🧑🏻‍🔬 Experimental |
+| 0.x.x   | :white_check_mark: | 🧑🏻‍🔬 Experimental |
 
 ---
 
