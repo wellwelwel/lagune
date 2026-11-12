@@ -18,7 +18,7 @@ By default a container process runs as UID 0, so a flaw that escapes the process
 
 Safer shape: add a dedicated user in the `Dockerfile` and switch to it with `USER` (or run with `-u`/`runAsUser`), and assert it at the workload level with `runAsNonRoot: true` and a numeric `runAsUser` in the Pod `securityContext`. Prefer rootless mode (or Podman's rootless model) for the daemon itself.
 
-Does not close it: a `USER` line in the `Dockerfile`. A later stage can switch back, and a multi-stage build routinely does, so the finding rests on the user the process actually runs as, never on the presence of the instruction.
+Does not close it: a `USER` line in the `Dockerfile`. A later stage can switch back, and a multi-stage build routinely does, so the finding rests on the user the final stage and any workload override leave in effect, never on the presence of the instruction.
 
 ### Over-privileged container (capabilities, privileged, privilege escalation)
 
@@ -55,5 +55,5 @@ Safer shapes, applied where they fit:
 
 ## How to act on the result
 
-- **In detect (detection):** each insecure default in a `Dockerfile`, `docker-compose.yml`, or workload `securityContext` is a finding, one of the risks above. Record what it is (the file and the setting), why it matters (host-level reach on escape, an internet-exposed internal service, a leaked secret, a DoS), and the evidence (the line in the `Dockerfile`/compose/manifest). It flows through detect's normal steps and is tracked like any other finding.
-- **In verify (proof):** the control holds only when each insecure default is replaced by the safer shape for its risk, confirmed against the running container and the built image, not the manifest line alone, since a later build step can undo an earlier setting. If the risk is not closed, record it as such and point back to harden.
+- **In detect (detection):** each insecure default in a `Dockerfile`, `docker-compose.yml`, or workload `securityContext` is a finding, one of the risks above. Record what it is (the file and the setting), why it matters (host-level reach on escape, an internet-exposed internal service, a leaked secret, a DoS), and the evidence (the line in the `Dockerfile`/compose/manifest). It flows through detect's normal steps and is tracked like any other finding. For each finding, also record a side quest under Not determined asking whether the built image and the running container show the fixed setting, or, for a secret baked into an image, whether it has been rotated. Name the image or workload, never the finding's name, so the side quest outlives its finding.
+- **In verify (proof):** the control holds once the `Dockerfile`, compose file, and workload manifest replace each insecure default with the safer shape for its risk, read through the final stage and every override. The built image, the running container, and a secret's rotation never keep the finding open, not even as inconclusive, since all three lie outside the repository. Instead, point the summary at detect's side quest, so the user never mistakes a closed finding for a container proven to run safely. If the risk is not closed, record it as such and point back to harden.
