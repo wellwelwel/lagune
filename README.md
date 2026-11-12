@@ -163,7 +163,7 @@ Start here, before building or auditing:
 ```
 
 ```md
-/lagune-charter <PRD.md>
+/lagune-charter @<PRD.md>
 ```
 
 ```md
