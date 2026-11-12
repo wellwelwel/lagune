@@ -91,7 +91,7 @@ The hook returns a `prose` array. A non-empty `dangling` list means a stood-down
 
 ### Step 7: Record the verdicts in the hardening record
 
-Write each open control's verdict onto its block in `.lagune/memory/harden.md`, touching only the `Verdict` and `Reason`, never the `Status`, `What changed`, or `Where` harden owns. Add no section of your own to the file.
+Write each open control's verdict onto its block in `.lagune/memory/harden.md`, touching only the `Verdict` and `Reason`, never the `Status`, `What changed`, or `Where` harden owns. Add no section of your own to the file. Re-read it first to keep any change made since you loaded it, such as Step 6's.
 
 - **`❌ Reproved`:** write the verdict and a one or two line `Reason` naming the gap (for example, the size limit lands but the file-type check is bypassable). This is what harden re-applies against, so be precise.
 - **`❓ Inconclusive`:** write the verdict and a `Reason` naming what is missing to settle it.
@@ -131,4 +131,4 @@ Keep the summary in plain language throughout. A non-developer should understand
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.1 read <command> <arguments>` and `npx --yes lagune@0.18.1 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.2 read <command> <arguments>` and `npx --yes lagune@0.18.2 write <command> <arguments>` as a fallback.

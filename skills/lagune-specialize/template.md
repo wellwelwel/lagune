@@ -13,7 +13,7 @@
 ## What to look for
 
 <!--
-  One ### block per vulnerability this domain carries. Each is a self-contained risk the agent checks against the code in scope, one at a time. The block's title is the vulnerability's name, and it is the section's identity. Order the vulnerabilities however reads best for the domain; there is no fixed list. A domain with a single risk has a single ### block (see the regex specialization). Write freeform security prose, not [TOKEN] fields: the placeholders below mark where your prose goes, the shape is the convention to follow.
+  One ### block per vulnerability this domain carries. Each is a self-contained risk the agent checks against the code in scope, one at a time. The block's title is the vulnerability's name, and it is the section's identity. Order the vulnerabilities however reads best for the domain. A domain with a single risk has a single ### block (see the regex specialization). Write freeform security prose, not [TOKEN] fields: the placeholders below mark where your prose goes, the shape is the convention to follow.
 
   Each block states, in plain language: what the dangerous pattern is (the named sinks, calls, or constructs and the sources that reach them), why it matters (the concrete impact), and how to make it safe. The common form is one inline "Safer shape:" note, but it varies (see the comment on that line). Where a popular control is commonly mistaken for the fix, an optional "Does not close it:" note names that decoy so it is not accepted as closing the finding (see the comment on that line).
 -->
@@ -44,5 +44,5 @@ Safer shape: [VULN_3_SAFER]
 
 ## How to act on the result
 
-- **In detect (detection):** [DETECT_GUIDANCE] <!-- Example: each pattern you confirm is a finding. Describe it in plain language: what it is (the behavior being abused), why it matters (the concrete impact), and the evidence (the function or area where it lives). It flows through detect's normal steps and is tracked like any other finding. -->
-- **In verify (proof):** [VERIFY_GUIDANCE] <!-- Example: the control holds only when the unsafe pattern is gone or properly guarded. If the dangerous pattern still reaches untrusted input, the risk is not closed: record it as such and point back to harden. -->
+- **In detect (detection):** [DETECT_GUIDANCE] <!-- Example: each pattern you confirm is a finding. Describe it in plain language: what it is (the behavior being abused), why it matters (the concrete impact), and the evidence (the function or area where it lives). It flows through detect's normal steps and is tracked like any other finding. Where part of the control lies outside the repository, also record a side quest under Not determined asking whether that part holds, named by what it covers and never by the finding's name, so it outlives the finding. -->
+- **In verify (proof):** [VERIFY_GUIDANCE] <!-- Example: the control holds only when the unsafe pattern is gone or properly guarded. Anything outside the repository (a rotation, a deployed setting, a live scan, a runtime test) never keeps the finding open, not even as inconclusive: point the summary at detect's side quest for it instead. If the dangerous pattern still reaches untrusted input, the risk is not closed: record it as such and point back to harden. -->
