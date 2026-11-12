@@ -65,7 +65,7 @@ A new built-in is not done when the `.md` exists. Touch each of these:
 ## Quick checklist
 
 ```
-[ ] catalog/<name>.md                        authored from skills/lagune-specialize/template.md (reconciled on a refine)
+[ ] catalog/<name>.md                        authored from skills/lagune-specialize/template.md (reconciled on a refine), verify closing only on what the repository shows and detect recording the rest as a side quest
 [ ] src/catalog/builtin.ts                   BuiltinSpecialization added { name, tags, categories }
 [ ] src/categories/categories.ts             only if a new category was introduced
 [ ] src/dashboard/shared/specialization-meta.ts  label, description, icon, prompt task
