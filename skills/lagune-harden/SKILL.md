@@ -103,7 +103,7 @@ This is the one place Lagune changes the user's code. Do not ask for a confirmat
 
 ### Step 7: Write and track
 
-- Write the reconciled record to `.lagune/memory/harden.md`.
+- Write the reconciled record to `.lagune/memory/harden.md`, re-reading it first to keep any change made since you loaded it.
 - Register the items you hardened so the tracking map keeps each one current. This is registration, not reconciliation: hand the track hook only the findings this run hardened, as the `entries` list of `{name, paths}`, named by the finding's name (your section title, the same name the plan used). The hook finds that same item by name and updates its `paths`. It does not create a second entry: one finding is one item. `name` is the finding's name, and `paths` holds the file paths the change landed in. The path lives here, in tracking, never in the prose. Call `lagune_write` with `command` set to `track` and this payload as the single item of `arguments`:
 
 ```json
@@ -131,4 +131,4 @@ Keep the record in plain language throughout. A non-developer should understand 
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.1 read <command> <arguments>` and `npx --yes lagune@0.18.1 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.2 read <command> <arguments>` and `npx --yes lagune@0.18.2 write <command> <arguments>` as a fallback.
