@@ -65,7 +65,7 @@ Installing and updating the commands belongs to the **skills** CLI, the **GitHub
 
 ## The project's state
 
-`.lagune/` holds only the project's state, created by the first command or hook that writes. This design writes no manifest and no generated file there, and adds no block to the project's `.gitignore`. The proofs alone stay out of version control, so an open issue never reaches a commit.
+`.lagune/`, created by the first command or hook that writes, holds the project's state and one engine folder **Git** never sees. This design writes no manifest there and adds no block to the project's `.gitignore`. An engine write that reads the state before changing it holds a lock and lands through temporary files renamed into place, since parallel phases can write at once. Both live in the engine folder, on the one file system an atomic rename needs, and nothing a write puts there outlives it. The folder itself stays between writes and ignores itself through its own `.gitignore`, since **Git** can list a new folder before its ignore file takes effect, so one made on every write would flash in **Git**. Of the project's state, the proofs alone stay out of version control, so an open issue never reaches a commit.
 
 ## The catalog
 

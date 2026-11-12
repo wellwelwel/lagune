@@ -1,5 +1,5 @@
 import type { CheckerName } from '../types/checkers.js';
-import type { ConfigsAction } from '../types/core.js';
+import type { ConfigsAction, ConfigsUpdate } from '../types/core.js';
 import { stdout } from 'node:process';
 import {
   banner,
@@ -21,7 +21,7 @@ import {
 } from '../core/checker-rules.js';
 import { checkersConfigOf } from '../core/checkers.js';
 import { changeList } from '../core/collections.js';
-import { readConfigs, recordConfigs } from '../core/configs.js';
+import { recordConfigs } from '../core/configs.js';
 
 const checkerNamed = (name: string | undefined): CheckerName | undefined => {
   if (name === undefined || isCheckerName(name)) return name;
@@ -45,6 +45,31 @@ const projectPatterns = (
   });
 };
 
+const ignoreChange = (
+  configs: Record<string, unknown>,
+  action: ConfigsAction,
+  checker: CheckerName | undefined,
+  patterns: readonly string[]
+): ConfigsUpdate<string> => {
+  const config = checkersConfigOf(configs);
+  const change = changeList(action, ignoreListOf(config, checker), patterns);
+
+  if (change.values.length > MAX_IGNORE_ENTRIES)
+    throw new Error(tooManyIgnored(MAX_IGNORE_ENTRIES));
+
+  const updated = withIgnoreList(config, checker, change.values);
+
+  return {
+    fields: { checkers: checkersRecord(updated) },
+    result: ignoreRecorded(
+      action,
+      change,
+      checker,
+      checkersWithOwnList(updated)
+    ),
+  };
+};
+
 /** Records the paths and patterns every checker, or one checker, leaves out of its scans, a checker's first own list starting from the shared one */
 export const runIgnoreChange = async (
   action: ConfigsAction,
@@ -54,21 +79,9 @@ export const runIgnoreChange = async (
 ): Promise<void> => {
   const checker = checkerNamed(checkerName);
   const patterns = projectPatterns(action, requested);
-  const config = checkersConfigOf(await readConfigs(cwd));
-  const change = changeList(action, ignoreListOf(config, checker), patterns);
-
-  if (change.values.length > MAX_IGNORE_ENTRIES)
-    throw new Error(tooManyIgnored(MAX_IGNORE_ENTRIES));
-
-  const updated = withIgnoreList(config, checker, change.values);
-  const report = ignoreRecorded(
-    action,
-    change,
-    checker,
-    checkersWithOwnList(updated)
+  const report = await recordConfigs(cwd, (configs) =>
+    ignoreChange(configs, action, checker, patterns)
   );
-
-  await recordConfigs(cwd, { checkers: checkersRecord(updated) });
 
   stdout.write(`${banner()}\n\n${report}\n`);
 };

@@ -6,13 +6,12 @@ import type {
   UnresolvedEntry,
   UnresolvedReason,
 } from '../../types/core.js';
+import { withStateLock } from '../../core/state-lock.js';
 import {
   foldEntries,
-  loadTrackingMap,
   parseObservedPayload,
   samePaths,
-  serializeTrackingMap,
-  writeTrackingMap,
+  updateTrackingMap,
 } from '../../core/tracking.js';
 
 const orphanReason = (
@@ -60,18 +59,10 @@ export const repair = async (
       'repair input needs `entries`, each an item with `name` and `paths`'
     );
 
-  const map = await loadTrackingMap(targetDir);
-  const result = repairEntries(map, entries);
+  const { classifications, unresolved } = await withStateLock(
+    targetDir,
+    (state) => updateTrackingMap(state, (map) => repairEntries(map, entries))
+  );
 
-  if (serializeTrackingMap(map) !== serializeTrackingMap(result.updatedMap))
-    await writeTrackingMap(targetDir, result.updatedMap);
-
-  return `${JSON.stringify(
-    {
-      classifications: result.classifications,
-      unresolved: result.unresolved,
-    },
-    null,
-    2
-  )}\n`;
+  return `${JSON.stringify({ classifications, unresolved }, null, 2)}\n`;
 };

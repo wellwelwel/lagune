@@ -3,12 +3,11 @@ import type {
   TrackingMap,
   TrackResult,
 } from '../../types/core.js';
+import { withStateLock } from '../../core/state-lock.js';
 import {
   foldEntries,
-  loadTrackingMap,
   parseObservedPayload,
-  serializeTrackingMap,
-  writeTrackingMap,
+  updateTrackingMap,
 } from '../../core/tracking.js';
 
 export const trackEntries = (
@@ -33,11 +32,9 @@ export const track = async (
   if (entries.length === 0)
     return `${JSON.stringify({ classifications: [] }, null, 2)}\n`;
 
-  const map = await loadTrackingMap(targetDir);
-  const result = trackEntries(map, entries);
+  const { classifications } = await withStateLock(targetDir, (state) =>
+    updateTrackingMap(state, (map) => trackEntries(map, entries))
+  );
 
-  if (serializeTrackingMap(map) !== serializeTrackingMap(result.updatedMap))
-    await writeTrackingMap(targetDir, result.updatedMap);
-
-  return `${JSON.stringify({ classifications: result.classifications }, null, 2)}\n`;
+  return `${JSON.stringify({ classifications }, null, 2)}\n`;
 };

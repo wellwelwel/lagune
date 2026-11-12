@@ -3,6 +3,8 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach } from 'poku';
+import { withStateLock } from '../../../src/core/state-lock.js';
+import { writeTrackingMap } from '../../../src/core/tracking.js';
 
 const workspaces: string[] = [];
 
@@ -16,7 +18,13 @@ export const newWorkspace = async (): Promise<string> => {
 
 export const mapOf = (entries: TrackingEntry[]): TrackingMap => ({ entries });
 
-export const seedMemoryFile = async (
+export const seedTrackingMap = (
+  workspace: string,
+  map: TrackingMap
+): Promise<void> =>
+  withStateLock(workspace, (state) => writeTrackingMap(state, map));
+
+export const seedStateFile = async (
   workspace: string,
   relativePath: string,
   content: string

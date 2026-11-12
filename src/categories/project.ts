@@ -1,8 +1,9 @@
+import type { ListChange } from '../types/core.js';
 import { isStringArray } from '../core/collections.js';
 import { CONFIGS_FILE, readConfigs, recordConfigs } from '../core/configs.js';
 import { stateFileRefusal } from '../core/state-file.js';
 
-export const DEFAULT_CATEGORIES = ['owasp'];
+const DEFAULT_CATEGORIES = ['owasp'];
 
 const recordedIn = (configs: Record<string, unknown>): string[] | undefined => {
   if (configs.categories === undefined) return undefined;
@@ -23,7 +24,13 @@ export const readProjectCategories = async (
 export const usedCategories = (recorded: string[] | undefined): string[] =>
   recorded ?? DEFAULT_CATEGORIES;
 
-export const recordCategories = (
+/** Records the categories a change derives from the ones the project uses, read and written under the state lock */
+export const recordCategories = <Change extends Pick<ListChange, 'values'>>(
   cwd: string,
-  categories: string[]
-): Promise<void> => recordConfigs(cwd, { categories });
+  change: (used: string[]) => Change
+): Promise<Change> =>
+  recordConfigs(cwd, (configs) => {
+    const result = change(usedCategories(recordedIn(configs)));
+
+    return { fields: { categories: result.values }, result };
+  });

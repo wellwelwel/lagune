@@ -1,8 +1,10 @@
-import { lstat, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { fileWithin } from './fs-actions.js';
+import type { LockedState } from '../types/core.js';
+import { lstat, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { basename, join } from 'node:path';
+import { fileWithin, retryWhileInUse } from './fs-actions.js';
 
 const MAX_STATE_FILE_BYTES = 1024 * 1024;
+const PERMISSION_BITS = 0o777;
 
 export const stateFileRefusal = (file: string, problem: string): Error =>
   new Error(`${file} ${problem}: fix it, then run this again.`);
@@ -43,4 +45,34 @@ export const readStateFile = async (
   } catch {
     throw stateFileRefusal(file, 'could not be read');
   }
+};
+
+const permissionsOf = async (path: string): Promise<number | undefined> => {
+  const stats = await lstat(path).catch(() => undefined);
+
+  return stats === undefined ? undefined : stats.mode & PERMISSION_BITS;
+};
+
+/** Replaces a state file inside the project in one step, keeping its permissions, refusing a link or a state folder that resolves outside it */
+export const writeStateFile = async (
+  state: LockedState,
+  file: string,
+  contents: string
+): Promise<void> => {
+  const path = await containedStateFile(state.cwd, file);
+  const temporary = join(state.scratch, basename(path));
+  const mode = await permissionsOf(path);
+
+  await writeFile(temporary, contents, { encoding: 'utf8', flag: 'wx', mode });
+  await retryWhileInUse(() => rename(temporary, path));
+};
+
+/** Removes a state file inside the project, refusing a link or a state folder that resolves outside it */
+export const removeStateFile = async (
+  state: LockedState,
+  file: string
+): Promise<void> => {
+  const path = await containedStateFile(state.cwd, file);
+
+  await retryWhileInUse(() => rm(path, { force: true }));
 };

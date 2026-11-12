@@ -1,11 +1,12 @@
-import type { UntrackSummary } from '../../../src/types/core.js';
+import type { HistoryAppend, UntrackSummary } from '../../../src/types/core.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
+import { withStateLock } from '../../../src/core/state-lock.js';
 import { buildHistory } from '../../../src/dashboard/server/data/build/history.js';
 import { appendClosedFindings } from '../../../src/hooks/untrack/history.js';
 import { untrack } from '../../../src/hooks/untrack/untrack.js';
-import { newWorkspace, seedMemoryFile } from './__utils__.js';
+import { newWorkspace, seedStateFile } from './__utils__.js';
 
 const NOW = new Date('2026-07-06T00:00:00.000Z');
 const HISTORY = '.lagune/memory/history.md';
@@ -44,15 +45,22 @@ const plan = (
 const readHistory = (workspace: string): Promise<string> =>
   readFile(join(workspace, HISTORY), 'utf8');
 
+const closeFindings = (
+  workspace: string,
+  names: string[]
+): Promise<HistoryAppend> =>
+  withStateLock(workspace, (state) => appendClosedFindings(state, names, NOW));
+
 await describe('appendClosedFindings distills each closed finding', async () => {
   await it('records name, classification, category, what it is, and the run date', async () => {
     const workspace = await newWorkspace();
-    await seedMemoryFile(
+
+    await seedStateFile(
       workspace,
       '.lagune/memory/detect.md',
       detect({ name: 'Leaked secret', what: 'A token sits in source.' })
     );
-    await seedMemoryFile(
+    await seedStateFile(
       workspace,
       '.lagune/memory/plan.md',
       plan({
@@ -62,15 +70,10 @@ await describe('appendClosedFindings distills each closed finding', async () => 
       })
     );
 
-    const result = await appendClosedFindings(
-      workspace,
-      ['Leaked secret'],
-      NOW
-    );
+    const result = await closeFindings(workspace, ['Leaked secret']);
+    const parsed = buildHistory(await readHistory(workspace));
 
     strict.deepStrictEqual(result.recorded, ['Leaked secret']);
-
-    const parsed = buildHistory(await readHistory(workspace));
     strict.strictEqual(parsed.length, 1);
     strict.deepStrictEqual(parsed[0], {
       name: 'Leaked secret',
@@ -83,20 +86,21 @@ await describe('appendClosedFindings distills each closed finding', async () => 
 
   await it('leaves category empty when the plan names none', async () => {
     const workspace = await newWorkspace();
-    await seedMemoryFile(
+
+    await seedStateFile(
       workspace,
       '.lagune/memory/detect.md',
       detect({ name: 'Open redirect', what: 'A path is trusted verbatim.' })
     );
-    await seedMemoryFile(
+    await seedStateFile(
       workspace,
       '.lagune/memory/plan.md',
       plan({ name: 'Open redirect', priority: 'Medium' })
     );
-
-    await appendClosedFindings(workspace, ['Open redirect'], NOW);
+    await closeFindings(workspace, ['Open redirect']);
 
     const history = await readHistory(workspace);
+
     strict.ok(
       !history.includes('**Category:**'),
       'no empty Category line is written when there is none'
@@ -106,31 +110,29 @@ await describe('appendClosedFindings distills each closed finding', async () => 
 
   await it('falls back to Unranked when the plan has no priority', async () => {
     const workspace = await newWorkspace();
-    await seedMemoryFile(
+
+    await seedStateFile(
       workspace,
       '.lagune/memory/detect.md',
       detect({ name: 'Open redirect', what: 'A path is trusted verbatim.' })
     );
-
-    await appendClosedFindings(workspace, ['Open redirect'], NOW);
+    await closeFindings(workspace, ['Open redirect']);
 
     const parsed = buildHistory(await readHistory(workspace));
+
     strict.strictEqual(parsed[0].classification, 'Unranked');
   });
 
   await it('skips a name that no detect finding carries', async () => {
     const workspace = await newWorkspace();
-    await seedMemoryFile(
+
+    await seedStateFile(
       workspace,
       '.lagune/memory/detect.md',
       detect({ name: 'Leaked secret', what: 'A token sits in source.' })
     );
 
-    const result = await appendClosedFindings(
-      workspace,
-      ['Missing finding'],
-      NOW
-    );
+    const result = await closeFindings(workspace, ['Missing finding']);
 
     strict.deepStrictEqual(result.recorded, []);
     await strict.rejects(readHistory(workspace), 'no history file is written');
@@ -138,7 +140,8 @@ await describe('appendClosedFindings distills each closed finding', async () => 
 
   await it('appends across runs instead of overwriting', async () => {
     const workspace = await newWorkspace();
-    await seedMemoryFile(
+
+    await seedStateFile(
       workspace,
       '.lagune/memory/detect.md',
       detect(
@@ -146,11 +149,11 @@ await describe('appendClosedFindings distills each closed finding', async () => 
         { name: 'Open redirect', what: 'A path is trusted verbatim.' }
       )
     );
-
-    await appendClosedFindings(workspace, ['Leaked secret'], NOW);
-    await appendClosedFindings(workspace, ['Open redirect'], NOW);
+    await closeFindings(workspace, ['Leaked secret']);
+    await closeFindings(workspace, ['Open redirect']);
 
     const parsed = buildHistory(await readHistory(workspace));
+
     strict.deepStrictEqual(
       parsed.map((entry) => entry.name),
       ['Leaked secret', 'Open redirect'],
@@ -166,8 +169,9 @@ await describe('untrack writes history before it erases the memory', async () =>
       name: 'Leaked secret',
       what: 'A token sits in source.',
     });
-    await seedMemoryFile(workspace, '.lagune/memory/detect.md', body);
-    await seedMemoryFile(
+
+    await seedStateFile(workspace, '.lagune/memory/detect.md', body);
+    await seedStateFile(
       workspace,
       '.lagune/memory/plan.md',
       plan({ name: 'Leaked secret', priority: 'High' })
@@ -180,6 +184,7 @@ await describe('untrack writes history before it erases the memory', async () =>
         NOW
       )
     );
+    const parsed = buildHistory(await readHistory(workspace));
 
     strict.deepStrictEqual(summary.history.recorded, ['Leaked secret']);
     strict.strictEqual(
@@ -191,8 +196,6 @@ await describe('untrack writes history before it erases the memory', async () =>
       readFile(join(workspace, '.lagune/memory/detect.md'), 'utf8'),
       'the live section is gone with its file'
     );
-
-    const parsed = buildHistory(await readHistory(workspace));
     strict.strictEqual(
       parsed[0].whatItIs,
       'A token sits in source.',

@@ -99,7 +99,7 @@ Anything a specialization surfaces is recorded as a finding through the steps be
 
 ### Step 9: Write and track
 
-- Write the reconciled map to `.lagune/memory/detect.md`.
+- Write the reconciled map to `.lagune/memory/detect.md`, re-reading it first to keep any change made since you loaded it.
 - Register the findings you wrote so the tracking map keeps each one's identity. This is registration, not reconciliation: hand the track hook only the findings this run wrote, as the `entries` list of `{name, paths}`, and it records the new ones and follows a renamed path for the rest. It never removes anything you did not report. `name` is the finding's name (this section's title), and `paths` holds the file paths the finding points at (one or more). The path lives here, in tracking, never in the prose. The tracking map holds no note: the prose carries the wording, the map carries only identity and paths. Call `lagune_write` with `command` set to `track` and this payload as the single item of `arguments` (a name with quotes or backticks stays intact), then read the JSON result it prints:
 
 ```json

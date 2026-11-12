@@ -22,7 +22,6 @@ const configsOf = async (workspace: string): Promise<unknown> =>
 await describe('recording the paths the checkers leave out', async () => {
   await it('records shared paths and patterns from the project root, keeping the rest of the configs', async () => {
     const workspace = await projectWith('{"categories":["owasp"]}');
-
     const { code } = await runEngine(workspace, [
       'write',
       'add',
@@ -48,7 +47,6 @@ await describe('recording the paths the checkers leave out', async () => {
 
   await it('starts a checker list of its own from the shared one, leaving the other checkers on the shared one', async () => {
     const workspace = await projectWith('{"checkers":{"ignore":["vendor"]}}');
-
     const added = await runEngine(workspace, [
       'write',
       'add',
@@ -110,7 +108,6 @@ await describe('recording the paths the checkers leave out', async () => {
   for (const [name, configs, args] of refusals)
     await it(`refuses ${name}, leaving the configs as they were`, async () => {
       const workspace = await projectWith(configs);
-
       const { code } = await runEngine(workspace, ['write', 'add', ...args]);
       const after = await readFile(
         join(workspace, '.lagune', 'configs.json'),

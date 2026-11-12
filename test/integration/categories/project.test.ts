@@ -37,6 +37,9 @@ const newProject = async (configs?: string): Promise<string> => {
 const contentsOf = (project: string): Promise<string> =>
   readFile(join(project, CONFIGS_FILE), 'utf8');
 
+const recordGo = (project: string): Promise<unknown> =>
+  recordCategories(project, () => ({ values: ['go'] }));
+
 afterEach(async () => {
   await Promise.all(
     projects.map((project) => rm(project, { recursive: true, force: true }))
@@ -97,7 +100,7 @@ await describe('recording categories', async () => {
     await it(label, async () => {
       const project = await newProject(configs);
 
-      await recordCategories(project, ['go']);
+      await recordGo(project);
 
       const recorded = await contentsOf(project);
 
@@ -117,7 +120,7 @@ await describe('recording categories', async () => {
       })
     );
 
-    await recordCategories(project, ['go']);
+    await recordGo(project);
 
     strict.deepStrictEqual(JSON.parse(await contentsOf(project)), {
       $schema: PINNED_SCHEMA,
@@ -128,7 +131,7 @@ await describe('recording categories', async () => {
 
   await it('refuses to overwrite a file it cannot read', async () => {
     const project = await newProject('{"categories": [');
-    const outcome = await recordCategories(project, ['go']).then(
+    const outcome = await recordGo(project).then(
       () => 'recorded',
       () => 'refused'
     );
@@ -145,7 +148,7 @@ await describe('recording categories', async () => {
     await mkdir(join(project, '.lagune'), { recursive: true });
     await symlink(secret, join(project, CONFIGS_FILE));
 
-    const outcome = await recordCategories(project, ['go']).then(
+    const outcome = await recordGo(project).then(
       () => 'recorded',
       () => 'refused'
     );

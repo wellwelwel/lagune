@@ -1,12 +1,12 @@
 import type { CheckersConfig, CheckerSettings } from '../../types/checkers';
-import type { CategoriesRequest } from '../../types/dashboard/api';
+import type { ListChange } from '../../types/core';
+import type {
+  CategoriesChange,
+  CategoriesRequest,
+} from '../../types/dashboard/api';
 import type { ActionHandler, ActionResult } from '../../types/dashboard/server';
 import { CATEGORIES } from '../../categories/categories';
-import {
-  readProjectCategories,
-  recordCategories,
-  usedCategories,
-} from '../../categories/project';
+import { recordCategories } from '../../categories/project';
 import {
   CHECKERS,
   checkersRecord,
@@ -14,7 +14,7 @@ import {
 } from '../../core/checker-rules';
 import { checkersConfigOf } from '../../core/checkers';
 import { addToList, isRecord, removeFromList } from '../../core/collections';
-import { readConfigs, recordConfigs } from '../../core/configs';
+import { recordConfigs } from '../../core/configs';
 import { errorMessage } from '../../core/errors';
 
 const CATEGORY_KEYS: ReadonlySet<string> = new Set(
@@ -76,6 +76,23 @@ const parseCategoriesRequest = (
   return categories === undefined ? undefined : { categories };
 };
 
+const chosenCategories = (
+  used: string[],
+  chosen: string[]
+): Pick<ListChange, 'values'> & CategoriesChange => {
+  const removed = removeFromList(
+    used,
+    used.filter((key) => !chosen.includes(key))
+  );
+  const added = addToList(removed.values, chosen);
+
+  return {
+    values: added.values,
+    added: added.changed.length,
+    removed: removed.changed.length,
+  };
+};
+
 /** Records the chosen set as the project's categories, by the same rules as add and remove */
 const handleCategories: ActionHandler = async (body, context) => {
   const request = parseCategoriesRequest(body);
@@ -83,23 +100,11 @@ const handleCategories: ActionHandler = async (body, context) => {
   if (request === undefined) return INVALID_REQUEST;
 
   try {
-    const used = usedCategories(await readProjectCategories(context.cwd));
-    const removed = removeFromList(
-      used,
-      used.filter((key) => !request.categories.includes(key))
+    const { added, removed } = await recordCategories(context.cwd, (used) =>
+      chosenCategories(used, request.categories)
     );
-    const added = addToList(removed.values, request.categories);
 
-    await recordCategories(context.cwd, added.values);
-
-    return {
-      status: 200,
-      body: {
-        ok: true,
-        added: added.changed.length,
-        removed: removed.changed.length,
-      },
-    };
+    return { status: 200, body: { ok: true, added, removed } };
   } catch (error) {
     return failed('categories', error);
   }
@@ -141,14 +146,12 @@ const handleCheckers: ActionHandler = async (body, context) => {
   if (requested === undefined) return INVALID_REQUEST;
 
   try {
-    const current = checkersConfigOf(await readConfigs(context.cwd));
+    const changed = await recordConfigs(context.cwd, (configs) => ({
+      fields: { checkers: checkersRecord(requested) },
+      result: changedCheckers(checkersConfigOf(configs), requested),
+    }));
 
-    await recordConfigs(context.cwd, { checkers: checkersRecord(requested) });
-
-    return {
-      status: 200,
-      body: { ok: true, changed: changedCheckers(current, requested) },
-    };
+    return { status: 200, body: { ok: true, changed } };
   } catch (error) {
     return failed('hook settings', error);
   }

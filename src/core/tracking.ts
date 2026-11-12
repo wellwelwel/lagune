@@ -2,17 +2,21 @@ import type {
   EntryClassification,
   FoldState,
   ItemMatch,
+  LockedState,
   ObservedEntry,
   RemovalResult,
   TrackingEntry,
   TrackingMap,
+  TrackResult,
 } from '../types/core.js';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { isString, isStringArray, readField } from './collections.js';
-import { ensureDir, writeFileOverwrite } from './fs-actions.js';
+import { parseJsonObject } from './json.js';
+import {
+  readStateFile,
+  stateFileRefusal,
+  writeStateFile,
+} from './state-file.js';
 
-const TRACKING_DIR = '.lagune';
 const TRACKING_PATH = '.lagune/tracking.json';
 
 const emptyTrackingMap = (): TrackingMap => ({ entries: [] });
@@ -113,10 +117,11 @@ export const parseObservedPayload = (raw: string): ObservedEntry[] =>
 export const parseNamePayload = (raw: string): string[] =>
   payloadList(raw, 'names').filter(isString);
 
-const normalizeEntry = (value: unknown): TrackingEntry | undefined => {
+const storedEntry = (value: unknown): TrackingEntry => {
   const name = readField(value, 'name');
 
-  if (!isString(name)) return undefined;
+  if (!isString(name))
+    throw stateFileRefusal(TRACKING_PATH, 'holds an entry with no name');
 
   const paths = readField(value, 'paths');
 
@@ -124,39 +129,47 @@ const normalizeEntry = (value: unknown): TrackingEntry | undefined => {
 };
 
 const parseTrackingMap = (raw: string): TrackingMap => {
-  const entries = readField(JSON.parse(raw), 'entries');
+  const entries = readField(parseJsonObject(raw, TRACKING_PATH), 'entries');
 
-  if (!Array.isArray(entries)) return emptyTrackingMap();
+  if (!Array.isArray(entries))
+    throw stateFileRefusal(
+      TRACKING_PATH,
+      'records entries that are not a list'
+    );
 
-  return {
-    entries: entries
-      .map(normalizeEntry)
-      .filter((entry): entry is TrackingEntry => entry !== undefined),
-  };
+  return { entries: entries.map(storedEntry) };
 };
 
+/** Reads the tracking map, empty while the file is absent, refusing a file it cannot trust or one outside the project */
 export const loadTrackingMap = async (
   targetDir: string
 ): Promise<TrackingMap> => {
-  try {
-    const raw = await readFile(join(targetDir, TRACKING_PATH), 'utf8');
+  const raw = await readStateFile(targetDir, TRACKING_PATH);
 
-    return parseTrackingMap(raw);
-  } catch {
-    return emptyTrackingMap();
-  }
+  return raw === null ? emptyTrackingMap() : parseTrackingMap(raw);
 };
 
 export const serializeTrackingMap = (map: TrackingMap): string =>
   `${JSON.stringify(map, null, 2)}\n`;
 
-export const writeTrackingMap = async (
-  targetDir: string,
+export const writeTrackingMap = (
+  state: LockedState,
   map: TrackingMap
-): Promise<void> => {
-  await ensureDir(join(targetDir, TRACKING_DIR));
-  await writeFileOverwrite(
-    join(targetDir, TRACKING_PATH),
-    serializeTrackingMap(map)
-  );
+): Promise<void> =>
+  writeStateFile(state, TRACKING_PATH, serializeTrackingMap(map));
+
+/** Applies an update to the tracking map, rewriting the file only when the update changes it */
+export const updateTrackingMap = async <
+  Update extends Pick<TrackResult, 'updatedMap'>,
+>(
+  state: LockedState,
+  update: (map: TrackingMap) => Update
+): Promise<Update> => {
+  const map = await loadTrackingMap(state.cwd);
+  const result = update(map);
+
+  if (serializeTrackingMap(map) !== serializeTrackingMap(result.updatedMap))
+    await writeTrackingMap(state, result.updatedMap);
+
+  return result;
 };

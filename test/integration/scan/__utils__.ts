@@ -39,12 +39,12 @@ export const createFiles = (
 ): Promise<void> =>
   writeFiles(workspace, Object.fromEntries(paths.map((path) => [path, ''])));
 
-/** Runs the real Git in a workspace, blind to the machine's own Git settings */
+/** Runs the real Git in a workspace, blind to the machine's own Git settings, and returns what it printed */
 export const git = async (
   workspace: string,
   args: readonly string[]
-): Promise<void> => {
-  await run('git', [...args], {
+): Promise<string> => {
+  const { stdout } = await run('git', [...args], {
     cwd: workspace,
     env: {
       ...env,
@@ -52,6 +52,8 @@ export const git = async (
       GIT_CONFIG_NOSYSTEM: '1',
     },
   });
+
+  return stdout;
 };
 
 afterEach(async () => {

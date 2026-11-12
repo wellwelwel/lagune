@@ -1,24 +1,28 @@
-import type { HistoryAppend, HistoryEntry } from '../../types/core.js';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { ensureDir, writeFileOverwrite } from '../../core/fs-actions.js';
+import type {
+  HistoryAppend,
+  HistoryEntry,
+  LockedState,
+} from '../../types/core.js';
 import { stripComments } from '../../core/markdown/comments.js';
 import { bulletField } from '../../core/markdown/fields.js';
 import { inlineText } from '../../core/markdown/lines.js';
 import { sectionBlocks } from '../../core/markdown/sections.js';
+import { readStateFile, writeStateFile } from '../../core/state-file.js';
 
-const HISTORY_DIR = '.lagune/memory';
 const HISTORY_PATH = '.lagune/memory/history.md';
+const DETECT_PATH = '.lagune/memory/detect.md';
+const PLAN_PATH = '.lagune/memory/plan.md';
 const HISTORY_SECTION = 'Closed findings';
 const HISTORY_HEADER = `# Lagune History\n\n## ${HISTORY_SECTION}\n`;
 const UNRANKED = 'Unranked';
 
-const readMarkdown = async (path: string): Promise<string | null> => {
-  try {
-    return stripComments(await readFile(path, 'utf8'));
-  } catch {
-    return null;
-  }
+const readMemory = async (
+  cwd: string,
+  file: string
+): Promise<string | null> => {
+  const raw = await readStateFile(cwd, file);
+
+  return raw === null ? null : stripComments(raw);
 };
 
 const toIsoDate = (now: Date): string => now.toISOString().slice(0, 10);
@@ -68,25 +72,28 @@ const withTrailingBlank = (text: string): string => {
 };
 
 export const appendClosedFindings = async (
-  targetDir: string,
+  state: LockedState,
   names: string[],
   now: Date
 ): Promise<HistoryAppend> => {
   const [detect, plan] = await Promise.all([
-    readMarkdown(join(targetDir, '.lagune/memory/detect.md')),
-    readMarkdown(join(targetDir, '.lagune/memory/plan.md')),
+    readMemory(state.cwd, DETECT_PATH),
+    readMemory(state.cwd, PLAN_PATH),
   ]);
 
   const entries = distill(names, detect, plan, toIsoDate(now));
 
   if (entries.length === 0) return { file: HISTORY_PATH, recorded: [] };
 
-  const path = join(targetDir, HISTORY_PATH);
-  const existing = await readFile(path, 'utf8').catch(() => HISTORY_HEADER);
+  const existing =
+    (await readStateFile(state.cwd, HISTORY_PATH)) ?? HISTORY_HEADER;
   const block = entries.map(renderEntry).join('\n\n');
 
-  await ensureDir(join(targetDir, HISTORY_DIR));
-  await writeFileOverwrite(path, `${withTrailingBlank(existing)}${block}\n`);
+  await writeStateFile(
+    state,
+    HISTORY_PATH,
+    `${withTrailingBlank(existing)}${block}\n`
+  );
 
   return { file: HISTORY_PATH, recorded: entries.map((entry) => entry.name) };
 };

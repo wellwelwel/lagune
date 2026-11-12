@@ -1,4 +1,4 @@
-import type { ConfigsAction } from '../types/core.js';
+import type { ConfigsAction, SelectCategoriesInput } from '../types/core.js';
 import { stdout } from 'node:process';
 import {
   assertKnownCategories,
@@ -24,7 +24,10 @@ const print = (lines: string[]): void => {
   stdout.write(`${lines.join('\n')}\n`);
 };
 
-const choices = (action: ConfigsAction, used: string[]) =>
+const choices = (
+  action: ConfigsAction,
+  used: string[]
+): Omit<SelectCategoriesInput, 'requested'> =>
   action === 'add'
     ? { categories: CATEGORIES, locked: used }
     : {
@@ -52,9 +55,9 @@ export const runCategoryChange = async (
 
   if (selected.length === 0) return print([banner(), '', nothingSelected()]);
 
-  const change = changeList(action, used, selected);
-
-  await recordCategories(cwd, change.values);
+  const change = await recordCategories(cwd, (current) =>
+    changeList(action, current, selected)
+  );
 
   print([banner(), '', categoriesRecorded(action, change)]);
 };

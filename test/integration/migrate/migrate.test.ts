@@ -135,7 +135,7 @@ afterEach(async () => {
 });
 
 await describe('migrate moves a manifest-based project to the skills-based layout', async () => {
-  await it('keeps only the project state under .lagune/', async () => {
+  await it('keeps only the project state and the engine folder under .lagune/', async () => {
     const project = await newProject(INSTALL);
 
     await performMigrate(project);
@@ -146,6 +146,7 @@ await describe('migrate moves a manifest-based project to the skills-based layou
     ]);
 
     strict.deepStrictEqual(lagune, [
+      '.tmp',
       'catalog',
       'configs.json',
       'memory',
@@ -298,7 +299,6 @@ await describe('migrate moves a manifest-based project to the skills-based layou
       ...INSTALL,
       '.lagune/catalog/graphql.md': '# Already moved\n',
     });
-
     const result = await performMigrate(project);
     const [moved, kept] = await Promise.all([
       read(project, '.lagune/catalog/graphql.md'),
@@ -333,7 +333,6 @@ await describe('migrate cleans a clone that pulled the move', async () => {
 
   await it('removes what the manifest-based Lagune left on it and keeps its proofs out of commits', async () => {
     const project = await newProject({ ...PULLED, ...LEFT_BEHIND });
-
     const result = await performMigrate(project);
     const [lagune, claude, proofs] = await Promise.all([
       listing(project, '.lagune'),
@@ -375,7 +374,6 @@ await describe('migrate changes nothing it cannot account for', async () => {
       '.claude/skills/lagune-detect/SKILL.md':
         '---\nname: lagune-detect\n---\n',
     });
-
     const result = await performMigrate(project);
     const [lagune, main, detect] = await Promise.all([
       listing(project, '.lagune'),
@@ -391,7 +389,6 @@ await describe('migrate changes nothing it cannot account for', async () => {
 
   await it('reports nothing to migrate in a folder that never held Lagune', async () => {
     const project = await newProject({ 'src/index.ts': 'export {};\n' });
-
     const result = await performMigrate(project);
 
     strict.deepStrictEqual(result, { migrated: false });
@@ -404,7 +401,6 @@ await describe('migrate changes nothing it cannot account for', async () => {
   ])
     await it(`refuses an unreadable ${file} before touching anything`, async () => {
       const project = await newProject({ ...INSTALL, [file]: '{"entries": [' });
-
       const outcome = await performMigrate(project).then(
         () => 'migrated',
         () => 'refused'

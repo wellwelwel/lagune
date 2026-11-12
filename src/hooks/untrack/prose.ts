@@ -1,25 +1,20 @@
-import type { DanglingMention, ProseRemoval } from '../../types/core.js';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import {
-  removeFileIfPresent,
-  writeFileOverwrite,
-} from '../../core/fs-actions.js';
+import type {
+  DanglingMention,
+  LockedState,
+  ProseRemoval,
+} from '../../types/core.js';
 import { hasFindingSection, removeSection } from '../../core/sections.js';
+import {
+  readStateFile,
+  removeStateFile,
+  writeStateFile,
+} from '../../core/state-file.js';
 
 const MEMORY_FILES = [
   '.lagune/memory/detect.md',
   '.lagune/memory/plan.md',
   '.lagune/memory/harden.md',
 ] as const;
-
-const readMarkdown = async (path: string): Promise<string | undefined> => {
-  try {
-    return await readFile(path, 'utf8');
-  } catch {
-    return undefined;
-  }
-};
 
 const removeNamesFrom = (
   markdown: string,
@@ -49,15 +44,14 @@ const findDanglingMentions = (
     );
 
 export const removeSectionsFromMemory = async (
-  targetDir: string,
+  state: LockedState,
   names: string[]
 ): Promise<ProseRemoval[]> =>
   Promise.all(
     MEMORY_FILES.map(async (relativePath): Promise<ProseRemoval> => {
-      const path = join(targetDir, relativePath);
-      const original = await readMarkdown(path);
+      const original = await readStateFile(state.cwd, relativePath);
 
-      if (original === undefined)
+      if (original === null)
         return {
           file: relativePath,
           status: 'absent',
@@ -76,7 +70,7 @@ export const removeSectionsFromMemory = async (
         };
 
       if (!hasFindingSection(content)) {
-        await removeFileIfPresent(path);
+        await removeStateFile(state, relativePath);
 
         return {
           file: relativePath,
@@ -86,7 +80,7 @@ export const removeSectionsFromMemory = async (
         };
       }
 
-      await writeFileOverwrite(path, content);
+      await writeStateFile(state, relativePath, content);
 
       return {
         file: relativePath,

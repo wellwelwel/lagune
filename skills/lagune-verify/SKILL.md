@@ -91,7 +91,7 @@ The hook returns a `prose` array. A non-empty `dangling` list means a stood-down
 
 ### Step 7: Record the verdicts in the hardening record
 
-Write each open control's verdict onto its block in `.lagune/memory/harden.md`, touching only the `Verdict` and `Reason`, never the `Status`, `What changed`, or `Where` harden owns. Add no section of your own to the file.
+Write each open control's verdict onto its block in `.lagune/memory/harden.md`, touching only the `Verdict` and `Reason`, never the `Status`, `What changed`, or `Where` harden owns. Add no section of your own to the file. Re-read it first to keep any change made since you loaded it, such as Step 6's.
 
 - **`❌ Reproved`:** write the verdict and a one or two line `Reason` naming the gap (for example, the size limit lands but the file-type check is bypassable). This is what harden re-applies against, so be precise.
 - **`❓ Inconclusive`:** write the verdict and a `Reason` naming what is missing to settle it.

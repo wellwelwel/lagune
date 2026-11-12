@@ -15,7 +15,7 @@ import {
 } from '../catalog/project.js';
 import { readProjectCategories } from '../categories/project.js';
 import { isStringArray } from './collections.js';
-import { CONFIGS_FILE, writeConfigs } from './configs.js';
+import { CONFIGS_FILE, recordConfigs } from './configs.js';
 import {
   ensureDir,
   entryWithin,
@@ -195,10 +195,9 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
     legacy.length === 0 ? [] : mergedEntries(ownIndex, legacy)
   );
   const configs = CONFIG_FIELDS.filter((field) => changes[field] !== undefined);
-  const configsFile =
-    configs.length === 0
-      ? undefined
-      : await containedStateFile(cwd, CONFIGS_FILE);
+
+  if (configs.length > 0) await containedStateFile(cwd, CONFIGS_FILE);
+
   const ownNames = new Set([...legacy, ...ownIndex].map((entry) => entry.name));
   const copies = files
     .filter((file) => isGeneratedCopy(file, ownNames))
@@ -213,7 +212,8 @@ export const performMigrate = async (cwd: string): Promise<MigrateResult> => {
 
   await removeIfEmpty(join(cwd, LEGACY_SPECIALIZATIONS_DIR));
 
-  if (configsFile !== undefined) await writeConfigs(configsFile, changes);
+  if (configs.length > 0)
+    await recordConfigs(cwd, () => ({ fields: changes, result: undefined }));
 
   const index = await removeAll(cwd, [LEGACY_INDEX_FILE]);
   const proofs = await guardProofs(cwd);

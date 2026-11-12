@@ -36,6 +36,11 @@ export type ListChange = {
   unchanged: string[];
 };
 
+export type ConfigsUpdate<Result> = {
+  fields: Record<string, unknown>;
+  result: Result;
+};
+
 export type HookResult = {
   output: string;
   hasFinding: boolean;
@@ -78,6 +83,24 @@ export type TokenCount = {
 };
 
 export type RemovalStatus = 'removed' | 'absent';
+
+export type StateLockTiming = {
+  staleMs: number;
+  waitMs: number;
+};
+
+export type StateLock = {
+  path: string;
+  claim: string;
+  token: string;
+  timing: StateLockTiming;
+  deadline: number;
+};
+
+export type LockedState = {
+  cwd: string;
+  scratch: string;
+};
 
 export type SelectOption = {
   label: string;

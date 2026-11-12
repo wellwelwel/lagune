@@ -1,15 +1,11 @@
 import { describe, it, strict } from 'poku';
-import {
-  loadTrackingMap,
-  writeTrackingMap,
-} from '../../../src/core/tracking.js';
+import { loadTrackingMap } from '../../../src/core/tracking.js';
 import { track, trackEntries } from '../../../src/hooks/track/track.js';
-import { mapOf, newWorkspace } from './__utils__.js';
+import { mapOf, newWorkspace, seedTrackingMap } from './__utils__.js';
 
 describe('trackEntries registers and re-reports one item per finding', () => {
   it('leaves an identical report unchanged', () => {
     const map = mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }]);
-
     const result = trackEntries(map, [
       { name: 'Leaked secret', paths: ['src/config.ts'] },
     ]);
@@ -20,7 +16,6 @@ describe('trackEntries registers and re-reports one item per finding', () => {
 
   it('follows a moved path on re-run, no duplicate', () => {
     const map = mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }]);
-
     const result = trackEntries(map, [
       { name: 'Leaked secret', paths: ['src/settings/config.ts'] },
     ]);
@@ -49,7 +44,6 @@ describe('trackEntries registers and re-reports one item per finding', () => {
       { name: 'Beta', paths: ['b.ts'] },
       { name: 'Gamma', paths: ['c.ts'] },
     ]);
-
     const result = trackEntries(map, [
       { name: 'Beta', paths: ['b.ts'] },
       { name: 'Gamma', paths: ['c.ts'] },
@@ -68,7 +62,6 @@ describe('trackEntries registers and re-reports one item per finding', () => {
       { name: 'Alpha', paths: ['a.ts'] },
       { name: 'Beta', paths: ['b.ts'] },
     ]);
-
     const result = trackEntries(map, [
       { name: 'Alpha', paths: ['a.ts'] },
       { name: 'Beta', paths: ['b.ts'] },
@@ -87,7 +80,6 @@ describe('trackEntries registers and re-reports one item per finding', () => {
       { name: 'Leaked secret', paths: ['src/config.ts'] },
       { name: 'Open redirect', paths: ['src/routes.ts'] },
     ]);
-
     const result = trackEntries(map, [
       { name: 'Leaked secret', paths: ['src/config.ts'] },
     ]);
@@ -104,7 +96,7 @@ await describe('the track hook logic', async () => {
   await it('registers the reported finding in the stored map, keeping every entry the payload did not report', async () => {
     const workspace = await newWorkspace();
 
-    await writeTrackingMap(
+    await seedTrackingMap(
       workspace,
       mapOf([{ name: 'Leaked secret', paths: ['src/config.ts'] }])
     );

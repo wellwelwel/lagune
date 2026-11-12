@@ -1,8 +1,7 @@
-import { join } from 'node:path';
-import { ensureDir, writeFileOverwrite } from './fs-actions.js';
+import type { ConfigsUpdate } from '../types/core.js';
 import { parseJsonObject } from './json.js';
-import { readText } from './markdown/read.js';
-import { containedStateFile, readStateFile } from './state-file.js';
+import { readStateFile, writeStateFile } from './state-file.js';
+import { withStateLock } from './state-lock.js';
 
 export const CONFIGS_FILE = '.lagune/configs.json';
 export const CONFIGS_SCHEMA = 'https://lagune.ai/schemas/configs.json';
@@ -16,27 +15,34 @@ export const readConfigs = async (
 ): Promise<Record<string, unknown>> =>
   parseConfigs(await readStateFile(cwd, CONFIGS_FILE));
 
-/** Writes fields into the configs file at a contained path, keeping every other field untouched, and points a file that names no schema at the current one */
-export const writeConfigs = async (
-  path: string,
+const serializeConfigs = (
+  configs: Record<string, unknown>,
   fields: Record<string, unknown>
-): Promise<void> => {
-  const current = parseConfigs(await readText(path));
+): string => {
   const merged: Record<string, unknown> = Object.assign(
     Object.create(null),
     { $schema: CONFIGS_SCHEMA },
-    current,
+    configs,
     fields
   );
 
-  await writeFileOverwrite(path, `${JSON.stringify(merged, null, 2)}\n`);
+  return `${JSON.stringify(merged, null, 2)}\n`;
 };
 
-/** Records fields in the project's configs, creating the file inside the project when it is absent */
-export const recordConfigs = async (
+/** Records the fields a change derives from the project's configs, read and written under the state lock, keeping every other field and pointing a file that names no schema at the current one */
+export const recordConfigs = <Result>(
   cwd: string,
-  fields: Record<string, unknown>
-): Promise<void> => {
-  await ensureDir(join(cwd, '.lagune'));
-  await writeConfigs(await containedStateFile(cwd, CONFIGS_FILE), fields);
-};
+  change: (configs: Record<string, unknown>) => ConfigsUpdate<Result>
+): Promise<Result> =>
+  withStateLock(cwd, async (state) => {
+    const configs = await readConfigs(cwd);
+    const { fields, result } = change(configs);
+
+    await writeStateFile(
+      state,
+      CONFIGS_FILE,
+      serializeConfigs(configs, fields)
+    );
+
+    return result;
+  });
