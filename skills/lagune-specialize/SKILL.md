@@ -51,6 +51,7 @@ Fill in `template.md`, next to this file:
 - Keep the purpose line, the two rules under `## Rules`, and the detect/verify shape under `## How to act on the result` verbatim.
 - **Credit the source, when there is one.** If the material the user gave you has an identifiable origin (an article title, an author, a link, a standard), keep the optional `> - Source: ...` quote and fill it with a short plain credit. If the input was just a topic, or has no attributable source, drop that line entirely. Never invent a source.
 - Under `## What to look for`, add one `### ` block per risk class in scope, each in plain language: what the dangerous pattern is, why it matters, and how to make it safe (the `Safer shape:` line, or the bullet list / `#### Common safer shapes` variants the template's comments allow). Where a popular control is commonly mistaken for the fix, add the optional `Does not close it:` line, naming that decoy and why it leaves the risk open so it is never accepted as closing the finding. It may reference an existing deterministic hook only if one genuinely fits, never invent a new hook.
+- **Close on what the repository shows.** Give the verify guidance only conditions verify can read in the repository's code and configuration. Anything outside it, such as a rotation, a deployed setting, a live scan, or a runtime test, never keeps a finding open: the detect guidance records it under Not determined as a side quest, and verify's summary points at it.
 
 On a refine, apply these to the existing file rather than a blank one. Write no frontmatter: the tags live in the index, not the `.md`.
 
@@ -66,8 +67,8 @@ Derive 2 to 4 tags by the same terrain principle as the name (Step 3): the terra
 
 ### Step 8: Summarize
 
-In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune@0.18.1 read catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
+In plain language, tell the user the specialization's name, its tags, what it covers, and that the detect and verify phases now load it on demand (and they can load it directly with `npx --yes lagune@0.18.2 read catalog <name>`), mentioning it shadows any built-in of the same name on a refine. Suggest a commit message such as `feat: specialize Lagune in <name>`. Say it as a suggestion, not a mandate.
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.1 read <command> <arguments>` and `npx --yes lagune@0.18.1 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.2 read <command> <arguments>` and `npx --yes lagune@0.18.2 write <command> <arguments>` as a fallback.
