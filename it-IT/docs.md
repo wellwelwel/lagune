@@ -35,7 +35,7 @@ Ti piace **Lagune**? [Lasciaci una ⭐ su **GitHub**](https://github.com/wellwel
 **Info**
 
 - **Lagune** gira su **Node.js** dietro le quinte, ma tu usi il linguaggio che preferisci.
-- Per lavorare completamente offline, installa **Lagune** nel tuo progetto con `npm i -D lagune@0.18.1`.
+- Per lavorare completamente offline, installa **Lagune** nel tuo progetto con `npm i -D lagune@0.18.2`.
 
 ## Categorie
 

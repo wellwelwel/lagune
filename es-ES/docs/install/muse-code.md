@@ -35,7 +35,7 @@ Escribe los comandos por su nombre, como `/lagune-charter`, o precedidos del nom
 El sandbox de **Muse Code** no puede descargar el motor. Instálalo en tu proyecto desde tu propio terminal, una vez y tras cada actualización:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Preguntas frecuentes
@@ -54,4 +54,4 @@ Escríbelos por su nombre, como /lagune-charter, o precedidos del nombre del plu
 
 ### ¿Funciona Lagune dentro del sandbox de Muse Code?
 
-Sí, en cuanto instales el motor en tu proyecto con npm i -D lagune@0.18.1 desde tu propio terminal, una vez y tras cada actualización.
+Sí, en cuanto instales el motor en tu proyecto con npm i -D lagune@0.18.2 desde tu propio terminal, una vez y tras cada actualización.

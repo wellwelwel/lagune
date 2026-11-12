@@ -43,7 +43,7 @@ Lagune은 오픈 소스이자 방어 전용인 Security-Driven Hardening(SDH) �
 **정보**
 
 - **Lagune**은 내부적으로 **Node.js**에서 실행되지만, 개발 언어는 무엇이든 자유롭게 쓸 수 있습니다.
-- 완전히 오프라인으로 실행하려면 `npm i -D lagune@0.18.1` 명령어로 프로젝트에 **Lagune**을 설치하세요.
+- 완전히 오프라인으로 실행하려면 `npm i -D lagune@0.18.2` 명령어로 프로젝트에 **Lagune**을 설치하세요.
 
 ## 카테고리
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex**의 샌드박스는 네트워크에 접근할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## 자주 묻는 질문
@@ -412,7 +412,7 @@ $lagune:lagune-charter 명령어처럼 $ 기호에 이어 플러그인 이름을
 
 ### Codex 샌드박스 안에서도 Lagune이 작동하나요?
 
-네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.1 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
+네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.2 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 **Muse Code**의 샌드박스는 엔진을 다운로드할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## 자주 묻는 질문
@@ -932,7 +932,7 @@ muse plugins marketplace update lagune 명령어를 실행한 다음 muse plugin
 
 ### Muse Code 샌드박스 안에서도 Lagune이 작동하나요?
 
-네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.1 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
+네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.2 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 **Lagune**을 업데이트하려면 기존 릴리스 위에 새 릴리스를 덮어 설치하되, 모든 프로젝트에 설치했다면 `-g` 옵션을 붙이세요:
 
 ```bash
-opencode plugin lagune@0.18.1 --force
+opencode plugin lagune@0.18.2 --force
 ```
 
 ## 명령어
@@ -1014,7 +1014,7 @@ OpenCode 2.x에서는 opencode plugin add lagune 명령어를 실행하세요. O
 
 ### OpenCode에서 Lagune을 업데이트하려면 어떻게 하나요?
 
-OpenCode 2.x에서는 opencode plugin update lagune 명령어에 이어 opencode reload 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune@0.18.1 --force 명령어를 실행하세요.
+OpenCode 2.x에서는 opencode plugin update lagune 명령어에 이어 opencode reload 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune@0.18.2 --force 명령어를 실행하세요.
 
 ### OpenCode에서 Lagune 명령어를 실행하려면 어떻게 하나요?
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 네트워크에 접근할 수 없는 샌드박스에서는 명령어가 엔진을 다운로드할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## 자주 묻는 질문
@@ -3786,7 +3786,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.1
+    - wellwelwel/lagune@v0.18.2
   network:
     allowed:
       - defaults

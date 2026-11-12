@@ -31,7 +31,7 @@ Type `$` and the command under the plugin's name, followed by your input, such a
 **Codex**'s sandbox has no network access. Install the engine in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Frequently Asked Questions
@@ -50,4 +50,4 @@ Type $ and the command under the plugin's name, followed by your input, such as 
 
 ### Does Lagune work inside Codex's sandbox?
 
-Yes, once you install the engine in your project with npm i -D lagune@0.18.1 from your own terminal, once and after each update.
+Yes, once you install the engine in your project with npm i -D lagune@0.18.2 from your own terminal, once and after each update.

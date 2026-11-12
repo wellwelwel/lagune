@@ -35,7 +35,7 @@ Skriv kommandoerne ved deres navn, såsom `/lagune-charter`, eller under pluginn
 Sandboxen i **Muse Code** kan ikke downloade motoren. Installér den i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Ofte stillede spørgsmål
@@ -54,4 +54,4 @@ Skriv dem ved deres navn, såsom /lagune-charter, eller under pluginnets navn, s
 
 ### Virker Lagune inde i sandboxen i Muse Code?
 
-Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.18.1 fra din egen terminal, én gang og efter hver opdatering.
+Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.18.2 fra din egen terminal, én gang og efter hver opdatering.

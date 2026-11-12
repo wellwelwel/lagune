@@ -35,7 +35,7 @@ Suka **Lagune**? [Beri kami ⭐ di **GitHub**](https://github.com/wellwelwel/lag
 **Info**
 
 - Di balik layar, **Lagune** berjalan di **Node.js**, tetapi Anda bebas memakai bahasa apa pun.
-- Untuk menjalankannya sepenuhnya offline, instal **Lagune** di proyek Anda dengan `npm i -D lagune@0.18.1`.
+- Untuk menjalankannya sepenuhnya offline, instal **Lagune** di proyek Anda dengan `npm i -D lagune@0.18.2`.
 
 ## Kategori
 

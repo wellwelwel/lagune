@@ -55,7 +55,7 @@ opencode reload
 **Lagune**을 업데이트하려면 기존 릴리스 위에 새 릴리스를 덮어 설치하되, 모든 프로젝트에 설치했다면 `-g` 옵션을 붙이세요:
 
 ```bash
-opencode plugin lagune@0.18.1 --force
+opencode plugin lagune@0.18.2 --force
 ```
 
 ## 명령어
@@ -76,7 +76,7 @@ OpenCode 2.x에서는 opencode plugin add lagune 명령어를 실행하세요. O
 
 ### OpenCode에서 Lagune을 업데이트하려면 어떻게 하나요?
 
-OpenCode 2.x에서는 opencode plugin update lagune 명령어에 이어 opencode reload 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune@0.18.1 --force 명령어를 실행하세요.
+OpenCode 2.x에서는 opencode plugin update lagune 명령어에 이어 opencode reload 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune@0.18.2 --force 명령어를 실행하세요.
 
 ### OpenCode에서 Lagune 명령어를 실행하려면 어떻게 하나요?
 

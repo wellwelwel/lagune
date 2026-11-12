@@ -33,7 +33,7 @@ codex plugin marketplace upgrade lagune
 **Codex** 的沙箱无法访问网络。在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## 常见问题
@@ -52,4 +52,4 @@ npm i -D lagune@0.18.1
 
 ### Lagune 能在 Codex 的沙箱中运行吗？
 
-可以，只要你在自己的终端中用 npm i -D lagune@0.18.1 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+可以，只要你在自己的终端中用 npm i -D lagune@0.18.2 把引擎安装到项目里，先装一次，之后每次更新后再装一次。

@@ -33,7 +33,7 @@ Ketik `$` dan perintah dengan nama plugin di depannya, diikuti input Anda, misal
 Sandbox **Codex** tidak punya akses jaringan. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -52,4 +52,4 @@ Ketik $ dan perintah dengan nama plugin di depannya, diikuti input Anda, misalny
 
 ### Apakah Lagune berfungsi di dalam sandbox Codex?
 
-Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.18.1 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
+Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.18.2 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.

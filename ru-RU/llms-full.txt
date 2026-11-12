@@ -43,7 +43,7 @@ Lagune представляет собой открытый процесс Secur
 **Информация**
 
 - Внутри **Lagune** работает на **Node.js**, но вы пишете на любом языке.
-- Чтобы работать полностью офлайн, установите **Lagune** в проект командой `npm i -D lagune@0.18.1`.
+- Чтобы работать полностью офлайн, установите **Lagune** в проект командой `npm i -D lagune@0.18.2`.
 
 ## Категории
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 У песочницы **Codex** нет доступа к сети. Установите движок в проект из своего терминала, один раз и после каждого обновления:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Частые вопросы
@@ -412,7 +412,7 @@ npm i -D lagune@0.18.1
 
 ### Работает ли Lagune внутри песочницы Codex?
 
-Да, если установить движок в проект командой npm i -D lagune@0.18.1 из своего терминала, один раз и после каждого обновления.
+Да, если установить движок в проект командой npm i -D lagune@0.18.2 из своего терминала, один раз и после каждого обновления.
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 Песочница **Muse Code** не может скачать движок. Установите его в проект из своего терминала, один раз и после каждого обновления:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Частые вопросы
@@ -932,7 +932,7 @@ npm i -D lagune@0.18.1
 
 ### Работает ли Lagune внутри песочницы Muse Code?
 
-Да, если установить движок в проект командой npm i -D lagune@0.18.1 из своего терминала, один раз и после каждого обновления.
+Да, если установить движок в проект командой npm i -D lagune@0.18.2 из своего терминала, один раз и после каждого обновления.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 Чтобы обновить **Lagune**, установите новый релиз поверх старого, добавив `-g`, если вы устанавливали его для всех своих проектов:
 
 ```bash
-opencode plugin lagune@0.18.1 --force
+opencode plugin lagune@0.18.2 --force
 ```
 
 ## Команды
@@ -1014,7 +1014,7 @@ opencode plugin lagune@0.18.1 --force
 
 ### Как обновить Lagune в OpenCode?
 
-В OpenCode 2.x выполните opencode plugin update lagune, затем opencode reload. В OpenCode 1.x выполните opencode plugin lagune@0.18.1 --force.
+В OpenCode 2.x выполните opencode plugin update lagune, затем opencode reload. В OpenCode 1.x выполните opencode plugin lagune@0.18.2 --force.
 
 ### Как запускать команды Lagune в OpenCode?
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 В песочнице без доступа к сети команды не могут скачать движок. Установите его в проект из своего терминала, один раз и после каждого обновления:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Частые вопросы
@@ -3786,7 +3786,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.1
+    - wellwelwel/lagune@v0.18.2
   network:
     allowed:
       - defaults

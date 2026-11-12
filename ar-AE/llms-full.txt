@@ -43,7 +43,7 @@ Canonical: https://lagune.ai/ar-AE/docs
 **معلومة**
 
 - يعمل **Lagune** على **Node.js** في الخلفية، لكنك تستخدم أي لغة برمجة تريدها.
-- للعمل دون اتصال بالإنترنت تمامًا، ثبّت **Lagune** في مشروعك عبر `npm i -D lagune@0.18.1`.
+- للعمل دون اتصال بالإنترنت تمامًا، ثبّت **Lagune** في مشروعك عبر `npm i -D lagune@0.18.2`.
 
 ## الفئات
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 لا تملك بيئة العزل في **Codex** وصولًا إلى الشبكة. ثبّت المحرك في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## الأسئلة الشائعة
@@ -412,7 +412,7 @@ npm i -D lagune@0.18.1
 
 ### هل يعمل Lagune داخل بيئة العزل في Codex؟
 
-نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.18.1 من طرفيتك، مرة واحدة وبعد كل تحديث.
+نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.18.2 من طرفيتك، مرة واحدة وبعد كل تحديث.
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 لا تستطيع بيئة العزل في **Muse Code** تنزيل المحرك. ثبّته في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## الأسئلة الشائعة
@@ -932,7 +932,7 @@ npm i -D lagune@0.18.1
 
 ### هل يعمل Lagune داخل بيئة العزل في Muse Code؟
 
-نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.18.1 من طرفيتك، مرة واحدة وبعد كل تحديث.
+نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.18.2 من طرفيتك، مرة واحدة وبعد كل تحديث.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 لتحديث **Lagune**، ثبّت الإصدار الجديد فوق القديم، مع إضافة `-g` إن كنت ثبّته لكل مشاريعك:
 
 ```bash
-opencode plugin lagune@0.18.1 --force
+opencode plugin lagune@0.18.2 --force
 ```
 
 ## الأوامر
@@ -1014,7 +1014,7 @@ opencode plugin lagune@0.18.1 --force
 
 ### كيف أحدّث Lagune على OpenCode؟
 
-في OpenCode 2.x، شغّل opencode plugin update lagune، ثم opencode reload. وفي OpenCode 1.x، شغّل opencode plugin lagune@0.18.1 --force.
+في OpenCode 2.x، شغّل opencode plugin update lagune، ثم opencode reload. وفي OpenCode 1.x، شغّل opencode plugin lagune@0.18.2 --force.
 
 ### كيف أشغّل أوامر Lagune على OpenCode؟
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 في بيئة عزل دون وصول إلى الشبكة، لا تستطيع الأوامر تنزيل المحرك. ثبّته في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## الأسئلة الشائعة
@@ -3786,7 +3786,7 @@ Canonical: https://lagune.ai/ar-AE/docs/examples/scheduled-audits
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.1
+    - wellwelwel/lagune@v0.18.2
   network:
     allowed:
       - defaults

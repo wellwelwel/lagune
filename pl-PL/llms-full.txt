@@ -43,7 +43,7 @@ Podoba ci się **Lagune**? [Zostaw nam ⭐ w serwisie **GitHub**](https://github
 **Informacja**
 
 - **Lagune** działa pod maską na **Node.js**, ale ty pracujesz w dowolnym języku.
-- Aby pracować całkowicie offline, zainstaluj **Lagune** w swoim projekcie poleceniem `npm i -D lagune@0.18.1`.
+- Aby pracować całkowicie offline, zainstaluj **Lagune** w swoim projekcie poleceniem `npm i -D lagune@0.18.2`.
 
 ## Kategorie
 
@@ -393,7 +393,7 @@ Wpisz `$` i polecenie poprzedzone nazwą wtyczki, a po nim własny tekst, na prz
 Sandbox agenta **Codex** nie ma dostępu do sieci. Zainstaluj silnik w projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Najczęściej zadawane pytania
@@ -412,7 +412,7 @@ Wpisz $ i polecenie poprzedzone nazwą wtyczki, a po nim własny tekst, na przyk
 
 ### Czy Lagune działa w sandboxie agenta Codex?
 
-Tak, gdy zainstalujesz silnik w projekcie poleceniem npm i -D lagune@0.18.1 z własnego terminala, raz, a potem po każdej aktualizacji.
+Tak, gdy zainstalujesz silnik w projekcie poleceniem npm i -D lagune@0.18.2 z własnego terminala, raz, a potem po każdej aktualizacji.
 
 ---
 
@@ -913,7 +913,7 @@ Wpisuj nazwy poleceń, na przykład `/lagune-charter`, albo poprzedzaj je nazwą
 Sandbox **Muse Code** nie może pobrać silnika. Zainstaluj go w swoim projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Najczęściej zadawane pytania
@@ -932,7 +932,7 @@ Wpisuj ich nazwy, na przykład /lagune-charter, albo poprzedzaj je nazwą wtyczk
 
 ### Czy Lagune działa w sandboxie Muse Code?
 
-Tak, gdy zainstalujesz silnik w swoim projekcie poleceniem npm i -D lagune@0.18.1 z własnego terminala, raz, a potem po każdej aktualizacji.
+Tak, gdy zainstalujesz silnik w swoim projekcie poleceniem npm i -D lagune@0.18.2 z własnego terminala, raz, a potem po każdej aktualizacji.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 Aby zaktualizować wtyczkę **Lagune**, zainstaluj nową wersję w miejsce starej, dodając `-g`, jeśli wtyczka jest zainstalowana dla wszystkich twoich projektów:
 
 ```bash
-opencode plugin lagune@0.18.1 --force
+opencode plugin lagune@0.18.2 --force
 ```
 
 ## Polecenia
@@ -1014,7 +1014,7 @@ W OpenCode 2.x uruchom opencode plugin add lagune. W OpenCode 1.x uruchom openco
 
 ### Jak zaktualizować wtyczkę Lagune w OpenCode?
 
-W OpenCode 2.x uruchom opencode plugin update lagune, a następnie opencode reload. W OpenCode 1.x uruchom opencode plugin lagune@0.18.1 --force.
+W OpenCode 2.x uruchom opencode plugin update lagune, a następnie opencode reload. W OpenCode 1.x uruchom opencode plugin lagune@0.18.2 --force.
 
 ### Jak uruchamiać polecenia Lagune w OpenCode?
 
@@ -1230,7 +1230,7 @@ Uruchom `gh skill update --all` i przeczytaj cały wynik polecenia, w razie potr
 W sandboxie bez dostępu do sieci polecenia nie mogą pobrać silnika. Zainstaluj go w swoim projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Najczęściej zadawane pytania
@@ -3786,7 +3786,7 @@ Zaplanuj samodzielny audyt projektu z **Lagune**, który albo zgłasza to, co zn
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.1
+    - wellwelwel/lagune@v0.18.2
   network:
     allowed:
       - defaults

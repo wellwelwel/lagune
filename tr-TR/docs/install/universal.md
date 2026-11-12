@@ -72,7 +72,7 @@ Ya da bu prompt'u ajanınıza yapıştırın:
 Ağ erişimi olmayan bir korumalı alanda komutlar motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Sıkça sorulan sorular

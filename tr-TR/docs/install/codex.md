@@ -33,7 +33,7 @@ codex plugin marketplace upgrade lagune
 **Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Sıkça sorulan sorular
@@ -52,4 +52,4 @@ $ yazın, ardından eklentinin adıyla birlikte komutu ve girdinizi yazın, örn
 
 ### Lagune, Codex korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.18.1 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.18.2 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.

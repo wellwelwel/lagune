@@ -35,7 +35,7 @@ Skriv inn kommandoene med navn, for eksempel `/lagune-charter`, eller med navnet
 Sandkassen i **Muse Code** kan ikke laste ned motoren. Installer den i prosjektet ditt fra din egen terminal, først én gang og deretter etter hver oppdatering:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Vanlige spørsmål
@@ -54,4 +54,4 @@ Skriv dem inn med navn, for eksempel /lagune-charter, eller med navnet på plugi
 
 ### Fungerer Lagune i sandkassen til Muse Code?
 
-Ja, når du installerer motoren i prosjektet ditt med npm i -D lagune@0.18.1 fra din egen terminal, først én gang og deretter etter hver oppdatering.
+Ja, når du installerer motoren i prosjektet ditt med npm i -D lagune@0.18.2 fra din egen terminal, først én gang og deretter etter hver oppdatering.

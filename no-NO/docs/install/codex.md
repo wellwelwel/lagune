@@ -33,7 +33,7 @@ Skriv `$` og kommandoen med navnet på pluginen foran, etterfulgt av teksten din
 Sandkassen i **Codex** har ingen nettverkstilgang. Installer motoren i prosjektet ditt fra din egen terminal, én gang og etter hver oppdatering:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Vanlige spørsmål
@@ -52,4 +52,4 @@ Skriv $ og kommandoen med navnet på pluginen foran, etterfulgt av teksten din, 
 
 ### Fungerer Lagune i sandkassen til Codex?
 
-Ja, når du har installert motoren i prosjektet ditt med npm i -D lagune@0.18.1 fra din egen terminal, én gang og etter hver oppdatering.
+Ja, når du har installert motoren i prosjektet ditt med npm i -D lagune@0.18.2 fra din egen terminal, én gang og etter hver oppdatering.

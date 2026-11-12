@@ -33,7 +33,7 @@ Wpisz `$` i polecenie poprzedzone nazwą wtyczki, a po nim własny tekst, na prz
 Sandbox agenta **Codex** nie ma dostępu do sieci. Zainstaluj silnik w projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Najczęściej zadawane pytania
@@ -52,4 +52,4 @@ Wpisz $ i polecenie poprzedzone nazwą wtyczki, a po nim własny tekst, na przyk
 
 ### Czy Lagune działa w sandboxie agenta Codex?
 
-Tak, gdy zainstalujesz silnik w projekcie poleceniem npm i -D lagune@0.18.1 z własnego terminala, raz, a potem po każdej aktualizacji.
+Tak, gdy zainstalujesz silnik w projekcie poleceniem npm i -D lagune@0.18.2 z własnego terminala, raz, a potem po każdej aktualizacji.

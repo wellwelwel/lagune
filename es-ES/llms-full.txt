@@ -43,7 +43,7 @@ Original: https://lagune.ai/docs
 **Información**
 
 - **Lagune** funciona con **Node.js** por debajo, pero tú usas el lenguaje que quieras.
-- Para ejecutarlo totalmente sin conexión, instala **Lagune** en tu proyecto con `npm i -D lagune@0.18.1`.
+- Para ejecutarlo totalmente sin conexión, instala **Lagune** en tu proyecto con `npm i -D lagune@0.18.2`.
 
 ## Categorías
 
@@ -393,7 +393,7 @@ Escribe `$` y el comando precedido del nombre del plugin, seguido de tu petició
 El sandbox de **Codex** no tiene acceso a la red. Instala el motor en tu proyecto desde tu propio terminal, una vez y tras cada actualización:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Preguntas frecuentes
@@ -412,7 +412,7 @@ Escribe $ y el comando precedido del nombre del plugin, seguido de tu petición,
 
 ### ¿Funciona Lagune dentro del sandbox de Codex?
 
-Sí, en cuanto instales el motor en tu proyecto con npm i -D lagune@0.18.1 desde tu propio terminal, una vez y tras cada actualización.
+Sí, en cuanto instales el motor en tu proyecto con npm i -D lagune@0.18.2 desde tu propio terminal, una vez y tras cada actualización.
 
 ---
 
@@ -913,7 +913,7 @@ Escribe los comandos por su nombre, como `/lagune-charter`, o precedidos del nom
 El sandbox de **Muse Code** no puede descargar el motor. Instálalo en tu proyecto desde tu propio terminal, una vez y tras cada actualización:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Preguntas frecuentes
@@ -932,7 +932,7 @@ Escríbelos por su nombre, como /lagune-charter, o precedidos del nombre del plu
 
 ### ¿Funciona Lagune dentro del sandbox de Muse Code?
 
-Sí, en cuanto instales el motor en tu proyecto con npm i -D lagune@0.18.1 desde tu propio terminal, una vez y tras cada actualización.
+Sí, en cuanto instales el motor en tu proyecto con npm i -D lagune@0.18.2 desde tu propio terminal, una vez y tras cada actualización.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 Para actualizar **Lagune**, instala la nueva versión sobre la anterior, añadiendo `-g` si lo instalaste en todos tus proyectos:
 
 ```bash
-opencode plugin lagune@0.18.1 --force
+opencode plugin lagune@0.18.2 --force
 ```
 
 ## Comandos
@@ -1014,7 +1014,7 @@ En OpenCode 2.x, ejecuta opencode plugin add lagune. En OpenCode 1.x, ejecuta op
 
 ### ¿Cómo actualizo Lagune en OpenCode?
 
-En OpenCode 2.x, ejecuta opencode plugin update lagune y después opencode reload. En OpenCode 1.x, ejecuta opencode plugin lagune@0.18.1 --force.
+En OpenCode 2.x, ejecuta opencode plugin update lagune y después opencode reload. En OpenCode 1.x, ejecuta opencode plugin lagune@0.18.2 --force.
 
 ### ¿Cómo ejecuto los comandos de Lagune en OpenCode?
 
@@ -1230,7 +1230,7 @@ Ejecuta `gh skill update --all` y lee su salida completa, redirigiéndola antes 
 En un sandbox sin acceso a la red, los comandos no pueden descargar el motor. Instálalo en tu proyecto desde tu propio terminal, una vez y tras cada actualización:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Preguntas frecuentes
@@ -3786,7 +3786,7 @@ Programa **Lagune** para que audite tu proyecto por su cuenta, ya sea informando
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.1
+    - wellwelwel/lagune@v0.18.2
   network:
     allowed:
       - defaults

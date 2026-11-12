@@ -35,7 +35,7 @@ Wpisuj nazwy poleceń, na przykład `/lagune-charter`, albo poprzedzaj je nazwą
 Sandbox **Muse Code** nie może pobrać silnika. Zainstaluj go w swoim projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## Najczęściej zadawane pytania
@@ -54,4 +54,4 @@ Wpisuj ich nazwy, na przykład /lagune-charter, albo poprzedzaj je nazwą wtyczk
 
 ### Czy Lagune działa w sandboxie Muse Code?
 
-Tak, gdy zainstalujesz silnik w swoim projekcie poleceniem npm i -D lagune@0.18.1 z własnego terminala, raz, a potem po każdej aktualizacji.
+Tak, gdy zainstalujesz silnik w swoim projekcie poleceniem npm i -D lagune@0.18.2 z własnego terminala, raz, a potem po każdej aktualizacji.

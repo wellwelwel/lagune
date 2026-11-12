@@ -43,7 +43,7 @@ Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工�
 **信息**
 
 - **Lagune** 底层基于 **Node.js** 运行，但你用什么语言都可以。
-- 如需完全离线运行，用 `npm i -D lagune@0.18.1` 把 **Lagune** 安装到你的项目中。
+- 如需完全离线运行，用 `npm i -D lagune@0.18.2` 把 **Lagune** 安装到你的项目中。
 
 ## 类别
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** 的沙箱无法访问网络。在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## 常见问题
@@ -412,7 +412,7 @@ npm i -D lagune@0.18.1
 
 ### Lagune 能在 Codex 的沙箱中运行吗？
 
-可以，只要你在自己的终端中用 npm i -D lagune@0.18.1 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+可以，只要你在自己的终端中用 npm i -D lagune@0.18.2 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 **Muse Code** 的沙箱无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## 常见问题
@@ -932,7 +932,7 @@ npm i -D lagune@0.18.1
 
 ### Lagune 能在 Muse Code 的沙箱中运行吗？
 
-可以，只要你在自己的终端中用 npm i -D lagune@0.18.1 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+可以，只要你在自己的终端中用 npm i -D lagune@0.18.2 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 直接在旧版本上安装新版本即可更新 **Lagune**。如果你是为所有项目安装的，就加上 `-g`：
 
 ```bash
-opencode plugin lagune@0.18.1 --force
+opencode plugin lagune@0.18.2 --force
 ```
 
 ## 命令
@@ -1014,7 +1014,7 @@ opencode plugin lagune@0.18.1 --force
 
 ### 如何在 OpenCode 中更新 Lagune？
 
-在 OpenCode 2.x 中，运行 opencode plugin update lagune，然后运行 opencode reload。在 OpenCode 1.x 中，运行 opencode plugin lagune@0.18.1 --force。
+在 OpenCode 2.x 中，运行 opencode plugin update lagune，然后运行 opencode reload。在 OpenCode 1.x 中，运行 opencode plugin lagune@0.18.2 --force。
 
 ### 如何在 OpenCode 中运行 Lagune 的命令？
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 如果沙箱无法访问网络，这些命令就无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.1
+npm i -D lagune@0.18.2
 ```
 
 ## 常见问题
@@ -3786,7 +3786,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.1
+    - wellwelwel/lagune@v0.18.2
   network:
     allowed:
       - defaults
