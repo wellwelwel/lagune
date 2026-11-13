@@ -202,6 +202,15 @@ html[data-lagune-docs-theme='dark'] .lagune-docs,
   color: var(--muted);
 }
 
+/* Markdown wraps every item's text in a paragraph once any item holds a block. */
+.lagune-docs .markdown li > p {
+  margin-block: 0;
+}
+
+.lagune-docs .markdown li > :is(.theme-code-block, table) {
+  margin-block: 0.75rem;
+}
+
 /* The native disabled checkbox ignores the theme and grays itself out. */
 .lagune-docs .markdown input[type='checkbox'] {
   appearance: none;
