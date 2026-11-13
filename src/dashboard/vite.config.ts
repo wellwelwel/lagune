@@ -15,17 +15,24 @@ const metafile = (path: string | undefined): Plugin => ({
   async generateBundle(_, bundle) {
     if (!path) return;
 
-    const inputs = Object.values(bundle).flatMap((output) =>
-      output.type === 'chunk' ? output.moduleIds : []
+    const outputs = Object.values(bundle).flatMap(
+      (output): [string, object][] => {
+        if (output.type !== 'chunk') return [];
+
+        const inputs = Object.entries(output.modules).map(
+          ([id, module]): [string, object] => [
+            id,
+            { bytesInOutput: module.renderedLength },
+          ]
+        );
+
+        return [[output.fileName, { inputs: Object.fromEntries(inputs) }]];
+      }
     );
 
     await writeFile(
       path,
-      JSON.stringify({
-        inputs: Object.fromEntries(
-          inputs.map((id): [string, object] => [id, Object.create(null)])
-        ),
-      })
+      JSON.stringify({ outputs: Object.fromEntries(outputs) })
     );
   },
 });

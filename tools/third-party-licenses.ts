@@ -2,7 +2,11 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve, sep } from 'node:path';
 import { argv } from 'node:process';
 
-type Metafile = { inputs: Record<string, unknown> };
+type BundledInput = { bytesInOutput: number };
+
+type Metafile = {
+  outputs: Record<string, { inputs: Record<string, BundledInput> }>;
+};
 
 type PackageManifest = {
   name: string;
@@ -43,16 +47,49 @@ const isPackageManifest = (value: unknown): value is PackageManifest =>
   'license' in value &&
   typeof value.license === 'string';
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null;
+
+const isBundledInput = (value: unknown): value is BundledInput =>
+  isRecord(value) &&
+  typeof value.bytesInOutput === 'number' &&
+  Number.isInteger(value.bytesInOutput) &&
+  value.bytesInOutput >= 0;
+
+const isMetafile = (value: unknown): value is Metafile =>
+  isRecord(value) &&
+  isRecord(value.outputs) &&
+  Object.values(value.outputs).every(
+    (output) =>
+      isRecord(output) &&
+      isRecord(output.inputs) &&
+      Object.values(output.inputs).every(isBundledInput)
+  );
+
+const readMetafile = async (path: string): Promise<Metafile> => {
+  const metafile: unknown = JSON.parse(await readFile(path, 'utf8'));
+
+  if (!isMetafile(metafile))
+    throw new Error(
+      `${path} is not a metafile whose outputs list every input with the bytesInOutput it contributes.`
+    );
+
+  return metafile;
+};
+
+const emittedInputs = (metafile: Metafile): string[] =>
+  Object.values(metafile.outputs).flatMap((output) =>
+    Object.entries(output.inputs)
+      .filter(([, input]) => input.bytesInOutput > 0)
+      .map(([input]) => input)
+  );
+
 const readPackageDirectories = async (
   metafilePaths: string[]
 ): Promise<Set<string>> => {
-  const metafiles = await Promise.all(
-    metafilePaths.map(async (path): Promise<Metafile> =>
-      JSON.parse(await readFile(path, 'utf8'))
-    )
-  );
+  const metafiles = await Promise.all(metafilePaths.map(readMetafile));
   const directories = metafiles
-    .flatMap((metafile) => Object.keys(metafile.inputs))
+    .flatMap(emittedInputs)
     .map((input) => toPackageDirectory(resolve(input)))
     .filter((directory) => directory !== undefined);
 
