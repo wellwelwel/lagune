@@ -29,6 +29,7 @@ const BEHIND_PREFIX: PrefixedCommand[] = [
     command: 'crypto',
     args: ['--lang', 'python', '--pattern', 'hashlib.md5(data)'],
   },
+  { prefix: 'read', command: 'dependency', args: [] },
   {
     prefix: 'read',
     command: 'infra',
@@ -67,6 +68,7 @@ const HELP_SECTIONS: Record<string, string[]> = {
     'agent',
     'cors',
     'crypto',
+    'dependency',
     'infra',
     'interpreter',
     'jwt',

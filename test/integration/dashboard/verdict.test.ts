@@ -44,7 +44,7 @@ const harden = lines(
 );
 
 const findingsOf = (hardenRecord: string | null) =>
-  buildFindings(detect, null, hardenRecord, {});
+  buildFindings(detect, null, hardenRecord, Object.create(null));
 
 describe('the hardening record carries verify reason to the dashboard', () => {
   it('reads the reason verify wrote beside a reproved verdict', () => {

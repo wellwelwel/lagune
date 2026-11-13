@@ -17,14 +17,19 @@ export const ownValue = <Value>(
 export const readField = (payload: unknown, field: string): unknown =>
   isRecord(payload) ? ownValue(payload, field) : undefined;
 
-const isPlainContainer = (value: unknown): value is object => {
-  if (Array.isArray(value)) return true;
+/** A record written as an object literal or parsed from text, never a class instance such as a date */
+export const isPlainRecord = (
+  value: unknown
+): value is Record<string, unknown> => {
   if (!isRecord(value)) return false;
 
   const prototype: unknown = Object.getPrototypeOf(value);
 
   return prototype === Object.prototype || prototype === null;
 };
+
+const isPlainContainer = (value: unknown): value is object =>
+  Array.isArray(value) || isPlainRecord(value);
 
 /** Freezes an array or plain object and every one nested in it, leaving any other value as it is */
 export const deepFreeze = <Value>(value: Value): Value => {

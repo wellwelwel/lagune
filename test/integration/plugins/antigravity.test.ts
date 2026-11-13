@@ -5,7 +5,8 @@ import {
   firstFound,
   listBundledPaths,
   readDeclaredServer,
-  readManifest,
+  readManifestContents,
+  recordOrEmpty,
 } from './__utils__.js';
 
 const OVERLAY = 'scripts/plugins/antigravity';
@@ -42,7 +43,7 @@ const RECOGNIZED_KEYS = [
   'extensions',
 ];
 
-const { contents = {} } = await readManifest(
+const contents = await readManifestContents(
   `${OVERLAY}/.antigravity-plugin/plugin.json`
 );
 const server = await readDeclaredServer(`${OVERLAY}/mcp_config.json`);
@@ -96,7 +97,7 @@ describe('the Antigravity plugin branch', () => {
   });
 
   it('loads both engine tools up front, instead of behind a tool search', () => {
-    const declared = isRecord(server.tools) ? server.tools : {};
+    const declared = recordOrEmpty(server.tools);
 
     strict.deepStrictEqual(
       ENGINE_TOOLS.map(({ name }) => name).filter(

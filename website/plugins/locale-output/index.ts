@@ -36,8 +36,8 @@ export const localeOutputPlugin: PluginModule = ({
 }) => ({
   name: pluginName,
   configureWebpack: (config) => {
-    if (config.mode !== 'development') return {};
-    if (i18n.currentLocale === i18n.defaultLocale) return {};
+    if (config.mode !== 'development') return;
+    if (i18n.currentLocale === i18n.defaultLocale) return;
 
     return {
       devServer: {

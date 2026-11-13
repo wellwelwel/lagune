@@ -11,6 +11,7 @@ export const CHECKERS: readonly CheckerName[] = deepFreeze([
   'agent',
   'cors',
   'crypto',
+  'dependency',
   'infra',
   'interpreter',
   'jwt',
@@ -120,7 +121,5 @@ export const checkersWithOwnList = ({ own }: CheckersConfig): CheckerName[] =>
 export const checkersRecord = ({
   shared,
   own,
-}: CheckersConfig): Record<string, unknown> => ({
-  ...shared,
-  ...Object.fromEntries(own),
-});
+}: CheckersConfig): Record<string, unknown> =>
+  Object.assign(Object.create(null), shared, Object.fromEntries(own));

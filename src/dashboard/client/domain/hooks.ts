@@ -18,6 +18,11 @@ const HOOKS: Record<CheckerName, HookMeta> = {
     blurb: 'Detects weak cryptography.',
     icon: specializationIconName('crypto'),
   },
+  dependency: {
+    label: 'Dependency',
+    blurb: 'Detects loosely resolved dependencies.',
+    icon: specializationIconName('dependency'),
+  },
   infra: {
     label: 'Infrastructure',
     blurb: 'Detects IaC misconfiguration.',

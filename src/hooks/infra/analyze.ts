@@ -1,21 +1,11 @@
 import type { InfraKind, InfraVerdict } from '../../types/hooks/infra.js';
 import type { FileAnalysis } from '../../types/scan.js';
+import { analysisBySeverity } from '../../core/scan/driver.js';
 import { infraKindOf } from './kind.js';
 import { RULES } from './rules.js';
 
-export const analyze = (content: string, kind: InfraKind): FileAnalysis => {
-  const fired = RULES[kind].filter((rule) => rule.test(content));
-
-  return {
-    findings: fired
-      .filter((rule) => rule.severity === 'finding')
-      .map((rule) => rule.detail),
-    review: [],
-    advisory: fired
-      .filter((rule) => rule.severity === 'advisory')
-      .map((rule) => rule.detail),
-  };
-};
+export const analyze = (content: string, kind: InfraKind): FileAnalysis =>
+  analysisBySeverity(RULES[kind].filter((rule) => rule.test(content)));
 
 export const analyzeInfra = (file: string, content: string): FileAnalysis => {
   const kind = infraKindOf(file);

@@ -7,6 +7,7 @@ import type {
   SetupContext,
   SkillEditor,
   SkillInfo,
+  SkillSources,
   ToolInfo,
 } from '../types/opencode.js';
 import { readdir, readFile } from 'node:fs/promises';
@@ -23,11 +24,11 @@ const SKILLS_FOLDER = fileURLToPath(new URL('../../skills', import.meta.url));
 const EVERY_PATTERN = ['*'];
 
 const addSkillsFolder = async (config: ServerConfig): Promise<void> => {
-  config.skills ??= {};
-  config.skills.paths ??= [];
+  const skills: SkillSources = (config.skills ??= Object.create(null));
 
-  if (!config.skills.paths.includes(SKILLS_FOLDER))
-    config.skills.paths.push(SKILLS_FOLDER);
+  skills.paths ??= [];
+
+  if (!skills.paths.includes(SKILLS_FOLDER)) skills.paths.push(SKILLS_FOLDER);
 };
 
 /** OpenCode shows the model a thrown error, as it does an MCP tool's failure */
@@ -48,7 +49,7 @@ const serverTool = (tool: EngineTool): ServerTool => {
         permission: tool.name,
         patterns: EVERY_PATTERN,
         always: EVERY_PATTERN,
-        metadata: {},
+        metadata: Object.create(null),
       });
 
       return outputOf(
@@ -73,8 +74,10 @@ const readSkill = async (folder: string): Promise<SkillInfo> => {
   return {
     id: folder,
     name: fields.get('name') ?? folder,
-    ...(description === undefined ? {} : { description }),
-    ...(fields.get(USER_ONLY_FIELD) === 'true' ? { autoinvoke: false } : {}),
+    ...(description === undefined ? undefined : { description }),
+    ...(fields.get(USER_ONLY_FIELD) === 'true'
+      ? { autoinvoke: false }
+      : undefined),
     path,
     content: body,
   };

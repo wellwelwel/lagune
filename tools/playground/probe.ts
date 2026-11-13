@@ -89,7 +89,7 @@ const HANDLERS: Record<string, Handler> = {
     record('initialize', { client: state.client });
     reply(id, {
       protocolVersion: protocolVersion ?? '2025-06-18',
-      capabilities: { tools: {} },
+      capabilities: { tools: Object.create(null) },
       serverInfo: { name: 'lagune-probe', version: '0.0.0' },
     });
   },
@@ -106,17 +106,17 @@ const HANDLERS: Record<string, Handler> = {
           name: 'where',
           description:
             'Reports the folder, variables, environment, and MCP roots this plugin server received.',
-          inputSchema: { type: 'object', properties: {} },
+          inputSchema: { type: 'object', properties: Object.create(null) },
         },
       ],
     }),
   'tools/call': (id) => {
-    record('call', {});
+    record('call', Object.create(null));
     reply(id, {
       content: [{ type: 'text', text: JSON.stringify(state, null, 2) }],
     });
   },
-  ping: (id) => reply(id, {}),
+  ping: (id) => reply(id, Object.create(null)),
 };
 
 const handle = (message: JsonObject): void => {

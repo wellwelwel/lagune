@@ -170,6 +170,9 @@ const parseManifest = (path: string, text: string): unknown => {
   }
 };
 
+export const recordOrEmpty = (value: unknown): Record<string, unknown> =>
+  isRecord(value) ? value : Object.create(null);
+
 export const readManifest = async (path: string): Promise<PluginManifest> => {
   const contents = parseManifest(
     path,
@@ -178,6 +181,11 @@ export const readManifest = async (path: string): Promise<PluginManifest> => {
 
   return { path, contents: isRecord(contents) ? contents : undefined };
 };
+
+export const readManifestContents = async (
+  path: string
+): Promise<Record<string, unknown>> =>
+  recordOrEmpty((await readManifest(path)).contents);
 
 export const readManifests = async (): Promise<PluginManifest[]> =>
   Promise.all(
@@ -199,7 +207,7 @@ export const readDeclaredServer = async (
   const servers = contents?.mcpServers;
   const server = isRecord(servers) ? servers.lagune : undefined;
 
-  return isRecord(server) ? server : {};
+  return recordOrEmpty(server);
 };
 
 /** How a declaration starts the engine, as its agent reads it */
@@ -209,7 +217,7 @@ export const readEngineServer = async (path: string): Promise<EngineServer> => {
   return {
     command: server.command,
     args: isStringArray(server.args) ? server.args : [],
-    ...('cwd' in server ? { cwd: server.cwd } : {}),
+    ...('cwd' in server ? { cwd: server.cwd } : undefined),
   };
 };
 

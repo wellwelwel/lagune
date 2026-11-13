@@ -18,7 +18,7 @@ import { folderOf, listSkillFrontmatters } from '../skills/__utils__.js';
 import {
   newProject,
   readCategories,
-  readManifest,
+  readManifestContents,
   repositoryRoot,
 } from './__utils__.js';
 
@@ -48,7 +48,7 @@ const CALL = {
 const DENIAL = new Error('The user denied the call.');
 
 const skillsFolder = join(repositoryRoot, 'skills');
-const { contents = {} } = await readManifest('package.json');
+const contents = await readManifestContents('package.json');
 const sources = await listSkillFrontmatters();
 const frontmatters = new Map(
   sources.map(({ relativePath, frontmatter }) => [
@@ -156,11 +156,16 @@ await describe('the OpenCode 1.x plugin', async () => {
   });
 
   await it('adds the published skills folder to a configuration that names none', async () => {
-    const config: ServerConfig = {};
+    const config: ServerConfig = Object.create(null);
 
     await hooks.config(config);
 
-    strict.deepStrictEqual(config, { skills: { paths: [skillsFolder] } });
+    strict.deepStrictEqual(
+      config,
+      Object.assign(Object.create(null), {
+        skills: Object.assign(Object.create(null), { paths: [skillsFolder] }),
+      })
+    );
   });
 });
 
@@ -244,7 +249,7 @@ await describe('the engine tools on OpenCode 1.x', async () => {
         permission: 'lagune_write',
         patterns: EVERY_PATTERN,
         always: EVERY_PATTERN,
-        metadata: {},
+        metadata: Object.create(null),
       },
     ]);
     strict.deepStrictEqual(categories, ['javascript', 'python']);
@@ -338,10 +343,15 @@ await describe('the engine tools on OpenCode 2.x', async () => {
 
 await describe('a host without the 2.x skill editor', async () => {
   const hosts: { label: string; context: SetupContext }[] = [
-    { label: 'a setup context without the skill domain', context: {} },
+    {
+      label: 'a setup context without the skill domain',
+      context: Object.create(null),
+    },
     {
       label: 'the editor without add that OpenCode 1.x hands setup',
-      context: { skill: { transform: async (edit) => edit({}) } },
+      context: {
+        skill: { transform: async (edit) => edit(Object.create(null)) },
+      },
     },
   ];
 

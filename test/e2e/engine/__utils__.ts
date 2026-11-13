@@ -40,7 +40,7 @@ export const installEngine = async (): Promise<string> => {
 export const runEngine = (
   cwd: string,
   args: string[],
-  { env, input, engine = ENGINE }: EngineRunOptions = {}
+  { env, input, engine = ENGINE }: EngineRunOptions = Object.create(null)
 ): Promise<HookRun> =>
   new Promise((resolve, reject) => {
     const child = spawn(execPath, [engine, ...args], { cwd, env });

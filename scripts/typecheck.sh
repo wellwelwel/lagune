@@ -33,6 +33,8 @@ if [[ -n "$doubleCastHits" ]]; then
   exit 1
 fi
 
+tsx "$repositoryRoot/tools/empty-objects.ts"
+
 tsc --noEmit
 tsc --noEmit -p "$repositoryRoot/src/dashboard/tsconfig.json"
 tsc --noEmit -p "$repositoryRoot/tools/tsconfig.json"

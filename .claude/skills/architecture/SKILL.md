@@ -23,6 +23,7 @@ Installing and updating the commands belongs to the **skills** CLI, the **GitHub
 ## What ships
 
 - **The package carries no runtime dependency.** Everything it runs is bundled at build time, so running the engine installs nothing on the user's machine, and `src/` is never published.
+- **A parser written in another language ships compiled to WebAssembly beside the bundle, never as a native binary.** A format that is a whole programming language is read faithfully only by that language's own parser, since a hand-written one misses where a crafted file opens a literal. WebAssembly runs wherever **Node.js** runs with no install step and reaches only what the engine hands it: the module loads from the engine's own folder alone, gets no file or stream, and reads each file in an instance of its own, so a crafted file can only stop it, which fails closed.
 - **Whatever lands on the default branch reaches users.** The **skills** CLI and the plugins that install from the default branch take the skills from it as it stands, while the **GitHub CLI**, the plugin branches, and the **npm** package take them at each release.
 - **One version across the package, every plugin manifest, and the npx fallback.** The release moves them together, and no release goes out while a pinned call on the default branch disagrees with the package version.
 

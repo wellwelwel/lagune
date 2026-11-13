@@ -1,3 +1,4 @@
+import type { Frontmatter } from './frontmatter';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import remarkDirective from 'remark-directive';
 import remarkMdx from 'remark-mdx';
@@ -651,7 +652,7 @@ export const textParity = (english: string, translated: string): string[] => {
 };
 
 const frontmatterParity = (english: string, translated: string): string[] => {
-  const source = frontmatterOf(english) ?? {};
+  const source: Frontmatter = frontmatterOf(english) ?? Object.create(null);
   const target = frontmatterOf(translated);
 
   if (target === undefined) return ['has no frontmatter'];

@@ -23,7 +23,7 @@ await describe('the dashboard records what the hooks leave out as the engine rea
 
     strict.deepStrictEqual(result, {
       status: 200,
-      body: { ok: true, changed: 8 },
+      body: { ok: true, changed: 9 },
     });
     strict.deepStrictEqual(file.categories, ['owasp', 'ai']);
     strict.deepStrictEqual(secrets, { gitignore: false, ignore: [] });
@@ -46,15 +46,18 @@ await describe('the dashboard records what the hooks leave out as the engine rea
     const project = await newProject(
       '{"checkers":{"gitignore":false,"agent":{"ignore":["vendor"]}}}'
     );
-    const result = await record(project, { checkers: {} });
+    const result = await record(project, { checkers: Object.create(null) });
     const agent = await checkerSettings(project, 'agent');
 
-    strict.deepStrictEqual(result.body, { ok: true, changed: 8 });
+    strict.deepStrictEqual(result.body, { ok: true, changed: 9 });
     strict.deepStrictEqual(agent, { gitignore: true, ignore: [] });
   });
 
-  for (const [label, body] of [
-    ['a checker it does not know', { checkers: { secret: {} } }],
+  const refusedBodies: [label: string, body: unknown][] = [
+    [
+      'a checker it does not know',
+      { checkers: { secret: Object.create(null) } },
+    ],
     [
       'a prototype key inside the block',
       JSON.parse('{"checkers":{"__proto__":{"ignore":["dist"]}}}'),
@@ -78,11 +81,16 @@ await describe('the dashboard records what the hooks leave out as the engine rea
         },
       },
     ],
-    ['a field beyond the block', { checkers: {}, categories: ['owasp'] }],
-    ['a body without the block', {}],
+    [
+      'a field beyond the block',
+      { checkers: Object.create(null), categories: ['owasp'] },
+    ],
+    ['a body without the block', Object.create(null)],
     ['a block that is not an object', { checkers: ['dist'] }],
     ['a body that is not an object', ['dist']],
-  ])
+  ];
+
+  for (const [label, body] of refusedBodies)
     await it(`rejects ${label} without writing anything`, async () => {
       const project = await newProject();
       const result = await record(project, body);
@@ -95,7 +103,7 @@ await describe('the dashboard records what the hooks leave out as the engine rea
   await it('refuses to replace a block the hooks themselves refuse', async () => {
     const broken = '{"checkers":{"ignore":["../outside"]}}';
     const project = await newProject(broken);
-    const result = await record(project, { checkers: {} });
+    const result = await record(project, { checkers: Object.create(null) });
     const file = await recorded(project);
 
     strict.strictEqual(result.status, 500);

@@ -129,4 +129,4 @@ export const translationOf = (
         inLanguage: page.htmlLang,
         translationOfWork: { '@id': `${page.originalUrl}${fragment}` },
       }
-    : {};
+    : Object.create(null);

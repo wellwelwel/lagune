@@ -15,6 +15,9 @@ type BundledPackage = PackageManifest & { text: string };
 const NODE_MODULES = `${sep}node_modules${sep}`;
 const LICENSE_FILE = /^(licen[cs]e|copying)(\.|$)/i;
 
+/** The licenses a package's source repository publishes but its npm release leaves out, each in a folder named after the package */
+const VENDORED_LICENSES = join(import.meta.dirname, 'licenses');
+
 const toPackageDirectory = (modulePath: string): string | undefined => {
   const nodeModulesIndex = modulePath.lastIndexOf(NODE_MODULES);
 
@@ -56,24 +59,40 @@ const readPackageDirectories = async (
   return new Set(directories);
 };
 
+const licenseFileIn = (
+  directory: string,
+  files: readonly string[]
+): string | undefined => {
+  const licenseFile = files.find((file) => LICENSE_FILE.test(file));
+
+  return licenseFile === undefined ? undefined : join(directory, licenseFile);
+};
+
 const readBundledPackage = async (
   directory: string
 ): Promise<BundledPackage> => {
   const manifest: unknown = JSON.parse(
     await readFile(join(directory, 'package.json'), 'utf8')
   );
-  const licenseFile = (await readdir(directory)).find((file) =>
-    LICENSE_FILE.test(file)
-  );
 
-  if (!isPackageManifest(manifest) || !licenseFile)
+  if (!isPackageManifest(manifest))
+    throw new Error(
+      `${directory} has a package.json without the name, version, and license to attribute.`
+    );
+
+  const vendored = join(VENDORED_LICENSES, manifest.name);
+  const licenseFile =
+    licenseFileIn(directory, await readdir(directory)) ??
+    licenseFileIn(vendored, await readdir(vendored).catch(() => []));
+
+  if (licenseFile === undefined)
     throw new Error(`${directory} ships no license to attribute.`);
 
   return {
     name: manifest.name,
     version: manifest.version,
     license: manifest.license,
-    text: (await readFile(join(directory, licenseFile), 'utf8')).trim(),
+    text: (await readFile(licenseFile, 'utf8')).trim(),
   };
 };
 

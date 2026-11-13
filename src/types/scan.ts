@@ -83,6 +83,13 @@ export type FileAnalysis = {
   advisory: string[];
 };
 
+export type RuleSeverity = 'finding' | 'advisory';
+
+export type SeverityDetail = {
+  severity: RuleSeverity;
+  detail: string;
+};
+
 export type CommentSpec = {
   line: readonly string[];
   block?: readonly [open: string, close: string];

@@ -31,7 +31,7 @@ afterEach(async () => {
 
 await describe('the dashboard shows whatever .lagune/ holds', async () => {
   await it('starts empty, with the default categories, when there is no artifact', async () => {
-    const data = await dataOf({});
+    const data = await dataOf(Object.create(null));
 
     strict.strictEqual(data.artifacts, false);
     strict.deepStrictEqual(data.categories, {
@@ -50,7 +50,7 @@ await describe('the dashboard shows whatever .lagune/ holds', async () => {
 
   await it('reads nothing an agent skill install writes', async () => {
     const [plain, installed] = await Promise.all([
-      dataOf({}),
+      dataOf(Object.create(null)),
       dataOf({
         'skills-lock.json': '{"version":1,"skills":{}}',
         '.claude/skills/lagune-detect/SKILL.md':

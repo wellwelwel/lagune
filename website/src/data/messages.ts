@@ -14,7 +14,7 @@ export const messageTexts = (messages: TranslationMessages): Messages =>
 export const text = (
   messages: Messages,
   id: string,
-  values: Record<string, string | number> = {}
+  values: Record<string, string | number> = Object.create(null)
 ): string => {
   const message = messages[id];
 

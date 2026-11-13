@@ -156,8 +156,8 @@ const configChanges = (
   categories: string[] | undefined,
   catalog: Specialization[]
 ): Partial<Record<MigratedConfig, unknown>> => ({
-  ...(categories === undefined ? {} : { categories }),
-  ...(catalog.length === 0 ? {} : { catalog }),
+  ...(categories === undefined ? undefined : { categories }),
+  ...(catalog.length === 0 ? undefined : { catalog }),
 });
 
 const guardProofs = async (cwd: string): Promise<boolean> => {

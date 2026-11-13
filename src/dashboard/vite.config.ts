@@ -22,7 +22,9 @@ const metafile = (path: string | undefined): Plugin => ({
     await writeFile(
       path,
       JSON.stringify({
-        inputs: Object.fromEntries(inputs.map((id) => [id, {}])),
+        inputs: Object.fromEntries(
+          inputs.map((id): [string, object] => [id, Object.create(null)])
+        ),
       })
     );
   },

@@ -44,11 +44,11 @@ const isObject = (value: unknown): value is JsonObject =>
 const fieldOf = (value: unknown, key: string): unknown =>
   isObject(value) ? value[key] : undefined;
 
-const objectAt = (value: unknown, key: string): JsonObject => {
-  const field = fieldOf(value, key);
+const asObject = (value: unknown): JsonObject =>
+  isObject(value) ? value : Object.create(null);
 
-  return isObject(field) ? field : {};
-};
+const objectAt = (value: unknown, key: string): JsonObject =>
+  asObject(fieldOf(value, key));
 
 const listAt = (value: unknown, key: string): unknown[] => {
   const field = fieldOf(value, key);
@@ -58,9 +58,7 @@ const listAt = (value: unknown, key: string): unknown[] => {
 
 const withoutKey = (value: unknown, key: string): JsonObject =>
   Object.fromEntries(
-    Object.entries(isObject(value) ? value : {}).filter(
-      ([name]) => name !== key
-    )
+    Object.entries(asObject(value)).filter(([name]) => name !== key)
   );
 
 const pathExists = (path: string): Promise<boolean> =>
@@ -70,11 +68,11 @@ const pathExists = (path: string): Promise<boolean> =>
   );
 
 const readJson = async (file: string): Promise<JsonObject> => {
-  if (!(await pathExists(file))) return {};
+  if (!(await pathExists(file))) return Object.create(null);
 
   const parsed: unknown = JSON.parse(await readFile(file, 'utf8'));
 
-  return isObject(parsed) ? parsed : {};
+  return asObject(parsed);
 };
 
 const writeJson = async (file: string, value: unknown): Promise<void> => {
@@ -382,7 +380,7 @@ const pointMarketplaceAt = async (
   await writeJson(target, {
     ...marketplace,
     plugins: listAt(marketplace, 'plugins').map((plugin) => ({
-      ...(isObject(plugin) ? plugin : {}),
+      ...asObject(plugin),
       source: { ...objectAt(plugin, 'source'), url },
     })),
   });

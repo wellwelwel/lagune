@@ -37,7 +37,7 @@ const fieldOf = (value: unknown, key: string): unknown =>
 const objectOf = (value: unknown, key: string): JsonObject => {
   const field = fieldOf(value, key);
 
-  return isObject(field) ? field : {};
+  return isObject(field) ? field : Object.create(null);
 };
 
 const textOf = (value: unknown, key: string): string => {

@@ -21,6 +21,7 @@ const LABELS: Record<string, string> = {
   'credential-endpoint': 'Credential Endpoint',
   crypto: 'Crypto',
   csv: 'CSV',
+  dependency: 'Dependency',
   dotnet: '.NET',
   federation: 'Federation',
   go: 'Go',
@@ -63,10 +64,12 @@ const DESCRIPTIONS: Record<string, string> = {
   crypto:
     "Makes sure sensitive data is scrambled properly, so passwords, tokens, and personal info can't be read even if they leak.",
   csv: "Hardens exported spreadsheets, so opening a downloaded file is far less likely to quietly run a harmful command on someone's computer.",
+  dependency:
+    "Checks how your app pulls in other people's code, so a package can't be swapped on its way in, quietly run its own commands when it installs, or bring a known security hole along.",
   dotnet:
     'Covers security pitfalls specific to .NET apps that can let an attacker run their own code on your server.',
   federation:
-    "Hardens “sign in with Google/Microsoft/etc.” so an attacker has a much harder time impersonating a user or slipping into an account that isn't theirs.",
+    'Hardens "sign in with Google/Microsoft/etc." so an attacker has a much harder time impersonating a user or slipping into an account that isn\'t theirs.',
   go: 'Covers security pitfalls specific to Go apps, especially subtle bugs that show up under real traffic.',
   'http-request':
     "Inspects the data that arrives with each web request, so hidden or malicious input can't bend your app into doing the wrong thing.",
@@ -111,12 +114,14 @@ const PROMPT_TASKS: Record<string, string> = {
   network: 'Let users paste a link and show a little preview of it',
   interpreter:
     'Add a field where people can write their own formulas, like in an Excel spreadsheet',
+  dependency:
+    'Add a library that turns dates into friendly text like "2 days ago"',
   sql: 'Add a search box so users can find orders by customer name',
   path: 'Let people download their files by clicking on them',
   upload: 'Let people upload a profile photo in account settings',
   'access-control': 'Add an admin area to manage all the user accounts',
   'credential-endpoint': 'Build sign up, login, and forgot-password for my app',
-  federation: 'Add a “Continue with Google” button to my login page',
+  federation: 'Add a "Continue with Google" button to my login page',
   'http-request': 'Let users update their email from their profile page',
   transport: 'Make my whole site load securely over https',
   crypto: 'Let people create an account with a password and log back in',
@@ -160,6 +165,7 @@ const ICONS: Record<string, SpecializationIconName> = {
   upload: 'upload',
   path: 'file',
   interpreter: 'terminal',
+  dependency: 'layers',
   sql: 'layers',
   network: 'globe',
   javascript: 'code',

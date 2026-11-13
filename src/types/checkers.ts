@@ -4,6 +4,7 @@ export type CheckerName =
   | 'agent'
   | 'cors'
   | 'crypto'
+  | 'dependency'
   | 'infra'
   | 'interpreter'
   | 'jwt'

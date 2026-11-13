@@ -6,6 +6,7 @@ const OWASP = [
   'regex',
   'network',
   'interpreter',
+  'dependency',
   'sql',
   'path',
   'upload',

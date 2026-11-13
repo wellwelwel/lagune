@@ -74,7 +74,7 @@ const replyTo = (replies: unknown[], id: number): Record<string, unknown> => {
     (candidate) => isRecord(candidate) && candidate.id === id
   );
 
-  return isRecord(reply) ? reply : {};
+  return isRecord(reply) ? reply : Object.create(null);
 };
 
 const field = (payload: unknown, ...path: string[]): unknown =>
@@ -444,7 +444,7 @@ await describe('the engine served over MCP', async () => {
       {
         id: 1,
         method: 'tools/call',
-        params: { name: 'lagune_shell', arguments: {} },
+        params: { name: 'lagune_shell', arguments: Object.create(null) },
       },
       { id: 2, method: 'server/discover' },
     ]);

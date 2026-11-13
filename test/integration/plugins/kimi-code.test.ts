@@ -1,6 +1,10 @@
 import { basename } from 'node:path';
 import { describe, it, strict } from 'poku';
-import { firstFound, listTrackedPaths, readManifest } from './__utils__.js';
+import {
+  firstFound,
+  listTrackedPaths,
+  readManifestContents,
+} from './__utils__.js';
 
 const MANIFEST_LOOKUP = ['kimi.plugin.json', '.kimi-plugin/plugin.json'];
 
@@ -26,7 +30,7 @@ const SESSION_FIELDS = [
 
 const INSTRUCTION_FILES = ['AGENTS.md', 'agents.md'];
 
-const { contents = {} } = await readManifest('.kimi-plugin/plugin.json');
+const contents = await readManifestContents('.kimi-plugin/plugin.json');
 const tracked = await listTrackedPaths();
 
 describe('the Kimi Code plugin manifest', () => {

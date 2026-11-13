@@ -55,6 +55,7 @@ export type HookName =
   | 'cors'
   | 'crypto'
   | 'cvss'
+  | 'dependency'
   | 'infra'
   | 'interpreter'
   | 'jwt'

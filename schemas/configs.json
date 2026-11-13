@@ -72,6 +72,9 @@
         "crypto": {
           "$ref": "#/definitions/checker"
         },
+        "dependency": {
+          "$ref": "#/definitions/checker"
+        },
         "infra": {
           "$ref": "#/definitions/checker"
         },

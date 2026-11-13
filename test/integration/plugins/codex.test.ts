@@ -11,6 +11,7 @@ import {
   packageRoot,
   pngSize,
   readManifest,
+  recordOrEmpty,
 } from './__utils__.js';
 
 const MANIFEST_LOOKUP = [
@@ -60,9 +61,7 @@ const KEEPS_FROM_THE_MODEL = { policy: { allow_implicit_invocation: false } };
 const tracked = await listTrackedPaths();
 const manifest = await readManifest('.codex-plugin/plugin.json');
 const marketplace = await readManifest('.agents/plugins/marketplace.json');
-const listing = isRecord(manifest.contents?.interface)
-  ? manifest.contents.interface
-  : {};
+const listing = recordOrEmpty(manifest.contents?.interface);
 const entries = listedEntries(marketplace.contents?.plugins);
 const skills = await listSkillFrontmatters();
 
@@ -123,7 +122,7 @@ describe('the Codex plugin', () => {
   });
 
   it('declares no hooks, so a hook file at the root never reaches Codex', () => {
-    strict.deepStrictEqual(manifest.contents?.hooks, {});
+    strict.strictEqual(JSON.stringify(manifest.contents?.hooks), '{}');
   });
 });
 

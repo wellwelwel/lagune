@@ -25,6 +25,7 @@ export const ENGINE_TOOLS: readonly EngineTool[] = [
       'agent',
       'cors',
       'crypto',
+      'dependency',
       'infra',
       'interpreter',
       'jwt',

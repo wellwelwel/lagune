@@ -81,8 +81,8 @@ const overrideOf = (
   gitignore: boolean | undefined,
   ignore: readonly string[] | undefined
 ): CheckerOverride => ({
-  ...(gitignore === undefined ? {} : { gitignore }),
-  ...(ignore === undefined ? {} : { ignore }),
+  ...(gitignore === undefined ? undefined : { gitignore }),
+  ...(ignore === undefined ? undefined : { ignore }),
 });
 
 const withOwn = (

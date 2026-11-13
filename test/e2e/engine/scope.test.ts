@@ -8,6 +8,7 @@ const CHECKERS = [
   'agent',
   'cors',
   'crypto',
+  'dependency',
   'infra',
   'interpreter',
   'jwt',

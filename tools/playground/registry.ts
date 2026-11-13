@@ -34,7 +34,7 @@ const packagedManifest = async (path: string): Promise<JsonObject> => {
   });
   const parsed: unknown = JSON.parse(stdout);
 
-  return isObject(parsed) ? parsed : {};
+  return isObject(parsed) ? parsed : Object.create(null);
 };
 
 const manifest = async (version: string): Promise<[string, JsonObject]> => {

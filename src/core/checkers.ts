@@ -88,9 +88,9 @@ const overrideOf = (
     );
 
   return {
-    ...(gitignore === undefined ? {} : { gitignore }),
+    ...(gitignore === undefined ? undefined : { gitignore }),
     ...(ignore === undefined
-      ? {}
+      ? undefined
       : { ignore: ignoredPathsOf(ignore, `${field}.ignore`) }),
   };
 };
@@ -101,7 +101,8 @@ export const checkersConfigOf = (
 ): CheckersConfig => {
   const value = ownValue(configs, 'checkers');
 
-  if (value === undefined) return { shared: {}, own: new Map() };
+  if (value === undefined)
+    return { shared: Object.create(null), own: new Map() };
   if (!isRecord(value))
     return refuse('sets checkers to something other than an object');
 

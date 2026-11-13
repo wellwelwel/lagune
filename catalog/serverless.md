@@ -53,7 +53,7 @@ Two deployment-time exposures. A **secret** hardcoded in the source or passed as
 Safer shapes, applied where they fit:
 
 - **Fetch secrets from a managed vault or parameter store at runtime** (with the platform's local caching extension where available) rather than environment variables, use ephemeral credentials (STS, workload identity federation), and rotate automatically. A hardcoded secret is the deterministic secret-scan finding, not a judgment call.
-- **Vet and pin the deployment's dependencies and layers**, scan them (`npm audit`, `pip-audit`, `safety`), ship a minimal package, and validate layer integrity by checksum (the `interpreter` surface's package-and-integrity guidance applied to the function bundle).
+- **Vet and pin the deployment's dependencies and layers**, scan them (`npm audit`, `pip-audit`, `safety`), ship a minimal package, and validate layer integrity by checksum (the `dependency` specialization applied to the function bundle, and the `interpreter` surface's check on loaded code applied to each layer).
 - **Mask secrets and PII in logs**, since centralized function logs (CloudWatch, Azure Monitor, GCP Logging) otherwise persist whatever the handler prints (the log-as-evidence concern from the `interpreter` surface).
 
 ## How to act on the result

@@ -28,6 +28,11 @@ export const BUILTIN_SPECIALIZATIONS: BuiltinSpecialization[] = [
     categories: ['owasp', 'lovable'],
   },
   {
+    name: 'dependency',
+    tags: ['Lockfile', 'Package Manager'],
+    categories: ['owasp', 'lovable'],
+  },
+  {
     name: 'sql',
     tags: ['MySQL', 'PostgreSQL', 'MariaDB', 'ORM'],
     categories: ['owasp'],

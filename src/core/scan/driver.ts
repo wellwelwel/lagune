@@ -2,8 +2,11 @@ import type { CheckerName } from '../../types/checkers.js';
 import type {
   AnalyzedFile,
   FileAnalysis,
+  RuleSeverity,
   ScanDetail,
   ScanReport,
+  SeverityDetail,
+  SkippedPaths,
   WalkFilter,
 } from '../../types/scan.js';
 import { readFile } from 'node:fs/promises';
@@ -27,6 +30,34 @@ const details = (
     pick(analysis).map((detail) => ({ file, detail }))
   );
 
+const detailsAt = (
+  broken: readonly SeverityDetail[],
+  severity: RuleSeverity
+): string[] =>
+  broken
+    .filter((rule) => rule.severity === severity)
+    .map((rule) => rule.detail);
+
+/** The analysis of a file from the rules it breaks, each detail under its rule's severity */
+export const analysisBySeverity = (
+  broken: readonly SeverityDetail[]
+): FileAnalysis => ({
+  findings: detailsAt(broken, 'finding'),
+  review: [],
+  advisory: detailsAt(broken, 'advisory'),
+});
+
+/** The report of what each analyzed file breaks, ending with what the walk left out */
+export const reportOf = (
+  analyzed: AnalyzedFile[],
+  skipped: SkippedPaths
+): ScanReport => ({
+  findings: details(analyzed, (analysis) => analysis.findings),
+  review: details(analyzed, (analysis) => analysis.review),
+  advisory: details(analyzed, (analysis) => analysis.advisory),
+  skipped: skippedCounts(skipped),
+});
+
 /** Scans the targets for one checker, leaving out what its settings and Git ignore */
 export const scanReport = async (
   root: string,
@@ -46,12 +77,9 @@ export const scanReport = async (
         : { file, analysis: analyze(file, content) };
     })
   );
-  const present = analyzed.filter((entry) => entry !== null);
 
-  return {
-    findings: details(present, (analysis) => analysis.findings),
-    review: details(present, (analysis) => analysis.review),
-    advisory: details(present, (analysis) => analysis.advisory),
-    skipped: skippedCounts(skipped),
-  };
+  return reportOf(
+    analyzed.filter((entry) => entry !== null),
+    skipped
+  );
 };

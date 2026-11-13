@@ -52,7 +52,7 @@ const initialize: McpMethod = (params, session) => {
         typeof requested === 'string' && PROTOCOLS.has(requested)
           ? requested
           : LATEST_PROTOCOL,
-      capabilities: { tools: {} },
+      capabilities: { tools: Object.create(null) },
       serverInfo: { name: 'lagune', version: session.server.version },
     },
   };
@@ -95,7 +95,7 @@ const askRoots: McpNotification = (session) => {
 
 const METHODS: Record<string, McpMethod> = {
   initialize,
-  ping: () => ({ result: {} }),
+  ping: () => ({ result: Object.create(null) }),
   'tools/list': () => ({ result: { tools: ENGINE_TOOLS.map(describeTool) } }),
   'tools/call': callTool,
 };

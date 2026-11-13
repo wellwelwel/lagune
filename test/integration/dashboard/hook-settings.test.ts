@@ -22,33 +22,44 @@ describe('the dashboard edits the hook settings by the rules the engine records 
     const edited = withPaths(own, 'secrets', ['dist', 'vendor']);
 
     strict.deepStrictEqual(checkersPayload(edited), {
-      checkers: { ignore: ['dist'], secrets: { ignore: ['dist', 'vendor'] } },
+      checkers: Object.assign(Object.create(null), {
+        ignore: ['dist'],
+        secrets: { ignore: ['dist', 'vendor'] },
+      }),
     });
   });
 
   it('leaves nothing of a hook in the record once each setting follows every hook again', () => {
     const custom = configOf({
-      shared: {},
+      shared: Object.create(null),
       own: [['secrets', { gitignore: false, ignore: ['vendor'] }]],
       problem: null,
     });
     const followsGit = withGit(custom, 'secrets', 'shared');
     const followsAll = withListChoice(followsGit, 'secrets', 'shared');
 
-    strict.deepStrictEqual(checkersPayload(followsAll), { checkers: {} });
+    strict.deepStrictEqual(checkersPayload(followsAll), {
+      checkers: Object.create(null),
+    });
   });
 
   it('keeps the shared defaults out of the record once chosen back', () => {
-    const empty = configOf({ shared: {}, own: [], problem: null });
+    const empty = configOf({
+      shared: Object.create(null),
+      own: [],
+      problem: null,
+    });
     const scanned = withGit(empty, undefined, 'scan');
     const skipped = withGit(scanned, undefined, 'skip');
     const listed = withPaths(skipped, undefined, ['dist']);
     const cleared = withPaths(listed, undefined, []);
 
     strict.deepStrictEqual(checkersPayload(scanned), {
-      checkers: { gitignore: false },
+      checkers: Object.assign(Object.create(null), { gitignore: false }),
     });
-    strict.deepStrictEqual(checkersPayload(cleared), { checkers: {} });
+    strict.deepStrictEqual(checkersPayload(cleared), {
+      checkers: Object.create(null),
+    });
   });
 
   it('keeps an empty list of a hook its own, so it leaves out nothing', () => {
@@ -56,7 +67,10 @@ describe('the dashboard edits the hook settings by the rules the engine records 
     const emptied = withPaths(own, 'regex', []);
 
     strict.deepStrictEqual(checkersPayload(emptied), {
-      checkers: { ignore: ['dist'], regex: { ignore: [] } },
+      checkers: Object.assign(Object.create(null), {
+        ignore: ['dist'],
+        regex: { ignore: [] },
+      }),
     });
   });
 });

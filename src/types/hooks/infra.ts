@@ -1,3 +1,5 @@
+import type { SeverityDetail } from '../scan.js';
+
 export type InfraKind = 'terraform' | 'dockerfile' | 'github-actions';
 
 export type InfraVerdict =
@@ -14,11 +16,7 @@ export type InfraVerdict =
   | 'write-all'
   | 'safe';
 
-export type InfraSeverity = 'finding' | 'advisory';
-
-export type InfraRule = {
+export type InfraRule = SeverityDetail & {
   tag: InfraVerdict;
-  severity: InfraSeverity;
-  detail: string;
   test: (content: string) => boolean;
 };

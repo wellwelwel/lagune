@@ -6,7 +6,8 @@ import { isRecord, isStringArray } from '../../../src/core/collections.js';
 import {
   newProject,
   readCategories,
-  readManifest,
+  readManifestContents,
+  recordOrEmpty,
   repositoryRoot,
 } from './__utils__.js';
 
@@ -15,8 +16,8 @@ const RESOURCE_TYPES = ['extensions', 'skills', 'prompts', 'themes'];
 const ENGINE_TOOLS = ['lagune_read', 'lagune_write'];
 const ADD_PYTHON = { command: 'add', arguments: ['--categories', 'python'] };
 
-const { contents = {} } = await readManifest('package.json');
-const manifest = isRecord(contents.pi) ? contents.pi : {};
+const contents = await readManifestContents('package.json');
+const manifest = recordOrEmpty(contents.pi);
 const skillPaths = isStringArray(manifest.skills) ? manifest.skills : [];
 const extensionPaths = isStringArray(manifest.extensions)
   ? manifest.extensions

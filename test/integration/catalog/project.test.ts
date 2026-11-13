@@ -12,7 +12,7 @@ const packageRoot = new URL('../../../', import.meta.url);
 const projects: string[] = [];
 
 const newProject = async (
-  files: Record<string, string> = {}
+  files: Record<string, string> = Object.create(null)
 ): Promise<string> => {
   const project = await mkdtemp(join(tmpdir(), 'lagune-catalog-'));
 

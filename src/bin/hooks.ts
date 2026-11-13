@@ -4,6 +4,7 @@ import { run as agent } from '../hooks/agent/cli.js';
 import { run as cors } from '../hooks/cors/cli.js';
 import { run as crypto } from '../hooks/crypto/cli.js';
 import { run as cvss } from '../hooks/cvss/cli.js';
+import { run as dependency } from '../hooks/dependency/cli.js';
 import { run as infra } from '../hooks/infra/cli.js';
 import { run as interpreter } from '../hooks/interpreter/cli.js';
 import { run as jwt } from '../hooks/jwt/cli.js';
@@ -20,6 +21,7 @@ export const HOOKS: Record<HookName, HookHandler> = deepFreeze({
   cors,
   crypto,
   cvss,
+  dependency,
   infra,
   interpreter,
   jwt,

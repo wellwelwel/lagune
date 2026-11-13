@@ -114,11 +114,13 @@ const DocPage = ({ content: Content }: DocPageProps): ReactNode => {
     breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
     ...(isTranslation
       ? { translationOfWork: { '@id': `${originalUrl}#article` } }
-      : {}),
+      : undefined),
     ...(metadata.datePublished
       ? { datePublished: metadata.datePublished }
-      : {}),
-    ...(metadata.dateModified ? { dateModified: metadata.dateModified } : {}),
+      : undefined),
+    ...(metadata.dateModified
+      ? { dateModified: metadata.dateModified }
+      : undefined),
   };
 
   return (

@@ -1,12 +1,17 @@
 import { posix } from 'node:path';
 import { describe, it, strict } from 'poku';
 import { isRecord } from '../../../src/core/collections.js';
-import { listPackedPaths, listSkillFiles, readManifest } from './__utils__.js';
+import {
+  listPackedPaths,
+  listSkillFiles,
+  readManifestContents,
+  recordOrEmpty,
+} from './__utils__.js';
 
 const packed = await listPackedPaths();
-const { contents = {} } = await readManifest('package.json');
+const contents = await readManifestContents('package.json');
 const skillFiles = await listSkillFiles();
-const piManifest = isRecord(contents.pi) ? contents.pi : {};
+const piManifest = recordOrEmpty(contents.pi);
 const entryPoints = [
   contents.main,
   ...(isRecord(contents.bin) ? Object.values(contents.bin) : []),

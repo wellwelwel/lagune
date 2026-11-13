@@ -21,7 +21,7 @@ import {
   listTrackedPaths,
   newProject,
   readCategories,
-  readManifest,
+  readManifestContents,
   repositoryRoot,
 } from './__utils__.js';
 
@@ -74,8 +74,8 @@ const BLOCKING_INJECTIONS = [
 
 const run = promisify(execFile);
 
-const { contents = {} } = await readManifest(`${PLUGIN_FOLDER}/plugin.yaml`);
-const { contents: bundleManifest = {} } = await readManifest(BUNDLE_MANIFEST);
+const contents = await readManifestContents(`${PLUGIN_FOLDER}/plugin.yaml`);
+const bundleManifest = await readManifestContents(BUNDLE_MANIFEST);
 const tracked = await listTrackedPaths();
 const root = await realpath(repositoryRoot);
 const bundle = await realpath(await assembleBundle('hermes'));

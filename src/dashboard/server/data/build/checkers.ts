@@ -12,6 +12,10 @@ export const buildCheckers = async (
 
     return { shared, own: [...own], problem: null };
   } catch (error) {
-    return { shared: {}, own: [], problem: errorMessage(error) };
+    return {
+      shared: Object.create(null),
+      own: [],
+      problem: errorMessage(error),
+    };
   }
 };

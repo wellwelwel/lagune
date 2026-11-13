@@ -55,6 +55,7 @@ export const docsNav: DocsNavEntry[] = [
       'hooks/cors',
       'hooks/crypto',
       'hooks/cvss',
+      'hooks/dependency',
       'hooks/infra',
       'hooks/interpreter',
       'hooks/jwt',

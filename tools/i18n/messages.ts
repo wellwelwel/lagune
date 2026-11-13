@@ -85,7 +85,7 @@ export const readMessages = async (
 /** Keeps every existing translation, marks every new message, and drops what English no longer has */
 export const regenerate = (
   english: TranslationMessages,
-  existing: TranslationMessages = {}
+  existing: TranslationMessages = Object.create(null)
 ): Regeneration => {
   const messages = byId(
     Object.fromEntries(
