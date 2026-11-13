@@ -1,20 +1,16 @@
 import type { CheckerSettings } from '../../../src/types/checkers.js';
 import type { WalkResult } from '../../../src/types/scan.js';
 import { mkdir } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { env, pid, platform } from 'node:process';
+import { platform } from 'node:process';
 import { describe, it, strict } from 'poku';
 import { SOURCE_FILTER } from '../../../src/core/scan/filters.js';
 import { walkTargets } from '../../../src/core/scan/walk.js';
-import { git, newWorkspace, writeFiles } from './__utils__.js';
+import { git, hideUserHome, newWorkspace, writeFiles } from './__utils__.js';
 
-const NO_HOME = join(tmpdir(), `lagune-no-home-${pid}`);
 const FILE_NAMES_HOLD_ASTERISKS = platform !== 'win32';
 
-env.HOME = NO_HOME;
-env.USERPROFILE = NO_HOME;
-delete env.XDG_CONFIG_HOME;
+hideUserHome();
 
 const scan = (
   workspace: string,

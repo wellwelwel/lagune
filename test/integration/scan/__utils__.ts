@@ -13,6 +13,15 @@ const workspaces: string[] = [];
 /** A global Git config that does not exist, which Git skips on every platform, unlike the null device on Windows */
 const NO_GLOBAL_CONFIG = join(tmpdir(), `lagune-no-git-config-${pid}`);
 
+const NO_HOME = join(tmpdir(), `lagune-no-home-${pid}`);
+
+/** Hides the machine's own Git ignore files from every scan in this process */
+export const hideUserHome = (): void => {
+  env.HOME = NO_HOME;
+  env.USERPROFILE = NO_HOME;
+  delete env.XDG_CONFIG_HOME;
+};
+
 export const newWorkspace = async (): Promise<string> => {
   const workspace = await mkdtemp(join(tmpdir(), 'lagune-scan-'));
 
@@ -54,6 +63,20 @@ export const git = async (
   });
 
   return stdout;
+};
+
+export const trackedRepository = async (
+  init: readonly string[],
+  files: Readonly<Record<string, string>>,
+  tracked: readonly string[]
+): Promise<string> => {
+  const workspace = await newWorkspace();
+
+  await git(workspace, init);
+  await writeFiles(workspace, files);
+  await git(workspace, ['add', '--force', ...tracked]);
+
+  return workspace;
 };
 
 afterEach(async () => {

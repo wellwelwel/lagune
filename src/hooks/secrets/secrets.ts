@@ -1,16 +1,18 @@
 import type { FileAnalysis, LanguageId } from '../../types/scan.js';
 import { languageOf } from '../../core/scan/language.js';
 import { codeLines } from '../../core/scan/lines.js';
-import { envFallbacksOf, SIGNATURES, sinkOf } from './patterns.js';
+import {
+  envFallbacksOf,
+  isPlaceholder,
+  SIGNATURES,
+  sinkOf,
+} from './patterns.js';
 
 const ASSIGN =
   /(?:password|passwd|pwd|secret|api[_-]?key|apikey|access[_-]?key|auth[_-]?token|token|credential|private[_-]?key|client[_-]?secret)\s{0,16}[:=]\s{0,16}(['"`])([^'"`]{0,4096})\1/i;
 
 const CONNECTION_STRING =
   /\b[a-z][a-z0-9+.-]{1,20}:\/\/[^\s:'"`@/]{0,64}:([^\s:'"`@/]{1,256})@[^\s'"`/]{1,256}/i;
-
-const PLACEHOLDER =
-  /^(?:changeme|changeit|change[-_]me|your[-_]?[\w-]+|example[\w-]*|sample[\w-]*|dummy[\w-]*|test[\w-]*|placeholder|redacted|todo|none|null|undefined|x{3,}|\*{3,}|\.{3,}|<.*>|\$\{.*\}|\{\{.*\}\})$/i;
 
 const SECRET_REF =
   /\b(?:password|secret|api[_-]?key|apikey|token|credential|private[_-]?key|plaintext|decrypted\w{0,64})\b/i;
@@ -26,8 +28,6 @@ const LITERAL_DETAIL =
   'literal bound to a secret-named identifier: confirm it is a real credential, and move any secret to an environment variable or secret store';
 const SINK_DETAIL =
   'a secret-named value flows into a log/response/error sink: verify it is redacted';
-
-const isPlaceholder = (value: string): boolean => PLACEHOLDER.test(value);
 
 const hasHardcodedLiteral = (line: string): boolean => {
   const match = ASSIGN.exec(line);

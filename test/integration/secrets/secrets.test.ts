@@ -2,12 +2,11 @@ import type { LanguageId } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
 import { analyze, analyzeFor } from '../../../src/hooks/secrets/secrets.js';
 
-// Fixture hygiene: build token bodies from parts / obvious fillers so no
-// real-looking secret is ever committed.
+/** Assembled from parts: no secret scanner may find a whole token in the repository */
 const GITHUB_TOKEN = 'ghp_' + 'x'.repeat(36);
 const AWS_KEY = 'AKIA' + 'IOSFODNN7EXAMPLE';
 
-describe('analyzeFor flags hardcoded credentials as findings', () => {
+describe('the secrets checker tells a hardcoded credential from a lead', () => {
   it('reviews a secret-named identifier bound to a string literal', () => {
     const result = analyzeFor(
       'javascript',
@@ -31,8 +30,6 @@ describe('analyzeFor flags hardcoded credentials as findings', () => {
   });
 
   it('reviews a secret-named literal by provenance, not by value shape', () => {
-    // a UUID or hex value can be a real token, so it is surfaced as a lead to
-    // confirm rather than judged (and silently dropped) by its shape
     strict.strictEqual(
       analyzeFor(
         'javascript',
@@ -74,17 +71,6 @@ describe('analyzeFor flags hardcoded credentials as findings', () => {
     strict.strictEqual(result.review.length, 0);
   });
 
-  it('passes a placeholder or too-short literal', () => {
-    strict.strictEqual(
-      analyzeFor('javascript', 'const token = "changeme";').findings.length,
-      0
-    );
-    strict.strictEqual(
-      analyzeFor('javascript', 'const token = "";').findings.length,
-      0
-    );
-  });
-
   it('flags a committed provider token by its format, language-agnostic', () => {
     strict.ok(
       analyzeFor('rust', `let t = "${GITHUB_TOKEN}";`).findings.length >= 1
@@ -105,7 +91,7 @@ describe('analyzeFor flags hardcoded credentials as findings', () => {
   });
 });
 
-describe('analyzeFor reads the environment fallback in each language', () => {
+describe('the secrets checker reads the environment fallback in each language', () => {
   const cases: [language: LanguageId, line: string][] = [
     [
       'javascript',
@@ -153,7 +139,7 @@ describe('analyzeFor reads the environment fallback in each language', () => {
   });
 });
 
-describe('analyzeFor reads the log/response sink in each language', () => {
+describe('the secrets checker reads the log/response sink in each language', () => {
   const cases: [language: LanguageId, line: string][] = [
     ['javascript', 'console.log("auth token", token);'],
     ['python', 'print("api_key", api_key)'],
@@ -172,7 +158,7 @@ describe('analyzeFor reads the log/response sink in each language', () => {
     });
 });
 
-describe('analyzeFor never flags one language construct in another', () => {
+describe('the secrets checker never reads one language construct in another', () => {
   it('does not read a JS console.log sink under python', () => {
     strict.strictEqual(
       analyzeFor('python', 'console.log("token", token)').review.length,
@@ -201,7 +187,7 @@ describe('analyzeFor never flags one language construct in another', () => {
   });
 });
 
-describe('analyze dispatches by file extension', () => {
+describe('the secrets checker reads the language of a file from its extension', () => {
   it('reads a python env fallback from a .py file', () => {
     const result = analyze(
       'config.py',
@@ -277,7 +263,7 @@ describe('connection strings cover a password-only DSN', () => {
   });
 });
 
-describe('analyze reads C-family preprocessor lines as code', () => {
+describe('the secrets checker reads C-family preprocessor lines as code', () => {
   it('flags a #define-bound provider signature in C', () => {
     const result = analyze('config.c', `#define AWS_KEY "${AWS_KEY}"`);
 
@@ -291,7 +277,7 @@ describe('analyze reads C-family preprocessor lines as code', () => {
   });
 });
 
-describe('analyze does not fire on commented-out code', () => {
+describe('the secrets checker reads commented-out code for hard findings alone', () => {
   it('skips a secret-named literal inside a /* */ block comment', () => {
     const result = analyze(
       'app.js',

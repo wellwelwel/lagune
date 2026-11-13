@@ -2,11 +2,9 @@ import type { HookResult } from '../../types/core.js';
 import type { ReportHeadings } from '../../types/scan.js';
 import { cwd } from 'node:process';
 import { parseArgs as parseNodeArgs } from 'node:util';
-import { scanReport } from '../../core/scan/driver.js';
-import { SOURCE_FILTER } from '../../core/scan/filters.js';
 import { formatReport } from '../../core/scan/report.js';
 import { resolveTargets } from '../../core/scan/targets.js';
-import { analyze } from './secrets.js';
+import { scanSecrets } from './scan.js';
 
 const OPTIONS = {
   dir: { type: 'string', short: 'd', multiple: true },
@@ -21,14 +19,7 @@ const HEADINGS: ReportHeadings = {
 
 const runScan = async (targets: string[]): Promise<HookResult> => {
   const root = cwd();
-  const paths = await resolveTargets(root, targets);
-  const report = await scanReport(
-    root,
-    paths,
-    SOURCE_FILTER,
-    analyze,
-    'secrets'
-  );
+  const report = await scanSecrets(root, await resolveTargets(root, targets));
 
   return {
     output: formatReport(report, HEADINGS),

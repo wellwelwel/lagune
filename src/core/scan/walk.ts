@@ -188,17 +188,18 @@ const walkTarget = async (
   return collect(context, target, await targetScope(root, target, ignores));
 };
 
-/** Lists each file the targets hold once, leaving out what Git or the checker's settings ignore below a target they do not ignore themselves */
-export const walkTargets = async (
+/** Lists each file the targets hold once, leaving out what Git or the checker's settings ignore below a target they do not ignore themselves, judged by the Git state its caller already read */
+export const walkTargetsWith = async (
   root: string,
   targets: readonly string[],
   filter: WalkFilter,
-  settings: CheckerSettings
+  settings: CheckerSettings,
+  ignores: GitIgnores | null
 ): Promise<WalkResult> => {
-  const ignores = settings.gitignore ? await gitIgnoresOf(root) : null;
+  const followed = settings.gitignore ? ignores : null;
   const walked = await Promise.all(
     targets.map((target) =>
-      walkTarget(root, target, filter, ignores, settings.ignore)
+      walkTarget(root, target, filter, followed, settings.ignore)
     )
   );
   const skipped = (origin: keyof SkippedPaths): string[] =>
@@ -209,6 +210,21 @@ export const walkTargets = async (
     skipped: { git: skipped('git'), configs: skipped('configs') },
   };
 };
+
+/** The same listing, judged by the Git state it reads from the project */
+export const walkTargets = async (
+  root: string,
+  targets: readonly string[],
+  filter: WalkFilter,
+  settings: CheckerSettings
+): Promise<WalkResult> =>
+  walkTargetsWith(
+    root,
+    targets,
+    filter,
+    settings,
+    settings.gitignore ? await gitIgnoresOf(root) : null
+  );
 
 export const skippedCounts = ({
   git,

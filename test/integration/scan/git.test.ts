@@ -1,19 +1,20 @@
 import type { GitWalk } from '../../../src/types/test.js';
 import { mkdir, symlink, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { env, pid } from 'node:process';
+import { env } from 'node:process';
 import { describe, it, strict } from 'poku';
 import { DEFAULT_SETTINGS } from '../../../src/core/checker-rules.js';
 import { SOURCE_FILTER } from '../../../src/core/scan/filters.js';
 import { walkTargets } from '../../../src/core/scan/walk.js';
-import { git, newWorkspace, writeFiles } from './__utils__.js';
+import {
+  git,
+  hideUserHome,
+  newWorkspace,
+  trackedRepository,
+  writeFiles,
+} from './__utils__.js';
 
-const NO_HOME = join(tmpdir(), `lagune-no-home-${pid}`);
-
-env.HOME = NO_HOME;
-env.USERPROFILE = NO_HOME;
-delete env.XDG_CONFIG_HOME;
+hideUserHome();
 
 const scan = async (
   workspace: string,
@@ -45,20 +46,6 @@ const repository = async (
   return workspace;
 };
 
-const trackedRepository = async (
-  init: readonly string[],
-  files: Readonly<Record<string, string>>,
-  tracked: readonly string[]
-): Promise<string> => {
-  const workspace = await newWorkspace();
-
-  await git(workspace, init);
-  await writeFiles(workspace, files);
-  await git(workspace, ['add', '--force', ...tracked]);
-
-  return workspace;
-};
-
 const withHome = async <Result>(
   home: string,
   configHome: string | undefined,
@@ -73,9 +60,7 @@ const withHome = async <Result>(
   try {
     return await task();
   } finally {
-    env.HOME = NO_HOME;
-    env.USERPROFILE = NO_HOME;
-    delete env.XDG_CONFIG_HOME;
+    hideUserHome();
   }
 };
 

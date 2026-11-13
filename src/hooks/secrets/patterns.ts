@@ -1,6 +1,12 @@
 import type { LanguageId, LineRule } from '../../types/scan.js';
 import { deepFreeze } from '../../core/collections.js';
 
+export const PRIVATE_KEY_BLOCK =
+  /-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?(?:ENCRYPTED )?PRIVATE KEY(?: BLOCK)?-----/;
+
+const PLACEHOLDER =
+  /^(?:changeme|changeit|change[-_]me|your[-_]?[\w-]+|example[\w-]*|sample[\w-]*|dummy[\w-]*|test[\w-]*|placeholder|redacted|todo|none|null|undefined|x{3,}|\*{3,}|\.{3,}|<.*>|\$\{.*\}|\{\{.*\}\})$/i;
+
 /** Curated provider token formats, not exhaustive: the structural rule (a literal bound to a secret-named identifier) catches the rest */
 export const SIGNATURES: LineRule[] = deepFreeze([
   {
@@ -53,8 +59,7 @@ export const SIGNATURES: LineRule[] = deepFreeze([
     detail: 'JSON Web Token (eyJ…) committed in source',
   },
   {
-    regex:
-      /-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?(?:ENCRYPTED )?PRIVATE KEY(?: BLOCK)?-----/,
+    regex: PRIVATE_KEY_BLOCK,
     detail: 'private key block (PEM) committed in source',
   },
 ]);
@@ -123,3 +128,6 @@ export const sinkOf = (language: LanguageId): RegExp | null =>
 
 export const envFallbacksOf = (language: LanguageId): readonly RegExp[] =>
   ENV_FALLBACKS[language] ?? [];
+
+export const isPlaceholder = (value: string): boolean =>
+  PLACEHOLDER.test(value);
