@@ -6,6 +6,8 @@ description: Sweep a project's manifests, lockfiles, and index settings for depe
 ---
 
 import { Faq } from '@site/src/components/docs/Faq';
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
 
 The `dependency` hook flags **how a project's dependencies resolve and install** wherever the files alone decide it. It reads only dependency files, and it is the deterministic engine behind the [`dependency` specialization](/docs/catalog).
 
@@ -19,13 +21,14 @@ npx lagune read dependency --file package.json   # scans a single file
 
 The scan prints up to two sections, each line naming the packages or indexes it applies to. **Dependency risks found** exits non-zero and holds what the files alone decide: a dependency, an index, or the build tool a wrapper downloads reached over plain `http://` or `git://`, a registry entry with no integrity hash, and a setting that merges package indexes, so a public package can shadow a private one. **Dependency hardening advisories** does not change the exit code: a manifest with dependencies and no lockfile covering it, a source outside the registry (git or a remote tarball), a package the lockfile marks as running install scripts, and a floating specifier such as `*` or `latest`. A clean run prints `no dependency risks found`, and a URL it names never carries the user name or password written in it.
 
-A file it cannot read or parse stops the scan with an error that names the file, never a clean result.
+A file it cannot read or parse stops the scan with an error that names the file, never a clean result. So does an XML file that declares a document type, since an entity it declares could hide a URL or expand without bound.
 
 ### Ecosystem coverage
 
 It reads the dependency files of **npm**, **pnpm**, **Yarn**, **pip**, **Poetry**, **Pipenv**, **uv**, **Cargo**, Go modules, **Bundler**, **Composer**, **NuGet**, **Maven**, and **Gradle**, and each one gets only the rules its files decide. A rule an ecosystem's table leaves out is not checked there.
 
-#### JavaScript
+<Tabs>
+  <TabItem value="javascript" label="JavaScript" default>
 
 | Rule                     | **npm**                               | **pnpm**                              | **Yarn**                                                                |
 | ------------------------ | ------------------------------------- | ------------------------------------- | ----------------------------------------------------------------------- |
@@ -38,7 +41,8 @@ It reads the dependency files of **npm**, **pnpm**, **Yarn**, **pip**, **Poetry*
 
 `npm-shrinkwrap.json` reads as `package-lock.json`. A lockfile covers the manifest beside it and, at a workspace root, every manifest below it. A **Bun** or **Deno** lockfile covers its manifest too, though its entries are not read.
 
-#### Python
+  </TabItem>
+  <TabItem value="python" label="Python">
 
 | Rule                     | **pip**                                                    | **Poetry**                      | **Pipenv**                | **uv**                                                     |
 | ------------------------ | ---------------------------------------------------------- | ------------------------------- | ------------------------- | ---------------------------------------------------------- |
@@ -49,39 +53,71 @@ It reads the dependency files of **npm**, **pnpm**, **Yarn**, **pip**, **Poetry*
 
 A requirements file is a `.txt` whose name holds the word `requirements`, or any `.txt` in a `requirements` folder. One that pins every requirement it takes from an index to a single version with `==` or `===` counts as a lockfile: it raises no advisory and covers the `pyproject.toml` beside it, or beside its `requirements` folder. A `pyproject.toml` is also covered by a `poetry.lock`, a `uv.lock`, a **PDM** `pdm.lock`, or a PEP 751 `pylock.toml`, a `Pipfile` only by its `Pipfile.lock`, and a requirements file that floats only by a `pylock.toml`. A `uv.lock` at a **uv** workspace root covers every `pyproject.toml` below it, never a `Pipfile` or a requirements file. The entries of `pdm.lock` and `pylock.toml` are not read.
 
-#### Rust and Go
+  </TabItem>
+  <TabItem value="rust" label="Rust">
 
-| Rule                     | **Cargo**                                        | Go modules  |
-| ------------------------ | ------------------------------------------------ | ----------- |
-| Plain `http://`/`git://` | `Cargo.lock`, `Cargo.toml`, `.cargo/config.toml` | Not checked |
-| No integrity hash        | `Cargo.lock`                                     | `go.sum`    |
-| No lockfile              | `Cargo.toml`                                     | `go.mod`    |
+| Rule                     | **Cargo**                                        |
+| ------------------------ | ------------------------------------------------ |
+| Plain `http://`/`git://` | `Cargo.lock`, `Cargo.toml`, `.cargo/config.toml` |
+| No integrity hash        | `Cargo.lock`                                     |
+| No lockfile              | `Cargo.toml`                                     |
 
-`.cargo/config` reads as `.cargo/config.toml`. A `Cargo.lock` covers the `Cargo.toml` beside it and, at a workspace root, every `Cargo.toml` below it, and a crate `cargo vendor` copied, marked by the `.cargo-checksum.json` beside it, needs none. A `go.sum` covers the `go.mod` beside it and must hold a checksum, of the whole module or of its `go.mod`, for every module that `go.mod` requires once its `replace` directives apply, except one a folder replaces. Go names a module by its path alone and takes the transport it fetches over from the environment (`GOPROXY`, `GOINSECURE`), never from its files. Each Go module is judged as it builds on its own, since a workspace's `go.work` and `go.work.sum` are not read.
+`.cargo/config` reads as `.cargo/config.toml`. A `Cargo.lock` covers the `Cargo.toml` beside it and, at a workspace root, every `Cargo.toml` below it, and a crate `cargo vendor` copied, marked by the `.cargo-checksum.json` beside it, needs none.
 
-#### Ruby and PHP
+  </TabItem>
+  <TabItem value="go" label="Go">
 
-| Rule                     | **Bundler**               | **Composer**                     |
-| ------------------------ | ------------------------- | -------------------------------- |
-| Plain `http://`/`git://` | `Gemfile.lock`, `Gemfile` | `composer.lock`, `composer.json` |
-| No lockfile              | `Gemfile`                 | `composer.json`                  |
+| Rule              | Go modules |
+| ----------------- | ---------- |
+| No integrity hash | `go.sum`   |
+| No lockfile       | `go.mod`   |
 
-`gems.rb` reads as `Gemfile` and `gems.locked` as `Gemfile.lock`. A `Gemfile` is read with **Prism**, Ruby's own parser, so every string counts as Ruby reads it, escapes included: a URL written as a quoted string or symbol, a percent literal such as `%q()` or `%w[]`, a heredoc, or any line of one, is a source whatever call takes it, and so is `source :rubygems`, which **Bundler** 2 fetches over `http://`. Reading stops at `__END__`, and a URL the code assembles at runtime, such as one read from the environment, is not read. A `Gemfile.lock` covers the `Gemfile` beside it and a `composer.lock` the `composer.json` beside it, and a package **Composer** installed, marked by the `composer/installed.json` of the vendor folder it sits in, needs none. A `composer.json` that requires only platform packages, such as `php` or `ext-json`, declares no dependencies. The checksums of a `Gemfile.lock`, the dist checksums **Composer** often leaves empty, and `.bundle/config` are not read.
+A `go.sum` covers the `go.mod` beside it and must hold a checksum, of the whole module or of its `go.mod`, for every module that `go.mod` requires once its `replace` directives apply, except one a folder replaces. Go names a module by its path alone and takes the transport it fetches over from the environment (`GOPROXY`, `GOINSECURE`), never from its files. Each Go module is judged as it builds on its own, since a workspace's `go.work` and `go.work.sum` are not read.
 
-#### .NET and the JVM
+  </TabItem>
+  <TabItem value="ruby" label="Ruby">
 
-| Rule                     | **NuGet**                     | **Maven**                                             | **Gradle**                                |
-| ------------------------ | ----------------------------- | ----------------------------------------------------- | ----------------------------------------- |
-| Plain `http://`/`git://` | `nuget.config`, MSBuild files | `pom.xml`, `settings.xml`, `maven-wrapper.properties` | Every script, `gradle-wrapper.properties` |
-| No lockfile              | Project files                 | Not checked                                           | `build.gradle`                            |
+| Rule                     | **Bundler**               |
+| ------------------------ | ------------------------- |
+| Plain `http://`/`git://` | `Gemfile.lock`, `Gemfile` |
+| No lockfile              | `Gemfile`                 |
+
+`gems.rb` reads as `Gemfile` and `gems.locked` as `Gemfile.lock`. A `Gemfile` is read with **Prism**, Ruby's own parser, so every string counts as Ruby reads it, escapes included: a URL written as a quoted string or symbol, a percent literal such as `%q()` or `%w[]`, a heredoc, or any line of one, is a source whatever call takes it, and so is `source :rubygems`, which **Bundler** 2 fetches over `http://`. Reading stops at `__END__`, and a URL the code assembles at runtime, such as one read from the environment, is not read. A `Gemfile.lock` covers the `Gemfile` beside it. Its checksums are not read, and neither is `.bundle/config`.
+
+  </TabItem>
+  <TabItem value="php" label="PHP">
+
+| Rule                     | **Composer**                     |
+| ------------------------ | -------------------------------- |
+| Plain `http://`/`git://` | `composer.lock`, `composer.json` |
+| No lockfile              | `composer.json`                  |
+
+A `composer.lock` covers the `composer.json` beside it, and a package **Composer** installed, marked by the `composer/installed.json` of the vendor folder it sits in, needs none. A `composer.json` that requires only platform packages, such as `php` or `ext-json`, declares no dependencies. The dist checksums **Composer** often leaves empty are not read.
+
+  </TabItem>
+  <TabItem value="dotnet" label=".NET">
+
+| Rule                     | **NuGet**                     |
+| ------------------------ | ----------------------------- |
+| Plain `http://`/`git://` | `nuget.config`, MSBuild files |
+| No lockfile              | Project files                 |
 
 A project file is a `.csproj`, an `.fsproj`, or a `.vbproj`, and it is read with `Directory.Build.props`, `Directory.Build.targets`, and `Directory.Packages.props` for the sources `RestoreSources` and `RestoreAdditionalProjectSources` add. A `nuget.config`, whatever the case of its name, is read for every source its `packageSources` lists. A project file that holds a `PackageReference` declares dependencies, and the `packages.lock.json` beside it, or the `packages.<project>.lock.json` named after it, covers it, but not a lockfile `NuGetLockFilePath` moves elsewhere. The entries of `packages.lock.json` and `packages.config` are not read.
+
+  </TabItem>
+  <TabItem value="jvm" label="JVM">
+
+| Rule                     | **Maven**                                             | **Gradle**                                |
+| ------------------------ | ----------------------------------------------------- | ----------------------------------------- |
+| Plain `http://`/`git://` | `pom.xml`, `settings.xml`, `maven-wrapper.properties` | Every script, `gradle-wrapper.properties` |
+| No lockfile              | Not checked                                           | `build.gradle`                            |
 
 In a `pom.xml`, the repositories and plugin repositories of the project and its profiles are read, never the `distributionManagement` repository it deploys to. A `settings.xml` adds its mirrors, read only where a project keeps one for **Maven**: in `.mvn` or `.m2`, or beside a `pom.xml`, for the `-s` option to pass. One anywhere else, or whose root element is not `settings`, belongs to another tool and is left alone. **Maven** writes no lockfile, so it raises no advisory.
 
 In every **Gradle** script, Groovy or Kotlin, a URL written as one string inside a `repositories`, `maven`, `ivy`, or `sourceControl` block is a source, except under `publishing`, while a URL a variable or a property holds is not read. A `build.gradle` or `build.gradle.kts` declares dependencies once a `dependencies` block holds anything outside `buildscript` and `subprojects`, and the `gradle.lockfile` beside it covers it, never one `dependencyLocking` moves elsewhere. Slashy and dollar-slashy strings are not read, and a quote or a brace inside one can throw the reader off, which most often ends in refusing a valid script. A `gradle.lockfile` records no checksum, and `gradle/verification-metadata.xml` is not read. A wrapper's properties are read the way Java reads them, escapes included, for the `distributionUrl` it downloads the build tool from and the `wrapperUrl` of the **Maven** wrapper.
 
-An XML file that declares a document type stops the scan, since an entity it declares could hide a URL or expand without bound.
+  </TabItem>
+</Tabs>
 
 A lockfile covers a manifest even when the scan names only a folder beneath it, but one the scan leaves out, such as one **Git** ignores, covers nothing. The other ecosystems (**Swift Package Manager**, **CocoaPods**, **Dart** pub, **Mix**, **Paket**, and **sbt**) are not read, and neither are **Conda**, `setup.py`, and `setup.cfg`.
 
