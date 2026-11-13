@@ -58,4 +58,24 @@ await describe('the secrets hook runs through the engine', async () => {
       ]
     );
   });
+
+  await it('advises on an environment file Git tracks with public defaults, without failing', async () => {
+    const workspace = await newWorkspace();
+
+    await git(workspace, ['init', '--quiet']);
+    await writeFile(join(workspace, '.env'), 'PORT=3000\n', 'utf8');
+    await git(workspace, ['add', '.env']);
+
+    const scan = await runEngine(workspace, ['read', 'secrets'], {
+      env: { ...env, HOME: workspace, USERPROFILE: workspace },
+    });
+
+    strict.deepStrictEqual(
+      [scan.stdout, scan.code],
+      [
+        'Secret handling advisories:\n\n.env\n  environment file tracked by Git: confirm every value it sets is meant to be public\n',
+        0,
+      ]
+    );
+  });
 });

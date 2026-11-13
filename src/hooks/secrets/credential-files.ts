@@ -9,6 +9,7 @@ import { basename, dirname } from 'node:path';
 import { deepFreeze } from '../../core/collections.js';
 import { EMPTY_ANALYSIS } from '../../core/scan/scope.js';
 import { isPlaceholder, PRIVATE_KEY_BLOCK } from './patterns.js';
+import { trackedFinding, unknownTrackingLead, unreadLead } from './verdicts.js';
 
 const SSH_KEY = /^id_(?:rsa|dsa|ecdsa|ed25519)(?:_sk)?$/;
 const KEYSTORE = /\.(?:p12|pfx|jks|keystore)$/;
@@ -37,8 +38,6 @@ const KUBE_SECRET_KEYS: ReadonlySet<string> = new Set([
   'refresh-token',
   'access-token',
 ]);
-
-const UNTRACK = 'stop tracking it (git rm --cached) and add it to .gitignore';
 
 const unquoted = (text: string): string => {
   const quote = text[0];
@@ -161,7 +160,7 @@ export const credentialFileOf = (
   return CREDENTIAL_FILES.find((file) => file.matches(name, folder)) ?? null;
 };
 
-export const readsContent = (file: CredentialFile | null): boolean =>
+export const readsCredentialContent = (file: CredentialFile | null): boolean =>
   file !== null && file.holdsSecret !== null;
 
 const verdictOf = (
@@ -174,12 +173,6 @@ const verdictOf = (
   return holdsSecret(text) ? 'credential' : 'clean';
 };
 
-const reviewOf = (detail: string): FileAnalysis => ({
-  findings: [],
-  review: [detail],
-  advisory: [],
-});
-
 /** A credential file Git tracks is a finding, one whose content or Git status cannot be read is a lead, and one Git does not track stays silent */
 export const credentialFileAnalysis = (
   file: CredentialFile,
@@ -191,18 +184,8 @@ export const credentialFileAnalysis = (
   const verdict = verdictOf(file, text);
 
   if (verdict === 'clean') return EMPTY_ANALYSIS;
-  if (verdict === 'unread')
-    return reviewOf(
-      `possible ${file.label} in a file that could not be read: check it by hand`
-    );
-  if (tracking === 'unknown')
-    return reviewOf(
-      `${file.label} with no readable Git index to tell whether Git tracks it: confirm it is not committed`
-    );
+  if (verdict === 'unread') return unreadLead(file.label);
+  if (tracking === 'unknown') return unknownTrackingLead(file.label);
 
-  return {
-    findings: [`${file.label} tracked by Git: ${UNTRACK}`],
-    review: [],
-    advisory: [],
-  };
+  return trackedFinding(file.label);
 };

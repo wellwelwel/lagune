@@ -9,3 +9,5 @@ export type CredentialFile = {
 };
 
 export type ConfigEntry = readonly [key: string, value: string];
+
+export type EnvFileKind = 'local' | 'shared';

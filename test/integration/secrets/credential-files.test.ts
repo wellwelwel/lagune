@@ -1,7 +1,5 @@
-import type { ScanDetail, ScanReport } from '../../../src/types/scan.js';
 import { chmod, mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import process, { platform } from 'node:process';
 import { describe, it, strict } from 'poku';
 import {
   credentialFileAnalysis,
@@ -14,6 +12,12 @@ import {
   trackedRepository,
   writeFiles,
 } from '../scan/__utils__.js';
+import {
+  itWithPermissionBits,
+  reported,
+  scanWhole,
+  sortedDetails,
+} from './__utils__.js';
 
 hideUserHome();
 
@@ -37,9 +41,6 @@ const KUBECONFIG = [
   `    token: ${KUBE_TOKEN}`,
   '',
 ].join('\n');
-
-const itWithPermissionBits =
-  platform === 'win32' || process.getuid?.() === 0 ? it.skip : it;
 
 const CREDENTIAL_FILES: readonly (readonly [
   path: string,
@@ -73,24 +74,6 @@ const CREDENTIAL_FILES: readonly (readonly [
   ['.kube/config', KUBECONFIG, 'kubeconfig credentials'],
 ];
 
-const sortedDetails = (details: readonly ScanDetail[]): ScanDetail[] =>
-  details.toSorted(
-    (left, right) =>
-      left.file.localeCompare(right.file) ||
-      left.detail.localeCompare(right.detail)
-  );
-
-const leadsAndFindings = ({
-  findings,
-  review,
-}: ScanReport): Pick<ScanReport, 'findings' | 'review'> => ({
-  findings: sortedDetails(findings),
-  review: sortedDetails(review),
-});
-
-const scanWhole = (workspace: string): Promise<ScanReport> =>
-  scanSecrets(workspace, [workspace]);
-
 const filesUnder = (folder: string): Record<string, string> =>
   Object.fromEntries(
     CREDENTIAL_FILES.map(([path, content]) => [`${folder}/${path}`, content])
@@ -111,7 +94,7 @@ await describe('the secrets checker reports the credential files Git tracks', as
 
     const report = await scanWhole(workspace);
 
-    strict.deepStrictEqual(leadsAndFindings(report), {
+    strict.deepStrictEqual(reported(report), {
       findings: sortedDetails([
         ...CREDENTIAL_FILES.map(([path, , label]) => ({
           file: join('tracked', path),
@@ -121,6 +104,7 @@ await describe('the secrets checker reports the credential files Git tracks', as
         { file: join('untracked', 'cert.pem'), detail: PEM_VALUE },
       ]),
       review: [],
+      advisory: [],
     });
   });
 
@@ -141,9 +125,10 @@ await describe('the secrets checker reports the credential files Git tracks', as
 
     const report = await scanWhole(workspace);
 
-    strict.deepStrictEqual(leadsAndFindings(report), {
+    strict.deepStrictEqual(reported(report), {
       findings: [],
       review: [],
+      advisory: [],
     });
   });
 
@@ -163,7 +148,7 @@ await describe('the secrets checker reports the credential files Git tracks', as
 
     const report = await scanSecrets(workspace, [join(workspace, 'src')]);
 
-    strict.deepStrictEqual(leadsAndFindings(report), {
+    strict.deepStrictEqual(reported(report), {
       findings: [
         {
           file: join('src', 'server.key'),
@@ -171,6 +156,7 @@ await describe('the secrets checker reports the credential files Git tracks', as
         },
       ],
       review: [],
+      advisory: [],
     });
   });
 
@@ -187,7 +173,7 @@ await describe('the secrets checker reports the credential files Git tracks', as
 
       const report = await scanWhole(workspace);
 
-      strict.deepStrictEqual(leadsAndFindings(report), {
+      strict.deepStrictEqual(reported(report), {
         findings: [],
         review: [
           {
@@ -196,6 +182,7 @@ await describe('the secrets checker reports the credential files Git tracks', as
               'possible package registry auth token in a file that could not be read: check it by hand',
           },
         ],
+        advisory: [],
       });
     }
   );
@@ -244,7 +231,7 @@ await describe('without a readable Git index, the secrets checker lists the cred
 
       const report = await scanWhole(workspace);
 
-      strict.deepStrictEqual(leadsAndFindings(report), {
+      strict.deepStrictEqual(reported(report), {
         findings: [],
         review: [
           {
@@ -253,6 +240,7 @@ await describe('without a readable Git index, the secrets checker lists the cred
               'private key with no readable Git index to tell whether Git tracks it: confirm it is not committed',
           },
         ],
+        advisory: [],
       });
     });
 });

@@ -22,8 +22,9 @@ import { walkTargetsWith } from '../../core/scan/walk.js';
 import {
   credentialFileAnalysis,
   credentialFileOf,
-  readsContent,
+  readsCredentialContent,
 } from './credential-files.js';
+import { envFileAnalysis, envFileOf, readsEnvContent } from './env-files.js';
 import { analyze } from './secrets.js';
 
 const SECRETS_FILTER: WalkFilter = deepFreeze({
@@ -31,7 +32,8 @@ const SECRETS_FILTER: WalkFilter = deepFreeze({
   ignoredDirPatterns: BASE_IGNORED_DIR_PATTERNS,
   accept: (relativePath) =>
     SOURCE_FILTER.accept(relativePath) ||
-    credentialFileOf(relativePath) !== null,
+    credentialFileOf(relativePath) !== null ||
+    envFileOf(relativePath) !== null,
 });
 
 const trackingOf = (ignores: GitIgnores | null, file: string): GitTracking => {
@@ -42,10 +44,10 @@ const trackingOf = (ignores: GitIgnores | null, file: string): GitTracking => {
     : 'untracked';
 };
 
-const combined = (left: FileAnalysis, right: FileAnalysis): FileAnalysis => ({
-  findings: [...left.findings, ...right.findings],
-  review: [...left.review, ...right.review],
-  advisory: [...left.advisory, ...right.advisory],
+const combined = (...analyses: readonly FileAnalysis[]): FileAnalysis => ({
+  findings: analyses.flatMap((analysis) => analysis.findings),
+  review: analyses.flatMap((analysis) => analysis.review),
+  advisory: analyses.flatMap((analysis) => analysis.advisory),
 });
 
 const analyzedFile = async (
@@ -55,25 +57,33 @@ const analyzedFile = async (
 ): Promise<AnalyzedFile> => {
   const isSource = SOURCE_FILTER.accept(file);
   const credentialFile = credentialFileOf(file);
+  const envFile = envFileOf(file);
   const text =
-    isSource || readsContent(credentialFile)
+    isSource ||
+    readsCredentialContent(credentialFile) ||
+    readsEnvContent(envFile)
       ? await readText(join(root, file))
       : null;
   const values =
     isSource && text !== null ? analyze(file, text) : EMPTY_ANALYSIS;
 
-  if (credentialFile === null) return { file, analysis: values };
+  if (credentialFile === null && envFile === null)
+    return { file, analysis: values };
 
-  const stored = credentialFileAnalysis(
-    credentialFile,
-    text,
-    trackingOf(ignores, file)
-  );
+  const tracking = trackingOf(ignores, file);
+  const credential =
+    credentialFile === null
+      ? EMPTY_ANALYSIS
+      : credentialFileAnalysis(credentialFile, text, tracking);
+  const environment =
+    envFile === null
+      ? EMPTY_ANALYSIS
+      : envFileAnalysis(envFile, text, tracking);
 
-  return { file, analysis: combined(values, stored) };
+  return { file, analysis: combined(values, credential, environment) };
 };
 
-/** Scans the targets for secrets written in the source and for the credential files Git tracks */
+/** Scans the targets for secrets written in the source and for the credential and environment files Git tracks */
 export const scanSecrets = async (
   root: string,
   targets: readonly string[]

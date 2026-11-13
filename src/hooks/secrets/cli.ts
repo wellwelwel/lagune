@@ -15,6 +15,7 @@ const HEADINGS: ReportHeadings = {
   sentinel: 'no hardcoded secrets found\n',
   findings: 'Hardcoded secrets found:',
   review: 'Secret handling to review manually:',
+  advisory: 'Secret handling advisories:',
 };
 
 const runScan = async (targets: string[]): Promise<HookResult> => {
