@@ -1,21 +1,29 @@
 import type { GitTracking } from '../../types/git.js';
 import type {
+  CommittableTracking,
   ConfigEntry,
+  EnvEvidence,
   EnvFileKind,
+  EvidenceTier,
   TrackingVerdicts,
 } from '../../types/hooks/secrets.js';
 import type { FileAnalysis } from '../../types/scan.js';
 import { basename } from 'node:path';
-import { deepFreeze } from '../../core/collections.js';
+import { allOf, deepFreeze } from '../../core/collections.js';
 import { languageOf } from '../../core/scan/language.js';
 import { EMPTY_ANALYSIS } from '../../core/scan/scope.js';
-import { isPlaceholder, SIGNATURES } from './patterns.js';
+import {
+  connectionCredentialOf,
+  isPlaceholder,
+  SIGNATURES,
+} from './patterns.js';
 import {
   advisoryOf,
-  findingOf,
-  unknownTrackingLead,
+  EXPOSURES,
+  PLACES,
+  REMEDIES,
+  reviewOf,
   unreadLead,
-  verdictsFor,
 } from './verdicts.js';
 
 const ENV_NAME = /^\.env(?:\.[\w-]{1,64}){0,8}$/;
@@ -23,8 +31,13 @@ const EXPORT = /^export[ \t]+/;
 const ENV_KEY = /^[A-Za-z_][\w.-]{0,255}$/;
 const SECRET_VARIABLE =
   /(?:^|[_.-])(?:PASSWORD|PASSWD|PASS|PWD|PASSPHRASE|SECRET|TOKEN|SECRET_KEY_BASE|(?:API|SECRET|ACCESS|PRIVATE|ENCRYPTION|SIGNING|MASTER|AUTH)_?KEY)$/i;
-const PUBLIC_VARIABLE = /^(?:NEXT_PUBLIC_|VITE_)/;
+const TOKEN_VARIABLE = /TOKEN$/i;
+const PUBLIC_VARIABLE =
+  /^(?:(?:NEXT|NUXT|EXPO)_PUBLIC_|PUBLIC_|VITE_|REACT_APP_|VUE_APP_|GATSBY_)/;
 const BOOLEAN = /^(?:true|false)$/i;
+const COUNT = /^\d{1,32}$/;
+const DOTENVX_CIPHERTEXT = 'encrypted:';
+const DOTENVX_KEYS = '.env.keys';
 
 const TEMPLATES: ReadonlySet<string> = new Set([
   'example',
@@ -33,35 +46,53 @@ const TEMPLATES: ReadonlySet<string> = new Set([
 ]);
 
 const LOCAL_LABEL = 'environment file meant to stay local';
-const LEAK_LABEL = 'secret in an environment file';
-const MOVE_LEAK =
+const MOVE_SECRET =
   'move the secret to a local file Git ignores, such as .env.local';
 
-const LOCAL_VERDICTS: TrackingVerdicts = verdictsFor(LOCAL_LABEL);
+const FILES: Readonly<Record<EnvFileKind, string>> = deepFreeze({
+  shared: 'an environment file',
+  local: `an ${LOCAL_LABEL}`,
+});
 
-const LEAK_VERDICTS: TrackingVerdicts = deepFreeze({
-  tracked: findingOf(
-    `${LEAK_LABEL} tracked by Git: ${MOVE_LEAK}, or stop tracking this file (git rm --cached) and add it to .gitignore`
+const SUBJECTS: Readonly<Record<EvidenceTier, string>> = deepFreeze({
+  proven: 'secret',
+  unconfirmed: 'possible secret',
+});
+
+const CONDITIONS: Readonly<Record<EvidenceTier, string>> = deepFreeze({
+  proven: '',
+  unconfirmed: 'if it is a real credential rather than a development default, ',
+});
+
+const SEVERITIES: Readonly<
+  Record<
+    EvidenceTier,
+    Record<CommittableTracking, (detail: string) => FileAnalysis>
+  >
+> = deepFreeze({
+  proven: EXPOSURES,
+  unconfirmed: { tracked: reviewOf, unignored: reviewOf },
+});
+
+const LOCAL_VERDICTS: TrackingVerdicts = deepFreeze({
+  tracked: advisoryOf(
+    `${LOCAL_LABEL} ${PLACES.tracked}: the next secret written here lands in a commit, so ${REMEDIES.tracked}`
   ),
   unignored: advisoryOf(
-    `${LEAK_LABEL} that Git does not ignore: ${MOVE_LEAK}, or add this file to .gitignore, so the next git add cannot commit it`
+    `${LOCAL_LABEL} ${PLACES.unignored}: ${REMEDIES.unignored}`
   ),
-  unknown: unknownTrackingLead(LEAK_LABEL),
 });
 
-const DEFAULTS_VERDICTS: TrackingVerdicts = deepFreeze({
-  tracked: advisoryOf(
-    'environment file tracked by Git: confirm every value it sets is meant to be public'
-  ),
-  unignored: EMPTY_ANALYSIS,
-  unknown: EMPTY_ANALYSIS,
-});
-
-/** The kind of environment file a path names, or none for a template or a source file */
+/** The kind of environment file a path names, or none for a template, a source file, or the dotenvx key file */
 export const envFileOf = (relativePath: string): EnvFileKind | null => {
   const name = basename(relativePath).toLowerCase();
 
-  if (!ENV_NAME.test(name) || languageOf(name) !== null) return null;
+  if (
+    name === DOTENVX_KEYS ||
+    !ENV_NAME.test(name) ||
+    languageOf(name) !== null
+  )
+    return null;
 
   const variants = name.split('.').slice(2);
 
@@ -71,7 +102,7 @@ export const envFileOf = (relativePath: string): EnvFileKind | null => {
 };
 
 export const readsEnvContent = (kind: EnvFileKind | null): boolean =>
-  kind === 'shared';
+  kind !== null;
 
 const valueOf = (raw: string): string => {
   const quote = raw[0];
@@ -107,39 +138,84 @@ const assignmentOf = (line: string): ConfigEntry | null => {
 const isSet = (value: string): boolean =>
   value !== '' &&
   !value.startsWith('$') &&
+  !value.startsWith(DOTENVX_CIPHERTEXT) &&
   !BOOLEAN.test(value) &&
   !isPlaceholder(value);
 
-const setsSecretVariable = (line: string): boolean => {
+const isTokenCount = (key: string, value: string): boolean =>
+  TOKEN_VARIABLE.test(key) && COUNT.test(value);
+
+const setsSecretVariable = ([key, value]: ConfigEntry): boolean =>
+  !PUBLIC_VARIABLE.test(key) &&
+  SECRET_VARIABLE.test(key) &&
+  isSet(value) &&
+  !isTokenCount(key, value);
+
+const valueTierOf = (line: string): EvidenceTier | null =>
+  SIGNATURES.some((rule) => rule.regex.test(line))
+    ? 'proven'
+    : connectionCredentialOf(line);
+
+const evidenceOf = (line: string, index: number): EnvEvidence | null => {
   const assignment = assignmentOf(line);
+  const tier = valueTierOf(line);
 
-  if (assignment === null) return false;
+  if (tier !== null)
+    return {
+      tier,
+      source: assignment === null ? `line ${index + 1}` : assignment[0],
+    };
 
-  const [key, value] = assignment;
+  if (assignment === null || !setsSecretVariable(assignment)) return null;
 
-  return (
-    !PUBLIC_VARIABLE.test(key) && SECRET_VARIABLE.test(key) && isSet(value)
-  );
+  return { tier: 'unconfirmed', source: assignment[0] };
 };
 
-const holdsSecret = (text: string): boolean =>
-  text
-    .split('\n')
-    .some(
-      (line) =>
-        SIGNATURES.some((rule) => rule.regex.test(line)) ||
-        setsSecretVariable(line)
-    );
+const sourcesOf = (
+  evidence: readonly EnvEvidence[],
+  tier: EvidenceTier
+): string[] => [
+  ...new Set(
+    evidence.filter((item) => item.tier === tier).map((item) => item.source)
+  ),
+];
 
-/** A tracked environment file is a finding when it is meant to stay local or sets a secret, and an advisory otherwise. One that would be a finding is an advisory when Git would commit it and a lead without a readable index, an unreadable one is a lead, and one Git ignores stays silent */
+const actionOf = (kind: EnvFileKind, tracking: CommittableTracking): string =>
+  kind === 'local'
+    ? REMEDIES[tracking]
+    : `${MOVE_SECRET}, or ${REMEDIES[tracking]}`;
+
+const leakOf = (
+  tier: EvidenceTier,
+  sources: readonly string[],
+  kind: EnvFileKind,
+  tracking: CommittableTracking
+): FileAnalysis =>
+  SEVERITIES[tier][tracking](
+    `${SUBJECTS[tier]} (${allOf(sources)}) in ${FILES[kind]} ${PLACES[tracking]}: ${CONDITIONS[tier]}${actionOf(kind, tracking)}`
+  );
+
+/** The one verdict an environment file earns from the strongest evidence it holds and from its Git status */
 export const envFileAnalysis = (
   kind: EnvFileKind,
   text: string | null,
   tracking: GitTracking
 ): FileAnalysis => {
   if (tracking === 'ignored') return EMPTY_ANALYSIS;
-  if (kind === 'local') return LOCAL_VERDICTS[tracking];
   if (text === null) return unreadLead('secret');
 
-  return (holdsSecret(text) ? LEAK_VERDICTS : DEFAULTS_VERDICTS)[tracking];
+  const evidence = text
+    .split('\n')
+    .map(evidenceOf)
+    .filter((item) => item !== null);
+  const proven = sourcesOf(evidence, 'proven');
+
+  if (proven.length > 0) return leakOf('proven', proven, kind, tracking);
+
+  const unconfirmed = sourcesOf(evidence, 'unconfirmed');
+
+  if (unconfirmed.length > 0)
+    return leakOf('unconfirmed', unconfirmed, kind, tracking);
+
+  return kind === 'local' ? LOCAL_VERDICTS[tracking] : EMPTY_ANALYSIS;
 };

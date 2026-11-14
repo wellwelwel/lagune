@@ -1,19 +1,26 @@
 import type { GitTracking } from '../git.js';
-import type { FileAnalysis } from '../scan.js';
+import type { AnalyzedFile, FileAnalysis } from '../scan.js';
 
-export type TrackingVerdicts = Record<
-  Exclude<GitTracking, 'ignored'>,
-  FileAnalysis
->;
+export type CommittableTracking = Exclude<GitTracking, 'ignored'>;
 
-export type CredentialVerdict = 'credential' | 'clean' | 'unread';
+export type TrackingVerdicts = Record<CommittableTracking, FileAnalysis>;
+
+export type EvidenceTier = 'proven' | 'unconfirmed';
+
+export type ContentVerdict = 'credential' | 'clean' | 'unconfirmed';
+
+export type CredentialVerdict = ContentVerdict | 'unread';
 
 export type CredentialFile = {
   label: string;
   matches: (name: string, folder: string) => boolean;
-  holdsSecret: ((text: string) => boolean) | null;
+  judgeContent: ((text: string) => ContentVerdict) | null;
 };
 
 export type ConfigEntry = readonly [key: string, value: string];
 
 export type EnvFileKind = 'local' | 'shared';
+
+export type EnvEvidence = { tier: EvidenceTier; source: string };
+
+export type SecretsFile = AnalyzedFile & { awaitsGit: boolean };

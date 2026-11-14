@@ -1,5 +1,6 @@
 import type {
   BoundedRead,
+  GitEntry,
   GitIgnores,
   IgnoreList,
   TrackedIndex,
@@ -161,6 +162,19 @@ const trackedIn = async (
   if (index.status === 'unusable') return null;
 
   return trackedIndexOf(index.content, await hashLengthOf(gitDirectory));
+};
+
+/** What sits at a project's .git, read without following a link or the gitdir a worktree or submodule names */
+export const gitEntryOf = async (root: string): Promise<GitEntry> => {
+  try {
+    const stats = await lstat(join(root, '.git'));
+
+    if (stats.isDirectory()) return 'folder';
+
+    return stats.isFile() || stats.isSymbolicLink() ? 'pointer' : 'other';
+  } catch (error) {
+    return isMissing(error) ? 'absent' : 'other';
+  }
 };
 
 /** What Git ignores and tracks in a project whose root holds a real .git folder with an index this reader trusts, or none */

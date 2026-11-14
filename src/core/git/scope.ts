@@ -111,14 +111,12 @@ export const targetScope = async (
   return folderScope(root, rootScope, names);
 };
 
-/** Whether Git tracks, ignores, or would commit a file named from the project root, spending the root scope's match budget, or `unknown` without one */
+/** Whether Git tracks, ignores, or would commit a file named from the project root, spending the root scope's match budget */
 export const trackingOf = async (
   root: string,
   file: string,
-  rootScope: GitScope | null
+  rootScope: GitScope
 ): Promise<GitTracking> => {
-  if (rootScope === null) return 'unknown';
-
   const segments = file.split(sep);
 
   if (tracks(rootScope, segments, false)) return 'tracked';

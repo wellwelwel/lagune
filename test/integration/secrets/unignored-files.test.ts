@@ -11,7 +11,7 @@ const UNIGNORED_KEY: readonly ScanDetail[] = [
   {
     file: 'id_rsa',
     detail:
-      'private key that Git does not ignore: add it to .gitignore, so the next git add cannot commit it',
+      'private key that Git does not ignore: add this file to .gitignore, so the next git add cannot commit it',
   },
 ];
 

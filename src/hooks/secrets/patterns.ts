@@ -1,3 +1,4 @@
+import type { EvidenceTier } from '../../types/hooks/secrets.js';
 import type { LanguageId, LineRule } from '../../types/scan.js';
 import { deepFreeze } from '../../core/collections.js';
 
@@ -5,7 +6,21 @@ export const PRIVATE_KEY_BLOCK =
   /-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?(?:ENCRYPTED )?PRIVATE KEY(?: BLOCK)?-----/;
 
 const PLACEHOLDER =
-  /^(?:changeme|changeit|change[-_]me|your[-_]?[\w-]+|example[\w-]*|sample[\w-]*|dummy[\w-]*|test[\w-]*|placeholder|redacted|todo|none|null|undefined|x{3,}|\*{3,}|\.{3,}|<.*>|\$\{.*\}|\{\{.*\}\})$/i;
+  /^(?:changeme|changeit|change[-_]me|replace(?:me|[-_][\w-]*)|insert[-_][\w-]*|your[-_]?[\w-]+|example[\w-]*|sample[\w-]*|dummy[\w-]*|test[\w-]*|placeholder|redacted|todo|none|null|undefined|x{3,}|\*{3,}|[\w.-]{0,64}(?:\.{3}|\u2026)|<.*>|\$\{.*\}|\{\{.*\}\})$/i;
+
+const CONNECTION_STRING =
+  /\b[a-z][a-z0-9+.-]{1,20}:\/\/[^\s:'"`@/]{0,64}:([^\s:'"`@/]{1,256})@([^\s'"`/]{1,256})/gi;
+
+const HOST_END = /[:?#,;)>]/;
+const LOOPBACK_IPV4 = /^127(?:\.\d{1,3}){3}$/;
+const SINGLE_LABEL = /^[a-z0-9_%-]{0,253}$/;
+
+const LOCAL_HOSTS: ReadonlySet<string> = new Set([
+  'localhost',
+  '::1',
+  '0.0.0.0',
+  'host.docker.internal',
+]);
 
 /** Curated provider token formats, not exhaustive: the structural rule (a literal bound to a secret-named identifier) catches the rest */
 export const SIGNATURES: LineRule[] = deepFreeze([
@@ -131,3 +146,53 @@ export const envFallbacksOf = (language: LanguageId): readonly RegExp[] =>
 
 export const isPlaceholder = (value: string): boolean =>
   PLACEHOLDER.test(value);
+
+/** The strongest tier any of the items earns */
+export const strongestTier = <Item>(
+  items: Iterable<Item>,
+  tierOf: (item: Item) => EvidenceTier | null
+): EvidenceTier | null => {
+  let strongest: EvidenceTier | null = null;
+
+  for (const item of items) {
+    const tier = tierOf(item);
+
+    if (tier === 'proven') return tier;
+
+    strongest ??= tier;
+  }
+
+  return strongest;
+};
+
+const hostOf = (authority: string): string => {
+  const address = authority.slice(authority.lastIndexOf('@') + 1).toLowerCase();
+
+  if (address.startsWith('[')) {
+    const end = address.indexOf(']');
+
+    return end === -1 ? address : address.slice(1, end);
+  }
+
+  const end = address.search(HOST_END);
+
+  return end === -1 ? address : address.slice(0, end);
+};
+
+/** A loopback or unspecified address, Docker's host machine, or a single-label name such as a Docker Compose service */
+const isLocalHost = (host: string): boolean =>
+  LOCAL_HOSTS.has(host) || LOOPBACK_IPV4.test(host) || SINGLE_LABEL.test(host);
+
+const credentialTierOf = ([
+  ,
+  password,
+  authority,
+]: RegExpExecArray): EvidenceTier | null => {
+  if (password.startsWith('$') || isPlaceholder(password)) return null;
+
+  return isLocalHost(hostOf(authority)) ? 'unconfirmed' : 'proven';
+};
+
+/** A password a connection string on the line carries is proven toward a remote host and unconfirmed toward a local one */
+export const connectionCredentialOf = (line: string): EvidenceTier | null =>
+  strongestTier(line.matchAll(CONNECTION_STRING), credentialTierOf);

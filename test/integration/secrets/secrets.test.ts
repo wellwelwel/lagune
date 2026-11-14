@@ -5,6 +5,7 @@ import { analyze, analyzeFor } from '../../../src/hooks/secrets/secrets.js';
 /** Assembled from parts: no secret scanner may find a whole token in the repository */
 const GITHUB_TOKEN = 'ghp_' + 'x'.repeat(36);
 const AWS_KEY = 'AKIA' + 'IOSFODNN7EXAMPLE';
+const REMOTE_CREDENTIALS = 'postgres://admin:S3cr3tP4ss99';
 
 describe('the secrets checker tells a hardcoded credential from a lead', () => {
   it('reviews a secret-named identifier bound to a string literal', () => {
@@ -261,6 +262,54 @@ describe('connection strings cover a password-only DSN', () => {
 
     strict.ok(result.findings.length >= 1);
   });
+});
+
+describe('a connection string to a local database is a lead, never a finding', () => {
+  const lines: readonly string[] = [
+    'const url = "postgresql://johndoe:randompassword@localhost:5432/mydb";',
+    'const url = "postgres://postgres:postgres@db:5432/app";',
+    'const url = "redis://:devpass@127.0.0.1:6379";',
+    'const url = "mysql://root:rootpass@[::1]:3306/app";',
+    'const url = "postgres://postgres:postgres@0.0.0.0:5432/app";',
+    'const url = "postgres://postgres:postgres@host.docker.internal:5432/app";',
+  ];
+
+  for (const line of lines)
+    it(`leads ${line}`, () => {
+      const { findings, review } = analyzeFor('javascript', line);
+
+      strict.deepStrictEqual([findings.length, review.length], [0, 1]);
+    });
+
+  it('keeps the finding when the same file also reaches a remote host', () => {
+    const { findings, review } = analyzeFor(
+      'javascript',
+      [
+        'const local = "postgres://postgres:postgres@localhost/app";',
+        'const remote = "postgres://admin:S3cr3tP4ss99@db.prod:5432/app";',
+      ].join('\n')
+    );
+
+    strict.deepStrictEqual([findings.length, review.length], [1, 0]);
+  });
+});
+
+describe('a connection string to a remote host that only looks local is a finding', () => {
+  const hosts: readonly string[] = [
+    '127.0.0.1.attacker.example',
+    '0.0.0.0.attacker.example',
+    'host.docker.internal.attacker.example',
+  ];
+
+  for (const host of hosts)
+    it(`reports a password sent to ${host}`, () => {
+      const { findings, review } = analyzeFor(
+        'javascript',
+        `const url = "${REMOTE_CREDENTIALS}@${host}/app";`
+      );
+
+      strict.deepStrictEqual([findings.length, review.length], [1, 0]);
+    });
 });
 
 describe('the secrets checker reads C-family preprocessor lines as code', () => {

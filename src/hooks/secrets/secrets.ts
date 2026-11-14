@@ -2,17 +2,16 @@ import type { FileAnalysis, LanguageId } from '../../types/scan.js';
 import { languageOf } from '../../core/scan/language.js';
 import { codeLines } from '../../core/scan/lines.js';
 import {
+  connectionCredentialOf,
   envFallbacksOf,
   isPlaceholder,
   SIGNATURES,
   sinkOf,
+  strongestTier,
 } from './patterns.js';
 
 const ASSIGN =
   /(?:password|passwd|pwd|secret|api[_-]?key|apikey|access[_-]?key|auth[_-]?token|token|credential|private[_-]?key|client[_-]?secret)\s{0,16}[:=]\s{0,16}(['"`])([^'"`]{0,4096})\1/i;
-
-const CONNECTION_STRING =
-  /\b[a-z][a-z0-9+.-]{1,20}:\/\/[^\s:'"`@/]{0,64}:([^\s:'"`@/]{1,256})@[^\s'"`/]{1,256}/i;
 
 const SECRET_REF =
   /\b(?:password|secret|api[_-]?key|apikey|token|credential|private[_-]?key|plaintext|decrypted\w{0,64})\b/i;
@@ -24,6 +23,8 @@ const ENV_FALLBACK_DETAIL =
   'hardcoded fallback for an environment secret: remove the literal default';
 const CONNECTION_DETAIL =
   'credential embedded in a connection/DSN string: move it to an environment variable or secret store';
+const LOCAL_CONNECTION_DETAIL =
+  'credential embedded in a connection/DSN string to a local host or a service name: if it is a real credential rather than a development default, move it to an environment variable or secret store';
 const LITERAL_DETAIL =
   'literal bound to a secret-named identifier: confirm it is a real credential, and move any secret to an environment variable or secret store';
 const SINK_DETAIL =
@@ -56,16 +57,6 @@ const hasEnvFallback = (line: string, patterns: readonly RegExp[]): boolean =>
     return SECRET_IDENTIFIER.test(lookup);
   });
 
-const hasConnectionCredential = (line: string): boolean => {
-  const match = CONNECTION_STRING.exec(line);
-
-  if (match === null) return false;
-
-  const password = match[1];
-
-  return !password.startsWith('$') && !isPlaceholder(password);
-};
-
 const flagged = (lines: string[], test: (line: string) => boolean): boolean =>
   lines.some(test);
 
@@ -89,10 +80,13 @@ export const analyzeFor = (
   )
     findings.push(ENV_FALLBACK_DETAIL);
 
-  if (flagged(rawLines, hasConnectionCredential))
-    findings.push(CONNECTION_DETAIL);
+  const connection = strongestTier(rawLines, connectionCredentialOf);
+
+  if (connection === 'proven') findings.push(CONNECTION_DETAIL);
 
   const review: string[] = [];
+
+  if (connection === 'unconfirmed') review.push(LOCAL_CONNECTION_DETAIL);
 
   if (flagged(lines, hasHardcodedLiteral)) review.push(LITERAL_DETAIL);
 

@@ -53,13 +53,13 @@ await describe('the secrets hook runs through the engine', async () => {
     strict.deepStrictEqual(
       [scan.stdout, scan.code],
       [
-        'Hardcoded secrets found:\n\nid_rsa\n  private key tracked by Git: stop tracking it (git rm --cached) and add it to .gitignore\n',
+        'Hardcoded secrets found:\n\nid_rsa\n  private key tracked by Git: stop tracking this file (git rm --cached) and add it to .gitignore\n',
         1,
       ]
     );
   });
 
-  await it('advises on an environment file Git tracks with public defaults, without failing', async () => {
+  await it('stays silent on an environment file Git tracks with public defaults, and passes', async () => {
     const workspace = await newWorkspace();
 
     await git(workspace, ['init', '--quiet']);
@@ -72,10 +72,7 @@ await describe('the secrets hook runs through the engine', async () => {
 
     strict.deepStrictEqual(
       [scan.stdout, scan.code],
-      [
-        'Secret handling advisories:\n\n.env\n  environment file tracked by Git: confirm every value it sets is meant to be public\n',
-        0,
-      ]
+      ['no hardcoded secrets found\n', 0]
     );
   });
 });
