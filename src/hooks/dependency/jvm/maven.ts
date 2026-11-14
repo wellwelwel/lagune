@@ -19,11 +19,7 @@ const REPOSITORY_LISTS: readonly XmlList[] = deepFreeze([
   ['pluginRepositories', 'pluginRepository'],
 ]);
 
-/** Maven's settings add the mirrors that stand in for a repository */
-const SETTINGS_LISTS: readonly XmlList[] = deepFreeze([
-  ...REPOSITORY_LISTS,
-  ['mirrors', 'mirror'],
-]);
+const MIRRORS: XmlList = deepFreeze(['mirrors', 'mirror']);
 
 const URL_ELEMENT = 'url';
 
@@ -33,6 +29,15 @@ const listedUrls = (root: XmlElement, lists: readonly XmlList[]): string[] =>
       childTexts(element, URL_ELEMENT)
     )
   );
+
+/** A mirror Maven never fetches from, such as the one its own settings ship to block every external repository over http:// */
+const isBlocked = (mirror: XmlElement): boolean =>
+  childTexts(mirror, 'blocked').some((text) => text.toLowerCase() === 'true');
+
+const mirrorUrls = (root: XmlElement): string[] =>
+  listedElements(root, MIRRORS)
+    .filter((mirror) => !isBlocked(mirror))
+    .flatMap((mirror) => childTexts(mirror, URL_ELEMENT));
 
 /** A pom.xml, read for the repositories it and its profiles fetch dependencies and plugins from, never the one it deploys to */
 export const readPom = (file: string, content: string): DependencyRead => {
@@ -47,7 +52,7 @@ export const readPom = (file: string, content: string): DependencyRead => {
   return flagsRead(plainUrlFlags(listedUrls(root, REPOSITORY_LISTS)));
 };
 
-/** A Maven settings.xml, read for its mirrors and the repositories its profiles add, a settings.xml of another tool flagging nothing */
+/** A Maven settings.xml, read for the mirrors it fetches from and the repositories its profiles add, a settings.xml of another tool flagging nothing */
 export const readMavenSettings = (
   file: string,
   content: string
@@ -56,7 +61,10 @@ export const readMavenSettings = (
 
   return flagsRead(
     root.name === SETTINGS
-      ? plainUrlFlags(listedUrls(root, SETTINGS_LISTS))
+      ? plainUrlFlags([
+          ...listedUrls(root, REPOSITORY_LISTS),
+          ...mirrorUrls(root),
+        ])
       : []
   );
 };

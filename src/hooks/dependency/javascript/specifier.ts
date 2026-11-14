@@ -6,9 +6,9 @@ import { isRecord, isString, ownValue } from '../../../core/collections.js';
 import { isPlainTransport } from '../transport.js';
 
 const GIT_SOURCE =
-  /^(?:git\+[a-z]{1,10}:|git@|ssh:|github:|gitlab:|bitbucket:|gist:)/i;
+  /^(?:git\+[a-z]{1,10}:|git:\/\/|git@|ssh:|github:|gitlab:|bitbucket:|gist:)/i;
 
-const HTTPS_SOURCE = /^https:\/\//i;
+const URL_SOURCE = /^https?:\/\//i;
 
 const PROJECT_SOURCE =
   /^(?:file:|link:|portal:|workspace:|patch:|exec:|catalog:|\.{0,2}\/|~\/)/i;
@@ -23,7 +23,7 @@ const DIST_TAG = /^(?!v?\d)[A-Za-z][\w.-]{0,213}$/;
 
 export const sourceOf = (spec: string): DependencySource => {
   if (isPlainTransport(spec)) return 'plain';
-  if (GIT_SOURCE.test(spec) || HTTPS_SOURCE.test(spec)) return 'remote';
+  if (GIT_SOURCE.test(spec) || URL_SOURCE.test(spec)) return 'remote';
   if (PROJECT_SOURCE.test(spec)) return 'project';
   if (HOSTED_SHORTHAND.test(spec)) return 'remote';
 

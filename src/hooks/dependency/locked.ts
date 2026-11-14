@@ -9,9 +9,9 @@ export const plainFlags = ({ name, source }: LockedEntry): DependencyFlag[] =>
 export const integrityFlags = ({
   name,
   source,
-  hashed,
+  missingHash,
 }: LockedEntry): DependencyFlag[] =>
-  source === 'registry' && !hashed
+  source === 'registry' && missingHash
     ? [{ verdict: 'missing-integrity', name }]
     : [];
 

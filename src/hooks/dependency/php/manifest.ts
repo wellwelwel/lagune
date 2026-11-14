@@ -1,5 +1,6 @@
 import type {
   DependencyRead,
+  DependencyVerdict,
   PlacedTable,
 } from '../../../types/hooks/dependency.js';
 import { isPlainRecord, ownValue } from '../../../core/collections.js';
@@ -67,6 +68,19 @@ const inlinePackages = (
   throw wrongKind(file, where, PACKAGE, 'a package or a list of packages');
 };
 
+/** The verdict of a URL in the clear that Composer fetches, which it refuses unless the composer.json switches its guard off through secure-http or disable-tls */
+export const plainVerdictOf = (
+  file: string,
+  manifest: Record<string, unknown>
+): DependencyVerdict => {
+  const config = tableOrEmptyAt(file, manifest, 'config', '');
+  const guardOff =
+    ownValue(config, 'secure-http') === false ||
+    ownValue(config, 'disable-tls') === true;
+
+  return guardOff ? 'plain-transport' : 'guarded-plain-transport';
+};
+
 /** A composer.json, read for the packages it requires and every URL its repositories fetch from */
 export const readComposerManifest = (
   file: string,
@@ -84,7 +98,7 @@ export const readComposerManifest = (
   ];
 
   return {
-    flags: plainUrlFlags(urls),
+    flags: plainUrlFlags(urls, plainVerdictOf(file, manifest)),
     needsLockfile: requiredNames(file, manifest).some(isRepositoryPackage),
     pins: false,
     declaresWorkspace: false,

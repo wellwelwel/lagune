@@ -8,7 +8,6 @@ import { quotedExcerpt } from '../../../core/errors.js';
 import { parseJsonObject } from '../../../core/json.js';
 import { pathOf, switchAt, textAt, wrongKind } from '../fields.js';
 import { cannotJudge } from '../text.js';
-import { isPlainTransport } from '../transport.js';
 import { lockedSourceOf, sourceOf, specifiersIn } from './specifier.js';
 
 const NODE_MODULES = 'node_modules/';
@@ -19,6 +18,10 @@ const SPECIFIER_FIELDS = [
   'devDependencies',
   'peerDependencies',
 ];
+
+/** A URL on the public registry, which npm fetches from the registry it is configured with instead, unless its replace-registry-host setting keeps lockfile URLs as written */
+const PUBLIC_REGISTRY_HTTP =
+  /^http:\/\/registry\.npmjs\.org(?::\d{1,5})?(?:[/?#]|$)/i;
 
 const recordsOf = (
   file: string,
@@ -60,7 +63,7 @@ const packageOf = (
       !bundled &&
       (version !== undefined || resolved !== undefined),
     resolved,
-    hashed: textAt(file, entry, 'integrity', where) !== undefined,
+    missingHash: textAt(file, entry, 'integrity', where) === undefined,
     installScript: switchAt(file, entry, 'hasInstallScript', where),
     specs: specifiersIn(entry, SPECIFIER_FIELDS, (field) =>
       wrongKind(file, where, field, 'package names and their specifiers')
@@ -68,17 +71,33 @@ const packageOf = (
   };
 };
 
+const fetchedSourceOf = (
+  resolved: string,
+  keepsLockedRegistryUrls: boolean
+): DependencySource =>
+  !keepsLockedRegistryUrls && PUBLIC_REGISTRY_HTTP.test(resolved)
+    ? 'registry'
+    : lockedSourceOf(resolved);
+
 const packageSourceOf = (
   { name, resolved }: NpmPackage,
-  remoteNames: ReadonlySet<string>
+  remoteNames: ReadonlySet<string>,
+  keepsLockedRegistryUrls: boolean
 ): DependencySource => {
-  const source = resolved === undefined ? 'registry' : lockedSourceOf(resolved);
+  const source =
+    resolved === undefined
+      ? 'registry'
+      : fetchedSourceOf(resolved, keepsLockedRegistryUrls);
 
   return source === 'registry' && remoteNames.has(name) ? 'remote' : source;
 };
 
 /** The entries of a lockfile from npm 7 or later, read from its packages map */
-const packagesEntries = (file: string, packages: unknown): LockedEntry[] => {
+const packagesEntries = (
+  file: string,
+  packages: unknown,
+  keepsLockedRegistryUrls: boolean
+): LockedEntry[] => {
   const nodes = recordsOf(file, packages, 'packages').map((record) =>
     packageOf(file, record)
   );
@@ -94,54 +113,60 @@ const packagesEntries = (file: string, packages: unknown): LockedEntry[] => {
     .filter(({ fetched }) => fetched)
     .map((node) => ({
       name: node.display,
-      source: packageSourceOf(node, remoteNames),
-      hashed: node.hashed,
+      source: packageSourceOf(node, remoteNames, keepsLockedRegistryUrls),
+      missingHash: node.missingHash,
       installScript: node.installScript,
     }));
 };
 
 const legacySourceOf = (
   version: string,
-  resolved: string | undefined
+  resolved: string | undefined,
+  keepsLockedRegistryUrls: boolean
 ): DependencySource => {
   const source = sourceOf(version);
 
   return source === 'registry' &&
     resolved !== undefined &&
-    isPlainTransport(resolved)
+    fetchedSourceOf(resolved, keepsLockedRegistryUrls) === 'plain'
     ? 'plain'
     : source;
 };
 
 const legacyEntryOf = (
   file: string,
-  [name, entry]: [string, Record<string, unknown>]
+  [name, entry]: [string, Record<string, unknown>],
+  keepsLockedRegistryUrls: boolean
 ): LockedEntry | null => {
   const where = pathOf('dependencies', name);
   const version = textAt(file, entry, 'version', where);
   const resolved = textAt(file, entry, 'resolved', where);
-  const hashed = textAt(file, entry, 'integrity', where) !== undefined;
+  const missingHash = textAt(file, entry, 'integrity', where) === undefined;
   const bundled = switchAt(file, entry, 'bundled', where);
 
   if (version === undefined || bundled) return null;
 
   return {
     name: `${name}@${version}`,
-    source: legacySourceOf(version, resolved),
-    hashed,
+    source: legacySourceOf(version, resolved, keepsLockedRegistryUrls),
+    missingHash,
     installScript: false,
   };
 };
 
 /** The entries of a lockfile from npm 6 or earlier, read from its nested dependencies tree */
-const legacyEntries = (file: string, dependencies: unknown): LockedEntry[] => {
+const legacyEntries = (
+  file: string,
+  dependencies: unknown,
+  keepsLockedRegistryUrls: boolean
+): LockedEntry[] => {
   const entries: LockedEntry[] = [];
   const levels: unknown[] = [dependencies];
 
   while (levels.length > 0) {
     for (const record of recordsOf(file, levels.pop(), 'dependencies')) {
       const nested = ownValue(record[1], 'dependencies');
-      const entry = legacyEntryOf(file, record);
+      const entry = legacyEntryOf(file, record, keepsLockedRegistryUrls);
 
       if (nested !== undefined) levels.push(nested);
       if (entry !== null) entries.push(entry);
@@ -151,15 +176,22 @@ const legacyEntries = (file: string, dependencies: unknown): LockedEntry[] => {
   return entries;
 };
 
-export const npmEntries = (file: string, content: string): LockedEntry[] => {
+/** The entries of an npm lockfile, reading a URL on the public registry the way npm fetches it under the replace-registry-host setting it runs with */
+export const npmEntries = (
+  file: string,
+  content: string,
+  keepsLockedRegistryUrls = false
+): LockedEntry[] => {
   const lockfile = parseJsonObject(content, file, cannotJudge);
   const packages = ownValue(lockfile, 'packages');
 
-  if (packages !== undefined) return packagesEntries(file, packages);
+  if (packages !== undefined)
+    return packagesEntries(file, packages, keepsLockedRegistryUrls);
 
   const dependencies = ownValue(lockfile, 'dependencies');
 
-  if (dependencies !== undefined) return legacyEntries(file, dependencies);
+  if (dependencies !== undefined)
+    return legacyEntries(file, dependencies, keepsLockedRegistryUrls);
   if (ownValue(lockfile, 'lockfileVersion') !== undefined) return [];
 
   throw cannotJudge(file, 'is not an npm lockfile');

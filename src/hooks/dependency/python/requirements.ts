@@ -9,6 +9,7 @@ import type {
 } from '../../../types/hooks/dependency.js';
 import { deepFreeze } from '../../../core/collections.js';
 import { quotedExcerpt } from '../../../core/errors.js';
+import { flagsRead } from '../read.js';
 import { cannotJudge } from '../text.js';
 import { plainUrlFlags } from '../transport.js';
 import { requirementOf } from './requirement.js';
@@ -46,6 +47,10 @@ const FETCHED_OPTIONS: ReadonlySet<string> = new Set([
 const EXTRA_INDEX: ReadonlySet<string> = new Set(['extra-index-url']);
 
 const LINE_BREAKS = /\r?\n/;
+
+/** A line of the export conda list writes, a package pinned to a version and a build with single equal signs, which pip refuses as a requirement */
+const CONDA_EXPORT_LINE =
+  /^[A-Za-z\d_][\w.+-]{0,254}=[^\s=]{1,128}=[^\s=]{1,128}$/;
 
 const COMMENT_LINE = /^\s*#/;
 
@@ -240,11 +245,25 @@ const missingHashFlags = (
   );
 };
 
-/** A pip requirements file, which pins like a lockfile once every requirement it resolves from an index is pinned to one version */
+/** Whether a file named like a requirements file is the export of a conda environment, which conda reads and pip refuses */
+const isCondaExport = (content: string): boolean => {
+  const written = content
+    .split(LINE_BREAKS)
+    .map((line) => line.trim())
+    .filter((line) => line !== '' && !COMMENT_LINE.test(line));
+
+  return (
+    written.length > 0 && written.every((line) => CONDA_EXPORT_LINE.test(line))
+  );
+};
+
+/** A pip requirements file, which pins like a lockfile once every requirement it resolves from an index is pinned to one version, never a conda export that shares its name */
 export const readRequirements = (
   file: string,
   content: string
 ): DependencyRead => {
+  if (isCondaExport(content)) return flagsRead([]);
+
   const { options, requirements } = requirementsContentOf(file, content);
   const valuesOf = (names: ReadonlySet<string>): string[] =>
     options.filter(({ name }) => names.has(name)).map(({ value }) => value);

@@ -158,10 +158,10 @@ const poetryEntryOf = (
   return {
     name: lockedName(name, textAt(file, locked, 'version', where)),
     source: poetrySourceOf(source, type, url),
-    hashed:
-      files.length > 0 &&
-      files.every(
-        (entry) => textAt(file, entry, 'hash', `${where}.files`) !== undefined
+    missingHash:
+      files.length === 0 ||
+      files.some(
+        (entry) => textAt(file, entry, 'hash', `${where}.files`) === undefined
       ),
     installScript: false,
   };

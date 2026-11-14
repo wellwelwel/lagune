@@ -57,7 +57,7 @@ export const missingChecksumFlags = (
   return fetchedModules(goModuleOf(modFile, modContent))
     .filter((fetched) => !recorded.has(checksumKey(fetched)))
     .map(({ path, version }) => ({
-      verdict: 'missing-integrity',
+      verdict: 'unrecorded-checksum',
       name: `${path}@${version}`,
     }));
 };

@@ -144,7 +144,7 @@ const pipenvEntryOf = (
       registry,
       remoteUrls.length > 0
     ),
-    hashed: textsAt(file, locked, 'hashes', scope).length > 0,
+    missingHash: textsAt(file, locked, 'hashes', scope).length === 0,
     installScript: false,
   };
 };

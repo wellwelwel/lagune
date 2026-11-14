@@ -79,7 +79,7 @@ const cargoEntryOf = (
   return {
     name: version === undefined ? name : `${name}@${version}`,
     source: cargoSourceOf(file, name, source),
-    hashed: checksum !== undefined && checksum !== NO_CHECKSUM,
+    missingHash: checksum === undefined || checksum === NO_CHECKSUM,
     installScript: false,
   };
 };

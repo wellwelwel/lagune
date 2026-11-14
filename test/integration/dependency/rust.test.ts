@@ -207,7 +207,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
   });
 });
 
-describe('a Rust dependency file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a Rust dependency file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a Cargo.toml that is not TOML',

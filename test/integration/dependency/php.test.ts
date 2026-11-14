@@ -2,7 +2,15 @@ import type { DependencyRead } from '../../../src/types/hooks/dependency.js';
 import { describe, it, strict } from 'poku';
 import { readComposerLock } from '../../../src/hooks/dependency/php/lockfile.js';
 import { readComposerManifest } from '../../../src/hooks/dependency/php/manifest.js';
-import { CANNOT_JUDGE, CLEAN, findings, PLAIN, reported } from './__utils__.js';
+import {
+  CANNOT_JUDGE,
+  CLEAN,
+  findings,
+  GUARDED,
+  leads,
+  PLAIN,
+  reported,
+} from './__utils__.js';
 
 const manifestRead = (manifest: Record<string, unknown>): DependencyRead =>
   readComposerManifest('composer.json', JSON.stringify(manifest));
@@ -10,6 +18,7 @@ const manifestRead = (manifest: Record<string, unknown>): DependencyRead =>
 describe('a composer.json flags every repository URL it fetches over plain http:// or git://', () => {
   it('reads the repositories it lists or names and the packages a package repository defines', () => {
     const listed = manifestRead({
+      config: { 'secure-http': false },
       require: { 'monolog/monolog': '^3.0' },
       repositories: [
         { type: 'composer', url: 'http://satis.internal' },
@@ -42,6 +51,7 @@ describe('a composer.json flags every repository URL it fetches over plain http:
       ],
     });
     const named = manifestRead({
+      config: { 'disable-tls': true },
       repositories: {
         internal: { type: 'composer', url: 'http://composer.internal' },
         'packagist.org': false,
@@ -56,6 +66,21 @@ describe('a composer.json flags every repository URL it fetches over plain http:
         ]),
         findings([`${PLAIN}: http://composer.internal`]),
       ]
+    );
+  });
+
+  it('leaves a URL in the clear as a lead while secure-http stays on, since Composer then refuses it unless a configuration outside the project switches it off', () => {
+    const repositories = [{ type: 'composer', url: 'http://satis.internal' }];
+    const results = [
+      { repositories },
+      { config: { 'secure-http': true }, repositories },
+      { config: { 'secure-http': 'false' }, repositories },
+      { config: { 'disable-tls': false }, repositories },
+    ].map((manifest) => reported(manifestRead(manifest)));
+
+    strict.deepStrictEqual(
+      results,
+      results.map(() => leads([`${GUARDED}: http://satis.internal`]))
     );
   });
 
@@ -74,7 +99,7 @@ describe('a composer.json flags every repository URL it fetches over plain http:
   });
 });
 
-describe('a composer.lock flags each package it locks from a URL over plain http:// or git://', () => {
+describe('a composer.lock flags each package it locks from a URL over plain http:// or git://, as a lead until the composer.json beside it switches secure-http off', () => {
   it('reads the dist and source URLs of every package, for production and development', () => {
     const result = readComposerLock(
       'composer.lock',
@@ -119,7 +144,7 @@ describe('a composer.lock flags each package it locks from a URL over plain http
 
     strict.deepStrictEqual(
       reported(result),
-      findings([`${PLAIN}: me/clone (dev-main), me/zip (1.0.0)`])
+      leads([`${GUARDED}: me/clone (dev-main), me/zip (1.0.0)`])
     );
   });
 
@@ -133,7 +158,7 @@ describe('a composer.lock flags each package it locks from a URL over plain http
   });
 });
 
-describe('a PHP dependency file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a PHP dependency file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a composer.json that is not JSON',

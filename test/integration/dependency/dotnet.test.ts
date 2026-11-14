@@ -41,6 +41,38 @@ describe('a nuget.config flags every package source it lists over plain http://'
   });
 });
 
+describe('a nuget.config leaves out a source it switches off', () => {
+  it('reads every add, remove, and clear in order, and the sources disabledPackageSources turns off, whatever the case of their keys', () => {
+    const result = readNugetConfig(
+      'nuget.config',
+      `<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="Legacy-TFS" value="http://tfs.internal:8080/nuget/v3/index.json" />
+    <add key="removed" value="http://removed.internal/nuget" />
+    <remove key="removed" />
+    <add key="live" value="http://live.internal/nuget" />
+    <add key="Reenabled" value="http://reenabled.internal/nuget" />
+  </packageSources>
+  <disabledPackageSources>
+    <add key="reenabled" value="true" />
+    <clear />
+    <add key="legacy-tfs" value="true" />
+    <add key="live" value="false" />
+  </disabledPackageSources>
+</configuration>
+`
+    );
+
+    strict.deepStrictEqual(
+      reported(result),
+      findings([
+        `${PLAIN}: http://live.internal/nuget, http://reenabled.internal/nuget`,
+      ])
+    );
+  });
+});
+
 describe('an MSBuild file flags the package sources its properties add to a restore', () => {
   it('splits every restore source property on semicolons, whatever the case of its name', () => {
     const result = readMsbuildImport(
@@ -121,7 +153,7 @@ describe('a packages.lock.json flags nothing on its own', () => {
   });
 });
 
-describe('a .NET dependency file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a .NET dependency file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a nuget.config that is not well-formed XML',

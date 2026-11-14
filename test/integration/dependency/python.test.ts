@@ -120,6 +120,46 @@ direct @ https://example.com/direct.tar.gz
   });
 });
 
+describe('a conda export named like a requirements file is read as conda, never as pip', () => {
+  const CONDA_EXPORT = `# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+_libgcc_mutex=0.1=main
+ca-certificates=2024.9.24=h06a4308_0
+numpy=1.26.4=py311h08b1b3b_0
+python=3.11.10=he870216_0
+`;
+
+  it('flags nothing and covers nothing in the file conda list --export writes, which pip refuses', () => {
+    const read = readRequirements('requirements.txt', CONDA_EXPORT);
+
+    strict.deepStrictEqual(
+      [reported(read), coverage(read)],
+      [CLEAN, { needsLockfile: false, pins: false, declaresWorkspace: false }]
+    );
+  });
+
+  const mixed: Array<[string, string]> = [
+    [
+      'a conda line beside a pip requirement',
+      'numpy=1.26.4=py311h08b1b3b_0\nrequests==2.32.3\n',
+    ],
+    [
+      'a conda line beside a pip option',
+      '--extra-index-url https://pypi.internal.example/simple\nnumpy=1.26.4=py311h08b1b3b_0\n',
+    ],
+    ['a single-equal pin without a build', 'numpy=1.26.4\n'],
+  ];
+
+  for (const [description, content] of mixed)
+    it(`still refuses ${description}, which neither pip nor a conda export writes`, () => {
+      strict.throws(
+        () => readRequirements('requirements.txt', content),
+        CANNOT_JUDGE
+      );
+    });
+});
+
 describe('a pip configuration file flags the indexes every section names', () => {
   it('reads keys in any section, with underscores or dashes, and values continued on indented lines', () => {
     const result = readPipConfig(
@@ -455,7 +495,7 @@ python_version = "3.12"
   });
 });
 
-describe('a Python dependency file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a Python dependency file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a pyproject.toml that is not TOML',

@@ -1,3 +1,4 @@
+import type { HookRun } from '../../../src/types/test.js';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { env } from 'node:process';
@@ -348,10 +349,10 @@ Cargo.lock
 Cargo.toml
   fetched over plain http:// or git://: fork @ http://github.com/me/fork
 
-go.sum
-  no integrity hash to check the download against: golang.org/x/text@v0.14.0
-
 Dependency hardening advisories:
+
+go.sum
+  no go.sum checksum, so Go builds nothing from it until go mod tidy records one from the checksum database: golang.org/x/text@v0.14.0
 
 svc/go.mod
   declares dependencies, but no lockfile covers it
@@ -455,6 +456,7 @@ DEPENDENCIES
   'composer.json': JSON.stringify({
     require: { 'monolog/monolog': '^3.5', 'me/zip': '^1.0' },
     repositories: [{ type: 'composer', url: 'http://satis.internal' }],
+    config: { 'secure-http': false },
   }),
   'composer.lock': JSON.stringify({
     packages: [
@@ -745,6 +747,9 @@ publishing {
     'distributionBase=GRADLE_USER_HOME\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-8.5-bin.zip\n',
 };
 
+const UNJUDGED_REMEDY =
+  'so the checker cannot judge it: fix it, or, when another tool reads it as it is, such as a template or a test fixture, leave it out with npx lagune write add --ignore <path> --checker dependency';
+
 const writeProject = async (
   workspace: string,
   files: Record<string, string>
@@ -757,13 +762,37 @@ const writeProject = async (
   );
 };
 
+const isolatedEnv = (workspace: string): NodeJS.ProcessEnv => ({
+  ...env,
+  HOME: workspace,
+  USERPROFILE: workspace,
+  XDG_CONFIG_HOME: join(workspace, 'config'),
+});
+
+/** A temporary project at the root of a Git repository of its own, out of reach of the global excludes of the machine running the tests */
+const newRepository = async (): Promise<string> => {
+  const workspace = await newWorkspace();
+
+  await mkdir(join(workspace, '.git'));
+
+  return workspace;
+};
+
+const runDependency = (
+  workspace: string,
+  ...args: string[]
+): Promise<HookRun> =>
+  runEngine(workspace, ['read', 'dependency', ...args], {
+    env: isolatedEnv(workspace),
+  });
+
 await describe('the dependency hook runs through the engine', async () => {
   await it('reports what the files decide across lockfiles and manifests, failing on a finding', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, JAVASCRIPT_HOSTILE);
 
-    const run = await runEngine(workspace, ['read', 'dependency']);
+    const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
       stdout: JAVASCRIPT_HOSTILE_REPORT,
@@ -773,19 +802,14 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('stays silent on a clean npm workspace beside pnpm, Yarn, and Bun projects, even scanning one folder', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, JAVASCRIPT_CLEAN);
 
     const runs = await Promise.all([
-      runEngine(workspace, ['read', 'dependency']),
-      runEngine(workspace, ['read', 'dependency', '--dir', 'packages/a']),
-      runEngine(workspace, [
-        'read',
-        'dependency',
-        '--file',
-        'pnpm/libs/lib/package.json',
-      ]),
+      runDependency(workspace),
+      runDependency(workspace, '--dir', 'packages/a'),
+      runDependency(workspace, '--file', 'pnpm/libs/lib/package.json'),
     ]);
 
     strict.deepStrictEqual(
@@ -799,23 +823,15 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('counts no lockfile Git ignores as covering its manifest', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
-    await mkdir(join(workspace, '.git'));
     await writeProject(workspace, {
       '.gitignore': 'package-lock.json\n',
       'package.json': JAVASCRIPT_CLEAN['packages/a/package.json'],
       'package-lock.json': JAVASCRIPT_CLEAN['package-lock.json'],
     });
 
-    const run = await runEngine(workspace, ['read', 'dependency'], {
-      env: {
-        ...env,
-        HOME: workspace,
-        USERPROFILE: workspace,
-        XDG_CONFIG_HOME: join(workspace, 'config'),
-      },
-    });
+    const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
       stdout:
@@ -826,11 +842,11 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('reports what Python files decide across pip, Poetry, Pipenv, and uv, never repeating a credential', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, PYTHON_HOSTILE);
 
-    const run = await runEngine(workspace, ['read', 'dependency']);
+    const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
       stdout: PYTHON_HOSTILE_REPORT,
@@ -840,25 +856,15 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('stays silent on clean uv, Poetry, Pipenv, pip, PDM, and PEP 751 projects, even scanning one folder or file', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, PYTHON_CLEAN);
 
     const runs = await Promise.all([
-      runEngine(workspace, ['read', 'dependency']),
-      runEngine(workspace, ['read', 'dependency', '--dir', 'packages/lib']),
-      runEngine(workspace, [
-        'read',
-        'dependency',
-        '--file',
-        'compiled/pyproject.toml',
-      ]),
-      runEngine(workspace, [
-        'read',
-        'dependency',
-        '--file',
-        'cookie/pyproject.toml',
-      ]),
+      runDependency(workspace),
+      runDependency(workspace, '--dir', 'packages/lib'),
+      runDependency(workspace, '--file', 'compiled/pyproject.toml'),
+      runDependency(workspace, '--file', 'cookie/pyproject.toml'),
     ]);
 
     strict.deepStrictEqual(
@@ -872,7 +878,7 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('lets a uv workspace root cover only the pyproject.toml files below it, never a Pipfile or a requirements file', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, {
       'pyproject.toml': PYTHON_CLEAN['pyproject.toml'],
@@ -883,7 +889,7 @@ await describe('the dependency hook runs through the engine', async () => {
       'docs/requirements.txt': 'sphinx>=7\n',
     });
 
-    const run = await runEngine(workspace, ['read', 'dependency']);
+    const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
       stdout:
@@ -894,11 +900,11 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('reports what Rust and Go files decide across Cargo and Go modules, never repeating a credential', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, RUST_GO_HOSTILE);
 
-    const run = await runEngine(workspace, ['read', 'dependency']);
+    const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
       stdout: RUST_GO_HOSTILE_REPORT,
@@ -908,14 +914,14 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('stays silent on a clean Cargo workspace with a vendored crate and a Go module, even scanning one folder or file', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, RUST_GO_CLEAN);
 
     const runs = await Promise.all([
-      runEngine(workspace, ['read', 'dependency']),
-      runEngine(workspace, ['read', 'dependency', '--dir', 'crates/core']),
-      runEngine(workspace, ['read', 'dependency', '--file', 'go/go.sum']),
+      runDependency(workspace),
+      runDependency(workspace, '--dir', 'crates/core'),
+      runDependency(workspace, '--file', 'go/go.sum'),
     ]);
 
     strict.deepStrictEqual(
@@ -928,49 +934,12 @@ await describe('the dependency hook runs through the engine', async () => {
     );
   });
 
-  await it('fails closed on a Cargo.lock or a go.mod it cannot read, naming the file instead of printing a clean result', async () => {
-    const [cargo, go] = await Promise.all([newWorkspace(), newWorkspace()]);
-
-    await Promise.all([
-      writeProject(cargo, {
-        'Cargo.toml': RUST_GO_HOSTILE['tools/Cargo.toml'],
-        'Cargo.lock':
-          '[[package]]\nname = "clap"\nsource = "registry+https://github.com/rust-lang/crates.io-index\n',
-      }),
-      writeProject(go, {
-        'go.mod':
-          'module example.com/app\n\nrequire (\n\tgithub.com/google/uuid v1.6.0\n',
-        'go.sum': RUST_GO_HOSTILE['go.sum'],
-      }),
-    ]);
-
-    const runs = await Promise.all([
-      runEngine(cargo, ['read', 'dependency']),
-      runEngine(go, ['read', 'dependency']),
-    ]);
-
-    strict.deepStrictEqual(runs, [
-      {
-        stdout: '',
-        stderr:
-          'Cargo.lock is not valid TOML at line 3, column 10, so the dependency checker cannot judge it: fix it, then run this again.\n',
-        code: 1,
-      },
-      {
-        stdout: '',
-        stderr:
-          'go.mod never closes its "require" block, so the dependency checker cannot judge it: fix it, then run this again.\n',
-        code: 1,
-      },
-    ]);
-  });
-
   await it('reports what Ruby and PHP files decide across Bundler and Composer, never repeating a credential', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, RUBY_PHP_HOSTILE);
 
-    const run = await runEngine(workspace, ['read', 'dependency']);
+    const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
       stdout: RUBY_PHP_HOSTILE_REPORT,
@@ -980,14 +949,14 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('stays silent on clean Bundler and Composer projects and the packages Composer installed, even scanning one folder or file', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, RUBY_PHP_CLEAN);
 
     const runs = await Promise.all([
-      runEngine(workspace, ['read', 'dependency']),
-      runEngine(workspace, ['read', 'dependency', '--dir', 'vendor/psr/log']),
-      runEngine(workspace, ['read', 'dependency', '--file', 'engine/gems.rb']),
+      runDependency(workspace),
+      runDependency(workspace, '--dir', 'vendor/psr/log'),
+      runDependency(workspace, '--file', 'engine/gems.rb'),
     ]);
 
     strict.deepStrictEqual(
@@ -998,44 +967,6 @@ await describe('the dependency hook runs through the engine', async () => {
         code: 0,
       }))
     );
-  });
-
-  await it('fails closed on a Gemfile.lock or a composer.lock it cannot read, naming the file instead of printing a clean result', async () => {
-    const [bundler, composer] = await Promise.all([
-      newWorkspace(),
-      newWorkspace(),
-    ]);
-
-    await Promise.all([
-      writeProject(bundler, {
-        Gemfile: RUBY_PHP_HOSTILE['tools/Gemfile'],
-        'Gemfile.lock': 'GEM\n   remote: http://rubygems.org/\n  specs:\n',
-      }),
-      writeProject(composer, {
-        'composer.json': RUBY_PHP_HOSTILE['plugin/composer.json'],
-        'composer.lock': '{"packages": [',
-      }),
-    ]);
-
-    const runs = await Promise.all([
-      runEngine(bundler, ['read', 'dependency']),
-      runEngine(composer, ['read', 'dependency']),
-    ]);
-
-    strict.deepStrictEqual(runs, [
-      {
-        stdout: '',
-        stderr:
-          'Gemfile.lock holds a line Bundler never writes in a source section: "   remote: http://rubygems.org/", so the dependency checker cannot judge it: fix it, then run this again.\n',
-        code: 1,
-      },
-      {
-        stdout: '',
-        stderr:
-          'composer.lock is not valid JSON, so the dependency checker cannot judge it: fix it, then run this again.\n',
-        code: 1,
-      },
-    ]);
   });
 
   await it('stops when the Ruby parser it ships cannot start, naming the Gemfile without blaming it', async () => {
@@ -1059,11 +990,11 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('reports what .NET and JVM files decide across NuGet, Maven, and Gradle, never repeating a credential', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, DOTNET_JVM_HOSTILE);
 
-    const run = await runEngine(workspace, ['read', 'dependency']);
+    const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
       stdout: DOTNET_JVM_HOSTILE_REPORT,
@@ -1073,7 +1004,7 @@ await describe('the dependency hook runs through the engine', async () => {
   });
 
   await it('reads a settings.xml only where Maven looks for one, leaving one another tool keeps alone even when it cannot be read', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
     const mavenSettings = (mirror: string): string =>
       `<settings><mirrors><mirror><id>all</id><mirrorOf>*</mirrorOf><url>${mirror}</url></mirror></mirrors></settings>\n`;
 
@@ -1088,13 +1019,8 @@ await describe('the dependency hook runs through the engine', async () => {
     });
 
     const runs = await Promise.all([
-      runEngine(workspace, ['read', 'dependency']),
-      runEngine(workspace, [
-        'read',
-        'dependency',
-        '--file',
-        'editor/settings.xml',
-      ]),
+      runDependency(workspace),
+      runDependency(workspace, '--file', 'editor/settings.xml'),
     ]);
 
     strict.deepStrictEqual(runs, [
@@ -1118,19 +1044,14 @@ settings.xml
   });
 
   await it('stays silent on clean NuGet, Maven, and Gradle projects, even scanning one folder or file', async () => {
-    const workspace = await newWorkspace();
+    const workspace = await newRepository();
 
     await writeProject(workspace, DOTNET_JVM_CLEAN);
 
     const runs = await Promise.all([
-      runEngine(workspace, ['read', 'dependency']),
-      runEngine(workspace, ['read', 'dependency', '--dir', 'src/My App']),
-      runEngine(workspace, [
-        'read',
-        'dependency',
-        '--file',
-        'app/build.gradle.kts',
-      ]),
+      runDependency(workspace),
+      runDependency(workspace, '--dir', 'src/My App'),
+      runDependency(workspace, '--file', 'app/build.gradle.kts'),
     ]);
 
     strict.deepStrictEqual(
@@ -1143,88 +1064,287 @@ settings.xml
     );
   });
 
-  await it('fails closed on a pom.xml, a nuget.config, or a Gradle script it cannot read, naming the file instead of printing a clean result', async () => {
-    const [maven, nuget, gradle] = await Promise.all([
-      newWorkspace(),
-      newWorkspace(),
-      newWorkspace(),
+  await it('names each dependency file it cannot read as a lead to check by hand, instead of a clean result', async () => {
+    const unreadable: Array<[string, string, string]> = [
+      [
+        'Cargo.lock',
+        '[[package]]\nname = "clap"\nsource = "registry+https://github.com/rust-lang/crates.io-index\n',
+        'is not valid TOML at line 3, column 10',
+      ],
+      [
+        'go.mod',
+        'module example.com/app\n\nrequire (\n\tgithub.com/google/uuid v1.6.0\n',
+        'never closes its "require" block',
+      ],
+      [
+        'Gemfile.lock',
+        'GEM\n   remote: http://rubygems.org/\n  specs:\n',
+        'holds a line Bundler never writes in a source section: "   remote: http://rubygems.org/"',
+      ],
+      ['composer.lock', '{"packages": [', 'is not valid JSON'],
+      [
+        'pom.xml',
+        '<project>\n  <repositories>\n</project>\n',
+        'is not well-formed XML at line 3, column 1',
+      ],
+      [
+        'nuget.config',
+        '<!DOCTYPE configuration [<!ENTITY feed "http://feed.internal/">]>\n<configuration><packageSources><add key="feed" value="&feed;" /></packageSources></configuration>\n',
+        'is XML the checker cannot read (it declares a document type)',
+      ],
+      [
+        'build.gradle.kts',
+        'repositories {\n    maven("http://gradle.internal/releases")\n',
+        'never closes every block it opens',
+      ],
+      [
+        'pyproject.toml',
+        '[project]\ndependencies = ["flask",\n',
+        'is not valid TOML at line 2, column 16',
+      ],
+      [
+        'pnpm-lock.yaml',
+        'lockfileVersion: 9.0\npackages:\n  a@1.0.0:\n    engines: {}\n',
+        'locks "a@1.0.0" with no resolution',
+      ],
+    ];
+    const workspaces = await Promise.all(unreadable.map(() => newRepository()));
+
+    await Promise.all(
+      unreadable.map(([file, content], index) =>
+        writeProject(workspaces[index], { [file]: content })
+      )
+    );
+
+    const runs = await Promise.all(
+      workspaces.map((workspace) => runDependency(workspace))
+    );
+
+    strict.deepStrictEqual(
+      runs,
+      unreadable.map(([file, , problem]) => ({
+        stdout: `Dependency risks to review manually:\n\n${file}\n  ${problem}, ${UNJUDGED_REMEDY}\n`,
+        stderr: '',
+        code: 0,
+      }))
+    );
+  });
+
+  await it('keeps judging every other file beside a template it cannot read', async () => {
+    const workspace = await newRepository();
+
+    await writeProject(workspace, {
+      'generators/app/templates/package.json':
+        '{\n  "name": "<%= name %>",\n  "dependencies": {<% if (express) { %>\n    "express": "^4.21.1"<% } %>\n  }\n}\n',
+      'web/package.json': JSON.stringify({
+        dependencies: { widget: 'git://github.com/acme/widget.git' },
+      }),
+    });
+
+    const run = await runDependency(workspace);
+
+    strict.deepStrictEqual(run, {
+      stdout: `Dependency risks found:
+
+web/package.json
+  fetched over plain http:// or git://: widget@git://github.com/acme/widget.git
+
+Dependency risks to review manually:
+
+generators/app/templates/package.json
+  is not valid JSON, ${UNJUDGED_REMEDY}
+
+Dependency hardening advisories:
+
+web/package.json
+  declares dependencies, but no lockfile covers it
+`,
+      stderr: '',
+      code: 1,
+    });
+  });
+
+  await it('reads the .npmrc beside a lockfile as npm does, switching its install scripts off or keeping a public registry URL as written', async () => {
+    const [switchedOff, kept, swapped] = await Promise.all([
+      newRepository(),
+      newRepository(),
+      newRepository(),
     ]);
+    const manifest = JSON.stringify({ dependencies: { esbuild: '0.25.0' } });
+    const publicRegistryUrl =
+      'http://registry.npmjs.org/esbuild/-/esbuild-0.25.0.tgz';
+    const lockfile = (resolved: string): string =>
+      JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          'node_modules/esbuild': {
+            version: '0.25.0',
+            resolved,
+            integrity: 'sha512-a',
+            hasInstallScript: true,
+          },
+        },
+      });
 
     await Promise.all([
-      writeProject(maven, {
-        'pom.xml': '<project>\n  <repositories>\n</project>\n',
+      writeProject(switchedOff, {
+        '.npmrc': 'ignore-scripts=true\n',
+        'package.json': manifest,
+        'package-lock.json': lockfile(
+          'https://registry.npmjs.org/esbuild/-/esbuild-0.25.0.tgz'
+        ),
       }),
-      writeProject(nuget, {
-        'nuget.config':
-          '<!DOCTYPE configuration [<!ENTITY feed "http://feed.internal/">]>\n<configuration><packageSources><add key="feed" value="&feed;" /></packageSources></configuration>\n',
+      writeProject(kept, {
+        '.npmrc': 'ignore-scripts=true\nreplace-registry-host=never\n',
+        'package.json': manifest,
+        'package-lock.json': lockfile(publicRegistryUrl),
       }),
-      writeProject(gradle, {
-        'build.gradle.kts':
-          'repositories {\n    maven("http://gradle.internal/releases")\n',
+      writeProject(swapped, {
+        'package.json': manifest,
+        'package-lock.json': lockfile(publicRegistryUrl),
       }),
     ]);
 
     const runs = await Promise.all([
-      runEngine(maven, ['read', 'dependency']),
-      runEngine(nuget, ['read', 'dependency']),
-      runEngine(gradle, ['read', 'dependency']),
+      runDependency(switchedOff),
+      runDependency(kept),
+      runDependency(swapped),
+    ]);
+
+    strict.deepStrictEqual(runs, [
+      { stdout: 'no dependency risks found\n', stderr: '', code: 0 },
+      {
+        stdout:
+          'Dependency risks found:\n\npackage-lock.json\n  fetched over plain http:// or git://: esbuild@0.25.0\n',
+        stderr: '',
+        code: 1,
+      },
+      {
+        stdout:
+          'Dependency hardening advisories:\n\npackage-lock.json\n  runs install scripts: esbuild@0.25.0\n',
+        stderr: '',
+        code: 0,
+      },
+    ]);
+  });
+
+  await it('leaves a Composer URL in the clear as a lead, in the lockfile too, while the composer.json keeps secure-http on', async () => {
+    const workspace = await newRepository();
+
+    await writeProject(workspace, {
+      'composer.json': JSON.stringify({
+        require: { 'me/zip': '^1.0' },
+        repositories: [{ type: 'composer', url: 'http://satis.internal' }],
+      }),
+      'composer.lock': JSON.stringify({
+        packages: [
+          {
+            name: 'me/zip',
+            version: '1.0.0',
+            dist: { type: 'zip', url: 'http://satis.internal/dist/zip.zip' },
+          },
+        ],
+        'packages-dev': [],
+      }),
+    });
+
+    const run = await runDependency(workspace);
+
+    strict.deepStrictEqual(run, {
+      stdout: `Dependency risks to review manually:
+
+composer.json
+  fetched over plain http:// or git://, which the package manager refuses unless a setting outside the project allows it: http://satis.internal
+
+composer.lock
+  fetched over plain http:// or git://, which the package manager refuses unless a setting outside the project allows it: me/zip (1.0.0)
+`,
+      stderr: '',
+      code: 0,
+    });
+  });
+
+  await it('counts a project Angular or Nx builds from the root install as covered by the lockfile there, and no other folder', async () => {
+    const workspace = await newRepository();
+    const library = JSON.stringify({ dependencies: { tslib: '^2.3.0' } });
+
+    await writeProject(workspace, {
+      'package.json': library,
+      'package-lock.json': JAVASCRIPT_CLEAN['package-lock.json'],
+      'angular.json': JSON.stringify({
+        projects: {
+          app: { root: '' },
+          'ui-kit': { root: 'projects/ui-kit/' },
+          escape: { root: '../outside' },
+        },
+      }),
+      'projects/ui-kit/package.json': library,
+      'nx.json': '{}',
+      'libs/data/project.json': '{}',
+      'libs/data/package.json': library,
+      'scripts/package.json': library,
+    });
+
+    const run = await runDependency(workspace);
+
+    strict.deepStrictEqual(run, {
+      stdout:
+        'Dependency hardening advisories:\n\nscripts/package.json\n  declares dependencies, but no lockfile covers it\n',
+      stderr: '',
+      code: 0,
+    });
+  });
+
+  await it('gathers under one lead the lockfile coverage a Git state it cannot read leaves unconfirmed', async () => {
+    const [absent, pointer] = await Promise.all([
+      newWorkspace(),
+      newWorkspace(),
+    ]);
+    const files = {
+      'package.json': JAVASCRIPT_CLEAN['packages/a/package.json'],
+      'package-lock.json': JAVASCRIPT_CLEAN['package-lock.json'],
+      'tools/package.json': JSON.stringify({
+        devDependencies: { tsx: '^4.0.0' },
+      }),
+    };
+
+    await Promise.all([
+      writeProject(absent, files),
+      writeProject(pointer, {
+        ...files,
+        '.git': 'gitdir: ../elsewhere/.git/worktrees/app\n',
+      }),
+    ]);
+
+    const runs = await Promise.all([
+      runDependency(absent),
+      runDependency(pointer),
     ]);
 
     strict.deepStrictEqual(runs, [
       {
-        stdout: '',
-        stderr:
-          'pom.xml is not well-formed XML at line 3, column 1, so the dependency checker cannot judge it: fix it, then run this again.\n',
-        code: 1,
+        stdout: `Dependency risks to review manually:
+
+.git
+  lockfile coverage the checker cannot confirm without a .git at the project root, since Git may ignore the lockfile or a workspace above the project may hold one (run the check from the repository root): package.json, tools/package.json
+`,
+        stderr: '',
+        code: 0,
       },
       {
-        stdout: '',
-        stderr:
-          'nuget.config is XML the checker cannot read (it declares a document type), so the dependency checker cannot judge it: fix it, then run this again.\n',
-        code: 1,
-      },
-      {
-        stdout: '',
-        stderr:
-          'build.gradle.kts never closes every block it opens, so the dependency checker cannot judge it: fix it, then run this again.\n',
-        code: 1,
+        stdout: `Dependency risks to review manually:
+
+.git
+  lockfile coverage the checker cannot confirm through a .git that points elsewhere, as a worktree or submodule does, since Git may ignore the lockfile (confirm in this checkout with git check-ignore): package.json
+
+Dependency hardening advisories:
+
+tools/package.json
+  declares dependencies, but no lockfile covers it
+`,
+        stderr: '',
+        code: 0,
       },
     ]);
-  });
-
-  await it('fails closed on a pyproject.toml that is not TOML, naming it instead of printing a clean result', async () => {
-    const workspace = await newWorkspace();
-
-    await writeProject(workspace, {
-      'pyproject.toml': '[project]\ndependencies = ["flask",\n',
-    });
-
-    const run = await runEngine(workspace, ['read', 'dependency']);
-
-    strict.deepStrictEqual(run, {
-      stdout: '',
-      stderr:
-        'pyproject.toml is not valid TOML at line 2, column 16, so the dependency checker cannot judge it: fix it, then run this again.\n',
-      code: 1,
-    });
-  });
-
-  await it('fails closed on a malformed lockfile, naming it instead of printing a clean result', async () => {
-    const workspace = await newWorkspace();
-
-    await writeProject(workspace, {
-      'package.json': JAVASCRIPT_CLEAN['packages/a/package.json'],
-      'pnpm-lock.yaml':
-        'lockfileVersion: 9.0\npackages:\n  a@1.0.0:\n    engines: {}\n',
-    });
-
-    const run = await runEngine(workspace, ['read', 'dependency']);
-
-    strict.deepStrictEqual(run, {
-      stdout: '',
-      stderr:
-        'pnpm-lock.yaml locks "a@1.0.0" with no resolution, so the dependency checker cannot judge it: fix it, then run this again.\n',
-      code: 1,
-    });
   });
 });

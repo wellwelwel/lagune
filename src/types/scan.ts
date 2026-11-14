@@ -83,7 +83,7 @@ export type FileAnalysis = {
   advisory: string[];
 };
 
-export type RuleSeverity = 'finding' | 'advisory';
+export type RuleSeverity = 'finding' | 'review' | 'advisory';
 
 export type SeverityDetail = {
   severity: RuleSeverity;

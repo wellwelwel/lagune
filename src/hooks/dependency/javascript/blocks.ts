@@ -1,4 +1,5 @@
 import type {
+  BlockField,
   BlockNode,
   IndentedLine,
   KeyValue,
@@ -48,7 +49,8 @@ export const blocksOf = (file: string, content: string): BlockNode[] => {
   return roots;
 };
 
-const closingQuoteOf = (text: string): number => {
+/** Where the quote that opens a quoted value closes, or -1 when it never does */
+export const closingQuoteOf = (text: string): number => {
   const quote = text[0];
 
   for (let index = 1; index < text.length; index += 1) {
@@ -126,6 +128,12 @@ export const mappingOf = (
 
   throw notMapping(file, line);
 };
+
+export const fieldOf = (file: string, node: BlockNode): BlockField => ({
+  ...mappingOf(file, node.text, node.line),
+  line: node.line,
+  children: node.children,
+});
 
 const unquotedPairOf = (
   file: string,

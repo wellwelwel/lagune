@@ -43,7 +43,7 @@ export const analysisBySeverity = (
   broken: readonly SeverityDetail[]
 ): FileAnalysis => ({
   findings: detailsAt(broken, 'finding'),
-  review: [],
+  review: detailsAt(broken, 'review'),
   advisory: detailsAt(broken, 'advisory'),
 });
 

@@ -4,6 +4,8 @@ import { analysisOf } from '../../../src/hooks/dependency/analysis.js';
 import { readManifest } from '../../../src/hooks/dependency/javascript/manifest.js';
 
 export const PLAIN = 'fetched over plain http:// or git://';
+export const GUARDED =
+  'fetched over plain http:// or git://, which the package manager refuses unless a setting outside the project allows it';
 export const UNHASHED = 'no integrity hash to check the download against';
 export const FLOATING = 'floating specifier (such as * or latest)';
 export const CANNOT_JUDGE = /so the dependency checker cannot judge it/;
@@ -14,6 +16,12 @@ export const report = (
 ): FileAnalysis => ({ findings, review: [], advisory });
 
 export const findings = (lines: string[]): FileAnalysis => report(lines, []);
+
+export const leads = (lines: string[]): FileAnalysis => ({
+  findings: [],
+  review: lines,
+  advisory: [],
+});
 
 export const CLEAN = findings([]);
 

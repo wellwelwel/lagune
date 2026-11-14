@@ -159,11 +159,11 @@ const uvEntryOf = (
   return {
     name: lockedName(name, textAt(file, locked, 'version', where)),
     source: uvSourceOf(urls, source, registry),
-    hashed:
-      distributions.length > 0 &&
-      distributions.every(
+    missingHash:
+      distributions.length === 0 ||
+      distributions.some(
         (distribution) =>
-          textAt(file, distribution, 'hash', where) !== undefined
+          textAt(file, distribution, 'hash', where) === undefined
       ),
     installScript: false,
   };

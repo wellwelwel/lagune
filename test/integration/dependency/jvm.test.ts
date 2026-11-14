@@ -91,6 +91,29 @@ describe('a Maven settings.xml flags every mirror and repository it reaches over
     );
   });
 
+  it('leaves out a mirror Maven blocks, such as the one its own settings ship against external repositories over http://', () => {
+    const result = readMavenSettings(
+      'settings.xml',
+      `<settings>
+  <mirrors>
+    <mirror>
+      <id>maven-default-http-blocker</id>
+      <mirrorOf>external:http:*</mirrorOf>
+      <url>http://0.0.0.0/</url>
+      <blocked>true</blocked>
+    </mirror>
+    <mirror><id>open</id><mirrorOf>*</mirrorOf><url>http://nexus.internal/all</url><blocked>false</blocked></mirror>
+  </mirrors>
+</settings>
+`
+    );
+
+    strict.deepStrictEqual(
+      reported(result),
+      findings([`${PLAIN}: http://nexus.internal/all`])
+    );
+  });
+
   it('flags nothing in a settings.xml another tool writes', () => {
     const result = readMavenSettings(
       'settings.xml',
@@ -139,10 +162,30 @@ describe('a wrapper flags the build tool it downloads over plain http://', () =>
         urls
       );
     });
+
+  it('only advises on a download whose checksum the wrapper pins, since it rejects any other file', () => {
+    const result = readWrapperProperties(
+      'maven-wrapper.properties',
+      [
+        'distributionUrl=http://repo.internal/maven/apache-maven-3.9.6-bin.zip',
+        'distributionSha256Sum=31c55713e40233a8303827ceb42ca48a47267a0ad4bab9177123121e71524c26',
+        'wrapperUrl=http://repo.internal/maven-wrapper.jar',
+        'wrapperSha256Sum=',
+      ].join('\n')
+    );
+
+    strict.deepStrictEqual(reported(result), {
+      findings: [`${PLAIN}: http://repo.internal/maven-wrapper.jar`],
+      review: [],
+      advisory: [
+        'downloaded over plain http://, though the checksum it pins rejects any other file: http://repo.internal/maven/apache-maven-3.9.6-bin.zip',
+      ],
+    });
+  });
 });
 
 describe('a Gradle script flags every URL it writes as a string in a block that names repositories', () => {
-  it('reads Groovy repositories, Ivy repositories, and source control, never the repositories a publication deploys to', () => {
+  it('reads Groovy repositories, Ivy repositories, and source control, never the repositories a publication or a Gradle 6 upload deploys to', () => {
     const result = readGradleScript(
       'build.gradle',
       `plugins {
@@ -174,6 +217,14 @@ publishing {
   }
   repositories {
     maven { url 'http://deploy.internal/releases' }
+  }
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: "http://deploy.internal/legacy")
+    }
   }
 }
 `
@@ -289,7 +340,7 @@ empty=annotationProcessor
   });
 });
 
-describe('a JVM dependency file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a JVM dependency file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a pom.xml that is not well-formed XML',

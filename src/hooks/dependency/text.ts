@@ -4,6 +4,9 @@ const URL_CREDENTIALS = /([a-z][a-z\d+.-]{0,31}:\/\/)[^\s/@]{1,512}@/gi;
 
 const NAME_LENGTH = 214;
 
+/** The problem of each file the checker cannot judge, keyed by the error that names it, which no fault of the engine's own ever carries */
+const UNJUDGED_PROBLEMS = new WeakMap<Error, string>();
+
 const escaped = (text: string): string =>
   text.replace(
     UNPRINTABLE,
@@ -23,13 +26,36 @@ export const shownName = (name: string): string => {
   );
 };
 
-const reported = (message: string): Error =>
-  new Error(escaped(withoutCredentials(message)));
+const shownText = (text: string): string => escaped(withoutCredentials(text));
 
-export const cannotJudge = (file: string, problem: string): Error =>
-  reported(
-    `${file} ${problem}, so the dependency checker cannot judge it: fix it, then run this again.`
+const reported = (message: string): Error => new Error(shownText(message));
+
+export const cannotJudge = (file: string, problem: string): Error => {
+  const error = reported(
+    `${file} ${problem}, so the dependency checker cannot judge it`
   );
+
+  UNJUDGED_PROBLEMS.set(error, shownText(problem));
+
+  return error;
+};
+
+export const unjudgedProblem = (error: unknown): string | undefined =>
+  error instanceof Error ? UNJUDGED_PROBLEMS.get(error) : undefined;
+
+/** A judgment across files, or its fallback when a file it reads is one the checker cannot judge, which that file's own lead already names */
+export const unlessUnjudged = async <Value>(
+  judgment: Promise<Value>,
+  fallback: Value
+): Promise<Value> => {
+  try {
+    return await judgment;
+  } catch (error) {
+    if (unjudgedProblem(error) === undefined) throw error;
+
+    return fallback;
+  }
+};
 
 /** The error for the Ruby parser Lagune ships failing to start, which no change to the file it was about to read can fix */
 export const rubyParserFault = (file: string, problem: string): Error =>

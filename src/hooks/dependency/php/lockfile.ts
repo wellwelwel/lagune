@@ -31,11 +31,11 @@ const lockedFlags = (file: string, placed: PlacedTable): DependencyFlag[] => {
   const name = lockedName(file, placed);
 
   return packageUrls(file, placed).some(isPlainTransport)
-    ? [{ verdict: 'plain-transport', name }]
+    ? [{ verdict: 'guarded-plain-transport', name }]
     : [];
 };
 
-/** A composer.lock, flagging each package it locks, for production or development, from a URL over plain http:// or git:// */
+/** A composer.lock, flagging each package it locks, for production or development, from a URL over plain http:// or git://, which Composer refuses unless the composer.json beside it switches its guard off */
 export const readComposerLock = (
   file: string,
   content: string

@@ -1,19 +1,31 @@
+import type { NpmrcSettings } from '../../../src/types/hooks/dependency.js';
 import type { FileAnalysis } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
 import { analysisOf } from '../../../src/hooks/dependency/analysis.js';
 import { lockedFlags } from '../../../src/hooks/dependency/javascript/lockfile.js';
 import { readManifest } from '../../../src/hooks/dependency/javascript/manifest.js';
 import { npmEntries } from '../../../src/hooks/dependency/javascript/npm.js';
+import {
+  npmrcSettingsOf,
+  readNpmrc,
+} from '../../../src/hooks/dependency/javascript/npmrc.js';
 import { pnpmEntries } from '../../../src/hooks/dependency/javascript/pnpm.js';
 import { isFloating } from '../../../src/hooks/dependency/javascript/specifier.js';
+import {
+  readYarnrc,
+  readYarnrcYml,
+} from '../../../src/hooks/dependency/javascript/yarn-config.js';
 import { yarnEntries } from '../../../src/hooks/dependency/javascript/yarn.js';
 import {
   CANNOT_JUDGE,
   CLEAN,
   FLOATING,
+  GUARDED,
+  leads,
   manifestReport,
   PLAIN,
   report,
+  reported,
   UNHASHED,
 } from './__utils__.js';
 
@@ -131,7 +143,7 @@ describe('an npm lockfile flags what its entries decide', () => {
         '': { dependencies: { tarball: 'https://example.com/t.tgz' } },
         'node_modules/pad': {
           version: '1.0.0',
-          resolved: 'http://registry.npmjs.org/pad/-/pad-1.0.0.tgz',
+          resolved: 'http://registry.example.com/pad/-/pad-1.0.0.tgz',
           integrity: 'sha512-a',
         },
         'node_modules/nohash': {
@@ -198,7 +210,7 @@ describe('an npm lockfile flags what its entries decide', () => {
             fork: { version: 'github:me/fork#abc' },
             pad: {
               version: '1.0.0',
-              resolved: 'http://registry.npmjs.org/pad/-/pad-1.0.0.tgz',
+              resolved: 'http://registry.example.com/pad/-/pad-1.0.0.tgz',
               integrity: 'sha512-g',
             },
             inner: { version: '1.0.0', bundled: true },
@@ -311,7 +323,7 @@ describe('a Yarn lockfile flags what its entries decide', () => {
 
 b@^1.0.0:
   version "1.0.0"
-  resolved "http://registry.yarnpkg.com/b/-/b-1.0.0.tgz#0123456789abcdef0123456789abcdef01234567"
+  resolved "http://registry.example.com/b/-/b-1.0.0.tgz#0123456789abcdef0123456789abcdef01234567"
 
 c@user/c:
   version "1.0.0"
@@ -336,7 +348,7 @@ e@^3.0.0:
     );
   });
 
-  it('reads Yarn 2 and later, where registry entries carry a checksum', () => {
+  it('reads Yarn 2 and later, where registry entries carry a checksum unless Yarn locks them with conditions, which it never checksums', () => {
     const result = yarnReport(`__metadata:
   version: 8
   cacheKey: 10c0
@@ -365,6 +377,13 @@ e@^3.0.0:
 "app@workspace:.":
   version: 0.0.0-use.local
   resolution: "app@workspace:."
+
+"@esbuild/linux-x64@npm:0.25.0":
+  version: 0.25.0
+  resolution: "@esbuild/linux-x64@npm:0.25.0"
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
 `);
 
     strict.deepStrictEqual(
@@ -381,7 +400,305 @@ e@^3.0.0:
   });
 });
 
-describe('a file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a lockfile URL on the public registry is judged by how its package manager fetches it', () => {
+  const npmLockfile = (resolved: string): string =>
+    JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        'node_modules/pad': {
+          version: '1.0.0',
+          resolved,
+          integrity: 'sha512-a',
+        },
+      },
+    });
+
+  const npmCases: Array<[string, string, boolean, boolean]> = [
+    [
+      'swaps the public registry for the registry it is configured with',
+      'http://registry.npmjs.org/pad/-/pad-1.0.0.tgz',
+      false,
+      false,
+    ],
+    [
+      'swaps it whatever port the URL names',
+      'http://registry.npmjs.org:80/pad/-/pad-1.0.0.tgz',
+      false,
+      false,
+    ],
+    [
+      'fetches it as written once replace-registry-host keeps lockfile URLs',
+      'http://registry.npmjs.org/pad/-/pad-1.0.0.tgz',
+      true,
+      true,
+    ],
+    [
+      'fetches a host that only begins like the public registry as written',
+      'http://registry.npmjs.org.evil.example/pad.tgz',
+      false,
+      true,
+    ],
+    [
+      'fetches a path that names the public registry as written',
+      'http://evil.example/registry.npmjs.org/pad.tgz',
+      false,
+      true,
+    ],
+  ];
+
+  for (const [behavior, resolved, keepsUrls, plain] of npmCases)
+    it(`npm ${behavior}`, () => {
+      const result = analysisOf(
+        lockedFlags(
+          npmEntries('package-lock.json', npmLockfile(resolved), keepsUrls)
+        )
+      );
+
+      strict.deepStrictEqual(
+        result,
+        plain ? report([`${PLAIN}: pad@1.0.0`], []) : CLEAN
+      );
+    });
+
+  const yarnCases: Array<[string, string, boolean]> = [
+    [
+      'moves its own registry to https',
+      'http://registry.yarnpkg.com/b/-/b-1.0.0.tgz',
+      false,
+    ],
+    [
+      'moves the npm registry to https',
+      'http://registry.npmjs.org/b/-/b-1.0.0.tgz',
+      false,
+    ],
+    [
+      'moves any npmjs.com host to https',
+      'http://cdn.npmjs.com/b/-/b-1.0.0.tgz',
+      false,
+    ],
+    [
+      'keeps a URL that names a port, as its own match requires a slash after the host',
+      'http://registry.npmjs.org:80/b/-/b-1.0.0.tgz',
+      true,
+    ],
+    [
+      'keeps a host spelled in capitals, as its own match is case-sensitive',
+      'http://REGISTRY.YARNPKG.COM/b/-/b-1.0.0.tgz',
+      true,
+    ],
+    [
+      'keeps a host that only begins like its registry',
+      'http://registry.yarnpkg.com.evil.example/b.tgz',
+      true,
+    ],
+  ];
+
+  for (const [behavior, resolved, plain] of yarnCases)
+    it(`Yarn 1 ${behavior}`, () => {
+      const result = yarnReport(`# yarn lockfile v1
+
+
+b@^1.0.0:
+  version "1.0.0"
+  resolved "${resolved}"
+  integrity sha512-b
+`);
+
+      strict.deepStrictEqual(
+        result,
+        plain ? report([`${PLAIN}: b@1.0.0`], []) : CLEAN
+      );
+    });
+});
+
+describe('an .npmrc flags each registry npm fetches from over plain http://', () => {
+  it('reads the registry and every scoped registry the way npm reads the file, before its first section', () => {
+    const result = readNpmrc(
+      '.npmrc',
+      [
+        '; a comment',
+        '# another comment',
+        'registry=http://registry.example.com/ # the default',
+        '@acme:registry = "http://npm.acme.example/"',
+        '@safe:registry=https://npm.safe.example/',
+        '@local:registry=http://localhost:4873/',
+        '//npm.acme.example/:_authToken=${NPM_TOKEN}',
+        'cache=http://not.a.registry.example/',
+        '[section]',
+        'registry=http://after.a.section.example/',
+      ].join('\n')
+    );
+
+    strict.deepStrictEqual(
+      reported(result),
+      report(
+        [`${PLAIN}: http://npm.acme.example/, http://registry.example.com/`],
+        []
+      )
+    );
+  });
+
+  const settings: Array<[string, NpmrcSettings]> = [
+    ['', { ignoresScripts: false, keepsLockedRegistryUrls: false }],
+    [
+      'ignore-scripts=true',
+      { ignoresScripts: true, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'ignore-scripts',
+      { ignoresScripts: true, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'ignore-scripts = "true"',
+      { ignoresScripts: true, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'ignore-scripts=false',
+      { ignoresScripts: false, keepsLockedRegistryUrls: false },
+    ],
+    [
+      '[section]\nignore-scripts=true',
+      { ignoresScripts: false, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'replace-registry-host=npmjs',
+      { ignoresScripts: false, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'replace-registry-host=always',
+      { ignoresScripts: false, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'replace-registry-host=registry.npmjs.org',
+      { ignoresScripts: false, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'replace-registry-host=https://registry.npmjs.org/',
+      { ignoresScripts: false, keepsLockedRegistryUrls: false },
+    ],
+    [
+      'replace-registry-host=never',
+      { ignoresScripts: false, keepsLockedRegistryUrls: true },
+    ],
+    [
+      'replace-registry-host=npm.acme.example',
+      { ignoresScripts: false, keepsLockedRegistryUrls: true },
+    ],
+  ];
+
+  for (const [content, expected] of settings)
+    it(`settles ${JSON.stringify(content)} for the lockfile beside it as npm does`, () => {
+      strict.deepStrictEqual(npmrcSettingsOf(content), expected);
+    });
+});
+
+describe('a .yarnrc flags each registry Yarn 1 fetches from over plain http://', () => {
+  it('reads every top-level key, leaving out the hosts Yarn 1 moves to https', () => {
+    const result = readYarnrc(
+      '.yarnrc',
+      [
+        '# THIS IS AN AUTOGENERATED FILE.',
+        'registry "http://registry.example.com"',
+        '"@acme:registry" "http://npm.acme.example" # internal',
+        '"@public:registry" "http://registry.yarnpkg.com"',
+        'yarn-path ".yarn/releases/yarn-1.22.22.cjs"',
+        'lastUpdateCheck 1700000000000',
+        'nested:',
+        '  registry "http://never.read.example"',
+      ].join('\n')
+    );
+
+    strict.deepStrictEqual(
+      reported(result),
+      report(
+        [`${PLAIN}: http://npm.acme.example, http://registry.example.com`],
+        []
+      )
+    );
+  });
+});
+
+describe('a .yarnrc.yml flags a registry over plain http:// and a checksum behavior that accepts a mismatch', () => {
+  const SKIPPED =
+    'accepts a package that does not match the checksum its lockfile records';
+
+  it('reads a registry its whitelist allows over http:// as fetched in the clear, and any other as one Yarn refuses', () => {
+    const result = readYarnrcYml(
+      '.yarnrc.yml',
+      `nodeLinker: node-modules
+npmRegistryServer: "http://npm.internal.example"
+npmScopes:
+  acme:
+    npmRegistryServer: http://npm.acme.example # internal
+    npmAlwaysAuth: true
+  safe:
+    npmRegistryServer: "https://npm.safe.example"
+  local:
+    npmRegistryServer: "http://localhost:4873"
+unsafeHttpWhitelist:
+  - "*.internal.example"
+checksumBehavior: ignore
+`
+    );
+
+    strict.deepStrictEqual(reported(result), {
+      findings: [
+        `${PLAIN}: http://npm.internal.example`,
+        `${SKIPPED}: checksumBehavior ignore`,
+      ],
+      review: [`${GUARDED}: http://npm.acme.example`],
+      advisory: [],
+    });
+  });
+
+  const whitelists: Array<[string, string, boolean]> = [
+    ['["*.internal.example"]', 'npm.internal.example', true],
+    ['["*.internal.example"]', 'internal.example', false],
+    ['["npm.?.example"]', 'npm.a.example', true],
+    ["['npm.acme.example', '*.other.example']", 'npm.acme.example', true],
+    ['["NPM.ACME.EXAMPLE"]', 'npm.acme.example', false],
+    ['["*"]', 'npm.acme.example', true],
+    ['[]', 'npm.acme.example', false],
+    [`["${'*a'.repeat(120)}b"]`, 'a'.repeat(200), false],
+  ];
+
+  for (const [whitelist, host, allowed] of whitelists)
+    it(`reads http://${host.length > 40 ? `${host.slice(0, 12)}...` : host} as ${allowed ? 'allowed' : 'refused'} by ${whitelist.length > 40 ? 'a pattern built to stall a match' : whitelist}`, () => {
+      const result = readYarnrcYml(
+        '.yarnrc.yml',
+        `npmRegistryServer: "http://${host}"\nunsafeHttpWhitelist: ${whitelist}\n`
+      );
+
+      strict.deepStrictEqual(
+        reported(result),
+        allowed
+          ? report([`${PLAIN}: http://${host}`], [])
+          : leads([`${GUARDED}: http://${host}`])
+      );
+    });
+
+  const behaviors: Array<[string, boolean]> = [
+    ['throw', false],
+    ['reset', false],
+    ['update', true],
+    ['ignore', true],
+  ];
+
+  for (const [behavior, skips] of behaviors)
+    it(`reads checksumBehavior ${behavior} as ${skips ? 'accepting' : 'refusing'} a mismatch`, () => {
+      const result = readYarnrcYml(
+        '.yarnrc.yml',
+        `checksumBehavior: "${behavior}"\n`
+      );
+
+      strict.deepStrictEqual(
+        reported(result),
+        skips ? report([`${SKIPPED}: checksumBehavior ${behavior}`], []) : CLEAN
+      );
+    });
+});
+
+describe('a file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a package.json that is not JSON',
@@ -415,6 +732,19 @@ describe('a file the checker cannot judge stops it instead of reading as clean',
       'an npm lockfile whose packages are a list',
       () =>
         npmEntries('package-lock.json', '{"lockfileVersion":3,"packages":[]}'),
+    ],
+    [
+      'a .yarnrc line that holds a key and no value',
+      () => readYarnrc('.yarnrc', 'registry\n'),
+    ],
+    [
+      'a .yarnrc.yml whitelist item that does not open with a dash',
+      () =>
+        readYarnrcYml('.yarnrc.yml', 'unsafeHttpWhitelist:\n  host.example\n'),
+    ],
+    [
+      'a .yarnrc.yml value whose quote never closes',
+      () => readYarnrcYml('.yarnrc.yml', 'npmRegistryServer: "http://a\n'),
     ],
     [
       'a YAML file that is not a pnpm lockfile',

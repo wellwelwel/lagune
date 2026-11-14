@@ -13,6 +13,7 @@ const OPTIONS = {
 const HEADINGS: ReportHeadings = {
   sentinel: 'no dependency risks found\n',
   findings: 'Dependency risks found:',
+  review: 'Dependency risks to review manually:',
   advisory: 'Dependency hardening advisories:',
 };
 

@@ -1,12 +1,15 @@
 import type {
   CoverageScope,
   DependencyEcosystem,
+  DependencyFlag,
   DependencyReader,
 } from '../../../types/hooks/dependency.js';
 import { basename, dirname, join } from 'node:path';
 import { deepFreeze } from '../../../core/collections.js';
+import { parseJsonObject } from '../../../core/json.js';
+import { cannotJudge } from '../text.js';
 import { readComposerLock } from './lockfile.js';
-import { readComposerManifest } from './manifest.js';
+import { plainVerdictOf, readComposerManifest } from './manifest.js';
 
 const LOCKFILE = 'composer.lock';
 
@@ -16,8 +19,10 @@ const INSTALLED_NAME = 'installed.json';
 
 const PROJECT_ROOT = '.';
 
+const MANIFEST = 'composer.json';
+
 const READERS: ReadonlyMap<string, DependencyReader> = new Map([
-  ['composer.json', readComposerManifest],
+  [MANIFEST, readComposerManifest],
   [LOCKFILE, readComposerLock],
 ]);
 
@@ -39,6 +44,28 @@ const isInstalledPackage = (
   );
 };
 
+/** The flags of a composer.lock once the composer.json beside it says whether Composer's guard against URLs in the clear is on */
+const resolveBeside = async (
+  file: string,
+  flags: readonly DependencyFlag[],
+  scope: CoverageScope
+): Promise<readonly DependencyFlag[]> => {
+  if (basename(file) !== LOCKFILE) return flags;
+
+  const manifest = join(dirname(file), MANIFEST);
+
+  if (!scope.has(manifest)) return flags;
+
+  const verdict = plainVerdictOf(
+    manifest,
+    parseJsonObject(await scope.textAt(manifest), manifest, cannotJudge)
+  );
+
+  return flags.map((flag) =>
+    flag.verdict === 'guarded-plain-transport' ? { ...flag, verdict } : flag
+  );
+};
+
 /** Composer, whose lockfile covers only the manifest beside it, and whose installed packages need none */
 export const PHP: DependencyEcosystem = deepFreeze({
   readerOf: (file: string) => READERS.get(basename(file)) ?? null,
@@ -52,4 +79,5 @@ export const PHP: DependencyEcosystem = deepFreeze({
     );
   },
   rootsWorkspace: async () => false,
+  resolveBeside,
 });

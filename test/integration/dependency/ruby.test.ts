@@ -271,7 +271,7 @@ BUNDLED WITH
   });
 });
 
-describe('a Ruby dependency file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a Ruby dependency file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a Gemfile that never closes a string',

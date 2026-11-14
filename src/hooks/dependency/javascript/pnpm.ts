@@ -10,6 +10,7 @@ import { isPlainTransport } from '../transport.js';
 import {
   blockMappingOf,
   blocksOf,
+  fieldOf,
   flowMappingOf,
   mappingOf,
 } from './blocks.js';
@@ -28,12 +29,6 @@ const lockedVersionOf = (name: string): string => {
 
   return separator === -1 ? '' : name.slice(from + separator + 1);
 };
-
-const fieldOf = (file: string, node: BlockNode): BlockField => ({
-  ...mappingOf(file, node.text, node.line),
-  line: node.line,
-  children: node.children,
-});
 
 const resolutionOf = (
   file: string,
@@ -83,7 +78,7 @@ const pnpmEntryOf = (file: string, entry: BlockNode): LockedEntry => {
   return {
     name,
     source: pnpmSourceOf(name, resolution),
-    hashed: resolution.has('integrity'),
+    missingHash: !resolution.has('integrity'),
     installScript: fields.some(
       (field) => field.key === 'requiresBuild' && field.value === 'true'
     ),

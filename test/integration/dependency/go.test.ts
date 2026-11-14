@@ -6,7 +6,10 @@ import {
   missingChecksumFlags,
   readGoSum,
 } from '../../../src/hooks/dependency/go/sum.js';
-import { CANNOT_JUDGE, CLEAN, findings, UNHASHED } from './__utils__.js';
+import { CANNOT_JUDGE, CLEAN, report } from './__utils__.js';
+
+const UNRECORDED =
+  'no go.sum checksum, so Go builds nothing from it until go mod tidy records one from the checksum database';
 
 const sumReport = (sum: string, mod: string): FileAnalysis =>
   analysisOf(missingChecksumFlags('go.sum', sum, 'go.mod', mod));
@@ -34,7 +37,7 @@ replace (
 )
 `;
 
-describe('a go.sum flags each module its go.mod fetches without a checksum', () => {
+describe('a go.sum advises on each module its go.mod requires without a checksum, which Go refuses to build from', () => {
   it('accepts a checksum of the whole module or of its go.mod alone, and checks what each replacement swaps in', () => {
     const result = sumReport(
       `github.com/google/uuid v1.6.0 h1:a=
@@ -48,9 +51,12 @@ rsc.io/sampler v1.3.0 h1:e=
 
     strict.deepStrictEqual(
       result,
-      findings([
-        `${UNHASHED}: example.com/sampler@v1.99.99, golang.org/x/net@v0.20.0, rsc.io/quote@v1.5.1`,
-      ])
+      report(
+        [],
+        [
+          `${UNRECORDED}: example.com/sampler@v1.99.99, golang.org/x/net@v0.20.0, rsc.io/quote@v1.5.1`,
+        ]
+      )
     );
   });
 
@@ -86,9 +92,12 @@ describe('a go.mod is read the way Go reads it', () => {
 
     strict.deepStrictEqual(
       result,
-      findings([
-        `${UNHASHED}: example.com/abcd@v1.0.0, example.com/glued@v1.0.0, example.com/raw@v1.0.0`,
-      ])
+      report(
+        [],
+        [
+          `${UNRECORDED}: example.com/abcd@v1.0.0, example.com/glued@v1.0.0, example.com/raw@v1.0.0`,
+        ]
+      )
     );
   });
 });
@@ -115,7 +124,7 @@ describe('a go.mod declares dependencies only when it requires a module no folde
     });
 });
 
-describe('a Go dependency file the checker cannot judge stops it instead of reading as clean', () => {
+describe('a Go dependency file the checker cannot judge is refused instead of read as clean', () => {
   const cases: Array<[string, () => unknown]> = [
     [
       'a go.mod that never closes a block',

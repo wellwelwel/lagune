@@ -66,8 +66,11 @@ const SOURCE_BLOCKS: ReadonlySet<string> = new Set([
   'sourceControl',
 ]);
 
-/** The block that publishes the project's own artifacts, whose repositories receive them instead of serving dependencies */
-const PUBLISHING = 'publishing';
+/** The blocks that publish the project's own artifacts, whose repositories receive them instead of serving dependencies, uploadArchives being the one Gradle 6 and earlier deploy through */
+const PUBLISHING_BLOCKS: ReadonlySet<string> = new Set([
+  'publishing',
+  'uploadArchives',
+]);
 
 /** The blocks that configure something other than the project itself: the script's own classpath and the subprojects */
 const ELSEWHERE_BLOCKS: ReadonlySet<string> = new Set([
@@ -114,7 +117,8 @@ const tokenAt = (
 };
 
 const blockOf = (parent: GradleBlock, name: string | null): GradleBlock => {
-  const publishes = parent.publishes || name === PUBLISHING;
+  const publishes =
+    parent.publishes || (name !== null && PUBLISHING_BLOCKS.has(name));
   const configuresElsewhere =
     parent.configuresElsewhere || (name !== null && ELSEWHERE_BLOCKS.has(name));
 

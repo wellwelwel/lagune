@@ -23,6 +23,13 @@ const HASH_FRAGMENT = /#[0-9a-f]{40,128}$/i;
 
 const REGISTRY_PROTOCOL = 'npm:';
 
+/** The hosts Yarn 1 always reaches over https, whatever scheme the lockfile writes, as its own request code matches them */
+const YARN_FORCED_HTTPS =
+  /^http:\/\/(?:[^/]{1,253}\.)?(?:yarnpkg\.com|npmjs\.(?:org|com))(?:\/|$)/;
+
+/** What a Yarn 2 or later entry records when the package installs only on some platforms, which Yarn never checksums */
+const CONDITIONS = 'conditions';
+
 const descriptorParts = (
   file: string,
   descriptor: string
@@ -53,11 +60,16 @@ const classicFieldOf = (file: string, node: BlockNode): [string, string] => {
   ];
 };
 
+/** Whether Yarn 1 fetches a URL in the clear, as it does every plain one but those on the hosts it moves to https */
+export const isClassicPlainTransport = (url: string): boolean =>
+  isPlainTransport(url) && !YARN_FORCED_HTTPS.test(url);
+
 const classicSourceOf = (
   range: string,
   resolved: string | undefined
 ): DependencySource => {
-  if (resolved !== undefined && isPlainTransport(resolved)) return 'plain';
+  if (resolved !== undefined && isClassicPlainTransport(resolved))
+    return 'plain';
 
   return sourceOf(range);
 };
@@ -85,9 +97,9 @@ const classicEntryOf = (file: string, node: BlockNode): LockedEntry => {
   return {
     name: `${name}@${fields.get('version') ?? range}`,
     source: classicSourceOf(range, resolved),
-    hashed:
-      fields.has('integrity') ||
-      (resolved !== undefined && HASH_FRAGMENT.test(resolved)),
+    missingHash:
+      !fields.has('integrity') &&
+      (resolved === undefined || !HASH_FRAGMENT.test(resolved)),
     installScript: false,
   };
 };
@@ -101,7 +113,7 @@ const berrySourceOf = (reference: string): DependencySource => {
   return source === 'registry' ? 'remote' : source;
 };
 
-/** An entry of a Yarn 2 or later lockfile, whose registry entries carry a checksum */
+/** An entry of a Yarn 2 or later lockfile, whose registry entries carry a checksum unless they install only on some platforms */
 const berryEntryOf = (file: string, node: BlockNode): LockedEntry[] => {
   const { key } = mappingOf(file, node.text, node.line);
 
@@ -119,7 +131,7 @@ const berryEntryOf = (file: string, node: BlockNode): LockedEntry[] => {
     {
       name: `${name}@${fields.get('version') ?? reference}`,
       source: berrySourceOf(reference),
-      hashed: fields.has('checksum'),
+      missingHash: !fields.has('checksum') && !fields.has(CONDITIONS),
       installScript: false,
     },
   ];

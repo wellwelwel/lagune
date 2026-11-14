@@ -5,10 +5,14 @@ export type DependencyVerdict =
   | 'plain-transport'
   | 'missing-integrity'
   | 'extra-index'
+  | 'skipped-checksum'
+  | 'guarded-plain-transport'
   | 'outside-registry'
   | 'install-script'
   | 'floating-specifier'
-  | 'no-lockfile';
+  | 'no-lockfile'
+  | 'pinned-plain-transport'
+  | 'unrecorded-checksum';
 
 export type DependencyRule = SeverityDetail & { verdict: DependencyVerdict };
 
@@ -55,11 +59,12 @@ export type DependencyEcosystem = {
     scope: CoverageScope,
     manifest: string
   ) => Promise<boolean>;
-  /** What a lockfile leaves uncovered of the manifest beside it, such as a module go.mod requires and go.sum holds no checksum for */
-  flagsBeside?: (
+  /** The flags a file ends with once the files beside it are read, such as a module go.mod requires and go.sum holds no checksum for, or the install scripts an .npmrc switches off */
+  resolveBeside?: (
     file: string,
+    flags: readonly DependencyFlag[],
     scope: CoverageScope
-  ) => Promise<DependencyFlag[]>;
+  ) => Promise<readonly DependencyFlag[]>;
 };
 
 export type PlacedReader = {
@@ -67,10 +72,18 @@ export type PlacedReader = {
   reader: DependencyReader;
 };
 
+/** A file the scan read, its read blank when the checker cannot judge the file, which its problem then names */
 export type JudgedFile = {
   file: string;
   ecosystem: DependencyEcosystem;
   read: DependencyRead;
+  problem: string | null;
+};
+
+/** The files that declare dependencies, split by whether a lockfile covers them */
+export type ManifestCoverage = {
+  covered: Set<string>;
+  uncovered: Set<string>;
 };
 
 /** Where a specifier or a locked entry fetches its package from */
@@ -81,7 +94,8 @@ export type Specifier = readonly [name: string, spec: string];
 export type LockedEntry = {
   name: string;
   source: DependencySource;
-  hashed: boolean;
+  /** Lacks the hash its package manager writes for an entry of its kind, which Yarn never writes for a package it locks with conditions */
+  missingHash: boolean;
   installScript: boolean;
 };
 
@@ -90,9 +104,22 @@ export type NpmPackage = {
   display: string;
   fetched: boolean;
   resolved: string | undefined;
-  hashed: boolean;
+  missingHash: boolean;
   installScript: boolean;
   specs: Specifier[];
+};
+
+/** What a project's .npmrc settles for the lockfile beside it */
+export type NpmrcSettings = {
+  ignoresScripts: boolean;
+  /** Whether npm fetches a lockfile URL on the public registry as written, instead of from the registry it is configured with */
+  keepsLockedRegistryUrls: boolean;
+};
+
+/** The registries a Yarn configuration fetches from, and the hosts it lets it reach over plain http:// */
+export type YarnRegistries = {
+  servers: string[];
+  allowedHttpHosts: string[];
 };
 
 export type IndentedLine = {
