@@ -128,6 +128,15 @@ Output a short summary to the user:
 
 - What changed since the last run: findings added, findings removed because they are now resolved, and findings updated.
 - Anything left under Not determined.
+- When this run created the map, unless the project's ignore files already carry them, suggest these `.gitignore` lines in the conversation to keep its open findings out of a public repository:
+
+  ```gitignore
+  /.lagune/memory/detect.md
+  /.lagune/memory/plan.md
+  /.lagune/memory/harden.md
+  /.lagune/tracking.json
+  ```
+
 - A suggested commit message, for example `docs: update detect map`.
 - **Next step:** point the user to `/lagune-plan`, the phase that turns these findings into prioritized fixes, each tied to a charter principle. Frame it as the recommended next step, and note they can rerun `/lagune-detect` (on the whole project or a narrower scope) whenever the code changes.
 
@@ -135,4 +144,4 @@ Keep the map in plain language throughout. A non-developer should understand wha
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.18.2 read <command> <arguments>` and `npx --yes lagune@0.18.2 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.19.0 read <command> <arguments>` and `npx --yes lagune@0.19.0 write <command> <arguments>` as a fallback.
