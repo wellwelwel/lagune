@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.19.0](https://github.com/wellwelwel/lagune/compare/v0.18.2...v0.19.0) (2026-11-14)
+
+
+### Features
+
+* add hook and specialization in `dependency` defense ([d1f2238](https://github.com/wellwelwel/lagune/commit/d1f22381f31eeedfa0804b006a7333be7c59f267))
+* **detect:** suggest keeping open findings out of a public repository ([252322d](https://github.com/wellwelwel/lagune/commit/252322d8b2cd6b0e2404b6536e04dc5103c185a3))
+* improve false positive precision ([0ec9585](https://github.com/wellwelwel/lagune/commit/0ec9585af3e70c15a1dc76a5b4651651b7c7285e))
+* **secrets:** report environment files Git tracks ([1a1bf78](https://github.com/wellwelwel/lagune/commit/1a1bf7803e7c6ef438e30ed064712da46a545250))
+* **secrets:** report sensitive files under version control ([0545ee5](https://github.com/wellwelwel/lagune/commit/0545ee53731fad23a6a179bc15f68a5e7366faf6))
+* **secrets:** warn about sensitive files Git would commit ([3d49cee](https://github.com/wellwelwel/lagune/commit/3d49cee57f7a32ac1e9a3178e402a826ecb06d2c))
+
+
+### Bug Fixes
+
+* **dependency:** fail only on risks the project's files prove ([99f3034](https://github.com/wellwelwel/lagune/commit/99f3034cedc9dacdbb1bb100a4e36824b70a31af))
+
 ## [0.18.2](https://github.com/wellwelwel/lagune/compare/v0.18.1...v0.18.2) (2026-11-12)
 
 
