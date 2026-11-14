@@ -1,12 +1,19 @@
 {
   "name": "lagune",
-  "version": "0.18.2",
+  "version": "0.19.0",
   "description": "🪼 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
   "license": "Apache-2.0",
   "type": "module",
   "main": "lib/plugins/opencode.js",
   "bin": {
     "lagune": "lib/bin/index.js"
+  },
+  "imports": {
+    "#prism.wasm": "./lib/bin/prism.wasm",
+    "#prism/parse": {
+      "types": "./src/types/prism.ts",
+      "default": "@ruby/prism/src/parsePrism.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -58,14 +65,18 @@
   "devDependencies": {
     "@docusaurus/babel": "3.10.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "@nodable/entities": "^3.1.0",
     "@preact/preset-vite": "^2.10.6",
     "@preact/signals": "^2.11.4",
+    "@ruby/prism": "^2.1.0",
     "@tailwindcss/vite": "^4.3.4",
     "@types/babel__core": "^7.20.5",
     "@types/mdast": "^4.0.4",
     "@types/node": "^26.6.6",
     "concurrently": "^10.0.6",
     "esbuild": "^0.28.2",
+    "fast-xml-parser": "^5.12.0",
+    "fast-xml-validator": "^1.4.2",
     "mdast-util-from-markdown": "^2.1.0",
     "packages-update": "^2.0.0",
     "playwright": "^1.64.1",
@@ -81,6 +92,7 @@
     "skills": "^1.7.6",
     "tailwindcss": "^4.3.4",
     "tiktoken": "^1.0.22",
+    "toml.min": "^2.0.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "unified": "^11.0.5",
