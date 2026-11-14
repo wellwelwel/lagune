@@ -43,7 +43,7 @@ Kan du lide **Lagune**? [Giv os en ⭐ på **GitHub**](https://github.com/wellwe
 **Info**
 
 - **Lagune** kører på **Node.js** bag kulisserne, men du bruger det sprog, du vil.
-- Hvis du vil køre helt offline, så installér **Lagune** i dit projekt med `npm i -D lagune@0.18.2`.
+- Hvis du vil køre helt offline, så installér **Lagune** i dit projekt med `npm i -D lagune@0.19.0`.
 
 ## Kategorier
 
@@ -393,7 +393,7 @@ Skriv `$` og kommandoen under pluginnets navn efterfulgt af dit input, såsom `$
 Sandboxen i **Codex** har ingen netværksadgang. Installér motoren i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Ofte stillede spørgsmål
@@ -412,7 +412,7 @@ Skriv $ og kommandoen under pluginnets navn efterfulgt af dit input, såsom $lag
 
 ### Virker Lagune inde i sandboxen i Codex?
 
-Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.18.2 fra din egen terminal, én gang og efter hver opdatering.
+Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.19.0 fra din egen terminal, én gang og efter hver opdatering.
 
 ---
 
@@ -913,7 +913,7 @@ Skriv kommandoerne ved deres navn, såsom `/lagune-charter`, eller under pluginn
 Sandboxen i **Muse Code** kan ikke downloade motoren. Installér den i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Ofte stillede spørgsmål
@@ -932,7 +932,7 @@ Skriv dem ved deres navn, såsom /lagune-charter, eller under pluginnets navn, s
 
 ### Virker Lagune inde i sandboxen i Muse Code?
 
-Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.18.2 fra din egen terminal, én gang og efter hver opdatering.
+Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.19.0 fra din egen terminal, én gang og efter hver opdatering.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 Installér den nye udgivelse oven på den gamle for at opdatere **Lagune**, og tilføj `-g`, hvis du installerede det til alle dine projekter:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## Kommandoer
@@ -1014,7 +1014,7 @@ I OpenCode 2.x kører du opencode plugin add lagune. I OpenCode 1.x kører du op
 
 ### Hvordan opdaterer jeg Lagune i OpenCode?
 
-I OpenCode 2.x kører du opencode plugin update lagune og derefter opencode reload. I OpenCode 1.x kører du opencode plugin lagune@0.18.2 --force.
+I OpenCode 2.x kører du opencode plugin update lagune og derefter opencode reload. I OpenCode 1.x kører du opencode plugin lagune@0.19.0 --force.
 
 ### Hvordan kører jeg kommandoerne i Lagune i OpenCode?
 
@@ -1230,7 +1230,7 @@ Kør `gh skill update --all`, og læs hele outputtet. Omdirigér det først til 
 I en sandbox uden netværksadgang kan kommandoerne ikke downloade motoren. Installér den i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Ofte stillede spørgsmål
@@ -1569,6 +1569,8 @@ Kun så længe der ikke er registreret nogen. Den registrerer så hver kategori,
 ---
 
 # /lagune-detect: Kortlæg dit system og dets risici
+
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/commands/detect).
 
 > Læs din kode, og kortlæg, hvad dit system gør, og hvor risiciene er.
 
@@ -1974,6 +1976,8 @@ Start med owasp, standarden, og tilføj derefter den til dit sprog eller din sta
 ---
 
 # Katalog: sikkerhedsspecialiseringer efter behov
+
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/catalog).
 
 > Sådan indlæses specialiseringerne i dit projekts katalog, af en fase efter behov og af dig direkte.
 
@@ -3347,6 +3351,8 @@ Kør hooken regex i tilstanden scan over kodebasen. Den rapporterer mønstre, de
 
 # Hook secrets: find hardcodede secrets
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/hooks/secrets).
+
 > Gennemsøg en kodebase for hardcodede loginoplysninger fra kommandolinjen.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ Lad **Lagune** gennemgå dit projekt på egen hånd efter en tidsplan, enten ved
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune gør: harden gennemfører rettelser i din kode. Deepsec gør ikke: det er
 ---
 
 # OWASP-kilder
+
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/references/owasp-sources).
 
 > Hvor viden i de indbyggede OWASP-specialiseringer kommer fra, koblet til de kanoniske sider om angreb og Cheat Sheets hos OWASP.
 

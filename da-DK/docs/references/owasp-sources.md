@@ -1,5 +1,7 @@
 # OWASP-kilder
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/references/owasp-sources).
+
 > Hvor viden i de indbyggede OWASP-specialiseringer kommer fra, koblet til de kanoniske sider om angreb og Cheat Sheets hos OWASP.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/references/owasp-sources

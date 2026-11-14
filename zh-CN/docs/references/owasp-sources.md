@@ -1,5 +1,7 @@
 # OWASP 来源
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/references/owasp-sources)。
+
 > 内置 OWASP 专项的知识从何而来，并对应到 OWASP 官方的攻击页面和 Cheat Sheet 页面。
 
 规范链接: https://lagune.ai/zh-CN/docs/references/owasp-sources

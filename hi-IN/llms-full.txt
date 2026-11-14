@@ -43,7 +43,7 @@ Lagune एक ओपन सोर्स Security-Driven Hardening (SDH) वर�
 **जानकारी**
 
 - **Lagune** अंदर से **Node.js** पर चलता है, लेकिन आप अपनी पसंद की कोई भी भाषा इस्तेमाल कर सकते हैं।
-- पूरी तरह ऑफ़लाइन चलाने के लिए `npm i -D lagune@0.18.2` से अपने प्रोजेक्ट में **Lagune** इंस्टॉल करें।
+- पूरी तरह ऑफ़लाइन चलाने के लिए `npm i -D lagune@0.19.0` से अपने प्रोजेक्ट में **Lagune** इंस्टॉल करें।
 
 ## श्रेणियाँ
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** के सैंडबॉक्स में नेटवर्क एक्सेस नहीं है। इंजन को अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## अक्सर पूछे जाने वाले सवाल
@@ -412,7 +412,7 @@ $ टाइप करें, फिर प्लगइन के नाम क�
 
 ### क्या Codex के सैंडबॉक्स के अंदर Lagune काम करता है?
 
-हाँ, बशर्ते आप अपने टर्मिनल से npm i -D lagune@0.18.2 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद।
+हाँ, बशर्ते आप अपने टर्मिनल से npm i -D lagune@0.19.0 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद।
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 **Muse Code** का सैंडबॉक्स इंजन डाउनलोड नहीं कर सकता। इसे अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## अक्सर पूछे जाने वाले सवाल
@@ -932,7 +932,7 @@ muse plugins marketplace update lagune चलाएँ, फिर muse plugins r
 
 ### क्या Lagune, Muse Code के सैंडबॉक्स में काम करता है?
 
-हाँ, जब आप अपने टर्मिनल से npm i -D lagune@0.18.2 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल कर लें, पहली बार और हर अपडेट के बाद।
+हाँ, जब आप अपने टर्मिनल से npm i -D lagune@0.19.0 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल कर लें, पहली बार और हर अपडेट के बाद।
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 **Lagune** को अपडेट करने के लिए नई रिलीज़ को पुरानी रिलीज़ के ऊपर इंस्टॉल करें, और अगर आपने उसे अपने सभी प्रोजेक्ट के लिए इंस्टॉल किया था, तो `-g` जोड़ें:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## कमांड
@@ -1014,7 +1014,7 @@ OpenCode 2.x पर opencode plugin add lagune चलाएँ। OpenCode 1.x �
 
 ### OpenCode पर Lagune को कैसे अपडेट करें?
 
-OpenCode 2.x पर opencode plugin update lagune चलाएँ, फिर opencode reload चलाएँ। OpenCode 1.x पर opencode plugin lagune@0.18.2 --force चलाएँ।
+OpenCode 2.x पर opencode plugin update lagune चलाएँ, फिर opencode reload चलाएँ। OpenCode 1.x पर opencode plugin lagune@0.19.0 --force चलाएँ।
 
 ### OpenCode पर Lagune की कमांड कैसे चलाएँ?
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 जिस सैंडबॉक्स में नेटवर्क एक्सेस नहीं है, उसमें कमांड इंजन डाउनलोड नहीं कर सकतीं। इसे अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## अक्सर पूछे जाने वाले सवाल
@@ -1569,6 +1569,8 @@ charter, यानी सुरक्षा सिद्धांत, Lagune म
 ---
 
 # /lagune-detect: अपने सिस्टम और उसके जोखिमों का खाका बनाएँ
+
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/commands/detect)।
 
 > आपका कोड पढ़कर खाका बनाता है कि आपका सिस्टम क्या करता है और जोखिम कहाँ हैं।
 
@@ -1974,6 +1976,8 @@ npx lagune read list --categories
 ---
 
 # कैटलॉग: ज़रूरत पड़ने पर ही लोड होने वाली सुरक्षा विशेषज्ञताएँ
+
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/catalog)।
 
 > आपके प्रोजेक्ट के कैटलॉग की विशेषज्ञताएँ कैसे लोड होती हैं, ज़रूरत पड़ने पर किसी चरण के ज़रिए और सीधे आपके ज़रिए।
 
@@ -3347,6 +3351,8 @@ npx lagune read regex --pattern '<pattern>' चलाएँ। यह safe, unsa
 
 # secrets हुक: हार्डकोड किए गए सीक्रेट पकड़ें
 
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/hooks/secrets)।
+
 > कमांड लाइन से कोडबेस को स्कैन करके हार्डकोड किए गए क्रेडेंशियल खोजें।
 
 कैनोनिकल: https://lagune.ai/hi-IN/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune बदलता है: harden चरण आपके कोड में
 ---
 
 # OWASP स्रोत
+
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/references/owasp-sources)।
 
 > बिल्ट-इन OWASP विशेषज्ञताओं का ज्ञान कहाँ से आता है, OWASP के आधिकारिक अटैक और Cheat Sheet पेजों के साथ उसका पूरा खाका।
 

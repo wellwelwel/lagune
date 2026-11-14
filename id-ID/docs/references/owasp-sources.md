@@ -1,5 +1,7 @@
 # Sumber OWASP
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/references/owasp-sources).
+
 > Asal pengetahuan spesialisasi OWASP bawaan, dipetakan ke halaman serangan dan Cheat Sheet OWASP yang kanonis.
 
 Kanonis: https://lagune.ai/id-ID/docs/references/owasp-sources

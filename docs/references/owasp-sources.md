@@ -3,7 +3,7 @@
 > Where the knowledge of the built-in OWASP specializations comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/owasp-sources
-Last updated: 2026-11-03
+Last updated: 2026-11-13
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -284,8 +284,8 @@ Container and workload config is config-as-code the developer ships with the app
 
 ## 32. Supply Chain & CI/CD
 
-- [x] [NPM Security](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html) (interpreter)
-- [x] [Dependency Graph & SBOM Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Dependency_Graph_SBOM_Cheat_Sheet.html), [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html) (interpreter)
+- [x] [NPM Security](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html) (dependency)
+- [x] [Dependency Graph & SBOM Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Dependency_Graph_SBOM_Cheat_Sheet.html), [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html) (dependency)
 
 ---
 

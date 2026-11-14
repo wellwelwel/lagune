@@ -1,5 +1,7 @@
 # OWASP-Quellen
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/references/owasp-sources).
+
 > Woher das Wissen der integrierten OWASP-Spezialisierungen stammt, zugeordnet zu den kanonischen OWASP-Seiten der Angriffe und Cheat Sheets.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/references/owasp-sources

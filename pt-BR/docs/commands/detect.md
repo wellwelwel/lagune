@@ -1,5 +1,7 @@
 # /lagune-detect: mapeie o seu sistema e os riscos dele
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/commands/detect).
+
 > Leia o seu código e mapeie o que o seu sistema faz e onde estão os riscos.
 
 Canônica: https://lagune.ai/pt-BR/docs/commands/detect

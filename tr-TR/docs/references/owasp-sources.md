@@ -1,5 +1,7 @@
 # OWASP kaynakları
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/references/owasp-sources).
+
 > Yerleşik OWASP uzmanlıklarının bilgisinin nereden geldiği, OWASP'ın resmi saldırı ve Cheat Sheet sayfalarıyla eşleştirilmiş hâlde.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/references/owasp-sources

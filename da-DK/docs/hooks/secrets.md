@@ -1,5 +1,7 @@
 # Hook secrets: find hardcodede secrets
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/hooks/secrets).
+
 > Gennemsøg en kodebase for hardcodede loginoplysninger fra kommandolinjen.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/hooks/secrets

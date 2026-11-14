@@ -1,5 +1,7 @@
 # Katalog: Sicherheitsspezialisierungen bei Bedarf
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/catalog).
+
 > Wie die Spezialisierungen im Katalog deines Projekts geladen werden: von einer Phase bei Bedarf und von dir direkt.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/catalog

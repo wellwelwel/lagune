@@ -35,7 +35,7 @@ muse plugins install lagune@lagune
 **Muse Code** 的沙箱无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 常见问题
@@ -54,4 +54,4 @@ npm i -D lagune@0.18.2
 
 ### Lagune 能在 Muse Code 的沙箱中运行吗？
 
-可以，只要你在自己的终端中用 npm i -D lagune@0.18.2 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+可以，只要你在自己的终端中用 npm i -D lagune@0.19.0 把引擎安装到项目里，先装一次，之后每次更新后再装一次。

@@ -1,5 +1,7 @@
 # Catalogue : spécialisations de sécurité à la demande
 
+> Cette page n'est plus à jour par rapport à sa version anglaise. [Lire la version originale](https://lagune.ai/docs/catalog).
+
 > Comment les spécialisations du catalogue de votre projet sont chargées, à la demande par une phase, et directement par vous.
 
 Canonique: https://lagune.ai/fr-FR/docs/catalog

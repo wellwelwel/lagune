@@ -1,5 +1,7 @@
 # secrets hook：检测硬编码的密钥
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/hooks/secrets)。
+
 > 在命令行中扫描代码库里硬编码的凭证。
 
 规范链接: https://lagune.ai/zh-CN/docs/hooks/secrets

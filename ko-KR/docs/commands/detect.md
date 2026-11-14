@@ -1,5 +1,7 @@
 # /lagune-detect: 시스템과 위험 파악하기
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/commands/detect).
+
 > 코드를 읽고 시스템이 무엇을 하는지, 위험이 어디에 있는지 파악합니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/commands/detect

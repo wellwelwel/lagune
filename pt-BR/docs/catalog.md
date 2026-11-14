@@ -1,5 +1,7 @@
 # Catálogo: especializações de segurança sob demanda
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/catalog).
+
 > Como as especializações do catálogo do seu projeto são carregadas, sob demanda por uma fase ou diretamente por você.
 
 Canônica: https://lagune.ai/pt-BR/docs/catalog

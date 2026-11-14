@@ -1,5 +1,7 @@
 # secrets hook'u: koda gömülü gizli bilgileri tespit edin
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/hooks/secrets).
+
 > Kod tabanını koda gömülü kimlik bilgilerine karşı doğrudan komut satırından tarayın.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/secrets

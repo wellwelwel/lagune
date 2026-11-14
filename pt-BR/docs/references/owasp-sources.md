@@ -1,5 +1,7 @@
 # Fontes da OWASP
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/references/owasp-sources).
+
 > De onde vem o conhecimento das especializações nativas da categoria OWASP, mapeado para as páginas canônicas de ataques e Cheat Sheets da OWASP.
 
 Canônica: https://lagune.ai/pt-BR/docs/references/owasp-sources

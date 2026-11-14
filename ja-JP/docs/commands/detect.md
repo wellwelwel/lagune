@@ -1,5 +1,7 @@
 # /lagune-detect: システムとそのリスクを洗い出す
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/commands/detect)。
+
 > コードを読み取り、システムが何をしているのか、どこにリスクがあるのかを洗い出します。
 
 正規 URL: https://lagune.ai/ja-JP/docs/commands/detect

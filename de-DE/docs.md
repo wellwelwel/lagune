@@ -35,7 +35,7 @@ Gefällt dir **Lagune**? [Gib uns einen ⭐ auf **GitHub**](https://github.com/w
 **Info**
 
 - **Lagune** läuft unter der Haube mit **Node.js**, aber du arbeitest in der Sprache deiner Wahl.
-- Um **Lagune** komplett offline auszuführen, installiere es mit `npm i -D lagune@0.18.2` in deinem Projekt.
+- Um **Lagune** komplett offline auszuführen, installiere es mit `npm i -D lagune@0.19.0` in deinem Projekt.
 
 ## Kategorien
 

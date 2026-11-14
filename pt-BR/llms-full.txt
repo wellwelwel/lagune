@@ -43,7 +43,7 @@ Curtiu o **Lagune**? [Dê uma ⭐ no **GitHub**](https://github.com/wellwelwel/l
 **Informação**
 
 - Por baixo dos panos, o **Lagune** roda em **Node.js**, mas você usa a linguagem que quiser.
-- Para rodar totalmente offline, instale o **Lagune** no seu projeto com `npm i -D lagune@0.18.2`.
+- Para rodar totalmente offline, instale o **Lagune** no seu projeto com `npm i -D lagune@0.19.0`.
 
 ## Categorias
 
@@ -393,7 +393,7 @@ Digite `$` e o comando com o nome do plugin na frente, seguido do seu pedido, co
 O sandbox do **Codex** não tem acesso à rede. Instale o engine no seu projeto pelo seu próprio terminal, uma vez e de novo após cada atualização:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Perguntas frequentes
@@ -412,7 +412,7 @@ Digite $ e o comando com o nome do plugin na frente, seguido do seu pedido, como
 
 ### O Lagune funciona dentro do sandbox do Codex?
 
-Sim, depois que você instala o engine no seu projeto com npm i -D lagune@0.18.2 pelo seu próprio terminal, uma vez e de novo após cada atualização.
+Sim, depois que você instala o engine no seu projeto com npm i -D lagune@0.19.0 pelo seu próprio terminal, uma vez e de novo após cada atualização.
 
 ---
 
@@ -913,7 +913,7 @@ Digite os comandos pelo nome, como `/lagune-charter`, ou com o nome do plugin na
 O sandbox do **Muse Code** não consegue baixar o engine. Instale-o no seu projeto pelo seu próprio terminal, uma vez e de novo após cada atualização:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Perguntas frequentes
@@ -932,7 +932,7 @@ Digite-os pelo nome, como /lagune-charter, ou com o nome do plugin na frente, co
 
 ### O Lagune funciona dentro do sandbox do Muse Code?
 
-Sim, depois que você instala o engine no seu projeto com npm i -D lagune@0.18.2 pelo seu próprio terminal, uma vez e de novo após cada atualização.
+Sim, depois que você instala o engine no seu projeto com npm i -D lagune@0.19.0 pelo seu próprio terminal, uma vez e de novo após cada atualização.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 Para atualizar o **Lagune**, instale a nova versão por cima da antiga, adicionando `-g` se você o instalou em todos os seus projetos:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## Comandos
@@ -1014,7 +1014,7 @@ No OpenCode 2.x, execute opencode plugin add lagune. No OpenCode 1.x, execute op
 
 ### Como atualizar o Lagune no OpenCode?
 
-No OpenCode 2.x, execute opencode plugin update lagune e depois opencode reload. No OpenCode 1.x, execute opencode plugin lagune@0.18.2 --force.
+No OpenCode 2.x, execute opencode plugin update lagune e depois opencode reload. No OpenCode 1.x, execute opencode plugin lagune@0.19.0 --force.
 
 ### Como executar os comandos do Lagune no OpenCode?
 
@@ -1230,7 +1230,7 @@ Execute `gh skill update --all` e leia a saída completa do comando, redireciona
 Em um sandbox sem acesso à rede, os comandos não conseguem baixar o engine. Instale-o no seu projeto pelo seu próprio terminal, uma vez e de novo após cada atualização:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Perguntas frequentes
@@ -1569,6 +1569,8 @@ Só enquanto nenhuma está registrada. Nesse caso, ele registra cada categoria q
 ---
 
 # /lagune-detect: mapeie o seu sistema e os riscos dele
+
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/commands/detect).
 
 > Leia o seu código e mapeie o que o seu sistema faz e onde estão os riscos.
 
@@ -1974,6 +1976,8 @@ Comece com owasp, o padrão, e depois adicione a da sua linguagem ou stack. As e
 ---
 
 # Catálogo: especializações de segurança sob demanda
+
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/catalog).
 
 > Como as especializações do catálogo do seu projeto são carregadas, sob demanda por uma fase ou diretamente por você.
 
@@ -3347,6 +3351,8 @@ Execute o hook regex no modo scan sobre o código. Ele sinaliza padrões vulner�
 
 # Hook secrets: detecte segredos hardcoded
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/hooks/secrets).
+
 > Varra um código em busca de credenciais hardcoded, direto da linha de comando.
 
 Canônica: https://lagune.ai/pt-BR/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ O **GitHub Actions** executa a auditoria na nuvem com o [**GitHub Agentic Workfl
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ O Lagune altera: o harden aplica as correções no seu código. O Deepsec não a
 ---
 
 # Fontes da OWASP
+
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/references/owasp-sources).
 
 > De onde vem o conhecimento das especializações nativas da categoria OWASP, mapeado para as páginas canônicas de ataques e Cheat Sheets da OWASP.
 

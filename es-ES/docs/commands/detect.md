@@ -1,5 +1,7 @@
 # /lagune-detect: identifica qué hace tu sistema y sus riesgos
 
+> Esta página está desactualizada respecto a su versión en inglés. [Leer la versión original](https://lagune.ai/docs/commands/detect).
+
 > Lee tu código e identifica qué hace tu sistema y dónde están los riesgos.
 
 URL canónica: https://lagune.ai/es-ES/docs/commands/detect

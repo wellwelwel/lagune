@@ -1,5 +1,7 @@
 # secrets 훅: 하드코딩된 시크릿 탐지하기
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/hooks/secrets).
+
 > 명령줄에서 코드베이스를 스캔해 하드코딩된 자격 증명을 찾을 수 있습니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/secrets

@@ -33,7 +33,7 @@ Skriv `$` og kommandoen under pluginnets navn efterfulgt af dit input, såsom `$
 Sandboxen i **Codex** har ingen netværksadgang. Installér motoren i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Ofte stillede spørgsmål
@@ -52,4 +52,4 @@ Skriv $ og kommandoen under pluginnets navn efterfulgt af dit input, såsom $lag
 
 ### Virker Lagune inde i sandboxen i Codex?
 
-Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.18.2 fra din egen terminal, én gang og efter hver opdatering.
+Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.19.0 fra din egen terminal, én gang og efter hver opdatering.

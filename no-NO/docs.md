@@ -35,7 +35,7 @@ Liker du **Lagune**? [Gi oss en ⭐ på **GitHub**](https://github.com/wellwelwe
 **Info**
 
 - **Lagune** kjører på **Node.js** i bakgrunnen, men du bruker det språket du vil.
-- Vil du kjøre helt offline, installerer du **Lagune** i prosjektet ditt med `npm i -D lagune@0.18.2`.
+- Vil du kjøre helt offline, installerer du **Lagune** i prosjektet ditt med `npm i -D lagune@0.19.0`.
 
 ## Kategorier
 

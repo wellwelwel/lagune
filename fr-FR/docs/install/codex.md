@@ -33,7 +33,7 @@ Tapez `$` et la commande sous le nom du plugin, suivie de votre demande, comme `
 Le sandbox de **Codex** n'a pas d'accès réseau. Installez le moteur dans votre projet depuis votre propre terminal, une fois puis après chaque mise à jour :
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Questions fréquentes
@@ -52,4 +52,4 @@ Tapez $ et la commande sous le nom du plugin, suivie de votre demande, comme $la
 
 ### Lagune fonctionne-t-il dans le sandbox de Codex ?
 
-Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.18.2 depuis votre propre terminal, une fois puis après chaque mise à jour.
+Oui, une fois le moteur installé dans votre projet avec npm i -D lagune@0.19.0 depuis votre propre terminal, une fois puis après chaque mise à jour.

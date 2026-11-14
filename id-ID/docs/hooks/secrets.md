@@ -1,5 +1,7 @@
 # Hook secrets: deteksi secret yang hardcoded
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/hooks/secrets).
+
 > Pindai basis kode untuk menemukan kredensial yang hardcoded, langsung dari command line.
 
 Kanonis: https://lagune.ai/id-ID/docs/hooks/secrets

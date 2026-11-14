@@ -1,5 +1,7 @@
 # Hook secrets: Oppdag hardkodede hemmeligheter
 
+> Denne siden er utdatert sammenlignet med den engelske versjonen. [Les originalversjonen](https://lagune.ai/docs/hooks/secrets).
+
 > Skann en kodebase etter hardkodede påloggingsdetaljer rett fra kommandolinjen.
 
 Kanonisk URL: https://lagune.ai/no-NO/docs/hooks/secrets

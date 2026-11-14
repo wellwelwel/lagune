@@ -43,7 +43,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 **備考**
 
 - **Lagune** は内部で **Node.js** を使って動作しますが、開発に使う言語は自由です。
-- 完全にオフラインで実行するには、`npm i -D lagune@0.18.2` で **Lagune** をプロジェクトにインストールします。
+- 完全にオフラインで実行するには、`npm i -D lagune@0.19.0` で **Lagune** をプロジェクトにインストールします。
 
 ## カテゴリ
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** のサンドボックスはネットワークにアクセスできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## よくある質問
@@ -412,7 +412,7 @@ $lagune:lagune-charter のように、$ に続けてプラグイン名付きの�
 
 ### Codex のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.18.2 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.19.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 **Muse Code** のサンドボックスはエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## よくある質問
@@ -932,7 +932,7 @@ muse plugins marketplace update lagune を実行してから、muse plugins remo
 
 ### Muse Code のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.18.2 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.19.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 **Lagune** を更新するには、新しいリリースを上書きインストールします。すべてのプロジェクトにインストールした場合は `-g` を付けます：
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## コマンド
@@ -1014,7 +1014,7 @@ OpenCode 2.x では、opencode plugin add lagune を実行します。OpenCode 1
 
 ### OpenCode で Lagune を更新するにはどうすればよいですか？
 
-OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.18.2 --force を実行します。
+OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.19.0 --force を実行します。
 
 ### OpenCode で Lagune のコマンドを実行するにはどうすればよいですか？
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 ネットワークにアクセスできないサンドボックスでは、コマンドがエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## よくある質問
@@ -1569,6 +1569,8 @@ charter は Lagune の全体を統括するレイヤーで、後続のすべて�
 ---
 
 # /lagune-detect: システムとそのリスクを洗い出す
+
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/commands/detect)。
 
 > コードを読み取り、システムが何をしているのか、どこにリスクがあるのかを洗い出します。
 
@@ -1974,6 +1976,8 @@ npx lagune read list --categories
 ---
 
 # カタログ：必要なときに読み込むセキュリティの専門知識
+
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/catalog)。
 
 > プロジェクトのカタログにある専門知識がどう読み込まれるかを解説します。フェーズが必要なときに読み込むほか、自分で直接読み込むこともできます。
 
@@ -3347,6 +3351,8 @@ npx lagune read regex --pattern '<pattern>' を実行します。safe、unsafe�
 
 # secrets フック：ハードコードされたシークレットを検出する
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/hooks/secrets)。
+
 > コマンドラインから、ハードコードされた認証情報をコードベース全体でスキャンできます。
 
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune は変更します。harden がコードに修正を適用します。Dee
 ---
 
 # OWASP の出典
+
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/references/owasp-sources)。
 
 > 組み込みの OWASP 専門知識が拠りどころとする出典を、OWASP 公式の攻撃ページと Cheat Sheet ページに対応づけて示します。
 

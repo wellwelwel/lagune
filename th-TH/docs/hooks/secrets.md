@@ -1,5 +1,7 @@
 # Hook secrets: ตรวจหา secret ที่ฮาร์ดโค้ดไว้
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/hooks/secrets)
+
 > สแกนโค้ดเบสหาข้อมูลรับรองที่ฮาร์ดโค้ดไว้ได้จากบรรทัดคำสั่ง
 
 Canonical: https://lagune.ai/th-TH/docs/hooks/secrets

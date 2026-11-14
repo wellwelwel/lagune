@@ -1,5 +1,7 @@
 # Hook secrets: detecta secretos incrustados en el código
 
+> Esta página está desactualizada respecto a su versión en inglés. [Leer la versión original](https://lagune.ai/docs/hooks/secrets).
+
 > Analiza un proyecto en busca de credenciales incrustadas en el código, desde la línea de comandos.
 
 URL canónica: https://lagune.ai/es-ES/docs/hooks/secrets

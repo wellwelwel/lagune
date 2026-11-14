@@ -1,5 +1,7 @@
 # /lagune-detect: 摸清你的系统和它的风险
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/commands/detect)。
+
 > 读取你的代码，梳理系统在做什么、风险在哪里。
 
 规范链接: https://lagune.ai/zh-CN/docs/commands/detect

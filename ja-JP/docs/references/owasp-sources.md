@@ -1,5 +1,7 @@
 # OWASP の出典
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/references/owasp-sources)。
+
 > 組み込みの OWASP 専門知識が拠りどころとする出典を、OWASP 公式の攻撃ページと Cheat Sheet ページに対応づけて示します。
 
 正規 URL: https://lagune.ai/ja-JP/docs/references/owasp-sources

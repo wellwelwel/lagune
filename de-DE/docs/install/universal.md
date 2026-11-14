@@ -72,7 +72,7 @@ Führe `gh skill update --all` aus und lies die vollständige Ausgabe, die du be
 In einer Sandbox ohne Netzwerkzugriff können die Befehle die Engine nicht herunterladen. Installiere sie über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Häufige Fragen

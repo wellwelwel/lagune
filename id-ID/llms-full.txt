@@ -43,7 +43,7 @@ Suka **Lagune**? [Beri kami ⭐ di **GitHub**](https://github.com/wellwelwel/lag
 **Info**
 
 - Di balik layar, **Lagune** berjalan di **Node.js**, tetapi Anda bebas memakai bahasa apa pun.
-- Untuk menjalankannya sepenuhnya offline, instal **Lagune** di proyek Anda dengan `npm i -D lagune@0.18.2`.
+- Untuk menjalankannya sepenuhnya offline, instal **Lagune** di proyek Anda dengan `npm i -D lagune@0.19.0`.
 
 ## Kategori
 
@@ -393,7 +393,7 @@ Ketik `$` dan perintah dengan nama plugin di depannya, diikuti input Anda, misal
 Sandbox **Codex** tidak punya akses jaringan. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -412,7 +412,7 @@ Ketik $ dan perintah dengan nama plugin di depannya, diikuti input Anda, misalny
 
 ### Apakah Lagune berfungsi di dalam sandbox Codex?
 
-Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.18.2 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
+Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.19.0 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
 
 ---
 
@@ -913,7 +913,7 @@ Ketik perintah dengan namanya, misalnya `/lagune-charter`, atau dengan nama plug
 Sandbox **Muse Code** tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -932,7 +932,7 @@ Ketik perintah dengan namanya, misalnya /lagune-charter, atau dengan nama plugin
 
 ### Apakah Lagune berfungsi di dalam sandbox Muse Code?
 
-Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.18.2 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
+Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.19.0 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 Untuk memperbarui **Lagune**, instal rilis baru di atas rilis lama, dengan menambahkan `-g` jika Anda menginstalnya di semua proyek Anda:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## Perintah
@@ -1014,7 +1014,7 @@ Di OpenCode 2.x, jalankan opencode plugin add lagune. Di OpenCode 1.x, jalankan 
 
 ### Bagaimana cara memperbarui Lagune di OpenCode?
 
-Di OpenCode 2.x, jalankan opencode plugin update lagune, lalu opencode reload. Di OpenCode 1.x, jalankan opencode plugin lagune@0.18.2 --force.
+Di OpenCode 2.x, jalankan opencode plugin update lagune, lalu opencode reload. Di OpenCode 1.x, jalankan opencode plugin lagune@0.19.0 --force.
 
 ### Bagaimana cara menjalankan perintah Lagune di OpenCode?
 
@@ -1230,7 +1230,7 @@ Jalankan `gh skill update --all` dan baca seluruh output-nya, alihkan dulu ke fi
 Di sandbox tanpa akses jaringan, perintah tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -1569,6 +1569,8 @@ Hanya selama belum ada kategori yang tercatat. Charter kemudian mencatat setiap 
 ---
 
 # /lagune-detect: petakan sistem Anda dan risikonya
+
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/commands/detect).
 
 > Baca kode Anda lalu petakan apa yang dilakukan sistem Anda dan di mana letak risikonya.
 
@@ -1974,6 +1976,8 @@ Mulai dengan owasp, kategori default, lalu tambahkan kategori untuk bahasa atau 
 ---
 
 # Katalog: spesialisasi keamanan yang dimuat saat dibutuhkan
+
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/catalog).
 
 > Cara spesialisasi di katalog proyek Anda dimuat, oleh fase hanya saat dibutuhkan, atau langsung oleh Anda.
 
@@ -3347,6 +3351,8 @@ Jalankan hook regex dalam mode scan di seluruh basis kode. Hook ini melaporkan p
 
 # Hook secrets: deteksi secret yang hardcoded
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/hooks/secrets).
+
 > Pindai basis kode untuk menemukan kredensial yang hardcoded, langsung dari command line.
 
 Kanonis: https://lagune.ai/id-ID/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ Jadwalkan **Lagune** untuk mengaudit proyek Anda secara mandiri, entah hanya mel
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune mengubahnya: harden menerapkan perbaikan ke kode Anda. Deepsec tidak: Dee
 ---
 
 # Sumber OWASP
+
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/references/owasp-sources).
 
 > Asal pengetahuan spesialisasi OWASP bawaan, dipetakan ke halaman serangan dan Cheat Sheet OWASP yang kanonis.
 

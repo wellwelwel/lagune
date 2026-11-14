@@ -1,5 +1,7 @@
 # 目录：按需加载的安全专项
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/catalog)。
+
 > 项目目录中的专项如何加载：由阶段按需加载，或由你直接加载。
 
 规范链接: https://lagune.ai/zh-CN/docs/catalog

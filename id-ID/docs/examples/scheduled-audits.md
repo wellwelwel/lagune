@@ -34,7 +34,7 @@ Jadwalkan **Lagune** untuk mengaudit proyek Anda secara mandiri, entah hanya mel
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults

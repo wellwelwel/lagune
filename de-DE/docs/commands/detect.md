@@ -1,5 +1,7 @@
 # /lagune-detect: Erfasse dein System und seine Risiken
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/commands/detect).
+
 > Erfasse anhand deines Codes, was dein System tut und wo die Risiken liegen.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/commands/detect

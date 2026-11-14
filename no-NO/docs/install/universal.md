@@ -72,7 +72,7 @@ Kjør `gh skill update --all` og les alle utdataene, om nødvendig etter å ha o
 I en sandkasse uten nettverkstilgang kan ikke kommandoene laste ned motoren. Installer den i prosjektet ditt fra din egen terminal, først én gang og deretter etter hver oppdatering:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Vanlige spørsmål

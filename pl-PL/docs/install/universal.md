@@ -72,7 +72,7 @@ Uruchom `gh skill update --all` i przeczytaj cały wynik polecenia, w razie potr
 W sandboxie bez dostępu do sieci polecenia nie mogą pobrać silnika. Zainstaluj go w swoim projekcie z własnego terminala, raz, a potem po każdej aktualizacji:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Najczęściej zadawane pytania

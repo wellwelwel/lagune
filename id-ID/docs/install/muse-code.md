@@ -35,7 +35,7 @@ Ketik perintah dengan namanya, misalnya `/lagune-charter`, atau dengan nama plug
 Sandbox **Muse Code** tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -54,4 +54,4 @@ Ketik perintah dengan namanya, misalnya /lagune-charter, atau dengan nama plugin
 
 ### Apakah Lagune berfungsi di dalam sandbox Muse Code?
 
-Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.18.2 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
+Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.19.0 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.

@@ -1,5 +1,7 @@
 # /lagune-detect: Kartlegg systemet ditt og risikoene
 
+> Denne siden er utdatert sammenlignet med den engelske versjonen. [Les originalversjonen](https://lagune.ai/docs/commands/detect).
+
 > Les koden din og kartlegg hva systemet gjør og hvor risikoene ligger.
 
 Kanonisk URL: https://lagune.ai/no-NO/docs/commands/detect

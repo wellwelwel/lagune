@@ -35,7 +35,7 @@ muse plugins install lagune@lagune
 **Muse Code**의 샌드박스는 엔진을 다운로드할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 자주 묻는 질문
@@ -54,4 +54,4 @@ muse plugins marketplace update lagune 명령어를 실행한 다음 muse plugin
 
 ### Muse Code 샌드박스 안에서도 Lagune이 작동하나요?
 
-네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.2 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
+네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.19.0 명령어로 프로젝트에 엔진을 설치하면 작동합니다.

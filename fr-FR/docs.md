@@ -35,7 +35,7 @@ Vous aimez **Lagune** ? [Donnez-nous une ⭐ sur **GitHub**](https://github.com
 **Info**
 
 - **Lagune** tourne sur **Node.js** en coulisses, mais vous utilisez le langage que vous voulez.
-- Pour fonctionner entièrement hors ligne, installez **Lagune** dans votre projet avec `npm i -D lagune@0.18.2`.
+- Pour fonctionner entièrement hors ligne, installez **Lagune** dans votre projet avec `npm i -D lagune@0.19.0`.
 
 ## Catégories
 

@@ -1,5 +1,7 @@
 # /lagune-detect: Zmapuj swój system i jego ryzyka
 
+> Ta strona jest nieaktualna w porównaniu z wersją angielską. [Przeczytaj wersję oryginalną](https://lagune.ai/docs/commands/detect).
+
 > Przeanalizuj kod i zmapuj, co robi twój system oraz gdzie kryją się ryzyka.
 
 Adres kanoniczny: https://lagune.ai/pl-PL/docs/commands/detect

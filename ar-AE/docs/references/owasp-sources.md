@@ -1,5 +1,7 @@
 # مصادر OWASP
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/references/owasp-sources).
+
 > مصدر معرفة تخصصات OWASP المدمجة، مربوطة بصفحات الهجمات و Cheat Sheet المرجعية من OWASP.
 
 Canonical: https://lagune.ai/ar-AE/docs/references/owasp-sources

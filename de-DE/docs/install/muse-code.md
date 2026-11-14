@@ -35,7 +35,7 @@ Gib die Befehle mit ihrem Namen ein, etwa `/lagune-charter`, oder mit vorangeste
 Die Sandbox von **Muse Code** kann die Engine nicht herunterladen. Installiere sie über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Häufige Fragen
@@ -54,4 +54,4 @@ Gib sie mit ihrem Namen ein, etwa /lagune-charter, oder mit vorangestelltem Plug
 
 ### Funktioniert Lagune in der Sandbox von Muse Code?
 
-Ja, sobald du die Engine mit npm i -D lagune@0.18.2 über dein eigenes Terminal in deinem Projekt installierst, einmal und nach jeder Aktualisierung erneut.
+Ja, sobald du die Engine mit npm i -D lagune@0.19.0 über dein eigenes Terminal in deinem Projekt installierst, einmal und nach jeder Aktualisierung erneut.

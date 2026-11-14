@@ -1,5 +1,7 @@
 # OWASP स्रोत
 
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/references/owasp-sources)।
+
 > बिल्ट-इन OWASP विशेषज्ञताओं का ज्ञान कहाँ से आता है, OWASP के आधिकारिक अटैक और Cheat Sheet पेजों के साथ उसका पूरा खाका।
 
 कैनोनिकल: https://lagune.ai/hi-IN/docs/references/owasp-sources

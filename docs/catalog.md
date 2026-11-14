@@ -3,7 +3,7 @@
 > How the specializations in your project's catalog are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/catalog
-Last updated: 2026-11-02
+Last updated: 2026-11-13
 
 🧠 **Lagune**'s specializations are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. Your project's catalog is the set it uses: the built-in specializations of its [categories](https://lagune.ai/docs/categories) plus its own. The detect and verify phases reach for them while they run, and you can load one directly any time.
 
@@ -51,6 +51,7 @@ The built-in specializations are grouped into [**categories**](https://lagune.ai
 | `regex`               | `owasp`                     | **ReDoS:** patterns that explode on crafted input.                             |
 | `network`             | `owasp`                     | **SSRF & redirects:** user-supplied fetch or redirect destinations.            |
 | `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, dynamic include, name dispatch.                    |
+| `dependency`          | `owasp`, `lovable`          | **Dependencies:** lockfiles, sources, install scripts, squatting, known CVEs.  |
 | `sql`                 | `owasp`                     | **Relational databases:** injection, raw ORM calls, privileges, engine reach.  |
 | `path`                | `owasp`                     | **Filesystem paths:** traversal, null-byte, NTFS streams, planting.            |
 | `upload`              | `owasp`                     | **File uploads:** type/signature, malicious content, storage, limits.          |
@@ -60,7 +61,7 @@ The built-in specializations are grouped into [**categories**](https://lagune.ai
 | `http-request`        | `owasp`                     | **Request provenance:** CSRF, CORS misconfig, spoofed client-IP.               |
 | `transport`           | `owasp`                     | **Channel security:** TLS config, HTTPS/cleartext, HSTS, pinning.              |
 | `crypto`              | `owasp`, `lovable`          | **Crypto at rest:** weak/custom algorithms, CSPRNG, key management.            |
-| `secrets`             | `owasp`, `lovable`          | **Hardcoded credentials:** keys, tokens, passwords literal in source.          |
+| `secrets`             | `owasp`, `lovable`          | **Hardcoded credentials:** keys, tokens, passwords in source or tracked files. |
 | `api-endpoint`        | `owasp`                     | **Non-REST surfaces:** GraphQL, gRPC, WebSocket authz, DoS, schema.            |
 | `payment`             | `owasp`, `lovable`          | **Checkout flow:** verify gateway server-side, signed callbacks, idempotency.  |
 | `xml`                 | `owasp`                     | **XML parsing:** XXE, external entities, billion-laughs expansion.             |
@@ -85,11 +86,7 @@ Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](https:/
 
 ## Your own specializations
 
-The built-ins grow by adding one knowledge file plus one index row, never a new command. You add your own the same way, with [`/lagune-specialize`](https://lagune.ai/docs/commands/specialize): point it at an article or a topic and it distills a new specialization into your project, the file under `.lagune/catalog/` and its entry in `.lagune/configs.json`. Your own are always in the catalog, whatever its categories, and one of yours shadows a built-in of the same name.
-
-**Internally, Lagune loads specializations automatically, on demand**
-
-When the detect or verify phase hits a context a specialization covers, it loads that specialization with `read catalog <name>` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
+You add your own with [`/lagune-specialize`](https://lagune.ai/docs/commands/specialize): point it at an article or a topic and it distills a new specialization into your project, the file under `.lagune/catalog/` and its entry in `.lagune/configs.json`. Your own are always in the catalog, whatever its categories, and one of yours shadows a built-in of the same name.
 
 ## Discover what is available
 
@@ -103,11 +100,7 @@ npx lagune read catalog
 # ...
 ```
 
-A `[required]` specialization always applies, whatever the work. Which built-ins the list holds depends on your project's [**categories**](https://lagune.ai/docs/categories).
-
-**Specializations are not loaded by default**
-
-The relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
+A `[required]` specialization strengthens the model to always apply, whatever the work.
 
 ## Frequently Asked Questions
 

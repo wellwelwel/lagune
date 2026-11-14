@@ -3,7 +3,7 @@
 > Read your code and map what your system does and where the risks are.
 
 Canonical: https://lagune.ai/docs/commands/detect
-Last updated: 2026-10-31
+Last updated: 2026-11-13
 
 🔬 Find out what your system really does and where the risks are.
 
@@ -48,6 +48,16 @@ From there, you have a clear map of what your system does and where the risks li
 
 - Running it again updates the map: solved findings drop off, new ones come in.
 - The detect map lives in `.lagune/memory/detect.md`.
+- In a public repository, keep your open findings out of it by adding these lines to your `.gitignore`:
+
+  ```text
+  /.lagune/memory/detect.md
+  /.lagune/memory/plan.md
+  /.lagune/memory/harden.md
+  /.lagune/tracking.json
+  ```
+
+  - Keep `.lagune/memory/history.md` committed, both for transparency and as a record of past flaws for **Lagune** to learn from.
 
 ## Next
 

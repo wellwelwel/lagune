@@ -41,7 +41,7 @@ Love **Lagune**? [Give us a ⭐ on **GitHub**](https://github.com/wellwelwel/lag
 **Info**
 
 - **Lagune** runs on **Node.js** under the hood, but you use whatever language you want.
-- To run completely offline, install **Lagune** in your project with `npm i -D lagune@0.18.2`.
+- To run completely offline, install **Lagune** in your project with `npm i -D lagune@0.19.0`.
 
 ## Categories
 
@@ -385,7 +385,7 @@ Type `$` and the command under the plugin's name, followed by your input, such a
 **Codex**'s sandbox has no network access. Install the engine in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Frequently Asked Questions
@@ -404,7 +404,7 @@ Type $ and the command under the plugin's name, followed by your input, such as 
 
 ### Does Lagune work inside Codex's sandbox?
 
-Yes, once you install the engine in your project with npm i -D lagune@0.18.2 from your own terminal, once and after each update.
+Yes, once you install the engine in your project with npm i -D lagune@0.19.0 from your own terminal, once and after each update.
 
 ---
 
@@ -887,7 +887,7 @@ Type the commands by name, such as `/lagune-charter`, or under the plugin's name
 **Muse Code**'s sandbox cannot download the engine. Install it in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Frequently Asked Questions
@@ -906,7 +906,7 @@ Type them by name, such as /lagune-charter, or under the plugin's name, such as 
 
 ### Does Lagune work inside Muse Code's sandbox?
 
-Yes, once you install the engine in your project with npm i -D lagune@0.18.2 from your own terminal, once and after each update.
+Yes, once you install the engine in your project with npm i -D lagune@0.19.0 from your own terminal, once and after each update.
 
 ---
 
@@ -965,7 +965,7 @@ opencode reload
 To update **Lagune**, install the new release over the old one, adding `-g` if you installed it for all your projects:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## Commands
@@ -986,7 +986,7 @@ On OpenCode 2.x, run opencode plugin add lagune. On OpenCode 1.x, run opencode p
 
 ### How do I update Lagune on OpenCode?
 
-On OpenCode 2.x, run opencode plugin update lagune, then opencode reload. On OpenCode 1.x, run opencode plugin lagune@0.18.2 --force.
+On OpenCode 2.x, run opencode plugin update lagune, then opencode reload. On OpenCode 1.x, run opencode plugin lagune@0.19.0 --force.
 
 ### How do I run Lagune's commands on OpenCode?
 
@@ -1196,7 +1196,7 @@ Run `gh skill update --all` and read its complete output, redirecting it to a te
 In a sandbox without network access, the commands cannot download the engine. Install it in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Frequently Asked Questions
@@ -1531,7 +1531,7 @@ Only while none is recorded. It then records each category its reading supports,
 > Read your code and map what your system does and where the risks are.
 
 Canonical: https://lagune.ai/docs/commands/detect
-Last updated: 2026-10-31
+Last updated: 2026-11-13
 
 🔬 Find out what your system really does and where the risks are.
 
@@ -1576,6 +1576,16 @@ From there, you have a clear map of what your system does and where the risks li
 
 - Running it again updates the map: solved findings drop off, new ones come in.
 - The detect map lives in `.lagune/memory/detect.md`.
+- In a public repository, keep your open findings out of it by adding these lines to your `.gitignore`:
+
+  ```text
+  /.lagune/memory/detect.md
+  /.lagune/memory/plan.md
+  /.lagune/memory/harden.md
+  /.lagune/tracking.json
+  ```
+
+  - Keep `.lagune/memory/history.md` committed, both for transparency and as a record of past flaws for **Lagune** to learn from.
 
 ## Next
 
@@ -1926,7 +1936,7 @@ Start with owasp, the default, then add the one for your language or stack. Spec
 > How the specializations in your project's catalog are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/catalog
-Last updated: 2026-11-02
+Last updated: 2026-11-13
 
 🧠 **Lagune**'s specializations are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. Your project's catalog is the set it uses: the built-in specializations of its [categories](https://lagune.ai/docs/categories) plus its own. The detect and verify phases reach for them while they run, and you can load one directly any time.
 
@@ -1974,6 +1984,7 @@ The built-in specializations are grouped into [**categories**](https://lagune.ai
 | `regex`               | `owasp`                     | **ReDoS:** patterns that explode on crafted input.                             |
 | `network`             | `owasp`                     | **SSRF & redirects:** user-supplied fetch or redirect destinations.            |
 | `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, dynamic include, name dispatch.                    |
+| `dependency`          | `owasp`, `lovable`          | **Dependencies:** lockfiles, sources, install scripts, squatting, known CVEs.  |
 | `sql`                 | `owasp`                     | **Relational databases:** injection, raw ORM calls, privileges, engine reach.  |
 | `path`                | `owasp`                     | **Filesystem paths:** traversal, null-byte, NTFS streams, planting.            |
 | `upload`              | `owasp`                     | **File uploads:** type/signature, malicious content, storage, limits.          |
@@ -1983,7 +1994,7 @@ The built-in specializations are grouped into [**categories**](https://lagune.ai
 | `http-request`        | `owasp`                     | **Request provenance:** CSRF, CORS misconfig, spoofed client-IP.               |
 | `transport`           | `owasp`                     | **Channel security:** TLS config, HTTPS/cleartext, HSTS, pinning.              |
 | `crypto`              | `owasp`, `lovable`          | **Crypto at rest:** weak/custom algorithms, CSPRNG, key management.            |
-| `secrets`             | `owasp`, `lovable`          | **Hardcoded credentials:** keys, tokens, passwords literal in source.          |
+| `secrets`             | `owasp`, `lovable`          | **Hardcoded credentials:** keys, tokens, passwords in source or tracked files. |
 | `api-endpoint`        | `owasp`                     | **Non-REST surfaces:** GraphQL, gRPC, WebSocket authz, DoS, schema.            |
 | `payment`             | `owasp`, `lovable`          | **Checkout flow:** verify gateway server-side, signed callbacks, idempotency.  |
 | `xml`                 | `owasp`                     | **XML parsing:** XXE, external entities, billion-laughs expansion.             |
@@ -2008,11 +2019,7 @@ Most built-in knowledge is distilled from OWASP. See [**OWASP Sources**](https:/
 
 ## Your own specializations
 
-The built-ins grow by adding one knowledge file plus one index row, never a new command. You add your own the same way, with [`/lagune-specialize`](https://lagune.ai/docs/commands/specialize): point it at an article or a topic and it distills a new specialization into your project, the file under `.lagune/catalog/` and its entry in `.lagune/configs.json`. Your own are always in the catalog, whatever its categories, and one of yours shadows a built-in of the same name.
-
-**Internally, Lagune loads specializations automatically, on demand**
-
-When the detect or verify phase hits a context a specialization covers, it loads that specialization with `read catalog <name>` itself. This happens automatically, as part of the phase. You do not do it by hand for this to work.
+You add your own with [`/lagune-specialize`](https://lagune.ai/docs/commands/specialize): point it at an article or a topic and it distills a new specialization into your project, the file under `.lagune/catalog/` and its entry in `.lagune/configs.json`. Your own are always in the catalog, whatever its categories, and one of yours shadows a built-in of the same name.
 
 ## Discover what is available
 
@@ -2026,11 +2033,7 @@ npx lagune read catalog
 # ...
 ```
 
-A `[required]` specialization always applies, whatever the work. Which built-ins the list holds depends on your project's [**categories**](https://lagune.ai/docs/categories).
-
-**Specializations are not loaded by default**
-
-The relevant knowledge is pulled in for what the project actually is, instead of every check running by default.
+A `[required]` specialization strengthens the model to always apply, whatever the work.
 
 ## Frequently Asked Questions
 
@@ -2700,6 +2703,164 @@ It reads each metric back in plain words and shows the Base score beside the ove
 
 ---
 
+# dependency hook: Detect loosely resolved dependencies
+
+> Sweep a project's manifests, lockfiles, and index settings for dependencies fetched in the clear, without a hash, without a lockfile, or from merged package indexes, from the command line.
+
+Canonical: https://lagune.ai/docs/hooks/dependency
+Last updated: 2026-11-14
+
+The `dependency` hook flags **how a project's dependencies resolve and install** wherever the files alone decide it. It reads only dependency files, and it is the deterministic engine behind the [`dependency` specialization](https://lagune.ai/docs/catalog).
+
+## Run it
+
+```bash
+npx lagune read dependency                       # scans the whole project
+npx lagune read dependency --dir packages/api    # scans a directory
+npx lagune read dependency --file package.json   # scans a single file
+```
+
+The scan prints up to three sections, each line naming the packages or indexes it applies to. **Dependency risks found** exits non-zero and holds what the files alone decide: a dependency, an index, or the build tool a wrapper downloads reached over plain `http://` or `git://` from another machine, a registry entry with no integrity hash, a setting that merges package indexes, so a public package can shadow a private one, and a **Yarn** setting that accepts a package whose checksum does not match. **Dependency risks to review manually** does not change the exit code and holds what the files cannot settle: a URL in the clear that the package manager refuses unless a setting outside the project allows it, a file the hook cannot read, and one entry naming why a **Git** state it cannot read leaves lockfile coverage unconfirmed. **Dependency hardening advisories** does not change the exit code either: a manifest with dependencies and no lockfile covering it, a source outside the registry (git or a remote tarball), a package the lockfile marks as running install scripts, a floating specifier such as `*` or `latest`, a wrapper download in the clear whose checksum the wrapper pins, and a Go module with no checksum in `go.sum`. A clean run prints `no dependency risks found`, and a URL it names never carries the user name or password written in it.
+
+A file it cannot read or parse is a lead that names the file, never a clean result, and the scan goes on with every other file. So is an XML file that declares a document type, since an entity it declares could hide a URL or expand without bound. A URL on the machine itself, written as `localhost`, a `127.x.x.x` address, or `[::1]`, crosses no network, so the hook never reads it as fetched in the clear.
+
+### Ecosystem coverage
+
+It reads the dependency files of **npm**, **pnpm**, **Yarn**, **pip**, **Poetry**, **Pipenv**, **uv**, **Cargo**, Go modules, **Bundler**, **Composer**, **NuGet**, **Maven**, and **Gradle**, and each one gets only the rules its files decide. A rule an ecosystem's table leaves out is not checked there.
+
+**JavaScript**
+
+| Rule                     | **npm**                                       | **pnpm**                                   | **Yarn**                                                                |
+| ------------------------ | --------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------- |
+| Plain `http://`/`git://` | `package-lock.json`, `package.json`, `.npmrc` | `pnpm-lock.yaml`, `package.json`, `.npmrc` | `yarn.lock`, `package.json`, `.yarnrc`, `.yarnrc.yml`                   |
+| No integrity hash        | `package-lock.json`                           | `pnpm-lock.yaml`                           | `yarn.lock`: integrity or URL hash (**Yarn** 1), checksum (**Yarn** 2+) |
+| Accepted checksum        | Not checked                                   | Not checked                                | `checksumBehavior` in `.yarnrc.yml`                                     |
+| Outside the registry     | `package-lock.json`, `package.json`           | `pnpm-lock.yaml`, `package.json`           | `yarn.lock`, `package.json`                                             |
+| Install scripts          | `package-lock.json` from **npm** 7 on         | `pnpm-lock.yaml` with `requiresBuild`      | Not recorded in the lockfile                                            |
+| No lockfile              | `package.json`                                | `package.json`                             | `package.json`                                                          |
+| Floating specifier       | `package.json`                                | `package.json`                             | `package.json`                                                          |
+
+`npm-shrinkwrap.json` reads as `package-lock.json`. A lockfile covers the manifest beside it and, at a workspace root, every manifest below it, along with each project the `angular.json` beside it lists and each folder holding an **Nx** `project.json` below an `nx.json`. A **Bun** or **Deno** lockfile covers its manifest too, though its entries are not read.
+
+A URL the lockfile records on the public registry is judged the way its package manager fetches it: **npm** swaps it for the registry it is configured with unless the `.npmrc` beside the lockfile sets `replace-registry-host` to keep it, and **Yarn** 1 always moves the `yarnpkg.com` and `npmjs.org` hosts to `https://`. **Yarn** 2 and later refuse a registry over `http://` unless `unsafeHttpWhitelist` allows its host, so one the `.yarnrc.yml` does not allow is a lead, and they never checksum a package they lock with `conditions`, built for some platforms only, so such an entry needs no hash. An `.npmrc` that sets `ignore-scripts` switches off the install scripts of the lockfile beside it.
+
+**Python**
+
+| Rule                     | **pip**                                                    | **Poetry**                      | **Pipenv**                | **uv**                                                     |
+| ------------------------ | ---------------------------------------------------------- | ------------------------------- | ------------------------- | ---------------------------------------------------------- |
+| Plain `http://`/`git://` | Requirements files, `pip.conf`, `pip.ini`                  | `poetry.lock`, `pyproject.toml` | `Pipfile.lock`, `Pipfile` | `uv.lock`, `pyproject.toml`, `uv.toml`                     |
+| No integrity hash        | Requirements files that record any hash                    | `poetry.lock`                   | `Pipfile.lock`            | `uv.lock`                                                  |
+| Merged indexes           | `--extra-index-url`, or its key in `pip.conf` or `pip.ini` | Not checked                     | Not checked               | `unsafe-first-match` or `unsafe-best-match` index strategy |
+| No lockfile              | Requirements files                                         | `pyproject.toml`                | `Pipfile`                 | `pyproject.toml`                                           |
+
+A requirements file is a `.txt` whose name holds the word `requirements`, or any `.txt` in a `requirements` folder, except the export `conda list --export` writes, whose every line pins a package as `name=version=build` and which **pip** refuses. One that pins every requirement it takes from an index to a single version with `==` or `===` counts as a lockfile: it raises no advisory and covers the `pyproject.toml` beside it, or beside its `requirements` folder. A `pyproject.toml` is also covered by a `poetry.lock`, a `uv.lock`, a **PDM** `pdm.lock`, or a PEP 751 `pylock.toml`, a `Pipfile` only by its `Pipfile.lock`, and a requirements file that floats only by a `pylock.toml`. A `uv.lock` at a **uv** workspace root covers every `pyproject.toml` below it, never a `Pipfile` or a requirements file. The entries of `pdm.lock` and `pylock.toml` are not read.
+
+**Rust**
+
+| Rule                     | **Cargo**                                        |
+| ------------------------ | ------------------------------------------------ |
+| Plain `http://`/`git://` | `Cargo.lock`, `Cargo.toml`, `.cargo/config.toml` |
+| No integrity hash        | `Cargo.lock`                                     |
+| No lockfile              | `Cargo.toml`                                     |
+
+`.cargo/config` reads as `.cargo/config.toml`. A `Cargo.lock` covers the `Cargo.toml` beside it and, at a workspace root, every `Cargo.toml` below it, and a crate `cargo vendor` copied, marked by the `.cargo-checksum.json` beside it, needs none.
+
+**Go**
+
+| Rule                   | Go modules |
+| ---------------------- | ---------- |
+| No checksum (advisory) | `go.sum`   |
+| No lockfile            | `go.mod`   |
+
+A `go.sum` covers the `go.mod` beside it and records a checksum, of the whole module or of its `go.mod`, for every module that `go.mod` requires once its `replace` directives apply, except one a folder replaces. A missing one is an advisory, since Go refuses to build from that module until `go mod tidy` records its checksum from the checksum database. Go names a module by its path alone and takes the transport it fetches over from the environment (`GOPROXY`, `GOINSECURE`), never from its files. Each Go module is judged as it builds on its own, since a workspace's `go.work` and `go.work.sum` are not read.
+
+**Ruby**
+
+| Rule                     | **Bundler**               |
+| ------------------------ | ------------------------- |
+| Plain `http://`/`git://` | `Gemfile.lock`, `Gemfile` |
+| No lockfile              | `Gemfile`                 |
+
+`gems.rb` reads as `Gemfile` and `gems.locked` as `Gemfile.lock`. A `Gemfile` is read with **Prism**, Ruby's own parser, so every string counts as Ruby reads it, escapes included: a URL written as a quoted string or symbol, a percent literal such as `%q()` or `%w[]`, a heredoc, or any line of one, is a source whatever call takes it, and so is `source :rubygems`, which **Bundler** 2 fetches over `http://`. Reading stops at `__END__`, and a URL the code assembles at runtime, such as one read from the environment, is not read. A `Gemfile.lock` covers the `Gemfile` beside it. Its checksums are not read, and neither is `.bundle/config`.
+
+**PHP**
+
+| Rule                     | **Composer**                     |
+| ------------------------ | -------------------------------- |
+| Plain `http://`/`git://` | `composer.lock`, `composer.json` |
+| No lockfile              | `composer.json`                  |
+
+A `composer.lock` covers the `composer.json` beside it, and a package **Composer** installed, marked by the `composer/installed.json` of the vendor folder it sits in, needs none. **Composer** refuses a URL in the clear while `secure-http` stays on, so such a URL is a lead unless the `composer.json`, or the one beside a `composer.lock`, sets `secure-http` to false or `disable-tls` to true. A `composer.json` that requires only platform packages, such as `php` or `ext-json`, declares no dependencies. The dist checksums **Composer** often leaves empty are not read.
+
+**.NET**
+
+| Rule                     | **NuGet**                     |
+| ------------------------ | ----------------------------- |
+| Plain `http://`/`git://` | `nuget.config`, MSBuild files |
+| No lockfile              | Project files                 |
+
+A project file is a `.csproj`, an `.fsproj`, or a `.vbproj`, and it is read with `Directory.Build.props`, `Directory.Build.targets`, and `Directory.Packages.props` for the sources `RestoreSources` and `RestoreAdditionalProjectSources` add. A `nuget.config`, whatever the case of its name, is read for every source its `packageSources` keeps once each add, remove, and clear applies, except one its `disabledPackageSources` switches off. A project file that holds a `PackageReference` declares dependencies, and the `packages.lock.json` beside it, or the `packages.<project>.lock.json` named after it, covers it, but not a lockfile `NuGetLockFilePath` moves elsewhere. The entries of `packages.lock.json` and `packages.config` are not read.
+
+**JVM**
+
+| Rule                     | **Maven**                                             | **Gradle**                                |
+| ------------------------ | ----------------------------------------------------- | ----------------------------------------- |
+| Plain `http://`/`git://` | `pom.xml`, `settings.xml`, `maven-wrapper.properties` | Every script, `gradle-wrapper.properties` |
+| No lockfile              | Not checked                                           | `build.gradle`                            |
+
+In a `pom.xml`, the repositories and plugin repositories of the project and its profiles are read, never the `distributionManagement` repository it deploys to. A `settings.xml` adds its mirrors, except one it blocks, such as the one **Maven**'s own settings ship against external repositories over `http://`, and it is read only where a project keeps one for **Maven**: in `.mvn` or `.m2`, or beside a `pom.xml`, for the `-s` option to pass. One anywhere else, or whose root element is not `settings`, belongs to another tool and is left alone. **Maven** writes no lockfile, so it raises no advisory.
+
+In every **Gradle** script, Groovy or Kotlin, a URL written as one string inside a `repositories`, `maven`, `ivy`, or `sourceControl` block is a source, except under `publishing` or the `uploadArchives` of **Gradle** 6 and earlier, while a URL a variable or a property holds is not read. A `build.gradle` or `build.gradle.kts` declares dependencies once a `dependencies` block holds anything outside `buildscript` and `subprojects`, and the `gradle.lockfile` beside it covers it, never one `dependencyLocking` moves elsewhere. Slashy and dollar-slashy strings are not read, and a quote or a brace inside one can throw the reader off, which most often ends in refusing a valid script. A `gradle.lockfile` records no checksum, and `gradle/verification-metadata.xml` is not read. A wrapper's properties are read the way Java reads them, escapes included, for the `distributionUrl` it downloads the build tool from and the `wrapperUrl` of the **Maven** wrapper, and a download in the clear whose checksum `distributionSha256Sum` or `wrapperSha256Sum` pins is an advisory, since the wrapper rejects any other file.
+
+A lockfile covers a manifest even when the scan names only a folder beneath it, but one the scan leaves out, such as one **Git** ignores, covers nothing. Where the hook cannot read the project's **Git** state, as in a worktree or a folder below the repository root, it gathers the manifests whose coverage that leaves unconfirmed under one lead. The other ecosystems (**Swift Package Manager**, **CocoaPods**, **Dart** pub, **Mix**, **Paket**, and **sbt**) are not read, and neither are **Conda**, `setup.py`, and `setup.cfg`.
+
+### CLI options
+
+| Option   | Value       | Description                                                       |
+| -------- | ----------- | ----------------------------------------------------------------- |
+| `--dir`  | a directory | Scope a scan to a directory. Repeats and combines with `--file`.  |
+| `--file` | a file      | Scope a scan to a single file. Repeats and combines with `--dir`. |
+
+With no option it scans the whole project.
+
+### Choose what it scans
+
+It leaves out what **Git** ignores. To leave out more, or to scan what **Git** ignores, give `dependency` settings of its own:
+
+```bash
+npx lagune write add --ignore examples --checker dependency
+```
+
+```json
+{
+  "checkers": {
+    "dependency": { "gitignore": false, "ignore": ["examples"] }
+  }
+}
+```
+
+[Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
+
+**Tip**
+
+The hook reads the files, never the registry: whether a package is a typosquat, whether a version has a known vulnerability, and whether CI installs from the lockfile are judgment the [`dependency` specialization](https://lagune.ai/docs/catalog) still covers.
+
+## Frequently Asked Questions
+
+### Does the dependency hook reach the network or run the package manager?
+
+No. It reads the dependency files on disk and nothing else, so it answers offline and never installs, audits, or changes a dependency.
+
+### Why is every --extra-index-url a finding?
+
+pip merges every index it searches and installs the highest version it finds anywhere, so whoever can publish a package of the same name on any of those indexes decides what installs. uv's default index strategy stops at the first index that has the package, which is why only its unsafe strategies count.
+
+### Why is an advisory not a finding?
+
+A git source, an install script, or a floating range is how many projects legitimately work. It becomes a risk once someone outside the project can change what it resolves to, which the specialization weighs against the rest of the code.
+
+---
+
 # infra hook: Detect IaC misconfiguration
 
 > Sweep Terraform, Dockerfiles, and GitHub Actions for misconfiguration, or score a single snippet, from the command line.
@@ -3272,9 +3433,9 @@ Run the regex hook in scan mode over the codebase. It reports ReDoS-prone patter
 > Sweep a codebase for hardcoded credentials from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/secrets
-Last updated: 2026-11-04
+Last updated: 2026-11-14
 
-The `secrets` hook flags **credentials compiled into the source** instead of read from the environment. It keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` specialization](https://lagune.ai/docs/catalog).
+The `secrets` hook flags **credentials compiled into the source** instead of read from the environment, and **credential and environment files Git tracks**, such as a private key, a **Terraform** state, or a `.env` that holds a secret. In the code, it keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` specialization](https://lagune.ai/docs/catalog).
 
 Provider-format signatures, connection-string credentials, and a literal bound to a secret-named identifier are **language-agnostic**: the same string reads the same in any file. The two heuristics that depend on syntax, an environment lookup with a hardcoded default and a secret flowing into a log sink, are **language-aware**, so a JavaScript `console.log` is never read on a Rust file and Python's `os.getenv("X", "default")` is seen on its own.
 
@@ -3286,7 +3447,15 @@ npx lagune read secrets --dir src        # scans a directory
 npx lagune read secrets --file config.ts # scans a single file
 ```
 
-The scan prints up to two sections. **Hardcoded secrets found** is the finding set (a hardcoded default for a secret-named environment variable, a credential embedded in a connection string, or a value matching a curated provider format), so the hook exits non-zero. **Secret handling to review manually** is a lead set: a plain literal bound to a secret-named identifier (its provenance is decidable, but whether the value is a real secret is not), and a secret-named value flowing into a log or response sink. A clean run prints `no hardcoded secrets found`.
+The scan prints up to three sections, each weighed by its evidence:
+
+| Section                                | Means                         | Exit code |
+| -------------------------------------- | ----------------------------- | --------- |
+| **Hardcoded secrets found**            | Proof of an exposed secret    | Non-zero  |
+| **Secret handling to review manually** | A plausible, unconfirmed risk | Unchanged |
+| **Secret handling advisories**         | A real risk not exposed yet   | Unchanged |
+
+A finding is a hardcoded default for a secret-named environment variable, a credential embedded in a connection string to a remote host, a value matching a curated provider format, a credential file **Git** tracks, or an environment file **Git** tracks that proves a secret. A lead is a plain literal bound to a secret-named identifier, in the code or in an environment file (its provenance is decidable, but whether the value is a real secret is not), a connection string to a local database, a secret-named value flowing into a log or response sink, a credential file the hook cannot confirm or that sits in a test folder, and what the hook could not read. An advisory is a secret **Git** would commit with the next `git add`, or a local environment file **Git** tracks or would commit. A look-alike stays silent, and a clean run prints `no hardcoded secrets found`.
 
 ### CLI options
 
@@ -3315,6 +3484,60 @@ npx lagune write add --ignore test/fixtures --checker secrets
 
 [Configure the hooks](https://lagune.ai/docs/hooks/configure) covers every setting.
 
+### Credential files under version control
+
+A file that exists to hold a credential is matched by its name, the same in every language, and by what it holds where the name alone cannot tell. The hook reads **Git**'s own index to learn whether **Git** tracks it, and the ignore files **Git** reads to learn whether **Git** ignores it, without running **Git**. That answer holds even when the hook's settings scan what **Git** ignores, or when a scan names the file.
+
+| File                                 | Names                                                                                                                                              | Reported when                                                                                  |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Private key                          | `id_rsa`, `id_dsa`, `id_ecdsa`, `id_ed25519` with their `_sk` forms                                                                                | Always                                                                                         |
+| Private key                          | `*.key`, `*.pem`                                                                                                                                   | It holds a private key block, and as a lead when it holds nothing the hook recognizes          |
+| Keystore                             | `*.p12`, `*.pfx`, `*.jks`, `*.keystore`, except **Android**'s `debug.keystore` and a truststore                                                    | Always                                                                                         |
+| Cloud or service account credentials | `credentials.json`, a name ending in `-credentials.json`, `_credentials.json`, or `.credentials.json`, `service-account*.json`, `.aws/credentials` | Always                                                                                         |
+| **Terraform** state                  | `*.tfstate`, `*.tfstate.backup`, `*.tfstate.<timestamp>.backup`                                                                                    | Always                                                                                         |
+| Registry auth token                  | `.npmrc`                                                                                                                                           | It sets `_authToken`, `_auth`, or `_password`                                                  |
+| Registry auth token                  | `.pypirc`                                                                                                                                          | It sets a `password`                                                                           |
+| Kubeconfig credentials               | `kubeconfig`, `kubeconfig.yaml` or `kubeconfig-<name>.yaml`, `*.kubeconfig`, `.kube/config`                                                        | It embeds a `token`, a `password`, a `client-key-data`, or an auth provider's secret or tokens |
+| **dotenvx** private keys             | `.env.keys`                                                                                                                                        | It sets a `DOTENV_PRIVATE_KEY`                                                                 |
+
+A value left as a placeholder, such as `${NPM_TOKEN}` or `<your token>`, sets nothing. A **Keynote** deck saved as `.key`, or a `.key` or `.pem` holding only public blocks such as a certificate, stays silent. **Android**'s `debug.keystore` is insecure by design, with a password **Android** publishes, and a truststore holds only public certificates, so neither is a credential file. A credential file earns only its own verdict, never a second entry from the scan of its content.
+
+A credential file **Git** tracks is fixed by untracking it with `git rm --cached` and adding it to `.gitignore`, since an ignore rule alone never untracks a file. One that **Git** neither tracks nor ignores is an advisory, since the next `git add` commits it, and one that **Git** ignores stays silent.
+
+A credential file in a test folder (`test`, `tests`, `testdata`, `fixture`, `fixtures`, `spec`, or `specs`, at any depth) is a lead instead of a finding or an advisory, since a test suite often carries a key made for it. When it is made only for tests, leave its path out in the [project's configs](https://lagune.ai/docs/hooks/configure). The hook never leaves one out on its own.
+
+### Environment files under version control
+
+An environment file is `.env` or a `.env.<variant>` file, never a source file such as `.env.ts`, a template such as `.env.example`, `.env.sample`, or `.env.template`, or the **dotenvx** `.env.keys` credential file. **Next.js** and **Vite** commit `.env` files with public defaults on purpose, so the strongest evidence a file holds decides what it is, and one **Git** ignores stays silent:
+
+| What the file holds                                             | **Git** tracks it | **Git** neither tracks nor ignores it |
+| --------------------------------------------------------------- | ----------------- | ------------------------------------- |
+| A proven secret                                                 | Finding           | Advisory                              |
+| A possible secret                                               | Lead              | Lead                                  |
+| No secret, in a local variant such as `.env.local`              | Advisory          | Advisory                              |
+| No secret, in a shared file such as `.env` or `.env.production` | Silent            | Silent                                |
+
+A secret is proven by a value in a curated provider format, even in a comment, or by a connection string with a real password to a remote host. It is possible when a variable named like a secret, such as `DB_PASSWORD`, `JWT_SECRET`, `GITHUB_TOKEN`, or `STRIPE_API_KEY`, holds a value: its name cannot tell a real credential from a development default, so it earns the same lead as that literal in the code. A connection string to a local database, on a loopback address, `0.0.0.0`, **Docker**'s `host.docker.internal`, or a single-label host such as a **Docker Compose** service, is a possible secret too. A local variant holding no secret is still an advisory, since the next secret written there lands in a commit.
+
+An empty value, a placeholder such as `changeme`, `<your token>`, or `sk-...`, a reference such as `$OTHER` or `${OTHER}`, `true` or `false`, a plain number under a token name, such as a token limit, and a value **dotenvx** encrypted set nothing. A variable a framework ships to the browser on purpose never counts by its name alone:
+
+| Prefix         | Framework                |
+| -------------- | ------------------------ |
+| `NEXT_PUBLIC_` | **Next.js**              |
+| `NUXT_PUBLIC_` | **Nuxt**                 |
+| `EXPO_PUBLIC_` | **Expo**                 |
+| `PUBLIC_`      | **SvelteKit**, **Astro** |
+| `VITE_`        | **Vite**                 |
+| `REACT_APP_`   | **Create React App**     |
+| `VUE_APP_`     | **Vue CLI**              |
+| `GATSBY_`      | **Gatsby**               |
+
+A value in a provider format still proves a secret under any of them. Each entry names the variables behind it, never their values. A finding is fixed by moving the secret to a local variant **Git** ignores, or by untracking the file with `git rm --cached` and adding it to `.gitignore`.
+
+### When Git's state cannot be read
+
+The hook reads **Git**'s state only from inside the project. Without an index it can read there, such as in a worktree or a submodule whose index lies outside the project, in a folder that is not the repository's root, or with an index it cannot read, whether **Git** tracks a file is unknown. Since a missing answer never reads as clean, the hook then prints one lead that names the cause and what to do, never one per file, and a credential or environment file joins it only when it would be a finding or a lead if **Git** tracked it.
+
 ### Language coverage
 
 The environment-fallback finding and the log-sink lead read a per-language set of forms, so they cover the languages below and stay silent elsewhere. The other three signals run on **every** file.
@@ -3326,13 +3549,21 @@ The environment-fallback finding and the log-sink lead read a per-language set o
 
 **Is this a policy problem?**
 
-No. Detecting a secret's format to warn that it was committed is standard defensive tooling, the same operation gitleaks, trufflehog, and GitHub push-protection perform. The hook ships detection signatures (public token **formats**), never a live secret, and it audits and explains rather than exfiltrating.
+No. Detecting a secret's format to warn that it was committed is standard defensive tooling, the same operation **gitleaks**, **trufflehog**, and **GitHub** push protection perform. The hook ships detection signatures (public token **formats**), never a live secret, and it audits and explains rather than exfiltrating.
 
 ## Frequently Asked Questions
 
+### Why does the secrets hook report a key file that .gitignore already lists?
+
+Because Git still tracks it. An ignore rule only keeps untracked files out of a commit, so every new commit keeps carrying the file until git rm --cached untracks it, and the credential it holds stays exposed until it is rotated.
+
+### Why does the secrets hook stay silent on a committed .env?
+
+Next.js and Vite commit .env files with public defaults on purpose, so a tracked .env is a finding only when it proves a secret, such as a provider token, and a lead when a secret-named variable holds a value. One that holds neither stays silent, and reading it for a value not meant to be public is left to the secrets specialization.
+
 ### How does the secrets hook avoid false positives?
 
-It keys on provenance, not on the value contents. High-confidence formats (provider tokens, environment fallbacks, connection strings) are findings that exit non-zero. A plain literal bound to a secret-named identifier is a review lead to confirm, and the same identifier read from process.env is not flagged at all.
+It keys on provenance, not on the value contents, and only proof fails the run. High-confidence formats (provider tokens, environment fallbacks, connection strings to a remote host) are findings that exit non-zero. A plain literal bound to a secret-named identifier, in the code or in an environment file, is a review lead to confirm, and the same identifier read from process.env is not flagged at all.
 
 ---
 
@@ -3700,7 +3931,7 @@ Schedule **Lagune** to audit your project on its own, either reporting what it f
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4704,7 +4935,7 @@ Lagune does: harden applies fixes to your code. Deepsec does not: it is static a
 > Where the knowledge of the built-in OWASP specializations comes from, mapped to its canonical OWASP attack and Cheat Sheet pages.
 
 Canonical: https://lagune.ai/docs/references/owasp-sources
-Last updated: 2026-11-03
+Last updated: 2026-11-13
 
 This document maps every OWASP **attack** (`www-community`) and **Cheat Sheet** (`CheatSheetSeries`) to a security category, each linked to its canonical public page. Within a category, equivalent items share a single checklist line: the attack(s) and the cheat sheet(s) that address the same risk are listed together, comma-separated. Items with no direct counterpart stand on their own line.
 
@@ -4985,8 +5216,8 @@ Container and workload config is config-as-code the developer ships with the app
 
 ## 32. Supply Chain & CI/CD
 
-- [x] [NPM Security](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html) (interpreter)
-- [x] [Dependency Graph & SBOM Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Dependency_Graph_SBOM_Cheat_Sheet.html), [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html) (interpreter)
+- [x] [NPM Security](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html) (dependency)
+- [x] [Dependency Graph & SBOM Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/Dependency_Graph_SBOM_Cheat_Sheet.html), [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html) (dependency)
 
 ---
 

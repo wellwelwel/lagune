@@ -1,5 +1,7 @@
 # Katalog: Specjalizacje bezpieczeństwa na żądanie
 
+> Ta strona jest nieaktualna w porównaniu z wersją angielską. [Przeczytaj wersję oryginalną](https://lagune.ai/docs/catalog).
+
 > Jak ładowane są specjalizacje z katalogu twojego projektu: na żądanie przez fazę albo bezpośrednio przez ciebie.
 
 Adres kanoniczny: https://lagune.ai/pl-PL/docs/catalog

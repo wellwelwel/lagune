@@ -1,5 +1,7 @@
 # Hook secrets: fest im Code hinterlegte Secrets erkennen
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/hooks/secrets).
+
 > Durchsuche eine Codebasis nach fest im Code hinterlegten Zugangsdaten, direkt über die Kommandozeile.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/secrets

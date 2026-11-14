@@ -43,7 +43,7 @@ Canonical: https://lagune.ai/ar-AE/docs
 **معلومة**
 
 - يعمل **Lagune** على **Node.js** في الخلفية، لكنك تستخدم أي لغة برمجة تريدها.
-- للعمل دون اتصال بالإنترنت تمامًا، ثبّت **Lagune** في مشروعك عبر `npm i -D lagune@0.18.2`.
+- للعمل دون اتصال بالإنترنت تمامًا، ثبّت **Lagune** في مشروعك عبر `npm i -D lagune@0.19.0`.
 
 ## الفئات
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 لا تملك بيئة العزل في **Codex** وصولًا إلى الشبكة. ثبّت المحرك في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## الأسئلة الشائعة
@@ -412,7 +412,7 @@ npm i -D lagune@0.18.2
 
 ### هل يعمل Lagune داخل بيئة العزل في Codex؟
 
-نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.18.2 من طرفيتك، مرة واحدة وبعد كل تحديث.
+نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.19.0 من طرفيتك، مرة واحدة وبعد كل تحديث.
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 لا تستطيع بيئة العزل في **Muse Code** تنزيل المحرك. ثبّته في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## الأسئلة الشائعة
@@ -932,7 +932,7 @@ npm i -D lagune@0.18.2
 
 ### هل يعمل Lagune داخل بيئة العزل في Muse Code؟
 
-نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.18.2 من طرفيتك، مرة واحدة وبعد كل تحديث.
+نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.19.0 من طرفيتك، مرة واحدة وبعد كل تحديث.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 لتحديث **Lagune**، ثبّت الإصدار الجديد فوق القديم، مع إضافة `-g` إن كنت ثبّته لكل مشاريعك:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## الأوامر
@@ -1014,7 +1014,7 @@ opencode plugin lagune@0.18.2 --force
 
 ### كيف أحدّث Lagune على OpenCode؟
 
-في OpenCode 2.x، شغّل opencode plugin update lagune، ثم opencode reload. وفي OpenCode 1.x، شغّل opencode plugin lagune@0.18.2 --force.
+في OpenCode 2.x، شغّل opencode plugin update lagune، ثم opencode reload. وفي OpenCode 1.x، شغّل opencode plugin lagune@0.19.0 --force.
 
 ### كيف أشغّل أوامر Lagune على OpenCode؟
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 في بيئة عزل دون وصول إلى الشبكة، لا تستطيع الأوامر تنزيل المحرك. ثبّته في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## الأسئلة الشائعة
@@ -1569,6 +1569,8 @@ npx lagune write remove --categories python
 ---
 
 # ‎/lagune-detect: ارصد نظامك ومخاطره
+
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/commands/detect).
 
 > اقرأ الكود وارصد ما يفعله نظامك وأين تكمن المخاطر.
 
@@ -1974,6 +1976,8 @@ npx lagune read list --categories
 ---
 
 # الكتالوج: تخصصات أمنية عند الحاجة
+
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/catalog).
 
 > كيف تُحمَّل التخصصات في كتالوج مشروعك، من مرحلة عند الحاجة، ومنك مباشرة.
 
@@ -3347,6 +3351,8 @@ npx lagune read regex --pattern 'a?a?a?' --limit 2
 
 # hook secrets: اكتشف الأسرار المكتوبة مباشرة في الكود
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/hooks/secrets).
+
 > افحص قاعدة الكود بحثًا عن بيانات الاعتماد المكتوبة مباشرة فيه، من سطر الأوامر.
 
 Canonical: https://lagune.ai/ar-AE/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ Canonical: https://lagune.ai/ar-AE/docs/examples/scheduled-audits
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune يفعل: تطبّق مرحلة harden الإصلاحات على الكو
 ---
 
 # مصادر OWASP
+
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/references/owasp-sources).
 
 > مصدر معرفة تخصصات OWASP المدمجة، مربوطة بصفحات الهجمات و Cheat Sheet المرجعية من OWASP.
 

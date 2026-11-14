@@ -43,7 +43,7 @@ Lagune은 오픈 소스이자 방어 전용인 Security-Driven Hardening(SDH) �
 **정보**
 
 - **Lagune**은 내부적으로 **Node.js**에서 실행되지만, 개발 언어는 무엇이든 자유롭게 쓸 수 있습니다.
-- 완전히 오프라인으로 실행하려면 `npm i -D lagune@0.18.2` 명령어로 프로젝트에 **Lagune**을 설치하세요.
+- 완전히 오프라인으로 실행하려면 `npm i -D lagune@0.19.0` 명령어로 프로젝트에 **Lagune**을 설치하세요.
 
 ## 카테고리
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex**의 샌드박스는 네트워크에 접근할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 자주 묻는 질문
@@ -412,7 +412,7 @@ $lagune:lagune-charter 명령어처럼 $ 기호에 이어 플러그인 이름을
 
 ### Codex 샌드박스 안에서도 Lagune이 작동하나요?
 
-네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.2 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
+네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.19.0 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 **Muse Code**의 샌드박스는 엔진을 다운로드할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 자주 묻는 질문
@@ -932,7 +932,7 @@ muse plugins marketplace update lagune 명령어를 실행한 다음 muse plugin
 
 ### Muse Code 샌드박스 안에서도 Lagune이 작동하나요?
 
-네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.18.2 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
+네. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 npm i -D lagune@0.19.0 명령어로 프로젝트에 엔진을 설치하면 작동합니다.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 **Lagune**을 업데이트하려면 기존 릴리스 위에 새 릴리스를 덮어 설치하되, 모든 프로젝트에 설치했다면 `-g` 옵션을 붙이세요:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## 명령어
@@ -1014,7 +1014,7 @@ OpenCode 2.x에서는 opencode plugin add lagune 명령어를 실행하세요. O
 
 ### OpenCode에서 Lagune을 업데이트하려면 어떻게 하나요?
 
-OpenCode 2.x에서는 opencode plugin update lagune 명령어에 이어 opencode reload 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune@0.18.2 --force 명령어를 실행하세요.
+OpenCode 2.x에서는 opencode plugin update lagune 명령어에 이어 opencode reload 명령어를 실행하세요. OpenCode 1.x에서는 opencode plugin lagune@0.19.0 --force 명령어를 실행하세요.
 
 ### OpenCode에서 Lagune 명령어를 실행하려면 어떻게 하나요?
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 네트워크에 접근할 수 없는 샌드박스에서는 명령어가 엔진을 다운로드할 수 없습니다. 처음 한 번, 그리고 업데이트할 때마다 직접 터미널에서 프로젝트에 엔진을 설치하세요:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 자주 묻는 질문
@@ -1569,6 +1569,8 @@ charter는 Lagune에서 모든 단계를 규율하는 계층으로, 이후 단�
 ---
 
 # /lagune-detect: 시스템과 위험 파악하기
+
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/commands/detect).
 
 > 코드를 읽고 시스템이 무엇을 하는지, 위험이 어디에 있는지 파악합니다.
 
@@ -1974,6 +1976,8 @@ npx lagune read list --categories
 ---
 
 # 카탈로그: 필요할 때만 불러오는 보안 전문 지식
+
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/catalog).
 
 > 프로젝트 카탈로그의 전문 지식을 불러오는 방식을 설명합니다. 각 단계가 필요할 때만 불러오며, 직접 불러올 수도 있습니다.
 
@@ -3347,6 +3351,8 @@ regex 훅을 scan 모드로 코드베이스 전체에 실행하세요. 지원하
 
 # secrets 훅: 하드코딩된 시크릿 탐지하기
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/hooks/secrets).
+
 > 명령줄에서 코드베이스를 스캔해 하드코딩된 자격 증명을 찾을 수 있습니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune은 harden 단계에서 코드에 수정을 적용합니다. 반면 Deepse
 ---
 
 # OWASP 출처
+
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/references/owasp-sources).
 
 > 내장 OWASP 전문 지식의 출처를 OWASP 공식 공격 페이지와 Cheat Sheet 페이지에 대응시켜 정리했습니다.
 

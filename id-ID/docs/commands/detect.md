@@ -1,5 +1,7 @@
 # /lagune-detect: petakan sistem Anda dan risikonya
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/commands/detect).
+
 > Baca kode Anda lalu petakan apa yang dilakukan sistem Anda dan di mana letak risikonya.
 
 Kanonis: https://lagune.ai/id-ID/docs/commands/detect

@@ -1,5 +1,7 @@
 # /lagune-detect: mappa il tuo sistema e i suoi rischi
 
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/commands/detect).
+
 > Legge il tuo codice e mappa cosa fa il sistema e dove sono i rischi.
 
 Canonico: https://lagune.ai/it-IT/docs/commands/detect

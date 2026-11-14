@@ -1,5 +1,7 @@
 # Hook secrets : détecter les secrets codés en dur
 
+> Cette page n'est plus à jour par rapport à sa version anglaise. [Lire la version originale](https://lagune.ai/docs/hooks/secrets).
+
 > Analysez une base de code en ligne de commande à la recherche d'identifiants codés en dur.
 
 Canonique: https://lagune.ai/fr-FR/docs/hooks/secrets

@@ -1,5 +1,7 @@
 # Katalog: talep üzerine yüklenen güvenlik uzmanlıkları
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/catalog).
+
 > Projenizin kataloğundaki uzmanlıkların nasıl yüklendiği: bir faz tarafından talep üzerine ya da doğrudan sizin tarafınızdan.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/catalog

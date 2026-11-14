@@ -1,5 +1,7 @@
 # hook secrets: اكتشف الأسرار المكتوبة مباشرة في الكود
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/hooks/secrets).
+
 > افحص قاعدة الكود بحثًا عن بيانات الاعتماد المكتوبة مباشرة فيه، من سطر الأوامر.
 
 Canonical: https://lagune.ai/ar-AE/docs/hooks/secrets

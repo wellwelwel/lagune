@@ -43,7 +43,7 @@ Gefällt dir **Lagune**? [Gib uns einen ⭐ auf **GitHub**](https://github.com/w
 **Info**
 
 - **Lagune** läuft unter der Haube mit **Node.js**, aber du arbeitest in der Sprache deiner Wahl.
-- Um **Lagune** komplett offline auszuführen, installiere es mit `npm i -D lagune@0.18.2` in deinem Projekt.
+- Um **Lagune** komplett offline auszuführen, installiere es mit `npm i -D lagune@0.19.0` in deinem Projekt.
 
 ## Kategorien
 
@@ -393,7 +393,7 @@ Gib `$` und den Befehl mit vorangestelltem Plugin-Namen ein, gefolgt von deiner 
 Die Sandbox von **Codex** hat keinen Netzwerkzugriff. Installiere die Engine über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Häufige Fragen
@@ -412,7 +412,7 @@ Gib $ und den Befehl mit vorangestelltem Plugin-Namen ein, gefolgt von deiner Ei
 
 ### Funktioniert Lagune in der Sandbox von Codex?
 
-Ja, sobald du die Engine mit npm i -D lagune@0.18.2 über dein eigenes Terminal in deinem Projekt installierst, einmal und nach jeder Aktualisierung erneut.
+Ja, sobald du die Engine mit npm i -D lagune@0.19.0 über dein eigenes Terminal in deinem Projekt installierst, einmal und nach jeder Aktualisierung erneut.
 
 ---
 
@@ -913,7 +913,7 @@ Gib die Befehle mit ihrem Namen ein, etwa `/lagune-charter`, oder mit vorangeste
 Die Sandbox von **Muse Code** kann die Engine nicht herunterladen. Installiere sie über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Häufige Fragen
@@ -932,7 +932,7 @@ Gib sie mit ihrem Namen ein, etwa /lagune-charter, oder mit vorangestelltem Plug
 
 ### Funktioniert Lagune in der Sandbox von Muse Code?
 
-Ja, sobald du die Engine mit npm i -D lagune@0.18.2 über dein eigenes Terminal in deinem Projekt installierst, einmal und nach jeder Aktualisierung erneut.
+Ja, sobald du die Engine mit npm i -D lagune@0.19.0 über dein eigenes Terminal in deinem Projekt installierst, einmal und nach jeder Aktualisierung erneut.
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 Um **Lagune** zu aktualisieren, installiere die neue Version über die alte und ergänze `-g`, falls du das Plugin für alle deine Projekte installiert hast:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## Befehle
@@ -1014,7 +1014,7 @@ Führe in OpenCode 2.x opencode plugin add lagune aus. Führe in OpenCode 1.x op
 
 ### Wie aktualisiere ich Lagune in OpenCode?
 
-Führe in OpenCode 2.x opencode plugin update lagune aus, dann opencode reload. Führe in OpenCode 1.x opencode plugin lagune@0.18.2 --force aus.
+Führe in OpenCode 2.x opencode plugin update lagune aus, dann opencode reload. Führe in OpenCode 1.x opencode plugin lagune@0.19.0 --force aus.
 
 ### Wie führe ich die Befehle von Lagune in OpenCode aus?
 
@@ -1230,7 +1230,7 @@ Führe `gh skill update --all` aus und lies die vollständige Ausgabe, die du be
 In einer Sandbox ohne Netzwerkzugriff können die Befehle die Engine nicht herunterladen. Installiere sie über dein eigenes Terminal in deinem Projekt, einmal und nach jeder Aktualisierung erneut:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Häufige Fragen
@@ -1569,6 +1569,8 @@ Nur solange keine eingetragen ist. Dann trägt sie jede Kategorie ein, die ihre 
 ---
 
 # /lagune-detect: Erfasse dein System und seine Risiken
+
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/commands/detect).
 
 > Erfasse anhand deines Codes, was dein System tut und wo die Risiken liegen.
 
@@ -1974,6 +1976,8 @@ Beginne mit owasp, dem Standard, und füge dann die für deine Sprache oder dein
 ---
 
 # Katalog: Sicherheitsspezialisierungen bei Bedarf
+
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/catalog).
 
 > Wie die Spezialisierungen im Katalog deines Projekts geladen werden: von einer Phase bei Bedarf und von dir direkt.
 
@@ -3347,6 +3351,8 @@ Führe den Hook regex im Modus scan über die Codebasis aus. Er meldet ReDoS-anf
 
 # Hook secrets: fest im Code hinterlegte Secrets erkennen
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/hooks/secrets).
+
 > Durchsuche eine Codebasis nach fest im Code hinterlegten Zugangsdaten, direkt über die Kommandozeile.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ Plane **Lagune** so ein, dass es dein Projekt eigenständig auditiert und entwed
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune schon: harden setzt Korrekturen in deinem Code um. Deepsec nicht: Es füh
 ---
 
 # OWASP-Quellen
+
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/references/owasp-sources).
 
 > Woher das Wissen der integrierten OWASP-Spezialisierungen stammt, zugeordnet zu den kanonischen OWASP-Seiten der Angriffe und Cheat Sheets.
 

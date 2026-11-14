@@ -43,7 +43,7 @@ Lagune 是一个开源、仅限防御的 Security-Driven Hardening（SDH）工�
 **信息**
 
 - **Lagune** 底层基于 **Node.js** 运行，但你用什么语言都可以。
-- 如需完全离线运行，用 `npm i -D lagune@0.18.2` 把 **Lagune** 安装到你的项目中。
+- 如需完全离线运行，用 `npm i -D lagune@0.19.0` 把 **Lagune** 安装到你的项目中。
 
 ## 类别
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 **Codex** 的沙箱无法访问网络。在你自己的终端中把引擎安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 常见问题
@@ -412,7 +412,7 @@ npm i -D lagune@0.18.2
 
 ### Lagune 能在 Codex 的沙箱中运行吗？
 
-可以，只要你在自己的终端中用 npm i -D lagune@0.18.2 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+可以，只要你在自己的终端中用 npm i -D lagune@0.19.0 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 **Muse Code** 的沙箱无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 常见问题
@@ -932,7 +932,7 @@ npm i -D lagune@0.18.2
 
 ### Lagune 能在 Muse Code 的沙箱中运行吗？
 
-可以，只要你在自己的终端中用 npm i -D lagune@0.18.2 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
+可以，只要你在自己的终端中用 npm i -D lagune@0.19.0 把引擎安装到项目里，先装一次，之后每次更新后再装一次。
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 直接在旧版本上安装新版本即可更新 **Lagune**。如果你是为所有项目安装的，就加上 `-g`：
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## 命令
@@ -1014,7 +1014,7 @@ opencode plugin lagune@0.18.2 --force
 
 ### 如何在 OpenCode 中更新 Lagune？
 
-在 OpenCode 2.x 中，运行 opencode plugin update lagune，然后运行 opencode reload。在 OpenCode 1.x 中，运行 opencode plugin lagune@0.18.2 --force。
+在 OpenCode 2.x 中，运行 opencode plugin update lagune，然后运行 opencode reload。在 OpenCode 1.x 中，运行 opencode plugin lagune@0.19.0 --force。
 
 ### 如何在 OpenCode 中运行 Lagune 的命令？
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 如果沙箱无法访问网络，这些命令就无法下载引擎。在你自己的终端中把它安装到项目里，先装一次，之后每次更新后再装一次：
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## 常见问题
@@ -1569,6 +1569,8 @@ charter 是 Lagune 的治理层，一套安全优先的原则，后续每个阶�
 ---
 
 # /lagune-detect: 摸清你的系统和它的风险
+
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/commands/detect)。
 
 > 读取你的代码，梳理系统在做什么、风险在哪里。
 
@@ -1974,6 +1976,8 @@ npx lagune read list --categories
 ---
 
 # 目录：按需加载的安全专项
+
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/catalog)。
 
 > 项目目录中的专项如何加载：由阶段按需加载，或由你直接加载。
 
@@ -3347,6 +3351,8 @@ npx lagune read regex --pattern 'a?a?a?' --limit 2
 
 # secrets hook：检测硬编码的密钥
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/hooks/secrets)。
+
 > 在命令行中扫描代码库里硬编码的凭证。
 
 规范链接: https://lagune.ai/zh-CN/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune 会：harden 会把修复应用到你的代码中。Deepsec 不会：它�
 ---
 
 # OWASP 来源
+
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/references/owasp-sources)。
 
 > 内置 OWASP 专项的知识从何而来，并对应到 OWASP 官方的攻击页面和 Cheat Sheet 页面。
 

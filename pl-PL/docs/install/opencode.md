@@ -55,7 +55,7 @@ opencode reload
 Aby zaktualizować wtyczkę **Lagune**, zainstaluj nową wersję w miejsce starej, dodając `-g`, jeśli wtyczka jest zainstalowana dla wszystkich twoich projektów:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## Polecenia
@@ -76,7 +76,7 @@ W OpenCode 2.x uruchom opencode plugin add lagune. W OpenCode 1.x uruchom openco
 
 ### Jak zaktualizować wtyczkę Lagune w OpenCode?
 
-W OpenCode 2.x uruchom opencode plugin update lagune, a następnie opencode reload. W OpenCode 1.x uruchom opencode plugin lagune@0.18.2 --force.
+W OpenCode 2.x uruchom opencode plugin update lagune, a następnie opencode reload. W OpenCode 1.x uruchom opencode plugin lagune@0.19.0 --force.
 
 ### Jak uruchamiać polecenia Lagune w OpenCode?
 

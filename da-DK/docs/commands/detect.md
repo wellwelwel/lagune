@@ -1,5 +1,7 @@
 # /lagune-detect: Kortlæg dit system og dets risici
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/commands/detect).
+
 > Læs din kode, og kortlæg, hvad dit system gør, og hvor risiciene er.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/commands/detect

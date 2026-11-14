@@ -1,5 +1,7 @@
 # แหล่งที่มาจาก OWASP
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/references/owasp-sources)
+
 > ที่มาของความรู้ในความรู้เฉพาะทาง OWASP ในตัว โดยจับคู่กับหน้าการโจมตีและหน้า Cheat Sheet ต้นฉบับของ OWASP
 
 Canonical: https://lagune.ai/th-TH/docs/references/owasp-sources

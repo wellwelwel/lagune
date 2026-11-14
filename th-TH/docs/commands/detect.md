@@ -1,5 +1,7 @@
 # /lagune-detect: ทำแผนผังระบบและความเสี่ยงของคุณ
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/commands/detect)
+
 > อ่านโค้ดของคุณ แล้วทำแผนผังว่าระบบทำอะไรบ้างและความเสี่ยงอยู่ตรงไหน
 
 Canonical: https://lagune.ai/th-TH/docs/commands/detect

@@ -1,5 +1,7 @@
 # Hook secrets: rileva i segreti scritti nel codice
 
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/hooks/secrets).
+
 > Analizza una codebase alla ricerca di credenziali scritte nel codice, dalla riga di comando.
 
 Canonico: https://lagune.ai/it-IT/docs/hooks/secrets

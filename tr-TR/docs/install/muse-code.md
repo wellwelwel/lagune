@@ -35,7 +35,7 @@ Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin ad
 **Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Sıkça sorulan sorular
@@ -54,4 +54,4 @@ Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikt
 
 ### Lagune, Muse Code korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.18.2 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.19.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.

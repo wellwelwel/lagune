@@ -1,5 +1,7 @@
 # secrets フック：ハードコードされたシークレットを検出する
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/hooks/secrets)。
+
 > コマンドラインから、ハードコードされた認証情報をコードベース全体でスキャンできます。
 
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/secrets

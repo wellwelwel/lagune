@@ -1,5 +1,7 @@
 # /lagune-detect: sisteminizin ve risklerinin haritasını çıkarın
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/commands/detect).
+
 > Kodunuzu okuyun, sisteminizin ne yaptığını ve risklerin nerede olduğunu belirleyin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/commands/detect

@@ -1,5 +1,7 @@
 # Hook secrets: Wykrywanie sekretów zapisanych na sztywno w kodzie
 
+> Ta strona jest nieaktualna w porównaniu z wersją angielską. [Przeczytaj wersję oryginalną](https://lagune.ai/docs/hooks/secrets).
+
 > Przeszukuj bazę kodu z wiersza poleceń pod kątem danych uwierzytelniających zapisanych na sztywno w kodzie.
 
 Adres kanoniczny: https://lagune.ai/pl-PL/docs/hooks/secrets

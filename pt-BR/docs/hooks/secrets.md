@@ -1,5 +1,7 @@
 # Hook secrets: detecte segredos hardcoded
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/hooks/secrets).
+
 > Varra um código em busca de credenciais hardcoded, direto da linha de comando.
 
 Canônica: https://lagune.ai/pt-BR/docs/hooks/secrets

@@ -43,7 +43,7 @@ Canonical: https://lagune.ai/th-TH/docs
 **ข้อมูล**
 
 - เบื้องหลัง **Lagune** ทำงานบน **Node.js** แต่คุณใช้ภาษาใดก็ได้ตามต้องการ
-- หากต้องการรันแบบออฟไลน์ทั้งหมด ให้ติดตั้ง **Lagune** ในโปรเจกต์ด้วย `npm i -D lagune@0.18.2`
+- หากต้องการรันแบบออฟไลน์ทั้งหมด ให้ติดตั้ง **Lagune** ในโปรเจกต์ด้วย `npm i -D lagune@0.19.0`
 
 ## หมวดหมู่
 
@@ -393,7 +393,7 @@ codex plugin marketplace upgrade lagune
 Sandbox ของ **Codex** เข้าถึงเครือข่ายไม่ได้ ให้ติดตั้งเอนจินในโปรเจกต์จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## คำถามที่พบบ่อย
@@ -412,7 +412,7 @@ npm i -D lagune@0.18.2
 
 ### Lagune ทำงานใน sandbox ของ Codex ได้ไหม
 
-ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.18.2 จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต
+ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.19.0 จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต
 
 ---
 
@@ -913,7 +913,7 @@ muse plugins install lagune@lagune
 sandbox ของ **Muse Code** ดาวน์โหลดเอนจินไม่ได้ ให้ติดตั้งเอนจินในโปรเจกต์จากเทอร์มินัลของคุณเองหนึ่งครั้ง และติดตั้งอีกครั้งหลังการอัปเดตทุกครั้ง:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## คำถามที่พบบ่อย
@@ -932,7 +932,7 @@ npm i -D lagune@0.18.2
 
 ### Lagune ใช้งานใน sandbox ของ Muse Code ได้ไหม
 
-ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.18.2 จากเทอร์มินัลของคุณเองหนึ่งครั้ง และติดตั้งอีกครั้งหลังการอัปเดตทุกครั้ง
+ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.19.0 จากเทอร์มินัลของคุณเองหนึ่งครั้ง และติดตั้งอีกครั้งหลังการอัปเดตทุกครั้ง
 
 ---
 
@@ -993,7 +993,7 @@ opencode reload
 หากต้องการอัปเดต **Lagune** ให้ติดตั้งรีลีสใหม่ทับรีลีสเดิม โดยเพิ่ม `-g` หากคุณติดตั้งไว้ให้ทุกโปรเจกต์:
 
 ```bash
-opencode plugin lagune@0.18.2 --force
+opencode plugin lagune@0.19.0 --force
 ```
 
 ## คำสั่ง
@@ -1014,7 +1014,7 @@ opencode plugin lagune@0.18.2 --force
 
 ### อัปเดต Lagune บน OpenCode ได้อย่างไร
 
-ใน OpenCode 2.x ให้รัน opencode plugin update lagune แล้วรัน opencode reload ส่วนใน OpenCode 1.x ให้รัน opencode plugin lagune@0.18.2 --force
+ใน OpenCode 2.x ให้รัน opencode plugin update lagune แล้วรัน opencode reload ส่วนใน OpenCode 1.x ให้รัน opencode plugin lagune@0.19.0 --force
 
 ### รันคำสั่งของ Lagune บน OpenCode ได้อย่างไร
 
@@ -1230,7 +1230,7 @@ gh skill update --all
 ใน sandbox ที่เข้าถึงเครือข่ายไม่ได้ คำสั่งต่าง ๆ จะดาวน์โหลดเอนจินไม่ได้ ให้ติดตั้งเอนจินในโปรเจกต์จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## คำถามที่พบบ่อย
@@ -1569,6 +1569,8 @@ charter คือชั้นที่กำกับทุกเฟสของ
 ---
 
 # /lagune-detect: ทำแผนผังระบบและความเสี่ยงของคุณ
+
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/commands/detect)
 
 > อ่านโค้ดของคุณ แล้วทำแผนผังว่าระบบทำอะไรบ้างและความเสี่ยงอยู่ตรงไหน
 
@@ -1974,6 +1976,8 @@ npx lagune read list --categories
 ---
 
 # แคตตาล็อก: ความรู้เฉพาะทางด้านความปลอดภัยที่โหลดเฉพาะเมื่อจำเป็น
+
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/catalog)
 
 > วิธีที่ความรู้เฉพาะทางในแคตตาล็อกของโปรเจกต์ถูกโหลด ทั้งโดยเฟสต่าง ๆ เฉพาะเมื่อจำเป็น และโดยคุณเองโดยตรง
 
@@ -3347,6 +3351,8 @@ pattern แต่ละรายการส่งเข้าไปเป็น
 
 # Hook secrets: ตรวจหา secret ที่ฮาร์ดโค้ดไว้
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/hooks/secrets)
+
 > สแกนโค้ดเบสหาข้อมูลรับรองที่ฮาร์ดโค้ดไว้ได้จากบรรทัดคำสั่ง
 
 Canonical: https://lagune.ai/th-TH/docs/hooks/secrets
@@ -3786,7 +3792,7 @@ Canonical: https://lagune.ai/th-TH/docs/examples/scheduled-audits
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.18.2
+    - wellwelwel/lagune@v0.19.0
   network:
     allowed:
       - defaults
@@ -4794,6 +4800,8 @@ Lagune แก้: harden นำการแก้ไขไปใช้กับ�
 ---
 
 # แหล่งที่มาจาก OWASP
+
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/references/owasp-sources)
 
 > ที่มาของความรู้ในความรู้เฉพาะทาง OWASP ในตัว โดยจับคู่กับหน้าการโจมตีและหน้า Cheat Sheet ต้นฉบับของ OWASP
 

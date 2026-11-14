@@ -72,7 +72,7 @@ Jalankan `gh skill update --all` dan baca seluruh output-nya, alihkan dulu ke fi
 Di sandbox tanpa akses jaringan, perintah tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.18.2
+npm i -D lagune@0.19.0
 ```
 
 ## Pertanyaan yang sering diajukan

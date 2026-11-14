@@ -1,5 +1,7 @@
 # Katalog: spesialisasi keamanan yang dimuat saat dibutuhkan
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/catalog).
+
 > Cara spesialisasi di katalog proyek Anda dimuat, oleh fase hanya saat dibutuhkan, atau langsung oleh Anda.
 
 Kanonis: https://lagune.ai/id-ID/docs/catalog

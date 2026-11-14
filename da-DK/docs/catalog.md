@@ -1,5 +1,7 @@
 # Katalog: sikkerhedsspecialiseringer efter behov
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/catalog).
+
 > Sådan indlæses specialiseringerne i dit projekts katalog, af en fase efter behov og af dig direkte.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/catalog

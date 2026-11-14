@@ -1,5 +1,7 @@
 # ‎/lagune-detect: ارصد نظامك ومخاطره
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/commands/detect).
+
 > اقرأ الكود وارصد ما يفعله نظامك وأين تكمن المخاطر.
 
 Canonical: https://lagune.ai/ar-AE/docs/commands/detect

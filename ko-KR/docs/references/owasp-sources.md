@@ -1,5 +1,7 @@
 # OWASP 출처
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/references/owasp-sources).
+
 > 내장 OWASP 전문 지식의 출처를 OWASP 공식 공격 페이지와 Cheat Sheet 페이지에 대응시켜 정리했습니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/references/owasp-sources

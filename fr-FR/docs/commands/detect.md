@@ -1,5 +1,7 @@
 # /lagune-detect: cartographier votre système et ses risques
 
+> Cette page n'est plus à jour par rapport à sa version anglaise. [Lire la version originale](https://lagune.ai/docs/commands/detect).
+
 > Lisez votre code et cartographiez ce que fait votre système et où se trouvent les risques.
 
 Canonique: https://lagune.ai/fr-FR/docs/commands/detect
