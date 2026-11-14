@@ -38,29 +38,23 @@ const hasHardcodedLiteral = (line: string): boolean => {
   return match[2].length >= 8 && !isPlaceholder(match[2]);
 };
 
-/** Each pattern ends with the quoted default, so stripping it leaves the lookup, which must name a secret (`NODE_ENV ?? "development"` is not a finding) */
 const hasEnvFallback = (line: string, patterns: readonly RegExp[]): boolean =>
   patterns.some((pattern) => {
     const match = pattern.exec(line);
 
     if (match === null) return false;
 
-    const [, quote, defaultLiteral] = match;
+    const [matched, quote, defaultLiteral] = match;
 
     if (isPlaceholder(defaultLiteral)) return false;
 
-    const lookup = match[0].slice(
-      0,
-      -(quote.length + defaultLiteral.length + quote.length)
-    );
+    const quotedDefault = `${quote}${defaultLiteral}${quote}`;
+    const lookup = matched.slice(0, -quotedDefault.length);
 
     return SECRET_IDENTIFIER.test(lookup);
   });
 
-const flagged = (lines: string[], test: (line: string) => boolean): boolean =>
-  lines.some(test);
-
-/** Hard findings (provider signatures, connection strings) read RAW lines, so a token or DSN committed in a comment is still caught. The heuristic leads read comment-blanked lines, so a commented-out example is not flagged */
+/** Provider signatures and connection strings count even inside a comment, the other rules never do */
 export const analyzeFor = (
   language: LanguageId | null,
   content: string
@@ -69,14 +63,13 @@ export const analyzeFor = (
   const lines = codeLines(content, language);
   const envPatterns = language === null ? [] : envFallbacksOf(language);
   const sink = language === null ? null : sinkOf(language);
-
   const findings = SIGNATURES.filter((rule) =>
     rawLines.some((line) => rule.regex.test(line))
   ).map((rule) => rule.detail);
 
   if (
     envPatterns.length > 0 &&
-    flagged(lines, (line) => hasEnvFallback(line, envPatterns))
+    lines.some((line) => hasEnvFallback(line, envPatterns))
   )
     findings.push(ENV_FALLBACK_DETAIL);
 
@@ -88,11 +81,11 @@ export const analyzeFor = (
 
   if (connection === 'unconfirmed') review.push(LOCAL_CONNECTION_DETAIL);
 
-  if (flagged(lines, hasHardcodedLiteral)) review.push(LITERAL_DETAIL);
+  if (lines.some(hasHardcodedLiteral)) review.push(LITERAL_DETAIL);
 
   if (
     sink !== null &&
-    flagged(lines, (line) => sink.test(line) && SECRET_REF.test(line))
+    lines.some((line) => sink.test(line) && SECRET_REF.test(line))
   )
     review.push(SINK_DETAIL);
 

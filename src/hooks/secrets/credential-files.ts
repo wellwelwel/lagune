@@ -137,8 +137,6 @@ const confirmedBy =
 const isNpmSecretKey = (key: string): boolean =>
   NPM_SECRET_KEYS.some((name) => key === name || key.endsWith(`:${name}`));
 
-const holdsPrivateKey = (text: string): boolean => PRIVATE_KEY_BLOCK.test(text);
-
 /** RFC 7468 lets a tool write explanatory text around a block, such as the name a CA bundle prints above each certificate */
 const isExplanatoryText = (line: string): boolean =>
   !line.startsWith('-') && !line.toLowerCase().includes('private');
@@ -172,7 +170,7 @@ const holdsOnlyPublicBlocks = (text: string): boolean => {
 };
 
 const pemFileContent = (text: string): ContentVerdict => {
-  if (holdsPrivateKey(text)) return 'credential';
+  if (PRIVATE_KEY_BLOCK.test(text)) return 'credential';
 
   return holdsOnlyPublicBlocks(text) ? 'clean' : 'unconfirmed';
 };

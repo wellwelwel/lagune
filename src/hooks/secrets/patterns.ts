@@ -102,7 +102,7 @@ const SINKS: Partial<Record<LanguageId, RegExp>> = {
     /\bConsole\.(?:Write|WriteLine)\s{0,16}\(|\bConsole\.Error\.(?:Write|WriteLine)\s{0,16}\(|\b_?[Ll]ogger\.(?:LogInformation|LogWarning|LogError|LogDebug|LogTrace|LogCritical)\s{0,16}\(|throw\s{1,16}new\s{1,16}\w{0,64}Exception/,
 };
 
-/** Group 2 is the default literal in every regex, so the length/placeholder filter reads the same group everywhere */
+/** Every pattern ends with its quoted default: the quote as group 1 and the literal as group 2 */
 const ENV_FALLBACKS: Partial<Record<LanguageId, readonly RegExp[]>> =
   deepFreeze({
     javascript: [

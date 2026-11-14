@@ -1,3 +1,7 @@
+import type {
+  CredentialContentCase,
+  CredentialOutcome,
+} from '../../../src/types/test.js';
 import { chmod } from 'node:fs/promises';
 import { join } from 'node:path';
 import { describe, it, strict } from 'poku';
@@ -328,14 +332,15 @@ await describe('the secrets checker leads a credential it cannot confirm to a ma
 });
 
 describe('the content of a key file, registry config, kubeconfig, or dotenvx keys file decides what a tracked one reports', () => {
-  type Expected = keyof typeof sectionCounts;
-  type Case = [name: string, path: string, content: string, expected: Expected];
-
   const sectionCounts: Record<
-    'reports' | 'leads' | 'passes',
+    CredentialOutcome,
     readonly [findings: number, review: number, advisory: number]
   > = { reports: [1, 0, 0], leads: [0, 1, 0], passes: [0, 0, 0] };
-  const keyContents: [name: string, content: string, expected: Expected][] = [
+  const keyContents: [
+    name: string,
+    content: string,
+    expected: CredentialOutcome,
+  ][] = [
     ['a PEM private key', PEM_KEY, 'reports'],
     ['a certificate and its private key', `${PUBLIC_PEM}${PEM_KEY}`, 'reports'],
     ['only a public key and a certificate', PUBLIC_PEM, 'passes'],
@@ -363,14 +368,15 @@ describe('the content of a key file, registry config, kubeconfig, or dotenvx key
       'leads',
     ],
   ];
-  const cases: Case[] = [
-    ...keyContents.flatMap(([name, content, expected]): Case[] =>
-      ['.key', '.pem'].map((extension) => [
-        `a ${extension} file holding ${name}`,
-        `server${extension}`,
-        content,
-        expected,
-      ])
+  const cases: CredentialContentCase[] = [
+    ...keyContents.flatMap(
+      ([name, content, expected]): CredentialContentCase[] =>
+        ['.key', '.pem'].map((extension) => [
+          `a ${extension} file holding ${name}`,
+          `server${extension}`,
+          content,
+          expected,
+        ])
     ),
     ['a Keynote deck', 'talk.key', KEYNOTE_DECK, 'passes'],
     [

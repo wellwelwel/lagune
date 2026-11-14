@@ -5,6 +5,7 @@ import type {
   EnvEvidence,
   EnvFileKind,
   EvidenceTier,
+  TrackingSeverities,
   TrackingVerdicts,
 } from '../../types/hooks/secrets.js';
 import type { FileAnalysis } from '../../types/scan.js';
@@ -64,15 +65,11 @@ const CONDITIONS: Readonly<Record<EvidenceTier, string>> = deepFreeze({
   unconfirmed: 'if it is a real credential rather than a development default, ',
 });
 
-const SEVERITIES: Readonly<
-  Record<
-    EvidenceTier,
-    Record<CommittableTracking, (detail: string) => FileAnalysis>
-  >
-> = deepFreeze({
-  proven: EXPOSURES,
-  unconfirmed: { tracked: reviewOf, unignored: reviewOf },
-});
+const SEVERITIES: Readonly<Record<EvidenceTier, TrackingSeverities>> =
+  deepFreeze({
+    proven: EXPOSURES,
+    unconfirmed: { tracked: reviewOf, unignored: reviewOf },
+  });
 
 const LOCAL_VERDICTS: TrackingVerdicts = deepFreeze({
   tracked: advisoryOf(
@@ -100,9 +97,6 @@ export const envFileOf = (relativePath: string): EnvFileKind | null => {
 
   return variants.includes('local') ? 'local' : 'shared';
 };
-
-export const readsEnvContent = (kind: EnvFileKind | null): boolean =>
-  kind !== null;
 
 const valueOf = (raw: string): string => {
   const quote = raw[0];

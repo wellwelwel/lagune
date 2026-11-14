@@ -5,6 +5,11 @@ export type CommittableTracking = Exclude<GitTracking, 'ignored'>;
 
 export type TrackingVerdicts = Record<CommittableTracking, FileAnalysis>;
 
+export type TrackingSeverities = Record<
+  CommittableTracking,
+  (detail: string) => FileAnalysis
+>;
+
 export type EvidenceTier = 'proven' | 'unconfirmed';
 
 export type ContentVerdict = 'credential' | 'clean' | 'unconfirmed';

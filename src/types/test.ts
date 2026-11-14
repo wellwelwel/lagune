@@ -62,6 +62,15 @@ export type ConfigsSchema = {
 
 export type GitWalk = { files: string[]; skipped: string[] };
 
+export type CredentialOutcome = 'reports' | 'leads' | 'passes';
+
+export type CredentialContentCase = [
+  name: string,
+  path: string,
+  content: string,
+  expected: CredentialOutcome,
+];
+
 export type PackedPackage = { files: { path: string }[] };
 
 export type TrackedFile = { mode: string; path: string };

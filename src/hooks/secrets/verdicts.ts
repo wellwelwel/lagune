@@ -1,11 +1,14 @@
 import type { GitEntry } from '../../types/git.js';
-import type { CommittableTracking } from '../../types/hooks/secrets.js';
+import type {
+  CommittableTracking,
+  TrackingSeverities,
+} from '../../types/hooks/secrets.js';
 import type { FileAnalysis, ScanDetail } from '../../types/scan.js';
 import { allOf, deepFreeze } from '../../core/collections.js';
 
 const NAMED_FILES = 5;
 
-export const findingOf = (detail: string): FileAnalysis => ({
+const findingOf = (detail: string): FileAnalysis => ({
   findings: [detail],
   review: [],
   advisory: [],
@@ -38,9 +41,10 @@ export const REMEDIES: Readonly<Record<CommittableTracking, string>> =
       'add this file to .gitignore, so the next git add cannot commit it',
   });
 
-export const EXPOSURES: Readonly<
-  Record<CommittableTracking, (detail: string) => FileAnalysis>
-> = deepFreeze({ tracked: findingOf, unignored: advisoryOf });
+export const EXPOSURES: Readonly<TrackingSeverities> = deepFreeze({
+  tracked: findingOf,
+  unignored: advisoryOf,
+});
 
 const UNREADABLE_INDEX =
   'with a Git index the checker cannot read to tell whether Git tracks them: confirm by hand that none of them is committed';

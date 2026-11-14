@@ -24,7 +24,7 @@ import {
   credentialFileOf,
   readsCredentialContent,
 } from './credential-files.js';
-import { envFileAnalysis, envFileOf, readsEnvContent } from './env-files.js';
+import { envFileAnalysis, envFileOf } from './env-files.js';
 import { analyze } from './secrets.js';
 import { unknownGitLead } from './verdicts.js';
 
@@ -82,7 +82,7 @@ const analyzedFile = async (
     return sourceFile(root, file);
 
   const text =
-    readsCredentialContent(credentialFile) || readsEnvContent(envFile)
+    readsCredentialContent(credentialFile) || envFile !== null
       ? await readText(join(root, file))
       : null;
 
