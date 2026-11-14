@@ -1,4 +1,10 @@
-export type GitTracking = 'tracked' | 'untracked' | 'unknown';
+import type { GitTracking } from '../git.js';
+import type { FileAnalysis } from '../scan.js';
+
+export type TrackingVerdicts = Record<
+  Exclude<GitTracking, 'ignored'>,
+  FileAnalysis
+>;
 
 export type CredentialVerdict = 'credential' | 'clean' | 'unread';
 

@@ -35,6 +35,8 @@ export type GitIgnores = {
 
 export type MatchBudget = { remaining: number };
 
+export type GitTracking = 'tracked' | 'ignored' | 'unignored' | 'unknown';
+
 export type GitScope = GitIgnores & {
   segments: readonly string[];
   ignored: boolean;

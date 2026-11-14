@@ -32,6 +32,7 @@ const PEM_KEY = [
 ].join('\n');
 const PEM_VALUE = 'private key block (PEM) committed in source';
 const UNTRACK = 'stop tracking it (git rm --cached) and add it to .gitignore';
+const IGNORE = 'add it to .gitignore, so the next git add cannot commit it';
 const KUBECONFIG = [
   'apiVersion: v1',
   'kind: Config',
@@ -80,7 +81,7 @@ const filesUnder = (folder: string): Record<string, string> =>
   );
 
 await describe('the secrets checker reports the credential files Git tracks', async () => {
-  await it('reports each one Git tracks, and none of the same files Git ignores or does not track', async () => {
+  await it('reports each one Git tracks, warns about each one Git would commit, and stays silent on the ones Git ignores', async () => {
     const workspace = await trackedRepository(
       ['init', '--quiet'],
       {
@@ -104,7 +105,12 @@ await describe('the secrets checker reports the credential files Git tracks', as
         { file: join('untracked', 'cert.pem'), detail: PEM_VALUE },
       ]),
       review: [],
-      advisory: [],
+      advisory: sortedDetails(
+        CREDENTIAL_FILES.map(([path, , label]) => ({
+          file: join('untracked', path),
+          detail: `${label} that Git does not ignore: ${IGNORE}`,
+        }))
+      ),
     });
   });
 

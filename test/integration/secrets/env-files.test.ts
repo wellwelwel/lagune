@@ -29,6 +29,10 @@ const SECRET =
   'secret in an environment file tracked by Git: move the secret to a local file Git ignores, such as .env.local, or stop tracking this file (git rm --cached) and add it to .gitignore';
 const DEFAULTS =
   'environment file tracked by Git: confirm every value it sets is meant to be public';
+const UNIGNORED_LOCAL =
+  'environment file meant to stay local that Git does not ignore: add it to .gitignore, so the next git add cannot commit it';
+const UNIGNORED_SECRET =
+  'secret in an environment file that Git does not ignore: move the secret to a local file Git ignores, such as .env.local, or add this file to .gitignore, so the next git add cannot commit it';
 
 const ENV_FILES: Readonly<Record<string, string>> = {
   '.env.local': 'PORT=3000\n',
@@ -50,7 +54,7 @@ const filesUnder = (folder: string): Record<string, string> =>
   );
 
 await describe('the secrets checker reports the environment files Git tracks', async () => {
-  await it('reports a local variant or a secret, advises on public defaults, and stays silent on templates and on what Git ignores or does not track', async () => {
+  await it('reports a local variant or a secret, warns when Git would commit one, advises on public defaults, and stays silent on templates and on what Git ignores', async () => {
     const workspace = await trackedRepository(
       ['init', '--quiet'],
       {
@@ -72,9 +76,19 @@ await describe('the secrets checker reports the environment files Git tracks', a
         { file: join('tracked', '.env.production'), detail: SECRET },
       ]),
       review: [],
-      advisory: [
+      advisory: sortedDetails([
         { file: join('tracked', '.env.development'), detail: DEFAULTS },
-      ],
+        { file: join('untracked', '.env.local'), detail: UNIGNORED_LOCAL },
+        {
+          file: join('untracked', '.env.production.local'),
+          detail: UNIGNORED_LOCAL,
+        },
+        { file: join('untracked', '.env'), detail: UNIGNORED_SECRET },
+        {
+          file: join('untracked', '.env.production'),
+          detail: UNIGNORED_SECRET,
+        },
+      ]),
     });
   });
 

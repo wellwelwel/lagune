@@ -1,19 +1,21 @@
+import type { GitTracking } from '../../types/git.js';
 import type {
   ConfigEntry,
   EnvFileKind,
-  GitTracking,
+  TrackingVerdicts,
 } from '../../types/hooks/secrets.js';
 import type { FileAnalysis } from '../../types/scan.js';
 import { basename } from 'node:path';
+import { deepFreeze } from '../../core/collections.js';
 import { languageOf } from '../../core/scan/language.js';
 import { EMPTY_ANALYSIS } from '../../core/scan/scope.js';
 import { isPlaceholder, SIGNATURES } from './patterns.js';
 import {
   advisoryOf,
   findingOf,
-  trackedFinding,
   unknownTrackingLead,
   unreadLead,
+  verdictsFor,
 } from './verdicts.js';
 
 const ENV_NAME = /^\.env(?:\.[\w-]{1,64}){0,8}$/;
@@ -32,9 +34,28 @@ const TEMPLATES: ReadonlySet<string> = new Set([
 
 const LOCAL_LABEL = 'environment file meant to stay local';
 const LEAK_LABEL = 'secret in an environment file';
-const TRACKED_LEAK = `${LEAK_LABEL} tracked by Git: move the secret to a local file Git ignores, such as .env.local, or stop tracking this file (git rm --cached) and add it to .gitignore`;
-const TRACKED_DEFAULTS =
-  'environment file tracked by Git: confirm every value it sets is meant to be public';
+const MOVE_LEAK =
+  'move the secret to a local file Git ignores, such as .env.local';
+
+const LOCAL_VERDICTS: TrackingVerdicts = verdictsFor(LOCAL_LABEL);
+
+const LEAK_VERDICTS: TrackingVerdicts = deepFreeze({
+  tracked: findingOf(
+    `${LEAK_LABEL} tracked by Git: ${MOVE_LEAK}, or stop tracking this file (git rm --cached) and add it to .gitignore`
+  ),
+  unignored: advisoryOf(
+    `${LEAK_LABEL} that Git does not ignore: ${MOVE_LEAK}, or add this file to .gitignore, so the next git add cannot commit it`
+  ),
+  unknown: unknownTrackingLead(LEAK_LABEL),
+});
+
+const DEFAULTS_VERDICTS: TrackingVerdicts = deepFreeze({
+  tracked: advisoryOf(
+    'environment file tracked by Git: confirm every value it sets is meant to be public'
+  ),
+  unignored: EMPTY_ANALYSIS,
+  unknown: EMPTY_ANALYSIS,
+});
 
 /** The kind of environment file a path names, or none for a template or a source file */
 export const envFileOf = (relativePath: string): EnvFileKind | null => {
@@ -110,24 +131,15 @@ const holdsSecret = (text: string): boolean =>
         setsSecretVariable(line)
     );
 
-/** A tracked environment file is a finding when it is meant to stay local or sets a secret, and an advisory otherwise. It is a lead when it cannot be read, or when Git's index cannot tell whether a would-be finding is tracked */
+/** A tracked environment file is a finding when it is meant to stay local or sets a secret, and an advisory otherwise. One that would be a finding is an advisory when Git would commit it and a lead without a readable index, an unreadable one is a lead, and one Git ignores stays silent */
 export const envFileAnalysis = (
   kind: EnvFileKind,
   text: string | null,
   tracking: GitTracking
 ): FileAnalysis => {
-  if (tracking === 'untracked') return EMPTY_ANALYSIS;
-  if (kind === 'local')
-    return tracking === 'tracked'
-      ? trackedFinding(LOCAL_LABEL)
-      : unknownTrackingLead(LOCAL_LABEL);
+  if (tracking === 'ignored') return EMPTY_ANALYSIS;
+  if (kind === 'local') return LOCAL_VERDICTS[tracking];
   if (text === null) return unreadLead('secret');
-  if (!holdsSecret(text))
-    return tracking === 'tracked'
-      ? advisoryOf(TRACKED_DEFAULTS)
-      : EMPTY_ANALYSIS;
 
-  return tracking === 'tracked'
-    ? findingOf(TRACKED_LEAK)
-    : unknownTrackingLead(LEAK_LABEL);
+  return (holdsSecret(text) ? LEAK_VERDICTS : DEFAULTS_VERDICTS)[tracking];
 };

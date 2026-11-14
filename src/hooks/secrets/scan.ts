@@ -1,15 +1,15 @@
-import type { GitIgnores } from '../../types/git.js';
-import type { GitTracking } from '../../types/hooks/secrets.js';
+import type { GitScope } from '../../types/git.js';
 import type {
   AnalyzedFile,
   FileAnalysis,
   ScanReport,
   WalkFilter,
 } from '../../types/scan.js';
-import { join, sep } from 'node:path';
+import { join } from 'node:path';
 import { checkerSettings } from '../../core/checkers.js';
 import { deepFreeze } from '../../core/collections.js';
 import { gitIgnoresOf } from '../../core/git/repository.js';
+import { rootScopeOf, trackingOf } from '../../core/git/scope.js';
 import { readText } from '../../core/markdown/read.js';
 import { reportOf } from '../../core/scan/driver.js';
 import {
@@ -36,14 +36,6 @@ const SECRETS_FILTER: WalkFilter = deepFreeze({
     envFileOf(relativePath) !== null,
 });
 
-const trackingOf = (ignores: GitIgnores | null, file: string): GitTracking => {
-  if (ignores === null) return 'unknown';
-
-  return ignores.tracked.files.has(file.split(sep).join('/'))
-    ? 'tracked'
-    : 'untracked';
-};
-
 const combined = (...analyses: readonly FileAnalysis[]): FileAnalysis => ({
   findings: analyses.flatMap((analysis) => analysis.findings),
   review: analyses.flatMap((analysis) => analysis.review),
@@ -53,7 +45,7 @@ const combined = (...analyses: readonly FileAnalysis[]): FileAnalysis => ({
 const analyzedFile = async (
   root: string,
   file: string,
-  ignores: GitIgnores | null
+  rootScope: GitScope | null
 ): Promise<AnalyzedFile> => {
   const isSource = SOURCE_FILTER.accept(file);
   const credentialFile = credentialFileOf(file);
@@ -70,7 +62,7 @@ const analyzedFile = async (
   if (credentialFile === null && envFile === null)
     return { file, analysis: values };
 
-  const tracking = trackingOf(ignores, file);
+  const tracking = await trackingOf(root, file, rootScope);
   const credential =
     credentialFile === null
       ? EMPTY_ANALYSIS
@@ -83,7 +75,7 @@ const analyzedFile = async (
   return { file, analysis: combined(values, credential, environment) };
 };
 
-/** Scans the targets for secrets written in the source and for the credential and environment files Git tracks */
+/** Scans the targets for secrets written in the source and for the credential and environment files Git tracks or would commit */
 export const scanSecrets = async (
   root: string,
   targets: readonly string[]
@@ -92,15 +84,12 @@ export const scanSecrets = async (
     checkerSettings(root, 'secrets'),
     gitIgnoresOf(root),
   ]);
-  const { files, skipped } = await walkTargetsWith(
-    root,
-    targets,
-    SECRETS_FILTER,
-    settings,
-    ignores
-  );
+  const [{ files, skipped }, rootScope] = await Promise.all([
+    walkTargetsWith(root, targets, SECRETS_FILTER, settings, ignores),
+    rootScopeOf(root, ignores),
+  ]);
   const analyzed = await Promise.all(
-    files.map((file) => analyzedFile(root, file, ignores))
+    files.map((file) => analyzedFile(root, file, rootScope))
   );
 
   return reportOf(analyzed, skipped);

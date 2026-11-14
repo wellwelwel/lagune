@@ -1,15 +1,15 @@
+import type { GitTracking } from '../../types/git.js';
 import type {
   ConfigEntry,
   CredentialFile,
   CredentialVerdict,
-  GitTracking,
 } from '../../types/hooks/secrets.js';
 import type { FileAnalysis } from '../../types/scan.js';
 import { basename, dirname } from 'node:path';
 import { deepFreeze } from '../../core/collections.js';
 import { EMPTY_ANALYSIS } from '../../core/scan/scope.js';
 import { isPlaceholder, PRIVATE_KEY_BLOCK } from './patterns.js';
-import { trackedFinding, unknownTrackingLead, unreadLead } from './verdicts.js';
+import { unreadLead, verdictsFor } from './verdicts.js';
 
 const SSH_KEY = /^id_(?:rsa|dsa|ecdsa|ed25519)(?:_sk)?$/;
 const KEYSTORE = /\.(?:p12|pfx|jks|keystore)$/;
@@ -173,19 +173,18 @@ const verdictOf = (
   return holdsSecret(text) ? 'credential' : 'clean';
 };
 
-/** A credential file Git tracks is a finding, one whose content or Git status cannot be read is a lead, and one Git does not track stays silent */
+/** A credential file Git tracks is a finding, one Git would commit is an advisory, one whose content or Git status cannot be read is a lead, and one Git ignores stays silent */
 export const credentialFileAnalysis = (
   file: CredentialFile,
   text: string | null,
   tracking: GitTracking
 ): FileAnalysis => {
-  if (tracking === 'untracked') return EMPTY_ANALYSIS;
+  if (tracking === 'ignored') return EMPTY_ANALYSIS;
 
   const verdict = verdictOf(file, text);
 
   if (verdict === 'clean') return EMPTY_ANALYSIS;
   if (verdict === 'unread') return unreadLead(file.label);
-  if (tracking === 'unknown') return unknownTrackingLead(file.label);
 
-  return trackedFinding(file.label);
+  return verdictsFor(file.label)[tracking];
 };

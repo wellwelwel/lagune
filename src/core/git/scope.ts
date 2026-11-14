@@ -1,5 +1,5 @@
-import type { GitIgnores, GitScope } from '../../types/git.js';
-import { join, relative, sep } from 'node:path';
+import type { GitIgnores, GitScope, GitTracking } from '../../types/git.js';
+import { basename, join, relative, sep } from 'node:path';
 import { isIgnored, MATCH_STEPS } from './pattern.js';
 import { ignoreListAt } from './repository.js';
 
@@ -55,26 +55,12 @@ export const subfolderScope = async (
   return withFolderRules({ ...scope, segments, ignored }, folder);
 };
 
-/** The scope a scan target walks under, or none when Git ignores nothing there or ignores the named target itself */
-export const targetScope = async (
+const folderScope = async (
   root: string,
-  target: string,
-  ignores: GitIgnores | null
+  rootScope: GitScope,
+  names: readonly string[]
 ): Promise<GitScope | null> => {
-  if (ignores === null) return null;
-
-  const names = relative(root, target)
-    .split(sep)
-    .filter((name) => name !== '');
-  let scope = await withFolderRules(
-    {
-      ...ignores,
-      segments: [],
-      ignored: false,
-      budget: { remaining: MATCH_STEPS },
-    },
-    root
-  );
+  let scope = rootScope;
 
   for (const name of names) {
     const inner = await subfolderScope(
@@ -89,4 +75,57 @@ export const targetScope = async (
   }
 
   return scope;
+};
+
+/** The scope the project root walks under, with a match budget of its own, or none without Git ignores to follow */
+export const rootScopeOf = async (
+  root: string,
+  ignores: GitIgnores | null
+): Promise<GitScope | null> =>
+  ignores === null
+    ? null
+    : withFolderRules(
+        {
+          ...ignores,
+          segments: [],
+          ignored: false,
+          budget: { remaining: MATCH_STEPS },
+        },
+        root
+      );
+
+/** The scope a scan target walks under, or none when Git ignores nothing there or ignores the named target itself */
+export const targetScope = async (
+  root: string,
+  target: string,
+  ignores: GitIgnores | null
+): Promise<GitScope | null> => {
+  const rootScope = await rootScopeOf(root, ignores);
+
+  if (rootScope === null) return null;
+
+  const names = relative(root, target)
+    .split(sep)
+    .filter((name) => name !== '');
+
+  return folderScope(root, rootScope, names);
+};
+
+/** Whether Git tracks, ignores, or would commit a file named from the project root, spending the root scope's match budget, or `unknown` without one */
+export const trackingOf = async (
+  root: string,
+  file: string,
+  rootScope: GitScope | null
+): Promise<GitTracking> => {
+  if (rootScope === null) return 'unknown';
+
+  const segments = file.split(sep);
+
+  if (tracks(rootScope, segments, false)) return 'tracked';
+
+  const scope = await folderScope(root, rootScope, segments.slice(0, -1));
+
+  return scope === null || skipsFile(scope, basename(file))
+    ? 'ignored'
+    : 'unignored';
 };
