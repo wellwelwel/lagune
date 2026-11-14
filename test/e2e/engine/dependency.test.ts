@@ -1,9 +1,13 @@
 import type { HookRun } from '../../../src/types/test.js';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
-import { env } from 'node:process';
+import { dirname, join, sep } from 'node:path';
 import { describe, it, strict } from 'poku';
-import { installEngine, newWorkspace, runEngine } from './__utils__.js';
+import {
+  installEngine,
+  isolatedEnv,
+  newWorkspace,
+  runEngine,
+} from './__utils__.js';
 
 const JAVASCRIPT_HOSTILE: Record<string, string> = {
   'package.json': JSON.stringify({
@@ -750,6 +754,13 @@ publishing {
 const UNJUDGED_REMEDY =
   'so the checker cannot judge it: fix it, or, when another tool reads it as it is, such as a template or a test fixture, leave it out with npx lagune write add --ignore <path> --checker dependency';
 
+/** The path of a file a report names, on the line its indented details follow */
+const FILE_HEADER = /^\S.*(?=\n {2}\S)/gm;
+
+/** A report as the engine prints it on the platform running the tests, which writes the path of each file with its own separator */
+const nativeReport = (report: string): string =>
+  report.replace(FILE_HEADER, (file) => file.replaceAll('/', sep));
+
 const writeProject = async (
   workspace: string,
   files: Record<string, string>
@@ -761,13 +772,6 @@ const writeProject = async (
     })
   );
 };
-
-const isolatedEnv = (workspace: string): NodeJS.ProcessEnv => ({
-  ...env,
-  HOME: workspace,
-  USERPROFILE: workspace,
-  XDG_CONFIG_HOME: join(workspace, 'config'),
-});
 
 /** A temporary project at the root of a Git repository of its own, out of reach of the global excludes of the machine running the tests */
 const newRepository = async (): Promise<string> => {
@@ -795,7 +799,7 @@ await describe('the dependency hook runs through the engine', async () => {
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout: JAVASCRIPT_HOSTILE_REPORT,
+      stdout: nativeReport(JAVASCRIPT_HOSTILE_REPORT),
       stderr: '',
       code: 1,
     });
@@ -849,7 +853,7 @@ await describe('the dependency hook runs through the engine', async () => {
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout: PYTHON_HOSTILE_REPORT,
+      stdout: nativeReport(PYTHON_HOSTILE_REPORT),
       stderr: '',
       code: 1,
     });
@@ -892,8 +896,9 @@ await describe('the dependency hook runs through the engine', async () => {
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout:
-        'Dependency hardening advisories:\n\ndocs/requirements.txt\n  declares dependencies, but no lockfile covers it\n\nsub/Pipfile\n  declares dependencies, but no lockfile covers it\n',
+      stdout: nativeReport(
+        'Dependency hardening advisories:\n\ndocs/requirements.txt\n  declares dependencies, but no lockfile covers it\n\nsub/Pipfile\n  declares dependencies, but no lockfile covers it\n'
+      ),
       stderr: '',
       code: 0,
     });
@@ -907,7 +912,7 @@ await describe('the dependency hook runs through the engine', async () => {
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout: RUST_GO_HOSTILE_REPORT,
+      stdout: nativeReport(RUST_GO_HOSTILE_REPORT),
       stderr: '',
       code: 1,
     });
@@ -942,7 +947,7 @@ await describe('the dependency hook runs through the engine', async () => {
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout: RUBY_PHP_HOSTILE_REPORT,
+      stdout: nativeReport(RUBY_PHP_HOSTILE_REPORT),
       stderr: '',
       code: 1,
     });
@@ -997,7 +1002,7 @@ await describe('the dependency hook runs through the engine', async () => {
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout: DOTNET_JVM_HOSTILE_REPORT,
+      stdout: nativeReport(DOTNET_JVM_HOSTILE_REPORT),
       stderr: '',
       code: 1,
     });
@@ -1025,7 +1030,7 @@ await describe('the dependency hook runs through the engine', async () => {
 
     strict.deepStrictEqual(runs, [
       {
-        stdout: `Dependency risks found:
+        stdout: nativeReport(`Dependency risks found:
 
 .m2/settings.xml
   fetched over plain http:// or git://: http://m2.internal/maven
@@ -1035,7 +1040,7 @@ await describe('the dependency hook runs through the engine', async () => {
 
 settings.xml
   fetched over plain http:// or git://: http://beside.internal/maven
-`,
+`),
         stderr: '',
         code: 1,
       },
@@ -1144,7 +1149,7 @@ settings.xml
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout: `Dependency risks found:
+      stdout: nativeReport(`Dependency risks found:
 
 web/package.json
   fetched over plain http:// or git://: widget@git://github.com/acme/widget.git
@@ -1158,7 +1163,7 @@ Dependency hardening advisories:
 
 web/package.json
   declares dependencies, but no lockfile covers it
-`,
+`),
       stderr: '',
       code: 1,
     });
@@ -1288,8 +1293,9 @@ composer.lock
     const run = await runDependency(workspace);
 
     strict.deepStrictEqual(run, {
-      stdout:
-        'Dependency hardening advisories:\n\nscripts/package.json\n  declares dependencies, but no lockfile covers it\n',
+      stdout: nativeReport(
+        'Dependency hardening advisories:\n\nscripts/package.json\n  declares dependencies, but no lockfile covers it\n'
+      ),
       stderr: '',
       code: 0,
     });
@@ -1326,13 +1332,13 @@ composer.lock
         stdout: `Dependency risks to review manually:
 
 .git
-  lockfile coverage the checker cannot confirm without a .git at the project root, since Git may ignore the lockfile or a workspace above the project may hold one (run the check from the repository root): package.json, tools/package.json
+  lockfile coverage the checker cannot confirm without a .git at the project root, since Git may ignore the lockfile or a workspace above the project may hold one (run the check from the repository root): package.json, ${join('tools', 'package.json')}
 `,
         stderr: '',
         code: 0,
       },
       {
-        stdout: `Dependency risks to review manually:
+        stdout: nativeReport(`Dependency risks to review manually:
 
 .git
   lockfile coverage the checker cannot confirm through a .git that points elsewhere, as a worktree or submodule does, since Git may ignore the lockfile (confirm in this checkout with git check-ignore): package.json
@@ -1341,7 +1347,7 @@ Dependency hardening advisories:
 
 tools/package.json
   declares dependencies, but no lockfile covers it
-`,
+`),
         stderr: '',
         code: 0,
       },

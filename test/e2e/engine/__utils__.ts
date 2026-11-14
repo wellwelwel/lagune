@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process';
 import { cp, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { execPath, platform } from 'node:process';
+import { env, execPath, platform } from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { afterEach } from 'poku';
 
@@ -22,6 +22,14 @@ export const newWorkspace = async (): Promise<string> => {
 
   return workspace;
 };
+
+/** The environment with its home and configuration folders inside the workspace, out of reach of the Git settings of the machine running the tests */
+export const isolatedEnv = (workspace: string): NodeJS.ProcessEnv => ({
+  ...env,
+  HOME: workspace,
+  USERPROFILE: workspace,
+  XDG_CONFIG_HOME: join(workspace, 'config'),
+});
 
 export const installEngine = async (): Promise<string> => {
   const folder = await mkdtemp(join(tmpdir(), 'lagune-install-'));

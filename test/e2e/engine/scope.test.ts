@@ -1,8 +1,7 @@
 import { mkdir, symlink, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { env } from 'node:process';
 import { describe, it, strict } from 'poku';
-import { newWorkspace, runEngine } from './__utils__.js';
+import { isolatedEnv, newWorkspace, runEngine } from './__utils__.js';
 
 const CHECKERS = [
   'agent',
@@ -21,13 +20,6 @@ const SKIPPED_NOTE =
 
 const BOTH_SKIPPED_NOTE =
   'Skipped 1 path that Git ignores and 1 path that .lagune/configs.json ignores. Name one with --dir or --file to scan it.\n';
-
-const isolatedEnv = (workspace: string): NodeJS.ProcessEnv => ({
-  ...env,
-  HOME: workspace,
-  USERPROFILE: workspace,
-  XDG_CONFIG_HOME: join(workspace, 'config'),
-});
 
 await describe('the checkers stay inside the project they run from', async () => {
   for (const checker of CHECKERS)
