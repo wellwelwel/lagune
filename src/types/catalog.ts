@@ -13,3 +13,5 @@ export type Specialization = {
 };
 
 export type CatalogEntry = Specialization & { required?: boolean };
+
+export type SpecializationPhase = 'detect' | 'verify';

@@ -6,7 +6,7 @@ import type {
   MigrateSummary,
 } from '../types/core.js';
 import type { EngineCommand, EngineTool } from '../types/mcp.js';
-import { allOf } from '../core/collections.js';
+import { allOf, oneOf } from '../core/collections.js';
 import { CONFIGS_FILE } from '../core/configs.js';
 import { quotedExcerpt } from '../core/errors.js';
 import { toolFor } from '../mcp/tools.js';
@@ -17,6 +17,7 @@ const INSTALL_PAGE = 'https://lagune.ai/docs';
 const MIGRATE_PAGE = 'https://lagune.ai/docs/commands/migrate';
 const NOT_DONE = 'Report it as not done and never do its work by hand.';
 const IGNORE_FORM = '--ignore <path...> [--checker <name>]';
+const CATALOG_FORM = '[<name> [--phase <phase> | --raw]]';
 
 const GLYPH = {
   added: color.blue('+'),
@@ -67,7 +68,7 @@ const helpUsage = (tools: readonly EngineTool[]): string[] => [
 
 const HELP_TOOL_COMMANDS: Partial<Record<EngineCommand, [string, string]>> = {
   catalog: [
-    'catalog [<name>]',
+    `catalog ${CATALOG_FORM}`,
     "List this project's specializations, or print one by name",
   ],
   list: [
@@ -103,6 +104,11 @@ const HELP_OPTIONS: [string, string][] = [
     'With add or remove, paths or glob patterns from the project root the checkers leave out, for every checker or the one named',
   ],
   ['--findings', 'With list, show the tracked findings'],
+  [
+    '--phase <phase>',
+    'With catalog <name>, add the guidance for the phase reading it',
+  ],
+  ['--raw', 'With catalog <name>, print its file as written'],
   [
     '--port <1024-65535>',
     'With dashboard, the port to serve on (default: random)',
@@ -196,13 +202,22 @@ export const listUsage = (): string =>
   ].join('\n');
 
 export const catalogUsage = (): string =>
-  `usage: ${commandLine('catalog')} [<name>]`;
+  `usage: ${commandLine('catalog')} ${CATALOG_FORM}`;
+
+export const unknownPhase = (name: string, phases: readonly string[]): string =>
+  `--phase takes ${oneOf(phases)}, the phases a specialization carries guidance for, and ${quotedExcerpt(name)} is not one. Leave it out to read the specialization without the guidance of any phase.`;
 
 export const invalidSpecializationName = (name: string): string =>
   `"${name}" is not a specialization name: a name uses only lowercase letters, digits, and hyphens.`;
 
 export const noSpecialization = (name: string): string =>
   `No specialization is named "${name}". Run ${commandLine('catalog')} to list the ones this project uses.`;
+
+export const emptySpecialization = (name: string): string =>
+  `The specialization "${name}" is empty: its file holds no text.`;
+
+export const nothingForRead = (name: string): string =>
+  `The specialization "${name}" holds nothing for this read, only what the read leaves out. Read its file as written with ${commandLine('catalog')} ${name} --raw.`;
 
 export const noProjectFolder = (project: string): string =>
   `The MCP server runs from the project folder, and ${project} is not a folder.`;

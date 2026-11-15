@@ -55,6 +55,31 @@ describe('commands and their values', () => {
     strict.deepStrictEqual(parsed.values, ['regex']);
   });
 
+  it('reads the phase after catalog and its name', () => {
+    const parsed = parseCliArgs(['catalog', 'regex', '--phase', 'detect']);
+
+    strict.deepStrictEqual(
+      [parsed.command, parsed.values, parsed.phase],
+      ['catalog', ['regex'], 'detect']
+    );
+  });
+
+  it('reads a raw read after catalog and its name', () => {
+    const parsed = parseCliArgs(['catalog', 'regex', '--raw']);
+
+    strict.deepStrictEqual(
+      [parsed.command, parsed.values, parsed.rawRequested],
+      ['catalog', ['regex'], true]
+    );
+  });
+
+  it('refuses --phase with no name', () => {
+    strict.throws(
+      () => parseCliArgs(['catalog', 'regex', '--phase']),
+      /--phase needs the name of a phase/
+    );
+  });
+
   it('reads both list targets', () => {
     const parsed = parseCliArgs(['list', '--findings', '--categories']);
 
@@ -103,8 +128,15 @@ describe('flags', () => {
   });
 
   it('is not bare when a flag routes elsewhere', () => {
-    for (const flag of ['--help', '--version', '--categories', '--findings'])
-      strict.strictEqual(parseCliArgs([flag]).bare, false);
+    for (const flags of [
+      ['--help'],
+      ['--version'],
+      ['--categories'],
+      ['--findings'],
+      ['--phase', 'detect'],
+      ['--raw'],
+    ])
+      strict.strictEqual(parseCliArgs(flags).bare, false);
   });
 
   for (const port of ['abc', '70000', '0', '80'])
@@ -128,6 +160,8 @@ describe('flags', () => {
       ignoreRequested: false,
       checker: undefined,
       findingsRequested: false,
+      phase: undefined,
+      rawRequested: false,
       help: false,
       version: false,
       bare: true,

@@ -20,6 +20,8 @@ export type ParsedCliArgs = {
   ignoreRequested: boolean;
   checker: string | undefined;
   findingsRequested: boolean;
+  phase: string | undefined;
+  rawRequested: boolean;
   help: boolean;
   version: boolean;
   bare: boolean;

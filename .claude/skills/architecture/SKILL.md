@@ -73,6 +73,7 @@ Installing and updating the commands belongs to the **skills** CLI, the **GitHub
 
 - **The engine composes the catalog on demand** from the built-ins it ships, each indexed with its tags and categories, and the specializations the project keeps in its `.lagune/`.
 - **Reading one by name ignores the categories.** It resolves the project's own first, then the built-in.
+- **A specialization is written for whoever audits it and read for whoever applies it.** Its file credits its sources and carries the guidance for every phase, while a read leaves the credit out and carries guidance only for the phase reading it, since an agent weighs every line it reads and can act on neither. Only whoever rewrites the file reads it as written.
 - **A required built-in always applies**, on every detect run, whatever the project's context.
 
 ## The tracking map

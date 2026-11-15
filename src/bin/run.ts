@@ -49,11 +49,10 @@ const COMMANDS: Record<
   CliCommand,
   (args: ParsedCliArgs, cwd: string, packageRoot: URL) => Promise<void>
 > = {
-  catalog: (args, cwd, packageRoot) =>
-    runCatalog(args.values, cwd, packageRoot),
+  catalog: runCatalog,
   add: changeConfigs('add'),
   remove: changeConfigs('remove'),
-  list: (args, cwd) => runList(args, cwd),
+  list: runList,
   dashboard: (args, cwd, packageRoot) =>
     runDashboard(cwd, packageRoot, args.port),
   migrate: (_args, cwd) => runMigrate(cwd),

@@ -4,6 +4,88 @@ import { describe, it, strict } from 'poku';
 import { newWorkspace, runEngine } from './__utils__.js';
 
 const packageRoot = new URL('../../../', import.meta.url);
+const OPENING = `# GraphQL vulnerabilities
+
+> - This knowledge extends your judgment.
+`;
+const SOURCE = '> - Source: the GraphQL specification.\n';
+const GUIDANCE = '\n## How to act on the result\n\n';
+const DETECT =
+  '- **In detect (detection):** each unbounded query is a finding.\n';
+const VERIFY =
+  '- **In verify (proof):** the control holds once the depth is capped.\n';
+const OWN_SPECIALIZATION = {
+  '.lagune/catalog/graphql.md': `${OPENING}${SOURCE}${GUIDANCE}${DETECT}${VERIFY}`,
+};
+const READINGS: [string, string[], string][] = [
+  [
+    'leaves out the source credit and the guidance of every phase when no phase reads it',
+    [],
+    OPENING,
+  ],
+  [
+    'keeps only the detect guidance for detect',
+    ['--phase', 'detect'],
+    `${OPENING}${GUIDANCE}${DETECT}`,
+  ],
+  [
+    'keeps only the verify guidance for verify',
+    ['--phase', 'verify'],
+    `${OPENING}${GUIDANCE}${VERIFY}`,
+  ],
+  [
+    'prints the file as written when asked for it raw',
+    ['--raw'],
+    `${OPENING}${SOURCE}${GUIDANCE}${DETECT}${VERIFY}`,
+  ],
+];
+const REFUSED_READINGS: [string, string[], string][] = [
+  [
+    'a phase no specialization addresses',
+    ['graphql', '--phase', 'harden'],
+    'detect or verify',
+  ],
+  [
+    'a phase in another case',
+    ['graphql', '--phase', 'Detect'],
+    'detect or verify',
+  ],
+  ['an empty phase', ['graphql', '--phase', ''], 'detect or verify'],
+  [
+    'a phase flag with no name',
+    ['graphql', '--phase'],
+    '--phase needs the name of a phase',
+  ],
+  ['a phase with no specialization to read', ['--phase', 'detect'], 'usage: '],
+  ['a raw read with no specialization to read', ['--raw'], 'usage: '],
+  [
+    'a raw read narrowed to a phase',
+    ['graphql', '--raw', '--phase', 'detect'],
+    'usage: ',
+  ],
+];
+const NOTHING_TO_READ: [string, string, string[], string][] = [
+  ['an empty specialization', '', [], 'is empty'],
+  ['an empty specialization asked for as written', '', ['--raw'], 'is empty'],
+  [
+    'a specialization of blank lines',
+    '\n \n',
+    ['--phase', 'detect'],
+    'is empty',
+  ],
+  [
+    'a specialization holding only the guidance of a phase, read outside one',
+    `${GUIDANCE}${DETECT}${VERIFY}`,
+    [],
+    'holds nothing for this read',
+  ],
+  [
+    'a specialization holding only the guidance of another phase',
+    `${GUIDANCE}${VERIFY}`,
+    ['--phase', 'detect'],
+    'holds nothing for this read',
+  ],
+];
 
 const seed = async (
   workspace: string,
@@ -89,7 +171,7 @@ await describe('catalog <name> prints the specialization the project resolves', 
     await seed(workspace, { '.lagune/configs.json': '{"categories":[]}' });
 
     const [run, expected] = await Promise.all([
-      runEngine(workspace, ['read', 'catalog', 'regex']),
+      runEngine(workspace, ['read', 'catalog', 'regex', '--raw']),
       builtin('regex'),
     ]);
 
@@ -147,4 +229,53 @@ await describe('catalog <name> prints the specialization the project resolves', 
     strict.strictEqual(run.code, 1);
     strict.strictEqual(run.stdout, '');
   });
+});
+
+await describe('catalog <name> prints the specialization as its reader needs it', async () => {
+  for (const [promise, flags, expected] of READINGS)
+    await it(promise, async () => {
+      const workspace = await newWorkspace();
+
+      await seed(workspace, OWN_SPECIALIZATION);
+
+      const run = await runEngine(workspace, [
+        'read',
+        'catalog',
+        'graphql',
+        ...flags,
+      ]);
+
+      strict.deepStrictEqual(run, { stdout: expected, stderr: '', code: 0 });
+    });
+
+  for (const [label, contents, flags, reason] of NOTHING_TO_READ)
+    await it(`fails on ${label} instead of printing nothing`, async () => {
+      const workspace = await newWorkspace();
+
+      await seed(workspace, { '.lagune/catalog/graphql.md': contents });
+
+      const run = await runEngine(workspace, [
+        'read',
+        'catalog',
+        'graphql',
+        ...flags,
+      ]);
+
+      strict.strictEqual(run.code, 1);
+      strict.strictEqual(run.stdout, '');
+      strict(run.stderr.includes(reason));
+    });
+
+  for (const [label, args, reason] of REFUSED_READINGS)
+    await it(`refuses ${label} instead of printing anything`, async () => {
+      const workspace = await newWorkspace();
+
+      await seed(workspace, OWN_SPECIALIZATION);
+
+      const run = await runEngine(workspace, ['read', 'catalog', ...args]);
+
+      strict.strictEqual(run.code, 1);
+      strict.strictEqual(run.stdout, '');
+      strict(run.stderr.includes(reason));
+    });
 });

@@ -27,10 +27,10 @@ const parsePort = (value: unknown): number | undefined => {
   return port;
 };
 
-const parseChecker = (value: unknown): string | undefined => {
+const parseNamed = (value: unknown, kind: string): string | undefined => {
   if (value === undefined || typeof value === 'string') return value;
 
-  throw new Error('--checker needs the name of a checker');
+  throw new Error(`--${kind} needs the name of a ${kind}`);
 };
 
 export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
@@ -45,6 +45,8 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
       ignore: { type: 'boolean' },
       checker: { type: 'string' },
       findings: { type: 'boolean' },
+      phase: { type: 'string' },
+      raw: { type: 'boolean' },
       port: { type: 'string', short: 'p' },
     },
   });
@@ -53,8 +55,10 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
   const command = toCommand(first);
   const categoriesRequested = values.categories === true;
   const ignoreRequested = values.ignore === true;
-  const checker = parseChecker(values.checker);
+  const checker = parseNamed(values.checker, 'checker');
   const findingsRequested = values.findings === true;
+  const phase = parseNamed(values.phase, 'phase');
+  const rawRequested = values.raw === true;
   const help = values.help === true;
   const version = values.version === true;
   const bare =
@@ -63,6 +67,8 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
     !ignoreRequested &&
     checker === undefined &&
     !findingsRequested &&
+    phase === undefined &&
+    !rawRequested &&
     !help &&
     !version;
 
@@ -74,6 +80,8 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
     ignoreRequested,
     checker,
     findingsRequested,
+    phase,
+    rawRequested,
     help,
     version,
     bare,
