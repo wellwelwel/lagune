@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/wellwelwel/lagune/compare/v0.19.0...v0.20.0) (2026-11-15)
+
+
+### Features
+
+* **catalog:** tailor a specialization read to the phase asking for it ([6004d59](https://github.com/wellwelwel/lagune/commit/6004d59c805baf356e058e3a23e50f0072c5fa6e))
+
 ## [0.19.0](https://github.com/wellwelwel/lagune/compare/v0.18.2...v0.19.0) (2026-11-14)
 
 
