@@ -41,7 +41,7 @@ Love **Lagune**? [Give us a ⭐ on **GitHub**](https://github.com/wellwelwel/lag
 **Info**
 
 - **Lagune** runs on **Node.js** under the hood, but you use whatever language you want.
-- To run completely offline, install **Lagune** in your project with `npm i -D lagune@0.19.0`.
+- To run completely offline, install **Lagune** in your project with `npm i -D lagune@0.20.0`.
 
 ## Categories
 
@@ -385,7 +385,7 @@ Type `$` and the command under the plugin's name, followed by your input, such a
 **Codex**'s sandbox has no network access. Install the engine in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.19.0
+npm i -D lagune@0.20.0
 ```
 
 ## Frequently Asked Questions
@@ -404,7 +404,7 @@ Type $ and the command under the plugin's name, followed by your input, such as 
 
 ### Does Lagune work inside Codex's sandbox?
 
-Yes, once you install the engine in your project with npm i -D lagune@0.19.0 from your own terminal, once and after each update.
+Yes, once you install the engine in your project with npm i -D lagune@0.20.0 from your own terminal, once and after each update.
 
 ---
 
@@ -887,7 +887,7 @@ Type the commands by name, such as `/lagune-charter`, or under the plugin's name
 **Muse Code**'s sandbox cannot download the engine. Install it in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.19.0
+npm i -D lagune@0.20.0
 ```
 
 ## Frequently Asked Questions
@@ -906,7 +906,7 @@ Type them by name, such as /lagune-charter, or under the plugin's name, such as 
 
 ### Does Lagune work inside Muse Code's sandbox?
 
-Yes, once you install the engine in your project with npm i -D lagune@0.19.0 from your own terminal, once and after each update.
+Yes, once you install the engine in your project with npm i -D lagune@0.20.0 from your own terminal, once and after each update.
 
 ---
 
@@ -965,7 +965,7 @@ opencode reload
 To update **Lagune**, install the new release over the old one, adding `-g` if you installed it for all your projects:
 
 ```bash
-opencode plugin lagune@0.19.0 --force
+opencode plugin lagune@0.20.0 --force
 ```
 
 ## Commands
@@ -986,7 +986,7 @@ On OpenCode 2.x, run opencode plugin add lagune. On OpenCode 1.x, run opencode p
 
 ### How do I update Lagune on OpenCode?
 
-On OpenCode 2.x, run opencode plugin update lagune, then opencode reload. On OpenCode 1.x, run opencode plugin lagune@0.19.0 --force.
+On OpenCode 2.x, run opencode plugin update lagune, then opencode reload. On OpenCode 1.x, run opencode plugin lagune@0.20.0 --force.
 
 ### How do I run Lagune's commands on OpenCode?
 
@@ -1196,7 +1196,7 @@ Run `gh skill update --all` and read its complete output, redirecting it to a te
 In a sandbox without network access, the commands cannot download the engine. Install it in your project from your own terminal, once and after each update:
 
 ```bash
-npm i -D lagune@0.19.0
+npm i -D lagune@0.20.0
 ```
 
 ## Frequently Asked Questions
@@ -1936,7 +1936,7 @@ Start with owasp, the default, then add the one for your language or stack. Spec
 > How the specializations in your project's catalog are loaded, by a phase on demand, and by you directly.
 
 Canonical: https://lagune.ai/docs/catalog
-Last updated: 2026-11-13
+Last updated: 2026-11-15
 
 🧠 **Lagune**'s specializations are focused, language-agnostic security knowledge modules that load only on demand, never by default. They are not commands. Your project's catalog is the set it uses: the built-in specializations of its [categories](https://lagune.ai/docs/categories) plus its own. The detect and verify phases reach for them while they run, and you can load one directly any time.
 
@@ -2034,6 +2034,14 @@ npx lagune read catalog
 ```
 
 A `[required]` specialization strengthens the model to always apply, whatever the work.
+
+To read one, add its name. A read carries the knowledge alone, without the sources its file credits or the guidance it writes for the detect and verify phases. `--phase` adds the guidance for `detect` or `verify`, the way each of those phases reads it, and `--raw` prints the file as written:
+
+```bash
+npx lagune read catalog sql
+npx lagune read catalog sql --phase verify
+npx lagune read catalog sql --raw
+```
 
 ## Frequently Asked Questions
 
@@ -3931,7 +3939,7 @@ Schedule **Lagune** to audit your project on its own, either reporting what it f
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.19.0
+    - wellwelwel/lagune@v0.20.0
   network:
     allowed:
       - defaults
