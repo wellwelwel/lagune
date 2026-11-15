@@ -73,7 +73,7 @@ Each control lands in one of two outcomes, which drive the steps that follow:
 
 Your work list is the "Applied specializations" section of `.lagune/memory/detect.md`, which names each specialization as the catalog lists it. Detect already matched them, so do not read the catalog again.
 
-Read each listed specialization by calling `lagune_read` with `command` set to `catalog` and `arguments` set to `["<name>"]`, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a specialization ships a deterministic checker (a hook it tells you to run), running that checker is the application, and its printed verdict is the control's verdict that your own reading never overrides. Where it ships no checker, follow its guidance to inform the verdict. If a listed specialization no longer resolves, note it and judge that control from the code alone.
+Read each listed specialization by calling `lagune_read` with `command` set to `catalog` and `arguments` set to `["<name>", "--phase", "verify"]`, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a specialization ships a deterministic checker (a hook it tells you to run), running that checker is the application, and its printed verdict is the control's verdict that your own reading never overrides. Where it ships no checker, follow its guidance to inform the verdict. If a listed specialization no longer resolves, note it and judge that control from the code alone.
 
 Report the specializations you applied and the verdict each informed. If detect listed none, say so in one line.
 
@@ -131,4 +131,4 @@ Keep the summary in plain language throughout. A non-developer should understand
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.19.0 read <command> <arguments>` and `npx --yes lagune@0.19.0 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root through the `lagune_read` and `lagune_write` MCP tools and, only if those tools are not available, run it in the shell as `npx --yes lagune@0.20.0 read <command> <arguments>` and `npx --yes lagune@0.20.0 write <command> <arguments>` as a fallback.
