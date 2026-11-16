@@ -51,6 +51,11 @@
       "file": "Controllers/ImportController.cs"
     },
     {
+      "fixture": "partner-sso",
+      "specialization": "federation",
+      "file": "src/oauth.js"
+    },
+    {
       "fixture": "visit-counter",
       "specialization": "go",
       "file": "visits.go"
