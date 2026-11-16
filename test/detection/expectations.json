@@ -89,6 +89,11 @@
       "fixture": "thumbnail-function",
       "specialization": "serverless",
       "file": "serverless.yml"
+    },
+    {
+      "fixture": "orders-api",
+      "specialization": "sql",
+      "file": "src/orders.js"
     }
   ]
 }
