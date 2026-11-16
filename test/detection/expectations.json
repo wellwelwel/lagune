@@ -74,6 +74,11 @@
       "fixture": "job-runner",
       "specialization": "python",
       "file": "app/api.py"
+    },
+    {
+      "fixture": "newsletter-app",
+      "specialization": "ruby",
+      "file": "app/controllers/preferences_controller.rb"
     }
   ]
 }
