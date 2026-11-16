@@ -1,3 +1,9 @@
 {
-  "expectations": []
+  "expectations": [
+    {
+      "fixture": "invoice-portal",
+      "specialization": "access-control",
+      "file": "src/routes/invoices.js"
+    }
+  ]
 }
