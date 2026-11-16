@@ -44,6 +44,11 @@
       "fixture": "visit-counter",
       "specialization": "go",
       "file": "visits.go"
+    },
+    {
+      "fixture": "session-store",
+      "specialization": "java",
+      "file": "src/main/java/com/example/session/CartCookie.java"
     }
   ]
 }
