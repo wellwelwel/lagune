@@ -1,0 +1,15 @@
+services:
+  worker:
+    build: .
+    privileged: true
+    environment:
+      REDIS_URL: redis://queue:6379
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - queue
+
+  queue:
+    image: redis:7.4-alpine
+    ports:
+      - '0.0.0.0:6379:6379'

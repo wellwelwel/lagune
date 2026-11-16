@@ -19,6 +19,11 @@
       "fixture": "banner-tool",
       "specialization": "c-cpp",
       "file": "src/banner.c"
+    },
+    {
+      "fixture": "queue-worker",
+      "specialization": "container",
+      "file": "docker-compose.yml"
     }
   ]
 }
