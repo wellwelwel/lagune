@@ -94,6 +94,11 @@
       "fixture": "orders-api",
       "specialization": "sql",
       "file": "src/orders.js"
+    },
+    {
+      "fixture": "habit-tracker",
+      "specialization": "supabase",
+      "file": "supabase/migrations/20250102000000_journal.sql"
     }
   ]
 }
