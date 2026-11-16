@@ -54,6 +54,11 @@
       "fixture": "preferences-service",
       "specialization": "javascript",
       "file": "src/merge.js"
+    },
+    {
+      "fixture": "docs-server",
+      "specialization": "path",
+      "file": "src/download.js"
     }
   ]
 }
