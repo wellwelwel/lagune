@@ -79,6 +79,11 @@
       "fixture": "newsletter-app",
       "specialization": "ruby",
       "file": "app/controllers/preferences_controller.rb"
+    },
+    {
+      "fixture": "slot-buffer",
+      "specialization": "rust",
+      "file": "src/slots.rs"
     }
   ]
 }
