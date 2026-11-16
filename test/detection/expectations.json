@@ -99,6 +99,11 @@
       "fixture": "habit-tracker",
       "specialization": "supabase",
       "file": "supabase/migrations/20250102000000_journal.sql"
+    },
+    {
+      "fixture": "metrics-agent",
+      "specialization": "transport",
+      "file": "src/send.js"
     }
   ]
 }
