@@ -91,6 +91,11 @@
       "file": "src/agent.js"
     },
     {
+      "fixture": "link-preview",
+      "specialization": "network",
+      "file": "src/preview.js"
+    },
+    {
       "fixture": "docs-server",
       "specialization": "path",
       "file": "src/download.js"
