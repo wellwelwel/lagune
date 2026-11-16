@@ -61,6 +61,11 @@
       "file": "visits.go"
     },
     {
+      "fixture": "account-settings",
+      "specialization": "http-request",
+      "file": "src/server.js"
+    },
+    {
       "fixture": "session-store",
       "specialization": "java",
       "file": "src/main/java/com/example/session/CartCookie.java"
