@@ -49,6 +49,11 @@
       "fixture": "session-store",
       "specialization": "java",
       "file": "src/main/java/com/example/session/CartCookie.java"
+    },
+    {
+      "fixture": "preferences-service",
+      "specialization": "javascript",
+      "file": "src/merge.js"
     }
   ]
 }
