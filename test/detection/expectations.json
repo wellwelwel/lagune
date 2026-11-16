@@ -109,6 +109,11 @@
       "fixture": "support-inbox",
       "specialization": "upload",
       "file": "src/routes/attachments.js"
+    },
+    {
+      "fixture": "invoice-import",
+      "specialization": "xml",
+      "file": "src/import.js"
     }
   ]
 }
