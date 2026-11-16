@@ -93,7 +93,7 @@ export type EngineServer = { command: unknown; args: string[]; cwd?: unknown };
 export type PluginBundle = {
   plugin: string;
   agent: string;
-  route: 'branch' | 'release archive';
+  routes: ('branch' | 'release archive')[];
   metadata: string[];
   mcp?: { declaration: string; server: EngineServer };
 };

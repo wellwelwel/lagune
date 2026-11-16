@@ -163,7 +163,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        plugin: ['gemini']
+        plugin: ['claude', 'gemini']
     env:
       PLUGIN: ${{ matrix.plugin }}
     steps:
@@ -181,13 +181,23 @@ jobs:
       - name: 🧩 Assembling the Plugin Bundle
         run: bash scripts/plugins/bundle.sh "$PLUGIN" "$RUNNER_TEMP/plugin-$PLUGIN"
 
+      # A Claude organization takes an uploaded plugin as a zip that holds the manifest at its root
+      - name: 📦 Packing the Claude Organization Archive
+        if: matrix.plugin == 'claude'
+        run: |
+          cd "$RUNNER_TEMP/plugin-$PLUGIN"
+          zip --recurse-paths --symlinks "$RUNNER_TEMP/claude-organization.lagune.zip" .
+
       # Gemini CLI installs the release asset named after the user's platform before the source archive
-      - name: 📤 Attaching the Plugin Archives
+      - name: 📦 Packing the Gemini CLI Archives
+        if: matrix.plugin == 'gemini'
         run: |
           for platform in darwin linux win32; do
             tar -czf "$RUNNER_TEMP/$platform.lagune.tar.gz" -C "$RUNNER_TEMP/plugin-$PLUGIN" .
           done
-          gh release upload "$TAG" "$RUNNER_TEMP"/*.lagune.tar.gz --clobber --repo "$GITHUB_REPOSITORY"
+
+      - name: 📤 Attaching the Plugin Archives
+        run: gh release upload "$TAG" "$RUNNER_TEMP"/*.lagune.* --clobber --repo "$GITHUB_REPOSITORY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.release-please.outputs.tag_name }}

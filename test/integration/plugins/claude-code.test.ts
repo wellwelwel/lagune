@@ -14,6 +14,7 @@ const CLAUDE_BRANCH = {
 };
 const PLUGIN_ROOT = '${CLAUDE_PLUGIN_ROOT}';
 const VARIABLE = /\$\{[^{}]*\}/g;
+const EXECUTABLES_FOLDER = 'bin/';
 
 const manifest = await readManifest('.claude-plugin/plugin.json');
 const marketplace = await readManifest('.claude-plugin/marketplace.json');
@@ -72,6 +73,15 @@ describe('the Claude plugin branch, which the Anthropic directory reviews', () =
     strict(
       typeof icon === 'string' && bundled.has(posix.normalize(icon)),
       'the manifest names an icon the branch carries'
+    );
+  });
+});
+
+describe('the Claude organization archive, which claude.ai validates on upload', () => {
+  it('carries no top-level folder of executables, which the upload rejects', () => {
+    strict.deepStrictEqual(
+      [...bundled].filter((path) => path.startsWith(EXECUTABLES_FOLDER)),
+      []
     );
   });
 });

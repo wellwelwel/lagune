@@ -34,7 +34,7 @@ const BUNDLES: PluginBundle[] = [
   {
     plugin: 'antigravity',
     agent: 'Antigravity CLI',
-    route: 'branch',
+    routes: ['branch'],
     metadata: [
       '.antigravity-plugin/plugin.json',
       'assets/logo.png',
@@ -51,7 +51,7 @@ const BUNDLES: PluginBundle[] = [
   {
     plugin: 'claude',
     agent: 'Claude Code',
-    route: 'branch',
+    routes: ['branch', 'release archive'],
     metadata: ['.claude-plugin/plugin.json', '.mcp.json', 'assets/logo.png'],
     mcp: {
       declaration: '.mcp.json',
@@ -64,7 +64,7 @@ const BUNDLES: PluginBundle[] = [
   {
     plugin: 'cursor',
     agent: 'Cursor CLI',
-    route: 'branch',
+    routes: ['branch'],
     metadata: [
       '.cursor-plugin/marketplace.json',
       '.cursor-plugin/plugin.json',
@@ -82,7 +82,7 @@ const BUNDLES: PluginBundle[] = [
   {
     plugin: 'droid',
     agent: 'Factory Droid',
-    route: 'branch',
+    routes: ['branch'],
     metadata: ['.factory-plugin/plugin.json', 'mcp.json'],
     mcp: {
       declaration: 'mcp.json',
@@ -95,7 +95,7 @@ const BUNDLES: PluginBundle[] = [
   {
     plugin: 'gemini',
     agent: 'Gemini CLI',
-    route: 'release archive',
+    routes: ['release archive'],
     metadata: ['gemini-extension.json'],
     mcp: {
       declaration: 'gemini-extension.json',
@@ -109,7 +109,7 @@ const BUNDLES: PluginBundle[] = [
   {
     plugin: 'grok',
     agent: 'Grok Build',
-    route: 'branch',
+    routes: ['branch'],
     metadata: ['.claude-plugin/plugin.json', '.mcp.json', 'assets/logo.png'],
     mcp: {
       declaration: '.mcp.json',
@@ -122,7 +122,7 @@ const BUNDLES: PluginBundle[] = [
   {
     plugin: 'hermes',
     agent: 'Hermes Agent',
-    route: 'branch',
+    routes: ['branch'],
     metadata: ['__init__.py', 'lib/mcp/tools.json', 'plugin.yaml'],
   },
 ];
@@ -165,7 +165,9 @@ describe('the plugin bundles', () => {
     strict.deepStrictEqual(
       Object.values(PUBLISHING_JOBS).map(publishedBy),
       Object.keys(PUBLISHING_JOBS).map((route) =>
-        BUNDLES.filter((bundle) => bundle.route === route)
+        BUNDLES.filter(({ routes }) =>
+          routes.some((published) => published === route)
+        )
           .map(({ plugin }) => plugin)
           .toSorted()
       )
@@ -173,9 +175,9 @@ describe('the plugin bundles', () => {
   });
 
   it('are the branches the default branch sends its marketplaces to, all of this repository', () => {
-    const published = BUNDLES.filter(({ route }) => route === 'branch').map(
-      ({ plugin }) => `${BRANCH_PREFIX}${plugin}`
-    );
+    const published = BUNDLES.filter(({ routes }) =>
+      routes.includes('branch')
+    ).map(({ plugin }) => `${BRANCH_PREFIX}${plugin}`);
     const sources = branchSources();
 
     strict(sources.length > 0, 'a marketplace points at a plugin branch');
@@ -199,7 +201,7 @@ for (const bundle of BUNDLES) {
       `scripts/plugins/${bundle.plugin}/${mcp.declaration}`
     ));
 
-  describe(`the ${bundle.agent} plugin ${bundle.route}`, () => {
+  describe(`the ${bundle.agent} plugin ${bundle.routes.join(' and ')}`, () => {
     it(`carries every published skill file ${bundle.agent} loads`, () => {
       strict(skillFiles.length > 0, 'the published skills hold files');
       strict.deepStrictEqual(
