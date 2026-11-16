@@ -31,6 +31,11 @@
       "file": "src/routes/login.js"
     },
     {
+      "fixture": "password-reset",
+      "specialization": "crypto",
+      "file": "src/tokens.js"
+    },
+    {
       "fixture": "contacts-export",
       "specialization": "csv",
       "file": "src/export.js"
