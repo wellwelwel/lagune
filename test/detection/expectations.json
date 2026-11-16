@@ -41,6 +41,11 @@
       "file": "src/export.js"
     },
     {
+      "fixture": "report-builder",
+      "specialization": "dependency",
+      "file": "package.json"
+    },
+    {
       "fixture": "profile-api",
       "specialization": "dotnet",
       "file": "Controllers/ImportController.cs"
