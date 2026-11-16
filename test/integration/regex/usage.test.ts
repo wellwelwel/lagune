@@ -1,14 +1,17 @@
-import type { RegexUsage } from '../../../src/types/hooks/regex.js';
 import type { LanguageId } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
+import { readSource } from '../../../src/hooks/regex/source.js';
 import { regexUsage } from '../../../src/hooks/regex/usage.js';
 
 const expectUsage =
-  (field: keyof RegexUsage) =>
+  (field: 'dynamic' | 'staticWrap') =>
   (language: LanguageId, verdict: boolean, snippets: string[]): void => {
     for (const snippet of snippets)
       it(`treats ${JSON.stringify(snippet)} as ${verdict}`, () => {
-        strict.strictEqual(regexUsage(snippet, language)[field], verdict);
+        strict.strictEqual(
+          regexUsage(readSource(snippet, language))[field],
+          verdict
+        );
       });
   };
 
@@ -36,6 +39,10 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
       'p = re.compile(value)',
       'm = re.match(pat, text)',
       'p = re.compile(f"{prefix}\\d+")',
+      'parts = re.split(pat, text)',
+      'found = re.finditer(pat, text)',
+      'clean = re.subn(pat, "", text)',
+      're_path(route, view)',
     ]);
 
     expectDynamic('python', false, [
@@ -46,7 +53,16 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
   });
 
   describe('Java', () => {
-    expectDynamic('java', true, ['pat = Pattern.compile(input)']);
+    expectDynamic('java', true, [
+      'pat = Pattern.compile(input)',
+      'ok = Pattern.matches(input, value)',
+    ]);
+
+    expectDynamic('java', false, [
+      'boolean ok = matcher.matches();',
+      'String[] parts = line.split(delimiter);',
+      'String clean = line.replaceAll(noise, "");',
+    ]);
   });
 
   describe('C#', () => {
@@ -54,6 +70,7 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
       'var r = new Regex(value);',
       'var r = new Regex($@"{prefix}\\d+");',
       'Regex.IsMatch(input, pattern);',
+      'Regex.Split(input, pattern);',
     ]);
 
     expectDynamic('csharp', false, [
@@ -66,6 +83,9 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
     expectDynamic('go', true, [
       're := regexp.MustCompile(base + suffix)',
       'r := regexp.Compile(p)',
+      'ok, _ := regexp.Match(p, data)',
+      'r, _ := regexp.CompilePOSIX(p)',
+      'r := regexp.MustCompilePOSIX(p)',
     ]);
 
     expectDynamic('go', false, ['var ok = regexp.MustCompile("[a-z]+")']);
@@ -79,7 +99,11 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
   });
 
   describe('PHP', () => {
-    expectDynamic('php', true, ['preg_match($pattern, $subject)']);
+    expectDynamic('php', true, [
+      'preg_match($pattern, $subject)',
+      'preg_replace_callback($pattern, $callback, $subject)',
+      'preg_grep($pattern, $lines)',
+    ]);
 
     expectDynamic('php', false, ['preg_match("/[0-9]+/", $subject)']);
   });
@@ -102,6 +126,8 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
     expectDynamic('c', true, [
       'regcomp(&re, pattern, REG_EXTENDED);',
       'regcomp(&re, argv[1], 0);',
+      'pcre_compile(pattern, 0, &error, &offset, NULL);',
+      'pcre2_compile(pattern, length, 0, &code, &offset, NULL);',
     ]);
 
     expectDynamic('c', false, ['regcomp(&re, "[a-z]+", 0)']);
@@ -161,6 +187,7 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
   describe('Elixir', () => {
     expectDynamic('elixir', true, [
       'Regex.compile(input)',
+      'Regex.compile!(input)',
       '~r/#{prefix}\\d+/',
     ]);
 
@@ -181,7 +208,13 @@ describe('regex usage flags a regex built from a non-literal as dynamic', () => 
   });
 
   describe('R', () => {
-    expectDynamic('r', true, ['grepl(pattern, x)', 'gsub(pat, repl, x)']);
+    expectDynamic('r', true, [
+      'grepl(pattern, x)',
+      'grep(pattern, x)',
+      'gsub(pat, repl, x)',
+      'sub(pat, repl, x)',
+      'gregexpr(pat, x)',
+    ]);
 
     expectDynamic('r', false, ['grepl("[0-9]+", x)', 'regmatches(x, m)']);
   });

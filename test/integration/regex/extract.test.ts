@@ -1,8 +1,10 @@
+import type { LanguageId } from '../../../src/types/scan.js';
 import { describe, it, strict } from 'poku';
 import {
   extractPatterns,
   extractSources,
 } from '../../../src/hooks/regex/extract.js';
+import { readSource } from '../../../src/hooks/regex/source.js';
 
 describe('extractSources is gated to each language', () => {
   it('keeps a genuine JavaScript regex literal', () => {
@@ -69,28 +71,51 @@ describe('extractSources is gated to each language', () => {
   });
 });
 
+describe('extractPatterns keeps the pattern a string method compiles', () => {
+  const METHODS: [language: LanguageId, snippet: string][] = [
+    ['java', 'boolean valid = value.matches("(a+)+$");'],
+    ['java', 'String clean = value.replaceAll("(a+)+$", "");'],
+    ['java', 'String clean = value.replaceFirst("(a+)+$", "");'],
+    ['java', 'String[] parts = value.split("(a+)+$");'],
+    ['kotlin', 'val valid = value.matches("(a+)+$")'],
+    ['scala', 'val parts = value.split("(a+)+$")'],
+  ];
+
+  for (const [language, snippet] of METHODS)
+    it(`keeps the pattern of ${JSON.stringify(snippet)}`, () => {
+      strict.deepStrictEqual(
+        extractPatterns(readSource(snippet, language)).proven,
+        [{ source: '(a+)+$', flags: '' }]
+      );
+    });
+});
+
 describe('extractPatterns reads each regex as the program holds it', () => {
   it('keeps the flags written after a JavaScript literal', () => {
     strict.deepStrictEqual(
-      extractPatterns('const re = /^\\s*#[^\\n]+/gm;', 'javascript'),
+      extractPatterns(readSource('const re = /^\\s*#[^\\n]+/gm;', 'javascript'))
+        .proven,
       [{ source: '^\\s*#[^\\n]+', flags: 'gm' }]
     );
   });
 
   it('decodes the escapes of a string literal', () => {
     strict.deepStrictEqual(
-      extractPatterns('Pattern.compile("^(\\\\w+\\\\s?)*$")', 'java'),
+      extractPatterns(
+        readSource('Pattern.compile("^(\\\\w+\\\\s?)*$")', 'java')
+      ).proven,
       [{ source: '^(\\w+\\s?)*$', flags: '' }]
     );
   });
 
   it('keeps a raw string as written', () => {
     strict.deepStrictEqual(
-      extractPatterns('re.compile(r"(\\w+)*$")', 'python'),
+      extractPatterns(readSource('re.compile(r"(\\w+)*$")', 'python')).proven,
       [{ source: '(\\w+)*$', flags: '' }]
     );
     strict.deepStrictEqual(
-      extractPatterns('regexp.MustCompile(`(\\w+)*$`)', 'go'),
+      extractPatterns(readSource('regexp.MustCompile(`(\\w+)*$`)', 'go'))
+        .proven,
       [{ source: '(\\w+)*$', flags: '' }]
     );
   });

@@ -146,3 +146,7 @@ export type PrefixedCommand = {
   command: string;
   args: string[];
 };
+
+export type RegexSourceCase = [label: string, file: string, contents: string];
+
+export type RegexPatternCase = [...RegexSourceCase, source: string];

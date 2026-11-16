@@ -8,6 +8,9 @@ const UNSAFE_HEADER = 'Vulnerable regular expressions found:';
 const UNDETERMINED_HEADER =
   'Regular expressions the analysis could not settle (review manually):';
 
+const UNCONFIRMED_HEADER =
+  'Strings that would be vulnerable as regular expressions (unconfirmed, review manually):';
+
 const DYNAMIC_HEADER =
   'Dynamically built regular expressions (review manually by simulating a constructed regex):';
 
@@ -44,6 +47,7 @@ const fileSection = (header: string, files: string[]): string =>
 const findingsText = ({
   unsafe,
   undetermined,
+  unconfirmed,
   dynamic,
   staticWrap,
 }: RegexScanResult): string => {
@@ -52,6 +56,8 @@ const findingsText = ({
   if (unsafe.length > 0) sections.push(findingSection(UNSAFE_HEADER, unsafe));
   if (undetermined.length > 0)
     sections.push(findingSection(UNDETERMINED_HEADER, undetermined));
+  if (unconfirmed.length > 0)
+    sections.push(findingSection(UNCONFIRMED_HEADER, unconfirmed));
   if (dynamic.length > 0) sections.push(fileSection(DYNAMIC_HEADER, dynamic));
   if (staticWrap.length > 0)
     sections.push(fileSection(STATIC_WRAP_HEADER, staticWrap));

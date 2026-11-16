@@ -37,10 +37,10 @@ const COMMENT_SPECS: Partial<Record<LanguageId, CommentSpec>> = {
   clojure: { line: [';'] },
 };
 
-/** Unknown files keep `#` as code, so a `#`-comment secret is still scanned */
+/** A secret in a `#` comment of an unknown file is still scanned */
 const FALLBACK: CommentSpec = C_STYLE;
 
-const commentSpec = (language?: LanguageId | null): CommentSpec =>
+export const commentSpec = (language?: LanguageId | null): CommentSpec =>
   (language && COMMENT_SPECS[language]) || FALLBACK;
 
 const LEADING_WHITESPACE = /^\s*/;
@@ -77,6 +77,7 @@ const scanOutsideBlock = (line: string, spec: CommentSpec): CommentScan => {
       }
 
       if (char === quote) inString = false;
+
       index += 1;
       continue;
     }
@@ -121,7 +122,7 @@ const scanLine = (
   return scanOutsideBlock(line.slice(closeAt + spec.block[1].length), spec);
 };
 
-/** Blanks comments per language, preserving line indices so window offsets and line numbers survive */
+/** Blanks comments per language, keeping every line at its index */
 export const codeLines = (
   content: string,
   language?: LanguageId | null

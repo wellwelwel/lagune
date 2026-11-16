@@ -19,6 +19,7 @@ describe('format renders findings grouped by file with no colors', () => {
       format({
         unsafe: [],
         undetermined: [],
+        unconfirmed: [],
         dynamic: [],
         staticWrap: [],
         skipped: NOTHING_SKIPPED,
@@ -36,6 +37,7 @@ describe('format renders findings grouped by file with no colors', () => {
           exponential('a.js', '(.*)x'),
         ],
         undetermined: [],
+        unconfirmed: [],
         dynamic: [],
         staticWrap: [],
         skipped: NOTHING_SKIPPED,
@@ -71,6 +73,7 @@ describe('format renders findings grouped by file with no colors', () => {
           },
         ],
         undetermined: [],
+        unconfirmed: [],
         dynamic: [],
         staticWrap: [],
         skipped: NOTHING_SKIPPED,
@@ -92,6 +95,7 @@ describe('format renders findings grouped by file with no colors', () => {
             scope: null,
           },
         ],
+        unconfirmed: [],
         dynamic: ['c.js'],
         staticWrap: [],
         skipped: NOTHING_SKIPPED,
@@ -102,11 +106,37 @@ describe('format renders findings grouped by file with no colors', () => {
     );
   });
 
+  it('lists the strings it could not confirm as regular expressions after the unsettled patterns', () => {
+    strict.strictEqual(
+      format({
+        unsafe: [exponential('a.js', '(a+)+$')],
+        undetermined: [
+          {
+            file: 'b.js',
+            source: '(?:x+){1,9}y',
+            flags: '',
+            reason: 'work cap reached',
+            scope: null,
+          },
+        ],
+        unconfirmed: [exponential('rules.py', '(\\w+\\s?)*$')],
+        dynamic: ['rules.py'],
+        staticWrap: [],
+        skipped: NOTHING_SKIPPED,
+      }),
+      'Vulnerable regular expressions found:\n\na.js\n  (a+)+$ (exponential, search)\n\n' +
+        'Regular expressions the analysis could not settle (review manually):\n\nb.js\n  (?:x+){1,9}y (work cap reached)\n\n' +
+        'Strings that would be vulnerable as regular expressions (unconfirmed, review manually):\n\nrules.py\n  (\\w+\\s?)*$ (exponential, search)\n\n' +
+        'Dynamically built regular expressions (review manually by simulating a constructed regex):\n\nrules.py\n'
+    );
+  });
+
   it('orders unsafe, dynamic, and static-wrap sections, each only when present', () => {
     strict.strictEqual(
       format({
         unsafe: [exponential('a.js', '(a+)+$')],
         undetermined: [],
+        unconfirmed: [],
         dynamic: ['lib/build.py', 'src/router.js'],
         staticWrap: ['src/wrap.js'],
         skipped: NOTHING_SKIPPED,
@@ -124,6 +154,7 @@ describe('format renders findings grouped by file with no colors', () => {
       format({
         unsafe: [],
         undetermined: [],
+        unconfirmed: [],
         dynamic: [],
         staticWrap: ['src/wrap.js'],
         skipped: NOTHING_SKIPPED,
@@ -136,6 +167,7 @@ describe('format renders findings grouped by file with no colors', () => {
     const output = format({
       unsafe: [exponential('a.js', '(a+)+$')],
       undetermined: [],
+      unconfirmed: [],
       dynamic: ['b.js'],
       staticWrap: ['c.js'],
       skipped: NOTHING_SKIPPED,
@@ -149,6 +181,7 @@ describe('format renders findings grouped by file with no colors', () => {
       format({
         unsafe: [],
         undetermined: [],
+        unconfirmed: [],
         dynamic: [],
         staticWrap: [],
         skipped: { git: 2, configs: 0 },

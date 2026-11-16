@@ -3,7 +3,17 @@ import type { LanguageId } from '../../types/scan.js';
 
 export const QUOTES = new Set(["'", '"', '`']);
 
-const PREFIX_LIMIT = 4;
+export const CLOSER_OF: ReadonlyMap<string, string> = new Map([
+  ['(', ')'],
+  ['[', ']'],
+  ['{', '}'],
+]);
+
+export const CLOSERS = new Set(CLOSER_OF.values());
+
+export const PREFIX_LIMIT = 4;
+
+const PREFIX_CHAR = /[A-Za-z@#]/;
 
 const RAW_PREFIXES: Partial<Record<LanguageId, RegExp>> = {
   python: /(?:^|[^\w])(?:[rR][bB]?|[bB][rR])$/,
@@ -108,6 +118,8 @@ export const decodeLiteral = (
 export const isIdentifierChar = (char: string): boolean =>
   /[A-Za-z0-9_]/.test(char);
 
+export const isPrefixChar = (char: string): boolean => PREFIX_CHAR.test(char);
+
 export const skipSpace = (text: string, from: number): number => {
   let index = from;
 
@@ -164,8 +176,7 @@ const openingQuote = (
 
   let open = at;
 
-  while (open - at < PREFIX_LIMIT && /[A-Za-z@#]/.test(text[open] ?? ''))
-    open += 1;
+  while (open - at < PREFIX_LIMIT && isPrefixChar(text[open] ?? '')) open += 1;
 
   const prefix = text.slice(at, open);
 

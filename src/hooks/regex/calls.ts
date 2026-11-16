@@ -1,11 +1,19 @@
 import type {
   CallOpener,
   CallSite,
+  MethodCall,
   RegexCall,
 } from '../../types/hooks/regex.js';
 import type { LanguageId } from '../../types/scan.js';
 import { deepFreeze } from '../../core/collections.js';
-import { isIdentifierChar, QUOTES, readLiteral, skipSpace } from './lexer.js';
+import {
+  CLOSER_OF,
+  CLOSERS,
+  isIdentifierChar,
+  QUOTES,
+  readLiteral,
+  skipSpace,
+} from './lexer.js';
 
 const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
   {
@@ -63,6 +71,30 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
     languages: ['python'],
   },
   {
+    name: 're.split',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['python'],
+  },
+  {
+    name: 're.finditer',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['python'],
+  },
+  {
+    name: 're.subn',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['python'],
+  },
+  {
+    name: 're_path',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['python'],
+  },
+  {
     name: 'regex.compile',
     argumentIndex: 0,
     hasLiteralForm: false,
@@ -70,6 +102,12 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
   },
   {
     name: 'Pattern.compile',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['java', 'kotlin', 'scala'],
+  },
+  {
+    name: 'Pattern.matches',
     argumentIndex: 0,
     hasLiteralForm: false,
     languages: ['java', 'kotlin', 'scala'],
@@ -105,6 +143,12 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
     languages: ['csharp'],
   },
   {
+    name: 'Regex.Split',
+    argumentIndex: 1,
+    hasLiteralForm: false,
+    languages: ['csharp'],
+  },
+  {
     name: 'Regex',
     argumentIndex: 0,
     hasLiteralForm: false,
@@ -124,6 +168,24 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
   },
   {
     name: 'regexp.MatchString',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['go'],
+  },
+  {
+    name: 'regexp.Match',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['go'],
+  },
+  {
+    name: 'regexp.CompilePOSIX',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['go'],
+  },
+  {
+    name: 'regexp.MustCompilePOSIX',
     argumentIndex: 0,
     hasLiteralForm: false,
     languages: ['go'],
@@ -165,6 +227,18 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
     languages: ['php'],
   },
   {
+    name: 'preg_replace_callback',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['php'],
+  },
+  {
+    name: 'preg_grep',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['php'],
+  },
+  {
     name: 'Regex::new',
     argumentIndex: 0,
     hasLiteralForm: false,
@@ -181,6 +255,7 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
     argumentIndex: 0,
     hasLiteralForm: false,
     languages: ['cpp'],
+    opener: 'declarator',
   },
   {
     name: 'NSRegularExpression',
@@ -225,8 +300,22 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
     hasLiteralForm: true,
     languages: ['elixir'],
   },
+  {
+    name: 'Regex.compile!',
+    argumentIndex: 0,
+    hasLiteralForm: true,
+    languages: ['elixir'],
+  },
   { name: 'grepl', argumentIndex: 0, hasLiteralForm: false, languages: ['r'] },
+  { name: 'grep', argumentIndex: 0, hasLiteralForm: false, languages: ['r'] },
   { name: 'gsub', argumentIndex: 0, hasLiteralForm: false, languages: ['r'] },
+  { name: 'sub', argumentIndex: 0, hasLiteralForm: false, languages: ['r'] },
+  {
+    name: 'gregexpr',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['r'],
+  },
   {
     name: 'regexpr',
     argumentIndex: 0,
@@ -276,10 +365,40 @@ const REGEX_CALLS: readonly RegexCall[] = deepFreeze([
     hasLiteralForm: false,
     languages: ['c', 'cpp'],
   },
+  {
+    name: 'pcre_compile',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['c', 'cpp'],
+  },
+  {
+    name: 'pcre2_compile',
+    argumentIndex: 0,
+    hasLiteralForm: false,
+    languages: ['c', 'cpp'],
+  },
+]);
+
+const STRING_METHODS: readonly MethodCall[] = deepFreeze([
+  { name: '.match', argumentIndex: 0, languages: ['javascript'] },
+  { name: '.matchAll', argumentIndex: 0, languages: ['javascript'] },
+  { name: '.search', argumentIndex: 0, languages: ['javascript'] },
+  {
+    name: '.matches',
+    argumentIndex: 0,
+    languages: ['java', 'kotlin', 'scala'],
+  },
+  { name: '.replaceAll', argumentIndex: 0, languages: ['java', 'scala'] },
+  { name: '.replaceFirst', argumentIndex: 0, languages: ['java', 'scala'] },
+  { name: '.split', argumentIndex: 0, languages: ['java', 'scala'] },
 ]);
 
 export const callsOf = (language: LanguageId): RegexCall[] =>
   REGEX_CALLS.filter((call) => call.languages.includes(language));
+
+/** The string methods that compile their argument, under names many other objects also use */
+export const methodsOf = (language: LanguageId): MethodCall[] =>
+  STRING_METHODS.filter((method) => method.languages.includes(language));
 
 const skipDeclarator = (text: string, from: number): number => {
   let index = skipSpace(text, from);
@@ -288,6 +407,9 @@ const skipDeclarator = (text: string, from: number): number => {
 
   return skipSpace(text, index);
 };
+
+const firstArgument = (text: string, afterParen: number): number =>
+  text[skipSpace(text, afterParen)] === ')' ? -1 : afterParen;
 
 const isWordBoundaryMatch = (
   text: string,
@@ -324,9 +446,9 @@ const skipArguments = (
       continue;
     }
 
-    if (char === '(' || char === '[' || char === '{') depth += 1;
+    if (CLOSER_OF.has(char)) depth += 1;
 
-    if (char === ')' || char === ']' || char === '}') {
+    if (CLOSERS.has(char)) {
       if (depth === 0) return -1;
 
       depth -= 1;
@@ -357,11 +479,16 @@ const argumentStart = (
       ? skipSpace(text, afterName)
       : -1;
 
-  const paren = skipDeclarator(text, afterName);
+  const paren =
+    opener === 'declarator'
+      ? skipDeclarator(text, afterName)
+      : skipSpace(text, afterName);
 
-  return text[paren] === '('
-    ? skipArguments(text, paren + 1, argumentIndex)
-    : -1;
+  if (text[paren] !== '(') return -1;
+
+  return argumentIndex === 0
+    ? firstArgument(text, paren + 1)
+    : skipArguments(text, paren + 1, argumentIndex);
 };
 
 /** Lists where the pattern argument starts in each call the text makes to the API */

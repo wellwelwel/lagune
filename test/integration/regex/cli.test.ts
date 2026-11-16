@@ -219,12 +219,12 @@ await describe('run dispatches the check mode', async () => {
 await describe('run dispatches the scan mode', async () => {
   const inWorkspace = async (
     scenario: () => Promise<void>,
-    seed: string
+    files: Record<string, string>
   ): Promise<void> => {
     const workspace = await newWorkspace();
     const previous = cwd();
 
-    await writeFiles(workspace, { 'app.js': seed });
+    await writeFiles(workspace, files);
 
     try {
       chdir(workspace);
@@ -235,26 +235,57 @@ await describe('run dispatches the scan mode', async () => {
   };
 
   await it('scans the whole project from cwd when given no scope', async () => {
-    await inWorkspace(async () => {
-      strict.deepStrictEqual(await run([]), {
-        output:
-          'Vulnerable regular expressions found:\n\napp.js\n  (a+)+$ (exponential, search)\n',
-        hasFinding: true,
-      });
-    }, 'const re = /(a+)+$/;\n');
+    await inWorkspace(
+      async () => {
+        strict.deepStrictEqual(await run([]), {
+          output:
+            'Vulnerable regular expressions found:\n\napp.js\n  (a+)+$ (exponential, search)\n',
+          hasFinding: true,
+        });
+      },
+      { 'app.js': 'const re = /(a+)+$/;\n' }
+    );
   });
 
   await it('tightens the scan verdict with -l', async () => {
-    await inWorkspace(async () => {
-      strict.deepStrictEqual(await run([]), {
-        output: 'no unsafe patterns found\n',
-        hasFinding: false,
-      });
-      strict.deepStrictEqual(await run(['-l', '2']), {
-        output:
-          'Vulnerable regular expressions found:\n\napp.js\n  a?a?a? (more than 2 quantifiers)\n',
-        hasFinding: true,
-      });
-    }, 'const re = /a?a?a?/;\n');
+    await inWorkspace(
+      async () => {
+        strict.deepStrictEqual(await run([]), {
+          output: 'no unsafe patterns found\n',
+          hasFinding: false,
+        });
+        strict.deepStrictEqual(await run(['-l', '2']), {
+          output:
+            'Vulnerable regular expressions found:\n\napp.js\n  a?a?a? (more than 2 quantifiers)\n',
+          hasFinding: true,
+        });
+      },
+      { 'app.js': 'const re = /a?a?a?/;\n' }
+    );
+  });
+
+  await it('does not fail the run on a string it could not confirm as a regular expression', async () => {
+    await inWorkspace(
+      async () => {
+        strict.deepStrictEqual(await run([]), {
+          output:
+            'Strings that would be vulnerable as regular expressions (unconfirmed, review manually):\n\nrules.py\n  ^(\\w+\\s?)*$ (exponential, search)\n',
+          hasFinding: false,
+        });
+      },
+      { 'rules.py': 'WORDS_PATTERN = "^(\\\\w+\\\\s?)*$"\n' }
+    );
+  });
+
+  await it('does not fail the run on a string no regular expression API receives', async () => {
+    await inWorkspace(
+      async () => {
+        strict.deepStrictEqual(await run([]), {
+          output: 'no unsafe patterns found\n',
+          hasFinding: false,
+        });
+      },
+      { 'jobs.py': 'schedule = "0 2 * * *"\n' }
+    );
   });
 });

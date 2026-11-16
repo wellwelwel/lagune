@@ -542,6 +542,7 @@ export type RegexFinding = RegexCandidate & RegexReason & { file: string };
 export type RegexScanResult = {
   unsafe: RegexFinding[];
   undetermined: RegexFinding[];
+  unconfirmed: RegexFinding[];
   dynamic: string[];
   staticWrap: string[];
   skipped: SkippedCounts;
@@ -552,14 +553,71 @@ export type ArgumentShape = 'dynamic' | 'static-literal';
 export type RegexUsage = {
   dynamic: boolean;
   staticWrap: boolean;
+  receivers: string[][];
+  reaching: string[];
 };
 
-export type ExtractedFile = RegexUsage & {
+export type SourceTokenKind = 'comment' | 'string' | 'text' | 'slash';
+
+export type SourceToken = {
+  kind: SourceTokenKind;
+  open: number;
+  end: number;
+  interpolated: boolean;
+  flags: string;
+};
+
+export type Interpolation = { opener: string; quotes: ReadonlySet<string> };
+
+export type SourceReading = {
+  language: LanguageId;
+  text: string;
+  code: string;
+  bare: string;
+  tokens: SourceToken[];
+};
+
+export type Binding = { names: readonly string[]; depth: number };
+
+export type BindingState = {
+  closers: string[];
+  callees: string[];
+  binding: Binding | null;
+  segment: number;
+  last: string;
+};
+
+export type BoundString = {
+  token: SourceToken;
+  names: readonly string[];
+  label: string;
+  callee: string;
+};
+
+export type BoundCandidate = RegexCandidate & Omit<BoundString, 'token'>;
+
+export type ExtractedPatterns = {
+  proven: RegexCandidate[];
+  bound: BoundCandidate[];
+  names: string[];
+};
+
+export type ExtractedFile = RegexUsage &
+  ExtractedPatterns & { file: string; language: LanguageId };
+
+export type ReachingFile = Pick<ExtractedFile, 'language' | 'reaching'>;
+
+export type RegexEvidence = 'proven' | 'plausible' | 'none';
+
+export type TieredFile = {
   file: string;
-  candidates: RegexCandidate[];
+  proven: RegexCandidate[];
+  plausible: RegexCandidate[];
 };
 
-export type CallOpener = 'paren' | 'colon' | 'space';
+export type LiteralMark = { before?: RegExp; after?: RegExp };
+
+export type CallOpener = 'paren' | 'declarator' | 'colon' | 'space';
 
 export type CheckRequest = {
   mode: 'check';
@@ -582,10 +640,9 @@ export type CallSite = {
   opener?: CallOpener;
 };
 
-export type RegexCall = CallSite & {
-  hasLiteralForm: boolean;
-  languages: readonly LanguageId[];
-};
+export type MethodCall = CallSite & { languages: readonly LanguageId[] };
+
+export type RegexCall = MethodCall & { hasLiteralForm: boolean };
 
 export type StaticLiteral = { open: number; end: number; next: number };
 
