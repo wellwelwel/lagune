@@ -187,6 +187,35 @@ npm test
 
 ---
 
+### 🎯 Measuring detection
+
+Each built-in specialization has a fixture with an intentional weakness, so a change to a specialization or a skill can be measured instead of judged by eye. Pick a fixture from the table `npm run detection:score` prints, such as `visit-counter`, then:
+
+1. Mount it, and leave it running until the measurement ends:
+
+   ```sh
+   bash scripts/playground/mount.sh visit-counter
+   ```
+
+2. From another terminal, open **Claude Code** in `playground/project` and run `/lagune-detect`, with no hint about the weakness.
+
+3. Keep the run:
+
+   ```sh
+   mkdir -p temp/detection/visit-counter
+   cp -R playground/project/.lagune temp/detection/visit-counter/
+   ```
+
+4. Score it:
+
+   ```sh
+   npm run detection:score
+   ```
+
+The table shows, for each fixture, whether detect applied the expected specialization and covered the file that holds the weakness.
+
+---
+
 ### 👔 Lint
 
 ```sh

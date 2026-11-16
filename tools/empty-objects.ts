@@ -16,6 +16,13 @@ const DEEP_FOLDERS = [
   'website/plugins',
 ];
 const SHALLOW_FOLDERS = ['website'];
+const FOREIGN_CODE = join(
+  REPOSITORY_ROOT,
+  'test',
+  'detection',
+  'fixtures',
+  sep
+);
 const CODE_FILE = /\.(?:[cm]?[jt]s|[jt]sx)$/;
 const PROJECT_FILE = join(REPOSITORY_ROOT, 'tsconfig.empty-objects.json');
 
@@ -25,7 +32,8 @@ const isScanned = (file: string): boolean =>
 const listDeep = async (folder: string): Promise<string[]> =>
   (await readdir(join(REPOSITORY_ROOT, folder), { recursive: true }))
     .filter(isScanned)
-    .map((file) => join(REPOSITORY_ROOT, folder, file));
+    .map((file) => join(REPOSITORY_ROOT, folder, file))
+    .filter((file) => !file.startsWith(FOREIGN_CODE));
 
 const listShallow = async (folder: string): Promise<string[]> =>
   (await readdir(join(REPOSITORY_ROOT, folder), { withFileTypes: true }))

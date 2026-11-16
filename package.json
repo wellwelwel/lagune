@@ -52,6 +52,7 @@
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
     "tokens": "tsx tools/count-tokens.ts",
+    "detection:score": "tsx tools/detection/score.ts",
     "test": "bash scripts/test.sh",
     "dashboard:build": "bash scripts/dashboard/build.sh",
     "dashboard:dev": "bash scripts/dashboard/dev.sh",

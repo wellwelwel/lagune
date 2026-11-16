@@ -59,7 +59,7 @@ The pinned **npx** call reaches this tree's build through a local registry the p
 
 ### Claude Code
 
-`bash scripts/playground/mount.sh [fixture]` installs the plugin from a local marketplace into the project under the repository's ignored `playground` folder, with a unique version on every mount and this repository's `CLAUDE.md` excluded. It then serves the pinned build from a local registry outside the project, which the project's settings point **npx** at, until Ctrl+C, so start **Claude Code** there from another terminal, with the owner's account. The fixture is `image-upload-service` by default, or `template-toolkit`.
+`bash scripts/playground/mount.sh [fixture]` installs the plugin from a local marketplace into the project under the repository's ignored `playground` folder, with a unique version on every mount and this repository's `CLAUDE.md` excluded. It then serves the pinned build from a local registry outside the project, which the project's settings point **npx** at, until Ctrl+C, so start **Claude Code** there from another terminal, with the owner's account. The fixture is `image-upload-service` by default, `template-toolkit`, or a detection fixture.
 
 ### Headless checks
 
@@ -68,6 +68,16 @@ The pinned **npx** call reaches this tree's build through a local registry the p
 ### Probes
 
 The `copilot` and `kimi` playgrounds install a stub server instead of the plugin, since neither agent can carry the engine yet. After `mount` and `run`, ask the session to call the `where` tool of the `lagune-probe` server, and `report` shows the folder, variables, environment, and MCP roots that server received. **Kimi Code** installs the stub inside the session, with the `/plugins install` command `mount` prints.
+
+---
+
+## Score detection
+
+Each detection fixture in `test/detection/fixtures/` holds one intentional weakness for one built-in specialization. Its expectation, kept in `test/detection/expectations.json` where no mount copies it, names the specialization detect must apply and the file a tracked finding must cover.
+
+1. **Mount** the fixture with `bash scripts/playground/mount.sh <fixture>`, then run `/lagune-detect` in **Claude Code** there, with no hint about the weakness.
+2. **Keep the run** under `temp/detection/<fixture>`, by copying the project's `.lagune` folder there.
+3. **Score** with `npm run detection:score`, which reads every run under `temp/detection`, or the folder given as its argument, and prints whether each fixture's specialization was applied and the file with its weakness covered. It fails when a scored run missed either, and lists a fixture with no run as not run.
 
 ---
 

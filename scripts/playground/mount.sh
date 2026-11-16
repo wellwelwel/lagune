@@ -8,18 +8,24 @@ project="$playground/project"
 registry="$playground/registry"
 npmCache="$playground/npm-cache"
 fixture="${1:-}"
-fixtures="$repository/.claude/skills/simulate/fixtures"
+demos="$repository/.claude/skills/simulate/fixtures"
+measures="$repository/test/detection/fixtures"
 marketplace="lagune-playground"
+origin="$demos/${fixture:-image-upload-service}"
 
-if [[ -n "$fixture" && ! -d "$fixtures/$fixture" ]]; then
-  echo "No fixture is named \"$fixture\". Choose one of: $(cd "$fixtures" && echo *)." >&2
+if [[ -n "$fixture" && ! -d "$origin" ]]; then
+  origin="$measures/$fixture"
+fi
+
+if [[ -n "$fixture" && ! -d "$origin" ]]; then
+  echo "No fixture is named \"$fixture\". Choose one of: $(cd "$demos" && echo *) $(cd "$measures" && echo *)." >&2
   exit 1
 fi
 
 if [[ -n "$fixture" || ! -d "$project" ]]; then
   rm -rf "$project"
   mkdir -p "$project"
-  cp -R "$fixtures/${fixture:-image-upload-service}/." "$project/"
+  cp -R "$origin/." "$project/"
   git -C "$project" init --quiet
 fi
 
