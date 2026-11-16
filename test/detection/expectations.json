@@ -84,6 +84,11 @@
       "fixture": "slot-buffer",
       "specialization": "rust",
       "file": "src/slots.rs"
+    },
+    {
+      "fixture": "thumbnail-function",
+      "specialization": "serverless",
+      "file": "serverless.yml"
     }
   ]
 }

@@ -1,0 +1,22 @@
+service: thumbnail-function
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: '*'
+          Resource: '*'
+
+functions:
+  resize:
+    handler: handler.resize
+    timeout: 30
+    memorySize: 512
+    events:
+      - s3:
+          bucket: thumbnail-function-originals
+          event: s3:ObjectCreated:*
