@@ -66,6 +66,11 @@
       "file": "src/server.js"
     },
     {
+      "fixture": "static-site",
+      "specialization": "infra",
+      "file": "storage.tf"
+    },
+    {
       "fixture": "session-store",
       "specialization": "java",
       "file": "src/main/java/com/example/session/CartCookie.java"
