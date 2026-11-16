@@ -34,6 +34,11 @@
       "fixture": "contacts-export",
       "specialization": "csv",
       "file": "src/export.js"
+    },
+    {
+      "fixture": "profile-api",
+      "specialization": "dotnet",
+      "file": "Controllers/ImportController.cs"
     }
   ]
 }
