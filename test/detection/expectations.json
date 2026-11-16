@@ -39,6 +39,11 @@
       "fixture": "profile-api",
       "specialization": "dotnet",
       "file": "Controllers/ImportController.cs"
+    },
+    {
+      "fixture": "visit-counter",
+      "specialization": "go",
+      "file": "visits.go"
     }
   ]
 }
