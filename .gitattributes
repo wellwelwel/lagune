@@ -3,6 +3,7 @@
 website/** linguist-documentation
 src/bin/** linguist-language=TypeScript
 .claude/skills/** linguist-vendored
+test/detection/fixtures/** linguist-vendored
 
 /website export-ignore
 /test export-ignore
