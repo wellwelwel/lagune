@@ -29,6 +29,11 @@
       "fixture": "member-login",
       "specialization": "credential-endpoint",
       "file": "src/routes/login.js"
+    },
+    {
+      "fixture": "contacts-export",
+      "specialization": "csv",
+      "file": "src/export.js"
     }
   ]
 }
