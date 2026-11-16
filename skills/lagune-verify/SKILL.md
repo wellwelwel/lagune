@@ -73,7 +73,7 @@ Each control lands in one of two outcomes, which drive the steps that follow:
 
 Your work list is the "Applied specializations" section of `.lagune/memory/detect.md`, which names each specialization as the catalog lists it. Detect already matched them, so do not read the catalog again.
 
-Read each listed specialization by calling `lagune_read` with `command` set to `catalog` and `arguments` set to `["<name>", "--phase", "verify"]`, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a specialization ships a deterministic checker (a hook it tells you to run), running that checker is the application, and its printed verdict is the control's verdict that your own reading never overrides. Where it ships no checker, follow its guidance to inform the verdict. If a listed specialization no longer resolves, note it and judge that control from the code alone.
+Read each listed specialization by calling `lagune_read` with `command` set to `catalog` and `arguments` set to `["<name>", "--phase", "verify"]`, one at a time, and apply it to the in-scope control its finding traces to, read-only on the user's code. When a specialization ships a deterministic checker (a hook it tells you to run), running that checker is the application: what it proves open keeps the control open, and your own reading never clears it. Its silence covers only what it reads, so read what the specialization says it cannot reach, and a risk you find there keeps the control open too. Where it ships no checker, follow its guidance to inform the verdict. If a listed specialization no longer resolves, note it and judge that control from the code alone.
 
 Report the specializations you applied and the verdict each informed. If detect listed none, say so in one line.
 
@@ -103,7 +103,7 @@ Write each open control's verdict onto its block in `.lagune/memory/harden.md`, 
 - Every `dangling` mention the untrack hook reported was reconciled, and you touched no free-prose line it did not flag.
 - You touched only `Verdict` and `Reason`. No `Status`, `What changed`, or `Where` changed, and no section was added to `harden.md`.
 - Every verdict rests on the code you read, not the record's claim, and nothing was written to the user's code.
-- Every specialization detect listed was applied, none skipped, and where one ships a checker its printed verdict is the control's, not your own reading. If any is unapplied, go back and finish Step 5 first.
+- Every specialization detect listed was applied, none skipped, and where one ships a checker, nothing it proved open was cleared by your own reading. If any is unapplied, go back and finish Step 5 first.
 
 ### Step 9: Check the written verdicts
 
