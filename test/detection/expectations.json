@@ -24,6 +24,11 @@
       "fixture": "queue-worker",
       "specialization": "container",
       "file": "docker-compose.yml"
+    },
+    {
+      "fixture": "member-login",
+      "specialization": "credential-endpoint",
+      "file": "src/routes/login.js"
     }
   ]
 }
