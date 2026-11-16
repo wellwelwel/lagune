@@ -104,6 +104,11 @@
       "fixture": "metrics-agent",
       "specialization": "transport",
       "file": "src/send.js"
+    },
+    {
+      "fixture": "support-inbox",
+      "specialization": "upload",
+      "file": "src/routes/attachments.js"
     }
   ]
 }
