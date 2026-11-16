@@ -69,6 +69,11 @@
       "fixture": "shop-cart",
       "specialization": "php",
       "file": "public/cart.php"
+    },
+    {
+      "fixture": "job-runner",
+      "specialization": "python",
+      "file": "app/api.py"
     }
   ]
 }
