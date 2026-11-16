@@ -59,6 +59,11 @@
       "fixture": "docs-server",
       "specialization": "path",
       "file": "src/download.js"
+    },
+    {
+      "fixture": "ticket-shop",
+      "specialization": "payment",
+      "file": "src/checkout.js"
     }
   ]
 }
