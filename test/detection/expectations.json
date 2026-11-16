@@ -64,6 +64,11 @@
       "fixture": "ticket-shop",
       "specialization": "payment",
       "file": "src/checkout.js"
+    },
+    {
+      "fixture": "shop-cart",
+      "specialization": "php",
+      "file": "public/cart.php"
     }
   ]
 }

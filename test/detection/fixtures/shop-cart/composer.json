@@ -1,0 +1,7 @@
+{
+  "name": "example/shop-cart",
+  "type": "project",
+  "require": {
+    "php": ">=8.2"
+  }
+}
