@@ -1,5 +1,9 @@
-import type { EvidenceTier } from '../../types/hooks/secrets.js';
-import type { LanguageId, LineRule } from '../../types/scan.js';
+import type {
+  ConnectionKind,
+  EvidenceTier,
+  SecretSignature,
+} from '../../types/hooks/secrets.js';
+import type { LanguageId } from '../../types/scan.js';
 import { deepFreeze } from '../../core/collections.js';
 
 export const PRIVATE_KEY_BLOCK =
@@ -11,6 +15,8 @@ const PLACEHOLDER =
 const CONNECTION_STRING =
   /\b[a-z][a-z0-9+.-]{1,20}:\/\/[^\s:'"`@/]{0,64}:([^\s:'"`@/]{1,256})@([^\s'"`/]{1,256})/gi;
 
+const EXAMPLE_PASSWORD = /^(?:password|passwd|pass|pwd)$/i;
+const SCHEME_SEPARATOR = '://';
 const HOST_END = /[:?#,;)>]/;
 const LOOPBACK_IPV4 = /^127(?:\.\d{1,3}){3}$/;
 const SINGLE_LABEL = /^[a-z0-9_%-]{0,253}$/;
@@ -22,61 +28,61 @@ const LOCAL_HOSTS: ReadonlySet<string> = new Set([
   'host.docker.internal',
 ]);
 
+const CONNECTION_RANKS: Readonly<Record<ConnectionKind, number>> = deepFreeze({
+  remote: 2,
+  local: 1,
+  example: 0,
+});
+
+const CONNECTION_TIERS: Readonly<Record<ConnectionKind, EvidenceTier>> =
+  deepFreeze({
+    remote: 'proven',
+    local: 'unconfirmed',
+    example: 'unconfirmed',
+  });
+
+const signature = (label: string, regex: RegExp): SecretSignature => ({
+  regex,
+  label,
+  detail: `${label} committed in source`,
+});
+
 /** Curated provider token formats, not exhaustive: the structural rule (a literal bound to a secret-named identifier) catches the rest */
-export const SIGNATURES: LineRule[] = deepFreeze([
-  {
-    regex: /\bAKIA[0-9A-Z]{16}\b/,
-    detail: 'AWS access key id (AKIA…) committed in source',
-  },
-  {
-    regex: /\bghp_[A-Za-z0-9]{36}\b/,
-    detail: 'GitHub personal access token (ghp_…) committed in source',
-  },
-  {
-    regex: /\bgithub_pat_[A-Za-z0-9_]{22,}\b/,
-    detail: 'GitHub fine-grained token (github_pat_…) committed in source',
-  },
-  {
-    regex: /\bxox[baprs]-[A-Za-z0-9-]{10,}\b/,
-    detail: 'Slack token (xox…) committed in source',
-  },
-  {
-    regex: /\bsk_live_[A-Za-z0-9]{16,}\b/,
-    detail: 'Stripe live secret key (sk_live_…) committed in source',
-  },
-  {
-    regex: /\bsk_test_[A-Za-z0-9]{16,}\b/,
-    detail: 'Stripe test secret key (sk_test_…) committed in source',
-  },
-  {
-    regex: /\bsk-proj-[A-Za-z0-9_-]{20,}\b/,
-    detail: 'OpenAI project secret key (sk-proj-…) committed in source',
-  },
-  {
-    regex: /\bsk-[A-Za-z0-9]{20,}\b/,
-    detail: 'OpenAI secret key (sk-…) committed in source',
-  },
-  {
-    regex: /\bglpat-[A-Za-z0-9_-]{20,}\b/,
-    detail: 'GitLab personal access token (glpat-…) committed in source',
-  },
-  {
-    regex: /\bSG\.[A-Za-z0-9_-]{16,}\.[A-Za-z0-9_-]{16,}\b/,
-    detail: 'SendGrid API key (SG.…) committed in source',
-  },
-  {
-    regex: /\bAIza[A-Za-z0-9_-]{35}\b/,
-    detail: 'Google API key (AIza…) committed in source',
-  },
-  {
-    regex:
-      /(?<![A-Za-z0-9_-])eyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b/,
-    detail: 'JSON Web Token (eyJ…) committed in source',
-  },
-  {
-    regex: PRIVATE_KEY_BLOCK,
-    detail: 'private key block (PEM) committed in source',
-  },
+export const SIGNATURES: readonly SecretSignature[] = deepFreeze([
+  signature('AWS access key id (AKIA…)', /\bAKIA[0-9A-Z]{16}\b/),
+  signature('GitHub personal access token (ghp_…)', /\bghp_[A-Za-z0-9]{36}\b/),
+  signature(
+    'GitHub fine-grained token (github_pat_…)',
+    /\bgithub_pat_[A-Za-z0-9_]{22,}\b/
+  ),
+  signature('Slack token (xox…)', /\bxox[baprs]-[A-Za-z0-9-]{10,}\b/),
+  signature(
+    'Stripe live secret key (sk_live_…)',
+    /\bsk_live_[A-Za-z0-9]{16,}\b/
+  ),
+  signature(
+    'Stripe test secret key (sk_test_…)',
+    /\bsk_test_[A-Za-z0-9]{16,}\b/
+  ),
+  signature(
+    'OpenAI project secret key (sk-proj-…)',
+    /\bsk-proj-[A-Za-z0-9_-]{20,}\b/
+  ),
+  signature('OpenAI secret key (sk-…)', /\bsk-[A-Za-z0-9]{20,}\b/),
+  signature(
+    'GitLab personal access token (glpat-…)',
+    /\bglpat-[A-Za-z0-9_-]{20,}\b/
+  ),
+  signature(
+    'SendGrid API key (SG.…)',
+    /\bSG\.[A-Za-z0-9_-]{16,}\.[A-Za-z0-9_-]{16,}\b/
+  ),
+  signature('Google API key (AIza…)', /\bAIza[A-Za-z0-9_-]{35}\b/),
+  signature(
+    'JSON Web Token (eyJ…)',
+    /(?<![A-Za-z0-9_-])eyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\b/
+  ),
+  signature('private key block (PEM)', PRIVATE_KEY_BLOCK),
 ]);
 
 const JVM_SINK =
@@ -147,19 +153,23 @@ export const envFallbacksOf = (language: LanguageId): readonly RegExp[] =>
 export const isPlaceholder = (value: string): boolean =>
   PLACEHOLDER.test(value);
 
-/** The strongest tier any of the items earns */
-export const strongestTier = <Item>(
+/** The kind of connection string that proves a credential most strongly, among the kinds the items earn */
+export const strongestConnection = <Item>(
   items: Iterable<Item>,
-  tierOf: (item: Item) => EvidenceTier | null
-): EvidenceTier | null => {
-  let strongest: EvidenceTier | null = null;
+  kindOf: (item: Item) => ConnectionKind | null
+): ConnectionKind | null => {
+  let strongest: ConnectionKind | null = null;
 
   for (const item of items) {
-    const tier = tierOf(item);
+    const kind = kindOf(item);
 
-    if (tier === 'proven') return tier;
-
-    strongest ??= tier;
+    if (kind === 'remote') return kind;
+    if (kind === null) continue;
+    if (
+      strongest === null ||
+      CONNECTION_RANKS[kind] > CONNECTION_RANKS[strongest]
+    )
+      strongest = kind;
   }
 
   return strongest;
@@ -183,16 +193,26 @@ const hostOf = (authority: string): string => {
 const isLocalHost = (host: string): boolean =>
   LOCAL_HOSTS.has(host) || LOOPBACK_IPV4.test(host) || SINGLE_LABEL.test(host);
 
-const credentialTierOf = ([
+const connectionOf = ([
   ,
   password,
   authority,
-]: RegExpExecArray): EvidenceTier | null => {
+]: RegExpExecArray): ConnectionKind | null => {
   if (password.startsWith('$') || isPlaceholder(password)) return null;
+  if (isLocalHost(hostOf(authority))) return 'local';
 
-  return isLocalHost(hostOf(authority)) ? 'unconfirmed' : 'proven';
+  return EXAMPLE_PASSWORD.test(password) ? 'example' : 'remote';
 };
 
-/** A password a connection string on the line carries is proven toward a remote host and unconfirmed toward a local one */
-export const connectionCredentialOf = (line: string): EvidenceTier | null =>
-  strongestTier(line.matchAll(CONNECTION_STRING), credentialTierOf);
+/** The strongest connection string on the line: a password toward a remote host, then one toward a local host, then the word a documented example writes where the password goes */
+export const connectionKindOf = (line: string): ConnectionKind | null =>
+  line.includes(SCHEME_SEPARATOR)
+    ? strongestConnection(line.matchAll(CONNECTION_STRING), connectionOf)
+    : null;
+
+/** A password a connection string on the line carries is proven toward a remote host, and unconfirmed toward a local one or as the word an example uses */
+export const connectionCredentialOf = (line: string): EvidenceTier | null => {
+  const kind = connectionKindOf(line);
+
+  return kind === null ? null : CONNECTION_TIERS[kind];
+};

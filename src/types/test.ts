@@ -150,3 +150,8 @@ export type PrefixedCommand = {
 export type RegexSourceCase = [label: string, file: string, contents: string];
 
 export type RegexPatternCase = [...RegexSourceCase, source: string];
+
+export type CraftedEntry =
+  | { id: string; kind: 'blob'; content: Buffer }
+  | { id: string; kind: 'offset-delta'; base: number; delta: Buffer }
+  | { id: string; kind: 'ref-delta'; base: string; delta: Buffer };

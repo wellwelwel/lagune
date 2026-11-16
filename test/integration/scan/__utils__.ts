@@ -51,12 +51,14 @@ export const createFiles = (
 /** Runs the real Git in a workspace, blind to the machine's own Git settings, and returns what it printed */
 export const git = async (
   workspace: string,
-  args: readonly string[]
+  args: readonly string[],
+  extraEnv: Readonly<Record<string, string>> = Object.create(null)
 ): Promise<string> => {
   const { stdout } = await run('git', [...args], {
     cwd: workspace,
     env: {
       ...env,
+      ...extraEnv,
       GIT_CONFIG_GLOBAL: NO_GLOBAL_CONFIG,
       GIT_CONFIG_NOSYSTEM: '1',
     },

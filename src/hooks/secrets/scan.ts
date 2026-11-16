@@ -28,7 +28,7 @@ import { envFileAnalysis, envFileOf } from './env-files.js';
 import { analyze } from './secrets.js';
 import { unknownGitLead } from './verdicts.js';
 
-const SECRETS_FILTER: WalkFilter = deepFreeze({
+export const SECRETS_FILTER: WalkFilter = deepFreeze({
   ignoredDirs: BASE_IGNORED_DIRS,
   ignoredDirPatterns: BASE_IGNORED_DIR_PATTERNS,
   accept: (relativePath) =>

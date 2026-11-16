@@ -7,9 +7,8 @@ import type {
 import process, { stderr, stdout } from 'node:process';
 import { Worker } from 'node:worker_threads';
 import { errorMessage } from '../core/errors.js';
+import { HOOK_DEADLINE_SECONDS } from '../core/hook-deadline.js';
 import { hookStalled, hookStopped } from './messages.js';
-
-const HOOK_DEADLINE_SECONDS = 45;
 
 const answered = (result: HookReturn): HookOutcome =>
   typeof result === 'string'

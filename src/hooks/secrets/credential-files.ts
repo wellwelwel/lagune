@@ -5,6 +5,7 @@ import type {
   ContentVerdict,
   CredentialFile,
   CredentialVerdict,
+  EvidenceTier,
 } from '../../types/hooks/secrets.js';
 import type { FileAnalysis } from '../../types/scan.js';
 import { basename, dirname, sep } from 'node:path';
@@ -327,4 +328,19 @@ export const credentialFileAnalysis = (
   if (verdict === 'unread') return unreadLead(file.label);
 
   return weighed(relativePath, file.label, verdict, tracking);
+};
+
+/** How strongly a credential file's content proves a secret, or none when it holds none: one in a test folder or in a format the checker cannot recognize stays unconfirmed */
+export const credentialTierOf = (
+  relativePath: string,
+  file: CredentialFile,
+  text: string
+): EvidenceTier | null => {
+  const verdict = verdictOf(file, text);
+
+  if (verdict === 'clean') return null;
+
+  return verdict === 'credential' && !isInTestFolder(relativePath)
+    ? 'proven'
+    : 'unconfirmed';
 };

@@ -1,13 +1,19 @@
+import type {
+  ConnectionKind,
+  SecretEvidence,
+  SecretKind,
+} from '../../types/hooks/secrets.js';
 import type { FileAnalysis, LanguageId } from '../../types/scan.js';
+import { deepFreeze } from '../../core/collections.js';
 import { languageOf } from '../../core/scan/language.js';
 import { codeLines } from '../../core/scan/lines.js';
 import {
-  connectionCredentialOf,
+  connectionKindOf,
   envFallbacksOf,
   isPlaceholder,
   SIGNATURES,
   sinkOf,
-  strongestTier,
+  strongestConnection,
 } from './patterns.js';
 
 const ASSIGN =
@@ -19,16 +25,40 @@ const SECRET_REF =
 const SECRET_IDENTIFIER =
   /(?:password|passwd|pwd|secret|api[_-]?key|apikey|access[_-]?key|auth[_-]?token|token|credential|private[_-]?key|client[_-]?secret)/i;
 
-const ENV_FALLBACK_DETAIL =
-  'hardcoded fallback for an environment secret: remove the literal default';
-const CONNECTION_DETAIL =
-  'credential embedded in a connection/DSN string: move it to an environment variable or secret store';
-const LOCAL_CONNECTION_DETAIL =
-  'credential embedded in a connection/DSN string to a local host or a service name: if it is a real credential rather than a development default, move it to an environment variable or secret store';
-const LITERAL_DETAIL =
-  'literal bound to a secret-named identifier: confirm it is a real credential, and move any secret to an environment variable or secret store';
 const SINK_DETAIL =
   'a secret-named value flows into a log/response/error sink: verify it is redacted';
+
+const remedied = (label: string, remedy: string): SecretKind =>
+  deepFreeze({ label, detail: `${label}: ${remedy}` });
+
+const ENV_FALLBACK = remedied(
+  'hardcoded fallback for an environment secret',
+  'remove the literal default'
+);
+
+const CONNECTION = remedied(
+  'credential embedded in a connection/DSN string',
+  'move it to an environment variable or secret store'
+);
+
+const LOCAL_CONNECTION = remedied(
+  'credential embedded in a connection/DSN string to a local host or a service name',
+  'if it is a real credential rather than a development default, move it to an environment variable or secret store'
+);
+
+const EXAMPLE_CONNECTION = remedied(
+  'credential embedded in a connection/DSN string whose password reads as an example',
+  'if it is a real credential rather than an example, move it to an environment variable or secret store'
+);
+
+const UNCONFIRMED_CONNECTIONS: Readonly<
+  Record<Exclude<ConnectionKind, 'remote'>, SecretKind>
+> = deepFreeze({ local: LOCAL_CONNECTION, example: EXAMPLE_CONNECTION });
+
+const LITERAL = remedied(
+  'literal bound to a secret-named identifier',
+  'confirm it is a real credential, and move any secret to an environment variable or secret store'
+);
 
 const hasHardcodedLiteral = (line: string): boolean => {
   const match = ASSIGN.exec(line);
@@ -54,44 +84,60 @@ const hasEnvFallback = (line: string, patterns: readonly RegExp[]): boolean =>
     return SECRET_IDENTIFIER.test(lookup);
   });
 
-/** Provider signatures and connection strings count even inside a comment, the other rules never do */
+/** The secrets the lines hold, by how strongly they prove each. Provider signatures and connection strings count even inside a comment, the other rules read the code form of each line that names a secret */
+export const secretsInLines = (
+  language: LanguageId | null,
+  rawLines: readonly string[],
+  codeLineAt: (index: number) => string
+): SecretEvidence => {
+  const envPatterns = language === null ? [] : envFallbacksOf(language);
+  const connection = strongestConnection(rawLines, connectionKindOf);
+  const lines = rawLines.map((line, index) =>
+    SECRET_IDENTIFIER.test(line) ? codeLineAt(index) : ''
+  );
+  const fallback =
+    envPatterns.length > 0 &&
+    lines.some((line) => hasEnvFallback(line, envPatterns));
+  const signed = SIGNATURES.filter((rule) =>
+    rawLines.some((line) => rule.regex.test(line))
+  );
+
+  return {
+    proven: [
+      ...signed,
+      ...(fallback ? [ENV_FALLBACK] : []),
+      ...(connection === 'remote' ? [CONNECTION] : []),
+    ],
+    unconfirmed: [
+      ...(connection === null || connection === 'remote'
+        ? []
+        : [UNCONFIRMED_CONNECTIONS[connection]]),
+      ...(lines.some(hasHardcodedLiteral) ? [LITERAL] : []),
+    ],
+  };
+};
+
+const detailOf = ({ detail }: SecretKind): string => detail;
+
 export const analyzeFor = (
   language: LanguageId | null,
   content: string
 ): FileAnalysis => {
   const rawLines = content.split('\n');
   const lines = codeLines(content, language);
-  const envPatterns = language === null ? [] : envFallbacksOf(language);
+  const { proven, unconfirmed } = secretsInLines(
+    language,
+    rawLines,
+    (index) => lines[index]
+  );
   const sink = language === null ? null : sinkOf(language);
-  const findings = SIGNATURES.filter((rule) =>
-    rawLines.some((line) => rule.regex.test(line))
-  ).map((rule) => rule.detail);
-
-  if (
-    envPatterns.length > 0 &&
-    lines.some((line) => hasEnvFallback(line, envPatterns))
-  )
-    findings.push(ENV_FALLBACK_DETAIL);
-
-  const connection = strongestTier(rawLines, connectionCredentialOf);
-
-  if (connection === 'proven') findings.push(CONNECTION_DETAIL);
-
-  const review: string[] = [];
-
-  if (connection === 'unconfirmed') review.push(LOCAL_CONNECTION_DETAIL);
-
-  if (lines.some(hasHardcodedLiteral)) review.push(LITERAL_DETAIL);
-
-  if (
+  const leaks =
     sink !== null &&
-    lines.some((line) => sink.test(line) && SECRET_REF.test(line))
-  )
-    review.push(SINK_DETAIL);
+    lines.some((line) => sink.test(line) && SECRET_REF.test(line));
 
   return {
-    findings: [...new Set(findings)],
-    review: [...new Set(review)],
+    findings: proven.map(detailOf),
+    review: [...unconfirmed.map(detailOf), ...(leaks ? [SINK_DETAIL] : [])],
     advisory: [],
   };
 };

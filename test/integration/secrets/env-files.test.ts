@@ -197,6 +197,11 @@ describe('the values a tracked environment file sets decide how much weight it c
         'lead',
       ],
       [
+        'a connection string whose password is the word an example writes',
+        'DATABASE_URL=postgres://user:password@db.example.com/app\n',
+        'lead',
+      ],
+      [
         'a connection string to a local and one to a remote host',
         `LOCAL_URL=postgres://postgres:postgres@localhost/app\nDATABASE_URL=${DATABASE_URL}\n`,
         'finding',

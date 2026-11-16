@@ -17,10 +17,17 @@ import { isIgnored, MATCH_STEPS } from '../git/pattern.js';
 import { gitIgnoresOf } from '../git/repository.js';
 import { skipsFile, subfolderScope, targetScope } from '../git/scope.js';
 
+export const LAGUNE_FOLDER = '.lagune';
+
 const NOTHING: WalkResult = deepFreeze({
   files: [],
   skipped: { git: [], configs: [] },
 });
+
+/** Whether a filter leaves a folder out by its name alone */
+export const leavesOutFolder = (filter: WalkFilter, name: string): boolean =>
+  filter.ignoredDirs.has(name) ||
+  filter.ignoredDirPatterns.some((pattern) => pattern.test(name));
 
 const isIgnoredDir = (
   filter: WalkFilter,
@@ -28,9 +35,7 @@ const isIgnoredDir = (
   path: string,
   name: string
 ): boolean =>
-  filter.ignoredDirs.has(name) ||
-  filter.ignoredDirPatterns.some((pattern) => pattern.test(name)) ||
-  path === join(scanRoot, '.lagune');
+  leavesOutFolder(filter, name) || path === join(scanRoot, LAGUNE_FOLDER);
 
 const sortedUnique = (paths: readonly string[]): string[] =>
   [...new Set(paths)].toSorted((left, right) => left.localeCompare(right));
@@ -38,7 +43,8 @@ const sortedUnique = (paths: readonly string[]): string[] =>
 const segmentsOf = (relativePath: string): string[] =>
   relativePath.split(sep).filter((segment) => segment !== '');
 
-const matchesConfig = (
+/** Whether the checker's settings leave out a path, spending their match budget */
+export const matchesConfig = (
   ignores: ConfigIgnores,
   segments: readonly string[],
   isDirectory: boolean
@@ -140,7 +146,9 @@ const ruleOf = (pattern: string): IgnoreRule => {
   return read.rule;
 };
 
-const configIgnoresOf = (patterns: readonly string[]): ConfigIgnores | null =>
+export const configIgnoresOf = (
+  patterns: readonly string[]
+): ConfigIgnores | null =>
   patterns.length === 0
     ? null
     : {

@@ -4,6 +4,7 @@ import type {
   ConfigEntry,
   EnvEvidence,
   EnvFileKind,
+  EnvSecrets,
   EvidenceTier,
   TrackingSeverities,
   TrackingVerdicts,
@@ -179,15 +180,34 @@ const actionOf = (kind: EnvFileKind, tracking: CommittableTracking): string =>
     ? REMEDIES[tracking]
     : `${MOVE_SECRET}, or ${REMEDIES[tracking]}`;
 
+/** What an environment file holding a secret is called, naming the variables behind it and never their values */
+export const envSecretLabel = (
+  kind: EnvFileKind,
+  { tier, sources }: EnvSecrets
+): string => `${SUBJECTS[tier]} (${allOf(sources)}) in ${FILES[kind]}`;
+
 const leakOf = (
-  tier: EvidenceTier,
-  sources: readonly string[],
+  secrets: EnvSecrets,
   kind: EnvFileKind,
   tracking: CommittableTracking
 ): FileAnalysis =>
-  SEVERITIES[tier][tracking](
-    `${SUBJECTS[tier]} (${allOf(sources)}) in ${FILES[kind]} ${PLACES[tracking]}: ${CONDITIONS[tier]}${actionOf(kind, tracking)}`
+  SEVERITIES[secrets.tier][tracking](
+    `${envSecretLabel(kind, secrets)} ${PLACES[tracking]}: ${CONDITIONS[secrets.tier]}${actionOf(kind, tracking)}`
   );
+
+/** The strongest evidence of a secret the lines of an environment file hold, with every variable or line behind it, or none */
+export const envSecretsIn = (lines: readonly string[]): EnvSecrets | null => {
+  const evidence = lines.map(evidenceOf).filter((item) => item !== null);
+  const proven = sourcesOf(evidence, 'proven');
+
+  if (proven.length > 0) return { tier: 'proven', sources: proven };
+
+  const unconfirmed = sourcesOf(evidence, 'unconfirmed');
+
+  return unconfirmed.length > 0
+    ? { tier: 'unconfirmed', sources: unconfirmed }
+    : null;
+};
 
 /** The one verdict an environment file earns from the strongest evidence it holds and from its Git status */
 export const envFileAnalysis = (
@@ -198,18 +218,9 @@ export const envFileAnalysis = (
   if (tracking === 'ignored') return EMPTY_ANALYSIS;
   if (text === null) return unreadLead('secret');
 
-  const evidence = text
-    .split('\n')
-    .map(evidenceOf)
-    .filter((item) => item !== null);
-  const proven = sourcesOf(evidence, 'proven');
+  const secrets = envSecretsIn(text.split('\n'));
 
-  if (proven.length > 0) return leakOf('proven', proven, kind, tracking);
-
-  const unconfirmed = sourcesOf(evidence, 'unconfirmed');
-
-  if (unconfirmed.length > 0)
-    return leakOf('unconfirmed', unconfirmed, kind, tracking);
+  if (secrets !== null) return leakOf(secrets, kind, tracking);
 
   return kind === 'local' ? LOCAL_VERDICTS[tracking] : EMPTY_ANALYSIS;
 };

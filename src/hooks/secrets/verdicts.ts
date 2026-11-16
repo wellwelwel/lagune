@@ -70,7 +70,8 @@ export const exposureOf = (
 ): FileAnalysis =>
   EXPOSURES[tracking](`${label} ${PLACES[tracking]}: ${REMEDIES[tracking]}`);
 
-const namedFiles = (files: readonly string[]): string => {
+/** The first few of the files by name, sorted, then how many more there are */
+export const namedFiles = (files: readonly string[]): string => {
   const sorted = files.toSorted((left, right) => left.localeCompare(right));
   const named = sorted.slice(0, NAMED_FILES);
   const unnamed = sorted.length - named.length;

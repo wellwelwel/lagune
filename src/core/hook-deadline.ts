@@ -1,0 +1,1 @@
+export const HOOK_DEADLINE_SECONDS = 45;

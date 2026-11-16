@@ -142,6 +142,39 @@ export const codeLines = (
   return result;
 };
 
+/** Every line a block comment could open, cover, or close, read generously: a marker inside a string or after a line comment still counts */
+export const blockCommentReach = (
+  lines: readonly string[],
+  language: LanguageId | null
+): boolean[] => {
+  const { block } = commentSpec(language);
+
+  if (block === undefined) return lines.map(() => false);
+
+  const [open, close] = block;
+  const reached: boolean[] = [];
+  let inBlock = false;
+
+  for (const line of lines) {
+    let touched = inBlock;
+    let position = 0;
+
+    while (position <= line.length) {
+      const marker = line.indexOf(inBlock ? close : open, position);
+
+      if (marker === -1) break;
+
+      touched = true;
+      inBlock = !inBlock;
+      position = marker + (inBlock ? open.length : close.length);
+    }
+
+    reached.push(touched);
+  }
+
+  return reached;
+};
+
 export const firedRules = (
   content: string,
   rules: LineRule[],

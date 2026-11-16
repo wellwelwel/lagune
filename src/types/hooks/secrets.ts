@@ -1,4 +1,4 @@
-import type { GitTracking } from '../git.js';
+import type { GitTracking, HistoryRead } from '../git.js';
 import type { AnalyzedFile, FileAnalysis } from '../scan.js';
 
 export type CommittableTracking = Exclude<GitTracking, 'ignored'>;
@@ -11,6 +11,32 @@ export type TrackingSeverities = Record<
 >;
 
 export type EvidenceTier = 'proven' | 'unconfirmed';
+
+export type SecretKind = { label: string; detail: string };
+
+export type SecretSignature = SecretKind & { regex: RegExp };
+
+export type SecretEvidence = Record<EvidenceTier, SecretKind[]>;
+
+export type EnvSecrets = { tier: EvidenceTier; sources: string[] };
+
+export type HistoryEvidence = { tier: EvidenceTier; label: string };
+
+export type HistoryHit = HistoryEvidence & {
+  path: string;
+  commit: string;
+  blob: string;
+};
+
+export type HistoryEntry = HistoryHit & { copies: string[] };
+
+export type ConnectionKind = 'remote' | 'local' | 'example';
+
+export type HistoryReport = {
+  read: HistoryRead;
+  hits: HistoryHit[];
+  skipped: number;
+};
 
 export type ContentVerdict = 'credential' | 'clean' | 'unconfirmed';
 

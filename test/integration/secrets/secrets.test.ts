@@ -294,6 +294,39 @@ describe('a connection string to a local database is a lead, never a finding', (
   });
 });
 
+describe('a connection string whose password is the word an example writes is a lead, never a finding', () => {
+  const lines: readonly string[] = [
+    '# "https://username:password@host.com:80/path?query#fragment"',
+    'help="Specify a proxy in the form scheme://[user:passwd@]proxy.server:port."',
+    'const url = "redis://:pass@cache.example.com:6379";',
+    'const url = "mysql://root:PWD@db.example.com/app";',
+  ];
+
+  for (const line of lines)
+    it(`leads ${line}`, () => {
+      const { findings, review } = analyzeFor('python', line);
+
+      strict.deepStrictEqual(
+        [findings, review],
+        [
+          [],
+          [
+            'credential embedded in a connection/DSN string whose password reads as an example: if it is a real credential rather than an example, move it to an environment variable or secret store',
+          ],
+        ]
+      );
+    });
+
+  it('keeps the finding for a password that only starts with such a word', () => {
+    const { findings, review } = analyzeFor(
+      'javascript',
+      'const url = "postgres://admin:password1@db.example.com/app";'
+    );
+
+    strict.deepStrictEqual([findings.length, review.length], [1, 0]);
+  });
+});
+
 describe('a connection string to a remote host that only looks local is a finding', () => {
   const hosts: readonly string[] = [
     '127.0.0.1.attacker.example',

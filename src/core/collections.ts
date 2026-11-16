@@ -1,4 +1,4 @@
-import type { ConfigsAction, ListChange } from '../types/core.js';
+import type { BoundedCache, ConfigsAction, ListChange } from '../types/core.js';
 
 export const isString = (value: unknown): value is string =>
   typeof value === 'string';
@@ -95,3 +95,55 @@ export const changeList = (
   action === 'add'
     ? addToList(current, requested)
     : removeFromList(current, requested);
+
+export const boundedCache = <Value>(
+  maxBytes: number,
+  maxValueBytes: number
+): BoundedCache<Value> => ({
+  entries: new Map(),
+  bytes: 0,
+  maxBytes,
+  maxValueBytes,
+});
+
+/** The value a cache holds under a key, marked as the most recently used */
+export const cachedValue = <Value>(
+  cache: BoundedCache<Value>,
+  key: string
+): Value | undefined => {
+  const cached = cache.entries.get(key);
+
+  if (cached === undefined) return undefined;
+
+  cache.entries.delete(key);
+  cache.entries.set(key, cached);
+
+  return cached.value;
+};
+
+/** Holds a value under a key unless it outgrows a single value's bound, dropping the least recently used values once the cache outgrows its own */
+export const cacheValue = <Value>(
+  cache: BoundedCache<Value>,
+  key: string,
+  value: Value,
+  bytes: number
+): void => {
+  const replaced = cache.entries.get(key);
+
+  if (replaced !== undefined) {
+    cache.entries.delete(key);
+    cache.bytes -= replaced.bytes;
+  }
+
+  if (bytes > cache.maxValueBytes) return;
+
+  cache.entries.set(key, { value, bytes });
+  cache.bytes += bytes;
+
+  for (const [oldest, evicted] of cache.entries) {
+    if (cache.bytes <= cache.maxBytes) return;
+
+    cache.entries.delete(oldest);
+    cache.bytes -= evicted.bytes;
+  }
+};

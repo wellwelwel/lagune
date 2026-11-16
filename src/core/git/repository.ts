@@ -3,6 +3,7 @@ import type {
   GitEntry,
   GitIgnores,
   IgnoreList,
+  RepositoryFormat,
   TrackedIndex,
 } from '../../types/git.js';
 import { lstat, readFile, stat } from 'node:fs/promises';
@@ -19,7 +20,7 @@ const MAX_IGNORE_BYTES = 256 * 1024;
 const MAX_CONFIG_BYTES = 256 * 1024;
 const MAX_INDEX_BYTES = 64 * 1024 * 1024;
 const SHA1_LENGTH = 20;
-const SHA256_LENGTH = 32;
+export const SHA256_LENGTH = 32;
 
 const ABSENT: BoundedRead = deepFreeze({ status: 'absent' });
 
@@ -33,7 +34,8 @@ const NOTHING_TRACKED: TrackedIndex = deepFreeze({
 const isMissing = (error: unknown): boolean =>
   hasErrorCode(error, 'ENOENT') || hasErrorCode(error, 'ENOTDIR');
 
-const readBounded = async (
+/** A file's bytes when it is a regular file no larger than the bound, reached without following a link unless asked */
+export const readBounded = async (
   path: string,
   maxBytes: number,
   followLinks: boolean
@@ -65,7 +67,7 @@ export const ignoreListAt = async (
   return text === undefined ? null : { base, rules: parseIgnoreText(text) };
 };
 
-const isRealDirectory = async (path: string): Promise<boolean> => {
+export const isRealDirectory = async (path: string): Promise<boolean> => {
   try {
     return (await lstat(path)).isDirectory();
   } catch {
@@ -137,16 +139,22 @@ const localList = async (gitDirectory: string): Promise<IgnoreList | null> => {
   return ignoreListAt(join(info, 'exclude'), [], false);
 };
 
-const hashLengthOf = async (gitDirectory: string): Promise<number> => {
-  const text = textOf(
-    await readBounded(join(gitDirectory, 'config'), MAX_CONFIG_BYTES, false)
-  );
-  const format =
-    text === undefined
-      ? undefined
-      : configValue(text, 'extensions', 'objectformat');
+/** The hash length a repository's objects use and whether its refs live in the reftable format */
+export const repositoryFormatOf = async (
+  gitDirectory: string
+): Promise<RepositoryFormat> => {
+  const text =
+    textOf(
+      await readBounded(join(gitDirectory, 'config'), MAX_CONFIG_BYTES, false)
+    ) ?? '';
+  const objectFormat = configValue(text, 'extensions', 'objectformat');
+  const refStorage = configValue(text, 'extensions', 'refstorage');
 
-  return format?.toLowerCase() === 'sha256' ? SHA256_LENGTH : SHA1_LENGTH;
+  return {
+    hashLength:
+      objectFormat?.toLowerCase() === 'sha256' ? SHA256_LENGTH : SHA1_LENGTH,
+    reftable: refStorage?.toLowerCase() === 'reftable',
+  };
 };
 
 const trackedIn = async (
@@ -161,7 +169,9 @@ const trackedIn = async (
   if (index.status === 'absent') return NOTHING_TRACKED;
   if (index.status === 'unusable') return null;
 
-  return trackedIndexOf(index.content, await hashLengthOf(gitDirectory));
+  const { hashLength } = await repositoryFormatOf(gitDirectory);
+
+  return trackedIndexOf(index.content, hashLength);
 };
 
 /** What sits at a project's .git, read without following a link or the gitdir a worktree or submodule names */

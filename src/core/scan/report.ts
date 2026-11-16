@@ -45,15 +45,22 @@ export const groupedSection = (
 const ignoredBy = (count: number, origin: string): string =>
   `${count} ${count === 1 ? 'path' : 'paths'} that ${origin} ignores`;
 
-/** Ends a report with how many paths the scan left out, by what ignores them */
-export const withSkipped = (output: string, skipped: SkippedCounts): string => {
+/** How many paths a scan left out, by what ignores them, or none when it left nothing out */
+export const skippedSentence = (skipped: SkippedCounts): string | null => {
   const counted = SKIPPED_ORIGINS.filter(([origin]) => skipped[origin] > 0).map(
     ([origin, name]) => ignoredBy(skipped[origin], name)
   );
 
-  if (counted.length === 0) return output;
+  return counted.length === 0 ? null : `Skipped ${allOf(counted)}.`;
+};
 
-  return `${output}\nSkipped ${allOf(counted)}. Name one with --dir or --file to scan it.\n`;
+/** Ends a report with how many paths the scan left out, by what ignores them */
+export const withSkipped = (output: string, skipped: SkippedCounts): string => {
+  const sentence = skippedSentence(skipped);
+
+  if (sentence === null) return output;
+
+  return `${output}\n${sentence} Name one with --dir or --file to scan it.\n`;
 };
 
 const reportBody = (report: ScanReport, headings: ReportHeadings): string => {

@@ -38,6 +38,15 @@ export type ListChange = {
   unchanged: string[];
 };
 
+export type CachedValue<Value> = { value: Value; bytes: number };
+
+export type BoundedCache<Value> = {
+  entries: Map<string, CachedValue<Value>>;
+  bytes: number;
+  maxBytes: number;
+  maxValueBytes: number;
+};
+
 export type ConfigsUpdate<Result> = {
   fields: Record<string, unknown>;
   result: Result;
