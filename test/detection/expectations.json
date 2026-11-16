@@ -71,6 +71,11 @@
       "file": "storage.tf"
     },
     {
+      "fixture": "formula-api",
+      "specialization": "interpreter",
+      "file": "src/calculate.js"
+    },
+    {
       "fixture": "session-store",
       "specialization": "java",
       "file": "src/main/java/com/example/session/CartCookie.java"
