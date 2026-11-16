@@ -3,6 +3,7 @@ import type { Expectation, RunScore } from '../../../tools/detection/score.js';
 import { readdir, stat } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { describe, it, strict } from 'poku';
+import { BUILTIN_SPECIALIZATIONS } from '../../../src/catalog/builtin.js';
 import {
   FIXTURES_PATH,
   readExpectations,
@@ -123,6 +124,17 @@ describe('the detection fixtures', async () => {
   const fixtures = (await readdir(FIXTURES_PATH)).filter(
     (name) => !name.startsWith('.')
   );
+
+  it('give every built-in specialization exactly one fixture', () => {
+    const measured = expectations
+      .map((entry) => entry.specialization)
+      .toSorted();
+    const builtins = BUILTIN_SPECIALIZATIONS.map(
+      (entry) => entry.name
+    ).toSorted();
+
+    strict.deepStrictEqual(measured, builtins);
+  });
 
   it('pair every fixture folder with one expectation', () => {
     const expected = expectations.map((entry) => entry.fixture).toSorted();
