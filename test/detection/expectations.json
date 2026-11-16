@@ -131,6 +131,11 @@
       "file": "src/slots.rs"
     },
     {
+      "fixture": "mail-relay",
+      "specialization": "secrets",
+      "file": "src/mailer.js"
+    },
+    {
       "fixture": "thumbnail-function",
       "specialization": "serverless",
       "file": "serverless.yml"

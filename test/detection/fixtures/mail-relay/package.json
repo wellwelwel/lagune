@@ -1,0 +1,12 @@
+{
+  "name": "mail-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16",
+    "pg": "^8.13.1"
+  }
+}
