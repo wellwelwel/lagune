@@ -212,6 +212,22 @@ await describe('the history pass finds a secret Git still holds after a later co
 });
 
 await describe('the history pass judges every version by the rules the working tree answers to', async () => {
+  await it('leads a real-looking value a template once held to a manual check, never to rotation', async () => {
+    const workspace = await newRepository();
+    const added = await addedThenDeleted(
+      workspace,
+      '.env.example',
+      `PAYMENTS=${STRIPE_KEY}\n`
+    );
+
+    const output = await historyOf(workspace);
+
+    strict.strictEqual(
+      output,
+      `${POSSIBLE}\n\n.env.example\n  possible secret (PAYMENTS) in an environment template, in commit ${added}\n`
+    );
+  });
+
   await it('reports a secret kept across versions once, at the newest commit that holds it', async () => {
     const workspace = await newRepository();
 

@@ -117,7 +117,10 @@ const envEvidence = (
   text: string
 ): HistoryEvidence[] => {
   const lines = text.split('\n');
-  const secrets = envSecretsIn(freshLines(lines, judgedLinesAt(memory, path)));
+  const secrets = envSecretsIn(
+    kind,
+    freshLines(lines, judgedLinesAt(memory, path))
+  );
 
   cacheValue(memory, path, new Set(lines), text.length);
 

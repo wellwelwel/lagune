@@ -54,6 +54,15 @@ const MOVE_SECRET =
 const FILES: Readonly<Record<EnvFileKind, string>> = deepFreeze({
   shared: 'an environment file',
   local: `an ${LOCAL_LABEL}`,
+  template: 'an environment template',
+});
+
+const ACTIONS: Readonly<
+  Record<EnvFileKind, (tracking: CommittableTracking) => string>
+> = deepFreeze({
+  shared: (tracking) => `${MOVE_SECRET}, or ${REMEDIES[tracking]}`,
+  local: (tracking) => REMEDIES[tracking],
+  template: () => `replace it with a placeholder and ${MOVE_SECRET}`,
 });
 
 const SUBJECTS: Readonly<Record<EvidenceTier, string>> = deepFreeze({
@@ -81,7 +90,7 @@ const LOCAL_VERDICTS: TrackingVerdicts = deepFreeze({
   ),
 });
 
-/** The kind of environment file a path names, or none for a template, a source file, or the dotenvx key file */
+/** The kind of environment file a path names, or none for a source file or the dotenvx key file */
 export const envFileOf = (relativePath: string): EnvFileKind | null => {
   const name = basename(relativePath).toLowerCase();
 
@@ -94,7 +103,7 @@ export const envFileOf = (relativePath: string): EnvFileKind | null => {
 
   const variants = name.split('.').slice(2);
 
-  if (variants.some((variant) => TEMPLATES.has(variant))) return null;
+  if (variants.some((variant) => TEMPLATES.has(variant))) return 'template';
 
   return variants.includes('local') ? 'local' : 'shared';
 };
@@ -151,20 +160,40 @@ const valueTierOf = (line: string): EvidenceTier | null =>
     ? 'proven'
     : connectionCredentialOf(line);
 
+const sourceOf = (assignment: ConfigEntry | null, index: number): string =>
+  assignment === null ? `line ${index + 1}` : assignment[0];
+
 const evidenceOf = (line: string, index: number): EnvEvidence | null => {
   const assignment = assignmentOf(line);
   const tier = valueTierOf(line);
 
-  if (tier !== null)
-    return {
-      tier,
-      source: assignment === null ? `line ${index + 1}` : assignment[0],
-    };
-
+  if (tier !== null) return { tier, source: sourceOf(assignment, index) };
   if (assignment === null || !setsSecretVariable(assignment)) return null;
 
   return { tier: 'unconfirmed', source: assignment[0] };
 };
+
+/** A template earns a lead at most, never proof, and its local or example connection strings earn nothing */
+const templateEvidenceOf = (
+  line: string,
+  index: number
+): EnvEvidence | null => {
+  const assignment = assignmentOf(line);
+
+  if (
+    valueTierOf(line) !== 'proven' &&
+    (assignment === null || !setsSecretVariable(assignment))
+  )
+    return null;
+
+  return { tier: 'unconfirmed', source: sourceOf(assignment, index) };
+};
+
+const EVIDENCE: Readonly<Record<EnvFileKind, typeof evidenceOf>> = deepFreeze({
+  shared: evidenceOf,
+  local: evidenceOf,
+  template: templateEvidenceOf,
+});
 
 const sourcesOf = (
   evidence: readonly EnvEvidence[],
@@ -174,11 +203,6 @@ const sourcesOf = (
     evidence.filter((item) => item.tier === tier).map((item) => item.source)
   ),
 ];
-
-const actionOf = (kind: EnvFileKind, tracking: CommittableTracking): string =>
-  kind === 'local'
-    ? REMEDIES[tracking]
-    : `${MOVE_SECRET}, or ${REMEDIES[tracking]}`;
 
 /** What an environment file holding a secret is called, naming the variables behind it and never their values */
 export const envSecretLabel = (
@@ -192,12 +216,15 @@ const leakOf = (
   tracking: CommittableTracking
 ): FileAnalysis =>
   SEVERITIES[secrets.tier][tracking](
-    `${envSecretLabel(kind, secrets)} ${PLACES[tracking]}: ${CONDITIONS[secrets.tier]}${actionOf(kind, tracking)}`
+    `${envSecretLabel(kind, secrets)} ${PLACES[tracking]}: ${CONDITIONS[secrets.tier]}${ACTIONS[kind](tracking)}`
   );
 
 /** The strongest evidence of a secret the lines of an environment file hold, with every variable or line behind it, or none */
-export const envSecretsIn = (lines: readonly string[]): EnvSecrets | null => {
-  const evidence = lines.map(evidenceOf).filter((item) => item !== null);
+export const envSecretsIn = (
+  kind: EnvFileKind,
+  lines: readonly string[]
+): EnvSecrets | null => {
+  const evidence = lines.map(EVIDENCE[kind]).filter((item) => item !== null);
   const proven = sourcesOf(evidence, 'proven');
 
   if (proven.length > 0) return { tier: 'proven', sources: proven };
@@ -218,7 +245,7 @@ export const envFileAnalysis = (
   if (tracking === 'ignored') return EMPTY_ANALYSIS;
   if (text === null) return unreadLead('secret');
 
-  const secrets = envSecretsIn(text.split('\n'));
+  const secrets = envSecretsIn(kind, text.split('\n'));
 
   if (secrets !== null) return leakOf(secrets, kind, tracking);
 

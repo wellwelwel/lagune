@@ -50,7 +50,7 @@ export type CredentialFile = {
 
 export type ConfigEntry = readonly [key: string, value: string];
 
-export type EnvFileKind = 'local' | 'shared';
+export type EnvFileKind = 'local' | 'shared' | 'template';
 
 export type EnvEvidence = { tier: EvidenceTier; source: string };
 

@@ -25,6 +25,9 @@ const UNTRACK =
   'stop tracking this file (git rm --cached) and add it to .gitignore';
 const IGNORE =
   'add this file to .gitignore, so the next git add cannot commit it';
+const REPLACE = `replace it with a placeholder and ${MOVE}`;
+const UNLESS_DEFAULT =
+  'if it is a real credential rather than a development default';
 
 const WEIGHTS = {
   finding: [1, 0, 0],
@@ -39,9 +42,6 @@ const ENV_FILES: Readonly<Record<string, string>> = {
   '.env.staging': 'POSTGRES_PASSWORD=postgres\n',
   '.env.development': 'NEXT_PUBLIC_API_KEY=public-key-1234\nPORT=3000\n',
   '.env.local': 'PORT=3000\n',
-  '.env.example': `DATABASE_PASSWORD=hunter2hunter2\nPAYMENTS=${STRIPE_KEY}\n`,
-  '.env.sample': 'DATABASE_PASSWORD=hunter2hunter2\n',
-  '.env.template': 'DATABASE_PASSWORD=hunter2hunter2\n',
 };
 
 const databaseUrlOn = (host: string): string =>
@@ -56,7 +56,7 @@ const filesUnder = (folder: string): Record<string, string> =>
   );
 
 await describe('the secrets checker weighs each environment file by its evidence and by what Git does with it', async () => {
-  await it('reports a proven secret Git tracks, leads a secret-named value to a manual check, advises when Git would commit a secret or a local file, and stays silent on public defaults, templates, and what Git ignores', async () => {
+  await it('reports a proven secret Git tracks, leads a secret-named value to a manual check, advises when Git would commit a secret or a local file, and stays silent on public defaults and what Git ignores', async () => {
     const workspace = await trackedRepository(
       ['init', '--quiet'],
       {
@@ -117,6 +117,41 @@ await describe('the secrets checker weighs each environment file by its evidence
           detail: `secret (PAYMENTS) in an environment file meant to stay local that Git does not ignore: ${IGNORE}`,
         },
       ]),
+    });
+  });
+
+  await it('leads every real-looking value a template holds to a manual check, even one in a provider format, and stays silent on its stand-ins', async () => {
+    const workspace = await trackedRepository(
+      ['init', '--quiet'],
+      {
+        '.env.example': `DATABASE_PASSWORD=hunter2hunter2\nPAYMENTS=${STRIPE_KEY}\nDATABASE_URL=postgres://postgres:postgres@localhost:5432/app\nAPI_KEY=your-api-key\n`,
+        '.env.local.template': `REPLICA_URL=${DATABASE_URL}\n`,
+        '.env.sample':
+          'DATABASE_URL=postgres://user:password@db.example.com/app\nSESSION_SECRET=\n',
+        'untracked/.env.example': 'JWT_SECRET=hunter2hunter2\n',
+      },
+      ['.env.example', '.env.local.template', '.env.sample']
+    );
+
+    const report = await scanWhole(workspace);
+
+    strict.deepStrictEqual(reported(report), {
+      findings: [],
+      review: sortedDetails([
+        {
+          file: '.env.example',
+          detail: `possible secret (DATABASE_PASSWORD and PAYMENTS) in an environment template tracked by Git: ${UNLESS_DEFAULT}, ${REPLACE}`,
+        },
+        {
+          file: '.env.local.template',
+          detail: `possible secret (REPLICA_URL) in an environment template tracked by Git: ${UNLESS_DEFAULT}, ${REPLACE}`,
+        },
+        {
+          file: join('untracked', '.env.example'),
+          detail: `possible secret (JWT_SECRET) in an environment template that Git does not ignore: ${UNLESS_DEFAULT}, ${REPLACE}`,
+        },
+      ]),
+      advisory: [],
     });
   });
 
@@ -371,10 +406,10 @@ describe('a file is an environment file by its name', () => {
     ['.env.local', 'local'],
     ['.env.production.local', 'local'],
     ['.ENV.LOCAL', 'local'],
-    ['.env.example', null],
-    ['.env.sample', null],
-    ['.env.template', null],
-    ['.env.local.example', null],
+    ['.env.example', 'template'],
+    ['.env.sample', 'template'],
+    ['.env.template', 'template'],
+    ['.env.local.example', 'template'],
     ['.env.keys', null],
     ['.env.ts', null],
     ['.envrc', null],
