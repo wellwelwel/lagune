@@ -1,0 +1,10 @@
+{
+  "name": "room-chat",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/socket.js",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

@@ -4,6 +4,11 @@
       "fixture": "invoice-portal",
       "specialization": "access-control",
       "file": "src/routes/invoices.js"
+    },
+    {
+      "fixture": "room-chat",
+      "specialization": "api-endpoint",
+      "file": "src/socket.js"
     }
   ]
 }
