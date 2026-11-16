@@ -9,6 +9,11 @@
       "fixture": "room-chat",
       "specialization": "api-endpoint",
       "file": "src/socket.js"
+    },
+    {
+      "fixture": "notes-board",
+      "specialization": "browser",
+      "file": "public/share.js"
     }
   ]
 }
