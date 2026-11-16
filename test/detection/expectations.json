@@ -116,6 +116,11 @@
       "file": "app/api.py"
     },
     {
+      "fixture": "signup-api",
+      "specialization": "regex",
+      "file": "src/validators/email.js"
+    },
+    {
       "fixture": "newsletter-app",
       "specialization": "ruby",
       "file": "app/controllers/preferences_controller.rb"
