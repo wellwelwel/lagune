@@ -4,6 +4,10 @@ const SCHEME = /^[a-zA-Z][a-zA-Z0-9+.-]*:/;
 
 const AUTHORITY_END = /[/?#]/;
 
+const FILE_SCHEME = 'file:';
+
+const LOCAL_MACHINE = 'localhost';
+
 const tryParse = (source: string): URL | null => {
   try {
     return new URL(source);
@@ -43,16 +47,26 @@ const hostAfterUserinfo = (authority: string): string => {
   return stripPort(authority.slice(atIndex + 1)).toLowerCase();
 };
 
+/** The WHATWG parser writes the local machine as the empty host of a file URL */
+const connectHostOf = (parsed: URL): string =>
+  parsed.hostname === '' && parsed.protocol === FILE_SCHEME
+    ? LOCAL_MACHINE
+    : parsed.hostname;
+
 export const extractHosts = (input: string): ExtractedHosts | null => {
   const source = sourceOf(input);
   const parsed = tryParse(source);
 
-  if (parsed === null || parsed.hostname === '') return null;
+  if (parsed === null) return null;
+
+  const whatwgHost = connectHostOf(parsed);
+
+  if (whatwgHost === '') return null;
 
   const authority = authorityOf(source);
 
   return {
-    whatwgHost: parsed.hostname,
+    whatwgHost,
     naiveHosts: [hostBeforeUserinfo(authority), hostAfterUserinfo(authority)],
   };
 };

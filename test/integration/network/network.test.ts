@@ -145,12 +145,16 @@ describe('an IDN host and its punycode are the same host, not a divergence', () 
   expectAll('safe', ['http://бг.рф/']);
 });
 
-describe('a string with no fetchable host is invalid', () => {
-  expectAll('invalid url', [
-    'not a url',
+describe('a file URL with no host targets the server itself', () => {
+  expectAll('private-target', [
     'file:///etc/passwd',
-    'http://[fe80::1%eth0]/',
+    'file://localhost/etc/passwd',
+    'file:///C:/Windows/win.ini',
   ]);
+});
+
+describe('a string with no fetchable host is invalid', () => {
+  expectAll('invalid url', ['not a url', 'http://[fe80::1%eth0]/']);
 });
 
 describe('a scheme that the URL parser rejects is invalid, never salvaged into a wrong host', () => {
