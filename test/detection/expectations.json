@@ -86,6 +86,11 @@
       "file": "src/merge.js"
     },
     {
+      "fixture": "support-assistant",
+      "specialization": "llm",
+      "file": "src/agent.js"
+    },
+    {
       "fixture": "docs-server",
       "specialization": "path",
       "file": "src/download.js"

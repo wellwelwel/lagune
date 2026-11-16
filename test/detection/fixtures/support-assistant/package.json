@@ -1,0 +1,11 @@
+{
+  "name": "support-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "dependencies": {
+    "express": "^4.21.2",
+    "openai": "^4.76.0"
+  }
+}
