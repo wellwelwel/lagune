@@ -36,14 +36,9 @@ export type Phase = {
   title: string;
   command: string;
   description: string;
-  banner: string;
+  image: string;
   modes: PromptMode[];
   nextLabel?: string;
-};
-
-export type Group = {
-  label: string;
-  phases: Phase[];
 };
 
 export type InstallTab = {
@@ -110,296 +105,250 @@ const ORCHESTRATOR_PROMPT = translate(
   { harden: '/lagune-harden', verify: '/lagune-verify' }
 );
 
-const PHASE_GROUPS: Group[] = [
+export const PHASE_STEPS: Phase[] = [
   {
-    label: translate({
-      id: 'home.group.anyPrompt',
-      message: 'Any prompt, any time',
+    eyebrow: translate({
+      id: 'home.phase.universal.eyebrow',
+      message: 'UNIVERSAL',
       description:
-        'The stage label of the universal /lagune command on the home page',
+        'The small caps label over the universal /lagune command card',
     }),
-    phases: [
+    title: translate({
+      id: 'home.phase.universal.title',
+      message: 'Build',
+      description: 'The title of the universal /lagune command card',
+    }),
+    command: '/lagune',
+    description: translate({
+      id: 'home.phase.universal.description',
+      message:
+        'Builds what your prompt asks for, with security guarding the work as it happens, not later.',
+      description: 'What the universal /lagune command does',
+    }),
+    image: '/img/phases/build.png',
+    nextLabel: translate({
+      id: 'home.phase.universal.next',
+      message: 'See how to audit your existing project',
+      description:
+        'Leads from the universal command to the audit flow on the home page',
+    }),
+    modes: [
       {
-        eyebrow: translate({
-          id: 'home.phase.universal.eyebrow',
-          message: 'UNIVERSAL',
+        label: translate({
+          id: 'home.phase.universal.mode.feature',
+          message: 'Feature',
           description:
-            'The small caps label over the universal /lagune command card',
+            'The example tab for building a new feature with /lagune',
         }),
-        title: translate({
-          id: 'home.phase.universal.title',
-          message: 'Build',
-          description: 'The title of the universal /lagune command card',
-        }),
-        command: '/lagune',
-        description: translate({
-          id: 'home.phase.universal.description',
+        prompt: translate({
+          id: 'home.phase.universal.mode.feature.prompt',
           message:
-            'Builds what your prompt asks for, with security guarding the work as it happens, not later.',
-          description: 'What the universal /lagune command does',
-        }),
-        banner: '/img/docs/banner-0.webp',
-        nextLabel: translate({
-          id: 'home.phase.universal.next',
-          message: 'See how to audit your existing project',
+            'Create a dashboard for my SaaS users. They should be able to change their profile picture and view all the content they have access to.',
           description:
-            'Leads from the universal command to the audit flow on the home page',
+            'An example request a user writes after /lagune to build a feature',
         }),
-        modes: [
-          {
-            label: translate({
-              id: 'home.phase.universal.mode.feature',
-              message: 'Feature',
-              description:
-                'The example tab for building a new feature with /lagune',
-            }),
-            prompt: translate({
-              id: 'home.phase.universal.mode.feature.prompt',
-              message:
-                'Create a dashboard for my SaaS users. They should be able to change their profile picture and view all the content they have access to.',
-              description:
-                'An example request a user writes after /lagune to build a feature',
-            }),
-          },
-          {
-            label: translate({
-              id: 'home.phase.universal.mode.fix',
-              message: 'Fix',
-              description: 'The example tab for fixing a bug with /lagune',
-            }),
-            prompt: translate({
-              id: 'home.phase.universal.mode.fix.prompt',
-              message:
-                'Nothing happens when the user submits the form. Look into what it might be and fix it.',
-              description:
-                'An example request a user writes after /lagune to fix a bug',
-            }),
-          },
-          {
-            label: translate({
-              id: 'home.phase.universal.mode.refactor',
-              message: 'Refactor',
-              description: 'The example tab for refactoring code with /lagune',
-            }),
-            prompt: translate({
-              id: 'home.phase.universal.mode.refactor.prompt',
-              message: 'Decouple and improve the payload logic.',
-              description:
-                'An example request a user writes after /lagune to refactor code',
-            }),
-          },
-        ],
+      },
+      {
+        label: translate({
+          id: 'home.phase.universal.mode.fix',
+          message: 'Fix',
+          description: 'The example tab for fixing a bug with /lagune',
+        }),
+        prompt: translate({
+          id: 'home.phase.universal.mode.fix.prompt',
+          message:
+            'Nothing happens when the user submits the form. Look into what it might be and fix it.',
+          description:
+            'An example request a user writes after /lagune to fix a bug',
+        }),
+      },
+      {
+        label: translate({
+          id: 'home.phase.universal.mode.refactor',
+          message: 'Refactor',
+          description: 'The example tab for refactoring code with /lagune',
+        }),
+        prompt: translate({
+          id: 'home.phase.universal.mode.refactor.prompt',
+          message: 'Decouple and improve the payload logic.',
+          description:
+            'An example request a user writes after /lagune to refactor code',
+        }),
       },
     ],
   },
   {
-    label: translate({
-      id: 'home.group.establish',
-      message: 'Establish',
-      description: 'The stage label of the charter phase on the home page',
+    eyebrow: translate({
+      id: 'home.phase.charter.eyebrow',
+      message: 'PHASE 1',
+      description: 'The small caps label over the Charter phase card',
     }),
-    phases: [
+    title: CHARTER_TITLE,
+    command: '/lagune-charter',
+    description: translate({
+      id: 'home.phase.charter.description',
+      message:
+        "Sets your project's security rules, proposed for you or shaped by what you say.",
+      description: 'What the Charter phase does',
+    }),
+    image: '/img/phases/charter.png',
+    modes: [
       {
-        eyebrow: translate({
-          id: 'home.phase.charter.eyebrow',
-          message: 'PHASE 1',
-          description: 'The small caps label over the Charter phase card',
+        label: translate({
+          id: 'home.phase.charter.mode.describe',
+          message: 'Recommended (Describe)',
+          description:
+            'The example tab for the Charter phase: Recommended (Describe)',
         }),
-        title: CHARTER_TITLE,
-        command: '/lagune-charter',
-        description: translate({
-          id: 'home.phase.charter.description',
+        prompt: translate({
+          id: 'home.phase.charter.mode.describe.prompt',
           message:
-            "Sets your project's security rules, proposed for you or shaped by what you say.",
-          description: 'What the Charter phase does',
+            'We run a manga SaaS: authors upload original chapters, readers buy credits with Stripe and spend them to unlock chapters, and authors earn a commission per unlock. Help us prevent users from leaking or screenshotting it afterwards.',
+          description: 'An example request a user writes after /lagune-charter',
         }),
-        banner: '/img/docs/banner-1.webp',
-        modes: [
-          {
-            label: translate({
-              id: 'home.phase.charter.mode.describe',
-              message: 'Recommended (Describe)',
-              description:
-                'The example tab for the Charter phase: Recommended (Describe)',
-            }),
-            prompt: translate({
-              id: 'home.phase.charter.mode.describe.prompt',
-              message:
-                'We run a manga SaaS: authors upload original chapters, readers buy credits with Stripe and spend them to unlock chapters, and authors earn a commission per unlock. Help us prevent users from leaking or screenshotting it afterwards.',
-              description:
-                'An example request a user writes after /lagune-charter',
-            }),
-          },
-          {
-            label: AUTO_DETECT_LABEL,
-            prompt: '',
-          },
-        ],
+      },
+      {
+        label: AUTO_DETECT_LABEL,
+        prompt: '',
       },
     ],
   },
   {
-    label: translate({
-      id: 'home.group.understand',
-      message: 'Understand',
-      description:
-        'The stage label of the detect and plan phases on the home page',
+    eyebrow: translate({
+      id: 'home.phase.detect.eyebrow',
+      message: 'PHASE 2',
+      description: 'The small caps label over the Detect phase card',
     }),
-    phases: [
+    title: translate({
+      id: 'home.phase.detect.title',
+      message: 'Detect',
+      description: 'The name of the Detect phase',
+    }),
+    command: '/lagune-detect',
+    description: translate({
+      id: 'home.phase.detect.description',
+      message:
+        'Reads your code and maps what your system does and where the risks are.',
+      description: 'What the Detect phase does',
+    }),
+    image: '/img/phases/detect.png',
+    modes: [
+      RECOMMENDED_FULL_MODE,
       {
-        eyebrow: translate({
-          id: 'home.phase.detect.eyebrow',
-          message: 'PHASE 2',
-          description: 'The small caps label over the Detect phase card',
+        label: translate({
+          id: 'home.phase.detect.mode.scoped',
+          message: 'Scoped',
+          description: 'The example tab for the Detect phase: Scoped',
         }),
-        title: translate({
-          id: 'home.phase.detect.title',
-          message: 'Detect',
-          description: 'The name of the Detect phase',
+        prompt: translate({
+          id: 'home.phase.detect.mode.scoped.prompt',
+          message: "Scan the intern's branch before I merge it.",
+          description: 'An example request a user writes after /lagune-detect',
         }),
-        command: '/lagune-detect',
-        description: translate({
-          id: 'home.phase.detect.description',
-          message:
-            'Reads your code and maps what your system does and where the risks are.',
-          description: 'What the Detect phase does',
-        }),
-        banner: '/img/docs/banner-5.webp',
-        modes: [
-          RECOMMENDED_FULL_MODE,
-          {
-            label: translate({
-              id: 'home.phase.detect.mode.scoped',
-              message: 'Scoped',
-              description: 'The example tab for the Detect phase: Scoped',
-            }),
-            prompt: translate({
-              id: 'home.phase.detect.mode.scoped.prompt',
-              message: "Scan the intern's branch before I merge it.",
-              description:
-                'An example request a user writes after /lagune-detect',
-            }),
-          },
-          {
-            label: translate({
-              id: 'home.phase.detect.mode.targeted',
-              message: 'Targeted',
-              description: 'The example tab for the Detect phase: Targeted',
-            }),
-            prompt: translate({
-              id: 'home.phase.detect.mode.targeted.prompt',
-              message: 'Investigate every possible data leak',
-              description:
-                'An example request a user writes after /lagune-detect',
-            }),
-          },
-        ],
       },
       {
-        eyebrow: translate({
-          id: 'home.phase.plan.eyebrow',
-          message: 'PHASE 3',
-          description: 'The small caps label over the Plan phase card',
+        label: translate({
+          id: 'home.phase.detect.mode.targeted',
+          message: 'Targeted',
+          description: 'The example tab for the Detect phase: Targeted',
         }),
-        title: translate({
-          id: 'home.phase.plan.title',
-          message: 'Plan',
-          description: 'The name of the Plan phase',
+        prompt: translate({
+          id: 'home.phase.detect.mode.targeted.prompt',
+          message: 'Investigate every possible data leak',
+          description: 'An example request a user writes after /lagune-detect',
         }),
-        command: '/lagune-plan',
-        description: translate({
-          id: 'home.phase.plan.description',
-          message:
-            'Turns what detect found into a defense plan, with a fix for each finding.',
-          description: 'What the Plan phase does',
-        }),
-        banner: '/img/docs/banner-3.webp',
-        modes: [
-          RECOMMENDED_FULL_MODE,
-          {
-            label: BY_SEVERITY_LABEL,
-            prompt: translate({
-              id: 'home.phase.plan.mode.severity.prompt',
-              message: 'Only plan the Critical and High findings for now.',
-              description:
-                'An example request a user writes after /lagune-plan',
-            }),
-          },
-        ],
       },
     ],
   },
   {
-    label: translate({
-      id: 'home.group.defend',
-      message: 'Defend',
-      description:
-        'The stage label of the harden and verify phases on the home page',
+    eyebrow: translate({
+      id: 'home.phase.plan.eyebrow',
+      message: 'PHASE 3',
+      description: 'The small caps label over the Plan phase card',
     }),
-    phases: [
+    title: translate({
+      id: 'home.phase.plan.title',
+      message: 'Plan',
+      description: 'The name of the Plan phase',
+    }),
+    command: '/lagune-plan',
+    description: translate({
+      id: 'home.phase.plan.description',
+      message:
+        'Turns what detect found into a defense plan, with a fix for each finding.',
+      description: 'What the Plan phase does',
+    }),
+    image: '/img/phases/plan.png',
+    modes: [
+      RECOMMENDED_FULL_MODE,
       {
-        eyebrow: translate({
-          id: 'home.phase.harden.eyebrow',
-          message: 'PHASE 4',
-          description: 'The small caps label over the Harden phase card',
+        label: BY_SEVERITY_LABEL,
+        prompt: translate({
+          id: 'home.phase.plan.mode.severity.prompt',
+          message: 'Only plan the Critical and High findings for now.',
+          description: 'An example request a user writes after /lagune-plan',
         }),
-        title: translate({
-          id: 'home.phase.harden.title',
-          message: 'Harden',
-          description: 'The name of the Harden phase',
-        }),
-        command: '/lagune-harden',
-        description: translate({
-          id: 'home.phase.harden.description',
-          message:
-            "Applies the plan's fixes to your code, safely and one at a time.",
-          description: 'What the Harden phase does',
-        }),
-        banner: '/img/docs/banner-2.webp',
-        modes: [
-          RECOMMENDED_FULL_MODE,
-          {
-            label: BY_SEVERITY_LABEL,
-            prompt: translate({
-              id: 'home.phase.harden.mode.severity.prompt',
-              message: 'Apply only the Critical and High fixes for now.',
-              description:
-                'An example request a user writes after /lagune-harden',
-            }),
-          },
-        ],
       },
+    ],
+  },
+  {
+    eyebrow: translate({
+      id: 'home.phase.harden.eyebrow',
+      message: 'PHASE 4',
+      description: 'The small caps label over the Harden phase card',
+    }),
+    title: translate({
+      id: 'home.phase.harden.title',
+      message: 'Harden',
+      description: 'The name of the Harden phase',
+    }),
+    command: '/lagune-harden',
+    description: translate({
+      id: 'home.phase.harden.description',
+      message:
+        "Applies the plan's fixes to your code, safely and one at a time.",
+      description: 'What the Harden phase does',
+    }),
+    image: '/img/phases/harden.png',
+    modes: [
+      RECOMMENDED_FULL_MODE,
       {
-        eyebrow: translate({
-          id: 'home.phase.verify.eyebrow',
-          message: 'PHASE 5',
-          description: 'The small caps label over the Verify phase card',
+        label: BY_SEVERITY_LABEL,
+        prompt: translate({
+          id: 'home.phase.harden.mode.severity.prompt',
+          message: 'Apply only the Critical and High fixes for now.',
+          description: 'An example request a user writes after /lagune-harden',
         }),
-        title: translate({
-          id: 'home.phase.verify.title',
-          message: 'Verify',
-          description: 'The name of the Verify phase',
+      },
+    ],
+  },
+  {
+    eyebrow: translate({
+      id: 'home.phase.verify.eyebrow',
+      message: 'PHASE 5',
+      description: 'The small caps label over the Verify phase card',
+    }),
+    title: translate({
+      id: 'home.phase.verify.title',
+      message: 'Verify',
+      description: 'The name of the Verify phase',
+    }),
+    command: '/lagune-verify',
+    description: translate({
+      id: 'home.phase.verify.description',
+      message: 'Proves each applied fix holds and closes out the ones that do.',
+      description: 'What the Verify phase does',
+    }),
+    image: '/img/phases/verify.png',
+    modes: [
+      RECOMMENDED_FULL_MODE,
+      {
+        label: BY_SEVERITY_LABEL,
+        prompt: translate({
+          id: 'home.phase.verify.mode.severity.prompt',
+          message: 'Just verify the Critical and High fixes we applied.',
+          description: 'An example request a user writes after /lagune-verify',
         }),
-        command: '/lagune-verify',
-        description: translate({
-          id: 'home.phase.verify.description',
-          message:
-            'Proves each applied fix holds and closes out the ones that do.',
-          description: 'What the Verify phase does',
-        }),
-        banner: '/img/docs/banner-4.webp',
-        modes: [
-          RECOMMENDED_FULL_MODE,
-          {
-            label: BY_SEVERITY_LABEL,
-            prompt: translate({
-              id: 'home.phase.verify.mode.severity.prompt',
-              message: 'Just verify the Critical and High fixes we applied.',
-              description:
-                'An example request a user writes after /lagune-verify',
-            }),
-          },
-        ],
       },
     ],
   },
@@ -422,14 +371,6 @@ export const STEP_CARD_ICONS: IconType[] = [
   LuShieldPlus,
   LuBadgeCheck,
 ];
-
-export const PHASE_STEPS: { phase: Phase; group: string }[] =
-  PHASE_GROUPS.flatMap((group) =>
-    group.phases.map((phase) => ({
-      phase,
-      group: group.label,
-    }))
-  );
 
 const Emphasis = ({ children }: { children: ReactNode }): ReactNode => (
   <strong className='text-ink font-semibold'>{children}</strong>
@@ -610,7 +551,7 @@ const Strong = ({ children }: { children: ReactNode }): ReactNode => (
   <span className='font-semibold'>{children}</span>
 );
 
-export const HERO: { kicker: ReactNode; chip: string } = {
+export const HERO: { kicker: ReactNode } = {
   kicker: (
     <Translate
       id='home.feature.overview.kicker'
@@ -653,7 +594,6 @@ export const HERO: { kicker: ReactNode; chip: string } = {
       }
     </Translate>
   ),
-  chip: 'Security-Driven Hardening',
 };
 
 export const INSTALL_TABS: InstallTab[] = [

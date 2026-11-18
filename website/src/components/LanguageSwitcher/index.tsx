@@ -5,7 +5,7 @@ import { LOCALES } from '@site/i18n/locales';
 import { useLocaleUrl } from '@site/src/components/LocaleHead';
 import { useDismiss } from '@site/src/components/useDismiss';
 import clsx from 'clsx';
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 export type LanguageOption = {
   locale: string;
@@ -44,11 +44,11 @@ const TONES: Record<
   canvas: {
     opened: 'duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]',
     closed:
-      'invisible -translate-y-1.5 scale-97 opacity-0 duration-150 ease-in',
+      'invisible -translate-y-1.5 scale-97 opacity-0 duration-150 ease-in motion-reduce:translate-y-0 motion-reduce:scale-100',
     button:
       'inline-flex h-10 cursor-pointer items-center justify-center gap-[10px] rounded-xl border-0 bg-transparent px-1 text-[12.75px] font-semibold tracking-[-0.01em] text-[#a1b1e7] transition-colors duration-200 ease-out hover:text-ink',
     flag: 'size-4',
-    menu: 'origin-top-right rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)]',
+    menu: 'origin-top-right rounded-2xl border border-line rtl:origin-top-left bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)]',
     item: 'flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-[14px] font-semibold tracking-[-0.01em] text-ink no-underline transition-colors duration-200 ease-out hover:bg-white/[0.06] hover:text-ink',
     current: 'bg-accent/15 text-accent hover:bg-accent/15 hover:text-accent',
   },
@@ -70,6 +70,19 @@ const FlagIcon = ({
     height={18}
   />
 );
+
+export const LANGUAGE_GRID = 'grid grid-cols-3 gap-0.5 max-sm:grid-cols-2';
+
+const VIEWPORT_MARGIN = 16;
+
+/* Width from the panel's anchored edge to the far side of the viewport, keeping the viewport margin. */
+export const roomBeside = (anchor: Element): number => {
+  const { left, right } = anchor.getBoundingClientRect();
+
+  return getComputedStyle(anchor).direction === 'rtl'
+    ? window.innerWidth - left - VIEWPORT_MARGIN
+    : right - VIEWPORT_MARGIN;
+};
 
 const shortName = (htmlLang: string): string =>
   (htmlLang.split('-')[0] ?? htmlLang).toUpperCase();
@@ -156,6 +169,14 @@ export const LanguageSwitcher = ({
 
   useDismiss(open, rootRef, setOpen);
 
+  useEffect(() => {
+    const root = rootRef.current;
+
+    if (!open || !root) return;
+
+    root.style.setProperty('--language-room', `${roomBeside(root)}px`);
+  }, [open]);
+
   if (options.length < 2 || current === undefined) return null;
 
   return (
@@ -194,7 +215,8 @@ export const LanguageSwitcher = ({
         aria-label={languageLabel()}
         inert={!open}
         className={clsx(
-          'absolute top-[calc(100%+8px)] right-0 z-40 flex min-w-48 flex-col gap-0.5 transition-[opacity,translate,scale,visibility] before:absolute before:inset-x-0 before:bottom-full before:h-2.5 motion-reduce:transition-none',
+          'absolute end-0 top-[calc(100%+8px)] z-40 w-max max-w-(--language-room,calc(100vw-2rem)) transition-[opacity,translate,scale,visibility] before:absolute before:inset-x-0 before:bottom-full before:h-2.5',
+          LANGUAGE_GRID,
           TONES[tone].menu,
           open ? TONES[tone].opened : TONES[tone].closed
         )}

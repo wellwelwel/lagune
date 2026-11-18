@@ -23,7 +23,7 @@ const Typed = lazy(() =>
 const typedLine = (command: string, prompt: string) =>
   prompt ? `${command} ${prompt}` : command;
 
-const PROMPTS = PHASE_STEPS.flatMap(({ phase }) =>
+const PROMPTS = PHASE_STEPS.flatMap((phase) =>
   phase.modes.map((mode) => `${typedLine(phase.command, mode.prompt)}${CURSOR}`)
 );
 
@@ -77,7 +77,7 @@ export const PromptCard = memo(
                   strings={[
                     `<span style="color:#5fb4ff">${typedText(command)}</span>${body}`,
                   ]}
-                  typeSpeed={12.5}
+                  typeSpeed={9}
                   startDelay={250}
                   showCursor={false}
                   className='lagune-typed'

@@ -11,7 +11,7 @@ type Word = {
 
 const STEP_MS = 2000;
 
-const WORDS: Word[] = PHASE_STEPS.map(({ phase }, index) => ({
+const WORDS: Word[] = PHASE_STEPS.map((phase, index) => ({
   title: phase.command.startsWith('/lagune-') ? phase.title : '',
   Icon: STEP_CARD_ICONS[index],
 }));

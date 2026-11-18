@@ -1,5 +1,5 @@
 import type { Phase } from '@site/src/data/home';
-import type { ComponentType } from 'react';
+import type { IconType } from 'react-icons';
 import { translate } from '@docusaurus/Translate';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { Tallest } from '@site/src/components/Tallest';
@@ -53,66 +53,31 @@ const FooterRow = ({ phase, modeIndex, onSelectMode }: FooterRowProps) => (
   </div>
 );
 
-const DESCRIPTIONS = PHASE_STEPS.map(({ phase }) => phase.description);
+const DESCRIPTIONS = PHASE_STEPS.map(({ description }) => description);
 
-const FOOTERS = PHASE_STEPS.map(({ phase }) => (
+const FOOTERS = PHASE_STEPS.map((phase) => (
   <FooterRow phase={phase} modeIndex={0} onSelectMode={ignoreMode} />
 ));
 
 export const PhaseCard = ({
   phase,
-  stage,
   Icon,
   modeIndex,
   onSelectMode,
 }: {
   phase: Phase;
-  stage: string;
-  Icon: ComponentType<{ className?: string }>;
+  Icon: IconType;
   modeIndex: number;
   onSelectMode: (index: number) => void;
 }) => (
   <div className='flex flex-col rounded-2xl border border-line bg-card overflow-hidden'>
-    <div className='relative h-[140px] bg-[linear-gradient(135deg,rgba(10,26,74,0.55),rgba(3,8,28,0.65))]'>
-      <img
-        src={phase.banner}
-        alt={translate(
-          {
-            id: 'home.phase.bannerAlt',
-            message: '{phase} phase',
-            description:
-              "The alternative text of a phase card's banner, where {phase} is the phase",
-          },
-          { phase: phase.title }
-        )}
-        decoding='async'
-        className='lagune-image-outline absolute inset-0 size-full object-cover'
-        aria-hidden
-      />
-      <div
-        className='absolute inset-x-0 bottom-0 h-[72px] [background:linear-gradient(to_top,rgba(4,8,22,0.85),transparent)]'
-        aria-hidden
-      />
-      <span className='absolute top-3.5 left-4 font-mono text-[10px] tracking-[0.12em] uppercase text-[rgba(233, 237, 247,0.78)] [text-shadow:0_1px_4px_rgba(0,0,0,0.7)]'>
-        {phase.eyebrow}
+    <div className='flex gap-3 p-4.5 text-[13.5px] leading-[1.55]'>
+      <span aria-hidden className='flex h-lh shrink-0 items-center'>
+        <Icon className='size-4.5 text-ink' />
       </span>
-      <span className='absolute -bottom-[10px] left-4 z-[1] flex items-center justify-center size-[52px] rounded-[15px] border border-accent/40 bg-accent text-ink [box-shadow:0_12px_24px_-6px_rgba(0,0,0,0.7),0_4px_8px_-2px_rgba(0,0,0,0.5)] [&>svg]:size-[26px]'>
-        <Icon />
-      </span>
-    </div>
-
-    <div className='flex flex-col px-[18px] pt-[20px] pb-[18px]'>
-      <div className='flex items-center gap-2.5'>
-        <span className='text-[17px] font-semibold tracking-[-0.01em] text-ink'>
-          {phase.title}
-        </span>
-        <span className='inline-flex items-center px-2.5 py-1 rounded-md bg-[#033791] font-mono text-[0.7em]! tracking-[0.06em] uppercase text-[#a8bbdb]'>
-          {stage}
-        </span>
-      </div>
       <Tallest
         variants={DESCRIPTIONS}
-        className='mt-2.5 text-[13.5px] leading-[1.55] text-[rgba(233, 237, 247,0.72)]'
+        className='min-w-0 flex-1 text-[rgba(233, 237, 247,0.72)]'
       >
         <p className='m-0'>{phase.description}</p>
       </Tallest>

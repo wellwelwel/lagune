@@ -20,7 +20,9 @@ import { SECTION_OPENING, Tagline } from '@site/src/components/home/Tagline';
 import { TopBar } from '@site/src/components/home/TopBar';
 import { UsagePanel } from '@site/src/components/home/UsagePanel';
 import {
+  LANGUAGE_GRID,
   LanguageLinks,
+  roomBeside,
   useLanguageOptions,
 } from '@site/src/components/LanguageSwitcher';
 import {
@@ -44,7 +46,11 @@ import { FaBookOpen, FaGithub } from 'react-icons/fa6';
 import { LuMenu, LuX } from 'react-icons/lu';
 
 const SITE_HOME = `${SITE_URL}/`;
-const SIDE_BY_SIDE = 'grid gap-[clamp(56px,7vw,96px)] xl:grid-cols-2';
+const SECTION_GAP = 'gap-[clamp(56px,7vw,96px)]';
+const SIDE_BY_SIDE = `grid ${SECTION_GAP} xl:grid-cols-2 xl:items-center`;
+const SECTION = 'xl:py-(--section-space)';
+const OPENING_SECTION =
+  'xl:pt-[calc(var(--top-bar)+var(--section-space))] xl:pb-(--section-space)';
 
 const SECONDARY_LINK =
   'relative inline-flex items-center gap-1.5 font-medium text-muted no-underline transition-colors duration-200 ease-out hover:text-ink after:absolute after:-inset-x-2 after:top-1/2 after:h-10 after:-translate-y-1/2';
@@ -351,10 +357,10 @@ const measureMenuBounds = (menu: HTMLDivElement | null) => {
 
   if (!menu || !anchor) return;
 
-  const { top, right } = anchor.getBoundingClientRect();
+  const { top } = anchor.getBoundingClientRect();
 
   menu.style.setProperty('--lagune-menu-top', `${top + menu.offsetTop}px`);
-  menu.style.setProperty('--lagune-menu-right', `${right}px`);
+  menu.style.setProperty('--lagune-menu-room', `${roomBeside(anchor)}px`);
 };
 
 let glideId = 0;
@@ -544,7 +550,7 @@ const Home = (): ReactNode => {
           {menuOpen && (
             <div
               ref={measureMenuBounds}
-              className='lagune-menu-pop lagune-flow absolute top-[calc(100%+8px)] right-0 z-[20] flex max-h-[calc(100dvh-var(--lagune-menu-top)-16px-env(safe-area-inset-bottom))] w-max max-w-[calc(var(--lagune-menu-right)-16px)] min-w-50 flex-col gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)]'
+              className='lagune-menu-pop lagune-flow absolute end-0 top-[calc(100%+8px)] z-[20] flex max-h-[calc(100dvh-var(--lagune-menu-top)-16px-env(safe-area-inset-bottom))] w-max max-w-(--lagune-menu-room) min-w-50 flex-col gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-line bg-[rgba(10,15,31,0.92)] p-1.5 [backdrop-filter:blur(16px)_saturate(150%)] [-webkit-backdrop-filter:blur(16px)_saturate(150%)] [box-shadow:inset_0_1px_0_rgba(255,255,255,0.08),0_20px_48px_-16px_rgba(0,0,0,0.6)]'
             >
               {headerLinks.map(({ label, Icon, href }) => (
                 <Link
@@ -565,7 +571,7 @@ const Home = (): ReactNode => {
                     description:
                       'The accessible name of the menu that switches the site language',
                   })}
-                  className='mt-1 flex flex-col gap-1 border-t border-line pt-1.5'
+                  className={`${LANGUAGE_GRID} mt-1 border-t border-line pt-1.5`}
                 >
                   <LanguageLinks
                     options={languages}
@@ -579,8 +585,10 @@ const Home = (): ReactNode => {
         </div>
       </header>
 
-      <main className='relative z-[2] mx-auto box-content flex max-w-384 flex-col gap-[clamp(56px,7vw,96px)] px-[clamp(22px,4vw,64px)] pt-[calc(64px+clamp(16px,4vw,64px))] pb-[clamp(56px,7vw,96px)] max-[920px]:pt-8'>
-        <div className={SIDE_BY_SIDE}>
+      <main
+        className={`relative z-[2] mx-auto box-content flex max-w-384 flex-col ${SECTION_GAP} px-[clamp(22px,4vw,64px)] pt-[calc(64px+clamp(16px,4vw,64px))] pb-[clamp(56px,7vw,96px)] max-[920px]:pt-8 xl:gap-0 xl:py-0 xl:[--section-space:clamp(64px,10svh,128px)] xl:[--top-bar:64px]`}
+      >
+        <div className={`${SIDE_BY_SIDE} ${OPENING_SECTION}`}>
           <section
             aria-label={SECTION_LABELS.overview}
             className='flex min-w-0 flex-col gap-10'
@@ -626,15 +634,17 @@ const Home = (): ReactNode => {
           </section>
         </div>
 
-        <Tagline />
+        <div className={`flex flex-col ${SECTION_GAP} ${SECTION}`}>
+          <Tagline />
 
-        <div className={SIDE_BY_SIDE}>
-          <ChatDemo />
-          <Highlights />
+          <div className={SIDE_BY_SIDE}>
+            <ChatDemo />
+            <Highlights />
+          </div>
         </div>
 
         <PromptExamples
-          className={`${SIDE_BY_SIDE} ${SECTION_OPENING}`}
+          className={`${SIDE_BY_SIDE} ${SECTION_OPENING} ${SECTION}`}
           agentIcon={PROMPT_AGENT_ICONS[installPick ?? 0]}
         />
       </main>

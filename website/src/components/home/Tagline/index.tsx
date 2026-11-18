@@ -6,7 +6,7 @@ import { TbLockFilled, TbShieldCheckFilled } from 'react-icons/tb';
 const EMPHASIS = 'Blue Team';
 
 export const SECTION_OPENING =
-  'mt-[calc(clamp(12px,1.6vw,24px)+var(--section-drop))] max-[600px]:-mt-3.5 [--section-drop:clamp(29px,3.6vw,50px)]';
+  'mt-[calc(clamp(12px,1.6vw,24px)+var(--section-drop))] max-[600px]:-mt-3.5 xl:mt-0 [--section-drop:clamp(29px,3.6vw,50px)]';
 
 const TILE =
   'absolute grid size-[0.88em] place-items-center rounded-[28%] [&>svg]:size-[54%]';

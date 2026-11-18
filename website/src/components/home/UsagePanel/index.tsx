@@ -1,5 +1,7 @@
 import Translate, { translate } from '@docusaurus/Translate';
 import { PhaseCard } from '@site/src/components/home/PhaseCard';
+import { PhaseCarousel } from '@site/src/components/home/PhaseCarousel';
+import { SLIDE } from '@site/src/components/home/PhaseCarousel/motion';
 import { PromptCard } from '@site/src/components/home/PromptCard';
 import { Tallest } from '@site/src/components/Tallest';
 import { PHASE_STEPS, STEP_CARD_ICONS } from '@site/src/data/home';
@@ -19,7 +21,7 @@ export const OUTRO_TEXT =
 const ignoreStep = () => {};
 
 const StepOutro = ({ index, onStep }: StepOutroProps) => {
-  const { phase } = PHASE_STEPS[index];
+  const phase = PHASE_STEPS[index];
   const next = PHASE_STEPS[index + 1];
 
   if (!next)
@@ -50,7 +52,7 @@ const StepOutro = ({ index, onStep }: StepOutroProps) => {
             description:
               'Leads from one phase to the next on the home page, where {phase} is the next phase',
           },
-          { phase: next.phase.title }
+          { phase: next.title }
         )
       }
     >
@@ -65,7 +67,7 @@ const StepOutro = ({ index, onStep }: StepOutroProps) => {
           values={{
             phase: (
               <span className='font-semibold group-hover:text-ink'>
-                {next.phase.title}
+                {next.title}
               </span>
             ),
           }}
@@ -100,29 +102,38 @@ const UsagePanelComponent = ({
   onStep: (index: number) => void;
   onTyped: () => void;
 }) => {
-  const step = PHASE_STEPS[usageStep];
+  const phase = PHASE_STEPS[usageStep];
 
   return (
-    <div key={usageStep} className='lagune-fade-in flex flex-col min-w-0'>
-      <PhaseCard
-        phase={step.phase}
-        stage={step.group}
-        Icon={STEP_CARD_ICONS[usageStep]}
-        modeIndex={modeIndex}
-        onSelectMode={onSelectMode}
-      />
-      <PromptCard
-        command={step.phase.command}
-        mode={step.phase.modes[modeIndex]}
-        typed={typedDone}
-        onDone={onTyped}
-      />
-      <Tallest variants={OUTROS} className={`mt-5 ${OUTRO_INSET}`}>
-        <div className={typedDone ? 'lagune-fade-in' : 'invisible'}>
-          <StepOutro index={usageStep} onStep={onStep} />
-        </div>
-      </Tallest>
-    </div>
+    <>
+      <PhaseCarousel current={usageStep} onStep={onStep} />
+      <div
+        key={usageStep}
+        style={{
+          animationDuration: `${SLIDE.duration}ms`,
+          animationTimingFunction: SLIDE.easing,
+        }}
+        className='lagune-fade-in mt-4 flex flex-col min-w-0'
+      >
+        <PhaseCard
+          phase={phase}
+          Icon={STEP_CARD_ICONS[usageStep]}
+          modeIndex={modeIndex}
+          onSelectMode={onSelectMode}
+        />
+        <PromptCard
+          command={phase.command}
+          mode={phase.modes[modeIndex]}
+          typed={typedDone}
+          onDone={onTyped}
+        />
+        <Tallest variants={OUTROS} className={`mt-5 ${OUTRO_INSET}`}>
+          <div className={typedDone ? 'lagune-fade-in' : 'invisible'}>
+            <StepOutro index={usageStep} onStep={onStep} />
+          </div>
+        </Tallest>
+      </div>
+    </>
   );
 };
 
