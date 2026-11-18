@@ -1,5 +1,7 @@
 # Prompt-Beispiele für Lagune: den Blue-Team-Workflow automatisieren
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/examples/prompts).
+
 > Prompts für Lagune zum Kopieren: ein Durchlauf nur mit Lesezugriff, der vollständige Blue-Team-Workflow und ein Zero-Trust-Audit, dazu eine Erkennung, die auf einen Commit, den Diff eines Branches oder PR oder einen echten Vorfall eingegrenzt ist.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/examples/prompts

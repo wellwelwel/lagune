@@ -1,5 +1,7 @@
 # Claude Code に Lagune をプラグインとしてインストール
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/install/claude-code)。
+
 > Claude Code のターミナル、拡張機能、デスクトップアプリに Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
 
 正規 URL: https://lagune.ai/ja-JP/docs/install/claude-code

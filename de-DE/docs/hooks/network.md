@@ -1,5 +1,7 @@
 # Hook network: URLs auf SSRF bewerten
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/hooks/network).
+
 > Bewerte das SSRF-Risiko eines oder mehrerer Anfrageziele, direkt über die Kommandozeile.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/network

@@ -43,7 +43,7 @@ Lagune представляет собой открытый процесс Secur
 **Информация**
 
 - Внутри **Lagune** работает на **Node.js**, но вы пишете на любом языке.
-- Чтобы работать полностью офлайн, установите **Lagune** в проект командой `npm i -D lagune@0.20.0`.
+- Чтобы работать полностью офлайн, установите **Lagune** в проект командой `npm i -D lagune@0.21.0`.
 
 ## Категории
 
@@ -258,6 +258,8 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 
 # Установка Lagune в Claude Code как плагина
 
+> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/install/claude-code).
+
 > Установите Lagune в Claude Code как плагин, в терминале, расширении или десктопном приложении, поддерживайте его в актуальном состоянии и заранее разрешите его движок.
 
 Канонический URL: https://lagune.ai/ru-RU/docs/install/claude-code
@@ -393,7 +395,7 @@ codex plugin marketplace upgrade lagune
 У песочницы **Codex** нет доступа к сети. Установите движок в проект из своего терминала, один раз и после каждого обновления:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Частые вопросы
@@ -412,7 +414,7 @@ npm i -D lagune@0.20.0
 
 ### Работает ли Lagune внутри песочницы Codex?
 
-Да, если установить движок в проект командой npm i -D lagune@0.20.0 из своего терминала, один раз и после каждого обновления.
+Да, если установить движок в проект командой npm i -D lagune@0.21.0 из своего терминала, один раз и после каждого обновления.
 
 ---
 
@@ -913,7 +915,7 @@ muse plugins install lagune@lagune
 Песочница **Muse Code** не может скачать движок. Установите его в проект из своего терминала, один раз и после каждого обновления:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Частые вопросы
@@ -932,7 +934,7 @@ npm i -D lagune@0.20.0
 
 ### Работает ли Lagune внутри песочницы Muse Code?
 
-Да, если установить движок в проект командой npm i -D lagune@0.20.0 из своего терминала, один раз и после каждого обновления.
+Да, если установить движок в проект командой npm i -D lagune@0.21.0 из своего терминала, один раз и после каждого обновления.
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 Чтобы обновить **Lagune**, установите новый релиз поверх старого, добавив `-g`, если вы устанавливали его для всех своих проектов:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## Команды
@@ -1014,7 +1016,7 @@ opencode plugin lagune@0.20.0 --force
 
 ### Как обновить Lagune в OpenCode?
 
-В OpenCode 2.x выполните opencode plugin update lagune, затем opencode reload. В OpenCode 1.x выполните opencode plugin lagune@0.20.0 --force.
+В OpenCode 2.x выполните opencode plugin update lagune, затем opencode reload. В OpenCode 1.x выполните opencode plugin lagune@0.21.0 --force.
 
 ### Как запускать команды Lagune в OpenCode?
 
@@ -1230,7 +1232,7 @@ gh skill update --all
 В песочнице без доступа к сети команды не могут скачать движок. Установите его в проект из своего терминала, один раз и после каждого обновления:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Частые вопросы
@@ -3054,6 +3056,8 @@ npx lagune write add --ignore test/fixtures --checker jwt
 
 # Хук network: оценка URL на SSRF
 
+> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/hooks/network).
+
 > Оценивайте один или несколько адресов загрузки на SSRF прямо из командной строки.
 
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/network
@@ -3137,6 +3141,8 @@ URL, который разные парсеры читают по-разному
 ---
 
 # Хук regex: обнаружение шаблонов, уязвимых к ReDoS
+
+> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/hooks/regex).
 
 > Проверьте кодовую базу на регулярные выражения, уязвимые к ReDoS, или оцените отдельный шаблон из командной строки.
 
@@ -3423,6 +3429,8 @@ npx lagune write add --ignore test/fixtures --checker secrets
 ---
 
 # Примеры промптов Lagune: автоматизируйте процесс Blue Team
+
+> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/examples/prompts).
 
 > Готовые промпты Lagune: сканирование только для чтения, полный процесс Blue Team и аудит Zero Trust, а также обнаружение, ограниченное коммитом, diff ветки или PR либо реальным инцидентом.
 
@@ -3792,7 +3800,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

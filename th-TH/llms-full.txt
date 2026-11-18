@@ -43,7 +43,7 @@ Canonical: https://lagune.ai/th-TH/docs
 **ข้อมูล**
 
 - เบื้องหลัง **Lagune** ทำงานบน **Node.js** แต่คุณใช้ภาษาใดก็ได้ตามต้องการ
-- หากต้องการรันแบบออฟไลน์ทั้งหมด ให้ติดตั้ง **Lagune** ในโปรเจกต์ด้วย `npm i -D lagune@0.20.0`
+- หากต้องการรันแบบออฟไลน์ทั้งหมด ให้ติดตั้ง **Lagune** ในโปรเจกต์ด้วย `npm i -D lagune@0.21.0`
 
 ## หมวดหมู่
 
@@ -258,6 +258,8 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 
 # วิธีติดตั้ง Lagune บน Claude Code แบบปลั๊กอิน
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/install/claude-code)
+
 > ติดตั้ง Lagune บน Claude Code แบบปลั๊กอิน ทั้งในเทอร์มินัล ส่วนขยาย และแอปเดสก์ท็อป อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
 
 Canonical: https://lagune.ai/th-TH/docs/install/claude-code
@@ -393,7 +395,7 @@ codex plugin marketplace upgrade lagune
 Sandbox ของ **Codex** เข้าถึงเครือข่ายไม่ได้ ให้ติดตั้งเอนจินในโปรเจกต์จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## คำถามที่พบบ่อย
@@ -412,7 +414,7 @@ npm i -D lagune@0.20.0
 
 ### Lagune ทำงานใน sandbox ของ Codex ได้ไหม
 
-ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.20.0 จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต
+ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.21.0 จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต
 
 ---
 
@@ -913,7 +915,7 @@ muse plugins install lagune@lagune
 sandbox ของ **Muse Code** ดาวน์โหลดเอนจินไม่ได้ ให้ติดตั้งเอนจินในโปรเจกต์จากเทอร์มินัลของคุณเองหนึ่งครั้ง และติดตั้งอีกครั้งหลังการอัปเดตทุกครั้ง:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## คำถามที่พบบ่อย
@@ -932,7 +934,7 @@ npm i -D lagune@0.20.0
 
 ### Lagune ใช้งานใน sandbox ของ Muse Code ได้ไหม
 
-ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.20.0 จากเทอร์มินัลของคุณเองหนึ่งครั้ง และติดตั้งอีกครั้งหลังการอัปเดตทุกครั้ง
+ได้ เมื่อคุณติดตั้งเอนจินในโปรเจกต์ด้วย npm i -D lagune@0.21.0 จากเทอร์มินัลของคุณเองหนึ่งครั้ง และติดตั้งอีกครั้งหลังการอัปเดตทุกครั้ง
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 หากต้องการอัปเดต **Lagune** ให้ติดตั้งรีลีสใหม่ทับรีลีสเดิม โดยเพิ่ม `-g` หากคุณติดตั้งไว้ให้ทุกโปรเจกต์:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## คำสั่ง
@@ -1014,7 +1016,7 @@ opencode plugin lagune@0.20.0 --force
 
 ### อัปเดต Lagune บน OpenCode ได้อย่างไร
 
-ใน OpenCode 2.x ให้รัน opencode plugin update lagune แล้วรัน opencode reload ส่วนใน OpenCode 1.x ให้รัน opencode plugin lagune@0.20.0 --force
+ใน OpenCode 2.x ให้รัน opencode plugin update lagune แล้วรัน opencode reload ส่วนใน OpenCode 1.x ให้รัน opencode plugin lagune@0.21.0 --force
 
 ### รันคำสั่งของ Lagune บน OpenCode ได้อย่างไร
 
@@ -1230,7 +1232,7 @@ gh skill update --all
 ใน sandbox ที่เข้าถึงเครือข่ายไม่ได้ คำสั่งต่าง ๆ จะดาวน์โหลดเอนจินไม่ได้ ให้ติดตั้งเอนจินในโปรเจกต์จากเทอร์มินัลของคุณเอง ครั้งแรกหนึ่งครั้งและทุกครั้งหลังอัปเดต:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## คำถามที่พบบ่อย
@@ -3054,6 +3056,8 @@ hook ตัดสินเฉพาะเรื่องการตรึงอ
 
 # Hook network: ประเมินความเสี่ยง SSRF ของ URL
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/hooks/network)
+
 > ประเมินความเสี่ยง SSRF ของปลายทางการ fetch หนึ่งหรือหลายรายการได้จากบรรทัดคำสั่งโดยตรง
 
 Canonical: https://lagune.ai/th-TH/docs/hooks/network
@@ -3137,6 +3141,8 @@ URL ที่ parser แต่ละตัวอ่านได้ต่าง�
 ---
 
 # Hook regex: ตรวจหา pattern ที่เสี่ยงต่อ ReDoS
+
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/hooks/regex)
 
 > สแกนโค้ดเบสหา regex ที่เสี่ยงต่อ ReDoS หรือประเมิน pattern เดียว ได้จากบรรทัดคำสั่ง
 
@@ -3423,6 +3429,8 @@ hook นี้ดูจากที่มาของค่า ไม่ได�
 ---
 
 # ตัวอย่าง prompt ของ Lagune: ทำขั้นตอนแบบ Blue Team ให้เป็นอัตโนมัติ
+
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/examples/prompts)
 
 > Prompt ของ Lagune ที่พร้อมคัดลอก: การสแกนแบบอ่านอย่างเดียว ขั้นตอนแบบ Blue Team เต็มรูปแบบ และการตรวจสอบแบบ Zero Trust รวมถึงการตรวจจับที่จำกัดขอบเขตไว้ที่ commit, diff ของ branch หรือ PR หรือเหตุการณ์จริง
 
@@ -3792,7 +3800,7 @@ Canonical: https://lagune.ai/th-TH/docs/examples/scheduled-audits
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

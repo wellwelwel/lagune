@@ -1,5 +1,7 @@
 # regex hook：检测有 ReDoS 风险的正则
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/hooks/regex)。
+
 > 在命令行中扫描代码库里容易引发 ReDoS 的正则表达式，或评估单个正则模式。
 
 规范链接: https://lagune.ai/zh-CN/docs/hooks/regex

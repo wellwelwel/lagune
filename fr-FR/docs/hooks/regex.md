@@ -1,5 +1,7 @@
 # Hook regex : détecter les motifs vulnérables au ReDoS
 
+> Cette page n'est plus à jour par rapport à sa version anglaise. [Lire la version originale](https://lagune.ai/docs/hooks/regex).
+
 > Analysez une base de code à la recherche de regex exposées au ReDoS, ou évaluez un seul motif, en ligne de commande.
 
 Canonique: https://lagune.ai/fr-FR/docs/hooks/regex

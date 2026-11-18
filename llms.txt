@@ -10,7 +10,7 @@ Every link under Docs points to the plain-Markdown version of that page. Remove 
 
 - [Install: Security Hardening for Any AI Agent](https://lagune.ai/docs.md): Install Lagune in any project, as a plugin where your agent supports one or with the skills CLI elsewhere, then choose the security specializations that fit it.
 - [Install Lagune on Antigravity CLI as a Plugin](https://lagune.ai/docs/install/antigravity-cli.md): Install Lagune on Antigravity CLI as a plugin, keep it updated, and allow its engine up front.
-- [Install Lagune on Claude Code as a Plugin](https://lagune.ai/docs/install/claude-code.md): Install Lagune on Claude Code as a plugin, in the terminal, the extension, or the desktop app, keep it updated, and allow its engine up front.
+- [Install Lagune on Claude Code as a Plugin](https://lagune.ai/docs/install/claude-code.md): Install Lagune on Claude Code as a plugin, in the terminal, the extension, the desktop app, or an organization, keep it updated, and allow its engine up front.
 - [Install Lagune on Codex CLI as a Plugin](https://lagune.ai/docs/install/codex.md): Install Lagune on Codex CLI as a plugin, keep it updated, and run its engine inside the sandbox.
 - [Install Lagune on Cursor as a Plugin](https://lagune.ai/docs/install/cursor.md): Install Lagune on Cursor and the Cursor CLI as a plugin, keep it updated, and allow its engine up front.
 - [Install Lagune on Devin CLI as a Plugin](https://lagune.ai/docs/install/devin-cli.md): Install Lagune on Devin CLI as a plugin, and keep it updated.

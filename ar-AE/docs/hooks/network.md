@@ -1,5 +1,7 @@
 # hook network: قيّم عناوين URL ضد SSRF
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/hooks/network).
+
 > قيّم وجهة جلب واحدة أو أكثر ضد SSRF، مباشرة من سطر الأوامر.
 
 Canonical: https://lagune.ai/ar-AE/docs/hooks/network

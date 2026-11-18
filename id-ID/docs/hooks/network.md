@@ -1,5 +1,7 @@
 # Hook network: nilai URL terhadap SSRF
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/hooks/network).
+
 > Nilai satu atau beberapa tujuan request terhadap SSRF, langsung dari command line.
 
 Kanonis: https://lagune.ai/id-ID/docs/hooks/network

@@ -1,5 +1,7 @@
 # Cara menginstal Lagune di Claude Code sebagai plugin
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/install/claude-code).
+
 > Instal Lagune di Claude Code sebagai plugin, di terminal, ekstensi, atau aplikasi desktop, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
 
 Kanonis: https://lagune.ai/id-ID/docs/install/claude-code

@@ -1,5 +1,7 @@
 # Lagune als Plugin in Claude Code installieren
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/install/claude-code).
+
 > Installiere Lagune als Plugin in Claude Code, im Terminal, in der Erweiterung oder in der Desktop-App, halte es aktuell und gib die Engine vorab frei.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/install/claude-code

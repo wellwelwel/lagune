@@ -1,5 +1,7 @@
 # Hook network: Ocena adresów URL pod kątem SSRF
 
+> Ta strona jest nieaktualna w porównaniu z wersją angielską. [Przeczytaj wersję oryginalną](https://lagune.ai/docs/hooks/network).
+
 > Oceniaj jeden lub wiele adresów docelowych żądań pod kątem SSRF, prosto z wiersza poleceń.
 
 Adres kanoniczny: https://lagune.ai/pl-PL/docs/hooks/network

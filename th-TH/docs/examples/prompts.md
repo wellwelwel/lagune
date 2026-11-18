@@ -1,5 +1,7 @@
 # ตัวอย่าง prompt ของ Lagune: ทำขั้นตอนแบบ Blue Team ให้เป็นอัตโนมัติ
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/examples/prompts)
+
 > Prompt ของ Lagune ที่พร้อมคัดลอก: การสแกนแบบอ่านอย่างเดียว ขั้นตอนแบบ Blue Team เต็มรูปแบบ และการตรวจสอบแบบ Zero Trust รวมถึงการตรวจจับที่จำกัดขอบเขตไว้ที่ commit, diff ของ branch หรือ PR หรือเหตุการณ์จริง
 
 Canonical: https://lagune.ai/th-TH/docs/examples/prompts

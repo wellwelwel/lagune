@@ -1,5 +1,7 @@
 # Eksempler på prompts til Lagune: automatisér Blue Team-workflowet
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/examples/prompts).
+
 > Prompts til Lagune, klar til at kopiere: en scanning med kun læseadgang, hele Blue Team-workflowet og en Zero Trust-gennemgang samt detektion afgrænset til et commit, diffen for en branch eller PR eller en reel hændelse.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/examples/prompts

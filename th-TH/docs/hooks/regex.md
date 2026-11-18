@@ -1,5 +1,7 @@
 # Hook regex: ตรวจหา pattern ที่เสี่ยงต่อ ReDoS
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/hooks/regex)
+
 > สแกนโค้ดเบสหา regex ที่เสี่ยงต่อ ReDoS หรือประเมิน pattern เดียว ได้จากบรรทัดคำสั่ง
 
 Canonical: https://lagune.ai/th-TH/docs/hooks/regex

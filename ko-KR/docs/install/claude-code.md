@@ -1,5 +1,7 @@
 # Claude Code에 Lagune 플러그인 설치하기
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/install/claude-code).
+
 > 터미널, 확장 프로그램 또는 데스크톱 앱의 Claude Code에 Lagune을 플러그인으로 설치하고, 최신 상태로 유지하며, 엔진 실행을 미리 허용하세요.
 
 표준 URL: https://lagune.ai/ko-KR/docs/install/claude-code

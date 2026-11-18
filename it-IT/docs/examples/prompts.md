@@ -1,5 +1,7 @@
 # Esempi di prompt per Lagune: automatizza il flusso Blue Team
 
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/examples/prompts).
+
 > Prompt di Lagune pronti da copiare: un'analisi in sola lettura, il flusso Blue Team completo e un audit Zero Trust, più il rilevamento limitato a un commit, al diff di un branch o di una PR, o a un incidente reale.
 
 Canonico: https://lagune.ai/it-IT/docs/examples/prompts

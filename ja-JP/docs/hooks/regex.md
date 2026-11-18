@@ -1,5 +1,7 @@
 # regex フック：ReDoS パターンを検出する
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/hooks/regex)。
+
 > コマンドラインから、ReDoS を起こしやすい正規表現をコードベース全体でスキャンしたり、1 つのパターンを判定したりできます。
 
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/regex

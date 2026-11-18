@@ -43,7 +43,7 @@ Lagune एक ओपन सोर्स Security-Driven Hardening (SDH) वर�
 **जानकारी**
 
 - **Lagune** अंदर से **Node.js** पर चलता है, लेकिन आप अपनी पसंद की कोई भी भाषा इस्तेमाल कर सकते हैं।
-- पूरी तरह ऑफ़लाइन चलाने के लिए `npm i -D lagune@0.20.0` से अपने प्रोजेक्ट में **Lagune** इंस्टॉल करें।
+- पूरी तरह ऑफ़लाइन चलाने के लिए `npm i -D lagune@0.21.0` से अपने प्रोजेक्ट में **Lagune** इंस्टॉल करें।
 
 ## श्रेणियाँ
 
@@ -258,6 +258,8 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 
 
 # Claude Code में Lagune को प्लगइन के रूप में इंस्टॉल करें
 
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/install/claude-code)।
+
 > Claude Code में Lagune को प्लगइन के रूप में इंस्टॉल करें, चाहे टर्मिनल हो, एक्सटेंशन हो या डेस्कटॉप ऐप, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
 
 कैनोनिकल: https://lagune.ai/hi-IN/docs/install/claude-code
@@ -393,7 +395,7 @@ codex plugin marketplace upgrade lagune
 **Codex** के सैंडबॉक्स में नेटवर्क एक्सेस नहीं है। इंजन को अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## अक्सर पूछे जाने वाले सवाल
@@ -412,7 +414,7 @@ $ टाइप करें, फिर प्लगइन के नाम क�
 
 ### क्या Codex के सैंडबॉक्स के अंदर Lagune काम करता है?
 
-हाँ, बशर्ते आप अपने टर्मिनल से npm i -D lagune@0.20.0 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद।
+हाँ, बशर्ते आप अपने टर्मिनल से npm i -D lagune@0.21.0 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद।
 
 ---
 
@@ -913,7 +915,7 @@ muse plugins install lagune@lagune
 **Muse Code** का सैंडबॉक्स इंजन डाउनलोड नहीं कर सकता। इसे अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## अक्सर पूछे जाने वाले सवाल
@@ -932,7 +934,7 @@ muse plugins marketplace update lagune चलाएँ, फिर muse plugins r
 
 ### क्या Lagune, Muse Code के सैंडबॉक्स में काम करता है?
 
-हाँ, जब आप अपने टर्मिनल से npm i -D lagune@0.20.0 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल कर लें, पहली बार और हर अपडेट के बाद।
+हाँ, जब आप अपने टर्मिनल से npm i -D lagune@0.21.0 चलाकर इंजन को अपने प्रोजेक्ट में इंस्टॉल कर लें, पहली बार और हर अपडेट के बाद।
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 **Lagune** को अपडेट करने के लिए नई रिलीज़ को पुरानी रिलीज़ के ऊपर इंस्टॉल करें, और अगर आपने उसे अपने सभी प्रोजेक्ट के लिए इंस्टॉल किया था, तो `-g` जोड़ें:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## कमांड
@@ -1014,7 +1016,7 @@ OpenCode 2.x पर opencode plugin add lagune चलाएँ। OpenCode 1.x �
 
 ### OpenCode पर Lagune को कैसे अपडेट करें?
 
-OpenCode 2.x पर opencode plugin update lagune चलाएँ, फिर opencode reload चलाएँ। OpenCode 1.x पर opencode plugin lagune@0.20.0 --force चलाएँ।
+OpenCode 2.x पर opencode plugin update lagune चलाएँ, फिर opencode reload चलाएँ। OpenCode 1.x पर opencode plugin lagune@0.21.0 --force चलाएँ।
 
 ### OpenCode पर Lagune की कमांड कैसे चलाएँ?
 
@@ -1230,7 +1232,7 @@ gh skill update --all
 जिस सैंडबॉक्स में नेटवर्क एक्सेस नहीं है, उसमें कमांड इंजन डाउनलोड नहीं कर सकतीं। इसे अपने टर्मिनल से अपने प्रोजेक्ट में इंस्टॉल करें, पहली बार और हर अपडेट के बाद:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## अक्सर पूछे जाने वाले सवाल
@@ -3054,6 +3056,8 @@ npx lagune write add --ignore test/fixtures --checker jwt
 
 # network हुक: SSRF के लिए URL को स्कोर दें
 
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/hooks/network)।
+
 > कमांड लाइन से सीधे एक या कई फ़ेच डेस्टिनेशन को SSRF के लिहाज़ से स्कोर दें।
 
 कैनोनिकल: https://lagune.ai/hi-IN/docs/hooks/network
@@ -3137,6 +3141,8 @@ network हुक चलाएँ। यह फ़ेच डेस्टिन�
 ---
 
 # regex हुक: ReDoS पैटर्न पकड़ें
+
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/hooks/regex)।
 
 > कमांड लाइन से कोडबेस को स्कैन करके ReDoS के खतरे वाले रेगेक्स खोजें, या किसी एक पैटर्न को स्कोर दें।
 
@@ -3423,6 +3429,8 @@ npx lagune write add --ignore test/fixtures --checker secrets
 ---
 
 # Lagune प्रॉम्प्ट के उदाहरण: Blue Team फ़्लो को ऑटोमेट करें
+
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/examples/prompts)।
 
 > कॉपी करके तुरंत इस्तेमाल करने लायक़ Lagune प्रॉम्प्ट: सिर्फ़ पढ़ने वाला स्कैन, पूरा Blue Team फ़्लो और ज़ीरो ट्रस्ट ऑडिट, साथ ही किसी कमिट, ब्रांच या PR के diff, या किसी असली सुरक्षा घटना तक सीमित पहचान।
 
@@ -3792,7 +3800,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

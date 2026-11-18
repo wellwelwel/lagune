@@ -1,5 +1,7 @@
 # Hook network: evalúa el riesgo de SSRF de las URL
 
+> Esta página está desactualizada respecto a su versión en inglés. [Leer la versión original](https://lagune.ai/docs/hooks/network).
+
 > Evalúa el riesgo de SSRF de uno o varios destinos de petición, directamente desde la línea de comandos.
 
 URL canónica: https://lagune.ai/es-ES/docs/hooks/network

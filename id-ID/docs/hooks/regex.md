@@ -1,5 +1,7 @@
 # Hook regex: deteksi pola ReDoS
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/hooks/regex).
+
 > Pindai basis kode untuk mencari regex yang rawan ReDoS, atau beri skor satu pola, langsung dari command line.
 
 Kanonis: https://lagune.ai/id-ID/docs/hooks/regex

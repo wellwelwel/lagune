@@ -43,7 +43,7 @@ Lagune は、オープンソースで防御専用の Security-Driven Hardening�
 **備考**
 
 - **Lagune** は内部で **Node.js** を使って動作しますが、開発に使う言語は自由です。
-- 完全にオフラインで実行するには、`npm i -D lagune@0.20.0` で **Lagune** をプロジェクトにインストールします。
+- 完全にオフラインで実行するには、`npm i -D lagune@0.21.0` で **Lagune** をプロジェクトにインストールします。
 
 ## カテゴリ
 
@@ -258,6 +258,8 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity 
 
 # Claude Code に Lagune をプラグインとしてインストール
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/install/claude-code)。
+
 > Claude Code のターミナル、拡張機能、デスクトップアプリに Lagune をプラグインとしてインストールし、最新の状態に保ち、エンジンの実行を事前に許可します。
 
 正規 URL: https://lagune.ai/ja-JP/docs/install/claude-code
@@ -393,7 +395,7 @@ codex plugin marketplace upgrade lagune
 **Codex** のサンドボックスはネットワークにアクセスできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## よくある質問
@@ -412,7 +414,7 @@ $lagune:lagune-charter のように、$ に続けてプラグイン名付きの�
 
 ### Codex のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.20.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.21.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -913,7 +915,7 @@ muse plugins install lagune@lagune
 **Muse Code** のサンドボックスはエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## よくある質問
@@ -932,7 +934,7 @@ muse plugins marketplace update lagune を実行してから、muse plugins remo
 
 ### Muse Code のサンドボックス内で Lagune は動作しますか？
 
-はい。自分のターミナルから npm i -D lagune@0.20.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
+はい。自分のターミナルから npm i -D lagune@0.21.0 を実行してプロジェクトにエンジンをインストールすれば動作します。最初に一度、その後は更新のたびに実行してください。
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 **Lagune** を更新するには、新しいリリースを上書きインストールします。すべてのプロジェクトにインストールした場合は `-g` を付けます：
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## コマンド
@@ -1014,7 +1016,7 @@ OpenCode 2.x では、opencode plugin add lagune を実行します。OpenCode 1
 
 ### OpenCode で Lagune を更新するにはどうすればよいですか？
 
-OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.20.0 --force を実行します。
+OpenCode 2.x では、opencode plugin update lagune を実行してから opencode reload を実行します。OpenCode 1.x では、opencode plugin lagune@0.21.0 --force を実行します。
 
 ### OpenCode で Lagune のコマンドを実行するにはどうすればよいですか？
 
@@ -1230,7 +1232,7 @@ gh skill update --all
 ネットワークにアクセスできないサンドボックスでは、コマンドがエンジンをダウンロードできません。自分のターミナルからプロジェクトにエンジンをインストールします。最初に一度、その後は更新のたびに実行してください：
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## よくある質問
@@ -3054,6 +3056,8 @@ npx lagune write add --ignore test/fixtures --checker jwt
 
 # network フック：URL の SSRF リスクを判定する
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/hooks/network)。
+
 > コマンドラインから直接、1 つまたは複数のリクエスト先の SSRF リスクを判定できます。
 
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/network
@@ -3137,6 +3141,8 @@ network フックを実行します。リクエスト先を判定し、safe、pr
 ---
 
 # regex フック：ReDoS パターンを検出する
+
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/hooks/regex)。
 
 > コマンドラインから、ReDoS を起こしやすい正規表現をコードベース全体でスキャンしたり、1 つのパターンを判定したりできます。
 
@@ -3423,6 +3429,8 @@ npx lagune write add --ignore test/fixtures --checker secrets
 ---
 
 # Lagune のプロンプト例：Blue Team フローを自動化する
+
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/examples/prompts)。
 
 > コピーしてすぐ使える Lagune のプロンプト集です。読み取り専用のスキャン、Blue Team フロー全体の実行、ゼロトラスト監査に加え、特定のコミット、ブランチや PR の差分、実際のインシデントに範囲を絞った検出も紹介します。
 
@@ -3792,7 +3800,7 @@ npx lagune write add --categories owasp ai javascript
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

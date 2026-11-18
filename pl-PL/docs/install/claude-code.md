@@ -1,5 +1,7 @@
 # Instalacja wtyczki Lagune w Claude Code
 
+> Ta strona jest nieaktualna w porównaniu z wersją angielską. [Przeczytaj wersję oryginalną](https://lagune.ai/docs/install/claude-code).
+
 > Zainstaluj wtyczkę Lagune w Claude Code, w terminalu, w rozszerzeniu lub w aplikacji desktopowej, aktualizuj ją i z góry zezwól na działanie jej silnika.
 
 Adres kanoniczny: https://lagune.ai/pl-PL/docs/install/claude-code

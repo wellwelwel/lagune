@@ -1,5 +1,7 @@
 # Hook regex: ReDoS-Muster erkennen
 
+> Diese Seite ist gegenüber ihrer englischen Version veraltet. [Originalversion lesen](https://lagune.ai/docs/hooks/regex).
+
 > Durchsuche eine Codebasis nach ReDoS-anfälligen Regex-Mustern, oder bewerte ein einzelnes Muster, direkt über die Kommandozeile.
 
 Kanonische URL: https://lagune.ai/de-DE/docs/hooks/regex

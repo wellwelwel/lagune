@@ -1,5 +1,7 @@
 # hook regex: اكتشف أنماط ReDoS
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/hooks/regex).
+
 > افحص قاعدة الكود بحثًا عن التعابير النمطية المعرّضة لـ ReDoS، أو قيّم نمطًا واحدًا، من سطر الأوامر.
 
 Canonical: https://lagune.ai/ar-AE/docs/hooks/regex

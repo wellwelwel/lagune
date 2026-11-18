@@ -1,5 +1,7 @@
 # network 훅: SSRF 관점에서 URL 점수 매기기
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/hooks/network).
+
 > 명령줄에서 바로 요청 대상 하나 또는 여러 개에 SSRF 관점의 점수를 매길 수 있습니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/network

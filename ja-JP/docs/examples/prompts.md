@@ -1,5 +1,7 @@
 # Lagune のプロンプト例：Blue Team フローを自動化する
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/examples/prompts)。
+
 > コピーしてすぐ使える Lagune のプロンプト集です。読み取り専用のスキャン、Blue Team フロー全体の実行、ゼロトラスト監査に加え、特定のコミット、ブランチや PR の差分、実際のインシデントに範囲を絞った検出も紹介します。
 
 正規 URL: https://lagune.ai/ja-JP/docs/examples/prompts

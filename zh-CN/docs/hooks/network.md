@@ -1,5 +1,7 @@
 # network hook：评估 URL 的 SSRF 风险
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/hooks/network)。
+
 > 直接在命令行中评估一个或多个请求目标的 SSRF 风险。
 
 规范链接: https://lagune.ai/zh-CN/docs/hooks/network

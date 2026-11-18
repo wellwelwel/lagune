@@ -1,5 +1,7 @@
 # Claude Code için Lagune eklentisi kurulumu
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/install/claude-code).
+
 > Lagune'yi Claude Code için eklenti olarak terminalden, uzantıdan veya masaüstü uygulamasından kurun, güncel tutun ve motoruna baştan izin verin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/claude-code

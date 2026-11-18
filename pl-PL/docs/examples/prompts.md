@@ -1,5 +1,7 @@
 # Przykładowe prompty Lagune: Automatyzacja przepływu pracy Blue Team
 
+> Ta strona jest nieaktualna w porównaniu z wersją angielską. [Przeczytaj wersję oryginalną](https://lagune.ai/docs/examples/prompts).
+
 > Gotowe do skopiowania prompty Lagune: skanowanie tylko do odczytu, pełny przepływ pracy Blue Team i audyt Zero Trust, a także wykrywanie ograniczone do commita, diffu gałęzi lub PR albo rzeczywistego incydentu.
 
 Adres kanoniczny: https://lagune.ai/pl-PL/docs/examples/prompts

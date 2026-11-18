@@ -1,5 +1,7 @@
 # network hook'u: URL'leri SSRF'ye karşı puanlayın
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/hooks/network).
+
 > Bir veya birden çok istek hedefini doğrudan komut satırından SSRF'ye karşı puanlayın.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/network

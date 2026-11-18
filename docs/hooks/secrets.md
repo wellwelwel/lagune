@@ -3,9 +3,9 @@
 > Sweep a codebase for hardcoded credentials from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/secrets
-Last updated: 2026-11-14
+Last updated: 2026-11-16
 
-The `secrets` hook flags **credentials compiled into the source** instead of read from the environment, and **credential and environment files Git tracks**, such as a private key, a **Terraform** state, or a `.env` that holds a secret. In the code, it keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` specialization](https://lagune.ai/docs/catalog).
+The `secrets` hook flags **credentials compiled into the source** instead of read from the environment, **credential and environment files Git tracks**, such as a private key, a **Terraform** state, or a `.env` that holds a secret, and, when asked, **secrets the Git history still holds** after a later commit deleted them. In the code, it keys on **provenance** (a literal versus an environment lookup), not on the value's contents, so it needs no exhaustive catalog of provider prefixes and produces almost no false positives. It is the deterministic engine behind the [`secrets` specialization](https://lagune.ai/docs/catalog).
 
 Provider-format signatures, connection-string credentials, and a literal bound to a secret-named identifier are **language-agnostic**: the same string reads the same in any file. The two heuristics that depend on syntax, an environment lookup with a hardcoded default and a secret flowing into a log sink, are **language-aware**, so a JavaScript `console.log` is never read on a Rust file and Python's `os.getenv("X", "default")` is seen on its own.
 
@@ -15,6 +15,8 @@ Provider-format signatures, connection-string credentials, and a literal bound t
 npx lagune read secrets                  # scans the whole project
 npx lagune read secrets --dir src        # scans a directory
 npx lagune read secrets --file config.ts # scans a single file
+npx lagune read secrets --history        # scans the Git history
+npx lagune read secrets --history --before <commit> # continues a history scan
 ```
 
 The scan prints up to three sections, each weighed by its evidence:
@@ -25,14 +27,16 @@ The scan prints up to three sections, each weighed by its evidence:
 | **Secret handling to review manually** | A plausible, unconfirmed risk | Unchanged |
 | **Secret handling advisories**         | A real risk not exposed yet   | Unchanged |
 
-A finding is a hardcoded default for a secret-named environment variable, a credential embedded in a connection string to a remote host, a value matching a curated provider format, a credential file **Git** tracks, or an environment file **Git** tracks that proves a secret. A lead is a plain literal bound to a secret-named identifier, in the code or in an environment file (its provenance is decidable, but whether the value is a real secret is not), a connection string to a local database, a secret-named value flowing into a log or response sink, a credential file the hook cannot confirm or that sits in a test folder, and what the hook could not read. An advisory is a secret **Git** would commit with the next `git add`, or a local environment file **Git** tracks or would commit. A look-alike stays silent, and a clean run prints `no hardcoded secrets found`.
+A finding is a hardcoded default for a secret-named environment variable, a credential embedded in a connection string to a remote host, a value matching a curated provider format, a credential file **Git** tracks, or an environment file **Git** tracks that proves a secret. A lead is a plain literal bound to a secret-named identifier, in the code or in an environment file (its provenance is decidable, but whether the value is a real secret is not), a connection string to a local database or whose password is the word an example writes, such as `password`, a secret-named value flowing into a log or response sink, a real-looking value in an environment template, a credential file the hook cannot confirm or that sits in a test folder, and what the hook could not read. An advisory is a secret **Git** would commit with the next `git add`, or a local environment file **Git** tracks or would commit. A look-alike stays silent, and a clean run prints `no hardcoded secrets found`.
 
 ### CLI options
 
-| Option   | Value       | Description                                                       |
-| -------- | ----------- | ----------------------------------------------------------------- |
-| `--dir`  | a directory | Scope a scan to a directory. Repeats and combines with `--file`.  |
-| `--file` | a file      | Scope a scan to a single file. Repeats and combines with `--dir`. |
+| Option      | Value       | Description                                                                                                                                                |
+| ----------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--dir`     | a directory | Scope a scan to a directory. Repeats and combines with `--file`.                                                                                           |
+| `--file`    | a file      | Scope a scan to a single file. Repeats and combines with `--dir`.                                                                                          |
+| `--history` | none        | Scan every version of every file the [Git history](#secrets-in-the-git-history) holds, instead of the project's files. Takes neither `--dir` nor `--file`. |
+| `--before`  | a commit id | Continue a `--history` scan a bound stopped, reading only the commits before the one it named. Takes the whole id.                                         |
 
 With no option it scans the whole project.
 
@@ -78,16 +82,17 @@ A credential file in a test folder (`test`, `tests`, `testdata`, `fixture`, `fix
 
 ### Environment files under version control
 
-An environment file is `.env` or a `.env.<variant>` file, never a source file such as `.env.ts`, a template such as `.env.example`, `.env.sample`, or `.env.template`, or the **dotenvx** `.env.keys` credential file. **Next.js** and **Vite** commit `.env` files with public defaults on purpose, so the strongest evidence a file holds decides what it is, and one **Git** ignores stays silent:
+An environment file is `.env` or a `.env.<variant>` file, never a source file such as `.env.ts` or the **dotenvx** `.env.keys` credential file. **Next.js** and **Vite** commit `.env` files with public defaults on purpose, so the strongest evidence a file holds decides what it is, and one **Git** ignores stays silent:
 
-| What the file holds                                             | **Git** tracks it | **Git** neither tracks nor ignores it |
-| --------------------------------------------------------------- | ----------------- | ------------------------------------- |
-| A proven secret                                                 | Finding           | Advisory                              |
-| A possible secret                                               | Lead              | Lead                                  |
-| No secret, in a local variant such as `.env.local`              | Advisory          | Advisory                              |
-| No secret, in a shared file such as `.env` or `.env.production` | Silent            | Silent                                |
+| What the file holds                                                            | **Git** tracks it | **Git** neither tracks nor ignores it |
+| ------------------------------------------------------------------------------ | ----------------- | ------------------------------------- |
+| A proven secret                                                                | Finding           | Advisory                              |
+| A possible secret                                                              | Lead              | Lead                                  |
+| A proven or possible secret, in a template such as `.env.example`              | Lead              | Lead                                  |
+| No secret, in a local variant such as `.env.local`                             | Advisory          | Advisory                              |
+| No secret, in a shared file such as `.env` or `.env.production`, or a template | Silent            | Silent                                |
 
-A secret is proven by a value in a curated provider format, even in a comment, or by a connection string with a real password to a remote host. It is possible when a variable named like a secret, such as `DB_PASSWORD`, `JWT_SECRET`, `GITHUB_TOKEN`, or `STRIPE_API_KEY`, holds a value: its name cannot tell a real credential from a development default, so it earns the same lead as that literal in the code. A connection string to a local database, on a loopback address, `0.0.0.0`, **Docker**'s `host.docker.internal`, or a single-label host such as a **Docker Compose** service, is a possible secret too. A local variant holding no secret is still an advisory, since the next secret written there lands in a commit.
+A secret is proven by a value in a curated provider format, even in a comment, or by a connection string with a real password to a remote host. It is possible when a variable named like a secret, such as `DB_PASSWORD`, `JWT_SECRET`, `GITHUB_TOKEN`, or `STRIPE_API_KEY`, holds a value: its name cannot tell a real credential from a development default, so it earns the same lead as that literal in the code. A connection string to a local database, on a loopback address, `0.0.0.0`, **Docker**'s `host.docker.internal`, or a single-label host such as a **Docker Compose** service, is a possible secret too, and so is one whose password is the word an example writes: `password`, `passwd`, `pass`, or `pwd`. A local variant holding no secret is still an advisory, since the next secret written there lands in a commit. A template such as `.env.example`, `.env.sample`, or `.env.template` is committed to show stand-ins, often a provider's documented sample key, so a value that would prove a secret elsewhere is only a lead there, and a connection string to a local database or with the word an example writes is no secret at all.
 
 An empty value, a placeholder such as `changeme`, `<your token>`, or `sk-...`, a reference such as `$OTHER` or `${OTHER}`, `true` or `false`, a plain number under a token name, such as a token limit, and a value **dotenvx** encrypted set nothing. A variable a framework ships to the browser on purpose never counts by its name alone:
 
@@ -107,6 +112,34 @@ A value in a provider format still proves a secret under any of them. Each entry
 ### When Git's state cannot be read
 
 The hook reads **Git**'s state only from inside the project. Without an index it can read there, such as in a worktree or a submodule whose index lies outside the project, in a folder that is not the repository's root, or with an index it cannot read, whether **Git** tracks a file is unknown. Since a missing answer never reads as clean, the hook then prints one lead that names the cause and what to do, never one per file, and a credential or environment file joins it only when it would be a finding or a lead if **Git** tracked it.
+
+### Secrets in the Git history
+
+Deleting a secret from the code leaves it in every commit that held it, readable by anyone with a copy of the repository. With `--history`, the hook walks every commit the repository's branches, tags, and other refs reach, newest first, then what only the stash holds, reading **Git**'s object store itself, packed or not, without running **Git** and without reading anything outside the project's own `.git`. Every version of every file answers to the same rules as the project's files, with the same language coverage, except the log-sink lead, which concerns code that runs. A secret kept across many versions is reported once, at the newest commit that holds it, and the hook's settings leave out the same paths in the history, while what **Git** ignores plays no part, since every file in the history was committed.
+
+| Section                                                    | Means                                   | Exit code |
+| ---------------------------------------------------------- | --------------------------------------- | --------- |
+| **Secrets in the Git history**                             | Proof of a secret a commit holds        | Unchanged |
+| **Possible secrets in the Git history to review manually** | A plausible, unconfirmed secret         | Unchanged |
+| **Secrets only a stash holds**                             | Proof of a secret not exposed yet       | Unchanged |
+| **Git history the checker did not read**                   | What the walk could not or did not read | Unchanged |
+
+Each entry names the file, the kind of secret, and the commit, never the value, and a file moved or copied with its secret is one entry that names its other paths. Where more than three files of one folder share a kind of possible secret, such as the bundles of a committed build, they fold into one line with their count and one of them as the example, and more than three such folders fold into one line again, as a site built once per language leaves them. A folded line says the folder can be left out in the [project's configs](https://lagune.ai/docs/hooks/configure) when it holds build output. No change to the code removes a secret from the history, so none of these sections fails the run: a secret the history holds is closed by rotating it where it was issued, and rewriting the history to purge it is the user's decision, never part of a fix.
+
+A stash stays on the machine that made it, since an ordinary push sends branches and tags and never the stash. A secret only the stash holds is therefore reported apart, as a secret the project's files hold and **Git** has not committed yet is an advisory, and it needs no rotation while the stash is neither committed nor pushed under a name of its own. A file a commit holds too is reported at that commit.
+
+The walk stops at the first bound it reaches, so it answers within the hook's deadline on a large repository:
+
+| Bound           | Limit                                 |
+| --------------- | ------------------------------------- |
+| Commits         | 100,000                               |
+| Objects read    | 1,000,000                             |
+| Bytes read      | 2,048 MiB                             |
+| Time            | 30 seconds                            |
+| One object      | 8 MiB                                 |
+| One delta chain | 4,095 deltas, the most **Git** writes |
+
+When a bound stops the walk, the last section names it and the commit the walk reached, and `--before` with that commit reads the commits it did not reach, so a large history is read over several runs. An object larger than its bound, behind a deeper chain, missing from the store, or whose bytes do not read as a **Git** object is counted there too, with the paths it sits at, as is a pack whose index does not add up, a ref that leads to no commit, by name, a submodule, by path, an alternate object store, and the history a shallow clone never fetched. A file too large to read that cannot hold a secret, such as a video, can be left out in the project's configs. A partial walk therefore never prints `no secrets found in the Git history`. Without a `.git` folder at the project root, as in a worktree or a submodule whose `.git` points elsewhere, or with refs kept in the reftable format, it reads none of the history and says why.
 
 ### Language coverage
 
@@ -130,6 +163,10 @@ Because Git still tracks it. An ignore rule only keeps untracked files out of a 
 ### Why does the secrets hook stay silent on a committed .env?
 
 Next.js and Vite commit .env files with public defaults on purpose, so a tracked .env is a finding only when it proves a secret, such as a provider token, and a lead when a secret-named variable holds a value. One that holds neither stays silent, and reading it for a value not meant to be public is left to the secrets specialization.
+
+### Why does a secret in the Git history not fail the secrets hook?
+
+Because no change to the code can remove it: every clone, fork, and mirror already taken keeps the commit that holds it. The hook names the file and the commit so the credential can be rotated where it was issued, which is what ends the exposure, and leaves rewriting the history to the user.
 
 ### How does the secrets hook avoid false positives?
 

@@ -1,5 +1,7 @@
 # Lagune prompt örnekleri: Blue Team akışını otomatikleştirin
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/examples/prompts).
+
 > Kopyalamaya hazır Lagune prompt'ları: salt okunur bir tarama, tam Blue Team akışı ve bir Zero Trust denetimi, ayrıca bir commit'e, bir dalın ya da PR'ın diff'ine veya gerçek bir olaya göre kapsamı daraltılmış tespit.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/examples/prompts

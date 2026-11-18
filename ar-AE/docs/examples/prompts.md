@@ -1,5 +1,7 @@
 # أمثلة موجّهات Lagune: أتمت مسار الفريق الأزرق
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/examples/prompts).
+
 > موجّهات Lagune جاهزة للنسخ: فحص للقراءة فقط، ومسار الفريق الأزرق الكامل، وتدقيق Zero Trust، إضافة إلى اكتشاف محصور في commit، أو في diff لفرع أو pull request، أو في حادثة حقيقية.
 
 Canonical: https://lagune.ai/ar-AE/docs/examples/prompts

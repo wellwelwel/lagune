@@ -43,7 +43,7 @@ Son güncelleme: 2026-11-09
 **Bilgi**
 
 - **Lagune** arka planda **Node.js** üzerinde çalışır, ama siz istediğiniz dili kullanırsınız.
-- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.20.0` ile kurun.
+- Tamamen çevrimdışı çalışmak için **Lagune**'yi projenize `npm i -D lagune@0.21.0` ile kurun.
 
 ## Kategoriler
 
@@ -258,6 +258,8 @@ Evet. Antigravity CLI ayarlarında mcp(lagune_lagune/lagune_read), mcp(lagune_la
 
 # Claude Code için Lagune eklentisi kurulumu
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/install/claude-code).
+
 > Lagune'yi Claude Code için eklenti olarak terminalden, uzantıdan veya masaüstü uygulamasından kurun, güncel tutun ve motoruna baştan izin verin.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/install/claude-code
@@ -393,7 +395,7 @@ codex plugin marketplace upgrade lagune
 **Codex** korumalı alanının ağ erişimi yoktur. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Sıkça sorulan sorular
@@ -412,7 +414,7 @@ $ yazın, ardından eklentinin adıyla birlikte komutu ve girdinizi yazın, örn
 
 ### Lagune, Codex korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.20.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.21.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
 
 ---
 
@@ -913,7 +915,7 @@ Komutları adlarıyla, örneğin `/lagune-charter` şeklinde ya da eklentinin ad
 **Muse Code** korumalı alanı motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Sıkça sorulan sorular
@@ -932,7 +934,7 @@ Adlarıyla, örneğin /lagune-charter şeklinde ya da eklentinin adıyla birlikt
 
 ### Lagune, Muse Code korumalı alanı içinde çalışır mı?
 
-Evet, motoru kendi terminalinizden npm i -D lagune@0.20.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
+Evet, motoru kendi terminalinizden npm i -D lagune@0.21.0 ile projenize kurduğunuzda çalışır. Bunu bir kez ve her güncellemeden sonra yapın.
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 **Lagune**'yi güncellemek için yeni sürümü eskisinin üzerine kurun, tüm projeleriniz için kurduysanız `-g` ekleyin:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## Komutlar
@@ -1014,7 +1016,7 @@ OpenCode 2.x sürümünde opencode plugin add lagune komutunu çalıştırın. O
 
 ### OpenCode kullanırken Lagune nasıl güncellenir?
 
-OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.20.0 --force komutunu çalıştırın.
+OpenCode 2.x sürümünde opencode plugin update lagune ve ardından opencode reload komutlarını çalıştırın. OpenCode 1.x sürümünde opencode plugin lagune@0.21.0 --force komutunu çalıştırın.
 
 ### OpenCode kullanırken Lagune komutları nasıl çalıştırılır?
 
@@ -1230,7 +1232,7 @@ Ya da bu prompt'u ajanınıza yapıştırın:
 Ağ erişimi olmayan bir korumalı alanda komutlar motoru indiremez. Motoru kendi terminalinizden projenize kurun, bir kez ve her güncellemeden sonra:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Sıkça sorulan sorular
@@ -3054,6 +3056,8 @@ Algoritmayı token başlığından okuyan bir doğrulayıcı, saldırganın RS25
 
 # network hook'u: URL'leri SSRF'ye karşı puanlayın
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/hooks/network).
+
 > Bir veya birden çok istek hedefini doğrudan komut satırından SSRF'ye karşı puanlayın.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/network
@@ -3137,6 +3141,8 @@ Farklı ayrıştırıcıların farklı okuduğu bir URL'dir ve klasik bir SSRF a
 ---
 
 # regex hook'u: ReDoS örüntülerini tespit edin
+
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/hooks/regex).
 
 > Kod tabanını ReDoS'a yatkın regex'lere karşı tarayın ya da tek bir örüntüyü doğrudan komut satırından puanlayın.
 
@@ -3423,6 +3429,8 @@ Değerin içeriğine değil kaynağına bakar. Yüksek güvenilirlikli biçimler
 ---
 
 # Lagune prompt örnekleri: Blue Team akışını otomatikleştirin
+
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/examples/prompts).
 
 > Kopyalamaya hazır Lagune prompt'ları: salt okunur bir tarama, tam Blue Team akışı ve bir Zero Trust denetimi, ayrıca bir commit'e, bir dalın ya da PR'ın diff'ine veya gerçek bir olaya göre kapsamı daraltılmış tespit.
 
@@ -3792,7 +3800,7 @@ Son güncelleme: 2026-11-09
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

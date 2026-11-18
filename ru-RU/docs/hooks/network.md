@@ -1,5 +1,7 @@
 # Хук network: оценка URL на SSRF
 
+> Эта страница устарела по сравнению с английской версией. [Читать оригинал](https://lagune.ai/docs/hooks/network).
+
 > Оценивайте один или несколько адресов загрузки на SSRF прямо из командной строки.
 
 Канонический URL: https://lagune.ai/ru-RU/docs/hooks/network

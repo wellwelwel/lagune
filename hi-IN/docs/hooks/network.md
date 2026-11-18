@@ -1,5 +1,7 @@
 # network हुक: SSRF के लिए URL को स्कोर दें
 
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/hooks/network)।
+
 > कमांड लाइन से सीधे एक या कई फ़ेच डेस्टिनेशन को SSRF के लिहाज़ से स्कोर दें।
 
 कैनोनिकल: https://lagune.ai/hi-IN/docs/hooks/network

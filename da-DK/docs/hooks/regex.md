@@ -1,5 +1,7 @@
 # Hook regex: find ReDoS-mønstre
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/hooks/regex).
+
 > Gennemsøg en kodebase for regex, der er sårbare over for ReDoS, eller vurdér et enkelt mønster, fra kommandolinjen.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/hooks/regex

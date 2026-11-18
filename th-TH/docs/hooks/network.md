@@ -1,5 +1,7 @@
 # Hook network: ประเมินความเสี่ยง SSRF ของ URL
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/hooks/network)
+
 > ประเมินความเสี่ยง SSRF ของปลายทางการ fetch หนึ่งหรือหลายรายการได้จากบรรทัดคำสั่งโดยตรง
 
 Canonical: https://lagune.ai/th-TH/docs/hooks/network

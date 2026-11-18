@@ -3,7 +3,7 @@
 > Score one or many fetch destinations for SSRF, straight from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/network
-Last updated: 2026-11-02
+Last updated: 2026-11-16
 
 The `network` hook decides whether a server-side fetch destination is safe from **SSRF** (a request that can be aimed at internal services, cloud metadata, or private hosts). It is the deterministic engine behind the [`network` specialization](https://lagune.ai/docs/catalog), and you can run it yourself.
 
@@ -35,16 +35,16 @@ npx lagune read network \
 # => parser-divergent
 ```
 
-It resolves the host the way the network does, so encoded forms of an internal address do not slip past: hex, octal, dotless decimal, shorthand, IPv6, and IPv4-mapped all read `private-target`. And where a sloppy validator and the real fetcher would read different hosts, the verdict is `parser-divergent`.
+It reads each destination as the WHATWG URL parser does, the one browsers and **Node.js**'s `fetch` use, so encoded forms of an internal address do not slip past: hex, octal, dotless decimal, shorthand, IPv6, and IPv4-mapped all read `private-target`, and so does a `file:` URL with no host, which reads the server's own disk. Where a sloppy validator and the real fetcher would read different hosts, the verdict is `parser-divergent`. A client that parses URLs another way, such as **Python**'s `urllib`, can connect somewhere else, so a verdict holds only for a client that parses the same way.
 
 ## How to read the verdict
 
-| Verdict            | Meaning                                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------------------- |
-| `safe`             | The destination connects to a public host, and a sloppy validator would read the same host.    |
-| `private-target`   | The host resolves to a private, loopback, link-local, unspecified, or cloud-metadata address.  |
-| `parser-divergent` | A sloppy text validator would read a different real host than the one the fetcher connects to. |
-| `invalid url`      | The string does not parse as a URL, so there is nothing to fetch.                              |
+| Verdict            | Meaning                                                                                                                                         |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `safe`             | The destination connects to a public host, and a sloppy validator would read the same host.                                                     |
+| `private-target`   | The host resolves to a private, loopback, link-local, unspecified, or cloud-metadata address, or the destination is a `file:` URL with no host. |
+| `parser-divergent` | A sloppy text validator would read a different real host than the one the fetcher connects to.                                                  |
+| `invalid url`      | The string names no host the parser can read.                                                                                                   |
 
 Only `safe` is an allow. Treat `private-target`, `parser-divergent`, and `invalid url` all as a block.
 

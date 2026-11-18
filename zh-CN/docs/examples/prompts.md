@@ -1,5 +1,7 @@
 # Lagune 提示词示例：自动化 Blue Team 流程
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/examples/prompts)。
+
 > 复制即用的 Lagune 提示词：只读扫描、完整的 Blue Team 流程和零信任审计，以及限定在某个 commit、分支或 PR diff，或真实安全事件上的检测。
 
 规范链接: https://lagune.ai/zh-CN/docs/examples/prompts

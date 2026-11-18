@@ -1,5 +1,7 @@
 # Hook network: Vurder URL-er for SSRF
 
+> Denne siden er utdatert sammenlignet med den engelske versjonen. [Les originalversjonen](https://lagune.ai/docs/hooks/network).
+
 > Vurder SSRF-risikoen for én eller flere destinasjoner for forespørsler, rett fra kommandolinjen.
 
 Kanonisk URL: https://lagune.ai/no-NO/docs/hooks/network

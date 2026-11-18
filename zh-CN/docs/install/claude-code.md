@@ -1,5 +1,7 @@
 # 在 Claude Code 中以插件形式安装 Lagune
 
+> 本页内容已落后于英文版本。[阅读原文](https://lagune.ai/docs/install/claude-code)。
+
 > 在 Claude Code 的终端、扩展或桌面应用中以插件形式安装 Lagune，保持更新，并预先允许引擎运行。
 
 规范链接: https://lagune.ai/zh-CN/docs/install/claude-code

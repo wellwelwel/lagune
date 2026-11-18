@@ -1,5 +1,7 @@
 # regex 훅: ReDoS 패턴 탐지하기
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/hooks/regex).
+
 > 명령줄에서 코드베이스를 스캔해 ReDoS에 취약한 정규식을 찾거나, 패턴 하나에 점수를 매길 수 있습니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/hooks/regex

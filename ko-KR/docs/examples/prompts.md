@@ -1,5 +1,7 @@
 # Lagune 프롬프트 예시: Blue Team 흐름 자동화
 
+> 이 페이지는 영어 버전보다 내용이 오래되었습니다. [원문 보기](https://lagune.ai/docs/examples/prompts).
+
 > 바로 복사해 쓸 수 있는 Lagune 프롬프트 모음입니다. 읽기 전용 스캔, 전체 Blue Team 흐름, 제로 트러스트 감사는 물론, 커밋, 브랜치나 PR의 diff, 실제 보안 사고로 범위를 좁힌 탐지까지 담았습니다.
 
 표준 URL: https://lagune.ai/ko-KR/docs/examples/prompts

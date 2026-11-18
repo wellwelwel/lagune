@@ -1,5 +1,7 @@
 # Hook network : évaluer des URL face au SSRF
 
+> Cette page n'est plus à jour par rapport à sa version anglaise. [Lire la version originale](https://lagune.ai/docs/hooks/network).
+
 > Évaluez une ou plusieurs destinations de requête face au SSRF, directement en ligne de commande.
 
 Canonique: https://lagune.ai/fr-FR/docs/hooks/network

@@ -1,5 +1,7 @@
 # Hook regex: detecte padrões vulneráveis a ReDoS
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/hooks/regex).
+
 > Varra um código em busca de regex vulneráveis a ReDoS, ou avalie um único padrão, direto da linha de comando.
 
 Canônica: https://lagune.ai/pt-BR/docs/hooks/regex

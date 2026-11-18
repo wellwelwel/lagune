@@ -1,5 +1,7 @@
 # Hook network: avalie URLs contra SSRF
 
+> Esta página está desatualizada em relação à versão em inglês. [Ler a versão original](https://lagune.ai/docs/hooks/network).
+
 > Avalie um ou vários destinos de requisição contra SSRF, direto da linha de comando.
 
 Canônica: https://lagune.ai/pt-BR/docs/hooks/network

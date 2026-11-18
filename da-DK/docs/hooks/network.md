@@ -1,5 +1,7 @@
 # Hook network: vurdér URL'er for SSRF
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/hooks/network).
+
 > Vurdér et eller flere hentemål for SSRF direkte fra kommandolinjen.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/hooks/network

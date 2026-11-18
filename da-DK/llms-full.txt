@@ -43,7 +43,7 @@ Kan du lide **Lagune**? [Giv os en ⭐ på **GitHub**](https://github.com/wellwe
 **Info**
 
 - **Lagune** kører på **Node.js** bag kulisserne, men du bruger det sprog, du vil.
-- Hvis du vil køre helt offline, så installér **Lagune** i dit projekt med `npm i -D lagune@0.20.0`.
+- Hvis du vil køre helt offline, så installér **Lagune** i dit projekt med `npm i -D lagune@0.21.0`.
 
 ## Kategorier
 
@@ -258,6 +258,8 @@ Ja. Tillad mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write) og co
 
 # Installér Lagune i Claude Code som et plugin
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/install/claude-code).
+
 > Installér Lagune i Claude Code som et plugin, i terminalen, udvidelsen eller desktopappen, hold det opdateret, og giv dets motor tilladelse på forhånd.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/install/claude-code
@@ -393,7 +395,7 @@ Skriv `$` og kommandoen under pluginnets navn efterfulgt af dit input, såsom `$
 Sandboxen i **Codex** har ingen netværksadgang. Installér motoren i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Ofte stillede spørgsmål
@@ -412,7 +414,7 @@ Skriv $ og kommandoen under pluginnets navn efterfulgt af dit input, såsom $lag
 
 ### Virker Lagune inde i sandboxen i Codex?
 
-Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.20.0 fra din egen terminal, én gang og efter hver opdatering.
+Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.21.0 fra din egen terminal, én gang og efter hver opdatering.
 
 ---
 
@@ -913,7 +915,7 @@ Skriv kommandoerne ved deres navn, såsom `/lagune-charter`, eller under pluginn
 Sandboxen i **Muse Code** kan ikke downloade motoren. Installér den i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Ofte stillede spørgsmål
@@ -932,7 +934,7 @@ Skriv dem ved deres navn, såsom /lagune-charter, eller under pluginnets navn, s
 
 ### Virker Lagune inde i sandboxen i Muse Code?
 
-Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.20.0 fra din egen terminal, én gang og efter hver opdatering.
+Ja, når du har installeret motoren i dit projekt med npm i -D lagune@0.21.0 fra din egen terminal, én gang og efter hver opdatering.
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 Installér den nye udgivelse oven på den gamle for at opdatere **Lagune**, og tilføj `-g`, hvis du installerede det til alle dine projekter:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## Kommandoer
@@ -1014,7 +1016,7 @@ I OpenCode 2.x kører du opencode plugin add lagune. I OpenCode 1.x kører du op
 
 ### Hvordan opdaterer jeg Lagune i OpenCode?
 
-I OpenCode 2.x kører du opencode plugin update lagune og derefter opencode reload. I OpenCode 1.x kører du opencode plugin lagune@0.20.0 --force.
+I OpenCode 2.x kører du opencode plugin update lagune og derefter opencode reload. I OpenCode 1.x kører du opencode plugin lagune@0.21.0 --force.
 
 ### Hvordan kører jeg kommandoerne i Lagune i OpenCode?
 
@@ -1230,7 +1232,7 @@ Kør `gh skill update --all`, og læs hele outputtet. Omdirigér det først til 
 I en sandbox uden netværksadgang kan kommandoerne ikke downloade motoren. Installér den i dit projekt fra din egen terminal, én gang og efter hver opdatering:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Ofte stillede spørgsmål
@@ -3054,6 +3056,8 @@ En verifikator, der læser algoritmen fra tokenets header, lader en angriber byt
 
 # Hook network: vurdér URL'er for SSRF
 
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/hooks/network).
+
 > Vurdér et eller flere hentemål for SSRF direkte fra kommandolinjen.
 
 Kanonisk URL: https://lagune.ai/da-DK/docs/hooks/network
@@ -3137,6 +3141,8 @@ En URL, som forskellige parsere læser forskelligt, hvilket er en klassisk måde
 ---
 
 # Hook regex: find ReDoS-mønstre
+
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/hooks/regex).
 
 > Gennemsøg en kodebase for regex, der er sårbare over for ReDoS, eller vurdér et enkelt mønster, fra kommandolinjen.
 
@@ -3423,6 +3429,8 @@ Den tager udgangspunkt i oprindelsen, ikke i værdiens indhold. Formater med hø
 ---
 
 # Eksempler på prompts til Lagune: automatisér Blue Team-workflowet
+
+> Denne side er forældet i forhold til den engelske version. [Læs den originale version](https://lagune.ai/docs/examples/prompts).
 
 > Prompts til Lagune, klar til at kopiere: en scanning med kun læseadgang, hele Blue Team-workflowet og en Zero Trust-gennemgang samt detektion afgrænset til et commit, diffen for en branch eller PR eller en reel hændelse.
 
@@ -3792,7 +3800,7 @@ Lad **Lagune** gennemgå dit projekt på egen hånd efter en tidsplan, enten ved
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

@@ -1,9 +1,9 @@
 # Install Lagune on Claude Code as a Plugin
 
-> Install Lagune on Claude Code as a plugin, in the terminal, the extension, or the desktop app, keep it updated, and allow its engine up front.
+> Install Lagune on Claude Code as a plugin, in the terminal, the extension, the desktop app, or an organization, keep it updated, and allow its engine up front.
 
 Canonical: https://lagune.ai/docs/install/claude-code
-Last updated: 2026-11-09
+Last updated: 2026-11-16
 
 **Terminal**
 
@@ -31,6 +31,16 @@ Or from a **Claude Code** session:
 - Install **Lagune** from the terminal or the extension, choosing **Install for you** in the extension.
 - Start a new session in the desktop app, which loads the plugins you install for yourself.
 
+**Organization**
+
+Install the plugin for the members of a **Claude** organization, on a Team or Enterprise plan:
+
+- Download [`claude-organization.lagune.zip`](https://github.com/wellwelwel/lagune/releases/latest/download/claude-organization.lagune.zip) from the latest release.
+- As an owner, open **Organization settings > Plugins & skills**, select **Add**, then **Upload a plugin**, and choose the zip.
+- On the **Inventory** tab, open the plugin's menu and select **Default access** to choose how members get it.
+
+**Claude Code** 2.1.273 or later downloads the plugin when a member starts a session signed in with their **Claude** account, then asks for `/reload-plugins` to load it.
+
 ## Update
 
 **Terminal**
@@ -54,6 +64,14 @@ To keep it updated, select **Enable auto-update** for the `lagune` marketplace u
 
 - Update **Lagune** from the terminal or the extension.
 - Start a new session in the desktop app.
+
+**Organization**
+
+- Download [`claude-organization.lagune.zip`](https://github.com/wellwelwel/lagune/releases/latest/download/claude-organization.lagune.zip) from the latest release.
+- As an owner, open the **Inventory** tab under **Organization settings > Plugins & skills**.
+- Open the plugin's menu, select **Upload new version**, and choose the zip.
+
+**Claude Code** downloads the update the next time a member starts a session.
 
 ## Commands
 
@@ -83,6 +101,10 @@ When the engine runs through **npx**, as with the **skills.sh**, allow `Bash(npx
 ### How do I install Lagune on Claude Code?
 
 Run claude plugin install lagune --marketplace wellwelwel/lagune. In a session or the extension, add the wellwelwel/lagune marketplace from the plugin manager and install lagune. The desktop app loads it once you install it for yourself in the terminal or the extension.
+
+### How do I install Lagune for a Claude organization?
+
+Download claude-organization.lagune.zip from the latest release. As an owner, open Organization settings > Plugins & skills, select Add, then Upload a plugin, and choose the zip. Claude Code loads it for each member signed in with their Claude account. To update it, select Upload new version in the plugin's menu.
 
 ### How do I update Lagune on Claude Code?
 

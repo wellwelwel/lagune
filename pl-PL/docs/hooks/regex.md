@@ -1,5 +1,7 @@
 # Hook regex: Wykrywanie wzorców podatnych na ReDoS
 
+> Ta strona jest nieaktualna w porównaniu z wersją angielską. [Przeczytaj wersję oryginalną](https://lagune.ai/docs/hooks/regex).
+
 > Przeszukuj bazę kodu pod kątem wyrażeń regularnych podatnych na ReDoS albo oceniaj pojedynczy wzorzec z wiersza poleceń.
 
 Adres kanoniczny: https://lagune.ai/pl-PL/docs/hooks/regex

@@ -43,7 +43,7 @@ Ti piace **Lagune**? [Lasciaci una ⭐ su **GitHub**](https://github.com/wellwel
 **Info**
 
 - **Lagune** gira su **Node.js** dietro le quinte, ma tu usi il linguaggio che preferisci.
-- Per lavorare completamente offline, installa **Lagune** nel tuo progetto con `npm i -D lagune@0.20.0`.
+- Per lavorare completamente offline, installa **Lagune** nel tuo progetto con `npm i -D lagune@0.21.0`.
 
 ## Categorie
 
@@ -258,6 +258,8 @@ Sì. Consenti mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write) e 
 
 # Installa Lagune su Claude Code come plugin
 
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/install/claude-code).
+
 > Installa Lagune su Claude Code come plugin, nel terminale, nell'estensione o nell'app desktop, tienilo aggiornato e consenti il suo motore in anticipo.
 
 Canonico: https://lagune.ai/it-IT/docs/install/claude-code
@@ -393,7 +395,7 @@ Digita `$` e il comando con il nome del plugin, seguito dal tuo input, come `$la
 La sandbox di **Codex** non ha accesso alla rete. Installa il motore nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Domande frequenti
@@ -412,7 +414,7 @@ Digita $ e il comando con il nome del plugin, seguito dal tuo input, come $lagun
 
 ### Lagune funziona dentro la sandbox di Codex?
 
-Sì, una volta installato il motore nel tuo progetto con npm i -D lagune@0.20.0 dal tuo terminale, una volta e dopo ogni aggiornamento.
+Sì, una volta installato il motore nel tuo progetto con npm i -D lagune@0.21.0 dal tuo terminale, una volta e dopo ogni aggiornamento.
 
 ---
 
@@ -913,7 +915,7 @@ Digita i comandi per nome, come `/lagune-charter`, oppure con il nome del plugin
 La sandbox di **Muse Code** non può scaricare il motore. Installalo nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Domande frequenti
@@ -932,7 +934,7 @@ Digitali per nome, come /lagune-charter, oppure con il nome del plugin, come /la
 
 ### Lagune funziona dentro la sandbox di Muse Code?
 
-Sì, una volta installato il motore nel tuo progetto con npm i -D lagune@0.20.0 dal tuo terminale, una volta e dopo ogni aggiornamento.
+Sì, una volta installato il motore nel tuo progetto con npm i -D lagune@0.21.0 dal tuo terminale, una volta e dopo ogni aggiornamento.
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 Per aggiornare **Lagune**, installa la nuova release sopra quella vecchia, aggiungendo `-g` se l'hai installato per tutti i tuoi progetti:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## Comandi
@@ -1014,7 +1016,7 @@ Su OpenCode 2.x, esegui opencode plugin add lagune. Su OpenCode 1.x, esegui open
 
 ### Come aggiorno Lagune su OpenCode?
 
-Su OpenCode 2.x, esegui opencode plugin update lagune, poi opencode reload. Su OpenCode 1.x, esegui opencode plugin lagune@0.20.0 --force.
+Su OpenCode 2.x, esegui opencode plugin update lagune, poi opencode reload. Su OpenCode 1.x, esegui opencode plugin lagune@0.21.0 --force.
 
 ### Come eseguo i comandi di Lagune su OpenCode?
 
@@ -1230,7 +1232,7 @@ Esegui `gh skill update --all` e leggi il suo output completo, reindirizzandolo 
 In una sandbox senza accesso alla rete, i comandi non possono scaricare il motore. Installalo nel tuo progetto dal tuo terminale, una volta e dopo ogni aggiornamento:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Domande frequenti
@@ -3054,6 +3056,8 @@ Un verificatore che legge l'algoritmo dall'header del token permette a un attacc
 
 # Hook network: valuta gli URL contro la SSRF
 
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/hooks/network).
+
 > Valuta una o più destinazioni di richiesta contro la SSRF, direttamente dalla riga di comando.
 
 Canonico: https://lagune.ai/it-IT/docs/hooks/network
@@ -3137,6 +3141,8 @@ Un URL che parser diversi leggono in modo diverso, un classico aggiramento della
 ---
 
 # Hook regex: rileva i pattern ReDoS
+
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/hooks/regex).
 
 > Analizza una codebase alla ricerca di regex esposte al ReDoS, oppure valuta un singolo pattern, dalla riga di comando.
 
@@ -3423,6 +3429,8 @@ Si basa sulla provenienza, non sul contenuto del valore. I formati ad alta affid
 ---
 
 # Esempi di prompt per Lagune: automatizza il flusso Blue Team
+
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/examples/prompts).
 
 > Prompt di Lagune pronti da copiare: un'analisi in sola lettura, il flusso Blue Team completo e un audit Zero Trust, più il rilevamento limitato a un commit, al diff di un branch o di una PR, o a un incidente reale.
 
@@ -3792,7 +3800,7 @@ Programma **Lagune** perché faccia l'audit del tuo progetto da solo, limitandos
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

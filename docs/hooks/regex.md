@@ -3,7 +3,7 @@
 > Sweep a codebase for ReDoS-prone regex, or score a single pattern, from the command line.
 
 Canonical: https://lagune.ai/docs/hooks/regex
-Last updated: 2026-11-04
+Last updated: 2026-11-16
 
 The `regex` hook is the deterministic regex-safety engine the [`regex` specialization](https://lagune.ai/docs/catalog) runs, and you can run it yourself. It works in two modes from one command: a **scan** that sweeps a codebase for **ReDoS**-prone and runtime-built patterns, and a **check** that scores a single pattern you hand it.
 
@@ -75,10 +75,21 @@ npx lagune read regex --dir src/clean
 | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Vulnerable regular expressions found`                                                      | ReDoS-prone patterns, grouped by file with each pattern indented beneath, followed in parentheses by why it is unsafe and, when it has them, its scope and its flags. Every line is unsafe, so the verdict is not repeated. |
 | `Regular expressions the analysis could not settle (review manually)`                       | Patterns the analysis could not settle within its work cap, listed the same way.                                                                                                                                            |
+| `Strings that would be vulnerable as regular expressions (unconfirmed, review manually)`    | Strings that read as a ReDoS-prone pattern while nothing in the scan proves the code compiles them, listed the same way.                                                                                                    |
 | `Dynamically built regular expressions (review manually by simulating a constructed regex)` | Files that build a regex from a variable, a concatenation, or an interpolation.                                                                                                                                             |
 | `Static regex wrapped in a constructor (use a literal instead)`                             | Files that pass a plain string literal to a regex constructor where a regex literal is simpler and skips a runtime compile.                                                                                                 |
 
-The first section is a security finding. The second and third are not findings on their own: they point to code a static check cannot settle, so they ask for a human read. The fourth is a clarity hint, not a security finding.
+The first section is a security finding, the only one that fails the run. The second, third, and fourth are not findings on their own: they point to code a static check cannot settle, so they ask for a human read. The fifth is a clarity hint, not a security finding.
+
+### What counts as a regular expression
+
+A quoted string is not a regular expression just because it looks like one: a cron expression, a SQL wildcard, a glob, or a `printf` precision share the same characters. The scan reports a string as vulnerable only when the code proves it is a pattern:
+
+- It is a regex literal, or the argument of a regular expression API.
+- It is bound to a name that a regular expression API receives, in the same file or in another one.
+- Its name, or the function it is passed to, says it is a regular expression, such as `EMAIL_REGEX` or `@Pattern(regexp = ...)`.
+
+A string whose name only suggests a pattern, or whose file builds a regular expression from a value the scan could not trace, is listed as unconfirmed. Every other string is left out, and so is anything written in a comment or in a string that runs across lines, such as a docstring.
 
 ### CLI options
 
@@ -144,7 +155,7 @@ The scan reads these languages, keyed by file extension, each by its own rules s
 
 **Best-effort, not exhaustive**
 
-It reads source as text, so it cannot judge a pattern assembled at runtime, and a pattern spread across lines, hidden behind an alias, or written in a form it does not recognize can slip past. Treat the sections as a strong starting point, not a complete inventory, and keep reading the code for what they cannot reach.
+It reads source as text, so it cannot judge a pattern assembled at runtime, and a pattern spread across lines, hidden behind an alias, held in a list, passed through a function's parameter, or written in a form it does not recognize can slip past. Treat the sections as a strong starting point, not a complete inventory, and keep reading the code for what they cannot reach.
 
 ## Check a single pattern
 

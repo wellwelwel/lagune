@@ -1,5 +1,7 @@
 # Claude Code में Lagune को प्लगइन के रूप में इंस्टॉल करें
 
+> यह पेज अपने अंग्रेज़ी संस्करण से पुराना है। [मूल संस्करण पढ़ें](https://lagune.ai/docs/install/claude-code)।
+
 > Claude Code में Lagune को प्लगइन के रूप में इंस्टॉल करें, चाहे टर्मिनल हो, एक्सटेंशन हो या डेस्कटॉप ऐप, उसे अपडेट रखें, और उसके इंजन को पहले से अनुमति दें।
 
 कैनोनिकल: https://lagune.ai/hi-IN/docs/install/claude-code

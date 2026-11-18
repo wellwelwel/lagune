@@ -1,5 +1,7 @@
 # network フック：URL の SSRF リスクを判定する
 
+> このページは英語版より古くなっています。[原文を読む](https://lagune.ai/docs/hooks/network)。
+
 > コマンドラインから直接、1 つまたは複数のリクエスト先の SSRF リスクを判定できます。
 
 正規 URL: https://lagune.ai/ja-JP/docs/hooks/network

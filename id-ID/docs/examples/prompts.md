@@ -1,5 +1,7 @@
 # Contoh prompt Lagune: otomatiskan alur Blue Team
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/examples/prompts).
+
 > Prompt Lagune siap salin: pemindaian read-only, alur Blue Team lengkap, dan audit Zero Trust, ditambah deteksi yang cakupannya dibatasi pada sebuah commit, diff branch atau PR, atau insiden nyata.
 
 Kanonis: https://lagune.ai/id-ID/docs/examples/prompts

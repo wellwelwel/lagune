@@ -1,5 +1,7 @@
 # วิธีติดตั้ง Lagune บน Claude Code แบบปลั๊กอิน
 
+> หน้านี้ล้าหลังกว่าเวอร์ชันภาษาอังกฤษ [อ่านเวอร์ชันต้นฉบับ](https://lagune.ai/docs/install/claude-code)
+
 > ติดตั้ง Lagune บน Claude Code แบบปลั๊กอิน ทั้งในเทอร์มินัล ส่วนขยาย และแอปเดสก์ท็อป อัปเดตให้เป็นเวอร์ชันล่าสุดเสมอ และอนุญาตเอนจินไว้ล่วงหน้า
 
 Canonical: https://lagune.ai/th-TH/docs/install/claude-code

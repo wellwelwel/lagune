@@ -1,5 +1,7 @@
 # Prompteksempler for Lagune: Automatiser Blue Team-flyten
 
+> Denne siden er utdatert sammenlignet med den engelske versjonen. [Les originalversjonen](https://lagune.ai/docs/examples/prompts).
+
 > Prompter for Lagune, klare til å kopieres: en gjennomgang med kun lesetilgang, hele Blue Team-flyten og en Zero Trust-revisjon, pluss kartlegging avgrenset til en commit, en diff fra en branch eller PR, eller en reell hendelse.
 
 Kanonisk URL: https://lagune.ai/no-NO/docs/examples/prompts

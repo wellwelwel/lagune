@@ -43,7 +43,7 @@ Canonical: https://lagune.ai/ar-AE/docs
 **معلومة**
 
 - يعمل **Lagune** على **Node.js** في الخلفية، لكنك تستخدم أي لغة برمجة تريدها.
-- للعمل دون اتصال بالإنترنت تمامًا، ثبّت **Lagune** في مشروعك عبر `npm i -D lagune@0.20.0`.
+- للعمل دون اتصال بالإنترنت تمامًا، ثبّت **Lagune** في مشروعك عبر `npm i -D lagune@0.21.0`.
 
 ## الفئات
 
@@ -258,6 +258,8 @@ agy plugin install https://github.com/wellwelwel/lagune/tree/plugin-antigravity
 
 # ثبّت Lagune على Claude Code كإضافة
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/install/claude-code).
+
 > ثبّت Lagune على Claude Code كإضافة، في الطرفية أو الامتداد أو تطبيق سطح المكتب، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
 
 Canonical: https://lagune.ai/ar-AE/docs/install/claude-code
@@ -393,7 +395,7 @@ codex plugin marketplace upgrade lagune
 لا تملك بيئة العزل في **Codex** وصولًا إلى الشبكة. ثبّت المحرك في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## الأسئلة الشائعة
@@ -412,7 +414,7 @@ npm i -D lagune@0.20.0
 
 ### هل يعمل Lagune داخل بيئة العزل في Codex؟
 
-نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.20.0 من طرفيتك، مرة واحدة وبعد كل تحديث.
+نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.21.0 من طرفيتك، مرة واحدة وبعد كل تحديث.
 
 ---
 
@@ -913,7 +915,7 @@ muse plugins install lagune@lagune
 لا تستطيع بيئة العزل في **Muse Code** تنزيل المحرك. ثبّته في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## الأسئلة الشائعة
@@ -932,7 +934,7 @@ npm i -D lagune@0.20.0
 
 ### هل يعمل Lagune داخل بيئة العزل في Muse Code؟
 
-نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.20.0 من طرفيتك، مرة واحدة وبعد كل تحديث.
+نعم، بعد أن تثبّت المحرك في مشروعك عبر npm i -D lagune@0.21.0 من طرفيتك، مرة واحدة وبعد كل تحديث.
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 لتحديث **Lagune**، ثبّت الإصدار الجديد فوق القديم، مع إضافة `-g` إن كنت ثبّته لكل مشاريعك:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## الأوامر
@@ -1014,7 +1016,7 @@ opencode plugin lagune@0.20.0 --force
 
 ### كيف أحدّث Lagune على OpenCode؟
 
-في OpenCode 2.x، شغّل opencode plugin update lagune، ثم opencode reload. وفي OpenCode 1.x، شغّل opencode plugin lagune@0.20.0 --force.
+في OpenCode 2.x، شغّل opencode plugin update lagune، ثم opencode reload. وفي OpenCode 1.x، شغّل opencode plugin lagune@0.21.0 --force.
 
 ### كيف أشغّل أوامر Lagune على OpenCode؟
 
@@ -1230,7 +1232,7 @@ gh skill update --all
 في بيئة عزل دون وصول إلى الشبكة، لا تستطيع الأوامر تنزيل المحرك. ثبّته في مشروعك من طرفيتك، مرة واحدة وبعد كل تحديث:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## الأسئلة الشائعة
@@ -3054,6 +3056,8 @@ npx lagune write add --ignore test/fixtures --checker jwt
 
 # hook network: قيّم عناوين URL ضد SSRF
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/hooks/network).
+
 > قيّم وجهة جلب واحدة أو أكثر ضد SSRF، مباشرة من سطر الأوامر.
 
 Canonical: https://lagune.ai/ar-AE/docs/hooks/network
@@ -3137,6 +3141,8 @@ hook دالة نقية ولا يحلّ أسماء DNS أبدًا، لذلك تخ
 ---
 
 # hook regex: اكتشف أنماط ReDoS
+
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/hooks/regex).
 
 > افحص قاعدة الكود بحثًا عن التعابير النمطية المعرّضة لـ ReDoS، أو قيّم نمطًا واحدًا، من سطر الأوامر.
 
@@ -3423,6 +3429,8 @@ npx lagune write add --ignore test/fixtures --checker secrets
 ---
 
 # أمثلة موجّهات Lagune: أتمت مسار الفريق الأزرق
+
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/examples/prompts).
 
 > موجّهات Lagune جاهزة للنسخ: فحص للقراءة فقط، ومسار الفريق الأزرق الكامل، وتدقيق Zero Trust، إضافة إلى اكتشاف محصور في commit، أو في diff لفرع أو pull request، أو في حادثة حقيقية.
 
@@ -3792,7 +3800,7 @@ Canonical: https://lagune.ai/ar-AE/docs/examples/scheduled-audits
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

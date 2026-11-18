@@ -1,5 +1,7 @@
 # Hook regex: rileva i pattern ReDoS
 
+> Questa pagina non è aggiornata rispetto alla versione inglese. [Leggi la versione originale](https://lagune.ai/docs/hooks/regex).
+
 > Analizza una codebase alla ricerca di regex esposte al ReDoS, oppure valuta un singolo pattern, dalla riga di comando.
 
 Canonico: https://lagune.ai/it-IT/docs/hooks/regex

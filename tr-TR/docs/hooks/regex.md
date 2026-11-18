@@ -1,5 +1,7 @@
 # regex hook'u: ReDoS örüntülerini tespit edin
 
+> Bu sayfa İngilizce sürümünün gerisinde kaldı. [Orijinal sürümü okuyun](https://lagune.ai/docs/hooks/regex).
+
 > Kod tabanını ReDoS'a yatkın regex'lere karşı tarayın ya da tek bir örüntüyü doğrudan komut satırından puanlayın.
 
 Kanonik URL: https://lagune.ai/tr-TR/docs/hooks/regex

@@ -43,7 +43,7 @@ Suka **Lagune**? [Beri kami ⭐ di **GitHub**](https://github.com/wellwelwel/lag
 **Info**
 
 - Di balik layar, **Lagune** berjalan di **Node.js**, tetapi Anda bebas memakai bahasa apa pun.
-- Untuk menjalankannya sepenuhnya offline, instal **Lagune** di proyek Anda dengan `npm i -D lagune@0.20.0`.
+- Untuk menjalankannya sepenuhnya offline, instal **Lagune** di proyek Anda dengan `npm i -D lagune@0.21.0`.
 
 ## Kategori
 
@@ -258,6 +258,8 @@ Ya. Izinkan mcp(lagune_lagune/lagune_read), mcp(lagune_lagune/lagune_write), dan
 
 # Cara menginstal Lagune di Claude Code sebagai plugin
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/install/claude-code).
+
 > Instal Lagune di Claude Code sebagai plugin, di terminal, ekstensi, atau aplikasi desktop, jaga agar tetap terbaru, dan izinkan engine-nya sejak awal.
 
 Kanonis: https://lagune.ai/id-ID/docs/install/claude-code
@@ -393,7 +395,7 @@ Ketik `$` dan perintah dengan nama plugin di depannya, diikuti input Anda, misal
 Sandbox **Codex** tidak punya akses jaringan. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -412,7 +414,7 @@ Ketik $ dan perintah dengan nama plugin di depannya, diikuti input Anda, misalny
 
 ### Apakah Lagune berfungsi di dalam sandbox Codex?
 
-Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.20.0 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
+Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.21.0 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
 
 ---
 
@@ -913,7 +915,7 @@ Ketik perintah dengan namanya, misalnya `/lagune-charter`, atau dengan nama plug
 Sandbox **Muse Code** tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -932,7 +934,7 @@ Ketik perintah dengan namanya, misalnya /lagune-charter, atau dengan nama plugin
 
 ### Apakah Lagune berfungsi di dalam sandbox Muse Code?
 
-Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.20.0 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
+Ya, setelah Anda menginstal engine di proyek Anda dengan npm i -D lagune@0.21.0 dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan.
 
 ---
 
@@ -993,7 +995,7 @@ opencode reload
 Untuk memperbarui **Lagune**, instal rilis baru di atas rilis lama, dengan menambahkan `-g` jika Anda menginstalnya di semua proyek Anda:
 
 ```bash
-opencode plugin lagune@0.20.0 --force
+opencode plugin lagune@0.21.0 --force
 ```
 
 ## Perintah
@@ -1014,7 +1016,7 @@ Di OpenCode 2.x, jalankan opencode plugin add lagune. Di OpenCode 1.x, jalankan 
 
 ### Bagaimana cara memperbarui Lagune di OpenCode?
 
-Di OpenCode 2.x, jalankan opencode plugin update lagune, lalu opencode reload. Di OpenCode 1.x, jalankan opencode plugin lagune@0.20.0 --force.
+Di OpenCode 2.x, jalankan opencode plugin update lagune, lalu opencode reload. Di OpenCode 1.x, jalankan opencode plugin lagune@0.21.0 --force.
 
 ### Bagaimana cara menjalankan perintah Lagune di OpenCode?
 
@@ -1230,7 +1232,7 @@ Jalankan `gh skill update --all` dan baca seluruh output-nya, alihkan dulu ke fi
 Di sandbox tanpa akses jaringan, perintah tidak bisa mengunduh engine. Instal engine di proyek Anda dari terminal Anda sendiri, sekali di awal dan lagi setelah setiap pembaruan:
 
 ```bash
-npm i -D lagune@0.20.0
+npm i -D lagune@0.21.0
 ```
 
 ## Pertanyaan yang sering diajukan
@@ -3054,6 +3056,8 @@ Verifier yang membaca algoritma dari header token memungkinkan penyerang menukar
 
 # Hook network: nilai URL terhadap SSRF
 
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/hooks/network).
+
 > Nilai satu atau beberapa tujuan request terhadap SSRF, langsung dari command line.
 
 Kanonis: https://lagune.ai/id-ID/docs/hooks/network
@@ -3137,6 +3141,8 @@ URL yang dibaca secara berbeda oleh parser yang berbeda, yang merupakan cara kla
 ---
 
 # Hook regex: deteksi pola ReDoS
+
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/hooks/regex).
 
 > Pindai basis kode untuk mencari regex yang rawan ReDoS, atau beri skor satu pola, langsung dari command line.
 
@@ -3423,6 +3429,8 @@ Hook ini berpatokan pada asal-usul nilai, bukan pada isinya. Format dengan tingk
 ---
 
 # Contoh prompt Lagune: otomatiskan alur Blue Team
+
+> Halaman ini tertinggal dari versi bahasa Inggrisnya. [Baca versi aslinya](https://lagune.ai/docs/examples/prompts).
 
 > Prompt Lagune siap salin: pemindaian read-only, alur Blue Team lengkap, dan audit Zero Trust, ditambah deteksi yang cakupannya dibatasi pada sebuah commit, diff branch atau PR, atau insiden nyata.
 
@@ -3792,7 +3800,7 @@ Jadwalkan **Lagune** untuk mengaudit proyek Anda secara mandiri, entah hanya mel
       COPILOT_PROVIDER_BASE_URL: <url>
       COPILOT_PROVIDER_API_KEY: ${{ secrets.PROVIDER_API_KEY }}
   skills:
-    - wellwelwel/lagune@v0.20.0
+    - wellwelwel/lagune@v0.21.0
   network:
     allowed:
       - defaults

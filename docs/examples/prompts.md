@@ -3,7 +3,7 @@
 > Copy-ready Lagune prompts: a read-only scan, the full Blue Team flow, and a Zero Trust audit, plus detection scoped to a commit, a branch or PR diff, or a real incident.
 
 Canonical: https://lagune.ai/docs/examples/prompts
-Last updated: 2026-11-06
+Last updated: 2026-11-16
 
 Copy-ready Lagune prompts you can paste directly into your AI agent.
 
@@ -83,11 +83,11 @@ When `/lagune-verify` rejects one or more fixes, repeat `/lagune-harden` and the
 
 **🐋 Multi Agents (Deep Scan)**
 
-| Aspect          | Trade-off                                                                                                   | Level               |
-| --------------- | ----------------------------------------------------------------------------------------------------------- | ------------------- |
-| **Effort**      | The number of sub-agents is scaled to the size of your codebase.                                            | 5/5 |
-| **Time**        | Longer, but more thorough. Dispatches multiple sub-agents to detect, plan, and harden findings in parallel. | 5/5 |
-| **Token Usage** | Higher, but safer. Each sub-agent has its own isolated context without bias.                                | 5/5 |
+| Aspect          | Trade-off                                                                                                                                                   | Level               |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| **Effort**      | The number of sub-agents is scaled to the size of your codebase.                                                                                            | 5/5 |
+| **Time**        | Longer, but more thorough. Dispatches multiple sub-agents to detect, plan, and harden findings in parallel, then checks for entry points no finding covers. | 5/5 |
+| **Token Usage** | Higher, but safer. Each sub-agent has its own isolated context without bias.                                                                                | 5/5 |
 
 ````md
 Execute the following commands each to one sub-agent, one at a time (without backticks, just the command):
@@ -121,6 +121,12 @@ In the `/lagune-detect`, `/lagune-plan`, `/lagune-harden`, and `/lagune-verify` 
 
 ```prompt
 /lagune-detect merge equivalent findings. Don't detect for new findings nor scan the codebase again.
+```
+
+- After the merge, perform:
+
+```prompt
+/lagune-detect map only the entry points (routes, handlers, CLI commands, jobs, exported APIs, and message consumers) that no finding in the detect map covers yet.
 ```
 
 ## Loop

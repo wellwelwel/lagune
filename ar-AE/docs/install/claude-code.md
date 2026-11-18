@@ -1,5 +1,7 @@
 # ثبّت Lagune على Claude Code كإضافة
 
+> هذه الصفحة أقدم من نسختها الإنجليزية. [اقرأ النسخة الأصلية](https://lagune.ai/docs/install/claude-code).
+
 > ثبّت Lagune على Claude Code كإضافة، في الطرفية أو الامتداد أو تطبيق سطح المكتب، وحافظ على تحديثه، واسمح لمحركه مسبقًا.
 
 Canonical: https://lagune.ai/ar-AE/docs/install/claude-code
