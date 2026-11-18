@@ -4,13 +4,12 @@ import type {
   WaterPalette,
   WaterRenderer,
 } from './protocol';
+import { REDUCED_MOTION_QUERY } from '@site/src/components/reducedMotion';
 import { CONTEXT_OPTIONS, createWaterRenderer } from './renderer';
 
 const RENDER_SCALE = 0.75;
 const MAX_PIXEL_RATIO = 2;
 const VISIBILITY_MARGIN = '100px';
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-const NO_GL_CLASS = 'no-gl';
 
 const CANVAS_STYLE =
   'position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0;transition:opacity 400ms ease';
@@ -87,11 +86,6 @@ export const mountWaterShader = (
   let canvas = attachCanvas(host);
   let renderer: WaterRenderer | null = null;
 
-  const keepPlain = () => {
-    canvas.remove();
-    host.classList.add(NO_GL_CLASS);
-  };
-
   const shouldRun = () => view.visible && !document.hidden;
 
   const syncRunning = () => renderer?.setRunning(shouldRun());
@@ -103,7 +97,7 @@ export const mountWaterShader = (
     renderer = renderInline(canvas, palette, reducedMotion.matches);
 
     if (!renderer) {
-      keepPlain();
+      canvas.remove();
 
       return;
     }
@@ -124,9 +118,9 @@ export const mountWaterShader = (
     : renderInline(canvas, palette, reducedMotion.matches);
 
   if (!renderer) {
-    keepPlain();
+    canvas.remove();
 
-    return () => host.classList.remove(NO_GL_CLASS);
+    return () => {};
   }
 
   const onPointerMove = (event: PointerEvent) => {
@@ -183,6 +177,5 @@ export const mountWaterShader = (
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('pointerout', onPointerOut);
     canvas.remove();
-    host.classList.remove(NO_GL_CLASS);
   };
 };

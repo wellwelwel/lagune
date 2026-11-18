@@ -11,9 +11,9 @@ import { LuArrowRight } from 'react-icons/lu';
 import { useMetalRing } from './useMetalRing';
 
 const CallToActionComponent = () => {
-  const metal = useRef<HTMLSpanElement>(null);
+  const metalRef = useRef<HTMLSpanElement>(null);
 
-  useMetalRing(metal);
+  useMetalRing(metalRef);
 
   return (
     <Link
@@ -27,7 +27,7 @@ const CallToActionComponent = () => {
           description: 'The main home button, leading to the install page',
         })}
       </span>
-      <span ref={metal} className='lagune-metal-button__metal' aria-hidden />
+      <span ref={metalRef} className='lagune-metal-button__metal' aria-hidden />
       <span
         className='lagune-metal-button__label flex flex-1 items-center gap-3 max-[380px]:gap-2'
         aria-hidden

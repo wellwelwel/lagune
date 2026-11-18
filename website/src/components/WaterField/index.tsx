@@ -9,10 +9,10 @@ const PALETTE: WaterPalette = {
   deep: '#08103a',
 };
 
-const EDGE_FADE = '#000 50%, #000 75%, transparent';
-const FIELD_MASK = `linear-gradient(to bottom, transparent, ${EDGE_FADE})`;
+const FIELD_MASK =
+  'linear-gradient(to bottom, transparent, #000 50%, #000 75%, transparent)';
 
-const WaterFieldComponent = ({ className }: { className?: string }) => {
+const WaterFieldComponent = ({ className }: { className: string }) => {
   const hostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const WaterFieldComponent = ({ className }: { className?: string }) => {
   return (
     <div
       ref={hostRef}
-      className={`pointer-events-none overflow-hidden ${className ?? 'fixed inset-0 z-0'}`}
+      className={`pointer-events-none overflow-hidden ${className}`}
       style={{
         backgroundColor: PALETTE.deep,
         maskImage: FIELD_MASK,

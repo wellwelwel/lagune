@@ -1,5 +1,4 @@
 import type { TabItem } from '@site/src/components/tabs';
-import type { InstallTab } from '@site/src/data/home';
 import { translate } from '@docusaurus/Translate';
 import { CopyButton } from '@site/src/components/home/CopyButton';
 import { HighlightedCode } from '@site/src/components/home/HighlightedCode';
@@ -15,8 +14,6 @@ type InstallTabsProps = {
   onPick: (index: number) => void;
 };
 
-const tabLabel = ({ agent }: InstallTab): string => agent.name;
-
 const Command = ({ code }: { code: string }) => (
   <HighlightedCode
     code={code}
@@ -27,7 +24,7 @@ const Command = ({ code }: { code: string }) => (
 );
 
 const TABS: TabItem[] = INSTALL_TABS.map((tab) => ({
-  label: tabLabel(tab),
+  label: tab.agent.name,
   icon: (
     <img
       src={tab.logo}
@@ -87,7 +84,7 @@ const InstallTabsComponent = ({ picked, onPick }: InstallTabsProps) => {
               description:
                 'The label of the button that copies the install command shown on the home page, where {agent} is the agent',
             },
-            { agent: tabLabel(shown) }
+            { agent: shown.agent.name }
           )}
         />
       </div>

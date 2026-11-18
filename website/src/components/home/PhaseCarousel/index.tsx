@@ -4,6 +4,8 @@ import { PHASE_STEPS, STEP_CARD_ICONS } from '@site/src/data/home';
 import { useEffect, useRef } from 'react';
 import { createReel } from './reel';
 
+export { SLIDE } from './motion';
+
 type PhaseCarouselProps = {
   current: number;
   onStep: (index: number) => void;

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { PhaseTicker } from '@site/src/components/home/PhaseTicker';
-import { HERO } from '@site/src/data/home';
+import { HERO_KICKER } from '@site/src/data/home';
 
 export const Hero = (): ReactNode => (
   <header className='flex flex-col items-start gap-3.5'>
@@ -15,7 +15,7 @@ export const Hero = (): ReactNode => (
       <PhaseTicker />
     </p>
     <p className='text-[clamp(14px,1.35vw,16px)] font-normal leading-[1.55] tracking-[-0.01em] text-[rgba(233, 237, 247,0.92)]'>
-      {HERO.kicker}
+      {HERO_KICKER}
     </p>
   </header>
 );

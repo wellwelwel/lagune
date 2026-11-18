@@ -14,7 +14,7 @@ type FooterRowProps = {
 const ignoreMode = () => {};
 
 const FooterRow = ({ phase, modeIndex, onSelectMode }: FooterRowProps) => (
-  <div className='flex flex-wrap items-center justify-between gap-3 max-[600px]:flex-col max-[600px]:items-stretch max-[600px]:gap-3'>
+  <div className='flex flex-wrap items-center justify-between gap-3 max-[600px]:flex-col max-[600px]:items-stretch'>
     <div className='flex items-center gap-2 min-w-0'>
       <code className='px-2.5 py-[5px] rounded-md bg-accent/10 font-mono text-[12px] tracking-[0.02em] text-accent overflow-hidden text-ellipsis whitespace-nowrap'>
         {phase.command}

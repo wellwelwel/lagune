@@ -1,4 +1,5 @@
 import type { Pose, Timing } from './motion';
+import { REDUCED_MOTION_QUERY } from '@site/src/components/reducedMotion';
 import {
   enteringPose,
   GENTLE_MOTION,
@@ -20,8 +21,7 @@ export type Reel = {
   release: () => void;
 };
 
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-const REST_DELAY = 50;
+const REST_DELAY_MS = 50;
 
 const settle = (card: HTMLElement) => {
   for (const animation of card.getAnimations()) {
@@ -39,7 +39,7 @@ export const createReel = (stage: HTMLElement): Reel => {
   const cards = [...stage.children].filter(
     (child) => child instanceof HTMLElement
   );
-  const reading = getComputedStyle(stage).direction === 'rtl' ? -1 : 1;
+  const direction = getComputedStyle(stage).direction === 'rtl' ? -1 : 1;
   const reducedMotion = window.matchMedia(REDUCED_MOTION_QUERY);
   const springy = springyMotion();
   const count = cards.length;
@@ -53,7 +53,7 @@ export const createReel = (stage: HTMLElement): Reel => {
   const motion = () => (reducedMotion.matches ? GENTLE_MOTION : springy);
 
   const frameOf = ({ x, y, scale }: Pose): Keyframe => ({
-    translate: `${x * reading}cqw ${y}%`,
+    translate: `${x * direction}cqw ${y}%`,
     scale: `${scale}`,
   });
 
@@ -217,7 +217,7 @@ export const createReel = (stage: HTMLElement): Reel => {
     restTimer = window.setTimeout(() => {
       hovered = null;
       arrange(phase, null);
-    }, REST_DELAY);
+    }, REST_DELAY_MS);
   };
 
   const release = () => {

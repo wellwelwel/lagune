@@ -8,10 +8,10 @@ import {
   ShaderMount,
   toProcessedLiquidMetal,
 } from '@paper-design/shaders';
+import { REDUCED_MOTION_QUERY } from '@site/src/components/reducedMotion';
 import { useEffect } from 'react';
 
 const READY_CLASS = 'lagune-metal-button__metal--ready';
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 const SPEED = 1;
 const SPEED_REDUCED = 0.4;

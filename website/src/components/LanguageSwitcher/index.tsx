@@ -54,6 +54,10 @@ const TONES: Record<
   },
 };
 
+export const LANGUAGE_GRID = 'grid grid-cols-3 gap-0.5 max-sm:grid-cols-2';
+
+const VIEWPORT_MARGIN = 16;
+
 const FlagIcon = ({
   src,
   className,
@@ -70,10 +74,6 @@ const FlagIcon = ({
     height={18}
   />
 );
-
-export const LANGUAGE_GRID = 'grid grid-cols-3 gap-0.5 max-sm:grid-cols-2';
-
-const VIEWPORT_MARGIN = 16;
 
 /* Width from the panel's anchored edge to the far side of the viewport, keeping the viewport margin. */
 export const roomBeside = (anchor: Element): number => {

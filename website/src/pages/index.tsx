@@ -31,6 +31,7 @@ import {
   useLocalePage,
   usePublishedAlternates,
 } from '@site/src/components/LocaleHead';
+import { REDUCED_MOTION_QUERY } from '@site/src/components/reducedMotion';
 import { useDismiss } from '@site/src/components/useDismiss';
 import { PROMPT_AGENT_ICONS, SECTION_LABELS } from '@site/src/data/home';
 import { jsonLd } from '@site/src/seo/jsonLd';
@@ -371,9 +372,7 @@ let glideId = 0;
 const glideToTop = () => {
   const id = ++glideId;
   const from = window.scrollY;
-  const glide = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ? 0
-    : 420;
+  const glide = window.matchMedia(REDUCED_MOTION_QUERY).matches ? 0 : 420;
   const settle = glide + 250;
   const started = performance.now();
 

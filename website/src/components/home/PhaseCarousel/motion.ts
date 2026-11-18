@@ -16,7 +16,7 @@ type Offstage = {
   timing: Timing;
 };
 
-export type Motion = {
+type Motion = {
   entrance: {
     spread: number;
     rise: number;

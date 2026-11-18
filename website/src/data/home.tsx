@@ -1,4 +1,4 @@
-import type { ComponentType, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
 import type { LinkedAgent } from './agents';
 import Translate, { translate } from '@docusaurus/Translate';
@@ -354,7 +354,7 @@ export const PHASE_STEPS: Phase[] = [
   },
 ];
 
-export const STEP_RAIL_ICONS: ComponentType[] = [
+export const STEP_RAIL_ICONS: IconType[] = [
   LuSparkle,
   TbCircleNumber1,
   TbCircleNumber2,
@@ -551,50 +551,48 @@ const Strong = ({ children }: { children: ReactNode }): ReactNode => (
   <span className='font-semibold'>{children}</span>
 );
 
-export const HERO: { kicker: ReactNode } = {
-  kicker: (
-    <Translate
-      id='home.feature.overview.kicker'
-      description='The question under the home overview title, where {before}, {during}, and {after} are emphasized'
-      values={{
-        before: (
-          <Strong>
-            <Translate
-              id='home.feature.overview.kicker.before'
-              description='The emphasized "before" of the home overview question'
-            >
-              before
-            </Translate>
-          </Strong>
-        ),
-        during: (
-          <Strong>
-            <Translate
-              id='home.feature.overview.kicker.during'
-              description='The emphasized "during" of the home overview question'
-            >
-              during
-            </Translate>
-          </Strong>
-        ),
-        after: (
-          <Strong>
-            <Translate
-              id='home.feature.overview.kicker.after'
-              description='The emphasized "after" of the home overview question'
-            >
-              after
-            </Translate>
-          </Strong>
-        ),
-      }}
-    >
-      {
-        'Instead of running a generic checklist, what if security existed {before}, {during}, and {after} development?'
-      }
-    </Translate>
-  ),
-};
+export const HERO_KICKER: ReactNode = (
+  <Translate
+    id='home.feature.overview.kicker'
+    description='The question under the home overview title, where {before}, {during}, and {after} are emphasized'
+    values={{
+      before: (
+        <Strong>
+          <Translate
+            id='home.feature.overview.kicker.before'
+            description='The emphasized "before" of the home overview question'
+          >
+            before
+          </Translate>
+        </Strong>
+      ),
+      during: (
+        <Strong>
+          <Translate
+            id='home.feature.overview.kicker.during'
+            description='The emphasized "during" of the home overview question'
+          >
+            during
+          </Translate>
+        </Strong>
+      ),
+      after: (
+        <Strong>
+          <Translate
+            id='home.feature.overview.kicker.after'
+            description='The emphasized "after" of the home overview question'
+          >
+            after
+          </Translate>
+        </Strong>
+      ),
+    }}
+  >
+    {
+      'Instead of running a generic checklist, what if security existed {before}, {during}, and {after} development?'
+    }
+  </Translate>
+);
 
 export const INSTALL_TABS: InstallTab[] = [
   {

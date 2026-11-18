@@ -13,11 +13,10 @@ const start = (init: WaterInit) => {
     typeof requestAnimationFrame === 'function'
       ? init.canvas.getContext('webgl2', CONTEXT_OPTIONS)
       : null;
-  const failure: WaterEvent = { type: 'failure' };
 
   renderer = gl && createWaterRenderer(gl, init.palette, init.reducedMotion);
 
-  if (!renderer) postMessage(failure);
+  if (!renderer) postMessage({ type: 'failure' } satisfies WaterEvent);
 };
 
 const apply = (current: WaterRenderer, message: WaterMessage) => {

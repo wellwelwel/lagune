@@ -330,11 +330,6 @@ html.lagune-canvas-html body.lagune-canvas-body {
   background: var(--color-accent);
 }
 
-.lagune-image-outline {
-  outline: 1px solid rgba(0, 0, 0, 0.4);
-  outline-offset: -1px;
-}
-
 /* The fill ends where the browser centers the thumb, inset by half its width at each end. */
 .lagune-scrubber {
   --lagune-share: 0;

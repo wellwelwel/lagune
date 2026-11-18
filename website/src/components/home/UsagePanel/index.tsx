@@ -1,7 +1,6 @@
 import Translate, { translate } from '@docusaurus/Translate';
 import { PhaseCard } from '@site/src/components/home/PhaseCard';
-import { PhaseCarousel } from '@site/src/components/home/PhaseCarousel';
-import { SLIDE } from '@site/src/components/home/PhaseCarousel/motion';
+import { PhaseCarousel, SLIDE } from '@site/src/components/home/PhaseCarousel';
 import { PromptCard } from '@site/src/components/home/PromptCard';
 import { Tallest } from '@site/src/components/Tallest';
 import { PHASE_STEPS, STEP_CARD_ICONS } from '@site/src/data/home';
