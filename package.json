@@ -1,6 +1,6 @@
 {
   "name": "lagune",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "🪼 Your security copilot as you build, your Blue Team when you audit, whether you're a developer or not.",
   "license": "Apache-2.0",
   "type": "module",
@@ -52,6 +52,7 @@
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
     "tokens": "tsx tools/count-tokens.ts",
+    "detection:score": "tsx tools/detection/score.ts",
     "test": "bash scripts/test.sh",
     "dashboard:build": "bash scripts/dashboard/build.sh",
     "dashboard:dev": "bash scripts/dashboard/dev.sh",
