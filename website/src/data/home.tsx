@@ -125,7 +125,7 @@ export const PHASE_STEPS: Phase[] = [
         'Builds what your prompt asks for, with security guarding the work as it happens, not later.',
       description: 'What the universal /lagune command does',
     }),
-    image: '/img/phases/build.png',
+    image: '/img/phases/build.webp',
     nextLabel: translate({
       id: 'home.phase.universal.next',
       message: 'See how to audit your existing project',
@@ -191,7 +191,7 @@ export const PHASE_STEPS: Phase[] = [
         "Sets your project's security rules, proposed for you or shaped by what you say.",
       description: 'What the Charter phase does',
     }),
-    image: '/img/phases/charter.png',
+    image: '/img/phases/charter.webp',
     modes: [
       {
         label: translate({
@@ -231,7 +231,7 @@ export const PHASE_STEPS: Phase[] = [
         'Reads your code and maps what your system does and where the risks are.',
       description: 'What the Detect phase does',
     }),
-    image: '/img/phases/detect.png',
+    image: '/img/phases/detect.webp',
     modes: [
       RECOMMENDED_FULL_MODE,
       {
@@ -278,7 +278,7 @@ export const PHASE_STEPS: Phase[] = [
         'Turns what detect found into a defense plan, with a fix for each finding.',
       description: 'What the Plan phase does',
     }),
-    image: '/img/phases/plan.png',
+    image: '/img/phases/plan.webp',
     modes: [
       RECOMMENDED_FULL_MODE,
       {
@@ -309,7 +309,7 @@ export const PHASE_STEPS: Phase[] = [
         "Applies the plan's fixes to your code, safely and one at a time.",
       description: 'What the Harden phase does',
     }),
-    image: '/img/phases/harden.png',
+    image: '/img/phases/harden.webp',
     modes: [
       RECOMMENDED_FULL_MODE,
       {
@@ -339,7 +339,7 @@ export const PHASE_STEPS: Phase[] = [
       message: 'Proves each applied fix holds and closes out the ones that do.',
       description: 'What the Verify phase does',
     }),
-    image: '/img/phases/verify.png',
+    image: '/img/phases/verify.webp',
     modes: [
       RECOMMENDED_FULL_MODE,
       {

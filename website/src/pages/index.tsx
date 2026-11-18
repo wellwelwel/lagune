@@ -591,11 +591,11 @@ const Home = (): ReactNode => {
         <div className={`${SIDE_BY_SIDE} ${OPENING_SECTION}`}>
           <section
             aria-label={SECTION_LABELS.overview}
-            className='flex min-w-0 flex-col gap-10'
+            className='flex min-w-0 flex-col gap-10 xl:max-w-152'
           >
             <Hero />
             <InstallTabs picked={installPick} onPick={setInstallPick} />
-            <div className='flex flex-col gap-3'>
+            <div className='flex flex-col gap-[14.5px]'>
               <CallToAction />
               <div className='flex items-center gap-5 pl-2.5 text-[12.5px] tracking-[-0.01em]'>
                 <Link className={SECONDARY_LINK} to='/docs'>
