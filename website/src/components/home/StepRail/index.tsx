@@ -15,7 +15,7 @@ const railItemClass = (current: boolean): string =>
 
 export const StepRail = ({ current, onStep }: StepRailProps): ReactNode => (
   <nav
-    className='flex w-fit items-center gap-9 rounded-full py-3.5 min-[600px]:self-end max-[600px]:w-full max-[600px]:justify-between max-[600px]:gap-0 max-[600px]:border max-[600px]:border-[#0c155c] max-[600px]:bg-[rgba(12,16,28,0.42)] max-[600px]:px-5 max-[600px]:[box-shadow:0_8px_30px_-6px_rgba(0,0,0,0.55)]'
+    className='flex w-fit items-center gap-9 rounded-full py-3.5 min-[600px]:self-center xl:self-end max-[600px]:w-full max-[600px]:justify-between max-[600px]:gap-0 max-[600px]:border max-[600px]:border-[#0c155c] max-[600px]:bg-[rgba(12,16,28,0.42)] max-[600px]:px-5 max-[600px]:[box-shadow:0_8px_30px_-6px_rgba(0,0,0,0.55)]'
     aria-label={translate({
       id: 'home.nav.phases',
       message: 'Phases',

@@ -141,7 +141,7 @@ export const SiteFooter = ({ onBrand }: SiteFooterProps): ReactNode => {
   ];
 
   return (
-    <footer className='relative z-[2] mx-auto box-content max-w-384 px-[clamp(22px,4vw,64px)] pb-[calc(clamp(22px,4vw,64px)+env(safe-area-inset-bottom))]'>
+    <footer className='relative z-[2] mx-auto box-content max-w-200 px-[clamp(22px,4vw,64px)] xl:max-w-384 pb-[calc(clamp(22px,4vw,64px)+env(safe-area-inset-bottom))]'>
       <div className='@container flex flex-col gap-6 rounded-3xl border border-[#0c155c] bg-[rgba(4,8,22,0.55)] px-[clamp(20px,4vw,64px)] pt-[clamp(32px,5vw,72px)] pb-[clamp(24px,3vw,40px)] [box-shadow:0_24px_64px_-32px_rgba(0,0,0,0.7)] sm:rounded-4xl'>
         <div className='flex flex-col gap-x-12 gap-y-4 @xl:gap-y-6 @4xl:flex-row @4xl:justify-between'>
           <div className='flex shrink-0 flex-col items-start gap-5'>

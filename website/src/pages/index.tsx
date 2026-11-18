@@ -585,7 +585,7 @@ const Home = (): ReactNode => {
       </header>
 
       <main
-        className={`relative z-[2] mx-auto box-content flex max-w-384 flex-col ${SECTION_GAP} px-[clamp(22px,4vw,64px)] pt-[calc(64px+clamp(16px,4vw,64px))] pb-[clamp(56px,7vw,96px)] max-[920px]:pt-8 xl:gap-0 xl:py-0 xl:[--section-space:clamp(64px,10svh,128px)] xl:[--top-bar:64px]`}
+        className={`relative z-[2] mx-auto box-content flex max-w-200 flex-col xl:max-w-384 ${SECTION_GAP} px-[clamp(22px,4vw,64px)] pt-[calc(64px+clamp(16px,4vw,64px))] pb-[clamp(56px,7vw,96px)] max-[920px]:pt-8 xl:gap-0 xl:py-0 xl:[--section-space:clamp(64px,10svh,128px)] xl:[--top-bar:64px]`}
       >
         <div className={`${SIDE_BY_SIDE} ${OPENING_SECTION}`}>
           <section
