@@ -15,7 +15,7 @@ type InstallTabsProps = {
   onPick: (index: number) => void;
 };
 
-const tabLabel = ({ label, agent }: InstallTab): string => label ?? agent.name;
+const tabLabel = ({ agent }: InstallTab): string => agent.name;
 
 const Command = ({ code }: { code: string }) => (
   <HighlightedCode

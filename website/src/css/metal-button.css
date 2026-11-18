@@ -1,0 +1,102 @@
+.lagune-metal-button {
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 52px;
+  padding: 0 6px 0 24px;
+  border: 0;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: #eef0f6;
+  text-decoration: none;
+  background: radial-gradient(120% 140% at 50% 0%, #1a1c24 0%, #07080b 70%);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 98, 255, 0.28),
+    0 18px 50px -18px rgba(0, 94, 255, 0.45);
+  isolation: isolate;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.18s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.lagune-metal-button:active {
+  transform: scale(0.97);
+}
+
+.lagune-metal-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.lagune-metal-button__metal {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+
+.lagune-metal-button__metal--ready {
+  opacity: 1;
+}
+
+.lagune-metal-button__metal > canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lagune-metal-button__metal--ready + .lagune-metal-button__label {
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+}
+
+.lagune-metal-button__orb {
+  --orb: 40px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--orb);
+  height: var(--orb);
+  border-radius: 50%;
+  overflow: hidden;
+  color: #0b0c10;
+  background: linear-gradient(160deg, #91b6ff 0%, #e6e9f0 45%, #b5ccff 100%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -2px 5px rgba(0, 0, 0, 0.2),
+    0 4px 18px -6px rgba(230, 238, 246, 0.55);
+}
+
+.lagune-metal-button__orb svg {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.35s var(--ease);
+}
+
+.lagune-metal-button__orb svg + svg {
+  transform: translateX(calc(var(--orb) / -2 - 50% - 2px));
+}
+
+@media (hover: hover) {
+  .lagune-metal-button:hover .lagune-metal-button__orb svg:first-child {
+    transform: translateX(calc(var(--orb) / 2 + 50% + 2px));
+  }
+
+  .lagune-metal-button:hover .lagune-metal-button__orb svg + svg {
+    transform: translateX(0);
+  }
+}

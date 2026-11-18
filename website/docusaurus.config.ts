@@ -78,7 +78,11 @@ const config: Config = {
         docs: false,
         blog: false,
         theme: {
-          customCss: ['./src/css/custom.css', './src/css/docs.css'],
+          customCss: [
+            './src/css/custom.css',
+            './src/css/docs.css',
+            './src/css/metal-button.css',
+          ],
         },
         sitemap: {
           lastmod: 'date',

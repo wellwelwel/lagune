@@ -27,7 +27,7 @@ export const SKILLS_SH: LinkedAgent = {
   homepage: 'https://www.skills.sh/',
 };
 
-export const GITHUB_CLI: LinkedAgent = {
+const GITHUB_CLI: LinkedAgent = {
   name: 'GitHub CLI',
   icon: '/img/icons/github.svg',
   homepage: 'https://cli.github.com/',

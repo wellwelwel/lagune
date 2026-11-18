@@ -1,37 +1,32 @@
-export type ShaderUniformValue = number | number[];
+export type WaterPalette = {
+  light: string;
+  rim: string;
+  blue: string;
+  deep: string;
+};
 
-export type ShaderUniforms = Record<string, ShaderUniformValue>;
+export type WaterRenderer = {
+  resize: (width: number, height: number) => void;
+  point: (x: number, y: number) => void;
+  release: () => void;
+  setRunning: (running: boolean) => void;
+  setReducedMotion: (reduced: boolean) => void;
+  dispose: () => void;
+};
 
-export type ShaderWorkerInit = {
+export type WaterInit = {
   type: 'init';
   canvas: OffscreenCanvas;
-  fragmentShader: string;
-  uniforms: ShaderUniforms;
-  images: Record<string, string>;
-  speed: number;
+  palette: WaterPalette;
+  reducedMotion: boolean;
 };
 
-export type ShaderWorkerResize = {
-  type: 'resize';
-  width: number;
-  height: number;
-  pixelRatio: number;
-};
+export type WaterMessage =
+  | WaterInit
+  | { type: 'resize'; width: number; height: number }
+  | { type: 'point'; x: number; y: number }
+  | { type: 'release' }
+  | { type: 'running'; running: boolean }
+  | { type: 'motion'; reduced: boolean };
 
-export type ShaderWorkerSpeed = {
-  type: 'speed';
-  speed: number;
-};
-
-export type ShaderWorkerVisibility = {
-  type: 'visibility';
-  hidden: boolean;
-};
-
-export type ShaderWorkerMessage =
-  | ShaderWorkerInit
-  | ShaderWorkerResize
-  | ShaderWorkerSpeed
-  | ShaderWorkerVisibility;
-
-export type ShaderWorkerEvent = { type: 'ready' } | { type: 'failure' };
+export type WaterEvent = { type: 'failure' };

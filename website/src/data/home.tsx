@@ -22,7 +22,7 @@ import {
   TbCircleNumber4,
   TbCircleNumber5,
 } from 'react-icons/tb';
-import { GITHUB_CLI, installRouteNamed, SKILLS_SH } from './agents';
+import { installRouteNamed, SKILLS_SH } from './agents';
 
 export type SectionId = 'overview' | 'usage';
 
@@ -49,7 +49,6 @@ export type Group = {
 export type InstallTab = {
   agent: LinkedAgent;
   logo: string;
-  label?: string;
   command: string;
   promptAgent?: LinkedAgent;
 };
@@ -685,13 +684,6 @@ export const INSTALL_TABS: InstallTab[] = [
     logo: '/img/logos/skills.svg',
     command: 'npx skills add wellwelwel/lagune -y',
     promptAgent: installRouteNamed('Cursor'),
-  },
-  {
-    agent: GITHUB_CLI,
-    logo: '/img/logos/github.svg',
-    label: 'GitHub',
-    command: 'gh skill install wellwelwel/lagune --all --scope project',
-    promptAgent: installRouteNamed('GitHub Copilot'),
   },
 ];
 
