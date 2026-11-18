@@ -116,6 +116,44 @@ codex plugin marketplace upgrade lagune
 
 </td>
 </tr>
+<tr>
+<td colspan="2"><picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/universal"><b>Universal (skills.sh)</b></a></td>
+</tr>
+<tr>
+<td>
+
+```bash
+npx skills add wellwelwel/lagune -y
+```
+
+</td>
+<td>
+
+```bash
+npx skills update
+```
+
+</td>
+</tr>
+<tr>
+<td colspan="2"><picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/github.svg" width="20" align="absmiddle" /></picture> <a href="https://lagune.ai/docs/install/universal"><b>Universal (GitHub CLI)</b></a></td>
+</tr>
+<tr>
+<td>
+
+```bash
+gh skill install wellwelwel/lagune --all --scope project
+```
+
+</td>
+<td>
+
+```bash
+gh skill update --all
+```
+
+</td>
+</tr>
 </table>
 
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/antigravity.svg" width="20" align="absmiddle" /></picture> [**Antigravity**](https://lagune.ai/docs/install/antigravity-cli)
@@ -131,7 +169,6 @@ codex plugin marketplace upgrade lagune
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/opencode.svg" width="20" align="absmiddle" /></picture> [**OpenCode**](https://lagune.ai/docs/install/opencode)
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/pi.svg" width="20" align="absmiddle" /></picture> [**Pi**](https://lagune.ai/docs/install/pi)
 - <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/qwen.svg" width="20" align="absmiddle" /></picture> [**Qwen Code**](https://lagune.ai/docs/install/qwen-code)
-- <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/vercel.svg" width="20" align="absmiddle" /></picture> [**Universal (skills.sh or** <picture><img src="https://raw.githubusercontent.com/wellwelwel/lagune/main/.github/readme/assets/agents/github.svg" width="20" align="absmiddle" /></picture> **GitHub CLI)**](https://lagune.ai/docs/install/universal)
 
 > [!NOTE]
 >
