@@ -20,7 +20,8 @@ Begin every ReDoS pass with the deterministic scanner. Call `lagune_read` with `
 - `--dir` and `--file` repeat to scan several targets at once.
 - The header `Vulnerable regular expressions found:` **is the `unsafe` verdict for every pattern beneath it**, so each is a closed finding. Each pattern is followed, in parentheses, by why it is unsafe, the scope it shows in (`search` or `whole match`) when it has one, and the flags it runs with when it has any.
 - The header `Regular expressions the analysis could not settle (review manually):` lists the patterns that read `undetermined`.
-- The scan is best-effort, so keep reading the code for what it cannot reach: a pattern built across lines, or one hidden behind an alias.
+- The header `Strings that would be vulnerable as regular expressions (unconfirmed, review manually):` lists the strings that read `unsafe` as a pattern while nothing the scan read proves the code compiles them: their name only suggests a pattern, or their file builds a regular expression from a value the scan could not trace.
+- The scan is best-effort, so keep reading the code for what it cannot reach: a pattern built across lines, one hidden behind an alias, or one that reaches a regular expression only through a list, a function's parameter, or a library the scan does not know.
 
 #### How to check a pattern the scan missed
 
@@ -53,5 +54,5 @@ The hook exits non-zero when any pattern reads `unsafe`, and exits zero for `saf
 
 ## How to act on the result
 
-- **In detect (detection):** an `unsafe` pattern is a finding. Describe it in plain language: what it is (a regular expression that can be made to hang on crafted input), why it matters (a denial-of-service risk), and the evidence (the function or area where the pattern lives). It flows through detect's normal steps and is tracked like any other finding. An `undetermined` pattern is not a finding on its own: read it by hand, and record it as one only when that reading shows it is ReDoS-prone.
+- **In detect (detection):** an `unsafe` pattern is a finding. Describe it in plain language: what it is (a regular expression that can be made to hang on crafted input), why it matters (a denial-of-service risk), and the evidence (the function or area where the pattern lives). It flows through detect's normal steps and is tracked like any other finding. An `undetermined` pattern is not a finding on its own: read it by hand, and record it as one only when that reading shows it is ReDoS-prone. An unconfirmed string is not a finding on its own either: follow it through the code, and record it as one only when the code compiles it as a regular expression.
 - **In verify (proof):** the regex control holds only when the verdict is `safe`. An `unsafe` or `undetermined` verdict means the risk is not closed: record it as such and point back to harden.
