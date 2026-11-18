@@ -57,7 +57,7 @@ Before you call the work done, re-read what you built, without rebuilding it, an
 
 - **Is the control on the path, not beside it?** Follow the untrusted data or the risk end to end through what you built, and confirm the guard sits on that path. A safe function written next to the unsafe one that still runs is not applied.
 - **Is it complete?** The size limit lands but the file-type check is missing, the one route is guarded but a sibling route is not: an incomplete control leaves the risk reachable.
-- **Where a specialization ships a deterministic checker** (a hook it tells you to run), run it over what you built. Its verdict stands over your own reading.
+- **Where a specialization ships a deterministic checker** (a hook it tells you to run), run it over what you built. Your own reading never clears what it flags, and its silence covers only what it reads, so also check what the specialization says it cannot reach.
 
 If the check finds a gap, close it now and re-check, until the defense holds across everything you built.
 
@@ -73,4 +73,4 @@ Output a short summary to the user, in plain language a non-developer understand
 
 ## Engine
 
-Run every `lagune <subcommand>` call from the project root. If the `lagune_read` and `lagune_write` MCP tools are available, make every call through them. Otherwise, run it in the shell as `npx --yes lagune@0.20.0 read <command> <arguments>` and `npx --yes lagune@0.20.0 write <command> <arguments>` as a fallback.
+Run every `lagune <subcommand>` call from the project root. If the `lagune_read` and `lagune_write` MCP tools are available, make every call through them. Otherwise, run it in the shell as `npx --yes lagune@0.21.0 read <command> <arguments>` and `npx --yes lagune@0.21.0 write <command> <arguments>` as a fallback.
