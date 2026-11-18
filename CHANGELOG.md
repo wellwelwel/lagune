@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.21.0](https://github.com/wellwelwel/lagune/compare/v0.20.0...v0.21.0) (2026-11-18)
+
+
+### Features
+
+* **catalog:** organize the network specialization by attack vector ([fb74d9b](https://github.com/wellwelwel/lagune/commit/fb74d9bce11373e3b8a98e49910fa6470eda4d3e))
+* **catalog:** organize the secrets specialization by attack vector ([d115c0e](https://github.com/wellwelwel/lagune/commit/d115c0e2ef4fbf141b53e9f615a5ae429ae1b5e5))
+* distribute Lagune as a Claude organization plugin ([bb645e4](https://github.com/wellwelwel/lagune/commit/bb645e437306a0de70203dc52ed41510e71c991d))
+* **secrets:** lead real-looking values in environment templates to a manual check ([d698e95](https://github.com/wellwelwel/lagune/commit/d698e9549aae5086774d34365575a0924173a4fd))
+* **secrets:** scan Git history for committed secrets ([05338a3](https://github.com/wellwelwel/lagune/commit/05338a333bcffe9dcabfa233e0b29605628faf53))
+
+
+### Bug Fixes
+
+* **hooks:** fail only on strings the code proves are RegExp ([df8fbb6](https://github.com/wellwelwel/lagune/commit/df8fbb6c27e9ccd426132f755de7ebe458c64a05))
+* **network:** flag a hostless file URL as a private target ([a2323b8](https://github.com/wellwelwel/lagune/commit/a2323b86b56e206a145bc08a2a14f7487197947c))
+* **skills:** let a specialization's reading keep a risk open where its checker is silent ([3d8916d](https://github.com/wellwelwel/lagune/commit/3d8916dd449858193d0c6e7a5eb913d97aee4929))
+
 ## [0.20.0](https://github.com/wellwelwel/lagune/compare/v0.19.0...v0.20.0) (2026-11-15)
 
 
