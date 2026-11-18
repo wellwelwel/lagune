@@ -19,14 +19,14 @@ const SPEED_REDUCED = 0.4;
 const MOUNT_DELAY_MS = 250;
 const RESIZE_SETTLE_MS = 200;
 
-const MASK_SCALE = 2;
-const RING_WIDTH = 2;
+const MASK_SCALE = 2.5;
+const RING_WIDTH = 2.5;
 const MIN_PIXEL_RATIO = 2;
 const MIPMAPS = ['u_image'];
 
 const RING_UNIFORMS = {
   u_colorBack: getShaderColorFromString('rgba(0,0,0,0)'),
-  u_colorTint: getShaderColorFromString('#001959'),
+  u_colorTint: getShaderColorFromString('#010a21'),
   u_isImage: true,
   u_shape: LiquidMetalShapes.none,
   u_repetition: 1.5,
