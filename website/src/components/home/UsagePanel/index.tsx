@@ -112,7 +112,7 @@ const UsagePanelComponent = ({
           animationDuration: `${SLIDE.duration}ms`,
           animationTimingFunction: SLIDE.easing,
         }}
-        className='lagune-fade-in mt-4 flex flex-col min-w-0'
+        className='lagune-fade-in mt-6 flex flex-col min-w-0'
       >
         <PhaseCard
           phase={phase}

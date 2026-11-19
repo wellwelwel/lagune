@@ -27,7 +27,6 @@ type Motion = {
     stagger: number;
   };
   hover: {
-    lift: number;
     grow: number;
     push: number;
     spring: Timing;
@@ -67,7 +66,6 @@ export const GENTLE_MOTION: Motion = {
     stagger: 60,
   },
   hover: {
-    lift: 3,
     grow: 1.03,
     push: 2.5,
     spring: { duration: 600, easing: EASE_OUT },
@@ -123,7 +121,6 @@ export const springyMotion = (): Motion => ({
     stagger: 60,
   },
   hover: {
-    lift: 7,
     grow: 1.08,
     push: 4.5,
     spring: { duration: 500, easing: springEasing(elasticOut(1, 0.75)) },
@@ -171,12 +168,11 @@ export const enteringPose = (
 export const hoveredPose = (
   offset: number,
   hovered: number,
-  { lift, grow, push }: Motion['hover']
+  { grow, push }: Motion['hover']
 ): Pose => {
   const pose = restingPose(offset);
 
-  if (offset === hovered)
-    return { ...pose, y: pose.y - lift, scale: pose.scale * grow };
+  if (offset === hovered) return { ...pose, scale: pose.scale * grow };
 
   const distance = Math.abs(offset - hovered);
   const reach = 1 - Math.abs(offset) / REACH;
