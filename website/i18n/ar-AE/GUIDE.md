@@ -52,102 +52,102 @@ Every other inline code stays exactly as in English.
 
 ## Glossary
 
-| English                                                                                           | ar-AE                                                                                 |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| **Lagune**, SDH, Security-Driven Hardening, Spec-Driven                                           | unchanged                                                                             |
+| English                                                                                           | ar-AE                                                                                |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Lagune**, SDH, Security-Driven Hardening, Spec-Driven                                           | unchanged                                                                            |
 | `/lagune-charter` and every other command                                                         | unchanged, with "الأمر" where the sentence needs a noun ("شغّل الأمر `/lagune-plan`") |
-| CVSS, OWASP, JWT, CORS, PoC, PRD, LLM, MCP                                                        | unchanged                                                                             |
-| Blue Team, Red Team                                                                               | الفريق الأزرق, الفريق الأحمر, keeping "Blue Team" in keywords                         |
-| hardening (noun), security hardening                                                              | التحصين, التحصين الأمني, keeping "security hardening" in keywords                     |
+| CVSS, OWASP, JWT, CORS, PoC, PRD, LLM, MCP                                                        | unchanged                                                                            |
+| Blue Team, Red Team                                                                               | الفريق الأزرق, الفريق الأحمر, keeping "Blue Team" in keywords                        |
+| hardening (noun), security hardening                                                              | التحصين, التحصين الأمني, keeping "security hardening" in keywords                    |
 | harden (verb)                                                                                     | يحصّن                                                                                 |
-| charter (the principles it holds)                                                                 | ميثاق الأمان, مبادئ الأمان                                                            |
-| charter, detect, plan, harden, verify (as phase names)                                            | unchanged, with "مرحلة" where the sentence needs it ("مرحلة detect")                  |
-| phase                                                                                             | مرحلة                                                                                 |
-| governing layer, convention (SDH as one)                                                          | الطبقة الحاكمة, منهجية                                                                |
-| engine                                                                                            | المحرك                                                                                |
-| spec                                                                                              | المواصفة, keeping "spec-driven development" in keywords                               |
-| deterministic                                                                                     | حتمي ("خطوة حتمية")                                                                   |
-| development flow, Blue Team flow, workflow                                                        | مسار التطوير, مسار الفريق الأزرق, سير العمل                                           |
-| universal (the `/lagune` command, the install route)                                              | الشامل                                                                                |
-| context, context-aware, context window                                                            | السياق, مدرك للسياق, نافذة السياق (an LLM's)                                          |
+| charter (the principles it holds)                                                                 | ميثاق الأمان, مبادئ الأمان                                                           |
+| charter, detect, plan, harden, verify (as phase names)                                            | unchanged, with "مرحلة" where the sentence needs it ("مرحلة detect")                 |
+| phase                                                                                             | مرحلة                                                                                |
+| governing layer, convention (SDH as one)                                                          | الطبقة الحاكمة, منهجية                                                               |
+| engine                                                                                            | المحرك                                                                               |
+| spec                                                                                              | المواصفة, keeping "spec-driven development" in keywords                              |
+| deterministic                                                                                     | حتمي ("خطوة حتمية")                                                                  |
+| development flow, Blue Team flow, workflow                                                        | مسار التطوير, مسار الفريق الأزرق, سير العمل                                          |
+| universal (the `/lagune` command, the install route)                                              | الشامل                                                                               |
+| context, context-aware, context window                                                            | السياق, مدرك للسياق, نافذة السياق (an LLM's)                                         |
 | audit (noun), audit (verb)                                                                        | تدقيق, يدقّق                                                                          |
-| map (what the system does, its risks)                                                             | يرصد                                                                                  |
+| map (what the system does, its risks)                                                             | يرصد                                                                                 |
 | record (a finding, a category)                                                                    | يسجّل                                                                                 |
-| finding                                                                                           | ملاحظة (plural ملاحظات)                                                               |
-| concern (one the user describes to detect)                                                        | مصدر قلق                                                                              |
-| evidence (behind a finding, and what prove writes)                                                | الدليل, الأدلة                                                                        |
-| fix                                                                                               | إصلاح                                                                                 |
-| control                                                                                           | ضابط أمني (plural ضوابط أمنية), ضابط                                                  |
-| hold (a control, a fix)                                                                           | يصمد, يبقى فعّالًا                                                                    |
+| finding                                                                                           | ملاحظة (plural ملاحظات)                                                              |
+| concern (one the user describes to detect)                                                        | مصدر قلق                                                                             |
+| evidence (behind a finding, and what prove writes)                                                | الدليل, الأدلة                                                                       |
+| fix                                                                                               | إصلاح                                                                                |
+| control                                                                                           | ضابط أمني (plural ضوابط أمنية), ضابط                                                 |
+| hold (a control, a fix)                                                                           | يصمد, يبقى فعّالًا                                                                     |
 | prove, proof, proof of concept                                                                    | يُثبت, إثبات, إثبات المفهوم (PoC)                                                     |
-| verdict                                                                                           | الحكم                                                                                 |
-| confront (the code with the record)                                                               | يقابل                                                                                 |
-| reconcile                                                                                         | يوائم مع الواقع الحالي                                                                |
-| detect map, defense plan, hardening record                                                        | خريطة detect, خطة الدفاع, سجل التحصين                                                 |
-| Applied, Partial, Blocked, Risk closed, Risk not closed, Cannot tell from the code (as labels)    | unchanged, since the artifacts write them in English                                  |
-| specialization, catalog, category                                                                 | تخصص (plural تخصصات), الكتالوج, فئة                                                   |
-| built-in (specialization)                                                                         | مدمج                                                                                  |
-| distill, shadow (a built-in, with a specialization of your own)                                   | يستخلص, يحل محل                                                                       |
-| stand down, close out                                                                             | يُخرج ("يُخرجها من السلسلة كلها"), يُغلق نهائيًا                                      |
-| closable, closability (security)                                                                  | قابل للإغلاق, قابلية الإغلاق                                                          |
-| at rest, settled (the cycle)                                                                      | تستقر ("تستقر الدورة")                                                                |
-| cycle                                                                                             | الدورة                                                                                |
-| artifact, memory (the phase artifacts)                                                            | مُخرَج (plural مُخرَجات), الذاكرة                                                     |
-| chain (the phase artifacts together)                                                              | السلسلة ("السلسلة كلها")                                                              |
-| tracking, tracking map, tracked item                                                              | التتبع, خريطة التتبع, عنصر متتبَّع                                                    |
-| vulnerability, risk, exploit                                                                      | ثغرة, خطر (plural مخاطر), استغلال, keeping "vulnerability" in keywords                |
-| prompt injection, path traversal, prototype pollution, data races, type juggling, class pollution | unchanged                                                                             |
-| broken access control                                                                             | خلل التحكم في الوصول (Broken Access Control) on first mention                         |
-| crafted, untrusted, hardcoded                                                                     | مُصاغ عمدًا, غير موثوق, مكتوب مباشرة في الكود                                         |
+| verdict                                                                                           | الحكم                                                                                |
+| confront (the code with the record)                                                               | يقابل                                                                                |
+| reconcile                                                                                         | يوائم مع الواقع الحالي                                                               |
+| detect map, defense plan, hardening record                                                        | خريطة detect, خطة الدفاع, سجل التحصين                                                |
+| Applied, Partial, Blocked, Risk closed, Risk not closed, Cannot tell from the code (as labels)    | unchanged, since the artifacts write them in English                                 |
+| specialization, catalog, category                                                                 | تخصص (plural تخصصات), الكتالوج, فئة                                                  |
+| built-in (specialization)                                                                         | مدمج                                                                                 |
+| distill, shadow (a built-in, with a specialization of your own)                                   | يستخلص, يحل محل                                                                      |
+| stand down, close out                                                                             | يُخرج ("يُخرجها من السلسلة كلها"), يُغلق نهائيًا                                         |
+| closable, closability (security)                                                                  | قابل للإغلاق, قابلية الإغلاق                                                         |
+| at rest, settled (the cycle)                                                                      | تستقر ("تستقر الدورة")                                                               |
+| cycle                                                                                             | الدورة                                                                               |
+| artifact, memory (the phase artifacts)                                                            | مُخرَج (plural مُخرَجات), الذاكرة                                                        |
+| chain (the phase artifacts together)                                                              | السلسلة ("السلسلة كلها")                                                             |
+| tracking, tracking map, tracked item                                                              | التتبع, خريطة التتبع, عنصر متتبَّع                                                     |
+| vulnerability, risk, exploit                                                                      | ثغرة, خطر (plural مخاطر), استغلال, keeping "vulnerability" in keywords               |
+| prompt injection, path traversal, prototype pollution, data races, type juggling, class pollution | unchanged                                                                            |
+| broken access control                                                                             | خلل التحكم في الوصول (Broken Access Control) on first mention                        |
+| crafted, untrusted, hardcoded                                                                     | مُصاغ عمدًا, غير موثوق, مكتوب مباشرة في الكود                                          |
 | score, rate (a finding)                                                                           | يقيّم                                                                                 |
-| allowlist, denylist                                                                               | قائمة السماح, قائمة الحظر                                                             |
-| false positive, sink                                                                              | إيجابية كاذبة, sink                                                                   |
-| attack vector, attack surface                                                                     | متجه الهجوم, سطح الهجوم                                                               |
-| severity                                                                                          | الخطورة ("حرجة", "عالية", "متوسطة", "منخفضة" in prose, unchanged in command output)   |
-| authentication, authorization, access control                                                     | المصادقة, التفويض, التحكم في الوصول                                                   |
-| secret, credential                                                                                | سر (plural أسرار), بيانات الاعتماد                                                    |
-| login, file uploads, payments                                                                     | تسجيل الدخول, رفع الملفات, المدفوعات                                                  |
-| file, folder, directory, path, link                                                               | ملف, مجلد, دليل, مسار, رابط                                                           |
-| scan, check (hook modes)                                                                          | unchanged as mode names ("وضع scan")                                                  |
-| checker (what a hook runs)                                                                        | الفاحص                                                                                |
-| sweep, scan (verb and noun)                                                                       | يفحص, فحص                                                                             |
+| allowlist, denylist                                                                               | قائمة السماح, قائمة الحظر                                                            |
+| false positive, sink                                                                              | إيجابية كاذبة, sink                                                                  |
+| attack vector, attack surface                                                                     | متجه الهجوم, سطح الهجوم                                                              |
+| severity                                                                                          | الخطورة ("حرجة", "عالية", "متوسطة", "منخفضة" in prose, unchanged in command output)  |
+| authentication, authorization, access control                                                     | المصادقة, التفويض, التحكم في الوصول                                                  |
+| secret, credential                                                                                | سر (plural أسرار), بيانات الاعتماد                                                   |
+| login, file uploads, payments                                                                     | تسجيل الدخول, رفع الملفات, المدفوعات                                                 |
+| file, folder, directory, path, link                                                               | ملف, مجلد, دليل, مسار, رابط                                                          |
+| scan, check (hook modes)                                                                          | unchanged as mode names ("وضع scan")                                                 |
+| checker (what a hook runs)                                                                        | الفاحص                                                                               |
+| sweep, scan (verb and noun)                                                                       | يفحص, فحص                                                                            |
 | flag (verb)                                                                                       | ينبّه إلى                                                                             |
-| snippet                                                                                           | مقتطف                                                                                 |
-| repository, dependency, sub-agent, workspace                                                      | المستودع, اعتمادية (plural اعتماديات), وكيل فرعي, مساحة العمل                         |
-| codebase, code                                                                                    | قاعدة الكود, الكود                                                                    |
-| project                                                                                           | المشروع                                                                               |
-| AI agent, coding agent, agent                                                                     | وكيل ذكاء اصطناعي, وكيل برمجة, الوكيل                                                 |
-| prompt                                                                                            | الموجّه (plural الموجّهات)                                                            |
-| hook, payload, handler                                                                            | unchanged                                                                             |
-| plugin                                                                                            | إضافة                                                                                 |
-| dashboard                                                                                         | لوحة التحكم                                                                           |
-| skill                                                                                             | مهارة (plural مهارات)                                                                 |
-| skills CLI, CLI, terminal                                                                         | **skills** CLI, CLI, الطرفية                                                          |
-| session, tool (the engine's MCP tools)                                                            | جلسة, أداة                                                                            |
-| command, slash command                                                                            | أمر (plural أوامر), أمر slash                                                         |
-| test (what a test runner runs)                                                                    | اختبار, kept apart from "إثبات", which means proof                                    |
-| branch, commit, pull request, diff                                                                | unchanged                                                                             |
-| report, template, library, header                                                                 | تقرير, قالب, مكتبة, header                                                            |
-| deploy                                                                                            | ينشر, نشر                                                                             |
-| deprecated                                                                                        | مُهمَل                                                                                |
-| live (view, dashboard)                                                                            | مباشر ("عرض مباشر")                                                                   |
-| badge                                                                                             | شارة                                                                                  |
-| extension, package                                                                                | امتداد, حزمة                                                                          |
-| install, update (verbs)                                                                           | يثبّت, يحدّث                                                                          |
+| snippet                                                                                           | مقتطف                                                                                |
+| repository, dependency, sub-agent, workspace                                                      | المستودع, اعتمادية (plural اعتماديات), وكيل فرعي, مساحة العمل                        |
+| codebase, code                                                                                    | قاعدة الكود, الكود                                                                   |
+| project                                                                                           | المشروع                                                                              |
+| AI agent, coding agent, agent                                                                     | وكيل ذكاء اصطناعي, وكيل برمجة, الوكيل                                                |
+| prompt                                                                                            | الموجّه (plural الموجّهات)                                                             |
+| hook, payload, handler                                                                            | unchanged                                                                            |
+| plugin                                                                                            | إضافة                                                                                |
+| dashboard                                                                                         | لوحة التحكم                                                                          |
+| skill                                                                                             | مهارة (plural مهارات)                                                                |
+| skills CLI, CLI, terminal                                                                         | **skills** CLI, CLI, الطرفية                                                         |
+| session, tool (the engine's MCP tools)                                                            | جلسة, أداة                                                                           |
+| command, slash command                                                                            | أمر (plural أوامر), أمر slash                                                        |
+| test (what a test runner runs)                                                                    | اختبار, kept apart from "إثبات", which means proof                                   |
+| branch, commit, pull request, diff                                                                | unchanged                                                                            |
+| report, template, library, header                                                                 | تقرير, قالب, مكتبة, header                                                           |
+| deploy                                                                                            | ينشر, نشر                                                                            |
+| deprecated                                                                                        | مُهمَل                                                                                 |
+| live (view, dashboard)                                                                            | مباشر ("عرض مباشر")                                                                  |
+| badge                                                                                             | شارة                                                                                 |
+| extension, package                                                                                | امتداد, حزمة                                                                         |
+| install, update (verbs)                                                                           | يثبّت, يحدّث                                                                           |
 | run (a command)                                                                                   | يشغّل                                                                                 |
-| defense-only, defensive security                                                                  | للدفاع فقط, الأمن الدفاعي                                                             |
-| security posture                                                                                  | الوضع الأمني                                                                          |
-| advisory, responsible disclosure                                                                  | نشرة أمنية, الإفصاح المسؤول                                                           |
-| prompt-on-demand, methodology                                                                     | prompt-on-demand, منهجية                                                              |
-| on demand                                                                                         | عند الحاجة                                                                            |
-| scope (of a run), in scope, out of scope                                                          | النطاق, ضمن النطاق, خارج النطاق                                                       |
+| defense-only, defensive security                                                                  | للدفاع فقط, الأمن الدفاعي                                                            |
+| security posture                                                                                  | الوضع الأمني                                                                         |
+| advisory, responsible disclosure                                                                  | نشرة أمنية, الإفصاح المسؤول                                                          |
+| prompt-on-demand, methodology                                                                     | prompt-on-demand, منهجية                                                             |
+| on demand                                                                                         | عند الحاجة                                                                           |
+| scope (of a run), in scope, out of scope                                                          | النطاق, ضمن النطاق, خارج النطاق                                                      |
 | safe by default, safe defaults                                                                    | آمن افتراضيًا, إعدادات افتراضية آمنة                                                  |
-| open-source                                                                                       | مفتوح المصدر                                                                          |
-| Get Started, Install                                                                              | البدء, التثبيت                                                                        |
-| Run it, Next (headings)                                                                           | طريقة الاستخدام on a command page, التشغيل on a hook page, التالي                     |
-| How it works, Update, Permissions (headings)                                                      | آلية العمل, التحديث, الأذونات                                                         |
-| Get the most out of it (tip title)                                                                | استفد منه إلى أقصى حد                                                                 |
-| Frequently Asked Questions                                                                        | الأسئلة الشائعة                                                                       |
+| open-source                                                                                       | مفتوح المصدر                                                                         |
+| Get Started, Install                                                                              | البدء, التثبيت                                                                       |
+| Run it, Next (headings)                                                                           | طريقة الاستخدام on a command page, التشغيل on a hook page, التالي                    |
+| How it works, Update, Permissions (headings)                                                      | آلية العمل, التحديث, الأذونات                                                        |
+| Get the most out of it (tip title)                                                                | استفد منه إلى أقصى حد                                                                |
+| Frequently Asked Questions                                                                        | الأسئلة الشائعة                                                                      |
 
 ## Workflow
 
