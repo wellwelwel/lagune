@@ -39,21 +39,21 @@ npx lagune read crypto --lang go --pattern 'sha256.Sum256(data)'                
 
 ## วิธีอ่านผลตัดสิน
 
-| ผลตัดสิน  | ความหมาย                                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------------------- |
-| `weak`    | โค้ดตัวอย่างใช้ primitive ของ cipher ที่ถูกเจาะได้แล้ว (DES/3DES, RC4, Blowfish, RC2 หรือโหมด ECB)                  |
+| ผลตัดสิน    | ความหมาย                                                                                              |
+| --------- | ----------------------------------------------------------------------------------------------------- |
+| `weak`    | โค้ดตัวอย่างใช้ primitive ของ cipher ที่ถูกเจาะได้แล้ว (DES/3DES, RC4, Blowfish, RC2 หรือโหมด ECB)              |
 | `review`  | primitive ที่ขึ้นกับเจตนาการใช้งาน: digest แบบ MD5/SHA-1 หรือ RNG ที่ไม่ใช่แบบ cryptographic ในบริบทด้านความปลอดภัย |
-| `safe`    | โค้ดตัวอย่างใช้การเข้ารหัส และไม่พบ primitive ที่อ่อนแอ                                                             |
-| `invalid` | โค้ดตัวอย่างไม่มีโครงสร้างการเข้ารหัสที่ระบุได้ให้ตัดสิน                                                            |
+| `safe`    | โค้ดตัวอย่างใช้การเข้ารหัส และไม่พบ primitive ที่อ่อนแอ                                                         |
+| `invalid` | โค้ดตัวอย่างไม่มีโครงสร้างการเข้ารหัสที่ระบุได้ให้ตัดสิน                                                             |
 
 ### ตัวเลือก CLI
 
-| ตัวเลือก    | ค่า          | คำอธิบาย                                                                                                           |
-| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `--pattern` | โค้ดตัวอย่าง | ตรวจโค้ดตัวอย่างหนึ่งชิ้น ใส่ซ้ำเพื่อตรวจหลายชิ้น โดยได้ผลตัดสินบรรทัดละหนึ่งรายการ                                |
-| `--lang`    | ภาษา         | จำเป็นเมื่อใช้ `--pattern`: เลือกหนึ่งใน javascript, python, go, java, kotlin, php, ruby, rust, csharp, c หรือ cpp |
-| `--dir`     | ไดเรกทอรี    | จำกัดการสแกนไว้ที่ไดเรกทอรีเดียว ใช้ซ้ำได้และใช้ร่วมกับ `--file` ได้                                               |
-| `--file`    | ไฟล์         | จำกัดการสแกนไว้ที่ไฟล์เดียว ใช้ซ้ำได้และใช้ร่วมกับ `--dir` ได้                                                     |
+| ตัวเลือก      | ค่า        | คำอธิบาย                                                                                                    |
+| ----------- | --------- | ---------------------------------------------------------------------------------------------------------- |
+| `--pattern` | โค้ดตัวอย่าง | ตรวจโค้ดตัวอย่างหนึ่งชิ้น ใส่ซ้ำเพื่อตรวจหลายชิ้น โดยได้ผลตัดสินบรรทัดละหนึ่งรายการ                                           |
+| `--lang`    | ภาษา      | จำเป็นเมื่อใช้ `--pattern`: เลือกหนึ่งใน javascript, python, go, java, kotlin, php, ruby, rust, csharp, c หรือ cpp |
+| `--dir`     | ไดเรกทอรี  | จำกัดการสแกนไว้ที่ไดเรกทอรีเดียว ใช้ซ้ำได้และใช้ร่วมกับ `--file` ได้                                                    |
+| `--file`    | ไฟล์       | จำกัดการสแกนไว้ที่ไฟล์เดียว ใช้ซ้ำได้และใช้ร่วมกับ `--dir` ได้                                                          |
 
 หากไม่ระบุตัวเลือก hook จะสแกนทั้งโปรเจกต์ `--pattern` ต้องใช้คู่กับ `--lang` และใช้ร่วมกับ `--dir` หรือ `--file` ไม่ได้
 
@@ -79,17 +79,17 @@ npx lagune write add --ignore test/fixtures --checker crypto
 
 การสแกนอ่านภาษาเหล่านี้โดยแยกตามนามสกุลไฟล์ และตรวจแต่ละภาษาเทียบกับ API การเข้ารหัสของภาษานั้นเอง
 
-| ภาษา                        | cipher ที่อ่อนแอ (ข้อตรวจพบ) และ digest หรือ RNG (ตรวจทาน)                                                              |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| ภาษา                        | cipher ที่อ่อนแอ (ข้อตรวจพบ) และ digest หรือ RNG (ตรวจทาน)                                                                |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | **JavaScript / TypeScript** | `createCipher`, `CryptoJS.DES/RC4`, `*-ecb` ในเครื่องหมายคำพูด; MD5/SHA-1 `createHash`/`subtle.digest`; `Math.random()` |
-| **Python**                  | pycryptodome `DES/ARC4/Blowfish.new`, `algorithms.TripleDES`, `MODE_ECB`; `hashlib.md5/sha1`; `random.*`                |
-| **Go**                      | `des.NewCipher`, `rc4.NewCipher`, `blowfish.NewCipher`, `NewECBEncrypter`; `md5/sha1.Sum`; `math/rand`                  |
-| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`; `MessageDigest.getInstance("MD5")`, `HmacMD5`; `java.util.Random`                   |
-| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`                |
-| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`, `:ECB`; `Digest::MD5/SHA1`; `rand()`/`Random`                                           |
-| **Rust**                    | `Rc4::`, `Blowfish::`, `des::`, `ecb::`; `Md5::`, `Sha1::`, `Hmac<Md5>`; `SmallRng`/`XorShiftRng`                       |
-| **C#**                      | `DES/TripleDES/RC2.Create`, `CipherMode.ECB`; `MD5/SHA1.Create`, `HMACMD5`; `new Random()`                              |
-| **C / C++**                 | OpenSSL `DES_*`/`RC4`/`EVP_des_*`, `EVP_*_ecb`; `MD5()`/`SHA1()`, `EVP_md5`; `rand()`/`random()`                        |
+| **Python**                  | pycryptodome `DES/ARC4/Blowfish.new`, `algorithms.TripleDES`, `MODE_ECB`; `hashlib.md5/sha1`; `random.*`             |
+| **Go**                      | `des.NewCipher`, `rc4.NewCipher`, `blowfish.NewCipher`, `NewECBEncrypter`; `md5/sha1.Sum`; `math/rand`               |
+| **Java / Kotlin**           | `Cipher.getInstance("DES"/…/ECB")`; `MessageDigest.getInstance("MD5")`, `HmacMD5`; `java.util.Random`                |
+| **PHP**                     | `openssl_encrypt("des-…"/"…-ecb")`, `mcrypt_*`; `md5()`/`sha1()`, `hash("md5", …)`; `rand()`/`mt_rand()`             |
+| **Ruby**                    | `OpenSSL::Cipher.new("des-…")`, `:ECB`; `Digest::MD5/SHA1`; `rand()`/`Random`                                        |
+| **Rust**                    | `Rc4::`, `Blowfish::`, `des::`, `ecb::`; `Md5::`, `Sha1::`, `Hmac<Md5>`; `SmallRng`/`XorShiftRng`                    |
+| **C#**                      | `DES/TripleDES/RC2.Create`, `CipherMode.ECB`; `MD5/SHA1.Create`, `HMACMD5`; `new Random()`                           |
+| **C / C++**                 | OpenSSL `DES_*`/`RC4`/`EVP_des_*`, `EVP_*_ecb`; `MD5()`/`SHA1()`, `EVP_md5`; `rand()`/`random()`                     |
 
 :::note[ตรวจให้ได้มากที่สุด แต่ไม่ครบทุกกรณี]
 hook นี้อ่านซอร์สโค้ดเป็นข้อความ ดังนั้น primitive ที่ประกอบขึ้นตอน runtime ซ่อนอยู่หลัง alias หรือเขียนในรูปแบบที่ hook ไม่รู้จัก อาจหลุดรอดไปได้ ให้ถือว่าตารางนี้เป็นจุดเริ่มต้นที่หนักแน่น ไม่ใช่รายการที่ครบถ้วน

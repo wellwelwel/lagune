@@ -25,26 +25,26 @@ import Tabs from '@theme/Tabs';
 
 ## สิ่งที่ระบบทำ
 
-| หมวดหมู่         | คีย์      | สิ่งที่เสริมความปลอดภัย                                                                                                                                               |
-| ---------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| OWASP            | `owasp`   | ความเสี่ยงด้านความปลอดภัยของแอปพลิเคชันที่ OWASP ติดตาม: injection การควบคุมการเข้าถึงที่บกพร่อง (Broken Access Control) การยืนยันตัวตน และความล้มเหลวด้านการเข้ารหัส |
-| โครงสร้างพื้นฐาน | `infra`   | การตั้งค่า container, workload และ serverless: Dockerfile, Compose, ความปลอดภัยของ Pod รวมถึง IAM และ trigger ของ FaaS                                                |
-| AI / LLM         | `ai`      | การเชื่อมต่อกับ AI และ LLM เพื่อป้องกัน prompt injection และการเชื่อม tool เอเจนต์ ระบบ retrieval และ MCP อย่างไม่ปลอดภัย                                             |
-| Lovable          | `lovable` | แอป Supabase ที่ AI สร้างขึ้น (Lovable และเครื่องมือที่คล้ายกัน): ช่องโหว่ของ RLS คีย์ `service_role` ที่รั่วไหล และค่าเริ่มต้นที่ไม่ปลอดภัย                          |
+| หมวดหมู่        | คีย์        | สิ่งที่เสริมความปลอดภัย                                                                                                                               |
+| ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| OWASP         | `owasp`   | ความเสี่ยงด้านความปลอดภัยของแอปพลิเคชันที่ OWASP ติดตาม: injection การควบคุมการเข้าถึงที่บกพร่อง (Broken Access Control) การยืนยันตัวตน และความล้มเหลวด้านการเข้ารหัส |
+| โครงสร้างพื้นฐาน | `infra`   | การตั้งค่า container, workload และ serverless: Dockerfile, Compose, ความปลอดภัยของ Pod รวมถึง IAM และ trigger ของ FaaS                               |
+| AI / LLM      | `ai`      | การเชื่อมต่อกับ AI และ LLM เพื่อป้องกัน prompt injection และการเชื่อม tool เอเจนต์ ระบบ retrieval และ MCP อย่างไม่ปลอดภัย                                     |
+| Lovable       | `lovable` | แอป Supabase ที่ AI สร้างขึ้น (Lovable และเครื่องมือที่คล้ายกัน): ช่องโหว่ของ RLS คีย์ `service_role` ที่รั่วไหล และค่าเริ่มต้นที่ไม่ปลอดภัย                                |
 
 ## ภาษาที่ใช้เขียน
 
-| หมวดหมู่   | คีย์         | สิ่งที่เสริมความปลอดภัย                                                                                          |
-| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------- |
-| JavaScript | `javascript` | RCE ผ่าน `eval` และ `child_process`, path traversal และ prototype pollution ในทุก runtime                        |
-| Python     | `python`     | RCE จาก deserialization ของ `pickle` และ YAML, string traversal ผ่าน `str.format` และ class pollution            |
+| หมวดหมู่     | คีย์           | สิ่งที่เสริมความปลอดภัย                                                                                      |
+| ---------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| JavaScript | `javascript` | RCE ผ่าน `eval` และ `child_process`, path traversal และ prototype pollution ในทุก runtime                |
+| Python     | `python`     | RCE จาก deserialization ของ `pickle` และ YAML, string traversal ผ่าน `str.format` และ class pollution   |
 | Rust       | `rust`       | API `unsafe` ที่ไม่ sound การใช้ `transmute` ผิดวิธี integer overflow และ undefined behavior ที่รอยต่อ FFI       |
-| C / C++    | `c-cpp`      | บั๊ก format string, buffer overflow และการเขียนนอกขอบเขตหน่วยความจำที่เปิดทางให้รันโค้ดได้                       |
-| PHP        | `php`        | การข้ามการยืนยันตัวตนด้วย type juggling, gadget chain ของ object injection และค่าเริ่มต้นการตั้งค่าที่ไม่ปลอดภัย |
+| C / C++    | `c-cpp`      | บั๊ก format string, buffer overflow และการเขียนนอกขอบเขตหน่วยความจำที่เปิดทางให้รันโค้ดได้                        |
+| PHP        | `php`        | การข้ามการยืนยันตัวตนด้วย type juggling, gadget chain ของ object injection และค่าเริ่มต้นการตั้งค่าที่ไม่ปลอดภัย       |
 | Go         | `go`         | บั๊ก interface แบบ typed-nil, data races ระหว่าง goroutine และ concurrency ที่ไม่ปลอดภัยบนเส้นทางด้านความปลอดภัย |
-| Java       | `java`       | gadget chain จาก deserialization ของ `ObjectInputStream` ที่จบลงด้วยการรันโค้ดจากระยะไกล                         |
-| Ruby       | `ruby`       | gadget chain จาก deserialization ของ `Marshal.load` และ YAML ที่นำไปสู่การรันโค้ดจากระยะไกล                      |
-| .NET / C#  | `dotnet`     | RCE จาก deserialization ของ `BinaryFormatter` และการเลี่ยง encoder ที่นำไปสู่ XSS                                |
+| Java       | `java`       | gadget chain จาก deserialization ของ `ObjectInputStream` ที่จบลงด้วยการรันโค้ดจากระยะไกล                    |
+| Ruby       | `ruby`       | gadget chain จาก deserialization ของ `Marshal.load` และ YAML ที่นำไปสู่การรันโค้ดจากระยะไกล                  |
+| .NET / C#  | `dotnet`     | RCE จาก deserialization ของ `BinaryFormatter` และการเลี่ยง encoder ที่นำไปสู่ XSS                            |
 
 :::tip
 **Lagune** ไม่ผูกกับภาษาโปรแกรมใด: ทั้งเวิร์กโฟลว์อ่านโปรเจกต์ของคุณได้ไม่ว่าจะเขียนด้วยภาษาอะไร และหมวดหมู่เหล่านี้เพียงเพิ่มความลึกในจุดอ่อนที่เฉพาะกับแต่ละภาษา

@@ -62,40 +62,40 @@ def is_username(value: str) -> bool:
 
 ความรู้เฉพาะทางในตัวจัดกลุ่มเป็น [**หมวดหมู่**](/docs/categories) และนี่คือชุดที่มาพร้อมกับ **Lagune**:
 
-| ความรู้เฉพาะทาง       | หมวดหมู่                    | จุดเน้น                                                                                              |
-| --------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `regex`               | `owasp`                     | **ReDoS:** รูปแบบที่ทำงานช้าแบบทวีคูณเมื่อเจออินพุตที่จงใจสร้างขึ้น                                  |
-| `network`             | `owasp`                     | **SSRF และ redirect:** ปลายทางของการ fetch หรือ redirect ที่ผู้ใช้กำหนด                              |
-| `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, include แบบไดนามิก และการเรียกฟังก์ชันตามชื่อ                            |
-| `sql`                 | `owasp`                     | **ฐานข้อมูลเชิงสัมพันธ์:** injection การเรียก ORM แบบ raw สิทธิ์ และสิ่งที่เอนจินฐานข้อมูลเข้าถึงได้ |
-| `path`                | `owasp`                     | **path ในระบบไฟล์:** traversal, null-byte, NTFS stream และการฝังไฟล์                                 |
-| `upload`              | `owasp`                     | **การอัปโหลดไฟล์:** ชนิดและ signature ของไฟล์ เนื้อหาอันตราย การจัดเก็บ และขีดจำกัด                  |
+| ความรู้เฉพาะทาง         | หมวดหมู่                      | จุดเน้น                                                                                        |
+| --------------------- | --------------------------- | -------------------------------------------------------------------------------------------- |
+| `regex`               | `owasp`                     | **ReDoS:** รูปแบบที่ทำงานช้าแบบทวีคูณเมื่อเจออินพุตที่จงใจสร้างขึ้น                                         |
+| `network`             | `owasp`                     | **SSRF และ redirect:** ปลายทางของการ fetch หรือ redirect ที่ผู้ใช้กำหนด                            |
+| `interpreter`         | `owasp`, `lovable`          | **Code injection:** `eval`, include แบบไดนามิก และการเรียกฟังก์ชันตามชื่อ                           |
+| `sql`                 | `owasp`                     | **ฐานข้อมูลเชิงสัมพันธ์:** injection การเรียก ORM แบบ raw สิทธิ์ และสิ่งที่เอนจินฐานข้อมูลเข้าถึงได้             |
+| `path`                | `owasp`                     | **path ในระบบไฟล์:** traversal, null-byte, NTFS stream และการฝังไฟล์                            |
+| `upload`              | `owasp`                     | **การอัปโหลดไฟล์:** ชนิดและ signature ของไฟล์ เนื้อหาอันตราย การจัดเก็บ และขีดจำกัด                     |
 | `access-control`      | `owasp`, `lovable`          | **การยืนยันตัวตน การตรวจสอบสิทธิ์ และเซสชัน:** IDOR, mass assignment, tenant และเซสชัน               |
-| `credential-endpoint` | `owasp`, `lovable`          | **การเดารหัสผ่านและบอต:** brute force, spraying, stuffing และ throttling                             |
+| `credential-endpoint` | `owasp`, `lovable`          | **การเดารหัสผ่านและบอต:** brute force, spraying, stuffing และ throttling                       |
 | `federation`          | `owasp`                     | **ความน่าเชื่อถือของโทเค็น:** OAuth, OIDC, SAML, การตรวจสอบ JWT และการล็อกอินด้วย QR                 |
-| `http-request`        | `owasp`                     | **ที่มาของ request:** CSRF, การตั้งค่า CORS ผิดพลาด และ IP ของไคลเอนต์ที่ถูกปลอม                     |
-| `transport`           | `owasp`                     | **ความปลอดภัยของช่องทางสื่อสาร:** การตั้งค่า TLS การใช้ HTTPS แทนข้อความธรรมดา HSTS และ pinning      |
-| `crypto`              | `owasp`, `lovable`          | **การเข้ารหัสข้อมูลที่จัดเก็บ:** อัลกอริทึมที่อ่อนหรือคิดขึ้นเอง CSPRNG และการจัดการคีย์             |
-| `secrets`             | `owasp`, `lovable`          | **ข้อมูลรับรองที่ฮาร์ดโค้ด:** คีย์ โทเค็น และรหัสผ่านที่เขียนตรง ๆ ในซอร์สโค้ด                       |
-| `api-endpoint`        | `owasp`                     | **พื้นผิวที่ไม่ใช่ REST:** GraphQL, gRPC, การตรวจสอบสิทธิ์ของ WebSocket, DoS และ schema              |
-| `payment`             | `owasp`, `lovable`          | **ขั้นตอน checkout:** ตรวจสอบกับ gateway ฝั่งเซิร์ฟเวอร์ callback ที่มีลายเซ็น และ idempotency       |
-| `xml`                 | `owasp`                     | **การ parse XML:** XXE, external entity และการขยายแบบ billion laughs                                 |
+| `http-request`        | `owasp`                     | **ที่มาของ request:** CSRF, การตั้งค่า CORS ผิดพลาด และ IP ของไคลเอนต์ที่ถูกปลอม                       |
+| `transport`           | `owasp`                     | **ความปลอดภัยของช่องทางสื่อสาร:** การตั้งค่า TLS การใช้ HTTPS แทนข้อความธรรมดา HSTS และ pinning       |
+| `crypto`              | `owasp`, `lovable`          | **การเข้ารหัสข้อมูลที่จัดเก็บ:** อัลกอริทึมที่อ่อนหรือคิดขึ้นเอง CSPRNG และการจัดการคีย์                          |
+| `secrets`             | `owasp`, `lovable`          | **ข้อมูลรับรองที่ฮาร์ดโค้ด:** คีย์ โทเค็น และรหัสผ่านที่เขียนตรง ๆ ในซอร์สโค้ด                                |
+| `api-endpoint`        | `owasp`                     | **พื้นผิวที่ไม่ใช่ REST:** GraphQL, gRPC, การตรวจสอบสิทธิ์ของ WebSocket, DoS และ schema                |
+| `payment`             | `owasp`, `lovable`          | **ขั้นตอน checkout:** ตรวจสอบกับ gateway ฝั่งเซิร์ฟเวอร์ callback ที่มีลายเซ็น และ idempotency           |
+| `xml`                 | `owasp`                     | **การ parse XML:** XXE, external entity และการขยายแบบ billion laughs                         |
 | `csv`                 | `owasp`                     | **Formula injection:** เซลล์ในสเปรดชีตที่ขึ้นต้นด้วย `=`/`+`/`-`/`@`                                 |
-| `container`           | `owasp`, `infra`            | **การตั้งค่า container:** การรันเป็น root, capabilities, การ mount socket และ hardening ของ image    |
-| `infra`               | `infra`                     | **Infrastructure as code:** Terraform, Dockerfile และ GitHub Actions                                 |
-| `serverless`          | `owasp`, `infra`, `lovable` | **ฟังก์ชัน FaaS:** IAM แบบสิทธิ์น้อยที่สุด อินพุตจาก event บริบท และ secret                          |
-| `llm`                 | `ai`, `lovable`             | **ความเสี่ยงของ AI และ LLM:** prompt injection, agency, RAG, MCP และเอาต์พุต                         |
-| `supabase`            | `lovable`                   | **แบ็กเอนด์ Supabase:** RLS ที่ปิดไว้เป็นค่าเริ่มต้น policy ที่ AI สร้างผิด และโมเดลของคีย์          |
-| `browser`             | `javascript`, `lovable`     | **ความเสี่ยงฝั่งไคลเอนต์:** XSS, CSP, framing, storage และอื่น ๆ                                     |
-| `javascript`          | `javascript`                | **ความเสี่ยงระดับภาษา:** RCE, prototype pollution และอื่น ๆ                                          |
-| `python`              | `python`                    | **ความเสี่ยงระดับภาษา:** RCE ผ่าน `pickle`, class pollution, `-O` และอื่น ๆ                          |
-| `rust`                | `rust`                      | **ความถูกต้องของ `unsafe`:** UB ที่เกิดจากโค้ดเรียกแบบ safe, `transmute` และ overflow                |
-| `java`                | `java`                      | **Deserialization และ mobile code:** chain ของ `readObject` และการยึดอ็อบเจกต์                       |
-| `ruby`                | `ruby`                      | **Deserialization และ `open`:** การฟื้นอ็อบเจกต์ผ่าน `Marshal`/YAML และพฤติกรรมแปลกของ pipe          |
-| `php`                 | `php`                       | **Type juggling และ `unserialize`:** magic hash และ POP chain                                        |
-| `go`                  | `go`                        | **Typed-nil และ data races:** `nil != nil` และ goroutine ที่ใช้หน่วยความจำร่วมกัน                    |
-| `c-cpp`               | `c-cpp`                     | **Format string:** `printf(user_input)` และการเขียนแบบ write-what-where ผ่าน `%n`                    |
-| `dotnet`              | `dotnet`                    | **ความเสี่ยงระดับแพลตฟอร์ม:** RCE ผ่าน `BinaryFormatter`, `@Html.Raw` และช่องโหว่จาก enum            |
+| `container`           | `owasp`, `infra`            | **การตั้งค่า container:** การรันเป็น root, capabilities, การ mount socket และ hardening ของ image |
+| `infra`               | `infra`                     | **Infrastructure as code:** Terraform, Dockerfile และ GitHub Actions                         |
+| `serverless`          | `owasp`, `infra`, `lovable` | **ฟังก์ชัน FaaS:** IAM แบบสิทธิ์น้อยที่สุด อินพุตจาก event บริบท และ secret                               |
+| `llm`                 | `ai`, `lovable`             | **ความเสี่ยงของ AI และ LLM:** prompt injection, agency, RAG, MCP และเอาต์พุต                     |
+| `supabase`            | `lovable`                   | **แบ็กเอนด์ Supabase:** RLS ที่ปิดไว้เป็นค่าเริ่มต้น policy ที่ AI สร้างผิด และโมเดลของคีย์                   |
+| `browser`             | `javascript`, `lovable`     | **ความเสี่ยงฝั่งไคลเอนต์:** XSS, CSP, framing, storage และอื่น ๆ                                    |
+| `javascript`          | `javascript`                | **ความเสี่ยงระดับภาษา:** RCE, prototype pollution และอื่น ๆ                                       |
+| `python`              | `python`                    | **ความเสี่ยงระดับภาษา:** RCE ผ่าน `pickle`, class pollution, `-O` และอื่น ๆ                        |
+| `rust`                | `rust`                      | **ความถูกต้องของ `unsafe`:** UB ที่เกิดจากโค้ดเรียกแบบ safe, `transmute` และ overflow               |
+| `java`                | `java`                      | **Deserialization และ mobile code:** chain ของ `readObject` และการยึดอ็อบเจกต์                  |
+| `ruby`                | `ruby`                      | **Deserialization และ `open`:** การฟื้นอ็อบเจกต์ผ่าน `Marshal`/YAML และพฤติกรรมแปลกของ pipe        |
+| `php`                 | `php`                       | **Type juggling และ `unserialize`:** magic hash และ POP chain                                |
+| `go`                  | `go`                        | **Typed-nil และ data races:** `nil != nil` และ goroutine ที่ใช้หน่วยความจำร่วมกัน                  |
+| `c-cpp`               | `c-cpp`                     | **Format string:** `printf(user_input)` และการเขียนแบบ write-what-where ผ่าน `%n`              |
+| `dotnet`              | `dotnet`                    | **ความเสี่ยงระดับแพลตฟอร์ม:** RCE ผ่าน `BinaryFormatter`, `@Html.Raw` และช่องโหว่จาก enum           |
 
 ความรู้ในตัวส่วนใหญ่กลั่นกรองมาจาก OWASP ดู [**แหล่งข้อมูล OWASP**](/docs/references/owasp-sources) สำหรับการจับคู่ความรู้เฉพาะทางแต่ละตัวกับหน้าการโจมตีและ Cheat Sheet ต้นฉบับของ OWASP อย่างครบถ้วน มีโมดูลเฉพาะ stack ไม่กี่ตัวที่อิงแนวทางของผู้ให้บริการเองแทน เช่น `supabase` มาจากเอกสารของ Supabase และ CVE-2025-48757
 
@@ -144,8 +144,7 @@ npx lagune read catalog
     },
     {
       question: 'ความรู้เฉพาะทางถูกโหลดเป็นค่าเริ่มต้นไหม',
-      answer:
-        'ไม่ ความรู้เฉพาะทางโหลดเฉพาะเมื่อจำเป็น ตามสิ่งที่โปรเจกต์เป็นจริง ๆ',
+      answer: 'ไม่ ความรู้เฉพาะทางโหลดเฉพาะเมื่อจำเป็น ตามสิ่งที่โปรเจกต์เป็นจริง ๆ',
     },
     {
       question: 'โหลดความรู้เฉพาะทางโดยตรงได้อย่างไร',

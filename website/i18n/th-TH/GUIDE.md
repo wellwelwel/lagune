@@ -52,100 +52,100 @@ Every other inline code stays exactly as in English.
 
 ## Glossary
 
-| English                                                                                           | th-TH                                                                                    |
-| ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| **Lagune**, SDH, Security-Driven Hardening, Spec-Driven                                           | unchanged                                                                                |
+| English                                                                                           | th-TH                                                                               |
+| ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **Lagune**, SDH, Security-Driven Hardening, Spec-Driven                                           | unchanged                                                                           |
 | `/lagune-charter` and every other command                                                         | unchanged, with "คำสั่ง" where the sentence needs a noun ("รันคำสั่ง `/lagune-plan`")    |
-| Blue Team, Red Team, CVSS, OWASP, JWT, CORS, PoC, PRD, LLM, MCP                                   | unchanged                                                                                |
-| hardening (noun), security hardening                                                              | hardening, การเสริมความปลอดภัย, keeping "security hardening" in keywords                 |
-| harden (verb)                                                                                     | เสริมความปลอดภัย                                                                         |
-| charter (the principles it holds)                                                                 | หลักการด้านความปลอดภัย                                                                   |
-| charter, detect, plan, harden, verify (as phase names)                                            | unchanged, with "เฟส" where the sentence needs it ("เฟส detect", "ในเฟส verify")         |
-| phase                                                                                             | เฟส                                                                                      |
-| governing layer, convention (SDH as one)                                                          | ชั้นที่กำกับทุกเฟส, แนวปฏิบัติ                                                           |
-| engine                                                                                            | เอนจิน                                                                                   |
-| spec                                                                                              | สเปก, keeping "spec-driven development" in keywords                                      |
-| deterministic                                                                                     | deterministic ("ขั้นตอนแบบ deterministic")                                               |
-| development flow, Blue Team flow, workflow                                                        | ขั้นตอนการพัฒนา, ขั้นตอนแบบ Blue Team, เวิร์กโฟลว์                                       |
-| universal (the `/lagune` command, the install route)                                              | universal                                                                                |
-| context, context-aware, context window                                                            | บริบท, เข้าใจบริบท, context window (an LLM's)                                            |
-| audit (noun), audit (verb)                                                                        | การตรวจสอบ, ตรวจสอบ                                                                      |
-| map (what the system does, its risks)                                                             | ระบุให้ครบ, ทำแผนผัง                                                                     |
-| record (a finding, a category)                                                                    | บันทึก                                                                                   |
-| finding                                                                                           | ข้อตรวจพบ                                                                                |
-| concern (one the user describes to detect)                                                        | ข้อกังวล                                                                                 |
-| evidence (behind a finding, and what prove writes)                                                | หลักฐาน                                                                                  |
-| fix                                                                                               | การแก้ไข                                                                                 |
-| control                                                                                           | มาตรการควบคุมความปลอดภัย, มาตรการควบคุม                                                  |
+| Blue Team, Red Team, CVSS, OWASP, JWT, CORS, PoC, PRD, LLM, MCP                                   | unchanged                                                                           |
+| hardening (noun), security hardening                                                              | hardening, การเสริมความปลอดภัย, keeping "security hardening" in keywords              |
+| harden (verb)                                                                                     | เสริมความปลอดภัย                                                                      |
+| charter (the principles it holds)                                                                 | หลักการด้านความปลอดภัย                                                                 |
+| charter, detect, plan, harden, verify (as phase names)                                            | unchanged, with "เฟส" where the sentence needs it ("เฟส detect", "ในเฟส verify")    |
+| phase                                                                                             | เฟส                                                                                 |
+| governing layer, convention (SDH as one)                                                          | ชั้นที่กำกับทุกเฟส, แนวปฏิบัติ                                                               |
+| engine                                                                                            | เอนจิน                                                                               |
+| spec                                                                                              | สเปก, keeping "spec-driven development" in keywords                                 |
+| deterministic                                                                                     | deterministic ("ขั้นตอนแบบ deterministic")                                            |
+| development flow, Blue Team flow, workflow                                                        | ขั้นตอนการพัฒนา, ขั้นตอนแบบ Blue Team, เวิร์กโฟลว์                                          |
+| universal (the `/lagune` command, the install route)                                              | universal                                                                           |
+| context, context-aware, context window                                                            | บริบท, เข้าใจบริบท, context window (an LLM's)                                          |
+| audit (noun), audit (verb)                                                                        | การตรวจสอบ, ตรวจสอบ                                                                 |
+| map (what the system does, its risks)                                                             | ระบุให้ครบ, ทำแผนผัง                                                                   |
+| record (a finding, a category)                                                                    | บันทึก                                                                                |
+| finding                                                                                           | ข้อตรวจพบ                                                                            |
+| concern (one the user describes to detect)                                                        | ข้อกังวล                                                                              |
+| evidence (behind a finding, and what prove writes)                                                | หลักฐาน                                                                              |
+| fix                                                                                               | การแก้ไข                                                                             |
+| control                                                                                           | มาตรการควบคุมความปลอดภัย, มาตรการควบคุม                                                |
 | hold (a control, a fix)                                                                           | ยังได้ผล, ใช้ได้จริง                                                                     |
-| prove, proof, proof of concept                                                                    | พิสูจน์, การพิสูจน์, proof of concept (PoC)                                              |
-| verdict                                                                                           | ผลตัดสิน                                                                                 |
-| confront (the code with the record)                                                               | เทียบ                                                                                    |
-| reconcile                                                                                         | ปรับให้ตรงกับสภาพปัจจุบัน                                                                |
+| prove, proof, proof of concept                                                                    | พิสูจน์, การพิสูจน์, proof of concept (PoC)                                               |
+| verdict                                                                                           | ผลตัดสิน                                                                              |
+| confront (the code with the record)                                                               | เทียบ                                                                                |
+| reconcile                                                                                         | ปรับให้ตรงกับสภาพปัจจุบัน                                                                 |
 | detect map, defense plan, hardening record                                                        | แผนผังจาก detect, แผนการป้องกัน, บันทึก hardening                                        |
-| Applied, Partial, Blocked, Risk closed, Risk not closed, Cannot tell from the code (as labels)    | unchanged, since the artifacts write them in English                                     |
+| Applied, Partial, Blocked, Risk closed, Risk not closed, Cannot tell from the code (as labels)    | unchanged, since the artifacts write them in English                                |
 | specialization, catalog, category                                                                 | ความรู้เฉพาะทาง, แคตตาล็อก, หมวดหมู่                                                     |
-| built-in (specialization)                                                                         | ในตัว                                                                                    |
-| distill, shadow (a built-in, with a specialization of your own)                                   | กลั่นกรอง, แทนที่                                                                        |
-| stand down, close out                                                                             | ปิด ("ปิดออกจากทั้งห่วงโซ่"), ปิดให้จบ                                                   |
-| closable, closability (security)                                                                  | ปิดให้จบได้, การปิดให้จบได้                                                              |
-| at rest, settled (the cycle)                                                                      | สิ้นสุด ("รอบการทำงานจึงสิ้นสุดลง")                                                      |
-| cycle                                                                                             | รอบการทำงาน                                                                              |
-| artifact, memory (the phase artifacts)                                                            | อาร์ติแฟกต์, ความจำ                                                                      |
-| chain (the phase artifacts together)                                                              | ห่วงโซ่ ("ทั้งห่วงโซ่")                                                                  |
-| tracking, tracking map, tracked item                                                              | การติดตาม, แผนผังการติดตาม, รายการที่ติดตาม                                              |
-| vulnerability, risk, exploit                                                                      | ช่องโหว่, ความเสี่ยง, exploit, keeping "vulnerability" in keywords                       |
-| prompt injection, path traversal, prototype pollution, data races, type juggling, class pollution | unchanged                                                                                |
-| broken access control                                                                             | การควบคุมการเข้าถึงที่บกพร่อง (Broken Access Control) on first mention                   |
-| crafted, untrusted, hardcoded                                                                     | ที่จงใจสร้างขึ้น, ไม่น่าเชื่อถือ, ฮาร์ดโค้ด                                              |
-| score, rate (a finding)                                                                           | ให้คะแนน                                                                                 |
-| allowlist, denylist                                                                               | รายการที่อนุญาต, รายการที่บล็อก                                                          |
-| false positive, sink                                                                              | ผลบวกลวง, sink                                                                           |
-| attack vector, attack surface                                                                     | ช่องทางการโจมตี, พื้นผิวการโจมตี                                                         |
+| built-in (specialization)                                                                         | ในตัว                                                                                |
+| distill, shadow (a built-in, with a specialization of your own)                                   | กลั่นกรอง, แทนที่                                                                       |
+| stand down, close out                                                                             | ปิด ("ปิดออกจากทั้งห่วงโซ่"), ปิดให้จบ                                                      |
+| closable, closability (security)                                                                  | ปิดให้จบได้, การปิดให้จบได้                                                               |
+| at rest, settled (the cycle)                                                                      | สิ้นสุด ("รอบการทำงานจึงสิ้นสุดลง")                                                        |
+| cycle                                                                                             | รอบการทำงาน                                                                         |
+| artifact, memory (the phase artifacts)                                                            | อาร์ติแฟกต์, ความจำ                                                                    |
+| chain (the phase artifacts together)                                                              | ห่วงโซ่ ("ทั้งห่วงโซ่")                                                                   |
+| tracking, tracking map, tracked item                                                              | การติดตาม, แผนผังการติดตาม, รายการที่ติดตาม                                               |
+| vulnerability, risk, exploit                                                                      | ช่องโหว่, ความเสี่ยง, exploit, keeping "vulnerability" in keywords                      |
+| prompt injection, path traversal, prototype pollution, data races, type juggling, class pollution | unchanged                                                                           |
+| broken access control                                                                             | การควบคุมการเข้าถึงที่บกพร่อง (Broken Access Control) on first mention                    |
+| crafted, untrusted, hardcoded                                                                     | ที่จงใจสร้างขึ้น, ไม่น่าเชื่อถือ, ฮาร์ดโค้ด                                                     |
+| score, rate (a finding)                                                                           | ให้คะแนน                                                                             |
+| allowlist, denylist                                                                               | รายการที่อนุญาต, รายการที่บล็อก                                                           |
+| false positive, sink                                                                              | ผลบวกลวง, sink                                                                      |
+| attack vector, attack surface                                                                     | ช่องทางการโจมตี, พื้นผิวการโจมตี                                                          |
 | severity                                                                                          | ระดับความรุนแรง ("วิกฤต", "สูง", "ปานกลาง", "ต่ำ" in prose, unchanged in command output) |
-| authentication, authorization, access control                                                     | การยืนยันตัวตน, การตรวจสอบสิทธิ์, การควบคุมการเข้าถึง                                    |
-| secret, credential                                                                                | secret, ข้อมูลรับรอง                                                                     |
+| authentication, authorization, access control                                                     | การยืนยันตัวตน, การตรวจสอบสิทธิ์, การควบคุมการเข้าถึง                                        |
+| secret, credential                                                                                | secret, ข้อมูลรับรอง                                                                   |
 | login, file uploads, payments                                                                     | การล็อกอิน, การอัปโหลดไฟล์, การชำระเงิน                                                  |
 | file, folder, directory, path, link                                                               | ไฟล์, โฟลเดอร์, ไดเรกทอรี, path, ลิงก์                                                   |
-| scan, check (hook modes)                                                                          | unchanged as mode names ("โหมด scan")                                                    |
-| checker (what a hook runs)                                                                        | ตัวตรวจ                                                                                  |
-| sweep, scan (verb and noun)                                                                       | สแกน, การสแกน                                                                            |
-| flag (verb)                                                                                       | ชี้ว่าเป็นปัญหา, ทำเครื่องหมาย                                                           |
-| snippet                                                                                           | โค้ดตัวอย่าง                                                                             |
-| repository, dependency, sub-agent, workspace                                                      | repository, dependency, ซับเอเจนต์, เวิร์กสเปซ                                           |
-| codebase                                                                                          | โค้ดเบส, or โปรเจกต์ where it reads better                                               |
-| project                                                                                           | โปรเจกต์                                                                                 |
+| scan, check (hook modes)                                                                          | unchanged as mode names ("โหมด scan")                                               |
+| checker (what a hook runs)                                                                        | ตัวตรวจ                                                                              |
+| sweep, scan (verb and noun)                                                                       | สแกน, การสแกน                                                                       |
+| flag (verb)                                                                                       | ชี้ว่าเป็นปัญหา, ทำเครื่องหมาย                                                             |
+| snippet                                                                                           | โค้ดตัวอย่าง                                                                           |
+| repository, dependency, sub-agent, workspace                                                      | repository, dependency, ซับเอเจนต์, เวิร์กสเปซ                                          |
+| codebase                                                                                          | โค้ดเบส, or โปรเจกต์ where it reads better                                            |
+| project                                                                                           | โปรเจกต์                                                                             |
 | AI agent, coding agent, agent                                                                     | เอเจนต์ AI, เอเจนต์เขียนโค้ด, เอเจนต์                                                    |
-| prompt, hook, payload, handler                                                                    | unchanged                                                                                |
-| plugin                                                                                            | ปลั๊กอิน                                                                                 |
-| dashboard                                                                                         | แดชบอร์ด                                                                                 |
-| skill                                                                                             | skill                                                                                    |
-| skills CLI, CLI, terminal                                                                         | **skills** CLI, CLI, เทอร์มินัล                                                          |
-| session, tool (the engine's MCP tools)                                                            | เซสชัน, tool                                                                             |
-| command, slash command                                                                            | คำสั่ง, คำสั่ง slash                                                                     |
-| test (what a test runner runs)                                                                    | การทดสอบ, kept apart from "การพิสูจน์", which means proof                                |
-| branch, commit, pull request, diff                                                                | unchanged                                                                                |
-| report, template, library, header                                                                 | รายงาน, เทมเพลต, ไลบรารี, header                                                         |
-| deploy                                                                                            | ดีพลอย                                                                                   |
-| deprecated                                                                                        | เลิกใช้แล้ว                                                                              |
+| prompt, hook, payload, handler                                                                    | unchanged                                                                           |
+| plugin                                                                                            | ปลั๊กอิน                                                                               |
+| dashboard                                                                                         | แดชบอร์ด                                                                             |
+| skill                                                                                             | skill                                                                               |
+| skills CLI, CLI, terminal                                                                         | **skills** CLI, CLI, เทอร์มินัล                                                        |
+| session, tool (the engine's MCP tools)                                                            | เซสชัน, tool                                                                         |
+| command, slash command                                                                            | คำสั่ง, คำสั่ง slash                                                                    |
+| test (what a test runner runs)                                                                    | การทดสอบ, kept apart from "การพิสูจน์", which means proof                              |
+| branch, commit, pull request, diff                                                                | unchanged                                                                           |
+| report, template, library, header                                                                 | รายงาน, เทมเพลต, ไลบรารี, header                                                     |
+| deploy                                                                                            | ดีพลอย                                                                               |
+| deprecated                                                                                        | เลิกใช้แล้ว                                                                            |
 | live (view, dashboard)                                                                            | แบบเรียลไทม์ ("มุมมองแบบเรียลไทม์")                                                      |
-| badge                                                                                             | badge                                                                                    |
-| extension, package                                                                                | ส่วนขยาย, แพ็กเกจ                                                                        |
-| install, update (verbs)                                                                           | ติดตั้ง, อัปเดต                                                                          |
-| run (a command)                                                                                   | รัน                                                                                      |
-| defense-only, defensive security                                                                  | เพื่อการป้องกันเท่านั้น, ความปลอดภัยเชิงป้องกัน                                          |
-| security posture                                                                                  | สถานะความปลอดภัยโดยรวม                                                                   |
-| advisory, responsible disclosure                                                                  | ประกาศแจ้งเตือนด้านความปลอดภัย, การเปิดเผยช่องโหว่อย่างรับผิดชอบ                         |
-| prompt-on-demand, methodology                                                                     | prompt-on-demand, ระเบียบวิธี                                                            |
-| on demand                                                                                         | เฉพาะเมื่อจำเป็น                                                                         |
-| scope (of a run), in scope, out of scope                                                          | ขอบเขต, อยู่ในขอบเขต, อยู่นอกขอบเขต                                                      |
-| safe by default, safe defaults                                                                    | ปลอดภัยตั้งแต่ค่าเริ่มต้น, ค่าเริ่มต้นที่ปลอดภัย                                         |
-| open-source                                                                                       | โอเพนซอร์ส                                                                               |
-| Get Started, Install                                                                              | เริ่มต้นใช้งาน, ติดตั้ง                                                                  |
+| badge                                                                                             | badge                                                                               |
+| extension, package                                                                                | ส่วนขยาย, แพ็กเกจ                                                                     |
+| install, update (verbs)                                                                           | ติดตั้ง, อัปเดต                                                                         |
+| run (a command)                                                                                   | รัน                                                                                  |
+| defense-only, defensive security                                                                  | เพื่อการป้องกันเท่านั้น, ความปลอดภัยเชิงป้องกัน                                                |
+| security posture                                                                                  | สถานะความปลอดภัยโดยรวม                                                               |
+| advisory, responsible disclosure                                                                  | ประกาศแจ้งเตือนด้านความปลอดภัย, การเปิดเผยช่องโหว่อย่างรับผิดชอบ                              |
+| prompt-on-demand, methodology                                                                     | prompt-on-demand, ระเบียบวิธี                                                          |
+| on demand                                                                                         | เฉพาะเมื่อจำเป็น                                                                       |
+| scope (of a run), in scope, out of scope                                                          | ขอบเขต, อยู่ในขอบเขต, อยู่นอกขอบเขต                                                     |
+| safe by default, safe defaults                                                                    | ปลอดภัยตั้งแต่ค่าเริ่มต้น, ค่าเริ่มต้นที่ปลอดภัย                                                   |
+| open-source                                                                                       | โอเพนซอร์ส                                                                           |
+| Get Started, Install                                                                              | เริ่มต้นใช้งาน, ติดตั้ง                                                                    |
 | Run it, Next (headings)                                                                           | วิธีใช้ on a command page, การรัน on a hook page, ถัดไป                                  |
 | How it works, Update, Permissions (headings)                                                      | หลักการทำงาน, การอัปเดต, สิทธิ์                                                          |
-| Get the most out of it (tip title)                                                                | ใช้ให้ได้ประโยชน์สูงสุด                                                                  |
-| Frequently Asked Questions                                                                        | คำถามที่พบบ่อย                                                                           |
+| Get the most out of it (tip title)                                                                | ใช้ให้ได้ประโยชน์สูงสุด                                                                   |
+| Frequently Asked Questions                                                                        | คำถามที่พบบ่อย                                                                         |
 
 ## Workflow
 
